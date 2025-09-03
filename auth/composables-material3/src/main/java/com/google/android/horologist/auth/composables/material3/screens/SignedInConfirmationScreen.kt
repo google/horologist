@@ -79,10 +79,12 @@ public fun SignedInConfirmationScreen(
 
     Dialog(
         showConfirmation,
-        onDismissRequest = { showConfirmation = false; onDismissOrTimeout() },
+        onDismissRequest = {
+            showConfirmation = false
+            onDismissOrTimeout()
+        },
         modifier = modifier,
     ) {
-
         SignedInConfirmationDialogContent(
             modifier = modifier,
             name = name,
@@ -103,7 +105,7 @@ public fun SignedInConfirmationScreen(
 public fun SignedInConfirmationScreen(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
-    accountUiModel: AccountUiModel
+    accountUiModel: AccountUiModel,
 ) {
     SignedInConfirmationScreen(
         onDismissOrTimeout = onDismissOrTimeout,
@@ -147,8 +149,7 @@ internal fun SignedInConfirmationDialogContent(
                     .padding(4.dp)
                     .size(96.dp)
                     .clip(MaterialShapes.Pill.toShape())
-                    .background(MaterialTheme.colorScheme.surfaceContainer)
-                ,
+                    .background(MaterialTheme.colorScheme.surfaceContainer),
                 contentAlignment = Alignment.Center,
             ) {
                 if (avatar != null) {
@@ -164,7 +165,7 @@ internal fun SignedInConfirmationDialogContent(
                         tint = MaterialTheme.colorScheme.onSurface,
                         contentDescription = null,
                         modifier = Modifier
-                            .size(32.dp)
+                            .size(32.dp),
                     )
                 }
             }
@@ -213,7 +214,7 @@ internal fun SignedInConfirmationDialogContent(
                     textAlign = TextAlign.Center,
                     overflow = TextOverflow.Ellipsis,
                     maxLines = 2,
-                    style = emailTextStyle
+                    style = emailTextStyle,
                 )
             }
         }

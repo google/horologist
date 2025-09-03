@@ -50,7 +50,7 @@ class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
     }
 
     @Test
-    fun signedInConfirmationNoAvatar(){
+    fun signedInConfirmationNoAvatar() {
         runTest {
             SignedInConfirmationDialogContent(
                 modifier = Modifier.fillMaxSize(),

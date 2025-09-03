@@ -23,5 +23,10 @@ package com.google.android.horologist.auth.composables.material3.screens {
     method @androidx.compose.runtime.Composable public static void SelectAccountScreen(java.util.List<com.google.android.horologist.auth.composables.material3.models.AccountUiModel> accounts, kotlin.jvm.functions.Function2<? super java.lang.Integer,? super com.google.android.horologist.auth.composables.material3.models.AccountUiModel,kotlin.Unit> onAccountClicked, optional androidx.compose.ui.Modifier modifier, optional String title, optional com.google.android.horologist.images.base.paintable.Paintable defaultAvatar, optional androidx.compose.foundation.layout.PaddingValues contentPadding);
   }
 
+  public final class SignedInConfirmationScreenKt {
+    method @androidx.compose.runtime.Composable public static void SignedInConfirmationScreen(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.composables.material3.models.AccountUiModel accountUiModel);
+    method @androidx.compose.runtime.Composable public static void SignedInConfirmationScreen(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, optional String? name, optional String? email, optional com.google.android.horologist.images.base.paintable.Paintable? avatar, optional com.google.android.horologist.images.base.paintable.Paintable defaultAvatar);
+  }
+
 }
 

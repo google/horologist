@@ -27,7 +27,7 @@ package com.google.android.horologist.auth.composables.chips {
 package com.google.android.horologist.auth.composables.dialogs {
 
   public final class SignedInConfirmationDialogKt {
-    method @androidx.compose.runtime.Composable public static void SignedInConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.composables.model.AccountUiModel accountUiModel, optional java.time.Duration duration);
+    method @Deprecated @androidx.compose.runtime.Composable public static void SignedInConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.composables.model.AccountUiModel accountUiModel, optional java.time.Duration duration);
     method @androidx.compose.runtime.Composable public static void SignedInConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, optional String? name, optional String? email, optional com.google.android.horologist.images.base.paintable.Paintable? avatar, optional java.time.Duration duration);
   }
 

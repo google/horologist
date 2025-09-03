@@ -32,7 +32,7 @@ fun SignedInConfirmationScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             name = "Maggie",
 
-            avatar = DrawableResPaintable(R.drawable.avatar_small_3),
+            avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
         )
     }
 }
@@ -45,7 +45,7 @@ fun SignedInConfirmationMMMScreenPreview() {
             modifier = Modifier.fillMaxSize(),
             name = "MMMMMMMMM",
             email = "MMMMMMMMMMMMMMMMMMMMMMMM",
-            avatar = DrawableResPaintable(R.drawable.avatar_small_3),
+            avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
         )
     }
 }
@@ -58,7 +58,7 @@ fun SignedInConfirmationScreenContentPreview() {
             modifier = Modifier.fillMaxSize(),
             name = "Maggie",
             email = "maggiesveryveryverylongworkemail@example.com",
-            avatar = DrawableResPaintable(R.drawable.avatar_small_3),
+            avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
         )
     }
 }
@@ -81,7 +81,7 @@ fun SignedInConfirmationScreenPreviewNoName() {
     SignedInConfirmationScreen(
         onDismissOrTimeout = {},
         email = "timandrews123@example.com",
-        avatar = DrawableResPaintable(R.drawable.avatar_small_3),
+        avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
     )
 }
 

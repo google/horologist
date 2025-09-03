@@ -32,7 +32,7 @@ class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
                 modifier = Modifier.fillMaxSize(),
                 name = "Maggie",
                 email = "maggie123@example.com",
-                avatar = DrawableResPaintable(R.drawable.avatar_small_3),
+                avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
             )
         }
     }
@@ -44,7 +44,7 @@ class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
                 modifier = Modifier.fillMaxSize(),
                 name = "Extenta Namuratus Hereditus III",
                 email = "thisisaverylongemailaccountsample@example.com",
-                avatar = DrawableResPaintable(R.drawable.avatar_small_3),
+                avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
             )
         }
     }

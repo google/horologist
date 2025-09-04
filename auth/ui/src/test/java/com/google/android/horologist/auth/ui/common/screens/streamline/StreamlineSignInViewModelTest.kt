@@ -19,7 +19,7 @@
 package com.google.android.horologist.auth.ui.common.screens.streamline
 
 import app.cash.turbine.test
-import com.google.android.horologist.auth.composables.model.AccountUiModel
+import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.test.toolbox.rules.MainDispatcherRule
 import com.google.android.horologist.test.toolbox.testdoubles.AuthUserRepositoryStub
@@ -101,7 +101,8 @@ class StreamlineSignInViewModelTest {
     fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() = runTest {
         // given
         val email = "user@example.com"
-        fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email))
+        val name = "Name"
+        fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email, displayName = name))
 
         // when
         sut.onIdleStateObserved()
@@ -109,7 +110,12 @@ class StreamlineSignInViewModelTest {
         // then
         sut.uiState.test {
             assertThat(awaitItem()).isEqualTo(
-                StreamlineSignInScreenState.SingleAccountAvailable(AccountUiModel(email = email)),
+                StreamlineSignInScreenState.SingleAccountAvailable(
+                    AccountUiModel(
+                        email = email,
+                        name = name,
+                    ),
+                ),
             )
         }
     }
@@ -119,8 +125,13 @@ class StreamlineSignInViewModelTest {
         // given
         val email1 = "user1@example.com"
         val email2 = "user2@example.com"
+        val name1 = "Name1"
+        val name2 = "Name2"
         fakeAuthUserRepository.authUserList =
-            listOf(AuthUser(email = email1), AuthUser(email = email2))
+            listOf(
+                AuthUser(email = email1, displayName = name1),
+                AuthUser(email = email2, displayName = name2),
+            )
 
         // when
         sut.onIdleStateObserved()
@@ -129,7 +140,10 @@ class StreamlineSignInViewModelTest {
         sut.uiState.test {
             assertThat(awaitItem()).isEqualTo(
                 StreamlineSignInScreenState.MultipleAccountsAvailable(
-                    listOf(AccountUiModel(email = email1), AccountUiModel(email = email2)),
+                    listOf(
+                        AccountUiModel(email = email1, name = name1),
+                        AccountUiModel(email = email2, name = name2),
+                    ),
                 ),
             )
         }

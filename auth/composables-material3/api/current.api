@@ -1,4 +1,16 @@
 // Signature format: 4.0
+package com.google.android.horologist.auth.composables.material3.buttons {
+
+  public final class GuestModeButtonKt {
+    method @androidx.compose.runtime.Composable public static void GuestModeButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional androidx.wear.compose.material3.ButtonColors colors, optional boolean enabled);
+  }
+
+  public final class SignInButtonKt {
+    method @androidx.compose.runtime.Composable public static void SignInButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional String label, optional androidx.wear.compose.material3.ButtonColors colors, optional boolean enabled);
+  }
+
+}
+
 package com.google.android.horologist.auth.composables.material3.models {
 
   public final class AccountUiModel {

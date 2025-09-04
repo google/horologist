@@ -14,14 +14,16 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.composables.material3.theme
+package com.google.android.horologist.auth.composables.material3.buttons
 
-import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 
-internal val horologist_primary: Color = Color(0xFFD3E3FD)
-internal val horologist_on_primary: Color = Color(0xFF001944)
-internal val horologist_primary_container: Color = Color(0xFF04409F)
-internal val horologist_on_primary_container: Color = Color(0xFFD3E3FD)
-internal val horologist_on_background: Color = Color(0xFFFFFFFF)
-internal val horologist_surface_container: Color = Color(0xFF29303D)
-internal val horologist_on_surface: Color = Color(0xFFEBF1FF)
+@Preview(
+    backgroundColor = 0xff000000,
+    showBackground = true,
+)
+@Composable
+fun GuestModeButtonPreview() {
+    GuestModeButton(onClick = { })
+}

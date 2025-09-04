@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.auth.ui.mapper
 
-import com.google.android.horologist.auth.composables.model.AccountUiModel
+import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.images.coil.CoilPaintable
 
@@ -28,9 +28,9 @@ public object AccountUiModelMapper {
     /**
      * Maps from a [AuthUser].
      */
-    public fun map(authUser: AuthUser, defaultEmail: String = ""): AccountUiModel = AccountUiModel(
+    public fun map(authUser: AuthUser, defaultEmail: String = "", defaultName: String = ""): AccountUiModel = AccountUiModel(
         email = authUser.email ?: defaultEmail,
-        name = authUser.displayName,
+        name = authUser.displayName ?: defaultName,
         avatar = authUser.avatarUri?.let { CoilPaintable(it) },
     )
 }

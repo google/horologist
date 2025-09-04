@@ -39,7 +39,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes
 import com.google.android.gms.auth.api.signin.GoogleSignInStatusCodes.SIGN_IN_CANCELLED
 import com.google.android.gms.common.api.ApiException
-import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
+import com.google.android.horologist.auth.composables.material3.screens.SignedInConfirmationScreen
 import com.google.android.horologist.auth.composables.screens.AuthErrorScreen
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
 import com.google.android.horologist.auth.ui.common.logging.TAG
@@ -151,7 +151,7 @@ public fun GoogleSignInScreen(
         },
         viewModel = viewModel,
     ) { successState ->
-        SignedInConfirmationDialog(
+        SignedInConfirmationScreen(
             onDismissOrTimeout = { onAuthSucceed() },
             modifier = modifier,
             accountUiModel = successState.accountUiModel,

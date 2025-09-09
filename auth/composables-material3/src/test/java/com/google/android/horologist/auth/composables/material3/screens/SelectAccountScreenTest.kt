@@ -16,6 +16,13 @@
 
 package com.google.android.horologist.auth.composables.material3.screens
 
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.Typography
 import com.google.android.horologist.auth.composables.material3.R
 import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
@@ -70,6 +77,58 @@ class SelectAccountScreenTest : WearLegacyScreenTest() {
                 onAccountClicked = { _, _ -> },
                 title = "Select Account",
             )
+        }
+    }
+
+    @Test
+    fun selectAccountScreenCustomTheme() {
+        runTest {
+            val epundaFamily = FontFamily(
+                Font(R.font.epundaslab, FontWeight.Normal),
+            )
+
+            val typography = Typography(
+                titleLarge = TextStyle(
+                    fontFamily = epundaFamily,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 16.sp,
+                    lineHeight = 24.sp,
+                    letterSpacing = 0.5.sp,
+                ),
+
+                titleMedium = TextStyle(
+                    fontFamily = epundaFamily,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 16.sp,
+                    lineHeight = 24.sp,
+                    letterSpacing = 0.5.sp,
+                ),
+
+                labelSmall = TextStyle(
+                    fontFamily = epundaFamily,
+                    fontWeight = FontWeight.Normal,
+                    fontSize = 16.sp,
+                    lineHeight = 24.sp,
+                    letterSpacing = 0.5.sp,
+                ),
+            )
+
+            MaterialTheme(typography = typography) {
+                SelectAccountScreen(
+                    accounts = listOf(
+                        AccountUiModel(
+                            email = "joeblobbs@example.com",
+                            name = "Joe Blobbs",
+                        ),
+                        AccountUiModel(
+                            email = "titannick@example.com",
+                            name = "Titan Nick",
+                        ),
+                    ),
+                    onAccountClicked = { _, _ -> },
+                    title = "Select Account",
+                )
+            }
         }
     }
 }

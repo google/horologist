@@ -21,9 +21,9 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
-import com.google.android.horologist.auth.composables.material3.screens.SelectAccountScreen
-import com.google.android.horologist.auth.composables.material3.screens.SignedInConfirmationScreen
+import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
+import com.google.android.horologist.auth.composables.model.AccountUiModel
+import com.google.android.horologist.auth.composables.screens.SelectAccountScreen
 
 /**
  * An opinionated implementation of [StreamlineSignInScreen] that:
@@ -60,7 +60,7 @@ public fun StreamlineSignInDefaultScreen(
 
         is StreamlineSignInDefaultScreenState.SignedIn -> {
             val account = (state as StreamlineSignInDefaultScreenState.SignedIn).account
-            SignedInConfirmationScreen(
+            SignedInConfirmationDialog(
                 onDismissOrTimeout = { onSignedInConfirmationDialogDismissOrTimeout(account) },
                 modifier = modifier,
                 accountUiModel = account,

@@ -21,10 +21,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
-import com.google.android.horologist.auth.composables.material3.buttons.GuestModeButton
-import com.google.android.horologist.auth.composables.material3.buttons.SignInButton
-import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
+import com.google.android.horologist.auth.composables.chips.GuestModeChip
+import com.google.android.horologist.auth.composables.chips.SignInChip
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
@@ -84,12 +85,7 @@ class SignInPromptScreenTest : WearLegacyScreenTest() {
     fun signedIn() {
         runTest {
             SignInPromptScreen(
-                state = SignInPromptScreenState.SignedIn(
-                    AccountUiModel(
-                        "user@example.com",
-                        "John Doe",
-                    ),
-                ),
+                state = SignInPromptScreenState.SignedIn(AccountUiModel("user@example.com")),
                 title = "Sign in",
                 message = "Send messages and create chat groups with your friends",
                 onIdleStateObserved = { },
@@ -136,7 +132,17 @@ class SignInPromptScreenTest : WearLegacyScreenTest() {
     }
 
     private fun ScalingLazyListScope.testContent() {
-        item { SignInButton(onClick = { }) }
-        item { GuestModeButton(onClick = { }) }
+        item {
+            SignInChip(
+                onClick = { },
+                colors = ChipDefaults.secondaryChipColors(),
+            )
+        }
+        item {
+            GuestModeChip(
+                onClick = { },
+                colors = ChipDefaults.secondaryChipColors(),
+            )
+        }
     }
 }

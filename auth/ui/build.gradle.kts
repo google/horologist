@@ -96,7 +96,6 @@ metalava {
 dependencies {
 
     api(projects.auth.composables)
-    api(projects.auth.composablesMaterial3)
     api(projects.auth.data)
     api(projects.composeLayout)
 
@@ -116,7 +115,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.viewmodelktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.wear.compose.material3)
     implementation(libs.androidx.wear.phone.interactions)
     implementation(libs.compose.foundation.foundation.layout)
     implementation(libs.compose.ui.text)

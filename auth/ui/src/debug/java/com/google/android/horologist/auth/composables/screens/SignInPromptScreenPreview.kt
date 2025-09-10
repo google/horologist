@@ -19,11 +19,11 @@ package com.google.android.horologist.auth.composables.screens
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.horologist.auth.composables.material3.buttons.GuestModeButton
-import com.google.android.horologist.auth.composables.material3.buttons.SignInButton
+import com.google.android.horologist.auth.composables.chips.GuestModeChip
+import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState
 
@@ -38,15 +38,15 @@ fun SignInPromptScreenPreviewSignedOut() {
         onAlreadySignedIn = { },
     ) {
         item {
-            SignInButton(
+            SignInChip(
                 onClick = { },
-                colors = ButtonDefaults.filledTonalButtonColors(),
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
         item {
-            GuestModeButton(
+            GuestModeChip(
                 onClick = { },
-                colors = ButtonDefaults.filledTonalButtonColors(),
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -63,15 +63,15 @@ fun SignInPromptScreenPreviewLoading() {
         onAlreadySignedIn = { },
     ) {
         item {
-            SignInButton(
+            SignInChip(
                 onClick = { },
-                colors = ButtonDefaults.filledTonalButtonColors(),
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
         item {
-            GuestModeButton(
+            GuestModeChip(
                 onClick = { },
-                colors = ButtonDefaults.filledTonalButtonColors(),
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }
@@ -93,15 +93,15 @@ fun SignInPromptScreenPreviewCustomLoading() {
         },
     ) {
         item {
-            SignInButton(
+            SignInChip(
                 onClick = { },
-                colors = ButtonDefaults.filledTonalButtonColors(),
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
         item {
-            GuestModeButton(
+            GuestModeChip(
                 onClick = { },
-                colors = ButtonDefaults.filledTonalButtonColors(),
+                colors = ChipDefaults.secondaryChipColors(),
             )
         }
     }

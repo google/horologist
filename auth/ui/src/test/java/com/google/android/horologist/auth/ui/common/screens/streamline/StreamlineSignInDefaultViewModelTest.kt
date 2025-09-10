@@ -19,7 +19,7 @@
 package com.google.android.horologist.auth.ui.common.screens.streamline
 
 import app.cash.turbine.test
-import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.test.toolbox.rules.MainDispatcherRule
 import com.google.android.horologist.test.toolbox.testdoubles.AuthUserRepositoryStub
@@ -101,8 +101,7 @@ class StreamlineSignInDefaultViewModelTest {
     fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() = runTest {
         // given
         val email = "user@example.com"
-        val name = "Name"
-        fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email, displayName = name))
+        fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email))
 
         // when
         sut.onIdleStateObserved()
@@ -110,12 +109,7 @@ class StreamlineSignInDefaultViewModelTest {
         // then
         sut.uiState.test {
             assertThat(awaitItem()).isEqualTo(
-                StreamlineSignInDefaultScreenState.SignedIn(
-                    AccountUiModel(
-                        email = email,
-                        name = name,
-                    ),
-                ),
+                StreamlineSignInDefaultScreenState.SignedIn(AccountUiModel(email = email)),
             )
         }
     }
@@ -123,7 +117,7 @@ class StreamlineSignInDefaultViewModelTest {
     @Test
     fun whenOnAccountSelected_thenStateIsSignedIn() = runTest {
         // given
-        val account = AccountUiModel(email = "email@example.com", name = "Name")
+        val account = AccountUiModel(email = "email@example.com")
 
         // when
         sut.onAccountSelected(account)

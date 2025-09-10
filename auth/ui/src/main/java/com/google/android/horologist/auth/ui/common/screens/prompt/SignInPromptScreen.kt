@@ -24,13 +24,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
-import androidx.wear.compose.material3.AlertDialogContent
-import androidx.wear.compose.material3.MaterialTheme
-import androidx.wear.compose.material3.Text
-import com.google.android.horologist.auth.composables.material3.R
-import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
+import com.google.android.horologist.auth.composables.R
+import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.composables.screens.SignInPlaceholderScreen
 import com.google.android.horologist.compose.layout.ScreenScaffold
+import com.google.android.horologist.compose.material.AlertContent
 
 /**
  * A screen to prompt users to sign in.
@@ -105,19 +103,9 @@ public fun SignInPromptScreen(
             }
 
             SignInPromptScreenState.SignedOut -> {
-                AlertDialogContent(
-                    title = @Composable {
-                        Text(
-                            text = title,
-                            style = MaterialTheme.typography.titleLarge,
-                        )
-                    },
-                    text = @Composable {
-                        Text(
-                            text = message,
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
-                    },
+                AlertContent(
+                    title = title,
+                    message = message,
                     content = content,
                     modifier = modifier,
                 )

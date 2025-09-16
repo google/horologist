@@ -76,6 +76,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.abs
+import kotlinx.coroutines.yield
 
 /**
  * Modification of the TransformingLazyColumn that allows for fast scrolling to objects with
@@ -176,6 +177,7 @@ public fun FastScrollingTransformingLazyColumn(
             // We run animateScrollBy with a movement of 0 just to remove the timeText from the screen and
             // show the position indicators, as animateScrollToItem will fling from each section.
             state.animateScrollBy(0f)
+            yield()
             state.scrollToItem(headers[currentSectionIndex].index, offset)
         }
     }
@@ -288,6 +290,7 @@ public fun FastScrollingTransformingLazyColumn(
                             // show the position indicators. Running animateScrollBy by the verticalScrollPixels
                             // does not scroll as much as scrollBy for some reason.
                             state.animateScrollBy(0f)
+                            yield()
                             state.scrollBy(verticalScrollPixels)
                         }
                     }
@@ -433,5 +436,5 @@ private object Constants {
     const val FIRST_SCROLL_TIMEOUT = 500L
     const val RSB_SPEED_THRESHOLD = 40
     const val RSB_THROTTLE = 150
-    const val RSB_SKIMMING_TIMEOUT = 2500L
+    const val RSB_SKIMMING_TIMEOUT = 1500L
 }

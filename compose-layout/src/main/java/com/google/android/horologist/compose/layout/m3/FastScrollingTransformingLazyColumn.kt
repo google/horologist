@@ -77,6 +77,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import kotlin.math.abs
+import kotlinx.coroutines.yield
 
 /**
  * Modification of the TransformingLazyColumn that allows for fast scrolling to objects with

@@ -108,6 +108,7 @@ dependencies {
     implementation(platform(libs.compose.bom))
     api(projects.composables)
     api(libs.wearcompose.material)
+    api(libs.androidx.wear.compose.material3)
     api(libs.wearcompose.foundation)
 
     implementation(projects.media.audio)

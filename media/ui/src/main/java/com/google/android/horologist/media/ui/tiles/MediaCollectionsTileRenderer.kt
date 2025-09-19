@@ -44,7 +44,7 @@ import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 @ExperimentalHorologistApi
 public class MediaCollectionsTileRenderer(
     context: Context,
-    private val materialTheme: Colors,
+    private val materialTheme: Colors = Colors.DEFAULT,
     debugResourceMode: Boolean,
 ) : SingleTileLayoutRenderer<MediaCollectionsTileRenderer.MediaCollectionsState, MediaCollectionsTileRenderer.ResourceState>(
     context,

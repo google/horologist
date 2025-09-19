@@ -36,7 +36,6 @@ import com.google.android.horologist.tiles.images.toImageResource
 fun SampleTilePreview(context: Context): TilePreviewData = tileRendererPreviewData(
     renderer = MediaCollectionsTileRenderer(
         context = context,
-        materialTheme = UampColors.toTileColors(),
         debugResourceMode = BuildConfig.DEBUG,
     ),
     tileState = MediaCollectionsTileRenderer.MediaCollectionsState(

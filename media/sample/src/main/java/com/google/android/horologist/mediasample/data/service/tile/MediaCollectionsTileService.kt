@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.mediasample.data.service.tile
 
+import androidx.wear.protolayout.material.Colors
 import androidx.wear.protolayout.ActionBuilders
 import androidx.wear.protolayout.ActionBuilders.AndroidActivity
 import androidx.wear.protolayout.ResourceBuilders.Resources
@@ -52,7 +53,8 @@ class MediaCollectionsTileService : SuspendingTileService() {
 
     private val renderer: MediaCollectionsTileRenderer = MediaCollectionsTileRenderer(
         context = this,
-        materialTheme = UampColors.toTileColors(),
+        // TO DO Migrate Tile to Material 3 theme from app
+        materialTheme = Colors.DEFAULT,
         debugResourceMode = BuildConfig.DEBUG,
     )
 

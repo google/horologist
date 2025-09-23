@@ -17,6 +17,7 @@
 package com.google.android.horologist.auth.composables.material3.buttons
 
 import androidx.wear.compose.material3.ButtonDefaults
+import com.google.android.horologist.auth.composables.material3.theme.HorologistMaterialTheme
 import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 

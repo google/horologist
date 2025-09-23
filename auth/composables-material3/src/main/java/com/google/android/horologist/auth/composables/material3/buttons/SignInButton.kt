@@ -17,7 +17,6 @@
 package com.google.android.horologist.auth.composables.material3.buttons
 
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
@@ -72,6 +71,6 @@ public fun SignInButton(
             end = ButtonHorizontalPadding,
             bottom = ButtonVerticalPadding,
         ),
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
     )
 }

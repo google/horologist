@@ -53,7 +53,7 @@ public fun GuestModeButton(
             )
         },
         onClick = onClick,
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         colors = colors,
         enabled = enabled,
     )

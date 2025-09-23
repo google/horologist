@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.auth.composables.material3.buttons
 
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AccountCircle
@@ -26,8 +25,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material3.Button
 import androidx.wear.compose.material3.ButtonColors
 import androidx.wear.compose.material3.ButtonDefaults
-import androidx.wear.compose.material3.ButtonDefaults.ButtonHorizontalPadding
-import androidx.wear.compose.material3.ButtonDefaults.ButtonVerticalPadding
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
@@ -65,12 +62,6 @@ public fun SignInButton(
             )
         },
         colors = colors,
-        contentPadding = PaddingValues(
-            start = ButtonHorizontalPadding,
-            top = ButtonVerticalPadding,
-            end = ButtonHorizontalPadding,
-            bottom = ButtonVerticalPadding,
-        ),
         modifier = modifier,
     )
 }

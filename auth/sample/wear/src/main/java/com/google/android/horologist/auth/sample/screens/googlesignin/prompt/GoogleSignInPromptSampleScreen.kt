@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth.sample.screens.googlesignin.prompt
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -60,11 +61,13 @@ fun GoogleSignInPromptSampleScreen(
                         popUpTo(Screen.MainScreen.route)
                     }
                 },
+                modifier = Modifier.fillMaxWidth(),
             )
         }
         item {
             GuestModeButton(
                 onClick = navController::popBackStack,
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }

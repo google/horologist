@@ -26,7 +26,6 @@ import androidx.wear.compose.material3.Button
 import androidx.wear.compose.material3.ButtonColors
 import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.Icon
-import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
 import com.google.android.horologist.auth.composables.material3.R
 
@@ -49,10 +48,7 @@ public fun SignInButton(
         onClick = onClick,
         enabled = enabled,
         label = {
-            Text(
-                text = label,
-                style = MaterialTheme.typography.titleMedium,
-            )
+            Text(text = label)
         },
         icon = {
             Icon(

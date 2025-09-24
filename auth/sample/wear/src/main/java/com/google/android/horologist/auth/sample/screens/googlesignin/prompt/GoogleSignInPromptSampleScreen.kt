@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.auth.sample.screens.googlesignin.prompt
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,12 +28,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import com.google.android.horologist.auth.composables.chips.GuestModeChip
-import com.google.android.horologist.auth.composables.chips.SignInChip
+import com.google.android.horologist.auth.composables.material3.buttons.GuestModeButton
+import com.google.android.horologist.auth.composables.material3.buttons.SignInButton
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.sample.Screen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
@@ -55,19 +55,19 @@ fun GoogleSignInPromptSampleScreen(
         viewModel = viewModel,
     ) {
         item {
-            SignInChip(
+            SignInButton(
                 onClick = {
                     navController.navigate(Screen.GoogleSignInScreen.route) {
                         popUpTo(Screen.MainScreen.route)
                     }
                 },
-                colors = ChipDefaults.secondaryChipColors(),
+                modifier = Modifier.fillMaxWidth(),
             )
         }
         item {
-            GuestModeChip(
+            GuestModeButton(
                 onClick = navController::popBackStack,
-                colors = ChipDefaults.secondaryChipColors(),
+                modifier = Modifier.fillMaxWidth(),
             )
         }
     }

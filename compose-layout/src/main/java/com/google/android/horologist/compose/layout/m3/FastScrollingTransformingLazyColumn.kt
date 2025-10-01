@@ -137,7 +137,7 @@ public fun FastScrollingTransformingLazyColumn(
     var currentSectionIndex by remember { mutableIntStateOf(0) }
 
     var firstSkimTime by remember { mutableLongStateOf(0L) }
-    var lastRotaryScrollTime by remember { mutableLongStateOf(0L) }
+    var rotaryScrollTimestamp by remember { mutableLongStateOf(0L) }
 
     var isSkimming by remember { mutableStateOf(false) }
     var isFirstFastScroll by remember { mutableStateOf(false) }
@@ -273,11 +273,11 @@ public fun FastScrollingTransformingLazyColumn(
                 ) {
                     // Track current time to ensure that we should ingest the rotary scroll event.
                     val currentTime = System.currentTimeMillis()
-                    if (currentTime - lastRotaryScrollTime > 750L) {
+                    if (currentTime - rotaryScrollTimestamp > Constants.VELOCITY_SCROLL_WINDOW) {
                         // We reset tracking if there was too much time between rotary scroll events
                         velocityTracker.resetTracking()
                         velocityTracker.addDataPoint(currentTime, delta)
-                        lastRotaryScrollTime = currentTime
+                        rotaryScrollTimestamp = currentTime
                     } else {
                         velocityTracker.addDataPoint(currentTime, delta)
 
@@ -444,4 +444,5 @@ private object Constants {
     const val VERTICAL_SCROLL_BY_THRESHOLD = 65
     const val FIRST_SCROLL_TIMEOUT = 500L
     const val RSB_SKIMMING_TIMEOUT = 1500L
+    const val VELOCITY_SCROLL_WINDOW = 750L
 }

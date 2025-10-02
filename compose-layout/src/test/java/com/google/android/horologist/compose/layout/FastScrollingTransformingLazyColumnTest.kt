@@ -206,7 +206,7 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
             composeRule.onNodeWithTag(TLC)
                 .performRotaryScrollInput {
                     repeat(15) {
-                        rotateToScrollVertically(61000.0f)
+                        rotateToScrollVertically(10000.0f)
                     }
                 }
 

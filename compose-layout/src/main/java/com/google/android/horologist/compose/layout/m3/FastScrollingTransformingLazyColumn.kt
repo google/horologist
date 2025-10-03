@@ -57,7 +57,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
-import androidx.compose.ui.input.pointer.util.VelocityTracker1D
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
@@ -112,18 +111,16 @@ public fun FastScrollingTransformingLazyColumn(
     val screenHeight = LocalWindowInfo.current.containerSize.height
     val defaultFlingBehavior = ScrollableDefaults.flingBehavior()
 
-    val velocityTracker = VelocityTracker1D(isDataDifferential = true)
     val context = LocalContext.current
     // The minimum fling velocity to trigger a skim event.
     val flingVelocityThreshold =
-        remember { 60 * ViewConfiguration.get(context).scaledMinimumFlingVelocity }
+        remember { 7 * ViewConfiguration.get(context).scaledMinimumFlingVelocity }
     val coroutineScope = rememberCoroutineScope()
     var fadingOutJob: Job? by remember { mutableStateOf(null) }
     var animationJob: Job? by remember { mutableStateOf(null) }
 
     // Total scroll-to offset for the list. This is the sum of the remaining letter height and the
-    // section indicator top padding, with whatever extra top padding is passed in from the
-    // composable.
+    // section indicator top padding, with whatever extra top padding is passed in from the composable.
     val scrollToOffset =
         with(LocalDensity.current) {
             (
@@ -137,7 +134,7 @@ public fun FastScrollingTransformingLazyColumn(
     var currentSectionIndex by remember { mutableIntStateOf(0) }
 
     var firstSkimTime by remember { mutableLongStateOf(0L) }
-    var rotaryScrollTimestamp by remember { mutableLongStateOf(0L) }
+    var lastRotaryScroll by remember { mutableLongStateOf(0L) }
 
     var isSkimming by remember { mutableStateOf(false) }
     var isFirstFastScroll by remember { mutableStateOf(false) }
@@ -217,7 +214,6 @@ public fun FastScrollingTransformingLazyColumn(
                 delay(Constants.RSB_SKIMMING_TIMEOUT)
                 // Skim has finally ended, as another skim did not happen to reset the skim flag.
                 isSkimming = false
-                velocityTracker.resetTracking()
             }
     }
 
@@ -249,7 +245,7 @@ public fun FastScrollingTransformingLazyColumn(
             // Perform the fast scroll skim once. The first skim should always perform a ton of scrolls to
             // get into fast-scrolling mode, so we can do this to make sure we don't skim multiple
             // sections accidentally.
-            firstSkimTime = System.currentTimeMillis()
+            firstSkimTime = currentTime
             isFirstFastScroll = false
             val newSectionIndex = (currentSectionIndex + (if (isScrollingDown) 1 else -1))
             skimSections(newSectionIndex.coerceIn(0, headers.size - 1))
@@ -271,41 +267,34 @@ public fun FastScrollingTransformingLazyColumn(
                     inputDeviceId: Int,
                     orientation: Orientation,
                 ) {
-                    // Track current time to ensure that we should ingest the rotary scroll event.
-                    val currentTime = System.currentTimeMillis()
-                    if (currentTime - rotaryScrollTimestamp > Constants.VELOCITY_SCROLL_WINDOW) {
-                        // We reset tracking if there was too much time between rotary scroll events
-                        velocityTracker.resetTracking()
-                        velocityTracker.addDataPoint(currentTime, delta)
-                        rotaryScrollTimestamp = currentTime
+                    val deltaTime = timestampMillis - lastRotaryScroll
+                    val currentVelocity = (delta / deltaTime) * 1000 // Convert to pixels per second
+                    lastRotaryScroll = timestampMillis
+
+                    val canFastScroll =
+                        headers.isNotEmpty() &&
+                            (currentSectionIndex >= 0 && currentSectionIndex < headers.size)
+
+                    if (!isSkimming && abs(currentVelocity) > flingVelocityThreshold && canFastScroll) {
+                        isFirstFastScroll = true
+                        pixelsScrolledBy = 0f
+                        isSkimming = true
+                    }
+
+                    if (isSkimming) {
+                        handleSkim(
+                            currentTime = timestampMillis,
+                            delta = delta,
+                        )
                     } else {
-                        velocityTracker.addDataPoint(currentTime, delta)
-
-                        val canFastScroll =
-                            headers.isNotEmpty() && (currentSectionIndex >= 0 && currentSectionIndex < headers.size)
-                        val velocity = abs(velocityTracker.calculateVelocity())
-
-                        if (canFastScroll && velocity > flingVelocityThreshold) {
-                            isFirstFastScroll = true
-                            pixelsScrolledBy = 0f
-                            isSkimming = true
-                        }
-
-                        if (isSkimming) {
-                            handleSkim(
-                                currentTime = currentTime,
-                                delta = delta,
-                            )
-                        } else {
-                            haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
-                            coroutineScope.launch {
-                                // Here, we animate the scroll by 0f to remove the timeText from the screen and
-                                // show the position indicators. Running animateScrollBy by the delta
-                                // does not scroll as much as scrollBy for some reason.
-                                state.animateScrollBy(0f)
-                                yield()
-                                state.scrollBy(delta)
-                            }
+                        haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
+                        coroutineScope.launch {
+                            // Here, we animate the scroll by 0f to remove the timeText from the screen and
+                            // show the position indicators. Running animateScrollBy by the delta
+                            // does not scroll as much as scrollBy for some reason.
+                            state.animateScrollBy(0f)
+                            yield()
+                            state.scrollBy(delta)
                         }
                     }
                 }

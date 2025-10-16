@@ -67,7 +67,7 @@ private const val EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE = 0.092f
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
-public fun SignedInConfirmationScreen(
+public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     name: String? = null,
@@ -96,18 +96,18 @@ public fun SignedInConfirmationScreen(
 }
 
 /**
- * A [SignedInConfirmationScreen] that can display the name, email and avatar image of an
+ * A [SignedInConfirmationDialog] that can display the name, email and avatar image of an
  * [AccountUiModel].
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
-public fun SignedInConfirmationScreen(
+public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     accountUiModel: AccountUiModel,
 ) {
-    SignedInConfirmationScreen(
+    SignedInConfirmationDialog(
         onDismissOrTimeout = onDismissOrTimeout,
         modifier = modifier,
         name = accountUiModel.name,

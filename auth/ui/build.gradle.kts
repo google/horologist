@@ -95,7 +95,7 @@ metalava {
 
 dependencies {
 
-    api(projects.auth.composables)
+    api(projects.auth.composablesMaterial3)
     api(projects.auth.data)
     api(projects.composeLayout)
 

@@ -35,9 +35,9 @@ import com.google.android.horologist.auth.composables.material3.buttons.GuestMod
 import com.google.android.horologist.auth.composables.material3.buttons.SignInButton
 import com.google.android.horologist.auth.sample.R
 import com.google.android.horologist.auth.sample.Screen
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
-import com.google.android.horologist.auth.ui.googlesignin.prompt.GoogleSignInPromptViewModelFactory
+import com.google.android.horologist.auth.ui.material3.common.screens.prompt.SignInPromptScreen
+import com.google.android.horologist.auth.ui.material3.googlesignin.prompt.GoogleSignInPromptViewModelFactory
 import com.google.android.horologist.compose.material.Confirmation
 
 @Composable

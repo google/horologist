@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.auth.ui.material3.mapper
 
-import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
+import com.google.android.horologist.auth.composables.common.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.images.coil.CoilPaintable
 

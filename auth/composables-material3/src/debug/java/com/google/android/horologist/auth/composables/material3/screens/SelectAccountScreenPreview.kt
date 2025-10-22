@@ -18,8 +18,8 @@ package com.google.android.horologist.auth.composables.material3.screens
 
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+import com.google.android.horologist.auth.composables.common.AccountUiModel
 import com.google.android.horologist.auth.composables.material3.R
-import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
 import com.google.android.horologist.auth.composables.material3.theme.HorologistMaterialTheme
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 

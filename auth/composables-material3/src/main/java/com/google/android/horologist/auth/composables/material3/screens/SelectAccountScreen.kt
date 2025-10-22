@@ -40,10 +40,11 @@ import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.lazy.rememberTransformationSpec
 import androidx.wear.compose.material3.lazy.transformedHeight
+import com.google.android.horologist.auth.composables.common.AccountUiModel
 import com.google.android.horologist.auth.composables.material3.R
-import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
+import kotlin.collections.forEachIndexed
 
 @Composable
 public fun SelectAccountScreen(
@@ -77,7 +78,7 @@ public fun SelectAccountScreen(
         }
         accounts.forEachIndexed { index, account ->
             item {
-                val hasAvatar = account.avatar != null
+                val avatar = account.avatar
                 Button(
                     onClick = { onAccountClicked(index, account) },
                     modifier = Modifier
@@ -85,9 +86,9 @@ public fun SelectAccountScreen(
                         .transformedHeight(this@item, transformationSpec),
                     transformation = SurfaceTransformation(transformationSpec),
                     icon = {
-                        if (hasAvatar) {
+                        if (avatar != null) {
                             Image(
-                                account.avatar.rememberPainter(),
+                                avatar.rememberPainter(),
                                 contentDescription = null,
                                 modifier = Modifier
                                     .size(ButtonDefaults.LargeIconSize),
@@ -101,7 +102,7 @@ public fun SelectAccountScreen(
                             )
                         }
                     },
-                    contentPadding = if (hasAvatar) {
+                    contentPadding = if (avatar != null) {
                         ButtonDefaults.ButtonWithLargeIconContentPadding
                     } else {
                         ButtonDefaults.ContentPadding
@@ -117,13 +118,16 @@ public fun SelectAccountScreen(
                         )
                     },
                 ) {
-                    Text(
-                        account.name,
-                        style = MaterialTheme.typography.titleMedium,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 2,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
+                    val name = account.name
+                    if(!name.isNullOrBlank()){
+                        Text(
+                            name,
+                            style = MaterialTheme.typography.titleMedium,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 2,
+                            color = MaterialTheme.colorScheme.onBackground,
+                        )
+                    }
                 }
             }
         }

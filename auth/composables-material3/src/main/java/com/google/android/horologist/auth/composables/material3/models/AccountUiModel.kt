@@ -13,16 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package com.google.android.horologist.auth.composables.material3.models
+/*
+
 
 import com.google.android.horologist.images.base.paintable.Paintable
 
+*/
 /**
  * A UI model to represent an account.
- */
-public data class AccountUiModel(
-    val email: String,
-    val name: String,
-    val avatar: Paintable? = null,
+ *//*
+
+@Deprecated(
+    message = "Class has been moved to module 'auth-composables-common'.",
+    replaceWith = ReplaceWith("AccountUiModel", "com.google.android.horologist.auth.composables.common.AccountUiModel"),
 )
+public typealias AccountUiModel = com.google.android.horologist.auth.composables.common.AccountUiModel
+*/

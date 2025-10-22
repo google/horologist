@@ -25,8 +25,8 @@ plugins {
 }
 
 android {
-    compileSdk = 36
 
+    compileSdk = 36
     defaultConfig {
         minSdk = 26
 
@@ -74,7 +74,7 @@ android {
 
     resourcePrefix = "horologist_"
 
-    namespace = "com.google.android.horologist.auth.composables"
+    namespace = "com.google.android.horologist.auth.composables.common"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -92,35 +92,34 @@ metalava {
 }
 
 dependencies {
-    api(projects.composeLayout)
-    api(projects.auth.composablesCommon)
+    api(projects.images.base)
+    // api(projects.composeLayout)
 
-    api(libs.compose.runtime)
-    api(libs.compose.ui)
+    // api(libs.compose.runtime)
+    // api(libs.compose.ui)
 
-    implementation(projects.composeMaterial)
-    implementation(projects.images.coil)
+    // implementation(projects.images.coil)
 
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.foundation.foundation)
-    implementation(libs.compose.foundation.foundation.layout)
-    implementation(libs.compose.material.iconscore)
-    implementation(libs.compose.material.iconsext)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.text)
-    implementation(libs.compose.ui.unit)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.wearcompose.material)
-    implementation(libs.wearcompose.foundation)
+    // implementation(libs.compose.foundation.foundation)
+    // implementation(libs.compose.foundation.foundation.layout)
+    // implementation(libs.compose.material.iconscore)
+    // implementation(libs.compose.material.iconsext)
+    // implementation(libs.compose.material3)
+    // implementation(libs.compose.ui.graphics)
+    // implementation(libs.compose.ui.text)
+    // implementation(libs.compose.ui.unit)
+    // implementation(libs.kotlin.stdlib)
+    // implementation(libs.androidx.wear.compose.material3)
+    // implementation(libs.wearcompose.foundation)
 
-    debugApi(libs.wearcompose.tooling)
-    debugImplementation(libs.compose.ui.toolingpreview)
+    // debugApi(libs.wearcompose.tooling)
+    // debugImplementation(libs.compose.ui.toolingpreview)
 
-    testImplementation(projects.composeTools)
-    testImplementation(projects.roboscreenshots)
-    testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testRuntimeOnly(libs.robolectric)
+    // testImplementation(projects.composeTools)
+    // testImplementation(projects.roboscreenshots)
+    // testImplementation(libs.junit)
+    // testImplementation(libs.kotlinx.coroutines.test)
+    // testRuntimeOnly(libs.robolectric)
 }
 
 dependencyAnalysis {
@@ -134,7 +133,7 @@ dependencyAnalysis {
 tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
     dokkaSourceSets {
         configureEach {
-            moduleName.set("auth-composables")
+            moduleName.set("auth-composables-common")
         }
     }
 }

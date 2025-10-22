@@ -25,7 +25,6 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.material3.buttons.GuestModeButton
 import com.google.android.horologist.auth.composables.material3.buttons.SignInButton
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreenState
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.ui.common.screens.streamline
+package com.google.android.horologist.auth.ui.material3.common.screens.streamline
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect

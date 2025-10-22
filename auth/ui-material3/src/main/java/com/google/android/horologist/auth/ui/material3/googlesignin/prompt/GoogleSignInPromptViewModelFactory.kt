@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.AP
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.auth.data.googlesignin.GoogleSignInAuthUserRepository
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
+import com.google.android.horologist.auth.ui.material3.common.screens.prompt.SignInPromptViewModel
 
 /**
  * A [factory][ViewModelProvider.Factory] to create a [SignInPromptViewModel] with dependencies with

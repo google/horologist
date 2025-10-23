@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.composables.screens
+package com.google.android.horologist.auth.ui.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable

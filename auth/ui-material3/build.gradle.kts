@@ -76,7 +76,7 @@ android {
 
     resourcePrefix = "horologist_"
 
-    namespace = "com.google.android.horologist.auth.ui"
+    namespace = "com.google.android.horologist.auth.ui.material3"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

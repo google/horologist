@@ -19,6 +19,7 @@ package com.google.android.horologist.media.ui.material3.components.animated
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
@@ -70,7 +71,7 @@ public fun AnimatedMediaControlButtons(
         interactionSources = interactionSources,
         leftButton = {
             AnimatedSeekToPreviousButton(
-                modifier = Modifier.animateWidth(it).fillMaxSize(),
+                modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
                 onClick = onSeekToPreviousButtonClick,
                 enabled = seekToPreviousButtonEnabled,
                 interactionSource = it,
@@ -80,36 +81,25 @@ public fun AnimatedMediaControlButtons(
             )
         },
         middleButton = {
-            if (trackPositionUiModel.showProgress) {
-                AnimatedPlayPauseProgressButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    interactionSource = it,
-                    trackPositionUiModel = trackPositionUiModel,
-                    modifier = Modifier.minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-                        .animateWidth(it).fillMaxSize(),
-                    colorScheme = colorScheme,
-                    rotateProgressIndicator = rotateProgressIndicator,
-                    isAnyButtonPressed = isAnyButtonPressed,
-                )
-            } else {
-                AnimatedPlayPauseButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    colorScheme = colorScheme,
-                    playing = playing,
-                    interactionSource = it,
-                    modifier = Modifier.minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-                        .animateWidth(it).fillMaxSize(),
-                )
-            }
+            AnimatedPlayPauseProgressButton(
+                onPlayClick = onPlayButtonClick,
+                onPauseClick = onPauseButtonClick,
+                enabled = playPauseButtonEnabled,
+                playing = playing,
+                interactionSource = it,
+                trackPositionUiModel = trackPositionUiModel,
+                modifier = Modifier.weight(0.5f)    // This is used to constrain the size at minWidth for non-pressed state.
+                    .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+                    .animateWidth(it)
+                    .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),
+                colorScheme = colorScheme,
+                rotateProgressIndicator = rotateProgressIndicator,
+                isAnyButtonPressed = isAnyButtonPressed,
+            )
         },
         rightButton = {
             AnimatedSeekToNextButton(
-                modifier = Modifier.animateWidth(it).fillMaxSize(),
+                modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
                 onClick = onSeekToNextButtonClick,
                 interactionSource = it,
                 buttonPadding = rightButtonPadding,
@@ -149,32 +139,21 @@ public fun AnimatedMediaControlButtons(
         interactionSources = interactionSources,
         leftButton = leftButton,
         middleButton = {
-            if (trackPositionUiModel.showProgress) {
-                AnimatedPlayPauseProgressButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    interactionSource = it,
-                    trackPositionUiModel = trackPositionUiModel,
-                    modifier = Modifier.minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-                        .animateWidth(it).fillMaxSize(),
-                    colorScheme = colorScheme,
-                    rotateProgressIndicator = rotateProgressIndicator,
-                    isAnyButtonPressed = isAnyButtonPressed,
-                )
-            } else {
-                AnimatedPlayPauseButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    interactionSource = it,
-                    modifier = Modifier.minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-                        .animateWidth(it).fillMaxSize(),
-                    colorScheme = colorScheme,
-                )
-            }
+            AnimatedPlayPauseProgressButton(
+                onPlayClick = onPlayButtonClick,
+                onPauseClick = onPauseButtonClick,
+                enabled = playPauseButtonEnabled,
+                playing = playing,
+                interactionSource = it,
+                trackPositionUiModel = trackPositionUiModel,
+                modifier = Modifier.weight(0.5f)    // This is used to constrain the size at minWidth for non-pressed state.
+                    .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+                    .animateWidth(it)
+                    .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),
+                colorScheme = colorScheme,
+                rotateProgressIndicator = rotateProgressIndicator,
+                isAnyButtonPressed = isAnyButtonPressed,
+            )
         },
         rightButton = rightButton,
     )

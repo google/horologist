@@ -193,7 +193,9 @@ public fun VolumeButtonWithBadge(
         modifier = modifier,
         enabled = enabled,
         alignment = alignment,
-        badgeVector = if (audioOutputUi.isConnected) volumeUiState.getVolumeIndicatorIcon() else null,
+        badgeVector = if (audioOutputUi.isConnected) {
+            volumeUiState.getVolumeIndicatorIcon()
+        } else null,
         buttonColors = buttonColors,
         badgeColors = badgeColors,
         contentDescription = contentDescription,

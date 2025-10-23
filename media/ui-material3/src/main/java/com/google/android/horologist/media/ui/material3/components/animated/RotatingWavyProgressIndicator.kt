@@ -57,7 +57,8 @@ import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayoutDefaults
 import com.google.android.horologist.media.ui.material3.components.PlayPauseButtonDefaults
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-import com.google.android.horologist.media.ui.material3.util.PLAY_BUTTON_PROGRESS_AND_BUTTON_GAP
+import com.google.android.horologist.media.ui.material3.util.MIDDLE_BUTTON_PROGRESS_AND_BUTTON_GAP
+import com.google.android.horologist.media.ui.material3.util.MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.faster
 import com.google.android.horologist.media.ui.material3.util.isLargeScreen
@@ -86,7 +87,7 @@ internal fun RotatingWavyProgressIndicator(
         derivedStateOf { colorScheme.onSecondaryContainer }
     }
     val trackColor by remember(colorScheme) {
-        derivedStateOf { colorScheme.outline }
+        derivedStateOf { colorScheme.surfaceContainerLow }
     }
 
     // Map to store 4 polygons of morph
@@ -110,7 +111,7 @@ internal fun RotatingWavyProgressIndicator(
     }
 
     val scallopPolygon = remember(density, scallopShapeSize) {
-        PlayPauseButtonDefaults.indicatorScallopPolygon(density, scallopShapeSize)
+        PlayPauseButtonDefaults.outerScallopPolygon(density, scallopShapeSize)
             .scaleToSize(scallopHeight)
     }
 
@@ -233,6 +234,7 @@ internal class RotatingMorphedScallopShape(
     private val rotationProgress: State<Float>,
     private val morphState: MutableMap<Pair<Boolean, Boolean>, Morph> =
         mutableStateMapOf<Pair<Boolean, Boolean>, Morph>(),
+    private val useInnerPolygon: Boolean = true,
 ) : Shape {
 
     private val matrix = Matrix()
@@ -242,7 +244,7 @@ internal class RotatingMorphedScallopShape(
         LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
     } else {
         SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-    } - (PLAY_BUTTON_PROGRESS_AND_BUTTON_GAP * 2)
+    }
 
     override fun createOutline(
         size: Size,
@@ -251,9 +253,21 @@ internal class RotatingMorphedScallopShape(
     ): Outline {
         val isWidthGreater = size.width > size.height
         val morph = morphState.getOrPut(Pair(isWidthGreater, playing)) {
-            val scallopHeight = with(density) { scallopSize.toPx() }
-            val scallopPolygon = PlayPauseButtonDefaults
-                .buttonScallopPolygon(density, scallopSize).scaleToSize(scallopHeight)
+            val scallopHeight = with(density) {
+                (
+                        scallopSize - if (useInnerPolygon) {
+                            MIDDLE_BUTTON_PROGRESS_AND_BUTTON_GAP * 2
+                        } else {
+                            MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
+                        }
+                        ).toPx()
+            }
+            val scallopPolygon =
+                if (useInnerPolygon) {
+                    PlayPauseButtonDefaults.innerScallopPolygon(density, scallopSize)
+                } else {
+                    PlayPauseButtonDefaults.outerScallopPolygon(density, scallopSize)
+                }.scaleToSize(scallopHeight)
 
             val expansionWidthPx = with(density) {
                 ButtonGroupLayoutDefaults.ExpansionWidth.toPx()

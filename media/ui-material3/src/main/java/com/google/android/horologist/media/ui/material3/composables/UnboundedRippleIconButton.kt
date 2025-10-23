@@ -118,7 +118,7 @@ public fun UnboundedRippleIconButton(
                     Modifier
                 },
             )
-            .background(color = animatedContainerColor.value, shape = shape),
+            .background(color = animatedContainerColor.value).clip(shape),
     ) {
         CompositionLocalProvider(
             LocalContentColor provides contentColor,

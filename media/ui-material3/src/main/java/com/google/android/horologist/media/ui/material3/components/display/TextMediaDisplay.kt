@@ -26,6 +26,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
@@ -40,6 +44,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.ColorScheme
@@ -66,17 +71,19 @@ public fun TextMediaDisplay(
     subtitleSoftWrap: Boolean = true,
 ) {
     val textMeasurer = rememberTextMeasurer()
-    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
-    val measuredTitleTextWidth = with(LocalDensity.current) {
-        textMeasurer.measure(
+    var measuredTextWidth by remember { mutableStateOf(0.dp) }
+    with(LocalDensity.current) {
+        measuredTextWidth = textMeasurer.measure(
             text = AnnotatedString(title),
             style = MaterialTheme.typography.titleMedium,
+            constraints = Constraints(maxWidth = Int.MAX_VALUE),
         ).size.width.toDp()
     }
+    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
     val titleWidthRatio = if (titleIcon != null) 0.648f else 0.6672f
     val subtitleWidthRatio = if (titleIcon != null) 0.71f else 0.75f
     val isTextLongerThanDrawableArea =
-        measuredTitleTextWidth.value > titleWidthRatio * screenWidth.value
+        measuredTextWidth.value > titleWidthRatio * screenWidth.value
     val shouldShowTitleSpacer = titleIcon != null || isTextLongerThanDrawableArea
 
     Column(

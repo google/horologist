@@ -63,7 +63,7 @@ public fun AmbientMediaControlButtons(
                 onPauseClick = onPauseButtonClick,
                 enabled = playPauseButtonEnabled,
                 playing = playing,
-                modifier = Modifier.weight(0.5f)    // This is used to constrain the size at minWidth for non-pressed state.
+                modifier = Modifier.weight(0.5f) // This is used to constrain the size at minWidth for non-pressed state.
                     .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
                     .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),
                 colorScheme = colorScheme,

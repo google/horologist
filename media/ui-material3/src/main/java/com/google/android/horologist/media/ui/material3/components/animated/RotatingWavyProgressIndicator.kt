@@ -255,12 +255,12 @@ internal class RotatingMorphedScallopShape(
         val morph = morphState.getOrPut(Pair(isWidthGreater, playing)) {
             val scallopHeight = with(density) {
                 (
-                        scallopSize - if (useInnerPolygon) {
-                            MIDDLE_BUTTON_PROGRESS_AND_BUTTON_GAP * 2
-                        } else {
-                            MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
-                        }
-                        ).toPx()
+                    scallopSize - if (useInnerPolygon) {
+                        MIDDLE_BUTTON_PROGRESS_AND_BUTTON_GAP * 2
+                    } else {
+                        MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
+                    }
+                    ).toPx()
             }
             val scallopPolygon =
                 if (useInnerPolygon) {

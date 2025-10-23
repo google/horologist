@@ -173,12 +173,12 @@ public fun PlayerScreen(
         }
     }
     val middleSectionHeight = remember(configuration) {
-        max(middleSectionMinimumHeight, configuration.screenHeightDp.dp/3f)
+        max(middleSectionMinimumHeight, configuration.screenHeightDp.dp / 3f)
     }
     val topSectionHeight = remember(configuration) {
         max(
             SMALL_DEVICE_PLAYER_SCREEN_TOP_SECTION_HEIGHT,
-            (configuration.screenHeightDp.dp - middleSectionHeight) / 2f
+            (configuration.screenHeightDp.dp - middleSectionHeight) / 2f,
         )
     }
 

@@ -88,7 +88,7 @@ public fun AnimatedMediaControlButtons(
                 playing = playing,
                 interactionSource = it,
                 trackPositionUiModel = trackPositionUiModel,
-                modifier = Modifier.weight(0.5f)    // This is used to constrain the size at minWidth for non-pressed state.
+                modifier = Modifier.weight(0.5f) // This is used to constrain the size at minWidth for non-pressed state.
                     .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
                     .animateWidth(it)
                     .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),
@@ -146,7 +146,7 @@ public fun AnimatedMediaControlButtons(
                 playing = playing,
                 interactionSource = it,
                 trackPositionUiModel = trackPositionUiModel,
-                modifier = Modifier.weight(0.5f)    // This is used to constrain the size at minWidth for non-pressed state.
+                modifier = Modifier.weight(0.5f) // This is used to constrain the size at minWidth for non-pressed state.
                     .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
                     .animateWidth(it)
                     .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),

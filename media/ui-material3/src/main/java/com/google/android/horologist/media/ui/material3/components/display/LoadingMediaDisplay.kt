@@ -67,7 +67,7 @@ public fun LoadingMediaDisplay(
                         )
                         .placeholder(
                             placeholderState = placeholderState,
-                            color = colorScheme.outlineVariant
+                            color = colorScheme.outlineVariant,
                         ),
             )
         }
@@ -85,7 +85,7 @@ public fun LoadingMediaDisplay(
                         )
                         .placeholder(
                             placeholderState = placeholderState,
-                            color = colorScheme.outlineVariant
+                            color = colorScheme.outlineVariant,
                         ),
             )
         }

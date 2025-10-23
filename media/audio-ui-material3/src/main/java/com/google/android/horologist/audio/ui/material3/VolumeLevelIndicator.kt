@@ -54,13 +54,13 @@ public fun VolumeLevelIndicator(
     colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
     val visible by
-    produceState(displayIndicatorEvents == null, displayIndicatorEvents) {
-        displayIndicatorEvents?.collectLatest {
-            value = true
-            delay(2500)
-            value = false
+        produceState(displayIndicatorEvents == null, displayIndicatorEvents) {
+            displayIndicatorEvents?.collectLatest {
+                value = true
+                delay(2500)
+                value = false
+            }
         }
-    }
     val uiState = volumeUiState()
 
     AnimatedVisibility(

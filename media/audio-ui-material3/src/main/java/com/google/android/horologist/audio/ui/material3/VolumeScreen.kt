@@ -267,7 +267,7 @@ public fun VolumeWithAudioOutputAsLabel(
 }
 
 @Composable
-internal fun VolumeScreen(
+public fun VolumeScreen(
     volume: () -> VolumeUiState,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
@@ -307,7 +307,7 @@ internal fun VolumeScreen(
                     buttonIconColor = colorScheme.primary,
                     disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
                     disabledButtonContainerColor =
-                        colorScheme.onSurface.toDisabledColor(DisabledVolumeAlpha),
+                        colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
                     disabledButtonIconColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
                 ),
         ) {

@@ -19,7 +19,6 @@ package com.google.android.horologist.media.ui.material3.composables
 import androidx.compose.animation.Animatable
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -36,8 +35,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -118,7 +119,13 @@ public fun UnboundedRippleIconButton(
                     Modifier
                 },
             )
-            .background(color = animatedContainerColor.value, shape = shape),
+            .drawWithCache {
+                val outline = shape.createOutline(size, layoutDirection, this)
+                onDrawWithContent {
+                    drawOutline(outline, color = animatedContainerColor.value)
+                    drawContent()
+                }
+            },
     ) {
         CompositionLocalProvider(
             LocalContentColor provides contentColor,

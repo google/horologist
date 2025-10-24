@@ -22,8 +22,8 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -31,7 +31,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.requestFocusOnHierarchyActive
 import androidx.wear.compose.foundation.rotary.rotaryScrollable
@@ -171,16 +172,17 @@ public fun PlayerScreen(
             SMALL_DEVICE_PLAYER_SCREEN_TOP_SECTION_BOTTOM_PADDING
         }
     }
-    val topSectionMinimumHeight = remember(configuration) {
-        if (!configuration.isLargeScreen) {
-            SMALL_DEVICE_PLAYER_SCREEN_TOP_SECTION_HEIGHT
-        } else {
-            Dp.Unspecified
-        }
+    val middleSectionHeight = remember(configuration) {
+        max(middleSectionMinimumHeight, configuration.screenHeightDp.dp / 3f)
     }
-    Box(
-        modifier = modifier.fillMaxSize(),
-    ) {
+    val topSectionHeight = remember(configuration) {
+        max(
+            SMALL_DEVICE_PLAYER_SCREEN_TOP_SECTION_HEIGHT,
+            (configuration.screenHeightDp.dp - middleSectionHeight) / 2f,
+        )
+    }
+
+    Box(modifier = modifier.fillMaxSize()) {
         background()
 
         Column(
@@ -190,7 +192,7 @@ public fun PlayerScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = topSectionMinimumHeight)
+                    .requiredHeight(topSectionHeight)
                     .padding(
                         top = topSectionTopPadding,
                         bottom = topSectionBottomPadding,
@@ -202,7 +204,7 @@ public fun PlayerScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .heightIn(min = middleSectionMinimumHeight),
+                    .requiredHeight(middleSectionHeight),
                 contentAlignment = Alignment.Center,
             ) {
                 controlButtons()

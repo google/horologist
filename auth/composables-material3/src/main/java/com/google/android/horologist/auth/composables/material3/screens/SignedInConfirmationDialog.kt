@@ -47,11 +47,12 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material3.Dialog
+import androidx.wear.compose.material3.ConfirmationDialog
+import androidx.wear.compose.material3.ConfirmationDialogDefaults
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
+import com.google.android.horologist.auth.composables.common.AccountUiModel
 import com.google.android.horologist.auth.composables.material3.R
-import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
@@ -67,23 +68,26 @@ private const val EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE = 0.092f
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
-public fun SignedInConfirmationScreen(
+public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
     avatar: Paintable? = null,
     defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
+    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
 ) {
     var showConfirmation by remember { mutableStateOf(true) }
 
-    Dialog(
-        showConfirmation,
+    ConfirmationDialog(
+        visible = showConfirmation,
         onDismissRequest = {
             showConfirmation = false
             onDismissOrTimeout()
         },
+        curvedText = null,
         modifier = modifier,
+        durationMillis = durationMillis,
     ) {
         SignedInConfirmationDialogContent(
             modifier = modifier,
@@ -96,23 +100,25 @@ public fun SignedInConfirmationScreen(
 }
 
 /**
- * A [SignedInConfirmationScreen] that can display the name, email and avatar image of an
+ * A [SignedInConfirmationDialog] that can display the name, email and avatar image of an
  * [AccountUiModel].
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
-public fun SignedInConfirmationScreen(
+public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     accountUiModel: AccountUiModel,
+    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
 ) {
-    SignedInConfirmationScreen(
+    SignedInConfirmationDialog(
         onDismissOrTimeout = onDismissOrTimeout,
         modifier = modifier,
         name = accountUiModel.name,
         email = accountUiModel.email,
         avatar = accountUiModel.avatar,
+        durationMillis = durationMillis,
     )
 }
 

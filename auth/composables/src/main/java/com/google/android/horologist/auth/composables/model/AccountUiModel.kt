@@ -16,16 +16,11 @@
 
 package com.google.android.horologist.auth.composables.model
 
-import com.google.android.horologist.images.base.paintable.Paintable
-
 /**
  * A UI model to represent an account.
  */
 @Deprecated(
-    message = "Please use AccountUiModel in composables-material3",
+    message = "Class has been moved to module 'auth-composables-common'.",
+    replaceWith = ReplaceWith("AccountUiModel", "com.google.android.horologist.auth.composables.common.AccountUiModel"),
 )
-public data class AccountUiModel(
-    val email: String,
-    val name: String? = null,
-    val avatar: Paintable? = null,
-)
+public typealias AccountUiModel = com.google.android.horologist.auth.composables.common.AccountUiModel

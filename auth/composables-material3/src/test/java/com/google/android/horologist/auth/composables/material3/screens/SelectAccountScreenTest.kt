@@ -17,7 +17,6 @@
 package com.google.android.horologist.auth.composables.material3.screens
 
 import com.google.android.horologist.auth.composables.material3.R
-import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test

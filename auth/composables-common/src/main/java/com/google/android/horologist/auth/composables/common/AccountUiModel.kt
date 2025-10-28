@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.auth.composables.material3.models
+package com.google.android.horologist.auth.composables.common
 
 import com.google.android.horologist.images.base.paintable.Paintable
 
@@ -23,6 +23,6 @@ import com.google.android.horologist.images.base.paintable.Paintable
  */
 public data class AccountUiModel(
     val email: String,
-    val name: String,
+    val name: String? = null,
     val avatar: Paintable? = null,
 )

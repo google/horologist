@@ -68,14 +68,14 @@ private const val EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE = 0.092f
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
-fun SignedInConfirmationDialog(
+public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
     avatar: Paintable? = null,
     defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
-    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis
+    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
 ) {
     var showConfirmation by remember { mutableStateOf(true) }
 
@@ -87,7 +87,7 @@ fun SignedInConfirmationDialog(
         },
         curvedText = null,
         modifier = modifier,
-        durationMillis = durationMillis
+        durationMillis = durationMillis,
     ) {
         SignedInConfirmationDialogContent(
             modifier = modifier,
@@ -106,11 +106,11 @@ fun SignedInConfirmationDialog(
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
-fun SignedInConfirmationDialog(
+public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     accountUiModel: AccountUiModel,
-    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis
+    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
 ) {
     SignedInConfirmationDialog(
         onDismissOrTimeout = onDismissOrTimeout,
@@ -118,7 +118,7 @@ fun SignedInConfirmationDialog(
         name = accountUiModel.name,
         email = accountUiModel.email,
         avatar = accountUiModel.avatar,
-        durationMillis = durationMillis
+        durationMillis = durationMillis,
     )
 }
 

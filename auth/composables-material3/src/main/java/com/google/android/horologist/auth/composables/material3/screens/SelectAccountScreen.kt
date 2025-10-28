@@ -119,7 +119,7 @@ public fun SelectAccountScreen(
                     },
                 ) {
                     val name = account.name
-                    if(!name.isNullOrBlank()){
+                    if (!name.isNullOrBlank()) {
                         Text(
                             name,
                             style = MaterialTheme.typography.titleMedium,

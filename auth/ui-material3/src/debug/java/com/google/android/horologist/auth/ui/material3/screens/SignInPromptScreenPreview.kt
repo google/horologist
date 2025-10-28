@@ -26,8 +26,8 @@ import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.auth.composables.material3.buttons.GuestModeButton
 import com.google.android.horologist.auth.composables.material3.buttons.SignInButton
-import com.google.android.horologist.auth.ui.material3.common.screens.prompt.SignInPromptScreenState
 import com.google.android.horologist.auth.ui.material3.common.screens.prompt.SignInPromptScreen
+import com.google.android.horologist.auth.ui.material3.common.screens.prompt.SignInPromptScreenState
 
 @WearPreviewDevices
 @Composable

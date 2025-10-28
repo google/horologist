@@ -2,7 +2,7 @@
 package com.google.android.horologist.auth.composables.chips {
 
   public final class AccountChipKt {
-    method @androidx.compose.runtime.Composable public static void AccountChip(com.google.android.horologist.auth.composables.model.AccountUiModel account, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? defaultAvatar, optional boolean largeAvatar, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
+    method @androidx.compose.runtime.Composable public static void AccountChip(com.google.android.horologist.auth.composables.common.AccountUiModel account, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? defaultAvatar, optional boolean largeAvatar, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
     method @androidx.compose.runtime.Composable public static void AccountChip(String email, kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.images.base.paintable.Paintable? avatar, optional com.google.android.horologist.images.base.paintable.Paintable? defaultAvatar, optional boolean largeAvatar, optional androidx.wear.compose.material.ChipColors colors, optional boolean enabled);
   }
 
@@ -27,26 +27,8 @@ package com.google.android.horologist.auth.composables.chips {
 package com.google.android.horologist.auth.composables.dialogs {
 
   public final class SignedInConfirmationDialogKt {
-    method @Deprecated @androidx.compose.runtime.Composable public static void SignedInConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.composables.model.AccountUiModel accountUiModel, optional java.time.Duration duration);
+    method @Deprecated @androidx.compose.runtime.Composable public static void SignedInConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, com.google.android.horologist.auth.composables.common.AccountUiModel accountUiModel, optional java.time.Duration duration);
     method @androidx.compose.runtime.Composable public static void SignedInConfirmationDialog(kotlin.jvm.functions.Function0<kotlin.Unit> onDismissOrTimeout, optional androidx.compose.ui.Modifier modifier, optional String? name, optional String? email, optional com.google.android.horologist.images.base.paintable.Paintable? avatar, optional java.time.Duration duration);
-  }
-
-}
-
-package com.google.android.horologist.auth.composables.model {
-
-  @Deprecated public final class AccountUiModel {
-    ctor @Deprecated public AccountUiModel(String email, optional String? name, optional com.google.android.horologist.images.base.paintable.Paintable? avatar);
-    method @Deprecated public String component1();
-    method @Deprecated public String? component2();
-    method @Deprecated public com.google.android.horologist.images.base.paintable.Paintable? component3();
-    method @Deprecated public com.google.android.horologist.auth.composables.model.AccountUiModel copy(String email, String? name, com.google.android.horologist.images.base.paintable.Paintable? avatar);
-    method @Deprecated public com.google.android.horologist.images.base.paintable.Paintable? getAvatar();
-    method @Deprecated public String getEmail();
-    method @Deprecated public String? getName();
-    property @Deprecated public final com.google.android.horologist.images.base.paintable.Paintable? avatar;
-    property @Deprecated public final String email;
-    property @Deprecated public final String? name;
   }
 
 }
@@ -62,7 +44,7 @@ package com.google.android.horologist.auth.composables.screens {
   }
 
   public final class SelectAccountScreenKt {
-    method @Deprecated @androidx.compose.runtime.Composable public static void SelectAccountScreen(java.util.List<com.google.android.horologist.auth.composables.model.AccountUiModel> accounts, kotlin.jvm.functions.Function2<? super java.lang.Integer,? super com.google.android.horologist.auth.composables.model.AccountUiModel,kotlin.Unit> onAccountClicked, optional androidx.compose.ui.Modifier modifier, optional String title, optional com.google.android.horologist.images.base.paintable.Paintable? defaultAvatar);
+    method @Deprecated @androidx.compose.runtime.Composable public static void SelectAccountScreen(java.util.List<com.google.android.horologist.auth.composables.common.AccountUiModel> accounts, kotlin.jvm.functions.Function2<? super java.lang.Integer,? super com.google.android.horologist.auth.composables.common.AccountUiModel,kotlin.Unit> onAccountClicked, optional androidx.compose.ui.Modifier modifier, optional String title, optional com.google.android.horologist.images.base.paintable.Paintable? defaultAvatar);
   }
 
   public final class SignInPlaceholderScreenKt {

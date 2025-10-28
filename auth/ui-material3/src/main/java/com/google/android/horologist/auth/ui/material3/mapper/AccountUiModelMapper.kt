@@ -28,7 +28,11 @@ public object AccountUiModelMapper {
     /**
      * Maps from a [AuthUser].
      */
-    public fun map(authUser: AuthUser, defaultEmail: String = "", defaultName: String = ""): AccountUiModel = AccountUiModel(
+    public fun map(
+        authUser: AuthUser,
+        defaultEmail: String = "",
+        defaultName: String = "",
+    ): AccountUiModel = AccountUiModel(
         email = authUser.email ?: defaultEmail,
         name = authUser.displayName ?: defaultName,
         avatar = authUser.avatarUri?.let { CoilPaintable(it) },

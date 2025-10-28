@@ -47,7 +47,8 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material3.Dialog
+import androidx.wear.compose.material3.ConfirmationDialog
+import androidx.wear.compose.material3.ConfirmationDialogDefaults
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
 import com.google.android.horologist.auth.composables.common.AccountUiModel
@@ -67,23 +68,26 @@ private const val EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE = 0.092f
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
-public fun SignedInConfirmationDialog(
+fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
     avatar: Paintable? = null,
     defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
+    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis
 ) {
     var showConfirmation by remember { mutableStateOf(true) }
 
-    Dialog(
-        showConfirmation,
+    ConfirmationDialog(
+        visible = showConfirmation,
         onDismissRequest = {
             showConfirmation = false
             onDismissOrTimeout()
         },
+        curvedText = null,
         modifier = modifier,
+        durationMillis = durationMillis
     ) {
         SignedInConfirmationDialogContent(
             modifier = modifier,
@@ -102,10 +106,11 @@ public fun SignedInConfirmationDialog(
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
-public fun SignedInConfirmationDialog(
+fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     accountUiModel: AccountUiModel,
+    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis
 ) {
     SignedInConfirmationDialog(
         onDismissOrTimeout = onDismissOrTimeout,
@@ -113,6 +118,7 @@ public fun SignedInConfirmationDialog(
         name = accountUiModel.name,
         email = accountUiModel.email,
         avatar = accountUiModel.avatar,
+        durationMillis = durationMillis
     )
 }
 

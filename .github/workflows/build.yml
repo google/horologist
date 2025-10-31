@@ -39,7 +39,7 @@ jobs:
 
       - name: test-results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: build-results
           path: |
@@ -76,7 +76,7 @@ jobs:
 
       - name: screenshot-test-results-1
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: screenshot-results-1
           path: |
@@ -114,7 +114,7 @@ jobs:
 
       - name: screenshot-test-results-2
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: screenshot-results-2
           path: |

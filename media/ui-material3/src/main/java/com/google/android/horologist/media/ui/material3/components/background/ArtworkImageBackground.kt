@@ -54,7 +54,7 @@ public fun ArtworkImageBackground(
     ) { currentImage ->
         val currentImagePainter = currentImage?.rememberPainter()
         currentImagePainter?.let { painter ->
-            if(painter.intrinsicSize != Size.Unspecified) {
+            if (painter.intrinsicSize != Size.Unspecified) {
                 Image(
                     painter = painter,
                     contentDescription = null,

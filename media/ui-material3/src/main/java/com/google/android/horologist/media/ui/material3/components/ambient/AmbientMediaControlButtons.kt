@@ -17,7 +17,7 @@
 package com.google.android.horologist.media.ui.material3.components.ambient
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material3.ButtonGroupScope
@@ -28,7 +28,7 @@ import com.google.android.horologist.media.ui.material3.components.ButtonGroupLa
 import com.google.android.horologist.media.ui.state.PlayerUiState
 
 /**
- * Media control button for display in the ambient mode, showing [AmbientPlayPauseButton] button in
+ * Media control buttons for display in the ambient mode, showing [AmbientPlayPauseButton] button in
  * the middle, and allows custom buttons to be passed for left and right.
  *
  * @param onPlayButtonClick Callback invoked when the play button is clicked.
@@ -63,7 +63,9 @@ public fun AmbientMediaControlButtons(
                 onPauseClick = onPauseButtonClick,
                 enabled = playPauseButtonEnabled,
                 playing = playing,
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.weight(0.5f) // This is used to constrain the size at minWidth for non-pressed state.
+                    .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+                    .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),
                 colorScheme = colorScheme,
             )
         },
@@ -71,6 +73,19 @@ public fun AmbientMediaControlButtons(
     )
 }
 
+/**
+ * Media control buttons for display in the ambient mode, showing [AmbientPlayPauseButton] button in
+ * the middle and [AmbientSeekToPreviousButton] and [AmbientSeekToNextButton] buttons on the sides.
+ *
+ * @param playerUiState The [PlayerUiState] used to determine the state of the buttons.
+ * @param onPlayButtonClick Callback invoked when the play button is clicked.
+ * @param onPauseButtonClick Callback invoked when the pause button is clicked.
+ * @param onSeekToPreviousButtonClick Callback invoked when the seek to previous button is clicked.
+ * @param onSeekToNextButtonClick Callback invoked when the seek to next button is clicked.
+ * @param modifier Optional [Modifier] to be applied to the button group.
+ * @param colorScheme The [ColorScheme] used to style the buttons. Defaults to
+ *   [MaterialTheme.colorScheme].
+ */
 @Composable
 public fun AmbientMediaControlButtons(
     playerUiState: PlayerUiState,

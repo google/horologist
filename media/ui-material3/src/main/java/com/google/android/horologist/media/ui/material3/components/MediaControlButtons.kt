@@ -18,6 +18,7 @@ package com.google.android.horologist.media.ui.material3.components
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material3.ColorScheme
@@ -84,7 +85,7 @@ public fun MediaControlButtons(
         modifier = modifier,
         leftButton = {
             SeekToPreviousButton(
-                modifier = Modifier.padding(leftButtonPadding).fillMaxSize(),
+                modifier = Modifier.weight(1f).padding(leftButtonPadding).fillMaxSize(),
                 onClick = onSeekToPreviousButtonClick,
                 enabled = seekToPreviousButtonEnabled,
                 colorScheme = colorScheme,
@@ -92,8 +93,9 @@ public fun MediaControlButtons(
         },
         middleButton = {
             PlayPauseProgressButton(
-                modifier = Modifier.minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-                    .fillMaxSize(),
+                modifier = Modifier.weight(0.5f)
+                    .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+                    .requiredSize(ButtonGroupLayoutDefaults.middleButtonSize),
                 onPlayClick = onPlayButtonClick,
                 onPauseClick = onPauseButtonClick,
                 enabled = playPauseButtonEnabled,
@@ -105,7 +107,7 @@ public fun MediaControlButtons(
         },
         rightButton = {
             SeekToNextButton(
-                modifier = Modifier.padding(rightButtonPadding).fillMaxSize(),
+                modifier = Modifier.weight(1f).padding(rightButtonPadding).fillMaxSize(),
                 onClick = onSeekToNextButtonClick,
                 enabled = seekToNextButtonEnabled,
                 colorScheme = colorScheme,

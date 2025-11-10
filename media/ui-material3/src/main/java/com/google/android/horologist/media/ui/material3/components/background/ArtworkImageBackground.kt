@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.geometry.center
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
@@ -53,27 +54,29 @@ public fun ArtworkImageBackground(
     ) { currentImage ->
         val currentImagePainter = currentImage?.rememberPainter()
         currentImagePainter?.let { painter ->
-            Image(
-                painter = painter,
-                contentDescription = null,
-                contentScale = ContentScale.Crop,
-                alpha = 0.6f,
-                modifier =
-                    modifier.fillMaxSize().drawWithCache {
-                        val gradientBrush =
-                            Brush.radialGradient(
-                                0.65f to Color.Transparent,
-                                1f to colorScheme.background,
-                            )
-                        onDrawWithContent {
-                            drawRect(colorScheme.background)
-                            drawContent()
-                            drawRect(color = colorScheme.primaryContainer, alpha = 0.3f)
-                            drawRect(color = colorScheme.onPrimary, alpha = 0.6f)
-                            drawRect(gradientBrush)
-                        }
-                    },
-            )
+            if (painter.intrinsicSize != Size.Unspecified) {
+                Image(
+                    painter = painter,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    alpha = 0.6f,
+                    modifier =
+                        modifier.fillMaxSize().drawWithCache {
+                            val gradientBrush =
+                                Brush.radialGradient(
+                                    0.65f to Color.Transparent,
+                                    1f to colorScheme.background,
+                                )
+                            onDrawWithContent {
+                                drawRect(colorScheme.background)
+                                drawContent()
+                                drawRect(color = colorScheme.primaryContainer, alpha = 0.3f)
+                                drawRect(color = colorScheme.onPrimary, alpha = 0.6f)
+                                drawRect(gradientBrush)
+                            }
+                        },
+                )
+            }
         }
     }
 }

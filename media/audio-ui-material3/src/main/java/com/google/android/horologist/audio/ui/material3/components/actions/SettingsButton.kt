@@ -177,11 +177,12 @@ public object SettingsButtonDefaults {
     public fun ambientButtonBorder(
         enabled: Boolean,
         colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    ): BorderStroke = ButtonDefaults.outlinedButtonBorder(
-        enabled = enabled,
-        borderColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-        disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-    )
+    ): BorderStroke =
+        ButtonDefaults.outlinedButtonBorder(
+            enabled = enabled,
+            borderColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+            disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+        )
 }
 
 @Composable

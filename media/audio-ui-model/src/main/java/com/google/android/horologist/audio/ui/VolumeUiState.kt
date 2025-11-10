@@ -32,6 +32,6 @@ public data class VolumeUiState(
         get() = current == min
 
     public companion object {
-        public val Unknown: VolumeUiState = VolumeUiState(current = -1, max = -1, min = -1)
+        public val Unknown: VolumeUiState = VolumeUiState(current = -1, max = 1, min = 0)
     }
 }

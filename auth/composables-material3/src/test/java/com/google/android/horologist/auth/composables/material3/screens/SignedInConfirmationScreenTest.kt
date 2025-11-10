@@ -59,4 +59,15 @@ class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
             )
         }
     }
+
+    @Test
+    fun signedInConfirmationNoAvatarEmailName() {
+        runTest {
+            SignedInConfirmationDialogContent(
+                modifier = Modifier.fillMaxSize(),
+                name = null,
+                email = null
+            )
+        }
+    }
 }

@@ -42,6 +42,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
@@ -176,6 +177,9 @@ internal fun SignedInConfirmationDialogContent(
                 }
             }
 
+            val style = MaterialTheme.typography.displayMedium
+            // Prevent font size from scaling:
+            val fontSize = style.fontSize / LocalDensity.current.fontScale
             // Title text
             Text(
                 text = if (hasName) {
@@ -191,6 +195,7 @@ internal fun SignedInConfirmationDialogContent(
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
+                fontSize = fontSize,
                 maxLines = 1,
                 style = MaterialTheme.typography.displayMedium,
             )

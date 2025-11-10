@@ -21,6 +21,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.wear.compose.material3.ConfirmationDialogDefaults
 import com.google.android.horologist.auth.composables.common.AccountUiModel
 import com.google.android.horologist.auth.composables.material3.screens.SelectAccountScreen
 import com.google.android.horologist.auth.composables.material3.screens.SignedInConfirmationDialog
@@ -44,6 +45,7 @@ public fun StreamlineSignInDefaultScreen(
     viewModel: StreamlineSignInDefaultViewModel,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit = { },
+    confirmationDurationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -64,6 +66,7 @@ public fun StreamlineSignInDefaultScreen(
                 onDismissOrTimeout = { onSignedInConfirmationDialogDismissOrTimeout(account) },
                 modifier = modifier,
                 accountUiModel = account,
+                durationMillis = confirmationDurationMillis
             )
         }
 

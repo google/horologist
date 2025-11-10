@@ -66,7 +66,7 @@ class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
             SignedInConfirmationDialogContent(
                 modifier = Modifier.fillMaxSize(),
                 name = null,
-                email = null
+                email = null,
             )
         }
     }

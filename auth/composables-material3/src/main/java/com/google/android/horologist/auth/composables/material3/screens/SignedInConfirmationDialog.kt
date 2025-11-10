@@ -87,7 +87,7 @@ public fun SignedInConfirmationDialog(
         originalTimeoutMillis = durationMillis,
         containsIcons = true,
         containsText = true,
-        containsControls = false
+        containsControls = false,
     ) ?: durationMillis
     LaunchedEffect(showConfirmation, a11yDurationMillis) {
         if (showConfirmation) {

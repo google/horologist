@@ -66,7 +66,7 @@ public fun StreamlineSignInDefaultScreen(
                 onDismissOrTimeout = { onSignedInConfirmationDialogDismissOrTimeout(account) },
                 modifier = modifier,
                 accountUiModel = account,
-                durationMillis = confirmationDurationMillis
+                durationMillis = confirmationDurationMillis,
             )
         }
 

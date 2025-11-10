@@ -33,6 +33,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +42,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
@@ -48,8 +50,8 @@ import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.material3.ConfirmationDialog
 import androidx.wear.compose.material3.ConfirmationDialogDefaults
+import androidx.wear.compose.material3.Dialog
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
 import com.google.android.horologist.auth.composables.common.AccountUiModel
@@ -57,6 +59,7 @@ import com.google.android.horologist.auth.composables.material3.R
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
+import kotlinx.coroutines.delay
 
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052f
 private const val TOP_PADDING_SCREEN_PERCENTAGE = 0.012f
@@ -80,15 +83,26 @@ public fun SignedInConfirmationDialog(
 ) {
     var showConfirmation by remember { mutableStateOf(true) }
 
-    ConfirmationDialog(
+    val a11yDurationMillis = LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
+        originalTimeoutMillis = durationMillis,
+        containsIcons = true,
+        containsText = true,
+        containsControls = false
+    ) ?: durationMillis
+    LaunchedEffect(showConfirmation, a11yDurationMillis) {
+        if (showConfirmation) {
+            delay(a11yDurationMillis)
+            showConfirmation = false
+            onDismissOrTimeout()
+        }
+    }
+    Dialog(
         visible = showConfirmation,
         onDismissRequest = {
             showConfirmation = false
             onDismissOrTimeout()
         },
-        curvedText = null,
         modifier = modifier,
-        durationMillis = durationMillis,
     ) {
         SignedInConfirmationDialogContent(
             modifier = modifier,

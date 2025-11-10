@@ -22,8 +22,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.auth.composables.common.AccountUiModel
-import com.google.android.horologist.auth.composables.material3.screens.SelectAccountScreen
-import com.google.android.horologist.auth.composables.material3.screens.SignedInConfirmationDialog
+import com.google.android.horologist.auth.composables.dialogs.SignedInConfirmationDialog
+import com.google.android.horologist.auth.composables.screens.SelectAccountScreen
 
 /**
  * An opinionated implementation of [StreamlineSignInScreen] that:

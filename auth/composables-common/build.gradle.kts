@@ -93,33 +93,6 @@ metalava {
 
 dependencies {
     api(projects.images.base)
-    // api(projects.composeLayout)
-
-    // api(libs.compose.runtime)
-    // api(libs.compose.ui)
-
-    // implementation(projects.images.coil)
-
-    // implementation(libs.compose.foundation.foundation)
-    // implementation(libs.compose.foundation.foundation.layout)
-    // implementation(libs.compose.material.iconscore)
-    // implementation(libs.compose.material.iconsext)
-    // implementation(libs.compose.material3)
-    // implementation(libs.compose.ui.graphics)
-    // implementation(libs.compose.ui.text)
-    // implementation(libs.compose.ui.unit)
-    // implementation(libs.kotlin.stdlib)
-    // implementation(libs.androidx.wear.compose.material3)
-    // implementation(libs.wearcompose.foundation)
-
-    // debugApi(libs.wearcompose.tooling)
-    // debugImplementation(libs.compose.ui.toolingpreview)
-
-    // testImplementation(projects.composeTools)
-    // testImplementation(projects.roboscreenshots)
-    // testImplementation(libs.junit)
-    // testImplementation(libs.kotlinx.coroutines.test)
-    // testRuntimeOnly(libs.robolectric)
 }
 
 dependencyAnalysis {

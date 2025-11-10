@@ -44,8 +44,8 @@ public fun StreamlineSignInDefaultScreen(
     onNoAccountsAvailable: () -> Unit,
     viewModel: StreamlineSignInDefaultViewModel,
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit = { },
     confirmationDurationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
+    content: @Composable () -> Unit = { },
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 

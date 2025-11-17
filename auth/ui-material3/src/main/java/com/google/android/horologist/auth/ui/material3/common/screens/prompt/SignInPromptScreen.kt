@@ -27,7 +27,6 @@ import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
 import androidx.wear.compose.material3.AlertDialogContent
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
-import com.google.android.horologist.auth.composables.common.AccountUiModel
 import com.google.android.horologist.auth.composables.material3.R
 import com.google.android.horologist.auth.composables.material3.screens.SignInPlaceholderScreen
 import com.google.android.horologist.compose.layout.ScreenScaffold

@@ -22,7 +22,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material3.ConfirmationDialogDefaults
-import com.google.android.horologist.auth.composables.common.AccountUiModel
 import com.google.android.horologist.auth.composables.material3.screens.SelectAccountScreen
 import com.google.android.horologist.auth.composables.material3.screens.SignedInConfirmationDialog
 

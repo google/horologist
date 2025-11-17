@@ -54,7 +54,6 @@ import androidx.wear.compose.material3.ConfirmationDialogDefaults
 import androidx.wear.compose.material3.Dialog
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
-import com.google.android.horologist.auth.composables.common.AccountUiModel
 import com.google.android.horologist.auth.composables.material3.R
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable

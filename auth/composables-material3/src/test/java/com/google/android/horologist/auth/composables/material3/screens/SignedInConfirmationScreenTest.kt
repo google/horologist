@@ -70,4 +70,29 @@ class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
             )
         }
     }
+
+    @Test
+    fun signedInConfirmationScreenNoName() {
+        runTest {
+            SignedInConfirmationDialogContent(
+                modifier = Modifier.fillMaxSize(),
+                name = null,
+                email = "maggie123@example.com",
+                avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
+            )
+        }
+    }
+
+    @Test
+    fun signedInConfirmationScreenNoEmail() {
+        runTest {
+            SignedInConfirmationDialogContent(
+                modifier = Modifier.fillMaxSize(),
+                name = "Maggie",
+                email = null,
+                avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
+            )
+        }
+    }
+
 }

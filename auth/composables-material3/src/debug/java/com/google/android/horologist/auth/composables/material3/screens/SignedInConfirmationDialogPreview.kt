@@ -26,7 +26,7 @@ import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationScreenPreview() {
+fun SignedInConfirmationDialogPreview() {
     HorologistMaterialTheme {
         SignedInConfirmationDialogContent(
             modifier = Modifier.fillMaxSize(),
@@ -39,7 +39,7 @@ fun SignedInConfirmationScreenPreview() {
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationMMMScreenPreview() {
+fun SignedInConfirmationDialogMMMPreview() {
     HorologistMaterialTheme {
         SignedInConfirmationDialogContent(
             modifier = Modifier.fillMaxSize(),
@@ -52,7 +52,7 @@ fun SignedInConfirmationMMMScreenPreview() {
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationScreenContentPreview() {
+fun SignedInConfirmationDialogContentPreview() {
     HorologistMaterialTheme {
         SignedInConfirmationDialogContent(
             modifier = Modifier.fillMaxSize(),

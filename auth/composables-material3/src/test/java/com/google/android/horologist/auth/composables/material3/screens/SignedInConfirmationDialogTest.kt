@@ -23,10 +23,10 @@ import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
-class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
+class SignedInConfirmationDialogTest : WearLegacyScreenTest() {
 
     @Test
-    fun signedInConfirmationScreen() {
+    fun signedInConfirmationDialog() {
         runTest {
             SignedInConfirmationDialogContent(
                 modifier = Modifier.fillMaxSize(),
@@ -38,7 +38,7 @@ class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
     }
 
     @Test
-    fun signedInConfirmationScreenLongEmailAndName() {
+    fun signedInLongEmailAndName() {
         runTest {
             SignedInConfirmationDialogContent(
                 modifier = Modifier.fillMaxSize(),
@@ -72,7 +72,7 @@ class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
     }
 
     @Test
-    fun signedInConfirmationScreenNoName() {
+    fun signedInConfirmationDialogNoName() {
         runTest {
             SignedInConfirmationDialogContent(
                 modifier = Modifier.fillMaxSize(),
@@ -84,7 +84,7 @@ class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
     }
 
     @Test
-    fun signedInConfirmationScreenNoEmail() {
+    fun signedInConfirmationDialogNoEmail() {
         runTest {
             SignedInConfirmationDialogContent(
                 modifier = Modifier.fillMaxSize(),

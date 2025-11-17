@@ -18,6 +18,7 @@ package com.google.android.horologist.auth.ui.material3.common.screens.prompt
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.material3.ext.compareAndSet
 import com.google.android.horologist.auth.ui.material3.mapper.AccountUiModelMapper

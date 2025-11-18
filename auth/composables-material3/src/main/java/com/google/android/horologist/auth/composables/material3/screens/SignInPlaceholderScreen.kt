@@ -46,8 +46,6 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
 /**
  * A screen to represent a
  * [signing-in process state](https://developer.android.com/training/wearables/design/sign-in#confirmations).
- *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/sign_in_placeholder_screen.png" height="120" width="120"/>
  */
 @Composable
 public fun SignInPlaceholderScreen(

@@ -68,8 +68,6 @@ private const val EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE = 0.092f
 
 /**
  * A signed in confirmation dialog that can display the name, email and avatar image of the user.
- *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
 public fun SignedInConfirmationDialog(

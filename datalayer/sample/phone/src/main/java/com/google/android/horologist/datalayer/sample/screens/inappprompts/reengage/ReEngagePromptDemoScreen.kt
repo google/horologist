@@ -52,6 +52,8 @@ fun ReEngagePromptDemoScreen(
     }
 
     val context = LocalContext.current
+    val topMessage = stringResource(R.string.reengage_prompt_demo_prompt_top_message)
+    val bottomMessage = stringResource(R.string.reengage_prompt_demo_prompt_bottom_message)
 
     ReEngagePromptDemoScreen(
         state = state,
@@ -61,8 +63,8 @@ fun ReEngagePromptDemoScreen(
                 context = context,
                 nodeId = nodeId,
                 image = R.drawable.watch_app_screenshot,
-                topMessage = context.getString(R.string.reengage_prompt_demo_prompt_top_message),
-                bottomMessage = context.getString(R.string.reengage_prompt_demo_prompt_bottom_message),
+                topMessage = topMessage,
+                bottomMessage = bottomMessage,
             )
         },
         onPromptLaunched = viewModel::onPromptLaunched,

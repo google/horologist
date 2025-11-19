@@ -52,6 +52,8 @@ fun SignInPromptDemoScreen(
     }
 
     val context = LocalContext.current
+    val topMessage = stringResource(R.string.signin_prompt_demo_prompt_top_message)
+    val bottomMessage = stringResource(R.string.signin_prompt_demo_prompt_bottom_message)
 
     SignInPromptDemoScreen(
         state = state,
@@ -61,8 +63,8 @@ fun SignInPromptDemoScreen(
                 context = context,
                 nodeId = nodeId,
                 image = R.drawable.watch_app_screenshot,
-                topMessage = context.getString(R.string.signin_prompt_demo_prompt_top_message),
-                bottomMessage = context.getString(R.string.signin_prompt_demo_prompt_bottom_message),
+                topMessage = topMessage,
+                bottomMessage = bottomMessage,
             )
         },
         onPromptLaunched = viewModel::onPromptLaunched,

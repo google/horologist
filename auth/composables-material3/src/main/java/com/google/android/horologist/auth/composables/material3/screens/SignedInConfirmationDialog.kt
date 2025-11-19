@@ -33,6 +33,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,12 +42,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalAccessibilityManager
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.LineBreak
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material3.ConfirmationDialogDefaults
 import androidx.wear.compose.material3.Dialog
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.Text
@@ -55,6 +59,7 @@ import com.google.android.horologist.auth.composables.material3.models.AccountUi
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.images.base.paintable.Paintable
+import kotlinx.coroutines.delay
 
 private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.052f
 private const val TOP_PADDING_SCREEN_PERCENTAGE = 0.012f
@@ -63,22 +68,34 @@ private const val EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE = 0.092f
 
 /**
  * A signed in confirmation dialog that can display the name, email and avatar image of the user.
- *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
-public fun SignedInConfirmationScreen(
+public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     name: String? = null,
     email: String? = null,
     avatar: Paintable? = null,
     defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
+    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
 ) {
     var showConfirmation by remember { mutableStateOf(true) }
 
+    val a11yDurationMillis = LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
+        originalTimeoutMillis = durationMillis,
+        containsIcons = true,
+        containsText = true,
+        containsControls = false,
+    ) ?: durationMillis
+    LaunchedEffect(showConfirmation, a11yDurationMillis) {
+        if (showConfirmation) {
+            delay(a11yDurationMillis)
+            showConfirmation = false
+            onDismissOrTimeout()
+        }
+    }
     Dialog(
-        showConfirmation,
+        visible = showConfirmation,
         onDismissRequest = {
             showConfirmation = false
             onDismissOrTimeout()
@@ -96,23 +113,25 @@ public fun SignedInConfirmationScreen(
 }
 
 /**
- * A [SignedInConfirmationScreen] that can display the name, email and avatar image of an
+ * A [SignedInConfirmationDialog] that can display the name, email and avatar image of an
  * [AccountUiModel].
  *
  * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
  */
 @Composable
-public fun SignedInConfirmationScreen(
+public fun SignedInConfirmationDialog(
     onDismissOrTimeout: () -> Unit,
     modifier: Modifier = Modifier,
     accountUiModel: AccountUiModel,
+    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
 ) {
-    SignedInConfirmationScreen(
+    SignedInConfirmationDialog(
         onDismissOrTimeout = onDismissOrTimeout,
         modifier = modifier,
         name = accountUiModel.name,
         email = accountUiModel.email,
         avatar = accountUiModel.avatar,
+        durationMillis = durationMillis,
     )
 }
 
@@ -170,6 +189,9 @@ internal fun SignedInConfirmationDialogContent(
                 }
             }
 
+            val style = MaterialTheme.typography.displayMedium
+            // Prevent font size from scaling:
+            val fontSize = style.fontSize / LocalDensity.current.fontScale
             // Title text
             Text(
                 text = if (hasName) {
@@ -185,6 +207,7 @@ internal fun SignedInConfirmationDialogContent(
                 color = MaterialTheme.colorScheme.onBackground,
                 textAlign = TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
+                fontSize = fontSize,
                 maxLines = 1,
                 style = MaterialTheme.typography.displayMedium,
             )

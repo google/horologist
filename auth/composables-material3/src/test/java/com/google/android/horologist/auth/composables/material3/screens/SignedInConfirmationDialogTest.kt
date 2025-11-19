@@ -23,10 +23,10 @@ import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
-class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
+class SignedInConfirmationDialogTest : WearLegacyScreenTest() {
 
     @Test
-    fun signedInConfirmationScreen() {
+    fun signedInConfirmationDialog() {
         runTest {
             SignedInConfirmationDialogContent(
                 modifier = Modifier.fillMaxSize(),
@@ -38,7 +38,7 @@ class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
     }
 
     @Test
-    fun signedInConfirmationScreenLongEmailAndName() {
+    fun signedInLongEmailAndName() {
         runTest {
             SignedInConfirmationDialogContent(
                 modifier = Modifier.fillMaxSize(),
@@ -56,6 +56,41 @@ class SignedInConfirmationScreenTest : WearLegacyScreenTest() {
                 modifier = Modifier.fillMaxSize(),
                 name = "Maggie",
                 email = "maggie123@example.com",
+            )
+        }
+    }
+
+    @Test
+    fun signedInConfirmationNoAvatarEmailName() {
+        runTest {
+            SignedInConfirmationDialogContent(
+                modifier = Modifier.fillMaxSize(),
+                name = null,
+                email = null,
+            )
+        }
+    }
+
+    @Test
+    fun signedInConfirmationDialogNoName() {
+        runTest {
+            SignedInConfirmationDialogContent(
+                modifier = Modifier.fillMaxSize(),
+                name = null,
+                email = "maggie123@example.com",
+                avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
+            )
+        }
+    }
+
+    @Test
+    fun signedInConfirmationDialogNoEmail() {
+        runTest {
+            SignedInConfirmationDialogContent(
+                modifier = Modifier.fillMaxSize(),
+                name = "Maggie",
+                email = null,
+                avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
             )
         }
     }

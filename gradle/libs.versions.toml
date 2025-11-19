@@ -71,6 +71,7 @@ truth = "1.4.5"
 wearInput = "1.2.0"
 wearToolingPreview = "1.0.0"
 wearcompose = "1.6.0-alpha04"
+agp = "8.12.2"
 
 [libraries]
 accessibility-test-framework = { module = "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework", version.ref = "accessibilityTestFramework" }
@@ -249,3 +250,4 @@ metalavaGradle = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava
 protobuf = "com.google.protobuf:0.9.5"
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+android-library = { id = "com.android.library", version.ref = "agp" }

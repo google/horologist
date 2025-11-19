@@ -26,7 +26,7 @@ import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationScreenPreview() {
+fun SignedInConfirmationDialogPreview() {
     HorologistMaterialTheme {
         SignedInConfirmationDialogContent(
             modifier = Modifier.fillMaxSize(),
@@ -39,7 +39,7 @@ fun SignedInConfirmationScreenPreview() {
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationMMMScreenPreview() {
+fun SignedInConfirmationDialogMMMPreview() {
     HorologistMaterialTheme {
         SignedInConfirmationDialogContent(
             modifier = Modifier.fillMaxSize(),
@@ -52,7 +52,7 @@ fun SignedInConfirmationMMMScreenPreview() {
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationScreenContentPreview() {
+fun SignedInConfirmationDialogContentPreview() {
     HorologistMaterialTheme {
         SignedInConfirmationDialogContent(
             modifier = Modifier.fillMaxSize(),
@@ -77,8 +77,8 @@ fun SignedInConfirmationNoAvatar() {
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationScreenPreviewNoName() {
-    SignedInConfirmationScreen(
+fun SignedInConfirmationDialogPreviewNoName() {
+    SignedInConfirmationDialog(
         onDismissOrTimeout = {},
         email = "timandrews123@example.com",
         avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
@@ -87,8 +87,8 @@ fun SignedInConfirmationScreenPreviewNoName() {
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationScreenPreviewNoEmail() {
-    SignedInConfirmationScreen(
+fun SignedInConfirmationDialogPreviewNoEmail() {
+    SignedInConfirmationDialog(
         onDismissOrTimeout = {},
         name = "Maggie",
     )
@@ -96,14 +96,14 @@ fun SignedInConfirmationScreenPreviewNoEmail() {
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationScreenPreviewNoInformation() {
-    SignedInConfirmationScreen(onDismissOrTimeout = {})
+fun SignedInConfirmationDialogPreviewNoInformation() {
+    SignedInConfirmationDialog(onDismissOrTimeout = {})
 }
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationScreenPreviewTruncation() {
-    SignedInConfirmationScreen(
+fun SignedInConfirmationDialogPreviewTruncation() {
+    SignedInConfirmationDialog(
         onDismissOrTimeout = {},
         name = "Wolfeschlegelsteinhausenbergerdorff",
         email = "wolfeschlegelsteinhausenbergerdorff@example.com",

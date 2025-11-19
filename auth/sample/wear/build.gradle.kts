@@ -96,6 +96,7 @@ dependencies {
     implementation(projects.auth.data)
     implementation(projects.auth.sample.shared)
     implementation(projects.auth.ui)
+    implementation(projects.auth.uiMaterial3)
     implementation(projects.composables)
     implementation(projects.composeLayout)
     implementation(projects.composeMaterial)

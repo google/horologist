@@ -113,22 +113,22 @@ public fun FastScrollingTransformingLazyColumn(
 
     val context = LocalContext.current
     // The minimum fling velocity to trigger a skim event.
-    val flingVelocityThreshold =
-        remember { 7 * ViewConfiguration.get(context).scaledMinimumFlingVelocity }
+    val flingVelocityThreshold = remember {
+        7 * ViewConfiguration.get(context).scaledMinimumFlingVelocity
+    }
     val coroutineScope = rememberCoroutineScope()
     var fadingOutJob: Job? by remember { mutableStateOf(null) }
     var animationJob: Job? by remember { mutableStateOf(null) }
 
     // Total scroll-to offset for the list. This is the sum of the remaining letter height and the
-    // section indicator top padding, with whatever extra top padding is passed in from the composable.
+    // section indicator top padding, with whatever extra top padding is passed in from the
+    // composable.
     val scrollToOffset =
         with(LocalDensity.current) {
-            (
-                Constants.REMAINING_LETTER_HEIGHT +
-                    Constants.SECTION_INDICATOR_TOP_PADDING +
-                    sectionIndictatorTopPadding
-                )
-                .roundToPx()
+        (Constants.REMAINING_LETTER_HEIGHT +
+            Constants.SECTION_INDICATOR_TOP_PADDING +
+            sectionIndictatorTopPadding)
+            .roundToPx()
         }
 
     var currentSectionIndex by remember { mutableIntStateOf(0) }
@@ -173,9 +173,9 @@ public fun FastScrollingTransformingLazyColumn(
     }
 
     fun scrollListToSection() {
-        val headerOffset = scrollToOffset + (headers[currentSectionIndex].extraScrollToOffset ?: 0)
+        val headerOffset = -scrollToOffset - (headers[currentSectionIndex].extraScrollToOffset ?: 0)
 
-        val offset = headerOffset + (screenHeight * -.5).toInt()
+        val offset = headerOffset + (screenHeight * 0.5).toInt()
 
         coroutineScope.launch {
             haptics.performHapticFeedback(HapticFeedbackType.SegmentTick)
@@ -215,16 +215,35 @@ public fun FastScrollingTransformingLazyColumn(
                 // Skim has finally ended, as another skim did not happen to reset the skim flag.
                 isSkimming = false
             }
-    }
+        }
 
-    fun handleSkim(currentTime: Long, delta: Float) {
-        val isScrollingDown = delta > 0f
-        if (!isFirstFastScroll) {
+    fun performScroll(delta: Float) {
+            haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
+            coroutineScope.launch {
+            // Here, we animate the scroll by 0f to remove the timeText from the screen and
+            // show the position indicators. Running animateScrollBy by the delta
+            // does not scroll as much as scrollBy for some reason.
+            state.animateScrollBy(0f)
+            yield()
+            state.scrollBy(delta)
+            }
+        }
+
+        fun scrollOrSkim(delta: Float, isScrollingDown: Boolean) {
+            val newSectionIndex = (currentSectionIndex + (if (isScrollingDown) 1 else -1))
+            if (newSectionIndex != newSectionIndex.coerceIn(0, headers.size - 1)) {
+            performScroll(delta)
+            } else {
+            skimSections(newSectionIndex)
+            }
+        }
+
+        fun handleSkim(currentTime: Long, delta: Float) {
+            val isScrollingDown = delta > 0f
+            if (!isFirstFastScroll) {
             // If we fast scroll in two different directions, we will reset the pixels scrolled
             // by to 0 to make sure skims in the opposite direction will be performed as intended.
-            if (
-                isScrollingDown != pixelsScrolledBy > 0f
-            ) {
+            if (isScrollingDown != pixelsScrolledBy > 0f) {
                 pixelsScrolledBy = 0f
             }
 
@@ -238,65 +257,60 @@ public fun FastScrollingTransformingLazyColumn(
                 (abs(pixelsScrolledBy) / Constants.VERTICAL_SCROLL_BY_THRESHOLD).toInt()
             pixelsScrolledBy %= Constants.VERTICAL_SCROLL_BY_THRESHOLD
             for (i in 0..<sectionsToSkimBy) {
-                val newSectionIndex = (currentSectionIndex + (if (isScrollingDown) 1 else -1))
-                skimSections(newSectionIndex.coerceIn(0, headers.size - 1))
+                scrollOrSkim(delta, isScrollingDown)
             }
-        } else {
+            } else {
             // Perform the fast scroll skim once. The first skim should always perform a ton of scrolls to
             // get into fast-scrolling mode, so we can do this to make sure we don't skim multiple
             // sections accidentally.
             firstSkimTime = currentTime
             isFirstFastScroll = false
-            val newSectionIndex = (currentSectionIndex + (if (isScrollingDown) 1 else -1))
-            skimSections(newSectionIndex.coerceIn(0, headers.size - 1))
-        }
-    }
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        val flingBehavior = object : FlingBehavior {
-            override suspend fun ScrollScope.performFling(initialVelocity: Float): Float {
-                isSkimming = false
-                return with(defaultFlingBehavior) { this@performFling.performFling(initialVelocity) }
+            scrollOrSkim(delta, isScrollingDown)
             }
         }
-        val rotaryScrollableBehavior =
+
+        Box(modifier = Modifier.fillMaxSize()) {
+            val flingBehavior =
+            object : FlingBehavior {
+                override suspend fun ScrollScope.performFling(initialVelocity: Float): Float {
+                isSkimming = false
+                return with(defaultFlingBehavior) { this@performFling.performFling(initialVelocity) }
+                }
+            }
+            val rotaryScrollableBehavior =
             object : RotaryScrollableBehavior {
                 override suspend fun CoroutineScope.performScroll(
-                    timestampMillis: Long,
-                    delta: Float,
-                    inputDeviceId: Int,
-                    orientation: Orientation,
+                timestampMillis: Long,
+                delta: Float,
+                inputDeviceId: Int,
+                orientation: Orientation,
                 ) {
-                    val deltaTime = timestampMillis - lastRotaryScroll
-                    val currentVelocity = (delta / deltaTime) * 1000 // Convert to pixels per second
-                    lastRotaryScroll = timestampMillis
+                val deltaTime = timestampMillis - lastRotaryScroll
+                val currentVelocity = (delta / deltaTime) * 1000 // Convert to pixels per second
+                lastRotaryScroll = timestampMillis
 
-                    val canFastScroll =
-                        headers.isNotEmpty() &&
-                            (currentSectionIndex >= 0 && currentSectionIndex < headers.size)
+                val isScrollingDown = delta > 0f
+                val isScrollingInRightDirection =
+                    (isScrollingDown && currentSectionIndex < headers.size - 1 ||
+                    !isScrollingDown && currentSectionIndex > 0)
 
-                    if (!isSkimming && abs(currentVelocity) > flingVelocityThreshold && canFastScroll) {
-                        isFirstFastScroll = true
-                        pixelsScrolledBy = 0f
-                        isSkimming = true
-                    }
+                val canFastScroll =
+                    headers.isNotEmpty() &&
+                    (currentSectionIndex >= 0 &&
+                        currentSectionIndex < headers.size &&
+                        isScrollingInRightDirection)
 
-                    if (isSkimming) {
-                        handleSkim(
-                            currentTime = timestampMillis,
-                            delta = delta,
-                        )
-                    } else {
-                        haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
-                        coroutineScope.launch {
-                            // Here, we animate the scroll by 0f to remove the timeText from the screen and
-                            // show the position indicators. Running animateScrollBy by the delta
-                            // does not scroll as much as scrollBy for some reason.
-                            state.animateScrollBy(0f)
-                            yield()
-                            state.scrollBy(delta)
-                        }
-                    }
+                if (!isSkimming && abs(currentVelocity) > flingVelocityThreshold && canFastScroll) {
+                    isFirstFastScroll = true
+                    pixelsScrolledBy = 0f
+                    isSkimming = true
+                }
+
+                if (isSkimming) {
+                    handleSkim(currentTime = timestampMillis, delta = delta)
+                } else {
+                    performScroll(delta)
+                }
                 }
             }
 

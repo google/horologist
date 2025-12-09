@@ -48,6 +48,10 @@ package com.google.android.horologist.networks.okhttp.impl {
     method public boolean isCanceled();
     method public boolean isExecuted();
     method public okhttp3.Request request();
+    method public <T> T? tag(Class<? extends T> type);
+    method public <T> T tag(Class<T> type, kotlin.jvm.functions.Function0<? extends T> computeIfAbsent);
+    method public <T> T? tag(kotlin.reflect.KClass<T> type);
+    method public <T> T tag(kotlin.reflect.KClass<T> type, kotlin.jvm.functions.Function0<? extends T> computeIfAbsent);
     method public okio.Timeout timeout();
   }
 

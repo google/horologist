@@ -20,11 +20,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.requestType
 import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Request
-import okhttp3.Response
-import okio.Timeout
-import kotlin.reflect.KClass
 
 /**
  * A standard call Wrapper, that exists solely to ensure that the

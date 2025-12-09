@@ -175,9 +175,9 @@ public fun FastScrollingTransformingLazyColumn(
     }
 
     fun scrollListToSection() {
-        val headerOffset = -scrollToOffset - (headers[currentSectionIndex].extraScrollToOffset ?: 0)
+        val headerOffset = scrollToOffset + (headers[currentSectionIndex].extraScrollToOffset ?: 0)
 
-        val offset = headerOffset + (screenHeight * 0.5).toInt()
+        val offset = headerOffset + (screenHeight * -.5).toInt()
 
         coroutineScope.launch {
             haptics.performHapticFeedback(HapticFeedbackType.SegmentTick)

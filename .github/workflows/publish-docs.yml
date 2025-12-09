@@ -13,7 +13,7 @@ jobs:
       TERM: dumb
 
     steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+      - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
         with:
           lfs: 'true'
 
@@ -38,7 +38,7 @@ jobs:
           key: gradle-${{ hashFiles('checksum.txt') }}
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.x'
 

@@ -33,6 +33,7 @@ import okhttp3.Response
 import okio.AsyncTimeout
 import okio.Timeout
 import java.io.IOException
+import kotlin.reflect.KClass
 
 /**
  * A deferred call that needs to wait for [HighBandwidthConnectionLease.awaitGranted]
@@ -113,4 +114,12 @@ internal class HighBandwidthCall(
     override fun request(): Request = request
 
     override fun timeout(): Timeout = synchronized(this) { call?.timeout() ?: AsyncTimeout() }
+
+    override fun <T : Any> tag(type: KClass<T>): T? = call?.tag(type)
+
+    override fun <T> tag(type: Class<out T>): T? = call?.tag(type)
+
+    override fun <T : Any> tag(type: KClass<T>, computeIfAbsent: () -> T): T = call?.tag(type, computeIfAbsent) ?: computeIfAbsent()
+
+    override fun <T : Any> tag(type: Class<T>, computeIfAbsent: () -> T): T = call?.tag(type, computeIfAbsent) ?: computeIfAbsent()
 }

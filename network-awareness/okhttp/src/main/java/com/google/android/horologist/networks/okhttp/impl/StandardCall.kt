@@ -24,6 +24,7 @@ import okhttp3.Callback
 import okhttp3.Request
 import okhttp3.Response
 import okio.Timeout
+import kotlin.reflect.KClass
 
 /**
  * A standard call Wrapper, that exists solely to ensure that the
@@ -33,29 +34,11 @@ import okio.Timeout
 internal class StandardCall(
     private val callFactory: Call.Factory,
     private val delegate: Call,
-) : Call {
-    override fun cancel(): Unit = delegate.cancel()
-
+) : Call by delegate {
     override fun clone(): Call {
         val request = request()
         // Remove network and lease from new request
         val cleanRequest = request.newBuilder().requestType(request.requestType).build()
         return callFactory.newCall(cleanRequest)
     }
-
-    override fun enqueue(responseCallback: Callback) {
-        return delegate.enqueue(responseCallback)
-    }
-
-    override fun execute(): Response {
-        return delegate.execute()
-    }
-
-    override fun isCanceled(): Boolean = delegate.isCanceled()
-
-    override fun isExecuted(): Boolean = delegate.isExecuted()
-
-    override fun request(): Request = delegate.request()
-
-    override fun timeout(): Timeout = delegate.timeout()
 }

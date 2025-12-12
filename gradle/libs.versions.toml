@@ -34,12 +34,12 @@ com-squareup-okhttp3 = "5.3.2"
 com-squareup-retrofit2 = "3.0.0"
 compose-material3 = "1.4.0"
 composesnapshot = "-"
-dependencyAnalysis = "2.19.0"
+dependencyAnalysis = "3.5.1"
 desugar_jdk_libs = "2.1.5"
-dokka = "2.0.0"
+dokka = "2.1.0"
 googledagger = "2.57.2"
-gradlePublishPlugin = "0.34.0"
-grpcStub = "1.73.0"
+gradlePublishPlugin = "0.35.0"
+grpcStub = "1.77.0"
 io-coil-kt = "2.7.0"
 junit = "4.13.2"
 kotlin = "2.2.21"
@@ -52,25 +52,25 @@ metalava = "0.4.0-alpha03"
 moshi = "1.15.2"
 okio = "3.16.4"
 org-robolectric = "4.16"
-ossLicensesPlugin = "0.10.9"
+ossLicensesPlugin = "0.10.10"
 osslicenses = "0.9.0"
 playServicesAuth = "21.4.0"
 playServicesOssLicenses = "17.3.0"
 # Stay on 4.26.1 due to https://github.com/firebase/firebase-android-sdk/issues/5997
 protobuf = "4.26.1"
-protobuf-gen-grpc-java = "1.73.0"
+protobuf-gen-grpc-java = "1.77.0"
 protobuf-gen-grpc-kotlin = "1.4.3:jdk8@jar"
 protobuf-gen-javalite = "3.0.0"
 roborazzi = "1.52.0"
 room = "2.8.4"
 runtimeTracing = "1.10.0"
-spotless = "7.2.1"
+spotless = "8.1.0"
 tiles-tooling-preview = "1.5.0"
 truth = "1.4.5"
 wearInput = "1.2.0"
 wearToolingPreview = "1.0.0"
 wearcompose = "1.6.0-alpha06"
-agp = "8.12.3"
+agp = "8.13.2"
 
 [libraries]
 accessibility-test-framework = { module = "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework", version.ref = "accessibilityTestFramework" }
@@ -179,16 +179,16 @@ dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plu
 dagger-hiltandroidtesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "googledagger" }
 desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
-google-genai = "com.google.genai:google-genai:1.30.0"
+google-genai = "com.google.genai:google-genai:1.31.0"
 gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradlePublishPlugin" }
 grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 hilt-ext-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
 hilt-navigationcompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
-io-grpc-grpc-android = "io.grpc:grpc-android:1.73.0"
-io-grpc-grpc-binder = "io.grpc:grpc-binder:1.73.0"
-io-grpc-grpc-kotlin = "io.grpc:grpc-kotlin-stub:1.4.3"
-io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.73.0"
+io-grpc-grpc-android = "io.grpc:grpc-android:1.77.0"
+io-grpc-grpc-binder = "io.grpc:grpc-binder:1.77.0"
+io-grpc-grpc-kotlin = "io.grpc:grpc-kotlin-stub:1.5.0"
+io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.77.0"
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }

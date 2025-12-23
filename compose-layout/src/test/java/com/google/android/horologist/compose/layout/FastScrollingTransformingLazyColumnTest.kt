@@ -96,7 +96,7 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
             Emily Ryan, Michael Olsen, Elizabeth Pierce, David Porter, Mila Freeman, 
             Joseph Cunningham, Chloe Lawrence, Samuel Newman, Aubrey Hunt, Julian Meyer, 
             Zoey Marshall, Leo Stevens, Layla Dixon, Gabriel Arnold, Nora Boyd, Anthony Fuller, 
-            Luna Hayes, Christopher Cox, Victoria Ward, Ryan Gray, Hannah Bailey, Nathan Brooks,
+            Luna Hayes, Christopher Cox, Victoria Ward, Macy Gray, Hannah Bailey, Nathan Brooks,
             Natalie Kelly, Caleb Price, Leah Bennett, Isaac Barnes, Zoe Henderson, Joshua Coleman, 
             Stella Jenkins, Matthew Perry, Aurora Powell, Andrew Long, Dylan Patterson, John Hughes, 
             Genesis Flores, Luke Washington, Sarah Butler, Gabriel Simmons, Eva Foster, 

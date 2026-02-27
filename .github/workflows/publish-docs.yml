@@ -9,6 +9,8 @@ on:
 jobs:
   deploy_docs:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       TERM: dumb
 

@@ -25,37 +25,69 @@
 <link href="../../../../styles/prism.css" rel="Stylesheet">
 <link href="../../../../styles/logo-styles.css" rel="Stylesheet">
 <link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
 <script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
 <script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script>
 <script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
     <div class="root">
-<nav class="navigation" id="navigation-wrapper">
-    <div class="navigation--inner">
-        <div class="navigation-title">
-            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
-            <div class="library-name">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
 <a class="library-name--link" href="../../../../index.html">
-                            horologist
-                    </a>            </div>
-            <div class="library-version">
+                    horologist
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":network-awareness:db:dokkaHtmlPartial/release">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":network-awareness:db:dokkaHtmlPartial/release" data-filter=":network-awareness:db:dokkaHtmlPartial/release">
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
         </div>
-        <div class="filter-section" id="filter-section">
-                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":network-awareness:db:dokkaHtmlPartial/release">androidJvm</button>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
         </div>
-    </div>
-    <div class="navigation-controls">
-        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
-        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
-    </div>
-</nav>
+    </nav>
         <div id="container">
             <div class="sidebar" id="leftColumn">
-                <div class="sidebar--inner" id="sideMenu"></div>
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    horologist
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
             </div>
             <div id="main">
 <div class="main-content" data-page-type="classlike" id="content" pageids="network-awareness-db::com.google.android.horologist.networks.db/NetworkUsageDatabase///PointingToDeclaration//-1289681295">
@@ -122,17 +154,17 @@
       </div>
       <div data-togglable="PROPERTY">
         <h2 class="">Properties</h2>
-        <div class="table"><a data-name="155738858%2FProperties%2F-1289681295" anchor-label="backingFieldMap" id="155738858%2FProperties%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
+        <div class="table"><a data-name="1688947723%2FProperties%2F-1289681295" anchor-label="driver" id="1688947723%2FProperties%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
           <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#155738858%2FProperties%2F-1289681295"><span>backing</span><wbr><span>Field</span><wbr><span><span>Map</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="155738858%2FProperties%2F-1289681295"></span>
+                  <div><a href="index.html#1688947723%2FProperties%2F-1289681295"><span><span>driver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1688947723%2FProperties%2F-1289681295"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="index.html#155738858%2FProperties%2F-1289681295">backingFieldMap</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html">MutableMap</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="index.html#1688947723%2FProperties%2F-1289681295">driver</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/sqlite/SQLiteDriver.html">SQLiteDriver</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -162,22 +194,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="index.html#-277138657%2FProperties%2F-1289681295">isOpen</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="475302114%2FProperties%2F-1289681295" anchor-label="isOpenInternal" id="475302114%2FProperties%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
-          <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="index.html#475302114%2FProperties%2F-1289681295"><span>is</span><wbr><span>Open</span><wbr><span><span>Internal</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="475302114%2FProperties%2F-1289681295"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="index.html#475302114%2FProperties%2F-1289681295">isOpenInternal</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="index.html#-277138657%2FProperties%2F-1289681295">isOpen</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -197,6 +214,21 @@
               </div>
             </div>
           </div>
+<a data-name="86731822%2FProperties%2F-1289681295" anchor-label="path" id="86731822%2FProperties%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#86731822%2FProperties%2F-1289681295"><span><span>path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="86731822%2FProperties%2F-1289681295"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="index.html#86731822%2FProperties%2F-1289681295">path</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
 <a data-name="-177284564%2FProperties%2F-1289681295" anchor-label="queryExecutor" id="-177284564%2FProperties%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
           <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
@@ -212,17 +244,17 @@
               </div>
             </div>
           </div>
-<a data-name="1027959380%2FProperties%2F-1289681295" anchor-label="suspendingTransactionId" id="1027959380%2FProperties%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
+<a data-name="-235457316%2FProperties%2F-1289681295" anchor-label="suspendingTransactionContext" id="-235457316%2FProperties%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
           <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1027959380%2FProperties%2F-1289681295"><span>suspending</span><wbr><span>Transaction</span><wbr><span><span>Id</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1027959380%2FProperties%2F-1289681295"></span>
+                  <div><a href="index.html#-235457316%2FProperties%2F-1289681295"><span>suspending</span><wbr><span>Transaction</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-235457316%2FProperties%2F-1289681295"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="index.html#1027959380%2FProperties%2F-1289681295">suspendingTransactionId</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/lang/ThreadLocal.html">ThreadLocal</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="index.html#-235457316%2FProperties%2F-1289681295">suspendingTransactionContext</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/lang/ThreadLocal.html">ThreadLocal</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.coroutines/-coroutine-context/index.html">CoroutineContext</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -316,52 +348,97 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#162913197%2FFunctions%2F-1289681295"><span class="token function">compileStatement</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/sqlite/db/SupportSQLiteStatement.html">SupportSQLiteStatement</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#162913197%2FFunctions%2F-1289681295"><span class="token function">compileStatement</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/sqlite/db/SupportSQLiteStatement.html">SupportSQLiteStatement</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="178130989%2FFunctions%2F-1289681295" anchor-label="getAutoMigrations" id="178130989%2FFunctions%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
+<a data-name="1420085996%2FFunctions%2F-1289681295" anchor-label="createAutoMigrations" id="1420085996%2FFunctions%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
           <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#178130989%2FFunctions%2F-1289681295"><span>get</span><wbr><span>Auto</span><wbr><span><span>Migrations</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="178130989%2FFunctions%2F-1289681295"></span>
+                  <div><a href="index.html#1420085996%2FFunctions%2F-1289681295"><span>create</span><wbr><span>Auto</span><wbr><span><span>Migrations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1420085996%2FFunctions%2F-1289681295"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#178130989%2FFunctions%2F-1289681295"><span class="token function">getAutoMigrations</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">autoMigrationSpecs<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/Migration.html">Migration</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1420085996%2FFunctions%2F-1289681295"><span class="token function">createAutoMigrations</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">autoMigrationSpecs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/Migration.html">Migration</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="1623281881%2FFunctions%2F-1289681295" anchor-label="getRequiredAutoMigrationSpecs" id="1623281881%2FFunctions%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
+<a data-name="-1278223499%2FFunctions%2F-1289681295" anchor-label="getCoroutineScope" id="-1278223499%2FFunctions%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
           <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1623281881%2FFunctions%2F-1289681295"><span>get</span><wbr><span>Required</span><wbr><span>Auto</span><wbr><span>Migration</span><wbr><span><span>Specs</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1623281881%2FFunctions%2F-1289681295"></span>
+                  <div><a href="index.html#-1278223499%2FFunctions%2F-1289681295"><span>get</span><wbr><span>Coroutine</span><wbr><span><span>Scope</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1278223499%2FFunctions%2F-1289681295"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1623281881%2FFunctions%2F-1289681295"><span class="token function">getRequiredAutoMigrationSpecs</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html#-1278223499%2FFunctions%2F-1289681295"><span class="token function">getCoroutineScope</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-194849133%2FFunctions%2F-1289681295" anchor-label="getTypeConverter" id="-194849133%2FFunctions%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
+<a data-name="-779149974%2FFunctions%2F-1289681295" anchor-label="getQueryContext" id="-779149974%2FFunctions%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
           <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-194849133%2FFunctions%2F-1289681295"><span>get</span><wbr><span>Type</span><wbr><span><span>Converter</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-194849133%2FFunctions%2F-1289681295"></span>
+                  <div><a href="index.html#-779149974%2FFunctions%2F-1289681295"><span>get</span><wbr><span>Query</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-779149974%2FFunctions%2F-1289681295"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="index.html#-194849133%2FFunctions%2F-1289681295">T</a><span class="token operator">&gt; </span><a href="index.html#-194849133%2FFunctions%2F-1289681295"><span class="token function">getTypeConverter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">klass<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><a href="index.html#-194849133%2FFunctions%2F-1289681295">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html#-194849133%2FFunctions%2F-1289681295">T</a><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html#-779149974%2FFunctions%2F-1289681295"><span class="token function">getQueryContext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.coroutines/-coroutine-context/index.html">CoroutineContext</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-432702106%2FFunctions%2F-1289681295" anchor-label="getRequiredAutoMigrationSpecClasses" id="-432702106%2FFunctions%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-432702106%2FFunctions%2F-1289681295"><span>get</span><wbr><span>Required</span><wbr><span>Auto</span><wbr><span>Migration</span><wbr><span>Spec</span><wbr><span><span>Classes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-432702106%2FFunctions%2F-1289681295"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-432702106%2FFunctions%2F-1289681295"><span class="token function">getRequiredAutoMigrationSpecClasses</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2031305957%2FFunctions%2F-1289681295" anchor-label="getTypeConverter" id="2031305957%2FFunctions%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2031305957%2FFunctions%2F-1289681295"><span>get</span><wbr><span>Type</span><wbr><span><span>Converter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2031305957%2FFunctions%2F-1289681295"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="index.html#2031305957%2FFunctions%2F-1289681295">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="index.html#2031305957%2FFunctions%2F-1289681295"><span class="token function">getTypeConverter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">klass<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><a href="index.html#2031305957%2FFunctions%2F-1289681295">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html#2031305957%2FFunctions%2F-1289681295">T</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="908529465%2FFunctions%2F-1289681295" anchor-label="inCompatibilityMode" id="908529465%2FFunctions%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#908529465%2FFunctions%2F-1289681295"><span>in</span><wbr><span>Compatibility</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="908529465%2FFunctions%2F-1289681295"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html#908529465%2FFunctions%2F-1289681295"><span class="token function">inCompatibilityMode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -391,7 +468,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1889647314%2FFunctions%2F-1289681295"><span class="token function">inTransaction</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1889647314%2FFunctions%2F-1289681295"><span class="token function">inTransaction</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -421,7 +498,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#604106995%2FFunctions%2F-1289681295"><span class="token function">query</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">query<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/sqlite/db/SupportSQLiteQuery.html">SupportSQLiteQuery</a><span class="token punctuation">, </span></span><span class="parameter ">signal<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/os/CancellationSignal.html">CancellationSignal</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/database/Cursor.html">Cursor</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1376474873%2FFunctions%2F-1289681295"><span class="token function">query</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">query<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">args<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/database/Cursor.html">Cursor</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#604106995%2FFunctions%2F-1289681295"><span class="token function">query</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">query<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/sqlite/db/SupportSQLiteQuery.html">SupportSQLiteQuery</a><span class="token punctuation">, </span></span><span class="parameter ">signal<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/os/CancellationSignal.html">CancellationSignal</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/database/Cursor.html">Cursor</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1376474873%2FFunctions%2F-1289681295"><span class="token function">query</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">query<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">args<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/database/Cursor.html">Cursor</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -441,17 +518,38 @@
               </div>
             </div>
           </div>
+<a data-name="470906822%2FFunctions%2F-1289681295" anchor-label="useConnection" id="470906822%2FFunctions%2F-1289681295" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":network-awareness:db:dokkaHtmlPartial/release" data-filterable-set=":network-awareness:db:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#470906822%2FFunctions%2F-1289681295"><span>use</span><wbr><span><span>Connection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="470906822%2FFunctions%2F-1289681295"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="index.html#470906822%2FFunctions%2F-1289681295">R</a><span class="token operator">&gt; </span><a href="index.html#470906822%2FFunctions%2F-1289681295"><span class="token function">useConnection</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">isReadOnly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><a href="https://developer.android.com/reference/kotlin/androidx/room/Transactor.html">Transactor</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="index.html#470906822%2FFunctions%2F-1289681295">R</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html#470906822%2FFunctions%2F-1289681295">R</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-      <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
-      </div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-

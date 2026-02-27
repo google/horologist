@@ -25,37 +25,69 @@
 <link href="../../../styles/prism.css" rel="Stylesheet">
 <link href="../../../styles/logo-styles.css" rel="Stylesheet">
 <link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
 <script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
 <script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script>
 <script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
 <body>
     <div class="root">
-<nav class="navigation" id="navigation-wrapper">
-    <div class="navigation--inner">
-        <div class="navigation-title">
-            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
-            <div class="library-name">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
 <a class="library-name--link" href="../../../index.html">
-                            horologist
-                    </a>            </div>
-            <div class="library-version">
+                    horologist
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":compose-layout:dokkaHtmlPartial/release">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":compose-layout:dokkaHtmlPartial/release" data-filter=":compose-layout:dokkaHtmlPartial/release">
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
         </div>
-        <div class="filter-section" id="filter-section">
-                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":compose-layout:dokkaHtmlPartial/release">androidJvm</button>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
         </div>
-    </div>
-    <div class="navigation-controls">
-        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
-        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
-    </div>
-</nav>
+    </nav>
         <div id="container">
             <div class="sidebar" id="leftColumn">
-                <div class="sidebar--inner" id="sideMenu"></div>
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    horologist
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
             </div>
             <div id="main">
 <div class="main-content" data-page-type="member" id="content" pageids="compose-layout::com.google.android.horologist.compose.layout/ScalingLazyColumnDefaults/scalingLazyColumnDefaults/#com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode#kotlin.Int#kotlin.Int#androidx.compose.foundation.layout.Arrangement.Vertical#androidx.compose.ui.Alignment.Horizontal#androidx.compose.foundation.layout.PaddingValues#androidx.wear.compose.foundation.lazy.AutoCenteringParams?#androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType#kotlin.Boolean#kotlin.Boolean#kotlin.Boolean/PointingToDeclaration//-1355565138">
@@ -63,20 +95,26 @@
   <div class="cover ">
     <h1 class="cover"><span>scaling</span><wbr><span>Lazy</span><wbr><span>Column</span><wbr><span><span>Defaults</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scaling-lazy-column-defaults.html"><span class="token function">scalingLazyColumnDefaults</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rotaryMode<span class="token operator">: </span><a href="../-scaling-lazy-column-state/-rotary-mode/index.html">ScalingLazyColumnState.RotaryMode</a><span class="token operator"> = </span>RotaryMode.Scroll<span class="token punctuation">, </span></span><span class="parameter ">initialCenterIndex<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1</span><span class="token punctuation">, </span></span><span class="parameter ">initialCenterOffset<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">verticalArrangement<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/Arrangement.Vertical.html">Arrangement.Vertical</a><span class="token operator"> = </span>Arrangement.spacedBy(
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":compose-layout:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">fun </span><a href="scaling-lazy-column-defaults.html"><span class="token function">scalingLazyColumnDefaults</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">rotaryMode<span class="token operator">: </span><a href="../-scaling-lazy-column-state/-rotary-mode/index.html">ScalingLazyColumnState.RotaryMode</a><span class="token operator"> = </span>RotaryMode.Scroll<span class="token punctuation">, </span></span><span class="parameter ">initialCenterIndex<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">1</span><span class="token punctuation">, </span></span><span class="parameter ">initialCenterOffset<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter ">verticalArrangement<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/Arrangement.Vertical.html">Arrangement.Vertical</a><span class="token operator"> = </span>Arrangement.spacedBy(
                 space = 4.dp,
                 alignment = Alignment.Top,
             )<span class="token punctuation">, </span></span><span class="parameter ">horizontalAlignment<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Alignment.Horizontal.html">Alignment.Horizontal</a><span class="token operator"> = </span>Alignment.CenterHorizontally<span class="token punctuation">, </span></span><span class="parameter ">contentPadding<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues.html">PaddingValues</a><span class="token operator"> = </span>PaddingValues(horizontal = 10.dp)<span class="token punctuation">, </span></span><span class="parameter ">autoCentering<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/AutoCenteringParams.html">AutoCenteringParams</a><span class="token operator">?</span><span class="token operator"> = </span>AutoCenteringParams(
             initialCenterIndex,
             initialCenterOffset,
-        )<span class="token punctuation">, </span></span><span class="parameter ">anchorType<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListAnchorType.html">ScalingLazyListAnchorType</a><span class="token operator"> = </span>ScalingLazyListAnchorType.ItemCenter<span class="token punctuation">, </span></span><span class="parameter ">hapticsEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">reverseLayout<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">userScrollEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-scaling-lazy-column-state/-factory/index.html">ScalingLazyColumnState.Factory</a></div><p class="paragraph">Layout the item <a href="scaling-lazy-column-defaults.html">initialCenterIndex</a> at <a href="scaling-lazy-column-defaults.html">initialCenterOffset</a> from the center of the screen.</p></div></div>
+        )<span class="token punctuation">, </span></span><span class="parameter ">anchorType<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/compose/foundation/lazy/ScalingLazyListAnchorType.html">ScalingLazyListAnchorType</a><span class="token operator"> = </span>ScalingLazyListAnchorType.ItemCenter<span class="token punctuation">, </span></span><span class="parameter ">hapticsEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">reverseLayout<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">userScrollEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-scaling-lazy-column-state/-factory/index.html">ScalingLazyColumnState.Factory</a></div><p class="paragraph">Layout the item <a href="scaling-lazy-column-defaults.html">initialCenterIndex</a> at <a href="scaling-lazy-column-defaults.html">initialCenterOffset</a> from the center of the screen.</p></div></div>
 </div>
-      <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
-      </div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
             </div>
         </div>
     </div>
 </body>
 </html>
-

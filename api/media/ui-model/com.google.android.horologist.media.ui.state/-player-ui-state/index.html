@@ -1,0 +1,401 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>PlayerUiState</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../index.html">
+                    horologist
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":media:ui-model:dokkaHtmlPartial/release">androidJvm</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":media:ui-model:dokkaHtmlPartial/release" data-filter=":media:ui-model:dokkaHtmlPartial/release">
+                                <span class="checkbox--icon"></span>
+                                androidJvm
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    horologist
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="media-ui-model::com.google.android.horologist.media.ui.state/PlayerUiState///PointingToDeclaration//2097652045">
+  <div class="breadcrumbs"><a href="../../index.html">media-ui-model</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.media.ui.state</a><span class="delimiter">/</span><span class="current">PlayerUiState</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Player</span><wbr><span>Ui</span><wbr><span><span>State</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">PlayerUiState</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>playEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>pauseEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seekBackEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seekForwardEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seekInCurrentMediaItemEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seekToPreviousEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seekToNextEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>shuffleEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>shuffleOn<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>playPauseEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>playing<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>media<span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.state.model/-media-ui-model/index.html">MediaUiModel</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>trackPositionUiModel<span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.state.model/-track-position-ui-model/index.html">TrackPositionUiModel</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seekBackButtonIncrement<span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.components.controls/-seek-button-increment/index.html">SeekButtonIncrement</a><span class="token operator"> = </span>SeekButtonIncrement.Unknown<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>seekForwardButtonIncrement<span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.components.controls/-seek-button-increment/index.html">SeekButtonIncrement</a><span class="token operator"> = </span>SeekButtonIncrement.Unknown<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>connected<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div><p class="paragraph">Represent the state of the Media UI components.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>play</span><wbr><span><span>Enabled</span></span></u></div></span></div><div><div class="title"><p class="paragraph">whether PlayButton is enabled</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>pause</span><wbr><span><span>Enabled</span></span></u></div></span></div><div><div class="title"><p class="paragraph">whether PauseButton is enabled</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>seek</span><wbr><span>Back</span><wbr><span><span>Enabled</span></span></u></div></span></div><div><div class="title"><p class="paragraph">whether SeekBackButton button is enabled</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>seek</span><wbr><span>Forward</span><wbr><span><span>Enabled</span></span></u></div></span></div><div><div class="title"><p class="paragraph">whether SeekForwardButton button is enabled</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>seek</span><wbr><span>To</span><wbr><span>Previous</span><wbr><span><span>Enabled</span></span></u></div></span></div><div><div class="title"><p class="paragraph">whether SeekToPreviousButton is enabled</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>seek</span><wbr><span>To</span><wbr><span>Next</span><wbr><span><span>Enabled</span></span></u></div></span></div><div><div class="title"><p class="paragraph">whether SeekToNextButton is enabled</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>shuffle</span><wbr><span><span>Enabled</span></span></u></div></span></div><div><div class="title"><p class="paragraph">whether ShuffleToggleButton is enabled</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>shuffle</span><wbr><span><span>On</span></span></u></div></span></div><div><div class="title"><p class="paragraph">whether ShuffleToggleButton should display a shuffle on icon</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>play</span><wbr><span>Pause</span><wbr><span><span>Enabled</span></span></u></div></span></div><div><div class="title"><p class="paragraph">whether PlayPauseButton is enabled</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>playing</span></span></u></div></span></div><div><div class="title"><p class="paragraph">whether PlayPauseButton should display the play or pause button</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>media</span></span></u></div></span></div><div><div class="title"><p class="paragraph">current <a href="../../com.google.android.horologist.media.ui.state.model/-media-ui-model/index.html">MediaUiModel</a></p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>seek</span><wbr><span>Back</span><wbr><span>Button</span><wbr><span><span>Increment</span></span></u></div></span></div><div><div class="title"><p class="paragraph">increment when seeking back.</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>seek</span><wbr><span>Forward</span><wbr><span>Button</span><wbr><span><span>Increment</span></span></u></div></span></div><div><div class="title"><p class="paragraph">increment when seeking forward.</p></div></div></div></div><div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>connected</span></span></u></div></span></div><div><div class="title"><p class="paragraph">is the player screen connected.</p></div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-951367557%2FConstructors%2F2097652045" anchor-label="PlayerUiState" id="-951367557%2FConstructors%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-player-ui-state.html"><span>Player</span><wbr><span>Ui</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-951367557%2FConstructors%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">playEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">pauseEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">seekBackEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">seekForwardEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">seekInCurrentMediaItemEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">seekToPreviousEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">seekToNextEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">shuffleEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">shuffleOn<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">playPauseEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">playing<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">media<span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.state.model/-media-ui-model/index.html">MediaUiModel</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">trackPositionUiModel<span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.state.model/-track-position-ui-model/index.html">TrackPositionUiModel</a><span class="token punctuation">, </span></span><span class="parameter ">seekBackButtonIncrement<span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.components.controls/-seek-button-increment/index.html">SeekButtonIncrement</a><span class="token operator"> = </span>SeekButtonIncrement.Unknown<span class="token punctuation">, </span></span><span class="parameter ">seekForwardButtonIncrement<span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.components.controls/-seek-button-increment/index.html">SeekButtonIncrement</a><span class="token operator"> = </span>SeekButtonIncrement.Unknown<span class="token punctuation">, </span></span><span class="parameter ">connected<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1671330680%2FClasslikes%2F2097652045" anchor-label="Companion" id="-1671330680%2FClasslikes%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1671330680%2FClasslikes%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="2065042520%2FProperties%2F2097652045" anchor-label="connected" id="2065042520%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="connected.html"><span><span>connected</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2065042520%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="connected.html">connected</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1309314525%2FProperties%2F2097652045" anchor-label="media" id="1309314525%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="media.html"><span><span>media</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1309314525%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="media.html">media</a><span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.state.model/-media-ui-model/index.html">MediaUiModel</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-761006162%2FProperties%2F2097652045" anchor-label="pauseEnabled" id="-761006162%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pause-enabled.html"><span>pause</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-761006162%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="pause-enabled.html">pauseEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1494389108%2FProperties%2F2097652045" anchor-label="playEnabled" id="1494389108%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="play-enabled.html"><span>play</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1494389108%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="play-enabled.html">playEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1330846765%2FProperties%2F2097652045" anchor-label="playing" id="-1330846765%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="playing.html"><span><span>playing</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1330846765%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="playing.html">playing</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-420065574%2FProperties%2F2097652045" anchor-label="playPauseEnabled" id="-420065574%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="play-pause-enabled.html"><span>play</span><wbr><span>Pause</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-420065574%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="play-pause-enabled.html">playPauseEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-988350685%2FProperties%2F2097652045" anchor-label="seekBackButtonIncrement" id="-988350685%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seek-back-button-increment.html"><span>seek</span><wbr><span>Back</span><wbr><span>Button</span><wbr><span><span>Increment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-988350685%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="seek-back-button-increment.html">seekBackButtonIncrement</a><span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.components.controls/-seek-button-increment/index.html">SeekButtonIncrement</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1155564479%2FProperties%2F2097652045" anchor-label="seekBackEnabled" id="1155564479%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seek-back-enabled.html"><span>seek</span><wbr><span>Back</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1155564479%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="seek-back-enabled.html">seekBackEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-778085559%2FProperties%2F2097652045" anchor-label="seekForwardButtonIncrement" id="-778085559%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seek-forward-button-increment.html"><span>seek</span><wbr><span>Forward</span><wbr><span>Button</span><wbr><span><span>Increment</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-778085559%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="seek-forward-button-increment.html">seekForwardButtonIncrement</a><span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.components.controls/-seek-button-increment/index.html">SeekButtonIncrement</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1161138715%2FProperties%2F2097652045" anchor-label="seekForwardEnabled" id="-1161138715%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seek-forward-enabled.html"><span>seek</span><wbr><span>Forward</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1161138715%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="seek-forward-enabled.html">seekForwardEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="851614907%2FProperties%2F2097652045" anchor-label="seekInCurrentMediaItemEnabled" id="851614907%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seek-in-current-media-item-enabled.html"><span>seek</span><wbr><span>In</span><wbr><span>Current</span><wbr><span>Media</span><wbr><span>Item</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="851614907%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="seek-in-current-media-item-enabled.html">seekInCurrentMediaItemEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="770909158%2FProperties%2F2097652045" anchor-label="seekToNextEnabled" id="770909158%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seek-to-next-enabled.html"><span>seek</span><wbr><span>To</span><wbr><span>Next</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="770909158%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="seek-to-next-enabled.html">seekToNextEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="585814122%2FProperties%2F2097652045" anchor-label="seekToPreviousEnabled" id="585814122%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="seek-to-previous-enabled.html"><span>seek</span><wbr><span>To</span><wbr><span>Previous</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="585814122%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="seek-to-previous-enabled.html">seekToPreviousEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1497907791%2FProperties%2F2097652045" anchor-label="shuffleEnabled" id="-1497907791%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="shuffle-enabled.html"><span>shuffle</span><wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1497907791%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="shuffle-enabled.html">shuffleEnabled</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1811528585%2FProperties%2F2097652045" anchor-label="shuffleOn" id="1811528585%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="shuffle-on.html"><span>shuffle</span><wbr><span><span>On</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1811528585%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="shuffle-on.html">shuffleOn</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1944701416%2FProperties%2F2097652045" anchor-label="trackPositionUiModel" id="-1944701416%2FProperties%2F2097652045" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release"></a>
+          <div class="table-row" data-filterable-current=":media:ui-model:dokkaHtmlPartial/release" data-filterable-set=":media:ui-model:dokkaHtmlPartial/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="track-position-ui-model.html"><span>track</span><wbr><span>Position</span><wbr><span>Ui</span><wbr><span><span>Model</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1944701416%2FProperties%2F2097652045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-model:dokkaHtmlPartial/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="track-position-ui-model.html">trackPositionUiModel</a><span class="token operator">: </span><a href="../../com.google.android.horologist.media.ui.state.model/-track-position-ui-model/index.html">TrackPositionUiModel</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

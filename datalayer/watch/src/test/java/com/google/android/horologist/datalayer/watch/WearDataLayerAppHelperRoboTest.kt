@@ -37,7 +37,6 @@ import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.SurfacesInfoSerializer
 import com.google.common.truth.Truth.assertThat
 import com.google.common.util.concurrent.ListenableFuture
-import java.util.concurrent.Executor
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -53,6 +52,7 @@ import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.annotation.internal.DoNotInstrument
 import org.robolectric.internal.bytecode.InstrumentationConfiguration
+import java.util.concurrent.Executor
 
 @RunWith(TilesTestingTestRunner::class)
 @DoNotInstrument
@@ -97,7 +97,7 @@ class WearDataLayerAppHelperRoboTest {
         clientUnderTest.sendOnTileAddedEvent()
         // Manually update shadow state to reflect the added tile
         ShadowTileService.activeTiles = listOf(
-            ActiveTileIdentifier(ComponentName(context, FakeTileService::class.java), 0)
+            ActiveTileIdentifier(ComponentName(context, FakeTileService::class.java), 0),
         )
         helper.updateInstalledTiles()
 

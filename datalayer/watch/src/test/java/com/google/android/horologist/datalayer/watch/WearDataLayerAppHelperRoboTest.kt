@@ -17,6 +17,8 @@
 package com.google.android.horologist.datalayer.watch
 
 import android.app.Application
+import android.content.ComponentName
+import android.content.Context
 import android.os.Looper
 import androidx.concurrent.futures.ResolvableFuture
 import androidx.datastore.core.DataStore
@@ -24,6 +26,7 @@ import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
 import androidx.test.core.app.ApplicationProvider
 import androidx.wear.protolayout.ResourceBuilders
+import androidx.wear.tiles.ActiveTileIdentifier
 import androidx.wear.tiles.EventBuilders
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders
@@ -34,22 +37,26 @@ import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.SurfacesInfoSerializer
 import com.google.common.truth.Truth.assertThat
 import com.google.common.util.concurrent.ListenableFuture
+import java.util.concurrent.Executor
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.model.FrameworkMethod
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.android.util.concurrent.InlineExecutorService
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.Implementation
+import org.robolectric.annotation.Implements
 import org.robolectric.annotation.internal.DoNotInstrument
 import org.robolectric.internal.bytecode.InstrumentationConfiguration
 
 @RunWith(TilesTestingTestRunner::class)
 @DoNotInstrument
+@Config(shadows = [ShadowTileService::class])
 class WearDataLayerAppHelperRoboTest {
 
     private val fakeTileService = FakeTileService()
@@ -60,9 +67,9 @@ class WearDataLayerAppHelperRoboTest {
     fun setUp() {
         executor = InlineExecutorService()
         clientUnderTest = TestTileClient(fakeTileService, executor)
+        ShadowTileService.activeTiles = emptyList()
     }
 
-    @Ignore("This won't work until https://issuetracker.google.com/issues/374901735 is fixed")
     @Test
     fun testTilesWithUpdate() = runTest {
         val context = ApplicationProvider.getApplicationContext<Application>()
@@ -88,6 +95,10 @@ class WearDataLayerAppHelperRoboTest {
         assertThat(infoInitial.tilesList).isEmpty()
 
         clientUnderTest.sendOnTileAddedEvent()
+        // Manually update shadow state to reflect the added tile
+        ShadowTileService.activeTiles = listOf(
+            ActiveTileIdentifier(ComponentName(context, FakeTileService::class.java), 0)
+        )
         helper.updateInstalledTiles()
 
         val infoUpdated = testDataStore.data.first()
@@ -97,13 +108,29 @@ class WearDataLayerAppHelperRoboTest {
         )
 
         clientUnderTest.sendOnTileRemovedEvent()
-
-        helper.updateInstalledTiles()
+        // Manually update shadow state to reflect the removed tile
+        ShadowTileService.activeTiles = emptyList()
         shadowOf(Looper.getMainLooper()).idle()
+        helper.updateInstalledTiles()
 
         val infoReverted = testDataStore.data.first()
         assertThat(infoReverted.tilesList).isEmpty()
         coroutineContext.cancelChildren()
+    }
+}
+
+@Implements(TileService::class)
+class ShadowTileService {
+    companion object {
+        var activeTiles: List<ActiveTileIdentifier> = emptyList()
+
+        @JvmStatic
+        @Implementation
+        fun getActiveTilesAsync(context: Context, executor: Executor): ListenableFuture<List<ActiveTileIdentifier>> {
+            val future = ResolvableFuture.create<List<ActiveTileIdentifier>>()
+            future.set(activeTiles)
+            return future
+        }
     }
 }
 

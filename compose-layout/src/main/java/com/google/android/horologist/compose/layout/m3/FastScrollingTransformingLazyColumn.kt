@@ -317,7 +317,7 @@ public fun FastScrollingTransformingLazyColumn(
             sectionIndicatorTopPadding = sectionIndicatorTopPadding,
         )
 
-        LaunchedEffect(key1 = headers) {
+        LaunchedEffect(key1 = Unit) {
             snapshotFlow {
                 Pair(state.layoutInfo.visibleItems.firstOrNull()?.index ?: 0, headers.toList())
             }

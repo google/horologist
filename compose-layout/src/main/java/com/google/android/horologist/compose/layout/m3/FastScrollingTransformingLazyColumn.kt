@@ -91,7 +91,7 @@ import kotlin.math.abs
  *   index. This is used by the FastScrollingTransformingLazyColumn to display a header over the
  *   given information and snap to the speicified header.
  * @property modifier The modifier(s) to apply to the list.
- * @property sectionIndictatorTopPadding The top padding to apply to the section indicator. This
+ * @property sectionIndicatorTopPadding The top padding to apply to the section indicator. This
  *   should only be needed to align with the header scrolled to when the scrollToOffset is NOT 0.
  * @property content The content within the list. This can be used the exact same way as the
  *   TransformingLazyColumn with content, though do note that any items that you do not want to
@@ -104,7 +104,7 @@ public fun FastScrollingTransformingLazyColumn(
     state: TransformingLazyColumnState,
     headers: SnapshotStateList<HeaderInfo>,
     modifier: Modifier = Modifier,
-    sectionIndictatorTopPadding: Dp = 0.dp,
+    sectionIndicatorTopPadding: Dp = 0.dp,
     contentPadding: PaddingValues = PaddingValues(),
     content: TransformingLazyColumnScope.() -> Unit,
 ) {
@@ -115,9 +115,7 @@ public fun FastScrollingTransformingLazyColumn(
 
     val context = LocalContext.current
     // The minimum fling velocity to trigger a skim event.
-    val flingVelocityThreshold = remember {
-        7 * ViewConfiguration.get(context).scaledMinimumFlingVelocity
-    }
+    val flingVelocityThreshold = 7 * ViewConfiguration.get(context).scaledMinimumFlingVelocity
     val coroutineScope = rememberCoroutineScope()
     var fadingOutJob: Job? by remember { mutableStateOf(null) }
     var animationJob: Job? by remember { mutableStateOf(null) }
@@ -126,12 +124,12 @@ public fun FastScrollingTransformingLazyColumn(
     // section indicator top padding, with whatever extra top padding is passed in from the
     // composable.
     val scrollToOffset =
-        remember(density, sectionIndictatorTopPadding) {
+        remember(density, sectionIndicatorTopPadding) {
             with(density) {
                 (
                     Constants.REMAINING_LETTER_HEIGHT +
                         Constants.SECTION_INDICATOR_TOP_PADDING +
-                        sectionIndictatorTopPadding
+                        sectionIndicatorTopPadding
                     )
                     .roundToPx()
             }
@@ -316,7 +314,7 @@ public fun FastScrollingTransformingLazyColumn(
             isSkimmingProvider = { isSkimming },
             indicatorStateProvider = { indicatorState },
             headerProvider = { headers.getOrNull(currentSectionIndex) },
-            sectionIndictatorTopPadding = sectionIndictatorTopPadding,
+            sectionIndicatorTopPadding = sectionIndicatorTopPadding,
         )
 
         LaunchedEffect(key1 = headers) {
@@ -347,7 +345,7 @@ private fun SkimIndicator(
     isSkimmingProvider: () -> Boolean,
     indicatorStateProvider: () -> IndicatorState,
     headerProvider: () -> HeaderInfo?,
-    sectionIndictatorTopPadding: Dp,
+    sectionIndicatorTopPadding: Dp,
 ) {
     val isSkimming = isSkimmingProvider()
     val indicatorState = indicatorStateProvider()
@@ -375,7 +373,7 @@ private fun SkimIndicator(
         }
 
     AnimatedVisibility(visible = isSkimming, enter = fadeIn(), exit = fadeOut()) {
-        SectionIndicator({ indicatorWidthScale }, headerProvider, sectionIndictatorTopPadding)
+        SectionIndicator({ indicatorWidthScale }, headerProvider, sectionIndicatorTopPadding)
     }
 }
 
@@ -384,7 +382,7 @@ private fun SkimIndicator(
 private fun SectionIndicator(
     indicatorWidthScale: () -> Float,
     headerProvider: () -> HeaderInfo?,
-    sectionIndictatorTopPadding: Dp,
+    sectionIndicatorTopPadding: Dp,
 ) {
     val currentSectionHeader = headerProvider()
     val shape = remember { RoundedCornerShape(24.dp) }
@@ -409,7 +407,7 @@ private fun SectionIndicator(
 
     Box(
         contentAlignment = Alignment.TopCenter,
-        modifier = Modifier.fillMaxWidth().padding(top = sectionIndictatorTopPadding),
+        modifier = Modifier.fillMaxWidth().padding(top = sectionIndicatorTopPadding),
     ) {
         Box(
             modifier =

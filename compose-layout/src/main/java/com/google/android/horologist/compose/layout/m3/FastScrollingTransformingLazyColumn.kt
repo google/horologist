@@ -318,9 +318,13 @@ public fun FastScrollingTransformingLazyColumn(
         )
 
         LaunchedEffect(key1 = Unit) {
-            snapshotFlow {
-                Pair(state.layoutInfo.visibleItems.firstOrNull()?.index ?: 0, headers.toList())
-            }
+            val visibleItemFlow = snapshotFlow { state.layoutInfo.visibleItems.firstOrNull()?.index ?: 0 }
+            val headersFlow = snapshotFlow { headers.toList() }
+
+            visibleItemFlow
+                .combine(headersFlow) { visibleItemIndex, currentHeaders ->
+                Pair(visibleItemIndex, currentHeaders)
+                }
                 .collect { (visibleItemIndex, currentHeaders) ->
                     if (!isSkimming && currentHeaders.isNotEmpty()) {
                         val searchResult = currentHeaders.binarySearchBy(visibleItemIndex) { it.index }

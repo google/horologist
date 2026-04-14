@@ -318,27 +318,27 @@ public fun FastScrollingTransformingLazyColumn(
         )
 
         LaunchedEffect(key1 = headers) {
-        snapshotFlow {
-            Pair(state.layoutInfo.visibleItems.firstOrNull()?.index ?: 0, headers.toList())
+            snapshotFlow {
+                Pair(state.layoutInfo.visibleItems.firstOrNull()?.index ?: 0, headers.toList())
+            }
+                .collect { (visibleItemIndex, currentHeaders) ->
+                    if (!isSkimming && currentHeaders.isNotEmpty()) {
+                        val searchResult = currentHeaders.binarySearchBy(visibleItemIndex) { it.index }
+                        val sectionIndex =
+                            if (searchResult >= 0) {
+                                // Exact match found
+                                searchResult
+                            } else {
+                                // No exact match, visibleItemIndex is between header indices.
+                                // binarySearchBy returns (-insertion point - 1).
+                                // The section index is the item before the insertion point.
+                                val insertionPoint = -searchResult - 1
+                                (insertionPoint - 1).coerceIn(0, currentHeaders.size - 1)
+                            }
+                        setCurrentSectionIndex(sectionIndex)
+                    }
+                }
         }
-        .collect { (visibleItemIndex, currentHeaders) ->
-          if (!isSkimming && currentHeaders.isNotEmpty()) {
-            val searchResult = currentHeaders.binarySearchBy(visibleItemIndex) { it.index }
-            val sectionIndex =
-              if (searchResult >= 0) {
-                // Exact match found
-                searchResult
-              } else {
-                // No exact match, visibleItemIndex is between header indices.
-                // binarySearchBy returns (-insertion point - 1).
-                // The section index is the item before the insertion point.
-                val insertionPoint = -searchResult - 1
-                (insertionPoint - 1).coerceIn(0, currentHeaders.size - 1)
-              }
-            setCurrentSectionIndex(sectionIndex)
-          }
-        }
-    }
     }
 }
 

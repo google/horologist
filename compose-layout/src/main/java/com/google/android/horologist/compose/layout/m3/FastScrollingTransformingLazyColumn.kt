@@ -108,7 +108,6 @@ public fun FastScrollingTransformingLazyColumn(
     contentPadding: PaddingValues = PaddingValues(),
     content: TransformingLazyColumnScope.() -> Unit,
 ) {
-    
     val haptics = LocalHapticFeedback.current
     val density = LocalDensity.current
     val screenHeight = LocalWindowInfo.current.containerSize.height

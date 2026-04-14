@@ -218,7 +218,7 @@ package com.google.android.horologist.compose.layout {
 package com.google.android.horologist.compose.layout.m3 {
 
   public final class FastScrollingTransformingLazyColumnKt {
-    method @androidx.compose.runtime.Composable public static void FastScrollingTransformingLazyColumn(androidx.wear.compose.foundation.lazy.TransformingLazyColumnState state, androidx.compose.runtime.snapshots.SnapshotStateList<com.google.android.horologist.compose.layout.m3.HeaderInfo> headers, optional androidx.compose.ui.Modifier modifier, optional float sectionIndictatorTopPadding, optional androidx.compose.foundation.layout.PaddingValues contentPadding, kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.TransformingLazyColumnScope,kotlin.Unit> content);
+    method @androidx.compose.runtime.Composable public static void FastScrollingTransformingLazyColumn(androidx.wear.compose.foundation.lazy.TransformingLazyColumnState state, androidx.compose.runtime.snapshots.SnapshotStateList<com.google.android.horologist.compose.layout.m3.HeaderInfo> headers, optional androidx.compose.ui.Modifier modifier, optional float sectionIndicatorTopPadding, optional androidx.compose.foundation.layout.PaddingValues contentPadding, kotlin.jvm.functions.Function1<? super androidx.wear.compose.foundation.lazy.TransformingLazyColumnScope,kotlin.Unit> content);
   }
 
   @androidx.compose.runtime.Immutable public final class HeaderInfo {

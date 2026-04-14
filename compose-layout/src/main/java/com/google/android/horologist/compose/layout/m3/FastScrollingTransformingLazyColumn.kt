@@ -323,7 +323,7 @@ public fun FastScrollingTransformingLazyColumn(
 
             visibleItemFlow
                 .combine(headersFlow) { visibleItemIndex, currentHeaders ->
-                Pair(visibleItemIndex, currentHeaders)
+                    Pair(visibleItemIndex, currentHeaders)
                 }
                 .collect { (visibleItemIndex, currentHeaders) ->
                     if (!isSkimming && currentHeaders.isNotEmpty()) {

@@ -77,6 +77,7 @@ import androidx.wear.compose.material3.Text
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import kotlin.math.abs

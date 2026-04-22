@@ -20,6 +20,7 @@ plugins {
     alias(libs.plugins.metalavaGradle)
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
+    id("ee.schimke.composeai.preview") version "0.7.5"
 }
 
 android {
@@ -62,6 +63,12 @@ android {
         disable += listOf("MissingTranslation", "ExtraTranslation")
     }
     namespace = "com.google.android.horologist.composables"
+}
+
+composePreview {
+    variant.set("debug")
+    sdkVersion.set(35)
+    enabled.set(true)
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

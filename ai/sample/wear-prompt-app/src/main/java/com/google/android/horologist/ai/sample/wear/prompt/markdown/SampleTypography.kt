@@ -34,6 +34,7 @@ fun sampleTypography(): DefaultMarkdownTypography {
     val link = MaterialTheme.typography.bodyMedium.copy(
         fontWeight = FontWeight.Bold,
         textDecoration = TextDecoration.Underline,
+        color = Color.Blue,
     )
     val text = MaterialTheme.typography.bodyMedium
     return DefaultMarkdownTypography(
@@ -44,15 +45,21 @@ fun sampleTypography(): DefaultMarkdownTypography {
         h5 = MaterialTheme.typography.displayMedium,
         h6 = MaterialTheme.typography.displaySmall,
         text = text,
-        code = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
+        code = MaterialTheme.typography.bodyMedium.copy(
+            fontFamily = FontFamily.Monospace,
+            color = LocalContentColor.current,
+        ),
         quote = MaterialTheme.typography.bodyMedium.plus(SpanStyle(fontStyle = FontStyle.Italic)),
         paragraph = MaterialTheme.typography.bodyLarge,
         ordered = MaterialTheme.typography.bodyLarge,
         bullet = MaterialTheme.typography.bodyLarge,
         list = MaterialTheme.typography.bodyLarge,
-        inlineCode = MaterialTheme.typography.bodyLarge.copy(fontFamily = FontFamily.Monospace),
+        inlineCode = MaterialTheme.typography.bodyLarge.copy(
+            fontFamily = FontFamily.Monospace,
+            color = LocalContentColor.current,
+        ),
         textLink = TextLinkStyles(style = link.toSpanStyle()),
-        table = text,
+        table = text.copy(color = Color.Unspecified),
     )
 }
 

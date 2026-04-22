@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,8 +36,9 @@ public class MessageClientChannel(
     override fun <RequestT, ResponseT> newCall(
         methodDescriptor: MethodDescriptor<RequestT, ResponseT>,
         callOptions: CallOptions,
-    ): ClientCall<RequestT, ResponseT> =
-        MessageClientCall(this, methodDescriptor, coroutineScope, wearDataLayerRegistry)
+    ): ClientCall<RequestT, ResponseT> {
+        return MessageClientCall(this, methodDescriptor, coroutineScope, wearDataLayerRegistry)
+    }
 
     // TODO something better than this for the authority
     override fun authority(): String = nodeId.toString()

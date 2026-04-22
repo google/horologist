@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,8 @@ package com.google.android.horologist.composables
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.onNodeWithContentDescription
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
-import java.time.LocalTime
 import org.junit.Test
+import java.time.LocalTime
 
 class TimePickerA11yTest : WearLegacyA11yTest() {
 

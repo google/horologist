@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,12 @@ import com.google.android.horologist.networks.request.HighBandwidthRequest
 import com.google.android.horologist.networks.request.NetworkLease
 import com.google.android.horologist.networks.request.NetworkReference
 import com.google.android.horologist.networks.request.NetworkRequester
-import java.time.Instant
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.time.Instant
 
-public class FakeNetworkRequester(private val networkRepository: FakeNetworkRepository) :
-    NetworkRequester {
+public class FakeNetworkRequester(
+    private val networkRepository: FakeNetworkRepository,
+) : NetworkRequester {
     public var supportedNetworks: List<NetworkType> = listOf(Cell, Wifi)
 
     override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {

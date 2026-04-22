@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,11 +33,12 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun imageLoader(@ApplicationContext application: Context): ImageLoader =
-        ImageLoader.Builder(application)
-            .components {
-                add(SvgDecoder.Factory())
-            }
-            .memoryCachePolicy(CachePolicy.ENABLED)
-            .build()
+    fun imageLoader(
+        @ApplicationContext application: Context,
+    ): ImageLoader = ImageLoader.Builder(application)
+        .components {
+            add(SvgDecoder.Factory())
+        }
+        .memoryCachePolicy(CachePolicy.ENABLED)
+        .build()
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,73 +23,72 @@ import com.google.android.horologist.data.apphelper.AppInstallationStatus
 import com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType
 import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class NodesActionViewModel
-@Inject
-constructor(
-    private val wearDataLayerAppHelper: WearDataLayerAppHelper,
-) : ViewModel() {
+    @Inject
+    constructor(
+        private val wearDataLayerAppHelper: WearDataLayerAppHelper,
+    ) : ViewModel() {
 
-    private var initializeCalled = false
+        private var initializeCalled = false
 
-    private val _uiState =
-        MutableStateFlow<NodesActionScreenState>(NodesActionScreenState.Idle)
-    public val uiState: StateFlow<NodesActionScreenState> = _uiState
+        private val _uiState =
+            MutableStateFlow<NodesActionScreenState>(NodesActionScreenState.Idle)
+        public val uiState: StateFlow<NodesActionScreenState> = _uiState
 
-    @MainThread
-    fun initialize() {
-        if (initializeCalled) return
-        initializeCalled = true
+        @MainThread
+        fun initialize() {
+            if (initializeCalled) return
+            initializeCalled = true
 
-        _uiState.value = NodesActionScreenState.Loading
+            _uiState.value = NodesActionScreenState.Loading
 
-        viewModelScope.launch {
-            if (!wearDataLayerAppHelper.isAvailable()) {
-                _uiState.value = NodesActionScreenState.ApiNotAvailable
-            } else {
+            viewModelScope.launch {
+                if (!wearDataLayerAppHelper.isAvailable()) {
+                    _uiState.value = NodesActionScreenState.ApiNotAvailable
+                } else {
+                    loadNodes()
+                }
+            }
+        }
+
+        fun onRefreshClick() {
+            _uiState.value = NodesActionScreenState.Loading
+
+            viewModelScope.launch {
                 loadNodes()
             }
         }
-    }
 
-    fun onRefreshClick() {
-        _uiState.value = NodesActionScreenState.Loading
-
-        viewModelScope.launch {
-            loadNodes()
-        }
-    }
-
-    private suspend fun loadNodes() {
-        _uiState.value = NodesActionScreenState.Loaded(
-            nodeList = wearDataLayerAppHelper.connectedNodes().map { node ->
-                val type = when (node.appInstallationStatus) {
-                    is AppInstallationStatus.Installed -> {
-                        val status = node.appInstallationStatus as AppInstallationStatus.Installed
-                        when (status.nodeType) {
-                            AppInstallationStatusNodeType.WATCH -> NodeTypeUiModel.WATCH
-                            AppInstallationStatusNodeType.PHONE -> NodeTypeUiModel.PHONE
+        private suspend fun loadNodes() {
+            _uiState.value = NodesActionScreenState.Loaded(
+                nodeList = wearDataLayerAppHelper.connectedNodes().map { node ->
+                    val type = when (node.appInstallationStatus) {
+                        is AppInstallationStatus.Installed -> {
+                            val status = node.appInstallationStatus as AppInstallationStatus.Installed
+                            when (status.nodeType) {
+                                AppInstallationStatusNodeType.WATCH -> NodeTypeUiModel.WATCH
+                                AppInstallationStatusNodeType.PHONE -> NodeTypeUiModel.PHONE
+                            }
                         }
+                        AppInstallationStatus.NotInstalled -> NodeTypeUiModel.UNKNOWN
                     }
 
-                    AppInstallationStatus.NotInstalled -> NodeTypeUiModel.UNKNOWN
-                }
-
-                NodeUiModel(
-                    id = node.id,
-                    name = node.displayName,
-                    appInstalled = node.appInstallationStatus is AppInstallationStatus.Installed,
-                    type = type,
-                )
-            },
-        )
+                    NodeUiModel(
+                        id = node.id,
+                        name = node.displayName,
+                        appInstalled = node.appInstallationStatus is AppInstallationStatus.Installed,
+                        type = type,
+                    )
+                },
+            )
+        }
     }
-}
 
 sealed class NodesActionScreenState {
     data object Idle : NodesActionScreenState()

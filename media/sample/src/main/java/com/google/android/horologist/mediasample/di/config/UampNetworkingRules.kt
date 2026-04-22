@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,12 +44,13 @@ object UampNetworkingRules : NetworkingRules {
     override fun checkValidRequest(
         requestType: RequestType,
         currentNetworkInfo: NetworkInfo,
-    ): RequestCheck =
-        if (requestType == DownloadRequest && currentNetworkInfo.type == NetworkType.BT) {
+    ): RequestCheck {
+        return if (requestType == DownloadRequest && currentNetworkInfo.type == NetworkType.BT) {
             Fail("Media Downloads not allowed over BT")
         } else {
             Allow
         }
+    }
 
     override fun getPreferredNetwork(
         networks: Networks,
@@ -83,19 +84,17 @@ object UampNetworkingRules : NetworkingRules {
                     it.networkInfo.type == NetworkType.Cell
                 }
             }
-
             LiveRequest -> {
                 // For live streaming, assume a low bandwidth and use power efficient BT
                 networks.networks.firstOrNull {
                     it.networkInfo.type == NetworkType.BT
                 }
             }
-
             else -> networks.networks.firstOrNull()
         }
     }
 }
 
-private fun List<NetworkStatus>.prefer(type: NetworkType): NetworkStatus? = firstOrNull {
-    it.networkInfo.type == type
-} ?: firstOrNull()
+private fun List<NetworkStatus>.prefer(type: NetworkType): NetworkStatus? {
+    return firstOrNull { it.networkInfo.type == type } ?: firstOrNull()
+}

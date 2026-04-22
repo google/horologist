@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,9 +51,7 @@ class ProgressStateHolderTest {
         val trackPositionUiModel = TrackPositionUiModel.Predictive(predictor)
         val timestamp = 600L
         val progressStateHolder = setContentWithResult({ timestamp }) {
-            ProgressStateHolder.fromTrackPositionUiModel(
-                trackPositionUiModel = trackPositionUiModel,
-            )
+            ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel = trackPositionUiModel)
         }
 
         // then
@@ -73,9 +71,7 @@ class ProgressStateHolderTest {
         val trackPositionUiModel = TrackPositionUiModel.Predictive(predictor)
         composeTestRule.mainClock.autoAdvance = false
         val progressStateHolder = setContentWithResult(timestampProvider) {
-            ProgressStateHolder.fromTrackPositionUiModel(
-                trackPositionUiModel = trackPositionUiModel,
-            )
+            ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel = trackPositionUiModel)
         }
 
         // then

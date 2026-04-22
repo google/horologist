@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,9 +44,7 @@ class StartRemoteSampleActivity : ComponentActivity() {
                 ) {
                     Box(modifier = Modifier.fillMaxSize()) {
                         Text(
-                            text = stringResource(
-                                id = R.string.app_helper_start_remote_activity_message,
-                            ),
+                            text = stringResource(id = R.string.app_helper_start_remote_activity_message),
                             modifier = Modifier.align(Alignment.Center),
                             textAlign = TextAlign.Center,
                         )

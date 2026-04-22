@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,14 +32,14 @@ import com.google.android.horologist.networks.okhttp.impl.StandardCall
 import com.google.android.horologist.networks.rules.Fail
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.NetworkRepository
-import java.util.concurrent.ConcurrentHashMap
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.Call
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 
 @ExperimentalHorologistApi
 public class NetworkSelectingCallFactory(
@@ -100,10 +100,7 @@ public class NetworkSelectingCallFactory(
             return FailedCall(this, request, reason)
         }
 
-        val requestCheck = networkingRulesEngine.checkValidRequest(
-            requestType,
-            networkStatus.networkInfo,
-        )
+        val requestCheck = networkingRulesEngine.checkValidRequest(requestType, networkStatus.networkInfo)
         if (requestCheck is Fail) {
             val reason = "Unable to use ${networkStatus.networkInfo.type} for $requestType"
             return FailedCall(this, request, reason)
@@ -119,8 +116,8 @@ public class NetworkSelectingCallFactory(
         return StandardCall(this, call)
     }
 
-    private fun clientForNetwork(networkStatus: NetworkStatus): Call.Factory =
-        clients.computeIfAbsent(networkStatus.id) {
+    private fun clientForNetwork(networkStatus: NetworkStatus): Call.Factory {
+        return clients.computeIfAbsent(networkStatus.id) {
             defaultClient.newBuilder()
                 .connectionPool(ConnectionPool())
                 .socketFactory(
@@ -130,4 +127,5 @@ public class NetworkSelectingCallFactory(
                 )
                 .build()
         }
+    }
 }

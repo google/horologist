@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +79,6 @@ public fun <T> PlaylistsScreen(
                 }
 
                 PlaylistsScreenState.Failed -> Section.State.Failed
-
                 PlaylistsScreenState.Loading -> Section.State.Loading
             }
 
@@ -87,9 +86,7 @@ public fun <T> PlaylistsScreen(
                 header {
                     ListHeader(
                         modifier = Modifier.padding(bottom = 12.dp),
-                    ) {
-                        Text(text = stringResource(id = R.string.horologist_browse_playlist_title))
-                    }
+                    ) { Text(text = stringResource(id = R.string.horologist_browse_playlist_title)) }
                 }
 
                 loaded { playlistContent(it) }
@@ -123,10 +120,7 @@ public fun PlaylistsScreen(
             onClick = { onPlaylistItemClick(playlist) },
             icon = {
                 Icon(
-                    painter = CoilPaintable(
-                        playlist.artworkUri,
-                        playlistItemArtworkPlaceholder,
-                    ).rememberPainter(),
+                    painter = CoilPaintable(playlist.artworkUri, playlistItemArtworkPlaceholder).rememberPainter(),
                     contentDescription = null,
                 )
             },
@@ -148,7 +142,9 @@ public sealed class PlaylistsScreenState<out T> {
 
     public object Loading : PlaylistsScreenState<Nothing>()
 
-    public data class Loaded<T>(val playlistList: List<T>) : PlaylistsScreenState<T>()
+    public data class Loaded<T>(
+        val playlistList: List<T>,
+    ) : PlaylistsScreenState<T>()
 
     public object Failed : PlaylistsScreenState<Nothing>()
 }

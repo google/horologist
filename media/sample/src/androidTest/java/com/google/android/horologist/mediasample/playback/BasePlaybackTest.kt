@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,10 @@ abstract class BasePlaybackTest : BaseContainerTest() {
 
     fun isEmulator(): Boolean = Build.PRODUCT.startsWith("sdk_gwear")
 
-    suspend fun browser(): MediaBrowser = MediaBrowser.Builder(
-        application,
-        SessionToken(application, ComponentName(application, PlaybackService::class.java)),
-    ).buildSuspend()
+    suspend fun browser(): MediaBrowser {
+        return MediaBrowser.Builder(
+            application,
+            SessionToken(application, ComponentName(application, PlaybackService::class.java)),
+        ).buildSuspend()
+    }
 }

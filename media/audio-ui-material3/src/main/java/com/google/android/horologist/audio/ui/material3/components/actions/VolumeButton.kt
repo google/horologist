@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,8 +54,7 @@ public fun VolumeButton(
     enabled: Boolean = true,
     alignment: Alignment = Alignment.Center,
     buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
-    contentDescription: String =
-        stringResource(ModelR.string.horologist_set_volume_content_description),
+    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
     border: BorderStroke? = null,
 ) {
     SettingsButton(
@@ -96,8 +95,7 @@ public fun VolumeButton(
     enabled: Boolean = true,
     alignment: Alignment = Alignment.Center,
     buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
-    contentDescription: String =
-        stringResource(ModelR.string.horologist_set_volume_content_description),
+    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
     border: BorderStroke? = null,
 ) {
     VolumeButton(
@@ -134,8 +132,7 @@ public fun VolumeButtonWithBadge(
     buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
     badgeVector: ImageVector? = null,
     badgeColors: IconButtonColors = SettingsButtonDefaults.badgeColors(),
-    contentDescription: String =
-        stringResource(ModelR.string.horologist_set_volume_content_description),
+    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
     border: BorderStroke? = null,
 ) {
     SettingsButton(
@@ -187,8 +184,7 @@ public fun VolumeButtonWithBadge(
     alignment: Alignment = Alignment.Center,
     buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
     badgeColors: IconButtonColors = SettingsButtonDefaults.badgeColors(),
-    contentDescription: String =
-        stringResource(ModelR.string.horologist_set_volume_content_description),
+    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
     border: BorderStroke? = null,
 ) {
     VolumeButtonWithBadge(
@@ -210,16 +206,16 @@ public fun VolumeButtonWithBadge(
 }
 
 @Composable
-private fun AudioOutputUi.getAudioOutputConnectionIcon(): ImageVector = when {
-    this.isConnected -> this.imageVector
-    else -> ImageVector.vectorResource(R.drawable.rounded_media_output_off_24)
-}
+private fun AudioOutputUi.getAudioOutputConnectionIcon(): ImageVector =
+    when {
+        this.isConnected -> this.imageVector
+        else -> ImageVector.vectorResource(R.drawable.rounded_media_output_off_24)
+    }
 
-private fun VolumeUiState?.getVolumeIndicatorIcon(): ImageVector = when {
-    this?.isMin == true -> Icons.AutoMirrored.Rounded.VolumeMute
-
-    this?.isMax == false -> Icons.AutoMirrored.Rounded.VolumeDown
-
-    else ->
-        Icons.AutoMirrored.Rounded.VolumeUp // volumeUiState == null || volumeUiState.isMax == true
-}
+private fun VolumeUiState?.getVolumeIndicatorIcon(): ImageVector =
+    when {
+        this?.isMin == true -> Icons.AutoMirrored.Rounded.VolumeMute
+        this?.isMax == false -> Icons.AutoMirrored.Rounded.VolumeDown
+        else ->
+            Icons.AutoMirrored.Rounded.VolumeUp // volumeUiState == null || volumeUiState.isMax == true
+    }

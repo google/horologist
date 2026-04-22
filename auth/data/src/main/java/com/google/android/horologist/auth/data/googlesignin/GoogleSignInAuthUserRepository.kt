@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,10 +28,12 @@ import kotlinx.coroutines.withContext
 /**
  * An implementation of [AuthUserRepository] for the Google Sign-In authentication method.
  */
-public class GoogleSignInAuthUserRepository(private val applicationContext: Context) :
-    AuthUserRepository {
+public class GoogleSignInAuthUserRepository(
+    private val applicationContext: Context,
+) : AuthUserRepository {
 
-    override suspend fun getAuthenticated(): AuthUser? = withContext(Dispatchers.IO) {
-        AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
-    }
+    override suspend fun getAuthenticated(): AuthUser? =
+        withContext(Dispatchers.IO) {
+            AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
+        }
 }

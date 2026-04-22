@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,8 +42,7 @@ import com.google.android.horologist.compose.material.ResponsiveListHeader
 @Composable
 fun TokenShareDefaultKeyScreen(
     modifier: Modifier = Modifier,
-    viewModel: TokenShareDefaultKeyViewModel =
-        viewModel(factory = TokenShareDefaultKeyViewModel.Factory),
+    viewModel: TokenShareDefaultKeyViewModel = viewModel(factory = TokenShareDefaultKeyViewModel.Factory),
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -61,10 +60,7 @@ fun TokenShareDefaultKeyScreen(
         ) {
             item {
                 ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                    Text(
-                        stringResource(id = R.string.token_share_default_key_title),
-                        modifier = Modifier.listTextPadding(),
-                    )
+                    Text(stringResource(id = R.string.token_share_default_key_title), modifier = Modifier.listTextPadding())
                 }
             }
             item {

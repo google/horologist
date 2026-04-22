@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,11 +68,13 @@ public fun SectionedList(
 internal fun <T> shouldDisplay(
     visibleStates: Section.VisibleStates,
     state: Section.State<T>,
-): Boolean = when (state) {
-    Section.State.Empty -> visibleStates.empty
-    Section.State.Failed -> visibleStates.failed
-    is Section.State.Loaded -> visibleStates.loaded
-    Section.State.Loading -> visibleStates.loading
+): Boolean {
+    return when (state) {
+        Section.State.Empty -> visibleStates.empty
+        Section.State.Failed -> visibleStates.failed
+        is Section.State.Loaded -> visibleStates.loaded
+        Section.State.Loading -> visibleStates.loading
+    }
 }
 
 internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
@@ -142,7 +144,9 @@ public data class Section<T>(
     public sealed class State<out T> {
         public object Loading : State<Nothing>()
 
-        public data class Loaded<T>(val list: List<T>) : State<T>()
+        public data class Loaded<T>(
+            val list: List<T>,
+        ) : State<T>()
 
         public object Failed : State<Nothing>()
 
@@ -203,7 +207,10 @@ public class SectionedListScope {
     internal val sections: MutableList<Section<*>> = mutableListOf()
 
     @SectionScopeMarker
-    public fun <T> section(state: Section.State<T>, content: SectionScope<T>.() -> Unit) {
+    public fun <T> section(
+        state: Section.State<T>,
+        content: SectionScope<T>.() -> Unit,
+    ) {
         SectionScope<T>().apply(content).let { scope ->
             sections.add(
                 Section(
@@ -226,7 +233,10 @@ public class SectionedListScope {
      * Add a section in [loaded][Section.State.Loaded] state.
      */
     @SectionScopeMarker
-    public fun <T> section(list: List<T>, content: SectionScope<T>.() -> Unit): Unit = section(
+    public fun <T> section(
+        list: List<T>,
+        content: SectionScope<T>.() -> Unit,
+    ): Unit = section(
         state = Section.State.Loaded(list),
         content = content,
     )
@@ -235,7 +245,9 @@ public class SectionedListScope {
      * Add a section in [loaded][Section.State.Loaded] state with a single item.
      */
     @SectionScopeMarker
-    public fun section(content: SectionScope<Unit>.() -> Unit): Unit = section(
+    public fun section(
+        content: SectionScope<Unit>.() -> Unit,
+    ): Unit = section(
         state = Section.State.Loaded(listOf(Unit)),
         content = content,
     )

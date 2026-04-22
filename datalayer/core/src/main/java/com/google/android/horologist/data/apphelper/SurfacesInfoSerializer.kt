@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,11 +26,12 @@ import java.io.OutputStream
 public object SurfacesInfoSerializer : Serializer<SurfacesInfo> {
     override val defaultValue: SurfacesInfo = SurfacesInfo.getDefaultInstance()
 
-    override suspend fun readFrom(input: InputStream): SurfacesInfo = try {
-        SurfacesInfo.parseFrom(input)
-    } catch (exception: InvalidProtocolBufferException) {
-        throw CorruptionException("Cannot read proto.", exception)
-    }
+    override suspend fun readFrom(input: InputStream): SurfacesInfo =
+        try {
+            SurfacesInfo.parseFrom(input)
+        } catch (exception: InvalidProtocolBufferException) {
+            throw CorruptionException("Cannot read proto.", exception)
+        }
 
     override suspend fun writeTo(t: SurfacesInfo, output: OutputStream) {
         t.writeTo(output)

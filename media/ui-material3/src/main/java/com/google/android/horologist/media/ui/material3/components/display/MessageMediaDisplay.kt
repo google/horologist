@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,10 @@ import com.google.android.horologist.media.ui.material3.util.isLargeScreen
  * A simple marquee-text display showing status information or a message.
  */
 @Composable
-public fun MessageMediaDisplay(modifier: Modifier = Modifier, message: String) {
+public fun MessageMediaDisplay(
+    modifier: Modifier = Modifier,
+    message: String,
+) {
     val isLargeScreen = LocalConfiguration.current.isLargeScreen
     Box(modifier = modifier, contentAlignment = Alignment.Center) {
         MarqueeText(

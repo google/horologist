@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,7 +63,10 @@ fun AmbientAware(
 }
 
 @Composable
-private fun rememberAmbientState(activity: Activity?, lifecycle: Lifecycle): State<AmbientState> {
+private fun rememberAmbientState(
+    activity: Activity?,
+    lifecycle: Lifecycle,
+): State<AmbientState> {
     val ambientState = remember {
         mutableStateOf<AmbientState>(AmbientState.Inactive)
     }
@@ -83,41 +86,42 @@ private fun createObserver(
     activity: Activity,
     ambientState: MutableState<AmbientState>,
     lifecycle: Lifecycle,
-): AmbientLifecycleObserver? = try {
-    AmbientLifecycleObserver(
-        activity,
-        object : AmbientLifecycleObserver.AmbientLifecycleCallback {
-            override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
-                ambientState.value = AmbientState.Ambient(
-                    burnInProtectionRequired = ambientDetails.burnInProtectionRequired,
-                    deviceHasLowBitAmbient = ambientDetails.deviceHasLowBitAmbient,
-                )
-            }
+): AmbientLifecycleObserver? {
+    return try {
+        AmbientLifecycleObserver(
+            activity,
+            object : AmbientLifecycleObserver.AmbientLifecycleCallback {
+                override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
+                    ambientState.value = AmbientState.Ambient(
+                        burnInProtectionRequired = ambientDetails.burnInProtectionRequired,
+                        deviceHasLowBitAmbient = ambientDetails.deviceHasLowBitAmbient,
+                    )
+                }
 
-            override fun onExitAmbient() {
-                ambientState.value = AmbientState.Interactive
-            }
+                override fun onExitAmbient() {
+                    ambientState.value = AmbientState.Interactive
+                }
 
-            override fun onUpdateAmbient() {
-                val lastAmbientDetails =
-                    (ambientState.value as? AmbientState.Ambient)
-                ambientState.value = AmbientState.Ambient(
-                    burnInProtectionRequired =
-                        lastAmbientDetails?.burnInProtectionRequired == true,
-                    deviceHasLowBitAmbient = lastAmbientDetails?.deviceHasLowBitAmbient == true,
-                )
-            }
-        },
-    ).also { observer ->
-        ambientState.value =
-            if (observer.isAmbient) AmbientState.Ambient() else AmbientState.Interactive
+                override fun onUpdateAmbient() {
+                    val lastAmbientDetails =
+                        (ambientState.value as? AmbientState.Ambient)
+                    ambientState.value = AmbientState.Ambient(
+                        burnInProtectionRequired = lastAmbientDetails?.burnInProtectionRequired == true,
+                        deviceHasLowBitAmbient = lastAmbientDetails?.deviceHasLowBitAmbient == true,
+                    )
+                }
+            },
+        ).also { observer ->
+            ambientState.value =
+                if (observer.isAmbient) AmbientState.Ambient() else AmbientState.Interactive
 
-        lifecycle.addObserver(observer)
+            lifecycle.addObserver(observer)
+        }
+    } catch (e: NoClassDefFoundError) {
+        // Fails in Robolectric
+        // java.lang.NoClassDefFoundError: com/google/android/wearable/compat/WearableActivityController$AmbientCallback
+        null
     }
-} catch (e: NoClassDefFoundError) {
-    // Fails in Robolectric
-    // java.lang.NoClassDefFoundError: com/google/android/wearable/compat/WearableActivityController$AmbientCallback
-    null
 }
 
 /**

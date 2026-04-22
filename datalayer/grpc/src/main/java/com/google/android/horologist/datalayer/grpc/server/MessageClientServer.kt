@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,12 +25,14 @@ import io.grpc.ServerCall
 import io.grpc.ServerCallHandler
 import io.grpc.ServerMethodDefinition
 import io.grpc.Status
-import java.io.ByteArrayInputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
+import java.io.ByteArrayInputStream
 
-public class MessageClientServer(service: BindableService, coroutineScope: CoroutineScope) :
-    BaseMessageClientServer(coroutineScope) {
+public class MessageClientServer(
+    service: BindableService,
+    coroutineScope: CoroutineScope,
+) : BaseMessageClientServer(coroutineScope) {
     private val boundService = service.bindService()
 
     override suspend fun execute(request: MessageRequest): GeneratedMessageLite<*, *> {
@@ -49,9 +51,7 @@ public class MessageClientServer(service: BindableService, coroutineScope: Corou
         val listener = serverCallHandler.startCall(call, Metadata())
 
         val realRequest =
-            method.methodDescriptor.parseRequest(
-                ByteArrayInputStream(request.request.value.toByteArray()),
-            )
+            method.methodDescriptor.parseRequest(ByteArrayInputStream(request.request.value.toByteArray()))
 
         listener.onReady()
         listener.onMessage(realRequest)
@@ -78,9 +78,13 @@ internal class MessageServerCall<ReqT, ResT>(
         channel.close()
     }
 
-    override fun isCancelled(): Boolean = false
+    override fun isCancelled(): Boolean {
+        return false
+    }
 
-    override fun getMethodDescriptor(): MethodDescriptor<ReqT, ResT> = _methodDescriptor
+    override fun getMethodDescriptor(): MethodDescriptor<ReqT, ResT> {
+        return _methodDescriptor
+    }
 
     override fun sendMessage(message: ResT) {
         channel.trySend(message)

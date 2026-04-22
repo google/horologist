@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,9 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
         Color.Yellow,
     )
 
-    private fun colorForIndex(i: Int): Color = colors[i % colors.size]
+    private fun colorForIndex(i: Int): Color {
+        return colors[i % colors.size]
+    }
 
     override fun transform(node: SemanticsNodeInteraction, bitmap: Bitmap): Bitmap {
         val semanticsNode = node.fetchSemanticsNode()
@@ -69,7 +71,10 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
         }
     }
 
-    private fun drawImageWithOverlays(canvas: Canvas, originalBitmap: Bitmap) {
+    private fun drawImageWithOverlays(
+        canvas: Canvas,
+        originalBitmap: Bitmap,
+    ) {
         canvas.drawBitmap(
             originalBitmap,
             0f,
@@ -88,7 +93,10 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
         }
     }
 
-    private fun drawLegend(canvas: Canvas, elements: List<AccessibilityState.Element>) {
+    private fun drawLegend(
+        canvas: Canvas,
+        elements: List<AccessibilityState.Element>,
+    ) {
         val height = canvas.height
         val width = canvas.width
         val leftEdge = width / 2

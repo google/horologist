@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,12 +23,13 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkType.Unknown
 import com.google.android.horologist.networks.data.id
 import com.google.android.horologist.networks.data.networkType
-import java.time.Instant
 import kotlinx.coroutines.flow.MutableStateFlow
+import java.time.Instant
 
 @ExperimentalHorologistApi
-public class NetworkRequesterImpl(private val connectivityManager: ConnectivityManager) :
-    NetworkRequester {
+public class NetworkRequesterImpl(
+    private val connectivityManager: ConnectivityManager,
+) : NetworkRequester {
     override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
         val lease = NetworkLeaseImpl()
 
@@ -42,9 +43,7 @@ public class NetworkRequesterImpl(private val connectivityManager: ConnectivityM
         return lease
     }
 
-    private inner class NetworkLeaseImpl :
-        NetworkCallback(),
-        NetworkLease {
+    private inner class NetworkLeaseImpl : NetworkCallback(), NetworkLease {
         override val acquiredAt: Instant = Instant.now()
 
         override val grantedNetwork: MutableStateFlow<NetworkReference?> =

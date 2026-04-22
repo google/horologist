@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,9 +50,9 @@ import androidx.wear.tiles.renderer.TileRenderer
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.render.TileLayoutRenderer
 import com.google.common.util.concurrent.ListenableFuture
-import kotlin.math.roundToInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
+import kotlin.math.roundToInt
 
 /**
  * Preview a [TileLayoutRenderer] by providing the complete state for tile and resources.
@@ -60,11 +60,7 @@ import kotlinx.coroutines.asExecutor
  * Bitmap or ImageResource.
  */
 @Composable
-public fun <T, R> TileLayoutPreview(
-    state: T,
-    resourceState: R,
-    renderer: TileLayoutRenderer<T, R>,
-) {
+public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLayoutRenderer<T, R>) {
     val context = LocalContext.current
     val resources = context.resources
 
@@ -191,9 +187,7 @@ private fun requestParams(resources: Resources, state: State = State.Builder().b
         .setCurrentState(state).build()
 
 private fun resourceParams(resources: Resources, version: String) =
-    RequestBuilders.ResourcesRequest.Builder().setDeviceConfiguration(
-        buildDeviceParameters(resources),
-    )
+    RequestBuilders.ResourcesRequest.Builder().setDeviceConfiguration(buildDeviceParameters(resources))
         .setVersion(version).build()
 
 public fun buildDeviceParameters(resources: Resources): DeviceParametersBuilders.DeviceParameters {

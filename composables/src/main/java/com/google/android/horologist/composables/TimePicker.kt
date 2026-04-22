@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -315,17 +315,14 @@ public fun TimePicker(
                 modifier = Modifier
                     .semantics {
                         focused =
-                            pickerGroupState.selectedIndex ==
-                            FocusableElementsTimePicker.CONFIRM_BUTTON.index
+                            pickerGroupState.selectedIndex == FocusableElementsTimePicker.CONFIRM_BUTTON.index
                     }
                     .focusRequester(focusRequesterConfirmButton)
                     .focusable(),
             ) {
                 Icon(
                     imageVector = Icons.Filled.Check,
-                    contentDescription = stringResource(
-                        R.string.horologist_picker_confirm_button_content_description,
-                    ),
+                    contentDescription = stringResource(R.string.horologist_picker_confirm_button_content_description),
                     modifier = Modifier
                         .size(24.dp)
                         .wrapContentSize(align = Alignment.Center),
@@ -573,17 +570,14 @@ public fun TimePickerWith12HourClock(
                 modifier = Modifier
                     .semantics {
                         focused =
-                            pickerGroupState.selectedIndex ==
-                            FocusableElement12Hour.CONFIRM_BUTTON.index
+                            pickerGroupState.selectedIndex == FocusableElement12Hour.CONFIRM_BUTTON.index
                     }
                     .focusRequester(focusRequesterConfirmButton)
                     .focusable(),
             ) {
                 Icon(
                     imageVector = Icons.Filled.Check,
-                    contentDescription = stringResource(
-                        R.string.horologist_picker_confirm_button_content_description,
-                    ),
+                    contentDescription = stringResource(R.string.horologist_picker_confirm_button_content_description),
                     modifier = Modifier
                         .size(24.dp)
                         .wrapContentSize(align = Alignment.Center),
@@ -620,47 +614,43 @@ internal fun pickerGroupItemWithRSB(
     onSelected: () -> Unit,
     readOnlyLabel: @Composable (BoxScope.() -> Unit)? = null,
     option: @Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit,
-): PickerGroupItem = PickerGroupItem(
-    pickerState = pickerState,
-    modifier = modifier,
-    contentDescription = contentDescription,
-    onSelected = onSelected,
-    readOnlyLabel = readOnlyLabel,
-    option = option,
-)
+): PickerGroupItem {
+    return PickerGroupItem(
+        pickerState = pickerState,
+        modifier = modifier,
+        contentDescription = contentDescription,
+        onSelected = onSelected,
+        readOnlyLabel = readOnlyLabel,
+        option = option,
+    )
+}
 
 internal fun pickerTextOption(
     textStyle: TextStyle,
     indexToText: (Int) -> String,
     isValid: (Int) -> Boolean = { true },
-): (
-@Composable PickerScope.(
-    optionIndex: Int,
-    pickerSelected: Boolean,
-) -> Unit
-) =
-    { value: Int, pickerSelected: Boolean ->
+): (@Composable PickerScope.(optionIndex: Int, pickerSelected: Boolean) -> Unit) = { value: Int, pickerSelected: Boolean ->
 
-        Box(modifier = Modifier.fillMaxSize()) {
-            Text(
-                text = indexToText(value),
-                maxLines = 1,
-                overflow = TextOverflow.Visible,
-                softWrap = false,
-                style = textStyle,
-                color = if (!isValid(value)) {
-                    Color(0xFF757575)
-                } else if (pickerSelected) {
-                    MaterialTheme.colors.secondary
-                } else {
-                    MaterialTheme.colors.onBackground
-                },
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .wrapContentSize(),
-            )
-        }
+    Box(modifier = Modifier.fillMaxSize()) {
+        Text(
+            text = indexToText(value),
+            maxLines = 1,
+            overflow = TextOverflow.Visible,
+            softWrap = false,
+            style = textStyle,
+            color = if (!isValid(value)) {
+                Color(0xFF757575)
+            } else if (pickerSelected) {
+                MaterialTheme.colors.secondary
+            } else {
+                MaterialTheme.colors.onBackground
+            },
+            modifier = Modifier
+                .align(Alignment.Center)
+                .wrapContentSize(),
+        )
     }
+}
 
 internal class DefaultTouchExplorationStateProvider : TouchExplorationStateProvider {
 
@@ -744,9 +734,11 @@ private fun createDescription(
     selectedValue: Int,
     label: String,
     @PluralsRes resourceId: Int,
-): String = when (pickerGroupState.selectedIndex) {
-    FocusableElementsTimePicker.NONE.index -> label
-    else -> pluralStringResource(resourceId, selectedValue, selectedValue)
+): String {
+    return when (pickerGroupState.selectedIndex) {
+        FocusableElementsTimePicker.NONE.index -> label
+        else -> pluralStringResource(resourceId, selectedValue, selectedValue)
+    }
 }
 
 @Composable
@@ -755,17 +747,15 @@ private fun createDescription12Hour(
     selectedValue: Int,
     label: String,
     @PluralsRes resourceId: Int,
-): String = when (pickerGroupState.selectedIndex) {
-    FocusableElement12Hour.NONE.index -> label
-    else -> pluralStringResource(resourceId, selectedValue, selectedValue)
+): String {
+    return when (pickerGroupState.selectedIndex) {
+        FocusableElement12Hour.NONE.index -> label
+        else -> pluralStringResource(resourceId, selectedValue, selectedValue)
+    }
 }
 
 private enum class FocusableElementsTimePicker(val index: Int) {
-    HOURS(0),
-    MINUTES(1),
-    SECONDS(2),
-    CONFIRM_BUTTON(3),
-    NONE(-1), ;
+    HOURS(0), MINUTES(1), SECONDS(2), CONFIRM_BUTTON(3), NONE(-1), ;
 
     companion object {
         private val map = entries.associateBy { it.index }
@@ -774,11 +764,7 @@ private enum class FocusableElementsTimePicker(val index: Int) {
 }
 
 private enum class FocusableElement12Hour(val index: Int) {
-    HOURS(0),
-    MINUTES(1),
-    PERIOD(2),
-    CONFIRM_BUTTON(3),
-    NONE(-1), ;
+    HOURS(0), MINUTES(1), PERIOD(2), CONFIRM_BUTTON(3), NONE(-1), ;
 
     companion object {
         private val map = entries.associateBy { it.index }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,9 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 
-public class BatteryStatusMonitor(private val context: Context) {
+public class BatteryStatusMonitor(
+    private val context: Context,
+) {
     private val powerManager: PowerManager = context.getSystemService(PowerManager::class.java)
     private val batteryManager: BatteryManager =
         context.getSystemService(BatteryManager::class.java)
@@ -72,11 +74,12 @@ public class BatteryStatusMonitor(private val context: Context) {
         emitAll(subscriptionFlow)
     }
 
-    private fun batteryStatus() = BatteryStatus(
-        batteryManager.isCharging,
-        powerManager.isDeviceIdleMode,
-        powerManager.isPowerSaveMode,
-    )
+    private fun batteryStatus() =
+        BatteryStatus(
+            batteryManager.isCharging,
+            powerManager.isDeviceIdleMode,
+            powerManager.isPowerSaveMode,
+        )
 
     public data class BatteryStatus(
         val charging: Boolean,

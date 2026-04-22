@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,89 +23,86 @@ import com.google.android.horologist.data.AppHelperResultCode
 import com.google.android.horologist.data.activityConfig
 import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 private const val REMOTE_ACTIVITY_SAMPLE_CLASS_FULL_NAME =
     "com.google.android.horologist.datalayer.sample.screens.startremote.StartRemoteSampleActivity"
 
 @HiltViewModel
 class NodeDetailsViewModel
-@Inject
-constructor(
-    savedStateHandle: SavedStateHandle,
-    private val wearDataLayerAppHelper: WearDataLayerAppHelper,
-) : ViewModel() {
-    private val nodeDetailsScreenArgs: NodeDetailsScreenArgs =
-        NodeDetailsScreenArgs(savedStateHandle)
+    @Inject
+    constructor(
+        savedStateHandle: SavedStateHandle,
+        private val wearDataLayerAppHelper: WearDataLayerAppHelper,
+    ) : ViewModel() {
+        private val nodeDetailsScreenArgs: NodeDetailsScreenArgs = NodeDetailsScreenArgs(savedStateHandle)
 
-    val nodeId: String
-        get() = nodeDetailsScreenArgs.nodeId
+        val nodeId: String
+            get() = nodeDetailsScreenArgs.nodeId
 
-    val appInstalled: Boolean
-        get() = nodeDetailsScreenArgs.appInstalled
+        val appInstalled: Boolean
+            get() = nodeDetailsScreenArgs.appInstalled
 
-    private val _uiState = MutableStateFlow<NodeDetailsScreenState>(NodeDetailsScreenState.Idle)
-    public val uiState: StateFlow<NodeDetailsScreenState> = _uiState
+        private val _uiState = MutableStateFlow<NodeDetailsScreenState>(NodeDetailsScreenState.Idle)
+        public val uiState: StateFlow<NodeDetailsScreenState> = _uiState
 
-    fun onStartCompanionClick() {
-        runActionAndHandleAppHelperResult {
-            wearDataLayerAppHelper.startCompanion(nodeId = nodeId)
-        }
-    }
-
-    fun onInstallOnNodeClick() {
-        _uiState.value = NodeDetailsScreenState.ActionRunning
-        viewModelScope.launch {
-            try {
-                wearDataLayerAppHelper.installOnNode(nodeId = nodeId)
-
-                _uiState.value = NodeDetailsScreenState.ActionSucceeded
-            } catch (e: Exception) {
-                _uiState.value =
-                    NodeDetailsScreenState.ActionFailed(errorCode = e::class.java.simpleName)
-                e.printStackTrace()
+        fun onStartCompanionClick() {
+            runActionAndHandleAppHelperResult {
+                wearDataLayerAppHelper.startCompanion(nodeId = nodeId)
             }
         }
-    }
 
-    fun onStartRemoteOwnAppClick() {
-        runActionAndHandleAppHelperResult {
-            wearDataLayerAppHelper.startRemoteOwnApp(nodeId = nodeId)
-        }
-    }
+        fun onInstallOnNodeClick() {
+            _uiState.value = NodeDetailsScreenState.ActionRunning
+            viewModelScope.launch {
+                try {
+                    wearDataLayerAppHelper.installOnNode(nodeId = nodeId)
 
-    fun onStartRemoteActivityClick() {
-        runActionAndHandleAppHelperResult {
-            val config = activityConfig {
-                classFullName = REMOTE_ACTIVITY_SAMPLE_CLASS_FULL_NAME
-            }
-            wearDataLayerAppHelper.startRemoteActivity(nodeId, config)
-        }
-    }
-
-    fun onDialogDismiss() {
-        _uiState.value = NodeDetailsScreenState.Idle
-    }
-
-    private fun runActionAndHandleAppHelperResult(action: suspend () -> AppHelperResultCode) {
-        _uiState.value = NodeDetailsScreenState.ActionRunning
-        viewModelScope.launch {
-            when (val result = action()) {
-                AppHelperResultCode.APP_HELPER_RESULT_SUCCESS -> {
                     _uiState.value = NodeDetailsScreenState.ActionSucceeded
+                } catch (e: Exception) {
+                    _uiState.value = NodeDetailsScreenState.ActionFailed(errorCode = e::class.java.simpleName)
+                    e.printStackTrace()
                 }
+            }
+        }
 
-                else -> {
-                    _uiState.value =
-                        NodeDetailsScreenState.ActionFailed(errorCode = result.name)
+        fun onStartRemoteOwnAppClick() {
+            runActionAndHandleAppHelperResult {
+                wearDataLayerAppHelper.startRemoteOwnApp(nodeId = nodeId)
+            }
+        }
+
+        fun onStartRemoteActivityClick() {
+            runActionAndHandleAppHelperResult {
+                val config = activityConfig {
+                    classFullName = REMOTE_ACTIVITY_SAMPLE_CLASS_FULL_NAME
+                }
+                wearDataLayerAppHelper.startRemoteActivity(nodeId, config)
+            }
+        }
+
+        fun onDialogDismiss() {
+            _uiState.value = NodeDetailsScreenState.Idle
+        }
+
+        private fun runActionAndHandleAppHelperResult(action: suspend () -> AppHelperResultCode) {
+            _uiState.value = NodeDetailsScreenState.ActionRunning
+            viewModelScope.launch {
+                when (val result = action()) {
+                    AppHelperResultCode.APP_HELPER_RESULT_SUCCESS -> {
+                        _uiState.value = NodeDetailsScreenState.ActionSucceeded
+                    }
+
+                    else -> {
+                        _uiState.value = NodeDetailsScreenState.ActionFailed(errorCode = result.name)
+                    }
                 }
             }
         }
     }
-}
 
 sealed class NodeDetailsScreenState {
     data object Idle : NodeDetailsScreenState()

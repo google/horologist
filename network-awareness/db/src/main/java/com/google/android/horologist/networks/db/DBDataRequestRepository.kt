@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,13 @@ import com.google.android.horologist.networks.data.DataRequest
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.NetworkType
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneOffset
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
 
 @ExperimentalHorologistApi
 public class DBDataRequestRepository(
@@ -60,8 +60,8 @@ public class DBDataRequestRepository(
         }
     }
 
-    override fun currentPeriodUsage(): Flow<DataUsageReport> =
-        networkUsageDao.getRecords(day).map { list ->
+    override fun currentPeriodUsage(): Flow<DataUsageReport> {
+        return networkUsageDao.getRecords(day).map { list ->
             var ble = 0L
             var cell = 0L
             var wifi = 0L
@@ -87,4 +87,5 @@ public class DBDataRequestRepository(
                 to = to,
             )
         }
+    }
 }

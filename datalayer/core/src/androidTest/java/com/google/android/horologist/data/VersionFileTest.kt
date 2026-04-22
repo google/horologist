@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,16 +19,14 @@
 package com.google.android.horologist.data
 
 import com.google.common.truth.Truth.assertThat
-import java.io.InputStreamReader
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
+import java.io.InputStreamReader
 
 class VersionFileTest {
     @Test
     fun testVersionFileIsPresent() {
-        val resource = TargetNodeId::class.java.getResource(
-            "/META-INF/com.google.android.horologist_datalayercore.version",
-        )
+        val resource = TargetNodeId::class.java.getResource("/META-INF/com.google.android.horologist_datalayercore.version")
         assertThat(resource).isNotNull()
 
         val version = resource!!.openStream().use {

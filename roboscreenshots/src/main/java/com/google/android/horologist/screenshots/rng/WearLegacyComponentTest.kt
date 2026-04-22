@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,9 +52,10 @@ public abstract class WearLegacyComponentTest {
     @get:Rule
     public val testInfo: TestName = TestName()
 
-    public open fun testName(suffix: String): String = "src/test/snapshots/images/" +
-        "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
-        "${testInfo.methodName}$suffix.png"
+    public open fun testName(suffix: String): String =
+        "src/test/snapshots/images/" +
+            "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
+            "${testInfo.methodName}$suffix.png"
 
     public open val device: WearDevice? = null
 

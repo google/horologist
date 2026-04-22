@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -109,35 +109,27 @@ fun NodeDetailsScreen(
             NodeDetailsScreenState.Idle -> {
                 item {
                     Chip(
-                        label = stringResource(
-                            id = R.string.node_details_start_companion_chip_label,
-                        ),
+                        label = stringResource(id = R.string.node_details_start_companion_chip_label),
                         onClick = onStartCompanionClick,
                         enabled = appInstalled,
                     )
                 }
                 item {
                     Chip(
-                        label = stringResource(
-                            id = R.string.node_details_install_on_node_chip_label,
-                        ),
+                        label = stringResource(id = R.string.node_details_install_on_node_chip_label),
                         onClick = onInstallOnNodeClick,
                     )
                 }
                 item {
                     Chip(
-                        label = stringResource(
-                            id = R.string.node_details_start_remote_own_app_chip_label,
-                        ),
+                        label = stringResource(id = R.string.node_details_start_remote_own_app_chip_label),
                         onClick = onStartRemoteOwnAppClick,
                         enabled = appInstalled,
                     )
                 }
                 item {
                     Chip(
-                        label = stringResource(
-                            id = R.string.node_details_start_remote_activity_chip_label,
-                        ),
+                        label = stringResource(id = R.string.node_details_start_remote_activity_chip_label),
                         onClick = onStartRemoteActivityClick,
                         enabled = appInstalled,
                     )

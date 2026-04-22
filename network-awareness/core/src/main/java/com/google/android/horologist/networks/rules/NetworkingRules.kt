@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,10 @@ public interface NetworkingRules {
      *
      * Null means no suitable network.
      */
-    public fun getPreferredNetwork(networks: Networks, requestType: RequestType): NetworkStatus?
+    public fun getPreferredNetwork(
+        networks: Networks,
+        requestType: RequestType,
+    ): NetworkStatus?
 
     /**
      * Lenient rules that allow most request types on any network but prefer
@@ -61,13 +64,16 @@ public interface NetworkingRules {
      */
     @ExperimentalHorologistApi
     public object Lenient : NetworkingRules {
-        override fun isHighBandwidthRequest(requestType: RequestType): Boolean =
-            requestType is MediaRequest
+        override fun isHighBandwidthRequest(requestType: RequestType): Boolean {
+            return requestType is MediaRequest
+        }
 
         override fun checkValidRequest(
             requestType: RequestType,
             currentNetworkInfo: NetworkInfo,
-        ): RequestCheck = Allow
+        ): RequestCheck {
+            return Allow
+        }
 
         override fun getPreferredNetwork(
             networks: Networks,
@@ -84,8 +90,9 @@ public interface NetworkingRules {
      */
     @ExperimentalHorologistApi
     public object Conservative : NetworkingRules {
-        override fun isHighBandwidthRequest(requestType: RequestType): Boolean =
-            requestType is MediaRequest
+        override fun isHighBandwidthRequest(requestType: RequestType): Boolean {
+            return requestType is MediaRequest
+        }
 
         override fun checkValidRequest(
             requestType: RequestType,
@@ -103,7 +110,6 @@ public interface NetworkingRules {
                             Fail("downloads only possible over Wifi")
                         }
                     }
-
                     MediaRequest.MediaRequestType.Stream -> {
                         // Only allow Stream over Wifi or BT
                         // BT may hog the limited bandwidth, but hopefully is small stream.
@@ -113,7 +119,6 @@ public interface NetworkingRules {
                             Fail("streaming only possible over Wifi or BT")
                         }
                     }
-
                     MediaRequest.MediaRequestType.Live -> {
                         // Only allow Live (continuous) Stream over BT
                         if (currentNetworkInfo is Bluetooth) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,9 +39,7 @@ public open class StreamlineSignInDefaultViewModel(
 ) : ViewModel() {
 
     private val _uiState =
-        MutableStateFlow<StreamlineSignInDefaultScreenState>(
-            StreamlineSignInDefaultScreenState.Idle,
-        )
+        MutableStateFlow<StreamlineSignInDefaultScreenState>(StreamlineSignInDefaultScreenState.Idle)
     public val uiState: StateFlow<StreamlineSignInDefaultScreenState> = _uiState
 
     /**

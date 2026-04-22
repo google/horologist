@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,11 +29,9 @@ class DataLayerInferenceServiceRegistry(
     val dataLayerRegistry: WearDataLayerRegistry,
     val coroutineScope: CoroutineScope,
 ) : InferenceServiceRegistry {
-    override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> =
-        flow {
-            val allCapabilities = dataLayerRegistry.capabilityClient.getAllCapabilities(
-                CapabilityClient.FILTER_ALL,
-            ).await()
+    override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
+        return flow {
+            val allCapabilities = dataLayerRegistry.capabilityClient.getAllCapabilities(CapabilityClient.FILTER_ALL).await()
             allCapabilities.forEach { (key, list) ->
                 println(key)
                 list.nodes.forEach {
@@ -52,6 +50,7 @@ class DataLayerInferenceServiceRegistry(
                 },
             )
         }
+    }
 
     override val priority: Int
         get() = 2

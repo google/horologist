@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -239,14 +239,11 @@ public fun DatePicker(
 
                     // Add spaces on to allow room to grow
                     val dayWidth =
-                        with(LocalDensity.current) { (digitWidth * 2).toDp() } + spacerWidth +
-                            textPadding
+                        with(LocalDensity.current) { (digitWidth * 2).toDp() } + spacerWidth + textPadding
                     val monthWidth =
-                        with(LocalDensity.current) { maxMonthWidth.toDp() } + spacerWidth +
-                            textPadding
+                        with(LocalDensity.current) { maxMonthWidth.toDp() } + spacerWidth + textPadding
                     val yearWidth =
-                        with(LocalDensity.current) { (digitWidth * 4).toDp() } + spacerWidth +
-                            textPadding
+                        with(LocalDensity.current) { (digitWidth * 4).toDp() } + spacerWidth + textPadding
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -305,9 +302,7 @@ public fun DatePicker(
                                         shortMonthNames[(datePickerState.currentMonth(it) - 1) % 12]
                                     },
                                     isValid = {
-                                        datePickerState.isMonthValid(
-                                            datePickerState.currentMonth(it),
-                                        )
+                                        datePickerState.isMonthValid(datePickerState.currentMonth(it))
                                     },
                                 ),
                             ),
@@ -350,16 +345,12 @@ public fun DatePicker(
                             val confirmedDate =
                                 LocalDate.of(confirmedYear, confirmedMonth, confirmedDay)
                             onDateConfirm(confirmedDate)
-                        } else if (pickerGroupState.selectedIndex ==
-                            FocusableElementDatePicker.DAY.index
-                        ) {
+                        } else if (pickerGroupState.selectedIndex == FocusableElementDatePicker.DAY.index) {
                             onPickerSelected(
                                 FocusableElementDatePicker.DAY,
                                 FocusableElementDatePicker.MONTH,
                             )
-                        } else if (pickerGroupState.selectedIndex ==
-                            FocusableElementDatePicker.MONTH.index
-                        ) {
+                        } else if (pickerGroupState.selectedIndex == FocusableElementDatePicker.MONTH.index) {
                             onPickerSelected(
                                 FocusableElementDatePicker.MONTH,
                                 FocusableElementDatePicker.YEAR,
@@ -393,13 +384,9 @@ public fun DatePicker(
                             },
                         contentDescription =
                             if (pickerGroupState.selectedIndex >= 2) {
-                                stringResource(
-                                    R.string.horologist_picker_confirm_button_content_description,
-                                )
+                                stringResource(R.string.horologist_picker_confirm_button_content_description)
                             } else {
-                                stringResource(
-                                    R.string.horologist_picker_next_button_content_description,
-                                )
+                                stringResource(R.string.horologist_picker_next_button_content_description)
                             },
                         modifier = Modifier
                             .size(24.dp)
@@ -418,7 +405,11 @@ public fun DatePicker(
     }
 }
 
-private fun verifyDates(date: LocalDate, fromDate: LocalDate, toDate: LocalDate) {
+private fun verifyDates(
+    date: LocalDate,
+    fromDate: LocalDate,
+    toDate: LocalDate,
+) {
     require(toDate >= fromDate) { "toDate should be greater than or equal to fromDate" }
     require(date in fromDate..toDate) { "date should lie between fromDate and toDate" }
 }
@@ -482,19 +473,21 @@ internal class DatePickerState(
     val selectedYearEqualsToYear: Boolean
         get() = toDate?.year == currentYear()
 
-    fun isYearValid(year: Int = currentYear()): Boolean = (
-        if (fromDate?.year != null) {
-            fromDate.year <= year
-        } else {
-            true
-        }
-        ) && (
-        if (toDate?.year != null) {
-            year <= toDate.year
-        } else {
-            true
-        }
-        )
+    fun isYearValid(year: Int = currentYear()): Boolean {
+        return (
+            if (fromDate?.year != null) {
+                fromDate.year <= year
+            } else {
+                true
+            }
+            ) && (
+            if (toDate?.year != null) {
+                year <= toDate.year
+            } else {
+                true
+            }
+            )
+    }
 
     val monthState =
         PickerState(
@@ -508,20 +501,22 @@ internal class DatePickerState(
     val selectedMonthEqualsToMonth: Boolean
         get() = selectedYearEqualsToYear && toDate?.monthValue == currentMonth()
 
-    fun isMonthValid(month: Int = currentMonth()): Boolean = isYearValid() &&
-        (
-            if (fromDate != null && selectedYearEqualsFromYear) {
-                fromDate.monthValue <= month
-            } else {
-                true
-            }
-            ) && (
-            if (toDate != null && selectedYearEqualsToYear) {
-                month <= toDate.monthValue
-            } else {
-                true
-            }
-            )
+    fun isMonthValid(month: Int = currentMonth()): Boolean {
+        return isYearValid() &&
+            (
+                if (fromDate != null && selectedYearEqualsFromYear) {
+                    fromDate.monthValue <= month
+                } else {
+                    true
+                }
+                ) && (
+                if (toDate != null && selectedYearEqualsToYear) {
+                    month <= toDate.monthValue
+                } else {
+                    true
+                }
+                )
+    }
 
     private val firstDayOfMonth: LocalDate
         get() = LocalDate.of(
@@ -538,35 +533,45 @@ internal class DatePickerState(
             initiallySelectedOption = date.dayOfMonth - 1,
         )
 
-    fun isDayValid(day: Int = currentDay()): Boolean = isMonthValid() &&
-        (
-            if (fromDate != null && selectedMonthEqualsFromMonth) {
-                fromDate.dayOfMonth <= day
-            } else {
-                true
-            }
-            ) && (
-            if (toDate != null && selectedMonthEqualsToMonth) {
-                day <= toDate.dayOfMonth
-            } else {
-                true
-            }
-            )
+    fun isDayValid(day: Int = currentDay()): Boolean {
+        return isMonthValid() &&
+            (
+                if (fromDate != null && selectedMonthEqualsFromMonth) {
+                    fromDate.dayOfMonth <= day
+                } else {
+                    true
+                }
+                ) && (
+                if (toDate != null && selectedMonthEqualsToMonth) {
+                    day <= toDate.dayOfMonth
+                } else {
+                    true
+                }
+                )
+    }
 
-    fun currentYear(year: Int = yearState.selectedOption): Int = year + startYear
+    fun currentYear(year: Int = yearState.selectedOption): Int {
+        return year + startYear
+    }
 
-    fun currentMonth(month: Int = monthState.selectedOption): Int = month + 1
+    fun currentMonth(month: Int = monthState.selectedOption): Int {
+        return month + 1
+    }
 
-    fun currentDay(day: Int = dayState.selectedOption): Int = day + 1
+    fun currentDay(day: Int = dayState.selectedOption): Int {
+        return day + 1
+    }
 }
 
 private fun createDescriptionDatePicker(
     pickerGroupState: PickerGroupState,
     selectedValue: Int,
     label: String,
-): String = when (pickerGroupState.selectedIndex) {
-    FocusableElementDatePicker.NONE.index -> label
-    else -> "$label, $selectedValue"
+): String {
+    return when (pickerGroupState.selectedIndex) {
+        FocusableElementDatePicker.NONE.index -> label
+        else -> "$label, $selectedValue"
+    }
 }
 
 private enum class FocusableElementDatePicker(val index: Int) {

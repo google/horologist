@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,14 +23,15 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 
 /** An [ImageVector] that can be represented as a [Painter]. */
 @JvmInline
-public value class ImageVectorPaintable(private val imageVector: ImageVector) : PaintableIcon {
+public value class ImageVectorPaintable(private val imageVector: ImageVector) :
+    PaintableIcon {
 
-    @Composable
-    override fun rememberPainter(): Painter = rememberVectorPainter(imageVector)
+        @Composable
+        override fun rememberPainter(): Painter = rememberVectorPainter(imageVector)
 
-    public companion object {
-        public fun ImageVector.asPaintable(): ImageVectorPaintable = ImageVectorPaintable(
-            this,
-        )
+        public companion object {
+            public fun ImageVector.asPaintable(): ImageVectorPaintable = ImageVectorPaintable(
+                this,
+            )
+        }
     }
-}

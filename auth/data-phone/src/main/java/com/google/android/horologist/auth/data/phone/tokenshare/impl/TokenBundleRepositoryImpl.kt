@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,21 +47,23 @@ public class TokenBundleRepositoryImpl<T>(
     override suspend fun isAvailable(): Boolean =
         WearableApiAvailability.isAvailable(registry.dataClient)
 
-    private suspend fun getDataStore(): DataStore<T>? = if (isAvailable()) {
-        registry.protoDataStore(
-            path = buildPath(key),
-            coroutineScope = coroutineScope,
-            serializer = serializer,
-        )
-    } else {
-        null
-    }
+    private suspend fun getDataStore(): DataStore<T>? =
+        if (isAvailable()) {
+            registry.protoDataStore(
+                path = buildPath(key),
+                coroutineScope = coroutineScope,
+                serializer = serializer,
+            )
+        } else {
+            null
+        }
 
-    private fun buildPath(key: String) = if (key.startsWith("/")) {
-        key
-    } else {
-        "/$key"
-    }
+    private fun buildPath(key: String) =
+        if (key.startsWith("/")) {
+            key
+        } else {
+            "/$key"
+        }
 
     public companion object {
         private const val DEFAULT_TOKEN_BUNDLE_KEY = "/horologist_token_bundle"

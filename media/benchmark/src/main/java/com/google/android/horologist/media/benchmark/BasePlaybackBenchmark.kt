@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,21 +35,19 @@ import androidx.test.rule.GrantPermissionRule
 import com.google.android.horologist.media.benchmark.MediaControllerHelper.startPlaying
 import com.google.android.horologist.media.benchmark.MediaControllerHelper.stopPlaying
 import com.google.common.util.concurrent.ListenableFuture
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.junit.Rule
 import org.junit.Test
+import kotlin.time.Duration.Companion.seconds
 
 @LargeTest
 public abstract class BasePlaybackBenchmark {
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     @get:Rule
-    public val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(
-        Manifest.permission.POST_NOTIFICATIONS,
-    )
+    public val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS)
 
     @get:Rule
     public val benchmarkRule: MacrobenchmarkRule = MacrobenchmarkRule()

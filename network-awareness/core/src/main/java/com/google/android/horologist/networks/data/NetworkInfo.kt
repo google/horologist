@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,10 @@ public sealed interface NetworkInfo {
     public val metered: Boolean?
 
     @ExperimentalHorologistApi
-    public data class Wifi(override val name: String, public val ssid: String? = null) :
-        NetworkInfo {
+    public data class Wifi(
+        override val name: String,
+        public val ssid: String? = null,
+    ) : NetworkInfo {
         override val type: NetworkType = NetworkType.Wifi
         override val highBatteryUsage: Boolean = false
 
@@ -36,8 +38,10 @@ public sealed interface NetworkInfo {
     }
 
     @ExperimentalHorologistApi
-    public data class Cellular(override val name: String, override val metered: Boolean? = null) :
-        NetworkInfo {
+    public data class Cellular(
+        override val name: String,
+        override val metered: Boolean? = null,
+    ) : NetworkInfo {
         override val type: NetworkType = NetworkType.Cell
         override val highBatteryUsage: Boolean = true
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,15 +29,12 @@ fun PickersAudit(route: AuditNavigation.Pickers.Audit) {
         AuditNavigation.Pickers.Config.Time12h -> {
             TimePickerWith12HourClock(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0))
         }
-
         AuditNavigation.Pickers.Config.Time24Hour -> {
             TimePicker(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0), showSeconds = false)
         }
-
         AuditNavigation.Pickers.Config.Time24hWithSeconds -> {
             TimePicker(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0), showSeconds = true)
         }
-
         AuditNavigation.Pickers.Config.Date -> {
             DatePicker(onDateConfirm = {}, date = LocalDate.of(2003, 8, 18))
         }

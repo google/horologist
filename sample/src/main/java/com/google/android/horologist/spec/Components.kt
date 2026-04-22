@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,11 +67,11 @@ fun SampleMenu(
 fun SampleMenu(
     columnState: ScalingLazyColumnState,
     before:
-    @Composable()
-    (() -> Unit)? = null,
+        @Composable()
+        (() -> Unit)? = null,
     after:
-    @Composable()
-    (() -> Unit)? = null,
+        @Composable()
+        (() -> Unit)? = null,
     borders: (DrawScope.() -> Unit)? = null,
 ) {
     SampleMenu(borders = borders, columnState = columnState) {

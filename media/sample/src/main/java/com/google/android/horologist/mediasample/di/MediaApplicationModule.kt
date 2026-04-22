@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,14 +48,14 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import java.io.File
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.io.File
+import javax.inject.Singleton
 
 @SuppressLint("UnsafeOptInUsageError")
 @Module
@@ -67,25 +67,31 @@ object MediaApplicationModule {
     fun intentBuilder(
         @ApplicationContext application: Context,
         appConfig: AppConfig,
-    ): IntentBuilder = NavDeepLinkIntentBuilder(
-        application,
-        "${appConfig.deeplinkUriPrefix}/player?page=1",
-        "${appConfig.deeplinkUriPrefix}/player?page=0",
-    )
+    ): IntentBuilder =
+        NavDeepLinkIntentBuilder(
+            application,
+            "${appConfig.deeplinkUriPrefix}/player?page=1",
+            "${appConfig.deeplinkUriPrefix}/player?page=0",
+        )
 
     @Singleton
     @Provides
-    fun prefsDataStore(@ApplicationContext application: Context): DataStore<Settings> =
+    fun prefsDataStore(
+        @ApplicationContext application: Context,
+    ): DataStore<Settings> =
         application.settingsStore
 
     @Singleton
     @Provides
     @ForApplicationScope
-    fun coroutineScope(): CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
+    fun coroutineScope(): CoroutineScope =
+        CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     @Singleton
     @Provides
-    fun audioOffloadListener(listeners: AudioOffloadListenerList): AudioOffloadListener = listeners
+    fun audioOffloadListener(
+        listeners: AudioOffloadListenerList,
+    ): AudioOffloadListener = listeners
 
     @Singleton
     @Provides
@@ -93,7 +99,9 @@ object MediaApplicationModule {
 
     @Singleton
     @Provides
-    fun wearMedia3Factory(@ApplicationContext application: Context): WearMedia3Factory =
+    fun wearMedia3Factory(
+        @ApplicationContext application: Context,
+    ): WearMedia3Factory =
         WearMedia3Factory(application)
 
     @Singleton
@@ -104,45 +112,56 @@ object MediaApplicationModule {
         @ForApplicationScope coroutineScope: CoroutineScope,
         appConfig: AppConfig,
         audioOffloadListenerList: AudioOffloadListenerList,
-    ): AudioOffloadManager = AudioOffloadManager(
-        logger,
-    ).also { audioOffloadManager ->
-        if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
-            audioOffloadListenerList.addListener(audioOffloadManager.audioOffloadListener)
+    ): AudioOffloadManager {
+        return AudioOffloadManager(
+            logger,
+        ).also { audioOffloadManager ->
+            if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
+                audioOffloadListenerList.addListener(audioOffloadManager.audioOffloadListener)
 
-            coroutineScope.launch {
-                settingsRepository.settingsFlow.map { it.debugOffload }
-                    .collectLatest { debug ->
-                        if (debug) {
-                            audioOffloadManager.printDebugLogsLoop()
+                coroutineScope.launch {
+                    settingsRepository.settingsFlow.map { it.debugOffload }
+                        .collectLatest { debug ->
+                            if (debug) {
+                                audioOffloadManager.printDebugLogsLoop()
+                            }
                         }
-                    }
+                }
             }
         }
     }
 
     @Singleton
     @Provides
-    fun logger(@ApplicationContext application: Context): Logging =
-        Logging(res = application.resources)
+    fun logger(
+        @ApplicationContext application: Context,
+    ): Logging = Logging(res = application.resources)
 
     @Singleton
     @Provides
-    fun errorReporter(logging: Logging): ErrorReporter = logging
+    fun errorReporter(
+        logging: Logging,
+    ): ErrorReporter = logging
 
     @Singleton
     @Provides
-    fun vibrator(@ApplicationContext application: Context): Vibrator =
+    fun vibrator(
+        @ApplicationContext application: Context,
+    ): Vibrator =
         application.getSystemService(Vibrator::class.java)
 
     @Singleton
     @Provides
-    fun cacheDatabaseProvider(@ApplicationContext application: Context): DatabaseProvider =
-        StandaloneDatabaseProvider(application)
+    fun cacheDatabaseProvider(
+        @ApplicationContext application: Context,
+    ): DatabaseProvider = StandaloneDatabaseProvider(application)
 
     @Singleton
     @Provides
-    fun media3Cache(@CacheDir cacheDir: File, cacheDatabaseProvider: DatabaseProvider): Cache =
+    fun media3Cache(
+        @CacheDir cacheDir: File,
+        cacheDatabaseProvider: DatabaseProvider,
+    ): Cache =
         SimpleCache(
             cacheDir.resolve("media3cache"),
             NoOpCacheEvictor(),
@@ -151,16 +170,20 @@ object MediaApplicationModule {
 
     @Singleton
     @Provides
-    fun snackbarManager() = SnackbarManager()
+    fun snackbarManager() =
+        SnackbarManager()
 
     @Singleton
     @Provides
-    fun ResourceProvider(@ApplicationContext application: Context): ResourceProvider =
-        ResourceProvider(application.resources)
+    fun ResourceProvider(
+        @ApplicationContext application: Context,
+    ): ResourceProvider = ResourceProvider(application.resources)
 
     @Singleton
     @Provides
-    fun dataUpdates(@ApplicationContext application: Context): DataUpdates {
+    fun dataUpdates(
+        @ApplicationContext application: Context,
+    ): DataUpdates {
         val updater = ComplicationDataSourceUpdateRequester.create(
             application,
             ComponentName(

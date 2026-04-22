@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,8 +45,9 @@ object ConfigModule {
     @Singleton
     @Provides
     @SuppressSpeakerPlayback
-    fun suppressSpeakerPlayback(@IsEmulator isEmulator: Boolean) =
-        !BuildConfig.BENCHMARK && !isEmulator
+    fun suppressSpeakerPlayback(
+        @IsEmulator isEmulator: Boolean,
+    ) = !BuildConfig.BENCHMARK && !isEmulator
 
     @Singleton
     @Provides
@@ -55,23 +56,31 @@ object ConfigModule {
     @Singleton
     @Provides
     @CacheDir
-    fun cacheDir(@ApplicationContext application: Context): File =
+    fun cacheDir(
+        @ApplicationContext application: Context,
+    ): File =
         StrictMode.allowThreadDiskWrites().resetAfter {
             application.cacheDir
         }
 
     @Singleton
     @Provides
-    fun audioOutputSelector(systemAudioRepository: SystemAudioRepository): AudioOutputSelector =
+    fun audioOutputSelector(
+        systemAudioRepository: SystemAudioRepository,
+    ): AudioOutputSelector =
         BluetoothSettingsOutputSelector(systemAudioRepository)
 
     @Singleton
     @Provides
-    fun systemAudioRepository(@ApplicationContext application: Context): SystemAudioRepository =
+    fun systemAudioRepository(
+        @ApplicationContext application: Context,
+    ): SystemAudioRepository =
         SystemAudioRepository.fromContext(application)
 
     @Singleton
     @Provides
-    fun notificationManager(@ApplicationContext application: Context): NotificationManager =
+    fun notificationManager(
+        @ApplicationContext application: Context,
+    ): NotificationManager =
         application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 }

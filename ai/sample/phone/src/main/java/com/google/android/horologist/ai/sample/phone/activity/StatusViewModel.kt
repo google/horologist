@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,18 +21,18 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.ai.core.InferenceServiceGrpcKt
 import com.google.protobuf.empty
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 @HiltViewModel
 class StatusViewModel
-@Inject
-constructor(
-    private val service: InferenceServiceGrpcKt.InferenceServiceCoroutineStub,
-) : ViewModel() {
-    val uiState = flow {
-        emit(StatusUiState(serviceName = service.serviceInfo(empty { }).name))
-    }.stateIn(viewModelScope, SharingStarted.Lazily, StatusUiState())
-}
+    @Inject
+    constructor(
+        private val service: InferenceServiceGrpcKt.InferenceServiceCoroutineStub,
+    ) : ViewModel() {
+        val uiState = flow {
+            emit(StatusUiState(serviceName = service.serviceInfo(empty { }).name))
+        }.stateIn(viewModelScope, SharingStarted.Lazily, StatusUiState())
+    }

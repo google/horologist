@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -48,27 +48,29 @@ object SyncModule {
     @Provides
     fun coroutineDispatcherProvider(
         @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
-    ): CoroutineDispatcherProvider = object : CoroutineDispatcherProvider {
-        override fun getIODispatcher(): CoroutineDispatcher = ioDispatcher
-    }
+    ): CoroutineDispatcherProvider =
+        object : CoroutineDispatcherProvider {
+            override fun getIODispatcher(): CoroutineDispatcher = ioDispatcher
+        }
 
     @Singleton
     @Provides
     fun notificationConfigurationProvider(
         @ApplicationContext application: Context,
-    ): NotificationConfigurationProvider = object : NotificationConfigurationProvider {
+    ): NotificationConfigurationProvider =
+        object : NotificationConfigurationProvider {
 
-        override fun getNotificationTitle(): String =
-            application.getString(R.string.sync_notification_title)
+            override fun getNotificationTitle(): String =
+                application.getString(R.string.sync_notification_title)
 
-        override fun getNotificationIcon(): Int = R.drawable.ic_uamp_headset
+            override fun getNotificationIcon(): Int = R.drawable.ic_uamp_headset
 
-        override fun getChannelName(): String =
-            application.getString(R.string.sync_notification_channel_name)
+            override fun getChannelName(): String =
+                application.getString(R.string.sync_notification_channel_name)
 
-        override fun getChannelDescription(): String =
-            application.getString(R.string.sync_notification_channel_description)
-    }
+            override fun getChannelDescription(): String =
+                application.getString(R.string.sync_notification_channel_description)
+        }
 
     @Singleton
     @Provides
@@ -88,10 +90,11 @@ object SyncModule {
 
     @Singleton
     @Provides
-    fun syncables(playlistRepositorySyncable: PlaylistRepositorySyncable): Array<Syncable> =
-        arrayOf(
-            playlistRepositorySyncable,
-        )
+    fun syncables(
+        playlistRepositorySyncable: PlaylistRepositorySyncable,
+    ): Array<Syncable> = arrayOf(
+        playlistRepositorySyncable,
+    )
 
     @Provides
     fun playlistRepositorySyncable(
@@ -100,11 +103,12 @@ object SyncModule {
         networkChangeListService: NetworkChangeListService,
         mediaLocalDataSource: MediaLocalDataSource,
         playlistMapper: PlaylistMapper,
-    ): PlaylistRepositorySyncable = PlaylistRepositorySyncable(
-        playlistLocalDataSource,
-        playlistRemoteDataSource,
-        networkChangeListService,
-        mediaLocalDataSource,
-        playlistMapper,
-    )
+    ): PlaylistRepositorySyncable =
+        PlaylistRepositorySyncable(
+            playlistLocalDataSource,
+            playlistRemoteDataSource,
+            networkChangeListService,
+            mediaLocalDataSource,
+            playlistMapper,
+        )
 }

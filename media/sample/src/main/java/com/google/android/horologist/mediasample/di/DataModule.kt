@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,10 +51,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -68,48 +68,56 @@ class DataModule {
         mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
         media3DownloadDataSource: Media3DownloadDataSource,
         playlistDownloadMapper: PlaylistDownloadMapper,
-    ): PlaylistDownloadRepository = PlaylistDownloadRepositoryImpl(
-        coroutineScope = coroutineScope,
-        playlistLocalDataSource = playlistLocalDataSource,
-        mediaDownloadLocalDataSource = mediaDownloadLocalDataSource,
-        media3DownloadDataSource = media3DownloadDataSource,
-        playlistDownloadMapper = playlistDownloadMapper,
-    )
+    ): PlaylistDownloadRepository =
+        PlaylistDownloadRepositoryImpl(
+            coroutineScope = coroutineScope,
+            playlistLocalDataSource = playlistLocalDataSource,
+            mediaDownloadLocalDataSource = mediaDownloadLocalDataSource,
+            media3DownloadDataSource = media3DownloadDataSource,
+            playlistDownloadMapper = playlistDownloadMapper,
+        )
 
     @Singleton
     @Provides
     fun mediaDownloadRepository(
         media3DownloadDataSource: Media3DownloadDataSource,
-    ): MediaDownloadRepository = MediaDownloadRepositoryImpl(
-        media3DownloadDataSource = media3DownloadDataSource,
-    )
+    ): MediaDownloadRepository =
+        MediaDownloadRepositoryImpl(
+            media3DownloadDataSource = media3DownloadDataSource,
+        )
 
     @Singleton
     @Provides
     fun playlistRepositoryImpl(
         playlistDownloadLocalDataSource: PlaylistLocalDataSource,
         playlistMapper: PlaylistMapper,
-    ): PlaylistRepositoryImpl = PlaylistRepositoryImpl(
-        playlistLocalDataSource = playlistDownloadLocalDataSource,
-        playlistMapper = playlistMapper,
-    )
-
-    @Singleton
-    @Provides
-    fun playlistRepository(playlistRepositoryImpl: PlaylistRepositoryImpl): PlaylistRepository =
-        playlistRepositoryImpl
-
-    @Singleton
-    @Provides
-    fun settingsRepository(prefsDataStore: DataStore<Settings>) = SettingsRepository(prefsDataStore)
-
-    @Singleton
-    @Provides
-    fun media3DownloadDataSource(@ApplicationContext applicationContext: Context) =
-        Media3DownloadDataSource(
-            applicationContext,
-            MediaDownloadServiceImpl::class.java,
+    ): PlaylistRepositoryImpl =
+        PlaylistRepositoryImpl(
+            playlistLocalDataSource = playlistDownloadLocalDataSource,
+            playlistMapper = playlistMapper,
         )
+
+    @Singleton
+    @Provides
+    fun playlistRepository(
+        playlistRepositoryImpl: PlaylistRepositoryImpl,
+    ): PlaylistRepository = playlistRepositoryImpl
+
+    @Singleton
+    @Provides
+    fun settingsRepository(
+        prefsDataStore: DataStore<Settings>,
+    ) =
+        SettingsRepository(prefsDataStore)
+
+    @Singleton
+    @Provides
+    fun media3DownloadDataSource(
+        @ApplicationContext applicationContext: Context,
+    ) = Media3DownloadDataSource(
+        applicationContext,
+        MediaDownloadServiceImpl::class.java,
+    )
 
     @Provides
     @Singleton
@@ -123,21 +131,23 @@ class DataModule {
         mediaDatabase: MediaDatabase,
         playlistDao: PlaylistDao,
         playlistMediaDao: PlaylistMediaDao,
-    ): PlaylistLocalDataSource = PlaylistLocalDataSource(
-        roomDatabase = mediaDatabase,
-        playlistDao = playlistDao,
-        playlistMediaDao = playlistMediaDao,
-    )
+    ): PlaylistLocalDataSource =
+        PlaylistLocalDataSource(
+            roomDatabase = mediaDatabase,
+            playlistDao = playlistDao,
+            playlistMediaDao = playlistMediaDao,
+        )
 
     @Singleton
     @Provides
     fun playlistRemoteDataSource(
         uampService: UampService,
         @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
-    ): PlaylistRemoteDataSource = PlaylistRemoteDataSource(
-        ioDispatcher = ioDispatcher,
-        uampService = uampService,
-    )
+    ): PlaylistRemoteDataSource =
+        PlaylistRemoteDataSource(
+            ioDispatcher = ioDispatcher,
+            uampService = uampService,
+        )
 
     @Singleton
     @Provides
@@ -161,8 +171,7 @@ class DataModule {
     fun mediaExtrasMapper(): MediaExtrasMapper = MediaExtrasMapperNoopImpl
 
     @Provides
-    fun mediaMapper(mediaExtrasMapper: MediaExtrasMapper): MediaMapper =
-        MediaMapper(mediaExtrasMapper)
+    fun mediaMapper(mediaExtrasMapper: MediaExtrasMapper): MediaMapper = MediaMapper(mediaExtrasMapper)
 
     @Provides
     fun playlistMapper(mediaMapper: MediaMapper): PlaylistMapper = PlaylistMapper(mediaMapper)

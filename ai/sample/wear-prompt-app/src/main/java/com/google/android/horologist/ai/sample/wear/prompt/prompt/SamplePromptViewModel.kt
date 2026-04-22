@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,7 +29,6 @@ import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 import com.google.android.horologist.ai.ui.screens.PromptUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -42,101 +41,97 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class SamplePromptViewModel
-@Inject
-constructor(private val inferenceService: InferenceService) :
-    ViewModel() {
+    @Inject
+    constructor(
+        private val inferenceService: InferenceService,
+    ) : ViewModel() {
 
-    init {
-        viewModelScope.launch {
-            val current = inferenceService.connectedModel.first()
-            if (current == null) {
-                val defaultModel = inferenceService.currentKnownModels().firstOrNull()
-                if (defaultModel != null) {
-                    inferenceService.selectModel(defaultModel)
-                }
-            }
-        }
-    }
-
-    private val previousQuestions: MutableStateFlow<List<PromptOrResponseUiModel>> =
-        MutableStateFlow(listOf())
-    private val pendingQuestion: MutableStateFlow<Boolean> =
-        MutableStateFlow(false)
-
-    fun askQuestion(enteredPrompt: String) {
-        val textPromptUiModel = TextPromptUiModel(enteredPrompt)
-        pendingQuestion.value = true
-        previousQuestions.update {
-            it + textPromptUiModel
-        }
-
-        viewModelScope.launch {
-            val responseUis = queryForPrompt(enteredPrompt)
-
-            responseUis.collect { responseUi ->
-                previousQuestions.update {
-                    it + responseUi
-                }
-            }
-
-            pendingQuestion.value = false
-        }
-    }
-
-    private fun queryForPrompt(enteredPrompt: String): Flow<PromptOrResponseUiModel> = flow {
-        try {
-            val responses = inferenceService.submitStream(
-                prompt {
-                    textPrompt = textPrompt { text = enteredPrompt }
-                },
-            )
-
-            emitAll(
-                responses.map { response ->
-                    when {
-                        response.hasTextResponse() -> TextResponseUiModel(
-                            response.textResponse.text,
-                        )
-
-                        response.hasImageResponse() -> if (response.imageResponse.hasGcsUrl()) {
-                            ImageResponseUiModel(
-                                imageUrl = response.imageResponse.gcsUrl,
-                            )
-                        } else {
-                            ImageResponseUiModel(
-                                image = response.imageResponse.encoded.toByteArray(),
-                            )
-                        }
-
-                        response.hasFailure() -> FailedResponseUiModel(
-                            response.failure.message,
-                        )
-
-                        else -> FailedResponseUiModel(
-                            "Unhandled response type ${response.responseDataCase}",
-                        )
+        init {
+            viewModelScope.launch {
+                val current = inferenceService.connectedModel.first()
+                if (current == null) {
+                    val defaultModel = inferenceService.currentKnownModels().firstOrNull()
+                    if (defaultModel != null) {
+                        inferenceService.selectModel(defaultModel)
                     }
-                },
-            )
-        } catch (e: Exception) {
-            emit(FailedResponseUiModel(e.toString()))
+                }
+            }
         }
-    }
 
-    val uiState: StateFlow<PromptUiState> =
-        combine(
-            previousQuestions,
-            pendingQuestion,
-            inferenceService.currentModelInfo,
-        ) { prev, pending, info ->
-            val modelInfo = info?.first?.let { ModelInstanceUiModel(it.modelId.id, it.name) }
-            PromptUiState(modelInfo, prev, pending)
-        }.stateIn(
-            viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = PromptUiState(messages = previousQuestions.value),
-        )
-}
+        private val previousQuestions: MutableStateFlow<List<PromptOrResponseUiModel>> =
+            MutableStateFlow(listOf())
+        private val pendingQuestion: MutableStateFlow<Boolean> =
+            MutableStateFlow(false)
+
+        fun askQuestion(enteredPrompt: String) {
+            val textPromptUiModel = TextPromptUiModel(enteredPrompt)
+            pendingQuestion.value = true
+            previousQuestions.update {
+                it + textPromptUiModel
+            }
+
+            viewModelScope.launch {
+                val responseUis = queryForPrompt(enteredPrompt)
+
+                responseUis.collect { responseUi ->
+                    previousQuestions.update {
+                        it + responseUi
+                    }
+                }
+
+                pendingQuestion.value = false
+            }
+        }
+
+        private fun queryForPrompt(
+            enteredPrompt: String,
+        ): Flow<PromptOrResponseUiModel> {
+            return flow {
+                try {
+                    val responses = inferenceService.submitStream(
+                        prompt {
+                            textPrompt = textPrompt { text = enteredPrompt }
+                        },
+                    )
+
+                    emitAll(
+                        responses.map { response ->
+                            when {
+                                response.hasTextResponse() -> TextResponseUiModel(response.textResponse.text)
+                                response.hasImageResponse() -> if (response.imageResponse.hasGcsUrl()) {
+                                    ImageResponseUiModel(
+                                        imageUrl = response.imageResponse.gcsUrl,
+                                    )
+                                } else {
+                                    ImageResponseUiModel(image = response.imageResponse.encoded.toByteArray())
+                                }
+
+                                response.hasFailure() -> FailedResponseUiModel(response.failure.message)
+                                else -> FailedResponseUiModel("Unhandled response type ${response.responseDataCase}")
+                            }
+                        },
+                    )
+                } catch (e: Exception) {
+                    emit(FailedResponseUiModel(e.toString()))
+                }
+            }
+        }
+
+        val uiState: StateFlow<PromptUiState> =
+            combine(
+                previousQuestions,
+                pendingQuestion,
+                inferenceService.currentModelInfo,
+            ) { prev, pending, info ->
+                val modelInfo = info?.first?.let { ModelInstanceUiModel(it.modelId.id, it.name) }
+                PromptUiState(modelInfo, prev, pending)
+            }.stateIn(
+                viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = PromptUiState(messages = previousQuestions.value),
+            )
+    }

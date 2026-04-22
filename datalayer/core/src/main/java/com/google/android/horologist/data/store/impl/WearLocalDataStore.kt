@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearDataLayerRegistry.Companion.buildUri
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -42,6 +40,8 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.tasks.await
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 
 @ExperimentalHorologistApi
 public class WearLocalDataStore<T>(
@@ -78,9 +78,11 @@ public class WearLocalDataStore<T>(
 
     override val data: Flow<T> = sharedFlow
 
-    private suspend fun writeBytes(t: T): ByteArray = ByteArrayOutputStream().apply {
-        serializer.writeTo(t, this)
-    }.toByteArray()
+    private suspend fun writeBytes(t: T): ByteArray {
+        return ByteArrayOutputStream().apply {
+            serializer.writeTo(t, this)
+        }.toByteArray()
+    }
 
     override suspend fun updateData(transform: suspend (t: T) -> T): T = mutex.withLock {
         val nodeId = nodeIdFlow.first()
@@ -118,4 +120,7 @@ public class WearLocalDataStore<T>(
     }
 }
 
-data class NodeIdAndPath(val nodeId: String, val fullPath: Uri)
+data class NodeIdAndPath(
+    val nodeId: String,
+    val fullPath: Uri,
+)

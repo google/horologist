@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,19 +79,13 @@ fun AmbientAwareWearApp() {
         Box(modifier = Modifier.fillMaxSize()) {
             SwipeDismissableNavHost(navController, Home) {
                 composable<Home> {
-                    HomeScreen(onRun = {
-                        navController.navigate(Preparing)
-                    }, onSettings = { navController.navigate(Settings) })
+                    HomeScreen(onRun = { navController.navigate(Preparing) }, onSettings = { navController.navigate(Settings) })
                 }
                 composable<Preparing> {
-                    PreparingScreen(onStart = {
-                        navController.navigate(Exercise)
-                    }, onSettings = { navController.navigate(Settings) })
+                    PreparingScreen(onStart = { navController.navigate(Exercise) }, onSettings = { navController.navigate(Settings) })
                 }
                 composable<Exercise> {
-                    ExerciseScreen(onStop = {
-                        navController.navigate(Home)
-                    }, onSettings = { navController.navigate(Settings) })
+                    ExerciseScreen(onStop = { navController.navigate(Home) }, onSettings = { navController.navigate(Settings) })
                 }
                 composable<Settings> {
                     SettingsScreen()
@@ -144,16 +138,8 @@ fun ExerciseScreen(modifier: Modifier = Modifier, onStop: () -> Unit, onSettings
                             "Exercise",
                             color = Color.Green,
                         )
-                        Button(
-                            onClick = onStop,
-                            imageVector = Icons.Rounded.Cancel,
-                            contentDescription = "Cancel",
-                        )
-                        Button(
-                            onClick = onSettings,
-                            imageVector = Icons.Rounded.Settings,
-                            contentDescription = "Settings",
-                        )
+                        Button(onClick = onStop, imageVector = Icons.Rounded.Cancel, contentDescription = "Cancel")
+                        Button(onClick = onSettings, imageVector = Icons.Rounded.Settings, contentDescription = "Settings")
                     }
                 }
             }
@@ -180,16 +166,8 @@ fun PreparingScreen(modifier: Modifier = Modifier, onStart: () -> Unit, onSettin
                     ambientState.displayName,
                     color = Color.Blue,
                 )
-                Button(
-                    onClick = onStart,
-                    imageVector = Icons.Rounded.PlayArrow,
-                    contentDescription = "Start",
-                )
-                Button(
-                    onClick = onSettings,
-                    imageVector = Icons.Rounded.Settings,
-                    contentDescription = "Settings",
-                )
+                Button(onClick = onStart, imageVector = Icons.Rounded.PlayArrow, contentDescription = "Start")
+                Button(onClick = onSettings, imageVector = Icons.Rounded.Settings, contentDescription = "Settings")
             }
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,9 +20,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.compose.tools.copy
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
-import java.time.LocalDate
 import org.junit.Test
 import org.robolectric.annotation.Config
+import java.time.LocalDate
 
 class DatePickerTest : WearLegacyScreenTest() {
 
@@ -56,11 +56,7 @@ class DatePickerTest : WearLegacyScreenTest() {
     )
     fun smallDeviceLargeFontBold() {
         runTest(applyDeviceConfig = false) {
-            MaterialTheme(
-                typography = MaterialTheme.typography.copy {
-                    this.copy(fontWeight = FontWeight.Bold)
-                },
-            ) {
+            MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
                 DatePicker(
                     onDateConfirm = {},
                     date = LocalDate.of(2022, 4, 25),

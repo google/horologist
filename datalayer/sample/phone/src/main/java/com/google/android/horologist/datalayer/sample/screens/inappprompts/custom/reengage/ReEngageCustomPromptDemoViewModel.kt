@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,69 +22,67 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.phone.ui.prompt.reengage.ReEngagePrompt
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ReEngageCustomPromptDemoViewModel
-@Inject
-constructor(
-    private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-    private val reEngagePrompt: ReEngagePrompt,
-) : ViewModel() {
+    @Inject
+    constructor(
+        private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+        private val reEngagePrompt: ReEngagePrompt,
+    ) : ViewModel() {
 
-    private var initializeCalled = false
+        private var initializeCalled = false
 
-    private val _uiState =
-        MutableStateFlow<ReEngageCustomPromptDemoScreenState>(
-            ReEngageCustomPromptDemoScreenState.Idle,
-        )
-    public val uiState: StateFlow<ReEngageCustomPromptDemoScreenState> = _uiState
+        private val _uiState =
+            MutableStateFlow<ReEngageCustomPromptDemoScreenState>(ReEngageCustomPromptDemoScreenState.Idle)
+        public val uiState: StateFlow<ReEngageCustomPromptDemoScreenState> = _uiState
 
-    @MainThread
-    fun initialize() {
-        if (initializeCalled) return
-        initializeCalled = true
+        @MainThread
+        fun initialize() {
+            if (initializeCalled) return
+            initializeCalled = true
 
-        _uiState.value = ReEngageCustomPromptDemoScreenState.Loading
+            _uiState.value = ReEngageCustomPromptDemoScreenState.Loading
 
-        viewModelScope.launch {
-            if (!phoneDataLayerAppHelper.isAvailable()) {
-                _uiState.value = ReEngageCustomPromptDemoScreenState.ApiNotAvailable
-            } else {
-                _uiState.value = ReEngageCustomPromptDemoScreenState.Loaded
+            viewModelScope.launch {
+                if (!phoneDataLayerAppHelper.isAvailable()) {
+                    _uiState.value = ReEngageCustomPromptDemoScreenState.ApiNotAvailable
+                } else {
+                    _uiState.value = ReEngageCustomPromptDemoScreenState.Loaded
+                }
             }
         }
-    }
 
-    fun onRunDemoClick() {
-        _uiState.value = ReEngageCustomPromptDemoScreenState.Loading
+        fun onRunDemoClick() {
+            _uiState.value = ReEngageCustomPromptDemoScreenState.Loading
 
-        viewModelScope.launch {
-            val node = reEngagePrompt.shouldDisplayPrompt()
+            viewModelScope.launch {
+                val node = reEngagePrompt.shouldDisplayPrompt()
 
-            _uiState.value = if (node != null) {
-                ReEngageCustomPromptDemoScreenState.WatchFound(node.id)
-            } else {
-                ReEngageCustomPromptDemoScreenState.WatchNotFound
+                _uiState.value = if (node != null) {
+                    ReEngageCustomPromptDemoScreenState.WatchFound(node.id)
+                } else {
+                    ReEngageCustomPromptDemoScreenState.WatchNotFound
+                }
             }
         }
-    }
 
-    fun onPromptPositiveButtonClick(nodeId: String) {
-        viewModelScope.launch {
-            reEngagePrompt.performAction(nodeId = nodeId)
+        fun onPromptPositiveButtonClick(nodeId: String) {
+            viewModelScope.launch {
+                reEngagePrompt.performAction(nodeId = nodeId)
+            }
+
+            _uiState.value = ReEngageCustomPromptDemoScreenState.PromptPositiveButtonClicked
         }
 
-        _uiState.value = ReEngageCustomPromptDemoScreenState.PromptPositiveButtonClicked
+        fun onPromptDismiss() {
+            _uiState.value = ReEngageCustomPromptDemoScreenState.PromptDismissed
+        }
     }
-
-    fun onPromptDismiss() {
-        _uiState.value = ReEngageCustomPromptDemoScreenState.PromptDismissed
-    }
-}
 
 sealed class ReEngageCustomPromptDemoScreenState {
     data object Idle : ReEngageCustomPromptDemoScreenState()

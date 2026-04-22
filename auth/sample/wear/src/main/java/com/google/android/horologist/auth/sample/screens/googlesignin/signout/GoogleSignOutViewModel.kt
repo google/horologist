@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class GoogleSignOutViewModel(private val googleSignInClient: GoogleSignInClient) : ViewModel() {
+class GoogleSignOutViewModel(
+    private val googleSignInClient: GoogleSignInClient,
+) : ViewModel() {
 
     private val _uiState = MutableStateFlow(GoogleSignOutScreenState.Idle)
     public val uiState: StateFlow<GoogleSignOutScreenState> = _uiState

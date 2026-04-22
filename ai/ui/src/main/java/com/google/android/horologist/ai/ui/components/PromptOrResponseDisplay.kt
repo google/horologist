@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,48 +38,23 @@ public fun PromptOrResponseDisplay(
 ) {
     when (promptResponse) {
         is TextResponseUiModel -> {
-            TextResponseCard(
-                promptResponse,
-                onClick = onClick,
-                modifier = modifier,
-                transformation = transformation,
-            )
+            TextResponseCard(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
         }
 
         is ImageResponseUiModel -> {
-            ImageResponseCard(
-                promptResponse,
-                onClick = onClick,
-                modifier = modifier,
-                transformation = transformation,
-            )
+            ImageResponseCard(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
         }
 
         is FailedResponseUiModel -> {
-            FailedResponseChip(
-                promptResponse,
-                onClick = onClick,
-                modifier = modifier,
-                transformation = transformation,
-            )
+            FailedResponseChip(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
         }
 
         is InProgressResponseUiModel -> {
-            ResponseInProgressCard(
-                promptResponse,
-                onClick = onClick,
-                modifier = modifier,
-                transformation = transformation,
-            )
+            ResponseInProgressCard(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
         }
 
         is TextPromptUiModel -> {
-            TextPromptDisplay(
-                prompt = promptResponse,
-                onClick = onClick,
-                modifier = modifier,
-                transformation = transformation,
-            )
+            TextPromptDisplay(prompt = promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
         }
     }
 }

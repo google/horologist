@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,10 +48,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import java.io.File
-import javax.inject.Provider
-import javax.inject.Singleton
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.Cache
 import okhttp3.Call
@@ -60,6 +56,10 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.LoggingEventListener
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.io.File
+import javax.inject.Provider
+import javax.inject.Singleton
+import kotlin.time.Duration.Companion.seconds
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -77,7 +77,9 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun cache(@ApplicationContext application: Context): Cache = Cache(
+    fun cache(
+        @ApplicationContext application: Context,
+    ): Cache = Cache(
         application.cacheDir.resolve("HttpCache"),
         10_000_000,
     )
@@ -98,25 +100,33 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun okhttpClient(cache: Cache, alwaysHttpsInterceptor: Interceptor): OkHttpClient =
-        OkHttpClient.Builder().followSslRedirects(false)
+    fun okhttpClient(
+        cache: Cache,
+        alwaysHttpsInterceptor: Interceptor,
+    ): OkHttpClient {
+        return OkHttpClient.Builder().followSslRedirects(false)
             .addInterceptor(alwaysHttpsInterceptor)
             .eventListenerFactory(LoggingEventListener.Factory()).cache(cache).build()
+    }
 
     @Provides
     fun networkLogger(): NetworkStatusLogger = NetworkStatusLogger.Logging
 
     @Singleton
     @Provides
-    fun dataRequestRepository(): DataRequestRepository = InMemoryDataRequestRepository()
+    fun dataRequestRepository(): DataRequestRepository =
+        InMemoryDataRequestRepository()
 
     @Provides
-    fun connectivityManager(@ApplicationContext application: Context): ConnectivityManager =
+    fun connectivityManager(
+        @ApplicationContext application: Context,
+    ): ConnectivityManager =
         application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     @Provides
-    fun wifiManager(@ApplicationContext application: Context): WifiManager =
-        application.getSystemService(Context.WIFI_SERVICE) as WifiManager
+    fun wifiManager(
+        @ApplicationContext application: Context,
+    ): WifiManager = application.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
     @Singleton
     @Provides
@@ -139,10 +149,11 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun networkRequester(connectivityManager: ConnectivityManager): NetworkRequester =
-        NetworkRequesterImpl(
-            connectivityManager,
-        )
+    fun networkRequester(
+        connectivityManager: ConnectivityManager,
+    ): NetworkRequester = NetworkRequesterImpl(
+        connectivityManager,
+    )
 
     @Singleton
     @Provides
@@ -155,28 +166,29 @@ object NetworkModule {
         networkRepository: NetworkRepository,
         @ForApplicationScope coroutineScope: CoroutineScope,
         logger: NetworkStatusLogger,
-    ): Call.Factory = if (appConfig.strictNetworking != null) {
-        NetworkSelectingCallFactory(
-            networkingRulesEngine.get(),
-            highBandwidthNetworkMediator.get(),
-            networkRepository,
-            dataRequestRepository,
-            okhttpClient,
-            coroutineScope,
-            logger = logger,
-        )
-    } else {
-        okhttpClient.newBuilder()
-            .eventListenerFactory(
-                NetworkLoggingEventListenerFactory(
-                    logger,
-                    networkRepository,
-                    okhttpClient.eventListenerFactory,
-                    dataRequestRepository,
-                ),
+    ): Call.Factory =
+        if (appConfig.strictNetworking != null) {
+            NetworkSelectingCallFactory(
+                networkingRulesEngine.get(),
+                highBandwidthNetworkMediator.get(),
+                networkRepository,
+                dataRequestRepository,
+                okhttpClient,
+                coroutineScope,
+                logger = logger,
             )
-            .build()
-    }
+        } else {
+            okhttpClient.newBuilder()
+                .eventListenerFactory(
+                    NetworkLoggingEventListenerFactory(
+                        logger,
+                        networkRepository,
+                        okhttpClient.eventListenerFactory,
+                        dataRequestRepository,
+                    ),
+                )
+                .build()
+        }
 
     @Singleton
     @Provides
@@ -184,12 +196,16 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun mooshiConverterFactory(moshi: Moshi): MoshiConverterFactory =
-        MoshiConverterFactory.create(moshi)
+    fun mooshiConverterFactory(
+        moshi: Moshi,
+    ): MoshiConverterFactory = MoshiConverterFactory.create(moshi)
 
     @Singleton
     @Provides
-    fun retrofit(callFactory: Call.Factory, moshiConverterFactory: MoshiConverterFactory) =
+    fun retrofit(
+        callFactory: Call.Factory,
+        moshiConverterFactory: MoshiConverterFactory,
+    ) =
         Retrofit.Builder()
             .addConverterFactory(moshiConverterFactory)
             .baseUrl(UampService.BASE_URL)
@@ -202,7 +218,9 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun uampService(retrofit: Retrofit): UampService = WearArtworkUampService(
+    fun uampService(
+        retrofit: Retrofit,
+    ): UampService = WearArtworkUampService(
         retrofit.create(UampService::class.java),
     )
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,10 @@ fun FillerScreen(label: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun BigScalingLazyColumn(columnState: ScalingLazyColumnState, modifier: Modifier = Modifier) {
+fun BigScalingLazyColumn(
+    columnState: ScalingLazyColumnState,
+    modifier: Modifier = Modifier,
+) {
     ScalingLazyColumn(
         modifier = modifier,
         columnState = columnState,
@@ -59,7 +62,10 @@ fun BigScalingLazyColumn(columnState: ScalingLazyColumnState, modifier: Modifier
 }
 
 @Composable
-fun BigColumn(scrollState: ScrollState, modifier: Modifier = Modifier) {
+fun BigColumn(
+    scrollState: ScrollState,
+    modifier: Modifier = Modifier,
+) {
     Column(
         modifier = modifier
             .fillMaxSize()

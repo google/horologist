@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,12 +22,12 @@ import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.DataClient.OnDataChangedListener
 import com.google.android.gms.wearable.DataItem
 import com.google.android.gms.wearable.PutDataRequest
-import java.io.ByteArrayInputStream
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
+import java.io.ByteArrayInputStream
 
 public fun <T> DataClient.dataItemFlow(
     nodeId: String,
@@ -72,4 +72,6 @@ public fun <T> DataClient.dataItemFlow(
     }
 }
 
-private suspend fun <T> Serializer<T>.parse(data: ByteArray) = readFrom(ByteArrayInputStream(data))
+private suspend fun <T> Serializer<T>.parse(
+    data: ByteArray,
+) = readFrom(ByteArrayInputStream(data))

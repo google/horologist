@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,8 +32,9 @@ import kotlinx.coroutines.launch
  * It checks if there is a user already signed in, and emits the appropriate
  * [states][StreamlineSignInScreenState] through the [uiState] property.
  */
-public open class StreamlineSignInViewModel(private val authUserRepository: AuthUserRepository) :
-    ViewModel() {
+public open class StreamlineSignInViewModel(
+    private val authUserRepository: AuthUserRepository,
+) : ViewModel() {
 
     private val _uiState =
         MutableStateFlow<StreamlineSignInScreenState>(StreamlineSignInScreenState.Idle)
@@ -82,11 +83,13 @@ public sealed class StreamlineSignInScreenState {
 
     public object Loading : StreamlineSignInScreenState()
 
-    public data class SingleAccountAvailable(val account: AccountUiModel) :
-        StreamlineSignInScreenState()
+    public data class SingleAccountAvailable(
+        val account: AccountUiModel,
+    ) : StreamlineSignInScreenState()
 
-    public data class MultipleAccountsAvailable(val accounts: List<AccountUiModel>) :
-        StreamlineSignInScreenState()
+    public data class MultipleAccountsAvailable(
+        val accounts: List<AccountUiModel>,
+    ) : StreamlineSignInScreenState()
 
     public object NoAccountsAvailable : StreamlineSignInScreenState()
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,8 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.media.ui.navigation.NavigationScreen
-import java.util.concurrent.CancellationException
 import kotlinx.coroutines.flow.Flow
+import java.util.concurrent.CancellationException
 
 /**
  * A HorizontalPager with a player screen, using volume control on the left,
@@ -75,10 +75,7 @@ public fun PlayerLibraryPagerScreen(
             0 -> {
                 ScreenScaffold(
                     positionIndicator = {
-                        VolumePositionIndicator(
-                            volumeUiState = volumeUiState,
-                            displayIndicatorEvents = displayVolumeIndicatorEvents,
-                        )
+                        VolumePositionIndicator(volumeUiState = volumeUiState, displayIndicatorEvents = displayVolumeIndicatorEvents)
                     },
                 ) {
                     playerScreen()

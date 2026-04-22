@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,8 +46,8 @@ import com.google.android.horologist.media.ui.material3.components.animated.Anim
 import com.google.android.horologist.media.ui.material3.components.background.ArtworkImageBackground
 import com.google.android.horologist.media.ui.material3.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import kotlin.math.ceil
 import kotlinx.coroutines.flow.flowOf
+import kotlin.math.ceil
 
 @Composable
 fun MediaPlayerTestCase(

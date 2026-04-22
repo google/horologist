@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -144,20 +144,21 @@ class VolumeScreenTest {
     }
 
     companion object {
-        fun SemanticsNodeInteraction.assertHasStateDescription(
-            value: String,
-        ): SemanticsNodeInteraction = assert(hasStateDescription(value))
+        fun SemanticsNodeInteraction.assertHasStateDescription(value: String): SemanticsNodeInteraction =
+            assert(hasStateDescription(value))
 
-        fun SemanticsNodeInteraction.assertHasClickLabel(
-            expectedValue: String,
-        ): SemanticsNodeInteraction = assert(
-            SemanticsMatcher("${SemanticsActions.OnClick.name} = '$expectedValue'") {
-                it.config.getOrNull(SemanticsActions.OnClick)?.label == expectedValue
-            },
-        )
+        fun SemanticsNodeInteraction.assertHasClickLabel(expectedValue: String): SemanticsNodeInteraction =
+            assert(
+                SemanticsMatcher("${SemanticsActions.OnClick.name} = '$expectedValue'") {
+                    it.config.getOrNull(SemanticsActions.OnClick)?.label == expectedValue
+                },
+            )
 
         @Composable
-        fun TestVolumeScreen(volumeState: VolumeState, audioOutput: AudioOutput) {
+        fun TestVolumeScreen(
+            volumeState: VolumeState,
+            audioOutput: AudioOutput,
+        ) {
             val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
             VolumeScreen(
                 volume = { volumeUiState },

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,67 +22,67 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.phone.ui.prompt.reengage.ReEngagePrompt
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @HiltViewModel
 class ReEngagePromptDemoViewModel
-@Inject
-constructor(
-    private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-    val reEngagePrompt: ReEngagePrompt,
-) : ViewModel() {
+    @Inject
+    constructor(
+        private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+        val reEngagePrompt: ReEngagePrompt,
+    ) : ViewModel() {
 
-    private var initializeCalled = false
+        private var initializeCalled = false
 
-    private val _uiState =
-        MutableStateFlow<ReEngagePromptDemoScreenState>(ReEngagePromptDemoScreenState.Idle)
-    public val uiState: StateFlow<ReEngagePromptDemoScreenState> = _uiState
+        private val _uiState =
+            MutableStateFlow<ReEngagePromptDemoScreenState>(ReEngagePromptDemoScreenState.Idle)
+        public val uiState: StateFlow<ReEngagePromptDemoScreenState> = _uiState
 
-    @MainThread
-    fun initialize() {
-        if (initializeCalled) return
-        initializeCalled = true
+        @MainThread
+        fun initialize() {
+            if (initializeCalled) return
+            initializeCalled = true
 
-        _uiState.value = ReEngagePromptDemoScreenState.Loading
+            _uiState.value = ReEngagePromptDemoScreenState.Loading
 
-        viewModelScope.launch {
-            if (!phoneDataLayerAppHelper.isAvailable()) {
-                _uiState.value = ReEngagePromptDemoScreenState.ApiNotAvailable
-            } else {
-                _uiState.value = ReEngagePromptDemoScreenState.Loaded
+            viewModelScope.launch {
+                if (!phoneDataLayerAppHelper.isAvailable()) {
+                    _uiState.value = ReEngagePromptDemoScreenState.ApiNotAvailable
+                } else {
+                    _uiState.value = ReEngagePromptDemoScreenState.Loaded
+                }
             }
         }
-    }
 
-    fun onRunDemoClick() {
-        _uiState.value = ReEngagePromptDemoScreenState.Loading
+        fun onRunDemoClick() {
+            _uiState.value = ReEngagePromptDemoScreenState.Loading
 
-        viewModelScope.launch {
-            val node = reEngagePrompt.shouldDisplayPrompt()
+            viewModelScope.launch {
+                val node = reEngagePrompt.shouldDisplayPrompt()
 
-            _uiState.value = if (node != null) {
-                ReEngagePromptDemoScreenState.WatchFound(node.id)
-            } else {
-                ReEngagePromptDemoScreenState.WatchNotFound
+                _uiState.value = if (node != null) {
+                    ReEngagePromptDemoScreenState.WatchFound(node.id)
+                } else {
+                    ReEngagePromptDemoScreenState.WatchNotFound
+                }
             }
         }
-    }
 
-    fun onPromptLaunched() {
-        _uiState.value = ReEngagePromptDemoScreenState.Idle
-    }
+        fun onPromptLaunched() {
+            _uiState.value = ReEngagePromptDemoScreenState.Idle
+        }
 
-    fun onPromptPositiveButtonClick() {
-        _uiState.value = ReEngagePromptDemoScreenState.PromptPositiveButtonClicked
-    }
+        fun onPromptPositiveButtonClick() {
+            _uiState.value = ReEngagePromptDemoScreenState.PromptPositiveButtonClicked
+        }
 
-    fun onPromptDismiss() {
-        _uiState.value = ReEngagePromptDemoScreenState.PromptDismissed
+        fun onPromptDismiss() {
+            _uiState.value = ReEngagePromptDemoScreenState.PromptDismissed
+        }
     }
-}
 
 sealed class ReEngagePromptDemoScreenState {
     data object Idle : ReEngagePromptDemoScreenState()

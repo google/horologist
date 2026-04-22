@@ -12,7 +12,7 @@ package com.google.android.horologist.media.data.datasource {
     method public suspend Object? add(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? delete(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.database.model.MediaDownloadEntity>> get(java.util.List<java.lang.String> mediaIds);
-    method public suspend Object? getAllDownloading(kotlin.coroutines.Continuation<? super java.util.List<com.google.android.horologist.media.database.model.MediaDownloadEntity>>);
+    method public suspend Object? getAllDownloading(kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.media.database.model.MediaDownloadEntity>>);
     method public suspend Object? setDownloaded(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? updateProgress(String mediaId, float progress, long size, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? updateStatus(String mediaId, com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super kotlin.Unit>);
@@ -84,9 +84,8 @@ package com.google.android.horologist.media.data.mapper {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaybackStateMapper {
-    ctor public PlaybackStateMapper();
     ctor public PlaybackStateMapper(optional com.google.android.horologist.media.model.TimestampProvider timestampProvider);
-    method @KotlinOnly public com.google.android.horologist.media.model.PlaybackStateEvent createEvent(androidx.media3.common.Player? player, com.google.android.horologist.media.model.PlaybackStateEvent.Cause cause, optional kotlin.time.Duration? seekProjection);
+    method public com.google.android.horologist.media.model.PlaybackStateEvent createEvent(androidx.media3.common.Player? player, com.google.android.horologist.media.model.PlaybackStateEvent.Cause cause, optional kotlin.time.Duration? seekProjection);
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlayerStateMapper {
@@ -119,24 +118,23 @@ package com.google.android.horologist.media.data.repository {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlayerRepositoryImpl implements java.io.Closeable com.google.android.horologist.media.repository.PlayerRepository {
-    ctor public PlayerRepositoryImpl();
     ctor public PlayerRepositoryImpl(optional com.google.android.horologist.media.data.mapper.MediaMapper mediaMapper, optional com.google.android.horologist.media.data.mapper.MediaItemMapper mediaItemMapper, optional com.google.android.horologist.media.data.mapper.PlaybackStateMapper playbackStateMapper);
     method public void addMedia(com.google.android.horologist.media.model.Media media);
     method public void addMedia(int index, com.google.android.horologist.media.model.Media media);
     method public void clearMediaList();
     method public void close();
     method public void connect(androidx.media3.common.Player player, kotlin.jvm.functions.Function0<kotlin.Unit> onClose);
-    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<java.util.Set<com.google.android.horologist.media.model.Command>> getAvailableCommands();
-    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getConnected();
-    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media?> getCurrentMedia();
+    method public kotlinx.coroutines.flow.StateFlow<java.util.Set<com.google.android.horologist.media.model.Command>> getAvailableCommands();
+    method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getConnected();
+    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media?> getCurrentMedia();
     method public int getCurrentMediaIndex();
-    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlaybackStateEvent> getLatestPlaybackState();
+    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlaybackStateEvent> getLatestPlaybackState();
     method public com.google.android.horologist.media.model.Media? getMediaAt(int index);
     method public int getMediaCount();
-    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player?> getPlayer();
-    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> getSeekBackIncrement();
-    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> getSeekForwardIncrement();
-    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleModeEnabled();
+    method public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player?> getPlayer();
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> getSeekBackIncrement();
+    method public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> getSeekForwardIncrement();
+    method public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> getShuffleModeEnabled();
     method public boolean hasNextMedia();
     method public boolean hasPreviousMedia();
     method public void pause();
@@ -147,7 +145,7 @@ package com.google.android.horologist.media.data.repository {
     method public void seekToDefaultPosition(int mediaIndex);
     method public void setMedia(com.google.android.horologist.media.model.Media media);
     method public void setMediaList(java.util.List<com.google.android.horologist.media.model.Media> mediaList);
-    method @KotlinOnly public void setMediaList(java.util.List<com.google.android.horologist.media.model.Media> mediaList, int index, kotlin.time.Duration? position);
+    method public void setMediaList(java.util.List<com.google.android.horologist.media.model.Media> mediaList, int index, kotlin.time.Duration? position);
     method public void setPlaybackSpeed(float speed);
     method public void setShuffleModeEnabled(boolean shuffleModeEnabled);
     method public void skipToNextMedia();
@@ -156,7 +154,7 @@ package com.google.android.horologist.media.data.repository {
     property public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> connected;
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.Media?> currentMedia;
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.media.model.PlaybackStateEvent> latestPlaybackState;
-    property public kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player?> player;
+    property public final kotlinx.coroutines.flow.StateFlow<androidx.media3.common.Player?> player;
     property public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> seekBackIncrement;
     property public kotlinx.coroutines.flow.StateFlow<kotlin.time.Duration?> seekForwardIncrement;
     property public kotlinx.coroutines.flow.StateFlow<java.lang.Boolean> shuffleModeEnabled;
@@ -191,13 +189,13 @@ package com.google.android.horologist.media.data.service.download {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public abstract class MediaDownloadService extends androidx.media3.exoplayer.offline.DownloadService implements androidx.lifecycle.LifecycleOwner {
     ctor public MediaDownloadService(int foregroundNotificationId, long foregroundNotificationUpdateInterval, String? channelId, @StringRes int channelNameResourceId, @StringRes int channelDescriptionResourceId, @DrawableRes int notificationIcon);
-    method @InaccessibleFromKotlin protected abstract android.app.PendingIntent getDownloadIntent();
-    method @InaccessibleFromKotlin protected abstract com.google.android.horologist.media.data.service.download.DownloadManagerListener getDownloadManagerListener();
-    method @InaccessibleFromKotlin protected abstract androidx.media3.exoplayer.offline.DownloadNotificationHelper getDownloadNotificationHelper();
+    method protected abstract android.app.PendingIntent getDownloadIntent();
+    method protected abstract com.google.android.horologist.media.data.service.download.DownloadManagerListener getDownloadManagerListener();
+    method protected abstract androidx.media3.exoplayer.offline.DownloadNotificationHelper getDownloadNotificationHelper();
     method protected android.app.Notification getForegroundNotification(java.util.List<androidx.media3.exoplayer.offline.Download> downloads, int notMetRequirements);
-    method @InaccessibleFromKotlin public androidx.lifecycle.Lifecycle getLifecycle();
+    method public androidx.lifecycle.Lifecycle getLifecycle();
     method protected androidx.media3.exoplayer.scheduler.Scheduler getScheduler();
-    method @InaccessibleFromKotlin protected abstract androidx.media3.exoplayer.workmanager.WorkManagerScheduler getWorkManagerScheduler();
+    method protected abstract androidx.media3.exoplayer.workmanager.WorkManagerScheduler getWorkManagerScheduler();
     property protected abstract android.app.PendingIntent downloadIntent;
     property protected abstract com.google.android.horologist.media.data.service.download.DownloadManagerListener downloadManagerListener;
     property protected abstract androidx.media3.exoplayer.offline.DownloadNotificationHelper downloadNotificationHelper;
@@ -217,6 +215,17 @@ package com.google.android.horologist.media.database {
     method public abstract com.google.android.horologist.media.database.dao.PlaylistMediaDao playlistMediaDao();
   }
 
+  @javax.annotation.processing.Generated({"androidx.room.RoomProcessor"}) public final class MediaDatabase_Impl extends com.google.android.horologist.media.database.MediaDatabase {
+    ctor public MediaDatabase_Impl();
+    method public void clearAllTables();
+    method protected androidx.room.InvalidationTracker createInvalidationTracker();
+    method protected androidx.room.RoomOpenDelegate createOpenDelegate();
+    method public com.google.android.horologist.media.database.dao.MediaDao mediaDao();
+    method public com.google.android.horologist.media.database.dao.MediaDownloadDao mediaDownloadDao();
+    method public com.google.android.horologist.media.database.dao.PlaylistDao playlistDao();
+    method public com.google.android.horologist.media.database.dao.PlaylistMediaDao playlistMediaDao();
+  }
+
 }
 
 package com.google.android.horologist.media.database.dao {
@@ -226,10 +235,21 @@ package com.google.android.horologist.media.database.dao {
     method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.REPLACE) public suspend Object? upsert(java.util.List<com.google.android.horologist.media.database.model.MediaEntity> mediaList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
+  @javax.annotation.processing.Generated({"androidx.room.RoomProcessor"}) public final class MediaDao_Impl implements com.google.android.horologist.media.database.dao.MediaDao {
+    ctor public MediaDao_Impl(androidx.room.RoomDatabase __db);
+    method public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? upsert(java.util.List<com.google.android.horologist.media.database.model.MediaEntity> mediaList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    field public static final com.google.android.horologist.media.database.dao.MediaDao_Impl.Companion Companion;
+  }
+
+  public static final class MediaDao_Impl.Companion {
+    method public java.util.List<kotlin.reflect.KClass<? extends java.lang.Object?>> getRequiredConverters();
+  }
+
   @androidx.room.Dao @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface MediaDownloadDao {
     method @androidx.room.Query("\n        DELETE FROM MediaDownloadEntity\n        WHERE mediaId = :mediaId\n    ") public suspend Object? delete(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @androidx.room.Query("\n        DELETE FROM MediaDownloadEntity\n        WHERE mediaId in (:mediaIds)\n    ") public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    method @androidx.room.Query("\n        SELECT * FROM MediaDownloadEntity\n        WHERE status = :status\n    ") public suspend Object? getAllByStatus(com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super java.util.List<com.google.android.horologist.media.database.model.MediaDownloadEntity>>);
+    method @androidx.room.Query("\n        SELECT * FROM MediaDownloadEntity\n        WHERE status = :status\n    ") public suspend Object? getAllByStatus(com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.media.database.model.MediaDownloadEntity>>);
     method @androidx.room.Query("\n        SELECT * FROM MediaDownloadEntity\n        WHERE mediaId in (:mediaIds)\n    ") public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.database.model.MediaDownloadEntity>> getList(java.util.List<java.lang.String> mediaIds);
     method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.IGNORE) public suspend Object? insert(com.google.android.horologist.media.database.model.MediaDownloadEntity mediaDownloadEntity, kotlin.coroutines.Continuation<? super java.lang.Long>);
     method @androidx.room.Query("\n        UPDATE MediaDownloadEntity\n        SET progress = :progress,\n        size = :size\n        WHERE mediaId = :mediaId\n    ") public suspend Object? updateProgress(String mediaId, float progress, long size, kotlin.coroutines.Continuation<? super kotlin.Unit>);
@@ -242,9 +262,6 @@ package com.google.android.horologist.media.database.dao {
   }
 
   public static final class MediaDownloadDao.Companion {
-    property public static float DOWNLOAD_PROGRESS_END;
-    property public static float DOWNLOAD_PROGRESS_START;
-    property public static long SIZE_UNKNOWN;
     field public static final float DOWNLOAD_PROGRESS_END = 100.0f;
     field public static final float DOWNLOAD_PROGRESS_START = 0.0f;
     field public static final long SIZE_UNKNOWN = -1L; // 0xffffffffffffffffL
@@ -255,13 +272,30 @@ package com.google.android.horologist.media.database.dao {
     method public String component1();
     method public com.google.android.horologist.media.database.model.MediaDownloadEntityStatus component2();
     method public float component3();
-    method public com.google.android.horologist.media.database.dao.MediaDownloadDao.StatusAndProgress copy(optional String mediaId, optional com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status, optional float progress);
-    method @InaccessibleFromKotlin public String getMediaId();
-    method @InaccessibleFromKotlin public float getProgress();
-    method @InaccessibleFromKotlin public com.google.android.horologist.media.database.model.MediaDownloadEntityStatus getStatus();
-    property public String mediaId;
-    property public float progress;
-    property public com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status;
+    method public com.google.android.horologist.media.database.dao.MediaDownloadDao.StatusAndProgress copy(String mediaId, com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status, float progress);
+    method public String getMediaId();
+    method public float getProgress();
+    method public com.google.android.horologist.media.database.model.MediaDownloadEntityStatus getStatus();
+    property public final String mediaId;
+    property public final float progress;
+    property public final com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status;
+  }
+
+  @javax.annotation.processing.Generated({"androidx.room.RoomProcessor"}) public final class MediaDownloadDao_Impl implements com.google.android.horologist.media.database.dao.MediaDownloadDao {
+    ctor public MediaDownloadDao_Impl(androidx.room.RoomDatabase __db);
+    method public suspend Object? delete(String mediaId, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? delete(java.util.List<java.lang.String> mediaIds, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? getAllByStatus(com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.media.database.model.MediaDownloadEntity>>);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.database.model.MediaDownloadEntity>> getList(java.util.List<java.lang.String> mediaIds);
+    method public suspend Object? insert(com.google.android.horologist.media.database.model.MediaDownloadEntity mediaDownloadEntity, kotlin.coroutines.Continuation<? super java.lang.Long>);
+    method public suspend Object? updateProgress(String mediaId, float progress, long size, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? updateStatus(String mediaId, com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? updateStatusAndProgress(com.google.android.horologist.media.database.dao.MediaDownloadDao.StatusAndProgress statusAndProgress, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    field public static final com.google.android.horologist.media.database.dao.MediaDownloadDao_Impl.Companion Companion;
+  }
+
+  public static final class MediaDownloadDao_Impl.Companion {
+    method public java.util.List<kotlin.reflect.KClass<? extends java.lang.Object?>> getRequiredConverters();
   }
 
   @androidx.room.Dao @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface PlaylistDao {
@@ -273,9 +307,35 @@ package com.google.android.horologist.media.database.dao {
     method @androidx.room.Insert(onConflict=androidx.room.OnConflictStrategy.Companion.REPLACE) public suspend Object? upsert(com.google.android.horologist.media.database.model.PlaylistEntity playlistEntity, java.util.List<com.google.android.horologist.media.database.model.MediaEntity> mediaEntityList, java.util.List<com.google.android.horologist.media.database.model.PlaylistMediaEntity> playlistMediaEntityList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
   }
 
+  @javax.annotation.processing.Generated({"androidx.room.RoomProcessor"}) public final class PlaylistDao_Impl implements com.google.android.horologist.media.database.dao.PlaylistDao {
+    ctor public PlaylistDao_Impl(androidx.room.RoomDatabase __db);
+    method public void delete(java.util.List<java.lang.String> playlistIds);
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.database.model.PopulatedPlaylist>> getAllDownloaded();
+    method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.database.model.PopulatedPlaylist>> getAllPopulated();
+    method public suspend Object? getPopulated(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.database.model.PopulatedPlaylist?>);
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.database.model.PopulatedPlaylist?> getPopulatedStream(String playlistId);
+    method public suspend Object? upsert(com.google.android.horologist.media.database.model.PlaylistEntity playlistEntity, java.util.List<com.google.android.horologist.media.database.model.MediaEntity> mediaEntityList, java.util.List<com.google.android.horologist.media.database.model.PlaylistMediaEntity> playlistMediaEntityList, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    field public static final com.google.android.horologist.media.database.dao.PlaylistDao_Impl.Companion Companion;
+  }
+
+  public static final class PlaylistDao_Impl.Companion {
+    method public java.util.List<kotlin.reflect.KClass<? extends java.lang.Object?>> getRequiredConverters();
+  }
+
   @androidx.room.Dao @com.google.android.horologist.annotations.ExperimentalHorologistApi public interface PlaylistMediaDao {
     method @androidx.room.Query("\n        DELETE FROM PlaylistMediaEntity\n        WHERE mediaId in (:mediaIds)\n    ") public void deleteByMediaId(java.util.List<java.lang.String> mediaIds);
     method @androidx.room.Query("\n        DELETE FROM PlaylistMediaEntity\n        WHERE playlistId in (:playlistIds)\n    ") public void deleteByPlaylistId(java.util.List<java.lang.String> playlistIds);
+  }
+
+  @javax.annotation.processing.Generated({"androidx.room.RoomProcessor"}) public final class PlaylistMediaDao_Impl implements com.google.android.horologist.media.database.dao.PlaylistMediaDao {
+    ctor public PlaylistMediaDao_Impl(androidx.room.RoomDatabase __db);
+    method public void deleteByMediaId(java.util.List<java.lang.String> mediaIds);
+    method public void deleteByPlaylistId(java.util.List<java.lang.String> playlistIds);
+    field public static final com.google.android.horologist.media.database.dao.PlaylistMediaDao_Impl.Companion Companion;
+  }
+
+  public static final class PlaylistMediaDao_Impl.Companion {
+    method public java.util.List<kotlin.reflect.KClass<? extends java.lang.Object?>> getRequiredConverters();
   }
 
 }
@@ -307,20 +367,20 @@ package com.google.android.horologist.media.database.mapper {
 package com.google.android.horologist.media.database.model {
 
   @androidx.room.Entity @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaDownloadEntity {
-    ctor public MediaDownloadEntity(String mediaId, com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status, float progress, long size);
+    ctor public MediaDownloadEntity(@androidx.room.PrimaryKey String mediaId, com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status, float progress, long size);
     method public String component1();
     method public com.google.android.horologist.media.database.model.MediaDownloadEntityStatus component2();
     method public float component3();
     method public long component4();
-    method public com.google.android.horologist.media.database.model.MediaDownloadEntity copy(optional String mediaId, optional com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status, optional float progress, optional long size);
-    method @InaccessibleFromKotlin public String getMediaId();
-    method @InaccessibleFromKotlin public float getProgress();
-    method @InaccessibleFromKotlin public long getSize();
-    method @InaccessibleFromKotlin public com.google.android.horologist.media.database.model.MediaDownloadEntityStatus getStatus();
-    property public String mediaId;
-    property public float progress;
-    property public long size;
-    property public com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status;
+    method public com.google.android.horologist.media.database.model.MediaDownloadEntity copy(String mediaId, com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status, float progress, long size);
+    method public String getMediaId();
+    method public float getProgress();
+    method public long getSize();
+    method public com.google.android.horologist.media.database.model.MediaDownloadEntityStatus getStatus();
+    property public final String mediaId;
+    property public final float progress;
+    property public final long size;
+    property public final com.google.android.horologist.media.database.model.MediaDownloadEntityStatus status;
   }
 
   public enum MediaDownloadEntityStatus {
@@ -331,59 +391,59 @@ package com.google.android.horologist.media.database.model {
   }
 
   @androidx.room.Entity @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class MediaEntity {
-    ctor public MediaEntity(String mediaId, String mediaUrl, String artworkUrl, String? title, String? artist);
+    ctor public MediaEntity(@androidx.room.PrimaryKey String mediaId, @androidx.room.ColumnInfo String mediaUrl, @androidx.room.ColumnInfo String artworkUrl, @androidx.room.ColumnInfo String? title, @androidx.room.ColumnInfo String? artist);
     method public String component1();
     method public String component2();
     method public String component3();
     method public String? component4();
     method public String? component5();
-    method public com.google.android.horologist.media.database.model.MediaEntity copy(optional String mediaId, optional String mediaUrl, optional String artworkUrl, optional String? title, optional String? artist);
-    method @InaccessibleFromKotlin public String? getArtist();
-    method @InaccessibleFromKotlin public String getArtworkUrl();
-    method @InaccessibleFromKotlin public String getMediaId();
-    method @InaccessibleFromKotlin public String getMediaUrl();
-    method @InaccessibleFromKotlin public String? getTitle();
-    property public String? artist;
-    property public String artworkUrl;
-    property public String mediaId;
-    property public String mediaUrl;
-    property public String? title;
+    method public com.google.android.horologist.media.database.model.MediaEntity copy(String mediaId, String mediaUrl, String artworkUrl, String? title, String? artist);
+    method public String? getArtist();
+    method public String getArtworkUrl();
+    method public String getMediaId();
+    method public String getMediaUrl();
+    method public String? getTitle();
+    property public final String? artist;
+    property public final String artworkUrl;
+    property public final String mediaId;
+    property public final String mediaUrl;
+    property public final String? title;
   }
 
   @androidx.room.Entity @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistEntity {
-    ctor public PlaylistEntity(String playlistId, String name, String? artworkUri);
+    ctor public PlaylistEntity(@androidx.room.PrimaryKey String playlistId, String name, String? artworkUri);
     method public String component1();
     method public String component2();
     method public String? component3();
-    method public com.google.android.horologist.media.database.model.PlaylistEntity copy(optional String playlistId, optional String name, optional String? artworkUri);
-    method @InaccessibleFromKotlin public String? getArtworkUri();
-    method @InaccessibleFromKotlin public String getName();
-    method @InaccessibleFromKotlin public String getPlaylistId();
-    property public String? artworkUri;
-    property public String name;
-    property public String playlistId;
+    method public com.google.android.horologist.media.database.model.PlaylistEntity copy(String playlistId, String name, String? artworkUri);
+    method public String? getArtworkUri();
+    method public String getName();
+    method public String getPlaylistId();
+    property public final String? artworkUri;
+    property public final String name;
+    property public final String playlistId;
   }
 
-  @androidx.room.Entity(primaryKeys={"playlistId", "mediaId"}, indices={androidx.room.Index()}) @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistMediaEntity {
+  @androidx.room.Entity(primaryKeys={"playlistId", "mediaId"}, indices={}) @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PlaylistMediaEntity {
     ctor public PlaylistMediaEntity(String playlistId, String mediaId);
     method public String component1();
     method public String component2();
-    method public com.google.android.horologist.media.database.model.PlaylistMediaEntity copy(optional String playlistId, optional String mediaId);
-    method @InaccessibleFromKotlin public String getMediaId();
-    method @InaccessibleFromKotlin public String getPlaylistId();
-    property public String mediaId;
-    property public String playlistId;
+    method public com.google.android.horologist.media.database.model.PlaylistMediaEntity copy(String playlistId, String mediaId);
+    method public String getMediaId();
+    method public String getPlaylistId();
+    property public final String mediaId;
+    property public final String playlistId;
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class PopulatedPlaylist {
-    ctor public PopulatedPlaylist(com.google.android.horologist.media.database.model.PlaylistEntity playlist, java.util.List<com.google.android.horologist.media.database.model.MediaEntity> mediaList);
+    ctor public PopulatedPlaylist(@androidx.room.Embedded com.google.android.horologist.media.database.model.PlaylistEntity playlist, @androidx.room.Relation(parentColumn="playlistId", entityColumn="mediaId", associateBy=) java.util.List<com.google.android.horologist.media.database.model.MediaEntity> mediaList);
     method public com.google.android.horologist.media.database.model.PlaylistEntity component1();
     method public java.util.List<com.google.android.horologist.media.database.model.MediaEntity> component2();
-    method public com.google.android.horologist.media.database.model.PopulatedPlaylist copy(optional com.google.android.horologist.media.database.model.PlaylistEntity playlist, optional java.util.List<com.google.android.horologist.media.database.model.MediaEntity> mediaList);
-    method @InaccessibleFromKotlin public java.util.List<com.google.android.horologist.media.database.model.MediaEntity> getMediaList();
-    method @InaccessibleFromKotlin public com.google.android.horologist.media.database.model.PlaylistEntity getPlaylist();
-    property public java.util.List<com.google.android.horologist.media.database.model.MediaEntity> mediaList;
-    property public com.google.android.horologist.media.database.model.PlaylistEntity playlist;
+    method public com.google.android.horologist.media.database.model.PopulatedPlaylist copy(com.google.android.horologist.media.database.model.PlaylistEntity playlist, java.util.List<com.google.android.horologist.media.database.model.MediaEntity> mediaList);
+    method public java.util.List<com.google.android.horologist.media.database.model.MediaEntity> getMediaList();
+    method public com.google.android.horologist.media.database.model.PlaylistEntity getPlaylist();
+    property public final java.util.List<com.google.android.horologist.media.database.model.MediaEntity> mediaList;
+    property public final com.google.android.horologist.media.database.model.PlaylistEntity playlist;
   }
 
 }

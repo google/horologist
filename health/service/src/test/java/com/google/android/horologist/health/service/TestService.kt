@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,13 @@ class TestService : LifecycleService() {
     var name: ComponentName? = null
     val localBinder = LocalBinder()
 
-    override fun onBind(intent: Intent): IBinder = localBinder
+    override fun onBind(intent: Intent): IBinder {
+        return localBinder
+    }
 
-    fun doSomething(): String = "Something"
+    fun doSomething(): String {
+        return "Something"
+    }
 
     /** Local clients will use this to access the service. */
     inner class LocalBinder : Binder() {

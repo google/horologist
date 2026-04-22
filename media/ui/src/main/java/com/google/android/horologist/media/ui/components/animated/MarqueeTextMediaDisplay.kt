@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -67,26 +67,22 @@ public fun MarqueeTextMediaDisplay(
     val isLargeScreen = LocalConfiguration.current.isLargeScreen
     val titleSidePadding = (0.063f * LocalConfiguration.current.screenWidthDp).dp
 
-    fun getTransitionAnimation(delay: Int = 0): ContentTransform =
-        slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
+    fun getTransitionAnimation(delay: Int = 0): ContentTransform {
+        return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
             (it * transitionLength).roundToInt()
-        } + fadeIn(
-            animationSpec = tween(delayMillis = delay + enterTransitionDelay),
-        ) togetherWith
+        } + fadeIn(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) togetherWith
             slideOutHorizontally(animationSpec = tween(delayMillis = delay)) {
                 (-it * transitionLength).roundToInt()
             } + fadeOut(animationSpec = tween(delayMillis = delay))
+    }
 
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         AnimatedContent(
             targetState = title,
             transitionSpec = { getTransitionAnimation() },
             label = "AnimatedTitle",
-        ) { currentTitle ->
+        ) {
+                currentTitle ->
             val textStyle = MaterialTheme.typography.button
             val text = buildAnnotatedString {
                 if (titleIcon != null) {
@@ -98,11 +94,7 @@ public fun MarqueeTextMediaDisplay(
             val inlineContent = if (titleIcon != null) {
                 mapOf(
                     "iconSlot" to InlineTextContent(
-                        Placeholder(
-                            textStyle.fontSize,
-                            textStyle.fontSize,
-                            PlaceholderVerticalAlign.TextCenter,
-                        ),
+                        Placeholder(textStyle.fontSize, textStyle.fontSize, PlaceholderVerticalAlign.TextCenter),
                     ) {
                         MediaTitleIcon(titleIcon)
                     },

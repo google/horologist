@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -87,36 +87,32 @@ class StreamlineSignInDefaultViewModelTest {
     }
 
     @Test
-    fun givenNoAccountsAvailable_whenOnIdleStateObserved_thenStateIsNoAccountsAvailable() =
-        runTest {
-            // when
-            sut.onIdleStateObserved()
+    fun givenNoAccountsAvailable_whenOnIdleStateObserved_thenStateIsNoAccountsAvailable() = runTest {
+        // when
+        sut.onIdleStateObserved()
 
-            // then
-            sut.uiState.test {
-                assertThat(
-                    awaitItem(),
-                ).isEqualTo(StreamlineSignInDefaultScreenState.NoAccountsAvailable)
-            }
+        // then
+        sut.uiState.test {
+            assertThat(awaitItem()).isEqualTo(StreamlineSignInDefaultScreenState.NoAccountsAvailable)
         }
+    }
 
     @Test
-    fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() =
-        runTest {
-            // given
-            val email = "user@example.com"
-            fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email))
+    fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() = runTest {
+        // given
+        val email = "user@example.com"
+        fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email))
 
-            // when
-            sut.onIdleStateObserved()
+        // when
+        sut.onIdleStateObserved()
 
-            // then
-            sut.uiState.test {
-                assertThat(awaitItem()).isEqualTo(
-                    StreamlineSignInDefaultScreenState.SignedIn(AccountUiModel(email = email)),
-                )
-            }
+        // then
+        sut.uiState.test {
+            assertThat(awaitItem()).isEqualTo(
+                StreamlineSignInDefaultScreenState.SignedIn(AccountUiModel(email = email)),
+            )
         }
+    }
 
     @Test
     fun whenOnAccountSelected_thenStateIsSignedIn() = runTest {

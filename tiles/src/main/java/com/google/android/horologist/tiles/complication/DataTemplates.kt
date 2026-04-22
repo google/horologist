@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -158,11 +158,15 @@ public object DataTemplates {
         .setMonochromaticImage(image)
         .build()
 
-    public fun ComplicationTemplate<*>.icon(@DrawableRes id: Int): Icon = Icon.createWithResource(
+    public fun ComplicationTemplate<*>.icon(
+        @DrawableRes id: Int,
+    ): Icon = Icon.createWithResource(
         context,
         id,
     )
 
-    public fun ComplicationTemplate<*>.text(@StringRes id: Int): String = context.getText(id)
+    public fun ComplicationTemplate<*>.text(
+        @StringRes id: Int,
+    ): String = context.getText(id)
         .toString()
 }

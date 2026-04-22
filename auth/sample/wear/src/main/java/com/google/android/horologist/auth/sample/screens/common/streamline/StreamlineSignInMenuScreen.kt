@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,10 @@ import com.google.android.horologist.compose.material.ListHeaderDefaults.firstIt
 import com.google.android.horologist.compose.material.ResponsiveListHeader
 
 @Composable
-fun StreamlineSignInMenuScreen(navController: NavHostController, modifier: Modifier = Modifier) {
+fun StreamlineSignInMenuScreen(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+) {
     val columnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ItemType.Text,
@@ -70,10 +73,7 @@ fun StreamlineSignInMenuScreen(navController: NavHostController, modifier: Modif
             ) {
                 header {
                     ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                        Text(
-                            stringResource(id = R.string.common_screens_streamline_sign_in_header),
-                            modifier = Modifier.listTextPadding(),
-                        )
+                        Text(stringResource(id = R.string.common_screens_streamline_sign_in_header), modifier = Modifier.listTextPadding())
                     }
                 }
                 loaded { (textId, route, mode) ->

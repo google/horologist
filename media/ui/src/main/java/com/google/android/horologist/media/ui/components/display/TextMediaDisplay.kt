@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,11 +53,7 @@ public fun TextMediaDisplay(
     val isLargeScreen = LocalConfiguration.current.isLargeScreen
     val titleSidePadding = (0.063f * LocalConfiguration.current.screenWidthDp).dp
 
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
-    ) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
         val textStyle = MaterialTheme.typography.button
         val text = buildAnnotatedString {
             if (titleIcon != null) {
@@ -69,11 +65,7 @@ public fun TextMediaDisplay(
         val inlineContent = if (titleIcon != null) {
             mapOf(
                 "iconSlot" to InlineTextContent(
-                    Placeholder(
-                        textStyle.fontSize,
-                        textStyle.fontSize,
-                        PlaceholderVerticalAlign.TextCenter,
-                    ),
+                    Placeholder(textStyle.fontSize, textStyle.fontSize, PlaceholderVerticalAlign.TextCenter),
                 ) {
                     MediaTitleIcon(titleIcon)
                 },

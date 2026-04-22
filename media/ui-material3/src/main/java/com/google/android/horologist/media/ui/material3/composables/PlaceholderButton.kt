@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,8 +51,7 @@ public fun PlaceholderButton(
     icon: Boolean = true,
     colors: ButtonColors = ButtonDefaults.buttonColors(),
     enabled: Boolean = false,
-    contentDescription: String =
-        stringResource(id = R.string.horologist_placeholderchip_content_description),
+    contentDescription: String = stringResource(id = R.string.horologist_placeholderchip_content_description),
 ) {
     Button(
         onClick = onClick,

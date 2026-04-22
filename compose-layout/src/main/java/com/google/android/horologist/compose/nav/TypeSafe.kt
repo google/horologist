@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,8 +41,9 @@ public class WearComposeNavigatorDestinationBuilder(
     private val content: @Composable (NavBackStackEntry) -> Unit,
 ) : NavDestinationBuilder<WearNavigator.Destination>(wearNavigator, route, typeMap) {
 
-    override fun instantiateDestination(): WearNavigator.Destination =
-        WearNavigator.Destination(wearNavigator, content)
+    override fun instantiateDestination(): WearNavigator.Destination {
+        return WearNavigator.Destination(wearNavigator, content)
+    }
 }
 
 /**
@@ -112,11 +113,7 @@ public fun SwipeDismissableNavHost(
 ) = androidx.wear.compose.navigation.SwipeDismissableNavHost(
     navController,
     remember(route, startDestination, builder) {
-        navController.createGraph(
-            startDestination = startDestination,
-            route = route,
-            builder = builder,
-        )
+        navController.createGraph(startDestination = startDestination, route = route, builder = builder)
     },
     modifier,
     userSwipeEnabled,

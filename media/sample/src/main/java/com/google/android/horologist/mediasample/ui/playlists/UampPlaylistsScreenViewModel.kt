@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,31 +23,32 @@ import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenS
 import com.google.android.horologist.media.ui.state.mapper.PlaylistUiModelMapper
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 @HiltViewModel
 class UampPlaylistsScreenViewModel
-@Inject
-constructor(playlistRepository: PlaylistRepository) :
-    ViewModel() {
+    @Inject
+    constructor(
+        playlistRepository: PlaylistRepository,
+    ) : ViewModel() {
 
-    val uiState: StateFlow<PlaylistsScreenState<PlaylistUiModel>> =
-        playlistRepository.getAll().map {
-            if (it.isNotEmpty()) {
-                PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
-            } else {
-                PlaylistsScreenState.Failed
-            }
-        }.catch {
-            emit(PlaylistsScreenState.Failed)
-        }.stateIn(
-            viewModelScope,
-            started = SharingStarted.Eagerly,
-            initialValue = PlaylistsScreenState.Loading,
-        )
-}
+        val uiState: StateFlow<PlaylistsScreenState<PlaylistUiModel>> =
+            playlistRepository.getAll().map {
+                if (it.isNotEmpty()) {
+                    PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
+                } else {
+                    PlaylistsScreenState.Failed
+                }
+            }.catch {
+                emit(PlaylistsScreenState.Failed)
+            }.stateIn(
+                viewModelScope,
+                started = SharingStarted.Eagerly,
+                initialValue = PlaylistsScreenState.Loading,
+            )
+    }

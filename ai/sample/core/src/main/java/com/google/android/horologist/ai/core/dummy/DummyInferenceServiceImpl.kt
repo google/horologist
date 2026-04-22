@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,51 +36,55 @@ import kotlinx.coroutines.flow.flow
 
 class DummyInferenceServiceImpl(val thisId: String) :
     InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
-    override suspend fun answerPrompt(request: PromptRequest): ResponseBundle {
-        if (request.modelId.id != thisId) {
-            return responseBundle {
-                responses += response {
-                    failure = failure {
-                        message = "Unknown model ${request.modelId.id}"
+        override suspend fun answerPrompt(request: PromptRequest): ResponseBundle {
+            if (request.modelId.id != thisId) {
+                return responseBundle {
+                    responses += response {
+                        failure = failure {
+                            message = "Unknown model ${request.modelId.id}"
+                        }
                     }
                 }
-            }
-        } else if (request.prompt.hasTextPrompt()) {
-            val query = request.prompt.textPrompt.text
-            return responseBundle {
-                responses += response {
-                    textResponse = textResponse {
-                        text = """ 
+            } else if (request.prompt.hasTextPrompt()) {
+                val query = request.prompt.textPrompt.text
+                return responseBundle {
+                    responses += response {
+                        textResponse = textResponse {
+                            text = """ 
                         I didn't understand.
                         
                         > $query.
                         
                         Please try again with a different question.
                         From *$thisId*   
-                        """.trimIndent()
+                            """.trimIndent()
+                        }
                     }
                 }
-            }
-        } else {
-            return responseBundle {
-                responses += response {
-                    failure = failure {
-                        message = "Unhandled request type $request"
+            } else {
+                return responseBundle {
+                    responses += response {
+                        failure = failure {
+                            message = "Unhandled request type $request"
+                        }
                     }
                 }
             }
         }
-    }
 
-    override fun answerPromptWithStream(request: PromptRequest): Flow<Response> = flow {
-        emitAll(answerPrompt(request).responsesList.asFlow())
-    }
+        override fun answerPromptWithStream(request: PromptRequest): Flow<Response> {
+            return flow {
+                emitAll(answerPrompt(request).responsesList.asFlow())
+            }
+        }
 
-    override suspend fun serviceInfo(request: Empty): ServiceInfo = serviceInfo {
-        name = "Dummy $thisId"
-        models += modelInfo {
-            modelId = modelId { id = thisId }
-            name = "Dummy $thisId"
+        override suspend fun serviceInfo(request: Empty): ServiceInfo {
+            return serviceInfo {
+                name = "Dummy $thisId"
+                models += modelInfo {
+                    modelId = modelId { id = thisId }
+                    name = "Dummy $thisId"
+                }
+            }
         }
     }
-}

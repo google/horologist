@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,15 +77,16 @@ private data class PagingPlaceholderKey(private val index: Int) : Parcelable {
         parcel.writeInt(index)
     }
 
-    override fun describeContents(): Int = 0
+    override fun describeContents(): Int {
+        return 0
+    }
 
     companion object {
         @Suppress("unused")
         @JvmField
         val CREATOR: Parcelable.Creator<PagingPlaceholderKey> =
             object : Parcelable.Creator<PagingPlaceholderKey> {
-                override fun createFromParcel(parcel: Parcel) =
-                    PagingPlaceholderKey(parcel.readInt())
+                override fun createFromParcel(parcel: Parcel) = PagingPlaceholderKey(parcel.readInt())
 
                 override fun newArray(size: Int) = arrayOfNulls<PagingPlaceholderKey?>(size)
             }

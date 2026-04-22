@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,10 @@ public class MediaMapper(private val mediaExtrasMapper: MediaExtrasMapper) {
      * @param mediaItem [MediaItem] to be mapped.
      * @param defaultArtist value for [Media.artist] for when [MediaMetadata.artist] is null.
      */
-    public fun map(mediaItem: MediaItem, mediaMetadata: MediaMetadata): Media = Media(
+    public fun map(
+        mediaItem: MediaItem,
+        mediaMetadata: MediaMetadata,
+    ): Media = Media(
         id = mediaItem.mediaId,
         uri = mediaItem.localConfiguration?.uri?.toString() ?: "",
         title = mediaMetadata.title?.toString() ?: "",

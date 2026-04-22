@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,37 +54,31 @@ internal data class NetworkStatusBuilder(
         //    sit interfaces are associated with tunneling IPv6 over IPv4
         //    p2p interfaces are usually associated with peer-to-peer connections (perhaps your Android device's WiFi Direct support?)
 
-        val metered =
-            networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) ==
-                false
+        val metered = networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED) == false
 
         return when {
             isTransport(NetworkCapabilities.TRANSPORT_WIFI) -> NetworkInfo.Wifi(name, null)
-
-            isTransport(
-                NetworkCapabilities.TRANSPORT_CELLULAR,
-            ) -> NetworkInfo.Cellular(name, metered = metered)
-
+            isTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> NetworkInfo.Cellular(name, metered = metered)
             name.startsWith("rmnet") -> NetworkInfo.Cellular(name, metered = metered)
-
             name.startsWith("wlan") -> NetworkInfo.Wifi(name, null)
-
             isTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) -> NetworkInfo.Bluetooth(name)
-
             else -> NetworkInfo.Unknown(name)
         }
     }
 
-    private fun isTransport(transport: Int): Boolean =
-        networkCapabilities?.hasTransport(transport) == true
+    private fun isTransport(transport: Int): Boolean {
+        return networkCapabilities?.hasTransport(transport) == true
+    }
 
-    internal fun buildNetworkStatus(): NetworkStatus = NetworkStatus(
-        id = id,
-        status = status,
-        networkInfo = readTransportType(),
-        addresses = linkProperties?.linkAddresses?.map { it.address }.orEmpty(),
-        capabilities = networkCapabilities,
-        linkProperties = linkProperties,
-        bindSocket = { socket -> network.bindSocket(socket) },
-    )
+    internal fun buildNetworkStatus(): NetworkStatus {
+        return NetworkStatus(
+            id = id,
+            status = status,
+            networkInfo = readTransportType(),
+            addresses = linkProperties?.linkAddresses?.map { it.address }.orEmpty(),
+            capabilities = networkCapabilities,
+            linkProperties = linkProperties,
+            bindSocket = { socket -> network.bindSocket(socket) },
+        )
+    }
 }

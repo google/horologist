@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,26 +42,25 @@ import kotlinx.coroutines.withContext
  */
 @HiltWorker
 public class SyncWorker
-@AssistedInject
-constructor(
-    @Assisted private val appContext: Context,
-    @Assisted workerParams: WorkerParameters,
-    private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
-    private val notificationConfigurationProvider: NotificationConfigurationProvider,
-    private val changeListVersionRepository: ChangeListVersionRepository,
-    private val syncables: Array<Syncable>,
-) : CoroutineWorker(appContext, workerParams),
-    Synchronizer {
+    @AssistedInject
+    constructor(
+        @Assisted private val appContext: Context,
+        @Assisted workerParams: WorkerParameters,
+        private val coroutineDispatcherProvider: CoroutineDispatcherProvider,
+        private val notificationConfigurationProvider: NotificationConfigurationProvider,
+        private val changeListVersionRepository: ChangeListVersionRepository,
+        private val syncables: Array<Syncable>,
+    ) : CoroutineWorker(appContext, workerParams), Synchronizer {
 
-    override suspend fun getForegroundInfo(): ForegroundInfo = appContext.syncForegroundInfo(
-        notificationTitle = notificationConfigurationProvider.getNotificationTitle(),
-        notificationIcon = notificationConfigurationProvider.getNotificationIcon(),
-        channelName = notificationConfigurationProvider.getChannelName(),
-        channelDescription = notificationConfigurationProvider.getChannelDescription(),
-    )
+        override suspend fun getForegroundInfo(): ForegroundInfo =
+            appContext.syncForegroundInfo(
+                notificationTitle = notificationConfigurationProvider.getNotificationTitle(),
+                notificationIcon = notificationConfigurationProvider.getNotificationIcon(),
+                channelName = notificationConfigurationProvider.getChannelName(),
+                channelDescription = notificationConfigurationProvider.getChannelDescription(),
+            )
 
-    override suspend fun doWork(): Result =
-        withContext(coroutineDispatcherProvider.getIODispatcher()) {
+        override suspend fun doWork(): Result = withContext(coroutineDispatcherProvider.getIODispatcher()) {
             traceAsync("SyncWorker", 0) {
                 // First sync the repositories in parallel
                 val deferredSyncCalls = Array(syncables.size) { index ->
@@ -78,24 +77,24 @@ constructor(
             }
         }
 
-    override suspend fun getChangeListVersions(model: String): Int =
-        changeListVersionRepository.getChangeListVersion(model)
+        override suspend fun getChangeListVersions(model: String): Int =
+            changeListVersionRepository.getChangeListVersion(model)
 
-    override suspend fun updateChangeListVersions(model: String, version: Int): Unit =
-        changeListVersionRepository.updateChangeListVersion(
-            model = model,
-            newVersion = version,
-        )
+        override suspend fun updateChangeListVersions(model: String, version: Int): Unit =
+            changeListVersionRepository.updateChangeListVersion(
+                model = model,
+                newVersion = version,
+            )
 
-    public companion object {
-        /**
-         * Expedited one time work to sync data on app startup
-         */
-        public fun startUpSyncWork(): OneTimeWorkRequest =
-            OneTimeWorkRequestBuilder<DelegatingWorker>()
-                .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
-                .setConstraints(SyncConstraints)
-                .setInputData(SyncWorker::class.delegatedData())
-                .build()
+        public companion object {
+            /**
+             * Expedited one time work to sync data on app startup
+             */
+            public fun startUpSyncWork(): OneTimeWorkRequest =
+                OneTimeWorkRequestBuilder<DelegatingWorker>()
+                    .setExpedited(OutOfQuotaPolicy.RUN_AS_NON_EXPEDITED_WORK_REQUEST)
+                    .setConstraints(SyncConstraints)
+                    .setInputData(SyncWorker::class.delegatedData())
+                    .build()
+        }
     }
-}

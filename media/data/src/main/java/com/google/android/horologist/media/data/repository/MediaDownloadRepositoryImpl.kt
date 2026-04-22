@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,10 @@ import com.google.android.horologist.media.repository.MediaDownloadRepository
 @ExperimentalHorologistApi
 public class MediaDownloadRepositoryImpl(
     private val media3DownloadDataSource: Media3DownloadDataSource,
-) : MediaDownloadRepository {
+) :
+    MediaDownloadRepository {
 
-    override fun remove(mediaId: String) {
-        media3DownloadDataSource.removeDownload(mediaId)
+        override fun remove(mediaId: String) {
+            media3DownloadDataSource.removeDownload(mediaId)
+        }
     }
-}

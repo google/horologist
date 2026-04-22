@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,7 +19,9 @@ package com.google.android.horologist.datalayer.sample
 import com.google.android.horologist.datalayer.sample.screens.info.infoScreenRoute
 import com.google.android.horologist.datalayer.sample.screens.nodesactions.nodeDetailsScreenRoute
 
-sealed class Screen(val route: String) {
+sealed class Screen(
+    val route: String,
+) {
     data object MainScreen : Screen("mainScreen")
 
     data object CounterScreen : Screen("counterScreen")

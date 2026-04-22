@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -124,9 +124,7 @@ fun EntityScreenPreviewLoadingState() {
     EntityScreen(
         entityScreenState = EntityScreenState.Loading,
         headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
-        loadingContent = {
-            items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) }
-        },
+        loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
         mediaContent = { },
         buttonsContent = { ButtonContentForStatePreview() },
     )

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,9 @@ public interface TargetNodeId {
      * A reference to the Node for this device.
      */
     public object ThisNodeId : TargetNodeId {
-        override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String =
-            dataLayerRegistry.nodeClient.localNode.await().id
+        override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String {
+            return dataLayerRegistry.nodeClient.localNode.await().id
+        }
     }
 
     /**
@@ -55,8 +56,12 @@ public interface TargetNodeId {
     /**
      * A reference to a specific node id, via prior configuration.
      */
-    public class SpecificNodeId(public val nodeId: String) : TargetNodeId {
-        override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String = nodeId
+    public class SpecificNodeId(
+        public val nodeId: String,
+    ) : TargetNodeId {
+        override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String {
+            return nodeId
+        }
     }
 
     companion object {

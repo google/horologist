@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,15 +61,12 @@ fun WearPickerApp() {
                 0 -> DatePicker({
                     time = time.toLocalTime().atDate(it)
                 })
-
                 1 -> TimePickerWith12HourClock({
                     time = time.toLocalDate().atTime(it)
                 }, time = time.toLocalTime())
-
                 2 -> TimePicker({
                     time = time.toLocalDate().atTime(it)
                 }, time = time.toLocalTime(), showSeconds = false)
-
                 else -> TimePicker({
                     time = time.toLocalDate().atTime(it)
                 }, time = time.toLocalTime(), showSeconds = true)

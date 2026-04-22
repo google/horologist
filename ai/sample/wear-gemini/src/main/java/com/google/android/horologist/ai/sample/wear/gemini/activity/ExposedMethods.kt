@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,12 @@ import android.os.Build
 
 object ExposedMethods {
     @JvmStatic
-    fun deviceModel(): String = Build.MODEL
+    fun deviceModel(): String {
+        return Build.MODEL
+    }
 
     @JvmStatic
-    fun deviceManufacturer(): String = Build.MANUFACTURER
+    fun deviceManufacturer(): String {
+        return Build.MANUFACTURER
+    }
 }

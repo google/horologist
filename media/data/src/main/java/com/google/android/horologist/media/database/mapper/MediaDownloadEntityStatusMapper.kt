@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,16 +31,15 @@ public object MediaDownloadEntityStatusMapper {
     /**
      * Maps from a [Download.State].
      */
-    public fun map(@Download.State state: Int): MediaDownloadEntityStatus = when (state) {
+    public fun map(
+        @Download.State state: Int,
+    ): MediaDownloadEntityStatus = when (state) {
         Download.STATE_QUEUED,
         Download.STATE_DOWNLOADING,
         Download.STATE_RESTARTING,
         -> MediaDownloadEntityStatus.Downloading
-
         Download.STATE_COMPLETED -> MediaDownloadEntityStatus.Downloaded
-
         Download.STATE_FAILED -> MediaDownloadEntityStatus.Failed
-
         else -> MediaDownloadEntityStatus.NotDownloaded
     }
 }

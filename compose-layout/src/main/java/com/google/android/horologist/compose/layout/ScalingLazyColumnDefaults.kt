@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,24 +69,28 @@ public object ScalingLazyColumnDefaults {
         hapticsEnabled: Boolean = true,
         reverseLayout: Boolean = false,
         userScrollEnabled: Boolean = true,
-    ): ScalingLazyColumnState.Factory = object : ScalingLazyColumnState.Factory {
-        @Composable
-        override fun create(): ScalingLazyColumnState = remember {
-            ScalingLazyColumnState(
-                initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
-                    index = initialCenterIndex,
-                    offsetPx = initialCenterOffset,
-                ),
-                rotaryMode = rotaryMode,
-                verticalArrangement = verticalArrangement,
-                horizontalAlignment = horizontalAlignment,
-                contentPadding = contentPadding,
-                autoCentering = autoCentering,
-                anchorType = anchorType,
-                hapticsEnabled = hapticsEnabled,
-                reverseLayout = reverseLayout,
-                userScrollEnabled = userScrollEnabled,
-            )
+    ): ScalingLazyColumnState.Factory {
+        return object : ScalingLazyColumnState.Factory {
+            @Composable
+            override fun create(): ScalingLazyColumnState {
+                return remember {
+                    ScalingLazyColumnState(
+                        initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
+                            index = initialCenterIndex,
+                            offsetPx = initialCenterOffset,
+                        ),
+                        rotaryMode = rotaryMode,
+                        verticalArrangement = verticalArrangement,
+                        horizontalAlignment = horizontalAlignment,
+                        contentPadding = contentPadding,
+                        autoCentering = autoCentering,
+                        anchorType = anchorType,
+                        hapticsEnabled = hapticsEnabled,
+                        reverseLayout = reverseLayout,
+                        userScrollEnabled = userScrollEnabled,
+                    )
+                }
+            }
         }
     }
 
@@ -190,8 +194,7 @@ public object ScalingLazyColumnDefaults {
         return (
             radius -
                 sqrt(
-                    (radius - childViewHeight + childViewWidth * 0.5f) *
-                        (radius - childViewWidth * 0.5f),
+                    (radius - childViewHeight + childViewWidth * 0.5f) * (radius - childViewWidth * 0.5f),
                 ) -
                 childViewHeight * 0.5f
             ).dp
@@ -333,10 +336,7 @@ public object ScalingLazyColumnDefaults {
     }
 
     @Composable
-    fun Modifier.listTextPadding() = this.padding(
-        horizontal =
-            0.052f * LocalConfiguration.current.screenWidthDp.dp,
-    )
+    fun Modifier.listTextPadding() = this.padding(horizontal = 0.052f * LocalConfiguration.current.screenWidthDp.dp)
 }
 
 @Composable

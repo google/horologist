@@ -1,5 +1,5 @@
 /*
- * Copyright 2025-2026 The Android Open Source Project
+ * Copyright 2025 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,16 +40,18 @@ private const val TAG = "HorologistAudioUi"
 public fun volumeRotaryBehavior(
     volumeUiStateProvider: () -> VolumeUiState,
     onRotaryVolumeInput: (Int) -> Unit,
-): RotaryScrollableBehavior = if (isLowResInput()) {
-    lowResVolumeRotaryBehavior(
-        volumeUiStateProvider = volumeUiStateProvider,
-        onRotaryVolumeInput = onRotaryVolumeInput,
-    )
-} else {
-    highResVolumeRotaryBehavior(
-        volumeUiStateProvider = volumeUiStateProvider,
-        onRotaryVolumeInput = onRotaryVolumeInput,
-    )
+): RotaryScrollableBehavior {
+    return if (isLowResInput()) {
+        lowResVolumeRotaryBehavior(
+            volumeUiStateProvider = volumeUiStateProvider,
+            onRotaryVolumeInput = onRotaryVolumeInput,
+        )
+    } else {
+        highResVolumeRotaryBehavior(
+            volumeUiStateProvider = volumeUiStateProvider,
+            onRotaryVolumeInput = onRotaryVolumeInput,
+        )
+    }
 }
 
 @Composable
@@ -150,9 +152,7 @@ private fun performHapticFeedback(
     localView: View,
 ) {
     if (targetVolume != volumeUiStateProvider().current) {
-        if (targetVolume == volumeUiStateProvider().min ||
-            targetVolume == volumeUiStateProvider().max
-        ) {
+        if (targetVolume == volumeUiStateProvider().min || targetVolume == volumeUiStateProvider().max) {
             // Use stronger haptic feedback when reaching max or min
             localView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
         } else {

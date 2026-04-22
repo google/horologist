@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,15 +49,15 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import java.util.concurrent.ExecutorService
-import java.util.concurrent.Executors
-import javax.inject.Provider
-import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import okhttp3.CacheControl
 import okhttp3.Call
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
+import javax.inject.Provider
+import javax.inject.Singleton
 
 @SuppressLint("UnsafeOptInUsageError")
 @Module
@@ -95,16 +95,18 @@ object DownloadModule {
     @Provides
     fun downloadNotificationHelper(
         @ApplicationContext applicationContext: Context,
-    ): DownloadNotificationHelper = DownloadNotificationHelper(
-        applicationContext,
-        MediaDownloadServiceImpl.MEDIA_DOWNLOAD_CHANNEL_ID,
-    )
+    ): DownloadNotificationHelper =
+        DownloadNotificationHelper(
+            applicationContext,
+            MediaDownloadServiceImpl.MEDIA_DOWNLOAD_CHANNEL_ID,
+        )
 
     @DownloadFeature
     @Singleton
     @Provides
-    fun databaseProvider(@ApplicationContext application: Context): DatabaseProvider =
-        StandaloneDatabaseProvider(application)
+    fun databaseProvider(
+        @ApplicationContext application: Context,
+    ): DatabaseProvider = StandaloneDatabaseProvider(application)
 
     @Singleton
     @Provides
@@ -131,19 +133,20 @@ object DownloadModule {
     }
 
     @Provides
-    fun downloadIndex(downloadManager: DownloadManager): DownloadIndex =
-        downloadManager.downloadIndex
+    fun downloadIndex(downloadManager: DownloadManager): DownloadIndex = downloadManager.downloadIndex
 
     @Singleton
     @Provides
-    fun workManagerScheduler(@ApplicationContext applicationContext: Context) =
-        WorkManagerScheduler(applicationContext, DOWNLOAD_WORK_MANAGER_SCHEDULER_WORK_NAME)
+    fun workManagerScheduler(
+        @ApplicationContext applicationContext: Context,
+    ) = WorkManagerScheduler(applicationContext, DOWNLOAD_WORK_MANAGER_SCHEDULER_WORK_NAME)
 
     @DownloadFeature
     @Provides
     @Singleton
-    fun coroutineScope(@Dispatcher(IO) ioDispatcher: CoroutineDispatcher): CoroutineScope =
-        CoroutineScope(SupervisorJob() + ioDispatcher)
+    fun coroutineScope(
+        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
+    ): CoroutineScope = CoroutineScope(SupervisorJob() + ioDispatcher)
 
     @Provides
     @Singleton

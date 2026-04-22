@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,10 +68,7 @@ interface AuditNavigation {
     data object Lists : AuditSection<Lists.Config, Lists.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            OneBottomChip,
-            OneBottomButton,
-            TwoBottomRound,
-            NoBottomButton,
+            OneBottomChip, OneBottomButton, TwoBottomRound, NoBottomButton
         }
 
         @Serializable
@@ -95,13 +92,7 @@ interface AuditNavigation {
     data object Dialogs : AuditSection<Dialogs.Config, Dialogs.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            IconAndTitle,
-            Title,
-            OneButtonChip,
-            OneBottomButton,
-            TwoBottomButtons,
-            NoBottomButton,
-            NonScrollable,
+            IconAndTitle, Title, OneButtonChip, OneBottomButton, TwoBottomButtons, NoBottomButton, NonScrollable
         }
 
         @Serializable
@@ -125,8 +116,7 @@ interface AuditNavigation {
     data object Confirmations : AuditSection<Confirmations.Config, Confirmations.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            IconAnd1Line,
-            IconAnd3Line,
+            IconAnd1Line, IconAnd3Line
         }
 
         @Serializable
@@ -150,10 +140,7 @@ interface AuditNavigation {
     data object Pickers : AuditSection<Pickers.Config, Pickers.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            Time12h,
-            Time24hWithSeconds,
-            Time24Hour,
-            Date,
+            Time12h, Time24hWithSeconds, Time24Hour, Date
         }
 
         @Serializable
@@ -177,10 +164,7 @@ interface AuditNavigation {
     data object Stepper : AuditSection<Stepper.Config, Stepper.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            ButtonAndIcon,
-            ButtonOnly,
-            TextOnly,
-            VolumeIndicator,
+            ButtonAndIcon, ButtonOnly, TextOnly, VolumeIndicator
         }
 
         @Serializable
@@ -205,10 +189,7 @@ interface AuditNavigation {
         AuditSection<ProgressIndicator.Config, ProgressIndicator.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            GapAtTop,
-            GapAtBottom,
-            WithoutGap,
-            Indeterminate,
+            GapAtTop, GapAtBottom, WithoutGap, Indeterminate
         }
 
         @Serializable
@@ -232,10 +213,7 @@ interface AuditNavigation {
     data object PageIndicator : AuditSection<PageIndicator.Config, PageIndicator.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            TwoDots,
-            FourDots,
-            Left5Plus,
-            Right5Plus,
+            TwoDots, FourDots, Left5Plus, Right5Plus
         }
 
         @Serializable
@@ -260,12 +238,7 @@ interface AuditNavigation {
         AuditSection<PositionIndicator.Config, PositionIndicator.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            TopShort,
-            MiddleShort,
-            BottomShort,
-            TopLong,
-            MiddleLong,
-            BottomLong,
+            TopShort, MiddleShort, BottomShort, TopLong, MiddleLong, BottomLong
         }
 
         @Serializable
@@ -289,12 +262,7 @@ interface AuditNavigation {
     data object VolumeRsb : AuditSection<VolumeRsb.Config, VolumeRsb.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            TopShort,
-            MiddleShort,
-            BottomShort,
-            TopLong,
-            MiddleLong,
-            BottomLong,
+            TopShort, MiddleShort, BottomShort, TopLong, MiddleLong, BottomLong
         }
 
         @Serializable
@@ -318,10 +286,7 @@ interface AuditNavigation {
     data object CurvedTimeText : AuditSection<CurvedTimeText.Config, CurvedTimeText.Audit>() {
         @Serializable
         enum class Config : SingleAuditConfig {
-            H12,
-            H24,
-            LongerTextString,
-            Tall,
+            H12, H24, LongerTextString, Tall
         }
 
         @Serializable
@@ -399,14 +364,14 @@ private fun String.toWords(): String {
         }
 }
 
-inline fun <reified T : Enum<T>> enumType(isNullableAllowed: Boolean = false) =
-    object : NavType<T>(isNullableAllowed = isNullableAllowed) {
-        override fun get(bundle: Bundle, key: String) = parseValue(bundle.getString(key)!!)
+inline fun <reified T : Enum<T>> enumType(
+    isNullableAllowed: Boolean = false,
+) = object : NavType<T>(isNullableAllowed = isNullableAllowed) {
+    override fun get(bundle: Bundle, key: String) = parseValue(bundle.getString(key)!!)
 
-        override fun parseValue(value: String): T = enumValueOf(value)
+    override fun parseValue(value: String): T = enumValueOf(value)
 
-        override fun serializeAsValue(value: T): String = value.name
+    override fun serializeAsValue(value: T): String = value.name
 
-        override fun put(bundle: Bundle, key: String, value: T) =
-            bundle.putString(key, serializeAsValue(value))
-    }
+    override fun put(bundle: Bundle, key: String, value: T) = bundle.putString(key, serializeAsValue(value))
+}

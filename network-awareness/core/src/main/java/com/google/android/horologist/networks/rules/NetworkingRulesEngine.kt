@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,20 +43,22 @@ public class NetworkingRulesEngine(
     public fun checkValidRequest(
         requestType: RequestType,
         currentNetworkInfo: NetworkInfo?,
-    ): RequestCheck = networkingRules.checkValidRequest(
-        requestType,
-        currentNetworkInfo ?: NetworkInfo.Unknown("unknown"),
-    )
+    ): RequestCheck {
+        return networkingRules.checkValidRequest(requestType, currentNetworkInfo ?: NetworkInfo.Unknown("unknown"))
+    }
 
-    public fun isHighBandwidthRequest(requestType: RequestType): Boolean =
-        networkingRules.isHighBandwidthRequest(requestType)
+    public fun isHighBandwidthRequest(requestType: RequestType): Boolean {
+        return networkingRules.isHighBandwidthRequest(requestType)
+    }
 
-    public fun supportedTypes(requestType: RequestType): List<NetworkType> = buildList {
-        if (checkValidRequest(requestType, NetworkInfo.Wifi("test")) is Allow) {
-            add(NetworkType.Wifi)
-        }
-        if (checkValidRequest(requestType, NetworkInfo.Cellular("test")) is Allow) {
-            add(NetworkType.Cell)
+    public fun supportedTypes(requestType: RequestType): List<NetworkType> {
+        return buildList {
+            if (checkValidRequest(requestType, NetworkInfo.Wifi("test")) is Allow) {
+                add(NetworkType.Wifi)
+            }
+            if (checkValidRequest(requestType, NetworkInfo.Cellular("test")) is Allow) {
+                add(NetworkType.Cell)
+            }
         }
     }
 }

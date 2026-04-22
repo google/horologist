@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,18 +26,20 @@ import kotlinx.coroutines.tasks.await
  * Checks whether a given Wearable Data Layer API is available on this device.
  */
 object WearableApiAvailability {
-    suspend fun isAvailable(api: GoogleApi<*>): Boolean = try {
-        GoogleApiAvailability.getInstance()
-            .checkApiAvailability(api)
-            .await()
+    suspend fun isAvailable(api: GoogleApi<*>): Boolean {
+        return try {
+            GoogleApiAvailability.getInstance()
+                .checkApiAvailability(api)
+                .await()
 
-        true
-    } catch (e: AvailabilityException) {
-        Log.d(
-            TAG,
-            "${api.javaClass.simpleName} API is not available in this device.",
-        )
-        false
+            true
+        } catch (e: AvailabilityException) {
+            Log.d(
+                TAG,
+                "${api.javaClass.simpleName} API is not available in this device.",
+            )
+            false
+        }
     }
 
     val TAG = "WearableApiAvailability"

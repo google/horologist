@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,11 +27,11 @@ import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityViewCheckResult
 import com.google.android.apps.common.testing.accessibility.framework.checks.TouchTargetSizeCheck
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
-import java.time.LocalDate
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Test
+import java.time.LocalDate
 
 class DatePickerA11yTest : WearLegacyA11yTest() {
     override fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> {

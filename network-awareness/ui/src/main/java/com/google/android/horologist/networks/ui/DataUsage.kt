@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -143,11 +143,13 @@ public fun LinearDataUsage(
     }
 }
 
-internal fun Long.toSize(context: Context): String = Formatter.formatShortFileSize(context, this)
+internal fun Long.toSize(context: Context): String {
+    return Formatter.formatShortFileSize(context, this)
+}
 
 @ExperimentalHorologistApi
-private fun NetworkStatus.tint(active: Boolean): Color =
-    if (!active && this.status == Status.Available) {
+private fun NetworkStatus.tint(active: Boolean): Color {
+    return if (!active && this.status == Status.Available) {
         Color.Blue
     } else {
         when (this.status) {
@@ -157,6 +159,7 @@ private fun NetworkStatus.tint(active: Boolean): Color =
             is Status.Unknown -> Color.LightGray
         }
     }
+}
 
 @ExperimentalHorologistApi
 internal val NetworkType.icon

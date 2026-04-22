@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,10 @@ import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
 import kotlinx.coroutines.delay
 
 @Composable
-fun UampWearApp(navController: NavHostController, intent: Intent) {
+fun UampWearApp(
+    navController: NavHostController,
+    intent: Intent,
+) {
     val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
     val volumeViewModel: VolumeViewModel = hiltViewModel()
     val mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel = hiltViewModel()
@@ -280,6 +283,7 @@ private suspend fun startupNavigation(
     }
 }
 
-private fun Intent.getAndRemoveKey(key: String): String? = getStringExtra(key).also {
-    removeExtra(key)
-}
+private fun Intent.getAndRemoveKey(key: String): String? =
+    getStringExtra(key).also {
+        removeExtra(key)
+    }

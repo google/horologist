@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,9 +28,7 @@ import com.google.android.horologist.data.WearDataService
 import io.grpc.BindableService
 import kotlinx.coroutines.tasks.asTask
 
-public abstract class BaseGrpcDataService<T : BindableService> :
-    WearDataService(),
-    LifecycleOwner {
+public abstract class BaseGrpcDataService<T : BindableService> : WearDataService(), LifecycleOwner {
     private lateinit var rpcServer: BaseMessageClientServer
 
     private val dispatcher = ServiceLifecycleDispatcher(this)
@@ -46,8 +44,9 @@ public abstract class BaseGrpcDataService<T : BindableService> :
         )
     }
 
-    override fun onRequest(nodeId: String, path: String, data: ByteArray): Task<ByteArray>? =
-        rpcServer.handleIncomingMessage(data).asTask()
+    override fun onRequest(nodeId: String, path: String, data: ByteArray): Task<ByteArray>? {
+        return rpcServer.handleIncomingMessage(data).asTask()
+    }
 
     override val lifecycle: Lifecycle
         get() = dispatcher.lifecycle

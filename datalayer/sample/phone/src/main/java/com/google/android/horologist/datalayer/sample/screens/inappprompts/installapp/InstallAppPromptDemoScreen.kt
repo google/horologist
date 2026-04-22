@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -110,9 +110,7 @@ fun InstallAppPromptDemoScreen(
             modifier = Modifier.padding(top = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Checkbox(checked = shouldFilterByNearby, onCheckedChange = {
-                shouldFilterByNearby = it
-            })
+            Checkbox(checked = shouldFilterByNearby, onCheckedChange = { shouldFilterByNearby = it })
             Text(text = stringResource(id = R.string.install_app_prompt_checkbox_label))
         }
 
@@ -147,9 +145,7 @@ fun InstallAppPromptDemoScreen(
                 Text(
                     stringResource(
                         id = R.string.install_app_prompt_demo_result_label,
-                        stringResource(
-                            id = R.string.install_app_prompt_demo_no_watches_found_label,
-                        ),
+                        stringResource(id = R.string.install_app_prompt_demo_no_watches_found_label),
                     ),
                 )
             }
@@ -158,9 +154,7 @@ fun InstallAppPromptDemoScreen(
                 Text(
                     stringResource(
                         id = R.string.install_app_prompt_demo_result_label,
-                        stringResource(
-                            id = R.string.install_app_prompt_demo_prompt_install_result_label,
-                        ),
+                        stringResource(id = R.string.install_app_prompt_demo_prompt_install_result_label),
                     ),
                 )
             }
@@ -169,9 +163,7 @@ fun InstallAppPromptDemoScreen(
                 Text(
                     stringResource(
                         id = R.string.install_app_prompt_demo_result_label,
-                        stringResource(
-                            id = R.string.install_app_prompt_demo_prompt_cancel_result_label,
-                        ),
+                        stringResource(id = R.string.install_app_prompt_demo_prompt_cancel_result_label),
                     ),
                 )
             }

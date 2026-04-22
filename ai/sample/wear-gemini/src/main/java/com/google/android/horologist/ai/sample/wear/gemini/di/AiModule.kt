@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,17 +56,19 @@ object AiModule {
 
     @Singleton
     @Provides
-    fun geminiSDKService(client: Client, contentConfig: GenerateContentConfig) =
-        GeminiSDKInferenceServiceImpl(
-            client,
-            serviceName = "Device Info",
-            configuredModels = listOf(
-                GeminiModel.Gemini2dot5Flash,
-            ),
-            contentConfig = GenerateContentConfig.builder()
-                .mediaResolution(MediaResolution.Known.MEDIA_RESOLUTION_LOW)
-                .build(),
-        )
+    fun geminiSDKService(
+        client: Client,
+        contentConfig: GenerateContentConfig,
+    ) = GeminiSDKInferenceServiceImpl(
+        client,
+        serviceName = "Device Info",
+        configuredModels = listOf(
+            GeminiModel.Gemini2dot5Flash,
+        ),
+        contentConfig = GenerateContentConfig.builder()
+            .mediaResolution(MediaResolution.Known.MEDIA_RESOLUTION_LOW)
+            .build(),
+    )
 
     @Singleton
     @Provides

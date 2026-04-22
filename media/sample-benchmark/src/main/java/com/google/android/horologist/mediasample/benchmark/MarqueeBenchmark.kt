@@ -1,5 +1,5 @@
 /*
- * Copyright 2023-2026 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,13 +35,13 @@ import com.google.android.horologist.media.benchmark.MediaControllerHelper
 import com.google.android.horologist.media.benchmark.MediaItems.buildMediaItem
 import com.google.android.horologist.media.benchmark.metrics.CompositionMetric
 import com.google.common.util.concurrent.ListenableFuture
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.junit.Rule
 import org.junit.Test
+import kotlin.time.Duration.Companion.seconds
 
 @LargeTest
 class MarqueeBenchmark {

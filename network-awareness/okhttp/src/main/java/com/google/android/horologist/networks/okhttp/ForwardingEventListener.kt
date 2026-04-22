@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,6 @@
 
 package com.google.android.horologist.networks.okhttp
 
-import java.io.IOException
-import java.net.InetAddress
-import java.net.InetSocketAddress
-import java.net.Proxy
 import okhttp3.Call
 import okhttp3.Connection
 import okhttp3.EventListener
@@ -28,11 +24,17 @@ import okhttp3.HttpUrl
 import okhttp3.Protocol
 import okhttp3.Request
 import okhttp3.Response
+import java.io.IOException
+import java.net.InetAddress
+import java.net.InetSocketAddress
+import java.net.Proxy
 
 /**
  * Forwarding implementation of EventListener to allow for easy overrides of particular events.
  */
-public open class ForwardingEventListener(private val delegate: EventListener) : EventListener() {
+public open class ForwardingEventListener(
+    private val delegate: EventListener,
+) : EventListener() {
     override fun cacheConditionalHit(call: Call, cachedResponse: Response) {
         delegate.cacheConditionalHit(call, cachedResponse)
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,6 @@ import com.google.android.horologist.networks.rules.helpers.TestLogger
 import com.google.android.horologist.networks.testdoubles.FakeNetworkRepository
 import com.google.android.horologist.networks.testdoubles.FakeNetworkRequester
 import com.google.common.truth.Truth.assertThat
-import java.io.IOException
-import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
@@ -48,6 +46,8 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
+import java.io.IOException
+import kotlin.time.Duration.Companion.seconds
 
 @Config(
     sdk = [35],
@@ -113,10 +113,7 @@ class NetworkSelectingCallFactoryTest {
             .requestType(RequestType.MediaRequest(Download))
             .build()
 
-        assertThrows(
-            "High Bandwidth Requests are not supported with execute",
-            IOException::class.java,
-        ) {
+        assertThrows("High Bandwidth Requests are not supported with execute", IOException::class.java) {
             callFactory.newCall(request).execute()
         }
     }

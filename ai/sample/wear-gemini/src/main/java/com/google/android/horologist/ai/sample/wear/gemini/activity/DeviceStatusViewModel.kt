@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,48 +23,48 @@ import com.google.genai.Client
 import com.google.genai.types.GenerateContentConfig
 import com.google.genai.types.GenerateImagesConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @HiltViewModel
 class DeviceStatusViewModel
-@Inject
-constructor(
-    client: Client,
-    val contentConfig: GenerateContentConfig,
-) : ViewModel() {
-    val uiState = flow {
-        val model: String = ExposedMethods.deviceModel()
-        val manufacturer: String = ExposedMethods.deviceManufacturer()
+    @Inject
+    constructor(
+        client: Client,
+        val contentConfig: GenerateContentConfig,
+    ) : ViewModel() {
+        val uiState = flow {
+            val model: String = ExposedMethods.deviceModel()
+            val manufacturer: String = ExposedMethods.deviceManufacturer()
 
-        val imageGen = withContext(Dispatchers.IO) {
-            async {
-                val images = client.models.generateImages(
-                    GeminiModel.Imagen4.name,
-                    "Generate an image for this android device $manufacturer $model",
-                    GenerateImagesConfig.builder()
-                        .numberOfImages(1)
-                        .build(),
-                )
-                images.generatedImages().get().first().image().get().imageBytes().get()
+            val imageGen = withContext(Dispatchers.IO) {
+                async {
+                    val images = client.models.generateImages(
+                        GeminiModel.Imagen4.name,
+                        "Generate an image for this android device $manufacturer $model",
+                        GenerateImagesConfig.builder()
+                            .numberOfImages(1)
+                            .build(),
+                    )
+                    images.generatedImages().get().first().image().get().imageBytes().get()
+                }
             }
-        }
 
-        val descriptionGen = withContext(Dispatchers.IO) {
-            async {
-                client.models.generateContent(
-                    GeminiModel.Gemini2dot5Flash.name,
-                    "Make a poem about the device and its manufacturer",
-                    contentConfig,
-                ).parts()?.get(0)?.text()?.get()
+            val descriptionGen = withContext(Dispatchers.IO) {
+                async {
+                    client.models.generateContent(
+                        GeminiModel.Gemini2dot5Flash.name,
+                        "Make a poem about the device and its manufacturer",
+                        contentConfig,
+                    ).parts()?.get(0)?.text()?.get()
+                }
             }
-        }
 
-        emit(Loaded(imageGen.await(), descriptionGen.await()))
-    }.stateIn(viewModelScope, SharingStarted.Lazily, Loading)
-}
+            emit(Loaded(imageGen.await(), descriptionGen.await()))
+        }.stateIn(viewModelScope, SharingStarted.Lazily, Loading)
+    }

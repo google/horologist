@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,16 +30,10 @@ public object MediaDownloadStatusMapper {
     /**
      * Maps from a [MediaDownloadEntity].
      */
-    public fun map(mediaDownloadEntity: MediaDownloadEntity): MediaDownload.Status =
-        when (mediaDownloadEntity.status) {
-            MediaDownloadEntityStatus.NotDownloaded -> MediaDownload.Status.Idle
-
-            MediaDownloadEntityStatus.Downloading -> MediaDownload.Status.InProgress(
-                mediaDownloadEntity.progress,
-            )
-
-            MediaDownloadEntityStatus.Downloaded -> MediaDownload.Status.Completed
-
-            MediaDownloadEntityStatus.Failed -> MediaDownload.Status.Idle
-        }
+    public fun map(mediaDownloadEntity: MediaDownloadEntity): MediaDownload.Status = when (mediaDownloadEntity.status) {
+        MediaDownloadEntityStatus.NotDownloaded -> MediaDownload.Status.Idle
+        MediaDownloadEntityStatus.Downloading -> MediaDownload.Status.InProgress(mediaDownloadEntity.progress)
+        MediaDownloadEntityStatus.Downloaded -> MediaDownload.Status.Completed
+        MediaDownloadEntityStatus.Failed -> MediaDownload.Status.Idle
+    }
 }

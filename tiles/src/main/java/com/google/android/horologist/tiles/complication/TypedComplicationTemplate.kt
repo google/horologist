@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,23 +35,20 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  * A complication provider that support distinct render methods.
  */
 @ExperimentalHorologistApi
-public abstract class TypedComplicationTemplate<T>(override val context: Context) :
-    ComplicationTemplate<T> {
-    final override fun render(type: ComplicationType, data: T): ComplicationData = when (type) {
-        ComplicationType.LONG_TEXT -> renderLongText(data) ?: NoDataComplicationData()
-
-        ComplicationType.MONOCHROMATIC_IMAGE -> renderMonochromaticImage(data)
-            ?: NoDataComplicationData()
-
-        ComplicationType.PHOTO_IMAGE -> renderPhotoImage(data) ?: NoDataComplicationData()
-
-        ComplicationType.RANGED_VALUE -> renderRangedValue(data) ?: NoDataComplicationData()
-
-        ComplicationType.SHORT_TEXT -> renderShortText(data) ?: NoDataComplicationData()
-
-        ComplicationType.SMALL_IMAGE -> renderSmallImage(data) ?: NoDataComplicationData()
-
-        else -> NoDataComplicationData()
+public abstract class TypedComplicationTemplate<T>(
+    override val context: Context,
+) : ComplicationTemplate<T> {
+    final override fun render(type: ComplicationType, data: T): ComplicationData {
+        return when (type) {
+            ComplicationType.LONG_TEXT -> renderLongText(data) ?: NoDataComplicationData()
+            ComplicationType.MONOCHROMATIC_IMAGE -> renderMonochromaticImage(data)
+                ?: NoDataComplicationData()
+            ComplicationType.PHOTO_IMAGE -> renderPhotoImage(data) ?: NoDataComplicationData()
+            ComplicationType.RANGED_VALUE -> renderRangedValue(data) ?: NoDataComplicationData()
+            ComplicationType.SHORT_TEXT -> renderShortText(data) ?: NoDataComplicationData()
+            ComplicationType.SMALL_IMAGE -> renderSmallImage(data) ?: NoDataComplicationData()
+            else -> NoDataComplicationData()
+        }
     }
 
     override fun supportedTypes(): List<ComplicationType> = listOf(ComplicationType.SHORT_TEXT)

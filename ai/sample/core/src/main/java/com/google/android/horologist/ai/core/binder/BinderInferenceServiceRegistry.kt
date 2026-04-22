@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class BinderInferenceServiceRegistry(val coroutineScope: CoroutineScope, val context: Context) :
-    InferenceServiceRegistry {
-    override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> =
-        flow {
+class BinderInferenceServiceRegistry(
+    val coroutineScope: CoroutineScope,
+    val context: Context,
+) : InferenceServiceRegistry {
+    override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
+        return flow {
             val intent = Intent("InferenceService")
             val services = context.packageManager.queryIntentServices(intent, 0)
 
@@ -43,6 +45,7 @@ class BinderInferenceServiceRegistry(val coroutineScope: CoroutineScope, val con
                 },
             )
         }
+    }
 
     override val priority: Int
         get() = 1

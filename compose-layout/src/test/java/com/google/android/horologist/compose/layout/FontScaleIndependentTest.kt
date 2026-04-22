@@ -1,5 +1,5 @@
 /*
- * Copyright 2022-2026 The Android Open Source Project
+ * Copyright 2022 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,8 +49,9 @@ import org.robolectric.annotation.Config
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class FontScaleIndependentTest(val fontSize: Size) : WearScreenshotTest() {
 
-    public override fun testName(suffix: String): String = "src/test/snapshots/images/" +
-        "${this.javaClass.simpleName}_${fontSize.size}.png"
+    public override fun testName(suffix: String): String =
+        "src/test/snapshots/images/" +
+            "${this.javaClass.simpleName}_${fontSize.size}.png"
 
     @Test
     fun testSizes() {
@@ -82,10 +83,7 @@ class FontScaleIndependentTest(val fontSize: Size) : WearScreenshotTest() {
                                 contentAlignment = Alignment.BottomStart,
                             ) {
                                 val tm = rememberTextMeasurer()
-                                val height = tm.measure(
-                                    "|",
-                                    style = TextStyle.Default.copy(fontSize = fontSize.size),
-                                ).size.height
+                                val height = tm.measure("|", style = TextStyle.Default.copy(fontSize = fontSize.size)).size.height
                                 Text(
                                     text = "| $fontScale Scale (${height}px)",
                                     fontSize = fontSize.size,
@@ -103,10 +101,9 @@ class FontScaleIndependentTest(val fontSize: Size) : WearScreenshotTest() {
     public companion object {
         @JvmStatic
         @ParameterizedRobolectricTestRunner.Parameters
-        public fun fontSizes(): List<Size> =
-            listOf(10.sp, 12.sp, 14.sp, 15.sp, 16.sp, 20.sp, 24.sp, 30.sp, 34.sp, 40.sp).map {
-                Size(it)
-            }
+        public fun fontSizes(): List<Size> = listOf(10.sp, 12.sp, 14.sp, 15.sp, 16.sp, 20.sp, 24.sp, 30.sp, 34.sp, 40.sp).map {
+            Size(it)
+        }
     }
 }
 

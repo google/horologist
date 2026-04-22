@@ -43,5 +43,3 @@ out/
 /.kotlin/**/*
 /.idea/runConfigurations.xml
 /.idea/assetWizardSettings.xml
-.compose-preview-history/
-gradle/gradle-daemon-jvm.properties

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024-2026 The Android Open Source Project
+ * Copyright 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,5 +20,7 @@ import java.time.Instant
 
 public sealed interface PromptUiModel : PromptOrResponseUiModel
 
-public data class TextPromptUiModel(val prompt: String, val submitted: Instant = Instant.now()) :
-    PromptUiModel
+public data class TextPromptUiModel(
+    val prompt: String,
+    val submitted: Instant = Instant.now(),
+) : PromptUiModel

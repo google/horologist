@@ -85,9 +85,15 @@ if (media3Checkout.isNotBlank()) {
     }
 }
 
-tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach {
-    outputDirectory.set(rootProject.file("docs/api"))
-    failOnWarning.set(true)
+subprojects {
+    plugins.withId("org.jetbrains.dokka") {
+        configure<org.jetbrains.dokka.gradle.DokkaExtension> {
+            val parentName = project.parent?.name
+            if (parentName != null && parentName != rootProject.name) {
+                moduleName.set("$parentName-${project.name}")
+            }
+        }
+    }
 }
 
 allprojects {

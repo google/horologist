@@ -17,9 +17,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.google.android.horologist.mediasample">
 
-    <uses-sdk
-        android:minSdkVersion="26" />
-
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 

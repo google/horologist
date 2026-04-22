@@ -36,10 +36,16 @@ class PlaybackStateTest {
         val predictor = result.createPositionPredictor()
         // then
         assertThat(predictor).isNotNull()
-        assertThat(predictor!!.predictDuration(elapsedMilliseconds)).isEqualTo(duration.inWholeMilliseconds)
-        assertThat(predictor.predictPosition(elapsedMilliseconds)).isEqualTo(current.inWholeMilliseconds)
+        assertThat(
+            predictor!!.predictDuration(elapsedMilliseconds),
+        ).isEqualTo(duration.inWholeMilliseconds)
+        assertThat(
+            predictor.predictPosition(elapsedMilliseconds),
+        ).isEqualTo(current.inWholeMilliseconds)
         assertThat(predictor.predictPercent(elapsedMilliseconds)).isEqualTo(0.5f)
-        assertThat(predictor.predictDuration(elapsedMilliseconds + 100)).isEqualTo(duration.inWholeMilliseconds)
+        assertThat(
+            predictor.predictDuration(elapsedMilliseconds + 100),
+        ).isEqualTo(duration.inWholeMilliseconds)
         assertThat(
             predictor.predictPosition(elapsedMilliseconds + 100),
         ).isEqualTo(1100L)
@@ -56,8 +62,12 @@ class PlaybackStateTest {
         val predictor = result.createPositionPredictor()
         // then
         assertThat(predictor).isNotNull()
-        assertThat(predictor!!.predictDuration(elapsedMilliseconds)).isEqualTo(duration.inWholeMilliseconds)
-        assertThat(predictor.predictPosition(elapsedMilliseconds)).isEqualTo(current.inWholeMilliseconds)
+        assertThat(
+            predictor!!.predictDuration(elapsedMilliseconds),
+        ).isEqualTo(duration.inWholeMilliseconds)
+        assertThat(
+            predictor.predictPosition(elapsedMilliseconds),
+        ).isEqualTo(current.inWholeMilliseconds)
         assertThat(predictor.predictPercent(elapsedMilliseconds)).isEqualTo(0.5f)
         assertThat(
             predictor.predictDuration(elapsedMilliseconds + 100),
@@ -78,7 +88,9 @@ class PlaybackStateTest {
         val predictor = result.createPositionPredictor()
         // then
         assertThat(predictor).isNotNull()
-        assertThat(predictor!!.predictDuration(elapsedMilliseconds + 100)).isEqualTo(duration.inWholeMilliseconds)
+        assertThat(
+            predictor!!.predictDuration(elapsedMilliseconds + 100),
+        ).isEqualTo(duration.inWholeMilliseconds)
         assertThat(
             predictor.predictPosition(elapsedMilliseconds + 100),
         ).isEqualTo(1200L)

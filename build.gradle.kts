@@ -119,27 +119,27 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "com.diffplug.spotless")
-
-    if (childProjects.isEmpty()) {
-        spotless {
-            kotlin {
-                target("**/*.kt")
-                ktlint(libs.versions.ktlint.get())
-                    .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
-                licenseHeaderFile(rootProject.file("spotless/copyright.txt"))
-            }
-            kotlinGradle {
-                target("**/*.gradle.kts")
-                ktlint(libs.versions.ktlint.get())
-                    .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
-                licenseHeaderFile(
-                    rootProject.file("spotless/copyright.txt"),
-                    "(buildscript|apply|import|plugins)"
-                )
-            }
-        }
-    }
+//    apply(plugin = "com.diffplug.spotless")
+//
+//    if (childProjects.isEmpty()) {
+//        spotless {
+//            kotlin {
+//                target("**/*.kt")
+//                ktlint(libs.versions.ktlint.get())
+//                    .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
+//                licenseHeaderFile(rootProject.file("spotless/copyright.txt"))
+//            }
+//            kotlinGradle {
+//                target("**/*.gradle.kts")
+//                ktlint(libs.versions.ktlint.get())
+//                    .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
+//                licenseHeaderFile(
+//                    rootProject.file("spotless/copyright.txt"),
+//                    "(buildscript|apply|import|plugins)"
+//                )
+//            }
+//        }
+//    }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {

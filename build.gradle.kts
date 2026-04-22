@@ -98,6 +98,19 @@ allprojects {
         }
     }
 
+    configurations.all {
+        exclude(group = "com.google.protobuf", module = "protobuf-java")
+        resolutionStrategy {
+            dependencySubstitution {
+                substitute(module("com.google.protobuf:protobuf-java")).using(module("com.google.protobuf:protobuf-javalite:4.34.1"))
+            }
+            force("io.grpc:grpc-stub:1.80.0")
+            force("io.grpc:grpc-protobuf-lite:1.80.0")
+            force("io.grpc:grpc-android:1.80.0")
+            force("io.grpc:grpc-binder:1.80.0")
+        }
+    }
+
     plugins.withId("com.vanniktech.maven.publish") {
         mavenPublishing {
             if (project.plugins.hasPlugin("com.android.library")) {
@@ -149,6 +162,7 @@ subprojects {
                 listOf(
                     // Allow use of @OptIn
                     "-opt-in=kotlin.RequiresOptIn",
+                    "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
                     // Enable default methods in interfaces
                     "-Xjvm-default=all"
                 )

@@ -98,7 +98,6 @@ dependencies {
     implementation(projects.networkAwareness.ui)
     implementation(projects.media.core)
     implementation(projects.media.ui)
-    implementation(projects.networkAwareness)
     implementation(projects.tiles)
     implementation(projects.logo)
 

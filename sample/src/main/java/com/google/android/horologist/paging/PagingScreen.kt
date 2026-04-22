@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+@file:OptIn(ExperimentalWearMaterialApi::class)
 
 package com.google.android.horologist.paging
 
@@ -37,6 +39,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.wear.compose.material.CardDefaults
+import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.PlaceholderDefaults
 import androidx.wear.compose.material.PlaceholderState
 import androidx.wear.compose.material.Text
@@ -49,11 +52,11 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberActivePlaceholderState
 import com.google.android.horologist.compose.paging.items
 import com.google.android.horologist.sample.R
-import kotlinx.coroutines.delay
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import kotlin.math.ceil
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.delay
 
 @Composable
 fun PagingScreen(
@@ -193,23 +196,16 @@ private class MyBackend {
                 )
             }
 
-            override fun getRefreshKey(state: PagingState<Int, PagingItem>): Int {
-                return (
-                    (state.anchorPosition ?: 0) -
-                        state.config.initialLoadSize / 2.coerceAtLeast(0)
-                    )
-            }
+            override fun getRefreshKey(state: PagingState<Int, PagingItem>): Int = (
+                (state.anchorPosition ?: 0) -
+                    state.config.initialLoadSize / 2.coerceAtLeast(0)
+                )
         }
     }
 }
 
-data class PagingItem(
-    val item: Int,
-    val loadedAt: LocalTime = LocalTime.now(),
-) {
-    override fun toString(): String {
-        return "$item (${loadedAt.format(timeFormatter)})"
-    }
+data class PagingItem(val item: Int, val loadedAt: LocalTime = LocalTime.now()) {
+    override fun toString(): String = "$item (${loadedAt.format(timeFormatter)})"
 
     companion object {
         private val timeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss")

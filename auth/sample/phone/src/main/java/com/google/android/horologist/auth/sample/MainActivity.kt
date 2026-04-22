@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,6 +47,7 @@ import com.google.android.horologist.auth.data.phone.tokenshare.impl.TokenBundle
 import com.google.android.horologist.auth.sample.shared.TOKEN_BUNDLE_CUSTOM_KEY
 import com.google.android.horologist.auth.sample.shared.TokenBundleSerializer
 import com.google.android.horologist.auth.sample.shared.model.TokenBundleProto.TokenBundle
+import com.google.android.horologist.auth.sample.shared.model.tokenBundle
 import com.google.android.horologist.auth.sample.ui.theme.HorologistTheme
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
@@ -113,9 +114,9 @@ class MainActivity : ComponentActivity() {
     private fun onUpdateTokenDefault() {
         lifecycleScope.launch {
             tokenBundleRepositoryDefaultKey.update(
-                TokenBundle.newBuilder()
-                    .setAccessToken("${System.currentTimeMillis()}")
-                    .build(),
+                tokenBundle {
+                    accessToken = "${System.currentTimeMillis()}"
+                },
             )
         }
     }
@@ -123,9 +124,9 @@ class MainActivity : ComponentActivity() {
     private fun onUpdateTokenCustom() {
         lifecycleScope.launch {
             tokenBundleRepositoryCustomKey.update(
-                TokenBundle.newBuilder()
-                    .setAccessToken("${System.currentTimeMillis()}")
-                    .build(),
+                tokenBundle {
+                    accessToken = "${System.currentTimeMillis()}"
+                },
             )
         }
     }

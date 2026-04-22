@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.android.horologist.data.ComplicationInfo
+import com.google.android.horologist.data.SurfacesInfo
+import com.google.android.horologist.data.TileInfo
+import com.google.android.horologist.data.UsageInfo
 import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.data.apphelper.AppInstallationStatus
@@ -76,7 +80,10 @@ fun AppHelperNodeStatusCard(
                 )
                 Text(
                     style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(R.string.node_status_node_is_nearby_label, nodeStatus.isNearby),
+                    text = stringResource(
+                        R.string.node_status_node_is_nearby_label,
+                        nodeStatus.isNearby,
+                    ),
                 )
                 Text(
                     style = MaterialTheme.typography.labelMedium,
@@ -108,7 +115,9 @@ fun AppHelperNodeStatusCard(
                         style = MaterialTheme.typography.labelMedium,
                         text = stringResource(
                             R.string.node_status_tiles_label,
-                            nodeStatus.surfacesInfo.tilesList.joinToString { it.name.substringAfterLast(".") },
+                            nodeStatus.surfacesInfo.tilesList.joinToString {
+                                it.name.substringAfterLast(".")
+                            },
                         ),
                     )
                 }
@@ -168,7 +177,9 @@ fun AppHelperNodeStatusCard(
                         enabled = nodeStatus.appInstalled,
                     ) {
                         Text(
-                            stringResource(id = R.string.node_status_start_remote_activity_button_label),
+                            stringResource(
+                                id = R.string.node_status_start_remote_activity_button_label,
+                            ),
                             textAlign = TextAlign.Center,
                         )
                     }
@@ -189,20 +200,16 @@ fun NodeCardPreview() {
             nodeType = AppInstallationStatusNodeType.WATCH,
         ),
         surfacesInfo = surfacesInfo {
-            tiles.add(
-                tileInfo {
-                    name = "Horologist Tile"
-                    timestamp = System.currentTimeMillis().toProtoTimestamp()
-                },
-            )
-            complications.add(
-                complicationInfo {
-                    type = "SHORT_TEXT"
-                    instanceId = 123
-                    name = "Horologist Complication"
-                    timestamp = System.currentTimeMillis().toProtoTimestamp()
-                },
-            )
+            tiles += tileInfo {
+                name = "Horologist Tile"
+                timestamp = System.currentTimeMillis().toProtoTimestamp()
+            }
+            complications += complicationInfo {
+                type = "SHORT_TEXT"
+                instanceId = 123
+                name = "Horologist Complication"
+                timestamp = System.currentTimeMillis().toProtoTimestamp()
+            }
             usageInfo = usageInfo {
                 usageStatus = UsageStatus.USAGE_STATUS_LAUNCHED_ONCE
                 timestamp = System.currentTimeMillis().toProtoTimestamp()

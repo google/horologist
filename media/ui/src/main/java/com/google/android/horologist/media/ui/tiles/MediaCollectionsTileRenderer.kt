@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,10 @@ public class MediaCollectionsTileRenderer(
     context: Context,
     private val materialTheme: Colors,
     debugResourceMode: Boolean,
-) : SingleTileLayoutRenderer<MediaCollectionsTileRenderer.MediaCollectionsState, MediaCollectionsTileRenderer.ResourceState>(
+) : SingleTileLayoutRenderer<
+    MediaCollectionsTileRenderer.MediaCollectionsState,
+    MediaCollectionsTileRenderer.ResourceState,
+    >(
     context,
     debugResourceMode,
 ) {
@@ -59,59 +62,54 @@ public class MediaCollectionsTileRenderer(
     override fun renderTile(
         state: MediaCollectionsState,
         deviceParameters: DeviceParameters,
-    ): LayoutElementBuilders.LayoutElement {
-        return PrimaryLayout.Builder(deviceParameters)
-            .setResponsiveContentInsetEnabled(true)
-            .setContent(
-                Column.Builder()
-                    .setWidth(expandedDimensionProp)
-                    .setHeight(wrapDimensionProp)
-                    .addContent(
-                        collectionChip(
-                            state.collection1,
-                            deviceParameters,
-                        ),
-                    )
-                    .addContent(spacer(4f))
-                    .addContent(
-                        collectionChip(
-                            state.collection2,
-                            deviceParameters,
-                        ),
-                    ).build(),
-            ).setPrimaryChipContent(
-                CompactChip.Builder(
-                    context,
-                    context.getString(state.chipName),
-                    Clickable.Builder().setOnClick(
-                        state.chipAction,
-                    ).build(),
-                    deviceParameters,
-                ).setChipColors(ChipColors.primaryChipColors(theme)).build(),
-            ).build()
-    }
+    ): LayoutElementBuilders.LayoutElement = PrimaryLayout.Builder(deviceParameters)
+        .setResponsiveContentInsetEnabled(true)
+        .setContent(
+            Column.Builder()
+                .setWidth(expandedDimensionProp)
+                .setHeight(wrapDimensionProp)
+                .addContent(
+                    collectionChip(
+                        state.collection1,
+                        deviceParameters,
+                    ),
+                )
+                .addContent(spacer(4f))
+                .addContent(
+                    collectionChip(
+                        state.collection2,
+                        deviceParameters,
+                    ),
+                ).build(),
+        ).setPrimaryChipContent(
+            CompactChip.Builder(
+                context,
+                context.getString(state.chipName),
+                Clickable.Builder().setOnClick(
+                    state.chipAction,
+                ).build(),
+                deviceParameters,
+            ).setChipColors(ChipColors.primaryChipColors(theme)).build(),
+        ).build()
 
-    override fun getResourcesVersionForTileState(state: MediaCollectionsState): String {
-        return state.collection1.artworkId + ":" + state.collection2.artworkId
-    }
+    override fun getResourcesVersionForTileState(state: MediaCollectionsState): String =
+        state.collection1.artworkId + ":" + state.collection2.artworkId
 
     private fun spacer(size: Float) = Spacer.Builder().setHeight(
         DimensionBuilders.DpProp.Builder(size).build(),
     ).build()
 
-    private fun collectionChip(
-        collection: MediaCollection,
-        deviceParameters: DeviceParameters,
-    ) = Chip.Builder(
-        context,
-        Clickable.Builder().setOnClick(collection.action).build(),
-        deviceParameters,
-    )
-        .setChipColors(ChipColors.secondaryChipColors(theme))
-        .setPrimaryLabelContent(collection.name)
-        .setIconContent(collection.artworkId)
-        .setWidth(expandedDimensionProp)
-        .build()
+    private fun collectionChip(collection: MediaCollection, deviceParameters: DeviceParameters) =
+        Chip.Builder(
+            context,
+            Clickable.Builder().setOnClick(collection.action).build(),
+            deviceParameters,
+        )
+            .setChipColors(ChipColors.secondaryChipColors(theme))
+            .setPrimaryLabelContent(collection.name)
+            .setIconContent(collection.artworkId)
+            .setWidth(expandedDimensionProp)
+            .build()
 
     override fun Resources.Builder.produceRequestedResources(
         resourceState: ResourceState,
@@ -132,14 +130,14 @@ public class MediaCollectionsTileRenderer(
     )
 
     public data class MediaCollectionsState(
-        @StringRes public val chipName: Int,
+        @param:StringRes public val chipName: Int,
         public val chipAction: ActionBuilders.Action,
         public val collection1: MediaCollection,
         public val collection2: MediaCollection,
     )
 
     public data class ResourceState(
-        @DrawableRes public val appIcon: Int,
+        @param:DrawableRes public val appIcon: Int,
         public val images: Map<String, ImageResource?>,
     )
 }

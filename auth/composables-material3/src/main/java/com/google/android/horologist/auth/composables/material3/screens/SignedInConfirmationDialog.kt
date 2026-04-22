@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialShapes
 import androidx.compose.material3.toShape
@@ -135,7 +134,6 @@ public fun SignedInConfirmationDialog(
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 internal fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
@@ -197,7 +195,7 @@ internal fun SignedInConfirmationDialogContent(
                 text = if (hasName) {
                     stringResource(
                         id = R.string.horologist_signedin_confirmation_greeting,
-                        name!!,
+                        name,
                     )
                 } else {
                     stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,43 +21,42 @@ import com.google.android.horologist.media.data.repository.PlayerRepositoryImpl
 import com.google.android.horologist.media.ui.state.PlayerViewModel
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
-import com.google.android.horologist.mediasample.domain.proto.copy
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
 class MediaPlayerScreenViewModel
-    @Inject
-    constructor(
-        playerRepository: PlayerRepositoryImpl,
-        settingsRepository: SettingsRepository,
-    ) : PlayerViewModel(playerRepository) {
+@Inject
+constructor(
+    playerRepository: PlayerRepositoryImpl,
+    settingsRepository: SettingsRepository,
+) : PlayerViewModel(playerRepository) {
 
-        init {
-            // TODO: consider if this should be done elsewhere
-            // https://github.com/google/horologist/issues/900
-            viewModelScope.launch {
-                playerRepository.currentMedia.collect { media ->
-                    if (media != null) {
-                        settingsRepository.edit {
-                            it.copy { currentMediaItemId = media.id }
-                        }
+    init {
+        // TODO: consider if this should be done elsewhere
+        // https://github.com/google/horologist/issues/900
+        viewModelScope.launch {
+            playerRepository.currentMedia.collect { media ->
+                if (media != null) {
+                    settingsRepository.edit {
+                        it.toBuilder().setCurrentMediaItemId(media.id).build()
                     }
                 }
             }
         }
-
-        val playerState = playerRepository.player
-
-        val settingsState: StateFlow<Settings> = settingsRepository.settingsFlow
-            .stateIn(
-                viewModelScope,
-                started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
-                initialValue = Settings.getDefaultInstance(),
-            )
     }
+
+    val playerState = playerRepository.player
+
+    val settingsState: StateFlow<Settings> = settingsRepository.settingsFlow
+        .stateIn(
+            viewModelScope,
+            started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
+            initialValue = Settings.getDefaultInstance(),
+        )
+}

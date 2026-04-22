@@ -22,17 +22,21 @@ package com.google.android.horologist.networks.okhttp {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class NetworkSelectingCallFactory implements okhttp3.Call.Factory {
-    ctor public NetworkSelectingCallFactory(com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine, com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator highBandwidthNetworkMediator, com.google.android.horologist.networks.status.NetworkRepository networkRepository, com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository, okhttp3.OkHttpClient rootClient, kotlinx.coroutines.CoroutineScope coroutineScope, optional long timeout, com.google.android.horologist.networks.logging.NetworkStatusLogger logger);
+    ctor @KotlinOnly public NetworkSelectingCallFactory(com.google.android.horologist.networks.rules.NetworkingRulesEngine networkingRulesEngine, com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator highBandwidthNetworkMediator, com.google.android.horologist.networks.status.NetworkRepository networkRepository, com.google.android.horologist.networks.data.DataRequestRepository? dataRequestRepository, okhttp3.OkHttpClient rootClient, kotlinx.coroutines.CoroutineScope coroutineScope, optional kotlin.time.Duration timeout, com.google.android.horologist.networks.logging.NetworkStatusLogger logger);
     method public okhttp3.Call newCall(okhttp3.Request request);
   }
 
   public final class RequestTypeKt {
-    method public static com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? getHighBandwidthConnectionLease(okhttp3.Request);
-    method public static com.google.android.horologist.networks.data.NetworkInfo? getNetworkInfo(okhttp3.Request);
-    method public static com.google.android.horologist.networks.data.RequestType getRequestType(okhttp3.Request);
-    method public static com.google.android.horologist.networks.data.RequestType? getRequestTypeOrNull(okhttp3.Request);
-    method public static void setHighBandwidthConnectionLease(okhttp3.Request, com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease?);
-    method public static void setNetworkInfo(okhttp3.Request, com.google.android.horologist.networks.data.NetworkInfo?);
+    method @InaccessibleFromKotlin public static com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? getHighBandwidthConnectionLease(okhttp3.Request);
+    method @InaccessibleFromKotlin public static com.google.android.horologist.networks.data.NetworkInfo? getNetworkInfo(okhttp3.Request);
+    method @InaccessibleFromKotlin public static com.google.android.horologist.networks.data.RequestType getRequestType(okhttp3.Request);
+    method @InaccessibleFromKotlin public static com.google.android.horologist.networks.data.RequestType? getRequestTypeOrNull(okhttp3.Request);
+    method @InaccessibleFromKotlin public static void setHighBandwidthConnectionLease(okhttp3.Request, com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease?);
+    method @InaccessibleFromKotlin public static void setNetworkInfo(okhttp3.Request, com.google.android.horologist.networks.data.NetworkInfo?);
+    property public static com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? okhttp3.Request.highBandwidthConnectionLease;
+    property public static com.google.android.horologist.networks.data.NetworkInfo? okhttp3.Request.networkInfo;
+    property public static com.google.android.horologist.networks.data.RequestType okhttp3.Request.requestType;
+    property public static com.google.android.horologist.networks.data.RequestType? okhttp3.Request.requestTypeOrNull;
   }
 
 }
@@ -65,20 +69,21 @@ package com.google.android.horologist.networks.okhttp.impl {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class RequestTypeHolder {
+    ctor public RequestTypeHolder();
     ctor public RequestTypeHolder(optional com.google.android.horologist.networks.data.RequestType requestType, optional com.google.android.horologist.networks.data.NetworkInfo? networkInfo, optional com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? highBandwidthConnectionLease);
     method public com.google.android.horologist.networks.data.RequestType component1();
     method public com.google.android.horologist.networks.data.NetworkInfo? component2();
     method public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? component3();
-    method public com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder copy(com.google.android.horologist.networks.data.RequestType requestType, com.google.android.horologist.networks.data.NetworkInfo? networkInfo, com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? highBandwidthConnectionLease);
-    method public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? getHighBandwidthConnectionLease();
-    method public com.google.android.horologist.networks.data.NetworkInfo? getNetworkInfo();
-    method public com.google.android.horologist.networks.data.RequestType getRequestType();
-    method public void setHighBandwidthConnectionLease(com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease?);
-    method public void setNetworkInfo(com.google.android.horologist.networks.data.NetworkInfo?);
-    method public void setRequestType(com.google.android.horologist.networks.data.RequestType);
-    property public final com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? highBandwidthConnectionLease;
-    property public final com.google.android.horologist.networks.data.NetworkInfo? networkInfo;
-    property public final com.google.android.horologist.networks.data.RequestType requestType;
+    method public com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder copy(optional com.google.android.horologist.networks.data.RequestType requestType, optional com.google.android.horologist.networks.data.NetworkInfo? networkInfo, optional com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? highBandwidthConnectionLease);
+    method @InaccessibleFromKotlin public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? getHighBandwidthConnectionLease();
+    method @InaccessibleFromKotlin public com.google.android.horologist.networks.data.NetworkInfo? getNetworkInfo();
+    method @InaccessibleFromKotlin public com.google.android.horologist.networks.data.RequestType getRequestType();
+    method @InaccessibleFromKotlin public void setHighBandwidthConnectionLease(com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease?);
+    method @InaccessibleFromKotlin public void setNetworkInfo(com.google.android.horologist.networks.data.NetworkInfo?);
+    method @InaccessibleFromKotlin public void setRequestType(com.google.android.horologist.networks.data.RequestType);
+    property public com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease? highBandwidthConnectionLease;
+    property public com.google.android.horologist.networks.data.NetworkInfo? networkInfo;
+    property public com.google.android.horologist.networks.data.RequestType requestType;
     field public static final com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion Companion;
   }
 

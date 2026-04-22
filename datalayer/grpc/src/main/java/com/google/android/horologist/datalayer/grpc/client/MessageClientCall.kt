@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,10 @@ import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.WearableStatusCodes
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.WearDataLayerRegistry
+import com.google.android.horologist.datalayer.grpc.proto.DataLayerGrpc
 import com.google.android.horologist.datalayer.grpc.proto.DataLayerGrpc.MessageResponse
 import com.google.android.horologist.datalayer.grpc.proto.messageRequest
+import com.google.protobuf.Any
 import com.google.protobuf.any
 import com.google.protobuf.kotlin.toByteString
 import io.grpc.ClientCall
@@ -32,10 +34,10 @@ import io.grpc.Metadata
 import io.grpc.MethodDescriptor
 import io.grpc.MethodDescriptor.MethodType
 import io.grpc.Status
+import java.io.ByteArrayInputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import java.io.ByteArrayInputStream
 
 public class MessageClientCall<ReqT, RespT>(
     private val channel: MessageClientChannel,
@@ -95,9 +97,9 @@ public class MessageClientCall<ReqT, RespT>(
             it.readBytes()
         }
         val request = messageRequest {
-            this.method = methodDescriptor.fullMethodName
-            this.request = any {
-                this.value = data.toByteString()
+            method = methodDescriptor.fullMethodName
+            request = any {
+                value = data.toByteString()
             }
         }
         val realData = request.toByteArray()
@@ -107,7 +109,9 @@ public class MessageClientCall<ReqT, RespT>(
     private fun bytesToResponse(responseBytes: ByteArray?): RespT {
         val wrappedResponse = MessageResponse.parseFrom(responseBytes)
 
-        return methodDescriptor.parseResponse(ByteArrayInputStream(wrappedResponse.response.value.toByteArray()))
+        return methodDescriptor.parseResponse(
+            ByteArrayInputStream(wrappedResponse.response.value.toByteArray()),
+        )
     }
 
     private fun handleException(apie: ApiException) {

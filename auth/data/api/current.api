@@ -2,17 +2,18 @@
 package com.google.android.horologist.auth.data.common.model {
 
   public final class AuthUser {
+    ctor public AuthUser();
     ctor public AuthUser(optional String? displayName, optional String? email, optional String? avatarUri);
     method public String? component1();
     method public String? component2();
     method public String? component3();
-    method public com.google.android.horologist.auth.data.common.model.AuthUser copy(String? displayName, String? email, String? avatarUri);
-    method public String? getAvatarUri();
-    method public String? getDisplayName();
-    method public String? getEmail();
-    property public final String? avatarUri;
-    property public final String? displayName;
-    property public final String? email;
+    method public com.google.android.horologist.auth.data.common.model.AuthUser copy(optional String? displayName, optional String? email, optional String? avatarUri);
+    method @InaccessibleFromKotlin public String? getAvatarUri();
+    method @InaccessibleFromKotlin public String? getDisplayName();
+    method @InaccessibleFromKotlin public String? getEmail();
+    property public String? avatarUri;
+    property public String? displayName;
+    property public String? email;
   }
 
 }
@@ -21,7 +22,7 @@ package com.google.android.horologist.auth.data.common.repository {
 
   public interface AuthUserRepository {
     method public suspend Object? getAuthenticated(kotlin.coroutines.Continuation<? super com.google.android.horologist.auth.data.common.model.AuthUser?>);
-    method public default suspend Object? getAvailable(kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.auth.data.common.model.AuthUser>>);
+    method public default suspend Object? getAvailable(kotlin.coroutines.Continuation<? super java.util.List<com.google.android.horologist.auth.data.common.model.AuthUser>>);
   }
 
 }
@@ -52,7 +53,7 @@ package com.google.android.horologist.auth.data.googlesignin {
 package com.google.android.horologist.auth.data.tokenshare {
 
   public interface TokenBundleRepository<T> {
-    method public kotlinx.coroutines.flow.Flow<T> getFlow();
+    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.Flow<T> getFlow();
     property public abstract kotlinx.coroutines.flow.Flow<T> flow;
   }
 
@@ -62,7 +63,7 @@ package com.google.android.horologist.auth.data.tokenshare.impl {
 
   public final class TokenBundleRepositoryImpl<T> implements com.google.android.horologist.auth.data.tokenshare.TokenBundleRepository<T> {
     ctor public TokenBundleRepositoryImpl(com.google.android.horologist.data.WearDataLayerRegistry registry, androidx.datastore.core.Serializer<T> serializer, String path);
-    method public kotlinx.coroutines.flow.Flow<T> getFlow();
+    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.Flow<T> getFlow();
     property public kotlinx.coroutines.flow.Flow<T> flow;
     field public static final com.google.android.horologist.auth.data.tokenshare.impl.TokenBundleRepositoryImpl.Companion Companion;
   }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,13 +29,13 @@ import com.google.android.gms.wearable.Node
 import com.google.android.horologist.data.ActivityConfig
 import com.google.android.horologist.data.AppHelperResult
 import com.google.android.horologist.data.AppHelperResultCode
-import com.google.android.horologist.data.AppHelperResultCode.APP_HELPER_RESULT_TEMPORARILY_UNAVAILABLE
+import com.google.android.horologist.data.LaunchRequest
+import com.google.android.horologist.data.OwnAppConfig
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearableApiAvailability
 import com.google.android.horologist.data.appHelperResult
 import com.google.android.horologist.data.launchRequest
-import com.google.android.horologist.data.ownAppConfig
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
@@ -56,10 +56,14 @@ abstract class DataLayerAppHelper(
     protected val context: Context,
     protected val registry: WearDataLayerRegistry,
 ) {
-    private val activityManager: ActivityManager by lazy { context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager }
+    private val activityManager: ActivityManager by lazy {
+        context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+    }
 
     protected val playStoreUri: String = "market://details?id=${context.packageName}"
-    protected val remoteActivityHelper: RemoteActivityHelper by lazy { RemoteActivityHelper(context) }
+    protected val remoteActivityHelper: RemoteActivityHelper by lazy {
+        RemoteActivityHelper(context)
+    }
 
     /**
      * Provides a list of connected nodes and the installation status of the app on these nodes.
@@ -182,7 +186,9 @@ abstract class DataLayerAppHelper(
         config: ActivityConfig,
     ): AppHelperResultCode {
         checkIsForegroundOrThrow()
-        val request = launchRequest { activity = config }
+        val request = launchRequest {
+            activity = config
+        }
         return sendRequestWithTimeout(nodeId, LAUNCH_APP, request.toByteArray())
     }
 
@@ -196,7 +202,9 @@ abstract class DataLayerAppHelper(
     @CheckResult
     public suspend fun startRemoteOwnApp(nodeId: String): AppHelperResultCode {
         checkIsForegroundOrThrow()
-        val request = launchRequest { ownApp = ownAppConfig { } }
+        val request = launchRequest {
+            ownApp = OwnAppConfig.getDefaultInstance()
+        }
         return sendRequestWithTimeout(nodeId, LAUNCH_APP, request.toByteArray())
     }
 

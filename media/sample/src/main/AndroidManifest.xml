@@ -15,8 +15,10 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.google.android.horologist.mediasample">
+
+    <uses-sdk
+        android:minSdkVersion="26" />
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
@@ -33,7 +35,6 @@
 
     <application
         android:name=".ui.app.MediaApplication"
-        android:allowBackup="false"
         android:appCategory="audio"
         android:icon="@mipmap/ic_horologist"
         android:label="@string/sample_app_name"
@@ -133,9 +134,5 @@
             </intent-filter>
         </service>
     </application>
-
-    <uses-sdk
-        android:minSdkVersion="26"
-        tools:ignore="GradleOverrides" />
 
 </manifest>

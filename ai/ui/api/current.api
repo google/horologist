@@ -2,18 +2,18 @@
 package com.google.android.horologist.ai.ui.components {
 
   public final class PromptDisplayKt {
-    method @androidx.compose.runtime.Composable public static void TextPromptDisplay(com.google.android.horologist.ai.ui.model.TextPromptUiModel prompt, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void TextPromptDisplay(com.google.android.horologist.ai.ui.model.TextPromptUiModel prompt, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
   }
 
   public final class PromptOrResponseDisplayKt {
-    method @androidx.compose.runtime.Composable public static void PromptOrResponseDisplay(com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel promptResponse, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void PromptOrResponseDisplay(com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel promptResponse, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
   }
 
   public final class ResponseDisplayKt {
-    method @androidx.compose.runtime.Composable public static void FailedResponseChip(com.google.android.horologist.ai.ui.model.FailedResponseUiModel answer, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
-    method @androidx.compose.runtime.Composable public static void ImageResponseCard(com.google.android.horologist.ai.ui.model.ImageResponseUiModel imageResponseUiModel, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
-    method @androidx.compose.runtime.Composable public static void ResponseInProgressCard(com.google.android.horologist.ai.ui.model.InProgressResponseUiModel inProgress, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
-    method @androidx.compose.runtime.Composable public static void TextResponseCard(com.google.android.horologist.ai.ui.model.TextResponseUiModel textResponseUiModel, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void FailedResponseChip(com.google.android.horologist.ai.ui.model.FailedResponseUiModel answer, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void ImageResponseCard(com.google.android.horologist.ai.ui.model.ImageResponseUiModel imageResponseUiModel, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void ResponseInProgressCard(com.google.android.horologist.ai.ui.model.InProgressResponseUiModel inProgress, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void TextResponseCard(com.google.android.horologist.ai.ui.model.TextResponseUiModel textResponseUiModel, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onClick, optional androidx.wear.compose.material3.SurfaceTransformation? transformation);
   }
 
 }
@@ -23,9 +23,9 @@ package com.google.android.horologist.ai.ui.model {
   public final class FailedResponseUiModel implements com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel {
     ctor public FailedResponseUiModel(String message);
     method public String component1();
-    method public com.google.android.horologist.ai.ui.model.FailedResponseUiModel copy(String message);
-    method public String getMessage();
-    property public final String message;
+    method public com.google.android.horologist.ai.ui.model.FailedResponseUiModel copy(optional String message);
+    method @InaccessibleFromKotlin public String getMessage();
+    property public String message;
     field public static final com.google.android.horologist.ai.ui.model.FailedResponseUiModel.Companion Companion;
   }
 
@@ -34,14 +34,15 @@ package com.google.android.horologist.ai.ui.model {
   }
 
   public final class ImageResponseUiModel implements com.google.android.horologist.ai.ui.model.ResponseUiModel {
+    ctor public ImageResponseUiModel();
     ctor public ImageResponseUiModel(optional String? imageUrl, optional byte[]? image);
     method public String? component1();
     method public byte[]? component2();
-    method public com.google.android.horologist.ai.ui.model.ImageResponseUiModel copy(String? imageUrl, byte[]? image);
-    method public byte[]? getImage();
-    method public String? getImageUrl();
-    property public final byte[]? image;
-    property public final String? imageUrl;
+    method public com.google.android.horologist.ai.ui.model.ImageResponseUiModel copy(optional String? imageUrl, optional byte[]? image);
+    method @InaccessibleFromKotlin public byte[]? getImage();
+    method @InaccessibleFromKotlin public String? getImageUrl();
+    property public byte[]? image;
+    property public String? imageUrl;
   }
 
   public final class InProgressResponseUiModel implements com.google.android.horologist.ai.ui.model.ResponseUiModel {
@@ -53,41 +54,41 @@ package com.google.android.horologist.ai.ui.model {
     method public String component1();
     method public String component2();
     method public String? component3();
-    method public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel copy(String id, String name, String? service);
-    method public String getId();
-    method public String getName();
-    method public String? getService();
-    property public final String id;
-    property public final String name;
-    property public final String? service;
+    method public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel copy(optional String id, optional String name, optional String? service);
+    method @InaccessibleFromKotlin public String getId();
+    method @InaccessibleFromKotlin public String getName();
+    method @InaccessibleFromKotlin public String? getService();
+    property public String id;
+    property public String name;
+    property public String? service;
   }
 
-  public sealed interface PromptOrResponseUiModel {
+  public sealed exhaustive interface PromptOrResponseUiModel {
   }
 
-  public sealed interface PromptUiModel extends com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel {
+  public sealed exhaustive interface PromptUiModel extends com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel {
   }
 
-  public sealed interface ResponseUiModel extends com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel {
+  public sealed exhaustive interface ResponseUiModel extends com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel {
   }
 
   public final class TextPromptUiModel implements com.google.android.horologist.ai.ui.model.PromptUiModel {
     ctor public TextPromptUiModel(String prompt, optional java.time.Instant submitted);
     method public String component1();
     method public java.time.Instant component2();
-    method public com.google.android.horologist.ai.ui.model.TextPromptUiModel copy(String prompt, java.time.Instant submitted);
-    method public String getPrompt();
-    method public java.time.Instant getSubmitted();
-    property public final String prompt;
-    property public final java.time.Instant submitted;
+    method public com.google.android.horologist.ai.ui.model.TextPromptUiModel copy(optional String prompt, optional java.time.Instant submitted);
+    method @InaccessibleFromKotlin public String getPrompt();
+    method @InaccessibleFromKotlin public java.time.Instant getSubmitted();
+    property public String prompt;
+    property public java.time.Instant submitted;
   }
 
   public final class TextResponseUiModel implements com.google.android.horologist.ai.ui.model.ResponseUiModel {
     ctor public TextResponseUiModel(String text);
     method public String component1();
-    method public com.google.android.horologist.ai.ui.model.TextResponseUiModel copy(String text);
-    method public String getText();
-    property public final String text;
+    method public com.google.android.horologist.ai.ui.model.TextResponseUiModel copy(optional String text);
+    method @InaccessibleFromKotlin public String getText();
+    property public String text;
   }
 
 }
@@ -95,21 +96,22 @@ package com.google.android.horologist.ai.ui.model {
 package com.google.android.horologist.ai.ui.screens {
 
   public final class PromptScreenKt {
-    method @androidx.compose.runtime.Composable public static void PromptScreen(com.google.android.horologist.ai.ui.screens.PromptUiState uiState, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onSettingsClick, optional kotlin.jvm.functions.Function3<? super com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel,? super androidx.compose.ui.Modifier,? super androidx.wear.compose.material3.SurfaceTransformation,kotlin.Unit> promptDisplay, kotlin.jvm.functions.Function1<? super java.lang.Boolean,kotlin.Unit> promptEntry);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void PromptScreen(com.google.android.horologist.ai.ui.screens.PromptUiState uiState, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit>? onSettingsClick, optional kotlin.jvm.functions.Function3<com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel,androidx.compose.ui.Modifier,androidx.wear.compose.material3.SurfaceTransformation,kotlin.Unit> promptDisplay, kotlin.jvm.functions.Function1<java.lang.Boolean,kotlin.Unit> promptEntry);
   }
 
   public final class PromptUiState {
+    ctor public PromptUiState();
     ctor public PromptUiState(optional com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo, optional java.util.List<? extends com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> messages, optional boolean pending);
     method public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? component1();
     method public java.util.List<com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> component2();
     method public boolean component3();
-    method public com.google.android.horologist.ai.ui.screens.PromptUiState copy(com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo, java.util.List<? extends com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> messages, boolean pending);
-    method public java.util.List<com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> getMessages();
-    method public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? getModelInfo();
-    method public boolean getPending();
-    property public final java.util.List<com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> messages;
-    property public final com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo;
-    property public final boolean pending;
+    method public com.google.android.horologist.ai.ui.screens.PromptUiState copy(optional com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo, optional java.util.List<? extends com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> messages, optional boolean pending);
+    method @InaccessibleFromKotlin public java.util.List<com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> getMessages();
+    method @InaccessibleFromKotlin public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? getModelInfo();
+    method @InaccessibleFromKotlin public boolean getPending();
+    property public java.util.List<com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel> messages;
+    property public com.google.android.horologist.ai.ui.model.ModelInstanceUiModel? modelInfo;
+    property public boolean pending;
   }
 
 }

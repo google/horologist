@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,6 @@ fun sampleTypography(): DefaultMarkdownTypography {
         ordered = MaterialTheme.typography.bodyLarge,
         bullet = MaterialTheme.typography.bodyLarge,
         list = MaterialTheme.typography.bodyLarge,
-        link = link,
         inlineCode = MaterialTheme.typography.bodyLarge.copy(fontFamily = FontFamily.Monospace),
         textLink = TextLinkStyles(style = link.toSpanStyle()),
         table = text,
@@ -60,12 +59,8 @@ fun sampleTypography(): DefaultMarkdownTypography {
 @Composable
 fun sampleColors() = DefaultMarkdownColors(
     text = Color.White,
-    codeText = LocalContentColor.current,
-    linkText = Color.Blue,
     codeBackground = MaterialTheme.colorScheme.background,
     inlineCodeBackground = MaterialTheme.colorScheme.background,
     dividerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
-    inlineCodeText = LocalContentColor.current,
-    tableText = Color.Unspecified,
     tableBackground = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.02f),
 )

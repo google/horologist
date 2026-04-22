@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,10 +29,14 @@ import androidx.wear.watchface.complications.data.ComplicationType
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceService
 import com.google.android.gms.wearable.Node
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import com.google.android.horologist.data.ActivityLaunched
 import com.google.android.horologist.data.AppHelperResultCode
+import com.google.android.horologist.data.CompanionConfig
 import com.google.android.horologist.data.ComplicationInfo
+import com.google.android.horologist.data.LaunchRequest
 import com.google.android.horologist.data.SurfacesInfo
 import com.google.android.horologist.data.TileInfo
+import com.google.android.horologist.data.UsageInfo
 import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.activityLaunched
@@ -40,11 +44,11 @@ import com.google.android.horologist.data.apphelper.DataLayerAppHelper
 import com.google.android.horologist.data.apphelper.SurfacesInfoSerializer
 import com.google.android.horologist.data.companionConfig
 import com.google.android.horologist.data.complicationInfo
-import com.google.android.horologist.data.copy
 import com.google.android.horologist.data.launchRequest
 import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.data.usageInfo
 import com.google.protobuf.Timestamp
+import com.google.protobuf.timestamp
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.asExecutor
@@ -171,17 +175,17 @@ public class WearDataLayerAppHelper internal constructor(
         ).await()
 
         surfacesInfoDataStore.updateData { info ->
-            info.copy {
-                tiles.clear()
-                for (activeTileIdentifier in activeTiles) {
-                    tiles.add(
-                        tileInfo {
-                            timestamp = System.currentTimeMillis().toProtoTimestamp()
-                            name = activeTileIdentifier.componentName.className
-                        },
-                    )
-                }
+            val builder = info.toBuilder()
+            builder.clearTiles()
+            for (activeTileIdentifier in activeTiles) {
+                builder.addTiles(
+                    tileInfo {
+                        timestamp = System.currentTimeMillis().toProtoTimestamp()
+                        name = activeTileIdentifier.componentName.className
+                    },
+                )
             }
+            builder.build()
         }
     }
 
@@ -190,24 +194,26 @@ public class WearDataLayerAppHelper internal constructor(
      */
     public suspend fun markActivityLaunchedOnce() {
         surfacesInfoDataStore.updateData { info ->
-            info.copy {
-                val launchTimestamp = System.currentTimeMillis().toProtoTimestamp()
-                if (usageInfo.usageStatus == UsageStatus.USAGE_STATUS_UNSPECIFIED) {
-                    usageInfo = usageInfo {
+            val builder = info.toBuilder()
+            val launchTimestamp = System.currentTimeMillis().toProtoTimestamp()
+            if (info.usageInfo.usageStatus == UsageStatus.USAGE_STATUS_UNSPECIFIED) {
+                builder.setUsageInfo(
+                    usageInfo {
                         usageStatus = UsageStatus.USAGE_STATUS_LAUNCHED_ONCE
                         timestamp = launchTimestamp
-                    }
-                }
+                    },
+                )
+            }
 
-                // Temporarily support previous location for this information in [ActivityLaunched]
-                // Remove in the longer term
-                if (!activityLaunched.activityLaunchedOnce) {
-                    activityLaunched = activityLaunched {
+            if (!info.activityLaunched.activityLaunchedOnce) {
+                builder.setActivityLaunched(
+                    activityLaunched {
                         activityLaunchedOnce = true
                         timestamp = launchTimestamp
-                    }
-                }
+                    },
+                )
             }
+            builder.build()
         }
     }
 
@@ -218,14 +224,16 @@ public class WearDataLayerAppHelper internal constructor(
      */
     public suspend fun markSetupComplete() {
         surfacesInfoDataStore.updateData { info ->
-            info.copy {
-                if (usageInfo.usageStatus != UsageStatus.USAGE_STATUS_SETUP_COMPLETE) {
-                    usageInfo = usageInfo {
+            val builder = info.toBuilder()
+            if (info.usageInfo.usageStatus != UsageStatus.USAGE_STATUS_SETUP_COMPLETE) {
+                builder.setUsageInfo(
+                    usageInfo {
                         usageStatus = UsageStatus.USAGE_STATUS_SETUP_COMPLETE
                         timestamp = System.currentTimeMillis().toProtoTimestamp()
-                    }
-                }
+                    },
+                )
             }
+            builder.build()
         }
     }
 
@@ -236,14 +244,16 @@ public class WearDataLayerAppHelper internal constructor(
      */
     public suspend fun markSetupNoLongerComplete() {
         surfacesInfoDataStore.updateData { info ->
-            info.copy {
-                if (usageInfo.usageStatus == UsageStatus.USAGE_STATUS_SETUP_COMPLETE) {
-                    usageInfo = usageInfo {
+            val builder = info.toBuilder()
+            if (info.usageInfo.usageStatus == UsageStatus.USAGE_STATUS_SETUP_COMPLETE) {
+                builder.setUsageInfo(
+                    usageInfo {
                         usageStatus = UsageStatus.USAGE_STATUS_LAUNCHED_ONCE
                         timestamp = System.currentTimeMillis().toProtoTimestamp()
-                    }
-                }
+                    },
+                )
             }
+            builder.build()
         }
     }
 
@@ -267,12 +277,12 @@ public class WearDataLayerAppHelper internal constructor(
                 instanceId = complicationInstanceId
                 type = complicationType.name
             }
-            info.copy {
-                val exists = complications.find { it.equalWithoutTimestamp(complication) } != null
-                if (!exists) {
-                    complications.add(complication)
-                }
+            val builder = info.toBuilder()
+            val exists = info.complicationsList.any { it.equalWithoutTimestamp(complication) }
+            if (!exists) {
+                builder.addComplications(complication)
             }
+            builder.build()
         }
     }
 
@@ -282,16 +292,19 @@ public class WearDataLayerAppHelper internal constructor(
      *
      * @param complicationInstanceId Passed from [ComplicationDataSourceService.onComplicationDeactivated]
      */
-    public suspend fun markComplicationAsDeactivated(
-        complicationInstanceId: Int,
-    ) {
+    public suspend fun markComplicationAsDeactivated(complicationInstanceId: Int) {
         surfacesInfoDataStore.updateData { info ->
-            info.copy {
-                val filtered = complications.filterNot { it.instanceId == complicationInstanceId }
-                if (filtered.size != complications.size) {
-                    complications.clear()
-                    complications.addAll(filtered)
-                }
+            val filtered = info.complicationsList.filterNot {
+                it.instanceId ==
+                    complicationInstanceId
+            }
+            if (filtered.size != info.complicationsList.size) {
+                val builder = info.toBuilder()
+                builder.clearComplications()
+                builder.addAllComplications(filtered)
+                builder.build()
+            } else {
+                info
             }
         }
     }
@@ -301,25 +314,21 @@ public class WearDataLayerAppHelper internal constructor(
      * relevant.
      */
     private fun TileInfo.equalWithoutTimestamp(other: TileInfo): Boolean =
-        this.copy { timestamp = Timestamp.getDefaultInstance() } == other.copy {
-            timestamp = Timestamp.getDefaultInstance()
-        }
+        this.toBuilder().setTimestamp(Timestamp.getDefaultInstance()).build() ==
+            other.toBuilder().setTimestamp(Timestamp.getDefaultInstance()).build()
 
     /**
      * Compares equality of [ComplicationInfo] excluding timestamp, as when the Complication was
      * added is not relevant.
      */
     private fun ComplicationInfo.equalWithoutTimestamp(other: ComplicationInfo): Boolean =
-        this.copy { timestamp = Timestamp.getDefaultInstance() } == other.copy {
-            timestamp = Timestamp.getDefaultInstance()
-        }
+        this.toBuilder().setTimestamp(Timestamp.getDefaultInstance()).build() ==
+            other.toBuilder().setTimestamp(Timestamp.getDefaultInstance()).build()
 
     internal companion object {
-        internal fun Long.toProtoTimestamp(): Timestamp {
-            return Timestamp.newBuilder()
-                .setSeconds(this / 1000)
-                .setNanos((this % 1000).toInt() * 1000000)
-                .build()
+        internal fun Long.toProtoTimestamp(): Timestamp = timestamp {
+            seconds = this@toProtoTimestamp / 1000
+            nanos = (this@toProtoTimestamp % 1000).toInt() * 1000000
         }
     }
 }

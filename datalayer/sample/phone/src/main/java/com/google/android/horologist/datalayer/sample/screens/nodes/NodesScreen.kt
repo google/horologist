@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,20 +42,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.google.android.horologist.data.ComplicationInfo
+import com.google.android.horologist.data.SurfacesInfo
+import com.google.android.horologist.data.TileInfo
+import com.google.android.horologist.data.surfacesInfo
+import com.google.android.horologist.data.tileInfo
+import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.data.apphelper.AppInstallationStatus
 import com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType
-import com.google.android.horologist.data.complicationInfo
-import com.google.android.horologist.data.surfacesInfo
-import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.datalayer.sample.R
 import com.google.android.horologist.datalayer.sample.util.toProtoTimestamp
 
 @Composable
-fun NodesScreen(
-    modifier: Modifier = Modifier,
-    viewModel: NodesViewModel = hiltViewModel(),
-) {
+fun NodesScreen(modifier: Modifier = Modifier, viewModel: NodesViewModel = hiltViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     if (state == NodesScreenState.Idle) {
@@ -202,20 +202,16 @@ fun NodesScreenPreview() {
                         nodeType = AppInstallationStatusNodeType.WATCH,
                     ),
                     surfacesInfo = surfacesInfo {
-                        tiles.add(
-                            tileInfo {
-                                name = "MyTile"
-                                timestamp = System.currentTimeMillis().toProtoTimestamp()
-                            },
-                        )
-                        complications.add(
-                            complicationInfo {
-                                name = "MyComplication"
-                                instanceId = 101
-                                type = "SHORT_TEXT"
-                                timestamp = System.currentTimeMillis().toProtoTimestamp()
-                            },
-                        )
+                        tiles += tileInfo {
+                            name = "MyTile"
+                            timestamp = System.currentTimeMillis().toProtoTimestamp()
+                        }
+                        complications += complicationInfo {
+                            name = "MyComplication"
+                            instanceId = 101
+                            type = "SHORT_TEXT"
+                            timestamp = System.currentTimeMillis().toProtoTimestamp()
+                        }
                     },
                 ),
             ),

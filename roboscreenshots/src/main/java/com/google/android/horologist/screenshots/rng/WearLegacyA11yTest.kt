@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,9 +92,7 @@ public abstract class WearLegacyA11yTest {
     public open val failureLevel: RoborazziATFAccessibilityChecker.CheckLevel
         get() = RoborazziATFAccessibilityChecker.CheckLevel.Warning
 
-    public fun runScreenTest(
-        content: @Composable () -> Unit,
-    ) {
+    public fun runScreenTest(content: @Composable () -> Unit) {
         composeRule.setContent {
             TestScaffold {
                 content()
@@ -114,19 +112,17 @@ public abstract class WearLegacyA11yTest {
         )
     }
 
-    public open fun accessibilityCheckOptions(): RoborazziATFAccessibilityCheckOptions {
-        return RoborazziATFAccessibilityCheckOptions(
+    public open fun accessibilityCheckOptions(): RoborazziATFAccessibilityCheckOptions =
+        RoborazziATFAccessibilityCheckOptions(
             checker = RoborazziATFAccessibilityChecker(
                 preset = AccessibilityCheckPreset.LATEST,
                 suppressions = accessibilitySuppressions(),
             ),
             failureLevel = failureLevel,
         )
-    }
 
-    public open fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> {
-        return Matchers.not(Matchers.anything())
-    }
+    public open fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> =
+        Matchers.not(Matchers.anything())
 
     public fun runComponentTest(
         background: Color? = Color.Black.copy(alpha = 0.3f),
@@ -170,10 +166,7 @@ public abstract class WearLegacyA11yTest {
         "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
         "${testInfo.methodName}$suffix.png"
 
-    public fun captureScreenA11yRoboImage(
-        filePath: String,
-        roborazziOptions: RoborazziOptions,
-    ) {
+    public fun captureScreenA11yRoboImage(filePath: String, roborazziOptions: RoborazziOptions) {
         Espresso.onIdle()
         val screenImage = captureScreenImageToBitmap(roborazziOptions)
         val annotatedImage =

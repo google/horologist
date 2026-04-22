@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,7 +96,9 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
         ).downloadMediaListState
 
         // then
-        assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Partially)
+        assertThat(
+            result,
+        ).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Partially)
     }
 
     @Test
@@ -128,7 +130,9 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
         ).downloadMediaListState
 
         // then
-        assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Partially)
+        assertThat(
+            result,
+        ).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Partially)
     }
 
     @Test
@@ -159,7 +163,9 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
         ).downloadMediaListState
 
         // then
-        assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully)
+        assertThat(
+            result,
+        ).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully)
     }
 
     @Test
@@ -177,7 +183,9 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
         ).downloadMediaListState
 
         // then
-        assertThat(result).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully)
+        assertThat(
+            result,
+        ).isEqualTo(PlaylistDownloadScreenState.Loaded.DownloadMediaListState.Fully)
     }
 
     @Test

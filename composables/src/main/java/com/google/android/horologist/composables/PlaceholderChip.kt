@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,8 @@ public fun PlaceholderChip(
     icon: Boolean = true,
     colors: ChipColors = ChipDefaults.primaryChipColors(),
     enabled: Boolean = false,
-    contentDescription: String = stringResource(id = R.string.horologist_placeholderchip_content_description),
+    contentDescription: String =
+        stringResource(id = R.string.horologist_placeholderchip_content_description),
 ) {
     Chip(
         modifier = modifier

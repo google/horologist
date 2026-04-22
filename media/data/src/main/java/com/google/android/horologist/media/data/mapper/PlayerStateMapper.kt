@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,10 +27,16 @@ import com.google.android.horologist.media.model.PlayerState
 public object PlayerStateMapper {
     public fun map(player: Player): PlayerState = when (player.playbackState) {
         Player.STATE_IDLE -> idleOrEnded(player)
+
         Player.STATE_ENDED -> idleOrEnded(player)
+
         Player.STATE_BUFFERING -> buffering(player)
+
         Player.STATE_READY -> ready(player)
-        else -> throw IllegalArgumentException("Invalid media3 player state: ${player.playbackState}")
+
+        else -> throw IllegalArgumentException(
+            "Invalid media3 player state: ${player.playbackState}",
+        )
     }
 
     private fun idleOrEnded(player: Player) = if (player.currentTimeline.isEmpty) {

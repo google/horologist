@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,14 +26,14 @@ import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onRoot
 import androidx.test.filters.MediumTest
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import kotlin.math.pow
+import kotlin.math.sqrt
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 @MediumTest
 @RunWith(RobolectricTestRunner::class)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,14 +36,12 @@ object ViewModelModule {
     fun selfService(
         @ApplicationContext context: Context,
         lifecycle: ViewModelLifecycle,
-    ): InferenceServiceGrpcKt.InferenceServiceCoroutineStub {
-        return lookupInferenceService(
-            context,
-            context.packageName,
-        ).apply {
-            lifecycle.addOnClearedListener {
-                (channel as? ManagedChannel?)?.shutdownNow()
-            }
+    ): InferenceServiceGrpcKt.InferenceServiceCoroutineStub = lookupInferenceService(
+        context,
+        context.packageName,
+    ).apply {
+        lifecycle.addOnClearedListener {
+            (channel as? ManagedChannel?)?.shutdownNow()
         }
     }
 }

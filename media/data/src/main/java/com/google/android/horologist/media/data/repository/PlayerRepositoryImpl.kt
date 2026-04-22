@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,12 +31,12 @@ import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlaybackStateEvent.Cause
 import com.google.android.horologist.media.repository.PlayerRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import java.io.Closeable
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Repository for the current Media3 Player for a Player Activity.
@@ -49,7 +49,8 @@ public class PlayerRepositoryImpl(
     private val mediaMapper: MediaMapper = MediaMapper(MediaExtrasMapperNoopImpl),
     private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl),
     private val playbackStateMapper: PlaybackStateMapper = PlaybackStateMapper(),
-) : PlayerRepository, Closeable {
+) : PlayerRepository,
+    Closeable {
 
     private var onClose: (() -> Unit)? = null
     private var closed = false
@@ -89,8 +90,10 @@ public class PlayerRepositoryImpl(
             Player.EVENT_AVAILABLE_COMMANDS_CHANGED to ::updateAvailableCommands,
             Player.EVENT_MEDIA_ITEM_TRANSITION to ::updateCurrentMedia,
             Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED to ::updateShuffleMode,
-            Player.EVENT_PLAYBACK_PARAMETERS_CHANGED to { updatePlaybackState(it, Cause.ParametersChanged) },
-            Player.EVENT_POSITION_DISCONTINUITY to { updatePlaybackState(it, Cause.PositionDiscontinuity) },
+            Player.EVENT_PLAYBACK_PARAMETERS_CHANGED to
+                { updatePlaybackState(it, Cause.ParametersChanged) },
+            Player.EVENT_POSITION_DISCONTINUITY to
+                { updatePlaybackState(it, Cause.PositionDiscontinuity) },
             Player.EVENT_SEEK_BACK_INCREMENT_CHANGED to ::updateSeekBackIncrement,
             Player.EVENT_SEEK_FORWARD_INCREMENT_CHANGED to ::updateSeekForwardIncrement,
             Player.EVENT_MEDIA_METADATA_CHANGED to ::updateCurrentMedia,
@@ -123,7 +126,8 @@ public class PlayerRepositoryImpl(
     }
 
     private fun updateCurrentMedia(player: Player) {
-        _currentMedia.value = player.currentMediaItem?.let { mediaMapper.map(it, player.mediaMetadata) }
+        _currentMedia.value =
+            player.currentMediaItem?.let { mediaMapper.map(it, player.mediaMetadata) }
     }
 
     private fun updateAvailableCommands(player: Player) {
@@ -137,7 +141,8 @@ public class PlayerRepositoryImpl(
     }
 
     private fun updateSeekForwardIncrement(player: Player) {
-        _seekForwardIncrement.value = player.seekForwardIncrement.toDuration(DurationUnit.MILLISECONDS)
+        _seekForwardIncrement.value =
+            player.seekForwardIncrement.toDuration(DurationUnit.MILLISECONDS)
     }
 
     private fun updateState(player: Player) {
@@ -284,7 +289,11 @@ public class PlayerRepositoryImpl(
     override fun setMediaList(mediaList: List<Media>, index: Int, position: Duration?) {
         checkNotClosed()
 
-        player.value?.setMediaItems(mediaList.map(mediaItemMapper::map), index, position?.inWholeMilliseconds ?: C.TIME_UNSET)
+        player.value?.setMediaItems(
+            mediaList.map(mediaItemMapper::map),
+            index,
+            position?.inWholeMilliseconds ?: C.TIME_UNSET,
+        )
     }
 
     override fun addMedia(media: Media) {

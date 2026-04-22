@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,7 +43,9 @@ fun CurvedTimeTextAudit(route: AuditNavigation.CurvedTimeText.Audit) {
         timeText = {
             when (route.config) {
                 Config.H12 -> ResponsiveTimeText(timeSource = FixedTimeSource.H12)
+
                 Config.H24 -> ResponsiveTimeText(timeSource = FixedTimeSource.H24)
+
                 Config.Tall -> ResponsiveTimeText(
                     timeSource = object : TimeSource {
                         override val currentTime: String
@@ -85,6 +87,8 @@ fun CurvedTimeTextAudit(route: AuditNavigation.CurvedTimeText.Audit) {
 @WearPreviewLargeRound
 fun CurvedTimeTextAuditPreview() {
     AppScaffold {
-        CurvedTimeTextAudit(AuditNavigation.CurvedTimeText.Audit(AuditNavigation.CurvedTimeText.Config.H24))
+        CurvedTimeTextAudit(
+            AuditNavigation.CurvedTimeText.Audit(AuditNavigation.CurvedTimeText.Config.H24),
+        )
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 The Android Open Source Project
+ * Copyright 2017-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,9 @@ import kotlinx.coroutines.CoroutineScope
  * and general lifecycle operations.
  */
 @ExperimentalHorologistApi
-public abstract class SuspendingTileService : TileService(), LifecycleOwner {
+public abstract class SuspendingTileService :
+    TileService(),
+    LifecycleOwner {
     // Code from LifecycleService
 
     @Suppress("LeakingThis")
@@ -50,21 +52,16 @@ public abstract class SuspendingTileService : TileService(), LifecycleOwner {
      */
     public open val serviceScope: CoroutineScope? = null
 
-    final override fun onTileRequest(
-        requestParams: TileRequest,
-    ): ListenableFuture<Tile> = launch {
+    final override fun onTileRequest(requestParams: TileRequest): ListenableFuture<Tile> = launch {
         tileRequest(requestParams)
     }
 
-    private fun <T> launch(
-        block: suspend CoroutineScope.() -> T,
-    ): ListenableFuture<T> {
-        return SuspendToFutureAdapter.launchFuture(
+    private fun <T> launch(block: suspend CoroutineScope.() -> T): ListenableFuture<T> =
+        SuspendToFutureAdapter.launchFuture(
             (serviceScope ?: lifecycleScope).coroutineContext,
         ) {
             block()
         }
-    }
 
     /**
      * See [onTileRequest] for most details.
@@ -111,9 +108,8 @@ public abstract class SuspendingTileService : TileService(), LifecycleOwner {
     // In usual service super.onStartCommand is no-op, but in LifecycleService
     // it results in mDispatcher.onServicePreSuperOnStart() call, because
     // super.onStartCommand calls onStart().
-    final override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return super.onStartCommand(intent, flags, startId)
-    }
+    final override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int =
+        super.onStartCommand(intent, flags, startId)
 
     @CallSuper
     override fun onDestroy() {

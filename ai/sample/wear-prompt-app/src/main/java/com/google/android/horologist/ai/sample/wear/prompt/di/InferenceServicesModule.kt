@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineScope
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -40,27 +40,22 @@ object InferenceServicesModule {
     fun binderRegistry(
         @ApplicationContext context: Context,
         coroutineScope: CoroutineScope,
-    ): BinderInferenceServiceRegistry {
-        return BinderInferenceServiceRegistry(coroutineScope, context)
-    }
+    ): BinderInferenceServiceRegistry = BinderInferenceServiceRegistry(coroutineScope, context)
 
     @Provides
     @Singleton
     fun dataLayerRegistry(
         dataLayerRegistry: WearDataLayerRegistry,
         coroutineScope: CoroutineScope,
-    ): DataLayerInferenceServiceRegistry {
-        return DataLayerInferenceServiceRegistry(dataLayerRegistry, coroutineScope)
-    }
+    ): DataLayerInferenceServiceRegistry =
+        DataLayerInferenceServiceRegistry(dataLayerRegistry, coroutineScope)
 
     @Provides
     @Singleton
-    fun localRegistry(): LocalInferenceServiceRegistry {
-        return LocalInferenceServiceRegistry(
-            listOf(DummyInferenceServiceImpl("dummy-local")),
-            priority = Int.MIN_VALUE,
-        )
-    }
+    fun localRegistry(): LocalInferenceServiceRegistry = LocalInferenceServiceRegistry(
+        listOf(DummyInferenceServiceImpl("dummy-local")),
+        priority = Int.MIN_VALUE,
+    )
 
     @Provides
     @Singleton
@@ -68,7 +63,6 @@ object InferenceServicesModule {
         binder: BinderInferenceServiceRegistry,
         local: LocalInferenceServiceRegistry,
         dataLayer: DataLayerInferenceServiceRegistry,
-    ): CombinedInferenceServiceRegistry {
-        return CombinedInferenceServiceRegistry(listOf(local, binder, dataLayer))
-    }
+    ): CombinedInferenceServiceRegistry =
+        CombinedInferenceServiceRegistry(listOf(local, binder, dataLayer))
 }

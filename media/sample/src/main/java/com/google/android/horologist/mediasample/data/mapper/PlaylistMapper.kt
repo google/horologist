@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,19 +24,16 @@ import com.google.android.horologist.mediasample.data.api.model.CatalogApiModel
  */
 object PlaylistMapper {
 
-    fun map(catalog: CatalogApiModel): List<Playlist> =
-        catalog.music
-            .groupBy { it.genre }
-            .map { entry ->
-                Playlist(
-                    id = sanitize(entry.key),
-                    name = entry.key,
-                    artworkUri = entry.value.firstOrNull()?.image,
-                    mediaList = entry.value.map(MediaMapper::map),
-                )
-            }
+    fun map(catalog: CatalogApiModel): List<Playlist> = catalog.music
+        .groupBy { it.genre }
+        .map { entry ->
+            Playlist(
+                id = sanitize(entry.key),
+                name = entry.key,
+                artworkUri = entry.value.firstOrNull()?.image,
+                mediaList = entry.value.map(MediaMapper::map),
+            )
+        }
 
-    private fun sanitize(it: String): String {
-        return it.replace("[^A-Za-z]".toRegex(), "")
-    }
+    private fun sanitize(it: String): String = it.replace("[^A-Za-z]".toRegex(), "")
 }

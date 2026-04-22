@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,10 +38,7 @@ import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.compose.material.Title
 
 @Composable
-fun MainScreen(
-    navigateToRoute: (String) -> Unit,
-    modifier: Modifier = Modifier,
-) {
+fun MainScreen(navigateToRoute: (String) -> Unit, modifier: Modifier = Modifier) {
     val columnState = rememberResponsiveColumnState(
         contentPadding = padding(
             first = ItemType.Text,
@@ -75,7 +72,10 @@ private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> 
     ) {
         header {
             ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                Text(stringResource(id = R.string.auth_menu_google_sign_in_header), modifier = Modifier.listTextPadding())
+                Text(
+                    stringResource(id = R.string.auth_menu_google_sign_in_header),
+                    modifier = Modifier.listTextPadding(),
+                )
             }
         }
         loaded { (textId, route) ->
@@ -103,7 +103,10 @@ private fun SectionedListScope.tokenShareSection(navigateToRoute: (String) -> Un
     ) {
         header {
             ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                Text(stringResource(id = R.string.auth_menu_token_share_header), modifier = Modifier.listTextPadding())
+                Text(
+                    stringResource(id = R.string.auth_menu_token_share_header),
+                    modifier = Modifier.listTextPadding(),
+                )
             }
         }
         loaded { (textId, route) ->

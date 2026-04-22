@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2021-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,14 +41,12 @@ public abstract class RendererPreviewTileService<T, R, S : TileLayoutRenderer<T,
 
     public abstract suspend fun createResourcesInput(): R
 
-    override suspend fun tileRequest(requestParams: TileRequest): Tile {
-        return renderer.renderTimeline(createTileState(), requestParams)
-    }
+    override suspend fun tileRequest(requestParams: TileRequest): Tile =
+        renderer.renderTimeline(createTileState(), requestParams)
 
-    override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
-        return renderer.produceRequestedResources(
+    override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources =
+        renderer.produceRequestedResources(
             createResourcesInput(),
             requestParams,
         )
-    }
 }

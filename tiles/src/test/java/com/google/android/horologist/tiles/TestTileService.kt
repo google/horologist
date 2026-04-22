@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,8 +26,8 @@ import androidx.wear.protolayout.TimelineBuilders.Timeline
 import androidx.wear.protolayout.TimelineBuilders.TimelineEntry
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders.Tile
-import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.delay
 
 public class TestTileService : SuspendingTileService() {
     var delayDuration = 0.seconds
@@ -64,16 +64,14 @@ public class TestTileService : SuspendingTileService() {
     ): ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().setVersion(FAKE_VERSION)
         .build()
 
-    private fun mainLayout(): LayoutElement {
-        return Column.Builder()
-            .addContent(
-                Text.Builder()
-                    .setText("Tile Visiblity: showing")
-                    .build(),
-            )
-            .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
-            .build()
-    }
+    private fun mainLayout(): LayoutElement = Column.Builder()
+        .addContent(
+            Text.Builder()
+                .setText("Tile Visiblity: showing")
+                .build(),
+        )
+        .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
+        .build()
 
     public companion object {
         public val FAKE_VERSION = "1"

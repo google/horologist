@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -174,7 +174,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialAnimatedComponents.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(timeText = {}, scrollState = columnState) {
                     SampleAnimatedComponents(columnState = columnState)
@@ -183,7 +184,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialButtonsScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleButtonScreen(columnState = columnState)
@@ -192,7 +194,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialCardsScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleCardScreen(columnState = columnState)
@@ -201,7 +204,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialChipsScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleChipScreen(columnState = columnState)
@@ -210,7 +214,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialChipIconWithProgressScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleChipIconWithProgressScreen(columnState = columnState)
@@ -219,7 +224,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialCompactChipsScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleCompactChipScreen(columnState = columnState)
@@ -242,7 +248,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialIconScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleIconScreen(columnState = columnState)
@@ -251,7 +258,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialOutlinedChipScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleOutlinedChipScreen(columnState = columnState)
@@ -260,7 +268,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialOutlinedCompactChipScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleOutlinedCompactChipScreen(columnState = columnState)
@@ -269,7 +278,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialSplitToggleChipScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleSplitToggleChipScreen(columnState = columnState)
@@ -283,7 +293,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialTitleScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleTitleScreen(columnState = columnState)
@@ -292,7 +303,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialToggleButtonScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleToggleButtonScreen(columnState = columnState)
@@ -301,7 +313,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.MaterialToggleChipScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SampleToggleChipScreen(columnState = columnState)
@@ -310,7 +323,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.SectionedListMenuScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SectionedListMenuScreen(
@@ -322,7 +336,8 @@ fun SampleWearApp() {
             composable(
                 Screen.SectionedListStatelessScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SectionedListStatelessScreen(
@@ -333,7 +348,8 @@ fun SampleWearApp() {
             composable(
                 Screen.SectionedListStatefulScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SectionedListStatefulScreen(
@@ -344,7 +360,8 @@ fun SampleWearApp() {
             composable(
                 Screen.SectionedListExpandableScreen.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     SectionedListExpandableScreen(
@@ -355,7 +372,8 @@ fun SampleWearApp() {
             composable(
                 route = Screen.Paging.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     PagingScreen(navController = navController, columnState = columnState)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,9 +36,9 @@ import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.WearPreview
-import kotlinx.coroutines.delay
 import java.time.Duration
 import java.time.Instant
+import kotlinx.coroutines.delay
 
 /**
  * Composable to make it easier to create a chronometer from Health Services exercise data.
@@ -124,14 +124,12 @@ public fun FormattedDurationText(
 
 public fun patternFormatter(
     format: String = ActiveDurationDefaults.HH_MM_SS,
-): (Duration) -> String {
-    return {
-        val activeSeconds = it.toMillis() / 1000
-        val hours = activeSeconds / 3600
-        val minutes = (activeSeconds % 3600) / 60
-        val seconds = activeSeconds % 60
-        format.format(hours, minutes, seconds)
-    }
+): (Duration) -> String = {
+    val activeSeconds = it.toMillis() / 1000
+    val hours = activeSeconds / 3600
+    val minutes = (activeSeconds % 3600) / 60
+    val seconds = activeSeconds % 60
+    format.format(hours, minutes, seconds)
 }
 
 /**
@@ -212,12 +210,10 @@ internal fun ActiveDurationTextPreview() {
     }
 }
 
-private fun ExerciseState.flip(): ExerciseState {
-    return if (this == ExerciseState.ACTIVE) {
-        ExerciseState.USER_PAUSED
-    } else {
-        ExerciseState.ACTIVE
-    }
+private fun ExerciseState.flip(): ExerciseState = if (this == ExerciseState.ACTIVE) {
+    ExerciseState.USER_PAUSED
+} else {
+    ExerciseState.ACTIVE
 }
 
 @WearPreview

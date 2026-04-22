@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,8 @@ import com.google.android.horologist.mediasample.ui.app.UampColors
 import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.images.loadImageResource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.first
 import javax.inject.Inject
+import kotlinx.coroutines.flow.first
 
 /**
  * A Tile with links to open the app, or two specific media collections (playlist, album).
@@ -102,14 +102,13 @@ class MediaCollectionsTileService : SuspendingTileService() {
      * Create a launcher to an activity, with an optional extra "collection" linking to
      * a screen to open.
      */
-    private fun appLauncher(
-        extrasBuilder: AndroidActivity.Builder.() -> Unit = {},
-    ) = ActionBuilders.LaunchAction.Builder().setAndroidActivity(
-        AndroidActivity.Builder().setClassName(MediaActivity::class.java.name)
-            .setPackageName(this.packageName).apply {
-                extrasBuilder()
-            }.build(),
-    ).build()
+    private fun appLauncher(extrasBuilder: AndroidActivity.Builder.() -> Unit = {}) =
+        ActionBuilders.LaunchAction.Builder().setAndroidActivity(
+            AndroidActivity.Builder().setClassName(MediaActivity::class.java.name)
+                .setPackageName(this.packageName).apply {
+                    extrasBuilder()
+                }.build(),
+        ).build()
 
     /**
      * Show UAMP as AppIcon, and favourites and podcasts icons.

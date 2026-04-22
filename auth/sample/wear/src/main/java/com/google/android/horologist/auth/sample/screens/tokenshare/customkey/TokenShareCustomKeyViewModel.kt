@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,8 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.runningReduce
 import kotlinx.coroutines.flow.stateIn
 
-class TokenShareCustomKeyViewModel(
-    tokenBundleRepository: TokenBundleRepository<TokenBundle?>,
-) : ViewModel() {
+class TokenShareCustomKeyViewModel(tokenBundleRepository: TokenBundleRepository<TokenBundle?>) :
+    ViewModel() {
 
     public val uiState: StateFlow<List<TokenBundle?>> =
         tokenBundleRepository.flow

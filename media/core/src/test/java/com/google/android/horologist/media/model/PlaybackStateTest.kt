@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@
 package com.google.android.horologist.media.model
 
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
+import org.junit.Test
 
 class PlaybackStateTest {
     private val elapsedMilliseconds = 123L
@@ -36,11 +36,13 @@ class PlaybackStateTest {
         val predictor = result.createPositionPredictor()
         // then
         assertThat(predictor).isNotNull()
-        assertThat(predictor!!.predictDuration(elapsedMilliseconds)).isEqualTo(duration)
-        assertThat(predictor.predictPosition(elapsedMilliseconds)).isEqualTo(current)
+        assertThat(predictor!!.predictDuration(elapsedMilliseconds)).isEqualTo(duration.inWholeMilliseconds)
+        assertThat(predictor.predictPosition(elapsedMilliseconds)).isEqualTo(current.inWholeMilliseconds)
         assertThat(predictor.predictPercent(elapsedMilliseconds)).isEqualTo(0.5f)
-        assertThat(predictor.predictDuration(elapsedMilliseconds + 100)).isEqualTo(duration)
-        assertThat(predictor.predictPosition(elapsedMilliseconds + 100)).isEqualTo(1100.milliseconds)
+        assertThat(predictor.predictDuration(elapsedMilliseconds + 100)).isEqualTo(duration.inWholeMilliseconds)
+        assertThat(
+            predictor.predictPosition(elapsedMilliseconds + 100),
+        ).isEqualTo(1100L)
     }
 
     @Test
@@ -54,11 +56,15 @@ class PlaybackStateTest {
         val predictor = result.createPositionPredictor()
         // then
         assertThat(predictor).isNotNull()
-        assertThat(predictor!!.predictDuration(elapsedMilliseconds)).isEqualTo(duration)
-        assertThat(predictor.predictPosition(elapsedMilliseconds)).isEqualTo(current)
+        assertThat(predictor!!.predictDuration(elapsedMilliseconds)).isEqualTo(duration.inWholeMilliseconds)
+        assertThat(predictor.predictPosition(elapsedMilliseconds)).isEqualTo(current.inWholeMilliseconds)
         assertThat(predictor.predictPercent(elapsedMilliseconds)).isEqualTo(0.5f)
-        assertThat(predictor.predictDuration(elapsedMilliseconds + 100)).isEqualTo(2100.milliseconds)
-        assertThat(predictor.predictPosition(elapsedMilliseconds + 100)).isEqualTo(1100.milliseconds)
+        assertThat(
+            predictor.predictDuration(elapsedMilliseconds + 100),
+        ).isEqualTo(2100L)
+        assertThat(
+            predictor.predictPosition(elapsedMilliseconds + 100),
+        ).isEqualTo(1100L)
     }
 
     @Test
@@ -72,8 +78,10 @@ class PlaybackStateTest {
         val predictor = result.createPositionPredictor()
         // then
         assertThat(predictor).isNotNull()
-        assertThat(predictor!!.predictDuration(elapsedMilliseconds + 100)).isEqualTo(duration)
-        assertThat(predictor.predictPosition(elapsedMilliseconds + 100)).isEqualTo(1200.milliseconds)
+        assertThat(predictor!!.predictDuration(elapsedMilliseconds + 100)).isEqualTo(duration.inWholeMilliseconds)
+        assertThat(
+            predictor.predictPosition(elapsedMilliseconds + 100),
+        ).isEqualTo(1200L)
     }
 
     @Test
@@ -94,16 +102,20 @@ class PlaybackStateTest {
         assertThat(predictor).isNull()
     }
 
-    private fun eventWith(position: Duration?, duration: Duration?, speed: Float = 1f, live: Boolean = false) =
-        PlaybackStateEvent(
-            playbackState = PlaybackState(
-                playerState = PlayerState.Playing,
-                isLive = live,
-                currentPosition = position,
-                duration = duration,
-                playbackSpeed = speed,
-            ),
-            cause = PlaybackStateEvent.Cause.Other,
-            timestamp = elapsedMilliseconds.milliseconds,
-        )
+    private fun eventWith(
+        position: Duration?,
+        duration: Duration?,
+        speed: Float = 1f,
+        live: Boolean = false,
+    ) = PlaybackStateEvent(
+        playbackState = PlaybackState(
+            playerState = PlayerState.Playing,
+            isLive = live,
+            currentPosition = position,
+            duration = duration,
+            playbackSpeed = speed,
+        ),
+        cause = PlaybackStateEvent.Cause.Other,
+        timestamp = elapsedMilliseconds.milliseconds,
+    )
 }

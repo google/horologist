@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2021-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,9 +35,8 @@ import java.io.IOException
  */
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
-public class AnalyticsEventLogger(
-    private val appEventLogger: ErrorReporter,
-) : EventLogger("ErrorReporter") {
+public class AnalyticsEventLogger(private val appEventLogger: ErrorReporter) :
+    EventLogger("ErrorReporter") {
     override fun onAudioSinkError(
         eventTime: AnalyticsListener.EventTime,
         audioSinkError: Exception,

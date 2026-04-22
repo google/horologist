@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,11 @@ public object TokenBundleSerializer : Serializer<TokenBundle?> {
 
     override val defaultValue: TokenBundle? = null
 
-    override suspend fun readFrom(input: InputStream): TokenBundle? =
-        try {
-            TokenBundle.parseFrom(input)
-        } catch (exception: InvalidProtocolBufferException) {
-            throw CorruptionException("Cannot read proto.", exception)
-        }
+    override suspend fun readFrom(input: InputStream): TokenBundle? = try {
+        TokenBundle.parseFrom(input)
+    } catch (exception: InvalidProtocolBufferException) {
+        throw CorruptionException("Cannot read proto.", exception)
+    }
 
     override suspend fun writeTo(t: TokenBundle?, output: OutputStream) {
         t?.writeTo(output)

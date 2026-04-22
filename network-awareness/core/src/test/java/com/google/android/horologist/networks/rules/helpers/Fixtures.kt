@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,9 +22,8 @@ import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 
 object Fixtures {
-    fun networks(default: NetworkStatus?, vararg rest: NetworkStatus): Networks {
-        return Networks(default, listOfNotNull(default, *rest))
-    }
+    fun networks(default: NetworkStatus?, vararg rest: NetworkStatus): Networks =
+        Networks(default, listOfNotNull(default, *rest))
 
     val wifi = NetworkStatus(
         id = "wlan0",

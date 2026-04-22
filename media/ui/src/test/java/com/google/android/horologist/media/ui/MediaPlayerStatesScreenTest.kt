@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,22 +20,18 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
+import kotlin.time.Duration.Companion.seconds
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
-import kotlin.time.Duration.Companion.seconds
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class MediaPlayerStatesScreenTest(
-    private val state: State,
-) : WearLegacyScreenTest() {
+class MediaPlayerStatesScreenTest(private val state: State) : WearLegacyScreenTest() {
 
-    override fun testName(suffix: String): String {
-        return "src/test/snapshots/images/" +
-            "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
-            "${state.name.lowercase()}.png"
-    }
+    override fun testName(suffix: String): String = "src/test/snapshots/images/" +
+        "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
+        "${state.name.lowercase()}.png"
 
     @Test
     fun mediaPlayerScreen() {
@@ -77,11 +73,7 @@ class MediaPlayerStatesScreenTest(
         }
     }
 
-    data class State(
-        val connected: Boolean,
-        val media: Boolean,
-        val name: String,
-    )
+    data class State(val connected: Boolean, val media: Boolean, val name: String)
 
     companion object {
         @JvmStatic

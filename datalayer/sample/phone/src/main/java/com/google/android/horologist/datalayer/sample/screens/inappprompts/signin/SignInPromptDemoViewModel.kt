@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,67 +22,67 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.phone.ui.prompt.signin.SignInPrompt
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class SignInPromptDemoViewModel
-    @Inject
-    constructor(
-        private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-        val signInPrompt: SignInPrompt,
-    ) : ViewModel() {
+@Inject
+constructor(
+    private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+    val signInPrompt: SignInPrompt,
+) : ViewModel() {
 
-        private var initializeCalled = false
+    private var initializeCalled = false
 
-        private val _uiState =
-            MutableStateFlow<SignInPromptDemoScreenState>(SignInPromptDemoScreenState.Idle)
-        public val uiState: StateFlow<SignInPromptDemoScreenState> = _uiState
+    private val _uiState =
+        MutableStateFlow<SignInPromptDemoScreenState>(SignInPromptDemoScreenState.Idle)
+    public val uiState: StateFlow<SignInPromptDemoScreenState> = _uiState
 
-        @MainThread
-        fun initialize() {
-            if (initializeCalled) return
-            initializeCalled = true
+    @MainThread
+    fun initialize() {
+        if (initializeCalled) return
+        initializeCalled = true
 
-            _uiState.value = SignInPromptDemoScreenState.Loading
+        _uiState.value = SignInPromptDemoScreenState.Loading
 
-            viewModelScope.launch {
-                if (!phoneDataLayerAppHelper.isAvailable()) {
-                    _uiState.value = SignInPromptDemoScreenState.ApiNotAvailable
-                } else {
-                    _uiState.value = SignInPromptDemoScreenState.Loaded
-                }
+        viewModelScope.launch {
+            if (!phoneDataLayerAppHelper.isAvailable()) {
+                _uiState.value = SignInPromptDemoScreenState.ApiNotAvailable
+            } else {
+                _uiState.value = SignInPromptDemoScreenState.Loaded
             }
-        }
-
-        fun onRunDemoClick() {
-            _uiState.value = SignInPromptDemoScreenState.Loading
-
-            viewModelScope.launch {
-                val node = signInPrompt.shouldDisplayPrompt()
-
-                _uiState.value = if (node != null) {
-                    SignInPromptDemoScreenState.WatchFound(node.id)
-                } else {
-                    SignInPromptDemoScreenState.WatchNotFound
-                }
-            }
-        }
-
-        fun onPromptLaunched() {
-            _uiState.value = SignInPromptDemoScreenState.Idle
-        }
-
-        fun onPromptSignInClick() {
-            _uiState.value = SignInPromptDemoScreenState.PromptSignInClicked
-        }
-
-        fun onPromptDismiss() {
-            _uiState.value = SignInPromptDemoScreenState.PromptDismissed
         }
     }
+
+    fun onRunDemoClick() {
+        _uiState.value = SignInPromptDemoScreenState.Loading
+
+        viewModelScope.launch {
+            val node = signInPrompt.shouldDisplayPrompt()
+
+            _uiState.value = if (node != null) {
+                SignInPromptDemoScreenState.WatchFound(node.id)
+            } else {
+                SignInPromptDemoScreenState.WatchNotFound
+            }
+        }
+    }
+
+    fun onPromptLaunched() {
+        _uiState.value = SignInPromptDemoScreenState.Idle
+    }
+
+    fun onPromptSignInClick() {
+        _uiState.value = SignInPromptDemoScreenState.PromptSignInClicked
+    }
+
+    fun onPromptDismiss() {
+        _uiState.value = SignInPromptDemoScreenState.PromptDismissed
+    }
+}
 
 sealed class SignInPromptDemoScreenState {
     data object Idle : SignInPromptDemoScreenState()

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,13 @@ package com.google.android.horologist.networks.okhttp.impl
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.requestType
+import kotlin.reflect.KClass
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Request
 import okhttp3.Response
 import okio.IOException
 import okio.Timeout
-import kotlin.reflect.KClass
 
 /**
  * A call that must fail because no suitable network is available.
@@ -54,9 +54,7 @@ public class FailedCall(
         responseCallback.onFailure(this, IOException(message))
     }
 
-    override fun execute(): Response {
-        throw IOException(message)
-    }
+    override fun execute(): Response = throw IOException(message)
 
     override fun isCanceled(): Boolean = cancelled
 

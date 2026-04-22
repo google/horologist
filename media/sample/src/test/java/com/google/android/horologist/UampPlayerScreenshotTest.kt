@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,8 +33,8 @@ import com.google.android.horologist.mediasample.ui.app.UampTheme
 import com.google.android.horologist.mediasample.ui.player.UampSettingsButtons
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
-import org.junit.Test
 import kotlin.time.Duration.Companion.seconds
+import org.junit.Test
 
 class UampPlayerScreenshotTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
     @Test
@@ -76,7 +76,8 @@ class UampPlayerScreenshotTest(device: WearDevice) : WearDeviceScreenshotTest(de
                 mediaDisplay = {
                     AnimatedMediaInfoDisplay(
                         media = playerUiState.media,
-                        loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
+                        loading =
+                            !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
                     )
                 },
                 controlButtons = {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -162,14 +162,11 @@ public fun GoogleSignInScreen(
 /**
  * An [ActivityResultContract] for signing in with the given [GoogleSignInClient].
  */
-private class GoogleSignInContract(
-    private val googleSignInClient: GoogleSignInClient,
-) : ActivityResultContract<Unit, GoogleSignInContract.Result>() {
+private class GoogleSignInContract(private val googleSignInClient: GoogleSignInClient) :
+    ActivityResultContract<Unit, GoogleSignInContract.Result>() {
 
-    override fun createIntent(
-        context: Context,
-        input: Unit,
-    ): Intent = googleSignInClient.signInIntent
+    override fun createIntent(context: Context, input: Unit): Intent =
+        googleSignInClient.signInIntent
 
     override fun parseResult(resultCode: Int, intent: Intent?): Result {
         val task = GoogleSignIn.getSignedInAccountFromIntent(intent)

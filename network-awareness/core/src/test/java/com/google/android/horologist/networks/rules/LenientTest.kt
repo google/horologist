@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,10 +40,16 @@ class LenientTest {
 
     @Test
     fun checkValidRequest() {
-        assertThat(Lenient.checkValidRequest(ImageRequest, wifi.networkInfo)).isInstanceOf(Allow::class.java)
+        assertThat(
+            Lenient.checkValidRequest(ImageRequest, wifi.networkInfo),
+        ).isInstanceOf(Allow::class.java)
 
-        assertThat(Lenient.checkValidRequest(ImageRequest, cell.networkInfo)).isInstanceOf(Allow::class.java)
+        assertThat(
+            Lenient.checkValidRequest(ImageRequest, cell.networkInfo),
+        ).isInstanceOf(Allow::class.java)
 
-        assertThat(Lenient.checkValidRequest(ImageRequest, bt.networkInfo)).isInstanceOf(Allow::class.java)
+        assertThat(
+            Lenient.checkValidRequest(ImageRequest, bt.networkInfo),
+        ).isInstanceOf(Allow::class.java)
     }
 }

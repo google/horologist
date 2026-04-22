@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,12 +28,8 @@ import kotlinx.coroutines.flow.update
  * An application scoped coordination point for ExoPlayer and Complications/Tiles
  * that won't to show the current player state, without using media controller.
  */
-class DataUpdates(
-    private val updater: ComplicationDataSourceUpdateRequester,
-) {
-    data class State(
-        val mediaItem: MediaItem?,
-    )
+class DataUpdates(private val updater: ComplicationDataSourceUpdateRequester) {
+    data class State(val mediaItem: MediaItem?)
 
     val listener: Player.Listener = object : Player.Listener {
         override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {

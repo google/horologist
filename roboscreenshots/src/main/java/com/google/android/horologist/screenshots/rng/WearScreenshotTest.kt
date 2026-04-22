@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,7 +92,9 @@ public abstract class WearScreenshotTest {
         content: @Composable () -> Unit,
     ) {
         if (applyDeviceConfig && device != null) {
-            RuntimeEnvironment.setQualifiers("+w${device.dp}dp-h${device.dp}dp" + (if (device.isRound) "" else "-notround"))
+            RuntimeEnvironment.setQualifiers(
+                "+w${device.dp}dp-h${device.dp}dp" + (if (device.isRound) "" else "-notround"),
+            )
             RuntimeEnvironment.setFontScale(device.fontScale)
         }
 
@@ -162,9 +164,7 @@ public abstract class WearScreenshotTest {
         }
 
         @Composable
-        public fun CorrectLayout(
-            content: @Composable () -> Unit,
-        ) {
+        public fun CorrectLayout(content: @Composable () -> Unit) {
             // TODO why needed
             val layoutDirection = when (LocalConfiguration.current.layoutDirection) {
                 RTL -> LayoutDirection.Rtl

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,12 +35,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
+import javax.inject.Singleton
+import kotlin.time.Duration
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import okhttp3.Call
 import okhttp3.Request
-import javax.inject.Singleton
-import kotlin.time.Duration
 
 @Module
 @TestInstallIn(
@@ -59,27 +59,24 @@ object FakeNetworkModule {
     @Singleton
     @Provides
     fun callFactory(): Call.Factory = object : Call.Factory {
-        override fun newCall(request: Request): Call {
-            return FailedCall(this, request, "Test")
-        }
+        override fun newCall(request: Request): Call = FailedCall(this, request, "Test")
     }
 
     @Singleton
     @Provides
-    fun highBandwidthRequester(): HighBandwidthNetworkMediator = object : HighBandwidthNetworkMediator {
-        override val pinned: Flow<Set<NetworkType>> = flowOf()
+    fun highBandwidthRequester(): HighBandwidthNetworkMediator =
+        object : HighBandwidthNetworkMediator {
+            override val pinned: Flow<Set<NetworkType>> = flowOf()
 
-        override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): HighBandwidthConnectionLease {
-            return object : HighBandwidthConnectionLease {
-                override suspend fun awaitGranted(timeout: Duration): Boolean {
-                    return false
-                }
+            override fun requestHighBandwidthNetwork(
+                request: HighBandwidthRequest,
+            ): HighBandwidthConnectionLease = object : HighBandwidthConnectionLease {
+                override suspend fun awaitGranted(timeout: Duration): Boolean = false
 
                 override fun close() {
                 }
             }
         }
-    }
 
     @Singleton
     @Provides
@@ -90,6 +87,5 @@ object FakeNetworkModule {
 
     @Singleton
     @Provides
-    fun dataRequestRepository(): DataRequestRepository =
-        InMemoryDataRequestRepository()
+    fun dataRequestRepository(): DataRequestRepository = InMemoryDataRequestRepository()
 }

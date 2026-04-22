@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -100,11 +100,17 @@ class WearDataLayerAppHelperTest {
         val infoInitial = testDataStore.data.first()
         assertThat(infoInitial.complicationsList).isEmpty()
 
-        helper.markComplicationAsActivated("my.SampleComplicationService", 1, ComplicationType.SHORT_TEXT)
+        helper.markComplicationAsActivated(
+            "my.SampleComplicationService",
+            1,
+            ComplicationType.SHORT_TEXT,
+        )
 
         val infoUpdated = testDataStore.data.first()
         assertThat(infoUpdated.complicationsList).hasSize(1)
-        assertThat(infoUpdated.complicationsList.first().name).isEqualTo("my.SampleComplicationService")
+        assertThat(
+            infoUpdated.complicationsList.first().name,
+        ).isEqualTo("my.SampleComplicationService")
 
         helper.markComplicationAsDeactivated(1)
 

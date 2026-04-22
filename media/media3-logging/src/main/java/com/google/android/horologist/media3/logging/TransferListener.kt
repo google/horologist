@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2021-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,41 +31,40 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  */
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
-public class TransferListener(
-    private val appEventLogger: ErrorReporter,
-) : CacheDataSource.EventListener,
+public class TransferListener(private val appEventLogger: ErrorReporter) :
+    CacheDataSource.EventListener,
     TransferListener {
-        override fun onCachedBytesRead(cacheSizeBytes: Long, cachedBytesRead: Long) {
-        }
-
-        override fun onCacheIgnored(reason: Int) {
-            appEventLogger.logMessage(
-                "cache ignored $reason",
-                category = ErrorReporter.Category.Network,
-            )
-        }
-
-        override fun onTransferInitializing(
-            source: DataSource,
-            dataSpec: DataSpec,
-            isNetwork: Boolean,
-        ) {
-            appEventLogger.logMessage("init $isNetwork", category = ErrorReporter.Category.Network)
-        }
-
-        override fun onTransferStart(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {
-            appEventLogger.logMessage("start $isNetwork", category = ErrorReporter.Category.Network)
-        }
-
-        override fun onBytesTransferred(
-            source: DataSource,
-            dataSpec: DataSpec,
-            isNetwork: Boolean,
-            bytesTransferred: Int,
-        ) {
-        }
-
-        override fun onTransferEnd(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {
-            appEventLogger.logMessage("end $isNetwork", category = ErrorReporter.Category.Network)
-        }
+    override fun onCachedBytesRead(cacheSizeBytes: Long, cachedBytesRead: Long) {
     }
+
+    override fun onCacheIgnored(reason: Int) {
+        appEventLogger.logMessage(
+            "cache ignored $reason",
+            category = ErrorReporter.Category.Network,
+        )
+    }
+
+    override fun onTransferInitializing(
+        source: DataSource,
+        dataSpec: DataSpec,
+        isNetwork: Boolean,
+    ) {
+        appEventLogger.logMessage("init $isNetwork", category = ErrorReporter.Category.Network)
+    }
+
+    override fun onTransferStart(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {
+        appEventLogger.logMessage("start $isNetwork", category = ErrorReporter.Category.Network)
+    }
+
+    override fun onBytesTransferred(
+        source: DataSource,
+        dataSpec: DataSpec,
+        isNetwork: Boolean,
+        bytesTransferred: Int,
+    ) {
+    }
+
+    override fun onTransferEnd(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {
+        appEventLogger.logMessage("end $isNetwork", category = ErrorReporter.Category.Network)
+    }
+}

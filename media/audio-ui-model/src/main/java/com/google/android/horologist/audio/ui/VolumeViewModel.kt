@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -68,7 +68,11 @@ public open class VolumeViewModel(
             initialValue = VolumeUiState(),
         )
 
-    public val displayIndicatorEvents: Flow<Unit> = merge(userActionEvents, volumeUiState.drop(1)).map { }
+    public val displayIndicatorEvents: Flow<Unit> = merge(
+        userActionEvents,
+        volumeUiState.drop(1),
+    ).map {
+    }
 
     public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
     public fun increaseVolumeWithHaptics() {

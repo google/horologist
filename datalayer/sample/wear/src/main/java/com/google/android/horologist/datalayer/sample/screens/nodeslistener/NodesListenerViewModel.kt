@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,50 +21,50 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class NodesListenerViewModel
-    @Inject
-    constructor(
-        private val wearDataLayerAppHelper: WearDataLayerAppHelper,
-    ) : ViewModel() {
+@Inject
+constructor(
+    private val wearDataLayerAppHelper: WearDataLayerAppHelper,
+) : ViewModel() {
 
-        private var initializeCalled = false
+    private var initializeCalled = false
 
-        private val _uiState =
-            MutableStateFlow<NodesListenerScreenState>(NodesListenerScreenState.Idle)
-        public val uiState: StateFlow<NodesListenerScreenState> = _uiState
+    private val _uiState =
+        MutableStateFlow<NodesListenerScreenState>(NodesListenerScreenState.Idle)
+    public val uiState: StateFlow<NodesListenerScreenState> = _uiState
 
-        @MainThread
-        fun initialize() {
-            if (initializeCalled) return
-            initializeCalled = true
+    @MainThread
+    fun initialize() {
+        if (initializeCalled) return
+        initializeCalled = true
 
-            _uiState.value = NodesListenerScreenState.Loading
+        _uiState.value = NodesListenerScreenState.Loading
 
-            viewModelScope.launch {
-                if (!wearDataLayerAppHelper.isAvailable()) {
-                    _uiState.value = NodesListenerScreenState.ApiNotAvailable
-                } else {
-                    loadNodes()
-                }
-            }
-        }
-
-        private suspend fun loadNodes() {
-            _uiState.value = NodesListenerScreenState.Loading
-
-            wearDataLayerAppHelper.connectedAndInstalledNodes.collect { nodes ->
-                _uiState.value = NodesListenerScreenState.Loaded(
-                    nodeList = nodes.mapTo(mutableSetOf()) { it.toNodesUIMapper() },
-                )
+        viewModelScope.launch {
+            if (!wearDataLayerAppHelper.isAvailable()) {
+                _uiState.value = NodesListenerScreenState.ApiNotAvailable
+            } else {
+                loadNodes()
             }
         }
     }
+
+    private suspend fun loadNodes() {
+        _uiState.value = NodesListenerScreenState.Loading
+
+        wearDataLayerAppHelper.connectedAndInstalledNodes.collect { nodes ->
+            _uiState.value = NodesListenerScreenState.Loaded(
+                nodeList = nodes.mapTo(mutableSetOf()) { it.toNodesUIMapper() },
+            )
+        }
+    }
+}
 
 sealed class NodesListenerScreenState {
     data object Idle : NodesListenerScreenState()

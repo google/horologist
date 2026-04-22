@@ -53,6 +53,9 @@ android {
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
+            all {
+                it.failOnNoDiscoveredTests = false
+            }
         }
     }
 

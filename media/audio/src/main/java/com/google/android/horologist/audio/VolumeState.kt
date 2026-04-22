@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 The Android Open Source Project
+ * Copyright 2021-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,4 @@ package com.google.android.horologist.audio
 /**
  * Data class holding the current state of the volume system.
  */
-public data class VolumeState(
-    val current: Int,
-    val max: Int,
-    val min: Int = 0,
-)
+public data class VolumeState(val current: Int, val max: Int, val min: Int = 0)

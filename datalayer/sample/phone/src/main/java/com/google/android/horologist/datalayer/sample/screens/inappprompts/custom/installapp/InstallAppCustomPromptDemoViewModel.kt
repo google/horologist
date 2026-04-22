@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,63 +22,65 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.phone.ui.prompt.installapp.InstallAppPrompt
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class InstallAppPromptDemoViewModel
-    @Inject
-    constructor(
-        private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-        val installAppPrompt: InstallAppPrompt,
-    ) : ViewModel() {
+@Inject
+constructor(
+    private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+    val installAppPrompt: InstallAppPrompt,
+) : ViewModel() {
 
-        private var initializeCalled = false
+    private var initializeCalled = false
 
-        private val _uiState =
-            MutableStateFlow<InstallAppCustomPromptDemoScreenState>(InstallAppCustomPromptDemoScreenState.Idle)
-        public val uiState: StateFlow<InstallAppCustomPromptDemoScreenState> = _uiState
+    private val _uiState =
+        MutableStateFlow<InstallAppCustomPromptDemoScreenState>(
+            InstallAppCustomPromptDemoScreenState.Idle,
+        )
+    public val uiState: StateFlow<InstallAppCustomPromptDemoScreenState> = _uiState
 
-        @MainThread
-        fun initialize() {
-            if (initializeCalled) return
-            initializeCalled = true
+    @MainThread
+    fun initialize() {
+        if (initializeCalled) return
+        initializeCalled = true
 
-            _uiState.value = InstallAppCustomPromptDemoScreenState.Loading
+        _uiState.value = InstallAppCustomPromptDemoScreenState.Loading
 
-            viewModelScope.launch {
-                if (!phoneDataLayerAppHelper.isAvailable()) {
-                    _uiState.value = InstallAppCustomPromptDemoScreenState.ApiNotAvailable
-                } else {
-                    _uiState.value = InstallAppCustomPromptDemoScreenState.Loaded
-                }
+        viewModelScope.launch {
+            if (!phoneDataLayerAppHelper.isAvailable()) {
+                _uiState.value = InstallAppCustomPromptDemoScreenState.ApiNotAvailable
+            } else {
+                _uiState.value = InstallAppCustomPromptDemoScreenState.Loaded
             }
-        }
-
-        fun onRunDemoClick() {
-            _uiState.value = InstallAppCustomPromptDemoScreenState.Loading
-
-            viewModelScope.launch {
-                val node = installAppPrompt.shouldDisplayPrompt()
-
-                _uiState.value = if (node != null) {
-                    InstallAppCustomPromptDemoScreenState.WatchFound
-                } else {
-                    InstallAppCustomPromptDemoScreenState.WatchNotFound
-                }
-            }
-        }
-
-        fun onInstallPromptInstallClick() {
-            _uiState.value = InstallAppCustomPromptDemoScreenState.InstallPromptInstallClicked
-        }
-
-        fun onInstallPromptCancel() {
-            _uiState.value = InstallAppCustomPromptDemoScreenState.InstallPromptInstallCancelled
         }
     }
+
+    fun onRunDemoClick() {
+        _uiState.value = InstallAppCustomPromptDemoScreenState.Loading
+
+        viewModelScope.launch {
+            val node = installAppPrompt.shouldDisplayPrompt()
+
+            _uiState.value = if (node != null) {
+                InstallAppCustomPromptDemoScreenState.WatchFound
+            } else {
+                InstallAppCustomPromptDemoScreenState.WatchNotFound
+            }
+        }
+    }
+
+    fun onInstallPromptInstallClick() {
+        _uiState.value = InstallAppCustomPromptDemoScreenState.InstallPromptInstallClicked
+    }
+
+    fun onInstallPromptCancel() {
+        _uiState.value = InstallAppCustomPromptDemoScreenState.InstallPromptInstallCancelled
+    }
+}
 
 sealed class InstallAppCustomPromptDemoScreenState {
     data object Idle : InstallAppCustomPromptDemoScreenState()

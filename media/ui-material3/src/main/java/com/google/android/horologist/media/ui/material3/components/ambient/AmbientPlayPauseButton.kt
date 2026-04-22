@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -80,7 +80,9 @@ public fun AmbientPlayPauseButton(
         }
     }
     val scallopHeight =
-        remember(scallopSize) { with(density) { (scallopSize - MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH).toPx() } }
+        remember(scallopSize) {
+            with(density) { (scallopSize - MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH).toPx() }
+        }
 
     val scallopPolygon = remember(scallopSize, scallopHeight) {
         PlayPauseButtonDefaults.outerScallopPolygon(density, scallopSize)

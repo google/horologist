@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.AutoCenteringParams
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
+import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults as WearScalingLazyColumnDefaults
 import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults.snapFlingBehavior
 import androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType
 import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
@@ -46,7 +47,6 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.It
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.responsiveScalingParams
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState.ScrollPosition
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumnDefaults as WearScalingLazyColumnDefaults
 
 /**
  * A Config and State object wrapping up all configuration for a [ScalingLazyColumn].
@@ -110,10 +110,7 @@ public class ScalingLazyColumnState(
         public object Scroll : RotaryMode
     }
 
-    public data class ScrollPosition(
-        val index: Int,
-        val offsetPx: Int,
-    )
+    public data class ScrollPosition(val index: Int, val offsetPx: Int)
 
     public fun interface Factory {
         @Composable
@@ -124,7 +121,9 @@ public class ScalingLazyColumnState(
 @Composable
 @Deprecated("Use rememberResponsiveColumnState")
 public fun rememberColumnState(
-    @Suppress("DEPRECATION") factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.responsive(),
+    @Suppress(
+        "DEPRECATION",
+    ) factory: ScalingLazyColumnState.Factory = ScalingLazyColumnDefaults.responsive(),
 ): ScalingLazyColumnState {
     val columnState = factory.create()
 
@@ -149,20 +148,18 @@ public fun rememberResponsiveColumnState(
     reverseLayout: Boolean = false,
     userScrollEnabled: Boolean = true,
     initialItemIndex: Int = 0,
-): ScalingLazyColumnState {
-    return rememberResponsiveColumnState(
-        ScalingLazyColumnDefaults.padding(
-            first = first,
-            last = last,
-        ),
-        verticalArrangement,
-        rotaryMode,
-        hapticsEnabled,
-        reverseLayout,
-        userScrollEnabled,
-        initialItemIndex,
-    )
-}
+): ScalingLazyColumnState = rememberResponsiveColumnState(
+    ScalingLazyColumnDefaults.padding(
+        first = first,
+        last = last,
+    ),
+    verticalArrangement,
+    rotaryMode,
+    hapticsEnabled,
+    reverseLayout,
+    userScrollEnabled,
+    initialItemIndex,
+)
 
 @Composable
 public fun rememberResponsiveColumnState(

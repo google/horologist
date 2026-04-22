@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,10 +42,8 @@ private const val SAMSUNG_COMPANION_PKG = "com.samsung.android.app.watchmanager"
  * Subclass of [DataLayerAppHelper] for use on phones.
  */
 @ExperimentalHorologistApi
-public class PhoneDataLayerAppHelper(
-    context: Context,
-    registry: WearDataLayerRegistry,
-) : DataLayerAppHelper(context, registry) {
+public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRegistry) :
+    DataLayerAppHelper(context, registry) {
 
     override val connectedAndInstalledNodes: Flow<Set<Node>>
         get() = connectedAndInstalledNodes(WATCH_CAPABILITY)
@@ -94,7 +92,8 @@ public class PhoneDataLayerAppHelper(
         val node = this.connectedNodes()
             .filter {
                 it.appInstalled &&
-                    registry.nodeClient.getCompanionPackageForNode(it.id).await() == "com.google.android.apps.wear.companion"
+                    registry.nodeClient.getCompanionPackageForNode(it.id).await() ==
+                    "com.google.android.apps.wear.companion"
             }
             .firstOrNull {
                 val uri = Uri.Builder()
@@ -111,21 +110,19 @@ public class PhoneDataLayerAppHelper(
     /**
      * Checks that the companion app supports deep linking to Tile editor setting.
      */
-    public fun checkCompanionVersionSupportTileEditing(): AppHelperResultCode? {
-        return try {
-            val packageInfo: PackageInfo =
-                context.packageManager.getPackageInfo("com.google.android.apps.wear.companion", 0)
-            val version = packageInfo.versionName
+    public fun checkCompanionVersionSupportTileEditing(): AppHelperResultCode? = try {
+        val packageInfo: PackageInfo =
+            context.packageManager.getPackageInfo("com.google.android.apps.wear.companion", 0)
+        val version = packageInfo.versionName
 
-            val companionVersion = version?.let { Version.parse(version) }
-            if (companionVersion != null && companionVersion >= RequiredCompanionVersion) {
-                AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
-            } else {
-                AppHelperResultCode.APP_HELPER_RESULT_INVALID_COMPANION
-            }
-        } catch (nnfe: PackageManager.NameNotFoundException) {
-            AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
+        val companionVersion = version?.let { Version.parse(version) }
+        if (companionVersion != null && companionVersion >= RequiredCompanionVersion) {
+            AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
+        } else {
+            AppHelperResultCode.APP_HELPER_RESULT_INVALID_COMPANION
         }
+    } catch (nnfe: PackageManager.NameNotFoundException) {
+        AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
     }
 
     /**

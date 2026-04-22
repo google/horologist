@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -70,7 +70,9 @@ class PlayerScreenTest {
         playerRepository.pause()
         val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isNotEqualTo(
+        assertThat(
+            playerRepository.latestPlaybackState.value.playbackState.playerState,
+        ).isNotEqualTo(
             PlayerState.Playing,
         )
 
@@ -89,7 +91,8 @@ class PlayerScreenTest {
 
         // then
         composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.latestPlaybackState.value.playbackState.playerState == PlayerState.Playing
+            playerRepository.latestPlaybackState.value.playbackState.playerState ==
+                PlayerState.Playing
         }
     }
 
@@ -122,7 +125,8 @@ class PlayerScreenTest {
 
         // then
         composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.latestPlaybackState.value.playbackState.playerState != PlayerState.Playing
+            playerRepository.latestPlaybackState.value.playbackState.playerState !=
+                PlayerState.Playing
         }
     }
 

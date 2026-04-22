@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,8 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewSquare
 import kotlinx.coroutines.delay
 
 enum class PreviewAnimationState(val target: Float) {
-    Start(0f), End(1f)
+    Start(0f),
+    End(1f),
 }
 
 @WearPreviewSquare

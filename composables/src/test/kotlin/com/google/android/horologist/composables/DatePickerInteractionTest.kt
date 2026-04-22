@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import androidx.compose.ui.test.performClick
 import androidx.wear.compose.material.Text
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import com.google.common.truth.Truth.assertThat
+import java.time.LocalDate
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -36,7 +37,6 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
-import java.time.LocalDate
 
 @RunWith(RobolectricTestRunner::class)
 @Config(

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,7 @@ import com.google.android.horologist.media.model.PlaylistDownload
  * Functions to map models from other layers and / or packages into a [PlaylistDownload].
  */
 @ExperimentalHorologistApi
-public class PlaylistDownloadMapper(
-    private val playlistMapper: PlaylistMapper,
-) {
+public class PlaylistDownloadMapper(private val playlistMapper: PlaylistMapper) {
 
     /**
      * Maps from a [PopulatedPlaylist] and a list of [MediaDownloadEntity].

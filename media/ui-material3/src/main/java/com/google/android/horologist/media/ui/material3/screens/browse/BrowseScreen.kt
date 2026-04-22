@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,10 +53,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
  */
 @ExperimentalHorologistApi
 @Composable
-public fun BrowseScreen(
-    modifier: Modifier = Modifier,
-    content: BrowseScreenScope.() -> Unit,
-) {
+public fun BrowseScreen(modifier: Modifier = Modifier, content: BrowseScreenScope.() -> Unit) {
     val scrollState = rememberScalingLazyListState()
     ScreenScaffold(scrollState = scrollState) {
         SectionedList(
@@ -237,9 +234,7 @@ public sealed class BrowseScreenState {
 
     public object Loading : BrowseScreenState()
 
-    public data class Loaded(
-        val downloadList: List<PlaylistDownloadUiModel>,
-    ) : BrowseScreenState()
+    public data class Loaded(val downloadList: List<PlaylistDownloadUiModel>) : BrowseScreenState()
 
     public object Failed : BrowseScreenState()
 }

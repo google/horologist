@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,9 +31,8 @@ import org.junit.runner.Description
 /**
  * Reusable JUnit4 [TestRule] to override the [main][Dispatchers.Main] dispatcher.
  */
-class MainDispatcherRule(
-    val testDispatcher: TestDispatcher = UnconfinedTestDispatcher(),
-) : TestWatcher() {
+class MainDispatcherRule(val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()) :
+    TestWatcher() {
 
     override fun starting(description: Description) {
         Dispatchers.setMain(testDispatcher)

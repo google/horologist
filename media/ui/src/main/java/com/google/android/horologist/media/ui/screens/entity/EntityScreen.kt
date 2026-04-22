@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -148,9 +148,7 @@ public fun <Media> EntityScreen(
 public sealed class EntityScreenState<out Media> {
     public object Loading : EntityScreenState<Nothing>()
 
-    public data class Loaded<Media>(
-        val mediaList: List<Media>,
-    ) : EntityScreenState<Media>()
+    public data class Loaded<Media>(val mediaList: List<Media>) : EntityScreenState<Media>()
 
     public object Failed : EntityScreenState<Nothing>()
 }
@@ -160,9 +158,6 @@ public sealed class EntityScreenState<out Media> {
  */
 @ExperimentalHorologistApi
 @Composable
-public fun DefaultEntityScreenHeader(
-    title: String,
-    modifier: Modifier = Modifier,
-) {
+public fun DefaultEntityScreenHeader(title: String, modifier: Modifier = Modifier) {
     Title(title, modifier)
 }

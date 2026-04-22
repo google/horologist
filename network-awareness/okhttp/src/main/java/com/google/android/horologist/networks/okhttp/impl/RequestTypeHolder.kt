@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,7 @@ public data class RequestTypeHolder(
     public var networkInfo: NetworkInfo? = null,
     public var highBandwidthConnectionLease: HighBandwidthConnectionLease? = null,
 ) {
-    override fun toString(): String {
-        return "$requestType/$networkInfo"
-    }
+    override fun toString(): String = "$requestType/$networkInfo"
 
     public companion object {
         @ExperimentalHorologistApi
@@ -49,8 +47,7 @@ public data class RequestTypeHolder(
                 this
             }
 
-        public fun Request.Builder.requestType(value: RequestType): Request.Builder {
-            return this.tag(RequestTypeHolder::class.java, RequestTypeHolder(requestType = value))
-        }
+        public fun Request.Builder.requestType(value: RequestType): Request.Builder =
+            this.tag(RequestTypeHolder::class.java, RequestTypeHolder(requestType = value))
     }
 }

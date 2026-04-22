@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,17 @@
 package com.google.android.horologist.tiles.canvas
 
 import android.graphics.Bitmap
+import android.graphics.Canvas as AndroidCanvas
 import android.os.Build.VERSION_CODES
 import androidx.annotation.RequiresApi
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Canvas as ComposeCanvas
 import androidx.compose.ui.graphics.drawscope.CanvasDrawScope
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.wear.protolayout.ResourceBuilders.ImageResource
 import com.google.android.horologist.tiles.images.toImageResource
-import android.graphics.Canvas as AndroidCanvas
-import androidx.compose.ui.graphics.Canvas as ComposeCanvas
 
 /**
  * Render an element normally drawn within a Compose Canvas into a Bitmap.
@@ -67,13 +67,11 @@ public fun canvasToImageResource(
     size: Size,
     density: Density,
     onDraw: DrawScope.() -> Unit,
-): ImageResource {
-    return Bitmap.createBitmap(
-        size.width.toInt(),
-        size.height.toInt(),
-        Bitmap.Config.RGB_565,
-        false,
-    ).apply {
-        drawToBitmap(bitmap = this, density = density, size = size, onDraw = onDraw)
-    }.toImageResource()
-}
+): ImageResource = Bitmap.createBitmap(
+    size.width.toInt(),
+    size.height.toInt(),
+    Bitmap.Config.RGB_565,
+    false,
+).apply {
+    drawToBitmap(bitmap = this, density = density, size = size, onDraw = onDraw)
+}.toImageResource()

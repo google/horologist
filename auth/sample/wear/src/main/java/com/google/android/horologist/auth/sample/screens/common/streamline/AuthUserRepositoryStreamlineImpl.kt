@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ package com.google.android.horologist.auth.sample.screens.common.streamline
 
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
-import kotlinx.coroutines.delay
 import kotlin.random.Random
+import kotlinx.coroutines.delay
 
 object AuthUserRepositoryStreamlineImpl : AuthUserRepository {
 
@@ -33,6 +33,7 @@ object AuthUserRepositoryStreamlineImpl : AuthUserRepository {
 
         return when (mode) {
             Mode.NO_ACCOUNTS_AVAILABLE -> emptyList()
+
             Mode.SINGLE_ACCOUNT_AVAILABLE -> {
                 listOf(
                     AuthUser(

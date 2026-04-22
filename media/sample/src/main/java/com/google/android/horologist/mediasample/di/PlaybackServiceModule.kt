@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,11 +62,11 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.scopes.ServiceScoped
+import javax.inject.Provider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.CacheControl
 import okhttp3.Call
-import javax.inject.Provider
 
 @SuppressLint("UnsafeOptInUsageError")
 @Module
@@ -85,9 +85,8 @@ object PlaybackServiceModule {
 
     @ServiceScoped
     @Provides
-    fun mediaCodecSelector(
-        wearMedia3Factory: WearMedia3Factory,
-    ): MediaCodecSelector = wearMedia3Factory.mediaCodecSelector()
+    fun mediaCodecSelector(wearMedia3Factory: WearMedia3Factory): MediaCodecSelector =
+        wearMedia3Factory.mediaCodecSelector()
 
     @ServiceScoped
     @Provides
@@ -95,46 +94,39 @@ object PlaybackServiceModule {
         wearMedia3Factory: WearMedia3Factory,
         audioSink: DefaultAudioSink,
         mediaCodecSelector: MediaCodecSelector,
-    ) =
-        wearMedia3Factory.audioOnlyRenderersFactory(
-            audioSink,
-            mediaCodecSelector,
-        )
+    ) = wearMedia3Factory.audioOnlyRenderersFactory(
+        audioSink,
+        mediaCodecSelector,
+    )
 
     @ServiceScoped
     @Provides
-    fun defaultAnalyticsCollector(
-        logger: ErrorReporter,
-    ): AnalyticsCollector =
+    fun defaultAnalyticsCollector(logger: ErrorReporter): AnalyticsCollector =
         DefaultAnalyticsCollector(Clock.DEFAULT).apply {
             addListener(AnalyticsEventLogger(logger))
         }
 
     @ServiceScoped
     @Provides
-    fun extractorsFactory(): ExtractorsFactory =
-        DefaultExtractorsFactory()
+    fun extractorsFactory(): ExtractorsFactory = DefaultExtractorsFactory()
 
     @ServiceScoped
     @Provides
-    fun transferListener(
-        logger: ErrorReporter,
-    ) = TransferListener(logger)
+    fun transferListener(logger: ErrorReporter) = TransferListener(logger)
 
     @ServiceScoped
     @Provides
     fun streamDataSourceFactory(
         callFactory: Call.Factory,
         transferListener: TransferListener,
-    ): OkHttpDataSource.Factory =
-        OkHttpDataSource.Factory(
-            NetworkAwareCallFactory(
-                callFactory,
-                defaultRequestType = StreamRequest,
-            ),
-        )
-            .setCacheControl(CacheControl.Builder().noCache().noStore().build())
-            .setTransferListener(transferListener)
+    ): OkHttpDataSource.Factory = OkHttpDataSource.Factory(
+        NetworkAwareCallFactory(
+            callFactory,
+            defaultRequestType = StreamRequest,
+        ),
+    )
+        .setCacheControl(CacheControl.Builder().noCache().noStore().build())
+        .setTransferListener(transferListener)
 
     @ServiceScoped
     @Provides
@@ -143,16 +135,15 @@ object PlaybackServiceModule {
         streamDataSourceFactory: OkHttpDataSource.Factory,
         transferListener: TransferListener,
         appConfig: AppConfig,
-    ): CacheDataSource.Factory =
-        CacheDataSource.Factory()
-            .setCache(downloadCache)
-            .setUpstreamDataSourceFactory(streamDataSourceFactory)
-            .setEventListener(transferListener)
-            .apply {
-                if (!appConfig.cacheWriteBack) {
-                    setCacheWriteDataSinkFactory(null)
-                }
+    ): CacheDataSource.Factory = CacheDataSource.Factory()
+        .setCache(downloadCache)
+        .setUpstreamDataSourceFactory(streamDataSourceFactory)
+        .setEventListener(transferListener)
+        .apply {
+            if (!appConfig.cacheWriteBack) {
+                setCacheWriteDataSinkFactory(null)
             }
+        }
 
     @ServiceScoped
     @Provides
@@ -184,54 +175,49 @@ object PlaybackServiceModule {
         appConfig: AppConfig,
         serviceCoroutineScope: CoroutineScope,
         @SuppressSpeakerPlayback suppressSpeakerPlayback: Boolean,
-    ): Player =
-        ExoPlayer.Builder(service, audioOnlyRenderersFactory)
-            .setAnalyticsCollector(analyticsCollector)
-            .setMediaSourceFactory(mediaSourceFactory)
-            .setAudioAttributes(AudioAttributes.DEFAULT, true)
-            .setSuppressPlaybackOnUnsuitableOutput(suppressSpeakerPlayback)
-            .setWakeMode(C.WAKE_MODE_NETWORK)
-            .setLoadControl(loadControl)
-            .setSeekForwardIncrementMs(10_000)
-            .setSeekBackIncrementMs(10_000)
-            .build().apply {
-                addListener(analyticsCollector)
-                addListener(dataUpdates.listener)
-                addListener(WearUnsuitableOutputPlaybackSuppressionResolverListener(service))
-                addListener(TracingListener())
+    ): Player = ExoPlayer.Builder(service, audioOnlyRenderersFactory)
+        .setAnalyticsCollector(analyticsCollector)
+        .setMediaSourceFactory(mediaSourceFactory)
+        .setAudioAttributes(AudioAttributes.DEFAULT, true)
+        .setSuppressPlaybackOnUnsuitableOutput(suppressSpeakerPlayback)
+        .setWakeMode(C.WAKE_MODE_NETWORK)
+        .setLoadControl(loadControl)
+        .setSeekForwardIncrementMs(10_000)
+        .setSeekBackIncrementMs(10_000)
+        .build().apply {
+            addListener(analyticsCollector)
+            addListener(dataUpdates.listener)
+            addListener(WearUnsuitableOutputPlaybackSuppressionResolverListener(service))
+            addListener(TracingListener())
 
-                trackSelectionParameters = trackSelectionParameters.buildUpon()
-                    .setAudioOffloadPreferences(
-                        AudioOffloadPreferences.Builder()
-                            .setAudioOffloadMode(AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_ENABLED)
-                            .setIsSpeedChangeSupportRequired(false)
-                            .setIsGaplessSupportRequired(false)
-                            .build(),
-                    )
-                    .build()
+            trackSelectionParameters = trackSelectionParameters.buildUpon()
+                .setAudioOffloadPreferences(
+                    AudioOffloadPreferences.Builder()
+                        .setAudioOffloadMode(AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_ENABLED)
+                        .setIsSpeedChangeSupportRequired(false)
+                        .setIsGaplessSupportRequired(false)
+                        .build(),
+                )
+                .build()
 
-                if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
-                    serviceCoroutineScope.launch {
-                        audioOffloadManager.get().connect(this@apply)
-                    }
+            if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
+                serviceCoroutineScope.launch {
+                    audioOffloadManager.get().connect(this@apply)
                 }
             }
+        }
 
     @ServiceScoped
     @Provides
-    fun serviceCoroutineScope(
-        service: Service,
-    ): CoroutineScope {
-        return (service as LifecycleOwner).lifecycleScope
-    }
+    fun serviceCoroutineScope(service: Service): CoroutineScope =
+        (service as LifecycleOwner).lifecycleScope
 
     @ServiceScoped
     @Provides
     fun librarySessionCallback(
         logger: ErrorReporter,
         serviceCoroutineScope: CoroutineScope,
-    ): MediaLibrarySession.Callback =
-        UampMediaLibrarySessionCallback(serviceCoroutineScope, logger)
+    ): MediaLibrarySession.Callback = UampMediaLibrarySessionCallback(serviceCoroutineScope, logger)
 
     @ServiceScoped
     @Provides
@@ -240,23 +226,22 @@ object PlaybackServiceModule {
         player: Player,
         librarySessionCallback: MediaLibrarySession.Callback,
         intentBuilder: IntentBuilder,
-    ): MediaLibrarySession =
-        MediaLibrarySession.Builder(
-            service as MediaLibraryService,
-            player,
-            librarySessionCallback,
-        )
-            .setSessionActivity(intentBuilder.buildPlayerIntent())
-            .build().also {
-                (service as LifecycleOwner).lifecycle.addObserver(
-                    object :
-                        DefaultLifecycleObserver {
-                        override fun onDestroy(owner: LifecycleOwner) {
-                            it.release()
-                        }
-                    },
-                )
-            }
+    ): MediaLibrarySession = MediaLibrarySession.Builder(
+        service as MediaLibraryService,
+        player,
+        librarySessionCallback,
+    )
+        .setSessionActivity(intentBuilder.buildPlayerIntent())
+        .build().also {
+            (service as LifecycleOwner).lifecycle.addObserver(
+                object :
+                    DefaultLifecycleObserver {
+                    override fun onDestroy(owner: LifecycleOwner) {
+                        it.release()
+                    }
+                },
+            )
+        }
 
     @ServiceScoped
     @Provides
@@ -264,19 +249,17 @@ object PlaybackServiceModule {
         wearMedia3Factory: WearMedia3Factory,
         audioOffloadListener: ExoPlayer.AudioOffloadListener,
         service: Service,
-    ): DefaultAudioSink {
-        return wearMedia3Factory.audioSink(
-            audioOffloadListener = audioOffloadListener,
-        ).also { audioSink ->
-            if (service is LifecycleOwner) {
-                service.lifecycle.addObserver(
-                    object : DefaultLifecycleObserver {
-                        override fun onStop(owner: LifecycleOwner) {
-                            audioSink.reset()
-                        }
-                    },
-                )
-            }
+    ): DefaultAudioSink = wearMedia3Factory.audioSink(
+        audioOffloadListener = audioOffloadListener,
+    ).also { audioSink ->
+        if (service is LifecycleOwner) {
+            service.lifecycle.addObserver(
+                object : DefaultLifecycleObserver {
+                    override fun onStop(owner: LifecycleOwner) {
+                        audioSink.reset()
+                    }
+                },
+            )
         }
     }
 }

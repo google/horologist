@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,8 @@ import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.request.HighBandwidthRequest
 import com.google.android.horologist.networks.request.NetworkLease
 import com.google.android.horologist.networks.request.NetworkRequester
+import java.util.concurrent.atomic.AtomicBoolean
+import kotlin.time.Duration
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.Job
@@ -38,8 +40,6 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
-import java.util.concurrent.atomic.AtomicBoolean
-import kotlin.time.Duration
 
 /**
  * Implementation of `HighBandwidthNetworkMediator` that locally aggregates requests and
@@ -71,10 +71,7 @@ public class StandardHighBandwidthNetworkMediator(
         }
     }
 
-    private data class CountAndLease(
-        val count: Int = 0,
-        val lease: NetworkLease? = null,
-    ) {
+    private data class CountAndLease(val count: Int = 0, val lease: NetworkLease? = null) {
         init {
             if (count > 0) {
                 check(lease != null)
@@ -119,52 +116,44 @@ public class StandardHighBandwidthNetworkMediator(
     }
 
     // Guarded by [requests.update]
-    private fun processRequest(
-        requests: Requests,
-        request: HighBandwidthRequest,
-    ): Requests = requests.update(request.type) { countAndLease ->
-        pendingCancel?.let {
-            it.cancel()
-            pendingCancel = null
+    private fun processRequest(requests: Requests, request: HighBandwidthRequest): Requests =
+        requests.update(request.type) { countAndLease ->
+            pendingCancel?.let {
+                it.cancel()
+                pendingCancel = null
+            }
+
+            val newLease = countAndLease.lease ?: makeHighBandwidthNetwork(request)
+
+            countAndLease.updateCount(delta = 1, newLease = newLease)
         }
-
-        val newLease = countAndLease.lease ?: makeHighBandwidthNetwork(request)
-
-        countAndLease.updateCount(delta = 1, newLease = newLease)
-    }
 
     private fun makeHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
         logger.logNetworkEvent("Requesting High Bandwidth Network for ${request.type}")
         return networkRequester.requestHighBandwidthNetwork(request)
     }
 
-    private fun releaseHighBandwidthNetwork(
-        request: HighBandwidthRequest,
-    ) {
+    private fun releaseHighBandwidthNetwork(request: HighBandwidthRequest) {
         requests.update {
             processRelease(it, request)
         }
     }
 
     // Guarded by [requests.update]
-    private fun processRelease(
-        requests: Requests,
-        request: HighBandwidthRequest,
-    ): Requests = requests.update(request.type) { countAndLease ->
-        val shouldCancelLease = countAndLease.count == 1
-        if (shouldCancelLease) {
-            check(pendingCancel == null)
-            pendingCancel = coroutineScope.launch {
-                processCancel(request)
+    private fun processRelease(requests: Requests, request: HighBandwidthRequest): Requests =
+        requests.update(request.type) { countAndLease ->
+            val shouldCancelLease = countAndLease.count == 1
+            if (shouldCancelLease) {
+                check(pendingCancel == null)
+                pendingCancel = coroutineScope.launch {
+                    processCancel(request)
+                }
             }
+
+            countAndLease.updateCount(delta = -1)
         }
 
-        countAndLease.updateCount(delta = -1)
-    }
-
-    private suspend fun processCancel(
-        request: HighBandwidthRequest,
-    ) {
+    private suspend fun processCancel(request: HighBandwidthRequest) {
         delay(delayToRelease)
 
         requests.update {
@@ -173,22 +162,20 @@ public class StandardHighBandwidthNetworkMediator(
     }
 
     // Guarded by [requests.update]
-    private fun actuallyRelease(
-        requests: Requests,
-        request: HighBandwidthRequest,
-    ): Requests = requests.update(request.type) { countAndLease ->
-        // Should only be here if count hasn't changed since scheduled
-        check(countAndLease.count == 0) {
-            "actuallyRelease called with count ${countAndLease.count}"
-        }
-        check(countAndLease.lease != null) {
-            "actuallyRelease called with no lease"
-        }
+    private fun actuallyRelease(requests: Requests, request: HighBandwidthRequest): Requests =
+        requests.update(request.type) { countAndLease ->
+            // Should only be here if count hasn't changed since scheduled
+            check(countAndLease.count == 0) {
+                "actuallyRelease called with count ${countAndLease.count}"
+            }
+            check(countAndLease.lease != null) {
+                "actuallyRelease called with no lease"
+            }
 
-        releaseHighBandwidthNetwork(request, countAndLease.lease)
+            releaseHighBandwidthNetwork(request, countAndLease.lease)
 
-        countAndLease.updateCount(newLease = null, delta = 0)
-    }
+            countAndLease.updateCount(newLease = null, delta = 0)
+        }
 
     private fun releaseHighBandwidthNetwork(request: HighBandwidthRequest, lease: NetworkLease) {
         logger.logNetworkEvent("Releasing High Bandwidth Network for ${request.type}")
@@ -203,7 +190,8 @@ public class StandardHighBandwidthNetworkMediator(
 
         override suspend fun awaitGranted(timeout: Duration): Boolean {
             val timeoutMillis =
-                lease.acquiredAt.toEpochMilli() + timeout.inWholeMilliseconds - System.currentTimeMillis()
+                lease.acquiredAt.toEpochMilli() + timeout.inWholeMilliseconds -
+                    System.currentTimeMillis()
 
             if (timeoutMillis <= 0L) {
                 return false

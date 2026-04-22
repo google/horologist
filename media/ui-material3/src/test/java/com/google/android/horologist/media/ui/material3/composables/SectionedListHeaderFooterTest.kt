@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,9 @@ class SectionedListHeaderFooterTest(
             ScreenScaffold(scrollState = scrollState) {
                 SectionedList(scrollState = scrollState) {
                     section(state = sectionStateParam) {
-                        header(visibleStates = headerVisibleStatesParam) { SectionedListTest.DownloadsHeader() }
+                        header(visibleStates = headerVisibleStatesParam) {
+                            SectionedListTest.DownloadsHeader()
+                        }
 
                         loading { SectionedListTest.DownloadsLoading() }
 
@@ -48,7 +50,9 @@ class SectionedListHeaderFooterTest(
 
                         empty { SectionedListTest.DownloadsEmpty() }
 
-                        footer(visibleStates = footerVisibleStatesParam) { SectionedListTest.DownloadsFooter() }
+                        footer(visibleStates = footerVisibleStatesParam) {
+                            SectionedListTest.DownloadsFooter()
+                        }
                     }
                 }
             }

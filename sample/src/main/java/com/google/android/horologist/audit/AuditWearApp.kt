@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,11 +37,12 @@ import com.google.android.horologist.compose.nav.composable
 import kotlin.reflect.typeOf
 
 @Composable
-fun AuditWearApp(
-    navController: NavHostController = rememberSwipeDismissableNavController(),
-) {
+fun AuditWearApp(navController: NavHostController = rememberSwipeDismissableNavController()) {
     AppScaffold {
-        SwipeDismissableNavHost(navController = navController, startDestination = AuditNavigation.MainMenu) {
+        SwipeDismissableNavHost(
+            navController = navController,
+            startDestination = AuditNavigation.MainMenu,
+        ) {
             composable<AuditNavigation.MainMenu> {
                 AuditMenuScreen(onClick = { navController.navigate(it) })
             }
@@ -77,7 +78,9 @@ fun AuditWearApp(
                 StepperAudit(route)
             }
             composable<ProgressIndicator.Audit>(
-                typeMap = mapOf(typeOf<ProgressIndicator.Config>() to enumType<ProgressIndicator.Config>()),
+                typeMap = mapOf(
+                    typeOf<ProgressIndicator.Config>() to enumType<ProgressIndicator.Config>(),
+                ),
             ) {
                 val route = it.toRoute<ProgressIndicator.Audit>()
                 ProgressIndicatorAudit(route)
@@ -89,7 +92,9 @@ fun AuditWearApp(
                 PageIndicatorAudit(route)
             }
             composable<PositionIndicator.Audit>(
-                typeMap = mapOf(typeOf<PositionIndicator.Config>() to enumType<PositionIndicator.Config>()),
+                typeMap = mapOf(
+                    typeOf<PositionIndicator.Config>() to enumType<PositionIndicator.Config>(),
+                ),
             ) {
                 val route = it.toRoute<PositionIndicator.Audit>()
                 PositionIndicatorAudit(route)
@@ -101,7 +106,9 @@ fun AuditWearApp(
                 VolumeRsbAudit(route)
             }
             composable<CurvedTimeText.Audit>(
-                typeMap = mapOf(typeOf<CurvedTimeText.Config>() to enumType<CurvedTimeText.Config>()),
+                typeMap = mapOf(
+                    typeOf<CurvedTimeText.Config>() to enumType<CurvedTimeText.Config>(),
+                ),
             ) {
                 val route = it.toRoute<CurvedTimeText.Audit>()
                 CurvedTimeTextAudit(route)

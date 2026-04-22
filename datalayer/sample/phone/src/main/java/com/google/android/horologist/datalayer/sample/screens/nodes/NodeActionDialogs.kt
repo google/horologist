@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,10 +42,7 @@ import androidx.compose.ui.window.Dialog
 import com.google.android.horologist.datalayer.sample.R
 
 @Composable
-fun NodesActionSucceededDialog(
-    message: String,
-    onDismissRequest: () -> Unit,
-) {
+fun NodesActionSucceededDialog(message: String, onDismissRequest: () -> Unit) {
     NodesActionDialog(
         message = message,
         onDismissRequest = onDismissRequest,
@@ -54,10 +51,7 @@ fun NodesActionSucceededDialog(
 }
 
 @Composable
-fun NodesActionFailureDialog(
-    message: String,
-    onDismissRequest: () -> Unit,
-) {
+fun NodesActionFailureDialog(message: String, onDismissRequest: () -> Unit) {
     NodesActionDialog(
         message = message,
         onDismissRequest = onDismissRequest,
@@ -66,11 +60,7 @@ fun NodesActionFailureDialog(
 }
 
 @Composable
-fun NodesActionDialog(
-    message: String,
-    onDismissRequest: () -> Unit,
-    imageVector: ImageVector,
-) {
+fun NodesActionDialog(message: String, onDismissRequest: () -> Unit, imageVector: ImageVector) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
             modifier = Modifier
@@ -102,7 +92,11 @@ fun NodesActionDialog(
                         onClick = { onDismissRequest() },
                         modifier = Modifier.padding(horizontal = 8.dp),
                     ) {
-                        Text(stringResource(id = R.string.node_screen_action_dialog_dismiss_button_label))
+                        Text(
+                            stringResource(
+                                id = R.string.node_screen_action_dialog_dismiss_button_label,
+                            ),
+                        )
                     }
                 }
             }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,18 +24,15 @@ import com.google.android.horologist.media.model.Playlist
  * Functions to map models from other layers and / or packages into a [Playlist].
  */
 @ExperimentalHorologistApi
-public class PlaylistMapper(
-    private val mediaMapper: MediaMapper,
-) {
+public class PlaylistMapper(private val mediaMapper: MediaMapper) {
 
     /**
      * Maps from a [PopulatedPlaylist].
      */
-    public fun map(populatedPlaylist: PopulatedPlaylist): Playlist =
-        Playlist(
-            id = populatedPlaylist.playlist.playlistId,
-            name = populatedPlaylist.playlist.name,
-            artworkUri = populatedPlaylist.playlist.artworkUri,
-            mediaList = populatedPlaylist.mediaList.map(mediaMapper::map),
-        )
+    public fun map(populatedPlaylist: PopulatedPlaylist): Playlist = Playlist(
+        id = populatedPlaylist.playlist.playlistId,
+        name = populatedPlaylist.playlist.name,
+        artworkUri = populatedPlaylist.playlist.artworkUri,
+        mediaList = populatedPlaylist.mediaList.map(mediaMapper::map),
+    )
 }

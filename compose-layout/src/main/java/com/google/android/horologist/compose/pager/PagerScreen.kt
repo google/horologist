@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,7 +65,10 @@ public fun PagerScreen(
             reverseLayout = reverseLayout,
             key = key,
         ) { page ->
-            ClippedBox(state, modifier = Modifier.hierarchicalFocusGroup(page == state.currentPage)) {
+            ClippedBox(
+                state,
+                modifier = Modifier.hierarchicalFocusGroup(page == state.currentPage),
+            ) {
                 content(page)
             }
         }
@@ -115,9 +118,7 @@ private fun Modifier.optionalClip(shapeState: State<RoundedCornerShape?>): Modif
 /**
  * Bridge between Foundation PagerState and the Wear Compose PageIndicatorState.
  */
-public class PageScreenIndicatorState(
-    private val state: PagerState,
-) : PageIndicatorState {
+public class PageScreenIndicatorState(private val state: PagerState) : PageIndicatorState {
     override val pageCount: Int
         get() = state.pageCount
 

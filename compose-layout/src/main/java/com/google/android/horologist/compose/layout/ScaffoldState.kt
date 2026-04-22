@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,11 +31,7 @@ internal class ScaffoldState {
         screenContent.removeIf { it.key === key }
     }
 
-    fun addScreen(
-        key: Any,
-        timeText: @Composable (() -> Unit)?,
-        scrollState: ScrollableState?,
-    ) {
+    fun addScreen(key: Any, timeText: @Composable (() -> Unit)?, scrollState: ScrollableState?) {
         screenContent.add(ScreenContent(key, scrollState, timeText))
     }
 

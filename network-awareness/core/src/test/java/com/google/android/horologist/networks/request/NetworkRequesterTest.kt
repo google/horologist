@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -106,7 +106,5 @@ public class FailingConnectivityManager : ShadowConnectivityManager() {
         request: NetworkRequest,
         networkCallback: ConnectivityManager.NetworkCallback,
         handler: Handler,
-    ) {
-        throw RuntimeException("TooManyRequestsException")
-    }
+    ): Unit = throw RuntimeException("TooManyRequestsException")
 }

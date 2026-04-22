@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,14 +25,15 @@ import androidx.lifecycle.ServiceLifecycleDispatcher
 import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
 
-public abstract class LifecycleMediaLibraryService : MediaLibraryService(), LifecycleOwner {
+public abstract class LifecycleMediaLibraryService :
+    MediaLibraryService(),
+    LifecycleOwner {
     private val dispatcher = ServiceLifecycleDispatcher(this)
 
     protected abstract val mediaLibrarySession: MediaLibrarySession
 
-    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {
-        return mediaLibrarySession
-    }
+    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? =
+        mediaLibrarySession
 
     @CallSuper
     override fun onCreate() {
@@ -54,9 +55,8 @@ public abstract class LifecycleMediaLibraryService : MediaLibraryService(), Life
     }
 
     @CallSuper
-    final override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return super.onStartCommand(intent, flags, startId)
-    }
+    final override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int =
+        super.onStartCommand(intent, flags, startId)
 
     @CallSuper
     override fun onDestroy() {

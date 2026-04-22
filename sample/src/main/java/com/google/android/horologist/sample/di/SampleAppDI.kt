@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,13 +33,13 @@ import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.NetworkRepository
 import com.google.android.horologist.networks.status.NetworkRepositoryImpl
 import com.google.android.horologist.sample.MainActivity
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import kotlin.time.Duration.Companion.seconds
 
 /**
  * Simple DI implementation - to be replaced by hilt.
@@ -60,13 +60,9 @@ object SampleAppDI {
     private fun getNetworkRepository(
         context: Context,
         coroutineScope: CoroutineScope,
-    ): NetworkRepository {
-        return NetworkRepositoryImpl.fromContext(context, coroutineScope)
-    }
+    ): NetworkRepository = NetworkRepositoryImpl.fromContext(context, coroutineScope)
 
-    private fun getDataRequestRepository(): DataRequestRepository {
-        return InMemoryDataRequestRepository()
-    }
+    private fun getDataRequestRepository(): DataRequestRepository = InMemoryDataRequestRepository()
 
     private fun getNetworkAwareCallFactory(
         context: Context,

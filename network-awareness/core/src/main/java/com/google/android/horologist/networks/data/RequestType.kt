@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,9 +29,7 @@ public interface RequestType {
      */
     @ExperimentalHorologistApi
     public object ImageRequest : RequestType {
-        override fun toString(): String {
-            return "image"
-        }
+        override fun toString(): String = "image"
     }
 
     /**
@@ -41,7 +39,9 @@ public interface RequestType {
     public data class MediaRequest(public val type: MediaRequestType) : RequestType {
         public val name: String = "media-${type.toString().lowercase()}"
         public enum class MediaRequestType {
-            Stream, Download, Live
+            Stream,
+            Download,
+            Live,
         }
         override fun toString(): String = name
 
@@ -57,9 +57,7 @@ public interface RequestType {
      */
     @ExperimentalHorologistApi
     public object ApiRequest : RequestType {
-        override fun toString(): String {
-            return "api"
-        }
+        override fun toString(): String = "api"
     }
 
     /**
@@ -67,9 +65,7 @@ public interface RequestType {
      */
     @ExperimentalHorologistApi
     public object LogsRequest : RequestType {
-        override fun toString(): String {
-            return "logs"
-        }
+        override fun toString(): String = "logs"
     }
 
     /**
@@ -77,8 +73,6 @@ public interface RequestType {
      */
     @ExperimentalHorologistApi
     public object UnknownRequest : RequestType {
-        override fun toString(): String {
-            return "unknown"
-        }
+        override fun toString(): String = "unknown"
     }
 }

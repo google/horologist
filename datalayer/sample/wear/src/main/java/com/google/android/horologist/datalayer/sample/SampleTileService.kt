@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,8 +39,8 @@ import androidx.wear.tiles.TileBuilders
 import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class SampleTileService : SuspendingTileService() {
@@ -49,13 +49,13 @@ class SampleTileService : SuspendingTileService() {
 
     private val renderer = SampleTileRenderer(this)
 
-    override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): TileBuilders.Tile {
-        return renderer.renderTimeline(Unit, requestParams)
-    }
+    override suspend fun tileRequest(
+        requestParams: RequestBuilders.TileRequest,
+    ): TileBuilders.Tile = renderer.renderTimeline(Unit, requestParams)
 
-    override suspend fun resourcesRequest(requestParams: RequestBuilders.ResourcesRequest): ResourceBuilders.Resources {
-        return renderer.produceRequestedResources(Unit, requestParams)
-    }
+    override suspend fun resourcesRequest(
+        requestParams: RequestBuilders.ResourcesRequest,
+    ): ResourceBuilders.Resources = renderer.produceRequestedResources(Unit, requestParams)
 
     override fun onTileAddEvent(requestParams: EventBuilders.TileAddEvent) {
         updateTiles()
@@ -82,7 +82,9 @@ class SampleTileRenderer(context: Context) : SingleTileLayoutRenderer<Unit, Unit
                 LaunchAction.Builder()
                     .setAndroidActivity(
                         AndroidActivity.Builder()
-                            .setClassName("com.google.android.horologist.datalayer.sample.MainActivity")
+                            .setClassName(
+                                "com.google.android.horologist.datalayer.sample.MainActivity",
+                            )
                             .setPackageName("com.google.android.horologist.datalayer.sample")
                             .build(),
                     )

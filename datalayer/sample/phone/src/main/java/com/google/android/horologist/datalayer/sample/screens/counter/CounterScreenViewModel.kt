@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import com.google.android.horologist.datalayer.sample.shared.grpc.GrpcDemoProto
 import com.google.android.horologist.datalayer.sample.shared.grpc.copy
 import com.google.android.horologist.datalayer.sample.util.toProtoTimestamp
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,76 +35,77 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class CounterScreenViewModel
-    @Inject
-    constructor(
-        private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-        private val registry: WearDataLayerRegistry,
-    ) : ViewModel() {
+@Inject
+constructor(
+    private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+    private val registry: WearDataLayerRegistry,
+) : ViewModel() {
 
-        private var initializeCalled = false
-        private val apiAvailable = MutableStateFlow(false)
+    private var initializeCalled = false
+    private val apiAvailable = MutableStateFlow(false)
 
-        private lateinit var counterDataStore: DataStore<GrpcDemoProto.CounterValue>
+    private lateinit var counterDataStore: DataStore<GrpcDemoProto.CounterValue>
 
-        @OptIn(ExperimentalCoroutinesApi::class)
-        private val counterState: Flow<GrpcDemoProto.CounterValue?> =
-            apiAvailable.flatMapLatest { apiAvailable ->
-                if (!apiAvailable) {
-                    flowOf(null)
-                } else {
-                    counterDataStore.data
-                }
-            }
-
-        private val _uiState = MutableStateFlow<CounterScreenUiState>(CounterScreenUiState.Idle)
-        public val uiState: StateFlow<CounterScreenUiState> = _uiState
-
-        @MainThread
-        fun initialize() {
-            if (initializeCalled) return
-            initializeCalled = true
-
-            viewModelScope.launch {
-                _uiState.value = CounterScreenUiState.CheckingApiAvailability
-                if (!phoneDataLayerAppHelper.isAvailable()) {
-                    _uiState.value = CounterScreenUiState.ApiNotAvailable
-                } else {
-                    apiAvailable.value = true
-                    counterDataStore =
-                        registry.protoDataStore<GrpcDemoProto.CounterValue>(viewModelScope)
-                    _uiState.value = CounterScreenUiState.Loading
-                }
-
-                counterState.collect { counter ->
-                    if (counter != null) {
-                        when (_uiState.value) {
-                            CounterScreenUiState.Loading,
-                            is CounterScreenUiState.Loaded,
-                            -> {
-                                _uiState.value = CounterScreenUiState.Loaded(counter = counter.value)
-                            }
-                            else -> { /* noop */ }
-                        }
-                    }
-                }
+    @OptIn(ExperimentalCoroutinesApi::class)
+    private val counterState: Flow<GrpcDemoProto.CounterValue?> =
+        apiAvailable.flatMapLatest { apiAvailable ->
+            if (!apiAvailable) {
+                flowOf(null)
+            } else {
+                counterDataStore.data
             }
         }
 
-        fun updateCounter() {
-            viewModelScope.launch {
-                counterDataStore.updateData {
-                    it.copy {
-                        value += 1
-                        updated = System.currentTimeMillis().toProtoTimestamp()
+    private val _uiState = MutableStateFlow<CounterScreenUiState>(CounterScreenUiState.Idle)
+    public val uiState: StateFlow<CounterScreenUiState> = _uiState
+
+    @MainThread
+    fun initialize() {
+        if (initializeCalled) return
+        initializeCalled = true
+
+        viewModelScope.launch {
+            _uiState.value = CounterScreenUiState.CheckingApiAvailability
+            if (!phoneDataLayerAppHelper.isAvailable()) {
+                _uiState.value = CounterScreenUiState.ApiNotAvailable
+            } else {
+                apiAvailable.value = true
+                counterDataStore =
+                    registry.protoDataStore<GrpcDemoProto.CounterValue>(viewModelScope)
+                _uiState.value = CounterScreenUiState.Loading
+            }
+
+            counterState.collect { counter ->
+                if (counter != null) {
+                    when (_uiState.value) {
+                        CounterScreenUiState.Loading,
+                        is CounterScreenUiState.Loaded,
+                        -> {
+                            _uiState.value =
+                                CounterScreenUiState.Loaded(counter = counter.value)
+                        }
+
+                        else -> { /* noop */ }
                     }
                 }
             }
         }
     }
+
+    fun updateCounter() {
+        viewModelScope.launch {
+            counterDataStore.updateData {
+                it.copy {
+                    value += 1
+                    updated = System.currentTimeMillis().toProtoTimestamp()
+                }
+            }
+        }
+    }
+}
 
 public sealed class CounterScreenUiState {
     public data object Idle : CounterScreenUiState()

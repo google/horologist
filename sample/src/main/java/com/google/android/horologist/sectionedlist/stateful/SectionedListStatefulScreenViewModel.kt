@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,11 @@ import androidx.compose.material.icons.filled.SelfImprovement
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlin.random.Random
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlin.random.Random
 
 class SectionedListStatefulScreenViewModel : ViewModel() {
 
@@ -54,10 +54,7 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
         object Failed : RecommendationSectionState()
     }
 
-    data class Recommendation(
-        val playlistName: String,
-        val icon: ImageVector,
-    )
+    data class Recommendation(val playlistName: String, val icon: ImageVector)
 
     sealed class TrendingSectionState {
         object Loading : TrendingSectionState()
@@ -65,10 +62,7 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
         object Failed : TrendingSectionState()
     }
 
-    data class Trending(
-        val name: String,
-        val artist: String,
-    )
+    data class Trending(val name: String, val artist: String)
 
     fun loadRecommendations() {
         viewModelScope.launch {
@@ -85,7 +79,10 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
                 } else {
                     RecommendationSectionState.Loaded(
                         list = listOf(
-                            Recommendation("Running playlist", Icons.AutoMirrored.Default.DirectionsRun),
+                            Recommendation(
+                                "Running playlist",
+                                Icons.AutoMirrored.Default.DirectionsRun,
+                            ),
                             Recommendation("Focus", Icons.Default.SelfImprovement),
                         ),
                     )
@@ -118,11 +115,7 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
         }
     }
 
-    private fun shouldFailToLoad(): Boolean {
-        return Random.nextInt(1, 3) == 1
-    }
+    private fun shouldFailToLoad(): Boolean = Random.nextInt(1, 3) == 1
 
-    private fun getRandomTimeInMillis(): Long {
-        return Random.nextLong(3000, 7000)
-    }
+    private fun getRandomTimeInMillis(): Long = Random.nextLong(3000, 7000)
 }

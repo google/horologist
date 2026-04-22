@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  * Representation of a [Media] download.
  */
 @ExperimentalHorologistApi
-public data class MediaDownload(
-    val media: Media,
-    val status: Status,
-    val size: Size,
-) {
+public data class MediaDownload(val media: Media, val status: Status, val size: Size) {
 
     /**
      * Status of the download of a [MediaDownload].

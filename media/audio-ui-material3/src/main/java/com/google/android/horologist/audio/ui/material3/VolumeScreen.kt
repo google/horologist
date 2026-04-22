@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -299,7 +299,15 @@ public fun VolumeScreen(
                     contentDescription = volumeDescription
                 },
             value = currentValue,
-            onValueChange = { if (it > volumeState.current) increaseVolume() else decreaseVolume() },
+            onValueChange = {
+                if (it >
+                    volumeState.current
+                ) {
+                    increaseVolume()
+                } else {
+                    decreaseVolume()
+                }
+            },
             steps = volumeState.max - 1,
             increaseIcon = { increaseIcon() },
             decreaseIcon = { decreaseIcon() },
@@ -308,10 +316,14 @@ public fun VolumeScreen(
                     contentColor = colorScheme.onSurface,
                     buttonContainerColor = colorScheme.primaryContainer,
                     buttonIconColor = colorScheme.primary,
-                    disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+                    disabledContentColor = colorScheme.onSurface.toDisabledColor(
+                        DisabledContentAlpha,
+                    ),
                     disabledButtonContainerColor =
                         colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-                    disabledButtonIconColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+                    disabledButtonIconColor = colorScheme.onSurface.toDisabledColor(
+                        DisabledContentAlpha,
+                    ),
                 ),
         ) {
             content()
@@ -326,7 +338,9 @@ public object VolumeScreenDefaults {
             modifier = Modifier.size(StepperDefaults.IconSize),
             imageVector = Icons.AutoMirrored.Rounded.VolumeUp,
             contentDescription =
-                stringResource(id = R.string.horologist_volume_screen_volume_up_content_description),
+                stringResource(
+                    id = R.string.horologist_volume_screen_volume_up_content_description,
+                ),
         )
     }
 
@@ -336,7 +350,9 @@ public object VolumeScreenDefaults {
             modifier = Modifier.size(StepperDefaults.IconSize),
             imageVector = Icons.AutoMirrored.Rounded.VolumeDown,
             contentDescription =
-                stringResource(id = R.string.horologist_volume_screen_volume_down_content_description),
+                stringResource(
+                    id = R.string.horologist_volume_screen_volume_down_content_description,
+                ),
         )
     }
 }

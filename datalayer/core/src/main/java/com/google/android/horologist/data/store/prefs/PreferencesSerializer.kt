@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,11 +82,17 @@ internal object PreferencesSerializer : Serializer<Preferences> {
         @Suppress("UNCHECKED_CAST")
         return when (value) {
             is Boolean -> Value.newBuilder().setBoolean(value).build()
+
             is Float -> Value.newBuilder().setFloat(value).build()
+
             is Double -> Value.newBuilder().setDouble(value).build()
+
             is Int -> Value.newBuilder().setInteger(value).build()
+
             is Long -> Value.newBuilder().setLong(value).build()
+
             is String -> Value.newBuilder().setString(value).build()
+
             is Set<*> -> Value.newBuilder().setStringSet(
                 StringSet.newBuilder().addAllStrings(value as Set<String>),
             ).build()
@@ -101,26 +107,30 @@ internal object PreferencesSerializer : Serializer<Preferences> {
         name: String,
         value: Value,
         mutablePreferences: MutablePreferences,
-    ) {
-        return when (value.valueCase) {
-            Value.ValueCase.BOOLEAN ->
-                mutablePreferences[booleanPreferencesKey(name)] =
-                    value.boolean
+    ) = when (value.valueCase) {
+        Value.ValueCase.BOOLEAN ->
+            mutablePreferences[booleanPreferencesKey(name)] =
+                value.boolean
 
-            Value.ValueCase.FLOAT -> mutablePreferences[floatPreferencesKey(name)] = value.float
-            Value.ValueCase.DOUBLE -> mutablePreferences[doublePreferencesKey(name)] = value.double
-            Value.ValueCase.INTEGER -> mutablePreferences[intPreferencesKey(name)] = value.integer
-            Value.ValueCase.LONG -> mutablePreferences[longPreferencesKey(name)] = value.long
-            Value.ValueCase.STRING -> mutablePreferences[stringPreferencesKey(name)] = value.string
-            Value.ValueCase.STRING_SET ->
-                mutablePreferences[stringSetPreferencesKey(name)] =
-                    value.stringSet.stringsList.toSet()
+        Value.ValueCase.FLOAT -> mutablePreferences[floatPreferencesKey(name)] = value.float
 
-            Value.ValueCase.VALUE_NOT_SET ->
-                throw CorruptionException("Value not set.")
+        Value.ValueCase.DOUBLE -> mutablePreferences[doublePreferencesKey(name)] = value.double
 
-            null -> throw CorruptionException("Value case is null.")
-            else -> throw CorruptionException("Value case is not supported.")
-        }
+        Value.ValueCase.INTEGER -> mutablePreferences[intPreferencesKey(name)] = value.integer
+
+        Value.ValueCase.LONG -> mutablePreferences[longPreferencesKey(name)] = value.long
+
+        Value.ValueCase.STRING -> mutablePreferences[stringPreferencesKey(name)] = value.string
+
+        Value.ValueCase.STRING_SET ->
+            mutablePreferences[stringSetPreferencesKey(name)] =
+                value.stringSet.stringsList.toSet()
+
+        Value.ValueCase.VALUE_NOT_SET ->
+            throw CorruptionException("Value not set.")
+
+        null -> throw CorruptionException("Value case is null.")
+
+        else -> throw CorruptionException("Value case is not supported.")
     }
 }

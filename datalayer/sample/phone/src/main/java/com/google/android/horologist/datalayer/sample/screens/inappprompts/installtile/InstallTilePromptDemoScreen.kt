@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -130,7 +130,9 @@ fun InstallTilePromptDemoScreen(
                 Text(
                     stringResource(
                         id = R.string.reengage_prompt_demo_result_label,
-                        stringResource(id = R.string.install_tile_prompt_demo_no_watches_found_label),
+                        stringResource(
+                            id = R.string.install_tile_prompt_demo_no_watches_found_label,
+                        ),
                     ),
                 )
             }
@@ -139,7 +141,9 @@ fun InstallTilePromptDemoScreen(
                 Text(
                     stringResource(
                         id = R.string.reengage_prompt_demo_result_label,
-                        stringResource(id = R.string.install_tile_prompt_demo_prompt_positive_result_label),
+                        stringResource(
+                            id = R.string.install_tile_prompt_demo_prompt_positive_result_label,
+                        ),
                     ),
                 )
             }
@@ -148,7 +152,9 @@ fun InstallTilePromptDemoScreen(
                 Text(
                     stringResource(
                         id = R.string.reengage_prompt_demo_result_label,
-                        stringResource(id = R.string.install_tile_prompt_demo_prompt_dismiss_result_label),
+                        stringResource(
+                            id = R.string.install_tile_prompt_demo_prompt_dismiss_result_label,
+                        ),
                     ),
                 )
             }

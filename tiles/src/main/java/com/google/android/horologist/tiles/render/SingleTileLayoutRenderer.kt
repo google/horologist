@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,10 +45,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
 
     public open val freshnessIntervalMillis: Long = 0L
 
-    final override fun renderTimeline(
-        state: T,
-        requestParams: RequestBuilders.TileRequest,
-    ): Tile {
+    final override fun renderTimeline(state: T, requestParams: RequestBuilders.TileRequest): Tile {
         val rootLayout = renderTile(state, requestParams.deviceConfiguration)
 
         val singleTileTimeline = TimelineBuilders.Timeline.Builder()
@@ -87,18 +84,16 @@ public abstract class SingleTileLayoutRenderer<T, R>(
     final override fun produceRequestedResources(
         resourceState: R,
         requestParams: RequestBuilders.ResourcesRequest,
-    ): Resources {
-        return Resources.Builder()
-            .setVersion(requestParams.version)
-            .apply {
-                produceRequestedResources(
-                    resourceState,
-                    requestParams.deviceConfiguration,
-                    requestParams.resourceIds,
-                )
-            }
-            .build()
-    }
+    ): Resources = Resources.Builder()
+        .setVersion(requestParams.version)
+        .apply {
+            produceRequestedResources(
+                resourceState,
+                requestParams.deviceConfiguration,
+                requestParams.resourceIds,
+            )
+        }
+        .build()
 
     /**
      * Add resources directly to the builder.

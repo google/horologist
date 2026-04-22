@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -132,14 +132,15 @@ fun MarqueeTextConstantWithIconScrollingPreview() {
             append("A long string next to an icon")
         },
         inlineContent = mapOf(
-            "firetruck" to InlineTextContent(Placeholder(20.sp, 20.sp, PlaceholderVerticalAlign.Center)) {
-                Image(
-                    imageVector = Icons.Default.FireTruck,
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(Color.White),
-                    contentScale = ContentScale.FillHeight,
-                )
-            },
+            "firetruck" to
+                InlineTextContent(Placeholder(20.sp, 20.sp, PlaceholderVerticalAlign.Center)) {
+                    Image(
+                        imageVector = Icons.Default.FireTruck,
+                        contentDescription = null,
+                        colorFilter = ColorFilter.tint(Color.White),
+                        contentScale = ContentScale.FillHeight,
+                    )
+                },
         ),
         modifier = Modifier
             .background(Color.DarkGray)

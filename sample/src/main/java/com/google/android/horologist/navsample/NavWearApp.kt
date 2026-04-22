@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,9 +48,7 @@ import com.google.android.horologist.networks.NetworkStatusViewModel
 import com.google.android.horologist.networks.ui.DataUsageTimeText
 
 @Composable
-fun NavWearApp(
-    navController: NavHostController,
-) {
+fun NavWearApp(navController: NavHostController) {
     val snackbarViewModel = viewModel<SnackbarViewModel>(factory = SnackbarViewModel.Factory)
     val networkStatusViewModel =
         viewModel<NetworkStatusViewModel>(factory = NetworkStatusViewModel.Factory)
@@ -77,7 +75,8 @@ fun NavWearApp(
             composable(
                 NavScreen.Menu.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     NavMenuScreen(
@@ -90,7 +89,8 @@ fun NavWearApp(
             composable(
                 NavScreen.ScalingLazyColumn.route,
             ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
+                val columnState =
+                    rememberResponsiveColumnState(first = ItemType.Text, last = ItemType.Chip)
 
                 ScreenScaffold(scrollState = columnState) {
                     BigScalingLazyColumn(

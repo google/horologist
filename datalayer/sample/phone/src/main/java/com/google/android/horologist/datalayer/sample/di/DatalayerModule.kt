@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,10 +25,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -36,9 +36,8 @@ object DatalayerModule {
 
     @Singleton
     @Provides
-    fun providesCoroutineScope(): CoroutineScope {
-        return CoroutineScope(SupervisorJob() + Dispatchers.Default)
-    }
+    fun providesCoroutineScope(): CoroutineScope =
+        CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     @Singleton
     @Provides

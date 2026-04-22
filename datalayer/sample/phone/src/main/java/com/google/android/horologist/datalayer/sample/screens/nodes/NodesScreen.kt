@@ -45,12 +45,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.data.ComplicationInfo
 import com.google.android.horologist.data.SurfacesInfo
 import com.google.android.horologist.data.TileInfo
-import com.google.android.horologist.data.surfacesInfo
-import com.google.android.horologist.data.tileInfo
-import com.google.android.horologist.data.complicationInfo
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.data.apphelper.AppInstallationStatus
 import com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType
+import com.google.android.horologist.data.complicationInfo
+import com.google.android.horologist.data.surfacesInfo
+import com.google.android.horologist.data.tileInfo
 import com.google.android.horologist.datalayer.sample.R
 import com.google.android.horologist.datalayer.sample.util.toProtoTimestamp
 

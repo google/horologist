@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,8 +51,14 @@ private fun SectionedListScope.appHelpersSection(navigateToRoute: (String) -> Un
     section(
         listOf(
             Pair(R.string.main_menu_apphelpers_tracking_item, Screen.AppHelperTrackingScreen.route),
-            Pair(R.string.main_menu_apphelpers_nodes_actions_item, Screen.AppHelperNodesActionsScreen.route),
-            Pair(R.string.main_menu_apphelpers_nodes_listener_item, Screen.AppHelperNodesListenerScreen.route),
+            Pair(
+                R.string.main_menu_apphelpers_nodes_actions_item,
+                Screen.AppHelperNodesActionsScreen.route,
+            ),
+            Pair(
+                R.string.main_menu_apphelpers_nodes_listener_item,
+                Screen.AppHelperNodesListenerScreen.route,
+            ),
         ),
     ) {
         header {

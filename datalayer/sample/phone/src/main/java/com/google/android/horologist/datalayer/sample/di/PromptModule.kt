@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,17 +25,18 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineScope
 
 @Module
 @InstallIn(SingletonComponent::class)
 object PromptModule {
     @Singleton
     @Provides
-    fun installAppPrompt(phoneDataLayerAppHelper: PhoneDataLayerAppHelper): InstallAppPrompt = InstallAppPrompt(
-        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
-    )
+    fun installAppPrompt(phoneDataLayerAppHelper: PhoneDataLayerAppHelper): InstallAppPrompt =
+        InstallAppPrompt(
+            phoneDataLayerAppHelper = phoneDataLayerAppHelper,
+        )
 
     @Singleton
     @Provides
@@ -59,9 +60,8 @@ object PromptModule {
 
     @Singleton
     @Provides
-    fun installTilePrompt(
-        phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-    ): InstallTilePrompt = InstallTilePrompt(
-        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
-    )
+    fun installTilePrompt(phoneDataLayerAppHelper: PhoneDataLayerAppHelper): InstallTilePrompt =
+        InstallTilePrompt(
+            phoneDataLayerAppHelper = phoneDataLayerAppHelper,
+        )
 }

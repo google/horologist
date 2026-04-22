@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 package com.google.android.horologist.compose.rotaryinput
 
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
+import org.junit.Test
 
 class RotaryInputAccumulatorTest {
 

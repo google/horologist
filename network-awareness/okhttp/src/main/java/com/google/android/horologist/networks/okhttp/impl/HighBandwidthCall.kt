@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,8 @@ import com.google.android.horologist.networks.okhttp.highBandwidthConnectionLeas
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.requestType
 import com.google.android.horologist.networks.request.HighBandwidthRequest
+import java.io.IOException
+import kotlin.reflect.KClass
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.Call
@@ -32,8 +34,6 @@ import okhttp3.Request
 import okhttp3.Response
 import okio.AsyncTimeout
 import okio.Timeout
-import java.io.IOException
-import kotlin.reflect.KClass
 
 /**
  * A deferred call that needs to wait for [HighBandwidthConnectionLease.awaitGranted]
@@ -90,9 +90,8 @@ internal class HighBandwidthCall(
         }
     }
 
-    override fun execute(): Response {
+    override fun execute(): Response =
         throw IOException("High Bandwidth Requests are not supported with execute")
-    }
 
     private fun requestNetwork(): HighBandwidthConnectionLease {
         val requestType = request.requestType
@@ -119,7 +118,9 @@ internal class HighBandwidthCall(
 
     override fun <T> tag(type: Class<out T>): T? = call?.tag(type)
 
-    override fun <T : Any> tag(type: KClass<T>, computeIfAbsent: () -> T): T = call?.tag(type, computeIfAbsent) ?: computeIfAbsent()
+    override fun <T : Any> tag(type: KClass<T>, computeIfAbsent: () -> T): T =
+        call?.tag(type, computeIfAbsent) ?: computeIfAbsent()
 
-    override fun <T : Any> tag(type: Class<T>, computeIfAbsent: () -> T): T = call?.tag(type, computeIfAbsent) ?: computeIfAbsent()
+    override fun <T : Any> tag(type: Class<T>, computeIfAbsent: () -> T): T =
+        call?.tag(type, computeIfAbsent) ?: computeIfAbsent()
 }

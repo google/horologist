@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,17 +37,13 @@ internal class NetworkSpecificSocketFactory(
         return this
     }
 
-    override fun createSocket(): Socket {
-        return socketFactory.createSocket().bindToPreferredNetwork()
-    }
+    override fun createSocket(): Socket = socketFactory.createSocket().bindToPreferredNetwork()
 
-    override fun createSocket(host: String, port: Int): Socket {
-        return socketFactory.createSocket(host, port).bindToPreferredNetwork()
-    }
+    override fun createSocket(host: String, port: Int): Socket =
+        socketFactory.createSocket(host, port).bindToPreferredNetwork()
 
-    override fun createSocket(host: InetAddress, port: Int): Socket {
-        return socketFactory.createSocket(host, port).bindToPreferredNetwork()
-    }
+    override fun createSocket(host: InetAddress, port: Int): Socket =
+        socketFactory.createSocket(host, port).bindToPreferredNetwork()
 
     // Unsupported operations
 
@@ -56,16 +52,12 @@ internal class NetworkSpecificSocketFactory(
         port: Int,
         localHost: InetAddress?,
         localPort: Int,
-    ): Socket {
-        return socketFactory.createSocket(host, port, localHost, localPort)
-    }
+    ): Socket = socketFactory.createSocket(host, port, localHost, localPort)
 
     override fun createSocket(
         address: InetAddress,
         port: Int,
         localAddress: InetAddress?,
         localPort: Int,
-    ): Socket {
-        return socketFactory.createSocket(address, port, localAddress, localPort)
-    }
+    ): Socket = socketFactory.createSocket(address, port, localAddress, localPort)
 }

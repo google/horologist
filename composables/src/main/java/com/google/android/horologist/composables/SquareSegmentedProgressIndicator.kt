@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -339,68 +339,63 @@ internal data class Measures(
         indicatorBrush: Brush,
         trackColor: Color,
         range: ClosedFloatingPointRange<Float>,
-    ): List<CalculatedSegment> {
-        return buildList {
-            range.intersect(topRightRange)?.let {
-                if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorBrush, trackColor, topRight, it))
-                }
+    ): List<CalculatedSegment> = buildList {
+        range.intersect(topRightRange)?.let {
+            if (!it.isZeroWidth()) {
+                add(CalculatedSegment(indicatorBrush, trackColor, topRight, it))
             }
-            range.intersect(rightTopCornerRange)?.let {
-                if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorBrush, trackColor, rightTopCorner, it))
-                }
+        }
+        range.intersect(rightTopCornerRange)?.let {
+            if (!it.isZeroWidth()) {
+                add(CalculatedSegment(indicatorBrush, trackColor, rightTopCorner, it))
             }
-            range.intersect(rightRange)?.let {
-                if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorBrush, trackColor, right, it))
-                }
+        }
+        range.intersect(rightRange)?.let {
+            if (!it.isZeroWidth()) {
+                add(CalculatedSegment(indicatorBrush, trackColor, right, it))
             }
-            range.intersect(rightBottomCornerRange)?.let {
-                if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorBrush, trackColor, rightBottomCorner, it))
-                }
+        }
+        range.intersect(rightBottomCornerRange)?.let {
+            if (!it.isZeroWidth()) {
+                add(CalculatedSegment(indicatorBrush, trackColor, rightBottomCorner, it))
             }
-            range.intersect(bottomRange)?.let {
-                if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorBrush, trackColor, bottom, it))
-                }
+        }
+        range.intersect(bottomRange)?.let {
+            if (!it.isZeroWidth()) {
+                add(CalculatedSegment(indicatorBrush, trackColor, bottom, it))
             }
-            range.intersect(leftBottomCornerRange)?.let {
-                if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorBrush, trackColor, leftBottomCorner, it))
-                }
+        }
+        range.intersect(leftBottomCornerRange)?.let {
+            if (!it.isZeroWidth()) {
+                add(CalculatedSegment(indicatorBrush, trackColor, leftBottomCorner, it))
             }
-            range.intersect(leftRange)?.let {
-                if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorBrush, trackColor, left, it))
-                }
+        }
+        range.intersect(leftRange)?.let {
+            if (!it.isZeroWidth()) {
+                add(CalculatedSegment(indicatorBrush, trackColor, left, it))
             }
-            range.intersect(leftTopCornerRange)?.let {
-                if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorBrush, trackColor, leftTopCorner, it))
-                }
+        }
+        range.intersect(leftTopCornerRange)?.let {
+            if (!it.isZeroWidth()) {
+                add(CalculatedSegment(indicatorBrush, trackColor, leftTopCorner, it))
             }
-            range.intersect(topLeftRange)?.let {
-                if (!it.isZeroWidth()) {
-                    add(CalculatedSegment(indicatorBrush, trackColor, topLeft, it))
-                }
+        }
+        range.intersect(topLeftRange)?.let {
+            if (!it.isZeroWidth()) {
+                add(CalculatedSegment(indicatorBrush, trackColor, topLeft, it))
             }
         }
     }
 }
 
-private fun ClosedRange<Float>.isZeroWidth(): Boolean {
-    return endInclusive <= start
-}
+private fun ClosedRange<Float>.isZeroWidth(): Boolean = endInclusive <= start
 
-internal fun ClosedRange<Float>.intersect(with: ClosedRange<Float>): ClosedRange<Float>? {
-    return if (this.start < with.endInclusive && with.start < this.endInclusive) {
+internal fun ClosedRange<Float>.intersect(with: ClosedRange<Float>): ClosedRange<Float>? =
+    if (this.start < with.endInclusive && with.start < this.endInclusive) {
         (start.coerceAtLeast(with.start)..endInclusive.coerceAtMost(with.endInclusive))
     } else {
         null
     }
-}
 
 private fun calculateSegments(
     height: Float,

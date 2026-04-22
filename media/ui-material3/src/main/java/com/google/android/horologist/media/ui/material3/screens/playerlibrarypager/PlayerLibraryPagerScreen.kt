@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,8 +32,8 @@ import androidx.wear.compose.material3.ScreenScaffold
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.material3.VolumeLevelIndicator
 import com.google.android.horologist.media.ui.material3.navigation.NavigationScreens
-import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.CancellationException
+import kotlinx.coroutines.flow.Flow
 
 /**
  * A HorizontalPager with a player screen, using volume control on the left,

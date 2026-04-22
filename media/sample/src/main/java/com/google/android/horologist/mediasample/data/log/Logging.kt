@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,12 +21,8 @@ import android.util.Log
 import androidx.annotation.StringRes
 import com.google.android.horologist.media3.logging.ErrorReporter
 
-public class Logging(
-    private val res: Resources,
-) : ErrorReporter {
-    override fun showMessage(
-        @StringRes message: Int,
-    ) {
+public class Logging(private val res: Resources) : ErrorReporter {
+    override fun showMessage(@StringRes message: Int) {
         val messageString = res.getString(message)
         Log.i("ErrorReporter", messageString)
     }
@@ -38,7 +34,11 @@ public class Logging(
             ErrorReporter.Level.Debug -> Log.DEBUG
         }
 
-    override fun logMessage(message: String, category: ErrorReporter.Category, level: ErrorReporter.Level) {
+    override fun logMessage(
+        message: String,
+        category: ErrorReporter.Category,
+        level: ErrorReporter.Level,
+    ) {
         Log.println(level.loggingLevel, category.name, message)
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.SurfacesInfoSerializer
 import com.google.common.truth.Truth.assertThat
 import com.google.common.util.concurrent.ListenableFuture
+import java.util.concurrent.Executor
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -52,7 +53,6 @@ import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.annotation.internal.DoNotInstrument
 import org.robolectric.internal.bytecode.InstrumentationConfiguration
-import java.util.concurrent.Executor
 
 @RunWith(TilesTestingTestRunner::class)
 @DoNotInstrument
@@ -126,7 +126,10 @@ class ShadowTileService {
 
         @JvmStatic
         @Implementation
-        fun getActiveTilesAsync(context: Context, executor: Executor): ListenableFuture<List<ActiveTileIdentifier>> {
+        fun getActiveTilesAsync(
+            context: Context,
+            executor: Executor,
+        ): ListenableFuture<List<ActiveTileIdentifier>> {
             val future = ResolvableFuture.create<List<ActiveTileIdentifier>>()
             future.set(activeTiles)
             return future
@@ -142,7 +145,9 @@ private class FakeTileService : TileService() {
     private var onTileRemoveFired = false
     private var onTileEnterFired = false
     private var onTileLeaveFired = false
-    override fun onTileRequest(requestParams: RequestBuilders.TileRequest): ListenableFuture<TileBuilders.Tile> {
+    override fun onTileRequest(
+        requestParams: RequestBuilders.TileRequest,
+    ): ListenableFuture<TileBuilders.Tile> {
         val f = ResolvableFuture.create<TileBuilders.Tile>()
 
         f.set(TileBuilders.Tile.Builder().setResourcesVersion(RESOURCES_VERSION).build())

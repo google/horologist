@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,9 +32,9 @@ import com.google.android.horologist.tiles.complication.ComplicationTemplate
 import com.google.android.horologist.tiles.complication.DataComplicationService
 import com.google.android.horologist.tiles.images.loadImage
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.withTimeoutOrNull
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.withTimeoutOrNull
 
 /**
  * A media complication service that shows the app name and favorites category
@@ -104,12 +104,11 @@ class MediaStatusComplicationService :
     private fun createContentDescription(
         mediaTitle: String,
         mediaArtist: String,
-    ): ComplicationText =
-        PlainComplicationText.Builder(
-            text = getString(
-                R.string.complication_content_description,
-                mediaTitle,
-                mediaArtist,
-            ),
-        ).build()
+    ): ComplicationText = PlainComplicationText.Builder(
+        text = getString(
+            R.string.complication_content_description,
+            mediaTitle,
+            mediaArtist,
+        ),
+    ).build()
 }

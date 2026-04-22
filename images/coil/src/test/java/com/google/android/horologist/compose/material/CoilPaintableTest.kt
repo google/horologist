@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,10 @@ class CoilPaintableTest : WearLegacyComponentTest() {
                 val rawBitmap =
                     BitmapFactory.decodeFile("src/main/res/drawable-nodpi/sample_image.png")
 
-                val resultBitmap = it.request.transformations.fold(rawBitmap) { bitmap, transformation ->
+                val resultBitmap = it.request.transformations.fold(rawBitmap) {
+                        bitmap,
+                        transformation,
+                    ->
                     transformation.transform(bitmap, it.size)
                 }
 

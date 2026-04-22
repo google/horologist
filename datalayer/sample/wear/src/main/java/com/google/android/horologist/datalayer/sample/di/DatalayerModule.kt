@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,15 +49,12 @@ object DatalayerModule {
 
     @ActivityRetainedScoped
     @Provides
-    fun coroutineScope(
-        activityRetainedLifecycle: ActivityRetainedLifecycle,
-    ): CoroutineScope {
-        return CoroutineScope(SupervisorJob() + Dispatchers.Default).also {
+    fun coroutineScope(activityRetainedLifecycle: ActivityRetainedLifecycle): CoroutineScope =
+        CoroutineScope(SupervisorJob() + Dispatchers.Default).also {
             activityRetainedLifecycle.addOnClearedListener {
                 it.cancel()
             }
         }
-    }
 
     @ActivityRetainedScoped
     @Provides
@@ -97,21 +94,21 @@ object DatalayerModule {
 
     @ActivityRetainedScoped
     @Provides
-    fun counterFlow(wearDataLayerRegistry: WearDataLayerRegistry): Flow<GrpcDemoProto.CounterValue> =
-        wearDataLayerRegistry.protoFlow(TargetNodeId.PairedPhone)
+    fun counterFlow(
+        wearDataLayerRegistry: WearDataLayerRegistry,
+    ): Flow<GrpcDemoProto.CounterValue> = wearDataLayerRegistry.protoFlow(TargetNodeId.PairedPhone)
 
     @ActivityRetainedScoped
     @Provides
     fun counterService(
         wearDataLayerRegistry: WearDataLayerRegistry,
         coroutineScope: CoroutineScope,
-    ): CounterServiceGrpcKt.CounterServiceCoroutineStub =
-        wearDataLayerRegistry.grpcClient(
-            nodeId = TargetNodeId.PairedPhone,
-            coroutineScope = coroutineScope,
-        ) {
-            CounterServiceGrpcKt.CounterServiceCoroutineStub(it)
-        }
+    ): CounterServiceGrpcKt.CounterServiceCoroutineStub = wearDataLayerRegistry.grpcClient(
+        nodeId = TargetNodeId.PairedPhone,
+        coroutineScope = coroutineScope,
+    ) {
+        CounterServiceGrpcKt.CounterServiceCoroutineStub(it)
+    }
 
     @ActivityRetainedScoped
     @Provides

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,11 +54,9 @@ public class PlaylistLocalDataSource(
     public fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist?> =
         playlistDao.getPopulatedStream(playlistId)
 
-    public fun getAllPopulated(): Flow<List<PopulatedPlaylist>> =
-        playlistDao.getAllPopulated()
+    public fun getAllPopulated(): Flow<List<PopulatedPlaylist>> = playlistDao.getAllPopulated()
 
-    public fun getAllDownloaded(): Flow<List<PopulatedPlaylist>> =
-        playlistDao.getAllDownloaded()
+    public fun getAllDownloaded(): Flow<List<PopulatedPlaylist>> = playlistDao.getAllDownloaded()
 
     public suspend fun delete(playlistIds: List<String>) {
         roomDatabase.withTransaction {

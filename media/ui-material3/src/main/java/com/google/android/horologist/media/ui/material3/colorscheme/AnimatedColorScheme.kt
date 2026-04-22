@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,11 @@ public class AnimatedColorScheme(initialColorScheme: ColorScheme) {
         get() = lerp(currentScheme.onPrimary, targetScheme.onPrimary, progress.value)
 
     public val onPrimaryContainer: Color
-        get() = lerp(currentScheme.onPrimaryContainer, targetScheme.onPrimaryContainer, progress.value)
+        get() = lerp(
+            currentScheme.onPrimaryContainer,
+            targetScheme.onPrimaryContainer,
+            progress.value,
+        )
 
     public val secondary: Color
         get() = lerp(currentScheme.secondary, targetScheme.secondary, progress.value)
@@ -56,13 +60,21 @@ public class AnimatedColorScheme(initialColorScheme: ColorScheme) {
         get() = lerp(currentScheme.secondaryDim, targetScheme.secondaryDim, progress.value)
 
     public val secondaryContainer: Color
-        get() = lerp(currentScheme.secondaryContainer, targetScheme.secondaryContainer, progress.value)
+        get() = lerp(
+            currentScheme.secondaryContainer,
+            targetScheme.secondaryContainer,
+            progress.value,
+        )
 
     public val onSecondary: Color
         get() = lerp(currentScheme.onSecondary, targetScheme.onSecondary, progress.value)
 
     public val onSecondaryContainer: Color
-        get() = lerp(currentScheme.onSecondaryContainer, targetScheme.onSecondaryContainer, progress.value)
+        get() = lerp(
+            currentScheme.onSecondaryContainer,
+            targetScheme.onSecondaryContainer,
+            progress.value,
+        )
 
     public val tertiary: Color
         get() = lerp(currentScheme.tertiary, targetScheme.tertiary, progress.value)
@@ -71,22 +83,38 @@ public class AnimatedColorScheme(initialColorScheme: ColorScheme) {
         get() = lerp(currentScheme.tertiaryDim, targetScheme.tertiaryDim, progress.value)
 
     public val tertiaryContainer: Color
-        get() = lerp(currentScheme.tertiaryContainer, targetScheme.tertiaryContainer, progress.value)
+        get() = lerp(
+            currentScheme.tertiaryContainer,
+            targetScheme.tertiaryContainer,
+            progress.value,
+        )
 
     public val onTertiary: Color
         get() = lerp(currentScheme.onTertiary, targetScheme.onTertiary, progress.value)
 
     public val onTertiaryContainer: Color
-        get() = lerp(currentScheme.onTertiaryContainer, targetScheme.onTertiaryContainer, progress.value)
+        get() = lerp(
+            currentScheme.onTertiaryContainer,
+            targetScheme.onTertiaryContainer,
+            progress.value,
+        )
 
     public val surfaceContainerLow: Color
-        get() = lerp(currentScheme.surfaceContainerLow, targetScheme.surfaceContainerLow, progress.value)
+        get() = lerp(
+            currentScheme.surfaceContainerLow,
+            targetScheme.surfaceContainerLow,
+            progress.value,
+        )
 
     public val surfaceContainer: Color
         get() = lerp(currentScheme.surfaceContainer, targetScheme.surfaceContainer, progress.value)
 
     public val surfaceContainerHigh: Color
-        get() = lerp(currentScheme.surfaceContainerHigh, targetScheme.surfaceContainerHigh, progress.value)
+        get() = lerp(
+            currentScheme.surfaceContainerHigh,
+            targetScheme.surfaceContainerHigh,
+            progress.value,
+        )
 
     public val onSurface: Color
         get() = lerp(currentScheme.onSurface, targetScheme.onSurface, progress.value)
@@ -124,7 +152,10 @@ public class AnimatedColorScheme(initialColorScheme: ColorScheme) {
      * @param targetColorScheme The target color scheme.
      * @param animationSpec The animation spec to animate the color updates.
      */
-    public suspend fun animateTo(targetColorScheme: ColorScheme, animationSpec: AnimationSpec<Float>) {
+    public suspend fun animateTo(
+        targetColorScheme: ColorScheme,
+        animationSpec: AnimationSpec<Float>,
+    ) {
         this.targetScheme = targetColorScheme
         if (progress.targetValue != 1f) {
             progress.animateTo(1f, animationSpec)

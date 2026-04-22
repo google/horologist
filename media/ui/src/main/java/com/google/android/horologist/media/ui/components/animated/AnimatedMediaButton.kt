@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.semantics.contentDescription as contentDescriptionProperty
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -39,7 +40,6 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.RepeatableClickableButton
 import com.google.android.horologist.composables.UnboundedRippleButton
 import kotlinx.coroutines.launch
-import androidx.compose.ui.semantics.contentDescription as contentDescriptionProperty
 
 /**
  * A base button for media controls.

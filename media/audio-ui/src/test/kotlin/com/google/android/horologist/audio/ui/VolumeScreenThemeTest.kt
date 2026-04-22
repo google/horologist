@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,15 +26,11 @@ import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class VolumeScreenThemeTest(
-    private val themeValue: ThemeValues,
-) : WearLegacyScreenTest() {
+class VolumeScreenThemeTest(private val themeValue: ThemeValues) : WearLegacyScreenTest() {
 
-    override fun testName(suffix: String): String {
-        return "src/test/snapshots/images/" +
-            "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
-            "${themeValue.safeName.lowercase()}.png"
-    }
+    override fun testName(suffix: String): String = "src/test/snapshots/images/" +
+        "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
+        "${themeValue.safeName.lowercase()}.png"
 
     @Test
     fun volumeScreenThemes() {

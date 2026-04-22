@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +25,9 @@ import com.google.android.horologist.media.sync.api.Synchronizer
 import com.google.android.horologist.media.sync.api.changeListSync
 import com.google.android.horologist.mediasample.data.api.NetworkChangeListService
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
+import com.google.android.horologist.mediasample.data.mapper.PlaylistMapper as MediaSamplePlaylistMapper
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import com.google.android.horologist.mediasample.data.mapper.PlaylistMapper as MediaSamplePlaylistMapper
 
 class PlaylistRepositorySyncable(
     private val playlistLocalDataSource: PlaylistLocalDataSource,

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,19 +32,17 @@ public data class HighBandwidthRequest(
     val requestType: RequestType? = null,
     val url: String? = null,
 ) {
-    public fun toNetworkRequest(): NetworkRequest {
-        return NetworkRequest.Builder()
-            .apply {
-                if (type.cell) {
-                    addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
-                }
-                if (type.wifi) {
-                    addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                }
+    public fun toNetworkRequest(): NetworkRequest = NetworkRequest.Builder()
+        .apply {
+            if (type.cell) {
+                addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
             }
-            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            .build()
-    }
+            if (type.wifi) {
+                addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+            }
+        }
+        .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+        .build()
 
     public enum class Type(public val wifi: Boolean, public val cell: Boolean) {
         WifiOnly(true, false),

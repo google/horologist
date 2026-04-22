@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,12 +59,11 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 class TileScreenshotTest : WearScreenshotTest() {
-    override fun testName(suffix: String): String =
-        "src/test/screenshots/" +
-            "${javaClass.simpleName}_" +
-            "${testInfo.methodName}_" +
-            (super.device?.id ?: WearDevice.GenericLargeRound.id) +
-            "$suffix.png"
+    override fun testName(suffix: String): String = "src/test/screenshots/" +
+        "${javaClass.simpleName}_" +
+        "${testInfo.methodName}_" +
+        (super.device?.id ?: WearDevice.GenericLargeRound.id) +
+        "$suffix.png"
 
     @Composable
     override fun TestScaffold(content: @Composable () -> Unit) {
@@ -142,52 +141,48 @@ class TileScreenshotTest : WearScreenshotTest() {
         }
     }
 
-    class TestImageTileRenderer(
-        context: Context,
-        val bitmap: Bitmap,
-    ) : SingleTileLayoutRenderer<Unit, Unit>(context) {
+    class TestImageTileRenderer(context: Context, val bitmap: Bitmap) :
+        SingleTileLayoutRenderer<Unit, Unit>(context) {
         override fun renderTile(
             state: Unit,
             deviceParameters: DeviceParameters,
-        ): LayoutElementBuilders.LayoutElement {
-            return Box.Builder()
-                .setHeight(expand())
-                .setWidth(expand())
-                .setModifiers(
-                    Modifiers.Builder()
-                        .setBackground(
-                            Background.Builder()
-                                .setColor(argb(Color.DKGRAY))
-                                .build(),
+        ): LayoutElementBuilders.LayoutElement = Box.Builder()
+            .setHeight(expand())
+            .setWidth(expand())
+            .setModifiers(
+                Modifiers.Builder()
+                    .setBackground(
+                        Background.Builder()
+                            .setColor(argb(Color.DKGRAY))
+                            .build(),
+                    )
+                    .build(),
+            )
+            .addContent(
+                PrimaryLayout.Builder(deviceParameters)
+                    .setContent(
+                        Image.Builder()
+                            .setContentScaleMode(CONTENT_SCALE_MODE_FIT)
+                            .setResourceId("dice")
+                            .setWidth(expand())
+                            .setHeight(dp(130f))
+                            .build(),
+                    )
+                    .setPrimaryLabelTextContent(
+                        Text.Builder(
+                            context,
+                            when (bitmap.config) {
+                                Bitmap.Config.ARGB_8888 -> "ARGB_8888"
+                                Bitmap.Config.RGB_565 -> "RGB_565"
+                                else -> "UNDEFINED"
+                            },
                         )
-                        .build(),
-                )
-                .addContent(
-                    PrimaryLayout.Builder(deviceParameters)
-                        .setContent(
-                            Image.Builder()
-                                .setContentScaleMode(CONTENT_SCALE_MODE_FIT)
-                                .setResourceId("dice")
-                                .setWidth(expand())
-                                .setHeight(dp(130f))
-                                .build(),
-                        )
-                        .setPrimaryLabelTextContent(
-                            Text.Builder(
-                                context,
-                                when (bitmap.config) {
-                                    Bitmap.Config.ARGB_8888 -> "ARGB_8888"
-                                    Bitmap.Config.RGB_565 -> "RGB_565"
-                                    else -> "UNDEFINED"
-                                },
-                            )
-                                .setColor(argb(Color.WHITE))
-                                .setTypography(Typography.TYPOGRAPHY_BODY2)
-                                .build(),
-                        ).build(),
-                )
-                .build()
-        }
+                            .setColor(argb(Color.WHITE))
+                            .setTypography(Typography.TYPOGRAPHY_BODY2)
+                            .build(),
+                    ).build(),
+            )
+            .build()
 
         override fun ResourceBuilders.Resources.Builder.produceRequestedResources(
             resourceState: Unit,

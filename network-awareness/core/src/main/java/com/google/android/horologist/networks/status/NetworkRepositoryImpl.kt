@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,14 +29,14 @@ import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 import com.google.android.horologist.networks.data.id
+import java.net.InetAddress
+import java.time.Instant
+import java.util.concurrent.ConcurrentHashMap
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.net.InetAddress
-import java.time.Instant
-import java.util.concurrent.ConcurrentHashMap
 
 @SuppressLint("MissingPermission")
 @ExperimentalHorologistApi
@@ -146,8 +146,8 @@ public class NetworkRepositoryImpl(
         initialised = true
     }
 
-    private fun getOrBuild(network: Network, status: Status? = null): NetworkStatusBuilder {
-        return networkBuilders.getOrPut(
+    private fun getOrBuild(network: Network, status: Status? = null): NetworkStatusBuilder =
+        networkBuilders.getOrPut(
             network.id,
         ) {
             NetworkStatusBuilder(network = network, id = network.toString())
@@ -156,7 +156,6 @@ public class NetworkRepositoryImpl(
                 this.status = status
             }
         }
-    }
 
     private fun postUpdate() {
         if (initialised) {

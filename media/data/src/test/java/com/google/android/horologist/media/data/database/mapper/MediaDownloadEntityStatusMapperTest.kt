@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,31 +42,31 @@ class MediaDownloadEntityStatusMapperTest(
         @JvmStatic
         @Parameterized.Parameters(name = "{0} -> {1}")
         fun params() = listOf(
-            arrayOf(
+            arrayOf<Any>(
                 Download.STATE_QUEUED,
                 MediaDownloadEntityStatus.Downloading,
             ),
-            arrayOf(
+            arrayOf<Any>(
                 Download.STATE_STOPPED,
                 MediaDownloadEntityStatus.NotDownloaded,
             ),
-            arrayOf(
+            arrayOf<Any>(
                 Download.STATE_DOWNLOADING,
                 MediaDownloadEntityStatus.Downloading,
             ),
-            arrayOf(
+            arrayOf<Any>(
                 Download.STATE_COMPLETED,
                 MediaDownloadEntityStatus.Downloaded,
             ),
-            arrayOf(
+            arrayOf<Any>(
                 Download.STATE_FAILED,
                 MediaDownloadEntityStatus.Failed,
             ),
-            arrayOf(
+            arrayOf<Any>(
                 Download.STATE_REMOVING,
                 MediaDownloadEntityStatus.NotDownloaded,
             ),
-            arrayOf(
+            arrayOf<Any>(
                 Download.STATE_RESTARTING,
                 MediaDownloadEntityStatus.Downloading,
             ),

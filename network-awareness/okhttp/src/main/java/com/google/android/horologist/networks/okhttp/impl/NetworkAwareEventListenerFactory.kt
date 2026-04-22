@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,9 +21,9 @@ import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.highBandwidthConnectionLease
 import com.google.android.horologist.networks.status.NetworkRepository
+import java.io.IOException
 import okhttp3.Call
 import okhttp3.EventListener
-import java.io.IOException
 
 /**
  * Internal [EventListener] that logs requests as well as closing High Bandwidth Requests.
@@ -44,9 +44,8 @@ public class NetworkAwareEventListenerFactory(
         delegateEventListenerFactory.create(call),
     )
 
-    private inner class Listener(
-        delegate: EventListener,
-    ) : NetworkLoggingEventListenerFactory.Listener(delegate) {
+    private inner class Listener(delegate: EventListener) :
+        NetworkLoggingEventListenerFactory.Listener(delegate) {
         override fun callEnd(call: Call) {
             super.callEnd(call)
 

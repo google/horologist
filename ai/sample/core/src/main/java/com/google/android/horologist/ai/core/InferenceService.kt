@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,6 +21,8 @@ package com.google.android.horologist.ai.core
 import android.util.Log
 import com.google.android.horologist.ai.core.registry.CombinedInferenceServiceRegistry
 import com.google.protobuf.empty
+import javax.inject.Inject
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.async
@@ -34,89 +36,97 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
-import javax.inject.Singleton
 
 @Singleton
 class InferenceService
-    @Inject
-    constructor(
-        val registry: CombinedInferenceServiceRegistry,
-        val coroutineScope: CoroutineScope,
-    ) {
-        val connectedModel = MutableStateFlow<ModelId?>(null)
+@Inject
+constructor(
+    val registry: CombinedInferenceServiceRegistry,
+    val coroutineScope: CoroutineScope,
+) {
+    val connectedModel = MutableStateFlow<ModelId?>(null)
 
-        val models = flow {
-            val models = registry.models().first()
-            emit(
-                coroutineScope {
-                    // TODO subscribe and update models dynamically
-                    models.map { remote ->
-                        async {
-                            try {
-                                val serviceInfo = remote.serviceInfo(empty { })
-                                Pair(serviceInfo, remote)
-                            } catch (e: Exception) {
-                                Log.w("InferenceService", "Failing for $remote", e)
-                                // skip and rely on filterNotNull
-                                null
-                            }
+    val models = flow {
+        val models = registry.models().first()
+        emit(
+            coroutineScope {
+                // TODO subscribe and update models dynamically
+                models.map { remote ->
+                    async {
+                        try {
+                            val serviceInfo = remote.serviceInfo(empty { })
+                            Pair(serviceInfo, remote)
+                        } catch (e: Exception) {
+                            Log.w("InferenceService", "Failing for $remote", e)
+                            // skip and rely on filterNotNull
+                            null
                         }
                     }
-                }.awaitAll().filterNotNull(),
-            )
-        }.stateIn(coroutineScope, SharingStarted.Eagerly, null)
+                }
+            }.awaitAll().filterNotNull(),
+        )
+    }.stateIn(coroutineScope, SharingStarted.Eagerly, null)
 
-        val currentModelInfo: Flow<Pair<ModelInfo, ServiceInfo>?> =
-            combine(connectedModel, models) { currentId, currentModels ->
-                currentModels?.firstNotNullOfOrNull { (serviceInfo, _) ->
-                    serviceInfo.modelsList.find {
-                        it.modelId == currentId
-                    }?.let {
-                        Pair(it, serviceInfo)
-                    }
+    val currentModelInfo: Flow<Pair<ModelInfo, ServiceInfo>?> =
+        combine(connectedModel, models) { currentId, currentModels ->
+            currentModels?.firstNotNullOfOrNull { (serviceInfo, _) ->
+                serviceInfo.modelsList.find {
+                    it.modelId == currentId
+                }?.let {
+                    Pair(it, serviceInfo)
                 }
             }
-
-        suspend fun submit(prompt: Prompt): ResponseBundle {
-            val currentModel = connectedModel.value ?: throw Exception("No model selected")
-
-            val (_, service) = models.value?.first { it.first.modelsList.find { it.modelId == currentModel } != null }
-                ?: throw Exception("Service missing")
-
-            return service.answerPrompt(
-                promptRequest {
-                    this.prompt = prompt
-                    this.modelId = currentModel
-                },
-            )
         }
 
-        suspend fun submitStream(prompt: Prompt): Flow<Response> {
-            val currentModel = connectedModel.value ?: throw Exception("No model selected")
+    suspend fun submit(prompt: Prompt): ResponseBundle {
+        val currentModel = connectedModel.value ?: throw Exception("No model selected")
 
-            val (_, service) = models.value?.first { it.first.modelsList.find { it.modelId == currentModel } != null }
-                ?: throw Exception("Service missing")
-
-            return service.answerPromptWithStream(
-                promptRequest {
-                    this.prompt = prompt
-                    this.modelId = currentModel
-                },
-            )
+        val (_, service) = models.value?.first {
+            it.first.modelsList.find {
+                it.modelId ==
+                    currentModel
+            } !=
+                null
         }
+            ?: throw Exception("Service missing")
 
-        fun selectModel(modelId: ModelId) {
-            connectedModel.value = modelId
-        }
-
-        fun clearModel() {
-            connectedModel.value = null
-        }
-
-        suspend fun currentKnownModels(): List<ModelId> {
-            return models.filterNotNull().first().flatMap {
-                it.first.modelsList.map { it.modelId }
-            }
-        }
+        return service.answerPrompt(
+            promptRequest {
+                this.prompt = prompt
+                this.modelId = currentModel
+            },
+        )
     }
+
+    suspend fun submitStream(prompt: Prompt): Flow<Response> {
+        val currentModel = connectedModel.value ?: throw Exception("No model selected")
+
+        val (_, service) = models.value?.first {
+            it.first.modelsList.find {
+                it.modelId ==
+                    currentModel
+            } !=
+                null
+        }
+            ?: throw Exception("Service missing")
+
+        return service.answerPromptWithStream(
+            promptRequest {
+                this.prompt = prompt
+                this.modelId = currentModel
+            },
+        )
+    }
+
+    fun selectModel(modelId: ModelId) {
+        connectedModel.value = modelId
+    }
+
+    fun clearModel() {
+        connectedModel.value = null
+    }
+
+    suspend fun currentKnownModels(): List<ModelId> = models.filterNotNull().first().flatMap {
+        it.first.modelsList.map { it.modelId }
+    }
+}

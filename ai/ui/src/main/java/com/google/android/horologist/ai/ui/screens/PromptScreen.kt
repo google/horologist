@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -60,7 +60,11 @@ public fun PromptScreen(
     uiState: PromptUiState,
     modifier: Modifier = Modifier,
     onSettingsClick: (() -> Unit)? = null,
-    promptDisplay: @Composable (PromptOrResponseUiModel, Modifier, SurfaceTransformation) -> Unit = { model, modifier, transformation ->
+    promptDisplay: @Composable (
+        PromptOrResponseUiModel,
+        Modifier,
+        SurfaceTransformation,
+    ) -> Unit = { model, modifier, transformation ->
         PromptOrResponseDisplay(
             promptResponse = model,
             onClick = {},
@@ -110,7 +114,9 @@ public fun PromptScreen(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Settings,
-                                    contentDescription = stringResource(R.string.horologist_settings_content_description),
+                                    contentDescription = stringResource(
+                                        R.string.horologist_settings_content_description,
+                                    ),
                                 )
                             }
                         }

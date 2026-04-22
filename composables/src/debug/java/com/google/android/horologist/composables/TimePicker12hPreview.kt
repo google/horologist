@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -46,7 +46,11 @@ fun TimePicker12hPreview() {
     fontScale = 1.24f,
 )
 fun TimePicker12hPreviewSmallDeviceWithLargeFontBold() {
-    MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
+    MaterialTheme(
+        typography = MaterialTheme.typography.copy {
+            this.copy(fontWeight = FontWeight.Bold)
+        },
+    ) {
         TimePickerWith12HourClock(
             time = LocalTime.of(10, 0, 0),
             onTimeConfirm = {},

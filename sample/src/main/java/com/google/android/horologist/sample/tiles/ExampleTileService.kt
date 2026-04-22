@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,8 +40,8 @@ class ExampleTileService : SuspendingTileService() {
             applicationContext.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
     }
 
-    override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
-        return Tile.Builder()
+    override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile =
+        Tile.Builder()
             .setResourcesVersion("1")
             .setTileTimeline(
                 Timeline.Builder()
@@ -56,20 +56,17 @@ class ExampleTileService : SuspendingTileService() {
                     .build(),
             )
             .build()
-    }
 
     override suspend fun resourcesRequest(
         requestParams: RequestBuilders.ResourcesRequest,
     ): ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().setVersion("1").build()
 
-    fun mainLayout(): LayoutElement {
-        return Column.Builder()
-            .addContent(
-                Text.Builder()
-                    .setText("Charging: " + batteryManager.isCharging)
-                    .build(),
-            )
-            .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
-            .build()
-    }
+    fun mainLayout(): LayoutElement = Column.Builder()
+        .addContent(
+            Text.Builder()
+                .setText("Charging: " + batteryManager.isCharging)
+                .build(),
+        )
+        .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
+        .build()
 }

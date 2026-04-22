@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalView
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
+import kotlin.math.abs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
@@ -39,7 +40,6 @@ import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.withContext
-import kotlin.math.abs
 
 /**
  * Throttling events within specified timeframe. Only first and last events will be received.
@@ -54,13 +54,12 @@ import kotlin.math.abs
  * ```
  * With timeframe=1000 only those integers will be received: 1, 10, 20, 30 .
  */
-internal fun <T> Flow<T>.throttleLatest(timeframe: Long): Flow<T> =
-    flow {
-        conflate().collect {
-            emit(it)
-            delay(timeframe)
-        }
+internal fun <T> Flow<T>.throttleLatest(timeframe: Long): Flow<T> = flow {
+    conflate().collect {
+        emit(it)
+        delay(timeframe)
     }
+}
 
 /**
  * Handles haptics for rotary usage
@@ -223,33 +222,30 @@ public fun rememberRotaryHapticHandler(
     hapticsThresholdPx: Long = 50,
     hapticsChannel: Channel<RotaryHapticsType> = rememberHapticChannel(),
     rotaryHaptics: RotaryHapticFeedback = rememberDefaultRotaryHapticFeedback(),
-): RotaryHapticHandler {
-    return remember(scrollableState, hapticsChannel, rotaryHaptics) {
-        DefaultRotaryHapticHandler(scrollableState, hapticsChannel, hapticsThresholdPx)
-    }.apply {
-        LaunchedEffect(hapticsChannel) {
-            hapticsChannel.receiveAsFlow()
-                .throttleLatest(throttleThresholdMs)
-                .collect { hapticType ->
-                    // 'withContext' launches performHapticFeedback in a separate thread,
-                    // as otherwise it produces a visible lag (b/219776664)
-                    withContext(Dispatchers.Default) {
-                        rotaryHaptics.performHapticFeedback(hapticType)
-                    }
+): RotaryHapticHandler = remember(scrollableState, hapticsChannel, rotaryHaptics) {
+    DefaultRotaryHapticHandler(scrollableState, hapticsChannel, hapticsThresholdPx)
+}.apply {
+    LaunchedEffect(hapticsChannel) {
+        hapticsChannel.receiveAsFlow()
+            .throttleLatest(throttleThresholdMs)
+            .collect { hapticType ->
+                // 'withContext' launches performHapticFeedback in a separate thread,
+                // as otherwise it produces a visible lag (b/219776664)
+                withContext(Dispatchers.Default) {
+                    rotaryHaptics.performHapticFeedback(hapticType)
                 }
-        }
+            }
     }
 }
 
 @Deprecated("Replaced by wear compose")
 @Composable
-private fun rememberHapticChannel() =
-    remember {
-        Channel<RotaryHapticsType>(
-            capacity = 2,
-            onBufferOverflow = BufferOverflow.DROP_OLDEST,
-        )
-    }
+private fun rememberHapticChannel() = remember {
+    Channel<RotaryHapticsType>(
+        capacity = 2,
+        onBufferOverflow = BufferOverflow.DROP_OLDEST,
+    )
+}
 
 @Composable
 internal fun rememberDefaultRotaryHapticFeedback(): RotaryHapticFeedback =
@@ -274,9 +270,7 @@ internal fun findDeviceSpecificHapticFeedback(view: View): RotaryHapticFeedback 
 private class DefaultRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
     @ExperimentalHorologistApi
-    override fun performHapticFeedback(
-        type: RotaryHapticsType,
-    ) {
+    override fun performHapticFeedback(type: RotaryHapticsType) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
                 view.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
@@ -301,9 +295,7 @@ private class DefaultRotaryHapticFeedback(private val view: View) : RotaryHaptic
 private class Wear3point5RotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
     @ExperimentalHorologistApi
-    override fun performHapticFeedback(
-        type: RotaryHapticsType,
-    ) {
+    override fun performHapticFeedback(type: RotaryHapticsType) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
                 view.performHapticFeedback(WEAR_SCROLL_ITEM_FOCUS)
@@ -336,9 +328,7 @@ private class Wear3point5RotaryHapticFeedback(private val view: View) : RotaryHa
 private class Wear4AtLeastRotaryHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
     @ExperimentalHorologistApi
-    override fun performHapticFeedback(
-        type: RotaryHapticsType,
-    ) {
+    override fun performHapticFeedback(type: RotaryHapticsType) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
                 view.performHapticFeedback(ROTARY_SCROLL_ITEM_FOCUS)
@@ -371,9 +361,7 @@ private class Wear4AtLeastRotaryHapticFeedback(private val view: View) : RotaryH
 private class GalaxyWatchHapticFeedback(private val view: View) : RotaryHapticFeedback {
 
     @ExperimentalHorologistApi
-    override fun performHapticFeedback(
-        type: RotaryHapticsType,
-    ) {
+    override fun performHapticFeedback(type: RotaryHapticsType) {
         when (type) {
             RotaryHapticsType.ScrollItemFocus -> {
                 view.performHapticFeedback(102)
@@ -390,8 +378,7 @@ private class GalaxyWatchHapticFeedback(private val view: View) : RotaryHapticFe
     }
 }
 
-private fun isGalaxyWatch(): Boolean =
-    Build.MANUFACTURER.contains("Samsung", ignoreCase = true)
+private fun isGalaxyWatch(): Boolean = Build.MANUFACTURER.contains("Samsung", ignoreCase = true)
 
 private fun isGalaxyWatchClassic(): Boolean =
     Build.MODEL.matches("SM-R(?:8[89][05]|9[56][05])".toRegex())
@@ -400,11 +387,9 @@ private fun isWear3point5(context: Context): Boolean =
     Build.VERSION.SDK_INT == 30 && getWearPlatformMrNumber(context) >= 5
 
 @ChecksSdkIntAtLeast(api = Build.VERSION_CODES.TIRAMISU)
-private fun isWear4AtLeast(): Boolean =
-    Build.VERSION.SDK_INT >= 33
+private fun isWear4AtLeast(): Boolean = Build.VERSION.SDK_INT >= 33
 
-internal fun getWearPlatformMrNumber(context: Context): Int =
-    Settings.Global
-        .getString(context.contentResolver, WEAR_PLATFORM_MR_NUMBER)?.toIntOrNull() ?: 0
+internal fun getWearPlatformMrNumber(context: Context): Int = Settings.Global
+    .getString(context.contentResolver, WEAR_PLATFORM_MR_NUMBER)?.toIntOrNull() ?: 0
 
 internal const val WEAR_PLATFORM_MR_NUMBER: String = "wear_platform_mr_number"

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,20 +24,24 @@ import kotlinx.coroutines.CoroutineScope
  * lookup the serializer.
  */
 object ProtoDataStoreHelper {
-    inline fun <reified T : Any> WearDataLayerRegistry.protoFlow(node: TargetNodeId) = this.protoFlow(
-        node,
-        serializers.serializerForType<T>(),
-        WearDataLayerRegistry.dataStorePath(T::class),
-    )
-
-    inline fun <reified T : Any> WearDataLayerRegistry.protoDataStore(coroutineScope: CoroutineScope) =
-        this.protoDataStore(
-            WearDataLayerRegistry.dataStorePath(T::class),
-            coroutineScope,
+    inline fun <reified T : Any> WearDataLayerRegistry.protoFlow(node: TargetNodeId) =
+        this.protoFlow(
+            node,
             serializers.serializerForType<T>(),
+            WearDataLayerRegistry.dataStorePath(T::class),
         )
 
-    inline fun <reified T : Any> WearDataLayerRegistry.registerProtoDataListener(listener: ProtoDataListener<T>) {
+    inline fun <reified T : Any> WearDataLayerRegistry.protoDataStore(
+        coroutineScope: CoroutineScope,
+    ) = this.protoDataStore(
+        WearDataLayerRegistry.dataStorePath(T::class),
+        coroutineScope,
+        serializers.serializerForType<T>(),
+    )
+
+    inline fun <reified T : Any> WearDataLayerRegistry.registerProtoDataListener(
+        listener: ProtoDataListener<T>,
+    ) {
         this.registerProtoDataListener(
             WearDataLayerRegistry.dataStorePath(T::class),
             listener,

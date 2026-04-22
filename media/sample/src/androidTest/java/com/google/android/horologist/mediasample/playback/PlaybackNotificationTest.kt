@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media3.flows.waitForPlaying
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
@@ -32,7 +33,6 @@ import kotlinx.coroutines.withTimeout
 import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
-import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest

@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,12 +50,15 @@ fun DialogsAudit(route: AuditNavigation.Dialogs.Audit) {
                 }
             }
         }
+
         AuditNavigation.Dialogs.Config.TwoBottomButtons -> {
             AlertDialog(showDialog = true, title = "Title", onOk = {}, onCancel = {})
         }
+
         AuditNavigation.Dialogs.Config.NoBottomButton -> {
             AlertDialog(showDialog = true, title = "Title", onDismiss = {})
         }
+
         AuditNavigation.Dialogs.Config.OneBottomButton -> {
             AlertDialog(showDialog = true, title = "Title", onDismiss = {}) {
                 item {

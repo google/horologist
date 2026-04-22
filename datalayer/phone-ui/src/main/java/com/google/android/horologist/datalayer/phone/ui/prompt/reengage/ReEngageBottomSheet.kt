@@ -1,5 +1,5 @@
 /*
- * Copyright 2024 The Android Open Source Project
+ * Copyright 2024-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,7 +83,9 @@ public fun ReEngageBottomSheet(
                     positiveButtonLabel = positiveButtonLabel
                         ?: stringResource(id = R.string.horologist_reengage_prompt_ok_btn_label),
                     negativeButtonLabel = negativeButtonLabel
-                        ?: stringResource(id = R.string.horologist_reengage_prompt_cancel_btn_label),
+                        ?: stringResource(
+                            id = R.string.horologist_reengage_prompt_cancel_btn_label,
+                        ),
                     onDismissRequest = onDismissRequest,
                     onConfirmation = onConfirmation,
                 )
@@ -97,7 +99,9 @@ public fun ReEngageBottomSheet(
                     positiveButtonLabel = positiveButtonLabel
                         ?: stringResource(id = R.string.horologist_reengage_prompt_ok_btn_label),
                     negativeButtonLabel = negativeButtonLabel
-                        ?: stringResource(id = R.string.horologist_reengage_prompt_cancel_btn_label),
+                        ?: stringResource(
+                            id = R.string.horologist_reengage_prompt_cancel_btn_label,
+                        ),
                     onDismissRequest = onDismissRequest,
                     onConfirmation = onConfirmation,
                 )

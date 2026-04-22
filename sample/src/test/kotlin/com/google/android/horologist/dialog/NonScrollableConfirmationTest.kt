@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,11 +28,14 @@ import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 
-class NonScrollableConfirmationTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
+class NonScrollableConfirmationTest(device: WearDevice) :
+    WearDeviceScreenshotTest(device = device) {
     public override val tolerance: Float = 0.01f
 
     override fun testName(suffix: String): String =
-        "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName.substringBefore('[')}_${device.id}$suffix.png"
+        "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName.substringBefore(
+            '[',
+        )}_${device.id}$suffix.png"
 
     // Not actually non scrolling - but demonstrating content that won't scroll
 

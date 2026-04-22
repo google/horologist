@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,10 +33,7 @@ import com.google.android.horologist.health.composables.model.MetricUiModel
  * A component to display metrics, e.g. workout metrics.
  */
 @Composable
-public fun MetricDisplay(
-    metric: MetricUiModel,
-    modifier: Modifier = Modifier,
-) {
+public fun MetricDisplay(metric: MetricUiModel, modifier: Modifier = Modifier) {
     Row(modifier = modifier) {
         val style = MaterialTheme.typography.display3
         // Prevent font size from scaling:

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,7 +77,9 @@ fun UampEntityScreen(
         onDownloadCompletedButtonClick = {
             showRemoveDownloadsDialog = true
         },
-        onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.entity_download_cancel_action_label),
+        onDownloadItemInProgressClickActionLabel = stringResource(
+            id = R.string.entity_download_cancel_action_label,
+        ),
     )
 
     // b/243381431 - it should stop listening to uiState emissions while dialog is presented
@@ -99,8 +101,12 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.remove()
         },
         showDialog = showCancelDownloadsDialog,
-        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
+        okButtonContentDescription = stringResource(
+            id = R.string.entity_dialog_proceed_button_content_description,
+        ),
+        cancelButtonContentDescription = stringResource(
+            id = R.string.entity_dialog_cancel_button_content_description,
+        ),
     )
 
     AlertDialog(
@@ -113,8 +119,12 @@ fun UampEntityScreen(
             uampEntityScreenViewModel.remove()
         },
         showDialog = showRemoveDownloadsDialog,
-        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
+        okButtonContentDescription = stringResource(
+            id = R.string.entity_dialog_proceed_button_content_description,
+        ),
+        cancelButtonContentDescription = stringResource(
+            id = R.string.entity_dialog_cancel_button_content_description,
+        ),
     )
 
     AlertDialog(
@@ -127,8 +137,12 @@ fun UampEntityScreen(
             mediaIdToDelete?.let { uampEntityScreenViewModel.removeMediaItem(it) }
         },
         showDialog = showRemoveSingleMediaDownloadDialog,
-        okButtonContentDescription = stringResource(id = R.string.entity_dialog_proceed_button_content_description),
-        cancelButtonContentDescription = stringResource(id = R.string.entity_dialog_cancel_button_content_description),
+        okButtonContentDescription = stringResource(
+            id = R.string.entity_dialog_proceed_button_content_description,
+        ),
+        cancelButtonContentDescription = stringResource(
+            id = R.string.entity_dialog_cancel_button_content_description,
+        ),
 
     )
 }

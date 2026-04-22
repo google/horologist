@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,14 +82,15 @@ public fun MarqueeTextMediaDisplay(
     val density = LocalDensity.current
     val columnHeight = TRACK_TITLE_HEIGHT + TRACK_SUBTITLE_HEIGHT
 
-    fun getTransitionAnimation(delay: Int = 0): ContentTransform {
-        return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
+    fun getTransitionAnimation(delay: Int = 0): ContentTransform =
+        slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
             (it * transitionLength).roundToInt()
-        } + fadeIn(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) togetherWith
+        } + fadeIn(
+            animationSpec = tween(delayMillis = delay + enterTransitionDelay),
+        ) togetherWith
             slideOutHorizontally(animationSpec = tween(delayMillis = delay)) {
                 (-it * transitionLength).roundToInt()
             } + fadeOut(animationSpec = tween(delayMillis = delay))
-    }
 
     CompositionLocalProvider(
         LocalDensity provides Density(

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -69,7 +69,11 @@ public fun SettingsButton(
     border: BorderStroke? = null,
 ) {
     val buttonContentColor =
-        rememberUpdatedState(buttonColors.run { if (enabled) contentColor else disabledContentColor })
+        rememberUpdatedState(
+            buttonColors.run {
+                if (enabled) contentColor else disabledContentColor
+            },
+        )
     val buttonContainerColor =
         rememberUpdatedState(
             buttonColors.run { if (enabled) containerColor else disabledContainerColor },
@@ -97,7 +101,11 @@ public fun SettingsButton(
                 modifier =
                     Modifier
                         .fillMaxSize()
-                        .then(border?.let { Modifier.border(border = it, shape = shape) } ?: Modifier)
+                        .then(
+                            border?.let {
+                                Modifier.border(border = it, shape = shape)
+                            } ?: Modifier,
+                        )
                         .background(color = buttonContainerColor.value, shape = shape),
                 contentAlignment = Alignment.Center,
             ) {
@@ -141,13 +149,14 @@ public fun SettingsButton(
 public object SettingsButtonDefaults {
     /** Button colors for [SettingsButton]. */
     @Composable
-    public fun buttonColors(colorScheme: ColorScheme = MaterialTheme.colorScheme): IconButtonColors =
-        IconButtonDefaults.iconButtonColors(
-            containerColor = colorScheme.onSurface.copy(alpha = 0.24f),
-            contentColor = colorScheme.onSurface,
-            disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-            disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-        )
+    public fun buttonColors(
+        colorScheme: ColorScheme = MaterialTheme.colorScheme,
+    ): IconButtonColors = IconButtonDefaults.iconButtonColors(
+        containerColor = colorScheme.onSurface.copy(alpha = 0.24f),
+        contentColor = colorScheme.onSurface,
+        disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+        disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+    )
 
     /** Colors for the settings item badge. */
     @Composable
@@ -161,11 +170,12 @@ public object SettingsButtonDefaults {
 
     /** Button colors for [SettingsButton] in the ambient mode. */
     @Composable
-    public fun ambientButtonColors(colorScheme: ColorScheme = MaterialTheme.colorScheme): IconButtonColors =
-        IconButtonDefaults.outlinedIconButtonColors(
-            contentColor = colorScheme.onSurface,
-            disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-        )
+    public fun ambientButtonColors(
+        colorScheme: ColorScheme = MaterialTheme.colorScheme,
+    ): IconButtonColors = IconButtonDefaults.outlinedIconButtonColors(
+        contentColor = colorScheme.onSurface,
+        disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+    )
 
     /**
      * Provides the appropriate [BorderStroke] for the [SettingsButton] in the ambient mode.
@@ -177,12 +187,11 @@ public object SettingsButtonDefaults {
     public fun ambientButtonBorder(
         enabled: Boolean,
         colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    ): BorderStroke =
-        ButtonDefaults.outlinedButtonBorder(
-            enabled = enabled,
-            borderColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-            disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-        )
+    ): BorderStroke = ButtonDefaults.outlinedButtonBorder(
+        enabled = enabled,
+        borderColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+        disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+    )
 }
 
 @Composable

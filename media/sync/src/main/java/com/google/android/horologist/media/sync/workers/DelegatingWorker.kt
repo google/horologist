@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,10 +43,9 @@ private const val WORKER_CLASS_NAME = "RouterWorkerDelegateClassName"
  * Adds metadata to a WorkRequest to identify what [CoroutineWorker] the [DelegatingWorker] should
  * delegate to
  */
-internal fun KClass<out CoroutineWorker>.delegatedData() =
-    Data.Builder()
-        .putString(WORKER_CLASS_NAME, qualifiedName)
-        .build()
+internal fun KClass<out CoroutineWorker>.delegatedData() = Data.Builder()
+    .putString(WORKER_CLASS_NAME, qualifiedName)
+    .build()
 
 /**
  * A worker that delegates sync to another [CoroutineWorker] constructed with a [HiltWorkerFactory].
@@ -57,10 +56,8 @@ internal fun KClass<out CoroutineWorker>.delegatedData() =
  * In other words, it allows for custom workers in a library module without having to own
  * configuration of the WorkManager singleton.
  */
-internal class DelegatingWorker(
-    appContext: Context,
-    workerParams: WorkerParameters,
-) : CoroutineWorker(appContext, workerParams) {
+internal class DelegatingWorker(appContext: Context, workerParams: WorkerParameters) :
+    CoroutineWorker(appContext, workerParams) {
 
     private val workerClassName =
         workerParams.inputData.getString(WORKER_CLASS_NAME) ?: ""
@@ -75,9 +72,7 @@ internal class DelegatingWorker(
             as? CoroutineWorker
             ?: throw IllegalArgumentException("Unable to find appropriate worker")
 
-    override suspend fun getForegroundInfo(): ForegroundInfo =
-        delegateWorker.getForegroundInfo()
+    override suspend fun getForegroundInfo(): ForegroundInfo = delegateWorker.getForegroundInfo()
 
-    override suspend fun doWork(): Result =
-        delegateWorker.doWork()
+    override suspend fun doWork(): Result = delegateWorker.doWork()
 }

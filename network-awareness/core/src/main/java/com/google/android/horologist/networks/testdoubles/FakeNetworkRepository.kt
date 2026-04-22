@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 import com.google.android.horologist.networks.status.NetworkRepository
-import kotlinx.coroutines.flow.MutableStateFlow
 import java.net.InetAddress
+import kotlinx.coroutines.flow.MutableStateFlow
 
 public class FakeNetworkRepository : NetworkRepository {
     private var defaultNetworks = listOf(BtNetwork)
@@ -33,11 +33,10 @@ public class FakeNetworkRepository : NetworkRepository {
     override val networkStatus: MutableStateFlow<Networks> =
         MutableStateFlow(Networks(defaultNetworks.firstOrNull(), defaultNetworks))
 
-    override fun networkByAddress(localAddress: InetAddress): NetworkStatus? {
-        return networkStatus.value.networks.firstOrNull {
+    override fun networkByAddress(localAddress: InetAddress): NetworkStatus? =
+        networkStatus.value.networks.firstOrNull {
             it.addresses.contains(localAddress)
         }
-    }
 
     override fun updateNetworkAvailability(network: Network) {
     }
@@ -60,7 +59,12 @@ public class FakeNetworkRepository : NetworkRepository {
         val addNetwork =
             pinned != null && defaultNetworks.find { it.networkInfo.type == pinned } == null
         val networks =
-            if (addNetwork) defaultNetworks + (if (pinned == NetworkType.Cell) CellNetwork else WifiNetwork) else defaultNetworks
+            if (addNetwork) {
+                defaultNetworks +
+                    (if (pinned == NetworkType.Cell) CellNetwork else WifiNetwork)
+            } else {
+                defaultNetworks
+            }
 
         networkStatus.value = Networks(defaultNetworks.firstOrNull(), networks)
     }

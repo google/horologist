@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,50 +22,49 @@ import com.google.android.horologist.ai.core.InferenceService
 import com.google.android.horologist.ai.core.modelId
 import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
 @HiltViewModel
 class SettingsViewModel
-    @Inject
-    constructor(
-        private val inferenceService: InferenceService,
-    ) : ViewModel() {
-        val uiState =
-            combine(
-                inferenceService.connectedModel,
-                inferenceService.models,
-            ) { current, models ->
-                val uiModels = models?.flatMap { (serviceInfo, _) ->
-                    serviceInfo.modelsList.map { modelInfo ->
-                        ModelInstanceUiModel(
-                            modelInfo.modelId.id,
-                            modelInfo.name,
-                            serviceInfo.name,
-                        ).also {
-                            if (it.id.isBlank()) {
-                                throw Exception("Blank id ${modelInfo.name} ")
-                            }
+@Inject
+constructor(private val inferenceService: InferenceService) :
+    ViewModel() {
+    val uiState =
+        combine(
+            inferenceService.connectedModel,
+            inferenceService.models,
+        ) { current, models ->
+            val uiModels = models?.flatMap { (serviceInfo, _) ->
+                serviceInfo.modelsList.map { modelInfo ->
+                    ModelInstanceUiModel(
+                        modelInfo.modelId.id,
+                        modelInfo.name,
+                        serviceInfo.name,
+                    ).also {
+                        if (it.id.isBlank()) {
+                            throw Exception("Blank id ${modelInfo.name} ")
                         }
                     }
                 }
-                SettingsUiState(
-                    uiModels?.find { it.id == current?.id },
-                    uiModels,
-                )
             }
-                .stateIn(viewModelScope, SharingStarted.Eagerly, SettingsUiState(null, null))
-
-        fun selectModel(model: ModelInstanceUiModel) {
-            inferenceService.selectModel(
-                modelId {
-                    id = model.id
-                },
+            SettingsUiState(
+                uiModels?.find { it.id == current?.id },
+                uiModels,
             )
         }
+            .stateIn(viewModelScope, SharingStarted.Eagerly, SettingsUiState(null, null))
+
+    fun selectModel(model: ModelInstanceUiModel) {
+        inferenceService.selectModel(
+            modelId {
+                id = model.id
+            },
+        )
     }
+}
 
 data class SettingsUiState(
     val current: ModelInstanceUiModel?,

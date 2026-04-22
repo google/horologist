@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,40 +38,28 @@ object DatabaseModule {
 
     @Provides
     @Singleton
-    fun mediaDatabase(
-        @ApplicationContext context: Context,
-    ): MediaDatabase {
-        return Room.databaseBuilder(
-            context,
-            MediaDatabase::class.java,
-            MEDIA_DATABASE_NAME,
-        )
-            // Until stable, don't require incrementing MediaDatabase version.
-            .fallbackToDestructiveMigration(dropAllTables = true)
-            .build()
-    }
+    fun mediaDatabase(@ApplicationContext context: Context): MediaDatabase = Room.databaseBuilder(
+        context,
+        MediaDatabase::class.java,
+        MEDIA_DATABASE_NAME,
+    )
+        // Until stable, don't require incrementing MediaDatabase version.
+        .fallbackToDestructiveMigration(dropAllTables = true)
+        .build()
 
     @Provides
     @Singleton
-    fun mediaDownloadDao(
-        database: MediaDatabase,
-    ): MediaDownloadDao = database.mediaDownloadDao()
+    fun mediaDownloadDao(database: MediaDatabase): MediaDownloadDao = database.mediaDownloadDao()
 
     @Provides
     @Singleton
-    fun playlistDao(
-        database: MediaDatabase,
-    ): PlaylistDao = database.playlistDao()
+    fun playlistDao(database: MediaDatabase): PlaylistDao = database.playlistDao()
 
     @Provides
     @Singleton
-    fun playlistMediaDao(
-        database: MediaDatabase,
-    ): PlaylistMediaDao = database.playlistMediaDao()
+    fun playlistMediaDao(database: MediaDatabase): PlaylistMediaDao = database.playlistMediaDao()
 
     @Provides
     @Singleton
-    fun mediaDao(
-        database: MediaDatabase,
-    ): MediaDao = database.mediaDao()
+    fun mediaDao(database: MediaDatabase): MediaDao = database.mediaDao()
 }

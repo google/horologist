@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,10 +27,7 @@ import androidx.compose.ui.graphics.compositeOver
 import androidx.wear.compose.material.MaterialTheme
 
 @Composable
-public fun RadialBackground(
-    color: Color?,
-    background: Color = MaterialTheme.colors.background,
-) {
+public fun RadialBackground(color: Color?, background: Color = MaterialTheme.colors.background) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -38,10 +35,7 @@ public fun RadialBackground(
     )
 }
 
-public fun radialBackgroundBrush(
-    color: Color?,
-    background: Color,
-): Brush = Brush.radialGradient(
+public fun radialBackgroundBrush(color: Color?, background: Color): Brush = Brush.radialGradient(
     listOf(
         (color ?: Color.Black).copy(alpha = 0.5f).compositeOver(background),
         background,

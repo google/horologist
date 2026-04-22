@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,4 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.util.UUID
 
 @ExperimentalHorologistApi
-public data class UiMessage(
-    val message: String,
-    val id: String = UUID.randomUUID().toString(),
-)
+public data class UiMessage(val message: String, val id: String = UUID.randomUUID().toString())

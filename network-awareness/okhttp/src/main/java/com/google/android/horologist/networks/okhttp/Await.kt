@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,36 +16,34 @@
 
 package com.google.android.horologist.networks.okhttp
 
+import java.io.IOException
+import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
-import java.io.IOException
-import kotlin.coroutines.resumeWithException
 
 /**
  * Suspending version of [Call.execute] built on top of
  * [Call.enqueue] and [suspendCancellableCoroutine].
  */
 @OptIn(ExperimentalCoroutinesApi::class)
-public suspend fun Call.await(): Response {
-    return suspendCancellableCoroutine { cont ->
-        cont.invokeOnCancellation {
-            cancel()
-        }
-        enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                if (!cont.isCompleted) {
-                    cont.resumeWithException(e)
-                }
-            }
-
-            override fun onResponse(call: Call, response: Response) {
-                if (!cont.isCompleted) {
-                    cont.resume(response, onCancellation = { cause, _, _ -> response.close() })
-                }
-            }
-        })
+public suspend fun Call.await(): Response = suspendCancellableCoroutine { cont ->
+    cont.invokeOnCancellation {
+        cancel()
     }
+    enqueue(object : Callback {
+        override fun onFailure(call: Call, e: IOException) {
+            if (!cont.isCompleted) {
+                cont.resumeWithException(e)
+            }
+        }
+
+        override fun onResponse(call: Call, response: Response) {
+            if (!cont.isCompleted) {
+                cont.resume(response, onCancellation = { cause, _, _ -> response.close() })
+            }
+        }
+    })
 }

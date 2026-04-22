@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,9 +52,14 @@ public fun AudioOutput.toAudioOutputUi(): AudioOutputUi {
                 },
             imageVector =
                 when (type) {
-                    TYPE_HEADPHONES -> ImageVector.vectorResource(id = R.drawable.rounded_headphones_24)
+                    TYPE_HEADPHONES -> ImageVector.vectorResource(
+                        id = R.drawable.rounded_headphones_24,
+                    )
+
                     TYPE_WATCH -> Icons.Rounded.Watch
+
                     TYPE_NONE -> Icons.AutoMirrored.Rounded.VolumeOff
+
                     else -> Icons.Rounded.DeviceUnknown
                 },
             isConnected = this is AudioOutput.BluetoothHeadset || this is AudioOutput.WatchSpeaker,

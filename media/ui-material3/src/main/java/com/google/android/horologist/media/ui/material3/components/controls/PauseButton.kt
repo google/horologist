@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,8 @@ public fun PauseButton(
     colorScheme: ColorScheme = MaterialTheme.colorScheme,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    contentDescription: String = stringResource(id = R.string.horologist_pause_button_content_description),
+    contentDescription: String =
+        stringResource(id = R.string.horologist_pause_button_content_description),
     iconSize: Dp = IconButtonDefaults.LargeIconSize,
     colors: IconButtonColors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
 ) {

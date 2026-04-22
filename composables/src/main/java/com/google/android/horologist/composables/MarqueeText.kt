@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -197,10 +197,22 @@ private class MarqueeController(edgeGradientWidth: Dp) {
 
     private val padding = object : PaddingValues {
         override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
-            if (needsScrolling && layoutDirection == LayoutDirection.Ltr) edgeGradientWidth else 0.dp
+            if (needsScrolling &&
+                layoutDirection == LayoutDirection.Ltr
+            ) {
+                edgeGradientWidth
+            } else {
+                0.dp
+            }
 
         override fun calculateRightPadding(layoutDirection: LayoutDirection): Dp =
-            if (needsScrolling && layoutDirection != LayoutDirection.Ltr) edgeGradientWidth else 0.dp
+            if (needsScrolling &&
+                layoutDirection != LayoutDirection.Ltr
+            ) {
+                edgeGradientWidth
+            } else {
+                0.dp
+            }
 
         override fun calculateTopPadding(): Dp = 0.dp
         override fun calculateBottomPadding(): Dp = 0.dp

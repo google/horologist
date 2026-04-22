@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,9 +34,8 @@ import kotlinx.coroutines.launch
  *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
  */
-public open class SignInPromptViewModel(
-    private val authUserRepository: AuthUserRepository,
-) : ViewModel() {
+public open class SignInPromptViewModel(private val authUserRepository: AuthUserRepository) :
+    ViewModel() {
 
     private val _uiState = MutableStateFlow<SignInPromptScreenState>(SignInPromptScreenState.Idle)
     public val uiState: StateFlow<SignInPromptScreenState> = _uiState

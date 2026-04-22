@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,8 +20,8 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior
-import kotlinx.coroutines.CoroutineScope
 import kotlin.math.abs
+import kotlinx.coroutines.CoroutineScope
 
 /** Accumulator to trigger callbacks based on rotary input event. */
 internal class RotaryInputAccumulator(
@@ -92,8 +92,8 @@ internal class RotaryInputAccumulator(
      * rotary device, a positive scroll will be 1f and a negative scroll will be -1. For a high
      * resolution rotary device, take the scrolled pixels as is.
      */
-    private fun changeByResolution(scrollPixels: Float): Float {
-        return if (isLowRes && scrollPixels > 0f) { // For positive tick in low res devices
+    private fun changeByResolution(scrollPixels: Float): Float =
+        if (isLowRes && scrollPixels > 0f) { // For positive tick in low res devices
             1f
         } else if (isLowRes && scrollPixels < 0f) { // For negative tick in low res devices
             -1f
@@ -102,13 +102,10 @@ internal class RotaryInputAccumulator(
         } else { // Take it as is for high res devices
             scrollPixels
         }
-    }
 
-    private fun shouldIgnoreAccumulatedInput(eventTimeMs: Long): Boolean {
-        return (
-            !isLowRes &&
-                abs(accumulatedDistance) < minValueChangeDistancePx
-            ) ||
-            eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs
-    }
+    private fun shouldIgnoreAccumulatedInput(eventTimeMs: Long): Boolean = (
+        !isLowRes &&
+            abs(accumulatedDistance) < minValueChangeDistancePx
+        ) ||
+        eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  */
 @ExperimentalHorologistApi
 public interface ErrorReporter {
-    public fun showMessage(
-        @StringRes message: Int,
-    )
+    public fun showMessage(@StringRes message: Int)
 
     public fun logMessage(
         message: String,
@@ -35,10 +33,18 @@ public interface ErrorReporter {
     )
 
     public enum class Category {
-        Playback, Downloads, Network, App, DB, Jobs, Unknown
+        Playback,
+        Downloads,
+        Network,
+        App,
+        DB,
+        Jobs,
+        Unknown,
     }
 
     public enum class Level {
-        Error, Info, Debug
+        Error,
+        Info,
+        Debug,
     }
 }

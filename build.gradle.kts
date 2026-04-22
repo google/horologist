@@ -146,7 +146,7 @@ subprojects {
                 ktlint(libs.versions.ktlint.get())
                     .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
                 licenseHeaderFile(rootProject.file("spotless/copyright.txt"))
-                ratchetFrom("main")
+                ratchetFrom("origin/main")
             }
             kotlinGradle {
                 target("**/*.gradle.kts")

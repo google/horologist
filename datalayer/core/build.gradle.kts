@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-import com.google.protobuf.gradle.id
-
 plugins {
     id("com.android.library")
-    alias(libs.plugins.dokka)
     id("com.google.protobuf")
-    kotlin("android")
+    alias(libs.plugins.dokka)
+
     alias(libs.plugins.metalavaGradle)
 }
 
@@ -42,14 +40,6 @@ android {
         buildConfig = false
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
-    }
     packaging {
         resources {
             excludes +=
@@ -80,7 +70,7 @@ protobuf {
         artifact = libs.protobuf.protoc.stnd.get().toString()
     }
     plugins {
-        id("javalite") {
+        create("javalite") {
             artifact = libs.protobuf.protoc.gen.javalite.get().toString()
         }
     }
@@ -129,14 +119,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.espressocore)
     androidTestImplementation(libs.junit)
     androidTestImplementation(libs.truth)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("datalayer")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

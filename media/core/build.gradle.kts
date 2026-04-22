@@ -42,15 +42,9 @@ dependencies {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     compilerOptions {
-        freeCompilerArgs.add("-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi")
-    }
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("media-core")
-        }
+        freeCompilerArgs.add(
+            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
+        )
     }
 }
 

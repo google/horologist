@@ -1,2 +1,17 @@
+[*]
+end_of_line = lf
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[**/generated/**/*]
+ktlint = disabled
+
 [*.{kt,kts}]
-ktlint_code_style = ktlint_official
+ij_kotlin_allow_trailing_comma = true
+ij_kotlin_allow_trailing_comma_on_call_site = true
+ktlint_code_style = android_studio
+ktlint_function_naming_ignore_when_annotated_with=Composable
+
+[*.md]
+trim_trailing_whitespace = false

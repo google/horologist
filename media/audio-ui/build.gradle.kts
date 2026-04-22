@@ -18,7 +18,6 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
 }
@@ -38,11 +37,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
     }
 
     packaging {
@@ -124,14 +118,6 @@ dependencies {
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.androidx.test.espressocore)
     testImplementation(libs.truth)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("media-audio-ui")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

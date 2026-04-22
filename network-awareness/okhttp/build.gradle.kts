@@ -19,7 +19,6 @@ plugins {
     alias(libs.plugins.dokka)
     id("com.google.devtools.ksp")
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
 }
 
 android {
@@ -38,12 +37,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
     }
 
     packaging {
@@ -104,14 +97,6 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
     testImplementation(libs.com.squareup.okhttp3.mockwebserver)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("network-awareness-okhttp")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

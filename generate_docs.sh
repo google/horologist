@@ -25,9 +25,22 @@ mkdir $DOCS_ROOT
 # Clear out the old API docs
 [ -d docs/api ] && rm -r docs/api
 # Build the docs with dokka
-./gradlew dokkaHtmlMultiModule --stacktrace
+./gradlew dokkaGenerateHtml --stacktrace
 
-# Create a copy of our docs at our $DOCS_ROOT
+# Collect docs from all modules
+mkdir -p $DOCS_ROOT/api
+echo "# API Documentation" > $DOCS_ROOT/api/index.md
+echo "" >> $DOCS_ROOT/api/index.md
+
+find . -type d -name "html" -path "*/build/dokka/html" | while read dir; do
+    module_name=$(dirname $(dirname $(dirname $dir)))
+    module_name=${module_name#./}
+    if [ "$module_name" != "." ] && [ -n "$(ls -A "$dir")" ]; then
+        mkdir -p "$DOCS_ROOT/api/$module_name"
+        cp -r "$dir/"* "$DOCS_ROOT/api/$module_name/"
+        echo "- [$module_name]($module_name/index.html)" >> $DOCS_ROOT/api/index.md
+    fi
+done
 cp -a docs/* $DOCS_ROOT
 
 # Copy the logo

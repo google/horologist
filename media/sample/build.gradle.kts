@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import com.google.protobuf.gradle.id
 import java.util.Properties
 
 plugins {
@@ -22,7 +21,7 @@ plugins {
     id("dagger.hilt.android.plugin")
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
-    kotlin("android")
+
     kotlin("plugin.serialization")
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
@@ -105,21 +104,6 @@ android {
         buildConfig = true
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs = freeCompilerArgs + """
-            androidx.compose.foundation.ExperimentalFoundationApi
-            androidx.compose.ui.ExperimentalComposeUiApi
-            androidx.wear.compose.material.ExperimentalWearMaterialApi
-            com.google.android.horologist.annotations.ExperimentalHorologistApi
-            kotlin.RequiresOptIn
-            kotlinx.coroutines.ExperimentalCoroutinesApi
-            """.trim().split("\\s+".toRegex()).map {
-            "-opt-in=$it"
-        }
-    }
-
     lint {
         // https://buganizer.corp.google.com/issues/328279054
         disable.add("UnsafeOptInUsageError")
@@ -133,7 +117,7 @@ protobuf {
         artifact = libs.protobuf.protoc.stnd.get().toString()
     }
     plugins {
-        id("javalite") {
+        create("javalite") {
             artifact = libs.protobuf.protoc.gen.javalite.get().toString()
         }
     }

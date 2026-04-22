@@ -19,7 +19,6 @@ plugins {
     id("com.google.devtools.ksp")
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
 }
 
 android {
@@ -38,15 +37,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-                "-opt-in=kotlin.RequiresOptIn",
-            )
     }
 
     packaging {
@@ -105,14 +95,6 @@ dependencies {
     )
     testImplementation(libs.androidx.media3.testutils)
     testImplementation(libs.androidx.media3.testutils.robolectric)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("media-data")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

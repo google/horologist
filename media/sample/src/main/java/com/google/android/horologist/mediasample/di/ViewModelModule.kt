@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,11 +38,13 @@ import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.async
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Module
 @InstallIn(ActivityRetainedComponent::class)
 object ViewModelModule {
@@ -51,11 +53,9 @@ object ViewModelModule {
     @Provides
     fun providesCoroutineScope(
         activityRetainedLifecycle: ActivityRetainedLifecycle,
-    ): CoroutineScope {
-        return CoroutineScope(SupervisorJob() + Dispatchers.Default).also {
-            activityRetainedLifecycle.addOnClearedListener {
-                it.cancel()
-            }
+    ): CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default).also {
+        activityRetainedLifecycle.addOnClearedListener {
+            it.cancel()
         }
     }
 
@@ -65,20 +65,19 @@ object ViewModelModule {
         @ApplicationContext application: Context,
         activityRetainedLifecycle: ActivityRetainedLifecycle,
         coroutineScope: CoroutineScope,
-    ): Deferred<MediaBrowser> =
-        coroutineScope.async {
-            MediaBrowser.Builder(
-                application,
-                SessionToken(application, ComponentName(application, PlaybackService::class.java)),
-            ).buildSuspend()
-        }.also {
-            activityRetainedLifecycle.addOnClearedListener {
-                it.cancel()
-                if (it.isCompleted && !it.isCancelled) {
-                    it.getCompleted().release()
-                }
+    ): Deferred<MediaBrowser> = coroutineScope.async {
+        MediaBrowser.Builder(
+            application,
+            SessionToken(application, ComponentName(application, PlaybackService::class.java)),
+        ).buildSuspend()
+    }.also {
+        activityRetainedLifecycle.addOnClearedListener {
+            it.cancel()
+            if (it.isCompleted && !it.isCancelled) {
+                it.getCompleted().release()
             }
         }
+    }
 
     @Provides
     @ActivityRetainedScoped
@@ -88,29 +87,27 @@ object ViewModelModule {
         activityRetainedLifecycle: ActivityRetainedLifecycle,
         coroutineScope: CoroutineScope,
         mediaController: Deferred<MediaBrowser>,
-    ): PlayerRepositoryImpl =
-        PlayerRepositoryImpl(
-            mediaMapper = mediaMapper,
-            mediaItemMapper = mediaItemMapper,
-        ).also { playerRepository ->
-            activityRetainedLifecycle.addOnClearedListener {
-                playerRepository.close()
-            }
-
-            coroutineScope.launch(Dispatchers.Main) {
-                val player = mediaController.await()
-                playerRepository.connect(
-                    player = player,
-                    onClose = player::release,
-                )
-            }
+    ): PlayerRepositoryImpl = PlayerRepositoryImpl(
+        mediaMapper = mediaMapper,
+        mediaItemMapper = mediaItemMapper,
+    ).also { playerRepository ->
+        activityRetainedLifecycle.addOnClearedListener {
+            playerRepository.close()
         }
+
+        coroutineScope.launch(Dispatchers.Main) {
+            val player = mediaController.await()
+            playerRepository.connect(
+                player = player,
+                onClose = player::release,
+            )
+        }
+    }
 
     @Provides
     @ActivityRetainedScoped
-    fun playerRepository(
-        playerRepositoryImpl: PlayerRepositoryImpl,
-    ): PlayerRepository = playerRepositoryImpl
+    fun playerRepository(playerRepositoryImpl: PlayerRepositoryImpl): PlayerRepository =
+        playerRepositoryImpl
 
     @Provides
     fun mediaItemExtrasMapper(): MediaItemExtrasMapper = MediaItemExtrasMapperNoopImpl

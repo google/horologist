@@ -19,7 +19,6 @@ plugins {
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
     alias(libs.plugins.dependencyAnalysis)
-    kotlin("android")
     alias(libs.plugins.compose.compiler)
 }
 
@@ -39,16 +38,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
     }
 
     packaging {
@@ -118,14 +107,6 @@ dependencyAnalysis {
     issues {
         onAny {
             severity("fail")
-        }
-    }
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("datalayer-phone-ui")
         }
     }
 }

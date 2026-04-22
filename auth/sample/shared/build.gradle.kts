@@ -16,9 +16,8 @@
 
 plugins {
     id("com.android.library")
-    alias(libs.plugins.dokka)
     id("com.google.protobuf")
-    kotlin("android")
+    alias(libs.plugins.dokka)
 }
 
 android {
@@ -37,10 +36,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
     }
 
     packaging {
@@ -115,7 +110,9 @@ dependencies {
     implementation(libs.androidx.datastore)
     implementation(libs.kotlin.stdlib)
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.protobuf.kotlin.lite)
+    api(libs.protobuf.kotlin.lite)
+    api(libs.io.grpc.protobuf.lite)
+    api(libs.io.grpc.grpc.kotlin)
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,13 +21,12 @@ import android.media.AudioFormat
 import androidx.media3.common.C
 import androidx.media3.common.Format
 import androidx.media3.common.MimeTypes
-import androidx.media3.common.util.Assertions
 import androidx.media3.common.util.Util
 
 @SuppressLint("WrongConstant", "UnsafeOptInUsageError")
 public fun Format.toAudioFormat(): AudioFormat? {
     val encoding: @C.Encoding Int =
-        MimeTypes.getEncoding(Assertions.checkNotNull(sampleMimeType), codecs)
+        MimeTypes.getEncoding(checkNotNull(sampleMimeType), codecs)
 
     if (encoding == C.ENCODING_INVALID) {
         return null

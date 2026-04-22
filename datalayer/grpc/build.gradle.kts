@@ -16,10 +16,9 @@
 
 plugins {
     id("com.android.library")
+    id("com.google.protobuf")
     alias(libs.plugins.dokka)
     // alias(libs.plugins.metalavaGradle)
-    kotlin("android")
-    id("com.google.protobuf")
 }
 
 android {
@@ -38,14 +37,6 @@ android {
         buildConfig = false
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
-    }
     packaging {
         resources {
             excludes +=
@@ -70,20 +61,6 @@ android {
 
     namespace = "com.google.android.horologist.datalayer.grpc"
 }
-
-project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
-}
-
-// TODO resolve java.lang.StackOverflowError
-// metalava {
-//    filename.set("api/current.api")
-// }
 
 protobuf {
     protoc {
@@ -122,11 +99,26 @@ protobuf {
     }
 }
 
+project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+        compilerOptions {
+            freeCompilerArgs.add("-Xexplicit-api=strict")
+        }
+    }
+}
+
+// TODO resolve java.lang.StackOverflowError
+// metalava {
+//    filename.set("api/current.api")
+// }
+
 dependencies {
     api(projects.annotations)
 
     api(projects.datalayer.core)
     implementation(libs.kotlin.stdlib)
+    api(libs.protobuf.kotlin.lite)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.androidx.lifecycle.service)
     api(libs.io.grpc.protobuf.lite)
@@ -135,14 +127,6 @@ dependencies {
     implementation(libs.kotlinx.coroutines.playservices)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.wear.remote.interactions)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("datalayer-grpc")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

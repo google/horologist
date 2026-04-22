@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@ import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
 import com.google.android.horologist.networks.status.NetworkRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
@@ -35,53 +38,52 @@ import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
-import kotlin.time.Duration.Companion.seconds
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class MediaInfoTimeTextViewModel
-    @Inject
-    constructor(
-        networkRepository: NetworkRepository,
-        dataRequestRepository: DataRequestRepository,
-        audioOffloadManager: AudioOffloadManager,
-        highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
-        settingsRepository: SettingsRepository,
-    ) : ViewModel() {
-        val enabledFlow: Flow<Boolean> =
-            settingsRepository.settingsFlow.map { it.showTimeTextInfo }
+@Inject
+constructor(
+    networkRepository: NetworkRepository,
+    dataRequestRepository: DataRequestRepository,
+    audioOffloadManager: AudioOffloadManager,
+    highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
+    settingsRepository: SettingsRepository,
+) : ViewModel() {
+    val enabledFlow: Flow<Boolean> =
+        settingsRepository.settingsFlow.map { it.showTimeTextInfo }
 
-        val uiState = enabledFlow.flatMapLatest { enabled ->
-            if (enabled) {
-                combine(
-                    networkRepository.networkStatus,
-                    audioOffloadManager.offloadStatus,
-                    dataRequestRepository.currentPeriodUsage(),
-                    highBandwidthNetworkMediator.pinned,
-                ) { networkStatus, offloadStatus, currentPeriodUsage, pinnedNetworks ->
-                    UiState(
-                        enabled = enabled,
-                        networks = networkStatus,
-                        audioOffloadStatus = offloadStatus,
-                        dataUsageReport = currentPeriodUsage,
-                        pinnedNetworks = pinnedNetworks,
-                    )
-                }
-            } else {
-                flowOf(UiState())
+    val uiState = enabledFlow.flatMapLatest { enabled ->
+        if (enabled) {
+            combine(
+                networkRepository.networkStatus,
+                audioOffloadManager.offloadStatus,
+                dataRequestRepository.currentPeriodUsage(),
+                highBandwidthNetworkMediator.pinned,
+            ) { networkStatus, offloadStatus, currentPeriodUsage, pinnedNetworks ->
+                UiState(
+                    enabled = enabled,
+                    networks = networkStatus,
+                    audioOffloadStatus = offloadStatus,
+                    dataUsageReport = currentPeriodUsage,
+                    pinnedNetworks = pinnedNetworks,
+                )
             }
+        } else {
+            flowOf(UiState())
         }
-            .stateIn(
-                viewModelScope,
-                started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
-                initialValue = UiState(),
-            )
-
-        data class UiState(
-            val enabled: Boolean = false,
-            val networks: Networks = Networks(null, listOf()),
-            val audioOffloadStatus: AudioOffloadStatus? = null,
-            val dataUsageReport: DataUsageReport? = null,
-            val pinnedNetworks: Set<NetworkType> = setOf(),
-        )
     }
+        .stateIn(
+            viewModelScope,
+            started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
+            initialValue = UiState(),
+        )
+
+    data class UiState(
+        val enabled: Boolean = false,
+        val networks: Networks = Networks(null, listOf()),
+        val audioOffloadStatus: AudioOffloadStatus? = null,
+        val dataUsageReport: DataUsageReport? = null,
+        val pinnedNetworks: Set<NetworkType> = setOf(),
+    )
+}

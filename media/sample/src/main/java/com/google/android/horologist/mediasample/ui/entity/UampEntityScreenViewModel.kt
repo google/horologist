@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,77 +32,84 @@ import com.google.android.horologist.media.ui.state.mapper.PlaylistUiModelMapper
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.proto.copy
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class UampEntityScreenViewModel
-    @Inject
-    constructor(
-        savedStateHandle: SavedStateHandle,
-        private val playlistDownloadRepository: PlaylistDownloadRepository,
-        private val mediaDownloadRepository: MediaDownloadRepository,
-        private val playerRepository: PlayerRepository,
-        private val settingsRepository: SettingsRepository,
-    ) : ViewModel() {
-        private val route = savedStateHandle.toRoute<NavigationScreen.Collection>()
+@Inject
+constructor(
+    savedStateHandle: SavedStateHandle,
+    private val playlistDownloadRepository: PlaylistDownloadRepository,
+    private val mediaDownloadRepository: MediaDownloadRepository,
+    private val playerRepository: PlayerRepository,
+    private val settingsRepository: SettingsRepository,
+) : ViewModel() {
+    private val route = savedStateHandle.toRoute<NavigationScreen.Collection>()
 
-        private val playlistDownload: StateFlow<PlaylistDownload?> =
-            playlistDownloadRepository.get(route.id)
-                .stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
+    private val playlistDownload: StateFlow<PlaylistDownload?> =
+        playlistDownloadRepository.get(route.id)
+            .stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
 
-        val uiState: StateFlow<PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>> =
-            playlistDownload.map { playlistDownload ->
-                if (playlistDownload != null) {
-                    createPlaylistDownloadScreenStateLoaded(
-                        playlistModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
-                        downloadMediaList = playlistDownload.mediaList.map(DownloadMediaUiModelMapper::map),
-                    )
-                } else {
-                    PlaylistDownloadScreenState.Failed
-                }
-            }.catch {
-                emit(PlaylistDownloadScreenState.Failed)
-            }.stateIn(
-                viewModelScope,
-                SharingStarted.WhileSubscribed(5000),
-                PlaylistDownloadScreenState.Loading,
-            )
-
-        fun play(mediaId: String? = null) {
-            play(shuffled = false, mediaId = mediaId)
-        }
-
-        fun shufflePlay() {
-            play(shuffled = true)
-        }
-
-        private fun play(shuffled: Boolean, mediaId: String? = null) {
-            playlistDownload.value?.let { playlistDownload ->
-                val index = playlistDownload.mediaList
-                    .indexOfFirst { it.media.id == mediaId }
-                    .coerceAtLeast(0)
-                viewModelScope.launch {
-                    settingsRepository.edit { it.copy { currentMediaListId = route.id } }
-                }
-                playerRepository.setShuffleModeEnabled(shuffled)
-                playerRepository.setMediaList(playlistDownload.playlist.mediaList, index)
-                playerRepository.play()
+    val uiState: StateFlow<PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>> =
+        playlistDownload.map { playlistDownload ->
+            if (playlistDownload != null) {
+                createPlaylistDownloadScreenStateLoaded(
+                    playlistModel = PlaylistUiModelMapper.map(playlistDownload.playlist),
+                    downloadMediaList = playlistDownload.mediaList.map(
+                        DownloadMediaUiModelMapper::map,
+                    ),
+                )
+            } else {
+                PlaylistDownloadScreenState.Failed
             }
-        }
+        }.catch {
+            emit(PlaylistDownloadScreenState.Failed)
+        }.stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5000),
+            PlaylistDownloadScreenState.Loading,
+        )
 
-        fun download() = playlistDownload.value?.let { playlistDownloadRepository.download(it.playlist) }
+    fun play(mediaId: String? = null) {
+        play(shuffled = false, mediaId = mediaId)
+    }
 
-        fun remove() = playlistDownload.value?.let { playlistDownloadRepository.remove(it.playlist) }
+    fun shufflePlay() {
+        play(shuffled = true)
+    }
 
-        fun removeMediaItem(mediaId: String) {
-            mediaDownloadRepository.remove(mediaId)
+    private fun play(shuffled: Boolean, mediaId: String? = null) {
+        playlistDownload.value?.let { playlistDownload ->
+            val index = playlistDownload.mediaList
+                .indexOfFirst { it.media.id == mediaId }
+                .coerceAtLeast(0)
+            viewModelScope.launch {
+                settingsRepository.edit {
+                    it.toBuilder().setCurrentMediaListId(route.id).build()
+                }
+            }
+            playerRepository.setShuffleModeEnabled(shuffled)
+            playerRepository.setMediaList(playlistDownload.playlist.mediaList, index)
+            playerRepository.play()
         }
     }
+
+    fun download() = playlistDownload.value?.let {
+        playlistDownloadRepository.download(it.playlist)
+    }
+
+    fun remove() = playlistDownload.value?.let {
+        playlistDownloadRepository.remove(it.playlist)
+    }
+
+    fun removeMediaItem(mediaId: String) {
+        mediaDownloadRepository.remove(mediaId)
+    }
+}

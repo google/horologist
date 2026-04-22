@@ -15,13 +15,13 @@ package com.google.android.horologist.media.sync.api {
     method public String component1();
     method public int component2();
     method public boolean component3();
-    method public com.google.android.horologist.media.sync.api.NetworkChangeList copy(String id, int changeListVersion, boolean isDelete);
-    method public int getChangeListVersion();
-    method public String getId();
-    method public boolean isDelete();
-    property public final int changeListVersion;
-    property public final String id;
-    property public final boolean isDelete;
+    method public com.google.android.horologist.media.sync.api.NetworkChangeList copy(optional String id, optional int changeListVersion, optional boolean isDelete);
+    method @InaccessibleFromKotlin public int getChangeListVersion();
+    method @InaccessibleFromKotlin public String getId();
+    method @InaccessibleFromKotlin public boolean isDelete();
+    property public int changeListVersion;
+    property public String id;
+    property public boolean isDelete;
   }
 
   public interface NotificationConfigurationProvider {

@@ -34,7 +34,6 @@ import java.util.Properties
 
 plugins {
     id("com.android.library")
-    kotlin("android")
     id("org.jetbrains.kotlin.plugin.serialization")
 }
 
@@ -68,7 +67,13 @@ android {
         buildConfigField(
             "String",
             "GEMINI_PROXY",
-            if (localProperties.containsKey("gemini.apk.proxy")) "\"" + localProperties["gemini.apk.proxy"] + "\"" else "null",
+            if (localProperties.containsKey("gemini.apk.proxy")) {
+                "\"" +
+                    localProperties["gemini.apk.proxy"] +
+                    "\""
+            } else {
+                "null"
+            },
         )
     }
 
@@ -79,16 +84,6 @@ android {
 
     buildFeatures {
         buildConfig = true
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-
-        // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
     }
 
     testOptions {

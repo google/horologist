@@ -17,7 +17,7 @@
 plugins {
     id("com.android.library")
     id("com.google.protobuf")
-    kotlin("android")
+
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
 }
@@ -40,14 +40,6 @@ android {
         buildConfig = false
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
-    }
     packaging {
         resources {
             excludes +=
@@ -61,6 +53,9 @@ android {
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
+            all {
+                it.failOnNoDiscoveredTests = false
+            }
         }
     }
 
@@ -111,13 +106,15 @@ protobuf {
 
 dependencies {
     api(projects.annotations)
+    api(libs.io.grpc.protobuf.lite)
+    api(libs.io.grpc.grpc.kotlin)
 
     implementation(libs.dagger.hiltandroid)
     implementation(projects.datalayer.core)
     implementation(projects.datalayer.grpc)
     ksp(libs.dagger.hiltandroidcompiler)
 
-    implementation(libs.grpc.stub)
+    api(libs.grpc.stub)
 
     implementation(platform(libs.compose.bom))
     implementation(libs.kotlin.stdlib)

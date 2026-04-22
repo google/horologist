@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,11 +23,11 @@ import com.google.android.horologist.media.ui.snackbar.SnackbarManager
 import com.google.android.horologist.media.ui.snackbar.UiMessage
 import com.google.android.horologist.mediasample.di.IsEmulator
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.proto.copy
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthNetworkMediator
 import com.google.android.horologist.networks.request.HighBandwidthRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -35,122 +35,121 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class DeveloperOptionsScreenViewModel
-    @Inject
-    constructor(
-        private val settingsRepository: SettingsRepository,
-        private val snackbarManager: SnackbarManager,
-        private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
-        @IsEmulator private val isEmulator: Boolean,
-    ) : ViewModel() {
-        private val networkRequest = MutableStateFlow<HighBandwidthConnectionLease?>(null)
+@Inject
+constructor(
+    private val settingsRepository: SettingsRepository,
+    private val snackbarManager: SnackbarManager,
+    private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
+    @param:IsEmulator private val isEmulator: Boolean,
+) : ViewModel() {
+    private val networkRequest = MutableStateFlow<HighBandwidthConnectionLease?>(null)
 
-        val uiState: StateFlow<UiState> =
-            combine(settingsRepository.settingsFlow, networkRequest) { it, networkRequest ->
-                UiState(
-                    showTimeTextInfo = it.showTimeTextInfo,
-                    podcastControls = it.podcastControls,
-                    loadItemsAtStartup = it.loadItemsAtStartup,
-                    animated = it.animated,
-                    debugOffload = it.debugOffload,
-                    writable = true,
-                    networkRequest = networkRequest,
-                    streamingMode = it.streamingMode,
-                )
-            }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000),
-                initialValue = UiState(writable = false),
+    val uiState: StateFlow<UiState> =
+        combine(settingsRepository.settingsFlow, networkRequest) { it, networkRequest ->
+            UiState(
+                showTimeTextInfo = it.showTimeTextInfo,
+                podcastControls = it.podcastControls,
+                loadItemsAtStartup = it.loadItemsAtStartup,
+                animated = it.animated,
+                debugOffload = it.debugOffload,
+                writable = true,
+                networkRequest = networkRequest,
+                streamingMode = it.streamingMode,
             )
-
-        data class UiState(
-            val showTimeTextInfo: Boolean = false,
-            val podcastControls: Boolean = false,
-            val loadItemsAtStartup: Boolean = false,
-            val animated: Boolean = true,
-            val debugOffload: Boolean = false,
-            val writable: Boolean = false,
-            val networkRequest: HighBandwidthConnectionLease? = null,
-            val streamingMode: Boolean = false,
+        }.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = UiState(writable = false),
         )
 
-        fun setShowTimeTextInfo(enabled: Boolean) {
-            viewModelScope.launch {
-                settingsRepository.edit {
-                    it.copy { showTimeTextInfo = enabled }
-                }
+    data class UiState(
+        val showTimeTextInfo: Boolean = false,
+        val podcastControls: Boolean = false,
+        val loadItemsAtStartup: Boolean = false,
+        val animated: Boolean = true,
+        val debugOffload: Boolean = false,
+        val writable: Boolean = false,
+        val networkRequest: HighBandwidthConnectionLease? = null,
+        val streamingMode: Boolean = false,
+    )
+
+    fun setShowTimeTextInfo(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.edit {
+                it.toBuilder().setShowTimeTextInfo(enabled).build()
             }
-        }
-
-        fun setPodcastControls(enabled: Boolean) {
-            viewModelScope.launch {
-                settingsRepository.edit {
-                    it.copy { podcastControls = enabled }
-                }
-            }
-        }
-
-        fun setLoadItemsAtStartup(enabled: Boolean) {
-            viewModelScope.launch {
-                settingsRepository.edit {
-                    it.copy { loadItemsAtStartup = enabled }
-                }
-            }
-        }
-
-        fun setAnimated(enabled: Boolean) {
-            viewModelScope.launch {
-                settingsRepository.edit {
-                    it.copy { animated = enabled }
-                }
-            }
-        }
-
-        fun setDebugOffload(enabled: Boolean) {
-            viewModelScope.launch {
-                settingsRepository.edit {
-                    it.copy { debugOffload = enabled }
-                }
-            }
-        }
-
-        fun setStreamingMode(mode: Boolean) {
-            viewModelScope.launch {
-                settingsRepository.edit {
-                    it.copy { streamingMode = mode }
-                }
-            }
-        }
-
-        fun showDialog(message: String) {
-            snackbarManager.showMessage(
-                UiMessage(
-                    message = message,
-                    error = true,
-                ),
-            )
-        }
-
-        fun toggleNetworkRequest() {
-            networkRequest.update {
-                if (it != null) {
-                    it.close()
-                    null
-                } else {
-                    val type = if (isEmulator) HighBandwidthRequest.Cell else HighBandwidthRequest.All
-                    highBandwidthNetworkMediator.requestHighBandwidthNetwork(type)
-                }
-            }
-        }
-
-        override fun onCleared() {
-            networkRequest.value?.close()
-        }
-
-        fun forceStop() {
-            Process.killProcess(Process.myPid())
         }
     }
+
+    fun setPodcastControls(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.edit {
+                it.toBuilder().setPodcastControls(enabled).build()
+            }
+        }
+    }
+
+    fun setLoadItemsAtStartup(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.edit {
+                it.toBuilder().setLoadItemsAtStartup(enabled).build()
+            }
+        }
+    }
+
+    fun setAnimated(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.edit {
+                it.toBuilder().setAnimated(enabled).build()
+            }
+        }
+    }
+
+    fun setDebugOffload(enabled: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.edit {
+                it.toBuilder().setDebugOffload(enabled).build()
+            }
+        }
+    }
+
+    fun setStreamingMode(mode: Boolean) {
+        viewModelScope.launch {
+            settingsRepository.edit {
+                it.toBuilder().setStreamingMode(mode).build()
+            }
+        }
+    }
+
+    fun showDialog(message: String) {
+        snackbarManager.showMessage(
+            UiMessage(
+                message = message,
+                error = true,
+            ),
+        )
+    }
+
+    fun toggleNetworkRequest() {
+        networkRequest.update {
+            if (it != null) {
+                it.close()
+                null
+            } else {
+                val type = if (isEmulator) HighBandwidthRequest.Cell else HighBandwidthRequest.All
+                highBandwidthNetworkMediator.requestHighBandwidthNetwork(type)
+            }
+        }
+    }
+
+    override fun onCleared() {
+        networkRequest.value?.close()
+    }
+
+    fun forceStop() {
+        Process.killProcess(Process.myPid())
+    }
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,9 +40,10 @@ import com.google.android.horologist.tiles.composable.ServiceComposableBitmapRen
 import com.google.android.horologist.tiles.images.toImageResource
 import java.util.UUID
 
+@Deprecated("Use Material3TileService instead")
 class ComposableTileService : SuspendingTileService() {
     private lateinit var renderer: ServiceComposableBitmapRenderer
-    val ComposeId = "circleCompose"
+    val composeId = "circleCompose"
 
     override fun onCreate() {
         super.onCreate()
@@ -51,11 +52,12 @@ class ComposableTileService : SuspendingTileService() {
     }
 
     /** This method returns a Tile object, which describes the layout of the Tile. */
+    @Suppress("DEPRECATION")
     override suspend fun tileRequest(requestParams: TileRequest): Tile {
         val layoutElement =
             LayoutElementBuilders.Box.Builder().setWidth(expand()).setHeight(expand()).addContent(
                 LayoutElementBuilders.Image.Builder().setWidth(dp(100f)).setHeight(dp(100f))
-                    .setResourceId(ComposeId).build(),
+                    .setResourceId(composeId).build(),
             ).build()
 
         return Tile.Builder().setResourcesVersion(UUID.randomUUID().toString())
@@ -68,7 +70,7 @@ class ComposableTileService : SuspendingTileService() {
         return Resources.Builder().setVersion(requestParams.version).apply {
             if (circleComposeBitmap != null) {
                 addIdToImageMapping(
-                    ComposeId,
+                    composeId,
                     circleComposeBitmap.toImageResource(),
                 )
             }

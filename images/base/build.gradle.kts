@@ -18,7 +18,6 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
     alias(libs.plugins.compose.compiler)
 }
 
@@ -38,11 +37,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
     }
 
     packaging {
@@ -93,14 +87,6 @@ dependencies {
     api(libs.compose.runtime)
     api(libs.compose.ui)
     api(libs.kotlin.stdlib)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("images-base")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

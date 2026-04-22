@@ -19,7 +19,6 @@ plugins {
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
     alias(libs.plugins.dependencyAnalysis)
-    kotlin("android")
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
 }
@@ -46,13 +45,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs += listOf(
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-        )
     }
 
     packaging {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+@file:OptIn(ExperimentalWearMaterialApi::class)
 
 package com.google.android.horologist.sectionedlist.stateful
 
@@ -41,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.wear.compose.material.ChipDefaults
+import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
@@ -108,6 +111,7 @@ private fun SectionedListScope.recommendationsSection(
     val recommendationsState: Section.State<Recommendation> =
         when (val recommendationSectionState = state.recommendationSectionState) {
             RecommendationSectionState.Loading -> Section.State.Loading
+
             is RecommendationSectionState.Loaded -> Section.State.Loaded(
                 recommendationSectionState.list,
             )
@@ -159,6 +163,7 @@ private fun SectionedListScope.trendingSection(
     val trendingState: Section.State<Trending> =
         when (val recommendationSectionState = state.trendingSectionState) {
             TrendingSectionState.Loading -> Section.State.Loading
+
             is TrendingSectionState.Loaded -> Section.State.Loaded(
                 recommendationSectionState.list,
             )

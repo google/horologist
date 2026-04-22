@@ -20,7 +20,6 @@ plugins {
 
     id("com.google.devtools.ksp")
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
 }
 
 android {
@@ -35,12 +34,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
     }
 
     packaging {
@@ -103,14 +96,6 @@ dependencies {
     androidTestImplementation(libs.androidx.test.ext.ktx)
     androidTestImplementation(libs.truth)
     androidTestImplementation(libs.kotlinx.coroutines.test)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("network-awareness-core")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

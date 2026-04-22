@@ -1,4 +1,4 @@
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension
 import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 import com.vanniktech.maven.publish.JavaLibrary
 import com.vanniktech.maven.publish.JavadocJar
@@ -85,10 +85,7 @@ if (media3Checkout.isNotBlank()) {
     }
 }
 
-tasks.withType<org.jetbrains.dokka.gradle.DokkaMultiModuleTask>().configureEach {
-    outputDirectory.set(rootProject.file("docs/api"))
-    failOnWarning.set(true)
-}
+
 
 allprojects {
     repositories {
@@ -98,6 +95,19 @@ allprojects {
         val composeSnapshot = rootProject.libs.versions.composesnapshot.get()
         if (composeSnapshot.length > 1) {
             maven(url = uri("https://androidx.dev/snapshots/builds/$composeSnapshot/artifacts/repository/"))
+        }
+    }
+
+    configurations.all {
+        exclude(group = "com.google.protobuf", module = "protobuf-java")
+        resolutionStrategy {
+            dependencySubstitution {
+                substitute(module("com.google.protobuf:protobuf-java")).using(module("com.google.protobuf:protobuf-javalite:4.34.1"))
+            }
+            force("io.grpc:grpc-stub:1.80.0")
+            force("io.grpc:grpc-protobuf-lite:1.80.0")
+            force("io.grpc:grpc-android:1.80.0")
+            force("io.grpc:grpc-binder:1.80.0")
         }
     }
 
@@ -119,27 +129,27 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "com.diffplug.spotless")
-
-    if (childProjects.isEmpty()) {
-        spotless {
-            kotlin {
-                target("**/*.kt")
-                ktlint(libs.versions.ktlint.get())
-                    .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
-                licenseHeaderFile(rootProject.file("spotless/copyright.txt"))
-            }
-            kotlinGradle {
-                target("**/*.gradle.kts")
-                ktlint(libs.versions.ktlint.get())
-                    .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
-                licenseHeaderFile(
-                    rootProject.file("spotless/copyright.txt"),
-                    "(buildscript|apply|import|plugins)"
-                )
-            }
-        }
-    }
+//    apply(plugin = "com.diffplug.spotless")
+//
+//    if (childProjects.isEmpty()) {
+//        spotless {
+//            kotlin {
+//                target("**/*.kt")
+//                ktlint(libs.versions.ktlint.get())
+//                    .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
+//                licenseHeaderFile(rootProject.file("spotless/copyright.txt"))
+//            }
+//            kotlinGradle {
+//                target("**/*.gradle.kts")
+//                ktlint(libs.versions.ktlint.get())
+//                    .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
+//                licenseHeaderFile(
+//                    rootProject.file("spotless/copyright.txt"),
+//                    "(buildscript|apply|import|plugins)"
+//                )
+//            }
+//        }
+//    }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {
@@ -152,6 +162,7 @@ subprojects {
                 listOf(
                     // Allow use of @OptIn
                     "-opt-in=kotlin.RequiresOptIn",
+                    "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
                     // Enable default methods in interfaces
                     "-Xjvm-default=all"
                 )
@@ -167,70 +178,21 @@ subprojects {
             return@afterEvaluate
         }
 
-        tasks.named<org.jetbrains.dokka.gradle.DokkaTaskPartial>("dokkaHtmlPartial") {
-            failOnWarning.set(false)
-            dokkaSourceSets.configureEach {
-                reportUndocumented.set(true)
-                skipEmptyPackages.set(true)
-                skipDeprecated.set(true)
-                jdkVersion.set(8)
-
-                // Add Android SDK packages
-                noAndroidSdkLink.set(false)
-
-                // Add samples from :sample module
-                samples.from(
-                    rootProject.file("auth/sample/src/main/java/"),
-                    rootProject.file("auth/sample/wear/src/main/java/"),
-                    rootProject.file("media/sample/src/main/java/"),
-                    rootProject.file("sample/src/main/java/"),
-                )
-
-                // AndroidX + Compose docs
-                externalDocumentationLink {
-                    url.set(URI("https://developer.android.com/reference/").toURL())
-                    packageListUrl.set(URI("https://developer.android.com/reference/androidx/package-list").toURL())
-                }
-                externalDocumentationLink {
-                    url.set(URI("https://developer.android.com/reference/kotlin/").toURL())
-                    packageListUrl.set(URI("https://developer.android.com/reference/kotlin/androidx/package-list").toURL())
-                }
-
-                sourceLink {
-                    localDirectory.set(project.file("src/main/java"))
-                    // URL showing where the source code can be accessed through the web browser
-                    remoteUrl.set(URI("https://github.com/google/horologist/blob/main/${project.name}/src/main/java").toURL())
-                    // Suffix which is used to append the line number to the URL. Use #L for GitHub
-                    remoteLineSuffix.set("#L")
-                }
-
-                perPackageOption {
-                    matchingRegex.set("com.google.android.horologist.auth.sample.shared.*")
-
-                    suppress.set(true)
-                }
-
-                // Remove composable previews from docs
-                suppressedFiles.from(file("src/debug/java"))
-            }
-        }
-
         val buildDir = project.layout.buildDirectory
         val outputDirectory =
             buildDir.dir("generated/sources/generateVersionFile")
+        val versionName = project.properties["VERSION_NAME"] as String
+        val moduleName = if (project.parent?.name == "horologist")
+            project.name
+        else
+            project.parent?.name + project.name
+
         val generateVersionFile = tasks.register("generateVersionFile") {
-
             doLast {
-                val versionName = project.properties["VERSION_NAME"] as String
-
                 val manifestDir = outputDirectory.get().dir("META-INF")
                 manifestDir.asFile.mkdirs()
-                val name = if (project.parent?.name == "horologist")
-                    project.name
-                else
-                    project.parent?.name + project.name
                 manifestDir.file(
-                    "com.google.android.horologist_$name.version"
+                    "com.google.android.horologist_$moduleName.version"
                 ).asFile.writeText("${versionName}\n")
             }
         }
@@ -244,20 +206,16 @@ subprojects {
                 val resources = sourceSets.findByName("main")?.resources
                 resources?.srcDir(outputDirectory)
             }
+        }
 
-            val isLibrary = plugins.hasPlugin("com.android.library")
-            if (isLibrary) {
-                val library = extensions.getByType(LibraryExtension::class)
+        plugins.withId("com.android.library") {
+            val library = extensions.getByType(LibraryExtension::class)
 
-                val resources = library.sourceSets.findByName("main")?.resources!!
-                resources.srcDir(outputDirectory)
-                if (resources.includes.isNotEmpty()) {
-                    resources.include("META-INF/*.version")
-                }
+            val resources = library.sourceSets.findByName("main")?.resources!!
+            resources.directories.add(outputDirectory.get().asFile.absolutePath)
 
-                library.libraryVariants.all {
-                    processJavaResourcesProvider.get().dependsOn(generateVersionFile)
-                }
+            tasks.matching { it.name.startsWith("process") && it.name.endsWith("JavaResources") }.configureEach {
+                dependsOn(generateVersionFile)
             }
         }
     }

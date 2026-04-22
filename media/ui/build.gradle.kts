@@ -18,7 +18,6 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
     alias(libs.plugins.roborazzi)
     kotlin("plugin.serialization")
     alias(libs.plugins.compose.compiler)
@@ -40,19 +39,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs = freeCompilerArgs +
-            """
-            com.google.android.horologist.annotations.ExperimentalHorologistApi
-            kotlin.RequiresOptIn
-            kotlinx.coroutines.ExperimentalCoroutinesApi
-            """.trim().split("\\s+".toRegex()).map {
-                "-opt-in=$it"
-            }
     }
 
     packaging {
@@ -161,14 +147,6 @@ dependencies {
     testImplementation(libs.compose.ui.test.junit4)
     testImplementation(libs.androidx.test.espressocore)
     testImplementation(libs.androidx.test.ext)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("media-ui")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

@@ -17,7 +17,6 @@
 plugins {
     id("com.android.library")
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
 }
 
 android {
@@ -32,11 +31,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=kotlin.RequiresOptIn"
     }
 
     packaging {

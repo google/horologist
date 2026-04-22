@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,32 +27,28 @@ import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
 
 @SuppressLint("UnsafeOptInUsageError")
 public open class WearMedia3Factory(private val context: Context) {
-    public fun audioSink(
-        audioOffloadListener: AudioOffloadListener?,
-    ): DefaultAudioSink {
-        return DefaultAudioSink.Builder(context)
+    public fun audioSink(audioOffloadListener: AudioOffloadListener?): DefaultAudioSink =
+        DefaultAudioSink.Builder(context)
             .setAudioProcessorChain(DefaultAudioSink.DefaultAudioProcessorChain())
             .setExperimentalAudioOffloadListener(audioOffloadListener)
             .setEnableFloatOutput(false) // default
-            .setEnableAudioTrackPlaybackParams(false) // default
+            .setEnableAudioOutputPlaybackParameters(false) // default
             .build()
-    }
 
     public fun audioOnlyRenderersFactory(
         audioSink: AudioSink,
         mediaCodecSelector: MediaCodecSelector = MediaCodecSelector.DEFAULT,
-    ): RenderersFactory =
-        RenderersFactory { handler, _, audioListener, _, _ ->
-            arrayOf(
-                MediaCodecAudioRenderer(
-                    context,
-                    mediaCodecSelector,
-                    handler,
-                    audioListener,
-                    audioSink,
-                ),
-            )
-        }
+    ): RenderersFactory = RenderersFactory { handler, _, audioListener, _, _ ->
+        arrayOf(
+            MediaCodecAudioRenderer(
+                context,
+                mediaCodecSelector,
+                handler,
+                audioListener,
+                audioSink,
+            ),
+        )
+    }
 
     public fun mediaCodecSelector(): MediaCodecSelector = MediaCodecSelector.DEFAULT
 }

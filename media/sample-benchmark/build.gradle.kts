@@ -16,7 +16,6 @@
 
 plugins {
     id("com.android.test")
-    kotlin("android")
 }
 
 android {
@@ -26,10 +25,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
     }
 
     defaultConfig {

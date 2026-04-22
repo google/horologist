@@ -18,7 +18,6 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
 }
 
 android {
@@ -39,14 +38,6 @@ android {
         buildConfig = false
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
-    }
     packaging {
         resources {
             excludes +=
@@ -110,14 +101,6 @@ dependencies {
     testImplementation(libs.androidx.test.runner)
     testImplementation(libs.androidx.wear.tiles.testing)
     testImplementation(libs.androidx.concurrent.future)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("datalayer-watch")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

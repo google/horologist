@@ -18,7 +18,6 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
 }
@@ -39,11 +38,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs + "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
     }
 
     packaging {
@@ -111,14 +105,6 @@ dependencies {
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
     testRuntimeOnly(libs.compose.ui.test.manifest)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("images-coil")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

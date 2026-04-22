@@ -16,7 +16,6 @@
 
 plugins {
     id("com.android.application")
-    kotlin("android")
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
     kotlin("plugin.serialization")
@@ -62,16 +61,6 @@ android {
 
     buildFeatures {
         buildConfig = true
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-
-        // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
     }
 
     packaging {

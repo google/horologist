@@ -18,7 +18,6 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
 }
 
 android {
@@ -38,14 +37,6 @@ android {
         buildConfig = false
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
-    }
     packaging {
         resources {
             excludes +=
@@ -107,14 +98,6 @@ dependencies {
     testImplementation(libs.robolectric)
     testImplementation(libs.androidx.media3.testutils)
     testImplementation(libs.androidx.media3.testutils.robolectric)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("media-media3-outputswitcher")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

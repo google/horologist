@@ -19,7 +19,6 @@ plugins {
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
     id("com.google.devtools.ksp")
-    kotlin("android")
 }
 
 android {
@@ -40,9 +39,6 @@ android {
         buildConfig = false
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-    }
     packaging {
         resources {
             excludes +=
@@ -81,7 +77,11 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 
 metalava {
     filename.set("api/current.api")
-    hiddenAnnotations.addAll("dagger.internal.DaggerGenerated", "dagger.assisted.AssistedFactory", "javax.annotation.processing.Generated")
+    hiddenAnnotations.addAll(
+        "dagger.internal.DaggerGenerated",
+        "dagger.assisted.AssistedFactory",
+        "javax.annotation.processing.Generated",
+    )
 }
 
 dependencies {
@@ -99,12 +99,4 @@ dependencies {
 
     kspAndroidTest(libs.dagger.hiltandroidcompiler)
     kspAndroidTest(libs.hilt.ext.compiler)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("media-sync")
-        }
-    }
 }

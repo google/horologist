@@ -20,7 +20,6 @@ import java.util.Locale
 
 plugins {
     id("com.android.application")
-    kotlin("android")
     alias(libs.plugins.roborazzi)
     kotlin("plugin.serialization")
     alias(libs.plugins.compose.compiler)
@@ -65,22 +64,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs = freeCompilerArgs +
-            """
-            androidx.compose.ui.ExperimentalComposeUiApi
-            androidx.wear.compose.material.ExperimentalWearMaterialApi
-            com.google.android.horologist.annotations.ExperimentalHorologistApi
-            androidx.compose.foundation.ExperimentalFoundationApi
-            kotlin.RequiresOptIn
-            kotlinx.coroutines.ExperimentalCoroutinesApi
-            """.trim().split("\\s+".toRegex()).map {
-                "-opt-in=$it"
-            }
     }
 
     testOptions {

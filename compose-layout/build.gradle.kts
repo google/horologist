@@ -18,7 +18,6 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
 }
@@ -38,18 +37,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs = freeCompilerArgs +
-            """
-            kotlin.RequiresOptIn
-            com.google.android.horologist.annotations.ExperimentalHorologistApi
-            """.trim().split("\\s+".toRegex()).map {
-                "-opt-in=$it"
-            }
     }
 
     packaging {

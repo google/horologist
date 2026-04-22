@@ -16,7 +16,6 @@
 
 plugins {
     id("com.android.library")
-    kotlin("android")
     id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
 }
@@ -39,14 +38,6 @@ android {
         buildConfig = false
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
-    }
     packaging {
         resources {
             excludes +=

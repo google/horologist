@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-import com.google.protobuf.gradle.id
-
 plugins {
     id("com.android.application")
     id("com.google.devtools.ksp")
     id("com.google.protobuf")
+
     id("dagger.hilt.android.plugin")
-    kotlin("android")
     alias(libs.plugins.compose.compiler)
 }
 
@@ -68,16 +66,6 @@ android {
         buildConfig = true
     }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-
-        // Allow for widescale experimental APIs in Alpha libraries we build upon
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
-    }
-
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
@@ -93,26 +81,19 @@ android {
     namespace = "com.google.android.horologist.datalayer.sample"
 }
 
-sourceSets {
-    create("main") {
-        java {
-            srcDirs(
-                "build/generated/source/proto/debug/java",
-                "build/generated/source/proto/debug/grpc",
-                "build/generated/source/proto/debug/kotlin",
-                "build/generated/source/proto/debug/grpckt",
-            )
-        }
-    }
-}
-
 protobuf {
     protoc {
         artifact = libs.protobuf.protoc.stnd.get().toString()
     }
     plugins {
-        id("javalite") {
+        create("javalite") {
             artifact = libs.protobuf.protoc.gen.javalite.get().toString()
+        }
+        create("grpc") {
+            artifact = libs.protobuf.protoc.gen.grpc.java.get().toString()
+        }
+        create("grpckt") {
+            artifact = libs.protobuf.protoc.gen.grpc.kotlin.get().toString()
         }
     }
     generateProtoTasks {
@@ -125,12 +106,22 @@ protobuf {
                     option("lite")
                 }
             }
+            task.plugins {
+                create("grpc") {
+                    option("lite")
+                }
+                create("grpckt") {
+                    option("lite")
+                }
+            }
         }
     }
 }
 
 dependencies {
     api(projects.annotations)
+    implementation(libs.io.grpc.protobuf.lite)
+    implementation(libs.io.grpc.grpc.kotlin)
 
     implementation(projects.composables)
     implementation(projects.composeLayout)

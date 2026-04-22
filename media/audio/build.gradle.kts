@@ -18,7 +18,6 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
-    kotlin("android")
 }
 
 android {
@@ -36,10 +35,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
     }
 
     packaging {
@@ -101,14 +96,6 @@ dependencies {
     testImplementation(libs.androidx.test.espressocore)
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("media-audio")
-        }
-    }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

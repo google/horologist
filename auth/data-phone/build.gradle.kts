@@ -16,7 +16,6 @@
 
 plugins {
     id("com.android.library")
-    id("kotlin-android")
     alias(libs.plugins.dokka)
     alias(libs.plugins.metalavaGradle)
     alias(libs.plugins.dependencyAnalysis)
@@ -40,15 +39,6 @@ android {
 
     buildFeatures {
         buildConfig = false
-    }
-
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
     }
 
     packaging {
@@ -111,14 +101,6 @@ dependencyAnalysis {
     issues {
         onAny {
             severity("fail")
-        }
-    }
-}
-
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("auth-data-phone")
         }
     }
 }

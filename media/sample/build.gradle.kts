@@ -25,6 +25,7 @@ plugins {
     kotlin("plugin.serialization")
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.composeAiPreview)
     id("com.google.android.gms.oss-licenses-plugin")
 }
 

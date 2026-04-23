@@ -33,6 +33,7 @@ appcompat = "1.7.1"
 com-squareup-okhttp3 = "5.3.2"
 com-squareup-retrofit2 = "3.0.0"
 compose-material3 = "1.5.0-alpha17"
+composeAiTools = "0.7.7"
 composesnapshot = "-"
 dependencyAnalysis = "3.7.0"
 desugar_jdk_libs = "2.1.5"
@@ -240,6 +241,7 @@ wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", ver
 
 [plugins]
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+composeAiPreview = { id = "ee.schimke.composeai.preview", version.ref = "composeAiTools" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = "gradlePublishPlugin" }

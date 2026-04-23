@@ -20,7 +20,7 @@ plugins {
     alias(libs.plugins.metalavaGradle)
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
-    id("ee.schimke.composeai.preview") version "0.7.5"
+    alias(libs.plugins.composeAiPreview)
 }
 
 android {

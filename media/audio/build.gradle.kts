@@ -15,87 +15,73 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+  defaultConfig {
+    minSdk = 26
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1")
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
+  testOptions { unitTests { isIncludeAndroidResources = true } }
 
-    sourceSets.getByName("test") {
-        java.srcDir("src/sharedTest/kotlin")
-        res.srcDir("src/sharedTest/res")
-    }
-    sourceSets.getByName("androidTest") {
-        java.srcDir("src/sharedTest/kotlin")
-        res.srcDir("src/sharedTest/res")
-    }
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
-    namespace = "com.google.android.horologist.audio"
+  sourceSets.getByName("test") {
+    java.srcDir("src/sharedTest/kotlin")
+    res.srcDir("src/sharedTest/res")
+  }
+  sourceSets.getByName("androidTest") {
+    java.srcDir("src/sharedTest/kotlin")
+    res.srcDir("src/sharedTest/res")
+  }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+  }
+  namespace = "com.google.android.horologist.audio"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    implementation(libs.kotlin.stdlib)
-    api(projects.annotations)
+  implementation(libs.kotlin.stdlib)
+  api(projects.annotations)
 
-    implementation(libs.androidx.mediarouter)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.kotlinx.coroutines.android)
+  implementation(libs.androidx.mediarouter)
+  implementation(libs.androidx.lifecycle.runtime)
+  implementation(libs.kotlinx.coroutines.android)
 
-    testImplementation(platform(libs.compose.bom))
-    testImplementation(libs.androidx.lifecycle.testing)
-    testImplementation(libs.androidx.test.rules)
-    testImplementation(libs.truth)
-    testImplementation(libs.compose.ui.test.junit4)
+  testImplementation(platform(libs.compose.bom))
+  testImplementation(libs.androidx.lifecycle.testing)
+  testImplementation(libs.androidx.test.rules)
+  testImplementation(libs.truth)
+  testImplementation(libs.compose.ui.test.junit4)
 
-    debugImplementation(platform(libs.compose.bom))
-    debugImplementation(libs.compose.ui.test.manifest)
-    testImplementation(libs.androidx.test.espressocore)
-    testImplementation(libs.junit)
-    testImplementation(libs.robolectric)
+  debugImplementation(platform(libs.compose.bom))
+  debugImplementation(libs.compose.ui.test.manifest)
+  testImplementation(libs.androidx.test.espressocore)
+  testImplementation(libs.junit)
+  testImplementation(libs.robolectric)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

@@ -15,102 +15,86 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
-    alias(libs.plugins.roborazzi)
-    alias(libs.plugins.compose.compiler)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
+  alias(libs.plugins.roborazzi)
+  alias(libs.plugins.compose.compiler)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        //        Tiles is API 26, but if we don't stop this here, then we can't run the sample app
-        //        on older devices (25).  We also don't want this to bleed into other modules via
-        //        compose-tools which is used just for testing.
-        minSdk = 26
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+  defaultConfig {
+    //        Tiles is API 26, but if we don't stop this here, then we can't run the sample app
+    //        on older devices (25).  We also don't want this to bleed into other modules via
+    //        compose-tools which is used just for testing.
+    minSdk = 26
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
-    namespace = "com.google.android.horologist.tiles"
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+  }
+  namespace = "com.google.android.horologist.tiles"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(libs.kotlin.stdlib)
+  implementation(libs.kotlin.stdlib)
 
-    implementation(libs.androidx.wear)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.concurrent.future)
+  implementation(libs.androidx.wear)
+  implementation(libs.androidx.lifecycle.runtime)
+  implementation(libs.androidx.concurrent.future)
 
-    api(libs.androidx.wear.tiles)
-    api(libs.androidx.wear.protolayout.material)
-    api(libs.androidx.lifecycle.service)
-    api(libs.androidx.concurrent.future.ktx)
-    api(libs.androidx.lifecycle.process)
+  api(libs.androidx.wear.tiles)
+  api(libs.androidx.wear.protolayout.material)
+  api(libs.androidx.lifecycle.service)
+  api(libs.androidx.concurrent.future.ktx)
+  api(libs.androidx.lifecycle.process)
 
-    implementation(libs.coil)
-    implementation(libs.wearcompose.foundation)
+  implementation(libs.coil)
+  implementation(libs.wearcompose.foundation)
 
-    implementation(libs.androidx.complications.datasource.ktx)
-    api(libs.wearcompose.material)
+  implementation(libs.androidx.complications.datasource.ktx)
+  api(libs.wearcompose.material)
 
-    testImplementation(projects.roboscreenshots)
-    testImplementation(libs.androidx.wear.tiles.testing)
-    testImplementation(libs.androidx.test.espressocore)
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.androidx.concurrent.future.ktx)
-    testImplementation(libs.androidx.lifecycle.testing)
-    testImplementation(libs.androidx.wear.compose.material3)
-    debugImplementation(libs.compose.ui.test.manifest)
+  testImplementation(projects.roboscreenshots)
+  testImplementation(libs.androidx.wear.tiles.testing)
+  testImplementation(libs.androidx.test.espressocore)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.robolectric)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.androidx.concurrent.future.ktx)
+  testImplementation(libs.androidx.lifecycle.testing)
+  testImplementation(libs.androidx.wear.compose.material3)
+  debugImplementation(libs.compose.ui.test.manifest)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

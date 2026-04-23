@@ -15,111 +15,107 @@
  */
 
 plugins {
-    id("com.android.application")
-    id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
-    kotlin("plugin.serialization")
-    alias(libs.plugins.compose.compiler)
+  id("com.android.application")
+  id("com.google.devtools.ksp")
+  id("dagger.hilt.android.plugin")
+  kotlin("plugin.serialization")
+  alias(libs.plugins.compose.compiler)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        applicationId = "com.google.android.horologist.ai.sample"
+  defaultConfig {
+    applicationId = "com.google.android.horologist.ai.sample"
 
-        minSdk = 26
-        targetSdk = 36
+    minSdk = 26
+    targetSdk = 36
 
-        versionCode = 1
-        versionName = "1.0"
+    versionCode = 1
+    versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes {
+    debug {}
+
+    release {
+      isMinifyEnabled = true
+      isShrinkResources = true
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+
+      signingConfig = signingConfigs.getByName("debug")
     }
+  }
 
-    buildTypes {
-        debug {
-        }
+  compileOptions {
+    isCoreLibraryDesugaringEnabled = true
 
-        release {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
-            )
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-            signingConfig = signingConfigs.getByName("debug")
-        }
+  packaging {
+    resources {
+      excludes +=
+        listOf(
+          "/META-INF/AL2.0",
+          "/META-INF/LGPL2.1",
+          "/META-INF/INDEX.LIST",
+          "/META-INF/DEPENDENCIES",
+        )
     }
+  }
 
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
+  lint {
+    // https://buganizer.corp.google.com/issues/328279054
+    disable.add("UnsafeOptInUsageError")
+  }
 
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                    "/META-INF/INDEX.LIST",
-                    "/META-INF/DEPENDENCIES",
-                )
-        }
-    }
-
-    lint {
-        // https://buganizer.corp.google.com/issues/328279054
-        disable.add("UnsafeOptInUsageError")
-    }
-
-    namespace = "com.google.android.horologist.ai.sample"
+  namespace = "com.google.android.horologist.ai.sample"
 }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(projects.ai.sample.core)
-    implementation(projects.datalayer.core)
-    implementation(projects.datalayer.phone)
-    implementation(projects.datalayer.grpc)
+  implementation(projects.ai.sample.core)
+  implementation(projects.datalayer.core)
+  implementation(projects.datalayer.phone)
+  implementation(projects.datalayer.grpc)
 
-    implementation(projects.ai.sample.wearGeminiLib)
+  implementation(projects.ai.sample.wearGeminiLib)
 
-    implementation(libs.dagger.hiltandroid)
-    ksp(libs.dagger.hiltandroidcompiler)
-    implementation(libs.hilt.navigationcompose)
-    implementation(libs.androidx.navigation.compose)
+  implementation(libs.dagger.hiltandroid)
+  ksp(libs.dagger.hiltandroidcompiler)
+  implementation(libs.hilt.navigationcompose)
+  implementation(libs.androidx.navigation.compose)
 
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.kotlinx.coroutines.playservices)
+  implementation(libs.androidx.lifecycle.viewmodel.compose)
+  implementation(libs.androidx.lifecycle.runtime.compose)
+  implementation(libs.kotlinx.coroutines.playservices)
 
-    implementation(libs.androidx.corektx)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.toolingpreview)
-    implementation(libs.compose.material3)
-    implementation(libs.playservices.wearable)
-    implementation(libs.androidx.lifecycle.service)
+  implementation(libs.androidx.corektx)
+  implementation(libs.androidx.lifecycle.runtime)
+  implementation(libs.androidx.activity.compose)
+  implementation(platform(libs.compose.bom))
+  implementation(libs.androidx.activity.compose)
+  implementation(libs.compose.ui)
+  implementation(libs.compose.ui.graphics)
+  implementation(libs.compose.ui.toolingpreview)
+  implementation(libs.compose.material3)
+  implementation(libs.playservices.wearable)
+  implementation(libs.androidx.lifecycle.service)
 
-    implementation(libs.kotlinx.serialization.core)
+  implementation(libs.kotlinx.serialization.core)
 
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
+  coreLibraryDesugaring(libs.desugar.jdk.libs)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.robolectric)
+  testImplementation(libs.junit)
+  testImplementation(libs.robolectric)
 
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.compose.ui.test.manifest)
+  debugImplementation(libs.compose.ui.tooling)
+  debugImplementation(libs.compose.ui.test.manifest)
 
-    androidTestImplementation(libs.androidx.test.runner)
+  androidTestImplementation(libs.androidx.test.runner)
 }

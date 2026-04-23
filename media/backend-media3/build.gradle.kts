@@ -15,100 +15,84 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+  defaultConfig {
+    minSdk = 26
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    @Suppress("UnstableApiUsage")
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-            all {
-                it.failOnNoDiscoveredTests = false
-            }
-        }
-        animationsDisabled = true
+  @Suppress("UnstableApiUsage")
+  testOptions {
+    unitTests {
+      isIncludeAndroidResources = true
+      all { it.failOnNoDiscoveredTests = false }
     }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
-    namespace = "com.google.android.horologist.media3"
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+  }
+  namespace = "com.google.android.horologist.media3"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    implementation(platform(libs.compose.bom))
+  implementation(platform(libs.compose.bom))
 
-    api(projects.annotations)
+  api(projects.annotations)
 
-    api(projects.media.audio)
-    api(projects.media.core)
-    api(projects.media.media3Logging)
-    api(projects.media.media3Outputswitcher)
-    api(projects.networkAwareness.core)
-    implementation(libs.kotlinx.coroutines.core)
-    api(libs.androidx.media3.common)
-    api(libs.androidx.annotation)
-    api(libs.androidx.media3.exoplayer)
-    api(libs.androidx.media3.exoplayerdash)
-    api(libs.androidx.media3.exoplayerhls)
-    api(libs.androidx.media3.exoplayerrtsp)
-    api(libs.androidx.media3.session)
-    implementation(libs.androidx.lifecycle.process)
-    implementation(libs.kotlinx.coroutines.guava)
-    implementation(libs.androidx.corektx)
-    implementation(libs.androidx.lifecycle.service)
-    implementation(libs.androidx.tracing.ktx)
+  api(projects.media.audio)
+  api(projects.media.core)
+  api(projects.media.media3Logging)
+  api(projects.media.media3Outputswitcher)
+  api(projects.networkAwareness.core)
+  implementation(libs.kotlinx.coroutines.core)
+  api(libs.androidx.media3.common)
+  api(libs.androidx.annotation)
+  api(libs.androidx.media3.exoplayer)
+  api(libs.androidx.media3.exoplayerdash)
+  api(libs.androidx.media3.exoplayerhls)
+  api(libs.androidx.media3.exoplayerrtsp)
+  api(libs.androidx.media3.session)
+  implementation(libs.androidx.lifecycle.process)
+  implementation(libs.kotlinx.coroutines.guava)
+  implementation(libs.androidx.corektx)
+  implementation(libs.androidx.lifecycle.service)
+  implementation(libs.androidx.tracing.ktx)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.androidx.media3.testutils)
-    testImplementation(libs.androidx.media3.testutils.robolectric)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.androidx.test.ext.ktx)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.robolectric)
+  testImplementation(libs.androidx.media3.testutils)
+  testImplementation(libs.androidx.media3.testutils.robolectric)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

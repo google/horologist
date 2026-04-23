@@ -15,86 +15,70 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
-    alias(libs.plugins.compose.compiler)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
+  alias(libs.plugins.compose.compiler)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+  defaultConfig {
+    minSdk = 26
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
-    namespace = "com.google.android.horologist.compose.tools"
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+  }
+  namespace = "com.google.android.horologist.compose.tools"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(libs.kotlin.reflect)
-    implementation(projects.tiles)
+  implementation(libs.kotlin.reflect)
+  implementation(projects.tiles)
 
-    implementation(platform(libs.compose.bom))
-    implementation(libs.wearcompose.material)
-    implementation(libs.wearcompose.foundation)
-    implementation(libs.wearcompose.navigation)
+  implementation(platform(libs.compose.bom))
+  implementation(libs.wearcompose.material)
+  implementation(libs.wearcompose.foundation)
+  implementation(libs.wearcompose.navigation)
 
-    implementation(libs.compose.ui.toolingpreview)
-    implementation(libs.androidx.wear.tooling.preview)
-    implementation(libs.kotlinx.coroutines.guava)
-    api(libs.wearcompose.tooling)
-    implementation(libs.androidx.wear.tiles.tooling.preview)
+  implementation(libs.compose.ui.toolingpreview)
+  implementation(libs.androidx.wear.tooling.preview)
+  implementation(libs.kotlinx.coroutines.guava)
+  api(libs.wearcompose.tooling)
+  implementation(libs.androidx.wear.tiles.tooling.preview)
 
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.compose.ui.test.manifest)
-    debugImplementation(libs.androidx.wear.tiles.tooling)
+  debugImplementation(libs.compose.ui.tooling)
+  debugImplementation(libs.compose.ui.test.manifest)
+  debugImplementation(libs.androidx.wear.tiles.tooling)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

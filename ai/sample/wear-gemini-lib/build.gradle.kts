@@ -33,74 +33,61 @@ import java.util.Properties
  */
 
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.plugin.serialization")
+  id("com.android.library")
+  id("org.jetbrains.kotlin.plugin.serialization")
 }
 
-val localProperties = Properties().apply {
+val localProperties =
+  Properties().apply {
     val localPropertiesFile = project.rootProject.file("local.properties")
     if (localPropertiesFile.exists()) {
-        load(localPropertiesFile.inputStream())
+      load(localPropertiesFile.inputStream())
     }
-}
+  }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
+  defaultConfig {
+    minSdk = 26
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField(
-            "String",
-            "GEMINI_API_KEY",
-            "\"" + localProperties["GEMINI_API_KEY"] + "\"",
-        )
+    buildConfigField("String", "GEMINI_API_KEY", "\"" + localProperties["GEMINI_API_KEY"] + "\"")
 
-        buildConfigField(
-            "String",
-            "GCS_URI",
-            "\"" + localProperties["GCS_URI"] + "\"",
-        )
+    buildConfigField("String", "GCS_URI", "\"" + localProperties["GCS_URI"] + "\"")
 
-        buildConfigField(
-            "String",
-            "GEMINI_PROXY",
-            if (localProperties.containsKey("gemini.apk.proxy")) {
-                "\"" +
-                    localProperties["gemini.apk.proxy"] +
-                    "\""
-            } else {
-                "null"
-            },
-        )
-    }
+    buildConfigField(
+      "String",
+      "GEMINI_PROXY",
+      if (localProperties.containsKey("gemini.apk.proxy")) {
+        "\"" + localProperties["gemini.apk.proxy"] + "\""
+      } else {
+        "null"
+      },
+    )
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = true
-    }
+  buildFeatures { buildConfig = true }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    namespace = "com.google.android.horologist.ai.sample.wear.geminilib"
+  namespace = "com.google.android.horologist.ai.sample.wear.geminilib"
 }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(projects.ai.sample.core)
+  implementation(projects.ai.sample.core)
 
-    implementation(libs.com.squareup.okhttp3.okhttp)
-    api(libs.google.genai)
+  implementation(libs.com.squareup.okhttp3.okhttp)
+  api(libs.google.genai)
 }

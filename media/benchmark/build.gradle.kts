@@ -15,76 +15,62 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.metalavaGradle)
+  id("com.android.library")
+  alias(libs.plugins.metalavaGradle)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 30
+  defaultConfig {
+    minSdk = 30
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-        disable += listOf("MissingTranslation", "ExtraTranslation")
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+    disable += listOf("MissingTranslation", "ExtraTranslation")
+  }
 
-    namespace = "com.google.android.horologist.media.benchmark"
+  namespace = "com.google.android.horologist.media.benchmark"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    api(libs.androidx.media3.session)
+  api(libs.androidx.media3.session)
 
-    api(libs.androidx.test.espressocore)
-    implementation(libs.androidx.test.ext.ktx)
-    api(libs.androidx.test.uiautomator)
-    implementation(libs.kotlinx.coroutines.android)
-    api(libs.androidx.benchmark.macro.junit4)
-    api(libs.androidx.benchmark.junit4)
-    api(libs.androidx.test.rules)
-    api(libs.annotation)
+  api(libs.androidx.test.espressocore)
+  implementation(libs.androidx.test.ext.ktx)
+  api(libs.androidx.test.uiautomator)
+  implementation(libs.kotlinx.coroutines.android)
+  api(libs.androidx.benchmark.macro.junit4)
+  api(libs.androidx.benchmark.junit4)
+  api(libs.androidx.test.rules)
+  api(libs.annotation)
 }
 
 // Not publishing it until it's ready

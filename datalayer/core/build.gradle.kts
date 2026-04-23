@@ -15,113 +15,89 @@
  */
 
 plugins {
-    id("com.android.library")
-    id("com.google.protobuf")
-    alias(libs.plugins.dokka)
+  id("com.android.library")
+  id("com.google.protobuf")
+  alias(libs.plugins.dokka)
 
-    alias(libs.plugins.metalavaGradle)
+  alias(libs.plugins.metalavaGradle)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 23
+  defaultConfig {
+    minSdk = 23
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
+  testOptions { unitTests { isIncludeAndroidResources = true } }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-        baseline = file("quality/lint/lint-baseline.xml")
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+    baseline = file("quality/lint/lint-baseline.xml")
+  }
 
-    namespace = "com.google.android.horologist.datalayer"
+  namespace = "com.google.android.horologist.datalayer"
 }
 
 protobuf {
-    protoc {
-        artifact = libs.protobuf.protoc.stnd.get().toString()
+  protoc { artifact = libs.protobuf.protoc.stnd.get().toString() }
+  plugins { create("javalite") { artifact = libs.protobuf.protoc.gen.javalite.get().toString() } }
+  generateProtoTasks {
+    all().forEach { task ->
+      task.builtins {
+        create("java") { option("lite") }
+        create("kotlin") { option("lite") }
+      }
     }
-    plugins {
-        create("javalite") {
-            artifact = libs.protobuf.protoc.gen.javalite.get().toString()
-        }
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                create("java") {
-                    option("lite")
-                }
-                create("kotlin") {
-                    option("lite")
-                }
-            }
-        }
-    }
+  }
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.kotlinx.coroutines.core)
 
-    api(libs.playservices.wearable)
-    implementation(libs.kotlinx.coroutines.playservices)
-    api(libs.androidx.datastore.preferences)
-    api(libs.androidx.datastore.preferences.proto)
-    api(libs.androidx.datastore)
-    api(libs.protobuf.kotlin.lite)
-    implementation(libs.androidx.lifecycle.runtime)
-    api(libs.androidx.wear.remote.interactions)
-    implementation(libs.androidx.lifecycle.service)
+  api(libs.playservices.wearable)
+  implementation(libs.kotlinx.coroutines.playservices)
+  api(libs.androidx.datastore.preferences)
+  api(libs.androidx.datastore.preferences.proto)
+  api(libs.androidx.datastore)
+  api(libs.protobuf.kotlin.lite)
+  implementation(libs.androidx.lifecycle.runtime)
+  api(libs.androidx.wear.remote.interactions)
+  implementation(libs.androidx.lifecycle.service)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.androidx.test.ext.ktx)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.robolectric)
 
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    androidTestImplementation(libs.androidx.test.espressocore)
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.truth)
+  androidTestImplementation(platform(libs.compose.bom))
+  androidTestImplementation(libs.compose.ui.test.junit4)
+  androidTestImplementation(libs.androidx.test.espressocore)
+  androidTestImplementation(libs.junit)
+  androidTestImplementation(libs.truth)
 }
 
-apply(plugin = "com.vanniktech.maven.publish")
+apply(
+  plugin = "com.vanniktech.maven.publish"
+)
 
 // tasks.maybeCreate("prepareKotlinIdeaImport")
 //    .dependsOn("generateDebugProto")

@@ -15,92 +15,70 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    id("com.google.devtools.ksp")
-    alias(libs.plugins.metalavaGradle)
-    alias(libs.plugins.dependencyAnalysis)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  id("com.google.devtools.ksp")
+  alias(libs.plugins.metalavaGradle)
+  alias(libs.plugins.dependencyAnalysis)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
+  defaultConfig {
+    minSdk = 26
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+  }
 
-    resourcePrefix = "horologist_"
+  resourcePrefix = "horologist_"
 
-    namespace = "com.google.android.horologist.auth.data"
+  namespace = "com.google.android.horologist.auth.data"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    api(projects.datalayer.core)
+  api(projects.datalayer.core)
 
-    api(libs.androidx.datastore.core)
-    api(libs.androidx.wear.phone.interactions)
+  api(libs.androidx.datastore.core)
+  api(libs.androidx.wear.phone.interactions)
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.playservices.auth)
-    implementation(libs.playservices.wearable)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.playservices.auth)
+  implementation(libs.playservices.wearable)
 
-    testImplementation(libs.kotlinx.coroutines.test)
-    testRuntimeOnly(libs.robolectric)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testRuntimeOnly(libs.robolectric)
 }
 
-dependencyAnalysis {
-    issues {
-        onAny {
-            severity("fail")
-        }
-    }
-}
+dependencyAnalysis { issues { onAny { severity("fail") } } }
 
 apply(plugin = "com.vanniktech.maven.publish")

@@ -15,129 +15,109 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
-    alias(libs.plugins.dependencyAnalysis)
-    alias(libs.plugins.roborazzi)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.composeAiPreview)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
+  alias(libs.plugins.dependencyAnalysis)
+  alias(libs.plugins.roborazzi)
+  alias(libs.plugins.compose.compiler)
+  alias(libs.plugins.composeAiPreview)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
+  defaultConfig {
+    minSdk = 26
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    buildTypes {
-        debug {
-            isPseudoLocalesEnabled = true
-        }
-    }
+  buildTypes { debug { isPseudoLocalesEnabled = true } }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    sourceSets.getByName("main") {
-        assets.srcDir("src/main/assets")
-    }
+  sourceSets.getByName("main") { assets.srcDir("src/main/assets") }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
-    namespace = "com.google.android.horologist.compose.material"
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+  }
+  namespace = "com.google.android.horologist.compose.material"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
 metalava {
-    excludedSourceSets.setFrom("src/debug/java")
-    filename.set("api/current.api")
+  excludedSourceSets.setFrom("src/debug/java")
+  filename.set("api/current.api")
 }
 
 dependencies {
-    api(projects.annotations)
-    api(projects.composeLayout)
-    api(projects.images.base)
+  api(projects.annotations)
+  api(projects.composeLayout)
+  api(projects.images.base)
 
-    implementation(platform(libs.compose.bom))
-    api(libs.compose.foundation.foundation)
-    api(libs.compose.foundation.foundation.layout)
-    api(libs.compose.runtime)
-    api(libs.compose.ui)
-    api(libs.compose.ui.graphics)
-    api(libs.wearcompose.material)
-    api(libs.wearcompose.foundation)
+  implementation(platform(libs.compose.bom))
+  api(libs.compose.foundation.foundation)
+  api(libs.compose.foundation.foundation.layout)
+  api(libs.compose.runtime)
+  api(libs.compose.ui)
+  api(libs.compose.ui.graphics)
+  api(libs.wearcompose.material)
+  api(libs.wearcompose.foundation)
 
-    implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.kotlinx.coroutines.core)
 
-    implementation(libs.androidx.annotation)
-    implementation(libs.compose.material.iconscore)
-    implementation(libs.compose.ui.text)
-    implementation(libs.compose.ui.unit)
-    implementation(libs.compose.ui.util)
+  implementation(libs.androidx.annotation)
+  implementation(libs.compose.material.iconscore)
+  implementation(libs.compose.ui.text)
+  implementation(libs.compose.ui.unit)
+  implementation(libs.compose.ui.util)
 
-    debugApi(projects.composeTools)
-    debugApi(libs.wearcompose.tooling)
+  debugApi(projects.composeTools)
+  debugApi(libs.wearcompose.tooling)
 
-    debugImplementation(libs.compose.material.iconsext)
-    debugImplementation(libs.compose.ui.toolingpreview)
-    debugRuntimeOnly(libs.compose.ui.tooling)
-    debugRuntimeOnly(libs.compose.ui.test.manifest)
+  debugImplementation(libs.compose.material.iconsext)
+  debugImplementation(libs.compose.ui.toolingpreview)
+  debugRuntimeOnly(libs.compose.ui.tooling)
+  debugRuntimeOnly(libs.compose.ui.test.manifest)
 
-    testImplementation(projects.roboscreenshots)
-    testImplementation(libs.androidx.core)
-    testImplementation(libs.compose.material.iconsext)
-    testImplementation(libs.compose.ui.test)
-    testImplementation(libs.compose.ui.test.junit4)
-    testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
-    testRuntimeOnly(libs.compose.ui.test.manifest)
-    testImplementation(projects.images.coil)
+  testImplementation(projects.roboscreenshots)
+  testImplementation(libs.androidx.core)
+  testImplementation(libs.compose.material.iconsext)
+  testImplementation(libs.compose.ui.test)
+  testImplementation(libs.compose.ui.test.junit4)
+  testImplementation(libs.junit)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.robolectric)
+  testRuntimeOnly(libs.compose.ui.test.manifest)
+  testImplementation(projects.images.coil)
 }
 
 dependencyAnalysis {
-    issues {
-        onAny {
-            severity("fail")
-            exclude(":annotations") // bug: reported as unused
-        }
+  issues {
+    onAny {
+      severity("fail")
+      exclude(":annotations") // bug: reported as unused
     }
+  }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

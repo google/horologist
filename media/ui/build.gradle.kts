@@ -21,6 +21,7 @@ plugins {
     alias(libs.plugins.roborazzi)
     kotlin("plugin.serialization")
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.composeAiPreview)
 }
 
 android {

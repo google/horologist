@@ -71,47 +71,4 @@ class MediaPlayerFontScaleTest(device: WearDevice) : WearDeviceScreenshotTest(de
         }
     }
 
-    companion object {
-        @JvmStatic
-        @Parameters
-        fun devices() = listOf(
-
-            WearDevice(
-                id = "small_round_small",
-                modelName = "Generic Small Round",
-                screenSizePx = 384,
-                density = 2.0f,
-                fontScale = 0.94f,
-            ),
-            WearDevice(
-                id = "large_round_small",
-                modelName = "Generic Large Round",
-                screenSizePx = 454,
-                density = 2.0f,
-                fontScale = 0.94f,
-            ),
-            WearDevice(
-                id = "small_round_large",
-                modelName = "Generic Small Round",
-                screenSizePx = 384,
-                density = 2.0f,
-                fontScale = 1.24f,
-            ),
-            WearDevice(
-                id = "large_round_large",
-                modelName = "Generic Large Round",
-                screenSizePx = 454,
-                density = 2.0f,
-                fontScale = 1.24f,
-            ),
-            WearDevice(
-                id = "square_large",
-                modelName = "Generic Large Round",
-                screenSizePx = 360,
-                density = 2.0f,
-                fontScale = 1.24f,
-                isRound = false,
-            ),
-        )
-    }
 }

@@ -21,6 +21,7 @@ plugins {
 
     id("dagger.hilt.android.plugin")
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.composeAiPreview)
 }
 
 android {

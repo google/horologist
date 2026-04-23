@@ -20,6 +20,7 @@ plugins {
     alias(libs.plugins.metalavaGradle)
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.composeAiPreview)
 }
 
 android {

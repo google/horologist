@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,25 +14,24 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.composables
+package com.google.android.horologist.screenshots.rng
 
-import com.google.android.horologist.screenshots.rng.WearDevice
-import com.google.android.horologist.screenshots.rng.WearTriadScreenshotTest
-import org.junit.Test
+import androidx.compose.runtime.Composable
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
-import java.time.LocalDate
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class DatePickerTest(device: WearDevice) : WearTriadScreenshotTest(device) {
+public abstract class WearTriadScreenshotTest(override val device: WearDevice) :
+    WearScreenshotTest() {
+        public override val tolerance: Float = 0.02f
 
-    @Test
-    fun datePicker() {
-        runTest {
-            DatePicker(
-                onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25),
-            )
+        public fun runTest(content: @Composable () -> Unit) {
+            runTest(suffix = null, content = content)
+        }
+
+        public companion object {
+            @JvmStatic
+            @ParameterizedRobolectricTestRunner.Parameters
+            public fun devices(): List<WearDevice> = WearDevice.triad()
         }
     }
-}

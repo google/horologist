@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.wear.compose.foundation.lazy.items
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
@@ -60,7 +60,7 @@ fun SamplesScreen(
                 Text(
                     text = stringResource(id = R.string.sample_samples),
                     modifier = Modifier.padding(bottom = 12.dp),
-                    style = MaterialTheme.typography.title3,
+                    style = MaterialTheme.typography.titleMedium,
                 )
             }
             items(uiState.samples) {

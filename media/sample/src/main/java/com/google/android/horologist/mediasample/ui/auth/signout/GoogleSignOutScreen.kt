@@ -27,8 +27,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.CircularProgressIndicator
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.material3.CircularProgressIndicator
+import androidx.wear.compose.material3.Text
 import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.mediasample.R
 

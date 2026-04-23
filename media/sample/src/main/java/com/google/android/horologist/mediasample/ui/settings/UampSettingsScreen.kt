@@ -31,12 +31,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.ChipColors
-import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.ToggleChip
-import androidx.wear.compose.material.ToggleChipDefaults
+import androidx.wear.compose.material3.Icon
+import androidx.wear.compose.material3.Text
+import androidx.wear.compose.material3.SwitchButton
+import androidx.wear.compose.material3.FilledTonalButton
+import androidx.wear.compose.material3.ButtonDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
@@ -78,25 +77,23 @@ fun UampSettingsScreen(
             }
             item {
                 if (screenState.authUser == null) {
-                    Chip(
-                        label = stringResource(id = R.string.login),
+                    FilledTonalButton(
+                        label = { Text(stringResource(id = R.string.login)) },
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
                             navController.navigate(GoogleSignInScreen)
                         },
                         enabled = !screenState.guestMode,
-                        colors = ChipDefaults.secondaryChipColors(),
                     )
                 } else {
-                    Chip(
-                        label = stringResource(id = R.string.logout),
+                    FilledTonalButton(
+                        label = { Text(stringResource(id = R.string.logout)) },
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
                             navController.navigate(GoogleSignOutScreen) {
                                 popUpTo<NavigationScreen.Player>()
                             }
                         },
-                        colors = ChipDefaults.secondaryChipColors(),
                     )
                 }
             }
@@ -114,7 +111,6 @@ fun UampSettingsScreen(
                     ActionSetting(
                         text = stringResource(id = R.string.sample_developer_options),
                         icon = Icons.Default.DataObject,
-                        colors = ChipDefaults.secondaryChipColors(),
                         onClick = {
                             navController.navigate(DeveloperOptions)
                         },
@@ -147,33 +143,26 @@ fun ActionSetting(
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     enabled: Boolean = true,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
     onClick: () -> Unit,
 ) {
-    val hasIcon = icon != null
-    val labelParam: (@Composable RowScope.() -> Unit) =
-        {
+    FilledTonalButton(
+        onClick = onClick,
+        label = {
             Text(
                 text = text,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = if (hasIcon) TextAlign.Left else TextAlign.Center,
+                textAlign = if (icon != null) TextAlign.Left else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
             )
-        }
-
-    androidx.wear.compose.material.Chip(
-        onClick = onClick,
-        label = labelParam,
+        },
         enabled = enabled,
         modifier = modifier.fillMaxWidth(),
-        colors = colors,
         icon = {
             if (icon != null) {
                 Icon(imageVector = icon, contentDescription = text)
             }
         },
-        contentPadding = ChipDefaults.ContentPadding,
     )
 }
 
@@ -185,25 +174,13 @@ fun CheckedSetting(
     enabled: Boolean = true,
     onCheckedChange: (Boolean) -> Unit,
 ) {
-    ToggleChip(
+    SwitchButton(
         checked = value,
-        toggleControl = {
-            Icon(
-                imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
-                contentDescription = if (value) {
-                    stringResource(id = R.string.on)
-                } else {
-                    stringResource(
-                        id = R.string.off,
-                    )
-                },
-            )
-        },
-        enabled = enabled,
         onCheckedChange = onCheckedChange,
         label = {
             Text(text)
         },
+        enabled = enabled,
         modifier = modifier.fillMaxWidth(),
     )
 }

@@ -122,6 +122,7 @@ dependencies {
 
   implementation(projects.media.audio)
   implementation(projects.media.audioUi)
+
   implementation(projects.composables)
   implementation(projects.composeLayout)
   implementation(projects.composeMaterial)
@@ -131,6 +132,7 @@ dependencies {
   implementation(projects.media.data)
   implementation(projects.media.sync)
   implementation(projects.media.ui)
+
   implementation(projects.media.uiMaterial3)
   implementation(libs.androidx.wear.compose.material3)
   implementation(projects.networkAwareness.core)

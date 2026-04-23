@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.app
+package com.google.android.horologist.mediasample.ui.app.snackbar
 
-import com.google.android.horologist.media.ui.snackbar.SnackbarManager
-import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel as LibSnackbarViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import java.util.UUID
 
-@HiltViewModel
-public class SnackbarViewModel
-    @Inject
-    constructor(
-        snackbarManager: SnackbarManager,
-    ) : LibSnackbarViewModel(snackbarManager)
+/**
+ * A UI message, either an error or informational to display.
+ */
+public data class UiMessage(
+    public val message: String,
+    public val id: String = UUID.randomUUID().toString(),
+    public val error: Boolean = true,
+)

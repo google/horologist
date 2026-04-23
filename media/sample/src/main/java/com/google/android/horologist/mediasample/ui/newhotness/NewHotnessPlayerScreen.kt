@@ -25,7 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.media3.common.Player
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.material3.Text
 
 @Composable
 fun NewHotnessPlayerScreen(

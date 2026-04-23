@@ -190,7 +190,7 @@ jobs:
         uses: gradle/gradle-build-action@v3
         with:
           arguments: --stacktrace
-            spotlessCheck
+            ktfmtCheck
             lintDebug
 
       - name: Dependencies analysis

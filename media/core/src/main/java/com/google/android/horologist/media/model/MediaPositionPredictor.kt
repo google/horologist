@@ -19,26 +19,28 @@ package com.google.android.horologist.media.model
 import java.lang.Float.max
 import java.lang.Float.min
 import kotlin.math.roundToLong
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 public data class MediaPositionPredictor(
-  private val eventTimestamp: Long,
-  private val durationMs: Long,
-  private val currentPositionMs: Long,
-  private val positionSpeed: Float,
+    private val eventTimestamp: Long,
+    private val durationMs: Long,
+    private val currentPositionMs: Long,
+    private val positionSpeed: Float,
 ) : PositionPredictor {
-  override fun predictPercent(timestamp: Long): Float {
-    val durationFloat = durationMs.toFloat()
-    val predictedPosition = min(durationFloat, predictPositionFractional(timestamp))
-    return max(0f, predictedPosition / durationFloat)
-  }
+    override fun predictPercent(timestamp: Long): Float {
+        val durationFloat = durationMs.toFloat()
+        val predictedPosition = min(durationFloat, predictPositionFractional(timestamp))
+        return max(0f, predictedPosition / durationFloat)
+    }
 
-  override fun predictDuration(timestamp: Long): Long = durationMs
+    override fun predictDuration(timestamp: Long): Long = durationMs
 
-  private fun predictPositionFractional(timestamp: Long): Float {
-    val staleness = timestamp - eventTimestamp
-    return (currentPositionMs + staleness * positionSpeed)
-  }
+    private fun predictPositionFractional(timestamp: Long): Float {
+        val staleness = timestamp - eventTimestamp
+        return (currentPositionMs + staleness * positionSpeed)
+    }
 
-  override fun predictPosition(timestamp: Long): Long =
-    predictPositionFractional(timestamp).roundToLong()
+    override fun predictPosition(timestamp: Long): Long =
+        predictPositionFractional(timestamp).roundToLong()
 }

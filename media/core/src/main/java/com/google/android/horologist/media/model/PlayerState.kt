@@ -18,26 +18,32 @@ package com.google.android.horologist.media.model
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/** Represents the state of the player. */
+/**
+ * Represents the state of the player.
+ */
 @ExperimentalHorologistApi
 public enum class PlayerState {
 
-  /** Initial empty state. The player hasn't finished loading or doesn't have any media added. */
-  Idle,
+    /**
+     * Initial empty state. The player hasn't finished loading or doesn't have any media added.
+     */
+    Idle,
 
-  /**
-   * Playback is requested, but the player is not yet ready and is working towards playback. The
-   * player is expected to eventually reach [Playing] from this state without further user action
-   * required.
-   */
-  Loading,
+    /**
+     * Playback is requested, but the player is not yet ready and is working towards playback.
+     * The player is expected to eventually reach [Playing] from this state without further user
+     * action required.
+     */
+    Loading,
 
-  /**
-   * The player is able to continue or attempt playback. Sending the play command will move from
-   * this state to either [Loading] or [Playing].
-   */
-  Stopped,
+    /**
+     * The player is able to continue or attempt playback. Sending the play command will move from
+     * this state to either [Loading] or [Playing].
+     */
+    Stopped,
 
-  /** The player is playing and position is advancing. */
-  Playing,
+    /**
+     * The player is playing and position is advancing.
+     */
+    Playing,
 }

@@ -18,6 +18,11 @@ package com.google.android.horologist.media.model
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/** Representation of a [Playlist] download. */
+/**
+ * Representation of a [Playlist] download.
+ */
 @ExperimentalHorologistApi
-public data class PlaylistDownload(val playlist: Playlist, val mediaList: List<MediaDownload>)
+public data class PlaylistDownload(
+    val playlist: Playlist,
+    val mediaList: List<MediaDownload>,
+)

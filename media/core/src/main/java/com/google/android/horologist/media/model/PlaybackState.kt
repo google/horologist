@@ -25,25 +25,23 @@ import kotlin.time.Duration
  */
 @ExperimentalHorologistApi
 public data class PlaybackState(
-  public val playerState: PlayerState,
-  public val isLive: Boolean,
-  public val currentPosition: Duration?,
-  public val seekProjection: Duration? = null,
-  public val duration: Duration?,
-  public val playbackSpeed: Float,
+    public val playerState: PlayerState,
+    public val isLive: Boolean,
+    public val currentPosition: Duration?,
+    public val seekProjection: Duration? = null,
+    public val duration: Duration?,
+    public val playbackSpeed: Float,
 ) {
-  public val isPlaying: Boolean
-    get() = playerState == PlayerState.Playing
+    public val isPlaying: Boolean get() = playerState == PlayerState.Playing
 
-  public companion object {
-    public val IDLE: PlaybackState =
-      PlaybackState(
-        playerState = PlayerState.Idle,
-        isLive = false,
-        currentPosition = null,
-        seekProjection = null,
-        duration = null,
-        playbackSpeed = 1f,
-      )
-  }
+    public companion object {
+        public val IDLE: PlaybackState = PlaybackState(
+            playerState = PlayerState.Idle,
+            isLive = false,
+            currentPosition = null,
+            seekProjection = null,
+            duration = null,
+            playbackSpeed = 1f,
+        )
+    }
 }

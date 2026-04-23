@@ -15,19 +15,22 @@
  */
 
 plugins {
-  id("java-library")
-  id("org.jetbrains.kotlin.jvm")
-  alias(libs.plugins.dokka)
-  alias(libs.plugins.metalavaGradle)
+    id("java-library")
+    id("org.jetbrains.kotlin.jvm")
+    alias(libs.plugins.dokka)
+    alias(libs.plugins.metalavaGradle)
 }
 
 java {
-  sourceCompatibility = JavaVersion.VERSION_17
-  targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
-metalava { filename.set("api/current.api") }
+metalava {
+    filename.set("api/current.api")
+}
 
-dependencies {}
+dependencies {
+}
 
 apply(plugin = "com.vanniktech.maven.publish")

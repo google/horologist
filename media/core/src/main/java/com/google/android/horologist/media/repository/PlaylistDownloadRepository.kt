@@ -21,16 +21,24 @@ import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.model.PlaylistDownload
 import kotlinx.coroutines.flow.Flow
 
-/** A repository of [PlaylistDownload]. */
+/**
+ * A repository of [PlaylistDownload].
+ */
 @ExperimentalHorologistApi
 public interface PlaylistDownloadRepository {
 
-  /** Returns a [PlaylistDownload] with the supplied [id][playlistId], if there is any. */
-  public fun get(playlistId: String): Flow<PlaylistDownload?>
+    /**
+     * Returns a [PlaylistDownload] with the supplied [id][playlistId], if there is any.
+     */
+    public fun get(playlistId: String): Flow<PlaylistDownload?>
 
-  /** Request the download of the supplied [playlist][Playlist]. */
-  public fun download(playlist: Playlist)
+    /**
+     * Request the download of the supplied [playlist][Playlist].
+     */
+    public fun download(playlist: Playlist)
 
-  /** Request the download removal of the supplied [playlist][Playlist]. */
-  public fun remove(playlist: Playlist)
+    /**
+     * Request the download removal of the supplied [playlist][Playlist].
+     */
+    public fun remove(playlist: Playlist)
 }

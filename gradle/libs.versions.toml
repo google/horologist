@@ -65,7 +65,6 @@ roborazzi = "1.59.0"
 room = "2.8.4"
 runtimeTracing = "1.10.6"
 spotless = "8.4.0"
-ktfmt = "0.25.0"
 tiles-tooling-preview = "1.6.0"
 truth = "1.4.5"
 wearInput = "1.2.0"
@@ -250,4 +249,3 @@ metalavaGradle = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava
 protobuf = "com.google.protobuf:0.10.0"
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-ktfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "ktfmt" }

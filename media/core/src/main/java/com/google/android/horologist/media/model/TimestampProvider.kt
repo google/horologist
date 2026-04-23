@@ -17,5 +17,5 @@
 package com.google.android.horologist.media.model
 
 public fun interface TimestampProvider {
-  public fun getTimestamp(): Long
+    public fun getTimestamp(): Long
 }

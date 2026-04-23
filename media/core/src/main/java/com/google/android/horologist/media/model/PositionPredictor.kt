@@ -16,10 +16,10 @@
 
 package com.google.android.horologist.media.model
 
+import kotlin.time.Duration
+
 public interface PositionPredictor {
-  public fun predictPercent(timestamp: Long): Float
-
-  public fun predictDuration(timestamp: Long): Long
-
-  public fun predictPosition(timestamp: Long): Long
+    public fun predictPercent(timestamp: Long): Float
+    public fun predictDuration(timestamp: Long): Long
+    public fun predictPosition(timestamp: Long): Long
 }

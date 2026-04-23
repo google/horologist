@@ -21,123 +21,165 @@ import com.google.android.horologist.media.model.Command
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlaybackState
 import com.google.android.horologist.media.model.PlaybackStateEvent
-import kotlin.time.Duration
 import kotlinx.coroutines.flow.StateFlow
+import kotlin.time.Duration
 
 @ExperimentalHorologistApi
 public interface PlayerRepository {
 
-  /** Returns whether the repository is currently connected to a working Player. */
-  public val connected: StateFlow<Boolean>
+    /**
+     * Returns whether the repository is currently connected to a working Player.
+     */
+    public val connected: StateFlow<Boolean>
 
-  /** Returns the player's currently available [commands][Command]. */
-  public val availableCommands: StateFlow<Set<Command>>
+    /**
+     * Returns the player's currently available [commands][Command].
+     */
+    public val availableCommands: StateFlow<Set<Command>>
 
-  /** Returns the current [Media] playing, or that would play when player starts playing. */
-  public val currentMedia: StateFlow<Media?>
+    /**
+     * Returns the current [Media] playing, or that would play when player starts playing.
+     */
+    public val currentMedia: StateFlow<Media?>
 
-  /** Emits events when [PlaybackState] of the player changes. */
-  public val latestPlaybackState: StateFlow<PlaybackStateEvent>
+    /**
+     * Emits events when [PlaybackState] of the player changes.
+     */
+    public val latestPlaybackState: StateFlow<PlaybackStateEvent>
 
-  /** Returns the current value for shuffling of [Media] mode. */
-  public val shuffleModeEnabled: StateFlow<Boolean>
+    /**
+     * Returns the current value for shuffling of [Media] mode.
+     */
+    public val shuffleModeEnabled: StateFlow<Boolean>
 
-  /** Returns the [seekBack] increment. */
-  public val seekBackIncrement: StateFlow<Duration?>
+    /**
+     * Returns the [seekBack] increment.
+     */
+    public val seekBackIncrement: StateFlow<Duration?>
 
-  /** Returns the [seekForward] increment. */
-  public val seekForwardIncrement: StateFlow<Duration?>
+    /**
+     * Returns the [seekForward] increment.
+     */
+    public val seekForwardIncrement: StateFlow<Duration?>
 
-  /** Resumes playback as soon as player is ready. */
-  public fun play()
+    /**
+     * Resumes playback as soon as player is ready.
+     */
+    public fun play()
 
-  /** Seeks to the default position associated with the specified Media. */
-  public fun seekToDefaultPosition(mediaIndex: Int)
+    /**
+     * Seeks to the default position associated with the specified Media.
+     */
+    public fun seekToDefaultPosition(mediaIndex: Int)
 
-  /** Pauses playback. */
-  public fun pause()
+    /**
+     * Pauses playback.
+     */
+    public fun pause()
 
-  /** Returns whether a previous [Media] exists. */
-  public fun hasPreviousMedia(): Boolean
+    /**
+     * Returns whether a previous [Media] exists.
+     */
+    public fun hasPreviousMedia(): Boolean
 
-  /** Skips to the default position of previous [Media]. */
-  public fun skipToPreviousMedia()
+    /**
+     * Skips to the default position of previous [Media].
+     */
+    public fun skipToPreviousMedia()
 
-  /** Returns whether a next [Media] exists. */
-  public fun hasNextMedia(): Boolean
+    /**
+     * Returns whether a next [Media] exists.
+     */
+    public fun hasNextMedia(): Boolean
 
-  /** Skips to the default position of next [Media]. */
-  public fun skipToNextMedia()
+    /**
+     * Skips to the default position of next [Media].
+     */
+    public fun skipToNextMedia()
 
-  /**
-   * Seeks back in the [current media][currentMedia] by [seek back increment][seekBackIncrement].
-   */
-  public fun seekBack()
+    /**
+     * Seeks back in the [current media][currentMedia] by [seek back increment][seekBackIncrement].
+     */
+    public fun seekBack()
 
-  /**
-   * Seek forward in the [current media][currentMedia] by
-   * [seek forward increment][seekForwardIncrement].
-   */
-  public fun seekForward()
+    /**
+     * Seek forward in the [current media][currentMedia] by [seek forward increment][seekForwardIncrement].
+     */
+    public fun seekForward()
 
-  /** Sets whether shuffling of [Media] is enabled. */
-  public fun setShuffleModeEnabled(shuffleModeEnabled: Boolean)
+    /**
+     * Sets whether shuffling of [Media] is enabled.
+     */
+    public fun setShuffleModeEnabled(shuffleModeEnabled: Boolean)
 
-  /**
-   * Clears the playlist, adds the specified [Media] and resets the position to the default
-   * position.
-   */
-  public fun setMedia(media: Media)
+    /**
+     * Clears the playlist, adds the specified [Media] and resets the position to
+     * the default position.
+     */
+    public fun setMedia(media: Media)
 
-  /**
-   * Clears the playlist, adds the specified [Media] list and resets the position to the default
-   * position.
-   *
-   * @param mediaList The new [Media] list.
-   */
-  public fun setMediaList(mediaList: List<Media>)
+    /**
+     * Clears the playlist, adds the specified [Media] list and resets the position to
+     * the default position.
+     *
+     * @param mediaList The new [Media] list.
+     */
+    public fun setMediaList(mediaList: List<Media>)
 
-  /**
-   * Clears the playlist, adds the specified [Media] list and resets the position to the provided
-   * position.
-   *
-   * @param mediaList The new [Media] list.
-   * @param index The [Media] index to start playback from
-   * @param position The position to start playback from.
-   */
-  public fun setMediaList(mediaList: List<Media>, index: Int, position: Duration? = null)
+    /**
+     * Clears the playlist, adds the specified [Media] list and resets the position to
+     * the provided position.
+     *
+     * @param mediaList The new [Media] list.
+     * @param index The [Media] index to start playback from
+     * @param position The position to start playback from.
+     */
 
-  /** Adds a [Media] to the end of the playlist. */
-  public fun addMedia(media: Media)
+    public fun setMediaList(mediaList: List<Media>, index: Int, position: Duration? = null)
 
-  /**
-   * Adds a [Media] at the given index of the playlist.
-   *
-   * @param index The index at which to add the [Media]. If the index is larger than the size of the
-   *   playlist, the media is added to the end of the playlist.
-   * @param media The [Media] to add.
-   */
-  public fun addMedia(index: Int, media: Media)
+    /**
+     * Adds a [Media] to the end of the playlist.
+     */
+    public fun addMedia(media: Media)
 
-  /**
-   * Removes the [Media] at the given index of the playlist.
-   *
-   * @param index The index at which to remove the [Media].
-   */
-  public fun removeMedia(index: Int)
+    /**
+     * Adds a [Media] at the given index of the playlist.
+     *
+     * @param index The index at which to add the [Media]. If the index is larger than the size
+     * of the playlist, the media is added to the end of the playlist.
+     * @param media The [Media] to add.
+     */
+    public fun addMedia(index: Int, media: Media)
 
-  /** Clears the playlist. */
-  public fun clearMediaList()
+    /**
+     * Removes the [Media] at the given index of the playlist.
+     *
+     * @param index The index at which to remove the [Media].
+     */
+    public fun removeMedia(index: Int)
 
-  /** Returns the number of [Media] in the playlist. */
-  public fun getMediaCount(): Int
+    /**
+     * Clears the playlist.
+     */
+    public fun clearMediaList()
 
-  /** Returns the [Media] at the given index. */
-  public fun getMediaAt(index: Int): Media?
+    /**
+     * Returns the number of [Media] in the playlist.
+     */
+    public fun getMediaCount(): Int
 
-  /** Returns the index of the current [Media]. */
-  public fun getCurrentMediaIndex(): Int
+    /**
+     * Returns the [Media] at the given index.
+     */
+    public fun getMediaAt(index: Int): Media?
 
-  /** Set the playback speed. */
-  public fun setPlaybackSpeed(speed: Float)
+    /**
+     * Returns the index of the current [Media].
+     */
+    public fun getCurrentMediaIndex(): Int
+
+    /**
+     * Set the playback speed.
+     */
+    public fun setPlaybackSpeed(speed: Float)
 }

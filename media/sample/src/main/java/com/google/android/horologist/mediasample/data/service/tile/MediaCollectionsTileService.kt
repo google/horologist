@@ -25,7 +25,7 @@ import androidx.wear.tiles.TileBuilders.Tile
 import coil.ImageLoader
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
-import com.google.android.horologist.media.ui.tiles.toTileColors
+import androidx.compose.ui.graphics.toArgb
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.app.MediaActivity
@@ -52,7 +52,12 @@ class MediaCollectionsTileService : SuspendingTileService() {
 
     private val renderer: MediaCollectionsTileRenderer = MediaCollectionsTileRenderer(
         context = this,
-        materialTheme = UampColors.toTileColors(),
+        materialTheme = androidx.wear.protolayout.material.Colors(
+            UampColors.primary.toArgb(),
+            UampColors.onPrimary.toArgb(),
+            UampColors.surfaceContainer.toArgb(),
+            UampColors.onSurface.toArgb(),
+        ),
         debugResourceMode = BuildConfig.DEBUG,
     )
 

@@ -18,7 +18,7 @@ androidxActivity = "1.13.0"
 androidxComposeBom = "2026.03.01"
 androidxCore = "1.18.0"
 androidxLifecycle = "2.10.0"
-androidxNavigation = "2.9.7"
+androidxNavigation = "2.9.8"
 androidxPhoneInteractions = "1.1.0"
 androidxRemoteInteractions = "1.2.0"
 androidxStartup = "1.2.0"
@@ -32,10 +32,10 @@ app-cash-turbine = "1.2.1"
 appcompat = "1.7.1"
 com-squareup-okhttp3 = "5.3.2"
 com-squareup-retrofit2 = "3.0.0"
-compose-material3 = "1.5.0-alpha17"
+compose-material3 = "1.5.0-alpha18"
 composeAiTools = "0.7.7"
 composesnapshot = "-"
-dependencyAnalysis = "3.7.0"
+dependencyAnalysis = "3.9.0"
 desugar_jdk_libs = "2.1.5"
 dokka = "2.2.0"
 googledagger = "2.59.2"
@@ -55,8 +55,8 @@ okio = "3.17.0"
 org-robolectric = "4.16.1"
 ossLicensesPlugin = "0.11.0"
 osslicenses = "0.10.0"
-playServicesAuth = "21.4.0"
-playServicesOssLicenses = "17.5.0"
+playServicesAuth = "21.5.1"
+playServicesOssLicenses = "17.5.1"
 # Stay on 4.26.1 due to https://github.com/firebase/firebase-android-sdk/issues/5997
 protobuf = "4.34.1"
 protobuf-gen-grpc-java = "1.80.0"
@@ -64,15 +64,15 @@ protobuf-gen-grpc-kotlin = "1.5.0:jdk8@jar"
 protobuf-gen-javalite = "3.0.0"
 roborazzi = "1.59.0"
 room = "2.8.4"
-runtimeTracing = "1.10.6"
+runtimeTracing = "1.11.0"
 spotless = "8.4.0"
-ktfmt = "0.25.0"
+ktfmt = "0.26.0"
 tiles-tooling-preview = "1.6.0"
 truth = "1.4.5"
 wearInput = "1.2.0"
 wearToolingPreview = "1.0.0"
 wearcompose = "1.6.1"
-agp = "9.1.0"
+agp = "9.2.0"
 
 [libraries]
 accessibility-test-framework = { module = "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework", version.ref = "accessibilityTestFramework" }
@@ -181,7 +181,7 @@ dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plu
 dagger-hiltandroidtesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "googledagger" }
 desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
-google-genai = "com.google.genai:google-genai:1.47.0"
+google-genai = "com.google.genai:google-genai:1.51.0"
 gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradlePublishPlugin" }
 grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
@@ -213,7 +213,7 @@ oss-licenses-plugin = { module = "com.google.android.gms:oss-licenses-plugin", v
 osslicenses-wear-compose-material = { module = "io.github.droibit.oss-licenses-android:ui-wear-compose-material", version.ref = "osslicenses" }
 play-services-oss-licenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "playServicesOssLicenses" }
 playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
-playservices-base = "com.google.android.gms:play-services-base:18.9.0"
+playservices-base = "com.google.android.gms:play-services-base:18.10.0"
 playservices-wearable = "com.google.android.gms:play-services-wearable:19.0.0"
 protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
 protobuf-protoc-gen-grpc-java = { module = "io.grpc:protoc-gen-grpc-java", version.ref = "protobuf-gen-grpc-java"}

@@ -129,27 +129,27 @@ allprojects {
 }
 
 subprojects {
-//    apply(plugin = "com.diffplug.spotless")
-//
-//    if (childProjects.isEmpty()) {
-//        spotless {
-//            kotlin {
-//                target("**/*.kt")
-//                ktlint(libs.versions.ktlint.get())
-//                    .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
-//                licenseHeaderFile(rootProject.file("spotless/copyright.txt"))
-//            }
-//            kotlinGradle {
-//                target("**/*.gradle.kts")
-//                ktlint(libs.versions.ktlint.get())
-//                    .setEditorConfigPath(rootProject.file("quality/ktlint/.editorconfig"))
-//                licenseHeaderFile(
-//                    rootProject.file("spotless/copyright.txt"),
-//                    "(buildscript|apply|import|plugins)"
-//                )
-//            }
-//        }
-//    }
+    apply(plugin = "com.diffplug.spotless")
+
+    if (childProjects.isEmpty()) {
+        spotless {
+            kotlin {
+                target("**/*.kt")
+                ktfmt("0.25.0").googleStyle()
+                licenseHeaderFile(rootProject.file("spotless/copyright.txt"))
+                ratchetFrom("origin/main")
+            }
+            kotlinGradle {
+                target("**/*.gradle.kts")
+                ktfmt("0.25.0").googleStyle()
+                licenseHeaderFile(
+                    rootProject.file("spotless/copyright.txt"),
+                    "(buildscript|apply|import|plugins)"
+                )
+                ratchetFrom("origin/main")
+            }
+        }
+    }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         compilerOptions {

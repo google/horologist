@@ -16,7 +16,7 @@
 
 package com.google.android.horologist.media.ui.material3.composables
 
-import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
+import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.ScreenScaffold
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
@@ -33,7 +33,7 @@ class SectionedListHeaderFooterTest(
     @Test
     fun test() {
         runTest {
-            val scrollState = rememberScalingLazyListState()
+            val scrollState = rememberTransformingLazyColumnState()
 
             ScreenScaffold(scrollState = scrollState) {
                 SectionedList(scrollState = scrollState) {

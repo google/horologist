@@ -15,37 +15,35 @@
  */
 
 plugins {
-    id("java-library")
-    id("org.jetbrains.kotlin.jvm")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
+  id("java-library")
+  id("org.jetbrains.kotlin.jvm")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.kotlinx.coroutines.core)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.robolectric)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.robolectric)
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    compilerOptions {
-        freeCompilerArgs.add(
-            "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-        )
-    }
+  compilerOptions {
+    freeCompilerArgs.add(
+      "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi"
+    )
+  }
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

@@ -50,7 +50,7 @@ plugins {
     alias(libs.plugins.metalavaGradle) apply false
     alias(libs.plugins.protobuf) apply false
     alias(libs.plugins.roborazzi) apply false
-    alias(libs.plugins.spotless)
+    alias(libs.plugins.ktfmt) apply false
 }
 
 apply(plugin = "org.jetbrains.dokka")
@@ -129,26 +129,10 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = "com.diffplug.spotless")
+    apply(plugin = "com.ncorti.ktfmt.gradle")
 
-    if (childProjects.isEmpty()) {
-        spotless {
-            kotlin {
-                target("**/*.kt")
-                ktfmt("0.25.0").googleStyle()
-                licenseHeaderFile(rootProject.file("spotless/copyright.txt"))
-                ratchetFrom("origin/main")
-            }
-            kotlinGradle {
-                target("**/*.gradle.kts")
-                ktfmt("0.25.0").googleStyle()
-                licenseHeaderFile(
-                    rootProject.file("spotless/copyright.txt"),
-                    "(buildscript|apply|import|plugins)"
-                )
-                ratchetFrom("origin/main")
-            }
-        }
+    configure<com.ncorti.ktfmt.gradle.KtfmtExtension> {
+        googleStyle()
     }
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

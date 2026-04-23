@@ -134,6 +134,7 @@ dependencies {
   implementation(projects.media.ui)
 
   implementation(projects.media.uiMaterial3)
+  implementation(projects.media.audioUiMaterial3)
   implementation(libs.androidx.wear.compose.material3)
   implementation(projects.networkAwareness.core)
   implementation(projects.networkAwareness.ui)

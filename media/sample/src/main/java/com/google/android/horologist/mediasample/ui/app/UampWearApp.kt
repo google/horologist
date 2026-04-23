@@ -35,6 +35,7 @@ import com.google.android.horologist.media.ui.navigation.MediaNavController.navi
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
 import com.google.android.horologist.media.ui.material3.navigation.NavigationScreens
+import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.ui.auth.prompt.GoogleSignInPromptScreen
 import com.google.android.horologist.mediasample.ui.auth.signin.UampGoogleSignInViewModel
@@ -78,7 +79,7 @@ fun UampWearApp(
     val appState by appViewModel.appState.collectAsStateWithLifecycle()
 
     UampTheme {
-        MediaPlayerScaffold(
+            MediaPlayerScaffold(
             playerScreen = {
                 UampMediaPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
@@ -176,7 +177,7 @@ fun UampWearApp(
                 )
             },
             navHostState = navHostState,
-            snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
+            snackbarViewModel = hiltViewModel<SnackbarViewModel>() as com.google.android.horologist.media.ui.snackbar.SnackbarViewModel,
             volumeViewModel = volumeViewModel,
             timeText = {
                 MediaInfoTimeText(

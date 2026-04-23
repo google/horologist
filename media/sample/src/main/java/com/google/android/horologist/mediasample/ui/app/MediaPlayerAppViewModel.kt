@@ -22,8 +22,8 @@ import com.google.android.horologist.auth.data.common.repository.AuthUserReposit
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.repository.PlaylistRepository
-import com.google.android.horologist.media.ui.snackbar.SnackbarManager
-import com.google.android.horologist.media.ui.snackbar.UiMessage
+import com.google.android.horologist.mediasample.ui.app.snackbar.SnackbarManager
+import com.google.android.horologist.mediasample.ui.app.snackbar.UiMessage
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.mediasample.ui.AppConfig

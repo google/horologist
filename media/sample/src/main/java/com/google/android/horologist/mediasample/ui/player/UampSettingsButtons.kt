@@ -23,8 +23,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
-import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.audio.ui.components.actions.SetAudioOutputButton
+import androidx.compose.foundation.Image
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.unit.dp
+import androidx.compose.foundation.layout.size
 import com.google.android.horologist.logo.R
 
 /**
@@ -46,9 +52,12 @@ public fun UampSettingsButtons(
     ) {
         FavoriteButton()
 
-        SettingsButtonsDefaults.BrandIcon(
-            iconId = R.drawable.ic_stat_horologist,
-            enabled = enabled,
+        Image(
+            modifier = Modifier.size(18.dp).clip(CircleShape).let {
+                if (enabled) it else it.alpha(0.38f)
+            },
+            painter = painterResource(id = R.drawable.ic_stat_horologist),
+            contentDescription = null,
         )
 
         SetAudioOutputButton(

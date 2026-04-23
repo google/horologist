@@ -16,14 +16,34 @@
 
 package com.google.android.horologist.mediasample.ui.app
 
-import com.google.android.horologist.media.ui.snackbar.SnackbarManager
-import com.google.android.horologist.media.ui.snackbar.SnackbarViewModel as LibSnackbarViewModel
+import com.google.android.horologist.mediasample.ui.app.snackbar.SnackbarManager
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.google.android.horologist.compose.snackbar.SnackbarDuration
+import com.google.android.horologist.compose.snackbar.SnackbarHostState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 public class SnackbarViewModel
     @Inject
     constructor(
-        snackbarManager: SnackbarManager,
-    ) : LibSnackbarViewModel(snackbarManager)
+        private val snackbarManager: SnackbarManager,
+    ) : ViewModel() {
+    public val snackbarHostState: SnackbarHostState = SnackbarHostState()
+
+    init {
+        viewModelScope.launch {
+            snackbarManager.messages.collect { currentMessages ->
+                currentMessages.firstOrNull()?.let {
+                    snackbarHostState.showSnackbar(
+                        message = it.message,
+                        duration = SnackbarDuration.Short,
+                    )
+                    snackbarManager.setMessageShown(it.id)
+                }
+            }
+        }
+    }
+}

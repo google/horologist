@@ -25,7 +25,7 @@ jobs:
       - name: Reformat
         uses: gradle/gradle-build-action@v3
         with:
-          arguments: --continue spotlessApply
+          arguments: --continue ktfmtFormat
 
       - name: Push reformatted code
         uses: stefanzweifel/git-auto-commit-action@v6

@@ -29,7 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
 import androidx.wear.compose.foundation.LocalReduceMotion
 import androidx.wear.compose.foundation.pager.rememberPagerState
-import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material3.MaterialTheme
 import coil.annotation.ExperimentalCoilApi
 import coil.decode.DataSource
 import coil.request.SuccessResult
@@ -255,7 +255,7 @@ class PlaylistDownloadScreenA11yScreenshotTest :
         AppScaffold(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colors.background),
+                .background(MaterialTheme.colorScheme.background),
             timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
         ) {
             PagerScreen(

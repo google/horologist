@@ -19,7 +19,7 @@ package com.google.android.horologist.mediasample.ui.playlists
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.media.repository.PlaylistRepository
-import com.google.android.horologist.media.ui.screens.playlists.PlaylistsScreenState
+import com.google.android.horologist.media.ui.material3.screens.playlists.PlaylistsScreenState
 import com.google.android.horologist.media.ui.state.mapper.PlaylistUiModelMapper
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -34,7 +34,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
+import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.FilledTonalButton
 import androidx.wear.compose.material3.Icon
@@ -49,7 +49,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun loadingSection() {
         runTest {
-            val scrollState = rememberScalingLazyListState()
+            val scrollState = rememberTransformingLazyColumnState()
 
             ScreenScaffold(scrollState = scrollState) {
                 SectionedList(scrollState = scrollState) {
@@ -63,7 +63,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun loadedSection() {
         runTest {
-            val scrollState = rememberScalingLazyListState()
+            val scrollState = rememberTransformingLazyColumnState()
 
             ScreenScaffold(scrollState = scrollState) {
                 SectionedList(scrollState = scrollState) {
@@ -77,7 +77,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun loadedSection_secondPage() {
         runTest(captureScreenshot = false) {
-            val scrollState = rememberScalingLazyListState()
+            val scrollState = rememberTransformingLazyColumnState()
 
             ScreenScaffold(scrollState = scrollState) {
                 SectionedList(scrollState = scrollState) {
@@ -97,7 +97,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun failedSection() {
         runTest {
-            val scrollState = rememberScalingLazyListState()
+            val scrollState = rememberTransformingLazyColumnState()
 
             ScreenScaffold(scrollState = scrollState) {
                 SectionedList(scrollState = scrollState) {
@@ -111,7 +111,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun failedSection_secondPage() {
         runTest(captureScreenshot = false) {
-            val scrollState = rememberScalingLazyListState()
+            val scrollState = rememberTransformingLazyColumnState()
 
             ScreenScaffold(scrollState = scrollState) {
                 SectionedList(scrollState = scrollState) {
@@ -131,7 +131,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun emptySection() {
         runTest {
-            val scrollState = rememberScalingLazyListState()
+            val scrollState = rememberTransformingLazyColumnState()
 
             ScreenScaffold(scrollState = scrollState) {
                 SectionedList(scrollState = scrollState) {
@@ -146,7 +146,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     @Test
     fun emptyContentForStates() {
         runTest {
-            val scrollState = rememberScalingLazyListState()
+            val scrollState = rememberTransformingLazyColumnState()
 
             ScreenScaffold(scrollState = scrollState) {
                 SectionedList(

@@ -31,6 +31,9 @@ import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.FilledTonalButton
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.Text
+import androidx.wear.compose.material3.lazy.rememberTransformationSpec
+import androidx.wear.compose.material3.lazy.transformedHeight
+import androidx.wear.compose.material3.SurfaceTransformation
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.material3.composables.PlaceholderButton
@@ -104,6 +107,8 @@ internal fun BrowseScreenScope.PlaylistDownloadBrowseScreenContent(
             when (download) {
                 is PlaylistDownloadUiModel.Completed -> {
                     FilledTonalButton(
+                        modifier = Modifier
+                            .fillMaxWidth(),
                         label = { Text(download.playlistUiModel.title) },
                         onClick = { onDownloadItemClick(download) },
                         icon = {
@@ -129,7 +134,8 @@ internal fun BrowseScreenScope.PlaylistDownloadBrowseScreenContent(
                     } ?: Modifier
 
                     FilledTonalButton(
-                        modifier = customModifier,
+                        modifier = customModifier
+                            .fillMaxWidth(),
                         label = { Text(download.playlistUiModel.title) },
                         secondaryLabel = {
                             Text(

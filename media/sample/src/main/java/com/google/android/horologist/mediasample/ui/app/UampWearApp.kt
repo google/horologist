@@ -27,14 +27,15 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.material3.Text
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.compose.nav.composable
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToLibrary
 import com.google.android.horologist.media.ui.navigation.MediaNavController.navigateToPlayer
 import com.google.android.horologist.media.ui.navigation.MediaPlayerScaffold
-import com.google.android.horologist.media.ui.navigation.NavigationScreen
+import com.google.android.horologist.media.ui.material3.navigation.NavigationScreens
+import com.google.android.horologist.compose.snackbar.DialogSnackbarHost
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.ui.auth.prompt.GoogleSignInPromptScreen
 import com.google.android.horologist.mediasample.ui.auth.signin.UampGoogleSignInViewModel
@@ -78,14 +79,14 @@ fun UampWearApp(
     val appState by appViewModel.appState.collectAsStateWithLifecycle()
 
     UampTheme {
-        MediaPlayerScaffold(
+            MediaPlayerScaffold(
             playerScreen = {
                 UampMediaPlayerScreen(
                     modifier = Modifier.fillMaxSize(),
                     mediaPlayerScreenViewModel = hiltViewModel(),
                     volumeViewModel = volumeViewModel,
                     onVolumeClick = {
-                        navController.navigate(NavigationScreen.Volume)
+                        navController.navigate(NavigationScreens.Volume.destination())
                     },
                 )
             },
@@ -93,10 +94,10 @@ fun UampWearApp(
                 if (appState.streamingMode == true) {
                     UampStreamingBrowseScreen(
                         onPlaylistsClick = {
-                            navController.navigate(NavigationScreen.Collections)
+                            navController.navigate(NavigationScreens.Collections.destination())
                         },
                         onSettingsClick = {
-                            navController.navigate(NavigationScreen.Settings)
+                            navController.navigate(NavigationScreens.Settings.destination())
                         },
                     )
                 } else {
@@ -104,17 +105,17 @@ fun UampWearApp(
                         uampBrowseScreenViewModel = hiltViewModel(),
                         onDownloadItemClick = {
                             navController.navigate(
-                                NavigationScreen.Collection(
+                                NavigationScreens.Collection.destination(
                                     it.playlistUiModel.id,
                                     it.playlistUiModel.title,
                                 ),
                             )
                         },
                         onPlaylistsClick = {
-                            navController.navigate(NavigationScreen.Collections)
+                            navController.navigate(NavigationScreens.Collections.destination())
                         },
                         onSettingsClick = {
-                            navController.navigate(NavigationScreen.Settings)
+                            navController.navigate(NavigationScreens.Settings.destination())
                         },
                     )
                 }
@@ -160,7 +161,7 @@ fun UampWearApp(
                     uampPlaylistsScreenViewModel = uampPlaylistsScreenViewModel,
                     onPlaylistItemClick = { playlistUiModel ->
                         navController.navigate(
-                            NavigationScreen.Collection(
+                            NavigationScreens.Collection.destination(
                                 playlistUiModel.id,
                                 playlistUiModel.title,
                             ),
@@ -176,7 +177,7 @@ fun UampWearApp(
                 )
             },
             navHostState = navHostState,
-            snackbarViewModel = hiltViewModel<SnackbarViewModel>(),
+            snackbarViewModel = hiltViewModel<SnackbarViewModel>() as com.google.android.horologist.media.ui.snackbar.SnackbarViewModel,
             volumeViewModel = volumeViewModel,
             timeText = {
                 MediaInfoTimeText(

@@ -19,8 +19,8 @@ package com.google.android.horologist.mediasample.ui.settings
 import android.os.Process
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.horologist.media.ui.snackbar.SnackbarManager
-import com.google.android.horologist.media.ui.snackbar.UiMessage
+import com.google.android.horologist.mediasample.ui.app.snackbar.SnackbarManager
+import com.google.android.horologist.mediasample.ui.app.snackbar.UiMessage
 import com.google.android.horologist.mediasample.di.IsEmulator
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import com.google.android.horologist.networks.highbandwidth.HighBandwidthConnectionLease

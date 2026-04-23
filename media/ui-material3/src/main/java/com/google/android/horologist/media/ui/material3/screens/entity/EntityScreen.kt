@@ -18,9 +18,16 @@ package com.google.android.horologist.media.ui.material3.screens.entity
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
-import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
-import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumnScope
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumnItemScope
+import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
+import androidx.wear.compose.material3.lazy.rememberTransformationSpec
+import androidx.wear.compose.material3.lazy.transformedHeight
+import androidx.wear.compose.material3.SurfaceTransformation
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.foundation.layout.Box
 import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.Text
@@ -35,22 +42,46 @@ public fun EntityScreen(
     headerContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     buttonsContent: (@Composable () -> Unit)? = null,
-    content: (ScalingLazyListScope.() -> Unit)? = null,
+    content: (TransformingLazyColumnScope.() -> Unit)? = null,
 ) {
-    val scrollState = rememberScalingLazyListState()
+    val scrollState = rememberTransformingLazyColumnState()
+    val transformationSpec = rememberTransformationSpec()
 
-    ScreenScaffold(scrollState = scrollState) {
-        ScalingLazyColumn(
+    ScreenScaffold(scrollState = scrollState) { contentPadding ->
+        TransformingLazyColumn(
             state = scrollState,
+            contentPadding = contentPadding,
             modifier = modifier,
         ) {
             item {
-                headerContent()
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .graphicsLayer {
+                            with(transformationSpec) {
+                                applyContainerTransformation(scrollProgress)
+                            }
+                        }
+                        .transformedHeight(this, transformationSpec)
+                ) {
+                    headerContent()
+                }
             }
 
             buttonsContent?.let {
                 item {
-                    buttonsContent()
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .graphicsLayer {
+                                with(transformationSpec) {
+                                    applyContainerTransformation(scrollProgress)
+                                }
+                            }
+                            .transformedHeight(this, transformationSpec)
+                    ) {
+                        buttonsContent()
+                    }
                 }
             }
 
@@ -69,7 +100,7 @@ public fun EntityScreen(
 public fun <Media> EntityScreen(
     headerContent: @Composable () -> Unit,
     mediaList: List<Media>,
-    mediaContent: @Composable (media: Media) -> Unit,
+    mediaContent: @Composable TransformingLazyColumnItemScope.(media: Media) -> Unit,
     modifier: Modifier = Modifier,
     buttonsContent: (@Composable () -> Unit)? = null,
 ) {
@@ -79,7 +110,7 @@ public fun <Media> EntityScreen(
         buttonsContent = buttonsContent,
         content = {
             items(count = mediaList.size) { index ->
-                mediaContent(mediaList[index])
+                this.mediaContent(mediaList[index])
             }
         },
     )
@@ -94,8 +125,8 @@ public fun <Media> EntityScreen(
 public fun <Media> EntityScreen(
     entityScreenState: EntityScreenState<Media>,
     headerContent: @Composable () -> Unit,
-    loadingContent: ScalingLazyListScope.() -> Unit,
-    mediaContent: @Composable (media: Media) -> Unit,
+    loadingContent: TransformingLazyColumnScope.() -> Unit,
+    mediaContent: @Composable TransformingLazyColumnItemScope.(media: Media) -> Unit,
     modifier: Modifier = Modifier,
     buttonsContent: (@Composable () -> Unit)? = null,
     failedContent: (@Composable () -> Unit)? = null,

@@ -18,9 +18,9 @@ package com.google.android.horologist.media.ui.material3.composables
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.wear.compose.foundation.lazy.ScalingLazyColumn
-import androidx.wear.compose.foundation.lazy.ScalingLazyListScope
-import androidx.wear.compose.foundation.lazy.ScalingLazyListState
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumnScope
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumnState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
@@ -31,7 +31,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @Composable
 public fun SectionedList(
     modifier: Modifier = Modifier,
-    scrollState: ScalingLazyListState, // TODO: Migrate to TransformingLazyColumnState
+    scrollState: TransformingLazyColumnState,
     content: SectionedListScope.() -> Unit,
 ) {
     SectionedList(
@@ -49,10 +49,10 @@ public fun SectionedList(
 @Composable
 public fun SectionedList(
     modifier: Modifier = Modifier,
-    scrollState: ScalingLazyListState,
+    scrollState: TransformingLazyColumnState,
     sections: List<Section<*>> = emptyList(),
 ) {
-    ScalingLazyColumn(
+    TransformingLazyColumn(
         state = scrollState,
         modifier = modifier,
     ) {
@@ -74,7 +74,7 @@ internal fun <T> shouldDisplay(
     }
 }
 
-internal fun <T> Section<T>.display(scope: ScalingLazyListScope) {
+internal fun <T> Section<T>.display(scope: TransformingLazyColumnScope) {
     val section = this
 
     section.headerContent?.let { content ->

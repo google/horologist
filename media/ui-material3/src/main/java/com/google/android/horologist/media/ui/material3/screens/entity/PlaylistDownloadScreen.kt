@@ -39,6 +39,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumnScope
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumnItemScope
+import androidx.wear.compose.material3.lazy.rememberTransformationSpec
+import androidx.wear.compose.material3.lazy.transformedHeight
+import androidx.wear.compose.material3.SurfaceTransformation
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
@@ -103,7 +109,9 @@ public fun PlaylistDownloadScreen(
         loadingContent = {
             items(count = 2) {
                 PlaceholderButton(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                     colors = ButtonDefaults.filledTonalButtonColors(),
                 )
             }
@@ -181,6 +189,8 @@ private fun MediaContent(
         is DownloadMediaUiModel.NotDownloaded,
         -> {
             FilledTonalButton(
+                modifier = Modifier
+                    .fillMaxWidth(),
                 label = { Text(mediaTitle) },
                 onClick = { onDownloadItemClick(downloadMediaUiModel) },
                 secondaryLabel = secondaryLabel?.let { { Text(secondaryLabel) } },
@@ -251,7 +261,8 @@ private fun MediaContent(
                 label = { Text(mediaTitle) },
                 onClick = { onDownloadItemInProgressClick(downloadMediaUiModel) },
                 secondaryLabel = secondaryLabel?.let { { Text(secondaryLabel) } },
-                modifier = customModifier,
+                modifier = customModifier
+                    .fillMaxWidth(),
                 icon = icon,
             )
         }

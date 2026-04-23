@@ -18,23 +18,22 @@ package com.google.android.horologist.mediasample.ui.app
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.wear.compose.material.Colors
-import androidx.wear.compose.material.MaterialTheme
+import androidx.wear.compose.material3.ColorScheme
+import androidx.wear.compose.material3.MaterialTheme
 
-public val UampColors = Colors(
+public val UampColors: ColorScheme = ColorScheme(
     primary = Color(0xFF981F68),
-    primaryVariant = Color(0xFF66003d),
     secondary = Color(0xFF981F68),
     error = Color(0xFFE24444),
     onPrimary = Color.White,
     onSurfaceVariant = Color(0xFFDADCE0),
-    surface = Color(0xFF303133),
+    surfaceContainer = Color(0xFF303133),
     onError = Color.Black,
 )
 
 @Composable
 public fun UampTheme(block: @Composable () -> Unit) {
-    MaterialTheme(colors = UampColors) {
+    MaterialTheme(colorScheme = UampColors) {
         block()
     }
 }

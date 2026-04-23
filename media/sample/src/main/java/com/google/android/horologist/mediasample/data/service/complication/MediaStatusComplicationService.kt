@@ -24,8 +24,7 @@ import androidx.wear.watchface.complications.data.PlainComplicationText
 import androidx.wear.watchface.complications.data.SmallImageType
 import androidx.wear.watchface.complications.datasource.ComplicationRequest
 import coil.ImageLoader
-import com.google.android.horologist.media.ui.complication.MediaStatusTemplate
-import com.google.android.horologist.media.ui.complication.MediaStatusTemplate.Data
+import com.google.android.horologist.mediasample.data.service.complication.MediaStatusTemplate.Data
 import com.google.android.horologist.media3.navigation.IntentBuilder
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.tiles.complication.ComplicationTemplate

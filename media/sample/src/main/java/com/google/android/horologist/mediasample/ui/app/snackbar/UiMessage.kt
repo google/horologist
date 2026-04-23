@@ -14,29 +14,15 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.navigation
+package com.google.android.horologist.mediasample.ui.app.snackbar
 
-import kotlinx.serialization.Serializable
+import java.util.UUID
 
-object UampNavigationScreen {
-    @Serializable
-    public data object AudioDebug
-
-    @Serializable
-    public data object Samples
-
-    @Serializable
-    public data object GoogleSignInPromptScreen
-
-    @Serializable
-    public data object GoogleSignInScreen
-
-    @Serializable
-    public object GoogleSignOutScreen
-
-    @Serializable
-    public object DeveloperOptions
-
-    @Serializable
-    public data object NewHotness
-}
+/**
+ * A UI message, either an error or informational to display.
+ */
+public data class UiMessage(
+    public val message: String,
+    public val id: String = UUID.randomUUID().toString(),
+    public val error: Boolean = true,
+)

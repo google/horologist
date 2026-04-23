@@ -25,7 +25,12 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
-import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
+import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumnItemScope
+import androidx.wear.compose.material3.lazy.rememberTransformationSpec
+import androidx.wear.compose.material3.lazy.transformedHeight
+import androidx.wear.compose.material3.SurfaceTransformation
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.FilledTonalButton
 import androidx.wear.compose.material3.Icon
@@ -62,7 +67,7 @@ public fun <T> PlaylistsScreen(
     playlistContent: @Composable (playlist: T) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val scrollState = rememberScalingLazyListState()
+    val scrollState = rememberTransformingLazyColumnState()
 
     // TODO This should be folded into SectionedList
     val placeholderState =
@@ -92,7 +97,10 @@ public fun <T> PlaylistsScreen(
                 loaded { playlistContent(it) }
 
                 loading(count = 4) {
-                    Column {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
                         PlaceholderButton(
                             modifier = Modifier.fillMaxWidth(),
                             placeholderState = placeholderState,
@@ -116,6 +124,8 @@ public fun PlaylistsScreen(
 ) {
     val playlistContent: @Composable (playlist: PlaylistUiModel) -> Unit = { playlist ->
         FilledTonalButton(
+            modifier = Modifier
+                .fillMaxWidth(),
             label = { Text(playlist.title) },
             onClick = { onPlaylistItemClick(playlist) },
             icon = {

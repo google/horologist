@@ -26,8 +26,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.foundation.lazy.items
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
@@ -61,7 +61,7 @@ fun AudioDebugScreen(
                 Text(
                     text = stringResource(id = R.string.sample_audio_debug),
                     modifier = Modifier.padding(bottom = 12.dp),
-                    style = MaterialTheme.typography.title3,
+                    style = MaterialTheme.typography.titleMedium,
                 )
             }
             item {
@@ -70,7 +70,7 @@ fun AudioDebugScreen(
                 }.orEmpty()
                 Text(
                     text = stringResource(id = R.string.sample_debug_format, format),
-                    style = MaterialTheme.typography.body2,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
             item {
@@ -78,14 +78,14 @@ fun AudioDebugScreen(
                 val supported = uiState?.audioOffloadStatus?.trackOffloadDescription() ?: "N/A"
                 Text(
                     text = stringResource(id = R.string.sample_track_offloaded, supported),
-                    style = MaterialTheme.typography.body2,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
             item {
                 val supported = uiState?.formatSupported?.toString().orEmpty()
                 Text(
                     text = stringResource(id = R.string.sample_offload_supported, supported),
-                    style = MaterialTheme.typography.body2,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
             item {
@@ -94,7 +94,7 @@ fun AudioDebugScreen(
                         id = R.string.sample_debug_offload_sleeping,
                         uiState?.audioOffloadStatus?.sleepingForOffload?.toString().orEmpty(),
                     ),
-                    style = MaterialTheme.typography.body2,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
             item {
@@ -103,7 +103,7 @@ fun AudioDebugScreen(
                         id = R.string.sample_debug_offload_scheduled,
                         uiState?.audioOffloadStatus?.offloadSchedulingEnabled.toString().orEmpty(),
                     ),
-                    style = MaterialTheme.typography.body2,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
             item {
@@ -115,14 +115,14 @@ fun AudioDebugScreen(
                         id = R.string.sample_debug_offload_percent,
                         times?.percent + "($enabled/$disabled)",
                     ),
-                    style = MaterialTheme.typography.body2,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
             }
             item {
                 Text(
                     text = stringResource(id = R.string.sample_audio_debug_events),
                     modifier = Modifier.padding(vertical = 12.dp),
-                    style = MaterialTheme.typography.title3,
+                    style = MaterialTheme.typography.titleMedium,
                 )
             }
             items(uiState?.audioOffloadStatus?.errors.orEmpty().reversed()) {
@@ -135,7 +135,7 @@ fun AudioDebugScreen(
                     text = message,
                     maxLines = 3,
                     overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.caption3,
+                    style = MaterialTheme.typography.labelSmall,
                 )
             }
         }

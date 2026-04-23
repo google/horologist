@@ -27,7 +27,7 @@ import androidx.compose.ui.test.performClick
 import androidx.test.filters.FlakyTest
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.material3.Text
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper

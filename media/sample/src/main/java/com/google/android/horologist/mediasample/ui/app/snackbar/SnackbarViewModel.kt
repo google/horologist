@@ -14,23 +14,25 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.mediasample.ui.app
+package com.google.android.horologist.mediasample.ui.app.snackbar
 
-import com.google.android.horologist.mediasample.ui.app.snackbar.SnackbarManager
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.CreationExtras
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.compose.snackbar.SnackbarDuration
 import com.google.android.horologist.compose.snackbar.SnackbarHostState
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
 import kotlinx.coroutines.launch
 
-@HiltViewModel
-public class SnackbarViewModel
-    @Inject
-    constructor(
-        private val snackbarManager: SnackbarManager,
-    ) : ViewModel() {
+/**
+ * A ViewModel the maintainer the SnackbarHostState, and a reference to the Manager
+ * for both processes snackbars sequentially and also showing a message.
+ */
+public open class SnackbarViewModel(
+    private val snackbarManager: SnackbarManager,
+) : ViewModel() {
     public val snackbarHostState: SnackbarHostState = SnackbarHostState()
 
     init {
@@ -43,6 +45,19 @@ public class SnackbarViewModel
                     )
                     snackbarManager.setMessageShown(it.id)
                 }
+            }
+        }
+    }
+
+    public companion object {
+        public val SnackbarManagerKey: CreationExtras.Key<SnackbarManager> =
+            object : CreationExtras.Key<SnackbarManager> {}
+
+        public val Factory: ViewModelProvider.Factory = viewModelFactory {
+            initializer {
+                SnackbarViewModel(
+                    snackbarManager = this[SnackbarManagerKey]!!,
+                )
             }
         }
     }

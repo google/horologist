@@ -29,7 +29,7 @@ import androidx.media3.datasource.cache.NoOpCacheEvictor
 import androidx.media3.datasource.cache.SimpleCache
 import androidx.media3.exoplayer.ExoPlayer.AudioOffloadListener
 import androidx.wear.watchface.complications.datasource.ComplicationDataSourceUpdateRequester
-import com.google.android.horologist.media.ui.snackbar.SnackbarManager
+import com.google.android.horologist.mediasample.ui.app.snackbar.SnackbarManager
 import com.google.android.horologist.media3.config.WearMedia3Factory
 import com.google.android.horologist.media3.logging.ErrorReporter
 import com.google.android.horologist.media3.navigation.IntentBuilder

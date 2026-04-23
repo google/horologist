@@ -24,7 +24,7 @@ import androidx.wear.tiles.tooling.preview.TilePreviewData
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.android.horologist.compose.tools.tileRendererPreviewData
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
-import com.google.android.horologist.media.ui.tiles.toTileColors
+import androidx.compose.ui.graphics.toArgb
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.app.UampColors
@@ -36,7 +36,12 @@ import com.google.android.horologist.tiles.images.toImageResource
 fun SampleTilePreview(context: Context): TilePreviewData = tileRendererPreviewData(
     renderer = MediaCollectionsTileRenderer(
         context = context,
-        materialTheme = UampColors.toTileColors(),
+        materialTheme = androidx.wear.protolayout.material.Colors(
+            UampColors.primary.toArgb(),
+            UampColors.onPrimary.toArgb(),
+            UampColors.surfaceContainer.toArgb(),
+            UampColors.onSurface.toArgb(),
+        ),
         debugResourceMode = BuildConfig.DEBUG,
     ),
     tileState = MediaCollectionsTileRenderer.MediaCollectionsState(

@@ -24,8 +24,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.horologist.compose.material.AlertDialog
-import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreen
-import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
+import com.google.android.horologist.media.ui.material3.screens.entity.PlaylistDownloadScreen
+import com.google.android.horologist.media.ui.material3.screens.entity.PlaylistDownloadScreenState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.R

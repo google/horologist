@@ -15,133 +15,105 @@
  */
 
 plugins {
-    id("com.android.library")
-    id("com.google.protobuf")
+  id("com.android.library")
+  id("com.google.protobuf")
 
-    id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
+  id("com.google.devtools.ksp")
+  id("dagger.hilt.android.plugin")
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 23
+  defaultConfig {
+    minSdk = 23
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
+
+  buildFeatures { buildConfig = false }
+
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
+
+  testOptions {
+    unitTests {
+      isIncludeAndroidResources = true
+      all { it.failOnNoDiscoveredTests = false }
     }
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
-
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
-
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-            all {
-                it.failOnNoDiscoveredTests = false
-            }
-        }
-    }
-
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
-
-    namespace = "com.google.android.horologist.ai.sample.core"
+  namespace = "com.google.android.horologist.ai.sample.core"
 }
 
 protobuf {
-    protoc {
-        artifact = libs.protobuf.protoc.stnd.get().toString()
+  protoc { artifact = libs.protobuf.protoc.stnd.get().toString() }
+  plugins {
+    create("javalite") { artifact = libs.protobuf.protoc.gen.javalite.get().toString() }
+    create("grpc") { artifact = libs.protobuf.protoc.gen.grpc.java.get().toString() }
+    create("grpckt") { artifact = libs.protobuf.protoc.gen.grpc.kotlin.get().toString() }
+  }
+  generateProtoTasks {
+    all().forEach { task ->
+      task.builtins {
+        create("java") { option("lite") }
+        create("kotlin") { option("lite") }
+      }
+      task.plugins {
+        create("grpc") { option("lite") }
+        create("grpckt") { option("lite") }
+      }
     }
-    plugins {
-        create("javalite") {
-            artifact = libs.protobuf.protoc.gen.javalite.get().toString()
-        }
-        create("grpc") {
-            artifact = libs.protobuf.protoc.gen.grpc.java.get().toString()
-        }
-        create("grpckt") {
-            artifact = libs.protobuf.protoc.gen.grpc.kotlin.get().toString()
-        }
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                create("java") {
-                    option("lite")
-                }
-                create("kotlin") {
-                    option("lite")
-                }
-            }
-            task.plugins {
-                create("grpc") {
-                    option("lite")
-                }
-                create("grpckt") {
-                    option("lite")
-                }
-            }
-        }
-    }
+  }
 }
 
 dependencies {
-    api(projects.annotations)
-    api(libs.io.grpc.protobuf.lite)
-    api(libs.io.grpc.grpc.kotlin)
+  api(projects.annotations)
+  api(libs.io.grpc.protobuf.lite)
+  api(libs.io.grpc.grpc.kotlin)
 
-    implementation(libs.dagger.hiltandroid)
-    implementation(projects.datalayer.core)
-    implementation(projects.datalayer.grpc)
-    ksp(libs.dagger.hiltandroidcompiler)
+  implementation(libs.dagger.hiltandroid)
+  implementation(projects.datalayer.core)
+  implementation(projects.datalayer.grpc)
+  ksp(libs.dagger.hiltandroidcompiler)
 
-    api(libs.grpc.stub)
+  api(libs.grpc.stub)
 
-    implementation(platform(libs.compose.bom))
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.core)
+  implementation(platform(libs.compose.bom))
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.kotlinx.coroutines.core)
 
-    api(libs.playservices.wearable)
-    implementation(libs.kotlinx.coroutines.playservices)
-    api(libs.androidx.datastore.preferences)
-    api(libs.androidx.datastore)
-    api(libs.protobuf.kotlin.lite)
-    api(libs.androidx.lifecycle.runtime)
-    api(libs.androidx.wear.remote.interactions)
-    api(libs.androidx.lifecycle.service)
-    api(projects.datalayer.grpc)
-    api(libs.io.grpc.grpc.android)
-    api(libs.io.grpc.grpc.binder)
+  api(libs.playservices.wearable)
+  implementation(libs.kotlinx.coroutines.playservices)
+  api(libs.androidx.datastore.preferences)
+  api(libs.androidx.datastore)
+  api(libs.protobuf.kotlin.lite)
+  api(libs.androidx.lifecycle.runtime)
+  api(libs.androidx.wear.remote.interactions)
+  api(libs.androidx.lifecycle.service)
+  api(projects.datalayer.grpc)
+  api(libs.io.grpc.grpc.android)
+  api(libs.io.grpc.grpc.binder)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.androidx.test.ext.ktx)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.robolectric)
 
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    androidTestImplementation(libs.androidx.test.espressocore)
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.truth)
+  androidTestImplementation(libs.compose.ui.test.junit4)
+  androidTestImplementation(libs.androidx.test.espressocore)
+  androidTestImplementation(libs.junit)
+  androidTestImplementation(libs.truth)
 }
 
 // tasks.maybeCreate("prepareKotlinIdeaImport")

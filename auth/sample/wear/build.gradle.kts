@@ -15,110 +15,103 @@
  */
 
 plugins {
-    id("com.android.application")
-    alias(libs.plugins.compose.compiler)
+  id("com.android.application")
+  alias(libs.plugins.compose.compiler)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        applicationId = "com.google.android.horologist.auth.sample"
-        // Min because of Tiles
-        minSdk = 26
-        targetSdk = 34
+  defaultConfig {
+    applicationId = "com.google.android.horologist.auth.sample"
+    // Min because of Tiles
+    minSdk = 26
+    targetSdk = 34
 
-        versionCode = 1
-        versionName = "1.0"
+    versionCode = 1
+    versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  buildTypes {
+    debug {
+      applicationIdSuffix = ".debug"
+      manifestPlaceholders["schemeSuffix"] = "-debug"
     }
+    release {
+      manifestPlaceholders["schemeSuffix"] = ""
 
-    buildTypes {
-        debug {
-            applicationIdSuffix = ".debug"
-            manifestPlaceholders["schemeSuffix"] = "-debug"
-        }
-        release {
-            manifestPlaceholders["schemeSuffix"] = ""
+      isMinifyEnabled = true
+      isShrinkResources = true
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
-            )
-
-            signingConfig = signingConfigs.getByName("debug")
-        }
+      signingConfig = signingConfigs.getByName("debug")
     }
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = true
-    }
+  buildFeatures { buildConfig = true }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        // https://buganizer.corp.google.com/issues/328279054
-        disable.add("UnsafeOptInUsageError")
-    }
+  lint {
+    // https://buganizer.corp.google.com/issues/328279054
+    disable.add("UnsafeOptInUsageError")
+  }
 
-    namespace = "com.google.android.horologist.auth.sample"
+  namespace = "com.google.android.horologist.auth.sample"
 }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(platform(libs.compose.bom))
-    implementation(projects.auth.composablesMaterial3)
-    implementation(projects.auth.data)
-    implementation(projects.auth.sample.shared)
-    implementation(projects.auth.ui)
-    implementation(projects.auth.uiMaterial3)
-    implementation(projects.composables)
-    implementation(projects.composeLayout)
-    implementation(projects.composeMaterial)
+  implementation(platform(libs.compose.bom))
+  implementation(projects.auth.composablesMaterial3)
+  implementation(projects.auth.data)
+  implementation(projects.auth.sample.shared)
+  implementation(projects.auth.ui)
+  implementation(projects.auth.uiMaterial3)
+  implementation(projects.composables)
+  implementation(projects.composeLayout)
+  implementation(projects.composeMaterial)
 
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.complications.data)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.wear)
-    implementation(libs.compose.foundation.foundation)
-    implementation(libs.compose.material.iconscore)
-    implementation(libs.compose.material.iconsext)
-    implementation(libs.compose.ui.toolingpreview)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.wearcompose.material)
-    implementation(libs.wearcompose.foundation)
-    implementation(libs.wearcompose.navigation)
+  implementation(libs.androidx.activity.compose)
+  implementation(libs.androidx.complications.data)
+  implementation(libs.androidx.lifecycle.viewmodel.compose)
+  implementation(libs.androidx.lifecycle.runtime.compose)
+  implementation(libs.androidx.wear)
+  implementation(libs.compose.foundation.foundation)
+  implementation(libs.compose.material.iconscore)
+  implementation(libs.compose.material.iconsext)
+  implementation(libs.compose.ui.toolingpreview)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.wearcompose.material)
+  implementation(libs.wearcompose.foundation)
+  implementation(libs.wearcompose.navigation)
 
-    implementation(libs.com.squareup.okhttp3.okhttp)
-    implementation(libs.kotlinx.coroutines.playservices)
-    implementation(libs.playservices.auth)
-    implementation(libs.playservices.wearable)
+  implementation(libs.com.squareup.okhttp3.okhttp)
+  implementation(libs.kotlinx.coroutines.playservices)
+  implementation(libs.playservices.auth)
+  implementation(libs.playservices.wearable)
 
-    debugImplementation(libs.compose.ui.tooling)
-    implementation(libs.androidx.wear.tooling.preview)
-    debugImplementation(projects.composeTools)
-    releaseCompileOnly(projects.composeTools)
+  debugImplementation(libs.compose.ui.tooling)
+  implementation(libs.androidx.wear.tooling.preview)
+  debugImplementation(projects.composeTools)
+  releaseCompileOnly(projects.composeTools)
 
-    testImplementation(libs.androidx.navigation.testing)
-    testImplementation(libs.androidx.test.espressocore)
-    testImplementation(libs.compose.ui.test)
-    testImplementation(libs.compose.ui.test.junit4)
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.robolectric)
+  testImplementation(libs.androidx.navigation.testing)
+  testImplementation(libs.androidx.test.espressocore)
+  testImplementation(libs.compose.ui.test)
+  testImplementation(libs.compose.ui.test.junit4)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.robolectric)
 }

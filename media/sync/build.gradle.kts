@@ -15,88 +15,72 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
-    id("com.google.devtools.ksp")
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
+  id("com.google.devtools.ksp")
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
+  defaultConfig {
+    minSdk = 26
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    sourceSets.getByName("main") {
-        assets.srcDir("src/main/assets")
-    }
+  sourceSets.getByName("main") { assets.srcDir("src/main/assets") }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
-    namespace = "com.google.android.horologist.media.sync"
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+  }
+  namespace = "com.google.android.horologist.media.sync"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
 metalava {
-    filename.set("api/current.api")
-    hiddenAnnotations.addAll(
-        "dagger.internal.DaggerGenerated",
-        "dagger.assisted.AssistedFactory",
-        "javax.annotation.processing.Generated",
-    )
+  filename.set("api/current.api")
+  hiddenAnnotations.addAll(
+    "dagger.internal.DaggerGenerated",
+    "dagger.assisted.AssistedFactory",
+    "javax.annotation.processing.Generated",
+  )
 }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(libs.androidx.corektx)
-    implementation(libs.androidx.startup)
-    implementation(libs.androidx.tracing.ktx)
-    implementation(libs.androidx.work.ktx)
+  implementation(libs.androidx.corektx)
+  implementation(libs.androidx.startup)
+  implementation(libs.androidx.tracing.ktx)
+  implementation(libs.androidx.work.ktx)
 
-    implementation(libs.hilt.ext.work)
-    implementation(libs.dagger.hiltandroid)
-    ksp(libs.dagger.hiltandroidcompiler)
-    ksp(libs.hilt.ext.compiler)
+  implementation(libs.hilt.ext.work)
+  implementation(libs.dagger.hiltandroid)
+  ksp(libs.dagger.hiltandroidcompiler)
+  ksp(libs.hilt.ext.compiler)
 
-    kspAndroidTest(libs.dagger.hiltandroidcompiler)
-    kspAndroidTest(libs.hilt.ext.compiler)
+  kspAndroidTest(libs.dagger.hiltandroidcompiler)
+  kspAndroidTest(libs.hilt.ext.compiler)
 }

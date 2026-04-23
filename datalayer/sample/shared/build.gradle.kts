@@ -15,110 +15,82 @@
  */
 
 plugins {
-    id("com.android.library")
-    id("com.google.protobuf")
-    alias(libs.plugins.dokka)
+  id("com.android.library")
+  id("com.google.protobuf")
+  alias(libs.plugins.dokka)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 23
+  defaultConfig {
+    minSdk = 23
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+  }
 
-    resourcePrefix = "horologist_"
+  resourcePrefix = "horologist_"
 
-    namespace = "com.google.android.horologist.datalayer.sample.shared"
+  namespace = "com.google.android.horologist.datalayer.sample.shared"
 }
 
 protobuf {
-    protoc {
-        artifact = libs.protobuf.protoc.stnd.get().toString()
+  protoc { artifact = libs.protobuf.protoc.stnd.get().toString() }
+  plugins {
+    create("javalite") { artifact = libs.protobuf.protoc.gen.javalite.get().toString() }
+    create("grpc") { artifact = libs.protobuf.protoc.gen.grpc.java.get().toString() }
+    create("grpckt") { artifact = libs.protobuf.protoc.gen.grpc.kotlin.get().toString() }
+  }
+  generateProtoTasks {
+    all().forEach { task ->
+      task.builtins {
+        create("java") { option("lite") }
+        create("kotlin") { option("lite") }
+      }
+      task.plugins {
+        create("grpc") { option("lite") }
+        create("grpckt") { option("lite") }
+      }
     }
-    plugins {
-        create("javalite") {
-            artifact = libs.protobuf.protoc.gen.javalite.get().toString()
-        }
-        create("grpc") {
-            artifact = libs.protobuf.protoc.gen.grpc.java.get().toString()
-        }
-        create("grpckt") {
-            artifact = libs.protobuf.protoc.gen.grpc.kotlin.get().toString()
-        }
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                create("java") {
-                    option("lite")
-                }
-                create("kotlin") {
-                    option("lite")
-                }
-            }
-            task.plugins {
-                create("grpc") {
-                    option("lite")
-                }
-                create("grpckt") {
-                    option("lite")
-                }
-            }
-        }
-    }
+  }
 }
 
 dependencies {
-    api(projects.annotations)
-    api(projects.datalayer.grpc)
+  api(projects.annotations)
+  api(projects.datalayer.grpc)
 
-    implementation(libs.androidx.corektx)
-    implementation(libs.androidx.datastore)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.core)
-    api(libs.protobuf.kotlin.lite)
-    api(libs.io.grpc.protobuf.lite)
-    api(libs.io.grpc.grpc.kotlin)
+  implementation(libs.androidx.corektx)
+  implementation(libs.androidx.datastore)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.kotlinx.coroutines.core)
+  api(libs.protobuf.kotlin.lite)
+  api(libs.io.grpc.protobuf.lite)
+  api(libs.io.grpc.grpc.kotlin)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.androidx.test.ext.ktx)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.robolectric)
 }
 
 // tasks.maybeCreate("prepareKotlinIdeaImport")

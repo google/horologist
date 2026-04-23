@@ -15,106 +15,90 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
-    alias(libs.plugins.roborazzi)
-    alias(libs.plugins.compose.compiler)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
+  alias(libs.plugins.roborazzi)
+  alias(libs.plugins.compose.compiler)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+  defaultConfig {
+    minSdk = 26
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    sourceSets.getByName("main") {
-        assets.srcDir("src/main/assets")
-    }
+  sourceSets.getByName("main") { assets.srcDir("src/main/assets") }
 
-    lint {
-        disable += listOf("MissingTranslation", "ExtraTranslation")
-        checkReleaseBuilds = false
-        textReport = true
-    }
+  lint {
+    disable += listOf("MissingTranslation", "ExtraTranslation")
+    checkReleaseBuilds = false
+    textReport = true
+  }
 
-    namespace = "com.google.android.horologist.audio.ui.material3"
+  namespace = "com.google.android.horologist.audio.ui.material3"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
 metalava {
-    excludedSourceSets.setFrom("src/debug/java")
-    filename.set("api/current.api")
+  excludedSourceSets.setFrom("src/debug/java")
+  filename.set("api/current.api")
 }
 
 dependencies {
-    api(projects.media.audio)
-    api(libs.kotlin.stdlib)
-    api(projects.annotations)
-    implementation(projects.composeLayout)
-    implementation(project(":composables"))
-    api(projects.media.audioUiModel)
-    debugImplementation(projects.logo)
+  api(projects.media.audio)
+  api(libs.kotlin.stdlib)
+  api(projects.annotations)
+  implementation(projects.composeLayout)
+  implementation(project(":composables"))
+  api(projects.media.audioUiModel)
+  debugImplementation(projects.logo)
 
-    implementation(platform(libs.compose.bom))
-    api(libs.androidx.wear.compose.material3)
-    api(libs.wearcompose.foundation)
-    implementation(libs.androidx.corektx)
-    implementation(libs.androidx.graphics.shapes)
-    implementation(libs.compose.material.iconscore)
-    implementation(libs.compose.material.iconsext)
-    implementation(libs.androidx.wear)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
+  implementation(platform(libs.compose.bom))
+  api(libs.androidx.wear.compose.material3)
+  api(libs.wearcompose.foundation)
+  implementation(libs.androidx.corektx)
+  implementation(libs.androidx.graphics.shapes)
+  implementation(libs.compose.material.iconscore)
+  implementation(libs.compose.material.iconsext)
+  implementation(libs.androidx.wear)
+  implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    implementation(libs.lottie.compose)
+  implementation(libs.lottie.compose)
 
-    implementation(libs.compose.ui.toolingpreview)
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(projects.composeTools)
-    debugImplementation(libs.compose.ui.test.manifest)
+  implementation(libs.compose.ui.toolingpreview)
+  debugImplementation(libs.compose.ui.tooling)
+  debugImplementation(projects.composeTools)
+  debugImplementation(libs.compose.ui.test.manifest)
 
-    testImplementation(libs.junit)
-    testImplementation(projects.roboscreenshots)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.compose.ui.test.junit4)
-    testImplementation(libs.androidx.test.espressocore)
-    testImplementation(libs.truth)
+  testImplementation(libs.junit)
+  testImplementation(projects.roboscreenshots)
+  testImplementation(libs.robolectric)
+  testImplementation(libs.compose.ui.test.junit4)
+  testImplementation(libs.androidx.test.espressocore)
+  testImplementation(libs.truth)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

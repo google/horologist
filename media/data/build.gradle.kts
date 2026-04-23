@@ -15,86 +15,70 @@
  */
 
 plugins {
-    id("com.android.library")
-    id("com.google.devtools.ksp")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
+  id("com.android.library")
+  id("com.google.devtools.ksp")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
+  defaultConfig {
+    minSdk = 26
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+  }
 
-    namespace = "com.google.android.horologist.media.data"
+  namespace = "com.google.android.horologist.media.data"
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(projects.media.core)
+  implementation(projects.media.core)
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.androidx.corektx)
-    implementation(libs.androidx.wear)
-    implementation(libs.androidx.media3.common)
-    implementation(libs.androidx.media3.exoplayer)
-    implementation(libs.androidx.media3.exoplayerworkmanager)
-    implementation(libs.room.common)
-    implementation(libs.room.ktx)
-    ksp(libs.room.compiler)
-    implementation(libs.androidx.lifecycle.service)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.androidx.corektx)
+  implementation(libs.androidx.wear)
+  implementation(libs.androidx.media3.common)
+  implementation(libs.androidx.media3.exoplayer)
+  implementation(libs.androidx.media3.exoplayerworkmanager)
+  implementation(libs.room.common)
+  implementation(libs.room.ktx)
+  ksp(libs.room.compiler)
+  implementation(libs.androidx.lifecycle.service)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
-    testImplementation(
-        libs.androidx.media3.exoplayer,
-    )
-    testImplementation(libs.androidx.media3.testutils)
-    testImplementation(libs.androidx.media3.testutils.robolectric)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.androidx.test.ext.ktx)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.robolectric)
+  testImplementation(libs.androidx.media3.exoplayer)
+  testImplementation(libs.androidx.media3.testutils)
+  testImplementation(libs.androidx.media3.testutils.robolectric)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

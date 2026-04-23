@@ -15,88 +15,72 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    id("com.google.devtools.ksp")
-    alias(libs.plugins.metalavaGradle)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  id("com.google.devtools.ksp")
+  alias(libs.plugins.metalavaGradle)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
+  defaultConfig {
+    minSdk = 26
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-        // https://buganizer.corp.google.com/issues/328279054
-        disable.add("UnsafeOptInUsageError")
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+    // https://buganizer.corp.google.com/issues/328279054
+    disable.add("UnsafeOptInUsageError")
+  }
 
-    namespace = "com.google.android.horologist.network.awareness.okhttp"
+  namespace = "com.google.android.horologist.network.awareness.okhttp"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    api(projects.annotations)
-    api(projects.networkAwareness.core)
+  api(projects.annotations)
+  api(projects.networkAwareness.core)
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.com.squareup.okhttp3.okhttp)
-    implementation(libs.okhttp.coroutines)
-    implementation(libs.androidx.annotation)
-    api(libs.kotlinx.coroutines.core)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.com.squareup.okhttp3.okhttp)
+  implementation(libs.okhttp.coroutines)
+  implementation(libs.androidx.annotation)
+  api(libs.kotlinx.coroutines.core)
 
-    implementation(libs.androidx.tracing.ktx)
+  implementation(libs.androidx.tracing.ktx)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.com.squareup.okhttp3.mockwebserver)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.androidx.test.ext.ktx)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.robolectric)
+  testImplementation(libs.com.squareup.okhttp3.mockwebserver)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

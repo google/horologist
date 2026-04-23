@@ -15,87 +15,69 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 23
+  defaultConfig {
+    minSdk = 23
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
+  testOptions { unitTests { isIncludeAndroidResources = true } }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-        baseline = file("quality/lint/lint-baseline.xml")
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+    baseline = file("quality/lint/lint-baseline.xml")
+  }
 
-    namespace = "com.google.android.horologist.datalayer.phone"
+  namespace = "com.google.android.horologist.datalayer.phone"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    api(projects.annotations)
-    api(projects.datalayer.core)
+  api(projects.annotations)
+  api(projects.datalayer.core)
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.kotlinx.coroutines.core)
 
-    api(libs.playservices.wearable)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.kotlinx.coroutines.playservices)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.wear.remote.interactions)
+  api(libs.playservices.wearable)
+  implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.kotlinx.coroutines.playservices)
+  implementation(libs.androidx.lifecycle.runtime)
+  implementation(libs.androidx.wear.remote.interactions)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.androidx.test.ext)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.androidx.test.runner)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.androidx.test.ext.ktx)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.androidx.test.ext)
+  testImplementation(libs.robolectric)
+  testImplementation(libs.androidx.test.runner)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

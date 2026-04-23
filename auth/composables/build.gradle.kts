@@ -15,112 +15,92 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
-    alias(libs.plugins.dependencyAnalysis)
-    alias(libs.plugins.roborazzi)
-    alias(libs.plugins.compose.compiler)
-    alias(libs.plugins.composeAiPreview)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
+  alias(libs.plugins.dependencyAnalysis)
+  alias(libs.plugins.roborazzi)
+  alias(libs.plugins.compose.compiler)
+  alias(libs.plugins.composeAiPreview)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
+  defaultConfig {
+    minSdk = 26
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        disable += listOf("MissingTranslation", "ExtraTranslation")
-        textReport = true
-    }
+  lint {
+    checkReleaseBuilds = false
+    disable += listOf("MissingTranslation", "ExtraTranslation")
+    textReport = true
+  }
 
-    resourcePrefix = "horologist_"
+  resourcePrefix = "horologist_"
 
-    namespace = "com.google.android.horologist.auth.composables"
+  namespace = "com.google.android.horologist.auth.composables"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
 metalava {
-    excludedSourceSets.setFrom("src/debug/java")
-    filename.set("api/current.api")
+  excludedSourceSets.setFrom("src/debug/java")
+  filename.set("api/current.api")
 }
 
 dependencies {
-    api(projects.composeLayout)
+  api(projects.composeLayout)
 
-    api(libs.compose.runtime)
-    api(libs.compose.ui)
+  api(libs.compose.runtime)
+  api(libs.compose.ui)
 
-    implementation(projects.composeMaterial)
-    implementation(projects.images.coil)
+  implementation(projects.composeMaterial)
+  implementation(projects.images.coil)
 
-    implementation(platform(libs.compose.bom))
-    implementation(libs.compose.foundation.foundation)
-    implementation(libs.compose.foundation.foundation.layout)
-    implementation(libs.compose.material.iconscore)
-    implementation(libs.compose.material.iconsext)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.text)
-    implementation(libs.compose.ui.unit)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.wearcompose.material)
-    implementation(libs.wearcompose.foundation)
+  implementation(platform(libs.compose.bom))
+  implementation(libs.compose.foundation.foundation)
+  implementation(libs.compose.foundation.foundation.layout)
+  implementation(libs.compose.material.iconscore)
+  implementation(libs.compose.material.iconsext)
+  implementation(libs.compose.ui.graphics)
+  implementation(libs.compose.ui.text)
+  implementation(libs.compose.ui.unit)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.wearcompose.material)
+  implementation(libs.wearcompose.foundation)
 
-    debugApi(libs.wearcompose.tooling)
-    debugImplementation(libs.compose.ui.toolingpreview)
+  debugApi(libs.wearcompose.tooling)
+  debugImplementation(libs.compose.ui.toolingpreview)
 
-    testImplementation(projects.composeTools)
-    testImplementation(projects.roboscreenshots)
-    testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testRuntimeOnly(libs.robolectric)
+  testImplementation(projects.composeTools)
+  testImplementation(projects.roboscreenshots)
+  testImplementation(libs.junit)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testRuntimeOnly(libs.robolectric)
 }
 
-dependencyAnalysis {
-    issues {
-        onAny {
-            severity("fail")
-        }
-    }
-}
+dependencyAnalysis { issues { onAny { severity("fail") } } }
 
 apply(plugin = "com.vanniktech.maven.publish")

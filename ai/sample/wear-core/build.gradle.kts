@@ -15,92 +15,80 @@
  */
 
 plugins {
-    id("com.android.library")
-    id("com.google.devtools.ksp")
-    id("dagger.hilt.android.plugin")
+  id("com.android.library")
+  id("com.google.devtools.ksp")
+  id("dagger.hilt.android.plugin")
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 30
+  defaultConfig {
+    minSdk = 30
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
+
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
+
+  buildFeatures { buildConfig = false }
+
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
+
+  testOptions {
+    unitTests {
+      isIncludeAndroidResources = true
+      all { it.failOnNoDiscoveredTests = false }
     }
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
-
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
-
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-            all {
-                it.failOnNoDiscoveredTests = false
-            }
-        }
-    }
-
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-    }
-
-    namespace = "com.google.android.horologist.ai.sample.wear.core"
+  namespace = "com.google.android.horologist.ai.sample.wear.core"
 }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(platform(libs.compose.bom))
+  implementation(platform(libs.compose.bom))
 
-    implementation(projects.ai.sample.core)
+  implementation(projects.ai.sample.core)
 
-    implementation(libs.dagger.hiltandroid)
-    ksp(libs.dagger.hiltandroidcompiler)
-    implementation(projects.datalayer.core)
-    implementation(projects.datalayer.grpc)
-    implementation(projects.datalayer.watch)
+  implementation(libs.dagger.hiltandroid)
+  ksp(libs.dagger.hiltandroidcompiler)
+  implementation(projects.datalayer.core)
+  implementation(projects.datalayer.grpc)
+  implementation(projects.datalayer.watch)
 
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.kotlinx.coroutines.core)
 
-    api(libs.playservices.wearable)
-    implementation(libs.kotlinx.coroutines.playservices)
-    api(libs.androidx.datastore.preferences)
-    api(libs.androidx.datastore)
-    api(libs.protobuf.kotlin.lite)
-    api(libs.androidx.lifecycle.runtime)
-    api(libs.androidx.wear.remote.interactions)
-    api(libs.androidx.lifecycle.service)
-    api(projects.datalayer.grpc)
-    api(libs.io.grpc.grpc.android)
-    api(libs.io.grpc.grpc.binder)
+  api(libs.playservices.wearable)
+  implementation(libs.kotlinx.coroutines.playservices)
+  api(libs.androidx.datastore.preferences)
+  api(libs.androidx.datastore)
+  api(libs.protobuf.kotlin.lite)
+  api(libs.androidx.lifecycle.runtime)
+  api(libs.androidx.wear.remote.interactions)
+  api(libs.androidx.lifecycle.service)
+  api(projects.datalayer.grpc)
+  api(libs.io.grpc.grpc.android)
+  api(libs.io.grpc.grpc.binder)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.androidx.test.ext.ktx)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.robolectric)
 
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    androidTestImplementation(libs.androidx.test.espressocore)
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.truth)
+  androidTestImplementation(libs.compose.ui.test.junit4)
+  androidTestImplementation(libs.androidx.test.espressocore)
+  androidTestImplementation(libs.junit)
+  androidTestImplementation(libs.truth)
 }

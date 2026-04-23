@@ -15,84 +15,68 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 30
+  defaultConfig {
+    minSdk = 30
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        disable += listOf("MissingTranslation", "ExtraTranslation")
-        textReport = true
-    }
+  lint {
+    checkReleaseBuilds = false
+    disable += listOf("MissingTranslation", "ExtraTranslation")
+    textReport = true
+  }
 
-    resourcePrefix = "horologist_"
+  resourcePrefix = "horologist_"
 
-    namespace = "com.google.android.horologist.health.service"
+  namespace = "com.google.android.horologist.health.service"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(libs.androidx.wear)
-    implementation(libs.androidx.health.services)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.androidx.lifecycle.service)
+  implementation(libs.androidx.wear)
+  implementation(libs.androidx.health.services)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.androidx.lifecycle.service)
 
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.truth)
+  testImplementation(libs.androidx.test.ext.ktx)
+  testImplementation(libs.junit)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.robolectric)
+  testImplementation(libs.truth)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

@@ -15,124 +15,103 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.metalavaGradle)
-    alias(libs.plugins.dependencyAnalysis)
-    alias(libs.plugins.roborazzi)
-    alias(libs.plugins.compose.compiler)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.metalavaGradle)
+  alias(libs.plugins.dependencyAnalysis)
+  alias(libs.plugins.roborazzi)
+  alias(libs.plugins.compose.compiler)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
+  defaultConfig {
+    minSdk = 26
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-        disable += listOf("MissingTranslation", "ExtraTranslation")
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+    disable += listOf("MissingTranslation", "ExtraTranslation")
+  }
 
-    resourcePrefix = "horologist_"
+  resourcePrefix = "horologist_"
 
-    namespace = "com.google.android.horologist.auth.ui.material3"
+  namespace = "com.google.android.horologist.auth.ui.material3"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
 metalava {
-    excludedSourceSets.setFrom("src/debug/java")
-    filename.set("api/current.api")
+  excludedSourceSets.setFrom("src/debug/java")
+  filename.set("api/current.api")
 }
 
 dependencies {
+  api(projects.auth.composablesMaterial3)
+  api(projects.auth.data)
+  api(projects.composeLayout)
 
-    api(projects.auth.composablesMaterial3)
-    api(projects.auth.data)
-    api(projects.composeLayout)
+  api(libs.androidx.lifecycle.viewmodel)
+  api(libs.compose.runtime)
+  api(libs.compose.ui)
+  api(libs.kotlinx.coroutines.core)
+  api(libs.wearcompose.foundation)
 
-    api(libs.androidx.lifecycle.viewmodel)
-    api(libs.compose.runtime)
-    api(libs.compose.ui)
-    api(libs.kotlinx.coroutines.core)
-    api(libs.wearcompose.foundation)
+  implementation(platform(libs.compose.bom))
+  implementation(projects.composeMaterial)
+  implementation(projects.images.coil)
 
-    implementation(platform(libs.compose.bom))
-    implementation(projects.composeMaterial)
-    implementation(projects.images.coil)
+  implementation(libs.androidx.activity)
+  implementation(libs.androidx.activity.compose)
+  implementation(libs.androidx.lifecycle.common)
+  implementation(libs.androidx.lifecycle.runtime.compose)
+  implementation(libs.androidx.lifecycle.viewmodelktx)
+  implementation(libs.androidx.lifecycle.viewmodel.compose)
+  implementation(libs.androidx.wear.compose.material3)
+  implementation(libs.androidx.wear.phone.interactions)
+  implementation(libs.compose.foundation.foundation.layout)
+  implementation(libs.compose.ui.text)
+  implementation(libs.compose.ui.unit)
+  implementation(libs.kotlin.stdlib)
+  implementation(libs.playservices.auth)
+  implementation(libs.wearcompose.material)
 
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.androidx.lifecycle.common)
-    implementation(libs.androidx.lifecycle.runtime.compose)
-    implementation(libs.androidx.lifecycle.viewmodelktx)
-    implementation(libs.androidx.lifecycle.viewmodel.compose)
-    implementation(libs.androidx.wear.compose.material3)
-    implementation(libs.androidx.wear.phone.interactions)
-    implementation(libs.compose.foundation.foundation.layout)
-    implementation(libs.compose.ui.text)
-    implementation(libs.compose.ui.unit)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.playservices.auth)
-    implementation(libs.wearcompose.material)
+  debugApi(libs.wearcompose.tooling)
 
-    debugApi(libs.wearcompose.tooling)
-
-    testImplementation(projects.composeTools)
-    testImplementation(projects.roboscreenshots)
-    testImplementation(libs.androidx.test.ext)
-    testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
-    testImplementation(libs.truth)
-    testImplementation(libs.turbine)
-    testImplementation(libs.robolectric.shadows)
-    testRuntimeOnly(libs.robolectric)
+  testImplementation(projects.composeTools)
+  testImplementation(projects.roboscreenshots)
+  testImplementation(libs.androidx.test.ext)
+  testImplementation(libs.junit)
+  testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.truth)
+  testImplementation(libs.turbine)
+  testImplementation(libs.robolectric.shadows)
+  testRuntimeOnly(libs.robolectric)
 }
 
-dependencyAnalysis {
-    issues {
-        onAny {
-            severity("fail")
-        }
-    }
-}
+dependencyAnalysis { issues { onAny { severity("fail") } } }
 
 apply(plugin = "com.vanniktech.maven.publish")

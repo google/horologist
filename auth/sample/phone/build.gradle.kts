@@ -15,94 +15,85 @@
  */
 
 plugins {
-    id("com.android.application")
-    kotlin("plugin.serialization")
-    alias(libs.plugins.compose.compiler)
+  id("com.android.application")
+  kotlin("plugin.serialization")
+  alias(libs.plugins.compose.compiler)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        applicationId = "com.google.android.horologist.auth.sample"
+  defaultConfig {
+    applicationId = "com.google.android.horologist.auth.sample"
 
-        minSdk = 23
-        targetSdk = 34
+    minSdk = 23
+    targetSdk = 34
 
-        versionCode = 1
-        versionName = "1.0"
+    versionCode = 1
+    versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+    vectorDrawables { useSupportLibrary = true }
+  }
+
+  buildTypes {
+    debug {
+      applicationIdSuffix = ".debug"
+      manifestPlaceholders["schemeSuffix"] = "-debug"
     }
 
-    buildTypes {
-        debug {
-            applicationIdSuffix = ".debug"
-            manifestPlaceholders["schemeSuffix"] = "-debug"
-        }
+    release {
+      manifestPlaceholders["schemeSuffix"] = ""
 
-        release {
-            manifestPlaceholders["schemeSuffix"] = ""
+      isMinifyEnabled = true
+      isShrinkResources = true
+      proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro",
-            )
-
-            signingConfig = signingConfigs.getByName("debug")
-        }
+      signingConfig = signingConfigs.getByName("debug")
     }
+  }
 
-    compileOptions {
-        isCoreLibraryDesugaringEnabled = true
+  compileOptions {
+    isCoreLibraryDesugaringEnabled = true
 
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
+  packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
 
-    namespace = "com.google.android.horologist.auth.sample"
+  namespace = "com.google.android.horologist.auth.sample"
 }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(projects.auth.dataPhone)
-    implementation(projects.auth.sample.shared)
-    implementation(projects.datalayer.core)
-    implementation(projects.datalayer.phone)
-    implementation(projects.datalayer.grpc)
+  implementation(projects.auth.dataPhone)
+  implementation(projects.auth.sample.shared)
+  implementation(projects.datalayer.core)
+  implementation(projects.datalayer.phone)
+  implementation(projects.datalayer.grpc)
 
-    implementation(libs.androidx.corektx)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.compose.bom))
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.toolingpreview)
-    implementation(libs.compose.material3)
-    implementation(libs.playservices.wearable)
-    implementation(libs.androidx.lifecycle.service)
-    implementation(libs.androidx.navigation.compose)
-    implementation(libs.kotlinx.serialization.core)
+  implementation(libs.androidx.corektx)
+  implementation(libs.androidx.lifecycle.runtime)
+  implementation(libs.androidx.activity.compose)
+  implementation(platform(libs.compose.bom))
+  implementation(libs.androidx.activity.compose)
+  implementation(libs.compose.ui)
+  implementation(libs.compose.ui.graphics)
+  implementation(libs.compose.ui.toolingpreview)
+  implementation(libs.compose.material3)
+  implementation(libs.playservices.wearable)
+  implementation(libs.androidx.lifecycle.service)
+  implementation(libs.androidx.navigation.compose)
+  implementation(libs.kotlinx.serialization.core)
 
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
+  coreLibraryDesugaring(libs.desugar.jdk.libs)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.robolectric)
+  testImplementation(libs.junit)
+  testImplementation(libs.robolectric)
 
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.compose.ui.test.manifest)
+  debugImplementation(libs.compose.ui.tooling)
+  debugImplementation(libs.compose.ui.test.manifest)
 }

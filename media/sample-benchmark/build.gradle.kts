@@ -14,58 +14,52 @@
  * limitations under the License.
  */
 
-plugins {
-    id("com.android.test")
-}
+plugins { id("com.android.test") }
 
 android {
-    namespace = "com.google.android.horologist.mediasample.benchmark"
-    compileSdk = 36
+  namespace = "com.google.android.horologist.mediasample.benchmark"
+  compileSdk = 36
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
+
+  defaultConfig {
+    minSdk = 30
+    targetSdk = 34
+
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    testInstrumentationRunnerArguments["androidx.benchmark.fullTracing.enable"] = "true"
+  }
+
+  buildTypes {
+    // This benchmark buildType is used for benchmarking, and should function like your
+    // release build (for example, with minification on). It's signed with a debug key
+    // for easy local/CI testing.
+    create("benchmark") {
+      isDebuggable = true
+      signingConfig = getByName("debug").signingConfig
+
+      matchingFallbacks.add("release")
     }
+  }
 
-    defaultConfig {
-        minSdk = 30
-        targetSdk = 34
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArguments["androidx.benchmark.fullTracing.enable"] = "true"
-    }
-
-    buildTypes {
-        // This benchmark buildType is used for benchmarking, and should function like your
-        // release build (for example, with minification on). It's signed with a debug key
-        // for easy local/CI testing.
-        create("benchmark") {
-            isDebuggable = true
-            signingConfig = getByName("debug").signingConfig
-
-            matchingFallbacks.add("release")
-        }
-    }
-
-    targetProjectPath = ":media:sample"
-    experimentalProperties["android.experimental.self-instrumenting"] = true
+  targetProjectPath = ":media:sample"
+  experimentalProperties["android.experimental.self-instrumenting"] = true
 }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(projects.media.benchmark)
-    implementation(libs.androidx.benchmark.macro.junit4)
-    implementation(libs.androidx.benchmark.junit4)
-    implementation(libs.androidx.test.ext.ktx)
-    implementation(libs.androidx.test.espressocore)
-    implementation(libs.androidx.test.uiautomator)
-    implementation(libs.kotlinx.coroutines.android)
-    implementation(libs.androidx.media3.session)
+  implementation(projects.media.benchmark)
+  implementation(libs.androidx.benchmark.macro.junit4)
+  implementation(libs.androidx.benchmark.junit4)
+  implementation(libs.androidx.test.ext.ktx)
+  implementation(libs.androidx.test.espressocore)
+  implementation(libs.androidx.test.uiautomator)
+  implementation(libs.kotlinx.coroutines.android)
+  implementation(libs.androidx.media3.session)
 }
 
-androidComponents {
-    beforeVariants(selector().all()) {
-        it.enable = it.buildType == "benchmark"
-    }
-}
+androidComponents { beforeVariants(selector().all()) { it.enable = it.buildType == "benchmark" } }

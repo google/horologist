@@ -15,87 +15,73 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
+  id("com.android.library")
+  alias(libs.plugins.dokka)
 
-    id("com.google.devtools.ksp")
-    alias(libs.plugins.metalavaGradle)
+  id("com.google.devtools.ksp")
+  alias(libs.plugins.metalavaGradle)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
+  defaultConfig {
+    minSdk = 26
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-    }
+    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-        animationsDisabled = true
-    }
+  testOptions {
+    unitTests { isIncludeAndroidResources = true }
+    animationsDisabled = true
+  }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-        // https://buganizer.corp.google.com/issues/328279054
-        disable.add("UnsafeOptInUsageError")
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+    // https://buganizer.corp.google.com/issues/328279054
+    disable.add("UnsafeOptInUsageError")
+  }
 
-    namespace = "com.google.android.horologist.network.awareness"
+  namespace = "com.google.android.horologist.network.awareness"
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
-metalava {
-    filename.set("api/current.api")
-}
+metalava { filename.set("api/current.api") }
 
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    api(libs.kotlin.stdlib)
-    api(libs.kotlinx.coroutines.core)
-    implementation(libs.androidx.tracing.ktx)
-    implementation(libs.androidx.core)
+  api(libs.kotlin.stdlib)
+  api(libs.kotlinx.coroutines.core)
+  implementation(libs.androidx.tracing.ktx)
+  implementation(libs.androidx.core)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.truth)
-    testImplementation(libs.androidx.test.ext.ktx)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.kotlinx.coroutines.test)
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.androidx.test.ext.ktx)
+  testImplementation(libs.robolectric)
+  testImplementation(libs.kotlinx.coroutines.test)
 
-    androidTestImplementation(libs.androidx.test.espressocore)
-    androidTestImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.test.ext)
-    androidTestImplementation(libs.androidx.test.ext.ktx)
-    androidTestImplementation(libs.truth)
-    androidTestImplementation(libs.kotlinx.coroutines.test)
+  androidTestImplementation(libs.androidx.test.espressocore)
+  androidTestImplementation(libs.junit)
+  androidTestImplementation(libs.androidx.test.ext)
+  androidTestImplementation(libs.androidx.test.ext.ktx)
+  androidTestImplementation(libs.truth)
+  androidTestImplementation(libs.kotlinx.coroutines.test)
 }
 
 apply(plugin = "com.vanniktech.maven.publish")

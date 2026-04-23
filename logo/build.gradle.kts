@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-plugins {
-    id("com.android.library")
-}
+plugins { id("com.android.library") }
 
 android {
-    namespace = "com.google.android.horologist.logo"
-    compileSdk = 36
+  namespace = "com.google.android.horologist.logo"
+  compileSdk = 36
 }

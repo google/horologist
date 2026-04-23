@@ -65,12 +65,6 @@ android {
     namespace = "com.google.android.horologist.composables"
 }
 
-composePreview {
-    variant.set("debug")
-    sdkVersion.set(35)
-    enabled.set(true)
-}
-
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
     // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
     if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {

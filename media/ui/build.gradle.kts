@@ -42,8 +42,6 @@ android {
 
   packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-  sourceSets.getByName("main") { assets.srcDir("src/main/assets") }
-
   testOptions {
     unitTests { isIncludeAndroidResources = true }
     animationsDisabled = true

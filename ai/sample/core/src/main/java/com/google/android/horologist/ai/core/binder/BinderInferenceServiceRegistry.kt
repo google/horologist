@@ -33,9 +33,15 @@ class BinderInferenceServiceRegistry(
         return flow {
             val intent = Intent("InferenceService")
             val services = context.packageManager.queryIntentServices(intent, 0)
+            val verifiedServices = services.filter {
+                context.packageManager.checkSignatures(
+                    context.packageName,
+                    it.serviceInfo.packageName,
+                ) == android.content.pm.PackageManager.SIGNATURE_MATCH
+            }
 
             emit(
-                services.map {
+                verifiedServices.map {
                     BinderInferenceService(
                         AiGrpcClientLookup.lookupInferenceService(
                             context,

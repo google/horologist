@@ -104,23 +104,18 @@ public abstract class SuspendingMediaLibrarySessionCallback(
         }
 
         /**
-         * default implementation of onAddMediaItems that sets the URI from the requestMetadata
-         * if present.
+         * Subclasses MUST override this to resolve [MediaItem.mediaId] against their own
+         * catalog. Controller-supplied URIs (e.g. [MediaItem.RequestMetadata.mediaUri]) come
+         * from an untrusted process and MUST NOT be used as the playable URI without
+         * validation. The default implementation rejects all items.
          */
         protected open suspend fun onAddMediaItemsInternal(
             mediaSession: MediaSession,
             controller: MediaSession.ControllerInfo,
             mediaItems: MutableList<MediaItem>,
         ): MutableList<MediaItem> {
-            return mediaItems.map {
-                if (it.requestMetadata.mediaUri != null) {
-                    it.buildUpon()
-                        .setUri(it.requestMetadata.mediaUri)
-                        .build()
-                } else {
-                    it
-                }
-            }.toMutableList()
+            // Secure default: do not trust controller URIs. Subclasses must resolve mediaId.
+            return mediaItems
         }
 
         @SuppressLint("UnsafeOptInUsageError")

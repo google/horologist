@@ -62,7 +62,7 @@ class MediaItemMapperTest {
         // then
         assertThat(result.mediaId).isEqualTo(id)
         assertThat(result.localConfiguration!!.uri).isEqualTo((Uri.parse(uri)))
-        assertThat(result.requestMetadata.mediaUri).isEqualTo((Uri.parse(uri)))
+        assertThat(result.requestMetadata.mediaUri).isNull()
         assertThat(result.mediaMetadata.displayTitle).isEqualTo(title)
         assertThat(result.mediaMetadata.title).isEqualTo(title)
         assertThat(result.mediaMetadata.artist).isEqualTo(artist)
@@ -90,7 +90,7 @@ class MediaItemMapperTest {
         // then
         assertThat(result.mediaId).isEqualTo(id)
         assertThat(result.localConfiguration!!.uri).isEqualTo((Uri.parse(uri)))
-        assertThat(result.requestMetadata.mediaUri).isEqualTo((Uri.parse(uri)))
+        assertThat(result.requestMetadata.mediaUri).isNull()
         assertThat(result.mediaMetadata.displayTitle).isEqualTo(title)
         assertThat(result.mediaMetadata.title).isEqualTo(title)
         assertThat(result.mediaMetadata.artist).isEqualTo(artist)

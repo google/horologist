@@ -30,7 +30,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
+import androidx.navigation3.runtime.NavBackStack
 import androidx.wear.compose.material.ChipColors
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Icon
@@ -38,14 +38,15 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.ToggleChip
 import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
+import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
 import com.google.android.horologist.compose.material.ResponsiveListHeader
-import com.google.android.horologist.media.ui.navigation.NavigationScreen
+import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
+import com.google.android.horologist.media.ui.material3.navigation.NavigationScreens
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.DeveloperOptions
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignInScreen
@@ -54,13 +55,13 @@ import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScr
 @Composable
 fun UampSettingsScreen(
     viewModel: SettingsScreenViewModel,
-    navController: NavHostController,
+    backStack: NavBackStack<CustomRoute>,
     modifier: Modifier = Modifier,
 ) {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
 
     val columnState = rememberResponsiveColumnState(
-        contentPadding = ScalingLazyColumnDefaults.padding(
+        contentPadding = padding(
             first = ItemType.Text,
             last = ItemType.Chip,
         ),
@@ -82,7 +83,7 @@ fun UampSettingsScreen(
                         label = stringResource(id = R.string.login),
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            navController.navigate(GoogleSignInScreen.navRoute)
+                            backStack.add(CustomRoute(GoogleSignInScreen.navRoute))
                         },
                         enabled = !screenState.guestMode,
                         colors = ChipDefaults.secondaryChipColors(),
@@ -92,9 +93,9 @@ fun UampSettingsScreen(
                         label = stringResource(id = R.string.logout),
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
-                            navController.navigate(GoogleSignOutScreen.navRoute) {
-                                popUpTo<NavigationScreen.Player>()
-                            }
+                            backStack.clear()
+                            backStack.add(CustomRoute(NavigationScreens.Player.playerDestination()))
+                            backStack.add(CustomRoute(GoogleSignOutScreen.navRoute))
                         },
                         colors = ChipDefaults.secondaryChipColors(),
                     )
@@ -116,7 +117,7 @@ fun UampSettingsScreen(
                         icon = Icons.Default.DataObject,
                         colors = ChipDefaults.secondaryChipColors(),
                         onClick = {
-                            navController.navigate(DeveloperOptions.navRoute)
+                            backStack.add(CustomRoute(DeveloperOptions.navRoute))
                         },
                     )
                 }

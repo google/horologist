@@ -17,11 +17,13 @@
 package com.google.android.horologist.media.ui.material3.navigation
 
 import androidx.navigation.NamedNavArgument
-import androidx.navigation.NavBackStackEntry
+
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import androidx.navigation3.runtime.NavKey
+import kotlinx.serialization.Serializable
 
 /**
  * Navigation routes enum.
@@ -43,9 +45,10 @@ public open class NavigationScreens(
             },
         )
 
-        public fun getPageParam(backStack: NavBackStackEntry): Int? {
-            val pageNumber = backStack.arguments?.getInt(page, -1) ?: -1
-            return if (pageNumber < 0) null else pageNumber
+        public fun getPageParam(route: String): Int? {
+            val uri = android.net.Uri.parse("app://" + route)
+            val pageParam = uri.getQueryParameter(page)?.toIntOrNull()
+            return if (pageParam == null || pageParam < 0) null else pageParam
         }
 
         public val page: String = "page"
@@ -134,3 +137,6 @@ public open class NavigationScreens(
             )
     }
 }
+
+@Serializable
+public data class CustomRoute(val route: String) : NavKey

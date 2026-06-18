@@ -21,16 +21,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.LaunchedEffect
-import androidx.navigation.NavHostController
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import androidx.compose.runtime.snapshotFlow
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.rememberNavBackStack
+import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
+import com.google.android.horologist.media.ui.material3.navigation.NavigationScreens
 import com.google.android.horologist.mediasample.ui.util.JankPrinter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MediaActivity : ComponentActivity() {
     private lateinit var jankPrinter: JankPrinter
-    lateinit var navController: NavHostController
+    lateinit var backStack: NavBackStack<CustomRoute>
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -39,15 +43,18 @@ class MediaActivity : ComponentActivity() {
         setTheme(android.R.style.Theme_DeviceDefault)
 
         setContent {
-            navController = rememberSwipeDismissableNavController()
+            backStack = rememberNavBackStack(
+                CustomRoute(NavigationScreens.Player.playerDestination())
+            ) as NavBackStack<CustomRoute>
+
             UampWearApp(
-                navController = navController,
+                backStack = backStack,
                 intent = intent,
             )
 
-            LaunchedEffect(Unit) {
-                navController.currentBackStackEntryFlow.collect {
-                    jankPrinter.setRouteState(route = it.destination.route)
+            LaunchedEffect(backStack) {
+                snapshotFlow { backStack.lastOrNull()?.route }.collect { route ->
+                    jankPrinter.setRouteState(route = route)
                 }
             }
         }

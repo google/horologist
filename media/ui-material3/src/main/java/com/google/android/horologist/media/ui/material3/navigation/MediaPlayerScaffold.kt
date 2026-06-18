@@ -16,22 +16,20 @@
 
 package com.google.android.horologist.media.ui.material3.navigation
 
-import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavEntry
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.ui.NavDisplay
 import androidx.wear.compose.foundation.pager.rememberPagerState
 import androidx.wear.compose.material3.AppScaffold
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.TimeText
-import androidx.wear.compose.navigation.SwipeDismissableNavHost
-import androidx.wear.compose.navigation.SwipeDismissableNavHostState
-import androidx.wear.compose.navigation.composable
-import androidx.wear.compose.navigation.rememberSwipeDismissableNavHostState
+import androidx.wear.compose.navigation3.rememberSwipeDismissableSceneStrategy
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.material3.VolumeScreen
 import com.google.android.horologist.media.ui.material3.screens.playerlibrarypager.PlayerLibraryPagerScreen
@@ -48,12 +46,11 @@ import com.google.android.horologist.media.ui.material3.screens.playerlibrarypag
  * @param mediaEntityScreen screen to show details about a particular media.
  * @param playlistsScreen screen to show user playlists.
  * @param deepLinkPrefix the app specific prefix for external deeplinks
- * @param navController the media focused navigation controller.
- * @param additionalNavRoutes additional nav routes exposed for extra screens.
- * @param navHostState the [SwipeDismissableNavHostState] including swipe to dismiss state.
+ * @param backStack the media focused navigation backstack.
  * @param settingsScreen the settings screen.
  * @param timeText the TimeText() composable.
  * @param volumeScreen the volume screen.
+ * @param additionalEntries additional nav entries exposed for extra screens.
  */
 @Composable
 public fun MediaPlayerScaffold(
@@ -65,85 +62,73 @@ public fun MediaPlayerScaffold(
     playlistsScreen: @Composable () -> Unit,
     settingsScreen: @Composable () -> Unit,
     deepLinkPrefix: String,
-    navController: NavHostController,
+    backStack: NavBackStack<CustomRoute>,
     modifier: Modifier = Modifier,
     volumeScreen: @Composable () -> Unit = { VolumeScreen(volumeViewModel = volumeViewModel) },
     timeText: @Composable () -> Unit = { TimeText() },
-    navHostState: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
-    additionalNavRoutes: NavGraphBuilder.() -> Unit = {},
+    additionalEntries: EntryProviderScope<CustomRoute>.() -> Unit = {},
 ) {
     AppScaffold(timeText = timeText) {
-        SwipeDismissableNavHost(
-            startDestination = NavigationScreens.Player.navRoute,
-            navController = navController,
-            modifier = modifier.background(Color.Transparent),
-            state = navHostState,
-        ) {
-            composable(
-                route = NavigationScreens.Player.navRoute,
-                arguments = NavigationScreens.Player.arguments,
-                deepLinks = NavigationScreens.Player.deepLinks(deepLinkPrefix),
-            ) {
-                val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
-                val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
+        val entryProvider = entryProvider(
+            fallback = { key ->
+                val route = key.route
+                val uri = android.net.Uri.parse("app://" + route)
 
-                PlayerLibraryPagerScreen(
-                    pagerState = pagerState,
-                    volumeUiState = { volumeState },
-                    displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
-                    playerScreen = { playerScreen() },
-                    libraryScreen = { libraryScreen() },
-                    backStack = it,
-                )
+                NavEntry(key) {
+                    when {
+                        route.startsWith("player") -> {
+                            val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
+                            val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
+                            val pageParam = NavigationScreens.Player.getPageParam(route)
+
+                            PlayerLibraryPagerScreen(
+                                pagerState = pagerState,
+                                volumeUiState = { volumeState },
+                                displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
+                                playerScreen = { playerScreen() },
+                                libraryScreen = { libraryScreen() },
+                                page = pageParam,
+                                modifier = modifier,
+                            )
+                        }
+
+                        route.startsWith("collection") -> {
+                            val id = uri.getQueryParameter("id")
+                            val name = uri.getQueryParameter("name")
+                            checkNotNull(id)
+                            checkNotNull(name)
+                            categoryEntityScreen(id, name)
+                        }
+
+                        route.startsWith("mediaItem") -> {
+                            mediaEntityScreen()
+                        }
+
+                        else -> {
+                            throw IllegalStateException("Unknown route: $route")
+                        }
+                    }
+                }
             }
-
-            composable(
-                route = NavigationScreens.Collections.navRoute,
-                arguments = NavigationScreens.Collections.arguments,
-                deepLinks = NavigationScreens.Collections.deepLinks(deepLinkPrefix),
-            ) {
+        ) {
+            entry(CustomRoute("collections")) {
                 playlistsScreen()
             }
-
-            composable(
-                route = NavigationScreens.Settings.navRoute,
-                arguments = NavigationScreens.Settings.arguments,
-                deepLinks = NavigationScreens.Settings.deepLinks(deepLinkPrefix),
-            ) {
+            entry(CustomRoute("settings")) {
                 settingsScreen()
             }
-
-            composable(
-                route = NavigationScreens.Volume.navRoute,
-                arguments = NavigationScreens.Volume.arguments,
-                deepLinks = NavigationScreens.Volume.deepLinks(deepLinkPrefix),
-            ) {
+            entry(CustomRoute("volume")) {
                 ScreenScaffold(timeText = {}) { volumeScreen() }
             }
 
-            composable(
-                route = NavigationScreens.MediaItem.navRoute,
-                arguments = NavigationScreens.MediaItem.arguments,
-                deepLinks = NavigationScreens.MediaItem.deepLinks(deepLinkPrefix),
-            ) {
-                mediaEntityScreen()
-            }
-
-            composable(
-                route = NavigationScreens.Collection.navRoute,
-                arguments = NavigationScreens.Collection.arguments,
-                deepLinks = NavigationScreens.Collection.deepLinks(deepLinkPrefix),
-            ) {
-                val arguments = it.arguments
-                val id = arguments?.getString(NavigationScreens.Collection.id)
-                val name = arguments?.getString(NavigationScreens.Collection.name)
-                checkNotNull(id)
-                checkNotNull(name)
-
-                categoryEntityScreen(id, name)
-            }
-
-            additionalNavRoutes()
+            additionalEntries()
         }
+
+        NavDisplay(
+            backStack = backStack,
+            sceneStrategies = listOf(rememberSwipeDismissableSceneStrategy()),
+            entryProvider = entryProvider,
+            modifier = modifier,
+        )
     }
 }

@@ -26,15 +26,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
+import androidx.navigation3.runtime.NavBackStack
 import androidx.wear.compose.material.CircularProgressIndicator
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.material.Confirmation
+import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
 import com.google.android.horologist.mediasample.R
 
 @Composable
 fun GoogleSignOutScreen(
-    navController: NavHostController,
+    backStack: NavBackStack<CustomRoute>,
     viewModel: UampGoogleSignOutViewModel,
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
@@ -54,7 +55,7 @@ fun GoogleSignOutScreen(
 
         GoogleSignOutScreenState.Success -> {
             Confirmation(
-                onTimeout = { navController.popBackStack() },
+                onTimeout = { backStack.removeLastOrNull() },
             ) {
                 Text(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -66,7 +67,7 @@ fun GoogleSignOutScreen(
 
         GoogleSignOutScreenState.Failed -> {
             SideEffect {
-                navController.popBackStack()
+                backStack.removeLastOrNull()
             }
         }
     }

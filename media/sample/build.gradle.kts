@@ -191,6 +191,10 @@ dependencies {
     implementation(libs.wearcompose.material)
     implementation(libs.wearcompose.foundation)
     implementation(libs.wearcompose.navigation)
+    implementation(libs.wearcompose.navigation3)
+    implementation(libs.navigation3.runtime)
+    implementation(libs.navigation3.ui)
+
 
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.runtime)

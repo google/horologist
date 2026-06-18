@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
+import androidx.navigation3.runtime.NavBackStack
 import androidx.wear.compose.foundation.lazy.items
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
@@ -32,6 +32,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.It
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
+import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
 import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToPlayer
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.settings.ActionSetting
@@ -39,7 +40,7 @@ import com.google.android.horologist.mediasample.ui.settings.ActionSetting
 @Composable
 fun SamplesScreen(
     samplesScreenViewModel: SamplesScreenViewModel,
-    navController: NavHostController,
+    backStack: NavBackStack<CustomRoute>,
     modifier: Modifier = Modifier,
 ) {
     val uiState by samplesScreenViewModel.uiState.collectAsStateWithLifecycle()
@@ -66,7 +67,7 @@ fun SamplesScreen(
             items(uiState.samples) {
                 ActionSetting(text = it.name) {
                     samplesScreenViewModel.playSamples(it.id)
-                    navController.navigateToPlayer()
+                    backStack.navigateToPlayer()
                 }
             }
         }

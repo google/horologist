@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavHostController
+import androidx.navigation3.runtime.NavBackStack
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
@@ -31,6 +31,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.It
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
+import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.AudioDebug
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.NewHotness
@@ -39,7 +40,7 @@ import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScr
 @Composable
 fun DeveloperOptionsScreen(
     developerOptionsScreenViewModel: DeveloperOptionsScreenViewModel,
-    navController: NavHostController,
+    backStack: NavBackStack<CustomRoute>,
     modifier: Modifier = Modifier,
 ) {
     val uiState by developerOptionsScreenViewModel.uiState.collectAsStateWithLifecycle()
@@ -67,7 +68,7 @@ fun DeveloperOptionsScreen(
                 ActionSetting(
                     "New Hotness Player",
                 ) {
-                    navController.navigate(NewHotness.navRoute)
+                    backStack.add(CustomRoute(NewHotness.navRoute))
                 }
             }
             item {
@@ -83,14 +84,14 @@ fun DeveloperOptionsScreen(
                 ActionSetting(
                     stringResource(id = R.string.sample_audio_debug),
                 ) {
-                    navController.navigate(AudioDebug.navRoute)
+                    backStack.add(CustomRoute(AudioDebug.navRoute))
                 }
             }
             item {
                 ActionSetting(
                     stringResource(id = R.string.sample_samples),
                 ) {
-                    navController.navigate(Samples.navRoute)
+                    backStack.add(CustomRoute(Samples.navRoute))
                 }
             }
             item {

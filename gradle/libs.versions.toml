@@ -236,7 +236,13 @@ turbine = { module = "app.cash.turbine:turbine", version.ref = "app-cash-turbine
 wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }
 wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
 wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
+wearcompose-navigation3 = { module = "androidx.wear.compose:compose-navigation3", version = "1.6.2" }
+navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version = "1.1.1" }
+navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version = "1.1.1" }
 wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wearcompose" }
+
+
+
 androidx-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
 
 [plugins]

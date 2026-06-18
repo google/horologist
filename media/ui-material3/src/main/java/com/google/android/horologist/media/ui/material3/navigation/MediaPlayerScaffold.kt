@@ -68,7 +68,7 @@ public fun MediaPlayerScaffold(
     timeText: @Composable () -> Unit = { TimeText() },
     additionalEntries: EntryProviderScope<CustomRoute>.() -> Unit = {},
 ) {
-    AppScaffold(timeText = timeText) {
+    AppScaffold {
         val entryProvider = entryProvider(
             fallback = { key ->
                 val route = key.route

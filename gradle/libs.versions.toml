@@ -70,7 +70,7 @@ tiles-tooling-preview = "1.5.0"
 truth = "1.4.4"
 wearInput = "1.2.0-rc01"
 wearToolingPreview = "1.0.0"
-wearcompose = "1.5.0"
+wearcompose = "1.6.2"
 foundationLayout = "1.8.3"
 
 
@@ -241,9 +241,6 @@ wearcompose-navigation3 = { module = "androidx.wear.compose:compose-navigation3"
 navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version = "1.1.1" }
 navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version = "1.1.1" }
 wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wearcompose" }
-
-
-
 androidx-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
 
 [plugins]

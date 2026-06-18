@@ -17,26 +17,22 @@
 package com.google.android.horologist.mediasample.ui.app
 
 import android.content.Intent
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.ViewModelStoreOwner
-import androidx.lifecycle.ViewModelProvider
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.core.os.bundleOf
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.DEFAULT_ARGS_KEY
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.MutableCreationExtras
 import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation3.runtime.NavBackStack
-import androidx.navigation3.runtime.entryProvider
-import androidx.wear.compose.material3.Text
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
 import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToCollection
@@ -64,7 +60,6 @@ import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScr
 import com.google.android.horologist.mediasample.ui.newhotness.NewHotnessPlayerScreen
 import com.google.android.horologist.mediasample.ui.player.UampMediaPlayerScreen
 import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreen
-import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScreenViewModel
 import com.google.android.horologist.mediasample.ui.settings.DeveloperOptionsScreen
 import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
 

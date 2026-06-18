@@ -17,7 +17,6 @@
 package com.google.android.horologist.media.ui.material3.navigation
 
 import androidx.navigation.NamedNavArgument
-
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavType
 import androidx.navigation.navArgument

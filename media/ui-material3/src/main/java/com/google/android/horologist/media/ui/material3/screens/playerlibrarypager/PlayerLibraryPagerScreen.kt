@@ -23,7 +23,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.foundation.pager.HorizontalPager
 import androidx.wear.compose.foundation.pager.PagerState
@@ -31,7 +30,6 @@ import androidx.wear.compose.material3.HorizontalPagerScaffold
 import androidx.wear.compose.material3.ScreenScaffold
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.material3.VolumeLevelIndicator
-import com.google.android.horologist.media.ui.material3.navigation.NavigationScreens
 import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.CancellationException
 
@@ -55,7 +53,6 @@ public fun PlayerLibraryPagerScreen(
         if (page != null && !pageApplied) {
             try {
                 pagerState.animateScrollToPage(page)
-
             } catch (e: CancellationException) {
                 // Not sure why we get a cancellation here, but we want the page
                 // nav to take effect and persist

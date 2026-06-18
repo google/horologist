@@ -24,10 +24,8 @@ import androidx.wear.tiles.tooling.preview.TilePreviewData
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.android.horologist.compose.tools.tileRendererPreviewData
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
-import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.ui.app.UampColors
 import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.toImageResource
 

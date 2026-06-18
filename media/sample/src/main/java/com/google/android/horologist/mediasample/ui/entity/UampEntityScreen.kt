@@ -85,12 +85,13 @@ fun UampEntityScreen(
     if (uiState == PlaylistDownloadScreenState.Failed) {
         AlertDialog(
             visible = true,
-            title = { stringResource(R.string.entity_no_playlists)},
-            onDismissRequest =  onErrorDialogCancelClick )
+            title = { stringResource(R.string.entity_no_playlists) },
+            onDismissRequest = onErrorDialogCancelClick,
+        )
     }
 
     AlertDialog(
-        title = {stringResource(R.string.entity_dialog_cancel_downloads)},
+        title = { stringResource(R.string.entity_dialog_cancel_downloads) },
         onDismissRequest = {
             showCancelDownloadsDialog = false
         },
@@ -98,7 +99,7 @@ fun UampEntityScreen(
             AlertDialogDefaults.DismissButton(
                 onClick = {
                     showCancelDownloadsDialog = false
-                }
+                },
             )
         },
         confirmButton = {
@@ -106,14 +107,14 @@ fun UampEntityScreen(
                 onClick = {
                     showCancelDownloadsDialog = false
                     uampEntityScreenViewModel.remove()
-                }
+                },
             )
         },
         visible = showCancelDownloadsDialog,
     )
 
     AlertDialog(
-        title = {stringResource(R.string.entity_dialog_remove_downloads, playlistName)},
+        title = { stringResource(R.string.entity_dialog_remove_downloads, playlistName) },
         onDismissRequest = {
             showRemoveDownloadsDialog = false
         },
@@ -122,7 +123,7 @@ fun UampEntityScreen(
                 onClick = {
                     showRemoveDownloadsDialog = false
                     uampEntityScreenViewModel.remove()
-                }
+                },
             )
         },
         visible = showRemoveDownloadsDialog,
@@ -130,14 +131,14 @@ fun UampEntityScreen(
             AlertDialogDefaults.DismissButton(
                 onClick = {
                     showRemoveDownloadsDialog = false
-                }
+                },
             )
         },
 
     )
 
     AlertDialog(
-        title = {stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete)},
+        title = { stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete) },
         onDismissRequest = {
             showRemoveSingleMediaDownloadDialog = false
         },
@@ -146,7 +147,7 @@ fun UampEntityScreen(
             AlertDialogDefaults.DismissButton(
                 onClick = {
                     showRemoveSingleMediaDownloadDialog = false
-                }
+                },
             )
         },
         confirmButton = {
@@ -154,7 +155,7 @@ fun UampEntityScreen(
                 onClick = {
                     showRemoveSingleMediaDownloadDialog = false
                     mediaIdToDelete?.let { uampEntityScreenViewModel.removeMediaItem(it) }
-                }
+                },
             )
         },
 

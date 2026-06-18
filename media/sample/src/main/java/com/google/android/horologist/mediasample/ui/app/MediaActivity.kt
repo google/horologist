@@ -44,7 +44,7 @@ class MediaActivity : ComponentActivity() {
 
         setContent {
             backStack = rememberNavBackStack(
-                CustomRoute(NavigationScreens.Player.playerDestination())
+                CustomRoute(NavigationScreens.Player.playerDestination()),
             ) as NavBackStack<CustomRoute>
 
             UampWearApp(

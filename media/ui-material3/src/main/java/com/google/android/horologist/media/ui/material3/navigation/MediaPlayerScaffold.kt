@@ -109,7 +109,7 @@ public fun MediaPlayerScaffold(
                         }
                     }
                 }
-            }
+            },
         ) {
             entry(CustomRoute("collections")) {
                 playlistsScreen()

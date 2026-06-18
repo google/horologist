@@ -195,7 +195,6 @@ dependencies {
     implementation(libs.navigation3.runtime)
     implementation(libs.navigation3.ui)
 
-
     implementation(libs.androidx.corektx)
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel.compose)

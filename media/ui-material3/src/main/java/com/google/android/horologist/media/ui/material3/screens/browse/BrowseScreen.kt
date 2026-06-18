@@ -164,7 +164,7 @@ public class BrowseScreenScope {
                                 contentDescription = null,
                             )
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 },
             ),
@@ -186,7 +186,7 @@ public class BrowseScreenScope {
                                 contentDescription = null,
                             )
                         },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth(),
                     )
                 },
             ),

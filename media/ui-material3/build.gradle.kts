@@ -123,7 +123,6 @@ dependencies {
 
     implementation(libs.kotlinx.serialization.core)
 
-
     implementation(libs.kotlin.stdlib)
     implementation(libs.androidx.graphics.shapes)
     implementation(libs.androidx.wear)

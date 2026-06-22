@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ui.VolumeUiState
@@ -47,11 +48,13 @@ public fun UampSettingsButtons(
     enabled: Boolean = true,
 ) {
     val configuration = LocalConfiguration.current
-    val horizontalPadding = remember(configuration) {
-        ceil(configuration.screenWidthDp * 10f / 100f).dp
+    val windowInfo = LocalWindowInfo.current
+
+    val horizontalPadding = remember(windowInfo.containerSize) {
+      (windowInfo.containerSize.width / 10f).dp
     }
-    val bottomPadding = remember(configuration) {
-        ceil(configuration.screenHeightDp * 12f / 100f).dp
+    val bottomPadding = remember(windowInfo.containerSize) {
+      (windowInfo.containerSize.height / 10f).dp
     }
 
     Row(

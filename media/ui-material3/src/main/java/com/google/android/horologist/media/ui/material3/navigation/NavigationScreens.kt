@@ -23,6 +23,7 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
+import androidx.core.net.toUri
 
 /**
  * Navigation routes enum.
@@ -45,7 +46,7 @@ public open class NavigationScreens(
         )
 
         public fun getPageParam(route: String): Int? {
-            val uri = android.net.Uri.parse("app://" + route)
+            val uri = "app://$route".toUri()
             val pageParam = uri.getQueryParameter(page)?.toIntOrNull()
             return if (pageParam == null || pageParam < 0) null else pageParam
         }

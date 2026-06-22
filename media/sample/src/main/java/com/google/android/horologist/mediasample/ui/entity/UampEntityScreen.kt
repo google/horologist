@@ -25,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material3.AlertDialog
 import androidx.wear.compose.material3.AlertDialogDefaults
+import androidx.wear.compose.material3.Text
 import com.google.android.horologist.media.ui.material3.screens.entity.PlaylistDownloadScreen
 import com.google.android.horologist.media.ui.material3.screens.entity.PlaylistDownloadScreenState
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
@@ -114,7 +115,7 @@ fun UampEntityScreen(
     )
 
     AlertDialog(
-        title = { stringResource(R.string.entity_dialog_remove_downloads, playlistName) },
+        title = { Text(stringResource(R.string.entity_dialog_remove_downloads, playlistName)) },
         onDismissRequest = {
             showRemoveDownloadsDialog = false
         },

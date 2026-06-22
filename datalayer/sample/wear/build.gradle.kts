@@ -78,7 +78,7 @@ android {
 protobuf {
   protoc { artifact = libs.protobuf.protoc.stnd.get().toString() }
   plugins {
-
+    create("javalite") { artifact = libs.protobuf.protoc.gen.javalite.get().toString() }
     create("grpc") { artifact = libs.protobuf.protoc.gen.grpc.java.get().toString() }
     create("grpckt") { artifact = libs.protobuf.protoc.gen.grpc.kotlin.get().toString() }
   }

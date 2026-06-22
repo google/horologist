@@ -1,8 +1,0 @@
-# IntelliJ .idea folder
-*.xml
-caches
-codeStyles
-inspectionProfiles
-modules
-runConfigurations
-shelf

@@ -38,10 +38,5 @@ checksum.txt
 out/
 
 # Android Studio / IntelliJ caches and user-specific settings
-**/.idea/caches/
-/.idea/shelf
-/.idea/deploymentTargetSelector.xml
-/.idea/appInsightsSettings.xml
+.idea/
 /.kotlin/**/*
-/.idea/runConfigurations.xml
-/.idea/assetWizardSettings.xml

@@ -19,6 +19,7 @@ package com.google.android.horologist.media.ui.material3.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavBackStack
@@ -72,7 +73,7 @@ public fun MediaPlayerScaffold(
         val entryProvider = entryProvider(
             fallback = { key ->
                 val route = key.route
-                val uri = android.net.Uri.parse("app://" + route)
+                val request = DeepLinkRequest.fromUriString("app://" + route)
 
                 NavEntry(key) {
                     when {
@@ -93,8 +94,8 @@ public fun MediaPlayerScaffold(
                         }
 
                         route.startsWith("collection") -> {
-                            val id = uri.getQueryParameter("id")
-                            val name = uri.getQueryParameter("name")
+                            val id = request.getQueryParameter("id")
+                            val name = request.getQueryParameter("name")
                             checkNotNull(id)
                             checkNotNull(name)
                             categoryEntityScreen(id, name)
@@ -130,5 +131,15 @@ public fun MediaPlayerScaffold(
             entryProvider = entryProvider,
             modifier = modifier,
         )
+    }
+}
+
+public class DeepLinkRequest private constructor(private val uri: android.net.Uri) {
+    public fun getQueryParameter(key: String): String? = uri.getQueryParameter(key)
+
+    public companion object {
+        public fun fromUriString(uriString: String): DeepLinkRequest {
+            return DeepLinkRequest(uriString.toUri())
+        }
     }
 }

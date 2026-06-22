@@ -393,6 +393,15 @@ package com.google.android.horologist.media.ui.material3.navigation {
     property public String route;
   }
 
+  public final class DeepLinkRequest {
+    method public String? getQueryParameter(String key);
+    field public static final com.google.android.horologist.media.ui.material3.navigation.DeepLinkRequest.Companion Companion;
+  }
+
+  public static final class DeepLinkRequest.Companion {
+    method public com.google.android.horologist.media.ui.material3.navigation.DeepLinkRequest fromUriString(String uriString);
+  }
+
   public final class MediaNavController {
     method public void navigateToCollection(androidx.navigation3.runtime.NavBackStack<com.google.android.horologist.media.ui.material3.navigation.CustomRoute>, String collectionId, String collectionName);
     method public void navigateToCollections(androidx.navigation3.runtime.NavBackStack<com.google.android.horologist.media.ui.material3.navigation.CustomRoute>);

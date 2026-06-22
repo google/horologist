@@ -38,5 +38,8 @@ checksum.txt
 out/
 
 # Android Studio / IntelliJ caches and user-specific settings
-.idea/
+**/.idea/*
+!/.idea/.gitignore
+!/.idea/.name
+!/.idea/icon.svg
 /.kotlin/**/*

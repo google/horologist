@@ -25,6 +25,6 @@ interface UampService {
     suspend fun catalog(): CatalogApiModel
 
     companion object {
-        const val BASE_URL = "https://storage.googleapis.com/uamp/"
+        const val BASE_URL = "https://storage.googleapis.com/androiddevelopers/samples_assets/uamp/"
     }
 }

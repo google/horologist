@@ -107,7 +107,7 @@ android {
 
 protobuf {
   protoc { artifact = libs.protobuf.protoc.stnd.get().toString() }
-  plugins { create("javalite") { artifact = libs.protobuf.protoc.gen.javalite.get().toString() } }
+
   generateProtoTasks {
     all().forEach { task ->
       task.builtins {

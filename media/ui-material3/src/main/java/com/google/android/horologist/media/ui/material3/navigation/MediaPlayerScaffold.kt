@@ -63,24 +63,20 @@ public fun MediaPlayerScaffold(
     playlistsScreen: @Composable () -> Unit,
     settingsScreen: @Composable () -> Unit,
     deepLinkPrefix: String,
-    backStack: NavBackStack<CustomRoute>,
+    backStack: NavBackStack<MediaRoute>,
     modifier: Modifier = Modifier,
     volumeScreen: @Composable () -> Unit = { VolumeScreen(volumeViewModel = volumeViewModel) },
     timeText: @Composable () -> Unit = { TimeText() },
-    additionalEntries: EntryProviderScope<CustomRoute>.() -> Unit = {},
+    additionalEntries: EntryProviderScope<MediaRoute>.() -> Unit = {},
 ) {
     AppScaffold {
         val entryProvider = entryProvider(
             fallback = { key ->
-                val route = key.route
-                val request = DeepLinkRequest.fromUriString("app://" + route)
-
                 NavEntry(key) {
-                    when {
-                        route.startsWith("player") -> {
+                    when (key) {
+                        is PlayerRoute -> {
                             val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
                             val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
-                            val pageParam = NavigationScreens.Player.getPageParam(route)
 
                             PlayerLibraryPagerScreen(
                                 pagerState = pagerState,
@@ -88,37 +84,71 @@ public fun MediaPlayerScaffold(
                                 displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
                                 playerScreen = { playerScreen() },
                                 libraryScreen = { libraryScreen() },
-                                page = pageParam,
+                                page = key.page,
                                 modifier = modifier,
                             )
                         }
 
-                        route.startsWith("collection") -> {
-                            val id = request.getQueryParameter("id")
-                            val name = request.getQueryParameter("name")
-                            checkNotNull(id)
-                            checkNotNull(name)
-                            categoryEntityScreen(id, name)
+                        is CollectionRoute -> {
+                            categoryEntityScreen(key.id, key.name)
                         }
 
-                        route.startsWith("mediaItem") -> {
+                        is MediaItemRoute -> {
                             mediaEntityScreen()
                         }
 
+                        is CustomRoute -> {
+                            val route = key.route
+                            val request = DeepLinkRequest.fromUriString("app://" + route)
+                            when {
+                                route.startsWith("player") -> {
+                                    val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
+                                    val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
+                                    val pageParam = NavigationScreens.Player.getPageParam(route)
+
+                                    PlayerLibraryPagerScreen(
+                                        pagerState = pagerState,
+                                        volumeUiState = { volumeState },
+                                        displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
+                                        playerScreen = { playerScreen() },
+                                        libraryScreen = { libraryScreen() },
+                                        page = pageParam,
+                                        modifier = modifier,
+                                    )
+                                }
+
+                                route.startsWith("collection") -> {
+                                    val id = request.getQueryParameter("id")
+                                    val name = request.getQueryParameter("name")
+                                    checkNotNull(id)
+                                    checkNotNull(name)
+                                    categoryEntityScreen(id, name)
+                                }
+
+                                route.startsWith("mediaItem") -> {
+                                    mediaEntityScreen()
+                                }
+
+                                else -> {
+                                    throw IllegalStateException("Unknown route: $route")
+                                }
+                            }
+                        }
+
                         else -> {
-                            throw IllegalStateException("Unknown route: $route")
+                            throw IllegalStateException("Unknown route key: $key")
                         }
                     }
                 }
             },
         ) {
-            entry(CustomRoute("collections")) {
+            entry(CollectionsRoute) {
                 playlistsScreen()
             }
-            entry(CustomRoute("settings")) {
+            entry(SettingsRoute) {
                 settingsScreen()
             }
-            entry(CustomRoute("volume")) {
+            entry(VolumeRoute) {
                 ScreenScaffold(timeText = {}) { volumeScreen() }
             }
 

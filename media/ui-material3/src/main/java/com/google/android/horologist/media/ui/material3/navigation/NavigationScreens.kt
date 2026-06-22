@@ -139,4 +139,27 @@ public open class NavigationScreens(
 }
 
 @Serializable
-public data class CustomRoute(val route: String) : NavKey
+public data class CustomRoute(val route: String) : MediaRoute
+
+public sealed interface MediaRoute : NavKey
+
+@Serializable
+public data class PlayerRoute(val page: Int = 0) : MediaRoute
+
+@Serializable
+public object VolumeRoute : MediaRoute
+
+@Serializable
+public data class MediaItemRoute(val id: String, val collectionId: String? = null) : MediaRoute
+
+@Serializable
+public object LoginRoute : MediaRoute
+
+@Serializable
+public object SettingsRoute : MediaRoute
+
+@Serializable
+public object CollectionsRoute : MediaRoute
+
+@Serializable
+public data class CollectionRoute(val id: String, val name: String) : MediaRoute

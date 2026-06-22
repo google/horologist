@@ -35,6 +35,7 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation3.runtime.NavBackStack
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
+import com.google.android.horologist.media.ui.material3.navigation.MediaRoute
 import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToCollections
 import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToLibrary
@@ -63,9 +64,10 @@ import com.google.android.horologist.mediasample.ui.playlists.UampPlaylistsScree
 import com.google.android.horologist.mediasample.ui.settings.DeveloperOptionsScreen
 import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
 
+@Suppress("UNCHECKED_CAST")
 @Composable
 fun UampWearApp(
-    backStack: NavBackStack<CustomRoute>,
+    backStack: NavBackStack<MediaRoute>,
     intent: Intent,
 ) {
     val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
@@ -182,7 +184,7 @@ fun UampWearApp(
             settingsScreen = {
                 UampSettingsScreen(
                     viewModel = hiltViewModel(),
-                    backStack = backStack,
+                    backStack = backStack as NavBackStack<CustomRoute>,
                 )
             },
             volumeViewModel = volumeViewModel,
@@ -203,20 +205,20 @@ fun UampWearApp(
                 entry(CustomRoute(UampNavigationScreen.Samples.navRoute)) {
                     SamplesScreen(
                         samplesScreenViewModel = hiltViewModel(),
-                        backStack = backStack,
+                        backStack = backStack as NavBackStack<CustomRoute>,
                     )
                 }
 
                 entry(CustomRoute(UampNavigationScreen.DeveloperOptions.navRoute)) {
                     DeveloperOptionsScreen(
                         developerOptionsScreenViewModel = hiltViewModel(),
-                        backStack = backStack,
+                        backStack = backStack as NavBackStack<CustomRoute>,
                     )
                 }
 
                 entry(CustomRoute(UampNavigationScreen.GoogleSignInPromptScreen.navRoute)) {
                     GoogleSignInPromptScreen(
-                        backStack = backStack,
+                        backStack = backStack as NavBackStack<CustomRoute>,
                         viewModel = hiltViewModel(),
                     )
                 }
@@ -231,7 +233,7 @@ fun UampWearApp(
 
                 entry(CustomRoute(UampNavigationScreen.GoogleSignOutScreen.navRoute)) {
                     GoogleSignOutScreen(
-                        backStack = backStack,
+                        backStack = backStack as NavBackStack<CustomRoute>,
                         viewModel = hiltViewModel(),
                     )
                 }

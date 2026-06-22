@@ -2,11 +2,11 @@
 package com.google.android.horologist.audio {
 
   public interface AudioOutput {
-    method public String getId();
-    method public default Integer? getMediaRouteType();
-    method public String getName();
-    method public default String getType();
-    method public boolean isPlayable();
+    method @InaccessibleFromKotlin public String getId();
+    method @InaccessibleFromKotlin public default Integer? getMediaRouteType();
+    method @InaccessibleFromKotlin public String getName();
+    method @InaccessibleFromKotlin public default String getType();
+    method @InaccessibleFromKotlin public boolean isPlayable();
     property public abstract String id;
     property public abstract boolean isPlayable;
     property public default Integer? mediaRouteType;
@@ -24,10 +24,10 @@ package com.google.android.horologist.audio {
     method public String component1();
     method public String component2();
     method public boolean component3();
-    method public com.google.android.horologist.audio.AudioOutput.BluetoothHeadset copy(String id, String name, boolean isPlayable);
-    method public String getId();
-    method public String getName();
-    method public boolean isPlayable();
+    method public com.google.android.horologist.audio.AudioOutput.BluetoothHeadset copy(optional String id, optional String name, optional boolean isPlayable);
+    method @InaccessibleFromKotlin public String getId();
+    method @InaccessibleFromKotlin public String getName();
+    method @InaccessibleFromKotlin public boolean isPlayable();
     property public String id;
     property public boolean isPlayable;
     property public String name;
@@ -35,6 +35,10 @@ package com.google.android.horologist.audio {
   }
 
   public static final class AudioOutput.Companion {
+    property public static String TYPE_HEADPHONES;
+    property public static String TYPE_NONE;
+    property public static String TYPE_REMOTE;
+    property public static String TYPE_WATCH;
     field public static final String TYPE_HEADPHONES = "headphones";
     field public static final String TYPE_NONE = "none";
     field public static final String TYPE_REMOTE = "remote";
@@ -42,9 +46,9 @@ package com.google.android.horologist.audio {
   }
 
   public static final class AudioOutput.None implements com.google.android.horologist.audio.AudioOutput {
-    method public String getId();
-    method public String getName();
-    method public boolean isPlayable();
+    method @InaccessibleFromKotlin public String getId();
+    method @InaccessibleFromKotlin public String getName();
+    method @InaccessibleFromKotlin public boolean isPlayable();
     property public String id;
     property public boolean isPlayable;
     property public String name;
@@ -58,11 +62,10 @@ package com.google.android.horologist.audio {
     method public String component2();
     method public int component3();
     method public boolean component4();
-    method public com.google.android.horologist.audio.AudioOutput.Remote copy(String id, String name, int mediaRouteType, boolean isPlayable);
-    method public String getId();
-    method public int getMediaRouteType();
-    method public String getName();
-    method public boolean isPlayable();
+    method public com.google.android.horologist.audio.AudioOutput.Remote copy(optional String id, optional String name, optional int mediaRouteType, optional boolean isPlayable);
+    method @InaccessibleFromKotlin public String getId();
+    method @InaccessibleFromKotlin public String getName();
+    method @InaccessibleFromKotlin public boolean isPlayable();
     property public String id;
     property public boolean isPlayable;
     property public int mediaRouteType;
@@ -75,10 +78,10 @@ package com.google.android.horologist.audio {
     method public String component1();
     method public String component2();
     method public boolean component3();
-    method public com.google.android.horologist.audio.AudioOutput.Unknown copy(String id, String name, boolean isPlayable);
-    method public String getId();
-    method public String getName();
-    method public boolean isPlayable();
+    method public com.google.android.horologist.audio.AudioOutput.Unknown copy(optional String id, optional String name, optional boolean isPlayable);
+    method @InaccessibleFromKotlin public String getId();
+    method @InaccessibleFromKotlin public String getName();
+    method @InaccessibleFromKotlin public boolean isPlayable();
     property public String id;
     property public boolean isPlayable;
     property public String name;
@@ -89,10 +92,10 @@ package com.google.android.horologist.audio {
     method public String component1();
     method public String component2();
     method public boolean component3();
-    method public com.google.android.horologist.audio.AudioOutput.WatchSpeaker copy(String id, String name, boolean isPlayable);
-    method public String getId();
-    method public String getName();
-    method public boolean isPlayable();
+    method public com.google.android.horologist.audio.AudioOutput.WatchSpeaker copy(optional String id, optional String name, optional boolean isPlayable);
+    method @InaccessibleFromKotlin public String getId();
+    method @InaccessibleFromKotlin public String getName();
+    method @InaccessibleFromKotlin public boolean isPlayable();
     property public String id;
     property public boolean isPlayable;
     property public String name;
@@ -100,8 +103,8 @@ package com.google.android.horologist.audio {
   }
 
   public interface AudioOutputRepository extends java.lang.AutoCloseable {
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
-    method public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> getAvailable();
+    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
+    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> getAvailable();
     method public void launchOutputSelection(boolean closeOnConnect, optional String? clientPackageName);
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;
     property public abstract kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> available;
@@ -121,9 +124,9 @@ package com.google.android.horologist.audio {
     ctor public SystemAudioRepository(android.content.Context application, androidx.mediarouter.media.MediaRouter mediaRouter, optional androidx.mediarouter.media.MediaRouteSelector selector);
     method public void close();
     method public void decreaseVolume();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
-    method public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> getAvailable();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();
+    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> getAudioOutput();
+    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> getAvailable();
+    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();
     method public void increaseVolume();
     method public void launchOutputSelection(boolean closeOnConnect, String? clientPackageName);
     method public void setVolume(int volume);
@@ -139,7 +142,7 @@ package com.google.android.horologist.audio {
 
   public interface VolumeRepository extends java.lang.AutoCloseable {
     method public void decreaseVolume();
-    method public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();
+    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();
     method public void increaseVolume();
     method public void setVolume(int volume);
     property public abstract kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> volumeState;
@@ -150,13 +153,13 @@ package com.google.android.horologist.audio {
     method public int component1();
     method public int component2();
     method public int component3();
-    method public com.google.android.horologist.audio.VolumeState copy(int current, int max, int min);
-    method public int getCurrent();
-    method public int getMax();
-    method public int getMin();
-    property public final int current;
-    property public final int max;
-    property public final int min;
+    method public com.google.android.horologist.audio.VolumeState copy(optional int current, optional int max, optional int min);
+    method @InaccessibleFromKotlin public int getCurrent();
+    method @InaccessibleFromKotlin public int getMax();
+    method @InaccessibleFromKotlin public int getMin();
+    property public int current;
+    property public int max;
+    property public int min;
   }
 
 }

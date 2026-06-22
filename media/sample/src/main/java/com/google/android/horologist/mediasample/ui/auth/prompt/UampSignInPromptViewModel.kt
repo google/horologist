@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,26 +20,22 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
 import com.google.android.horologist.mediasample.domain.SettingsRepository
-import com.google.android.horologist.mediasample.domain.proto.copy
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class UampSignInPromptViewModel
-    @Inject
-    constructor(
-        authUserRepository: AuthUserRepository,
-        private val settingsRepository: SettingsRepository,
-    ) :
-    SignInPromptViewModel(authUserRepository) {
-        fun selectGuestMode() {
-            viewModelScope.launch {
-                settingsRepository.edit {
-                    it.copy {
-                        guestMode = true
-                    }
-                }
+@Inject
+constructor(
+    authUserRepository: AuthUserRepository,
+    private val settingsRepository: SettingsRepository,
+) : SignInPromptViewModel(authUserRepository) {
+    fun selectGuestMode() {
+        viewModelScope.launch {
+            settingsRepository.edit {
+                it.toBuilder().setGuestMode(true).build()
             }
         }
     }
+}

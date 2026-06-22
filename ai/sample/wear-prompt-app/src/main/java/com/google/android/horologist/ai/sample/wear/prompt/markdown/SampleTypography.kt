@@ -1,5 +1,5 @@
 /*
- * Copyright 2025 The Android Open Source Project
+ * Copyright 2025-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,6 +34,7 @@ fun sampleTypography(): DefaultMarkdownTypography {
     val link = MaterialTheme.typography.bodyMedium.copy(
         fontWeight = FontWeight.Bold,
         textDecoration = TextDecoration.Underline,
+        color = Color.Blue,
     )
     val text = MaterialTheme.typography.bodyMedium
     return DefaultMarkdownTypography(
@@ -44,28 +45,29 @@ fun sampleTypography(): DefaultMarkdownTypography {
         h5 = MaterialTheme.typography.displayMedium,
         h6 = MaterialTheme.typography.displaySmall,
         text = text,
-        code = MaterialTheme.typography.bodyMedium.copy(fontFamily = FontFamily.Monospace),
+        code = MaterialTheme.typography.bodyMedium.copy(
+            fontFamily = FontFamily.Monospace,
+            color = LocalContentColor.current,
+        ),
         quote = MaterialTheme.typography.bodyMedium.plus(SpanStyle(fontStyle = FontStyle.Italic)),
         paragraph = MaterialTheme.typography.bodyLarge,
         ordered = MaterialTheme.typography.bodyLarge,
         bullet = MaterialTheme.typography.bodyLarge,
         list = MaterialTheme.typography.bodyLarge,
-        link = link,
-        inlineCode = MaterialTheme.typography.bodyLarge.copy(fontFamily = FontFamily.Monospace),
+        inlineCode = MaterialTheme.typography.bodyLarge.copy(
+            fontFamily = FontFamily.Monospace,
+            color = LocalContentColor.current,
+        ),
         textLink = TextLinkStyles(style = link.toSpanStyle()),
-        table = text,
+        table = text.copy(color = Color.Unspecified),
     )
 }
 
 @Composable
 fun sampleColors() = DefaultMarkdownColors(
     text = Color.White,
-    codeText = LocalContentColor.current,
-    linkText = Color.Blue,
     codeBackground = MaterialTheme.colorScheme.background,
     inlineCodeBackground = MaterialTheme.colorScheme.background,
     dividerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
-    inlineCodeText = LocalContentColor.current,
-    tableText = Color.Unspecified,
     tableBackground = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.02f),
 )

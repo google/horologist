@@ -15,69 +15,63 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.dokka)
-    // alias(libs.plugins.metalavaGradle)
-    kotlin("android")
-    id("com.google.protobuf")
+  id("com.android.library")
+  id("com.google.protobuf")
+  alias(libs.plugins.dokka)
+  // alias(libs.plugins.metalavaGradle)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 23
-    }
+  defaultConfig { minSdk = 23 }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        buildConfig = false
-    }
+  buildFeatures { buildConfig = false }
 
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.majorVersion
-        freeCompilerArgs = freeCompilerArgs +
-            listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-            )
-    }
-    packaging {
-        resources {
-            excludes +=
-                listOf(
-                    "/META-INF/AL2.0",
-                    "/META-INF/LGPL2.1",
-                )
-        }
-    }
+  packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-    testOptions {
-        unitTests {
-            isIncludeAndroidResources = true
-        }
-    }
+  testOptions { unitTests { isIncludeAndroidResources = true } }
 
-    lint {
-        checkReleaseBuilds = false
-        textReport = true
-        baseline = file("quality/lint/lint-baseline.xml")
-    }
+  lint {
+    checkReleaseBuilds = false
+    textReport = true
+    baseline = file("quality/lint/lint-baseline.xml")
+  }
 
-    namespace = "com.google.android.horologist.datalayer.grpc"
+  namespace = "com.google.android.horologist.datalayer.grpc"
+}
+
+protobuf {
+  protoc { artifact = libs.protobuf.protoc.stnd.get().toString() }
+  plugins {
+    create("javalite") { artifact = libs.protobuf.protoc.gen.javalite.get().toString() }
+    create("grpc") { artifact = libs.protobuf.protoc.gen.grpc.java.get().toString() }
+    create("grpckt") { artifact = libs.protobuf.protoc.gen.grpc.kotlin.get().toString() }
+  }
+  generateProtoTasks {
+    all().forEach { task ->
+      task.builtins {
+        create("java") { option("lite") }
+        create("kotlin") { option("lite") }
+      }
+      task.plugins {
+        create("grpc") { option("lite") }
+        create("grpckt") { option("lite") }
+      }
+    }
+  }
 }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-    // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
-    if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
-        compilerOptions {
-            freeCompilerArgs.add("-Xexplicit-api=strict")
-        }
-    }
+  // Workaround for https://youtrack.jetbrains.com/issue/KT-37652
+  if (!this.name.endsWith("TestKotlin") && !this.name.startsWith("compileDebug")) {
+    compilerOptions { freeCompilerArgs.add("-Xexplicit-api=strict") }
+  }
 }
 
 // TODO resolve java.lang.StackOverflowError
@@ -85,67 +79,25 @@ project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().config
 //    filename.set("api/current.api")
 // }
 
-protobuf {
-    protoc {
-        artifact = libs.protobuf.protoc.stnd.get().toString()
-    }
-    plugins {
-        create("javalite") {
-            artifact = libs.protobuf.protoc.gen.javalite.get().toString()
-        }
-        create("grpc") {
-            artifact = libs.protobuf.protoc.gen.grpc.java.get().toString()
-        }
-        create("grpckt") {
-            artifact = libs.protobuf.protoc.gen.grpc.kotlin.get().toString()
-        }
-    }
-    generateProtoTasks {
-        all().forEach { task ->
-            task.builtins {
-                create("java") {
-                    option("lite")
-                }
-                create("kotlin") {
-                    option("lite")
-                }
-            }
-            task.plugins {
-                create("grpc") {
-                    option("lite")
-                }
-                create("grpckt") {
-                    option("lite")
-                }
-            }
-        }
-    }
-}
-
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    api(projects.datalayer.core)
-    implementation(libs.kotlin.stdlib)
-    implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.androidx.lifecycle.service)
-    api(libs.io.grpc.protobuf.lite)
-    api(libs.io.grpc.grpc.kotlin)
-    api(libs.playservices.wearable)
-    implementation(libs.kotlinx.coroutines.playservices)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.wear.remote.interactions)
+  api(projects.datalayer.core)
+  implementation(libs.kotlin.stdlib)
+  api(libs.protobuf.kotlin.lite)
+  implementation(libs.kotlinx.coroutines.core)
+  implementation(libs.androidx.lifecycle.service)
+  api(libs.io.grpc.protobuf.lite)
+  api(libs.io.grpc.grpc.kotlin)
+  api(libs.playservices.wearable)
+  implementation(libs.kotlinx.coroutines.playservices)
+  implementation(libs.androidx.lifecycle.runtime)
+  implementation(libs.androidx.wear.remote.interactions)
 }
 
-tasks.withType<org.jetbrains.dokka.gradle.DokkaTaskPartial>().configureEach {
-    dokkaSourceSets {
-        configureEach {
-            moduleName.set("datalayer-grpc")
-        }
-    }
-}
-
-apply(plugin = "com.vanniktech.maven.publish")
+apply(
+  plugin = "com.vanniktech.maven.publish"
+)
 
 // tasks.maybeCreate("prepareKotlinIdeaImport")
 //    .dependsOn("generateDebugProto")

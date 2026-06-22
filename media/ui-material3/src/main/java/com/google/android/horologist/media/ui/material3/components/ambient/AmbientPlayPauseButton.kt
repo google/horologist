@@ -45,7 +45,7 @@ import com.google.android.horologist.media.ui.material3.components.animated.scal
 import com.google.android.horologist.media.ui.material3.components.controls.PauseButton
 import com.google.android.horologist.media.ui.material3.components.controls.PlayButton
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-import com.google.android.horologist.media.ui.material3.util.PLAY_BUTTON_PROGRESS_STROKE_WIDTH
+import com.google.android.horologist.media.ui.material3.util.MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.isLargeScreen
 
@@ -79,12 +79,11 @@ public fun AmbientPlayPauseButton(
             SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
         }
     }
-    val scallopHeight = remember(scallopSize) {
-        with(density) { (scallopSize - PLAY_BUTTON_PROGRESS_STROKE_WIDTH).toPx() }
-    }
+    val scallopHeight =
+        remember(scallopSize) { with(density) { (scallopSize - MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH).toPx() } }
 
     val scallopPolygon = remember(scallopSize, scallopHeight) {
-        PlayPauseButtonDefaults.indicatorScallopPolygon(density, scallopSize)
+        PlayPauseButtonDefaults.outerScallopPolygon(density, scallopSize)
             .scaleToSize(scallopHeight)
     }
 

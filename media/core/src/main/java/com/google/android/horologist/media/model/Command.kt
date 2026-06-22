@@ -18,16 +18,14 @@ package com.google.android.horologist.media.model
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * Commands that can be executed on a player.
- */
+/** Commands that can be executed on a player. */
 @ExperimentalHorologistApi
 public enum class Command {
-    PlayPause,
-    SeekBack,
-    SeekForward,
-    SeekInCurrentMediaItem,
-    SkipToPreviousMedia,
-    SkipToNextMedia,
-    SetShuffle,
+  PlayPause,
+  SeekBack,
+  SeekForward,
+  SeekInCurrentMediaItem,
+  SkipToPreviousMedia,
+  SkipToNextMedia,
+  SetShuffle,
 }

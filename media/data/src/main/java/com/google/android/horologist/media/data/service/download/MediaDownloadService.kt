@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -53,7 +53,7 @@ public abstract class MediaDownloadService(
     channelId: String?,
     @StringRes channelNameResourceId: Int,
     @StringRes channelDescriptionResourceId: Int,
-    @DrawableRes private val notificationIcon: Int,
+    @param:DrawableRes private val notificationIcon: Int,
 ) : DownloadService(
     foregroundNotificationId,
     foregroundNotificationUpdateInterval,
@@ -62,63 +62,63 @@ public abstract class MediaDownloadService(
     channelDescriptionResourceId,
 ),
     LifecycleOwner {
-        private val dispatcher = ServiceLifecycleDispatcher(this)
+    private val dispatcher = ServiceLifecycleDispatcher(this)
 
-        override fun onCreate() {
-            dispatcher.onServicePreSuperOnCreate()
+    override fun onCreate() {
+        dispatcher.onServicePreSuperOnCreate()
 
-            super.onCreate()
+        super.onCreate()
 
-            downloadManagerListener.onDownloadServiceCreated(downloadManager)
-        }
-
-        override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-            dispatcher.onServicePreSuperOnStart()
-            return super.onStartCommand(intent, flags, startId)
-        }
-
-        override val lifecycle: Lifecycle
-            get() = dispatcher.lifecycle
-
-        override fun onDestroy() {
-            downloadManagerListener.onDownloadServiceDestroyed()
-
-            dispatcher.onServicePreSuperOnDestroy()
-
-            super.onDestroy()
-        }
-
-        override fun getScheduler(): Scheduler = workManagerScheduler
-
-        override fun getForegroundNotification(
-            downloads: MutableList<Download>,
-            notMetRequirements: Int,
-        ): Notification = downloadNotificationHelper.buildProgressNotification(
-            this,
-            notificationIcon,
-            downloadIntent,
-            null,
-            downloads,
-            notMetRequirements,
-        )
-
-        /**
-         * Used to notify of this service creation and destruction.
-         */
-        protected abstract val downloadManagerListener: DownloadManagerListener
-
-        /**
-         * See [DownloadService.getScheduler].
-         */
-        protected abstract val workManagerScheduler: WorkManagerScheduler
-
-        /**
-         * Used to build a [Notification] required by [DownloadService.getForegroundNotification].
-         */
-        protected abstract val downloadNotificationHelper: DownloadNotificationHelper
-
-        /**
-         * See `contentIntent` in [DownloadNotificationHelper.buildProgressNotification].
-         */
-        protected abstract val downloadIntent: PendingIntent
+        downloadManagerListener.onDownloadServiceCreated(downloadManager)
     }
+
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        dispatcher.onServicePreSuperOnStart()
+        return super.onStartCommand(intent, flags, startId)
+    }
+
+    override val lifecycle: Lifecycle
+        get() = dispatcher.lifecycle
+
+    override fun onDestroy() {
+        downloadManagerListener.onDownloadServiceDestroyed()
+
+        dispatcher.onServicePreSuperOnDestroy()
+
+        super.onDestroy()
+    }
+
+    override fun getScheduler(): Scheduler = workManagerScheduler
+
+    override fun getForegroundNotification(
+        downloads: MutableList<Download>,
+        notMetRequirements: Int,
+    ): Notification = downloadNotificationHelper.buildProgressNotification(
+        this,
+        notificationIcon,
+        downloadIntent,
+        null,
+        downloads,
+        notMetRequirements,
+    )
+
+    /**
+     * Used to notify of this service creation and destruction.
+     */
+    protected abstract val downloadManagerListener: DownloadManagerListener
+
+    /**
+     * See [DownloadService.getScheduler].
+     */
+    protected abstract val workManagerScheduler: WorkManagerScheduler
+
+    /**
+     * Used to build a [Notification] required by [DownloadService.getForegroundNotification].
+     */
+    protected abstract val downloadNotificationHelper: DownloadNotificationHelper
+
+    /**
+     * See `contentIntent` in [DownloadNotificationHelper.buildProgressNotification].
+     */
+    protected abstract val downloadIntent: PendingIntent
+}

@@ -21,45 +21,48 @@ import kotlin.time.Duration
 
 @ExperimentalHorologistApi
 public data class PlaybackStateEvent(
-    public val playbackState: PlaybackState,
-    public val cause: Cause,
-    public val timestamp: Duration? = null,
+  public val playbackState: PlaybackState,
+  public val cause: Cause,
+  public val timestamp: Duration? = null,
 ) {
-    public enum class Cause {
-        Initial,
-        PlayerStateChanged,
-        ParametersChanged,
-        PositionDiscontinuity,
-        SeekProjecting,
-        Other,
-    }
+  public enum class Cause {
+    Initial,
+    PlayerStateChanged,
+    ParametersChanged,
+    PositionDiscontinuity,
+    SeekProjecting,
+    Other,
+  }
 
-    public fun createPositionPredictor(): PositionPredictor? {
-        if (timestamp == null || playbackState.duration == null || playbackState.currentPosition == null) {
-            return null
-        }
-        return if (playbackState.isLive) {
-            LiveMediaPositionPredictor(
-                eventTimestamp = timestamp.inWholeMilliseconds,
-                durationMs = playbackState.duration.inWholeMilliseconds,
-                currentPositionMs = playbackState.currentPosition.inWholeMilliseconds,
-                positionSpeed = playbackState.playbackSpeed,
-            )
-        } else {
-            MediaPositionPredictor(
-                eventTimestamp = timestamp.inWholeMilliseconds,
-                durationMs = playbackState.duration.inWholeMilliseconds,
-                currentPositionMs = playbackState.currentPosition.inWholeMilliseconds,
-                positionSpeed = playbackState.playbackSpeed,
-            )
-        }
+  public fun createPositionPredictor(): PositionPredictor? {
+    if (
+      timestamp == null || playbackState.duration == null || playbackState.currentPosition == null
+    ) {
+      return null
     }
+    return if (playbackState.isLive) {
+      LiveMediaPositionPredictor(
+        eventTimestamp = timestamp.inWholeMilliseconds,
+        durationMs = playbackState.duration.inWholeMilliseconds,
+        currentPositionMs = playbackState.currentPosition.inWholeMilliseconds,
+        positionSpeed = playbackState.playbackSpeed,
+      )
+    } else {
+      MediaPositionPredictor(
+        eventTimestamp = timestamp.inWholeMilliseconds,
+        durationMs = playbackState.duration.inWholeMilliseconds,
+        currentPositionMs = playbackState.currentPosition.inWholeMilliseconds,
+        positionSpeed = playbackState.playbackSpeed,
+      )
+    }
+  }
 
-    public companion object {
-        public val INITIAL: PlaybackStateEvent = PlaybackStateEvent(
-            playbackState = PlaybackState.IDLE,
-            cause = Cause.Initial,
-            timestamp = null,
-        )
-    }
+  public companion object {
+    public val INITIAL: PlaybackStateEvent =
+      PlaybackStateEvent(
+        playbackState = PlaybackState.IDLE,
+        cause = Cause.Initial,
+        timestamp = null,
+      )
+  }
 }

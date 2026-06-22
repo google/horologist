@@ -18,17 +18,15 @@ package com.google.android.horologist.media.model
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * Representation of a media.
- */
+/** Representation of a media. */
 @ExperimentalHorologistApi
 public data class Media(
-    val id: String,
-    val uri: String,
-    val title: String,
-    val artist: String,
-    val clientPackageName: String? = null,
-    val artworkUri: String? = null,
-    val artworkColor: Int? = null,
-    val extras: Map<String, Any> = emptyMap(),
+  val id: String,
+  val uri: String,
+  val title: String,
+  val artist: String,
+  val clientPackageName: String? = null,
+  val artworkUri: String? = null,
+  val artworkColor: Int? = null,
+  val extras: Map<String, Any> = emptyMap(),
 )

@@ -36,8 +36,8 @@ import androidx.navigation.NavHostController
 import androidx.wear.compose.material.Icon
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.sample.R
-import com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultScreen
-import com.google.android.horologist.auth.ui.common.screens.streamline.StreamlineSignInDefaultViewModel
+import com.google.android.horologist.auth.ui.material3.common.screens.streamline.StreamlineSignInDefaultScreen
+import com.google.android.horologist.auth.ui.material3.common.screens.streamline.StreamlineSignInDefaultViewModel
 import com.google.android.horologist.compose.material.Confirmation
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 

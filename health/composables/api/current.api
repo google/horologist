@@ -13,11 +13,17 @@ package com.google.android.horologist.health.composables {
   }
 
   public static final class ActiveDurationDefaults.Companion {
+    property public static String HH_MM;
+    property public static String HH_MM_SS;
+    property public static String H_MM;
+    property public static String H_MM_SS;
+    property public static String MM_SS;
+    property public static String M_SS;
   }
 
   public final class ActiveDurationTextKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ActiveDurationText(androidx.health.services.client.data.ExerciseUpdate.ActiveDurationCheckpoint checkpoint, androidx.health.services.client.data.ExerciseState state, optional kotlin.jvm.functions.Function1<? super java.time.Duration,kotlin.Unit> content);
-    method @androidx.compose.runtime.Composable public static void FormattedDurationText(java.time.Duration duration, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<? super java.time.Duration,java.lang.String> formatter, optional long color, optional androidx.compose.ui.text.style.TextAlign? textAlign, optional androidx.compose.ui.text.TextStyle style);
+    method @KotlinOnly @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static void ActiveDurationText(androidx.health.services.client.data.ExerciseUpdate.ActiveDurationCheckpoint checkpoint, androidx.health.services.client.data.ExerciseState state, optional kotlin.jvm.functions.Function1<java.time.Duration,kotlin.Unit> content);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void FormattedDurationText(java.time.Duration duration, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function1<java.time.Duration,java.lang.String> formatter, optional androidx.compose.ui.graphics.Color color, optional androidx.compose.ui.text.style.TextAlign? textAlign, optional androidx.compose.ui.text.TextStyle style);
     method public static kotlin.jvm.functions.Function1<java.time.Duration,java.lang.String> patternFormatter(optional String format);
   }
 
@@ -26,7 +32,7 @@ package com.google.android.horologist.health.composables {
 package com.google.android.horologist.health.composables.components {
 
   public final class MetricDisplayKt {
-    method @androidx.compose.runtime.Composable public static void MetricDisplay(com.google.android.horologist.health.composables.model.MetricUiModel metric, optional androidx.compose.ui.Modifier modifier);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void MetricDisplay(com.google.android.horologist.health.composables.model.MetricUiModel metric, optional androidx.compose.ui.Modifier modifier);
   }
 
 }
@@ -34,20 +40,19 @@ package com.google.android.horologist.health.composables.components {
 package com.google.android.horologist.health.composables.model {
 
   public final class MetricUiModel {
-    ctor public MetricUiModel(String text, optional String? topRightText, optional String? bottomRightText, optional long color);
+    ctor @KotlinOnly public MetricUiModel(String text, optional String? topRightText, optional String? bottomRightText, optional androidx.compose.ui.graphics.Color color);
     method public String component1();
     method public String? component2();
     method public String? component3();
-    method public long component4-0d7_KjU();
-    method public com.google.android.horologist.health.composables.model.MetricUiModel copy-g2O1Hgs(String text, String? topRightText, String? bottomRightText, long color);
-    method public String? getBottomRightText();
-    method public long getColor();
-    method public String getText();
-    method public String? getTopRightText();
-    property public final String? bottomRightText;
-    property public final long color;
-    property public final String text;
-    property public final String? topRightText;
+    method @KotlinOnly public operator androidx.compose.ui.graphics.Color component4();
+    method @KotlinOnly public com.google.android.horologist.health.composables.model.MetricUiModel copy(optional String text, optional String? topRightText, optional String? bottomRightText, optional androidx.compose.ui.graphics.Color color);
+    method @InaccessibleFromKotlin public String? getBottomRightText();
+    method @InaccessibleFromKotlin public String getText();
+    method @InaccessibleFromKotlin public String? getTopRightText();
+    property public String? bottomRightText;
+    property public androidx.compose.ui.graphics.Color color;
+    property public String text;
+    property public String? topRightText;
   }
 
 }
@@ -55,7 +60,7 @@ package com.google.android.horologist.health.composables.model {
 package com.google.android.horologist.health.composables.screens {
 
   public final class MetricsScreenKt {
-    method @androidx.compose.runtime.Composable public static void MetricsScreen(com.google.android.horologist.health.composables.model.MetricUiModel firstMetric, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.health.composables.model.MetricUiModel? secondMetric, optional com.google.android.horologist.health.composables.model.MetricUiModel? thirdMetric, optional com.google.android.horologist.health.composables.model.MetricUiModel? fourthMetric, optional kotlin.jvm.functions.Function0<kotlin.Unit>? positionIndicator);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void MetricsScreen(com.google.android.horologist.health.composables.model.MetricUiModel firstMetric, optional androidx.compose.ui.Modifier modifier, optional com.google.android.horologist.health.composables.model.MetricUiModel? secondMetric, optional com.google.android.horologist.health.composables.model.MetricUiModel? thirdMetric, optional com.google.android.horologist.health.composables.model.MetricUiModel? fourthMetric, optional kotlin.jvm.functions.Function0<kotlin.Unit>? positionIndicator);
   }
 
 }

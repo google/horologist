@@ -25,6 +25,7 @@ import okhttp3.Request
 import okhttp3.Response
 import okio.IOException
 import okio.Timeout
+import kotlin.reflect.KClass
 
 /**
  * A call that must fail because no suitable network is available.
@@ -64,4 +65,12 @@ public class FailedCall(
     override fun request(): Request = request
 
     override fun timeout(): Timeout = Timeout.NONE
+
+    override fun <T : Any> tag(type: KClass<T>): T? = null
+
+    override fun <T> tag(type: Class<out T>): T? = null
+
+    override fun <T : Any> tag(type: KClass<T>, computeIfAbsent: () -> T): T = computeIfAbsent()
+
+    override fun <T : Any> tag(type: Class<T>, computeIfAbsent: () -> T): T = computeIfAbsent()
 }

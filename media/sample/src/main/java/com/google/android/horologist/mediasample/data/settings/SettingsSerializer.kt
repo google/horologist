@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,12 +29,12 @@ import java.io.OutputStream
 
 object SettingsSerializer : Serializer<Settings> {
     override val defaultValue: Settings = settings {
-        this.animated = true
-        this.debugOffload = false
-        this.loadItemsAtStartup = false
-        this.podcastControls = false
-        this.showTimeTextInfo = false
-        this.currentPosition = 0
+        animated = true
+        debugOffload = false
+        loadItemsAtStartup = false
+        podcastControls = false
+        showTimeTextInfo = false
+        currentPosition = 0
     }
 
     override suspend fun readFrom(input: InputStream): Settings {

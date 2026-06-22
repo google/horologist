@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.compose.layout.m3
 
+import android.view.ViewConfiguration
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.updateTransition
@@ -39,6 +40,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -56,6 +58,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.platform.LocalWindowInfo
@@ -74,6 +77,7 @@ import androidx.wear.compose.material3.Text
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import kotlin.math.abs
@@ -88,7 +92,7 @@ import kotlin.math.abs
  *   index. This is used by the FastScrollingTransformingLazyColumn to display a header over the
  *   given information and snap to the speicified header.
  * @property modifier The modifier(s) to apply to the list.
- * @property sectionIndictatorTopPadding The top padding to apply to the section indicator. This
+ * @property sectionIndicatorTopPadding The top padding to apply to the section indicator. This
  *   should only be needed to align with the header scrolled to when the scrollToOffset is NOT 0.
  * @property content The content within the list. This can be used the exact same way as the
  *   TransformingLazyColumn with content, though do note that any items that you do not want to
@@ -101,45 +105,259 @@ public fun FastScrollingTransformingLazyColumn(
     state: TransformingLazyColumnState,
     headers: SnapshotStateList<HeaderInfo>,
     modifier: Modifier = Modifier,
-    sectionIndictatorTopPadding: Dp = 0.dp,
+    sectionIndicatorTopPadding: Dp = 0.dp,
     contentPadding: PaddingValues = PaddingValues(),
     content: TransformingLazyColumnScope.() -> Unit,
 ) {
     val haptics = LocalHapticFeedback.current
+    val density = LocalDensity.current
     val screenHeight = LocalWindowInfo.current.containerSize.height
     val defaultFlingBehavior = ScrollableDefaults.flingBehavior()
 
+    val context = LocalContext.current
+    // The minimum fling velocity to trigger a skim event.
+    val flingVelocityThreshold = 7 * ViewConfiguration.get(context).scaledMinimumFlingVelocity
     val coroutineScope = rememberCoroutineScope()
     var fadingOutJob: Job? by remember { mutableStateOf(null) }
     var animationJob: Job? by remember { mutableStateOf(null) }
 
     // Total scroll-to offset for the list. This is the sum of the remaining letter height and the
-    // section indicator top padding, with whatever extra top padding is passed in from the composable.
+    // section indicator top padding, with whatever extra top padding is passed in from the
+    // composable.
     val scrollToOffset =
-        with(LocalDensity.current) {
-            (
-                Constants.REMAINING_LETTER_HEIGHT +
-                    Constants.SECTION_INDICATOR_TOP_PADDING +
-                    sectionIndictatorTopPadding
-                )
-                .roundToPx()
+        remember(density, sectionIndicatorTopPadding) {
+            with(density) {
+                (
+                    Constants.REMAINING_LETTER_HEIGHT +
+                        Constants.SECTION_INDICATOR_TOP_PADDING +
+                        sectionIndicatorTopPadding
+                    )
+                    .roundToPx()
+            }
         }
 
     var currentSectionIndex by remember { mutableIntStateOf(0) }
 
     var firstSkimTime by remember { mutableLongStateOf(0L) }
-    var verticalScrollPixels by remember { mutableFloatStateOf(0f) }
+    var lastRotaryScroll by remember { mutableLongStateOf(0L) }
 
     var isSkimming by remember { mutableStateOf(false) }
-    var rsbScrollCount by remember { mutableIntStateOf(0) }
     var isFirstFastScroll by remember { mutableStateOf(false) }
-    val currentSectionHeader: HeaderInfo? =
-        remember(headers, currentSectionIndex) { headers.getOrNull(currentSectionIndex) }
 
     var indicatorState by remember { mutableStateOf(IndicatorState.START) }
     var pixelsScrolledBy by remember { mutableFloatStateOf(0f) }
 
-    val transition = updateTransition(indicatorState)
+    fun setCurrentSectionIndex(firstItemIndex: Int) {
+        if (currentSectionIndex != firstItemIndex) {
+            currentSectionIndex = firstItemIndex
+        }
+    }
+
+    fun scrollListToSection() {
+        val headerOffset = scrollToOffset + (headers[currentSectionIndex].extraScrollToOffset ?: 0)
+
+        val offset = (screenHeight * 0.5).toInt() - headerOffset
+
+        coroutineScope.launch {
+            haptics.performHapticFeedback(HapticFeedbackType.SegmentTick)
+            // We run animateScrollBy with a movement of 0 just to remove the timeText from the screen and
+            // show the position indicators, as animateScrollToItem will fling from each section.
+            state.animateScrollBy(0f)
+            yield()
+            state.scrollToItem(headers[currentSectionIndex].index, offset)
+        }
+    }
+
+    fun skimSections(target: Int) {
+        currentSectionIndex = target
+
+        scrollListToSection()
+        // Start the animation, and cancel the previous animations if any were running
+        animationJob?.cancel()
+        animationJob = coroutineScope.launch {
+            if (indicatorState != IndicatorState.START) {
+                indicatorState = IndicatorState.START
+            }
+            delay(50)
+            indicatorState = IndicatorState.SPRING
+            delay(50)
+            indicatorState = IndicatorState.END
+        }
+
+        // After every skim, we will run a job that will fade out the indicator and reset the flags
+        // once the timeout is reached. This will continuously allow the skim to keep running if
+        // skimming keeps being performed.
+
+        fadingOutJob?.cancel()
+        fadingOutJob = coroutineScope.launch {
+            delay(Constants.RSB_SKIMMING_TIMEOUT)
+            // Skim has finally ended, as another skim did not happen to reset the skim flag.
+            isSkimming = false
+        }
+    }
+
+    fun performScroll(delta: Float) {
+        haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
+        coroutineScope.launch {
+            // Here, we animate the scroll by 0f to remove the timeText from the screen and
+            // show the position indicators. Running animateScrollBy by the delta
+            // does not scroll as much as scrollBy for some reason.
+            state.animateScrollBy(0f)
+            yield()
+            state.scrollBy(delta)
+        }
+    }
+
+    fun scrollOrSkim(delta: Float, isScrollingDown: Boolean) {
+        val newSectionIndex = (currentSectionIndex + (if (isScrollingDown) 1 else -1))
+        if (newSectionIndex != newSectionIndex.coerceIn(0, headers.size - 1)) {
+            performScroll(delta)
+        } else {
+            skimSections(newSectionIndex)
+        }
+    }
+
+    fun handleSkim(currentTime: Long, delta: Float) {
+        val isScrollingDown = delta > 0f
+        if (!isFirstFastScroll) {
+            // If we fast scroll in two different directions, we will reset the pixels scrolled
+            // by to 0 to make sure skims in the opposite direction will be performed as intended.
+            if (isScrollingDown != pixelsScrolledBy > 0f) {
+                pixelsScrolledBy = 0f
+            }
+
+            // If it has been more than the timeout since the last skim, we will begin taking in
+            // the fast scrolling pixels. This is to prevent the case where a user starts
+            // skimming mode by scrolling rapidly, but only wants to move a single section.
+            if (currentTime - firstSkimTime > Constants.FIRST_SCROLL_TIMEOUT) {
+                pixelsScrolledBy += delta
+            }
+            val sectionsToSkimBy =
+                (abs(pixelsScrolledBy) / Constants.VERTICAL_SCROLL_BY_THRESHOLD).toInt()
+            pixelsScrolledBy %= Constants.VERTICAL_SCROLL_BY_THRESHOLD
+            for (i in 0..<sectionsToSkimBy) {
+                scrollOrSkim(delta, isScrollingDown)
+            }
+        } else {
+            // Perform the fast scroll skim once. The first skim should always perform a ton of scrolls to
+            // get into fast-scrolling mode, so we can do this to make sure we don't skim multiple
+            // sections accidentally.
+            firstSkimTime = currentTime
+            isFirstFastScroll = false
+            scrollOrSkim(delta, isScrollingDown)
+        }
+    }
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        val flingBehavior =
+            remember(defaultFlingBehavior) {
+                object : FlingBehavior {
+                    override suspend fun ScrollScope.performFling(initialVelocity: Float): Float {
+                        isSkimming = false
+                        return with(defaultFlingBehavior) { this@performFling.performFling(initialVelocity) }
+                    }
+                }
+            }
+        val rotaryScrollableBehavior =
+            remember(headers, flingVelocityThreshold) {
+                object : RotaryScrollableBehavior {
+                    override suspend fun CoroutineScope.performScroll(
+                        timestampMillis: Long,
+                        delta: Float,
+                        inputDeviceId: Int,
+                        orientation: Orientation,
+                    ) {
+                        val deltaTime = timestampMillis - lastRotaryScroll
+                        val currentVelocity = (delta / deltaTime) * 1000 // Convert to pixels per second
+                        lastRotaryScroll = timestampMillis
+
+                        val isScrollingDown = delta > 0f
+                        val isScrollingInRightDirection =
+                            (
+                                (isScrollingDown && currentSectionIndex < headers.size - 1) ||
+                                    (!isScrollingDown && currentSectionIndex > 0)
+                                )
+
+                        val canFastScroll =
+                            headers.isNotEmpty() &&
+                                (
+                                    currentSectionIndex >= 0 &&
+                                        currentSectionIndex < headers.size &&
+                                        isScrollingInRightDirection
+                                    )
+
+                        if (!isSkimming && abs(currentVelocity) > flingVelocityThreshold && canFastScroll) {
+                            isFirstFastScroll = true
+                            pixelsScrolledBy = 0f
+                            isSkimming = true
+                        }
+
+                        if (isSkimming) {
+                            handleSkim(currentTime = timestampMillis, delta = delta)
+                        } else {
+                            performScroll(delta)
+                        }
+                    }
+                }
+            }
+
+        TransformingLazyColumn(
+            state = state,
+            flingBehavior = flingBehavior,
+            rotaryScrollableBehavior = rotaryScrollableBehavior,
+            modifier = modifier.fillMaxWidth(),
+            contentPadding = contentPadding,
+        ) {
+            content()
+        }
+
+        SkimIndicator(
+            isSkimmingProvider = { isSkimming },
+            indicatorStateProvider = { indicatorState },
+            headerProvider = { headers.getOrNull(currentSectionIndex) },
+            sectionIndicatorTopPadding = sectionIndicatorTopPadding,
+        )
+
+        LaunchedEffect(key1 = Unit) {
+            val visibleItemFlow = snapshotFlow { state.layoutInfo.visibleItems.firstOrNull()?.index ?: 0 }
+            val headersFlow = snapshotFlow { headers.toList() }
+
+            visibleItemFlow
+                .combine(headersFlow) { visibleItemIndex, currentHeaders ->
+                    Pair(visibleItemIndex, currentHeaders)
+                }
+                .collect { (visibleItemIndex, currentHeaders) ->
+                    if (!isSkimming && currentHeaders.isNotEmpty()) {
+                        val searchResult = currentHeaders.binarySearchBy(visibleItemIndex) { it.index }
+                        val sectionIndex =
+                            if (searchResult >= 0) {
+                                // Exact match found
+                                searchResult
+                            } else {
+                                // No exact match, visibleItemIndex is between header indices.
+                                // binarySearchBy returns (-insertion point - 1).
+                                // The section index is the item before the insertion point.
+                                val insertionPoint = -searchResult - 1
+                                (insertionPoint - 1).coerceIn(0, currentHeaders.size - 1)
+                            }
+                        setCurrentSectionIndex(sectionIndex)
+                    }
+                }
+        }
+    }
+}
+
+@Composable
+private fun SkimIndicator(
+    isSkimmingProvider: () -> Boolean,
+    indicatorStateProvider: () -> IndicatorState,
+    headerProvider: () -> HeaderInfo?,
+    sectionIndicatorTopPadding: Dp,
+) {
+    val isSkimming = isSkimmingProvider()
+    val indicatorState = indicatorStateProvider()
+
+    val transition = updateTransition(indicatorState, label = "SkimIndicatorTransition")
 
     val indicatorWidthScale by
         transition.animateFloat(
@@ -161,192 +379,19 @@ public fun FastScrollingTransformingLazyColumn(
             }
         }
 
-    fun setCurrentSectionIndex(firstItemIndex: Int) {
-        if (currentSectionIndex != firstItemIndex) {
-            currentSectionIndex = firstItemIndex
-        }
-    }
-
-    fun scrollListToSection() {
-        val headerOffset = scrollToOffset + (headers[currentSectionIndex].extraScrollToOffset ?: 0)
-
-        val offset = headerOffset + (screenHeight * -.5).toInt()
-
-        coroutineScope.launch {
-            haptics.performHapticFeedback(HapticFeedbackType.SegmentTick)
-            // We run animateScrollBy with a movement of 0 just to remove the timeText from the screen and
-            // show the position indicators, as animateScrollToItem will fling from each section.
-            state.animateScrollBy(0f)
-            yield()
-            state.scrollToItem(headers[currentSectionIndex].index, offset)
-        }
-    }
-
-    fun skimSections(target: Int) {
-        currentSectionIndex = target
-
-        scrollListToSection()
-        // Start the animation, and cancel the previous animations if any were running
-        animationJob?.cancel()
-        animationJob =
-            coroutineScope.launch {
-                if (indicatorState != IndicatorState.START) {
-                    indicatorState = IndicatorState.START
-                }
-                delay(50)
-                indicatorState = IndicatorState.SPRING
-                delay(50)
-                indicatorState = IndicatorState.END
-            }
-
-        // After every skim, we will run a job that will fade out the indicator and reset the flags
-        // once the timeout is reached. This will continuously allow the skim to keep running if
-        // skimming keeps being performed.
-
-        fadingOutJob?.cancel()
-        fadingOutJob =
-            coroutineScope.launch {
-                delay(Constants.RSB_SKIMMING_TIMEOUT)
-                // Skim has finally ended, as another skim did not happen to reset the skim flag.
-                isSkimming = false
-            }
-    }
-
-    fun handleSkim(currentTime: Long, isScrollingDown: Boolean, verticalScrollPixels: Float) {
-        if (!isFirstFastScroll) {
-            // If we fast scroll in two different directions, we will reset the pixels scrolled
-            // by to 0 to make sure skims in the opposite direction will be performed as intended.
-            if (
-                (verticalScrollPixels > 0f && pixelsScrolledBy < 0f) ||
-                (verticalScrollPixels < 0f && pixelsScrolledBy > 0f)
-            ) {
-                pixelsScrolledBy = 0f
-            }
-
-            // If it has been more than the timeout since the last skim, we will begin taking in
-            // the fast scrolling pixels. This is to prevent the case where a user starts
-            // skimming mode by scrolling rapidly, but only wants to move a single section.
-            if (currentTime - firstSkimTime > Constants.FIRST_SCROLL_TIMEOUT) {
-                pixelsScrolledBy += verticalScrollPixels
-            }
-            val sectionsToSkimBy =
-                (abs(pixelsScrolledBy) / Constants.VERTICAL_SCROLL_BY_THRESHOLD).toInt()
-            pixelsScrolledBy %= Constants.VERTICAL_SCROLL_BY_THRESHOLD
-            for (i in 0..<sectionsToSkimBy) {
-                val newSectionIndex = (currentSectionIndex + (if (isScrollingDown) 1 else -1))
-                skimSections(newSectionIndex.coerceIn(0, headers.size - 1))
-            }
-        } else {
-            // Perform the fast scroll skim once. The first skim should always perform a ton of scrolls to
-            // get into fast-scrolling mode, so we can do this to make sure we don't skim multiple
-            // sections accidentally.
-            firstSkimTime = System.currentTimeMillis()
-            isFirstFastScroll = false
-            val newSectionIndex = (currentSectionIndex + (if (isScrollingDown) 1 else -1))
-            skimSections(newSectionIndex.coerceIn(0, headers.size - 1))
-        }
-    }
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        val flingBehavior = object : FlingBehavior {
-            override suspend fun ScrollScope.performFling(initialVelocity: Float): Float {
-                isSkimming = false
-                return with(defaultFlingBehavior) { this@performFling.performFling(initialVelocity) }
-            }
-        }
-        val rotaryScrollableBehavior =
-            object : RotaryScrollableBehavior {
-                override suspend fun CoroutineScope.performScroll(
-                    timestampMillis: Long,
-                    delta: Float,
-                    inputDeviceId: Int,
-                    orientation: Orientation,
-                ) {
-                    // Track current time to ensure that we should ingest the rotary scroll event.
-                    val currentTime = System.currentTimeMillis()
-
-                    verticalScrollPixels = delta
-                    val canFastScroll =
-                        headers.isNotEmpty() &&
-                            (currentSectionIndex >= 0 && currentSectionIndex < headers.size)
-                    val scrollCount = (abs(verticalScrollPixels) / Constants.RSB_SPEED_THRESHOLD).toInt()
-
-                    if (!isSkimming && scrollCount > 0 && canFastScroll) {
-                        rsbScrollCount += scrollCount
-                        if (rsbScrollCount > 5) {
-                            isFirstFastScroll = true
-                            pixelsScrolledBy = 0f
-                            isSkimming = true
-                            rsbScrollCount = 0
-                        }
-                    }
-
-                    if (isSkimming) {
-                        handleSkim(currentTime = currentTime, isScrollingDown = verticalScrollPixels > 0f, verticalScrollPixels = delta)
-                    } else {
-                        haptics.performHapticFeedback(HapticFeedbackType.SegmentFrequentTick)
-                        coroutineScope.launch {
-                            // Here, we animate the scroll by 0f to remove the timeText from the screen and
-                            // show the position indicators. Running animateScrollBy by the verticalScrollPixels
-                            // does not scroll as much as scrollBy for some reason.
-                            state.animateScrollBy(0f)
-                            yield()
-                            state.scrollBy(verticalScrollPixels)
-                        }
-                    }
-                }
-            }
-
-        TransformingLazyColumn(
-            state = state,
-            flingBehavior = flingBehavior,
-            rotaryScrollableBehavior = rotaryScrollableBehavior,
-            modifier =
-                modifier
-                    .fillMaxWidth(),
-            contentPadding = remember { contentPadding },
-        ) {
-            content()
-        }
-
-        AnimatedVisibility(visible = isSkimming, enter = fadeIn(), exit = fadeOut()) {
-            SectionIndicator(
-                indicatorWidthScale,
-                currentSectionHeader,
-                sectionIndictatorTopPadding,
-            )
-        }
-
-        LaunchedEffect(key1 = Unit) {
-            snapshotFlow { (state.layoutInfo.visibleItems.firstOrNull()?.index ?: 0) }
-                .collect { visibleItemIndex ->
-                    if (!isSkimming && headers.isNotEmpty()) {
-                        val searchResult = headers.binarySearchBy(visibleItemIndex) { it.index }
-                        val sectionIndex =
-                            if (searchResult >= 0) {
-                                // Exact match found
-                                searchResult
-                            } else {
-                                // No exact match, visibleItemIndex is between header indices.
-                                // binarySearchBy returns (-insertion point - 1).
-                                // The section index is the item before the insertion point.
-                                val insertionPoint = -searchResult - 1
-                                (insertionPoint - 1).coerceIn(0, headers.size - 1)
-                            }
-                        setCurrentSectionIndex(sectionIndex)
-                    }
-                }
-        }
+    AnimatedVisibility(visible = isSkimming, enter = fadeIn(), exit = fadeOut()) {
+        SectionIndicator({ indicatorWidthScale }, headerProvider, sectionIndicatorTopPadding)
     }
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun SectionIndicator(
-    indicatorWidthScale: Float,
-    currentSectionHeader: HeaderInfo?,
-    sectionIndictatorTopPadding: Dp,
+    indicatorWidthScale: () -> Float,
+    headerProvider: () -> HeaderInfo?,
+    sectionIndicatorTopPadding: Dp,
 ) {
+    val currentSectionHeader = headerProvider()
     val shape = remember { RoundedCornerShape(24.dp) }
     val annotatedText =
         remember(currentSectionHeader) {
@@ -369,11 +414,11 @@ private fun SectionIndicator(
 
     Box(
         contentAlignment = Alignment.TopCenter,
-        modifier = Modifier.fillMaxWidth().padding(top = sectionIndictatorTopPadding),
+        modifier = Modifier.fillMaxWidth().padding(top = sectionIndicatorTopPadding),
     ) {
         Box(
             modifier =
-                Modifier.graphicsLayer { this.scaleX = indicatorWidthScale }
+                Modifier.graphicsLayer { this.scaleX = indicatorWidthScale() }
                     .clip(shape)
                     .requiredHeight(Constants.INDICATOR_HEIGHT)
                     .sizeIn(minWidth = Constants.INDICATOR_WIDTH)
@@ -392,8 +437,9 @@ private fun SectionIndicator(
 }
 
 /**
- * Class for storing the index and value of a header used for the FastScrollingTransformingLazyColumn.
- * This is used to properly display and snap to the specified header during fast scrolling.
+ * Class for storing the index and value of a header used for the
+ * FastScrollingTransformingLazyColumn. This is used to properly display and snap to the specified
+ * header during fast scrolling.
  *
  * @property index The index of the header in the list.
  * @property value The value of the header's text in the list.
@@ -404,7 +450,8 @@ private fun SectionIndicator(
  *   more information).
  * @property extraScrollToOffset The optional extra offset added to the default offset.
  */
-public class HeaderInfo(
+@Immutable
+public data class HeaderInfo(
     val index: Int,
     val value: String,
     val inlineContent: Map<String, InlineTextContent> = mapOf(),
@@ -434,7 +481,6 @@ private object Constants {
     // Threshold for the number of pixels the list must scroll before we skim to the next section.
     const val VERTICAL_SCROLL_BY_THRESHOLD = 65
     const val FIRST_SCROLL_TIMEOUT = 500L
-    const val RSB_SPEED_THRESHOLD = 40
-    const val RSB_THROTTLE = 150
     const val RSB_SKIMMING_TIMEOUT = 1500L
+    const val VELOCITY_SCROLL_WINDOW = 750L
 }

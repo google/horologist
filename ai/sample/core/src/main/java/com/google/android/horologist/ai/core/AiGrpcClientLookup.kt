@@ -23,10 +23,16 @@ import io.grpc.binder.BinderChannelBuilder
 import io.grpc.binder.UntrustedSecurityPolicies
 
 object AiGrpcClientLookup {
+    @android.annotation.SuppressLint("PackageManagerGetSignatures")
     fun lookupInferenceService(
         context: Context,
         packageName: String,
     ): InferenceServiceGrpcKt.InferenceServiceCoroutineStub {
+        val mySignature = context.packageManager.getPackageInfo(
+            context.packageName,
+            android.content.pm.PackageManager.GET_SIGNATURES,
+        ).signatures!![0]
+
         val channel = BinderChannelBuilder.forAddress(
             AndroidComponentAddress.forBindIntent(
                 Intent().apply {
@@ -36,7 +42,13 @@ object AiGrpcClientLookup {
             ),
             context,
         )
-            .securityPolicy(UntrustedSecurityPolicies.untrustedPublic())
+            .securityPolicy(
+                io.grpc.binder.SecurityPolicies.hasSignature(
+                    context.packageManager,
+                    packageName,
+                    mySignature,
+                ),
+            )
             .build()
 
         return InferenceServiceGrpcKt.InferenceServiceCoroutineStub(channel)

@@ -83,6 +83,12 @@ public data class WearDevice(
             SamsungGalaxyWatch6SmallFont,
             GooglePixelWatchLargeFont,
         )
+
+        public fun triad(): List<WearDevice> = listOf(
+            GenericSmallRound,
+            GenericLargeRound,
+            GooglePixelWatchLargeFont,
+        )
     }
 
     public val dp: Int = (screenSizePx / density).roundToInt()

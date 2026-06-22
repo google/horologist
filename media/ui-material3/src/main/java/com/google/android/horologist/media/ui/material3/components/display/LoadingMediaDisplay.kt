@@ -63,9 +63,12 @@ public fun LoadingMediaDisplay(
                         .height(TRACK_TITLE_PLACEHOLDER_HEIGHT)
                         .placeholderShimmer(
                             placeholderState = placeholderState,
-                            color = colorScheme.outlineVariant,
+                            color = colorScheme.onBackground,
                         )
-                        .placeholder(placeholderState = placeholderState, color = colorScheme.onPrimary),
+                        .placeholder(
+                            placeholderState = placeholderState,
+                            color = colorScheme.outlineVariant,
+                        ),
             )
         }
         Box(
@@ -78,9 +81,12 @@ public fun LoadingMediaDisplay(
                         .height(TRACK_SUBTITLE_PLACEHOLDER_HEIGHT)
                         .placeholderShimmer(
                             placeholderState = placeholderState,
-                            color = colorScheme.outlineVariant,
+                            color = colorScheme.onBackground,
                         )
-                        .placeholder(placeholderState = placeholderState, color = colorScheme.onPrimary),
+                        .placeholder(
+                            placeholderState = placeholderState,
+                            color = colorScheme.outlineVariant,
+                        ),
             )
         }
     }

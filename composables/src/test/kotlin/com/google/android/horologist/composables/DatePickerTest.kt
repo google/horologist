@@ -16,52 +16,23 @@
 
 package com.google.android.horologist.composables
 
-import androidx.compose.ui.text.font.FontWeight
-import androidx.wear.compose.material.MaterialTheme
-import com.google.android.horologist.compose.tools.copy
-import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
+import com.google.android.horologist.screenshots.rng.WearDevice
+import com.google.android.horologist.screenshots.rng.WearTriadScreenshotTest
 import org.junit.Test
-import org.robolectric.annotation.Config
+import org.junit.runner.RunWith
+import org.robolectric.ParameterizedRobolectricTestRunner
 import java.time.LocalDate
 
-class DatePickerTest : WearLegacyScreenTest() {
+@RunWith(ParameterizedRobolectricTestRunner::class)
+class DatePickerTest(device: WearDevice) : WearTriadScreenshotTest(device) {
 
     @Test
-    fun initial() {
+    fun datePicker() {
         runTest {
             DatePicker(
                 onDateConfirm = {},
                 date = LocalDate.of(2022, 4, 25),
             )
-        }
-    }
-
-    @Test
-    @Config(
-        fontScale = 1.24f,
-    )
-    fun largestFontScaling() {
-        runTest(applyDeviceConfig = false) {
-            DatePicker(
-                onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25),
-            )
-        }
-    }
-
-    @Test
-    @Config(
-        qualifiers = "+w192dp-h192dp",
-        fontScale = 1.24f,
-    )
-    fun smallDeviceLargeFontBold() {
-        runTest(applyDeviceConfig = false) {
-            MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
-                DatePicker(
-                    onDateConfirm = {},
-                    date = LocalDate.of(2022, 4, 25),
-                )
-            }
         }
     }
 }

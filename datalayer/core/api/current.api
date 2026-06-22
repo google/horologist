@@ -1,7 +1,7 @@
 // Signature format: 4.0
 package com.google.android.horologist.data {
 
-  public final class ActivityConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ActivityConfig!,com.google.android.horologist.data.ActivityConfig.Builder!> implements com.google.android.horologist.data.ActivityConfigOrBuilder {
+  @com.google.protobuf.Generated public final class ActivityConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ActivityConfig!,com.google.android.horologist.data.ActivityConfig.Builder!> implements com.google.android.horologist.data.ActivityConfigOrBuilder {
     method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
     method public String! getClassFullName();
     method public com.google.protobuf.ByteString! getClassFullNameBytes();
@@ -38,26 +38,27 @@ package com.google.android.horologist.data {
 
   @com.google.protobuf.kotlin.ProtoDslMarker public static final class ActivityConfigKt.Dsl {
     method public void clearClassFullName();
-    method public String getClassFullName();
-    method public void setClassFullName(String);
-    property public final String classFullName;
+    method @InaccessibleFromKotlin public String getClassFullName();
+    method @InaccessibleFromKotlin public void setClassFullName(String);
+    property public String classFullName;
     field public static final com.google.android.horologist.data.ActivityConfigKt.Dsl.Companion Companion;
   }
 
   public static final class ActivityConfigKt.Dsl.Companion {
   }
 
-  public final class ActivityConfigKtKt {
-    method public static inline com.google.android.horologist.data.ActivityConfig -initializeactivityConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityConfigKt.Dsl,kotlin.Unit> block);
+  @com.google.protobuf.Generated public final class ActivityConfigKtKt {
+    method @InaccessibleFromKotlin public static inline com.google.android.horologist.data.ActivityConfig -initializeactivityConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityConfigKt.Dsl,kotlin.Unit> block);
+    method @KotlinOnly public static inline com.google.android.horologist.data.ActivityConfig activityConfig(kotlin.jvm.functions.Function1<com.google.android.horologist.data.ActivityConfigKt.Dsl,kotlin.Unit> block);
     method public static inline com.google.android.horologist.data.ActivityConfig copy(com.google.android.horologist.data.ActivityConfig, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityConfigKt.Dsl,kotlin.Unit> block);
   }
 
-  public interface ActivityConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  @com.google.protobuf.Generated public interface ActivityConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
     method public String! getClassFullName();
     method public com.google.protobuf.ByteString! getClassFullNameBytes();
   }
 
-  public final class ActivityLaunched extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ActivityLaunched!,com.google.android.horologist.data.ActivityLaunched.Builder!> implements com.google.android.horologist.data.ActivityLaunchedOrBuilder {
+  @com.google.protobuf.Generated public final class ActivityLaunched extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ActivityLaunched!,com.google.android.horologist.data.ActivityLaunched.Builder!> implements com.google.android.horologist.data.ActivityLaunchedOrBuilder {
     method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
     method public boolean getActivityLaunchedOnce();
     method public static com.google.android.horologist.data.ActivityLaunched! getDefaultInstance();
@@ -101,37 +102,40 @@ package com.google.android.horologist.data {
   @com.google.protobuf.kotlin.ProtoDslMarker public static final class ActivityLaunchedKt.Dsl {
     method public void clearActivityLaunchedOnce();
     method public void clearTimestamp();
-    method public boolean getActivityLaunchedOnce();
-    method public com.google.protobuf.Timestamp getTimestamp();
-    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ActivityLaunchedKt.Dsl);
+    method @InaccessibleFromKotlin public boolean getActivityLaunchedOnce();
+    method @InaccessibleFromKotlin public com.google.protobuf.Timestamp getTimestamp();
+    method @InaccessibleFromKotlin public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ActivityLaunchedKt.Dsl);
     method public boolean hasTimestamp();
-    method public void setActivityLaunchedOnce(boolean);
-    method public void setTimestamp(com.google.protobuf.Timestamp);
-    property public final boolean activityLaunchedOnce;
-    property public final com.google.protobuf.Timestamp timestamp;
+    method @InaccessibleFromKotlin public void setActivityLaunchedOnce(boolean);
+    method @InaccessibleFromKotlin public void setTimestamp(com.google.protobuf.Timestamp);
+    property public boolean activityLaunchedOnce;
+    property public com.google.protobuf.Timestamp timestamp;
+    property public com.google.protobuf.Timestamp? com.google.android.horologist.data.ActivityLaunchedKt.Dsl.timestampOrNull;
     field public static final com.google.android.horologist.data.ActivityLaunchedKt.Dsl.Companion Companion;
   }
 
   public static final class ActivityLaunchedKt.Dsl.Companion {
   }
 
-  public final class ActivityLaunchedKtKt {
-    method public static inline com.google.android.horologist.data.ActivityLaunched -initializeactivityLaunched(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityLaunchedKt.Dsl,kotlin.Unit> block);
+  @com.google.protobuf.Generated public final class ActivityLaunchedKtKt {
+    method @InaccessibleFromKotlin public static inline com.google.android.horologist.data.ActivityLaunched -initializeactivityLaunched(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityLaunchedKt.Dsl,kotlin.Unit> block);
+    method @KotlinOnly public static inline com.google.android.horologist.data.ActivityLaunched activityLaunched(kotlin.jvm.functions.Function1<com.google.android.horologist.data.ActivityLaunchedKt.Dsl,kotlin.Unit> block);
     method public static inline com.google.android.horologist.data.ActivityLaunched copy(com.google.android.horologist.data.ActivityLaunched, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ActivityLaunchedKt.Dsl,kotlin.Unit> block);
-    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ActivityLaunchedOrBuilder);
+    method @InaccessibleFromKotlin public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ActivityLaunchedOrBuilder);
+    property public static com.google.protobuf.Timestamp? com.google.android.horologist.data.ActivityLaunchedOrBuilder.timestampOrNull;
   }
 
-  public interface ActivityLaunchedOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  @com.google.protobuf.Generated public interface ActivityLaunchedOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
     method public boolean getActivityLaunchedOnce();
     method public com.google.protobuf.Timestamp! getTimestamp();
     method public boolean hasTimestamp();
   }
 
-  public final class AppHelperPb {
+  @com.google.protobuf.Generated public final class AppHelperPb {
     method public static void registerAllExtensions(com.google.protobuf.ExtensionRegistryLite!);
   }
 
-  public final class AppHelperResult extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.AppHelperResult!,com.google.android.horologist.data.AppHelperResult.Builder!> implements com.google.android.horologist.data.AppHelperResultOrBuilder {
+  @com.google.protobuf.Generated public final class AppHelperResult extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.AppHelperResult!,com.google.android.horologist.data.AppHelperResult.Builder!> implements com.google.android.horologist.data.AppHelperResultOrBuilder {
     method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
     method public com.google.android.horologist.data.AppHelperResultCode! getCode();
     method public int getCodeValue();
@@ -162,7 +166,7 @@ package com.google.android.horologist.data {
     method public com.google.android.horologist.data.AppHelperResult.Builder! setCodeValue(int);
   }
 
-  public enum AppHelperResultCode implements com.google.protobuf.Internal.EnumLite {
+  @com.google.protobuf.Generated public enum AppHelperResultCode implements com.google.protobuf.Internal.EnumLite {
     method public static com.google.android.horologist.data.AppHelperResultCode! forNumber(int);
     method public int getNumber();
     method public static com.google.protobuf.Internal.EnumLiteMap<com.google.android.horologist.data.AppHelperResultCode!>! internalGetValueMap();
@@ -201,29 +205,30 @@ package com.google.android.horologist.data {
 
   @com.google.protobuf.kotlin.ProtoDslMarker public static final class AppHelperResultKt.Dsl {
     method public void clearCode();
-    method public com.google.android.horologist.data.AppHelperResultCode getCode();
-    method public int getCodeValue();
-    method public void setCode(com.google.android.horologist.data.AppHelperResultCode);
-    method public void setCodeValue(int);
-    property public final com.google.android.horologist.data.AppHelperResultCode code;
-    property public final int codeValue;
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.AppHelperResultCode getCode();
+    method @InaccessibleFromKotlin public int getCodeValue();
+    method @InaccessibleFromKotlin public void setCode(com.google.android.horologist.data.AppHelperResultCode);
+    method @InaccessibleFromKotlin public void setCodeValue(int);
+    property public com.google.android.horologist.data.AppHelperResultCode code;
+    property public int codeValue;
     field public static final com.google.android.horologist.data.AppHelperResultKt.Dsl.Companion Companion;
   }
 
   public static final class AppHelperResultKt.Dsl.Companion {
   }
 
-  public final class AppHelperResultKtKt {
-    method public static inline com.google.android.horologist.data.AppHelperResult -initializeappHelperResult(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.AppHelperResultKt.Dsl,kotlin.Unit> block);
+  @com.google.protobuf.Generated public final class AppHelperResultKtKt {
+    method @InaccessibleFromKotlin public static inline com.google.android.horologist.data.AppHelperResult -initializeappHelperResult(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.AppHelperResultKt.Dsl,kotlin.Unit> block);
+    method @KotlinOnly public static inline com.google.android.horologist.data.AppHelperResult appHelperResult(kotlin.jvm.functions.Function1<com.google.android.horologist.data.AppHelperResultKt.Dsl,kotlin.Unit> block);
     method public static inline com.google.android.horologist.data.AppHelperResult copy(com.google.android.horologist.data.AppHelperResult, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.AppHelperResultKt.Dsl,kotlin.Unit> block);
   }
 
-  public interface AppHelperResultOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  @com.google.protobuf.Generated public interface AppHelperResultOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
     method public com.google.android.horologist.data.AppHelperResultCode! getCode();
     method public int getCodeValue();
   }
 
-  public final class CompanionConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.CompanionConfig!,com.google.android.horologist.data.CompanionConfig.Builder!> implements com.google.android.horologist.data.CompanionConfigOrBuilder {
+  @com.google.protobuf.Generated public final class CompanionConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.CompanionConfig!,com.google.android.horologist.data.CompanionConfig.Builder!> implements com.google.android.horologist.data.CompanionConfigOrBuilder {
     method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
     method public static com.google.android.horologist.data.CompanionConfig! getDefaultInstance();
     method public String! getSourceNode();
@@ -260,26 +265,27 @@ package com.google.android.horologist.data {
 
   @com.google.protobuf.kotlin.ProtoDslMarker public static final class CompanionConfigKt.Dsl {
     method public void clearSourceNode();
-    method public String getSourceNode();
-    method public void setSourceNode(String);
-    property public final String sourceNode;
+    method @InaccessibleFromKotlin public String getSourceNode();
+    method @InaccessibleFromKotlin public void setSourceNode(String);
+    property public String sourceNode;
     field public static final com.google.android.horologist.data.CompanionConfigKt.Dsl.Companion Companion;
   }
 
   public static final class CompanionConfigKt.Dsl.Companion {
   }
 
-  public final class CompanionConfigKtKt {
-    method public static inline com.google.android.horologist.data.CompanionConfig -initializecompanionConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.CompanionConfigKt.Dsl,kotlin.Unit> block);
+  @com.google.protobuf.Generated public final class CompanionConfigKtKt {
+    method @InaccessibleFromKotlin public static inline com.google.android.horologist.data.CompanionConfig -initializecompanionConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.CompanionConfigKt.Dsl,kotlin.Unit> block);
+    method @KotlinOnly public static inline com.google.android.horologist.data.CompanionConfig companionConfig(kotlin.jvm.functions.Function1<com.google.android.horologist.data.CompanionConfigKt.Dsl,kotlin.Unit> block);
     method public static inline com.google.android.horologist.data.CompanionConfig copy(com.google.android.horologist.data.CompanionConfig, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.CompanionConfigKt.Dsl,kotlin.Unit> block);
   }
 
-  public interface CompanionConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  @com.google.protobuf.Generated public interface CompanionConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
     method public String! getSourceNode();
     method public com.google.protobuf.ByteString! getSourceNodeBytes();
   }
 
-  public final class ComplicationInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ComplicationInfo!,com.google.android.horologist.data.ComplicationInfo.Builder!> implements com.google.android.horologist.data.ComplicationInfoOrBuilder {
+  @com.google.protobuf.Generated public final class ComplicationInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.ComplicationInfo!,com.google.android.horologist.data.ComplicationInfo.Builder!> implements com.google.android.horologist.data.ComplicationInfoOrBuilder {
     method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
     method public static com.google.android.horologist.data.ComplicationInfo! getDefaultInstance();
     method public int getInstanceId();
@@ -341,33 +347,36 @@ package com.google.android.horologist.data {
     method public void clearName();
     method public void clearTimestamp();
     method public void clearType();
-    method public int getInstanceId();
-    method public String getName();
-    method public com.google.protobuf.Timestamp getTimestamp();
-    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ComplicationInfoKt.Dsl);
-    method public String getType();
+    method @InaccessibleFromKotlin public int getInstanceId();
+    method @InaccessibleFromKotlin public String getName();
+    method @InaccessibleFromKotlin public com.google.protobuf.Timestamp getTimestamp();
+    method @InaccessibleFromKotlin public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ComplicationInfoKt.Dsl);
+    method @InaccessibleFromKotlin public String getType();
     method public boolean hasTimestamp();
-    method public void setInstanceId(int);
-    method public void setName(String);
-    method public void setTimestamp(com.google.protobuf.Timestamp);
-    method public void setType(String);
-    property public final int instanceId;
-    property public final String name;
-    property public final com.google.protobuf.Timestamp timestamp;
-    property public final String type;
+    method @InaccessibleFromKotlin public void setInstanceId(int);
+    method @InaccessibleFromKotlin public void setName(String);
+    method @InaccessibleFromKotlin public void setTimestamp(com.google.protobuf.Timestamp);
+    method @InaccessibleFromKotlin public void setType(String);
+    property public int instanceId;
+    property public String name;
+    property public com.google.protobuf.Timestamp timestamp;
+    property public com.google.protobuf.Timestamp? com.google.android.horologist.data.ComplicationInfoKt.Dsl.timestampOrNull;
+    property public String type;
     field public static final com.google.android.horologist.data.ComplicationInfoKt.Dsl.Companion Companion;
   }
 
   public static final class ComplicationInfoKt.Dsl.Companion {
   }
 
-  public final class ComplicationInfoKtKt {
-    method public static inline com.google.android.horologist.data.ComplicationInfo -initializecomplicationInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ComplicationInfoKt.Dsl,kotlin.Unit> block);
+  @com.google.protobuf.Generated public final class ComplicationInfoKtKt {
+    method @InaccessibleFromKotlin public static inline com.google.android.horologist.data.ComplicationInfo -initializecomplicationInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ComplicationInfoKt.Dsl,kotlin.Unit> block);
+    method @KotlinOnly public static inline com.google.android.horologist.data.ComplicationInfo complicationInfo(kotlin.jvm.functions.Function1<com.google.android.horologist.data.ComplicationInfoKt.Dsl,kotlin.Unit> block);
     method public static inline com.google.android.horologist.data.ComplicationInfo copy(com.google.android.horologist.data.ComplicationInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.ComplicationInfoKt.Dsl,kotlin.Unit> block);
-    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ComplicationInfoOrBuilder);
+    method @InaccessibleFromKotlin public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.ComplicationInfoOrBuilder);
+    property public static com.google.protobuf.Timestamp? com.google.android.horologist.data.ComplicationInfoOrBuilder.timestampOrNull;
   }
 
-  public interface ComplicationInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  @com.google.protobuf.Generated public interface ComplicationInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
     method public int getInstanceId();
     method public String! getName();
     method public com.google.protobuf.ByteString! getNameBytes();
@@ -377,7 +386,7 @@ package com.google.android.horologist.data {
     method public boolean hasTimestamp();
   }
 
-  public final class LaunchRequest extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.LaunchRequest!,com.google.android.horologist.data.LaunchRequest.Builder!> implements com.google.android.horologist.data.LaunchRequestOrBuilder {
+  @com.google.protobuf.Generated public final class LaunchRequest extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.LaunchRequest!,com.google.android.horologist.data.LaunchRequest.Builder!> implements com.google.android.horologist.data.LaunchRequestOrBuilder {
     method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
     method public com.google.android.horologist.data.ActivityConfig! getActivity();
     method public com.google.android.horologist.data.CompanionConfig! getCompanion();
@@ -430,7 +439,7 @@ package com.google.android.horologist.data {
     method public com.google.android.horologist.data.LaunchRequest.Builder! setOwnApp(com.google.android.horologist.data.OwnAppConfig.Builder!);
   }
 
-  public enum LaunchRequest.LaunchConfigCase {
+  public enum LaunchRequest.LaunchConfigCase implements com.google.protobuf.AbstractMessageLite.InternalOneOfEnum {
     method public static com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! forNumber(int);
     method public int getNumber();
     method @Deprecated public static com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! valueOf(int);
@@ -449,35 +458,39 @@ package com.google.android.horologist.data {
     method public void clearCompanion();
     method public void clearLaunchConfig();
     method public void clearOwnApp();
-    method public com.google.android.horologist.data.ActivityConfig getActivity();
-    method public com.google.android.horologist.data.CompanionConfig getCompanion();
-    method public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase getLaunchConfigCase();
-    method public com.google.android.horologist.data.OwnAppConfig getOwnApp();
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.ActivityConfig getActivity();
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.CompanionConfig getCompanion();
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase getLaunchConfigCase();
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.OwnAppConfig getOwnApp();
     method public boolean hasActivity();
     method public boolean hasCompanion();
     method public boolean hasOwnApp();
-    method public void setActivity(com.google.android.horologist.data.ActivityConfig);
-    method public void setCompanion(com.google.android.horologist.data.CompanionConfig);
-    method public void setOwnApp(com.google.android.horologist.data.OwnAppConfig);
-    property public final com.google.android.horologist.data.ActivityConfig activity;
-    property public final com.google.android.horologist.data.CompanionConfig companion;
-    property public final com.google.android.horologist.data.LaunchRequest.LaunchConfigCase launchConfigCase;
-    property public final com.google.android.horologist.data.OwnAppConfig ownApp;
+    method @InaccessibleFromKotlin public void setActivity(com.google.android.horologist.data.ActivityConfig);
+    method @InaccessibleFromKotlin public void setCompanion(com.google.android.horologist.data.CompanionConfig);
+    method @InaccessibleFromKotlin public void setOwnApp(com.google.android.horologist.data.OwnAppConfig);
+    property public com.google.android.horologist.data.ActivityConfig activity;
+    property public com.google.android.horologist.data.CompanionConfig companion;
+    property public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase launchConfigCase;
+    property public com.google.android.horologist.data.OwnAppConfig ownApp;
     field public static final com.google.android.horologist.data.LaunchRequestKt.Dsl.Companion Companion;
   }
 
   public static final class LaunchRequestKt.Dsl.Companion {
   }
 
-  public final class LaunchRequestKtKt {
-    method public static inline com.google.android.horologist.data.LaunchRequest -initializelaunchRequest(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.LaunchRequestKt.Dsl,kotlin.Unit> block);
+  @com.google.protobuf.Generated public final class LaunchRequestKtKt {
+    method @InaccessibleFromKotlin public static inline com.google.android.horologist.data.LaunchRequest -initializelaunchRequest(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.LaunchRequestKt.Dsl,kotlin.Unit> block);
     method public static inline com.google.android.horologist.data.LaunchRequest copy(com.google.android.horologist.data.LaunchRequest, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.LaunchRequestKt.Dsl,kotlin.Unit> block);
-    method public static com.google.android.horologist.data.ActivityConfig? getActivityOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
-    method public static com.google.android.horologist.data.CompanionConfig? getCompanionOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
-    method public static com.google.android.horologist.data.OwnAppConfig? getOwnAppOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
+    method @InaccessibleFromKotlin public static com.google.android.horologist.data.ActivityConfig? getActivityOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
+    method @InaccessibleFromKotlin public static com.google.android.horologist.data.CompanionConfig? getCompanionOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
+    method @InaccessibleFromKotlin public static com.google.android.horologist.data.OwnAppConfig? getOwnAppOrNull(com.google.android.horologist.data.LaunchRequestOrBuilder);
+    method @KotlinOnly public static inline com.google.android.horologist.data.LaunchRequest launchRequest(kotlin.jvm.functions.Function1<com.google.android.horologist.data.LaunchRequestKt.Dsl,kotlin.Unit> block);
+    property public static com.google.android.horologist.data.ActivityConfig? com.google.android.horologist.data.LaunchRequestOrBuilder.activityOrNull;
+    property public static com.google.android.horologist.data.CompanionConfig? com.google.android.horologist.data.LaunchRequestOrBuilder.companionOrNull;
+    property public static com.google.android.horologist.data.OwnAppConfig? com.google.android.horologist.data.LaunchRequestOrBuilder.ownAppOrNull;
   }
 
-  public interface LaunchRequestOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  @com.google.protobuf.Generated public interface LaunchRequestOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
     method public com.google.android.horologist.data.ActivityConfig! getActivity();
     method public com.google.android.horologist.data.CompanionConfig! getCompanion();
     method public com.google.android.horologist.data.LaunchRequest.LaunchConfigCase! getLaunchConfigCase();
@@ -487,7 +500,7 @@ package com.google.android.horologist.data {
     method public boolean hasOwnApp();
   }
 
-  public final class OwnAppConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.OwnAppConfig!,com.google.android.horologist.data.OwnAppConfig.Builder!> implements com.google.android.horologist.data.OwnAppConfigOrBuilder {
+  @com.google.protobuf.Generated public final class OwnAppConfig extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.OwnAppConfig!,com.google.android.horologist.data.OwnAppConfig.Builder!> implements com.google.android.horologist.data.OwnAppConfigOrBuilder {
     method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
     method public static com.google.android.horologist.data.OwnAppConfig! getDefaultInstance();
     method public static com.google.android.horologist.data.OwnAppConfig.Builder! newBuilder();
@@ -521,30 +534,31 @@ package com.google.android.horologist.data {
   public static final class OwnAppConfigKt.Dsl.Companion {
   }
 
-  public final class OwnAppConfigKtKt {
-    method public static inline com.google.android.horologist.data.OwnAppConfig -initializeownAppConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.OwnAppConfigKt.Dsl,kotlin.Unit> block);
+  @com.google.protobuf.Generated public final class OwnAppConfigKtKt {
+    method @InaccessibleFromKotlin public static inline com.google.android.horologist.data.OwnAppConfig -initializeownAppConfig(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.OwnAppConfigKt.Dsl,kotlin.Unit> block);
     method public static inline com.google.android.horologist.data.OwnAppConfig copy(com.google.android.horologist.data.OwnAppConfig, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.OwnAppConfigKt.Dsl,kotlin.Unit> block);
+    method @KotlinOnly public static inline com.google.android.horologist.data.OwnAppConfig ownAppConfig(kotlin.jvm.functions.Function1<com.google.android.horologist.data.OwnAppConfigKt.Dsl,kotlin.Unit> block);
   }
 
-  public interface OwnAppConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  @com.google.protobuf.Generated public interface OwnAppConfigOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
   }
 
   public final class ProtoDataStoreHelper {
-    method public inline <reified T> androidx.datastore.core.DataStore<T> protoDataStore(com.google.android.horologist.data.WearDataLayerRegistry, kotlinx.coroutines.CoroutineScope coroutineScope);
-    method public inline <reified T> kotlinx.coroutines.flow.Flow<T> protoFlow(com.google.android.horologist.data.WearDataLayerRegistry, com.google.android.horologist.data.TargetNodeId node);
-    method public inline <reified T> void registerProtoDataListener(com.google.android.horologist.data.WearDataLayerRegistry, com.google.android.horologist.data.store.ProtoDataListener<T> listener);
+    method @KotlinOnly public inline <reified T> androidx.datastore.core.DataStore<T> protoDataStore(com.google.android.horologist.data.WearDataLayerRegistry, kotlinx.coroutines.CoroutineScope coroutineScope);
+    method @KotlinOnly public inline <reified T> kotlinx.coroutines.flow.Flow<T> protoFlow(com.google.android.horologist.data.WearDataLayerRegistry, com.google.android.horologist.data.TargetNodeId node);
+    method @KotlinOnly public inline <reified T> void registerProtoDataListener(com.google.android.horologist.data.WearDataLayerRegistry, com.google.android.horologist.data.store.ProtoDataListener<T> listener);
     field public static final com.google.android.horologist.data.ProtoDataStoreHelper INSTANCE;
   }
 
   public final class SerializerRegistry {
     ctor public SerializerRegistry();
-    method public inline <reified T> void registerSerializer(androidx.datastore.core.Serializer<T> serializer);
+    method @KotlinOnly public inline <reified T> void registerSerializer(androidx.datastore.core.Serializer<T> serializer);
     method public <T> void registerSerializer(kotlin.reflect.KClass<T> type, androidx.datastore.core.Serializer<T> serializer);
-    method public inline <reified T> androidx.datastore.core.Serializer<T> serializerForType();
+    method @KotlinOnly public inline <reified T> androidx.datastore.core.Serializer<T> serializerForType();
     method public <T> androidx.datastore.core.Serializer<T> serializerForType(kotlin.reflect.KClass<T> type);
   }
 
-  public final class SurfacesInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.SurfacesInfo!,com.google.android.horologist.data.SurfacesInfo.Builder!> implements com.google.android.horologist.data.SurfacesInfoOrBuilder {
+  @com.google.protobuf.Generated public final class SurfacesInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.SurfacesInfo!,com.google.android.horologist.data.SurfacesInfo.Builder!> implements com.google.android.horologist.data.SurfacesInfoOrBuilder {
     method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
     method public com.google.android.horologist.data.ActivityLaunched! getActivityLaunched();
     method public com.google.android.horologist.data.ComplicationInfo! getComplications(int);
@@ -626,34 +640,34 @@ package com.google.android.horologist.data {
   }
 
   @com.google.protobuf.kotlin.ProtoDslMarker public static final class SurfacesInfoKt.Dsl {
-    method @kotlin.jvm.JvmSynthetic public void addAllComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, Iterable<com.google.android.horologist.data.ComplicationInfo> values);
-    method @kotlin.jvm.JvmSynthetic public void addAllTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, Iterable<com.google.android.horologist.data.TileInfo> values);
-    method @kotlin.jvm.JvmSynthetic public void addComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, com.google.android.horologist.data.ComplicationInfo value);
-    method @kotlin.jvm.JvmSynthetic public void addTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, com.google.android.horologist.data.TileInfo value);
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public void add(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, com.google.android.horologist.data.ComplicationInfo value);
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public void add(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, com.google.android.horologist.data.TileInfo value);
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public void addAll(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, Iterable<com.google.android.horologist.data.ComplicationInfo> values);
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public void addAll(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, Iterable<com.google.android.horologist.data.TileInfo> values);
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public void clear(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>);
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public void clear(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>);
     method public void clearActivityLaunched();
-    method @kotlin.jvm.JvmSynthetic public void clearComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>);
-    method @kotlin.jvm.JvmSynthetic public void clearTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>);
     method public void clearUsageInfo();
-    method public com.google.android.horologist.data.ActivityLaunched getActivityLaunched();
-    method public com.google.android.horologist.data.ActivityLaunched? getActivityLaunchedOrNull(com.google.android.horologist.data.SurfacesInfoKt.Dsl);
-    method @kotlin.jvm.JvmSynthetic public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy> getComplications();
-    method @kotlin.jvm.JvmSynthetic public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy> getTiles();
-    method public com.google.android.horologist.data.UsageInfo getUsageInfo();
-    method public com.google.android.horologist.data.UsageInfo? getUsageInfoOrNull(com.google.android.horologist.data.SurfacesInfoKt.Dsl);
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.ActivityLaunched getActivityLaunched();
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.ActivityLaunched? getActivityLaunchedOrNull(com.google.android.horologist.data.SurfacesInfoKt.Dsl);
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.UsageInfo getUsageInfo();
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.UsageInfo? getUsageInfoOrNull(com.google.android.horologist.data.SurfacesInfoKt.Dsl);
     method public boolean hasActivityLaunched();
     method public boolean hasUsageInfo();
-    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignAllComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, Iterable<com.google.android.horologist.data.ComplicationInfo> values);
-    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignAllTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, Iterable<com.google.android.horologist.data.TileInfo> values);
-    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, com.google.android.horologist.data.ComplicationInfo value);
-    method @kotlin.jvm.JvmSynthetic public inline operator void plusAssignTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, com.google.android.horologist.data.TileInfo value);
-    method public void setActivityLaunched(com.google.android.horologist.data.ActivityLaunched);
-    method @kotlin.jvm.JvmSynthetic public operator void setComplications(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, int index, com.google.android.horologist.data.ComplicationInfo value);
-    method @kotlin.jvm.JvmSynthetic public operator void setTiles(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, int index, com.google.android.horologist.data.TileInfo value);
-    method public void setUsageInfo(com.google.android.horologist.data.UsageInfo);
-    property public final com.google.android.horologist.data.ActivityLaunched activityLaunched;
-    property @kotlin.jvm.JvmSynthetic public final com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy> complications;
-    property @kotlin.jvm.JvmSynthetic public final com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy> tiles;
-    property public final com.google.android.horologist.data.UsageInfo usageInfo;
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public inline operator void plusAssign(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, com.google.android.horologist.data.ComplicationInfo value);
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public inline operator void plusAssign(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, Iterable<com.google.android.horologist.data.ComplicationInfo> values);
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public inline operator void plusAssign(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, com.google.android.horologist.data.TileInfo value);
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public inline operator void plusAssign(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, Iterable<com.google.android.horologist.data.TileInfo> values);
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public operator void set(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy>, int index, com.google.android.horologist.data.ComplicationInfo value);
+    method @KotlinOnly @kotlin.jvm.JvmSynthetic public operator void set(com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy>, int index, com.google.android.horologist.data.TileInfo value);
+    method @InaccessibleFromKotlin public void setActivityLaunched(com.google.android.horologist.data.ActivityLaunched);
+    method @InaccessibleFromKotlin public void setUsageInfo(com.google.android.horologist.data.UsageInfo);
+    property public com.google.android.horologist.data.ActivityLaunched activityLaunched;
+    property public com.google.android.horologist.data.ActivityLaunched? com.google.android.horologist.data.SurfacesInfoKt.Dsl.activityLaunchedOrNull;
+    property public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy> complications;
+    property public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy> tiles;
+    property public com.google.android.horologist.data.UsageInfo usageInfo;
+    property public com.google.android.horologist.data.UsageInfo? com.google.android.horologist.data.SurfacesInfoKt.Dsl.usageInfoOrNull;
     field public static final com.google.android.horologist.data.SurfacesInfoKt.Dsl.Companion Companion;
   }
 
@@ -666,14 +680,17 @@ package com.google.android.horologist.data {
   public static final class SurfacesInfoKt.Dsl.TilesProxy extends com.google.protobuf.kotlin.DslProxy {
   }
 
-  public final class SurfacesInfoKtKt {
-    method public static inline com.google.android.horologist.data.SurfacesInfo -initializesurfacesInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.SurfacesInfoKt.Dsl,kotlin.Unit> block);
+  @com.google.protobuf.Generated public final class SurfacesInfoKtKt {
+    method @InaccessibleFromKotlin public static inline com.google.android.horologist.data.SurfacesInfo -initializesurfacesInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.SurfacesInfoKt.Dsl,kotlin.Unit> block);
     method public static inline com.google.android.horologist.data.SurfacesInfo copy(com.google.android.horologist.data.SurfacesInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.SurfacesInfoKt.Dsl,kotlin.Unit> block);
-    method public static com.google.android.horologist.data.ActivityLaunched? getActivityLaunchedOrNull(com.google.android.horologist.data.SurfacesInfoOrBuilder);
-    method public static com.google.android.horologist.data.UsageInfo? getUsageInfoOrNull(com.google.android.horologist.data.SurfacesInfoOrBuilder);
+    method @InaccessibleFromKotlin public static com.google.android.horologist.data.ActivityLaunched? getActivityLaunchedOrNull(com.google.android.horologist.data.SurfacesInfoOrBuilder);
+    method @InaccessibleFromKotlin public static com.google.android.horologist.data.UsageInfo? getUsageInfoOrNull(com.google.android.horologist.data.SurfacesInfoOrBuilder);
+    method @KotlinOnly public static inline com.google.android.horologist.data.SurfacesInfo surfacesInfo(kotlin.jvm.functions.Function1<com.google.android.horologist.data.SurfacesInfoKt.Dsl,kotlin.Unit> block);
+    property public static com.google.android.horologist.data.ActivityLaunched? com.google.android.horologist.data.SurfacesInfoOrBuilder.activityLaunchedOrNull;
+    property public static com.google.android.horologist.data.UsageInfo? com.google.android.horologist.data.SurfacesInfoOrBuilder.usageInfoOrNull;
   }
 
-  public interface SurfacesInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  @com.google.protobuf.Generated public interface SurfacesInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
     method public com.google.android.horologist.data.ActivityLaunched! getActivityLaunched();
     method public com.google.android.horologist.data.ComplicationInfo! getComplications(int);
     method public int getComplicationsCount();
@@ -694,6 +711,8 @@ package com.google.android.horologist.data {
   }
 
   public static final class TargetNodeId.Companion {
+    property public static String HOROLOGIST_PHONE;
+    property public static String HOROLOGIST_WATCH;
     field public static final String HOROLOGIST_PHONE = "horologist_phone";
     field public static final String HOROLOGIST_WATCH = "horologist_watch";
   }
@@ -706,8 +725,8 @@ package com.google.android.horologist.data {
   public static final class TargetNodeId.SpecificNodeId implements com.google.android.horologist.data.TargetNodeId {
     ctor public TargetNodeId.SpecificNodeId(String nodeId);
     method public suspend Object? evaluate(com.google.android.horologist.data.WearDataLayerRegistry dataLayerRegistry, kotlin.coroutines.Continuation<? super java.lang.String>);
-    method public String getNodeId();
-    property public final String nodeId;
+    method @InaccessibleFromKotlin public String getNodeId();
+    property public String nodeId;
   }
 
   public static final class TargetNodeId.ThisNodeId implements com.google.android.horologist.data.TargetNodeId {
@@ -715,7 +734,7 @@ package com.google.android.horologist.data {
     field public static final com.google.android.horologist.data.TargetNodeId.ThisNodeId INSTANCE;
   }
 
-  public final class TileInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.TileInfo!,com.google.android.horologist.data.TileInfo.Builder!> implements com.google.android.horologist.data.TileInfoOrBuilder {
+  @com.google.protobuf.Generated public final class TileInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.TileInfo!,com.google.android.horologist.data.TileInfo.Builder!> implements com.google.android.horologist.data.TileInfoOrBuilder {
     method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
     method public static com.google.android.horologist.data.TileInfo! getDefaultInstance();
     method public String! getName();
@@ -762,34 +781,37 @@ package com.google.android.horologist.data {
   @com.google.protobuf.kotlin.ProtoDslMarker public static final class TileInfoKt.Dsl {
     method public void clearName();
     method public void clearTimestamp();
-    method public String getName();
-    method public com.google.protobuf.Timestamp getTimestamp();
-    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.TileInfoKt.Dsl);
+    method @InaccessibleFromKotlin public String getName();
+    method @InaccessibleFromKotlin public com.google.protobuf.Timestamp getTimestamp();
+    method @InaccessibleFromKotlin public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.TileInfoKt.Dsl);
     method public boolean hasTimestamp();
-    method public void setName(String);
-    method public void setTimestamp(com.google.protobuf.Timestamp);
-    property public final String name;
-    property public final com.google.protobuf.Timestamp timestamp;
+    method @InaccessibleFromKotlin public void setName(String);
+    method @InaccessibleFromKotlin public void setTimestamp(com.google.protobuf.Timestamp);
+    property public String name;
+    property public com.google.protobuf.Timestamp timestamp;
+    property public com.google.protobuf.Timestamp? com.google.android.horologist.data.TileInfoKt.Dsl.timestampOrNull;
     field public static final com.google.android.horologist.data.TileInfoKt.Dsl.Companion Companion;
   }
 
   public static final class TileInfoKt.Dsl.Companion {
   }
 
-  public final class TileInfoKtKt {
-    method public static inline com.google.android.horologist.data.TileInfo -initializetileInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.TileInfoKt.Dsl,kotlin.Unit> block);
+  @com.google.protobuf.Generated public final class TileInfoKtKt {
+    method @InaccessibleFromKotlin public static inline com.google.android.horologist.data.TileInfo -initializetileInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.TileInfoKt.Dsl,kotlin.Unit> block);
     method public static inline com.google.android.horologist.data.TileInfo copy(com.google.android.horologist.data.TileInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.TileInfoKt.Dsl,kotlin.Unit> block);
-    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.TileInfoOrBuilder);
+    method @InaccessibleFromKotlin public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.TileInfoOrBuilder);
+    method @KotlinOnly public static inline com.google.android.horologist.data.TileInfo tileInfo(kotlin.jvm.functions.Function1<com.google.android.horologist.data.TileInfoKt.Dsl,kotlin.Unit> block);
+    property public static com.google.protobuf.Timestamp? com.google.android.horologist.data.TileInfoOrBuilder.timestampOrNull;
   }
 
-  public interface TileInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  @com.google.protobuf.Generated public interface TileInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
     method public String! getName();
     method public com.google.protobuf.ByteString! getNameBytes();
     method public com.google.protobuf.Timestamp! getTimestamp();
     method public boolean hasTimestamp();
   }
 
-  public final class UsageInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.UsageInfo!,com.google.android.horologist.data.UsageInfo.Builder!> implements com.google.android.horologist.data.UsageInfoOrBuilder {
+  @com.google.protobuf.Generated public final class UsageInfo extends com.google.protobuf.GeneratedMessageLite<com.google.android.horologist.data.UsageInfo!,com.google.android.horologist.data.UsageInfo.Builder!> implements com.google.android.horologist.data.UsageInfoOrBuilder {
     method protected Object! dynamicMethod(com.google.protobuf.GeneratedMessageLite.MethodToInvoke!, Object!, Object!);
     method public static com.google.android.horologist.data.UsageInfo! getDefaultInstance();
     method public com.google.protobuf.Timestamp! getTimestamp();
@@ -836,37 +858,40 @@ package com.google.android.horologist.data {
   @com.google.protobuf.kotlin.ProtoDslMarker public static final class UsageInfoKt.Dsl {
     method public void clearTimestamp();
     method public void clearUsageStatus();
-    method public com.google.protobuf.Timestamp getTimestamp();
-    method public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.UsageInfoKt.Dsl);
-    method public com.google.android.horologist.data.UsageStatus getUsageStatus();
-    method public int getUsageStatusValue();
+    method @InaccessibleFromKotlin public com.google.protobuf.Timestamp getTimestamp();
+    method @InaccessibleFromKotlin public com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.UsageInfoKt.Dsl);
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.UsageStatus getUsageStatus();
+    method @InaccessibleFromKotlin public int getUsageStatusValue();
     method public boolean hasTimestamp();
-    method public void setTimestamp(com.google.protobuf.Timestamp);
-    method public void setUsageStatus(com.google.android.horologist.data.UsageStatus);
-    method public void setUsageStatusValue(int);
-    property public final com.google.protobuf.Timestamp timestamp;
-    property public final com.google.android.horologist.data.UsageStatus usageStatus;
-    property public final int usageStatusValue;
+    method @InaccessibleFromKotlin public void setTimestamp(com.google.protobuf.Timestamp);
+    method @InaccessibleFromKotlin public void setUsageStatus(com.google.android.horologist.data.UsageStatus);
+    method @InaccessibleFromKotlin public void setUsageStatusValue(int);
+    property public com.google.protobuf.Timestamp timestamp;
+    property public com.google.protobuf.Timestamp? com.google.android.horologist.data.UsageInfoKt.Dsl.timestampOrNull;
+    property public com.google.android.horologist.data.UsageStatus usageStatus;
+    property public int usageStatusValue;
     field public static final com.google.android.horologist.data.UsageInfoKt.Dsl.Companion Companion;
   }
 
   public static final class UsageInfoKt.Dsl.Companion {
   }
 
-  public final class UsageInfoKtKt {
-    method public static inline com.google.android.horologist.data.UsageInfo -initializeusageInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.UsageInfoKt.Dsl,kotlin.Unit> block);
+  @com.google.protobuf.Generated public final class UsageInfoKtKt {
+    method @InaccessibleFromKotlin public static inline com.google.android.horologist.data.UsageInfo -initializeusageInfo(kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.UsageInfoKt.Dsl,kotlin.Unit> block);
     method public static inline com.google.android.horologist.data.UsageInfo copy(com.google.android.horologist.data.UsageInfo, kotlin.jvm.functions.Function1<? super com.google.android.horologist.data.UsageInfoKt.Dsl,kotlin.Unit> block);
-    method public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.UsageInfoOrBuilder);
+    method @InaccessibleFromKotlin public static com.google.protobuf.Timestamp? getTimestampOrNull(com.google.android.horologist.data.UsageInfoOrBuilder);
+    method @KotlinOnly public static inline com.google.android.horologist.data.UsageInfo usageInfo(kotlin.jvm.functions.Function1<com.google.android.horologist.data.UsageInfoKt.Dsl,kotlin.Unit> block);
+    property public static com.google.protobuf.Timestamp? com.google.android.horologist.data.UsageInfoOrBuilder.timestampOrNull;
   }
 
-  public interface UsageInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
+  @com.google.protobuf.Generated public interface UsageInfoOrBuilder extends com.google.protobuf.MessageLiteOrBuilder {
     method public com.google.protobuf.Timestamp! getTimestamp();
     method public com.google.android.horologist.data.UsageStatus! getUsageStatus();
     method public int getUsageStatusValue();
     method public boolean hasTimestamp();
   }
 
-  public enum UsageStatus implements com.google.protobuf.Internal.EnumLite {
+  @com.google.protobuf.Generated public enum UsageStatus implements com.google.protobuf.Internal.EnumLite {
     method public static com.google.android.horologist.data.UsageStatus! forNumber(int);
     method public int getNumber();
     method public static com.google.protobuf.Internal.EnumLiteMap<com.google.android.horologist.data.UsageStatus!>! internalGetValueMap();
@@ -883,22 +908,22 @@ package com.google.android.horologist.data {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class WearDataLayerRegistry {
     ctor public WearDataLayerRegistry(com.google.android.gms.wearable.DataClient dataClient, com.google.android.gms.wearable.NodeClient nodeClient, com.google.android.gms.wearable.MessageClient messageClient, com.google.android.gms.wearable.CapabilityClient capabilityClient, kotlinx.coroutines.CoroutineScope coroutineScope);
-    method public com.google.android.gms.wearable.CapabilityClient getCapabilityClient();
-    method public com.google.android.gms.wearable.DataClient getDataClient();
-    method public com.google.android.gms.wearable.MessageClient getMessageClient();
-    method public com.google.android.gms.wearable.NodeClient getNodeClient();
-    method public com.google.android.horologist.data.SerializerRegistry getSerializers();
+    method @InaccessibleFromKotlin public com.google.android.gms.wearable.CapabilityClient getCapabilityClient();
+    method @InaccessibleFromKotlin public com.google.android.gms.wearable.DataClient getDataClient();
+    method @InaccessibleFromKotlin public com.google.android.gms.wearable.MessageClient getMessageClient();
+    method @InaccessibleFromKotlin public com.google.android.gms.wearable.NodeClient getNodeClient();
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.SerializerRegistry getSerializers();
     method public void onDataChanged(java.util.List<? extends com.google.android.gms.wearable.DataEvent> dataEvents);
     method public <T> androidx.datastore.core.DataStore<T> protoDataStore(String path, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<T> serializer, optional kotlinx.coroutines.flow.SharingStarted started);
     method public <T> kotlinx.coroutines.flow.Flow<T> protoFlow(com.google.android.horologist.data.TargetNodeId targetNodeId, androidx.datastore.core.Serializer<T> serializer, String path);
-    method public inline <reified T> void registerProtoDataListener(String path, com.google.android.horologist.data.store.ProtoDataListener<T> listener);
+    method @KotlinOnly public inline <reified T> void registerProtoDataListener(String path, com.google.android.horologist.data.store.ProtoDataListener<T> listener);
     method public <T> void registerProtoDataListener(String path, com.google.android.horologist.data.store.ProtoDataListener<T> listener, androidx.datastore.core.Serializer<T> serializer);
-    method public inline <reified T> void registerSerializer(androidx.datastore.core.Serializer<T> serializer);
-    property public final com.google.android.gms.wearable.CapabilityClient capabilityClient;
-    property public final com.google.android.gms.wearable.DataClient dataClient;
-    property public final com.google.android.gms.wearable.MessageClient messageClient;
-    property public final com.google.android.gms.wearable.NodeClient nodeClient;
-    property public final com.google.android.horologist.data.SerializerRegistry serializers;
+    method @KotlinOnly public inline <reified T> void registerSerializer(androidx.datastore.core.Serializer<T> serializer);
+    property public com.google.android.gms.wearable.CapabilityClient capabilityClient;
+    property public com.google.android.gms.wearable.DataClient dataClient;
+    property public com.google.android.gms.wearable.MessageClient messageClient;
+    property public com.google.android.gms.wearable.NodeClient nodeClient;
+    property public com.google.android.horologist.data.SerializerRegistry serializers;
     field public static final com.google.android.horologist.data.WearDataLayerRegistry.Companion Companion;
   }
 
@@ -911,16 +936,16 @@ package com.google.android.horologist.data {
 
   public abstract class WearDataService extends com.google.android.gms.wearable.WearableListenerService implements androidx.lifecycle.LifecycleOwner {
     ctor public WearDataService();
-    method public androidx.lifecycle.Lifecycle getLifecycle();
-    method public abstract com.google.android.horologist.data.WearDataLayerRegistry getRegistry();
+    method @InaccessibleFromKotlin public androidx.lifecycle.Lifecycle getLifecycle();
+    method @InaccessibleFromKotlin public abstract com.google.android.horologist.data.WearDataLayerRegistry getRegistry();
     property public androidx.lifecycle.Lifecycle lifecycle;
     property public abstract com.google.android.horologist.data.WearDataLayerRegistry registry;
   }
 
   public final class WearableApiAvailability {
-    method public String getTAG();
+    method @InaccessibleFromKotlin public String getTAG();
     method public suspend Object? isAvailable(com.google.android.gms.common.api.GoogleApi<? extends java.lang.Object?> api, kotlin.coroutines.Continuation<? super java.lang.Boolean>);
-    property public final String TAG;
+    property public String TAG;
     field public static final com.google.android.horologist.data.WearableApiAvailability INSTANCE;
   }
 
@@ -935,32 +960,33 @@ package com.google.android.horologist.data.apphelper {
     method public boolean component3();
     method public com.google.android.horologist.data.apphelper.AppInstallationStatus component4();
     method public com.google.android.horologist.data.SurfacesInfo component5();
-    method public com.google.android.horologist.data.apphelper.AppHelperNodeStatus copy(String id, String displayName, boolean isNearby, com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, com.google.android.horologist.data.SurfacesInfo surfacesInfo);
-    method public com.google.android.horologist.data.apphelper.AppInstallationStatus getAppInstallationStatus();
-    method public String getDisplayName();
-    method public String getId();
-    method public com.google.android.horologist.data.SurfacesInfo getSurfacesInfo();
-    method public boolean isNearby();
-    property public final com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus;
-    property public final String displayName;
-    property public final String id;
-    property public final boolean isNearby;
-    property public final com.google.android.horologist.data.SurfacesInfo surfacesInfo;
+    method public com.google.android.horologist.data.apphelper.AppHelperNodeStatus copy(optional String id, optional String displayName, optional boolean isNearby, optional com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus, optional com.google.android.horologist.data.SurfacesInfo surfacesInfo);
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.apphelper.AppInstallationStatus getAppInstallationStatus();
+    method @InaccessibleFromKotlin public String getDisplayName();
+    method @InaccessibleFromKotlin public String getId();
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.SurfacesInfo getSurfacesInfo();
+    method @InaccessibleFromKotlin public boolean isNearby();
+    property public com.google.android.horologist.data.apphelper.AppInstallationStatus appInstallationStatus;
+    property public String displayName;
+    property public String id;
+    property public boolean isNearby;
+    property public com.google.android.horologist.data.SurfacesInfo surfacesInfo;
   }
 
   public final class AppHelperNodeStatusKt {
-    method public static boolean getAppInstalled(com.google.android.horologist.data.apphelper.AppHelperNodeStatus);
+    method @InaccessibleFromKotlin public static boolean getAppInstalled(com.google.android.horologist.data.apphelper.AppHelperNodeStatus);
+    property public static boolean com.google.android.horologist.data.apphelper.AppHelperNodeStatus.appInstalled;
   }
 
-  public abstract sealed class AppInstallationStatus {
+  public abstract sealed exhaustive class AppInstallationStatus {
   }
 
   public static final class AppInstallationStatus.Installed extends com.google.android.horologist.data.apphelper.AppInstallationStatus {
     ctor public AppInstallationStatus.Installed(com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType nodeType);
     method public com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType component1();
-    method public com.google.android.horologist.data.apphelper.AppInstallationStatus.Installed copy(com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType nodeType);
-    method public com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType getNodeType();
-    property public final com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType nodeType;
+    method public com.google.android.horologist.data.apphelper.AppInstallationStatus.Installed copy(optional com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType nodeType);
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType getNodeType();
+    property public com.google.android.horologist.data.apphelper.AppInstallationStatusNodeType nodeType;
   }
 
   public static final class AppInstallationStatus.NotInstalled extends com.google.android.horologist.data.apphelper.AppInstallationStatus {
@@ -976,12 +1002,12 @@ package com.google.android.horologist.data.apphelper {
     ctor public DataLayerAppHelper(android.content.Context context, com.google.android.horologist.data.WearDataLayerRegistry registry);
     method protected final void checkIsForegroundOrThrow();
     method protected final kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> connectedAndInstalledNodes(String capability);
-    method public final suspend Object? connectedNodes(kotlin.coroutines.Continuation<? super java.util.List<? extends com.google.android.horologist.data.apphelper.AppHelperNodeStatus>>);
-    method public abstract kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> getConnectedAndInstalledNodes();
-    method protected final android.content.Context getContext();
-    method protected final String getPlayStoreUri();
-    method protected final com.google.android.horologist.data.WearDataLayerRegistry getRegistry();
-    method protected final androidx.wear.remote.interactions.RemoteActivityHelper getRemoteActivityHelper();
+    method public final suspend Object? connectedNodes(kotlin.coroutines.Continuation<? super java.util.List<com.google.android.horologist.data.apphelper.AppHelperNodeStatus>>);
+    method @InaccessibleFromKotlin public abstract kotlinx.coroutines.flow.Flow<java.util.Set<com.google.android.gms.wearable.Node>> getConnectedAndInstalledNodes();
+    method @InaccessibleFromKotlin protected final android.content.Context getContext();
+    method @InaccessibleFromKotlin protected final String getPlayStoreUri();
+    method @InaccessibleFromKotlin protected final com.google.android.horologist.data.WearDataLayerRegistry getRegistry();
+    method @InaccessibleFromKotlin protected final androidx.wear.remote.interactions.RemoteActivityHelper getRemoteActivityHelper();
     method public abstract suspend Object? installOnNode(String nodeId, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
     method public final suspend Object? isAvailable(kotlin.coroutines.Continuation<? super java.lang.Boolean>);
     method @CheckResult protected final suspend Object? sendRequestWithTimeout(String nodeId, String path, byte[] data, optional long timeoutMs, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.AppHelperResultCode>);
@@ -1004,6 +1030,13 @@ package com.google.android.horologist.data.apphelper {
   }
 
   public static final class DataLayerAppHelper.Companion {
+    property public static String CAPABILITY_DEVICE_PREFIX;
+    property public static String DATA_LAYER_APP_HELPER;
+    property public static String LAUNCH_APP;
+    property public static long MESSAGE_REQUEST_TIMEOUT_MS;
+    property public static String PHONE_CAPABILITY;
+    property public static String SURFACE_INFO_PATH;
+    property public static String WATCH_CAPABILITY;
   }
 
   public final class DataLayerAppHelperKt {
@@ -1012,7 +1045,7 @@ package com.google.android.horologist.data.apphelper {
 
   public abstract class DataLayerAppHelperService extends com.google.android.gms.wearable.WearableListenerService {
     ctor public DataLayerAppHelperService();
-    method public abstract com.google.android.horologist.data.apphelper.DataLayerAppHelper getAppHelper();
+    method @InaccessibleFromKotlin public abstract com.google.android.horologist.data.apphelper.DataLayerAppHelper getAppHelper();
     property public abstract com.google.android.horologist.data.apphelper.DataLayerAppHelper appHelper;
     field public static final com.google.android.horologist.data.apphelper.DataLayerAppHelperService.Companion Companion;
   }
@@ -1021,7 +1054,7 @@ package com.google.android.horologist.data.apphelper {
   }
 
   public final class SurfacesInfoSerializer implements androidx.datastore.core.Serializer<com.google.android.horologist.data.SurfacesInfo> {
-    method public com.google.android.horologist.data.SurfacesInfo getDefaultValue();
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.SurfacesInfo getDefaultValue();
     method public suspend Object? readFrom(java.io.InputStream input, kotlin.coroutines.Continuation<? super com.google.android.horologist.data.SurfacesInfo>);
     method public suspend Object? writeTo(com.google.android.horologist.data.SurfacesInfo t, java.io.OutputStream output, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     property public com.google.android.horologist.data.SurfacesInfo defaultValue;
@@ -1049,32 +1082,32 @@ package com.google.android.horologist.data.store.impl {
     ctor public NodeIdAndPath(String nodeId, android.net.Uri fullPath);
     method public String component1();
     method public android.net.Uri component2();
-    method public com.google.android.horologist.data.store.impl.NodeIdAndPath copy(String nodeId, android.net.Uri fullPath);
-    method public android.net.Uri getFullPath();
-    method public String getNodeId();
-    property public final android.net.Uri fullPath;
-    property public final String nodeId;
+    method public com.google.android.horologist.data.store.impl.NodeIdAndPath copy(optional String nodeId, optional android.net.Uri fullPath);
+    method @InaccessibleFromKotlin public android.net.Uri getFullPath();
+    method @InaccessibleFromKotlin public String getNodeId();
+    property public android.net.Uri fullPath;
+    property public String nodeId;
   }
 
   public final class ProtoDataListenerRegistration<T> {
     ctor public ProtoDataListenerRegistration(String path, androidx.datastore.core.Serializer<T> serializer, com.google.android.horologist.data.store.ProtoDataListener<T> listener);
     method public suspend Object? dataAdded(String nodeId, String path, byte[] data, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method public suspend Object? dataDeleted(String nodeId, String path, kotlin.coroutines.Continuation<? super kotlin.Unit>);
-    method public com.google.android.horologist.data.store.ProtoDataListener<T> getListener();
-    method public String getPath();
-    method public androidx.datastore.core.Serializer<T> getSerializer();
-    property public final com.google.android.horologist.data.store.ProtoDataListener<T> listener;
-    property public final String path;
-    property public final androidx.datastore.core.Serializer<T> serializer;
+    method @InaccessibleFromKotlin public com.google.android.horologist.data.store.ProtoDataListener<T> getListener();
+    method @InaccessibleFromKotlin public String getPath();
+    method @InaccessibleFromKotlin public androidx.datastore.core.Serializer<T> getSerializer();
+    property public com.google.android.horologist.data.store.ProtoDataListener<T> listener;
+    property public String path;
+    property public androidx.datastore.core.Serializer<T> serializer;
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class WearLocalDataStore<T> implements androidx.datastore.core.DataStore<T> {
     ctor public WearLocalDataStore(com.google.android.horologist.data.WearDataLayerRegistry wearDataLayerRegistry, optional kotlinx.coroutines.flow.SharingStarted started, kotlinx.coroutines.CoroutineScope coroutineScope, androidx.datastore.core.Serializer<T> serializer, String path);
-    method public kotlinx.coroutines.flow.Flow<T> getData();
-    method public com.google.android.gms.wearable.DataClient getDataClient();
+    method @InaccessibleFromKotlin public kotlinx.coroutines.flow.Flow<T> getData();
+    method @InaccessibleFromKotlin public com.google.android.gms.wearable.DataClient getDataClient();
     method public suspend Object? updateData(kotlin.jvm.functions.Function2<? super T,? super kotlin.coroutines.Continuation<? super T>,? extends java.lang.Object?> transform, kotlin.coroutines.Continuation<? super T>);
     property public kotlinx.coroutines.flow.Flow<T> data;
-    property public final com.google.android.gms.wearable.DataClient dataClient;
+    property public com.google.android.gms.wearable.DataClient dataClient;
   }
 
 }

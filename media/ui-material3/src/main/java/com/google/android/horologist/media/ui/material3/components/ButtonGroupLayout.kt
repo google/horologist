@@ -18,8 +18,7 @@ package com.google.android.horologist.media.ui.material3.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -58,10 +57,8 @@ public fun ButtonGroupLayout(
         Array(BUTTON_GROUP_ITEMS_COUNT) { MutableInteractionSource() }
     },
 ) {
-    val middleSectionHeight = ButtonGroupLayoutDefaults.middleButtonSize
-
     ButtonGroup(
-        modifier = modifier.fillMaxWidth().height(middleSectionHeight),
+        modifier = modifier.fillMaxSize(),
         spacing = 0.dp,
         contentPadding = PaddingValues(0.dp),
         expansionWidth = ButtonGroupLayoutDefaults.ExpansionWidth,

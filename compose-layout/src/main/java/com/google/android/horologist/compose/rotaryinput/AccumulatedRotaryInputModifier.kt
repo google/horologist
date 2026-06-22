@@ -31,9 +31,9 @@ fun accumulatedBehavior(
     eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
     minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
     rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
+    isLowRes: Boolean = isLowResInput(),
     onValueChange: (change: Float) -> Unit,
 ): RotaryScrollableBehavior {
-    val isLowRes = isLowResInput()
     val onValueChangeState = rememberUpdatedState(newValue = onValueChange)
 
     return remember {

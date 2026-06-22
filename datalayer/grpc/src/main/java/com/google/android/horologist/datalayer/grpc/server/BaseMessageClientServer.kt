@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 The Android Open Source Project
+ * Copyright 2023-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,16 @@
 package com.google.android.horologist.datalayer.grpc.server
 
 import com.google.android.horologist.datalayer.grpc.proto.DataLayerGrpc.MessageRequest
+import com.google.android.horologist.datalayer.grpc.proto.DataLayerGrpc.MessageResponse
 import com.google.android.horologist.datalayer.grpc.proto.messageResponse
+import com.google.protobuf.Any
 import com.google.protobuf.GeneratedMessageLite
 import com.google.protobuf.any
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 
-public abstract class BaseMessageClientServer(
-    private val coroutineScope: CoroutineScope,
-) {
+public abstract class BaseMessageClientServer(private val coroutineScope: CoroutineScope) {
     public fun handleIncomingMessage(data: ByteArray): Deferred<ByteArray> {
         val request = MessageRequest.parseFrom(data)
 
@@ -34,10 +34,9 @@ public abstract class BaseMessageClientServer(
             val result = execute(request)
             messageResponse {
                 response = any {
-                    this.value = result.toByteString()
+                    value = result.toByteString()
                 }
-            }
-                .toByteArray()
+            }.toByteArray()
         }
     }
 

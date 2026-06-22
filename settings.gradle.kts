@@ -15,7 +15,7 @@
  */
 
 plugins {
-    id("com.gradle.develocity") version "4.1.1"
+    id("com.gradle.develocity") version "4.4.1"
 }
 
 develocity {
@@ -43,6 +43,7 @@ include(":auth:sample:phone")
 include(":auth:sample:shared")
 include(":auth:sample:wear")
 include(":auth:ui")
+include(":auth:ui-material3")
 include(":compose-layout")
 include(":compose-material")
 include(":compose-tools")

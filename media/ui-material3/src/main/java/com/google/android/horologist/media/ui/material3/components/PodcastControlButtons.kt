@@ -16,22 +16,16 @@
 
 package com.google.android.horologist.media.ui.material3.components
 
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
-import com.google.android.horologist.media.ui.material3.components.animated.AnimatedPlayPauseButton
-import com.google.android.horologist.media.ui.material3.components.animated.AnimatedPlayPauseProgressButton
+import com.google.android.horologist.media.ui.material3.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.material3.components.controls.SeekBackButton
 import com.google.android.horologist.media.ui.material3.components.controls.SeekForwardButton
-import com.google.android.horologist.media.ui.material3.util.BUTTON_GROUP_ITEMS_COUNT
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -123,22 +117,20 @@ public fun PodcastControlButtons(
     seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
     seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
 ) {
-    val interactionSources =
-        remember { Array(BUTTON_GROUP_ITEMS_COUNT) { MutableInteractionSource() } }
-    val buttonPressedStateList = interactionSources.map { it.collectIsPressedAsState() }
-    val isAnyButtonPressed = remember {
-        derivedStateOf { buttonPressedStateList.any { it.value } }
-    }
-
     val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
     val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)
 
-    ButtonGroupLayout(
+    AnimatedMediaControlButtons(
         modifier = modifier,
-        interactionSources = interactionSources,
+        onPlayButtonClick = onPlayButtonClick,
+        onPauseButtonClick = onPauseButtonClick,
+        playPauseButtonEnabled = playPauseButtonEnabled,
+        playing = playing,
+        colorScheme = colorScheme,
+        trackPositionUiModel = trackPositionUiModel,
         leftButton = {
             SeekBackButton(
-                modifier = Modifier
+                modifier = Modifier.weight(1f)
                     .animateWidth(it)
                     .fillMaxSize(),
                 onClick = onSeekBackButtonClick,
@@ -149,40 +141,9 @@ public fun PodcastControlButtons(
                 enabled = seekBackButtonEnabled,
             )
         },
-        middleButton = {
-            if (trackPositionUiModel.showProgress) {
-                AnimatedPlayPauseProgressButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    interactionSource = it,
-                    trackPositionUiModel = trackPositionUiModel,
-                    modifier = Modifier
-                        .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-                        .animateWidth(it)
-                        .fillMaxSize(),
-                    colorScheme = colorScheme,
-                    isAnyButtonPressed = isAnyButtonPressed,
-                )
-            } else {
-                AnimatedPlayPauseButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    colorScheme = colorScheme,
-                    playing = playing,
-                    interactionSource = it,
-                    modifier = Modifier
-                        .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-                        .animateWidth(it)
-                        .fillMaxSize(),
-                )
-            }
-        },
         rightButton = {
             SeekForwardButton(
-                modifier = Modifier
+                modifier = Modifier.weight(1f)
                     .animateWidth(it)
                     .fillMaxSize(),
                 onClick = onSeekForwardButtonClick,

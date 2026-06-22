@@ -57,6 +57,8 @@ fun InstallAppPromptDemoScreen(
     }
 
     val context = LocalContext.current
+    val topMessage = stringResource(R.string.install_app_prompt_demo_prompt_top_message)
+    val bottomMessage = stringResource(R.string.install_app_prompt_demo_prompt_bottom_message)
 
     InstallAppPromptDemoScreen(
         state = state,
@@ -66,8 +68,8 @@ fun InstallAppPromptDemoScreen(
                 context = context,
                 appPackageName = context.packageName,
                 image = R.drawable.watch_app_screenshot,
-                topMessage = context.getString(R.string.install_app_prompt_demo_prompt_top_message),
-                bottomMessage = context.getString(R.string.install_app_prompt_demo_prompt_bottom_message),
+                topMessage = topMessage,
+                bottomMessage = bottomMessage,
             )
         },
         onInstallPromptLaunched = viewModel::onInstallPromptLaunched,

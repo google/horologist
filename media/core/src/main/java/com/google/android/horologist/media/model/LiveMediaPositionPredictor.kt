@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,31 +19,29 @@ package com.google.android.horologist.media.model
 import java.lang.Float.max
 import java.lang.Float.min
 import kotlin.math.roundToLong
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
 
 public data class LiveMediaPositionPredictor(
-    private val eventTimestamp: Long,
-    private val durationMs: Long,
-    private val currentPositionMs: Long,
-    private val positionSpeed: Float,
+  private val eventTimestamp: Long,
+  private val durationMs: Long,
+  private val currentPositionMs: Long,
+  private val positionSpeed: Float,
 ) : PositionPredictor {
-    override fun predictPercent(timestamp: Long): Float {
-        val predictedDuration = predictDuration(timestamp).inWholeMilliseconds.toFloat()
-        val predictedPosition = min(predictedDuration, predictPositionFractional(timestamp))
-        return max(0f, predictedPosition / predictedDuration)
-    }
+  override fun predictPercent(timestamp: Long): Float {
+    val predictedDuration = predictDuration(timestamp).toFloat()
+    val predictedPosition = min(predictedDuration, predictPositionFractional(timestamp))
+    return max(0f, predictedPosition / predictedDuration)
+  }
 
-    override fun predictDuration(timestamp: Long): Duration {
-        val staleness = timestamp - eventTimestamp
-        return (durationMs + staleness).milliseconds
-    }
+  override fun predictDuration(timestamp: Long): Long {
+    val staleness = timestamp - eventTimestamp
+    return durationMs + staleness
+  }
 
-    private fun predictPositionFractional(timestamp: Long): Float {
-        val staleness = timestamp - eventTimestamp
-        return (currentPositionMs + staleness * positionSpeed)
-    }
+  private fun predictPositionFractional(timestamp: Long): Float {
+    val staleness = timestamp - eventTimestamp
+    return (currentPositionMs + staleness * positionSpeed)
+  }
 
-    override fun predictPosition(timestamp: Long): Duration =
-        predictPositionFractional(timestamp).roundToLong().milliseconds
+  override fun predictPosition(timestamp: Long): Long =
+    predictPositionFractional(timestamp).roundToLong()
 }

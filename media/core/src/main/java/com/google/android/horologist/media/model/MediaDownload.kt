@@ -18,34 +18,24 @@ package com.google.android.horologist.media.model
 
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * Representation of a [Media] download.
- */
+/** Representation of a [Media] download. */
 @ExperimentalHorologistApi
-public data class MediaDownload(
-    val media: Media,
-    val status: Status,
-    val size: Size,
-) {
+public data class MediaDownload(val media: Media, val status: Status, val size: Size) {
 
-    /**
-     * Status of the download of a [MediaDownload].
-     */
-    public sealed class Status {
+  /** Status of the download of a [MediaDownload]. */
+  public sealed class Status {
 
-        public object Idle : Status()
+    public object Idle : Status()
 
-        public data class InProgress(val progress: Float) : Status()
+    public data class InProgress(val progress: Float) : Status()
 
-        public object Completed : Status()
-    }
+    public object Completed : Status()
+  }
 
-    /**
-     * Size of the download of a [MediaDownload].
-     */
-    public sealed class Size {
-        public object Unknown : Size()
+  /** Size of the download of a [MediaDownload]. */
+  public sealed class Size {
+    public object Unknown : Size()
 
-        public data class Known(val sizeInBytes: Long) : Size()
-    }
+    public data class Known(val sizeInBytes: Long) : Size()
+  }
 }

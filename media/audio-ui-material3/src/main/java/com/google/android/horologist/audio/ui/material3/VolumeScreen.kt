@@ -267,7 +267,7 @@ public fun VolumeWithAudioOutputAsLabel(
 }
 
 @Composable
-internal fun VolumeScreen(
+public fun VolumeScreen(
     volume: () -> VolumeUiState,
     increaseVolume: () -> Unit,
     decreaseVolume: () -> Unit,
@@ -289,6 +289,9 @@ internal fun VolumeScreen(
 
     Box(modifier = Modifier.fillMaxSize()) {
         val currentValue = volumeState.current.toFloat()
+        if (showVolumeIndicator) {
+            VolumeLevelIndicator(volumeUiState = volume, colorScheme = colorScheme)
+        }
         Stepper(
             modifier =
                 modifier.semantics {
@@ -307,14 +310,11 @@ internal fun VolumeScreen(
                     buttonIconColor = colorScheme.primary,
                     disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
                     disabledButtonContainerColor =
-                        colorScheme.onSurface.toDisabledColor(DisabledVolumeAlpha),
+                        colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
                     disabledButtonIconColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
                 ),
         ) {
             content()
-        }
-        if (showVolumeIndicator) {
-            VolumeLevelIndicator(volumeUiState = volume, colorScheme = colorScheme)
         }
     }
 }

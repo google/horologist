@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,8 @@ import com.google.android.horologist.mediasample.data.service.offload.AudioOfflo
 import com.google.android.horologist.mediasample.data.service.offload.AudioOffloadStatus
 import com.google.android.horologist.mediasample.ui.AppConfig
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import javax.inject.Provider
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -37,65 +39,63 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
-import javax.inject.Provider
 
 @HiltViewModel
 class AudioDebugScreenViewModel
-    @Inject
-    constructor(
-        private val audioOffloadManager: Provider<AudioOffloadManager>,
-        private val appConfig: AppConfig,
-        playerRepository: PlayerRepository,
-        private val mediaController: Deferred<MediaBrowser>,
-    ) : ViewModel() {
-        val mediaControllerFlow = flow {
-            emit(null)
-            emit(mediaController.await())
-        }
-
-        fun audioOffloadFlow(): Flow<AudioOffloadStatus> = if (appConfig.offloadEnabled) {
-            audioOffloadManager.get().offloadStatus
-        } else {
-            flowOf(AudioOffloadStatus.Disabled)
-        }
-
-        val uiState: StateFlow<UiState?> = combine(
-            audioOffloadFlow(),
-            playerRepository.currentMedia,
-            mediaControllerFlow,
-        ) { audioOffloadStatus, currentMedia, mediaController ->
-
-            UiState(
-                currentTrack = currentMedia?.title,
-                audioOffloadStatus = audioOffloadStatus,
-                formatSupported = isFormatSupported(mediaController, audioOffloadStatus.format),
-            )
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = null,
-        )
-
-        public fun isFormatSupported(mediaController: MediaController?, format: Format?): Boolean? {
-            val audioFormat = format?.toAudioFormat() ?: return null
-
-            if (mediaController == null) {
-                return null
-            }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                val audioAttributes = mediaController.audioAttributes.audioAttributesV21.audioAttributes
-                return AudioManager.isOffloadedPlaybackSupported(audioFormat, audioAttributes)
-            }
-
-            // Not supported before 30
-            return false
-        }
-
-        data class UiState(
-            val currentTrack: String?,
-            val audioOffloadStatus: AudioOffloadStatus,
-            val formatSupported: Boolean?,
-        )
+@Inject
+constructor(
+    private val audioOffloadManager: Provider<AudioOffloadManager>,
+    private val appConfig: AppConfig,
+    playerRepository: PlayerRepository,
+    private val mediaController: Deferred<MediaBrowser>,
+) : ViewModel() {
+    val mediaControllerFlow = flow {
+        emit(null)
+        emit(mediaController.await())
     }
+
+    fun audioOffloadFlow(): Flow<AudioOffloadStatus> = if (appConfig.offloadEnabled) {
+        audioOffloadManager.get().offloadStatus
+    } else {
+        flowOf(AudioOffloadStatus.Disabled)
+    }
+
+    val uiState: StateFlow<UiState?> = combine(
+        audioOffloadFlow(),
+        playerRepository.currentMedia,
+        mediaControllerFlow,
+    ) { audioOffloadStatus, currentMedia, mediaController ->
+
+        UiState(
+            currentTrack = currentMedia?.title,
+            audioOffloadStatus = audioOffloadStatus,
+            formatSupported = isFormatSupported(mediaController, audioOffloadStatus.format),
+        )
+    }.stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = null,
+    )
+
+    public fun isFormatSupported(mediaController: MediaController?, format: Format?): Boolean? {
+        val audioFormat = format?.toAudioFormat() ?: return null
+
+        if (mediaController == null) {
+            return null
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val audioAttributes = mediaController.audioAttributes.platformAudioAttributes
+            return AudioManager.isOffloadedPlaybackSupported(audioFormat, audioAttributes)
+        }
+
+        // Not supported before 30
+        return false
+    }
+
+    data class UiState(
+        val currentTrack: String?,
+        val audioOffloadStatus: AudioOffloadStatus,
+        val formatSupported: Boolean?,
+    )
+}

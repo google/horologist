@@ -2,33 +2,33 @@
 package com.google.android.horologist.images.base.paintable {
 
   @kotlin.jvm.JvmInline public final value class BitmapPaintable implements com.google.android.horologist.images.base.paintable.Paintable {
-    ctor public BitmapPaintable(androidx.compose.ui.graphics.ImageBitmap bitmap);
-    method @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
+    ctor @KotlinOnly public BitmapPaintable(androidx.compose.ui.graphics.ImageBitmap bitmap);
+    method @KotlinOnly @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
     field public static final com.google.android.horologist.images.base.paintable.BitmapPaintable.Companion Companion;
   }
 
   public static final class BitmapPaintable.Companion {
-    method public androidx.compose.ui.graphics.ImageBitmap asPaintable(android.graphics.Bitmap);
-    method public androidx.compose.ui.graphics.ImageBitmap asPaintable(androidx.compose.ui.graphics.ImageBitmap);
+    method @KotlinOnly public com.google.android.horologist.images.base.paintable.BitmapPaintable asPaintable(android.graphics.Bitmap);
+    method @KotlinOnly public com.google.android.horologist.images.base.paintable.BitmapPaintable asPaintable(androidx.compose.ui.graphics.ImageBitmap);
   }
 
   @kotlin.jvm.JvmInline public final value class DrawableResPaintable implements com.google.android.horologist.images.base.paintable.PaintableIcon {
-    ctor public DrawableResPaintable(@DrawableRes int id);
-    method @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
+    ctor @KotlinOnly public DrawableResPaintable(@DrawableRes int id);
+    method @KotlinOnly @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
   }
 
   @kotlin.jvm.JvmInline public final value class ImageVectorPaintable implements com.google.android.horologist.images.base.paintable.PaintableIcon {
-    ctor public ImageVectorPaintable(androidx.compose.ui.graphics.vector.ImageVector imageVector);
-    method @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
+    ctor @KotlinOnly public ImageVectorPaintable(androidx.compose.ui.graphics.vector.ImageVector imageVector);
+    method @KotlinOnly @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
     field public static final com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion Companion;
   }
 
   public static final class ImageVectorPaintable.Companion {
-    method public androidx.compose.ui.graphics.vector.ImageVector asPaintable(androidx.compose.ui.graphics.vector.ImageVector);
+    method @KotlinOnly public com.google.android.horologist.images.base.paintable.ImageVectorPaintable asPaintable(androidx.compose.ui.graphics.vector.ImageVector);
   }
 
   @androidx.compose.runtime.Stable public interface Paintable {
-    method @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
+    method @KotlinOnly @androidx.compose.runtime.Composable public androidx.compose.ui.graphics.painter.Painter rememberPainter();
   }
 
   @androidx.compose.runtime.Stable public interface PaintableIcon extends com.google.android.horologist.images.base.paintable.Paintable {
@@ -39,7 +39,7 @@ package com.google.android.horologist.images.base.paintable {
 package com.google.android.horologist.images.base.util {
 
   public final class RememberVectorPainterKt {
-    method @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.graphics.vector.VectorPainter rememberVectorPainter(androidx.compose.ui.graphics.vector.ImageVector image, long tintColor, optional int tintBlendMode);
+    method @KotlinOnly @androidx.compose.runtime.Composable @com.google.android.horologist.annotations.ExperimentalHorologistApi public static androidx.compose.ui.graphics.vector.VectorPainter rememberVectorPainter(androidx.compose.ui.graphics.vector.ImageVector image, androidx.compose.ui.graphics.Color tintColor, optional androidx.compose.ui.graphics.BlendMode tintBlendMode);
   }
 
 }

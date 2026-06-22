@@ -165,6 +165,7 @@ public fun PlayPauseProgressButton(
  */
 internal object PlayPauseButtonDefaults {
 
+    /** Creates a RoundedRectangle with given width and height. */
     fun pillPolygon(width: Float, height: Float) = RoundedPolygon(
         vertices = floatArrayOf(
             0f, -height / 2f,
@@ -181,7 +182,11 @@ internal object PlayPauseButtonDefaults {
         centerY = 0f,
     )
 
-    fun indicatorScallopPolygon(density: Density, size: Dp): RoundedPolygon {
+    /**
+     * Creates a 10-vertex star shape (scallop) having rounded corners with given size. This will be
+     * used for the outer shape in [AnimatedPlayPauseProgressButton].
+     */
+    fun outerScallopPolygon(density: Density, size: Dp): RoundedPolygon {
         with(density) {
             val cornerRadius = 12.dp.toPx()
             return RoundedPolygon.pillStar(
@@ -194,7 +199,11 @@ internal object PlayPauseButtonDefaults {
         }
     }
 
-    fun buttonScallopPolygon(density: Density, size: Dp): RoundedPolygon {
+    /**
+     * Creates a 10-vertex star shape (scallop) having rounded corners with given size. This will be
+     * used for the inner shape in [AnimatedPlayPauseProgressButton].
+     */
+    fun innerScallopPolygon(density: Density, size: Dp): RoundedPolygon {
         with(density) {
             val cornerRadius = 8.dp.toPx()
             return RoundedPolygon.pillStar(

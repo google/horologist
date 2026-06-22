@@ -138,7 +138,6 @@
     <string name="install_tile_prompt_run_demo_button_label">Run demo</string>
     <string name="install_tile_prompt_demo_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
     <string name="install_tile_prompt_demo_prompt_bottom_message">Install tile on your Wear OS watch.</string>
-    <string name="install_tile_prompt_demo_result_label">Result: %1$s</string>
     <string name="install_tile_prompt_demo_no_watches_found_label">No watches meeting the required conditions were found.</string>
     <string name="install_tile_prompt_demo_prompt_positive_result_label">User tapped on the positive button on the prompt.</string>
     <string name="install_tile_prompt_demo_prompt_dismiss_result_label">User dismissed the prompt.</string>
@@ -149,7 +148,6 @@
     <string name="install_tile_custom_prompt_demo_prompt_top_message">Test the interactions between the phone and the watch with the demo app.</string>
     <string name="install_tile_custom_prompt_demo_prompt_bottom_message">Install tile on your Wear OS watch.</string>
     <string name="install_tile_custom_prompt_demo_prompt_confirm_button_label">Install tile on watch</string>
-    <string name="install_tile_custom_prompt_demo_prompt_dismiss_button_label">Not now</string>
     <string name="install_tile_custom_prompt_demo_result_label">Result: %1$s</string>
     <string name="install_tile_custom_prompt_demo_no_watches_found_label">No watches meeting the required conditions were found.</string>
     <string name="install_tile_custom_prompt_demo_prompt_install_result_label">User tapped install tile on the prompt.</string>
@@ -157,8 +155,6 @@
 
 
     <!-- Counter screen -->
-    <string name="app_helper_counter_label">Counter: %1$s</string>
-    <string name="app_helper_counter_increase_btn_content_description">Increase counter</string>
     <string name="app_helper_counter_message">Value: %1$s </string>
     <string name="app_helper_counter_increase_explanation">Open the datalayer sample on your watch to observe how the counter number is incremented.</string>
 

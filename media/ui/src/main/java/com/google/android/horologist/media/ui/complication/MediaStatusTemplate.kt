@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2022-2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,81 +34,79 @@ import com.google.android.horologist.tiles.complication.DataTemplates.shortText
 import com.google.android.horologist.tiles.complication.DataTemplates.smallImage
 import com.google.android.horologist.tiles.complication.TypedComplicationTemplate
 
-public class MediaStatusTemplate(
-    context: Context,
-) :
+public class MediaStatusTemplate(context: Context) :
     TypedComplicationTemplate<MediaStatusTemplate.Data>(context) {
 
-        public data class Data(
-            @DrawableRes public val appIconRes: Int? = null,
-            public val icon: Icon? = null,
-            public val type: SmallImageType,
-            public val title: String?,
-            public val text: String,
-            public val launchIntent: PendingIntent?,
-            public val contentDescription: ComplicationText? = null,
+    public data class Data(
+        @param:DrawableRes public val appIconRes: Int? = null,
+        public val icon: Icon? = null,
+        public val type: SmallImageType,
+        public val title: String?,
+        public val text: String,
+        public val launchIntent: PendingIntent?,
+        public val contentDescription: ComplicationText? = null,
+    )
+
+    override fun previewData(): Data = Data(
+        title = context.getString(
+            com.google.android.horologist.media.ui.model.R.string.horologist_preview_app_name,
+        ),
+        text = context.getString(
+            com.google.android.horologist.media.ui.model.R.string.horologist_preview_favorites,
+        ),
+        appIconRes = R.drawable.ic_baseline_queue_music_24,
+        type = SmallImageType.ICON,
+        launchIntent = null,
+    )
+
+    override fun supportedTypes(): List<ComplicationType> = listOf(
+        ComplicationType.SMALL_IMAGE,
+        ComplicationType.SHORT_TEXT,
+        ComplicationType.LONG_TEXT,
+        ComplicationType.PHOTO_IMAGE,
+    )
+
+    override fun renderShortText(data: Data): ShortTextComplicationData = shortText(
+        title = data.title,
+        text = data.text,
+        icon = data.appIconRes,
+        launchIntent = data.launchIntent,
+        contentDescription = data.contentDescription,
+    )
+
+    override fun renderSmallImage(data: Data): SmallImageComplicationData? {
+        if (data.icon == null) {
+            return null
+        }
+
+        return smallImage(
+            icon = data.icon,
+            type = data.type,
+            name = data.text,
+            launchIntent = data.launchIntent,
+            contentDescription = data.contentDescription,
         )
-
-        override fun previewData(): Data = Data(
-            title = context.getString(com.google.android.horologist.media.ui.model.R.string.horologist_preview_app_name),
-            text = context.getString(com.google.android.horologist.media.ui.model.R.string.horologist_preview_favorites),
-            appIconRes = R.drawable.ic_baseline_queue_music_24,
-            type = SmallImageType.ICON,
-            launchIntent = null,
-        )
-
-        override fun supportedTypes(): List<ComplicationType> =
-            listOf(
-                ComplicationType.SMALL_IMAGE,
-                ComplicationType.SHORT_TEXT,
-                ComplicationType.LONG_TEXT,
-                ComplicationType.PHOTO_IMAGE,
-            )
-
-        override fun renderShortText(data: Data): ShortTextComplicationData =
-            shortText(
-                title = data.title,
-                text = data.text,
-                icon = data.appIconRes,
-                launchIntent = data.launchIntent,
-                contentDescription = data.contentDescription,
-            )
-
-        override fun renderSmallImage(data: Data): SmallImageComplicationData? {
-            if (data.icon == null) {
-                return null
-            }
-
-            return smallImage(
-                icon = data.icon,
-                type = data.type,
-                name = data.text,
-                launchIntent = data.launchIntent,
-                contentDescription = data.contentDescription,
-            )
-        }
-
-        override fun renderLongText(data: Data): LongTextComplicationData {
-            return longText(
-                icon = data.icon,
-                type = data.type,
-                title = data.title,
-                text = data.text,
-                launchIntent = data.launchIntent,
-                contentDescription = data.contentDescription,
-            )
-        }
-
-        override fun renderPhotoImage(data: Data): PhotoImageComplicationData? {
-            if (data.icon == null) {
-                return null
-            }
-
-            return photoImage(
-                photoImage = data.icon,
-                name = data.text,
-                launchIntent = data.launchIntent,
-                contentDescription = data.contentDescription,
-            )
-        }
     }
+
+    override fun renderLongText(data: Data): LongTextComplicationData = longText(
+        icon = data.icon,
+        type = data.type,
+        title = data.title,
+        text = data.text,
+        launchIntent = data.launchIntent,
+        contentDescription = data.contentDescription,
+    )
+
+    override fun renderPhotoImage(data: Data): PhotoImageComplicationData? {
+        if (data.icon == null) {
+            return null
+        }
+
+        return photoImage(
+            photoImage = data.icon,
+            name = data.text,
+            launchIntent = data.launchIntent,
+            contentDescription = data.contentDescription,
+        )
+    }
+}

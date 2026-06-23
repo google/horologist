@@ -39,20 +39,33 @@ android {
 
   testOptions { unitTests { isIncludeAndroidResources = true } }
 
-  sourceSets.getByName("test") {
-    java.srcDir("src/sharedTest/kotlin")
-    res.srcDir("src/sharedTest/res")
-  }
-  sourceSets.getByName("androidTest") {
-    java.srcDir("src/sharedTest/kotlin")
-    res.srcDir("src/sharedTest/res")
-  }
   lint {
     checkReleaseBuilds = false
     textReport = true
   }
   namespace = "com.google.android.horologist.audio"
 }
+
+// Configured outside the `android { }` block to use the public-DSL
+// LibraryExtension type, whose AndroidSourceSet implementation is
+// compatible with AGP 9.2+.
+project.extensions
+  .getByType(com.android.build.api.dsl.LibraryExtension::class.java)
+  .sourceSets
+  .named("test")
+  .configure {
+    java.srcDir("src/sharedTest/kotlin")
+    res.srcDir("src/sharedTest/res")
+  }
+
+project.extensions
+  .getByType(com.android.build.api.dsl.LibraryExtension::class.java)
+  .sourceSets
+  .named("androidTest")
+  .configure {
+    java.srcDir("src/sharedTest/kotlin")
+    res.srcDir("src/sharedTest/res")
+  }
 
 project.tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
   // Workaround for https://youtrack.jetbrains.com/issue/KT-37652

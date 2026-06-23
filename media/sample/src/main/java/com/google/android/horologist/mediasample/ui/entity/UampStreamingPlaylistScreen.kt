@@ -19,7 +19,7 @@ package com.google.android.horologist.mediasample.ui.entity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.google.android.horologist.media.ui.screens.entity.PlaylistStreamingScreen
+import com.google.android.horologist.media.ui.material3.screens.entity.PlaylistStreamingScreen
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 

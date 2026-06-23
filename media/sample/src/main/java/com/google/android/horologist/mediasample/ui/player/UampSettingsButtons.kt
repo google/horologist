@@ -17,15 +17,23 @@
 package com.google.android.horologist.mediasample.ui.player
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalWindowInfo
+import androidx.compose.ui.unit.dp
+import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
-import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
-import com.google.android.horologist.audio.ui.components.actions.SetAudioOutputButton
-import com.google.android.horologist.logo.R
+import com.google.android.horologist.audio.ui.material3.components.actions.VolumeButtonWithBadge
+import com.google.android.horologist.audio.ui.material3.components.toAudioOutputUi
+import kotlin.math.ceil
 
 /**
  * Settings buttons for the UAMP media app.
@@ -39,22 +47,35 @@ public fun UampSettingsButtons(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
+    val configuration = LocalConfiguration.current
+    val windowInfo = LocalWindowInfo.current
+
+    val horizontalPadding = remember(windowInfo.containerSize) {
+      (windowInfo.containerSize.width / 10f).dp
+    }
+    val bottomPadding = remember(windowInfo.containerSize) {
+      (windowInfo.containerSize.height / 10f).dp
+    }
+
     Row(
-        modifier = modifier,
+        modifier = modifier
+            .padding(horizontal = horizontalPadding)
+            .padding(bottom = bottomPadding),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
-        FavoriteButton()
+        Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+            VolumeButtonWithBadge(
+                onOutputClick = onVolumeClick,
+                audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name")
+                    .toAudioOutputUi(),
+                volumeUiState = volumeUiState,
+                enabled = enabled,
+            )
+        }
 
-        SettingsButtonsDefaults.BrandIcon(
-            iconId = R.drawable.ic_stat_horologist,
-            enabled = enabled,
-        )
-
-        SetAudioOutputButton(
-            onVolumeClick = onVolumeClick,
-            volumeUiState = volumeUiState,
-            audioOutputUi = audioOutputUi,
-        )
+        Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+            FavoriteButton()
+        }
     }
 }

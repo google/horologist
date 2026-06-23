@@ -37,13 +37,13 @@ if (localFile.exists()) {
 }
 
 android {
-  compileSdk = 36
+  compileSdk = 37
 
   defaultConfig {
     applicationId = "com.google.android.horologist.mediasample"
     // Min because of Tiles
     minSdk = 26
-    targetSdk = 34
+    targetSdk = 37
 
     versionCode = 1
     versionName = "1.0"
@@ -106,7 +106,7 @@ android {
 
 protobuf {
   protoc { artifact = libs.protobuf.protoc.stnd.get().toString() }
-  plugins { create("javalite") { artifact = libs.protobuf.protoc.gen.javalite.get().toString() } }
+
   generateProtoTasks {
     all().forEach { task ->
       task.builtins {
@@ -121,6 +121,7 @@ dependencies {
   api(projects.annotations)
 
   implementation(projects.media.audio)
+  implementation(projects.media.audioUiMaterial3)
   implementation(projects.media.audioUi)
   implementation(projects.composables)
   implementation(projects.composeLayout)
@@ -130,6 +131,7 @@ dependencies {
   implementation(projects.media.backendMedia3)
   implementation(projects.media.data)
   implementation(projects.media.sync)
+  implementation(projects.media.uiMaterial3)
   implementation(projects.media.ui)
   implementation(projects.networkAwareness.core)
   implementation(projects.networkAwareness.ui)
@@ -151,6 +153,9 @@ dependencies {
   implementation(libs.wearcompose.material)
   implementation(libs.wearcompose.foundation)
   implementation(libs.wearcompose.navigation)
+  implementation(libs.wearcompose.navigation3)
+  implementation(libs.navigation3.runtime)
+  implementation(libs.navigation3.ui)
 
   implementation(libs.androidx.corektx)
   implementation(libs.androidx.lifecycle.runtime)

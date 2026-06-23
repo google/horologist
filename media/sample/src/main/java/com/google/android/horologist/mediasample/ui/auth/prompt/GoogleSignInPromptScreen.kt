@@ -25,19 +25,20 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.navigation.NavHostController
+import androidx.navigation3.runtime.NavBackStack
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.auth.composables.chips.GuestModeChip
 import com.google.android.horologist.auth.composables.chips.SignInChip
 import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptScreen
 import com.google.android.horologist.compose.material.Confirmation
+import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignInScreen
+import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen
 
 @Composable
 fun GoogleSignInPromptScreen(
-    navController: NavHostController,
+    backStack: NavBackStack<CustomRoute>,
     modifier: Modifier = Modifier,
     viewModel: UampSignInPromptViewModel,
 ) {
@@ -54,7 +55,7 @@ fun GoogleSignInPromptScreen(
         item {
             SignInChip(
                 onClick = {
-                    navController.navigate(GoogleSignInScreen)
+                    backStack.add(CustomRoute(UampNavigationScreen.GoogleSignInScreen.navRoute))
                 },
                 colors = ChipDefaults.secondaryChipColors(),
             )
@@ -63,7 +64,7 @@ fun GoogleSignInPromptScreen(
             GuestModeChip(
                 onClick = {
                     viewModel.selectGuestMode()
-                    navController.popBackStack()
+                    backStack.removeLastOrNull()
                 },
                 colors = ChipDefaults.secondaryChipColors(),
             )
@@ -74,7 +75,7 @@ fun GoogleSignInPromptScreen(
         Confirmation(
             onTimeout = {
                 showAlreadySignedInDialog = false
-                navController.popBackStack()
+                backStack.removeLastOrNull()
             },
         ) {
             Text(

@@ -87,6 +87,10 @@ dependencies {
   implementation(projects.images.coil)
   implementation(projects.tiles)
   api(libs.wearcompose.navigation)
+  api(libs.wearcompose.navigation3)
+  api(libs.navigation3.runtime)
+  api(libs.navigation3.ui)
+
   implementation(libs.kotlinx.serialization.core)
 
   implementation(libs.kotlin.stdlib)

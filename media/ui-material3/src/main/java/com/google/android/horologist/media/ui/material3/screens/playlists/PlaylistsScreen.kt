@@ -116,6 +116,7 @@ public fun PlaylistsScreen(
 ) {
     val playlistContent: @Composable (playlist: PlaylistUiModel) -> Unit = { playlist ->
         FilledTonalButton(
+            modifier = modifier.fillMaxWidth(),
             label = { Text(playlist.title) },
             onClick = { onPlaylistItemClick(playlist) },
             icon = {

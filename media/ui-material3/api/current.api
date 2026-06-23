@@ -385,19 +385,69 @@ package com.google.android.horologist.media.ui.material3.composables {
 
 package com.google.android.horologist.media.ui.material3.navigation {
 
+  @kotlinx.serialization.Serializable public final class CollectionRoute implements com.google.android.horologist.media.ui.material3.navigation.MediaRoute {
+    ctor public CollectionRoute(String id, String name);
+    method public String component1();
+    method public String component2();
+    method public com.google.android.horologist.media.ui.material3.navigation.CollectionRoute copy(optional String id, optional String name);
+    method @InaccessibleFromKotlin public String getId();
+    method @InaccessibleFromKotlin public String getName();
+    property public String id;
+    property public String name;
+  }
+
+  @kotlinx.serialization.Serializable public final class CollectionsRoute implements com.google.android.horologist.media.ui.material3.navigation.MediaRoute {
+    field public static final com.google.android.horologist.media.ui.material3.navigation.CollectionsRoute INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable public final class CustomRoute implements com.google.android.horologist.media.ui.material3.navigation.MediaRoute {
+    ctor public CustomRoute(String route);
+    method public String component1();
+    method public com.google.android.horologist.media.ui.material3.navigation.CustomRoute copy(optional String route);
+    method @InaccessibleFromKotlin public String getRoute();
+    property public String route;
+  }
+
+  public final class DeepLinkRequest {
+    method public String? getQueryParameter(String key);
+    field public static final com.google.android.horologist.media.ui.material3.navigation.DeepLinkRequest.Companion Companion;
+  }
+
+  public static final class DeepLinkRequest.Companion {
+    method public com.google.android.horologist.media.ui.material3.navigation.DeepLinkRequest fromUriString(String uriString);
+  }
+
+  @kotlinx.serialization.Serializable public final class LoginRoute implements com.google.android.horologist.media.ui.material3.navigation.MediaRoute {
+    field public static final com.google.android.horologist.media.ui.material3.navigation.LoginRoute INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable public final class MediaItemRoute implements com.google.android.horologist.media.ui.material3.navigation.MediaRoute {
+    ctor public MediaItemRoute(String id, optional String? collectionId);
+    method public String component1();
+    method public String? component2();
+    method public com.google.android.horologist.media.ui.material3.navigation.MediaItemRoute copy(optional String id, optional String? collectionId);
+    method @InaccessibleFromKotlin public String? getCollectionId();
+    method @InaccessibleFromKotlin public String getId();
+    property public String? collectionId;
+    property public String id;
+  }
+
   public final class MediaNavController {
-    method public void navigateToCollection(androidx.navigation.NavController, String collectionId, String collectionName);
-    method public void navigateToCollections(androidx.navigation.NavController);
-    method public void navigateToLibrary(androidx.navigation.NavController);
-    method public void navigateToMediaItem(androidx.navigation.NavController, String mediaItemId, String? collectionId);
-    method public void navigateToPlayer(androidx.navigation.NavController);
-    method public void navigateToSettings(androidx.navigation.NavController);
-    method public void navigateToVolume(androidx.navigation.NavController);
+    method public <T extends com.google.android.horologist.media.ui.material3.navigation.MediaRoute> void navigateToCollection(androidx.navigation3.runtime.NavBackStack<T>, String collectionId, String collectionName);
+    method public <T extends com.google.android.horologist.media.ui.material3.navigation.MediaRoute> void navigateToCollections(androidx.navigation3.runtime.NavBackStack<T>);
+    method public <T extends com.google.android.horologist.media.ui.material3.navigation.MediaRoute> void navigateToLibrary(androidx.navigation3.runtime.NavBackStack<T>);
+    method public <T extends com.google.android.horologist.media.ui.material3.navigation.MediaRoute> void navigateToMediaItem(androidx.navigation3.runtime.NavBackStack<T>, String mediaItemId, String? collectionId);
+    method public <T extends com.google.android.horologist.media.ui.material3.navigation.MediaRoute> void navigateToPlayer(androidx.navigation3.runtime.NavBackStack<T>);
+    method public <T extends com.google.android.horologist.media.ui.material3.navigation.MediaRoute> void navigateToSettings(androidx.navigation3.runtime.NavBackStack<T>);
+    method public <T extends com.google.android.horologist.media.ui.material3.navigation.MediaRoute> void navigateToVolume(androidx.navigation3.runtime.NavBackStack<T>);
     field public static final com.google.android.horologist.media.ui.material3.navigation.MediaNavController INSTANCE;
   }
 
   public final class MediaPlayerScaffoldKt {
-    method @KotlinOnly @androidx.compose.runtime.Composable public static void MediaPlayerScaffold(com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, kotlin.jvm.functions.Function0<kotlin.Unit> playerScreen, kotlin.jvm.functions.Function0<kotlin.Unit> libraryScreen, kotlin.jvm.functions.Function2<java.lang.String,java.lang.String,kotlin.Unit> categoryEntityScreen, kotlin.jvm.functions.Function0<kotlin.Unit> mediaEntityScreen, kotlin.jvm.functions.Function0<kotlin.Unit> playlistsScreen, kotlin.jvm.functions.Function0<kotlin.Unit> settingsScreen, String deepLinkPrefix, androidx.navigation.NavHostController navController, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> volumeScreen, optional kotlin.jvm.functions.Function0<kotlin.Unit> timeText, optional androidx.wear.compose.navigation.SwipeDismissableNavHostState navHostState, optional kotlin.jvm.functions.Function1<androidx.navigation.NavGraphBuilder,kotlin.Unit> additionalNavRoutes);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void MediaPlayerScaffold(com.google.android.horologist.audio.ui.VolumeViewModel volumeViewModel, kotlin.jvm.functions.Function0<kotlin.Unit> playerScreen, kotlin.jvm.functions.Function0<kotlin.Unit> libraryScreen, kotlin.jvm.functions.Function2<java.lang.String,java.lang.String,kotlin.Unit> categoryEntityScreen, kotlin.jvm.functions.Function0<kotlin.Unit> mediaEntityScreen, kotlin.jvm.functions.Function0<kotlin.Unit> playlistsScreen, kotlin.jvm.functions.Function0<kotlin.Unit> settingsScreen, String deepLinkPrefix, androidx.navigation3.runtime.NavBackStack<com.google.android.horologist.media.ui.material3.navigation.MediaRoute> backStack, optional androidx.compose.ui.Modifier modifier, optional kotlin.jvm.functions.Function0<kotlin.Unit> volumeScreen, optional kotlin.jvm.functions.Function0<kotlin.Unit> timeText, optional kotlin.jvm.functions.Function1<androidx.navigation3.runtime.EntryProviderScope<com.google.android.horologist.media.ui.material3.navigation.MediaRoute>,kotlin.Unit> additionalEntries);
+  }
+
+  public sealed exhaustive interface MediaRoute extends androidx.navigation3.runtime.NavKey {
   }
 
   public class NavigationScreens {
@@ -441,7 +491,7 @@ package com.google.android.horologist.media.ui.material3.navigation {
 
   public static final class NavigationScreens.Player extends com.google.android.horologist.media.ui.material3.navigation.NavigationScreens {
     method @InaccessibleFromKotlin public String getPage();
-    method public Integer? getPageParam(androidx.navigation.NavBackStackEntry backStack);
+    method public Integer? getPageParam(String route);
     method public String libraryDestination();
     method public String playerDestination();
     property public java.util.List<androidx.navigation.NamedNavArgument> arguments;
@@ -457,6 +507,23 @@ package com.google.android.horologist.media.ui.material3.navigation {
   public static final class NavigationScreens.Volume extends com.google.android.horologist.media.ui.material3.navigation.NavigationScreens {
     method public String destination();
     field public static final com.google.android.horologist.media.ui.material3.navigation.NavigationScreens.Volume INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable public final class PlayerRoute implements com.google.android.horologist.media.ui.material3.navigation.MediaRoute {
+    ctor public PlayerRoute();
+    ctor public PlayerRoute(optional int page);
+    method public int component1();
+    method public com.google.android.horologist.media.ui.material3.navigation.PlayerRoute copy(optional int page);
+    method @InaccessibleFromKotlin public int getPage();
+    property public int page;
+  }
+
+  @kotlinx.serialization.Serializable public final class SettingsRoute implements com.google.android.horologist.media.ui.material3.navigation.MediaRoute {
+    field public static final com.google.android.horologist.media.ui.material3.navigation.SettingsRoute INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable public final class VolumeRoute implements com.google.android.horologist.media.ui.material3.navigation.MediaRoute {
+    field public static final com.google.android.horologist.media.ui.material3.navigation.VolumeRoute INSTANCE;
   }
 
 }
@@ -631,7 +698,7 @@ package com.google.android.horologist.media.ui.material3.screens.player {
 package com.google.android.horologist.media.ui.material3.screens.playerlibrarypager {
 
   public final class PlayerLibraryPagerScreenKt {
-    method @KotlinOnly @androidx.compose.runtime.Composable public static void PlayerLibraryPagerScreen(androidx.wear.compose.foundation.pager.PagerState pagerState, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState, kotlinx.coroutines.flow.Flow<kotlin.Unit> displayVolumeIndicatorEvents, kotlin.jvm.functions.Function0<kotlin.Unit> playerScreen, kotlin.jvm.functions.Function0<kotlin.Unit> libraryScreen, androidx.navigation.NavBackStackEntry backStack, optional androidx.compose.ui.Modifier modifier);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void PlayerLibraryPagerScreen(androidx.wear.compose.foundation.pager.PagerState pagerState, kotlin.jvm.functions.Function0<com.google.android.horologist.audio.ui.VolumeUiState> volumeUiState, kotlinx.coroutines.flow.Flow<kotlin.Unit> displayVolumeIndicatorEvents, kotlin.jvm.functions.Function0<kotlin.Unit> playerScreen, kotlin.jvm.functions.Function0<kotlin.Unit> libraryScreen, Integer? page, optional androidx.compose.ui.Modifier modifier);
   }
 
 }

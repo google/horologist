@@ -49,6 +49,7 @@ package com.google.android.horologist.screenshots.rng {
     method @InaccessibleFromKotlin public com.google.android.horologist.screenshots.rng.WearDevice getSamsungGalaxyWatch5();
     method @InaccessibleFromKotlin public com.google.android.horologist.screenshots.rng.WearDevice getSamsungGalaxyWatch6();
     method @InaccessibleFromKotlin public com.google.android.horologist.screenshots.rng.WearDevice getSamsungGalaxyWatch6SmallFont();
+    method public java.util.List<com.google.android.horologist.screenshots.rng.WearDevice> triad();
     property public com.google.android.horologist.screenshots.rng.WearDevice GenericLargeRound;
     property public com.google.android.horologist.screenshots.rng.WearDevice GenericSmallRound;
     property public com.google.android.horologist.screenshots.rng.WearDevice GooglePixelWatch;
@@ -147,6 +148,19 @@ package com.google.android.horologist.screenshots.rng {
     method @KotlinOnly @androidx.compose.runtime.Composable public void CorrectLayout(kotlin.jvm.functions.Function0<kotlin.Unit> content);
     method public void useHardwareRenderer();
     method @KotlinOnly @androidx.compose.runtime.Composable public void withImageLoader(coil.test.FakeImageLoaderEngine? imageLoaderEngine, kotlin.jvm.functions.Function0<kotlin.Unit> content);
+  }
+
+  @org.junit.runner.RunWith(ParameterizedRobolectricTestRunner::class) public abstract class WearTriadScreenshotTest extends com.google.android.horologist.screenshots.rng.WearScreenshotTest {
+    ctor public WearTriadScreenshotTest(com.google.android.horologist.screenshots.rng.WearDevice device);
+    method @org.robolectric.ParameterizedRobolectricTestRunner.Parameters public static final java.util.List<com.google.android.horologist.screenshots.rng.WearDevice> devices();
+    method public final void runTest(kotlin.jvm.functions.Function0<kotlin.Unit> content);
+    property public com.google.android.horologist.screenshots.rng.WearDevice device;
+    property public float tolerance;
+    field public static final com.google.android.horologist.screenshots.rng.WearTriadScreenshotTest.Companion Companion;
+  }
+
+  public static final class WearTriadScreenshotTest.Companion {
+    method @org.robolectric.ParameterizedRobolectricTestRunner.Parameters public java.util.List<com.google.android.horologist.screenshots.rng.WearDevice> devices();
   }
 
 }

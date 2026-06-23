@@ -104,6 +104,7 @@ internal fun BrowseScreenScope.PlaylistDownloadBrowseScreenContent(
             when (download) {
                 is PlaylistDownloadUiModel.Completed -> {
                     FilledTonalButton(
+                        modifier = Modifier.fillMaxWidth(),
                         label = { Text(download.playlistUiModel.title) },
                         onClick = { onDownloadItemClick(download) },
                         icon = {

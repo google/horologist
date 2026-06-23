@@ -26,7 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import com.google.android.horologist.audio.ui.components.actions.SettingsButton
+import com.google.android.horologist.audio.ui.material3.components.actions.SettingsButton
 import com.google.android.horologist.mediasample.R
 
 /**

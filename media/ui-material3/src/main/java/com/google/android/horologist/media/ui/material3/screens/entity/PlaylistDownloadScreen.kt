@@ -181,6 +181,7 @@ private fun MediaContent(
         is DownloadMediaUiModel.NotDownloaded,
         -> {
             FilledTonalButton(
+                modifier = Modifier.fillMaxWidth(),
                 label = { Text(mediaTitle) },
                 onClick = { onDownloadItemClick(downloadMediaUiModel) },
                 secondaryLabel = secondaryLabel?.let { { Text(secondaryLabel) } },

@@ -19,17 +19,16 @@ package com.google.android.horologist.mediasample.data.service.tile
 import androidx.wear.protolayout.ActionBuilders
 import androidx.wear.protolayout.ActionBuilders.AndroidActivity
 import androidx.wear.protolayout.ResourceBuilders.Resources
+import androidx.wear.protolayout.material.Colors
 import androidx.wear.tiles.RequestBuilders.ResourcesRequest
 import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.TileBuilders.Tile
 import coil.ImageLoader
 import com.google.android.horologist.media.repository.PlaylistRepository
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
-import com.google.android.horologist.media.ui.tiles.toTileColors
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.app.MediaActivity
-import com.google.android.horologist.mediasample.ui.app.UampColors
 import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.images.loadImageResource
 import dagger.hilt.android.AndroidEntryPoint
@@ -52,7 +51,8 @@ class MediaCollectionsTileService : SuspendingTileService() {
 
     private val renderer: MediaCollectionsTileRenderer = MediaCollectionsTileRenderer(
         context = this,
-        materialTheme = UampColors.toTileColors(),
+        // TO DO Migrate Tile to Material 3 theme from app
+        materialTheme = Colors.DEFAULT,
         debugResourceMode = BuildConfig.DEBUG,
     )
 

@@ -21,8 +21,8 @@ import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.Playlist
-import com.google.android.horologist.media.ui.screens.entity.PlaylistDownloadScreenState
-import com.google.android.horologist.media.ui.screens.entity.createPlaylistDownloadScreenStateLoaded
+import com.google.android.horologist.media.ui.material3.screens.entity.PlaylistDownloadScreenState
+import com.google.android.horologist.media.ui.material3.screens.entity.createPlaylistDownloadScreenStateLoaded
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import com.google.android.horologist.mediasample.domain.SettingsRepository

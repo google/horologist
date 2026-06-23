@@ -16,76 +16,62 @@
 
 package com.google.android.horologist.media.ui.material3.navigation
 
-import androidx.navigation.NavController
-import java.net.URLEncoder
+import androidx.navigation3.runtime.NavBackStack
 
 /**
  * Domain focused NavController extensions that links to the screens of a typical Media app.
  */
+@Suppress("UNCHECKED_CAST")
 public object MediaNavController {
-    private const val UTF_8 = "UTF-8"
 
     /**
      * Navigate to a single collection such as a playlist.
      */
-    public fun NavController.navigateToCollection(collectionId: String, collectionName: String) {
-        navigate(
-            NavigationScreens.Collection.destination(
-                collectionId,
-                URLEncoder.encode(collectionName, UTF_8),
-            ),
-        )
+    public fun <T : MediaRoute> NavBackStack<T>.navigateToCollection(collectionId: String, collectionName: String) {
+        add(CollectionRoute(collectionId, collectionName) as T)
     }
 
     /**
      * Navigate to a selections of collection such as a list of playlist.
      */
-    public fun NavController.navigateToCollections() {
-        navigate(NavigationScreens.Collections.destination())
+    public fun <T : MediaRoute> NavBackStack<T>.navigateToCollections() {
+        add(CollectionsRoute as T)
     }
 
     /**
      * Navigate to the settings screen.
      */
-    public fun NavController.navigateToSettings() {
-        navigate(NavigationScreens.Settings.destination())
+    public fun <T : MediaRoute> NavBackStack<T>.navigateToSettings() {
+        add(SettingsRoute as T)
     }
 
     /**
      * Navigate to a single media item, as part of a larger collection.
      */
-    public fun NavController.navigateToMediaItem(mediaItemId: String, collectionId: String?) {
-        navigate(NavigationScreens.MediaItem.destination(mediaItemId, collectionId))
+    public fun <T : MediaRoute> NavBackStack<T>.navigateToMediaItem(mediaItemId: String, collectionId: String?) {
+        add(MediaItemRoute(mediaItemId, collectionId) as T)
     }
 
     /**
      * Navigate to the player page, removing other entries from the backstack.
      */
-    public fun NavController.navigateToPlayer() {
-        navigate(NavigationScreens.Player.playerDestination()) {
-            popUpTo(NavigationScreens.Player.navRoute) {
-                inclusive = true
-                saveState = false
-            }
-        }
+    public fun <T : MediaRoute> NavBackStack<T>.navigateToPlayer() {
+        clear()
+        add(PlayerRoute(page = 0) as T)
     }
 
     /**
      * Navigate to the library page, removing other entries from the backstack.
      */
-    public fun NavController.navigateToLibrary() {
-        navigate(NavigationScreens.Player.libraryDestination()) {
-            popUpTo(NavigationScreens.Player.navRoute) {
-                inclusive = true
-                saveState = false
-            }
-        }
+    public fun <T : MediaRoute> NavBackStack<T>.navigateToLibrary() {
+        clear()
+        add(PlayerRoute(page = 1) as T)
     }
 
     /**
      * Navigate to the volume screen.
      */
-    public fun NavController.navigateToVolume() {
-        navigate(NavigationScreens.Volume.destination())
+    public fun <T : MediaRoute> NavBackStack<T>.navigateToVolume() {
+        add(VolumeRoute as T)
     }
 }

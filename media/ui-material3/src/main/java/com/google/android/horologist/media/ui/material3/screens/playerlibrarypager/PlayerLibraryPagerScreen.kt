@@ -23,7 +23,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavBackStackEntry
 import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
 import androidx.wear.compose.foundation.pager.HorizontalPager
 import androidx.wear.compose.foundation.pager.PagerState
@@ -31,7 +30,6 @@ import androidx.wear.compose.material3.HorizontalPagerScaffold
 import androidx.wear.compose.material3.ScreenScaffold
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.material3.VolumeLevelIndicator
-import com.google.android.horologist.media.ui.material3.navigation.NavigationScreens
 import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.CancellationException
 
@@ -46,20 +44,19 @@ public fun PlayerLibraryPagerScreen(
     displayVolumeIndicatorEvents: Flow<Unit>,
     playerScreen: @Composable () -> Unit,
     libraryScreen: @Composable () -> Unit,
-    backStack: NavBackStackEntry,
+    page: Int?,
     modifier: Modifier = Modifier,
 ) {
-    val pageParam = NavigationScreens.Player.getPageParam(backStack)
-    var pageApplied by rememberSaveable(backStack) { mutableStateOf(false) }
+    var pageApplied by rememberSaveable(page) { mutableStateOf(false) }
 
-    LaunchedEffect(pageParam) {
-        if (pageParam != null && !pageApplied) {
+    LaunchedEffect(page) {
+        if (page != null && !pageApplied) {
             try {
-                pagerState.animateScrollToPage(pageParam)
+                pagerState.animateScrollToPage(page)
             } catch (e: CancellationException) {
                 // Not sure why we get a cancellation here, but we want the page
                 // nav to take effect and persist
-                pagerState.scrollToPage(pageParam)
+                pagerState.scrollToPage(page)
             }
             pageApplied = true
         }

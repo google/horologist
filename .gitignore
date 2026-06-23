@@ -37,9 +37,9 @@ checksum.txt
 # Paparazzi failures output folder
 out/
 
-/.idea/shelf
-/.idea/deploymentTargetSelector.xml
-/.idea/appInsightsSettings.xml
+# Android Studio / IntelliJ caches and user-specific settings
+**/.idea/*
+!/.idea/.gitignore
+!/.idea/.name
+!/.idea/icon.svg
 /.kotlin/**/*
-/.idea/runConfigurations.xml
-/.idea/assetWizardSettings.xml

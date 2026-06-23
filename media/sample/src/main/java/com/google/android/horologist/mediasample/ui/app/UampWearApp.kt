@@ -184,7 +184,7 @@ fun UampWearApp(
             settingsScreen = {
                 UampSettingsScreen(
                     viewModel = hiltViewModel(),
-                    backStack = backStack as NavBackStack<CustomRoute>,
+                    backStack = backStack,
                 )
             },
             volumeViewModel = volumeViewModel,

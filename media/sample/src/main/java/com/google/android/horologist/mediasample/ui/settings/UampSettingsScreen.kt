@@ -46,7 +46,8 @@ import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
 import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
-import com.google.android.horologist.media.ui.material3.navigation.NavigationScreens
+import com.google.android.horologist.media.ui.material3.navigation.MediaRoute
+import com.google.android.horologist.media.ui.material3.navigation.PlayerRoute
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.DeveloperOptions
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.GoogleSignInScreen
@@ -55,7 +56,7 @@ import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScr
 @Composable
 fun UampSettingsScreen(
     viewModel: SettingsScreenViewModel,
-    backStack: NavBackStack<CustomRoute>,
+    backStack: NavBackStack<MediaRoute>,
     modifier: Modifier = Modifier,
 ) {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
@@ -94,7 +95,7 @@ fun UampSettingsScreen(
                         modifier = Modifier.fillMaxWidth(),
                         onClick = {
                             backStack.clear()
-                            backStack.add(CustomRoute(NavigationScreens.Player.playerDestination()))
+                            backStack.add(PlayerRoute(page = 0))
                             backStack.add(CustomRoute(GoogleSignOutScreen.navRoute))
                         },
                         colors = ChipDefaults.secondaryChipColors(),

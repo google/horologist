@@ -86,13 +86,13 @@ fun UampEntityScreen(
     if (uiState == PlaylistDownloadScreenState.Failed) {
         AlertDialog(
             visible = true,
-            title = { stringResource(R.string.entity_no_playlists) },
+            title = { Text(stringResource(R.string.entity_no_playlists)) },
             onDismissRequest = onErrorDialogCancelClick,
         )
     }
 
     AlertDialog(
-        title = { stringResource(R.string.entity_dialog_cancel_downloads) },
+        title = { Text(stringResource(R.string.entity_dialog_cancel_downloads)) },
         onDismissRequest = {
             showCancelDownloadsDialog = false
         },
@@ -139,7 +139,7 @@ fun UampEntityScreen(
     )
 
     AlertDialog(
-        title = { stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete) },
+        title = { Text(stringResource(R.string.entity_dialog_remove_downloads, mediaTitleToDelete)) },
         onDismissRequest = {
             showRemoveSingleMediaDownloadDialog = false
         },

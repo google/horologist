@@ -16,7 +16,12 @@
 
 package com.google.android.horologist.media.ui.material3.screens.browse
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.PlaylistPlay
 import androidx.compose.material.icons.filled.Downloading
@@ -108,12 +113,16 @@ internal fun BrowseScreenScope.PlaylistDownloadBrowseScreenContent(
                         label = { Text(download.playlistUiModel.title) },
                         onClick = { onDownloadItemClick(download) },
                         icon = {
-                            Icon(
+                            Image(
                                 painter = CoilPaintable(
                                     download.playlistUiModel.artworkUri,
                                     downloadItemArtworkPlaceholder,
                                 ).rememberPainter(),
                                 contentDescription = null,
+                                modifier = Modifier
+                                    .size(ButtonDefaults.IconSize)
+                                    .clip(CircleShape),
+                                contentScale = ContentScale.Crop,
                             )
                         },
                     )

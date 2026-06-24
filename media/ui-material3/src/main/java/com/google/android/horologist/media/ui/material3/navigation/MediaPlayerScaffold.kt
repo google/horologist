@@ -70,6 +70,7 @@ public fun MediaPlayerScaffold(
     additionalEntries: EntryProviderScope<MediaRoute>.() -> Unit = {},
 ) {
     AppScaffold {
+        val currentRoute = backStack.lastOrNull()
         val entryProvider = entryProvider(
             fallback = { key ->
                 NavEntry(key) {
@@ -155,12 +156,14 @@ public fun MediaPlayerScaffold(
             additionalEntries()
         }
 
-        NavDisplay(
-            backStack = backStack,
-            sceneStrategies = listOf(rememberSwipeDismissableSceneStrategy()),
-            entryProvider = entryProvider,
-            modifier = modifier,
-        )
+        androidx.compose.runtime.key(currentRoute) {
+            NavDisplay(
+                backStack = backStack,
+                sceneStrategies = listOf(rememberSwipeDismissableSceneStrategy()),
+                entryProvider = entryProvider,
+                modifier = modifier,
+            )
+        }
     }
 }
 

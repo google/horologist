@@ -163,7 +163,7 @@ fun UampWearApp(
                     }
                 }
             },
-            mediaEntityScreen = {
+             mediaEntityScreen = {
                 UampPlaylistsScreen(
                     uampPlaylistsScreenViewModel = hiltViewModel(),
                     onPlaylistItemClick = {

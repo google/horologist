@@ -23,7 +23,7 @@
       
       
       <link rel="icon" href="assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -1976,27 +1976,38 @@ APIs.</p>
 <h2 id="media">🎵 Media<a class="headerlink" href="#media" title="Permanent link">&para;</a></h2>
 <p>Horologist provides the Media Toolkit: a set of libraries to build Media apps on Wear OS and a
 sample app that you can run to see the toolkit in action.</p>
-<p>The toolkit includes:</p>
+<p>The toolkit is designed using a clean architecture and includes:</p>
 <ul>
-<li><a href="https://google.github.io/horologist/media-ui">horologist-media-ui</a>: common media UI components
-  and screens like <code>PlayerScreen</code>.</li>
-<li><a href="https://google.github.io/horologist/media">horologist-media</a>: domain model for Media related
-  functionality. Provides an
-  abstraction
-  to the UI module (<code>horologist-media-ui</code>) that is agnostic to the Player implementation.</li>
-<li><a href="https://google.github.io/horologist/media-data">horologist-media-data</a>: implementation of the
-  domain module (<code>horologist-media</code>)
-  using <a href="https://developer.android.com/jetpack/androidx/releases/media3">Media3</a>.</li>
-<li><a href="https://google.github.io/horologist/media3-backend">horologist-media3-backend</a>: Player on top of
-  Media3 including
-  functionalities
-  such as avoiding playing music on the watch speaker.</li>
-<li><a href="https://google.github.io/horologist/media-sample">media sample</a>: sample app to listen to
-  downloaded music.</li>
-<li><a href="https://google.github.io/horologist/audio">audio</a>: domain model for Audio related functionality,
-  such as Volume Control and Output switching, subscribing to a Flow of changes in audio or output.</li>
-<li><a href="https://google.github.io/horologist/audio-ui">audio-ui</a>: UI components for Audio related functionality,
-  such as Volume Control and Output switching</li>
+<li><strong>Core &amp; Playback Modules</strong>:<ul>
+<li><a href="https://google.github.io/horologist/media-core">horologist-media-core</a> (<code>:media:core</code>): Core domain models, interfaces, and state representations for media playback, agnostic of the underlying player implementation.</li>
+<li><a href="https://google.github.io/horologist/media-data">horologist-media-data</a> (<code>:media:data</code>): Implementation of the domain module using <a href="https://developer.android.com/jetpack/androidx/releases/media3">AndroidX Media3</a>.</li>
+<li><a href="https://google.github.io/horologist/media3-backend">horologist-media3-backend</a> (<code>:media:backend-media3</code>): Background playback service and engine built on Media3, enforcing Wear OS specific routing rules (e.g. requiring Bluetooth output).</li>
+</ul>
+</li>
+<li><strong>UI &amp; Presentation Modules</strong>:<ul>
+<li><a href="https://google.github.io/horologist/media-ui-model">horologist-media-ui-model</a> (<code>:media:ui-model</code>): Shared presentation data classes and view states for media UI.</li>
+<li><a href="https://google.github.io/horologist/media-ui-material3">horologist-media-ui-material3</a> (<code>:media:ui-material3</code>): Modern Material 3 high-level media UI screens, scaffolds, and responsive components.</li>
+<li><a href="https://google.github.io/horologist/media-ui">horologist-media-ui</a> (<code>:media:ui</code>): Legacy Material 2 media UI components and screens.</li>
+</ul>
+</li>
+<li><strong>Audio &amp; Volume Modules</strong>:<ul>
+<li><a href="https://google.github.io/horologist/audio">horologist-audio</a> (<code>:media:audio</code>): Core domain models, output device trackers, and volume managers.</li>
+<li><a href="https://google.github.io/horologist/audio-ui-model">horologist-audio-ui-model</a> (<code>:media:audio-ui-model</code>): Shared audio presentation view states.</li>
+<li><a href="https://google.github.io/horologist/audio-ui-material3">horologist-audio-ui-material3</a> (<code>:media:audio-ui-material3</code>): Modern Material 3 volume and output selector UI components.</li>
+<li><a href="https://google.github.io/horologist/audio-ui">horologist-audio-ui</a> (<code>:media:audio-ui</code>): Legacy Material 2 audio and volume controls.</li>
+</ul>
+</li>
+<li><strong>Utilities &amp; Services</strong>:<ul>
+<li><code>media:media3-logging</code>: Diagnostic logging utilities for tracking Media3 player events on Wear OS.</li>
+<li><code>media:media3-outputswitcher</code>: Output switching and Bluetooth pairing prompt controllers.</li>
+<li><code>media:sync</code>: Offline content, download queue, and play state synchronization between phone and watch.</li>
+</ul>
+</li>
+<li><strong>Applications &amp; Benchmarks</strong>:<ul>
+<li><a href="https://google.github.io/horologist/media-sample">media sample</a> (<code>:media:sample</code>): Main media player sample app (UAMP clone) showcasing local and streaming music, downloads, volume control, and Navigation 3.</li>
+<li><code>media:benchmark</code> &amp; <code>media:sample-benchmark</code>: Macrobenchmarks and performance test suites for the libraries and the sample application.</li>
+</ul>
+</li>
 </ul>
 <table>
 <thead>
@@ -2009,9 +2020,9 @@ sample app that you can run to see the toolkit in action.</p>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/playerscreen.png" height="120" width="120" ></td>
-<td style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/browse.png" height="120" width="120" ></td>
-<td style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/detail.png" height="120" width="120" ></td>
+<td style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui-material3/playerscreen.png" height="120" width="120" ></td>
+<td style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui-material3/browse.png" height="120" width="120" ></td>
+<td style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui-material3/detail.png" height="120" width="120" ></td>
 <td style="text-align: center;"><img src="https://media.githubusercontent.com/media/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" ></td>
 </tr>
 </tbody>

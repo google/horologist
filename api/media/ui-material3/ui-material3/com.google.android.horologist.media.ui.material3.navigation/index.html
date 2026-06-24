@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>com.google.android.horologist.media.ui.material3.navigation</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../index.html" tabindex="1">
+                    ui-material3
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":media:ui-material3/release">release</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":media:ui-material3/release"
+                                       data-filter=":media:ui-material3/release"/>
+                                <span class="checkbox--icon"></span>
+                                release
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    ui-material3
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageIds="ui-material3::com.google.android.horologist.media.ui.material3.navigation////PointingToDeclaration//1391651535">
+  <div class="breadcrumbs"><a href="../../index.html">ui-material3</a><span class="delimiter">/</span><span class="current">com.google.android.horologist.media.ui.material3.navigation</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="521490604%2FClasslikes%2F1391651535" anchor-label="CollectionRoute" id="521490604%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-collection-route/index.html"><span>Collection</span><wbr></wbr><span><span>Route</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="521490604%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">data </span><span class="token keyword">class </span><a href="-collection-route/index.html">CollectionRoute</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="-media-route/index.html">MediaRoute</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1744798377%2FClasslikes%2F1391651535" anchor-label="CollectionsRoute" id="-1744798377%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-collections-route/index.html"><span>Collections</span><wbr></wbr><span><span>Route</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1744798377%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">object </span><a href="-collections-route/index.html">CollectionsRoute</a> : <a href="-media-route/index.html">MediaRoute</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-365339329%2FClasslikes%2F1391651535" anchor-label="CustomRoute" id="-365339329%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-custom-route/index.html"><span>Custom</span><wbr></wbr><span><span>Route</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-365339329%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">data </span><span class="token keyword">class </span><a href="-custom-route/index.html">CustomRoute</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>route<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span> : <a href="-media-route/index.html">MediaRoute</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1780764658%2FClasslikes%2F1391651535" anchor-label="DeepLinkRequest" id="-1780764658%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-deep-link-request/index.html"><span>Deep</span><wbr></wbr><span>Link</span><wbr></wbr><span><span>Request</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1780764658%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-deep-link-request/index.html">DeepLinkRequest</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1046435925%2FClasslikes%2F1391651535" anchor-label="LoginRoute" id="-1046435925%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-login-route/index.html"><span>Login</span><wbr></wbr><span><span>Route</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1046435925%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">object </span><a href="-login-route/index.html">LoginRoute</a> : <a href="-media-route/index.html">MediaRoute</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-736009255%2FClasslikes%2F1391651535" anchor-label="MediaItemRoute" id="-736009255%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-item-route/index.html"><span>Media</span><wbr></wbr><span>Item</span><wbr></wbr><span><span>Route</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-736009255%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">data </span><span class="token keyword">class </span><a href="-media-item-route/index.html">MediaItemRoute</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>collectionId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span> : <a href="-media-route/index.html">MediaRoute</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="604141264%2FClasslikes%2F1391651535" anchor-label="MediaNavController" id="604141264%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-nav-controller/index.html"><span>Media</span><wbr></wbr><span>Nav</span><wbr></wbr><span><span>Controller</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="604141264%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-media-nav-controller/index.html">MediaNavController</a></div><div class="brief "><p class="paragraph">Domain focused NavController extensions that links to the screens of a typical Media app.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1004691174%2FClasslikes%2F1391651535" anchor-label="MediaRoute" id="1004691174%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-route/index.html"><span>Media</span><wbr></wbr><span><span>Route</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1004691174%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">interface </span><a href="-media-route/index.html">MediaRoute</a> : <a href="https://developer.android.com/reference/kotlin/androidx/navigation3/runtime/NavKey.html">NavKey</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1566417316%2FClasslikes%2F1391651535" anchor-label="NavigationScreens" id="1566417316%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-navigation-screens/index.html"><span>Navigation</span><wbr></wbr><span><span>Screens</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1566417316%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">class </span><a href="-navigation-screens/index.html">NavigationScreens</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>navRoute<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Navigation routes enum.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1937033391%2FClasslikes%2F1391651535" anchor-label="PlayerRoute" id="1937033391%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-player-route/index.html"><span>Player</span><wbr></wbr><span><span>Route</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1937033391%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">data </span><span class="token keyword">class </span><a href="-player-route/index.html">PlayerRoute</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>page<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span></span></span><span class="token punctuation">)</span> : <a href="-media-route/index.html">MediaRoute</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-896530191%2FClasslikes%2F1391651535" anchor-label="SettingsRoute" id="-896530191%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-settings-route/index.html"><span>Settings</span><wbr></wbr><span><span>Route</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-896530191%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">object </span><a href="-settings-route/index.html">SettingsRoute</a> : <a href="-media-route/index.html">MediaRoute</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1009298216%2FClasslikes%2F1391651535" anchor-label="VolumeRoute" id="1009298216%2FClasslikes%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-volume-route/index.html"><span>Volume</span><wbr></wbr><span><span>Route</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1009298216%2FClasslikes%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="kotlinx.serialization/Serializable///PointingToDeclaration/"><span class="token annotation builtin">Serializable</span></span></div></div><span class="token keyword">object </span><a href="-volume-route/index.html">VolumeRoute</a> : <a href="-media-route/index.html">MediaRoute</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="404931566%2FFunctions%2F1391651535" anchor-label="MediaPlayerScaffold" id="404931566%2FFunctions%2F1391651535" data-filterable-set=":media:ui-material3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:ui-material3/release" data-filterable-set=":media:ui-material3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-media-player-scaffold.html"><span>Media</span><wbr></wbr><span>Player</span><wbr></wbr><span><span>Scaffold</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="404931566%2FFunctions%2F1391651535"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:ui-material3/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a></div></div><span class="token keyword">fun </span><a href="-media-player-scaffold.html"><span class="token function">MediaPlayerScaffold</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">volumeViewModel<span class="token operator">: </span><span data-unresolved-link="com.google.android.horologist.audio.ui/VolumeViewModel///PointingToDeclaration/">VolumeViewModel</span><span class="token punctuation">, </span></span><span class="parameter ">playerScreen<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">libraryScreen<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">categoryEntityScreen<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span>id<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span>name<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">mediaEntityScreen<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">playlistsScreen<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">settingsScreen<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">deepLinkPrefix<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">backStack<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/navigation3/runtime/NavBackStack.html">NavBackStack</a><span class="token operator">&lt;</span><a href="-media-route/index.html">MediaRoute</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier.html">Modifier</a><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">volumeScreen<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{ VolumeScreen(volumeViewModel = volumeViewModel) }<span class="token punctuation">, </span></span><span class="parameter ">timeText<span class="token operator">: </span><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/compose/runtime/Composable.html"><span class="token annotation builtin">Composable</span></a> </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{ TimeText() }<span class="token punctuation">, </span></span><span class="parameter ">additionalEntries<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/navigation3/runtime/EntryProviderScope.html">EntryProviderScope</a><span class="token operator">&lt;</span><a href="-media-route/index.html">MediaRoute</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A UI scaffold for a Media Player with a subset of the following screens. Structure is a ViewPager with <a href="-media-player-scaffold.html">playerScreen</a> and <a href="-media-player-scaffold.html">libraryScreen</a>, with navigation to other screens.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

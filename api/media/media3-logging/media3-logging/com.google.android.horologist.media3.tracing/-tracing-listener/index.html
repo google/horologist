@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>TracingListener</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    media3-logging
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":media:media3-logging/release">release</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":media:media3-logging/release"
+                                       data-filter=":media:media3-logging/release"/>
+                                <span class="checkbox--icon"></span>
+                                release
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    media3-logging
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="media3-logging::com.google.android.horologist.media3.tracing/TracingListener///PointingToDeclaration//-1231790495">
+  <div class="breadcrumbs"><a href="../../../index.html">media3-logging</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.media3.tracing</a><span class="delimiter">/</span><span class="current">TracingListener</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Tracing</span><wbr></wbr><span><span>Listener</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">TracingListener</a> : <a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Listener.html">Player.Listener</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="682290767%2FConstructors%2F-1231790495" anchor-label="TracingListener" id="682290767%2FConstructors%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tracing-listener.html"><span>Tracing</span><wbr></wbr><span><span>Listener</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="682290767%2FConstructors%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="2117147611%2FFunctions%2F-1231790495" anchor-label="onAudioAttributesChanged" id="2117147611%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2117147611%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Attributes</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2117147611%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#2117147611%2FFunctions%2F-1231790495"><span class="token function">onAudioAttributesChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">audioAttributes<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/AudioAttributes.html">AudioAttributes</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1410683975%2FFunctions%2F-1231790495" anchor-label="onAudioSessionIdChanged" id="-1410683975%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1410683975%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Session</span><wbr></wbr><span>Id</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1410683975%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1410683975%2FFunctions%2F-1231790495"><span class="token function">onAudioSessionIdChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">audioSessionId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-203813129%2FFunctions%2F-1231790495" anchor-label="onAvailableCommandsChanged" id="-203813129%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-203813129%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Available</span><wbr></wbr><span>Commands</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-203813129%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-203813129%2FFunctions%2F-1231790495"><span class="token function">onAvailableCommandsChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">availableCommands<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Commands.html">Player.Commands</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1990518663%2FFunctions%2F-1231790495" anchor-label="onCues" id="1990518663%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-236830238%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span><span>Cues</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1990518663%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-236830238%2FFunctions%2F-1231790495"><span class="token function">onCues</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cueGroup<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/text/CueGroup.html">CueGroup</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#616827037%2FFunctions%2F-1231790495"><span class="token function"><strike>onCues</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">cues<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/text/Cue.html">Cue</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="51116113%2FFunctions%2F-1231790495" anchor-label="onDeviceInfoChanged" id="51116113%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#51116113%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Device</span><wbr></wbr><span>Info</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="51116113%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#51116113%2FFunctions%2F-1231790495"><span class="token function">onDeviceInfoChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">deviceInfo<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/DeviceInfo.html">DeviceInfo</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1032644458%2FFunctions%2F-1231790495" anchor-label="onDeviceVolumeChanged" id="-1032644458%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1032644458%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Device</span><wbr></wbr><span>Volume</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1032644458%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1032644458%2FFunctions%2F-1231790495"><span class="token function">onDeviceVolumeChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">volume<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">muted<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1161055977%2FFunctions%2F-1231790495" anchor-label="onEvents" id="-1161055977%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1161055977%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span><span>Events</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1161055977%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1161055977%2FFunctions%2F-1231790495"><span class="token function">onEvents</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">player<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.html">Player</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">events<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Events.html">Player.Events</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1547358407%2FFunctions%2F-1231790495" anchor-label="onIsLoadingChanged" id="-1547358407%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-is-loading-changed.html"><span>on</span><wbr></wbr><span>Is</span><wbr></wbr><span>Loading</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1547358407%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-is-loading-changed.html"><span class="token function">onIsLoadingChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">newIsLoading<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="571524779%2FFunctions%2F-1231790495" anchor-label="onIsPlayingChanged" id="571524779%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-is-playing-changed.html"><span>on</span><wbr></wbr><span>Is</span><wbr></wbr><span>Playing</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="571524779%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-is-playing-changed.html"><span class="token function">onIsPlayingChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">newIsPlaying<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1523300979%2FFunctions%2F-1231790495" anchor-label="onLoadingChanged" id="1523300979%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1523300979%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Loading</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1523300979%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1523300979%2FFunctions%2F-1231790495"><span class="token function"><strike>onLoadingChanged</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">isLoading<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1573638256%2FFunctions%2F-1231790495" anchor-label="onMaxSeekToPreviousPositionChanged" id="1573638256%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1573638256%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Max</span><wbr></wbr><span>Seek</span><wbr></wbr><span>To</span><wbr></wbr><span>Previous</span><wbr></wbr><span>Position</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1573638256%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1573638256%2FFunctions%2F-1231790495"><span class="token function">onMaxSeekToPreviousPositionChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">maxSeekToPreviousPositionMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="425312564%2FFunctions%2F-1231790495" anchor-label="onMediaItemTransition" id="425312564%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#425312564%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Media</span><wbr></wbr><span>Item</span><wbr></wbr><span><span>Transition</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="425312564%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#425312564%2FFunctions%2F-1231790495"><span class="token function">onMediaItemTransition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/Nullable.html"><span class="token annotation builtin">Nullable</span></a> </span>mediaItem<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">reason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-367102437%2FFunctions%2F-1231790495" anchor-label="onMediaMetadataChanged" id="-367102437%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-367102437%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Media</span><wbr></wbr><span>Metadata</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-367102437%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-367102437%2FFunctions%2F-1231790495"><span class="token function">onMediaMetadataChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mediaMetadata<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaMetadata.html">MediaMetadata</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="243194611%2FFunctions%2F-1231790495" anchor-label="onMetadata" id="243194611%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#243194611%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span><span>Metadata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="243194611%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#243194611%2FFunctions%2F-1231790495"><span class="token function">onMetadata</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">metadata<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Metadata.html">Metadata</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-485351729%2FFunctions%2F-1231790495" anchor-label="onPlaybackParametersChanged" id="-485351729%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-485351729%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Playback</span><wbr></wbr><span>Parameters</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-485351729%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-485351729%2FFunctions%2F-1231790495"><span class="token function">onPlaybackParametersChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">playbackParameters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/PlaybackParameters.html">PlaybackParameters</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1862424954%2FFunctions%2F-1231790495" anchor-label="onPlaybackStateChanged" id="-1862424954%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1862424954%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Playback</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1862424954%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1862424954%2FFunctions%2F-1231790495"><span class="token function">onPlaybackStateChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">playbackState<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1844918988%2FFunctions%2F-1231790495" anchor-label="onPlaybackSuppressionReasonChanged" id="1844918988%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1844918988%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Playback</span><wbr></wbr><span>Suppression</span><wbr></wbr><span>Reason</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1844918988%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1844918988%2FFunctions%2F-1231790495"><span class="token function">onPlaybackSuppressionReasonChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">playbackSuppressionReason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-993276382%2FFunctions%2F-1231790495" anchor-label="onPlayerError" id="-993276382%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-993276382%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Player</span><wbr></wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-993276382%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-993276382%2FFunctions%2F-1231790495"><span class="token function">onPlayerError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">error<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/PlaybackException.html">PlaybackException</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-966061899%2FFunctions%2F-1231790495" anchor-label="onPlayerErrorChanged" id="-966061899%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-966061899%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Player</span><wbr></wbr><span>Error</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-966061899%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-966061899%2FFunctions%2F-1231790495"><span class="token function">onPlayerErrorChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/Nullable.html"><span class="token annotation builtin">Nullable</span></a> </span>error<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/PlaybackException.html">PlaybackException</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="696383254%2FFunctions%2F-1231790495" anchor-label="onPlayerStateChanged" id="696383254%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#696383254%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Player</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="696383254%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#696383254%2FFunctions%2F-1231790495"><span class="token function"><strike>onPlayerStateChanged</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">playWhenReady<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">playbackState<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-564806825%2FFunctions%2F-1231790495" anchor-label="onPlaylistMetadataChanged" id="-564806825%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-564806825%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Playlist</span><wbr></wbr><span>Metadata</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-564806825%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-564806825%2FFunctions%2F-1231790495"><span class="token function">onPlaylistMetadataChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">mediaMetadata<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaMetadata.html">MediaMetadata</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1096811151%2FFunctions%2F-1231790495" anchor-label="onPlayWhenReadyChanged" id="-1096811151%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1096811151%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Play</span><wbr></wbr><span>When</span><wbr></wbr><span>Ready</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1096811151%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1096811151%2FFunctions%2F-1231790495"><span class="token function">onPlayWhenReadyChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">playWhenReady<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">reason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1708205420%2FFunctions%2F-1231790495" anchor-label="onPositionDiscontinuity" id="1708205420%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1366928509%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Position</span><wbr></wbr><span><span>Discontinuity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1708205420%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1366928509%2FFunctions%2F-1231790495"><span class="token function"><strike>onPositionDiscontinuity</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">reason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#671940349%2FFunctions%2F-1231790495"><span class="token function">onPositionDiscontinuity</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">oldPosition<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.PositionInfo.html">Player.PositionInfo</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">newPosition<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.PositionInfo.html">Player.PositionInfo</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">reason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="734335764%2FFunctions%2F-1231790495" anchor-label="onRenderedFirstFrame" id="734335764%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#734335764%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Rendered</span><wbr></wbr><span>First</span><wbr></wbr><span><span>Frame</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="734335764%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#734335764%2FFunctions%2F-1231790495"><span class="token function">onRenderedFirstFrame</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-462410180%2FFunctions%2F-1231790495" anchor-label="onRepeatModeChanged" id="-462410180%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-462410180%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Repeat</span><wbr></wbr><span>Mode</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-462410180%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-462410180%2FFunctions%2F-1231790495"><span class="token function">onRepeatModeChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">repeatMode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-901326825%2FFunctions%2F-1231790495" anchor-label="onSeekBackIncrementChanged" id="-901326825%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-901326825%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Seek</span><wbr></wbr><span>Back</span><wbr></wbr><span>Increment</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-901326825%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-901326825%2FFunctions%2F-1231790495"><span class="token function">onSeekBackIncrementChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">seekBackIncrementMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1009838519%2FFunctions%2F-1231790495" anchor-label="onSeekForwardIncrementChanged" id="1009838519%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1009838519%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Seek</span><wbr></wbr><span>Forward</span><wbr></wbr><span>Increment</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1009838519%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1009838519%2FFunctions%2F-1231790495"><span class="token function">onSeekForwardIncrementChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">seekForwardIncrementMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2013854934%2FFunctions%2F-1231790495" anchor-label="onShuffleModeEnabledChanged" id="-2013854934%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-2013854934%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Shuffle</span><wbr></wbr><span>Mode</span><wbr></wbr><span>Enabled</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2013854934%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-2013854934%2FFunctions%2F-1231790495"><span class="token function">onShuffleModeEnabledChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">shuffleModeEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1236856068%2FFunctions%2F-1231790495" anchor-label="onSkipSilenceEnabledChanged" id="1236856068%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1236856068%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Skip</span><wbr></wbr><span>Silence</span><wbr></wbr><span>Enabled</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1236856068%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1236856068%2FFunctions%2F-1231790495"><span class="token function">onSkipSilenceEnabledChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">skipSilenceEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1754854591%2FFunctions%2F-1231790495" anchor-label="onSurfaceSizeChanged" id="1754854591%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1754854591%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Surface</span><wbr></wbr><span>Size</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1754854591%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1754854591%2FFunctions%2F-1231790495"><span class="token function">onSurfaceSizeChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1552418330%2FFunctions%2F-1231790495" anchor-label="onTimelineChanged" id="-1552418330%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1552418330%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Timeline</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1552418330%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1552418330%2FFunctions%2F-1231790495"><span class="token function">onTimelineChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">timeline<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Timeline.html">Timeline</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">reason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-906393591%2FFunctions%2F-1231790495" anchor-label="onTracksChanged" id="-906393591%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-906393591%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Tracks</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-906393591%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-906393591%2FFunctions%2F-1231790495"><span class="token function">onTracksChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tracks<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Tracks.html">Tracks</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-440431485%2FFunctions%2F-1231790495" anchor-label="onTrackSelectionParametersChanged" id="-440431485%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-440431485%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Track</span><wbr></wbr><span>Selection</span><wbr></wbr><span>Parameters</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-440431485%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-440431485%2FFunctions%2F-1231790495"><span class="token function">onTrackSelectionParametersChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">parameters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/TrackSelectionParameters.html">TrackSelectionParameters</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="46603003%2FFunctions%2F-1231790495" anchor-label="onVideoSizeChanged" id="46603003%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#46603003%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Video</span><wbr></wbr><span>Size</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="46603003%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#46603003%2FFunctions%2F-1231790495"><span class="token function">onVideoSizeChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">videoSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/VideoSize.html">VideoSize</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1023644309%2FFunctions%2F-1231790495" anchor-label="onVolumeChanged" id="-1023644309%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1023644309%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Volume</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1023644309%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1023644309%2FFunctions%2F-1231790495"><span class="token function">onVolumeChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">volume<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

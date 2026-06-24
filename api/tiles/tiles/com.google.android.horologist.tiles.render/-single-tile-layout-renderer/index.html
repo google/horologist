@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>SingleTileLayoutRenderer</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    tiles
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":tiles/release">release</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":tiles/release"
+                                       data-filter=":tiles/release"/>
+                                <span class="checkbox--icon"></span>
+                                release
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    tiles
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="tiles::com.google.android.horologist.tiles.render/SingleTileLayoutRenderer///PointingToDeclaration//-792161243">
+  <div class="breadcrumbs"><a href="../../../index.html">tiles</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.tiles.render</a><span class="delimiter">/</span><span class="current">SingleTileLayoutRenderer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Single</span><wbr></wbr><span>Tile</span><wbr></wbr><span>Layout</span><wbr></wbr><span><span>Renderer</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">SingleTileLayoutRenderer</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token punctuation">, </span><a href="index.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>debugResourceMode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span> : <a href="../-tile-layout-renderer/index.html">TileLayoutRenderer</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token punctuation">, </span><a href="index.html">R</a><span class="token operator">&gt; </span></div><p class="paragraph">A <a href="../-tile-layout-renderer/index.html">TileLayoutRenderer</a> designed with typical but restrictive limitations, such as a single tile in the timeline, and fixed resources that will be updated by changing ids instead of version.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-1927711874%2FConstructors%2F-792161243" anchor-label="SingleTileLayoutRenderer" id="-1927711874%2FConstructors%2F-792161243" data-filterable-set=":tiles/release"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":tiles/release" data-filterable-set=":tiles/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-single-tile-layout-renderer.html"><span>Single</span><wbr></wbr><span>Tile</span><wbr></wbr><span>Layout</span><wbr></wbr><span><span>Renderer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1927711874%2FConstructors%2F-792161243"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">context<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a><span class="token punctuation">, </span></span><span class="parameter ">debugResourceMode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-1809174681%2FProperties%2F-792161243" anchor-label="context" id="-1809174681%2FProperties%2F-792161243" data-filterable-set=":tiles/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":tiles/release" data-filterable-set=":tiles/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="context.html"><span><span>context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1809174681%2FProperties%2F-792161243"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="context.html">context</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/content/Context.html">Context</a></div><div class="brief "><p class="paragraph">The context to avoid passing in through each render method.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-724774222%2FProperties%2F-792161243" anchor-label="debugResourceMode" id="-724774222%2FProperties%2F-792161243" data-filterable-set=":tiles/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":tiles/release" data-filterable-set=":tiles/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="debug-resource-mode.html"><span>debug</span><wbr></wbr><span>Resource</span><wbr></wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-724774222%2FProperties%2F-792161243"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="debug-resource-mode.html">debugResourceMode</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1882539290%2FProperties%2F-792161243" anchor-label="freshnessIntervalMillis" id="-1882539290%2FProperties%2F-792161243" data-filterable-set=":tiles/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":tiles/release" data-filterable-set=":tiles/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="freshness-interval-millis.html"><span>freshness</span><wbr></wbr><span>Interval</span><wbr></wbr><span><span>Millis</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1882539290%2FProperties%2F-792161243"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="freshness-interval-millis.html">freshnessIntervalMillis</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token operator"> = </span><span class="token constant">0</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-164910387%2FProperties%2F-792161243" anchor-label="theme" id="-164910387%2FProperties%2F-792161243" data-filterable-set=":tiles/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":tiles/release" data-filterable-set=":tiles/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="theme.html"><span><span>theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-164910387%2FProperties%2F-792161243"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">val </span><a href="theme.html">theme</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/material/Colors.html">Colors</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-2065880479%2FFunctions%2F-792161243" anchor-label="createState" id="-2065880479%2FFunctions%2F-792161243" data-filterable-set=":tiles/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":tiles/release" data-filterable-set=":tiles/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-state.html"><span>create</span><wbr></wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2065880479%2FFunctions%2F-792161243"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="create-state.html"><span class="token function">createState</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/StateBuilders.State.html">StateBuilders.State</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-942159831%2FFunctions%2F-792161243" anchor-label="createTheme" id="-942159831%2FFunctions%2F-792161243" data-filterable-set=":tiles/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":tiles/release" data-filterable-set=":tiles/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="create-theme.html"><span>create</span><wbr></wbr><span><span>Theme</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-942159831%2FFunctions%2F-792161243"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="create-theme.html"><span class="token function">createTheme</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/material/Colors.html">Colors</a></div><div class="brief "><p class="paragraph">Create a material theme that should be applied to all components.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="902379467%2FFunctions%2F-792161243" anchor-label="getResourcesVersionForTileState" id="902379467%2FFunctions%2F-792161243" data-filterable-set=":tiles/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":tiles/release" data-filterable-set=":tiles/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-resources-version-for-tile-state.html"><span>get</span><wbr></wbr><span>Resources</span><wbr></wbr><span>Version</span><wbr></wbr><span>For</span><wbr></wbr><span>Tile</span><wbr></wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="902379467%2FFunctions%2F-792161243"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="get-resources-version-for-tile-state.html"><span class="token function">getResourcesVersionForTileState</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="index.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1287418007%2FFunctions%2F-792161243" anchor-label="produceRequestedResources" id="1287418007%2FFunctions%2F-792161243" data-filterable-set=":tiles/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":tiles/release" data-filterable-set=":tiles/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="produce-requested-resources.html"><span>produce</span><wbr></wbr><span>Requested</span><wbr></wbr><span><span>Resources</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1287418007%2FFunctions%2F-792161243"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="produce-requested-resources.html"><span class="token function">produceRequestedResources</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">resourceState<span class="token operator">: </span><a href="index.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">requestParams<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/RequestBuilders.ResourcesRequest.html">RequestBuilders.ResourcesRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/ResourceBuilders.Resources.html">ResourceBuilders.Resources</a></div><div class="brief "><p class="paragraph">Produce resources for the given request. The implementation should read <a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/RequestBuilders.ResourcesRequest.html#getResourceIds()">androidx.wear.tiles.RequestBuilders.ResourcesRequest.getResourceIds</a> and if not empty only return the requested resources.</p></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/ResourceBuilders.Resources.Builder.html">ResourceBuilders.Resources.Builder</a><span class="token punctuation">.</span><a href="produce-requested-resources.html"><span class="token function">produceRequestedResources</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">resourceState<span class="token operator">: </span><a href="index.html">R</a><span class="token punctuation">, </span></span><span class="parameter ">deviceParameters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/DeviceParametersBuilders.DeviceParameters.html">DeviceParametersBuilders.DeviceParameters</a><span class="token punctuation">, </span></span><span class="parameter ">resourceIds<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Add resources directly to the builder.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-731142351%2FFunctions%2F-792161243" anchor-label="renderTile" id="-731142351%2FFunctions%2F-792161243" data-filterable-set=":tiles/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":tiles/release" data-filterable-set=":tiles/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="render-tile.html"><span>render</span><wbr></wbr><span><span>Tile</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-731142351%2FFunctions%2F-792161243"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="render-tile.html"><span class="token function">renderTile</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="index.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">deviceParameters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/DeviceParametersBuilders.DeviceParameters.html">DeviceParametersBuilders.DeviceParameters</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/protolayout/LayoutElementBuilders.LayoutElement.html">LayoutElementBuilders.LayoutElement</a></div><div class="brief "><p class="paragraph">Render a single tile as a LayoutElement, that will be the only item in the timeline.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1745367283%2FFunctions%2F-792161243" anchor-label="renderTimeline" id="-1745367283%2FFunctions%2F-792161243" data-filterable-set=":tiles/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":tiles/release" data-filterable-set=":tiles/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="render-timeline.html"><span>render</span><wbr></wbr><span><span>Timeline</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1745367283%2FFunctions%2F-792161243"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":tiles/release"><div class="symbol monospace"><span class="token keyword">override </span><span class="token keyword">fun </span><a href="render-timeline.html"><span class="token function">renderTimeline</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><a href="index.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">requestParams<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/RequestBuilders.TileRequest.html">RequestBuilders.TileRequest</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/wear/tiles/TileBuilders.Tile.html">TileBuilders.Tile</a></div><div class="brief "><p class="paragraph">Produce a Timeline for the given tile request and the given state.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

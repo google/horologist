@@ -1,0 +1,23 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.datalayer.phone////PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/index.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerAppHelper.Companion///PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-app-helper/-companion/index.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerAppHelper.Companion/RequiredCompanionVersion/#/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-app-helper/-companion/-required-companion-version.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerAppHelper///PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-app-helper/index.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerAppHelper/PhoneDataLayerAppHelper/#android.content.Context#com.google.android.horologist.data.WearDataLayerRegistry/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-app-helper/-phone-data-layer-app-helper.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerAppHelper/checkCompanionVersionSupportTileEditing/#/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-app-helper/check-companion-version-support-tile-editing.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerAppHelper/connectedAndInstalledNodes/#/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-app-helper/connected-and-installed-nodes.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerAppHelper/findWatchToInstallTile/#/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-app-helper/find-watch-to-install-tile.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerAppHelper/installOnNode/#kotlin.String/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-app-helper/install-on-node.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerAppHelper/startCompanion/#kotlin.String/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-app-helper/start-companion.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerListenerService///PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-listener-service/index.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerListenerService/PhoneDataLayerListenerService/#/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-listener-service/-phone-data-layer-listener-service.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerListenerService/appHelper/#/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-listener-service/app-helper.html
+$dokka.location:com.google.android.horologist.datalayer.phone/PhoneDataLayerListenerService/onDestroy/#/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-phone-data-layer-listener-service/on-destroy.html
+$dokka.location:com.google.android.horologist.datalayer.phone/Version.Companion///PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-version/-companion/index.html
+$dokka.location:com.google.android.horologist.datalayer.phone/Version.Companion/parse/#kotlin.String/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-version/-companion/parse.html
+$dokka.location:com.google.android.horologist.datalayer.phone/Version///PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-version/index.html
+$dokka.location:com.google.android.horologist.datalayer.phone/Version/Version/#kotlin.collections.List[kotlin.Int]/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-version/-version.html
+$dokka.location:com.google.android.horologist.datalayer.phone/Version/compareTo/#com.google.android.horologist.datalayer.phone.Version/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-version/compare-to.html
+$dokka.location:com.google.android.horologist.datalayer.phone/Version/inputVersion/#/PointingToDeclaration/phone/com.google.android.horologist.datalayer.phone/-version/input-version.html
+com.google.android.horologist.datalayer.phone

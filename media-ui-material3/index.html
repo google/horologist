@@ -21,11 +21,11 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.3">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Media UI Material3 library - Horologist</title>
+        <title>Media UI Material 3 Library - Horologist</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#media-ui-material3-library" class="md-skip">
+        <a href="#media-ui-material-3-library" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Media UI Material3 library
+              Media UI Material 3 Library
             
           </span>
         </div>
@@ -1619,6 +1619,81 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#modern-material-3-scaffolding-type-safe-navigation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modern Material 3 Scaffolding &amp; Type-Safe Navigation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modern Material 3 Scaffolding &amp; Type-Safe Navigation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#type-safe-route-setup-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Type-Safe Route Setup Example:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#component-best-practices-implementation-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Component Best Practices &amp; Implementation Rules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Component Best Practices &amp; Implementation Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-rendering-full-color-artwork" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Rendering Full-Color Artwork
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stateful-vs-stateless-components" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stateful vs. Stateless Components
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1637,8 +1712,44 @@
   
 
 
-<h1 id="media-ui-material3-library">Media UI Material3 library<a class="headerlink" href="#media-ui-material3-library" title="Permanent link">&para;</a></h1>
-<p>TODO</p>
+<h1 id="media-ui-material-3-library">Media UI Material 3 Library<a class="headerlink" href="#media-ui-material-3-library" title="Permanent link">&para;</a></h1>
+<p>This library contains a set of high-quality Wear OS Jetpack Compose components and screens for media player applications, fully built on top of <strong>Wear Compose Material 3</strong>.</p>
+<p>It includes:</p>
+<ul>
+<li><strong>Individual Controls</strong>: Specialized buttons for play/pause, skip, shuffle, and volume.</li>
+<li><strong>Media Scaffolds</strong>: The modern <code>MediaPlayerScaffold</code> which handles key-based navigation, volume indicators, and responsive page layouts.</li>
+<li><strong>Ready-to-use Screens</strong>: Full-screen components like <code>PlaylistStreamingScreen</code>, <code>PlaylistDownloadScreen</code>, and <code>PlaylistsScreen</code>.</li>
+</ul>
+<p>This library is not dependent on any specific player implementation as per the <a href="../media-toolkit/#architecture-overview">architecture overview</a>.</p>
+<hr />
+<h2 id="modern-material-3-scaffolding-type-safe-navigation">Modern Material 3 Scaffolding &amp; Type-Safe Navigation<a class="headerlink" href="#modern-material-3-scaffolding-type-safe-navigation" title="Permanent link">&para;</a></h2>
+<p>The centerpiece of the Material 3 Media library is the <strong><code>MediaPlayerScaffold</code></strong>. </p>
+<p>Unlike legacy scaffolds, it integrates natively with <strong>Jetpack Navigation 3</strong> and its key-based backstack (<code>NavBackStack&lt;MediaRoute&gt;</code>). This enables <strong>100% type-safe routing</strong> and deep-link parsing. Destinations are defined as <code>@Serializable</code> objects and classes that implement a sealed <code>MediaRoute</code> interface, completely eliminating manual string routing, query parameter parsing, and URL encoding.</p>
+<h3 id="type-safe-route-setup-example">Type-Safe Route Setup Example:<a class="headerlink" href="#type-safe-route-setup-example" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="c1">// Define your type-safe routes</span>
+<span class="nd">@Serializable</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">sealed</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nc">MediaRoute</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">NavKey</span>
+
+<span class="nd">@Serializable</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">PlayerRoute</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">page</span><span class="p">:</span><span class="w"> </span><span class="kt">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">0</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">MediaRoute</span>
+
+<span class="nd">@Serializable</span>
+<span class="kd">public</span><span class="w"> </span><span class="kd">data</span><span class="w"> </span><span class="kd">class</span><span class="w"> </span><span class="nc">CollectionRoute</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nv">id</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">,</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nv">name</span><span class="p">:</span><span class="w"> </span><span class="kt">String</span><span class="p">)</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">MediaRoute</span>
+</code></pre></div>
+<hr />
+<h2 id="component-best-practices-implementation-rules">Component Best Practices &amp; Implementation Rules<a class="headerlink" href="#component-best-practices-implementation-rules" title="Permanent link">&para;</a></h2>
+<p>When building or extending components in this library, please adhere strictly to the following Material 3 design and implementation guidelines:</p>
+<h3 id="1-rendering-full-color-artwork">1. Rendering Full-Color Artwork<a class="headerlink" href="#1-rendering-full-color-artwork" title="Permanent link">&para;</a></h3>
+<p>For media artwork (like album covers, playlist covers, or podcast avatars), <strong>do not use the <code>Icon</code> component</strong>. By default, <code>Icon</code> applies the <code>LocalContentColor</code> tint, turning full-color images into solid single-color blocks. </p>
+<p>Instead, use the <code>Image</code> component, clipped to a circle and cropped using <code>ContentScale.Crop</code> to match the Wear OS design guidelines:</p>
+<hr />
+<h2 id="stateful-vs-stateless-components">Stateful vs. Stateless Components<a class="headerlink" href="#stateful-vs-stateless-components" title="Permanent link">&para;</a></h2>
+<p>Like the Material 2 version, most of the components in this library provide both a <strong>stateless</strong> and a <strong>stateful</strong> version:</p>
+<ul>
+<li><strong>Stateless Components</strong>: Provide maximum customizability. They accept raw state values and lambdas for event handling.</li>
+<li><strong>Stateful Components</strong>: Provide maximum convenience. They accept a <code>PlayerViewModel</code> or a <code>PlayerUiState</code> and handle all player state wiring and event routing automatically.</li>
+</ul>
+<p>For more details on connecting view models and UI states, refer to the <a href="../media-playerscreen/">Stateful PlayerScreen guide</a>.</p>
 
 
 

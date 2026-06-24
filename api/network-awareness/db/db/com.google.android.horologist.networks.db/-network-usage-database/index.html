@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>NetworkUsageDatabase</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    db
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":network-awareness:db/release">release</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":network-awareness:db/release"
+                                       data-filter=":network-awareness:db/release"/>
+                                <span class="checkbox--icon"></span>
+                                release
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    db
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="db::com.google.android.horologist.networks.db/NetworkUsageDatabase///PointingToDeclaration//501868822">
+  <div class="breadcrumbs"><a href="../../../index.html">db</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.networks.db</a><span class="delimiter">/</span><span class="current">NetworkUsageDatabase</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Network</span><wbr></wbr><span>Usage</span><wbr></wbr><span><span>Database</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">NetworkUsageDatabase</a> : <a href="https://developer.android.com/reference/kotlin/androidx/room/RoomDatabase.html">RoomDatabase</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="2136441075%2FConstructors%2F501868822" anchor-label="NetworkUsageDatabase" id="2136441075%2FConstructors%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-network-usage-database.html"><span>Network</span><wbr></wbr><span>Usage</span><wbr></wbr><span><span>Database</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2136441075%2FConstructors%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="tableheader">Types</h2>
+        <div class="table"><a data-name="-1007192256%2FClasslikes%2F501868822" anchor-label="Companion" id="-1007192256%2FClasslikes%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1007192256%2FClasslikes%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-17202301%2FClasslikes%2F501868822" anchor-label="Converters" id="-17202301%2FClasslikes%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-converters/index.html"><span><span>Converters</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-17202301%2FClasslikes%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="-converters/index.html">Converters</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="1688947723%2FProperties%2F501868822" anchor-label="driver" id="1688947723%2FProperties%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1688947723%2FProperties%2F501868822"><span><span>driver</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1688947723%2FProperties%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@get:</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP">RestrictTo.Scope.LIBRARY_GROUP</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="index.html#1688947723%2FProperties%2F501868822">driver</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/sqlite/SQLiteDriver.html">SQLiteDriver</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-990093491%2FProperties%2F501868822" anchor-label="invalidationTracker" id="-990093491%2FProperties%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-990093491%2FProperties%2F501868822"><span>invalidation</span><wbr></wbr><span><span>Tracker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-990093491%2FProperties%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="index.html#-990093491%2FProperties%2F501868822">invalidationTracker</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/room/InvalidationTracker.html">InvalidationTracker</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-277138657%2FProperties%2F501868822" anchor-label="isOpen" id="-277138657%2FProperties%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-277138657%2FProperties%2F501868822"><span>is</span><wbr></wbr><span><span>Open</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-277138657%2FProperties%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="index.html#-277138657%2FProperties%2F501868822">isOpen</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1864821605%2FProperties%2F501868822" anchor-label="openHelper" id="-1864821605%2FProperties%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1864821605%2FProperties%2F501868822"><span>open</span><wbr></wbr><span><span>Helper</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1864821605%2FProperties%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="index.html#-1864821605%2FProperties%2F501868822">openHelper</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/sqlite/db/SupportSQLiteOpenHelper.html">SupportSQLiteOpenHelper</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="86731822%2FProperties%2F501868822" anchor-label="path" id="86731822%2FProperties%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#86731822%2FProperties%2F501868822"><span><span>path</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="86731822%2FProperties%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@get:</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP">RestrictTo.Scope.LIBRARY_GROUP</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="index.html#86731822%2FProperties%2F501868822">path</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-177284564%2FProperties%2F501868822" anchor-label="queryExecutor" id="-177284564%2FProperties%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-177284564%2FProperties%2F501868822"><span>query</span><wbr></wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-177284564%2FProperties%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="index.html#-177284564%2FProperties%2F501868822">queryExecutor</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/util/concurrent/Executor.html">Executor</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-235457316%2FProperties%2F501868822" anchor-label="suspendingTransactionContext" id="-235457316%2FProperties%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-235457316%2FProperties%2F501868822"><span>suspending</span><wbr></wbr><span>Transaction</span><wbr></wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-235457316%2FProperties%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@get:</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP">RestrictTo.Scope.LIBRARY_GROUP</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">val </span><a href="index.html#-235457316%2FProperties%2F501868822">suspendingTransactionContext</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/lang/ThreadLocal.html">ThreadLocal</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.coroutines/-coroutine-context/index.html">CoroutineContext</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="722320214%2FProperties%2F501868822" anchor-label="transactionExecutor" id="722320214%2FProperties%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#722320214%2FProperties%2F501868822"><span>transaction</span><wbr></wbr><span><span>Executor</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="722320214%2FProperties%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">val </span><a href="index.html#722320214%2FProperties%2F501868822">transactionExecutor</a><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/util/concurrent/Executor.html">Executor</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-917214377%2FFunctions%2F501868822" anchor-label="assertNotMainThread" id="-917214377%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-917214377%2FFunctions%2F501868822"><span>assert</span><wbr></wbr><span>Not</span><wbr></wbr><span>Main</span><wbr></wbr><span><span>Thread</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-917214377%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP_PREFIX">RestrictTo.Scope.LIBRARY_GROUP_PREFIX</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-917214377%2FFunctions%2F501868822"><span class="token function">assertNotMainThread</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1166251624%2FFunctions%2F501868822" anchor-label="assertNotSuspendingTransaction" id="1166251624%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1166251624%2FFunctions%2F501868822"><span>assert</span><wbr></wbr><span>Not</span><wbr></wbr><span>Suspending</span><wbr></wbr><span><span>Transaction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1166251624%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP_PREFIX">RestrictTo.Scope.LIBRARY_GROUP_PREFIX</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1166251624%2FFunctions%2F501868822"><span class="token function">assertNotSuspendingTransaction</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1020009182%2FFunctions%2F501868822" anchor-label="beginTransaction" id="1020009182%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1020009182%2FFunctions%2F501868822"><span>begin</span><wbr></wbr><span><span>Transaction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1020009182%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1020009182%2FFunctions%2F501868822"><span class="token function"><strike>beginTransaction</strike></span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="404244410%2FFunctions%2F501868822" anchor-label="clearAllTables" id="404244410%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#404244410%2FFunctions%2F501868822"><span>clear</span><wbr></wbr><span>All</span><wbr></wbr><span><span>Tables</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="404244410%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/WorkerThread.html"><span class="token annotation builtin">WorkerThread</span></a></div></div><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="index.html#404244410%2FFunctions%2F501868822"><span class="token function">clearAllTables</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1674273423%2FFunctions%2F501868822" anchor-label="close" id="1674273423%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1674273423%2FFunctions%2F501868822"><span><span>close</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1674273423%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1674273423%2FFunctions%2F501868822"><span class="token function">close</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="162913197%2FFunctions%2F501868822" anchor-label="compileStatement" id="162913197%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#162913197%2FFunctions%2F501868822"><span>compile</span><wbr></wbr><span><span>Statement</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="162913197%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#162913197%2FFunctions%2F501868822"><span class="token function">compileStatement</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sql<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/sqlite/db/SupportSQLiteStatement.html">SupportSQLiteStatement</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1420085996%2FFunctions%2F501868822" anchor-label="createAutoMigrations" id="1420085996%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1420085996%2FFunctions%2F501868822"><span>create</span><wbr></wbr><span>Auto</span><wbr></wbr><span><span>Migrations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1420085996%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP_PREFIX">RestrictTo.Scope.LIBRARY_GROUP_PREFIX</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1420085996%2FFunctions%2F501868822"><span class="token function">createAutoMigrations</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">autoMigrationSpecs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/Migration.html">Migration</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="622722960%2FFunctions%2F501868822" anchor-label="endTransaction" id="622722960%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#622722960%2FFunctions%2F501868822"><span>end</span><wbr></wbr><span><span>Transaction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="622722960%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#622722960%2FFunctions%2F501868822"><span class="token function"><strike>endTransaction</strike></span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="178130989%2FFunctions%2F501868822" anchor-label="getAutoMigrations" id="178130989%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#178130989%2FFunctions%2F501868822"><span>get</span><wbr></wbr><span>Auto</span><wbr></wbr><span><span>Migrations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="178130989%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP_PREFIX">RestrictTo.Scope.LIBRARY_GROUP_PREFIX</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-suppress-wildcards/index.html"><span class="token annotation builtin">JvmSuppressWildcards</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#178130989%2FFunctions%2F501868822"><span class="token function"><strike>getAutoMigrations</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">autoMigrationSpecs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/Migration.html">Migration</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1278223499%2FFunctions%2F501868822" anchor-label="getCoroutineScope" id="-1278223499%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1278223499%2FFunctions%2F501868822"><span>get</span><wbr></wbr><span>Coroutine</span><wbr></wbr><span><span>Scope</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1278223499%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP">RestrictTo.Scope.LIBRARY_GROUP</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="index.html#-1278223499%2FFunctions%2F501868822"><span class="token function">getCoroutineScope</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineScope///PointingToDeclaration/">CoroutineScope</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-779149974%2FFunctions%2F501868822" anchor-label="getQueryContext" id="-779149974%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-779149974%2FFunctions%2F501868822"><span>get</span><wbr></wbr><span>Query</span><wbr></wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-779149974%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP">RestrictTo.Scope.LIBRARY_GROUP</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="index.html#-779149974%2FFunctions%2F501868822"><span class="token function">getQueryContext</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.coroutines/-coroutine-context/index.html">CoroutineContext</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-432702106%2FFunctions%2F501868822" anchor-label="getRequiredAutoMigrationSpecClasses" id="-432702106%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-432702106%2FFunctions%2F501868822"><span>get</span><wbr></wbr><span>Required</span><wbr></wbr><span>Auto</span><wbr></wbr><span>Migration</span><wbr></wbr><span>Spec</span><wbr></wbr><span><span>Classes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-432702106%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP_PREFIX">RestrictTo.Scope.LIBRARY_GROUP_PREFIX</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-432702106%2FFunctions%2F501868822"><span class="token function">getRequiredAutoMigrationSpecClasses</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1623281881%2FFunctions%2F501868822" anchor-label="getRequiredAutoMigrationSpecs" id="1623281881%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1623281881%2FFunctions%2F501868822"><span>get</span><wbr></wbr><span>Required</span><wbr></wbr><span>Auto</span><wbr></wbr><span>Migration</span><wbr></wbr><span><span>Specs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1623281881%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP_PREFIX">RestrictTo.Scope.LIBRARY_GROUP_PREFIX</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1623281881%2FFunctions%2F501868822"><span class="token function"><strike>getRequiredAutoMigrationSpecs</strike></span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-set/index.html">Set</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://developer.android.com/reference/kotlin/androidx/room/migration/AutoMigrationSpec.html">AutoMigrationSpec</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1828819717%2FFunctions%2F501868822" anchor-label="getTypeConverter" id="1828819717%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1472154772%2FFunctions%2F501868822"><span>get</span><wbr></wbr><span>Type</span><wbr></wbr><span><span>Converter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1828819717%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="index.html#-1472154772%2FFunctions%2F501868822">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="index.html#-1472154772%2FFunctions%2F501868822"><span class="token function"><strike>getTypeConverter</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">klass<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><a href="index.html#-1472154772%2FFunctions%2F501868822">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html#-1472154772%2FFunctions%2F501868822">T</a><span class="token operator">?</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP_PREFIX">RestrictTo.Scope.LIBRARY_GROUP_PREFIX</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="index.html#2031305957%2FFunctions%2F501868822">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="index.html#2031305957%2FFunctions%2F501868822"><span class="token function">getTypeConverter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">klass<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><a href="index.html#2031305957%2FFunctions%2F501868822">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html#2031305957%2FFunctions%2F501868822">T</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="908529465%2FFunctions%2F501868822" anchor-label="inCompatibilityMode" id="908529465%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#908529465%2FFunctions%2F501868822"><span>in</span><wbr></wbr><span>Compatibility</span><wbr></wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="908529465%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP">RestrictTo.Scope.LIBRARY_GROUP</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">fun </span><a href="index.html#908529465%2FFunctions%2F501868822"><span class="token function">inCompatibilityMode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1039887154%2FFunctions%2F501868822" anchor-label="init" id="1039887154%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1039887154%2FFunctions%2F501868822"><span><span>init</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1039887154%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/CallSuper.html"><span class="token annotation builtin">CallSuper</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1039887154%2FFunctions%2F501868822"><span class="token function">init</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">configuration<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/room/DatabaseConfiguration.html">DatabaseConfiguration</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1889647314%2FFunctions%2F501868822" anchor-label="inTransaction" id="-1889647314%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1889647314%2FFunctions%2F501868822"><span>in</span><wbr></wbr><span><span>Transaction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1889647314%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1889647314%2FFunctions%2F501868822"><span class="token function">inTransaction</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="294041434%2FFunctions%2F501868822" anchor-label="networkUsageDao" id="294041434%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="network-usage-dao.html"><span>network</span><wbr></wbr><span>Usage</span><wbr></wbr><span><span>Dao</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="294041434%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="network-usage-dao.html"><span class="token function">networkUsageDao</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-network-usage-dao/index.html">NetworkUsageDao</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="439512128%2FFunctions%2F501868822" anchor-label="query" id="439512128%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#604106995%2FFunctions%2F501868822"><span><span>query</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="439512128%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-overloads/index.html"><span class="token annotation builtin">JvmOverloads</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#604106995%2FFunctions%2F501868822"><span class="token function">query</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">query<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/sqlite/db/SupportSQLiteQuery.html">SupportSQLiteQuery</a><span class="token punctuation">, </span></span><span class="parameter ">signal<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/os/CancellationSignal.html">CancellationSignal</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/database/Cursor.html">Cursor</a></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1376474873%2FFunctions%2F501868822"><span class="token function">query</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">query<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">args<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-array/index.html">Array</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/android/database/Cursor.html">Cursor</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="919934728%2FFunctions%2F501868822" anchor-label="runInTransaction" id="919934728%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1063989044%2FFunctions%2F501868822"><span>run</span><wbr></wbr><span>In</span><wbr></wbr><span><span>Transaction</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="919934728%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1063989044%2FFunctions%2F501868822"><span class="token function">runInTransaction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">body<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/lang/Runnable.html">Runnable</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="index.html#-1842697888%2FFunctions%2F501868822">V</a><span class="token operator">&gt; </span><a href="index.html#-1842697888%2FFunctions%2F501868822"><span class="token function">runInTransaction</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">body<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/util/concurrent/Callable.html">Callable</a><span class="token operator">&lt;</span><a href="index.html#-1842697888%2FFunctions%2F501868822">V</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html#-1842697888%2FFunctions%2F501868822">V</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="954356125%2FFunctions%2F501868822" anchor-label="setTransactionSuccessful" id="954356125%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#954356125%2FFunctions%2F501868822"><span>set</span><wbr></wbr><span>Transaction</span><wbr></wbr><span><span>Successful</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="954356125%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#954356125%2FFunctions%2F501868822"><span class="token function"><strike>setTransactionSuccessful</strike></span></a><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="470906822%2FFunctions%2F501868822" anchor-label="useConnection" id="470906822%2FFunctions%2F501868822" data-filterable-set=":network-awareness:db/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":network-awareness:db/release" data-filterable-set=":network-awareness:db/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#470906822%2FFunctions%2F501868822"><span>use</span><wbr></wbr><span><span>Connection</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="470906822%2FFunctions%2F501868822"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":network-awareness:db/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.html"><span class="token annotation builtin">RestrictTo</span></a><span class="token punctuation">(</span><span>value<span class="token operator"> = </span><span class="token punctuation">[</span><span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/RestrictTo.Scope.html#LIBRARY_GROUP">RestrictTo.Scope.LIBRARY_GROUP</a></span><wbr></wbr><span class="token punctuation">]</span></span><wbr></wbr><span class="token punctuation">)</span></div></div><span class="token keyword">suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="index.html#470906822%2FFunctions%2F501868822">R</a><span class="token operator">&gt; </span><a href="index.html#470906822%2FFunctions%2F501868822"><span class="token function">useConnection</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">isReadOnly<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">block<span class="token operator">: </span><span class="token keyword">suspend </span><span class="token punctuation">(</span><a href="https://developer.android.com/reference/kotlin/androidx/room/Transactor.html">Transactor</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="index.html#470906822%2FFunctions%2F501868822">R</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html#470906822%2FFunctions%2F501868822">R</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

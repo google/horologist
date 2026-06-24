@@ -1,0 +1,5 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.annotations////PointingToDeclaration/annotations/com.google.android.horologist.annotations/index.html
+$dokka.location:com.google.android.horologist.annotations/ExperimentalHorologistApi///PointingToDeclaration/annotations/com.google.android.horologist.annotations/-experimental-horologist-api/index.html
+com.google.android.horologist.annotations

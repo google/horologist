@@ -1,0 +1,1 @@
+sourceset_dependencies='{":compose-material/release":[]}'

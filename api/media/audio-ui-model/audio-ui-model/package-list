@@ -1,0 +1,31 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.audio.ui.mapper////PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui.mapper/index.html
+$dokka.location:com.google.android.horologist.audio.ui.mapper/VolumeUiStateMapper///PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui.mapper/-volume-ui-state-mapper/index.html
+$dokka.location:com.google.android.horologist.audio.ui.mapper/VolumeUiStateMapper/map/#com.google.android.horologist.audio.VolumeState/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui.mapper/-volume-ui-state-mapper/map.html
+$dokka.location:com.google.android.horologist.audio.ui////PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/index.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeUiState.Companion///PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-ui-state/-companion/index.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeUiState.Companion/Unknown/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-ui-state/-companion/-unknown.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeUiState///PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-ui-state/index.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeUiState/VolumeUiState/#kotlin.Int#kotlin.Int#kotlin.Int/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-ui-state/-volume-ui-state.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeUiState/current/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-ui-state/current.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeUiState/isMax/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-ui-state/is-max.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeUiState/isMin/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-ui-state/is-min.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeUiState/max/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-ui-state/max.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeUiState/min/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-ui-state/min.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel.Companion///PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/-companion/index.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel.Companion/Factory/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/-companion/-factory.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel///PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/index.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel/VolumeViewModel/#com.google.android.horologist.audio.VolumeRepository#com.google.android.horologist.audio.AudioOutputRepository#kotlin.Function0[kotlin.Unit]#android.os.Vibrator/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/-volume-view-model.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel/audioOutput/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/audio-output.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel/decreaseVolume/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/decrease-volume.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel/decreaseVolumeWithHaptics/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/decrease-volume-with-haptics.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel/displayIndicatorEvents/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/display-indicator-events.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel/increaseVolume/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/increase-volume.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel/increaseVolumeWithHaptics/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/increase-volume-with-haptics.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel/launchOutputSelection/#kotlin.String?/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/launch-output-selection.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel/onVolumeChangeByScroll/#kotlin.Float/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/on-volume-change-by-scroll.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel/setVolume/#kotlin.Int/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/set-volume.html
+$dokka.location:com.google.android.horologist.audio.ui/VolumeViewModel/volumeUiState/#/PointingToDeclaration/audio-ui-model/com.google.android.horologist.audio.ui/-volume-view-model/volume-ui-state.html
+com.google.android.horologist.audio.ui
+com.google.android.horologist.audio.ui.mapper

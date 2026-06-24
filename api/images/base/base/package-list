@@ -1,0 +1,24 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.images.base.paintable////PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/index.html
+$dokka.location:com.google.android.horologist.images.base.paintable/BitmapPaintable.Companion///PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-bitmap-paintable/-companion/index.html
+$dokka.location:com.google.android.horologist.images.base.paintable/BitmapPaintable.Companion/asPaintable/android.graphics.Bitmap#/PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-bitmap-paintable/-companion/as-paintable.html
+$dokka.location:com.google.android.horologist.images.base.paintable/BitmapPaintable.Companion/asPaintable/androidx.compose.ui.graphics.ImageBitmap#/PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-bitmap-paintable/-companion/as-paintable.html
+$dokka.location:com.google.android.horologist.images.base.paintable/BitmapPaintable///PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-bitmap-paintable/index.html
+$dokka.location:com.google.android.horologist.images.base.paintable/BitmapPaintable/BitmapPaintable/#androidx.compose.ui.graphics.ImageBitmap/PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-bitmap-paintable/-bitmap-paintable.html
+$dokka.location:com.google.android.horologist.images.base.paintable/BitmapPaintable/rememberPainter/#/PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-bitmap-paintable/remember-painter.html
+$dokka.location:com.google.android.horologist.images.base.paintable/DrawableResPaintable///PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-drawable-res-paintable/index.html
+$dokka.location:com.google.android.horologist.images.base.paintable/DrawableResPaintable/DrawableResPaintable/#kotlin.Int/PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-drawable-res-paintable/-drawable-res-paintable.html
+$dokka.location:com.google.android.horologist.images.base.paintable/DrawableResPaintable/rememberPainter/#/PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-drawable-res-paintable/remember-painter.html
+$dokka.location:com.google.android.horologist.images.base.paintable/ImageVectorPaintable.Companion///PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-image-vector-paintable/-companion/index.html
+$dokka.location:com.google.android.horologist.images.base.paintable/ImageVectorPaintable.Companion/asPaintable/androidx.compose.ui.graphics.vector.ImageVector#/PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-image-vector-paintable/-companion/as-paintable.html
+$dokka.location:com.google.android.horologist.images.base.paintable/ImageVectorPaintable///PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-image-vector-paintable/index.html
+$dokka.location:com.google.android.horologist.images.base.paintable/ImageVectorPaintable/ImageVectorPaintable/#androidx.compose.ui.graphics.vector.ImageVector/PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-image-vector-paintable/-image-vector-paintable.html
+$dokka.location:com.google.android.horologist.images.base.paintable/ImageVectorPaintable/rememberPainter/#/PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-image-vector-paintable/remember-painter.html
+$dokka.location:com.google.android.horologist.images.base.paintable/Paintable///PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-paintable/index.html
+$dokka.location:com.google.android.horologist.images.base.paintable/Paintable/rememberPainter/#/PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-paintable/remember-painter.html
+$dokka.location:com.google.android.horologist.images.base.paintable/PaintableIcon///PointingToDeclaration/base/com.google.android.horologist.images.base.paintable/-paintable-icon/index.html
+$dokka.location:com.google.android.horologist.images.base.util////PointingToDeclaration/base/com.google.android.horologist.images.base.util/index.html
+$dokka.location:com.google.android.horologist.images.base.util//rememberVectorPainter/#androidx.compose.ui.graphics.vector.ImageVector#androidx.compose.ui.graphics.Color#androidx.compose.ui.graphics.BlendMode/PointingToDeclaration/base/com.google.android.horologist.images.base.util/remember-vector-painter.html
+com.google.android.horologist.images.base.paintable
+com.google.android.horologist.images.base.util

@@ -1,0 +1,1 @@
+sourceset_dependencies='{":datalayer:sample:shared/release":[]}'

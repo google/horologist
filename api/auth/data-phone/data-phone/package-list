@@ -1,0 +1,14 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.auth.data.phone.tokenshare.impl////PointingToDeclaration/data-phone/com.google.android.horologist.auth.data.phone.tokenshare.impl/index.html
+$dokka.location:com.google.android.horologist.auth.data.phone.tokenshare.impl/TokenBundleRepositoryImpl.Companion///PointingToDeclaration/data-phone/com.google.android.horologist.auth.data.phone.tokenshare.impl/-token-bundle-repository-impl/-companion/index.html
+$dokka.location:com.google.android.horologist.auth.data.phone.tokenshare.impl/TokenBundleRepositoryImpl///PointingToDeclaration/data-phone/com.google.android.horologist.auth.data.phone.tokenshare.impl/-token-bundle-repository-impl/index.html
+$dokka.location:com.google.android.horologist.auth.data.phone.tokenshare.impl/TokenBundleRepositoryImpl/TokenBundleRepositoryImpl/#com.google.android.horologist.data.WearDataLayerRegistry#kotlin.String#kotlinx.coroutines.CoroutineScope#androidx.datastore.core.Serializer[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/data-phone/com.google.android.horologist.auth.data.phone.tokenshare.impl/-token-bundle-repository-impl/-token-bundle-repository-impl.html
+$dokka.location:com.google.android.horologist.auth.data.phone.tokenshare.impl/TokenBundleRepositoryImpl/isAvailable/#/PointingToDeclaration/data-phone/com.google.android.horologist.auth.data.phone.tokenshare.impl/-token-bundle-repository-impl/is-available.html
+$dokka.location:com.google.android.horologist.auth.data.phone.tokenshare.impl/TokenBundleRepositoryImpl/update/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/data-phone/com.google.android.horologist.auth.data.phone.tokenshare.impl/-token-bundle-repository-impl/update.html
+$dokka.location:com.google.android.horologist.auth.data.phone.tokenshare////PointingToDeclaration/data-phone/com.google.android.horologist.auth.data.phone.tokenshare/index.html
+$dokka.location:com.google.android.horologist.auth.data.phone.tokenshare/TokenBundleRepository///PointingToDeclaration/data-phone/com.google.android.horologist.auth.data.phone.tokenshare/-token-bundle-repository/index.html
+$dokka.location:com.google.android.horologist.auth.data.phone.tokenshare/TokenBundleRepository/isAvailable/#/PointingToDeclaration/data-phone/com.google.android.horologist.auth.data.phone.tokenshare/-token-bundle-repository/is-available.html
+$dokka.location:com.google.android.horologist.auth.data.phone.tokenshare/TokenBundleRepository/update/#TypeParam(bounds=[kotlin.Any?])/PointingToDeclaration/data-phone/com.google.android.horologist.auth.data.phone.tokenshare/-token-bundle-repository/update.html
+com.google.android.horologist.auth.data.phone.tokenshare
+com.google.android.horologist.auth.data.phone.tokenshare.impl

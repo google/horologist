@@ -1,0 +1,11 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.media3.audio////PointingToDeclaration/media3-outputswitcher/com.google.android.horologist.media3.audio/index.html
+$dokka.location:com.google.android.horologist.media3.audio/AudioOutputSelector///PointingToDeclaration/media3-outputswitcher/com.google.android.horologist.media3.audio/-audio-output-selector/index.html
+$dokka.location:com.google.android.horologist.media3.audio/AudioOutputSelector/launchSelector/#/PointingToDeclaration/media3-outputswitcher/com.google.android.horologist.media3.audio/-audio-output-selector/launch-selector.html
+$dokka.location:com.google.android.horologist.media3.audio/AudioOutputSelector/selectNewOutput/#com.google.android.horologist.audio.AudioOutput/PointingToDeclaration/media3-outputswitcher/com.google.android.horologist.media3.audio/-audio-output-selector/select-new-output.html
+$dokka.location:com.google.android.horologist.media3.audio/BluetoothSettingsOutputSelector///PointingToDeclaration/media3-outputswitcher/com.google.android.horologist.media3.audio/-bluetooth-settings-output-selector/index.html
+$dokka.location:com.google.android.horologist.media3.audio/BluetoothSettingsOutputSelector/BluetoothSettingsOutputSelector/#com.google.android.horologist.audio.AudioOutputRepository/PointingToDeclaration/media3-outputswitcher/com.google.android.horologist.media3.audio/-bluetooth-settings-output-selector/-bluetooth-settings-output-selector.html
+$dokka.location:com.google.android.horologist.media3.audio/BluetoothSettingsOutputSelector/launchSelector/#/PointingToDeclaration/media3-outputswitcher/com.google.android.horologist.media3.audio/-bluetooth-settings-output-selector/launch-selector.html
+$dokka.location:com.google.android.horologist.media3.audio/BluetoothSettingsOutputSelector/selectNewOutput/#com.google.android.horologist.audio.AudioOutput/PointingToDeclaration/media3-outputswitcher/com.google.android.horologist.media3.audio/-bluetooth-settings-output-selector/select-new-output.html
+com.google.android.horologist.media3.audio

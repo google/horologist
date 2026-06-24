@@ -1,0 +1,9 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.auth.sample.shared////PointingToDeclaration/shared/com.google.android.horologist.auth.sample.shared/index.html
+$dokka.location:com.google.android.horologist.auth.sample.shared//TOKEN_BUNDLE_CUSTOM_KEY/#/PointingToDeclaration/shared/com.google.android.horologist.auth.sample.shared/-t-o-k-e-n_-b-u-n-d-l-e_-c-u-s-t-o-m_-k-e-y.html
+$dokka.location:com.google.android.horologist.auth.sample.shared/TokenBundleSerializer///PointingToDeclaration/shared/com.google.android.horologist.auth.sample.shared/-token-bundle-serializer/index.html
+$dokka.location:com.google.android.horologist.auth.sample.shared/TokenBundleSerializer/defaultValue/#/PointingToDeclaration/shared/com.google.android.horologist.auth.sample.shared/-token-bundle-serializer/default-value.html
+$dokka.location:com.google.android.horologist.auth.sample.shared/TokenBundleSerializer/readFrom/#java.io.InputStream/PointingToDeclaration/shared/com.google.android.horologist.auth.sample.shared/-token-bundle-serializer/read-from.html
+$dokka.location:com.google.android.horologist.auth.sample.shared/TokenBundleSerializer/writeTo/#com.google.android.horologist.auth.sample.shared.model.TokenBundleProto.TokenBundle?#java.io.OutputStream/PointingToDeclaration/shared/com.google.android.horologist.auth.sample.shared/-token-bundle-serializer/write-to.html
+com.google.android.horologist.auth.sample.shared

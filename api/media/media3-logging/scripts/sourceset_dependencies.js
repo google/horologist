@@ -1,0 +1,1 @@
+sourceset_dependencies='{":media:media3-logging/release":[]}'

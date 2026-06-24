@@ -1,0 +1,1 @@
+sourceset_dependencies='{":auth:composables-material3/release":[]}'

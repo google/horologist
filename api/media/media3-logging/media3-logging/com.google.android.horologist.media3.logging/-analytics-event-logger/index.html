@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>AnalyticsEventLogger</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    media3-logging
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":media:media3-logging/release">release</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":media:media3-logging/release"
+                                       data-filter=":media:media3-logging/release"/>
+                                <span class="checkbox--icon"></span>
+                                release
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    media3-logging
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="media3-logging::com.google.android.horologist.media3.logging/AnalyticsEventLogger///PointingToDeclaration//-1231790495">
+  <div class="breadcrumbs"><a href="../../../index.html">media3-logging</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.media3.logging</a><span class="delimiter">/</span><span class="current">AnalyticsEventLogger</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Analytics</span><wbr></wbr><span>Event</span><wbr></wbr><span><span>Logger</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">AnalyticsEventLogger</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">appEventLogger<span class="token operator">: </span><a href="../-error-reporter/index.html">ErrorReporter</a></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/util/EventLogger.html">EventLogger</a></div><p class="paragraph">Simple implementation of EventLogger for logging critical Media3 events.</p><p class="paragraph">Most logging behaviour is inherited from EventLogger.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="1769969736%2FConstructors%2F-1231790495" anchor-label="AnalyticsEventLogger" id="1769969736%2FConstructors%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-analytics-event-logger.html"><span>Analytics</span><wbr></wbr><span>Event</span><wbr></wbr><span><span>Logger</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1769969736%2FConstructors%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">appEventLogger<span class="token operator">: </span><a href="../-error-reporter/index.html">ErrorReporter</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="273863687%2FFunctions%2F-1231790495" anchor-label="onAudioAttributesChanged" id="273863687%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#273863687%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Attributes</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="273863687%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#273863687%2FFunctions%2F-1231790495"><span class="token function">onAudioAttributesChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">audioAttributes<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/AudioAttributes.html">AudioAttributes</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1057584765%2FFunctions%2F-1231790495" anchor-label="onAudioCodecError" id="1057584765%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-audio-codec-error.html"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Codec</span><wbr></wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1057584765%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-audio-codec-error.html"><span class="token function">onAudioCodecError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">audioCodecError<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-exception/index.html">Exception</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1571467470%2FFunctions%2F-1231790495" anchor-label="onAudioDecoderInitialized" id="-1571467470%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1342281854%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Decoder</span><wbr></wbr><span><span>Initialized</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1571467470%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1342281854%2FFunctions%2F-1231790495"><span class="token function"><strike>onAudioDecoderInitialized</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">decoderName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">initializationDurationMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-888249380%2FFunctions%2F-1231790495"><span class="token function">onAudioDecoderInitialized</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">decoderName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">initializedTimestampMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">initializationDurationMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1238046659%2FFunctions%2F-1231790495" anchor-label="onAudioDecoderReleased" id="-1238046659%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1238046659%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Decoder</span><wbr></wbr><span><span>Released</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1238046659%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1238046659%2FFunctions%2F-1231790495"><span class="token function">onAudioDecoderReleased</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">decoderName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1396880926%2FFunctions%2F-1231790495" anchor-label="onAudioDisabled" id="-1396880926%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1396880926%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span><span>Disabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1396880926%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1396880926%2FFunctions%2F-1231790495"><span class="token function">onAudioDisabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">decoderCounters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/DecoderCounters.html">DecoderCounters</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1103399691%2FFunctions%2F-1231790495" anchor-label="onAudioEnabled" id="1103399691%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1103399691%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1103399691%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1103399691%2FFunctions%2F-1231790495"><span class="token function">onAudioEnabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">decoderCounters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/DecoderCounters.html">DecoderCounters</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-527400652%2FFunctions%2F-1231790495" anchor-label="onAudioInputFormatChanged" id="-527400652%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-audio-input-format-changed.html"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Input</span><wbr></wbr><span>Format</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-527400652%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-audio-input-format-changed.html"><span class="token function">onAudioInputFormatChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">format<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Format.html">Format</a><span class="token punctuation">, </span></span><span class="parameter ">decoderReuseEvaluation<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/DecoderReuseEvaluation.html">DecoderReuseEvaluation</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1433442905%2FFunctions%2F-1231790495" anchor-label="onAudioPositionAdvancing" id="-1433442905%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1433442905%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Position</span><wbr></wbr><span><span>Advancing</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1433442905%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1433442905%2FFunctions%2F-1231790495"><span class="token function">onAudioPositionAdvancing</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">playoutStartSystemTimeMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1682689689%2FFunctions%2F-1231790495" anchor-label="onAudioSessionIdChanged" id="-1682689689%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1682689689%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Session</span><wbr></wbr><span>Id</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1682689689%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1682689689%2FFunctions%2F-1231790495"><span class="token function">onAudioSessionIdChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">audioSessionId<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-63368284%2FFunctions%2F-1231790495" anchor-label="onAudioSinkError" id="-63368284%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-audio-sink-error.html"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Sink</span><wbr></wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-63368284%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-audio-sink-error.html"><span class="token function">onAudioSinkError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">audioSinkError<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-exception/index.html">Exception</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1062405212%2FFunctions%2F-1231790495" anchor-label="onAudioTrackInitialized" id="-1062405212%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1062405212%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Track</span><wbr></wbr><span><span>Initialized</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1062405212%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1062405212%2FFunctions%2F-1231790495"><span class="token function">onAudioTrackInitialized</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">audioTrackConfig<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/audio/AudioSink.AudioTrackConfig.html">AudioSink.AudioTrackConfig</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1940308863%2FFunctions%2F-1231790495" anchor-label="onAudioTrackReleased" id="-1940308863%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1940308863%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span>Track</span><wbr></wbr><span><span>Released</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1940308863%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1940308863%2FFunctions%2F-1231790495"><span class="token function">onAudioTrackReleased</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">audioTrackConfig<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/audio/AudioSink.AudioTrackConfig.html">AudioSink.AudioTrackConfig</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1792063301%2FFunctions%2F-1231790495" anchor-label="onAudioUnderrun" id="-1792063301%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-audio-underrun.html"><span>on</span><wbr></wbr><span>Audio</span><wbr></wbr><span><span>Underrun</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1792063301%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-audio-underrun.html"><span class="token function">onAudioUnderrun</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">bufferSize<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">bufferSizeMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">elapsedSinceLastFeedMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-992202909%2FFunctions%2F-1231790495" anchor-label="onAvailableCommandsChanged" id="-992202909%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-992202909%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Available</span><wbr></wbr><span>Commands</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-992202909%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-992202909%2FFunctions%2F-1231790495"><span class="token function">onAvailableCommandsChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">availableCommands<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.Commands.html">Player.Commands</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-812166037%2FFunctions%2F-1231790495" anchor-label="onBandwidthEstimate" id="-812166037%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-bandwidth-estimate.html"><span>on</span><wbr></wbr><span>Bandwidth</span><wbr></wbr><span><span>Estimate</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-812166037%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-bandwidth-estimate.html"><span class="token function">onBandwidthEstimate</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">totalLoadTimeMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">totalBytesLoaded<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">bitrateEstimate<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1183286285%2FFunctions%2F-1231790495" anchor-label="onCues" id="-1183286285%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1710633678%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span><span>Cues</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1183286285%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1710633678%2FFunctions%2F-1231790495"><span class="token function">onCues</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">cueGroup<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/text/CueGroup.html">CueGroup</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1267932111%2FFunctions%2F-1231790495"><span class="token function"><strike>onCues</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">cues<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/text/Cue.html">Cue</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1768745373%2FFunctions%2F-1231790495" anchor-label="onDeviceInfoChanged" id="-1768745373%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1768745373%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Device</span><wbr></wbr><span>Info</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1768745373%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1768745373%2FFunctions%2F-1231790495"><span class="token function">onDeviceInfoChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">deviceInfo<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/DeviceInfo.html">DeviceInfo</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1443307288%2FFunctions%2F-1231790495" anchor-label="onDeviceVolumeChanged" id="-1443307288%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1443307288%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Device</span><wbr></wbr><span>Volume</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1443307288%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1443307288%2FFunctions%2F-1231790495"><span class="token function">onDeviceVolumeChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">volume<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">muted<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1299904437%2FFunctions%2F-1231790495" anchor-label="onDownstreamFormatChanged" id="-1299904437%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-downstream-format-changed.html"><span>on</span><wbr></wbr><span>Downstream</span><wbr></wbr><span>Format</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1299904437%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-downstream-format-changed.html"><span class="token function">onDownstreamFormatChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">mediaLoadData<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/MediaLoadData.html">MediaLoadData</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-867200081%2FFunctions%2F-1231790495" anchor-label="onDrmKeysLoaded" id="-867200081%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1855739851%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Drm</span><wbr></wbr><span>Keys</span><wbr></wbr><span><span>Loaded</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-867200081%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1855739851%2FFunctions%2F-1231790495"><span class="token function"><strike>onDrmKeysLoaded</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1115269458%2FFunctions%2F-1231790495"><span class="token function">onDrmKeysLoaded</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">keyRequestInfo<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/drm/KeyRequestInfo.html">KeyRequestInfo</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1770737434%2FFunctions%2F-1231790495" anchor-label="onDrmKeysRemoved" id="1770737434%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1770737434%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Drm</span><wbr></wbr><span>Keys</span><wbr></wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1770737434%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1770737434%2FFunctions%2F-1231790495"><span class="token function">onDrmKeysRemoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1336311302%2FFunctions%2F-1231790495" anchor-label="onDrmKeysRestored" id="1336311302%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1336311302%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Drm</span><wbr></wbr><span>Keys</span><wbr></wbr><span><span>Restored</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1336311302%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1336311302%2FFunctions%2F-1231790495"><span class="token function">onDrmKeysRestored</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1002951953%2FFunctions%2F-1231790495" anchor-label="onDrmSessionAcquired" id="1002951953%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#593149394%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Drm</span><wbr></wbr><span>Session</span><wbr></wbr><span><span>Acquired</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1002951953%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#593149394%2FFunctions%2F-1231790495"><span class="token function"><strike>onDrmSessionAcquired</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-78419893%2FFunctions%2F-1231790495"><span class="token function">onDrmSessionAcquired</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">state<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1400868633%2FFunctions%2F-1231790495" anchor-label="onDrmSessionManagerError" id="-1400868633%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1400868633%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Drm</span><wbr></wbr><span>Session</span><wbr></wbr><span>Manager</span><wbr></wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1400868633%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1400868633%2FFunctions%2F-1231790495"><span class="token function">onDrmSessionManagerError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">error<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/lang/Exception.html">Exception</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1073428543%2FFunctions%2F-1231790495" anchor-label="onDrmSessionReleased" id="-1073428543%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1073428543%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Drm</span><wbr></wbr><span>Session</span><wbr></wbr><span><span>Released</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1073428543%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1073428543%2FFunctions%2F-1231790495"><span class="token function">onDrmSessionReleased</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-36389257%2FFunctions%2F-1231790495" anchor-label="onDroppedSeeksWhileScrubbing" id="-36389257%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-36389257%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Dropped</span><wbr></wbr><span>Seeks</span><wbr></wbr><span>While</span><wbr></wbr><span><span>Scrubbing</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-36389257%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-36389257%2FFunctions%2F-1231790495"><span class="token function">onDroppedSeeksWhileScrubbing</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">droppedSeeks<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="542459369%2FFunctions%2F-1231790495" anchor-label="onDroppedVideoFrames" id="542459369%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#542459369%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Dropped</span><wbr></wbr><span>Video</span><wbr></wbr><span><span>Frames</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="542459369%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#542459369%2FFunctions%2F-1231790495"><span class="token function">onDroppedVideoFrames</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">droppedFrames<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">elapsedMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="883693475%2FFunctions%2F-1231790495" anchor-label="onEvents" id="883693475%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#883693475%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span><span>Events</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="883693475%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#883693475%2FFunctions%2F-1231790495"><span class="token function">onEvents</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">player<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.html">Player</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">events<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.Events.html">AnalyticsListener.Events</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1902584933%2FFunctions%2F-1231790495" anchor-label="onIsLoadingChanged" id="1902584933%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-is-loading-changed.html"><span>on</span><wbr></wbr><span>Is</span><wbr></wbr><span>Loading</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1902584933%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-is-loading-changed.html"><span class="token function">onIsLoadingChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">isLoading<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1443141625%2FFunctions%2F-1231790495" anchor-label="onIsPlayingChanged" id="-1443141625%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1443141625%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Is</span><wbr></wbr><span>Playing</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1443141625%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1443141625%2FFunctions%2F-1231790495"><span class="token function">onIsPlayingChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">isPlaying<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="572264602%2FFunctions%2F-1231790495" anchor-label="onLoadCanceled" id="572264602%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#572264602%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Load</span><wbr></wbr><span><span>Canceled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="572264602%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#572264602%2FFunctions%2F-1231790495"><span class="token function">onLoadCanceled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">loadEventInfo<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/LoadEventInfo.html">LoadEventInfo</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">mediaLoadData<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/MediaLoadData.html">MediaLoadData</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2099280640%2FFunctions%2F-1231790495" anchor-label="onLoadCompleted" id="2099280640%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-load-completed.html"><span>on</span><wbr></wbr><span>Load</span><wbr></wbr><span><span>Completed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2099280640%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-load-completed.html"><span class="token function">onLoadCompleted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">loadEventInfo<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/LoadEventInfo.html">LoadEventInfo</a><span class="token punctuation">, </span></span><span class="parameter ">mediaLoadData<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/MediaLoadData.html">MediaLoadData</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1451698609%2FFunctions%2F-1231790495" anchor-label="onLoadError" id="1451698609%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-load-error.html"><span>on</span><wbr></wbr><span>Load</span><wbr></wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1451698609%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-load-error.html"><span class="token function">onLoadError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">loadEventInfo<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/LoadEventInfo.html">LoadEventInfo</a><span class="token punctuation">, </span></span><span class="parameter ">mediaLoadData<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/MediaLoadData.html">MediaLoadData</a><span class="token punctuation">, </span></span><span class="parameter ">error<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/io/IOException.html">IOException</a><span class="token punctuation">, </span></span><span class="parameter ">wasCanceled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-702055009%2FFunctions%2F-1231790495" anchor-label="onLoadingChanged" id="-702055009%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-702055009%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Loading</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-702055009%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-702055009%2FFunctions%2F-1231790495"><span class="token function"><strike>onLoadingChanged</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">isLoading<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2101923903%2FFunctions%2F-1231790495" anchor-label="onLoadStarted" id="-2101923903%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#866070886%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Load</span><wbr></wbr><span><span>Started</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2101923903%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#866070886%2FFunctions%2F-1231790495"><span class="token function"><strike>onLoadStarted</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">loadEventInfo<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/LoadEventInfo.html">LoadEventInfo</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">mediaLoadData<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/MediaLoadData.html">MediaLoadData</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-load-started.html"><span class="token function">onLoadStarted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">loadEventInfo<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/LoadEventInfo.html">LoadEventInfo</a><span class="token punctuation">, </span></span><span class="parameter ">mediaLoadData<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/MediaLoadData.html">MediaLoadData</a><span class="token punctuation">, </span></span><span class="parameter ">retryCount<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-391597436%2FFunctions%2F-1231790495" anchor-label="onMaxSeekToPreviousPositionChanged" id="-391597436%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-391597436%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Max</span><wbr></wbr><span>Seek</span><wbr></wbr><span>To</span><wbr></wbr><span>Previous</span><wbr></wbr><span>Position</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-391597436%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-391597436%2FFunctions%2F-1231790495"><span class="token function">onMaxSeekToPreviousPositionChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">maxSeekToPreviousPositionMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1190388642%2FFunctions%2F-1231790495" anchor-label="onMediaItemTransition" id="1190388642%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1190388642%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Media</span><wbr></wbr><span>Item</span><wbr></wbr><span><span>Transition</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1190388642%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1190388642%2FFunctions%2F-1231790495"><span class="token function">onMediaItemTransition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/Nullable.html"><span class="token annotation builtin">Nullable</span></a> </span>mediaItem<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaItem.html">MediaItem</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">reason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-540602153%2FFunctions%2F-1231790495" anchor-label="onMediaMetadataChanged" id="-540602153%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-media-metadata-changed.html"><span>on</span><wbr></wbr><span>Media</span><wbr></wbr><span>Metadata</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-540602153%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-media-metadata-changed.html"><span class="token function">onMediaMetadataChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">mediaMetadata<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaMetadata.html">MediaMetadata</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1027768825%2FFunctions%2F-1231790495" anchor-label="onMetadata" id="-1027768825%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1027768825%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span><span>Metadata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1027768825%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1027768825%2FFunctions%2F-1231790495"><span class="token function">onMetadata</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">metadata<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Metadata.html">Metadata</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-653749279%2FFunctions%2F-1231790495" anchor-label="onPlaybackParametersChanged" id="-653749279%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-653749279%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Playback</span><wbr></wbr><span>Parameters</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-653749279%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-653749279%2FFunctions%2F-1231790495"><span class="token function">onPlaybackParametersChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">playbackParameters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/PlaybackParameters.html">PlaybackParameters</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-742351806%2FFunctions%2F-1231790495" anchor-label="onPlaybackStateChanged" id="-742351806%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-playback-state-changed.html"><span>on</span><wbr></wbr><span>Playback</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-742351806%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-playback-state-changed.html"><span class="token function">onPlaybackStateChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">state<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1409343944%2FFunctions%2F-1231790495" anchor-label="onPlaybackSuppressionReasonChanged" id="-1409343944%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1409343944%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Playback</span><wbr></wbr><span>Suppression</span><wbr></wbr><span>Reason</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1409343944%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1409343944%2FFunctions%2F-1231790495"><span class="token function">onPlaybackSuppressionReasonChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">playbackSuppressionReason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-992522560%2FFunctions%2F-1231790495" anchor-label="onPlayerError" id="-992522560%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-player-error.html"><span>on</span><wbr></wbr><span>Player</span><wbr></wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-992522560%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-player-error.html"><span class="token function">onPlayerError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">error<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/PlaybackException.html">PlaybackException</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-636208759%2FFunctions%2F-1231790495" anchor-label="onPlayerErrorChanged" id="-636208759%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-636208759%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Player</span><wbr></wbr><span>Error</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-636208759%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-636208759%2FFunctions%2F-1231790495"><span class="token function">onPlayerErrorChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/Nullable.html"><span class="token annotation builtin">Nullable</span></a> </span>error<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/PlaybackException.html">PlaybackException</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1890391381%2FFunctions%2F-1231790495" anchor-label="onPlayerReleased" id="-1890391381%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1890391381%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Player</span><wbr></wbr><span><span>Released</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1890391381%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1890391381%2FFunctions%2F-1231790495"><span class="token function">onPlayerReleased</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1025970154%2FFunctions%2F-1231790495" anchor-label="onPlayerStateChanged" id="1025970154%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1025970154%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Player</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1025970154%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1025970154%2FFunctions%2F-1231790495"><span class="token function"><strike>onPlayerStateChanged</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">playWhenReady<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">playbackState<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="135828293%2FFunctions%2F-1231790495" anchor-label="onPlaylistMetadataChanged" id="135828293%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#135828293%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Playlist</span><wbr></wbr><span>Metadata</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="135828293%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#135828293%2FFunctions%2F-1231790495"><span class="token function">onPlaylistMetadataChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">playlistMetadata<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/MediaMetadata.html">MediaMetadata</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1026543669%2FFunctions%2F-1231790495" anchor-label="onPlayWhenReadyChanged" id="1026543669%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-play-when-ready-changed.html"><span>on</span><wbr></wbr><span>Play</span><wbr></wbr><span>When</span><wbr></wbr><span>Ready</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1026543669%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-play-when-ready-changed.html"><span class="token function">onPlayWhenReadyChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token punctuation">, </span></span><span class="parameter ">playWhenReady<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">reason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1493093642%2FFunctions%2F-1231790495" anchor-label="onPositionDiscontinuity" id="1493093642%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-807726549%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Position</span><wbr></wbr><span><span>Discontinuity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1493093642%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-807726549%2FFunctions%2F-1231790495"><span class="token function"><strike>onPositionDiscontinuity</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">reason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#424304171%2FFunctions%2F-1231790495"><span class="token function">onPositionDiscontinuity</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">oldPosition<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.PositionInfo.html">Player.PositionInfo</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">newPosition<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Player.PositionInfo.html">Player.PositionInfo</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">reason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-587148133%2FFunctions%2F-1231790495" anchor-label="onRenderedFirstFrame" id="-587148133%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-587148133%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Rendered</span><wbr></wbr><span>First</span><wbr></wbr><span><span>Frame</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-587148133%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-587148133%2FFunctions%2F-1231790495"><span class="token function">onRenderedFirstFrame</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">output<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">renderTimeMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-726078237%2FFunctions%2F-1231790495" anchor-label="onRendererReadyChanged" id="-726078237%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-726078237%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Renderer</span><wbr></wbr><span>Ready</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-726078237%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-726078237%2FFunctions%2F-1231790495"><span class="token function">onRendererReadyChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">rendererIndex<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">rendererTrackType<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">isRendererReady<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1736299414%2FFunctions%2F-1231790495" anchor-label="onRepeatModeChanged" id="-1736299414%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1736299414%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Repeat</span><wbr></wbr><span>Mode</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1736299414%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1736299414%2FFunctions%2F-1231790495"><span class="token function">onRepeatModeChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">repeatMode<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1037966549%2FFunctions%2F-1231790495" anchor-label="onSeekBackIncrementChanged" id="-1037966549%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1037966549%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Seek</span><wbr></wbr><span>Back</span><wbr></wbr><span>Increment</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1037966549%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1037966549%2FFunctions%2F-1231790495"><span class="token function">onSeekBackIncrementChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">seekBackIncrementMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1570495113%2FFunctions%2F-1231790495" anchor-label="onSeekForwardIncrementChanged" id="1570495113%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1570495113%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Seek</span><wbr></wbr><span>Forward</span><wbr></wbr><span>Increment</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1570495113%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1570495113%2FFunctions%2F-1231790495"><span class="token function">onSeekForwardIncrementChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">seekForwardIncrementMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="353123334%2FFunctions%2F-1231790495" anchor-label="onSeekStarted" id="353123334%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#353123334%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Seek</span><wbr></wbr><span><span>Started</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="353123334%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#353123334%2FFunctions%2F-1231790495"><span class="token function"><strike>onSeekStarted</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="324501663%2FFunctions%2F-1231790495" anchor-label="onShuffleModeChanged" id="324501663%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#324501663%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Shuffle</span><wbr></wbr><span>Mode</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="324501663%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#324501663%2FFunctions%2F-1231790495"><span class="token function">onShuffleModeChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">shuffleModeEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1863632078%2FFunctions%2F-1231790495" anchor-label="onSkipSilenceEnabledChanged" id="-1863632078%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1863632078%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Skip</span><wbr></wbr><span>Silence</span><wbr></wbr><span>Enabled</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1863632078%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1863632078%2FFunctions%2F-1231790495"><span class="token function">onSkipSilenceEnabledChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">skipSilenceEnabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1672640621%2FFunctions%2F-1231790495" anchor-label="onSurfaceSizeChanged" id="-1672640621%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-1672640621%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Surface</span><wbr></wbr><span>Size</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1672640621%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1672640621%2FFunctions%2F-1231790495"><span class="token function">onSurfaceSizeChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-142159603%2FFunctions%2F-1231790495" anchor-label="onTimelineChanged" id="-142159603%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-142159603%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Timeline</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-142159603%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-142159603%2FFunctions%2F-1231790495"><span class="token function">onTimelineChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">reason<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1877114523%2FFunctions%2F-1231790495" anchor-label="onTracksChanged" id="1877114523%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1877114523%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Tracks</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1877114523%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1877114523%2FFunctions%2F-1231790495"><span class="token function">onTracksChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">tracks<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Tracks.html">Tracks</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1304618197%2FFunctions%2F-1231790495" anchor-label="onTrackSelectionParametersChanged" id="1304618197%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1304618197%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Track</span><wbr></wbr><span>Selection</span><wbr></wbr><span>Parameters</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1304618197%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1304618197%2FFunctions%2F-1231790495"><span class="token function">onTrackSelectionParametersChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">trackSelectionParameters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/TrackSelectionParameters.html">TrackSelectionParameters</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="444692308%2FFunctions%2F-1231790495" anchor-label="onUpstreamDiscarded" id="444692308%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#444692308%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Upstream</span><wbr></wbr><span><span>Discarded</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="444692308%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#444692308%2FFunctions%2F-1231790495"><span class="token function">onUpstreamDiscarded</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">mediaLoadData<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/source/MediaLoadData.html">MediaLoadData</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="651615634%2FFunctions%2F-1231790495" anchor-label="onVideoCodecError" id="651615634%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#651615634%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Video</span><wbr></wbr><span>Codec</span><wbr></wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="651615634%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#651615634%2FFunctions%2F-1231790495"><span class="token function">onVideoCodecError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">videoCodecError<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/java/lang/Exception.html">Exception</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="274634898%2FFunctions%2F-1231790495" anchor-label="onVideoDecoderInitialized" id="274634898%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#116569511%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Video</span><wbr></wbr><span>Decoder</span><wbr></wbr><span><span>Initialized</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="274634898%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#116569511%2FFunctions%2F-1231790495"><span class="token function"><strike>onVideoDecoderInitialized</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">decoderName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">initializationDurationMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1192385919%2FFunctions%2F-1231790495"><span class="token function">onVideoDecoderInitialized</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">decoderName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">initializedTimestampMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">initializationDurationMs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="491041976%2FFunctions%2F-1231790495" anchor-label="onVideoDecoderReleased" id="491041976%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#491041976%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Video</span><wbr></wbr><span>Decoder</span><wbr></wbr><span><span>Released</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="491041976%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#491041976%2FFunctions%2F-1231790495"><span class="token function">onVideoDecoderReleased</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">decoderName<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-939153337%2FFunctions%2F-1231790495" anchor-label="onVideoDisabled" id="-939153337%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-939153337%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Video</span><wbr></wbr><span><span>Disabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-939153337%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-939153337%2FFunctions%2F-1231790495"><span class="token function">onVideoDisabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">decoderCounters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/DecoderCounters.html">DecoderCounters</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2087996422%2FFunctions%2F-1231790495" anchor-label="onVideoEnabled" id="2087996422%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2087996422%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Video</span><wbr></wbr><span><span>Enabled</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2087996422%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#2087996422%2FFunctions%2F-1231790495"><span class="token function">onVideoEnabled</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">decoderCounters<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/DecoderCounters.html">DecoderCounters</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="127245150%2FFunctions%2F-1231790495" anchor-label="onVideoFrameProcessingOffset" id="127245150%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#127245150%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Video</span><wbr></wbr><span>Frame</span><wbr></wbr><span>Processing</span><wbr></wbr><span><span>Offset</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="127245150%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#127245150%2FFunctions%2F-1231790495"><span class="token function">onVideoFrameProcessingOffset</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">totalProcessingOffsetUs<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-long/index.html">Long</a><span class="token punctuation">, </span></span><span class="parameter ">frameCount<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-833933879%2FFunctions%2F-1231790495" anchor-label="onVideoInputFormatChanged" id="-833933879%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#-833933879%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Video</span><wbr></wbr><span>Input</span><wbr></wbr><span>Format</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-833933879%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-833933879%2FFunctions%2F-1231790495"><span class="token function">onVideoInputFormatChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">format<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/Format.html">Format</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter "><span><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/annotation/Nullable.html"><span class="token annotation builtin">Nullable</span></a> </span>decoderReuseEvaluation<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/DecoderReuseEvaluation.html">DecoderReuseEvaluation</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1508695475%2FFunctions%2F-1231790495" anchor-label="onVideoSizeChanged" id="1508695475%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#2101928807%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Video</span><wbr></wbr><span>Size</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1508695475%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#2101928807%2FFunctions%2F-1231790495"><span class="token function">onVideoSizeChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">videoSize<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/VideoSize.html">VideoSize</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-793295400%2FFunctions%2F-1231790495"><span class="token function"><strike>onVideoSizeChanged</strike></span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">unappliedRotationDegrees<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">pixelWidthHeightRatio<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1736173721%2FFunctions%2F-1231790495" anchor-label="onVolumeChanged" id="1736173721%2FFunctions%2F-1231790495" data-filterable-set=":media:media3-logging/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:media3-logging/release" data-filterable-set=":media:media3-logging/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index.html#1736173721%2FFunctions%2F-1231790495"><span>on</span><wbr></wbr><span>Volume</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1736173721%2FFunctions%2F-1231790495"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:media3-logging/release"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://developer.android.com/reference/kotlin/androidx/media3/common/util/UnstableApi.html"><span class="token annotation builtin">UnstableApi</span></a></div></div><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1736173721%2FFunctions%2F-1231790495"><span class="token function">onVolumeChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">eventTime<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/analytics/AnalyticsListener.EventTime.html">AnalyticsListener.EventTime</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">volume<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

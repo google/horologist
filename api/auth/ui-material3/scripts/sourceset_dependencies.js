@@ -1,0 +1,1 @@
+sourceset_dependencies='{":auth:ui-material3/release":[]}'

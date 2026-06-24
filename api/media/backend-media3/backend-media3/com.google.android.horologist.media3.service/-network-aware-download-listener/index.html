@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>NetworkAwareDownloadListener</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+        <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
+</head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="../../../index.html" tabindex="1">
+                    backend-media3
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
+                        data-filter=":media:backend-media3/release">release</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":media:backend-media3/release"
+                                       data-filter=":media:backend-media3/release"/>
+                                <span class="checkbox--icon"></span>
+                                release
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    backend-media3
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="backend-media3::com.google.android.horologist.media3.service/NetworkAwareDownloadListener///PointingToDeclaration//889902778">
+  <div class="breadcrumbs"><a href="../../../index.html">backend-media3</a><span class="delimiter">/</span><a href="../index.html">com.google.android.horologist.media3.service</a><span class="delimiter">/</span><span class="current">NetworkAwareDownloadListener</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Network</span><wbr></wbr><span>Aware</span><wbr></wbr><span>Download</span><wbr></wbr><span><span>Listener</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:backend-media3/release"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">NetworkAwareDownloadListener</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">appEventLogger<span class="token operator">: </span><span data-unresolved-link="com.google.android.horologist.media3.logging/ErrorReporter///PointingToDeclaration/">ErrorReporter</span><span class="token punctuation">, </span></span><span class="parameter ">highBandwidthNetworkMediator<span class="token operator">: </span><span data-unresolved-link="com.google.android.horologist.networks.highbandwidth/HighBandwidthNetworkMediator///PointingToDeclaration/">HighBandwidthNetworkMediator</span><span class="token punctuation">, </span></span><span class="parameter ">networkingRulesEngine<span class="token operator">: </span><span data-unresolved-link="com.google.android.horologist.networks.rules/NetworkingRulesEngine///PointingToDeclaration/">NetworkingRulesEngine</span></span></span><span class="token punctuation">)</span> : <a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.Listener.html">DownloadManager.Listener</a></div><p class="paragraph">Simple implementation of <a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.Listener.html">DownloadManager.Listener</a> for downloading with a required high bandwidth network. Also includes event logging.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="648169701%2FConstructors%2F889902778" anchor-label="NetworkAwareDownloadListener" id="648169701%2FConstructors%2F889902778" data-filterable-set=":media:backend-media3/release"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":media:backend-media3/release" data-filterable-set=":media:backend-media3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-network-aware-download-listener.html"><span>Network</span><wbr></wbr><span>Aware</span><wbr></wbr><span>Download</span><wbr></wbr><span><span>Listener</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="648169701%2FConstructors%2F889902778"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:backend-media3/release"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">appEventLogger<span class="token operator">: </span><span data-unresolved-link="com.google.android.horologist.media3.logging/ErrorReporter///PointingToDeclaration/">ErrorReporter</span><span class="token punctuation">, </span></span><span class="parameter ">highBandwidthNetworkMediator<span class="token operator">: </span><span data-unresolved-link="com.google.android.horologist.networks.highbandwidth/HighBandwidthNetworkMediator///PointingToDeclaration/">HighBandwidthNetworkMediator</span><span class="token punctuation">, </span></span><span class="parameter ">networkingRulesEngine<span class="token operator">: </span><span data-unresolved-link="com.google.android.horologist.networks.rules/NetworkingRulesEngine///PointingToDeclaration/">NetworkingRulesEngine</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="865761078%2FFunctions%2F889902778" anchor-label="onDownloadChanged" id="865761078%2FFunctions%2F889902778" data-filterable-set=":media:backend-media3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:backend-media3/release" data-filterable-set=":media:backend-media3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-download-changed.html"><span>on</span><wbr></wbr><span>Download</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="865761078%2FFunctions%2F889902778"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:backend-media3/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-download-changed.html"><span class="token function">onDownloadChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a><span class="token punctuation">, </span></span><span class="parameter ">download<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/Download.html">Download</a><span class="token punctuation">, </span></span><span class="parameter ">finalException<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-exception/index.html">Exception</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2098251929%2FFunctions%2F889902778" anchor-label="onDownloadRemoved" id="2098251929%2FFunctions%2F889902778" data-filterable-set=":media:backend-media3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:backend-media3/release" data-filterable-set=":media:backend-media3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-download-removed.html"><span>on</span><wbr></wbr><span>Download</span><wbr></wbr><span><span>Removed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2098251929%2FFunctions%2F889902778"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:backend-media3/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-download-removed.html"><span class="token function">onDownloadRemoved</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a><span class="token punctuation">, </span></span><span class="parameter ">download<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/Download.html">Download</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1386447885%2FFunctions%2F889902778" anchor-label="onDownloadsPausedChanged" id="1386447885%2FFunctions%2F889902778" data-filterable-set=":media:backend-media3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:backend-media3/release" data-filterable-set=":media:backend-media3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-downloads-paused-changed.html"><span>on</span><wbr></wbr><span>Downloads</span><wbr></wbr><span>Paused</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1386447885%2FFunctions%2F889902778"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:backend-media3/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-downloads-paused-changed.html"><span class="token function">onDownloadsPausedChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a><span class="token punctuation">, </span></span><span class="parameter ">downloadsPaused<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="348946992%2FFunctions%2F889902778" anchor-label="onIdle" id="348946992%2FFunctions%2F889902778" data-filterable-set=":media:backend-media3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:backend-media3/release" data-filterable-set=":media:backend-media3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-idle.html"><span>on</span><wbr></wbr><span><span>Idle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="348946992%2FFunctions%2F889902778"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:backend-media3/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-idle.html"><span class="token function">onIdle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="306313700%2FFunctions%2F889902778" anchor-label="onInitialized" id="306313700%2FFunctions%2F889902778" data-filterable-set=":media:backend-media3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:backend-media3/release" data-filterable-set=":media:backend-media3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-initialized.html"><span>on</span><wbr></wbr><span><span>Initialized</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="306313700%2FFunctions%2F889902778"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:backend-media3/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-initialized.html"><span class="token function">onInitialized</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-125288453%2FFunctions%2F889902778" anchor-label="onRequirementsStateChanged" id="-125288453%2FFunctions%2F889902778" data-filterable-set=":media:backend-media3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:backend-media3/release" data-filterable-set=":media:backend-media3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-requirements-state-changed.html"><span>on</span><wbr></wbr><span>Requirements</span><wbr></wbr><span>State</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-125288453%2FFunctions%2F889902778"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:backend-media3/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-requirements-state-changed.html"><span class="token function">onRequirementsStateChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a><span class="token punctuation">, </span></span><span class="parameter ">requirements<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/scheduler/Requirements.html">Requirements</a><span class="token punctuation">, </span></span><span class="parameter ">notMetRequirements<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1358268876%2FFunctions%2F889902778" anchor-label="onWaitingForRequirementsChanged" id="1358268876%2FFunctions%2F889902778" data-filterable-set=":media:backend-media3/release"></a>
+          <div class="table-row table-row_content" data-filterable-current=":media:backend-media3/release" data-filterable-set=":media:backend-media3/release">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="on-waiting-for-requirements-changed.html"><span>on</span><wbr></wbr><span>Waiting</span><wbr></wbr><span>For</span><wbr></wbr><span>Requirements</span><wbr></wbr><span><span>Changed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1358268876%2FFunctions%2F889902778"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":media:backend-media3/release"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="on-waiting-for-requirements-changed.html"><span class="token function">onWaitingForRequirementsChanged</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">downloadManager<span class="token operator">: </span><a href="https://developer.android.com/reference/kotlin/androidx/media3/exoplayer/offline/DownloadManager.html">DownloadManager</a><span class="token punctuation">, </span></span><span class="parameter ">waitingForRequirements<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.networks.db////PointingToDeclaration/db/com.google.android.horologist.networks.db/index.html
+$dokka.location:com.google.android.horologist.networks.db/DBDataRequestRepository///PointingToDeclaration/db/com.google.android.horologist.networks.db/-d-b-data-request-repository/index.html
+$dokka.location:com.google.android.horologist.networks.db/DBDataRequestRepository/DBDataRequestRepository/#com.google.android.horologist.networks.db.NetworkUsageDao#kotlinx.coroutines.CoroutineScope/PointingToDeclaration/db/com.google.android.horologist.networks.db/-d-b-data-request-repository/-d-b-data-request-repository.html
+$dokka.location:com.google.android.horologist.networks.db/DBDataRequestRepository/coroutineScope/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-d-b-data-request-repository/coroutine-scope.html
+$dokka.location:com.google.android.horologist.networks.db/DBDataRequestRepository/currentPeriodUsage/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-d-b-data-request-repository/current-period-usage.html
+$dokka.location:com.google.android.horologist.networks.db/DBDataRequestRepository/day/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-d-b-data-request-repository/day.html
+$dokka.location:com.google.android.horologist.networks.db/DBDataRequestRepository/from/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-d-b-data-request-repository/from.html
+$dokka.location:com.google.android.horologist.networks.db/DBDataRequestRepository/networkUsageDao/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-d-b-data-request-repository/network-usage-dao.html
+$dokka.location:com.google.android.horologist.networks.db/DBDataRequestRepository/storeRequest/#com.google.android.horologist.networks.data.DataRequest/PointingToDeclaration/db/com.google.android.horologist.networks.db/-d-b-data-request-repository/store-request.html
+$dokka.location:com.google.android.horologist.networks.db/DBDataRequestRepository/to/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-d-b-data-request-repository/to.html
+$dokka.location:com.google.android.horologist.networks.db/DBDataRequestRepository/today/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-d-b-data-request-repository/today.html
+$dokka.location:com.google.android.horologist.networks.db/DataUsage///PointingToDeclaration/db/com.google.android.horologist.networks.db/-data-usage/index.html
+$dokka.location:com.google.android.horologist.networks.db/DataUsage/DataUsage/#kotlin.String#kotlin.Long#kotlin.Int/PointingToDeclaration/db/com.google.android.horologist.networks.db/-data-usage/-data-usage.html
+$dokka.location:com.google.android.horologist.networks.db/DataUsage/bytesTotal/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-data-usage/bytes-total.html
+$dokka.location:com.google.android.horologist.networks.db/DataUsage/day/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-data-usage/day.html
+$dokka.location:com.google.android.horologist.networks.db/DataUsage/networkType/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-data-usage/network-type.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDao///PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-dao/index.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDao/getRecords/#kotlin.Int/PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-dao/get-records.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDao/insert/#com.google.android.horologist.networks.db.DataUsage/PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-dao/insert.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDao/updateBytes/#kotlin.Int#kotlin.Long#kotlin.String/PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-dao/update-bytes.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDatabase.Companion///PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-database/-companion/index.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDatabase.Companion/getDatabase/#android.content.Context#kotlin.Boolean/PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-database/-companion/get-database.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDatabase.Converters///PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-database/-converters/index.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDatabase.Converters/Converters/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-database/-converters/-converters.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDatabase.Converters/dateToTimestamp/#java.time.Instant?/PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-database/-converters/date-to-timestamp.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDatabase.Converters/fromTimestamp/#kotlin.Long?/PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-database/-converters/from-timestamp.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDatabase///PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-database/index.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDatabase/NetworkUsageDatabase/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-database/-network-usage-database.html
+$dokka.location:com.google.android.horologist.networks.db/NetworkUsageDatabase/networkUsageDao/#/PointingToDeclaration/db/com.google.android.horologist.networks.db/-network-usage-database/network-usage-dao.html
+com.google.android.horologist.networks.db

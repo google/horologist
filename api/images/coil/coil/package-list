@@ -1,0 +1,32 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.images.coil////PointingToDeclaration/coil/com.google.android.horologist.images.coil/index.html
+$dokka.location:com.google.android.horologist.images.coil//rememberArtworkColor/#kotlin.Any?#androidx.compose.ui.graphics.Color/PointingToDeclaration/coil/com.google.android.horologist.images.coil/remember-artwork-color.html
+$dokka.location:com.google.android.horologist.images.coil/CoilPaintable///PointingToDeclaration/coil/com.google.android.horologist.images.coil/-coil-paintable/index.html
+$dokka.location:com.google.android.horologist.images.coil/CoilPaintable/CoilPaintable/#kotlin.Any?#androidx.compose.ui.graphics.painter.Painter?/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-coil-paintable/-coil-paintable.html
+$dokka.location:com.google.android.horologist.images.coil/CoilPaintable/model/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-coil-paintable/model.html
+$dokka.location:com.google.android.horologist.images.coil/CoilPaintable/rememberPainter/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-coil-paintable/remember-painter.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader.Companion///PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-companion/index.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader.Companion/Fixed/#kotlin.Int/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-companion/-fixed.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader.Companion/Never/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-companion/-never.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader.Companion/NotFound/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-companion/-not-found.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader.Companion/Resources/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-companion/-resources.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader.Companion/TestIconResource/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-companion/-test-icon-resource.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader.Companion/TestIconResourceUri/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-companion/-test-icon-resource-uri.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader.Companion/TestUriPrefix/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-companion/-test-uri-prefix.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader.Companion/dataAsResourceId/#kotlin.Any?/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-companion/data-as-resource-id.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader.Companion/loadErrorBitmap/#coil.request.ImageRequest/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-companion/load-error-bitmap.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader.Companion/loadSuccessBitmap/#android.content.Context#coil.request.ImageRequest#kotlin.Int/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-companion/load-success-bitmap.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader///PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/index.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader/FakeImageLoader/#kotlin.coroutines.SuspendFunction1[coil.request.ImageRequest,coil.request.ImageResult]/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/-fake-image-loader.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader/apply/#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/apply.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader/components/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/components.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader/defaults/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/defaults.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader/diskCache/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/disk-cache.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader/enqueue/#coil.request.ImageRequest/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/enqueue.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader/execute/#coil.request.ImageRequest/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/execute.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader/memoryCache/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/memory-cache.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader/newBuilder/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/new-builder.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader/override/#kotlin.Function0[kotlin.Unit]/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/override.html
+$dokka.location:com.google.android.horologist.images.coil/FakeImageLoader/shutdown/#/PointingToDeclaration/coil/com.google.android.horologist.images.coil/-fake-image-loader/shutdown.html
+com.google.android.horologist.images.coil

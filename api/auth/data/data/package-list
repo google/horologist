@@ -1,0 +1,36 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.auth.data.common.model////PointingToDeclaration/data/com.google.android.horologist.auth.data.common.model/index.html
+$dokka.location:com.google.android.horologist.auth.data.common.model/AuthUser///PointingToDeclaration/data/com.google.android.horologist.auth.data.common.model/-auth-user/index.html
+$dokka.location:com.google.android.horologist.auth.data.common.model/AuthUser/AuthUser/#kotlin.String?#kotlin.String?#kotlin.String?/PointingToDeclaration/data/com.google.android.horologist.auth.data.common.model/-auth-user/-auth-user.html
+$dokka.location:com.google.android.horologist.auth.data.common.model/AuthUser/avatarUri/#/PointingToDeclaration/data/com.google.android.horologist.auth.data.common.model/-auth-user/avatar-uri.html
+$dokka.location:com.google.android.horologist.auth.data.common.model/AuthUser/displayName/#/PointingToDeclaration/data/com.google.android.horologist.auth.data.common.model/-auth-user/display-name.html
+$dokka.location:com.google.android.horologist.auth.data.common.model/AuthUser/email/#/PointingToDeclaration/data/com.google.android.horologist.auth.data.common.model/-auth-user/email.html
+$dokka.location:com.google.android.horologist.auth.data.common.repository////PointingToDeclaration/data/com.google.android.horologist.auth.data.common.repository/index.html
+$dokka.location:com.google.android.horologist.auth.data.common.repository/AuthUserRepository///PointingToDeclaration/data/com.google.android.horologist.auth.data.common.repository/-auth-user-repository/index.html
+$dokka.location:com.google.android.horologist.auth.data.common.repository/AuthUserRepository/getAuthenticated/#/PointingToDeclaration/data/com.google.android.horologist.auth.data.common.repository/-auth-user-repository/get-authenticated.html
+$dokka.location:com.google.android.horologist.auth.data.common.repository/AuthUserRepository/getAvailable/#/PointingToDeclaration/data/com.google.android.horologist.auth.data.common.repository/-auth-user-repository/get-available.html
+$dokka.location:com.google.android.horologist.auth.data.googlesignin////PointingToDeclaration/data/com.google.android.horologist.auth.data.googlesignin/index.html
+$dokka.location:com.google.android.horologist.auth.data.googlesignin/AuthUserMapper///PointingToDeclaration/data/com.google.android.horologist.auth.data.googlesignin/-auth-user-mapper/index.html
+$dokka.location:com.google.android.horologist.auth.data.googlesignin/AuthUserMapper/map/#com.google.android.gms.auth.api.signin.GoogleSignInAccount?/PointingToDeclaration/data/com.google.android.horologist.auth.data.googlesignin/-auth-user-mapper/map.html
+$dokka.location:com.google.android.horologist.auth.data.googlesignin/GoogleSignInAuthUserRepository///PointingToDeclaration/data/com.google.android.horologist.auth.data.googlesignin/-google-sign-in-auth-user-repository/index.html
+$dokka.location:com.google.android.horologist.auth.data.googlesignin/GoogleSignInAuthUserRepository/GoogleSignInAuthUserRepository/#android.content.Context/PointingToDeclaration/data/com.google.android.horologist.auth.data.googlesignin/-google-sign-in-auth-user-repository/-google-sign-in-auth-user-repository.html
+$dokka.location:com.google.android.horologist.auth.data.googlesignin/GoogleSignInAuthUserRepository/getAuthenticated/#/PointingToDeclaration/data/com.google.android.horologist.auth.data.googlesignin/-google-sign-in-auth-user-repository/get-authenticated.html
+$dokka.location:com.google.android.horologist.auth.data.googlesignin/GoogleSignInEventListener///PointingToDeclaration/data/com.google.android.horologist.auth.data.googlesignin/-google-sign-in-event-listener/index.html
+$dokka.location:com.google.android.horologist.auth.data.googlesignin/GoogleSignInEventListener/onSignedIn/#com.google.android.gms.auth.api.signin.GoogleSignInAccount/PointingToDeclaration/data/com.google.android.horologist.auth.data.googlesignin/-google-sign-in-event-listener/on-signed-in.html
+$dokka.location:com.google.android.horologist.auth.data.googlesignin/GoogleSignInEventListenerNoOpImpl///PointingToDeclaration/data/com.google.android.horologist.auth.data.googlesignin/-google-sign-in-event-listener-no-op-impl/index.html
+$dokka.location:com.google.android.horologist.auth.data.googlesignin/GoogleSignInEventListenerNoOpImpl/onSignedIn/#com.google.android.gms.auth.api.signin.GoogleSignInAccount/PointingToDeclaration/data/com.google.android.horologist.auth.data.googlesignin/-google-sign-in-event-listener-no-op-impl/on-signed-in.html
+$dokka.location:com.google.android.horologist.auth.data.tokenshare.impl////PointingToDeclaration/data/com.google.android.horologist.auth.data.tokenshare.impl/index.html
+$dokka.location:com.google.android.horologist.auth.data.tokenshare.impl/TokenBundleRepositoryImpl.Companion///PointingToDeclaration/data/com.google.android.horologist.auth.data.tokenshare.impl/-token-bundle-repository-impl/-companion/index.html
+$dokka.location:com.google.android.horologist.auth.data.tokenshare.impl/TokenBundleRepositoryImpl.Companion/create/#com.google.android.horologist.data.WearDataLayerRegistry#androidx.datastore.core.Serializer[TypeParam(bounds=[kotlin.Any?])]#kotlin.String/PointingToDeclaration/data/com.google.android.horologist.auth.data.tokenshare.impl/-token-bundle-repository-impl/-companion/create.html
+$dokka.location:com.google.android.horologist.auth.data.tokenshare.impl/TokenBundleRepositoryImpl///PointingToDeclaration/data/com.google.android.horologist.auth.data.tokenshare.impl/-token-bundle-repository-impl/index.html
+$dokka.location:com.google.android.horologist.auth.data.tokenshare.impl/TokenBundleRepositoryImpl/TokenBundleRepositoryImpl/#com.google.android.horologist.data.WearDataLayerRegistry#androidx.datastore.core.Serializer[TypeParam(bounds=[kotlin.Any?])]#kotlin.String/PointingToDeclaration/data/com.google.android.horologist.auth.data.tokenshare.impl/-token-bundle-repository-impl/-token-bundle-repository-impl.html
+$dokka.location:com.google.android.horologist.auth.data.tokenshare.impl/TokenBundleRepositoryImpl/flow/#/PointingToDeclaration/data/com.google.android.horologist.auth.data.tokenshare.impl/-token-bundle-repository-impl/flow.html
+$dokka.location:com.google.android.horologist.auth.data.tokenshare////PointingToDeclaration/data/com.google.android.horologist.auth.data.tokenshare/index.html
+$dokka.location:com.google.android.horologist.auth.data.tokenshare/TokenBundleRepository///PointingToDeclaration/data/com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/index.html
+$dokka.location:com.google.android.horologist.auth.data.tokenshare/TokenBundleRepository/flow/#/PointingToDeclaration/data/com.google.android.horologist.auth.data.tokenshare/-token-bundle-repository/flow.html
+com.google.android.horologist.auth.data.common.model
+com.google.android.horologist.auth.data.common.repository
+com.google.android.horologist.auth.data.googlesignin
+com.google.android.horologist.auth.data.tokenshare
+com.google.android.horologist.auth.data.tokenshare.impl

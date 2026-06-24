@@ -1,0 +1,7 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.networks.ui////PointingToDeclaration/ui/com.google.android.horologist.networks.ui/index.html
+$dokka.location:com.google.android.horologist.networks.ui//DataUsageTimeText/#kotlin.Boolean#com.google.android.horologist.networks.data.Networks#com.google.android.horologist.networks.data.DataUsageReport?#androidx.compose.ui.Modifier#kotlin.collections.Set[com.google.android.horologist.networks.data.NetworkType]/PointingToDeclaration/ui/com.google.android.horologist.networks.ui/-data-usage-time-text.html
+$dokka.location:com.google.android.horologist.networks.ui//LinearDataUsage/#com.google.android.horologist.networks.data.Networks#com.google.android.horologist.networks.data.DataUsageReport?#androidx.compose.ui.text.TextStyle#android.content.Context/PointingToDeclaration/ui/com.google.android.horologist.networks.ui/-linear-data-usage.html
+$dokka.location:com.google.android.horologist.networks.ui//curveDataUsage/androidx.wear.compose.foundation.CurvedScope#androidx.compose.ui.Modifier#com.google.android.horologist.networks.data.Networks#com.google.android.horologist.networks.data.DataUsageReport?#androidx.wear.compose.foundation.CurvedTextStyle#android.content.Context#kotlin.collections.Set[com.google.android.horologist.networks.data.NetworkType]/PointingToDeclaration/ui/com.google.android.horologist.networks.ui/curve-data-usage.html
+com.google.android.horologist.networks.ui

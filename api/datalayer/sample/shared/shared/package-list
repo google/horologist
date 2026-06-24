@@ -1,0 +1,8 @@
+$dokka.format:html-v1
+$dokka.linkExtension:html
+$dokka.location:com.google.android.horologist.datalayer.sample.shared////PointingToDeclaration/shared/com.google.android.horologist.datalayer.sample.shared/index.html
+$dokka.location:com.google.android.horologist.datalayer.sample.shared/CounterValueSerializer///PointingToDeclaration/shared/com.google.android.horologist.datalayer.sample.shared/-counter-value-serializer/index.html
+$dokka.location:com.google.android.horologist.datalayer.sample.shared/CounterValueSerializer/defaultValue/#/PointingToDeclaration/shared/com.google.android.horologist.datalayer.sample.shared/-counter-value-serializer/default-value.html
+$dokka.location:com.google.android.horologist.datalayer.sample.shared/CounterValueSerializer/readFrom/#java.io.InputStream/PointingToDeclaration/shared/com.google.android.horologist.datalayer.sample.shared/-counter-value-serializer/read-from.html
+$dokka.location:com.google.android.horologist.datalayer.sample.shared/CounterValueSerializer/writeTo/#com.google.android.horologist.datalayer.sample.shared.grpc.GrpcDemoProto.CounterValue#java.io.OutputStream/PointingToDeclaration/shared/com.google.android.horologist.datalayer.sample.shared/-counter-value-serializer/write-to.html
+com.google.android.horologist.datalayer.sample.shared

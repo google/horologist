@@ -54,7 +54,7 @@ public fun UampSettingsButtons(
       (windowInfo.containerSize.width / 10f).dp
     }
     val bottomPadding = remember(windowInfo.containerSize) {
-      (windowInfo.containerSize.height / 10f).dp
+      (windowInfo.containerSize.height / 100f).dp
     }
 
     Row(

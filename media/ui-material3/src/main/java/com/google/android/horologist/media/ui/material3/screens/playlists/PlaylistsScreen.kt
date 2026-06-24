@@ -17,7 +17,12 @@
 package com.google.android.horologist.media.ui.material3.screens.playlists
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -120,9 +125,13 @@ public fun PlaylistsScreen(
             label = { Text(playlist.title) },
             onClick = { onPlaylistItemClick(playlist) },
             icon = {
-                Icon(
+                Image(
                     painter = CoilPaintable(playlist.artworkUri, playlistItemArtworkPlaceholder).rememberPainter(),
                     contentDescription = null,
+                    modifier = Modifier
+                        .size(ButtonDefaults.IconSize)
+                        .clip(CircleShape),
+                    contentScale = ContentScale.Crop,
                 )
             },
         )

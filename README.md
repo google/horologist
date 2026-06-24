@@ -28,31 +28,32 @@ APIs.
 Horologist provides the Media Toolkit: a set of libraries to build Media apps on Wear OS and a
 sample app that you can run to see the toolkit in action.
 
-The toolkit includes:
+The toolkit is designed using a clean architecture and includes:
 
-- [horologist-media-ui](https://google.github.io/horologist/media-ui): common media UI components
-  and screens like `PlayerScreen`.
-- [horologist-media](https://google.github.io/horologist/media): domain model for Media related
-  functionality. Provides an
-  abstraction
-  to the UI module (`horologist-media-ui`) that is agnostic to the Player implementation.
-- [horologist-media-data](https://google.github.io/horologist/media-data): implementation of the
-  domain module (`horologist-media`)
-  using [Media3](https://developer.android.com/jetpack/androidx/releases/media3).
-- [horologist-media3-backend](https://google.github.io/horologist/media3-backend): Player on top of
-  Media3 including
-  functionalities
-  such as avoiding playing music on the watch speaker.
-- [media sample](https://google.github.io/horologist/media-sample): sample app to listen to
-  downloaded music.
-- [audio](https://google.github.io/horologist/audio): domain model for Audio related functionality,
-  such as Volume Control and Output switching, subscribing to a Flow of changes in audio or output.
-- [audio-ui](https://google.github.io/horologist/audio-ui): UI components for Audio related functionality,
-  such as Volume Control and Output switching
+*   **Core & Playback Modules**:
+    *   [horologist-media-core](https://google.github.io/horologist/media-core) (`:media:core`): Core domain models, interfaces, and state representations for media playback, agnostic of the underlying player implementation.
+    *   [horologist-media-data](https://google.github.io/horologist/media-data) (`:media:data`): Implementation of the domain module using [AndroidX Media3](https://developer.android.com/jetpack/androidx/releases/media3).
+    *   [horologist-media3-backend](https://google.github.io/horologist/media3-backend) (`:media:backend-media3`): Background playback service and engine built on Media3, enforcing Wear OS specific routing rules (e.g. requiring Bluetooth output).
+*   **UI & Presentation Modules**:
+    *   [horologist-media-ui-model](https://google.github.io/horologist/media-ui-model) (`:media:ui-model`): Shared presentation data classes and view states for media UI.
+    *   [horologist-media-ui-material3](https://google.github.io/horologist/media-ui-material3) (`:media:ui-material3`): Modern Material 3 high-level media UI screens, scaffolds, and responsive components.
+    *   [horologist-media-ui](https://google.github.io/horologist/media-ui) (`:media:ui`): Legacy Material 2 media UI components and screens.
+*   **Audio & Volume Modules**:
+    *   [horologist-audio](https://google.github.io/horologist/audio) (`:media:audio`): Core domain models, output device trackers, and volume managers.
+    *   [horologist-audio-ui-model](https://google.github.io/horologist/audio-ui-model) (`:media:audio-ui-model`): Shared audio presentation view states.
+    *   [horologist-audio-ui-material3](https://google.github.io/horologist/audio-ui-material3) (`:media:audio-ui-material3`): Modern Material 3 volume and output selector UI components.
+    *   [horologist-audio-ui](https://google.github.io/horologist/audio-ui) (`:media:audio-ui`): Legacy Material 2 audio and volume controls.
+*   **Utilities & Services**:
+    *   `media:media3-logging`: Diagnostic logging utilities for tracking Media3 player events on Wear OS.
+    *   `media:media3-outputswitcher`: Output switching and Bluetooth pairing prompt controllers.
+    *   `media:sync`: Offline content, download queue, and play state synchronization between phone and watch.
+*   **Applications & Benchmarks**:
+    *   [media sample](https://google.github.io/horologist/media-sample) (`:media:sample`): Main media player sample app (UAMP clone) showcasing local and streaming music, downloads, volume control, and Navigation 3.
+    *   `media:benchmark` & `media:sample-benchmark`: Macrobenchmarks and performance test suites for the libraries and the sample application.
 
-|                                                             Player Screen                                                             |                                                          Browse Screen                                                          |                                                          Entity Screen                                                          |                                                             Volume Screen                                                              |
-|:-------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------:|
-| <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/playerscreen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/browse.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui/detail.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
+|                                                                  Player Screen                                                                  |                                                          Browse Screen                                                          |                                                          Entity Screen                                                          |                                                             Volume Screen                                                              |
+|:-----------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------:|
+| <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui-material3/playerscreen.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui-material3/browse.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/media-ui-material3/detail.png" height="120" width="120" > | <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/audio-ui/volume_screen.png" height="120" width="120" > |
 
 
 ## 📅 Composables

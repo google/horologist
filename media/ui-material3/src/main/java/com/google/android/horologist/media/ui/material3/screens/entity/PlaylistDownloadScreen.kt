@@ -18,7 +18,11 @@ package com.google.android.horologist.media.ui.material3.screens.entity
 
 import android.text.format.Formatter
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Row
@@ -46,10 +50,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.Button
 import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.CircularProgressIndicator
+import androidx.wear.compose.material3.FilledIconButton
 import androidx.wear.compose.material3.FilledTonalButton
 import androidx.wear.compose.material3.FilledTonalIconButton
 import androidx.wear.compose.material3.Icon
@@ -182,16 +188,20 @@ private fun MediaContent(
         -> {
             FilledTonalButton(
                 modifier = Modifier.fillMaxWidth(),
-                label = { Text(mediaTitle) },
+                label = { Text(text = mediaTitle, maxLines = 1, overflow = TextOverflow.Ellipsis) },
                 onClick = { onDownloadItemClick(downloadMediaUiModel) },
-                secondaryLabel = secondaryLabel?.let { { Text(secondaryLabel) } },
+                secondaryLabel = secondaryLabel?.let { { Text(text = secondaryLabel, maxLines = 1, overflow = TextOverflow.Ellipsis) } },
                 icon = {
-                    Icon(
+                    Image(
                         painter = CoilPaintable(
                             downloadMediaUiModel.artworkUri,
                             downloadItemArtworkPlaceholder,
                         ).rememberPainter(),
                         contentDescription = null,
+                        modifier = Modifier
+                            .size(ButtonDefaults.IconSize)
+                            .clip(CircleShape),
+                        contentScale = ContentScale.Crop,
                     )
                 },
                 enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded,
@@ -207,13 +217,16 @@ private fun MediaContent(
                                 targetValue = (downloadMediaUiModel.progress as DownloadMediaUiModel.Progress.InProgress).progress,
                                 animationSpec = MaterialTheme.motionScheme.slowEffectsSpec(),
                             )
-                            Icon(
+                            Image(
                                 painter = CoilPaintable(
                                     downloadMediaUiModel.artworkUri,
                                     downloadItemArtworkPlaceholder,
                                 ).rememberPainter(),
-                                modifier = Modifier.size(ButtonDefaults.LargeIconSize),
                                 contentDescription = null,
+                                modifier = Modifier
+                                    .size(ButtonDefaults.LargeIconSize)
+                                    .clip(CircleShape),
+                                contentScale = ContentScale.Crop,
                             )
                             CircularProgressIndicator(
                                 progress = { progress },
@@ -224,13 +237,16 @@ private fun MediaContent(
 
                     is DownloadMediaUiModel.Progress.Waiting -> {
                         {
-                            Icon(
+                            Image(
                                 painter = CoilPaintable(
                                     downloadMediaUiModel.artworkUri,
                                     downloadItemArtworkPlaceholder,
                                 ).rememberPainter(),
-                                modifier = Modifier.size(ButtonDefaults.LargeIconSize),
                                 contentDescription = null,
+                                modifier = Modifier
+                                    .size(ButtonDefaults.LargeIconSize)
+                                    .clip(CircleShape),
+                                contentScale = ContentScale.Crop,
                             )
                             CircularProgressIndicator(
                                 modifier = Modifier.size(ButtonDefaults.LargeIconSize),
@@ -249,9 +265,9 @@ private fun MediaContent(
             } ?: Modifier
 
             FilledTonalButton(
-                label = { Text(mediaTitle) },
+                label = { Text(text = mediaTitle, maxLines = 1, overflow = TextOverflow.Ellipsis) },
                 onClick = { onDownloadItemInProgressClick(downloadMediaUiModel) },
-                secondaryLabel = secondaryLabel?.let { { Text(secondaryLabel) } },
+                secondaryLabel = secondaryLabel?.let { { Text(text = secondaryLabel, maxLines = 1, overflow = TextOverflow.Ellipsis) } },
                 modifier = customModifier,
                 icon = icon,
             )
@@ -332,7 +348,7 @@ private fun ButtonsContent(
                             .weight(weight = 0.3F, fill = false),
                     )
 
-                    IconButton(
+                    FilledIconButton(
                         onClick = { onShuffleButtonClick(state.collectionModel) },
                         modifier = Modifier
                             .weight(weight = 0.3F, fill = false),
@@ -345,7 +361,7 @@ private fun ButtonsContent(
                         )
                     }
 
-                    IconButton(
+                    FilledIconButton(
                         onClick = { onPlayButtonClick(state.collectionModel) },
                         modifier = Modifier
                             .weight(weight = 0.3F, fill = false),

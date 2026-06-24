@@ -16,7 +16,12 @@
 
 package com.google.android.horologist.media.ui.material3.screens.entity
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,9 +31,11 @@ import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.ButtonDefaults
+import androidx.wear.compose.material3.FilledIconButton
 import androidx.wear.compose.material3.FilledTonalButton
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButton
@@ -86,12 +93,16 @@ public fun PlaylistStreamingScreen(
         mediaContent = { mediaUiModel ->
             val mediaTitle = mediaUiModel.title ?: defaultMediaTitle
             FilledTonalButton(
-                label = { Text(mediaTitle) },
+                label = { Text(text = mediaTitle, maxLines = 1, overflow = TextOverflow.Ellipsis) },
                 onClick = { onPlayItemClick(mediaUiModel) },
                 icon = {
-                    Icon(
+                    Image(
                         painter = CoilPaintable(mediaUiModel.artworkUri).rememberPainter(),
                         contentDescription = null,
+                        modifier = Modifier
+                            .size(ButtonDefaults.IconSize)
+                            .clip(CircleShape),
+                        contentScale = ContentScale.Crop,
                     )
                 },
             )
@@ -104,7 +115,7 @@ public fun PlaylistStreamingScreen(
                     .height(52.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                IconButton(
+                FilledIconButton(
                     onClick = { onShuffleButtonClick() },
                     modifier = Modifier
                         .padding(start = 6.dp)
@@ -116,7 +127,7 @@ public fun PlaylistStreamingScreen(
                     )
                 }
 
-                IconButton(
+                FilledIconButton(
                     onClick = { onPlayButtonClick() },
                     modifier = Modifier
                         .padding(start = 6.dp)

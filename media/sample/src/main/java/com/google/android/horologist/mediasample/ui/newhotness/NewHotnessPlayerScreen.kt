@@ -18,6 +18,7 @@ package com.google.android.horologist.mediasample.ui.newhotness
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -25,15 +26,31 @@ import androidx.compose.ui.Modifier
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.media3.common.Player
-import androidx.wear.compose.material.Text
+import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.ScreenScaffold
+import androidx.wear.compose.material3.Text
 
 @Composable
 fun NewHotnessPlayerScreen(
+    modifier: Modifier = Modifier,
     newHotnessPlayerScreenViewModel: NewHotnessPlayerScreenViewModel = hiltViewModel(),
 ) {
     val player: Player? by newHotnessPlayerScreenViewModel.player.collectAsStateWithLifecycle()
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Text(player.toString(), modifier = Modifier.align(Alignment.Center))
+    ScreenScaffold(
+        modifier = modifier,
+    ) { contentPadding ->
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding),
+            contentAlignment = Alignment.Center,
+        ) {
+            Text(
+                text = player?.toString() ?: "No Player",
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onBackground,
+            )
+        }
     }
 }

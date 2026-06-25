@@ -25,7 +25,7 @@
     
     
       
-        <title>Audio UI Material3 library - Horologist</title>
+        <title>Audio UI Material 3 Library - Horologist</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#audio-ui-material3-library" class="md-skip">
+        <a href="#audio-ui-material-3-library" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Audio UI Material3 library
+              Audio UI Material 3 Library
             
           </span>
         </div>
@@ -1619,6 +1619,114 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#volume-screen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Volume Screen
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Volume Screen">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-stateful-volumescreen-recommended" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Stateful VolumeScreen (Recommended)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-stateless-volumescreen-custom-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Stateless VolumeScreen (Custom State)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Stateless VolumeScreen (Custom State)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#with-a-device-output-button-standard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With a Device Output Button (Standard):
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#with-a-simple-text-label" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        With a Simple Text Label:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rotary-bezel-crown-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Rotary Bezel &amp; Crown Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#volume-level-indicator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Volume Level Indicator
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dependency-download" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dependency Download
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1637,8 +1745,86 @@
   
 
 
-<h1 id="audio-ui-material3-library">Audio UI Material3 library<a class="headerlink" href="#audio-ui-material3-library" title="Permanent link">&para;</a></h1>
-<p>TODO</p>
+<h1 id="audio-ui-material-3-library">Audio UI Material 3 Library<a class="headerlink" href="#audio-ui-material-3-library" title="Permanent link">&para;</a></h1>
+<p>This library contains a set of high-quality, battery-efficient Wear OS Jetpack Compose components and screens for audio and volume management, fully built on top of <strong>Wear Compose Material 3</strong>.</p>
+<p>It includes:
+*   <strong>Volume Screen</strong>: A complete screen for adjusting volume using a stepper or the physical bezel/crown, showing the current audio output (e.g., headphones, watch speaker).
+*   <strong>Rotary Volume Controls</strong>: Utilities to seamlessly bind volume adjustment to physical rotary scroll inputs (bezel/crown rotation).
+*   <strong>Volume Level Indicator</strong>: A modern, curved visual arc indicator that wraps around the edge of the circular watch face to show the current volume level.</p>
+<hr />
+<h2 id="volume-screen">Volume Screen<a class="headerlink" href="#volume-screen" title="Permanent link">&para;</a></h2>
+<p>The library provides a highly optimized <strong><code>VolumeScreen</code></strong> with a standard Material 3 stepper design. It allows users to increase or decrease the audio stream volume using either the on-screen stepper buttons or the physical rotary bezel/crown. It also displays a central button showing the active audio output device (e.g., Bluetooth headphones) and prompts the user to switch or connect devices when clicked.</p>
+<p>Like other Horologist components, the screen comes in both <strong>stateful</strong> and <strong>stateless</strong> versions.</p>
+<h3 id="1-stateful-volumescreen-recommended">1. Stateful <code>VolumeScreen</code> (Recommended)<a class="headerlink" href="#1-stateful-volumescreen-recommended" title="Permanent link">&para;</a></h3>
+<p>The stateful version is the easiest way to integrate volume management into your application. It automatically wires up the <strong><code>VolumeViewModel</code></strong>, manages audio stream states, handles Bluetooth output switching, and binds to physical rotary scroll inputs internally without requiring any boilerplate code.</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">com.google.android.horologist.audio.ui.material3.VolumeScreen</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyVolumeScreen</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Zero-boilerplate integration</span>
+<span class="w">    </span><span class="n">VolumeScreen</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="2-stateless-volumescreen-custom-state">2. Stateless <code>VolumeScreen</code> (Custom State)<a class="headerlink" href="#2-stateless-volumescreen-custom-state" title="Permanent link">&para;</a></h3>
+<p>If you want to manage the volume state or audio outputs yourself, you can use the stateless version. It accepts raw state values and event lambdas for full customizability.</p>
+<h4 id="with-a-device-output-button-standard">With a Device Output Button (Standard):<a class="headerlink" href="#with-a-device-output-button-standard" title="Permanent link">&para;</a></h4>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">com.google.android.horologist.audio.ui.material3.VolumeScreen</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">com.google.android.horologist.audio.ui.material3.components.AudioOutputUi</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MyStatelessVolumeScreen</span><span class="p">(</span>
+<span class="w">    </span><span class="n">volumeUiState</span><span class="p">:</span><span class="w"> </span><span class="n">VolumeUiState</span><span class="p">,</span>
+<span class="w">    </span><span class="n">activeOutput</span><span class="p">:</span><span class="w"> </span><span class="n">AudioOutputUi</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onVolumeIncrease</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onVolumeDecrease</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onOutputDeviceClick</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">VolumeScreen</span><span class="p">(</span>
+<span class="w">        </span><span class="n">volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">volumeUiState</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="n">audioOutputUi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">activeOutput</span><span class="p">,</span>
+<span class="w">        </span><span class="n">increaseVolume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onVolumeIncrease</span><span class="p">,</span>
+<span class="w">        </span><span class="n">decreaseVolume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onVolumeDecrease</span><span class="p">,</span>
+<span class="w">        </span><span class="n">onAudioOutputClick</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onOutputDeviceClick</span><span class="p">,</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h4 id="with-a-simple-text-label">With a Simple Text Label:<a class="headerlink" href="#with-a-simple-text-label" title="Permanent link">&para;</a></h4>
+<p>If you do not want to show the active audio output device in the center, you can use <strong><code>VolumeWithDefaultLabel</code></strong> which displays a simple text label:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">com.google.android.horologist.audio.ui.material3.VolumeWithDefaultLabel</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span><span class="w"> </span><span class="nf">MySimpleVolumeScreen</span><span class="p">(</span>
+<span class="w">    </span><span class="n">volumeUiState</span><span class="p">:</span><span class="w"> </span><span class="n">VolumeUiState</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onVolumeIncrease</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onVolumeDecrease</span><span class="p">:</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">Unit</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">VolumeWithDefaultLabel</span><span class="p">(</span>
+<span class="w">        </span><span class="n">volume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">volumeUiState</span><span class="w"> </span><span class="p">},</span>
+<span class="w">        </span><span class="n">increaseVolume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onVolumeIncrease</span><span class="p">,</span>
+<span class="w">        </span><span class="n">decreaseVolume</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">onVolumeDecrease</span><span class="p">,</span>
+<span class="w">    </span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img align="center" alt="" loading="lazy" src="volume_screen.png" width="70%" /></p>
+<hr />
+<h2 id="rotary-bezel-crown-integration">Rotary Bezel &amp; Crown Integration<a class="headerlink" href="#rotary-bezel-crown-integration" title="Permanent link">&para;</a></h2>
+<p>Material 3 Volume components natively support Wear OS <strong>Rotary Inputs</strong>. When using the stateful <code>VolumeScreen</code>, rotary scrolling is handled automatically.</p>
+<p>If you are building a custom screen, you can easily bind rotary bezel or crown rotation to volume adjustments by applying the <strong><code>volumeRotaryBehavior</code></strong> and <strong><code>rotaryScrollable</code></strong> modifiers:</p>
+<hr />
+<h2 id="volume-level-indicator">Volume Level Indicator<a class="headerlink" href="#volume-level-indicator" title="Permanent link">&para;</a></h2>
+<p>To display the volume level visually without cluttering the center of the watch face, you can use the <strong><code>VolumeLevelIndicator</code></strong>. This component renders a modern, Material 3 curved arc indicator along the outer edge of the screen, which appears when the volume changes and fades out afterwards.
+When using the stateful <code>VolumeScreen</code> the <strong><code>VolumeLevelIndicator</code></strong> is added automatically.</p>
+<hr />
+<h2 id="dependency-download">Dependency Download<a class="headerlink" href="#dependency-download" title="Permanent link">&para;</a></h2>
+<p>To use the Material 3 Audio UI library in your project, add the following dependency to your module's <code>build.gradle</code> file:</p>
+<div class="highlight"><pre><span></span><code><span class="n">repositories</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">implementation</span><span class="w"> </span><span class="s2">&quot;com.google.android.horologist:horologist-audio-ui-material3:&lt;version&gt;&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
 
 
 

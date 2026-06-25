@@ -18,6 +18,7 @@ package com.google.android.horologist.media.ui.material3.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -156,7 +157,7 @@ public fun MediaPlayerScaffold(
             additionalEntries()
         }
 
-        androidx.compose.runtime.key(currentRoute) {
+        key(currentRoute) {
             NavDisplay(
                 backStack = backStack,
                 sceneStrategies = listOf(rememberSwipeDismissableSceneStrategy()),

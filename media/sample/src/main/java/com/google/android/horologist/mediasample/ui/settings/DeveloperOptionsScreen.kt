@@ -16,21 +16,23 @@
 
 package com.google.android.horologist.mediasample.ui.settings
 
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavBackStack
-import androidx.wear.compose.material.MaterialTheme
-import androidx.wear.compose.material.Text
-import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
-import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
+import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
+import androidx.wear.compose.material3.ButtonDefaults
+import androidx.wear.compose.material3.ListHeader
+import androidx.wear.compose.material3.ListHeaderDefaults
+import androidx.wear.compose.material3.ScreenScaffold
+import androidx.wear.compose.material3.SurfaceTransformation
+import androidx.wear.compose.material3.Text
+import androidx.wear.compose.material3.lazy.rememberTransformationSpec
+import androidx.wear.compose.material3.lazy.transformedHeight
 import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
 import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScreen.AudioDebug
@@ -45,105 +47,158 @@ fun DeveloperOptionsScreen(
 ) {
     val uiState by developerOptionsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
-    )
+    val transformationSpec = rememberTransformationSpec()
+    val columnState = rememberTransformingLazyColumnState()
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(
-            columnState = columnState,
-            modifier = modifier,
+    ScreenScaffold(
+        scrollState = columnState,
+        modifier = modifier,
+    ) { contentPadding ->
+        TransformingLazyColumn(
+            state = columnState,
+            contentPadding = contentPadding,
         ) {
             item {
-                Text(
-                    text = stringResource(id = R.string.sample_developer_options),
-                    modifier = Modifier.padding(bottom = 12.dp),
-                    style = MaterialTheme.typography.title3,
-                )
+                ListHeader(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ListHeaderDefaults.minimumTopListContentPadding),
+                    transformation = SurfaceTransformation(transformationSpec),
+                ) {
+                    Text(text = stringResource(id = R.string.sample_developer_options))
+                }
             }
             item {
                 ActionSetting(
-                    "New Hotness Player",
+                    text = "New Hotness Player",
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     backStack.add(CustomRoute(NewHotness.navRoute))
                 }
             }
             item {
                 CheckedSetting(
-                    uiState.networkRequest != null,
-                    stringResource(id = R.string.request_network),
+                    value = uiState.networkRequest != null,
+                    text = stringResource(id = R.string.request_network),
                     enabled = uiState.writable,
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     developerOptionsScreenViewModel.toggleNetworkRequest()
                 }
             }
             item {
                 ActionSetting(
-                    stringResource(id = R.string.sample_audio_debug),
+                    text = stringResource(id = R.string.sample_audio_debug),
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     backStack.add(CustomRoute(AudioDebug.navRoute))
                 }
             }
             item {
                 ActionSetting(
-                    stringResource(id = R.string.sample_samples),
+                    text = stringResource(id = R.string.sample_samples),
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     backStack.add(CustomRoute(Samples.navRoute))
                 }
             }
             item {
                 CheckedSetting(
-                    uiState.showTimeTextInfo,
-                    stringResource(id = R.string.show_time_text_info),
+                    value = uiState.showTimeTextInfo,
+                    text = stringResource(id = R.string.show_time_text_info),
                     enabled = uiState.writable,
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     developerOptionsScreenViewModel.setShowTimeTextInfo(it)
                 }
             }
             item {
                 CheckedSetting(
-                    uiState.debugOffload,
-                    stringResource(id = R.string.debug_offload),
+                    value = uiState.debugOffload,
+                    text = stringResource(id = R.string.debug_offload),
                     enabled = uiState.writable,
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     developerOptionsScreenViewModel.setDebugOffload(it)
                 }
             }
             item {
                 CheckedSetting(
-                    uiState.podcastControls,
-                    stringResource(id = R.string.podcast_controls),
+                    value = uiState.podcastControls,
+                    text = stringResource(id = R.string.podcast_controls),
                     enabled = uiState.writable,
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     developerOptionsScreenViewModel.setPodcastControls(it)
                 }
             }
             item {
                 CheckedSetting(
-                    uiState.loadItemsAtStartup,
-                    stringResource(id = R.string.load_items),
+                    value = uiState.loadItemsAtStartup,
+                    text = stringResource(id = R.string.load_items),
                     enabled = uiState.writable,
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     developerOptionsScreenViewModel.setLoadItemsAtStartup(it)
                 }
             }
             item {
                 CheckedSetting(
-                    uiState.streamingMode,
-                    stringResource(id = R.string.streaming_mode),
+                    value = uiState.streamingMode,
+                    text = stringResource(id = R.string.streaming_mode),
                     enabled = uiState.writable,
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     developerOptionsScreenViewModel.setStreamingMode(it)
                 }
             }
             item {
                 CheckedSetting(
-                    uiState.animated,
-                    stringResource(id = R.string.animated),
+                    value = uiState.animated,
+                    text = stringResource(id = R.string.animated),
                     enabled = uiState.writable,
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     developerOptionsScreenViewModel.setAnimated(it)
                 }
@@ -151,6 +206,11 @@ fun DeveloperOptionsScreen(
             item {
                 ActionSetting(
                     text = stringResource(id = R.string.force_stop),
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     developerOptionsScreenViewModel.forceStop()
                 }
@@ -158,7 +218,12 @@ fun DeveloperOptionsScreen(
             item {
                 val message = stringResource(id = R.string.sample_error)
                 ActionSetting(
-                    stringResource(id = R.string.show_test_dialog),
+                    text = stringResource(id = R.string.show_test_dialog),
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     developerOptionsScreenViewModel.showDialog(message)
                 }

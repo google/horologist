@@ -18,7 +18,6 @@ package com.google.android.horologist.mediasample.ui.settings
 
 import android.content.Intent
 import androidx.activity.compose.LocalActivity
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DataObject
@@ -27,24 +26,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation3.runtime.NavBackStack
-import androidx.wear.compose.material.ChipColors
-import androidx.wear.compose.material.ChipDefaults
-import androidx.wear.compose.material.Icon
-import androidx.wear.compose.material.Text
-import androidx.wear.compose.material.ToggleChip
-import androidx.wear.compose.material.ToggleChipDefaults
-import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
-import com.google.android.horologist.compose.layout.ScreenScaffold
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
-import com.google.android.horologist.compose.material.Chip
-import com.google.android.horologist.compose.material.ListHeaderDefaults.firstItemPadding
-import com.google.android.horologist.compose.material.ResponsiveListHeader
+import androidx.wear.compose.foundation.lazy.TransformingLazyColumn
+import androidx.wear.compose.foundation.lazy.rememberTransformingLazyColumnState
+import androidx.wear.compose.material3.ButtonDefaults
+import androidx.wear.compose.material3.CheckboxButton
+import androidx.wear.compose.material3.FilledTonalButton
+import androidx.wear.compose.material3.Icon
+import androidx.wear.compose.material3.ListHeader
+import androidx.wear.compose.material3.ListHeaderDefaults
+import androidx.wear.compose.material3.ScreenScaffold
+import androidx.wear.compose.material3.SurfaceTransformation
+import androidx.wear.compose.material3.Text
+import androidx.wear.compose.material3.lazy.rememberTransformationSpec
+import androidx.wear.compose.material3.lazy.transformedHeight
 import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
 import com.google.android.horologist.media.ui.material3.navigation.MediaRoute
 import com.google.android.horologist.media.ui.material3.navigation.PlayerRoute
@@ -61,52 +58,68 @@ fun UampSettingsScreen(
 ) {
     val screenState by viewModel.screenState.collectAsStateWithLifecycle()
 
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
-    )
+    val transformationSpec = rememberTransformationSpec()
+    val columnState = rememberTransformingLazyColumnState()
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(
-            columnState = columnState,
-            modifier = modifier,
+    ScreenScaffold(
+        scrollState = columnState,
+        modifier = modifier,
+    ) { contentPadding ->
+        TransformingLazyColumn(
+            state = columnState,
+            contentPadding = contentPadding,
         ) {
             item {
-                ResponsiveListHeader(contentPadding = firstItemPadding()) {
+                ListHeader(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ListHeaderDefaults.minimumTopListContentPadding),
+                    transformation = SurfaceTransformation(transformationSpec),
+                ) {
                     Text(text = stringResource(id = R.string.sample_settings))
                 }
             }
             item {
                 if (screenState.authUser == null) {
-                    Chip(
-                        label = stringResource(id = R.string.login),
-                        modifier = Modifier.fillMaxWidth(),
+                    FilledTonalButton(
+                        label = { Text(stringResource(id = R.string.login)) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .transformedHeight(this, transformationSpec)
+                            .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                         onClick = {
                             backStack.add(CustomRoute(GoogleSignInScreen.navRoute))
                         },
                         enabled = !screenState.guestMode,
-                        colors = ChipDefaults.secondaryChipColors(),
+                        transformation = SurfaceTransformation(transformationSpec),
                     )
                 } else {
-                    Chip(
-                        label = stringResource(id = R.string.logout),
-                        modifier = Modifier.fillMaxWidth(),
+                    FilledTonalButton(
+                        label = { Text(stringResource(id = R.string.logout)) },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .transformedHeight(this, transformationSpec)
+                            .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                         onClick = {
                             backStack.clear()
                             backStack.add(PlayerRoute(page = 0))
                             backStack.add(CustomRoute(GoogleSignOutScreen.navRoute))
                         },
-                        colors = ChipDefaults.secondaryChipColors(),
+                        transformation = SurfaceTransformation(transformationSpec),
                     )
                 }
             }
             item {
                 CheckedSetting(
-                    screenState.guestMode,
-                    stringResource(id = R.string.sample_guest_mode),
+                    value = screenState.guestMode,
+                    text = stringResource(id = R.string.sample_guest_mode),
                     enabled = screenState.writable,
+                    transformation = SurfaceTransformation(transformationSpec),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                 ) {
                     viewModel.setGuestMode(it)
                 }
@@ -116,7 +129,11 @@ fun UampSettingsScreen(
                     ActionSetting(
                         text = stringResource(id = R.string.sample_developer_options),
                         icon = Icons.Default.DataObject,
-                        colors = ChipDefaults.secondaryChipColors(),
+                        transformation = SurfaceTransformation(transformationSpec),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .transformedHeight(this, transformationSpec)
+                            .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                         onClick = {
                             backStack.add(CustomRoute(DeveloperOptions.navRoute))
                         },
@@ -125,9 +142,12 @@ fun UampSettingsScreen(
             }
             item {
                 val activity = LocalActivity.current
-                Chip(
-                    label = stringResource(id = R.string.show_licenses),
-                    modifier = Modifier.fillMaxWidth(),
+                FilledTonalButton(
+                    label = { Text(stringResource(id = R.string.show_licenses)) },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .transformedHeight(this, transformationSpec)
+                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
                     onClick = {
                         activity?.startActivity(
                             Intent().apply {
@@ -137,6 +157,7 @@ fun UampSettingsScreen(
                         )
                     },
                     enabled = true,
+                    transformation = SurfaceTransformation(transformationSpec),
                 )
             }
         }
@@ -149,33 +170,27 @@ fun ActionSetting(
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     enabled: Boolean = true,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
+    transformation: SurfaceTransformation? = null,
     onClick: () -> Unit,
 ) {
-    val hasIcon = icon != null
-    val labelParam: (@Composable RowScope.() -> Unit) =
-        {
+    FilledTonalButton(
+        onClick = onClick,
+        label = {
             Text(
                 text = text,
                 modifier = Modifier.fillMaxWidth(),
-                textAlign = if (hasIcon) TextAlign.Left else TextAlign.Center,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
             )
-        }
-
-    androidx.wear.compose.material.Chip(
-        onClick = onClick,
-        label = labelParam,
+        },
         enabled = enabled,
-        modifier = modifier.fillMaxWidth(),
-        colors = colors,
+        modifier = modifier,
         icon = {
             if (icon != null) {
                 Icon(imageVector = icon, contentDescription = text)
             }
         },
-        contentPadding = ChipDefaults.ContentPadding,
+        transformation = transformation,
     )
 }
 
@@ -185,27 +200,17 @@ fun CheckedSetting(
     text: String,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
+    transformation: SurfaceTransformation? = null,
     onCheckedChange: (Boolean) -> Unit,
 ) {
-    ToggleChip(
+    CheckboxButton(
         checked = value,
-        toggleControl = {
-            Icon(
-                imageVector = ToggleChipDefaults.checkboxIcon(checked = value),
-                contentDescription = if (value) {
-                    stringResource(id = R.string.on)
-                } else {
-                    stringResource(
-                        id = R.string.off,
-                    )
-                },
-            )
-        },
-        enabled = enabled,
         onCheckedChange = onCheckedChange,
+        enabled = enabled,
         label = {
             Text(text)
         },
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
+        transformation = transformation,
     )
 }

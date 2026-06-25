@@ -210,8 +210,10 @@ dependencies {
   implementation(libs.androidx.tracing.ktx)
 
   implementation(projects.auth.composables)
+  implementation(projects.auth.composablesMaterial3)
   implementation(projects.auth.data)
   implementation(projects.auth.ui)
+  implementation(projects.auth.uiMaterial3)
   implementation(libs.playservices.auth)
   implementation(libs.kotlinx.coroutines.playservices)
 

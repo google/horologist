@@ -18,7 +18,7 @@ package com.google.android.horologist.mediasample.ui.auth.prompt
 
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
-import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptViewModel
+import com.google.android.horologist.auth.ui.material3.common.screens.prompt.SignInPromptViewModel
 import com.google.android.horologist.mediasample.domain.SettingsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

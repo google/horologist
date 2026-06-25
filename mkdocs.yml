@@ -40,6 +40,7 @@ nav:
       - 'Overview': media-toolkit.md
       - 'Simple app guide': simple-media-app-guide.md
       - 'Media UI lib': media-ui.md
+      - 'Media UI Material 3 lib': media-ui-material3.md
       - 'Media Domain lib': media.md
       - 'Media Data lib': media-data.md
       - 'Media3 Backend lib': media3-backend.md
@@ -47,6 +48,7 @@ nav:
       - 'Stateful PlayerScreen Guide': media-playerscreen.md
       - 'Audio Guide': audio.md
       - 'Audio UI Guide': audio-ui.md
+      - 'Audio UI Material 3 Guide': audio-ui-material3.md
   - 'Network Awareness':
       - 'Guide': network-awareness.md
   - 'Tiles':

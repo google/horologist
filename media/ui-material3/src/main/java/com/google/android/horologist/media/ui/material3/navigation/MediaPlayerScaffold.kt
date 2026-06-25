@@ -70,6 +70,7 @@ public fun MediaPlayerScaffold(
     additionalEntries: EntryProviderScope<MediaRoute>.() -> Unit = {},
 ) {
     AppScaffold {
+        val currentRoute = backStack.lastOrNull()
         val entryProvider = entryProvider(
             fallback = { key ->
                 NavEntry(key) {
@@ -86,6 +87,7 @@ public fun MediaPlayerScaffold(
                                 libraryScreen = { libraryScreen() },
                                 page = key.page,
                                 modifier = modifier,
+                                scrollTrigger = currentRoute,
                             )
                         }
 
@@ -114,6 +116,7 @@ public fun MediaPlayerScaffold(
                                         libraryScreen = { libraryScreen() },
                                         page = pageParam,
                                         modifier = modifier,
+                                        scrollTrigger = currentRoute,
                                     )
                                 }
 

@@ -46,10 +46,11 @@ public fun PlayerLibraryPagerScreen(
     libraryScreen: @Composable () -> Unit,
     page: Int?,
     modifier: Modifier = Modifier,
+    scrollTrigger: Any? = null,
 ) {
-    var pageApplied by rememberSaveable(page) { mutableStateOf(false) }
+    var pageApplied by rememberSaveable(scrollTrigger, page) { mutableStateOf(false) }
 
-    LaunchedEffect(page) {
+    LaunchedEffect(scrollTrigger, page) {
         if (page != null && !pageApplied) {
             try {
                 pagerState.animateScrollToPage(page)

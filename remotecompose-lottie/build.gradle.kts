@@ -15,41 +15,44 @@
  */
 
 plugins {
-    id("com.android.library")
-    alias(libs.plugins.compose.compiler)
+  id("com.android.library")
+  alias(libs.plugins.compose.compiler)
+  alias(libs.plugins.metalavaGradle)
 }
 
 android {
-    compileSdk = 36
+  compileSdk = 36
 
-    defaultConfig {
-        minSdk = 26
-    }
+  defaultConfig {
+    minSdk = 26
+  }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+  }
 
-    buildFeatures {
-        compose = true
-    }
+  buildFeatures {
+    compose = true
+  }
 
-    namespace = "com.google.android.horologist.remotecompose.lottie"
+  namespace = "com.google.android.horologist.remotecompose.lottie"
 }
 
+metalava { filename.set("api/current.api") }
+
 dependencies {
-    api(projects.annotations)
+  api(projects.annotations)
 
-    implementation(platform(libs.compose.bom))
+  implementation(platform(libs.compose.bom))
 
-    implementation(libs.moshi.kotlin)
-    implementation(libs.moshi.adapters)
-    implementation(libs.androidx.core)
-    implementation(libs.androidx.corektx)
-    implementation(libs.compose.runtime)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.foundation.foundation)
+  implementation(libs.moshi.kotlin)
+  implementation(libs.moshi.adapters)
+  implementation(libs.androidx.core)
+  implementation(libs.androidx.corektx)
+  implementation(libs.compose.runtime)
+  implementation(libs.compose.ui)
+  implementation(libs.compose.foundation.foundation)
 
-    testImplementation(libs.junit)
+  testImplementation(libs.junit)
 }

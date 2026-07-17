@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.remotecompose.lottie.renderer
 
+import android.annotation.SuppressLint
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.RemoteFloatArray
@@ -42,6 +43,7 @@ internal data class AnimationSegment(val startFrame: Float, val value: RemoteFlo
  * If the vector is animated, the RemoteFloat will change based on the animation specified in the
  * Lottie Vector Property.
  */
+@SuppressLint("RestrictedApi")
 fun animateVector(
   vector: BaseVectorProperty,
   animationSettings: LottieSettings,
@@ -113,6 +115,7 @@ internal data class RemoteBezierValue(
  * This is used for path morphing, where either the vertices or control points of beziers used to
  * draw a shape are animated.
  */
+@SuppressLint("RestrictedApi")
 internal fun animateBezier(
   path: BaseBezierProperty,
   animationSettings: LottieSettings,
@@ -218,6 +221,7 @@ private fun animateNestedFloatArray(
  * This recursively builds up a chain of IFELSE operations to select the correct RemoteFloat
  * representing the current segment of the animation.
  */
+@SuppressLint("RestrictedApi")
 private fun chainAnimation(segments: List<AnimationSegment>, frame: RemoteFloat): RemoteFloat {
   if (segments.size == 1) {
     return segments[0].value
@@ -231,6 +235,7 @@ private fun chainAnimation(segments: List<AnimationSegment>, frame: RemoteFloat)
   )
 }
 
+@SuppressLint("RestrictedApi")
 private fun lookupValueInBezier(
   a: Float,
   b: Float,

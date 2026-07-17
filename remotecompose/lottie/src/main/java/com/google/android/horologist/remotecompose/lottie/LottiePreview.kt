@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
+import android.annotation.SuppressLint
 import androidx.annotation.RawRes
 import androidx.compose.remote.creation.compose.layout.RemoteAlignment
 import androidx.compose.remote.creation.compose.layout.RemoteArrangement
@@ -38,6 +39,7 @@ import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
  * @param animation The parsed Lottie animation to play.
  * @param slotMap Optional mapping of slot IDs to values for dynamic theming.
  */
+@SuppressLint("RestrictedApi")
 @Composable
 fun LottiePreview(
   animation: Animation,

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.remotecompose.lottie.renderer
 
+import android.annotation.SuppressLint
 import androidx.compose.remote.creation.RemotePath
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
@@ -34,6 +35,7 @@ import com.google.android.horologist.remotecompose.lottie.format.ShapeType
 internal data class StyledShapes(val shapes: List<RemoteShape>, val style: RemoteStyle)
 
 /** Renders a list of Lottie Shapes to the RemoteCanvas. */
+@SuppressLint("RestrictedApi")
 @Composable
 @RemoteComposable
 internal fun RenderShapes(shapes: List<GraphicElement>, transformStack: List<Transform>) {
@@ -108,6 +110,7 @@ private fun group(group: Group, animationSettings: LottieSettings): RemoteGroup?
   }
 }
 
+@SuppressLint("RestrictedApi")
 private fun path(lottiePath: Path, animationSettings: LottieSettings): RemoteLottiePath {
   val path = animateBezier(lottiePath.shape, animationSettings)
   val vertices = path.vertices

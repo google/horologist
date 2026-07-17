@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
+import android.annotation.SuppressLint
 import androidx.compose.remote.creation.Rc.Time.ANIMATION_TIME
 import androidx.compose.remote.creation.compose.layout.RemoteAlignment
 import androidx.compose.remote.creation.compose.layout.RemoteBox
@@ -54,6 +55,7 @@ val LocalAnimationSettings =
  * @param slotMap Mapping of slot IDs to values for dynamic theming.
  * @param modifier The modifier to apply to the Lottie layout.
  */
+@SuppressLint("RestrictedApi")
 @Composable
 @RemoteComposable
 fun LottieAnimation(

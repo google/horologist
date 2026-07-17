@@ -16,22 +16,26 @@
 
 package com.google.android.horologist.remotecompose.lottie.renderer
 
+import android.annotation.SuppressLint
 import androidx.compose.remote.creation.RemotePath
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.layout.RemoteDrawScope
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
 
+@SuppressLint("RestrictedApi")
 internal interface RemoteShape {
   fun draw(drawScope: RemoteDrawScope, canvas: RemoteCanvas)
 }
 
+@SuppressLint("RestrictedApi")
 internal class RemoteLottiePath(val path: RemotePath) : RemoteShape {
   override fun draw(drawScope: RemoteDrawScope, canvas: RemoteCanvas) {
     canvas.drawPath(path)
   }
 }
 
+@SuppressLint("RestrictedApi")
 internal class RemoteGroup(
   val childShapes: List<StyledShapes>,
   val animationSettings: LottieSettings,

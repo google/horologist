@@ -40,7 +40,7 @@ internal fun Layer(
     }
 
   // TODO: Replace passing a transform param in and applying it to the transform stack with
-  // graphicsLayer transforms in the calling composable, once the Rust player supports graphicsLayer
+  // graphicsLayer transforms in the calling composable, once the ANDROID_NATIVE player supports graphicsLayer
   // (b/408913726)
   if (transform != null) {
     transformStack.add(0, transform)

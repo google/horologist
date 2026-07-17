@@ -78,7 +78,7 @@ fun LottieAnimation(
 
     RemoteBox(
       modifier = modifier.size(widthDp, heightDp),
-      // TODO: 496943072 - Rust player doesn't support clipping yet, so we need to avoid
+      // TODO: 496943072 - ANDROID_NATIVE player doesn't support clipping yet, so we need to avoid
       // clipping for now until it does. coming in cl/893506559
       // .clip(RemoteRectangleShape)
       contentAlignment = RemoteAlignment.Center,

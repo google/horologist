@@ -42,17 +42,11 @@ android {
 metalava { filename.set("api/current.api") }
 
 dependencies {
-  api(projects.annotations)
-
-  implementation(platform(libs.compose.bom))
-
+  implementation(libs.compose.animation.core)
+  implementation(libs.compose.remote.creation)
+  implementation(libs.compose.remote.creation.compose)
   implementation(libs.moshi.kotlin)
   implementation(libs.moshi.adapters)
-  implementation(libs.androidx.core)
-  implementation(libs.androidx.corektx)
   implementation(libs.compose.runtime)
   implementation(libs.compose.ui)
-  implementation(libs.compose.foundation.foundation)
-
-  testImplementation(libs.junit)
 }

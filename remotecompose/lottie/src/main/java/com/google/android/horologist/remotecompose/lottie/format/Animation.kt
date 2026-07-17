@@ -22,12 +22,12 @@ import com.squareup.moshi.JsonClass
 /** Top level object in a Lottie file, describing the animation. */
 @JsonClass(generateAdapter = true)
 data class Animation(
-  @Json("nm") val name: String? = null,
-  @Json("ver") val version: String? = "0.0.0",
-  @Json("fr") val frameRate: Int,
-  @Json("ip") val startFrame: Int,
-  @Json("op") val endFrame: Int,
-  @Json("w") val width: Int,
-  @Json("h") val height: Int,
-  @Json("layers") val layers: List<Layer>,
+  @param:Json(name = "nm") val name: String? = null,
+  @param:Json(name = "ver") val version: String? = "0.0.0",
+  @param:Json(name = "fr") val frameRate: Int,
+  @param:Json(name = "ip") val startFrame: Int,
+  @param:Json(name = "op") val endFrame: Int,
+  @param:Json(name = "w") val width: Int,
+  @param:Json(name = "h") val height: Int,
+  @param:Json(name = "layers") val layers: List<Layer>,
 )

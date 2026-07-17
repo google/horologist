@@ -36,9 +36,9 @@ sealed class AnimatableProperty {
 /** A single float value that is not animated */
 @JsonClass(generateAdapter = true)
 data class StaticScalarProperty(
-  @Json("s") val slotId: String? = null,
+  @param:Json(name = "s") val slotId: String? = null,
   val animated: Boolean = false,
-  @Json("k") val value: Float,
+  @param:Json(name = "k") val value: Float,
 )
 
 /** A vector property is an array of floats. */
@@ -50,43 +50,43 @@ sealed class BaseVectorProperty : AnimatableProperty() {
 /** A static array of floats. */
 @JsonClass(generateAdapter = true)
 data class StaticVectorProperty(
-  @Json("s") val slotId: String? = null,
+  @param:Json(name = "s") val slotId: String? = null,
   override val animated: Boolean = false,
-  @Json("k") val value: FloatArray,
+  @param:Json(name = "k") val value: FloatArray,
 ) : BaseVectorProperty()
 
 /** An animated array of floats. */
 @JsonClass(generateAdapter = true)
 data class AnimatedVectorProperty(
-  @Json("s") val slotId: String? = null,
+  @param:Json(name = "s") val slotId: String? = null,
   override val animated: Boolean = true,
-  @Json("k") val keyframes: List<VectorPropertyKeyframe>,
+  @param:Json(name = "k") val keyframes: List<VectorPropertyKeyframe>,
 ) : BaseVectorProperty()
 
 /** A single keyframe for an animated vector property. */
 @JsonClass(generateAdapter = true)
 data class VectorPropertyKeyframe(
-  @Json("t") val frame: Float = 0f,
-  @Json("h") val hold: Boolean = false,
-  @Json("i") val inTangent: ScalarKeyframeEasing? = null,
-  @Json("o") val outTangent: ScalarKeyframeEasing? = null,
-  @Json("s") val value: FloatArray,
+  @param:Json(name = "t") val frame: Float = 0f,
+  @param:Json(name = "h") val hold: Boolean = false,
+  @param:Json(name = "i") val inTangent: ScalarKeyframeEasing? = null,
+  @param:Json(name = "o") val outTangent: ScalarKeyframeEasing? = null,
+  @param:Json(name = "s") val value: FloatArray,
 )
 
 /** A static position property is an array of floats with 2 values - x and y */
 @JsonClass(generateAdapter = true)
 data class StaticPositionProperty(
-  @Json("s") val slotId: String? = null,
+  @param:Json(name = "s") val slotId: String? = null,
   val animated: Boolean = false,
-  @Json("k") val value: FloatArray,
+  @param:Json(name = "k") val value: FloatArray,
 )
 
 /** A static color property is an array of floats with 3 or 4 values - r, g, b, a */
 @JsonClass(generateAdapter = true)
 data class StaticColorProperty(
-  @Json("sid") val slotId: String? = null,
+  @param:Json(name = "sid") val slotId: String? = null,
   val animated: Boolean = false,
-  @Json("k") val value: RemoteColor,
+  @param:Json(name = "k") val value: RemoteColor,
 ) {
   companion object {
     fun fromColor(color: Color): StaticColorProperty {
@@ -112,24 +112,24 @@ sealed class BaseBezierProperty : AnimatableProperty() {
 @JsonClass(generateAdapter = true)
 data class StaticBezierProperty(
   override val animated: Boolean = false,
-  @Json("k") val value: BezierValue,
+  @param:Json(name = "k") val value: BezierValue,
 ) : BaseBezierProperty()
 
 /** An animated bezier. */
 @JsonClass(generateAdapter = true)
 data class AnimatedBezierProperty(
   override val animated: Boolean = true,
-  @Json("k") val keyframes: List<BezierKeyframe>,
+  @param:Json(name = "k") val keyframes: List<BezierKeyframe>,
 ) : BaseBezierProperty()
 
 /** A single keyframe for an animated bezier property. */
 @JsonClass(generateAdapter = true)
 data class BezierKeyframe(
-  @Json("t") val frame: Float = 0f,
-  @Json("h") val hold: Boolean = false,
-  @Json("i") val inTangent: ScalarKeyframeEasing? = null,
-  @Json("o") val outTangent: ScalarKeyframeEasing? = null,
-  @Json("s") val value: List<BezierValue>,
+  @param:Json(name = "t") val frame: Float = 0f,
+  @param:Json(name = "h") val hold: Boolean = false,
+  @param:Json(name = "i") val inTangent: ScalarKeyframeEasing? = null,
+  @param:Json(name = "o") val outTangent: ScalarKeyframeEasing? = null,
+  @param:Json(name = "s") val value: List<BezierValue>,
 )
 
 @JsonClass(generateAdapter = true) data class ScalarKeyframeEasing(val x: Float, val y: Float)

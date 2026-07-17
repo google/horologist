@@ -42,28 +42,28 @@ sealed class Layer {
   /** A layer with no data. Usually used as a parent to apply a transform. */
   @JsonClass(generateAdapter = true)
   data class NullLayer(
-    @Json("nm") override val name: String? = "",
-    @Json("hd") val hidden: Boolean? = false,
-    @Json("ty") override val type: LayerType = LayerType.Null,
-    @Json("ind") override val index: Int? = null,
-    @Json("parent") override val parent: Int? = null,
-    @Json("ip") val startFrame: Int? = null,
-    @Json("op") val endFrame: Int? = null,
-    @Json("ks") override val transform: Transform? = null,
+    @param:Json(name = "nm") override val name: String? = "",
+    @param:Json(name = "hd") val hidden: Boolean? = false,
+    @param:Json(name = "ty") override val type: LayerType = LayerType.Null,
+    @param:Json(name = "ind") override val index: Int? = null,
+    @param:Json(name = "parent") override val parent: Int? = null,
+    @param:Json(name = "ip") val startFrame: Int? = null,
+    @param:Json(name = "op") val endFrame: Int? = null,
+    @param:Json(name = "ks") override val transform: Transform? = null,
   ) : Layer()
 
   /** A layer containing Shapes. */
   @JsonClass(generateAdapter = true)
   data class ShapeLayer(
-    @Json("nm") override val name: String? = "",
-    @Json("hd") val hidden: Boolean? = false,
-    @Json("ty") override val type: LayerType = LayerType.Shape,
-    @Json("ind") override val index: Int? = null,
-    @Json("parent") override val parent: Int? = null,
-    @Json("ip") val startFrame: Int? = null,
-    @Json("op") val endFrame: Int? = null,
-    @Json("ks") override val transform: Transform? = null,
-    @Json("shapes") val shapes: List<GraphicElement>,
+    @param:Json(name = "nm") override val name: String? = "",
+    @param:Json(name = "hd") val hidden: Boolean? = false,
+    @param:Json(name = "ty") override val type: LayerType = LayerType.Shape,
+    @param:Json(name = "ind") override val index: Int? = null,
+    @param:Json(name = "parent") override val parent: Int? = null,
+    @param:Json(name = "ip") val startFrame: Int? = null,
+    @param:Json(name = "op") val endFrame: Int? = null,
+    @param:Json(name = "ks") override val transform: Transform? = null,
+    @param:Json(name = "shapes") val shapes: List<GraphicElement>,
   ) : Layer()
 }
 

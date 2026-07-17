@@ -37,10 +37,10 @@ sealed class GraphicElement {
   /** Draw a path following a bezier curve. */
   @JsonClass(generateAdapter = true)
   data class Path(
-    @Json("nm") override val name: String? = "",
-    @Json("hd") override val hidden: Boolean? = false,
-    @Json("ty") override val type: ShapeType = ShapeType.Path,
-    @Json("ks") val shape: BaseBezierProperty,
+    @param:Json(name = "nm") override val name: String? = "",
+    @param:Json(name = "hd") override val hidden: Boolean? = false,
+    @param:Json(name = "ty") override val type: ShapeType = ShapeType.Path,
+    @param:Json(name = "ks") val shape: BaseBezierProperty,
   ) : GraphicElement()
 
   // Grouping
@@ -48,11 +48,11 @@ sealed class GraphicElement {
   /** A group of other graphic elements. This allows transforms to be nested. */
   @JsonClass(generateAdapter = true)
   data class Group(
-    @Json("nm") override val name: String? = "",
-    @Json("hd") override val hidden: Boolean? = false,
-    @Json("ty") override val type: ShapeType = ShapeType.Group,
-    @Json("np") val numberOfProperties: Int,
-    @Json("it") val shapes: List<GraphicElement>,
+    @param:Json(name = "nm") override val name: String? = "",
+    @param:Json(name = "hd") override val hidden: Boolean? = false,
+    @param:Json(name = "ty") override val type: ShapeType = ShapeType.Group,
+    @param:Json(name = "np") val numberOfProperties: Int,
+    @param:Json(name = "it") val shapes: List<GraphicElement>,
   ) : GraphicElement()
 
   /**
@@ -61,17 +61,17 @@ sealed class GraphicElement {
    */
   @JsonClass(generateAdapter = true)
   data class Transform(
-    @Json("nm") override val name: String? = "",
-    @Json("hd") override val hidden: Boolean? = false,
-    @Json("ty") override val type: ShapeType = ShapeType.Transform,
-    @Json("a") val anchorPoint: StaticPositionProperty,
-    @Json("p")
+    @param:Json(name = "nm") override val name: String? = "",
+    @param:Json(name = "hd") override val hidden: Boolean? = false,
+    @param:Json(name = "ty") override val type: ShapeType = ShapeType.Transform,
+    @param:Json(name = "a") val anchorPoint: StaticPositionProperty,
+    @param:Json(name = "p")
     val positionTranslation: StaticPositionProperty =
       StaticPositionProperty(value = floatArrayOf(0f, 0f)),
-    @Json("r") val rotation: StaticScalarProperty = StaticScalarProperty(value = 0f),
-    @Json("s")
+    @param:Json(name = "r") val rotation: StaticScalarProperty = StaticScalarProperty(value = 0f),
+    @param:Json(name = "s")
     val scale: BaseVectorProperty = StaticVectorProperty(value = floatArrayOf(100f, 100f)),
-    @Json("o") val opacity: StaticScalarProperty = StaticScalarProperty(value = 100f),
+    @param:Json(name = "o") val opacity: StaticScalarProperty = StaticScalarProperty(value = 100f),
   ) : GraphicElement()
 
   // Styles
@@ -79,11 +79,11 @@ sealed class GraphicElement {
   /** Solid fill color */
   @JsonClass(generateAdapter = true)
   data class Fill(
-    @Json("nm") override val name: String? = "",
-    @Json("hd") override val hidden: Boolean? = false,
-    @Json("ty") override val type: ShapeType = ShapeType.Fill,
-    @Json("o") val opacity: StaticScalarProperty = StaticScalarProperty(value = 100f),
-    @Json("c") val color: StaticColorProperty,
+    @param:Json(name = "nm") override val name: String? = "",
+    @param:Json(name = "hd") override val hidden: Boolean? = false,
+    @param:Json(name = "ty") override val type: ShapeType = ShapeType.Fill,
+    @param:Json(name = "o") val opacity: StaticScalarProperty = StaticScalarProperty(value = 100f),
+    @param:Json(name = "c") val color: StaticColorProperty,
   ) : GraphicElement()
 }
 

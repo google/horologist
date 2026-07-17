@@ -24,8 +24,8 @@ import com.squareup.moshi.JsonClass
 /** A path defined by a set of bezier curves. */
 @JsonClass(generateAdapter = true)
 data class BezierValue(
-  @Json("c") val closed: Boolean,
-  @Json("i") val inTangents: List<List<Float>>,
-  @Json("o") val outTangents: List<List<Float>>,
-  @Json("v") val vertices: List<List<Float>>,
+  @param:Json(name = "c") val closed: Boolean,
+  @param:Json(name = "i") val inTangents: List<List<Float>>,
+  @param:Json(name = "o") val outTangents: List<List<Float>>,
+  @param:Json(name = "v") val vertices: List<List<Float>>,
 )

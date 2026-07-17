@@ -38,8 +38,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.onClick
+import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -292,6 +296,10 @@ public fun VolumeScreen(
         if (showVolumeIndicator) {
             VolumeLevelIndicator(volumeUiState = volume, colorScheme = colorScheme)
         }
+        val increaseContentDesc =
+            stringResource(id = R.string.horologist_volume_screen_volume_up_content_description)
+        val decreaseContentDesc =
+            stringResource(id = R.string.horologist_volume_screen_volume_down_content_description)
         Stepper(
             modifier =
                 modifier.semantics {
@@ -301,8 +309,42 @@ public fun VolumeScreen(
             value = currentValue,
             onValueChange = { if (it > volumeState.current) increaseVolume() else decreaseVolume() },
             steps = volumeState.max - 1,
-            increaseIcon = { increaseIcon() },
-            decreaseIcon = { decreaseIcon() },
+            increaseIcon = {
+              Box(
+                modifier =
+                  Modifier.clearAndSetSemantics {
+                    contentDescription = increaseContentDesc
+                    role = Role.Button
+                    onClick(
+                      label = increaseContentDesc,
+                      action = {
+                        increaseVolume()
+                        true
+                      },
+                    )
+                  }
+              ) {
+                increaseIcon()
+              }
+            },
+            decreaseIcon = {
+              Box(
+                modifier =
+                  Modifier.clearAndSetSemantics {
+                    contentDescription = decreaseContentDesc
+                    role = Role.Button
+                    onClick(
+                      label = decreaseContentDesc,
+                      action = {
+                        decreaseVolume()
+                        true
+                      },
+                    )
+                  }
+              ) {
+                decreaseIcon()
+              }
+            },
             colors =
                 StepperDefaults.colors(
                     contentColor = colorScheme.onSurface,

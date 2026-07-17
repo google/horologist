@@ -19,6 +19,10 @@
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.onClick
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -206,6 +210,10 @@ internal fun VolumeScreen(
     } else {
         stringResource(id = R.string.horologist_volume_screen_volume_percent, volumePercent)
     }
+    val increaseContentDesc =
+      stringResource(id = R.string.horologist_volume_screen_volume_up_content_description)
+    val decreaseContentDesc =
+      stringResource(id = R.string.horologist_volume_screen_volume_down_content_description)
     Stepper(
         modifier = modifier.semantics {
             liveRegion = LiveRegionMode.Assertive
@@ -216,10 +224,40 @@ internal fun VolumeScreen(
         steps = volumeState.max - 1,
         valueRange = (0f..volumeState.max.toFloat()),
         increaseIcon = {
+          Box(
+            modifier =
+              Modifier.clearAndSetSemantics {
+                contentDescription = increaseContentDesc
+                role = Role.Button
+                onClick(
+                  label = increaseContentDesc,
+                  action = {
+                    increaseVolume()
+                    true
+                  },
+                )
+              }
+          ) {
             increaseIcon()
+          }
         },
         decreaseIcon = {
+          Box(
+            modifier =
+              Modifier.clearAndSetSemantics {
+                contentDescription = decreaseContentDesc
+                role = Role.Button
+                onClick(
+                  label = decreaseContentDesc,
+                  action = {
+                    decreaseVolume()
+                    true
+                  },
+                )
+              }
+          ) {
             decreaseIcon()
+          }
         },
         enableRangeSemantics = false,
     ) {

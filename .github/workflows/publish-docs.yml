@@ -15,7 +15,7 @@ jobs:
       TERM: dumb
 
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           lfs: 'true'
 
@@ -31,7 +31,7 @@ jobs:
       - name: Generate cache key
         run: ./checksum.sh checksum.txt
 
-      - uses: actions/cache@v5
+      - uses: actions/cache@v6
         with:
           path: |
             ~/.gradle/caches/modules-*
@@ -40,7 +40,7 @@ jobs:
           key: gradle-${{ hashFiles('checksum.txt') }}
 
       - name: Setup Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: '3.x'
 

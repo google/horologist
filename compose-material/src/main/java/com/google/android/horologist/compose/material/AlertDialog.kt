@@ -18,6 +18,7 @@ package com.google.android.horologist.compose.material
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -57,9 +58,7 @@ public fun AlertDialog(
     message: String? = null,
     okButtonContentDescription: String = stringResource(android.R.string.ok),
     cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    @Suppress("DEPRECATION") state: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(),
-    ),
+    state: ScalingLazyColumnState = rememberAlertDialogColumnState(showDialog),
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
     Dialog(
@@ -98,9 +97,7 @@ public fun AlertDialog(
     icon: @Composable (() -> Unit)? = null,
     title: String? = null,
     message: String? = null,
-    @Suppress("DEPRECATION") state: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(),
-    ),
+    state: ScalingLazyColumnState = rememberAlertDialogColumnState(showDialog),
     content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
     Dialog(
@@ -119,6 +116,13 @@ public fun AlertDialog(
         )
     }
 }
+
+@Composable
+@Suppress("DEPRECATION")
+private fun rememberAlertDialogColumnState(showDialog: Boolean): ScalingLazyColumnState =
+    key(showDialog) {
+        rememberColumnState(ScalingLazyColumnDefaults.responsive())
+    }
 
 @ExperimentalHorologistApi
 @Composable

@@ -42,7 +42,7 @@ android {
   defaultConfig {
     applicationId = "com.google.android.horologist.mediasample"
     // Min because of Tiles
-    minSdk = 26
+    minSdk = 29
     targetSdk = 37
 
     versionCode = 1
@@ -163,6 +163,11 @@ dependencies {
   implementation(libs.androidx.activity.compose)
   implementation(libs.androidx.wear.tiles)
   implementation(libs.androidx.wear.protolayout.material)
+  implementation(libs.androidx.glance.wear)
+  implementation(libs.androidx.glance.wear.core)
+  implementation(libs.androidx.compose.remote.creation.compose)
+  implementation(libs.androidx.compose.remote.core)
+  implementation(libs.androidx.wear.compose.remote.material3)
 
   implementation(libs.androidx.datastore.preferences)
   implementation(libs.androidx.datastore)
@@ -240,6 +245,8 @@ dependencies {
   kspTest(libs.dagger.hiltandroidcompiler)
   testImplementation(libs.androidx.work.testing)
   testImplementation(projects.roboscreenshots)
+  testImplementation(libs.androidx.compose.remote.tooling.preview)
+  testImplementation(libs.androidx.compose.remote.creation)
 
   androidTestImplementation(platform(libs.compose.bom))
   androidTestImplementation(libs.compose.ui.test.junit4)

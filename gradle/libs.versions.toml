@@ -36,7 +36,7 @@ com-squareup-okhttp3 = "5.3.2"
 com-squareup-retrofit2 = "3.0.0"
 compose-animation = "1.11.4"
 compose-material3 = "1.5.0-alpha18"
-composeAiTools = "0.7.7"
+composeAiTools = "0.16.48"
 composesnapshot = "-"
 dependencyAnalysis = "3.7.0"
 desugar_jdk_libs = "2.1.5"
@@ -75,6 +75,9 @@ truth = "1.4.5"
 wearInput = "1.2.0"
 wearToolingPreview = "1.0.0"
 wearcompose = "1.6.2"
+glanceWear = "1.0.0-alpha14"
+composeRemote = "1.0.0-alpha15"
+wearComposeRemote = "1.0.0-alpha07"
 agp = "9.1.0"
 
 [libraries]
@@ -149,6 +152,14 @@ androidx-wear-tiles-testing = { module = "androidx.wear.tiles:tiles-testing", ve
 androidx-wear-tiles-tooling = { module = "androidx.wear.tiles:tiles-tooling", version.ref = "tiles-tooling-preview" }
 androidx-wear-tiles-tooling-preview = { module = "androidx.wear.tiles:tiles-tooling-preview", version.ref = "tiles-tooling-preview" }
 androidx-wear-tooling-preview = { module = "androidx.wear:wear-tooling-preview", version.ref = "wearToolingPreview" }
+androidx-wear-widgets-tooling-preview = { module = "androidx.glance.wear:wear-tooling-preview", version.ref = "wearToolingPreview" }
+androidx-glance-wear = { module = "androidx.glance.wear:wear", version.ref = "glanceWear" }
+androidx-glance-wear-core = { module = "androidx.glance.wear:wear-core", version.ref = "glanceWear" }
+androidx-compose-remote-creation-compose = { module = "androidx.compose.remote:remote-creation-compose", version.ref = "composeRemote" }
+androidx-compose-remote-creation = { module = "androidx.compose.remote:remote-creation", version.ref = "composeRemote" }
+androidx-compose-remote-core = { module = "androidx.compose.remote:remote-core", version.ref = "composeRemote" }
+androidx-compose-remote-tooling-preview = { module = "androidx.compose.remote:remote-tooling-preview", version.ref = "composeRemote" }
+androidx-wear-compose-remote-material3 = { module = "androidx.wear.compose.remote:remote-material3", version.ref = "wearComposeRemote" }
 androidx-work-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "androidxWork" }
 androidx-work-testing = { module = "androidx.work:work-testing", version.ref = "androidxWork" }
 annotation = { module = "androidx.test:annotation", version.ref = "annotation" }

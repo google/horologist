@@ -28,8 +28,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.graphics.shapes.RoundedPolygon
-import androidx.graphics.shapes.pill
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -162,8 +160,8 @@ internal fun SignedInConfirmationDialogContent(
         ) {
             val hasName = !name.isNullOrEmpty()
             // TODO: Revert to MaterialShapes.Pill.toShape() once we can upgrade compose-material3 version.
-            // Using graphics-shapes directly as a workaround.
-            val pillPolygon = remember { RoundedPolygon.pill(width = 1f, height = 1f) }
+            // Using graphics-shapes directly as a workaround to avoid compileSdk 37.
+            val pillPolygon = remember { pill() }
             val pillShape = pillPolygon.toShape()
             Box(
                 modifier = Modifier

@@ -28,7 +28,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.foundation.shape.CircleShape
+import androidx.graphics.shapes.RoundedPolygon
+import androidx.graphics.shapes.pill
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -160,11 +161,15 @@ internal fun SignedInConfirmationDialogContent(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             val hasName = !name.isNullOrEmpty()
+            // TODO: Revert to MaterialShapes.Pill.toShape() once we can upgrade compose-material3 version.
+            // Using graphics-shapes directly as a workaround.
+            val pillPolygon = remember { RoundedPolygon.pill(width = 1f, height = 1f) }
+            val pillShape = pillPolygon.toShape()
             Box(
                 modifier = Modifier
                     .padding(4.dp)
                     .size(96.dp)
-                    .clip(CircleShape)
+                    .clip(pillShape)
                     .background(MaterialTheme.colorScheme.surfaceContainer),
                 contentAlignment = Alignment.Center,
             ) {

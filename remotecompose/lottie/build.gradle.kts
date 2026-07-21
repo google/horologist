@@ -33,11 +33,7 @@ android {
 
   buildFeatures { compose = true }
 
-  testOptions {
-    unitTests {
-      isIncludeAndroidResources = true
-    }
-  }
+  testOptions { unitTests { isIncludeAndroidResources = true } }
 
   namespace = "com.google.android.horologist.remotecompose.lottie"
 }

@@ -18,6 +18,7 @@ plugins {
   id("com.android.library")
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.metalavaGradle)
+  alias(libs.plugins.ksp)
 }
 
 android {
@@ -32,6 +33,8 @@ android {
 
   buildFeatures { compose = true }
 
+  testOptions { unitTests { isIncludeAndroidResources = true } }
+
   namespace = "com.google.android.horologist.remotecompose.lottie"
 }
 
@@ -43,6 +46,12 @@ dependencies {
   implementation(libs.compose.remote.creation.compose)
   implementation(libs.moshi.kotlin)
   implementation(libs.moshi.adapters)
+  ksp(libs.moshi.kotlin.codegen)
   implementation(libs.compose.runtime)
   implementation(libs.compose.ui)
+
+  testImplementation(libs.junit)
+  testImplementation(libs.truth)
+  testImplementation(libs.robolectric)
+  testImplementation(libs.androidx.test.ext.ktx)
 }

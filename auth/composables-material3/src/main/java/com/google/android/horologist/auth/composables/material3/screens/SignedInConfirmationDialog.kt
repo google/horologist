@@ -28,10 +28,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.outlined.AccountCircle
-import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialShapes
-import androidx.compose.material3.toShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -135,7 +133,6 @@ public fun SignedInConfirmationDialog(
     )
 }
 
-@OptIn(ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 internal fun SignedInConfirmationDialogContent(
     modifier: Modifier = Modifier,
@@ -167,7 +164,7 @@ internal fun SignedInConfirmationDialogContent(
                 modifier = Modifier
                     .padding(4.dp)
                     .size(96.dp)
-                    .clip(MaterialShapes.Pill.toShape())
+                    .clip(CircleShape)
                     .background(MaterialTheme.colorScheme.surfaceContainer),
                 contentAlignment = Alignment.Center,
             ) {

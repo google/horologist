@@ -41,7 +41,6 @@ android {
 
   packaging { resources { excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1") } }
 
-
   testOptions {
     unitTests { isIncludeAndroidResources = true }
     animationsDisabled = true

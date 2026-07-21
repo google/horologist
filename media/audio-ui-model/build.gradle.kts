@@ -44,7 +44,6 @@ android {
     animationsDisabled = true
   }
 
-
   lint {
     disable += listOf("MissingTranslation", "ExtraTranslation")
     checkReleaseBuilds = false

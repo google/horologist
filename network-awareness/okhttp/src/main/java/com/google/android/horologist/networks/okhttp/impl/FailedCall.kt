@@ -21,8 +21,10 @@ import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Comp
 import com.google.android.horologist.networks.okhttp.requestType
 import okhttp3.Call
 import okhttp3.Callback
+import okhttp3.EventListener
 import okhttp3.Request
 import okhttp3.Response
+import okhttp3.Route
 import okio.IOException
 import okio.Timeout
 import kotlin.reflect.KClass
@@ -38,6 +40,11 @@ public class FailedCall(
 ) : Call {
     private var cancelled = false
     private var executed = false
+    private val eventListeners = mutableListOf<EventListener>()
+
+    override fun addEventListener(eventListener: EventListener) {
+        eventListeners.add(eventListener)
+    }
 
     override fun cancel() {
         cancelled = true
@@ -47,7 +54,11 @@ public class FailedCall(
         val request = request()
         // Remove network and lease from new request
         val cleanRequest = request.newBuilder().requestType(request.requestType).build()
-        return callFactory.newCall(cleanRequest)
+        val newCall = callFactory.newCall(cleanRequest)
+        for (listener in eventListeners) {
+            newCall.addEventListener(listener)
+        }
+        return newCall
     }
 
     override fun enqueue(responseCallback: Callback) {

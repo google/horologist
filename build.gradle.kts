@@ -142,6 +142,7 @@ subprojects {
                 allWarningsAsErrors = true
             }
             jvmTarget.set(JvmTarget.JVM_17)
+            languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2)
             freeCompilerArgs.addAll(
                 listOf(
                     // Allow use of @OptIn

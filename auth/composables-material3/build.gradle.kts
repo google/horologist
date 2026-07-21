@@ -84,6 +84,7 @@ dependencies {
   implementation(libs.compose.material.iconsext)
   implementation(libs.compose.material3)
   implementation(libs.compose.ui.graphics)
+  implementation(libs.androidx.graphics.shapes)
   implementation(libs.compose.ui.text)
   implementation(libs.compose.ui.unit)
   implementation(libs.kotlin.stdlib)

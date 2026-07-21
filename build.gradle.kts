@@ -104,12 +104,12 @@ allprojects {
             exclude(group = "com.google.protobuf", module = "protobuf-java")
             resolutionStrategy {
                 dependencySubstitution {
-                    substitute(module("com.google.protobuf:protobuf-java")).using(module("com.google.protobuf:protobuf-javalite:4.34.1"))
+                    substitute(module("com.google.protobuf:protobuf-java")).using(module("com.google.protobuf:protobuf-javalite:4.35.1"))
                 }
-                force("io.grpc:grpc-stub:1.80.0")
-                force("io.grpc:grpc-protobuf-lite:1.80.0")
-                force("io.grpc:grpc-android:1.80.0")
-                force("io.grpc:grpc-binder:1.80.0")
+                force("io.grpc:grpc-stub:1.82.2")
+                force("io.grpc:grpc-protobuf-lite:1.82.2")
+                force("io.grpc:grpc-android:1.82.2")
+                force("io.grpc:grpc-binder:1.82.2")
             }
         }
     }
@@ -145,6 +145,7 @@ subprojects {
                 allWarningsAsErrors = true
             }
             jvmTarget.set(JvmTarget.JVM_17)
+            languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2)
             freeCompilerArgs.addAll(
                 listOf(
                     // Allow use of @OptIn

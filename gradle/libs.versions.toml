@@ -17,7 +17,6 @@ androidx-wear-watchface = "1.3.0"
 androidx-wear-watchface-rendering = "1.2.1"
 androidxActivity = "1.13.0"
 androidxComposeBom = "2026.04.01"
-androidxComposeRemote = "1.0.0-alpha15"
 androidxCore = "1.18.0"
 androidxLifecycle = "2.10.0"
 androidxNavigation = "2.9.8"
@@ -93,6 +92,8 @@ androidx-benchmark-macro-junit4 = { module = "androidx.benchmark:benchmark-macro
 androidx-complications-data = { module = "androidx.wear.watchface:watchface-complications-data", version.ref = "androidx-complications-data" }
 androidx-complications-datasource-ktx = { module = "androidx.wear.watchface:watchface-complications-data-source-ktx", version.ref = "androidx-wear-watchface" }
 androidx-complications-rendering = { module = "androidx.wear.watchface:watchface-complications-rendering", version.ref = "androidx-wear-watchface-rendering" }
+androidx-compose-remote-player-compose = { module = "androidx.compose.remote:remote-player-compose", version.ref = "composeRemote" }
+androidx-compose-remote-player-core = { module = "androidx.compose.remote:remote-player-core", version.ref = "composeRemote" }
 androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures", version.ref = "androidx-concurrent" }
 androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "androidx-constraintlayout-compose" }
@@ -155,8 +156,6 @@ androidx-wear-tooling-preview = { module = "androidx.wear:wear-tooling-preview",
 androidx-wear-widgets-tooling-preview = { module = "androidx.glance.wear:wear-tooling-preview", version.ref = "wearToolingPreview" }
 androidx-glance-wear = { module = "androidx.glance.wear:wear", version.ref = "glanceWear" }
 androidx-glance-wear-core = { module = "androidx.glance.wear:wear-core", version.ref = "glanceWear" }
-androidx-compose-remote-creation-compose = { module = "androidx.compose.remote:remote-creation-compose", version.ref = "composeRemote" }
-androidx-compose-remote-creation = { module = "androidx.compose.remote:remote-creation", version.ref = "composeRemote" }
 androidx-compose-remote-core = { module = "androidx.compose.remote:remote-core", version.ref = "composeRemote" }
 androidx-compose-remote-tooling-preview = { module = "androidx.compose.remote:remote-tooling-preview", version.ref = "composeRemote" }
 androidx-wear-compose-remote-material3 = { module = "androidx.wear.compose.remote:remote-material3", version.ref = "wearComposeRemote" }
@@ -179,8 +178,8 @@ compose-material-iconscore = { group = "androidx.compose.material", name = "mate
 compose-material-iconsext = { group = "androidx.compose.material", name = "material-icons-extended", version="1.7.8" }
 compose-material-ripple = { group = "androidx.compose.material", name = "material-ripple" }
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" } # version 2023.10.01 from BOM is crashing
-compose-remote-creation = { module = "androidx.compose.remote:remote-creation", version.ref = "androidxComposeRemote" }
-compose-remote-creation-compose = { module = "androidx.compose.remote:remote-creation-compose", version.ref = "androidxComposeRemote" }
+compose-remote-creation = { module = "androidx.compose.remote:remote-creation", version.ref = "composeRemote" }
+compose-remote-creation-compose = { module = "androidx.compose.remote:remote-creation-compose", version.ref = "composeRemote" }
 compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }

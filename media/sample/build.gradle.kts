@@ -165,7 +165,7 @@ dependencies {
   implementation(libs.androidx.wear.protolayout.material)
   implementation(libs.androidx.glance.wear)
   implementation(libs.androidx.glance.wear.core)
-  implementation(libs.androidx.compose.remote.creation.compose)
+  implementation(libs.compose.remote.creation.compose)
   implementation(libs.androidx.compose.remote.core)
   implementation(libs.androidx.wear.compose.remote.material3)
 
@@ -246,7 +246,7 @@ dependencies {
   testImplementation(libs.androidx.work.testing)
   testImplementation(projects.roboscreenshots)
   testImplementation(libs.androidx.compose.remote.tooling.preview)
-  testImplementation(libs.androidx.compose.remote.creation)
+  testImplementation(libs.compose.remote.creation)
 
   androidTestImplementation(platform(libs.compose.bom))
   androidTestImplementation(libs.compose.ui.test.junit4)

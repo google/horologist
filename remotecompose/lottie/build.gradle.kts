@@ -42,9 +42,9 @@ metalava { filename.set("api/current.api") }
 
 dependencies {
   implementation(libs.compose.animation.core)
-  implementation(libs.compose.remote.creation)
-  implementation(libs.compose.remote.creation.compose)
-  implementation(libs.moshi.kotlin)
+  api(libs.compose.remote.creation)
+  api(libs.compose.remote.creation.compose)
+  api(libs.moshi.kotlin)
   implementation(libs.moshi.adapters)
   ksp(libs.moshi.kotlin.codegen)
   implementation(libs.compose.runtime)

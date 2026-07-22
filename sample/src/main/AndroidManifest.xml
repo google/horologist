@@ -117,6 +117,17 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.google.android.horologist.sample.lottie.LottieSampleActivity"
+            android:exported="true"
+            android:label="Lottie Remote Compose"
+            android:taskAffinity=".lottie">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <service
             android:name=".tiles.ExampleTileService"
             android:description="@string/tile_description"

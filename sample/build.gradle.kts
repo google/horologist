@@ -26,12 +26,12 @@ plugins {
 }
 
 android {
-  compileSdk = 36
+  compileSdk = 37
 
   defaultConfig {
     applicationId = "com.google.android.horologist.sample"
     // Min because of Tiles
-    minSdk = 26
+    minSdk = 29
     targetSdk = 34
 
     val date = LocalDate.now()
@@ -80,6 +80,7 @@ dependencies {
   api(projects.annotations)
 
   implementation(platform(libs.compose.bom))
+  implementation(libs.androidx.compose.remote.tooling.preview)
   implementation(projects.composeLayout)
   implementation(projects.media.audio)
   implementation(projects.media.audioUi)
@@ -95,6 +96,13 @@ dependencies {
   implementation(projects.media.ui)
   implementation(projects.tiles)
   implementation(projects.logo)
+  implementation(projects.remotecompose.lottie)
+  implementation(libs.compose.remote.creation)
+  implementation(libs.compose.remote.creation.compose)
+  implementation(libs.androidx.compose.remote.player.core)
+  implementation(libs.androidx.compose.remote.player.compose)
+  implementation(libs.androidx.compose.remote.tooling.preview)
+
 
   implementation(libs.compose.ui.util)
 

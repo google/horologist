@@ -17,41 +17,36 @@
 package com.google.android.horologist.sample.lottie
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import android.util.Log
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.remote.creation.compose.capture.rememberRemoteDocument
 import androidx.compose.remote.player.compose.RemoteDocumentPlayer
-import androidx.compose.remote.tooling.preview.RemoteContentPreview
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalWindowInfo
 import com.google.android.horologist.remotecompose.lottie.format.LottieDeserializer
 import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
-
 import com.google.android.horologist.sample.R
 
-class LottieSampleActivity : ComponentActivity() {
-  @SuppressLint("RestrictedApi")
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    setContent {
-      val asset = applicationContext.resources.openRawResource(R.raw.geometry).readBytes()
-      val deserializer = LottieDeserializer.jsonAdapter
-      val animation = deserializer.fromJson(asset.decodeToString())!!
+@SuppressLint("RestrictedApi")
+@Composable
+fun LottieScreen(
+    modifier: Modifier = Modifier,
+) {
+    val context = LocalContext.current
+    val asset = remember { context.resources.openRawResource(R.raw.geometry).readBytes() }
+    val animation = remember(asset) { LottieDeserializer.jsonAdapter.fromJson(asset.decodeToString())!! }
 
-      val doc =  rememberRemoteDocument {
+    val doc = rememberRemoteDocument {
         AnimationDemo(animation, SlotMap(emptyMap())).Render()
-      }
-      doc.value?.let {
-        RemoteDocumentPlayer(
-          document = it,
-          modifier = Modifier.fillMaxSize(),
-          documentWidth = LocalWindowInfo.current.containerSize.width,
-          documentHeight = LocalWindowInfo.current.containerSize.height
-        )
-      }
     }
-  }
+    doc.value?.let { document ->
+        RemoteDocumentPlayer(
+            document = document,
+            modifier = modifier.fillMaxSize(),
+            documentWidth = LocalWindowInfo.current.containerSize.width,
+            documentHeight = LocalWindowInfo.current.containerSize.height,
+        )
+    }
 }

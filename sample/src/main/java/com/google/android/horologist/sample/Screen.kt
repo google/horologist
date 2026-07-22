@@ -31,6 +31,7 @@ sealed class Screen(
     object Network : Screen("network")
     object Material3 : Screen("material3")
     object FastScrollingTLC : Screen("FastScrollingTLC")
+    object Lottie : Screen("lottie")
 
     object MaterialAlertDialog : Screen("materialAlertDialog")
     object MaterialAnimatedComponents : Screen("materialAnimatedComponents")

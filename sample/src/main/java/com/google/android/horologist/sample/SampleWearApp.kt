@@ -63,7 +63,7 @@ import com.google.android.horologist.sectionedlist.SectionedListMenuScreen
 import com.google.android.horologist.sectionedlist.expandable.SectionedListExpandableScreen
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreen
 import com.google.android.horologist.sectionedlist.stateless.SectionedListStatelessScreen
-import com.google.android.horologist.sample.lottie.LottieScreen
+import com.google.android.horologist.lottie.LottieScreen
 import java.time.LocalDateTime
 
 @Composable

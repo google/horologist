@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.sample.lottie
+package com.google.android.horologist.lottie
 
 import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.layout.RemoteAlignment

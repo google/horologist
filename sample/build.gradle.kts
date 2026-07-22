@@ -80,7 +80,6 @@ dependencies {
   api(projects.annotations)
 
   implementation(platform(libs.compose.bom))
-  implementation(libs.androidx.compose.remote.tooling.preview)
   implementation(projects.composeLayout)
   implementation(projects.media.audio)
   implementation(projects.media.audioUi)
@@ -102,7 +101,6 @@ dependencies {
   implementation(libs.androidx.compose.remote.player.core)
   implementation(libs.androidx.compose.remote.player.compose)
   implementation(libs.androidx.compose.remote.tooling.preview)
-
 
   implementation(libs.compose.ui.util)
 

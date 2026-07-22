@@ -31,7 +31,7 @@ import com.google.android.horologist.sample.R
 
 @WearPreviewDevices
 @Composable
-fun HeartbeatPreview() {
+fun GeometryPreview() {
   RemoteContentPreview {
     LottiePreview(animationResId = R.raw.geometry)
   }
@@ -40,7 +40,7 @@ fun HeartbeatPreview() {
 @SuppressLint("RestrictedApi")
 @WearPreviewDevices
 @Composable
-fun TintHeartbeatPreview() {
+fun TintGeometryPreview() {
   RemoteContentPreview {
     LottiePreview(
       animationResId = R.raw.geometry,

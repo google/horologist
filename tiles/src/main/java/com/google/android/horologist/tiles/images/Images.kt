@@ -69,24 +69,29 @@ public suspend fun ImageLoader.loadImageResource(
  * Convert a bitmap to a ImageResource.
  *
  * Format will be one of IMAGE_FORMAT_ARGB_8888, IMAGE_FORMAT_RGB_565 or IMAGE_FORMAT_UNDEFINED,
- * based on the bitmap.
+ * based on the bitmap. Hardware bitmaps are copied to ARGB_8888 before conversion.
  */
 public fun Bitmap.toImageResource(): ImageResource {
-    val format = when (this.config) {
+    val pixelReadableBitmap = if (config == Bitmap.Config.HARDWARE) {
+        copy(Bitmap.Config.ARGB_8888, false)
+    } else {
+        this
+    }
+    val format = when (pixelReadableBitmap.config) {
         Bitmap.Config.ARGB_8888 -> IMAGE_FORMAT_ARGB_8888
         Bitmap.Config.RGB_565 -> IMAGE_FORMAT_RGB_565
         else -> IMAGE_FORMAT_UNDEFINED
     }
 
-    val byteBuffer = ByteBuffer.allocate(byteCount)
-    copyPixelsToBuffer(byteBuffer)
+    val byteBuffer = ByteBuffer.allocate(pixelReadableBitmap.byteCount)
+    pixelReadableBitmap.copyPixelsToBuffer(byteBuffer)
     val bytes: ByteArray = byteBuffer.array()
 
     return ImageResource.Builder().setInlineResource(
         ResourceBuilders.InlineImageResource.Builder()
             .setData(bytes)
-            .setWidthPx(width)
-            .setHeightPx(height)
+            .setWidthPx(pixelReadableBitmap.width)
+            .setHeightPx(pixelReadableBitmap.height)
             .setFormat(format)
             .build(),
     )

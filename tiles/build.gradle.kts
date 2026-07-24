@@ -94,6 +94,11 @@ dependencies {
   testImplementation(libs.androidx.concurrent.future.ktx)
   testImplementation(libs.androidx.lifecycle.testing)
   testImplementation(libs.androidx.wear.compose.material3)
+
+  androidTestImplementation(libs.androidx.test.ext)
+  androidTestImplementation(libs.androidx.test.runner)
+  androidTestImplementation(libs.junit)
+  androidTestImplementation(libs.truth)
   debugImplementation(libs.compose.ui.test.manifest)
 }
 

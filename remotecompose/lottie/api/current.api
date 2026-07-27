@@ -2,7 +2,7 @@
 package com.google.android.horologist.remotecompose.lottie {
 
   public final class LottieAnimationKt {
-    method @KotlinOnly @androidx.compose.remote.creation.compose.layout.RemoteComposable @androidx.compose.runtime.Composable public static void LottieAnimation(com.google.android.horologist.remotecompose.lottie.format.Animation animation, optional com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform, optional com.google.android.horologist.remotecompose.lottie.renderer.SlotMap slotMap, optional androidx.compose.remote.creation.compose.modifier.RemoteModifier modifier);
+    method @KotlinOnly @androidx.compose.remote.creation.compose.layout.RemoteComposable @androidx.compose.runtime.Composable public static void LottieAnimation(com.google.android.horologist.remotecompose.lottie.format.Animation animation, optional androidx.compose.remote.creation.compose.modifier.RemoteModifier modifier, optional com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform, optional com.google.android.horologist.remotecompose.lottie.renderer.SlotMap slotMap);
     method @InaccessibleFromKotlin public static androidx.compose.runtime.ProvidableCompositionLocal<com.google.android.horologist.remotecompose.lottie.LottieSettings> getLocalAnimationSettings();
     property public static androidx.compose.runtime.ProvidableCompositionLocal<com.google.android.horologist.remotecompose.lottie.LottieSettings> LocalAnimationSettings;
   }

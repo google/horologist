@@ -229,13 +229,6 @@ internal fun VolumeScreen(
               Modifier.clearAndSetSemantics {
                 contentDescription = increaseContentDesc
                 role = Role.Button
-                onClick(
-                  label = increaseContentDesc,
-                  action = {
-                    increaseVolume()
-                    true
-                  },
-                )
               }
           ) {
             increaseIcon()
@@ -247,13 +240,6 @@ internal fun VolumeScreen(
               Modifier.clearAndSetSemantics {
                 contentDescription = decreaseContentDesc
                 role = Role.Button
-                onClick(
-                  label = decreaseContentDesc,
-                  action = {
-                    decreaseVolume()
-                    true
-                  },
-                )
               }
           ) {
             decreaseIcon()

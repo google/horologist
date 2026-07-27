@@ -315,13 +315,6 @@ public fun VolumeScreen(
                   Modifier.clearAndSetSemantics {
                     contentDescription = increaseContentDesc
                     role = Role.Button
-                    onClick(
-                      label = increaseContentDesc,
-                      action = {
-                        increaseVolume()
-                        true
-                      },
-                    )
                   }
               ) {
                 increaseIcon()
@@ -333,13 +326,6 @@ public fun VolumeScreen(
                   Modifier.clearAndSetSemantics {
                     contentDescription = decreaseContentDesc
                     role = Role.Button
-                    onClick(
-                      label = decreaseContentDesc,
-                      action = {
-                        decreaseVolume()
-                        true
-                      },
-                    )
                   }
               ) {
                 decreaseIcon()

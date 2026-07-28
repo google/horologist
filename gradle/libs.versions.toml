@@ -203,10 +203,10 @@ grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
 hilt-ext-work = { module = "androidx.hilt:hilt-work", version.ref = "androidx-hilt" }
 hilt-navigationcompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "androidx-hilt" }
-io-grpc-grpc-android = "io.grpc:grpc-android:1.83.0"
-io-grpc-grpc-binder = "io.grpc:grpc-binder:1.83.0"
+io-grpc-grpc-android = { module = "io.grpc:grpc-android", version.ref = "grpcStub" }
+io-grpc-grpc-binder = { module = "io.grpc:grpc-binder", version.ref = "grpcStub" }
 io-grpc-grpc-kotlin = "io.grpc:grpc-kotlin-stub:1.5.0"
-io-grpc-protobuf-lite = "io.grpc:grpc-protobuf-lite:1.83.0"
+io-grpc-protobuf-lite = { module = "io.grpc:grpc-protobuf-lite", version.ref = "grpcStub" }
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-gradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }

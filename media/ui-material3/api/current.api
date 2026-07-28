@@ -202,11 +202,11 @@ package com.google.android.horologist.media.ui.material3.components.controls {
   }
 
   public final class PauseButtonKt {
-    method @KotlinOnly @androidx.compose.runtime.Composable public static void PauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional String contentDescription, optional androidx.compose.ui.unit.Dp iconSize, optional androidx.wear.compose.material3.IconButtonColors colors);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void PauseButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional boolean enabled, optional String contentDescription, optional androidx.compose.ui.unit.Dp iconSize, optional androidx.wear.compose.material3.IconButtonColors colors);
   }
 
   public final class PlayButtonKt {
-    method @KotlinOnly @androidx.compose.runtime.Composable public static void PlayButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional androidx.compose.ui.Modifier modifier, optional boolean enabled, optional String contentDescription, optional androidx.compose.ui.unit.Dp iconSize, optional androidx.wear.compose.material3.IconButtonColors colors);
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void PlayButton(kotlin.jvm.functions.Function0<kotlin.Unit> onClick, optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.material3.ColorScheme colorScheme, optional boolean enabled, optional String contentDescription, optional androidx.compose.ui.unit.Dp iconSize, optional androidx.wear.compose.material3.IconButtonColors colors);
   }
 
   public final class SeekBackButtonKt {

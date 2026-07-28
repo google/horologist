@@ -159,8 +159,6 @@ subprojects {
                     // Allow use of @OptIn
                     "-opt-in=kotlin.RequiresOptIn",
                     "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-                    // Enable default methods in interfaces
-                    "-Xjvm-default=all"
                 )
             )
         }

@@ -91,6 +91,8 @@ class GeminiSDKInferenceServiceImpl(
             }
         }
 
+        // generateImages is deprecated in the underlying Gemini Java SDK
+        @Suppress("DEPRECATION")
         private fun geminiGenerateImages(request: PromptRequest, modelId: String): Flow<Response> =
             flow {
                 val responses = client.models.generateImages(

@@ -51,18 +51,18 @@ val LocalAnimationSettings =
  * A RemoteComposable that renders a Lottie animation to a RemoteCompose document.
  *
  * @param animation The Lottie animation to render.
+ * @param modifier The modifier to apply to the Lottie layout.
  * @param transform Optional additional transform to apply to the requested shape.
  * @param slotMap Mapping of slot IDs to values for dynamic theming.
- * @param modifier The modifier to apply to the Lottie layout.
  */
 @SuppressLint("RestrictedApi")
 @Composable
 @RemoteComposable
-fun LottieAnimation(
+public fun LottieAnimation(
   animation: Animation,
+  modifier: RemoteModifier = RemoteModifier,
   transform: Transform? = null,
   slotMap: SlotMap = SlotMap(emptyMap()),
-  modifier: RemoteModifier = RemoteModifier,
 ) {
   val totalFrames = animation.endFrame - animation.startFrame
   val currentFrame =

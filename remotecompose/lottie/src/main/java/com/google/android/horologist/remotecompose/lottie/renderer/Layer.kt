@@ -17,7 +17,6 @@
 package com.google.android.horologist.remotecompose.lottie.renderer
 
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
-import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
 import com.google.android.horologist.remotecompose.lottie.format.Layer
@@ -30,7 +29,6 @@ internal fun Layer(
   layer: Layer,
   parentTransforms: Map<Int, Transform>,
   transform: Transform?,
-  modifier: RemoteModifier = RemoteModifier,
 ) {
   val transformStack =
     if (layer.parent == null || !parentTransforms.containsKey(layer.parent)) {
@@ -58,7 +56,6 @@ internal fun Layer(
 internal fun ShapeLayer(
   layer: Layer.ShapeLayer,
   transformStack: List<Transform?>? = null,
-  modifier: RemoteModifier = RemoteModifier,
 ) {
   if (layer.hidden == true) {
     return

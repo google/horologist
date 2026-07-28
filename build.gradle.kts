@@ -110,6 +110,14 @@ allprojects {
                 force(rootProject.libs.io.grpc.protobuf.lite)
                 force(rootProject.libs.io.grpc.grpc.android)
                 force(rootProject.libs.io.grpc.grpc.binder)
+                eachDependency {
+                    if (requested.group == "androidx.core" && (requested.name == "core" || requested.name == "core-ktx")) {
+                        useVersion(rootProject.libs.versions.androidxCore.get())
+                    }
+                    if (requested.group == "androidx.lifecycle") {
+                        useVersion(rootProject.libs.versions.androidxLifecycle.get())
+                    }
+                }
             }
         }
     }

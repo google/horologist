@@ -53,9 +53,30 @@
     },
     {
       "matchPackagePatterns": [
-        "androidx.datastore:*",
+        "androidx.datastore:*"
       ],
       "allowedVersions": "<=1.1.4"
+    },
+    {
+      "matchPackagePatterns": [
+        "androidx.core:*"
+      ],
+      "allowedVersions": "<1.19.0",
+      "description": "Requires compileSdk 37"
+    },
+    {
+      "matchPackagePatterns": [
+        "androidx.lifecycle:*"
+      ],
+      "allowedVersions": "<2.11.0",
+      "description": "Requires compileSdk 37"
+    },
+    {
+      "matchPackagePatterns": [
+        "androidx.hilt:*"
+      ],
+      "allowedVersions": "<1.4.0",
+      "description": "Requires compileSdk 37"
     }
   ]
 }

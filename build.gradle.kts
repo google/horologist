@@ -106,10 +106,18 @@ allprojects {
                 dependencySubstitution {
                     substitute(module("com.google.protobuf:protobuf-java")).using(module("com.google.protobuf:protobuf-javalite:4.35.1"))
                 }
-                force("io.grpc:grpc-stub:1.82.2")
-                force("io.grpc:grpc-protobuf-lite:1.82.2")
-                force("io.grpc:grpc-android:1.82.2")
-                force("io.grpc:grpc-binder:1.82.2")
+                force(rootProject.libs.grpc.stub)
+                force(rootProject.libs.io.grpc.protobuf.lite)
+                force(rootProject.libs.io.grpc.grpc.android)
+                force(rootProject.libs.io.grpc.grpc.binder)
+                eachDependency {
+                    if (requested.group == "androidx.core" && (requested.name == "core" || requested.name == "core-ktx")) {
+                        useVersion(rootProject.libs.versions.androidxCore.get())
+                    }
+                    if (requested.group == "androidx.lifecycle") {
+                        useVersion(rootProject.libs.versions.androidxLifecycle.get())
+                    }
+                }
             }
         }
     }

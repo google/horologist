@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+// Uses legacy Wear Material 2 auth composable dialogs (SignedInConfirmationDialog, SelectAccountScreen)
 @file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.auth.ui.common.screens.streamline

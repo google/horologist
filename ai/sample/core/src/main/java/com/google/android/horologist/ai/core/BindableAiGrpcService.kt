@@ -35,6 +35,7 @@ abstract class BindableAiGrpcService : LifecycleService() {
     private lateinit var server: Server
     private val binderReceiver = IBinderReceiver()
 
+    // PackageManager.GET_SIGNATURES is deprecated in API 28+ in favor of GET_SIGNING_CERTIFICATES
     @Suppress("DEPRECATION")
     @get:android.annotation.SuppressLint("PackageManagerGetSignatures")
     open val securityPolicy: SecurityPolicy by lazy {

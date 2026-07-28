@@ -38,12 +38,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
-import androidx.compose.ui.semantics.onClick
-import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -314,7 +311,6 @@ public fun VolumeScreen(
                 modifier =
                   Modifier.clearAndSetSemantics {
                     contentDescription = increaseContentDesc
-                    role = Role.Button
                   }
               ) {
                 increaseIcon()
@@ -325,7 +321,6 @@ public fun VolumeScreen(
                 modifier =
                   Modifier.clearAndSetSemantics {
                     contentDescription = decreaseContentDesc
-                    role = Role.Button
                   }
               ) {
                 decreaseIcon()

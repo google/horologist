@@ -35,6 +35,7 @@ abstract class BindableAiGrpcService : LifecycleService() {
     private lateinit var server: Server
     private val binderReceiver = IBinderReceiver()
 
+    @Suppress("DEPRECATION")
     @get:android.annotation.SuppressLint("PackageManagerGetSignatures")
     open val securityPolicy: SecurityPolicy by lazy {
         val mySignature = packageManager.getPackageInfo(

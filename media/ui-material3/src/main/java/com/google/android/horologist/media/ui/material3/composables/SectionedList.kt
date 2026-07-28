@@ -203,7 +203,6 @@ public class SectionedListScope {
 
     internal val sections: MutableList<Section<*>> = mutableListOf()
 
-    @SectionScopeMarker
     public fun <T> section(
         state: Section.State<T>,
         content: SectionScope<T>.() -> Unit,
@@ -229,7 +228,6 @@ public class SectionedListScope {
     /**
      * Add a section in [loaded][Section.State.Loaded] state.
      */
-    @SectionScopeMarker
     public fun <T> section(
         list: List<T>,
         content: SectionScope<T>.() -> Unit,
@@ -241,7 +239,6 @@ public class SectionedListScope {
     /**
      * Add a section in [loaded][Section.State.Loaded] state with a single item.
      */
-    @SectionScopeMarker
     public fun section(
         content: SectionScope<Unit>.() -> Unit,
     ): Unit = section(
@@ -284,7 +281,6 @@ public class SectionScope<T> {
     internal var footerVisibleStates: Section.VisibleStates = Section.LOADED_STATE_ONLY
         private set
 
-    @SectionScopeMarker
     public fun header(
         visibleStates: Section.VisibleStates = Section.ALL_STATES,
         content: @Composable SectionContentScope.() -> Unit,
@@ -293,7 +289,6 @@ public class SectionScope<T> {
         headerContent = content
     }
 
-    @SectionScopeMarker
     public fun loading(
         count: Int = Section.DEFAULT_LOADING_CONTENT_COUNT,
         content: @Composable SectionContentScope.() -> Unit,
@@ -303,22 +298,18 @@ public class SectionScope<T> {
         loadingContent = content
     }
 
-    @SectionScopeMarker
     public fun loaded(content: @Composable SectionContentScope.(T) -> Unit) {
         loadedContent = content
     }
 
-    @SectionScopeMarker
     public fun failed(content: @Composable SectionContentScope.() -> Unit) {
         failedContent = content
     }
 
-    @SectionScopeMarker
     public fun empty(content: @Composable SectionContentScope.() -> Unit) {
         emptyContent = content
     }
 
-    @SectionScopeMarker
     public fun footer(
         visibleStates: Section.VisibleStates = Section.LOADED_STATE_ONLY,
         content: @Composable SectionContentScope.() -> Unit,

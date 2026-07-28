@@ -91,6 +91,7 @@ class GeminiSDKInferenceServiceImpl(
             }
         }
 
+        @Suppress("DEPRECATION")
         private fun geminiGenerateImages(request: PromptRequest, modelId: String): Flow<Response> =
             flow {
                 val responses = client.models.generateImages(

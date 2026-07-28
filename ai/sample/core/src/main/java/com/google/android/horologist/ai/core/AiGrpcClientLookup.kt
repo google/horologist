@@ -23,6 +23,7 @@ import io.grpc.binder.BinderChannelBuilder
 import io.grpc.binder.UntrustedSecurityPolicies
 
 object AiGrpcClientLookup {
+    @Suppress("DEPRECATION")
     @android.annotation.SuppressLint("PackageManagerGetSignatures")
     fun lookupInferenceService(
         context: Context,

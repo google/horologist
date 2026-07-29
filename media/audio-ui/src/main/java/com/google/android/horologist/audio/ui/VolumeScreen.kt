@@ -19,6 +19,7 @@
 package com.google.android.horologist.audio.ui
 
 import android.media.AudioManager
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -33,10 +34,9 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
-import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
-import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -206,6 +206,10 @@ internal fun VolumeScreen(
     } else {
         stringResource(id = R.string.horologist_volume_screen_volume_percent, volumePercent)
     }
+    val increaseContentDesc =
+      stringResource(id = R.string.horologist_volume_screen_volume_up_content_description)
+    val decreaseContentDesc =
+      stringResource(id = R.string.horologist_volume_screen_volume_down_content_description)
     Stepper(
         modifier = modifier.semantics {
             liveRegion = LiveRegionMode.Assertive
@@ -216,10 +220,24 @@ internal fun VolumeScreen(
         steps = volumeState.max - 1,
         valueRange = (0f..volumeState.max.toFloat()),
         increaseIcon = {
+          Box(
+            modifier =
+              Modifier.clearAndSetSemantics {
+                contentDescription = increaseContentDesc
+              }
+          ) {
             increaseIcon()
+          }
         },
         decreaseIcon = {
+          Box(
+            modifier =
+              Modifier.clearAndSetSemantics {
+                contentDescription = decreaseContentDesc
+              }
+          ) {
             decreaseIcon()
+          }
         },
         enableRangeSemantics = false,
     ) {
@@ -237,7 +255,7 @@ public object VolumeScreenDefaults {
     @Composable
     public fun IncreaseIcon() {
         Icon(
-            modifier = Modifier.size(26.dp).semantics { role = Role.Button },
+            modifier = Modifier.size(26.dp),
             paintable = Icons.AutoMirrored.Outlined.VolumeUp.asPaintable(),
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_up_content_description),
         )
@@ -246,7 +264,7 @@ public object VolumeScreenDefaults {
     @Composable
     public fun DecreaseIcon() {
         Icon(
-            modifier = Modifier.size(26.dp).semantics { role = Role.Button },
+            modifier = Modifier.size(26.dp),
             paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
             contentDescription = stringResource(id = R.string.horologist_volume_screen_volume_down_content_description),
         )

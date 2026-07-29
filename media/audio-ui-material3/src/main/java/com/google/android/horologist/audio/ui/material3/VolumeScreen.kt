@@ -38,6 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.LiveRegionMode
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
@@ -292,6 +293,10 @@ public fun VolumeScreen(
         if (showVolumeIndicator) {
             VolumeLevelIndicator(volumeUiState = volume, colorScheme = colorScheme)
         }
+        val increaseContentDesc =
+            stringResource(id = R.string.horologist_volume_screen_volume_up_content_description)
+        val decreaseContentDesc =
+            stringResource(id = R.string.horologist_volume_screen_volume_down_content_description)
         Stepper(
             modifier =
                 modifier.semantics {
@@ -301,8 +306,26 @@ public fun VolumeScreen(
             value = currentValue,
             onValueChange = { if (it > volumeState.current) increaseVolume() else decreaseVolume() },
             steps = volumeState.max - 1,
-            increaseIcon = { increaseIcon() },
-            decreaseIcon = { decreaseIcon() },
+            increaseIcon = {
+              Box(
+                modifier =
+                  Modifier.clearAndSetSemantics {
+                    contentDescription = increaseContentDesc
+                  }
+              ) {
+                increaseIcon()
+              }
+            },
+            decreaseIcon = {
+              Box(
+                modifier =
+                  Modifier.clearAndSetSemantics {
+                    contentDescription = decreaseContentDesc
+                  }
+              ) {
+                decreaseIcon()
+              }
+            },
             colors =
                 StepperDefaults.colors(
                     contentColor = colorScheme.onSurface,

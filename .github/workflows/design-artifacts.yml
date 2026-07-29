@@ -1,0 +1,59 @@
+name: Design Artifacts
+
+# Publishes the `:catalog` preview sheet as an importable bundle on the
+# `design-artifacts/horologist` branch, which the public preview server
+# (preview.coo.ee) serves once the catalog is registered upstream — see
+# yschimke/compose-ai-tools#2951.
+#
+# All the work lives in the reusable pipeline in compose-ai-tools; this file is
+# just the trigger set and the inputs.
+#
+# When it runs:
+#   - weekly (Monday 06:00 UTC) — the delivery branch is a force-pushed
+#     snapshot, and the renderer moves underneath it even when this repo is
+#     unchanged. The cron is what picks that drift up.
+#   - on demand, via workflow_dispatch.
+#   - on push to `main` when the catalog, its spec, or the pinned
+#     compose-ai-tools version changes. That last one is the "compose-ai-tools
+#     was updated" case in the form this repo can actually observe: renovate
+#     bumps `composeAiTools` in the version catalog, and that bump changes the
+#     rendered output. A release upstream that this repo has not yet pinned is
+#     picked up by the cron rather than immediately — closing that gap would
+#     need a repository_dispatch from compose-ai-tools.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'catalog/**'
+      - 'catalog.spec.json'
+      - 'gradle/libs.versions.toml'
+      - '.github/workflows/design-artifacts.yml'
+
+jobs:
+  publish:
+    # Guard against a fork pushing a delivery branch into its own copy.
+    if: ${{ github.repository == 'yschimke/horologist' }}
+    permissions:
+      contents: write
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
+    with:
+      system: horologist
+      spec: catalog.spec.json
+      module: ':catalog'
+      # Track the plugin version pinned in this repo's version catalog, so the
+      # CLI that renders the bundle can never drift ahead of the applied plugin.
+      cli-version: catalog
+      catalog-key: composeAiTools
+      # Publish even when some previews fail to render or lack semantics.
+      #
+      # Needed today: eight of the 77 previews are dialog- or bottom-sheet-shaped
+      # and capture blank, because that content composes into its own window and
+      # the renderer captures the host activity's root
+      # (yschimke/compose-ai-tools, branch agent/dialog-window-capture). Without
+      # this the whole bundle would be withheld over a known, tracked renderer
+      # gap. Flip it back to false once that lands.
+      allow-incomplete: true

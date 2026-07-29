@@ -1,0 +1,456 @@
+{
+  "$schema": "https://raw.githubusercontent.com/yschimke/compose-ai-tools/main/scripts/design-artifacts/catalog.spec.schema.json",
+  "system": "horologist",
+  "title": "Horologist",
+  "modes": [
+    "dark",
+    "light"
+  ],
+  "groups": [
+    {
+      "name": "Material",
+      "blurb": "Horologist's wrappers over Wear Material 2 \u2014 chips, toggles, buttons, headers.",
+      "components": [
+        {
+          "componentId": "MaterialButton",
+          "preview": "MaterialButton",
+          "caption": "Button"
+        },
+        {
+          "componentId": "MaterialButtonLarge",
+          "preview": "MaterialButtonLarge",
+          "caption": "Button Large"
+        },
+        {
+          "componentId": "MaterialChip",
+          "preview": "MaterialChip",
+          "caption": "Chip"
+        },
+        {
+          "componentId": "MaterialChipDisabled",
+          "preview": "MaterialChipDisabled",
+          "caption": "Chip Disabled"
+        },
+        {
+          "componentId": "MaterialChipTruncated",
+          "preview": "MaterialChipTruncated",
+          "caption": "Chip Truncated"
+        },
+        {
+          "componentId": "MaterialChipWithSecondaryLabel",
+          "preview": "MaterialChipWithSecondaryLabel",
+          "caption": "Chip With Secondary Label"
+        },
+        {
+          "componentId": "MaterialCompactChip",
+          "preview": "MaterialCompactChip",
+          "caption": "Compact Chip"
+        },
+        {
+          "componentId": "MaterialOutlinedChip",
+          "preview": "MaterialOutlinedChip",
+          "caption": "Outlined Chip"
+        },
+        {
+          "componentId": "MaterialOutlinedCompactChip",
+          "preview": "MaterialOutlinedCompactChip",
+          "caption": "Outlined Compact Chip"
+        },
+        {
+          "componentId": "MaterialResponsiveListHeader",
+          "preview": "MaterialResponsiveListHeader",
+          "caption": "Responsive List Header"
+        },
+        {
+          "componentId": "MaterialSecondaryTitle",
+          "preview": "MaterialSecondaryTitle",
+          "caption": "Secondary Title"
+        },
+        {
+          "componentId": "MaterialSplitToggleChip",
+          "preview": "MaterialSplitToggleChip",
+          "caption": "Split Toggle Chip"
+        },
+        {
+          "componentId": "MaterialTitle",
+          "preview": "MaterialTitle",
+          "caption": "Title"
+        },
+        {
+          "componentId": "MaterialToggleButton",
+          "preview": "MaterialToggleButton",
+          "caption": "Toggle Button"
+        },
+        {
+          "componentId": "MaterialToggleChipRadio",
+          "preview": "MaterialToggleChipRadio",
+          "caption": "Toggle Chip Radio"
+        },
+        {
+          "componentId": "MaterialToggleChipSwitch",
+          "preview": "MaterialToggleChipSwitch",
+          "caption": "Toggle Chip Switch"
+        }
+      ]
+    },
+    {
+      "name": "Media",
+      "blurb": "The player screen taken apart: title-area states, transport controls, entity screen.",
+      "components": [
+        {
+          "componentId": "MediaControlButtonsPausedAtQueueEnd",
+          "preview": "MediaControlButtonsPausedAtQueueEnd",
+          "caption": "Control Buttons Paused At Queue End"
+        },
+        {
+          "componentId": "MediaControlButtonsPlaying",
+          "preview": "MediaControlButtonsPlaying",
+          "caption": "Control Buttons Playing"
+        },
+        {
+          "componentId": "MediaDetailsButton",
+          "preview": "MediaDetailsButton",
+          "caption": "Details Button"
+        },
+        {
+          "componentId": "MediaEntityScreen",
+          "preview": "MediaEntityScreen",
+          "caption": "Entity Screen"
+        },
+        {
+          "componentId": "MediaLoadingMediaDisplay",
+          "preview": "MediaLoadingMediaDisplay",
+          "caption": "Loading Media Display"
+        },
+        {
+          "componentId": "MediaMarqueeTextMediaDisplay",
+          "preview": "MediaMarqueeTextMediaDisplay",
+          "caption": "Marquee Text Media Display"
+        },
+        {
+          "componentId": "MediaMarqueeTextMediaDisplayLongTitle",
+          "preview": "MediaMarqueeTextMediaDisplayLongTitle",
+          "caption": "Marquee Text Media Display Long Title"
+        },
+        {
+          "componentId": "MediaMessageMediaDisplay",
+          "preview": "MediaMessageMediaDisplay",
+          "caption": "Message Media Display"
+        },
+        {
+          "componentId": "MediaNothingPlayingDisplay",
+          "preview": "MediaNothingPlayingDisplay",
+          "caption": "Nothing Playing Display"
+        },
+        {
+          "componentId": "MediaPlaceholderButton",
+          "preview": "MediaPlaceholderButton",
+          "caption": "Placeholder Button"
+        },
+        {
+          "componentId": "MediaPlayPauseButtonDisabled",
+          "preview": "MediaPlayPauseButtonDisabled",
+          "caption": "Play Pause Button Disabled"
+        },
+        {
+          "componentId": "MediaPlayPauseButtonPaused",
+          "preview": "MediaPlayPauseButtonPaused",
+          "caption": "Play Pause Button Paused"
+        },
+        {
+          "componentId": "MediaPlayPauseButtonPlaying",
+          "preview": "MediaPlayPauseButtonPlaying",
+          "caption": "Play Pause Button Playing"
+        }
+      ]
+    },
+    {
+      "name": "Auth Wear",
+      "blurb": "The on-watch sign-in flow, in the order a user meets it.",
+      "components": [
+        {
+          "componentId": "AuthWearGuestModeButton",
+          "preview": "AuthWearGuestModeButton",
+          "caption": "Guest Mode Button"
+        },
+        {
+          "componentId": "AuthWearSelectAccountScreen",
+          "preview": "AuthWearSelectAccountScreen",
+          "caption": "Select Account Screen"
+        },
+        {
+          "componentId": "AuthWearSelectAccountScreenEmailOnly",
+          "preview": "AuthWearSelectAccountScreenEmailOnly",
+          "caption": "Select Account Screen Email Only"
+        },
+        {
+          "componentId": "AuthWearSelectAccountScreenLongEmail",
+          "preview": "AuthWearSelectAccountScreenLongEmail",
+          "caption": "Select Account Screen Long Email"
+        },
+        {
+          "componentId": "AuthWearSelectAccountScreenSingle",
+          "preview": "AuthWearSelectAccountScreenSingle",
+          "caption": "Select Account Screen Single"
+        },
+        {
+          "componentId": "AuthWearSignInButton",
+          "preview": "AuthWearSignInButton",
+          "caption": "Sign In Button"
+        },
+        {
+          "componentId": "AuthWearSignInButtonDisabled",
+          "preview": "AuthWearSignInButtonDisabled",
+          "caption": "Sign In Button Disabled"
+        },
+        {
+          "componentId": "AuthWearSignInPlaceholderScreen",
+          "preview": "AuthWearSignInPlaceholderScreen",
+          "caption": "Sign In Placeholder Screen"
+        },
+        {
+          "componentId": "AuthWearSignInPromptScreen",
+          "preview": "AuthWearSignInPromptScreen",
+          "caption": "Sign In Prompt Screen"
+        },
+        {
+          "componentId": "AuthWearSignInPromptScreenLoading",
+          "preview": "AuthWearSignInPromptScreenLoading",
+          "caption": "Sign In Prompt Screen Loading"
+        },
+        {
+          "componentId": "AuthWearSignedInConfirmationDialog",
+          "preview": "AuthWearSignedInConfirmationDialog",
+          "caption": "Signed In Confirmation Dialog"
+        },
+        {
+          "componentId": "AuthWearSignedInConfirmationDialogEmailOnly",
+          "preview": "AuthWearSignedInConfirmationDialogEmailOnly",
+          "caption": "Signed In Confirmation Dialog Email Only"
+        },
+        {
+          "componentId": "AuthWearSignedInConfirmationDialogTruncated",
+          "preview": "AuthWearSignedInConfirmationDialogTruncated",
+          "caption": "Signed In Confirmation Dialog Truncated"
+        }
+      ]
+    },
+    {
+      "name": "Composables",
+      "blurb": "Widgets with no Wear Material equivalent \u2014 pickers, segmented indicators, marquee.",
+      "components": [
+        {
+          "componentId": "ComposablesDatePicker",
+          "preview": "ComposablesDatePicker",
+          "caption": "Date Picker"
+        },
+        {
+          "componentId": "ComposablesMarqueeText",
+          "preview": "ComposablesMarqueeText",
+          "caption": "Marquee Text"
+        },
+        {
+          "componentId": "ComposablesPlaceholderChip",
+          "preview": "ComposablesPlaceholderChip",
+          "caption": "Placeholder Chip"
+        },
+        {
+          "componentId": "ComposablesSegmentedProgressIndicator",
+          "preview": "ComposablesSegmentedProgressIndicator",
+          "caption": "Segmented Progress Indicator"
+        },
+        {
+          "componentId": "ComposablesSegmentedProgressIndicatorComplete",
+          "preview": "ComposablesSegmentedProgressIndicatorComplete",
+          "caption": "Segmented Progress Indicator Complete"
+        },
+        {
+          "componentId": "ComposablesSegmentedProgressIndicatorEmpty",
+          "preview": "ComposablesSegmentedProgressIndicatorEmpty",
+          "caption": "Segmented Progress Indicator Empty"
+        },
+        {
+          "componentId": "ComposablesSquareSegmentedProgressIndicator",
+          "preview": "ComposablesSquareSegmentedProgressIndicator",
+          "caption": "Square Segmented Progress Indicator"
+        },
+        {
+          "componentId": "ComposablesTimePicker",
+          "preview": "ComposablesTimePicker",
+          "caption": "Time Picker"
+        },
+        {
+          "componentId": "ComposablesTimePickerNoSeconds",
+          "preview": "ComposablesTimePickerNoSeconds",
+          "caption": "Time Picker No Seconds"
+        },
+        {
+          "componentId": "ComposablesTimePickerWith12HourClock",
+          "preview": "ComposablesTimePickerWith12HourClock",
+          "caption": "Time Picker With12 Hour Clock"
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "blurb": "The mid-exercise metrics screen and its parts.",
+      "components": [
+        {
+          "componentId": "HealthFormattedDurationText",
+          "preview": "HealthFormattedDurationText",
+          "caption": "Formatted Duration Text"
+        },
+        {
+          "componentId": "HealthFormattedDurationTextSubMinute",
+          "preview": "HealthFormattedDurationTextSubMinute",
+          "caption": "Formatted Duration Text Sub Minute"
+        },
+        {
+          "componentId": "HealthMetricDisplay",
+          "preview": "HealthMetricDisplay",
+          "caption": "Metric Display"
+        },
+        {
+          "componentId": "HealthMetricsScreenFour",
+          "preview": "HealthMetricsScreenFour",
+          "caption": "Metrics Screen Four"
+        },
+        {
+          "componentId": "HealthMetricsScreenSingle",
+          "preview": "HealthMetricsScreenSingle",
+          "caption": "Metrics Screen Single"
+        },
+        {
+          "componentId": "HealthMetricsScreenTwo",
+          "preview": "HealthMetricsScreenTwo",
+          "caption": "Metrics Screen Two"
+        },
+        {
+          "componentId": "HealthMetricsScreenWideValues",
+          "preview": "HealthMetricsScreenWideValues",
+          "caption": "Metrics Screen Wide Values"
+        }
+      ]
+    },
+    {
+      "name": "Audio",
+      "blurb": "Volume screen and indicator, at the positions whose rendering differs.",
+      "components": [
+        {
+          "componentId": "AudioVolumeLevelIndicator",
+          "preview": "AudioVolumeLevelIndicator",
+          "caption": "Volume Level Indicator"
+        },
+        {
+          "componentId": "AudioVolumeScreen",
+          "preview": "AudioVolumeScreen",
+          "caption": "Volume Screen"
+        },
+        {
+          "componentId": "AudioVolumeScreenMax",
+          "preview": "AudioVolumeScreenMax",
+          "caption": "Volume Screen Max"
+        },
+        {
+          "componentId": "AudioVolumeScreenMuted",
+          "preview": "AudioVolumeScreenMuted",
+          "caption": "Volume Screen Muted"
+        },
+        {
+          "componentId": "AudioVolumeScreenNotConnected",
+          "preview": "AudioVolumeScreenNotConnected",
+          "caption": "Volume Screen Not Connected"
+        }
+      ]
+    },
+    {
+      "name": "AI",
+      "blurb": "One sticker per state of a prompt/response turn.",
+      "components": [
+        {
+          "componentId": "AiFailedResponseChip",
+          "preview": "AiFailedResponseChip",
+          "caption": "Failed Response Chip"
+        },
+        {
+          "componentId": "AiResponseInProgressCard",
+          "preview": "AiResponseInProgressCard",
+          "caption": "Response In Progress Card"
+        },
+        {
+          "componentId": "AiTextPromptDisplay",
+          "preview": "AiTextPromptDisplay",
+          "caption": "Text Prompt Display"
+        },
+        {
+          "componentId": "AiTextResponseCard",
+          "preview": "AiTextResponseCard",
+          "caption": "Text Response Card"
+        },
+        {
+          "componentId": "AiTextResponseCardLong",
+          "preview": "AiTextResponseCardLong",
+          "caption": "Text Response Card Long"
+        }
+      ]
+    },
+    {
+      "name": "Layout",
+      "blurb": "Scaffolding: responsive scrolling column, pager, inscribed rectangle.",
+      "components": [
+        {
+          "componentId": "LayoutFillMaxRectangle",
+          "preview": "LayoutFillMaxRectangle",
+          "caption": "Fill Max Rectangle"
+        },
+        {
+          "componentId": "LayoutPagerScreen",
+          "preview": "LayoutPagerScreen",
+          "caption": "Pager Screen"
+        },
+        {
+          "componentId": "LayoutScalingLazyColumn",
+          "preview": "LayoutScalingLazyColumn",
+          "caption": "Scaling Lazy Column"
+        }
+      ]
+    },
+    {
+      "name": "DataLayer Mobile",
+      "blurb": "Phone-side prompts that push a user towards the watch app.",
+      "components": [
+        {
+          "componentId": "DataLayerMobileInstallAppBottomSheet",
+          "preview": "DataLayerMobileInstallAppBottomSheet",
+          "caption": "Install App Bottom Sheet"
+        },
+        {
+          "componentId": "DataLayerMobileInstallTileBottomSheet",
+          "preview": "DataLayerMobileInstallTileBottomSheet",
+          "caption": "Install Tile Bottom Sheet"
+        },
+        {
+          "componentId": "DataLayerMobileReEngageBottomSheet",
+          "preview": "DataLayerMobileReEngageBottomSheet",
+          "caption": "Re Engage Bottom Sheet"
+        }
+      ]
+    },
+    {
+      "name": "Auth Mobile",
+      "blurb": "The phone half of the sign-in story.",
+      "components": [
+        {
+          "componentId": "AuthMobileSignInBottomSheet",
+          "preview": "AuthMobileSignInBottomSheet",
+          "caption": "Sign In Bottom Sheet"
+        },
+        {
+          "componentId": "AuthMobileSignInBottomSheetCustomLabels",
+          "preview": "AuthMobileSignInBottomSheetCustomLabels",
+          "caption": "Sign In Bottom Sheet Custom Labels"
+        }
+      ]
+    }
+  ]
+}

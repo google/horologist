@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -176,7 +177,7 @@ private class MarqueeController(
     var edgeGradientWidth: Dp by mutableStateOf(edgeGradientWidth)
     var startGap: Dp by mutableStateOf(startGap)
     private var needsScrolling by mutableStateOf(false)
-    private var contentWidth: Int by mutableStateOf(-1)
+    private var contentWidth: Int by mutableIntStateOf(-1)
 
     val outsideMarqueeModifier: Modifier = Modifier
         .layout { measurable, constraints ->

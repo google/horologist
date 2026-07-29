@@ -45,6 +45,7 @@ package com.google.android.horologist.networks.okhttp.impl {
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class FailedCall implements okhttp3.Call {
     ctor public FailedCall(okhttp3.Call.Factory callFactory, okhttp3.Request request, String message);
+    method public void addEventListener(okhttp3.EventListener eventListener);
     method public void cancel();
     method public okhttp3.Call clone();
     method public void enqueue(okhttp3.Callback responseCallback);

@@ -23,6 +23,8 @@ import io.grpc.binder.BinderChannelBuilder
 import io.grpc.binder.UntrustedSecurityPolicies
 
 object AiGrpcClientLookup {
+    // PackageManager.GET_SIGNATURES is deprecated in API 28+ in favor of GET_SIGNING_CERTIFICATES
+    @Suppress("DEPRECATION")
     @android.annotation.SuppressLint("PackageManagerGetSignatures")
     fun lookupInferenceService(
         context: Context,

@@ -76,8 +76,8 @@ internal fun RotatingWavyProgressIndicator(
     shapeMorphProgress: State<Float>,
     rotationProgress: State<Float>,
     strokeWidth: Dp,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
     modifier: Modifier = Modifier,
+    colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
     val coercedProgress by remember {
         derivedStateOf { progress.value.coerceIn(0f, 1f) }

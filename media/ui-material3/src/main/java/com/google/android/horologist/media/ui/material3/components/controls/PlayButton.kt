@@ -34,8 +34,8 @@ import com.google.android.horologist.media.ui.model.R
 @Composable
 public fun PlayButton(
     onClick: () -> Unit,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
     modifier: Modifier = Modifier,
+    colorScheme: ColorScheme = MaterialTheme.colorScheme,
     enabled: Boolean = true,
     contentDescription: String = stringResource(id = R.string.horologist_play_button_content_description),
     iconSize: Dp = IconButtonDefaults.LargeIconSize,

@@ -72,7 +72,7 @@ public fun AnimatedMediaButton(
             enabled = enabled,
             colors = colors,
         ) {
-            this.mediaButtonContent(
+            this.MediaButtonContent(
                 compositionResult = compositionResult,
                 contentDescription = contentDescription,
                 iconSize = iconSize,
@@ -97,7 +97,7 @@ public fun AnimatedMediaButton(
                 radius = 35.dp,
             ),
         ) {
-            this.mediaButtonContent(
+            this.MediaButtonContent(
                 compositionResult = compositionResult,
                 contentDescription = contentDescription,
                 iconSize = iconSize,
@@ -110,7 +110,7 @@ public fun AnimatedMediaButton(
 }
 
 @Composable
-private fun BoxScope.mediaButtonContent(
+private fun BoxScope.MediaButtonContent(
     compositionResult: LottieCompositionResult,
     contentDescription: String,
     iconSize: Dp = 32.dp,

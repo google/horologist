@@ -15,7 +15,7 @@
  */
 
 plugins {
-    id("com.gradle.develocity") version "4.4.1"
+    id("com.gradle.develocity") version "4.5.0"
 }
 
 develocity {
@@ -81,6 +81,7 @@ include(":network-awareness:core")
 include(":network-awareness:db")
 include(":network-awareness:okhttp")
 include(":network-awareness:ui")
+include(":remotecompose:lottie")
 include(":roboscreenshots")
 include(":sample")
 include(":tiles")

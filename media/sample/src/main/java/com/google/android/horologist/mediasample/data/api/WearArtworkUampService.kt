@@ -38,14 +38,14 @@ class WearArtworkUampService(
 
     private fun wearSizedArtwork(image: String): String {
         return when (image) {
-            "https://storage.googleapis.com/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg" -> "$githubPrefix/kyoto.jpg"
-            "https://storage.googleapis.com/uamp/Kai_Engel_-_Irsens_Tale/art.jpg" -> "$githubPrefix/kai.jpg"
-            "https://storage.googleapis.com/automotive-media/album_art.jpg" -> "$githubPrefix/album_art.jpg"
-            "https://storage.googleapis.com/automotive-media/album_art_2.jpg" -> "$githubPrefix/album_art_2.jpg"
-            "https://storage.googleapis.com/automotive-media/album_art_3.jpg" -> "$githubPrefix/album_art_3.jpg"
-            "https://storage.googleapis.com/uamp/Spatial Audio/Marching band.jpg" -> "$githubPrefix/marching_band.jpg"
-            "https://storage.googleapis.com/uamp/Spatial Audio/Chickens.jpg" -> "$githubPrefix/chickens.jpg"
-            "https://storage.googleapis.com/uamp/Spatial Audio/Rural market.jpg" -> "$githubPrefix/rural_market.jpg"
+            "https://storage.googleapis.com/androiddevelopers/samples_assets/uamp/The_Kyoto_Connection_-_Wake_Up/art.jpg" -> "$githubPrefix/kyoto.jpg"
+            "https://storage.googleapis.com/androiddevelopers/samples_assets/uamp/Kai_Engel_-_Irsens_Tale/art.jpg" -> "$githubPrefix/kai.jpg"
+            "https://storage.googleapis.com/androiddevelopers/samples_assets/automotive-media/album_art.jpg" -> "$githubPrefix/album_art.jpg"
+            "https://storage.googleapis.com/androiddevelopers/samples_assets/automotive-media/album_art_2.jpg" -> "$githubPrefix/album_art_2.jpg"
+            "hhttps://storage.googleapis.com/androiddevelopers/samples_assets/automotive-media/album_art_3.jpg" -> "$githubPrefix/album_art_3.jpg"
+            "https://storage.googleapis.com/androiddevelopers/samples_assets/uamp/Spatial Audio/Marching band.jpg" -> "$githubPrefix/marching_band.jpg"
+            "https://storage.googleapis.com/androiddevelopers/samples_assets/uamp/Spatial Audio/Chickens.jpg" -> "$githubPrefix/chickens.jpg"
+            "https://storage.googleapis.com/androiddevelopers/samples_assets/uamp/Spatial Audio/Rural market.jpg" -> "$githubPrefix/rural_market.jpg"
             else -> image
         }
     }

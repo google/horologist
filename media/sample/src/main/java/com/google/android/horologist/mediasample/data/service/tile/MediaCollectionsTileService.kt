@@ -122,8 +122,12 @@ class MediaCollectionsTileService : SuspendingTileService() {
 
         val lastPlaylist = playlists.last()
 
-        val songResource = imageLoader.loadImageResource(this, firstSong.artworkUri)
-        val albumResource = imageLoader.loadImageResource(this, lastPlaylist.artworkUri)
+        val songResource = imageLoader.loadImageResource(this, firstSong.artworkUri) {
+            size(128)
+        }
+        val albumResource = imageLoader.loadImageResource(this, lastPlaylist.artworkUri) {
+            size(128)
+        }
 
         return renderer.produceRequestedResources(
             MediaCollectionsTileRenderer.ResourceState(

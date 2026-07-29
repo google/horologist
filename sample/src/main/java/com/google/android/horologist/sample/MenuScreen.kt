@@ -67,6 +67,12 @@ fun MenuScreen(
             }
             item {
                 Chip(
+                    label = "Lottie Animation",
+                    onClick = { navigateToRoute(Screen.Lottie.route) },
+                )
+            }
+            item {
+                Chip(
                     label = "Networks",
                     onClick = { navigateToRoute(Screen.Network.route) },
                 )

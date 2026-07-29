@@ -28,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.Call
 import okhttp3.Callback
+import okhttp3.EventListener
 import okhttp3.Request
 import okhttp3.Response
 import okio.AsyncTimeout
@@ -52,6 +53,19 @@ internal class HighBandwidthCall(
     @GuardedBy("this")
     private var call: Call? = null
 
+    private val eventListeners = mutableListOf<EventListener>()
+
+    override fun addEventListener(eventListener: EventListener) {
+        synchronized(this) {
+            val currentCall = call
+            if (currentCall != null) {
+                currentCall.addEventListener(eventListener)
+            } else {
+                eventListeners.add(eventListener)
+            }
+        }
+    }
+
     override fun cancel() {
         synchronized(this) {
             cancelled = true
@@ -63,7 +77,11 @@ internal class HighBandwidthCall(
     override fun clone(): Call {
         // Remove network and lease from new request
         val cleanRequest = request.newBuilder().requestType(request.requestType).build()
-        return callFactory.newCall(cleanRequest)
+        val newCall = callFactory.newCall(cleanRequest)
+        for (listener in eventListeners) {
+            newCall.addEventListener(listener)
+        }
+        return newCall
     }
 
     override fun enqueue(responseCallback: Callback) {
@@ -76,7 +94,12 @@ internal class HighBandwidthCall(
                 if (cancelled) {
                     request.highBandwidthConnectionLease?.close()
                 } else {
-                    callFactory.newDirectCall(request).enqueue(object : Callback {
+                    val directCall = callFactory.newDirectCall(request)
+                    call = directCall
+                    for (listener in eventListeners) {
+                        directCall.addEventListener(listener)
+                    }
+                    directCall.enqueue(object : Callback {
                         override fun onFailure(call: Call, e: IOException) {
                             responseCallback.onFailure(this@HighBandwidthCall, e)
                         }

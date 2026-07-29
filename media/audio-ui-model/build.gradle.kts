@@ -44,8 +44,6 @@ android {
     animationsDisabled = true
   }
 
-  sourceSets.getByName("main") { assets.srcDir("src/main/assets") }
-
   lint {
     disable += listOf("MissingTranslation", "ExtraTranslation")
     checkReleaseBuilds = false

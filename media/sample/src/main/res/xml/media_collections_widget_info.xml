@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wearwidget-provider
+    description="@string/sample_app_name"
+    icon="@mipmap/ic_horologist"
+    label="@string/sample_app_name"
+    preferredType="SMALL"
+    group="com.google.android.horologist.mediasample.data.service.tile.MediaCollectionsTileService">
+
+    <container
+        type="SMALL"
+        previewImage="@drawable/small" />
+    <container
+        type="LARGE"
+        previewImage="@drawable/large" />
+</wearwidget-provider>

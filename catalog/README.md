@@ -48,15 +48,27 @@ Wear by default, matching how Horologist itself is described.
 
 Adding an area means adding an annotation and a file. Nothing in the build wiring is per-area.
 
-| Section | Form factor | Source library |
-| --- | --- | --- |
-| Auth Wear | Wear | `:auth:composables-material3`, `:auth:ui-material3` |
-| Media | Wear | `:media:ui-material3` |
-| Material | Wear | `:compose-material` |
-| Composables | Wear | `:composables` |
-| Health | Wear | `:health:composables` |
-| Auth Mobile | Phone | `:datalayer:phone-ui` |
-| DataLayer Mobile | Phone | `:datalayer:phone-ui` |
+| Section | Form factor | Previews | Source library |
+| --- | --- | --- | --- |
+| Material | Wear | 16 | `:compose-material` |
+| Media | Wear | 13 | `:media:ui-material3` |
+| Auth Wear | Wear | 13 | `:auth:composables-material3`, `:auth:ui-material3` |
+| Composables | Wear | 10 | `:composables` |
+| Health | Wear | 7 | `:health:composables` |
+| Audio | Wear | 5 | `:media:audio-ui-material3` |
+| AI | Wear | 5 | `:ai:ui` |
+| Layout | Wear | 3 | `:compose-layout` |
+| DataLayer Mobile | Phone | 3 | `:datalayer:phone-ui` |
+| Auth Mobile | Phone | 2 | `:datalayer:phone-ui` |
+
+77 previews in total. Sections cover a component's *states*, not just its happy path — disabled
+seek buttons at a queue end, an account row with no display name, a five-digit metric, an empty and
+a complete segmented indicator — because those are the cases that break and the ones a static
+screenshot is good at catching.
+
+Previews that would otherwise read the wall clock (the date/time pickers, the AI prompt timestamp,
+exercise durations) take fixed values. A preview whose output depends on `now()` renders
+differently on every run and reports as a spurious diff on every PR.
 
 ## Relationship to the per-library previews
 
@@ -68,14 +80,22 @@ reader can navigate by area rather than by Gradle path.
 
 ## Known gap: dialogs and bottom sheets render blank
 
-`Dialog`- and `ModalBottomSheet`-based composables compose into their own window, and the renderer
-captures the host activity's root view. Those previews are discovered, sized, and grouped
-correctly, but the PNG comes out empty. It affects both form factors:
+69 of the 77 previews render with real content. The 8 that don't are all dialog-shaped:
 
-- `AuthWearSignedInConfirmationDialog` / `…Truncated` (Wear `Dialog`)
+- `AuthWearSignedInConfirmationDialog` and its two variants (Wear `Dialog`)
 - every `Auth Mobile` and `DataLayer Mobile` sticker (`ModalBottomSheet`)
 
-This is a renderer-side limitation, not a catalog one — the same previews are blank whether they
-live here or in a library's `src/debug`. The fix belongs in the compose-preview renderer (capture
-the topmost window when one is present); the previews are kept here so they start working the day
-that lands.
+`Dialog`- and `ModalBottomSheet`-based composables compose into their own window with their own
+`ViewRootImpl` and Compose root, and the renderer's capture reads the host activity's root. Those
+previews are discovered, sized (411×914dp for the phone sheets), and grouped correctly — only the
+pixels are missing.
+
+This is a renderer-side limitation, not a catalog one: the same previews are blank whether they
+live here or in a library's `src/debug`. It is being tracked upstream in
+[yschimke/compose-ai-tools](https://github.com/yschimke/compose-ai-tools) on the
+`agent/dialog-window-capture` branch, which carries a reproduction and the investigation notes —
+capturing the dialog's decor view fails Espresso's activity-scoped view matching, and capturing its
+Compose root returns transparent pixels because the capture path is bound to the activity window's
+surface.
+
+The previews are kept here rather than deleted so they start working the day that lands.

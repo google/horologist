@@ -16,8 +16,13 @@
 
 package com.google.android.horologist.catalog
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.wear.compose.material3.ButtonDefaults
+import androidx.wear.compose.material3.Text
 import com.google.android.horologist.auth.composables.material3.buttons.GuestModeButton
 import com.google.android.horologist.auth.composables.material3.buttons.SignInButton
 import com.google.android.horologist.auth.composables.material3.models.AccountUiModel
@@ -30,25 +35,45 @@ import com.google.android.horologist.auth.ui.material3.common.screens.prompt.Sig
 /**
  * Auth Wear — `:auth:composables-material3` and `:auth:ui-material3`.
  *
- * The sign-in flow in the order a user meets it: the prompt that asks them to sign in, the account
- * picker, the placeholder shown while the account loads, and the confirmation that closes it out.
+ * The sign-in flow in the order a user meets it: the prompt asking them to sign in, the account
+ * picker, the placeholder while an account loads, and the confirmation that closes it out. Each
+ * screen gets its states, not just its happy path — the account picker in particular lays out
+ * differently for one account, several, and a long address that has to wrap.
  */
 private val JohnDoe = AccountUiModel(email = "john@example.com", name = "John Doe")
 
-private val TimAndrews =
-  AccountUiModel(email = "timandrews123@example.com", name = "Tim Andrews")
+private val TimAndrews = AccountUiModel(email = "timandrews123@example.com", name = "Tim Andrews")
+
+private val NoName = AccountUiModel(email = "maggie@example.com")
+
+@Composable
+private fun Centred(content: @Composable () -> Unit) {
+  CatalogWearTheme {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { content() }
+  }
+}
+
+// --- Buttons ----------------------------------------------------------------------------------
 
 @AuthWearCatalog
 @Composable
 internal fun AuthWearSignInButton() {
-  CatalogWearTheme { SignInButton(onClick = {}) }
+  Centred { SignInButton(onClick = {}) }
+}
+
+@AuthWearCatalog
+@Composable
+internal fun AuthWearSignInButtonDisabled() {
+  Centred { SignInButton(onClick = {}, enabled = false) }
 }
 
 @AuthWearCatalog
 @Composable
 internal fun AuthWearGuestModeButton() {
-  CatalogWearTheme { GuestModeButton(onClick = {}) }
+  Centred { GuestModeButton(onClick = {}) }
 }
+
+// --- Account picker -----------------------------------------------------------------------------
 
 @AuthWearCatalog
 @Composable
@@ -64,6 +89,51 @@ internal fun AuthWearSelectAccountScreen() {
 
 @AuthWearCatalog
 @Composable
+internal fun AuthWearSelectAccountScreenSingle() {
+  CatalogWearTheme {
+    SelectAccountScreen(
+      accounts = listOf(JohnDoe),
+      onAccountClicked = { _, _ -> },
+      title = "Select Account",
+    )
+  }
+}
+
+/** No display name: the row collapses to a single line, which changes the whole list rhythm. */
+@AuthWearCatalog
+@Composable
+internal fun AuthWearSelectAccountScreenEmailOnly() {
+  CatalogWearTheme {
+    SelectAccountScreen(
+      accounts = listOf(NoName, JohnDoe),
+      onAccountClicked = { _, _ -> },
+      title = "Select Account",
+    )
+  }
+}
+
+@AuthWearCatalog
+@Composable
+internal fun AuthWearSelectAccountScreenLongEmail() {
+  CatalogWearTheme {
+    SelectAccountScreen(
+      accounts =
+        listOf(
+          AccountUiModel(
+            email = "wolfeschlegelsteinhausenbergerdorff@example.com",
+            name = "Wolfeschlegelsteinhausenbergerdorff",
+          )
+        ),
+      onAccountClicked = { _, _ -> },
+      title = "Select Account",
+    )
+  }
+}
+
+// --- Loading and confirmation ---------------------------------------------------------------------
+
+@AuthWearCatalog
+@Composable
 internal fun AuthWearSignInPlaceholderScreen() {
   CatalogWearTheme { SignInPlaceholderScreen() }
 }
@@ -76,10 +146,15 @@ internal fun AuthWearSignedInConfirmationDialog() {
   }
 }
 
-/**
- * The long-name case. Truncation is the thing that actually breaks on a 227dp round screen, so it
- * gets its own sticker rather than being left to whoever remembers to try it.
- */
+@AuthWearCatalog
+@Composable
+internal fun AuthWearSignedInConfirmationDialogEmailOnly() {
+  CatalogWearTheme {
+    SignedInConfirmationDialog(onDismissOrTimeout = {}, email = "maggie@example.com")
+  }
+}
+
+/** The long-name case. Truncation is what actually breaks on a 227dp round screen. */
 @AuthWearCatalog
 @Composable
 internal fun AuthWearSignedInConfirmationDialogTruncated() {
@@ -91,6 +166,8 @@ internal fun AuthWearSignedInConfirmationDialogTruncated() {
     )
   }
 }
+
+// --- Prompt -------------------------------------------------------------------------------------
 
 @AuthWearCatalog
 @Composable
@@ -106,5 +183,24 @@ internal fun AuthWearSignInPromptScreen() {
       item { SignInButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
       item { GuestModeButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
     }
+  }
+}
+
+@AuthWearCatalog
+@Composable
+internal fun AuthWearSignInPromptScreenLoading() {
+  CatalogWearTheme {
+    SignInPromptScreen(
+      state = SignInPromptScreenState.Loading,
+      title = "Sign in",
+      message = "Send messages and create chat groups with your friends",
+      onIdleStateObserved = {},
+      onAlreadySignedIn = {},
+      loadingContent = {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+          Text("Loading…")
+        }
+      },
+    ) {}
   }
 }

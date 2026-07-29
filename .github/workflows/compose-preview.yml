@@ -1,0 +1,77 @@
+name: Compose Preview
+
+# Renders every module that applies `ee.schimke.composeai.preview` — the catalog
+# plus the libraries that carry their own `src/debug` previews — and turns the
+# result into review material:
+#
+#  - push to `main`  → publish the rendered PNGs as the baseline, on a
+#                      `compose-preview/…` branch. This is the "before" state
+#                      every later PR is diffed against.
+#  - pull_request    → render the PR head, diff it against that baseline, and
+#                      post a single sticky comment showing New / Changed /
+#                      Removed previews inline.
+#
+# So a PR that changes a composable gets its before/after pixels posted
+# automatically, without anyone remembering to attach screenshots.
+#
+# The `apply` action installs the compose-preview CLI at exactly the plugin
+# version pinned in `gradle/libs.versions.toml` (`cli-version: auto`), so the
+# CLI and the applied plugin can never skew.
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+
+permissions:
+  # Baseline mode pushes rendered PNGs to `compose-preview/…` branches.
+  contents: write
+  # Comment mode posts (and updates) the sticky diff comment.
+  pull-requests: write
+
+concurrency:
+  # Per-PR group so concurrent PRs don't cancel each other; push and dispatch
+  # share one slot per ref.
+  group: compose-preview-${{ github.event.pull_request.number || github.ref }}
+  # PR runs cancel — a new push supersedes the render and the comment is
+  # sticky, so only the newest result matters. Baseline runs on `main` must
+  # not: cancelling one strands the baseline at an older commit, and every
+  # later PR then reports the skipped commits' output as its own diff.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  apply:
+    name: Apply compose-preview
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: 'true'
+          # The action pushes via an explicit token in the remote URL, so the
+          # default git credentials aren't needed here.
+          persist-credentials: false
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: 21
+
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@main
+        with:
+          # Only the compose pipeline. The a11y / notifications / resources
+          # pipelines are additional renders on top of this one; turn them on
+          # separately once the compose baseline is settled.
+          only: compose
+          # Safety ceiling against a hung build, not a budget — the render
+          # covers ten modules and is well under this on a healthy runner.
+          timeout: '1800'

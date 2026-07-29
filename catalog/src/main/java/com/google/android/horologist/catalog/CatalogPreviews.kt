@@ -87,6 +87,23 @@ public annotation class ComposablesCatalog
 )
 public annotation class HealthCatalog
 
+/** `:media:audio-ui-material3` — volume and audio-output surfaces. */
+@Preview(device = WEAR_DEVICE, backgroundColor = WEAR_BACKGROUND, showBackground = true, group = "Audio")
+public annotation class AudioCatalog
+
+/** `:compose-layout` — the scaffolding: scrolling columns, pagers, time text. */
+@Preview(
+  device = WEAR_DEVICE,
+  backgroundColor = WEAR_BACKGROUND,
+  showBackground = true,
+  group = "Layout",
+)
+public annotation class LayoutCatalog
+
+/** `:ai:ui` — the on-watch prompt/response surfaces. */
+@Preview(device = WEAR_DEVICE, backgroundColor = WEAR_BACKGROUND, showBackground = true, group = "AI")
+public annotation class AiCatalog
+
 // ---------------------------------------------------------------------------------------------
 // Mobile areas. These carry the form factor explicitly, because the phone is the exception.
 // ---------------------------------------------------------------------------------------------

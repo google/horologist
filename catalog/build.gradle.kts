@@ -69,6 +69,7 @@ dependencies {
   implementation(platform(libs.compose.bom))
 
   // Wear areas.
+  implementation(projects.ai.ui)
   implementation(projects.auth.composablesMaterial3)
   implementation(projects.auth.uiMaterial3)
   implementation(projects.composables)
@@ -76,7 +77,10 @@ dependencies {
   implementation(projects.composeMaterial)
   implementation(projects.health.composables)
   implementation(projects.images.base)
+  implementation(projects.media.audioUiMaterial3)
+  implementation(projects.media.audioUiModel)
   implementation(projects.media.uiMaterial3)
+  implementation(projects.media.uiModel)
 
   // Mobile areas.
   implementation(projects.datalayer.phoneUi)

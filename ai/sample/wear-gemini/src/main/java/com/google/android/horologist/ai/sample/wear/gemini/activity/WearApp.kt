@@ -23,7 +23,6 @@ import androidx.wear.compose.material3.AppScaffold
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 
 @Composable
 fun WearApp(
@@ -44,8 +43,6 @@ fun WearApp(
     }
 }
 
-@WearPreviewSmallRound
-@Composable
-fun DefaultPreview() {
-    WearApp()
-}
+// The preview lives next to `DeviceStatusScreen`, on its stateless overload. Previewing `WearApp`
+// itself rendered nothing: the nav host resolves `DeviceStatusScreen`'s `hiltViewModel()`, which
+// has no Hilt-enabled activity behind a preview.

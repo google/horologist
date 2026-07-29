@@ -18,9 +18,12 @@ name: Compose Preview
 # version pinned in `gradle/libs.versions.toml` (`cli-version: auto`), so the
 # CLI and the applied plugin can never skew.
 
+#  - push to `previews` → render on every commit and upload the PNGs as an
+#                         artifact. A scratch branch for iterating on preview
+#                         code without opening a PR or disturbing the baseline.
 on:
   push:
-    branches: [main]
+    branches: [main, previews]
     paths-ignore:
       - '**.md'
   pull_request:
@@ -44,8 +47,49 @@ concurrency:
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
+  # Fast per-commit render of just `:catalog`, for the `previews` scratch branch.
+  # The full `apply` job below sweeps every module in the build and takes ~10x
+  # as long, which is the wrong loop when you're iterating on catalog code — this
+  # renders the one module and hands back the PNGs as an artifact.
+  catalog:
+    name: Render catalog
+    if: github.ref == 'refs/heads/previews' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: 'true'
+          persist-credentials: false
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: 21
+
+      - name: Render catalog previews
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: :catalog:composePreviewRenderAll
+
+      - name: Upload rendered previews
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: catalog-previews
+          path: catalog/build/compose-previews/renders/
+          if-no-files-found: error
+
   apply:
     name: Apply compose-preview
+    # Baselines come from `main` and diff comments from PRs; the `previews`
+    # scratch branch runs the cheap `catalog` job above instead.
+    if: github.ref != 'refs/heads/previews'
     runs-on: ubuntu-latest
     timeout-minutes: 60
 

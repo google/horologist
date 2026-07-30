@@ -30,7 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalResources
 import com.google.android.horologist.remotecompose.lottie.format.Animation
-import com.google.android.horologist.remotecompose.lottie.format.LottieDeserializer
+import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
 
 /**
@@ -75,7 +75,7 @@ fun LottiePreview(
   val animation =
     remember(animationResId) {
       val resource = resources.openRawResource(animationResId).readBytes()
-      LottieDeserializer.jsonAdapter.fromJson(resource.decodeToString())!!
+      LottieDecoder.decodeFromString(resource.decodeToString())
     }
   LottiePreview(animation, modifier, slotMap)
 }

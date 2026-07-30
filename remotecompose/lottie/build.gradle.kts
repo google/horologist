@@ -19,7 +19,6 @@ plugins {
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.metalavaGradle)
   alias(libs.plugins.kotlinx.serialization)
-  alias(libs.plugins.ksp)
 }
 
 android {
@@ -46,9 +45,6 @@ dependencies {
   api(libs.compose.remote.creation)
   api(libs.compose.remote.creation.compose)
   implementation(libs.kotlinx.serialization.json)
-  api(libs.moshi.kotlin)
-  implementation(libs.moshi.adapters)
-  ksp(libs.moshi.kotlin.codegen)
   implementation(libs.compose.runtime)
   implementation(libs.compose.ui)
 

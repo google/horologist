@@ -73,8 +73,8 @@ object LayerSerializer : JsonContentPolymorphicSerializer<Layer>(Layer::class) {
   override fun selectDeserializer(element: JsonElement): DeserializationStrategy<Layer> {
     val ty = element.jsonObject["ty"]?.jsonPrimitive?.intOrNull
     return when (ty) {
-      3 -> Layer.NullLayer.serializer()
-      4 -> Layer.ShapeLayer.serializer()
+      LayerType.Null.value -> Layer.NullLayer.serializer()
+      LayerType.Shape.value -> Layer.ShapeLayer.serializer()
       else -> Layer.NullLayer.serializer()
     }
   }
@@ -99,10 +99,10 @@ object GraphicElementSerializer : JsonContentPolymorphicSerializer<GraphicElemen
   override fun selectDeserializer(element: JsonElement): DeserializationStrategy<GraphicElement> {
     val ty = element.jsonObject["ty"]?.jsonPrimitive?.contentOrNull
     return when (ty) {
-      "sh" -> GraphicElement.Path.serializer()
-      "gr" -> GraphicElement.Group.serializer()
-      "tr" -> GraphicElement.Transform.serializer()
-      "fl" -> GraphicElement.Fill.serializer()
+      ShapeType.Path.value -> GraphicElement.Path.serializer()
+      ShapeType.Group.value -> GraphicElement.Group.serializer()
+      ShapeType.Transform.value -> GraphicElement.Transform.serializer()
+      ShapeType.Fill.value -> GraphicElement.Fill.serializer()
       else -> GraphicElement.Group.serializer()
     }
   }

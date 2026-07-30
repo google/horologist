@@ -45,7 +45,7 @@ fun TintGeometryPreview() {
     LottiePreview(
       animationResId = R.raw.geometry,
       modifier = RemoteModifier.width(100).height(100),
-      slotMap = SlotMap(mapOf("color.primary" to StaticColorProperty(value = RemoteColor(0xFF00FF00.toInt())))),
+      slotMap = SlotMap(mapOf("color.primary" to StaticColorProperty.fromColor(0xFF00FF00.toInt()))),
     )
   }
 }

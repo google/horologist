@@ -25,7 +25,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalWindowInfo
-import com.google.android.horologist.remotecompose.lottie.format.LottieDeserializer
+import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
 import com.google.android.horologist.sample.R
 
@@ -36,7 +36,7 @@ fun LottieScreen(
 ) {
     val context = LocalContext.current
     val asset = remember { context.resources.openRawResource(R.raw.geometry).readBytes() }
-    val animation = remember(asset) { LottieDeserializer.jsonAdapter.fromJson(asset.decodeToString())!! }
+    val animation = remember(asset) { LottieDecoder.decodeFromString(asset.decodeToString()) }
 
     val doc = rememberRemoteDocument {
         AnimationDemo(animation, SlotMap(emptyMap())).Render()

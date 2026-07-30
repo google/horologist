@@ -75,7 +75,7 @@ object LayerSerializer : JsonContentPolymorphicSerializer<Layer>(Layer::class) {
     return when (ty) {
       3 -> Layer.NullLayer.serializer()
       4 -> Layer.ShapeLayer.serializer()
-      else -> throw IllegalArgumentException("Unsupported layer type: $ty")
+      else -> Layer.NullLayer.serializer()
     }
   }
 }
@@ -86,7 +86,7 @@ object LayerTypeSerializer : KSerializer<LayerType> {
 
   override fun deserialize(decoder: Decoder): LayerType {
     val value = decoder.decodeInt()
-    return LayerType.fromValueOrNull(value) ?: throw IllegalArgumentException("Unknown LayerType: $value")
+    return LayerType.fromValueOrNull(value) ?: LayerType.Null
   }
 
   override fun serialize(encoder: Encoder, value: LayerType) {
@@ -103,7 +103,7 @@ object GraphicElementSerializer : JsonContentPolymorphicSerializer<GraphicElemen
       "gr" -> GraphicElement.Group.serializer()
       "tr" -> GraphicElement.Transform.serializer()
       "fl" -> GraphicElement.Fill.serializer()
-      else -> throw IllegalArgumentException("Unsupported graphic element type: $ty")
+      else -> GraphicElement.Group.serializer()
     }
   }
 }
@@ -114,7 +114,7 @@ object ShapeTypeSerializer : KSerializer<ShapeType> {
 
   override fun deserialize(decoder: Decoder): ShapeType {
     val value = decoder.decodeString()
-    return ShapeType.fromValueOrNull(value) ?: throw IllegalArgumentException("Unknown ShapeType: $value")
+    return ShapeType.fromValueOrNull(value) ?: ShapeType.Group
   }
 
   override fun serialize(encoder: Encoder, value: ShapeType) {

@@ -17,10 +17,9 @@
 package com.google.android.horologist.remotecompose.lottie
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.google.android.horologist.remotecompose.lottie.format.Animation
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.Layer
-import com.google.android.horologist.remotecompose.lottie.format.LayerType
-import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -45,7 +44,7 @@ class LottieDecoderResilienceTest {
       }
     """.trimIndent()
 
-    val animation = LottieDecoder.decodeFromString(json)
+    val animation = Animation.decodeFromString(json)
 
     assertThat(animation.layers).hasSize(2)
     assertThat(animation.layers[0]).isInstanceOf(Layer.NullLayer::class.java)
@@ -80,7 +79,7 @@ class LottieDecoderResilienceTest {
       }
     """.trimIndent()
 
-    val animation = LottieDecoder.decodeFromString(json)
+    val animation = Animation.decodeFromString(json)
 
     val shapeLayer = animation.layers[0] as Layer.ShapeLayer
     assertThat(shapeLayer.shapes).hasSize(2)
@@ -119,7 +118,7 @@ class LottieDecoderResilienceTest {
       }
     """.trimIndent()
 
-    val animation = LottieDecoder.decodeFromString(json)
+    val animation = Animation.decodeFromString(json)
 
     val shapeLayer = animation.layers[0] as Layer.ShapeLayer
     val fill1 = shapeLayer.shapes[0] as GraphicElement.Fill
@@ -145,7 +144,7 @@ class LottieDecoderResilienceTest {
       }
     """.trimIndent()
 
-    val animation = LottieDecoder.decodeFromString(json)
+    val animation = Animation.decodeFromString(json)
 
     assertThat(animation.frameRate).isEqualTo(30)
     assertThat(animation.layers).isEmpty()

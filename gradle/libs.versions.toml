@@ -217,6 +217,7 @@ kotlinx-coroutines-guava = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-
 kotlinx-coroutines-playservices = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "kotlinxCoroutine" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutine" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerialization" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 lottie-compose = "com.airbnb.android:lottie-compose:6.7.1"
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 mikepenz-markdown = "com.mikepenz:multiplatform-markdown-renderer:0.40.2"

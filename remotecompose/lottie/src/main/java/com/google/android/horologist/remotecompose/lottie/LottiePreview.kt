@@ -28,9 +28,8 @@ import androidx.compose.remote.creation.compose.modifier.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.platform.LocalContext
 import com.google.android.horologist.remotecompose.lottie.format.Animation
-import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
 
 /**
@@ -71,11 +70,7 @@ fun LottiePreview(
   modifier: RemoteModifier = RemoteModifier,
   slotMap: SlotMap = SlotMap(emptyMap()),
 ) {
-  val resources = LocalResources.current
-  val animation =
-    remember(animationResId) {
-      val resource = resources.openRawResource(animationResId).readBytes()
-      LottieDecoder.decodeFromString(resource.decodeToString())
-    }
+  val context = LocalContext.current
+  val animation = remember(animationResId) { Animation.load(animationResId, context) }
   LottiePreview(animation, modifier, slotMap)
 }

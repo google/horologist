@@ -16,6 +16,9 @@
 
 package com.google.android.horologist.remotecompose.lottie.format
 
+import android.content.Context
+import androidx.annotation.RawRes
+import java.io.InputStream
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -30,4 +33,15 @@ data class Animation(
   @SerialName("w") val width: Int,
   @SerialName("h") val height: Int,
   @SerialName("layers") val layers: List<Layer>,
-)
+) {
+  public companion object {
+    /** Decodes an [Animation] from a JSON string using [LottieDecoder]. */
+    public fun decodeFromString(json: String): Animation = LottieDecoder.decodeFromString(json)
+
+    /** Decodes an [Animation] from an [InputStream] using [LottieDecoder]. */
+    public fun decodeFromStream(stream: InputStream): Animation = LottieDecoder.decodeFromStream(stream)
+
+    /** Decodes an [Animation] from a raw resource ID using [LottieDecoder]. */
+    public fun load(@RawRes rawRes: Int, context: Context): Animation = LottieDecoder.load(rawRes, context)
+  }
+}

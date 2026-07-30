@@ -84,6 +84,13 @@ package com.google.android.horologist.remotecompose.lottie.format {
     property @kotlinx.serialization.SerialName("ip") public int startFrame;
     property @kotlinx.serialization.SerialName("ver") public String? version;
     property @kotlinx.serialization.SerialName("w") public int width;
+    field public static final com.google.android.horologist.remotecompose.lottie.format.Animation.Companion Companion;
+  }
+
+  public static final class Animation.Companion {
+    method public com.google.android.horologist.remotecompose.lottie.format.Animation decodeFromStream(java.io.InputStream stream);
+    method public com.google.android.horologist.remotecompose.lottie.format.Animation decodeFromString(String json);
+    method public com.google.android.horologist.remotecompose.lottie.format.Animation load(@RawRes int rawRes, android.content.Context context);
   }
 
   @kotlinx.serialization.Serializable(with=BaseBezierPropertySerializer::class) public abstract sealed exhaustive class BaseBezierProperty extends com.google.android.horologist.remotecompose.lottie.format.AnimatableProperty {
@@ -342,6 +349,7 @@ package com.google.android.horologist.remotecompose.lottie.format {
   }
 
   public final class LottieDecoder {
+    method public com.google.android.horologist.remotecompose.lottie.format.Animation decodeFromStream(java.io.InputStream stream);
     method public com.google.android.horologist.remotecompose.lottie.format.Animation decodeFromString(String jsonString);
     method @InaccessibleFromKotlin public kotlinx.serialization.json.Json getJson();
     method public com.google.android.horologist.remotecompose.lottie.format.Animation load(@RawRes int rawRes, android.content.Context context);

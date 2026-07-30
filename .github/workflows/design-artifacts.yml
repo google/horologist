@@ -57,3 +57,14 @@ jobs:
       # this the whole bundle would be withheld over a known, tracked renderer
       # gap. Flip it back to false once that lands.
       allow-incomplete: true
+      # Carry the executable render bundle onto the delivery branch under bundle/
+      # and record liveBundle in catalog.json, so the preview server re-renders the
+      # previews live (device / theme / knob controls) instead of replaying baked
+      # PNGs. :catalog is an Android/Robolectric render — the same backend the
+      # public server already re-renders for wear-m3 — so the live daemon runs here.
+      publish-live-bundle: true
+      # Split the render into one addressable bundle per preview for the serve
+      # host's per-preview live lane. full keeps each per-preview bundle's re-render
+      # classpath (requires publish-live-bundle), mirroring compose-ai-tools' wear-m3.
+      split-per-preview: true
+      split-mode: full

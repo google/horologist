@@ -27,38 +27,38 @@ package com.google.android.horologist.remotecompose.lottie {
 
 package com.google.android.horologist.remotecompose.lottie.format {
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true, generator="sealed:type") public abstract sealed exhaustive class AnimatableProperty {
+  @kotlinx.serialization.Serializable public abstract sealed exhaustive class AnimatableProperty {
     method @InaccessibleFromKotlin public abstract boolean getAnimated();
     property public abstract boolean animated;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class AnimatedBezierProperty extends com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty {
-    ctor public AnimatedBezierProperty(optional boolean animated, @com.squareup.moshi.Json(name="k") java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe> keyframes);
+  @kotlinx.serialization.Serializable public final class AnimatedBezierProperty extends com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty {
+    ctor public AnimatedBezierProperty(optional boolean animated, java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe> keyframes);
     method public boolean component1();
     method public java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe> component2();
-    method public com.google.android.horologist.remotecompose.lottie.format.AnimatedBezierProperty copy(optional boolean animated, optional @com.squareup.moshi.Json(name="k") java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe> keyframes);
+    method public com.google.android.horologist.remotecompose.lottie.format.AnimatedBezierProperty copy(optional boolean animated, optional java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe> keyframes);
     method @InaccessibleFromKotlin public boolean getAnimated();
     method @InaccessibleFromKotlin public java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe> getKeyframes();
     property public boolean animated;
-    property public java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe> keyframes;
+    property @kotlinx.serialization.SerialName("k") public java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe> keyframes;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class AnimatedVectorProperty extends com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty {
-    ctor public AnimatedVectorProperty(optional @com.squareup.moshi.Json(name="s") String? slotId, optional boolean animated, @com.squareup.moshi.Json(name="k") java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> keyframes);
+  @kotlinx.serialization.Serializable public final class AnimatedVectorProperty extends com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty {
+    ctor public AnimatedVectorProperty(optional String? slotId, optional boolean animated, java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> keyframes);
     method public String? component1();
     method public boolean component2();
     method public java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> component3();
-    method public com.google.android.horologist.remotecompose.lottie.format.AnimatedVectorProperty copy(optional @com.squareup.moshi.Json(name="s") String? slotId, optional boolean animated, optional @com.squareup.moshi.Json(name="k") java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> keyframes);
+    method public com.google.android.horologist.remotecompose.lottie.format.AnimatedVectorProperty copy(optional String? slotId, optional boolean animated, optional java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> keyframes);
     method @InaccessibleFromKotlin public boolean getAnimated();
     method @InaccessibleFromKotlin public java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> getKeyframes();
     method @InaccessibleFromKotlin public String? getSlotId();
     property public boolean animated;
-    property public java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> keyframes;
-    property public String? slotId;
+    property @kotlinx.serialization.SerialName("k") public java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> keyframes;
+    property @kotlinx.serialization.SerialName("s") public String? slotId;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class Animation {
-    ctor public Animation(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="ver") String? version, @com.squareup.moshi.Json(name="fr") int frameRate, @com.squareup.moshi.Json(name="ip") int startFrame, @com.squareup.moshi.Json(name="op") int endFrame, @com.squareup.moshi.Json(name="w") int width, @com.squareup.moshi.Json(name="h") int height, @com.squareup.moshi.Json(name="layers") java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.Layer> layers);
+  @kotlinx.serialization.Serializable public final class Animation {
+    ctor public Animation(optional String? name, optional String? version, int frameRate, int startFrame, int endFrame, int width, int height, java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.Layer> layers);
     method public String? component1();
     method public String? component2();
     method public int component3();
@@ -67,7 +67,7 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method public int component6();
     method public int component7();
     method public java.util.List<com.google.android.horologist.remotecompose.lottie.format.Layer> component8();
-    method public com.google.android.horologist.remotecompose.lottie.format.Animation copy(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="ver") String? version, optional @com.squareup.moshi.Json(name="fr") int frameRate, optional @com.squareup.moshi.Json(name="ip") int startFrame, optional @com.squareup.moshi.Json(name="op") int endFrame, optional @com.squareup.moshi.Json(name="w") int width, optional @com.squareup.moshi.Json(name="h") int height, optional @com.squareup.moshi.Json(name="layers") java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.Layer> layers);
+    method public com.google.android.horologist.remotecompose.lottie.format.Animation copy(optional String? name, optional String? version, optional int frameRate, optional int startFrame, optional int endFrame, optional int width, optional int height, optional java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.Layer> layers);
     method @InaccessibleFromKotlin public int getEndFrame();
     method @InaccessibleFromKotlin public int getFrameRate();
     method @InaccessibleFromKotlin public int getHeight();
@@ -76,62 +76,79 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method @InaccessibleFromKotlin public int getStartFrame();
     method @InaccessibleFromKotlin public String? getVersion();
     method @InaccessibleFromKotlin public int getWidth();
-    property public int endFrame;
-    property public int frameRate;
-    property public int height;
-    property public java.util.List<com.google.android.horologist.remotecompose.lottie.format.Layer> layers;
-    property public String? name;
-    property public int startFrame;
-    property public String? version;
-    property public int width;
+    property @kotlinx.serialization.SerialName("op") public int endFrame;
+    property @kotlinx.serialization.SerialName("fr") public int frameRate;
+    property @kotlinx.serialization.SerialName("h") public int height;
+    property @kotlinx.serialization.SerialName("layers") public java.util.List<com.google.android.horologist.remotecompose.lottie.format.Layer> layers;
+    property @kotlinx.serialization.SerialName("nm") public String? name;
+    property @kotlinx.serialization.SerialName("ip") public int startFrame;
+    property @kotlinx.serialization.SerialName("ver") public String? version;
+    property @kotlinx.serialization.SerialName("w") public int width;
+    field public static final com.google.android.horologist.remotecompose.lottie.format.Animation.Companion Companion;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true, generator="sealed:type") public abstract sealed exhaustive class BaseBezierProperty extends com.google.android.horologist.remotecompose.lottie.format.AnimatableProperty {
+  public static final class Animation.Companion {
+    method public com.google.android.horologist.remotecompose.lottie.format.Animation decodeFromStream(java.io.InputStream stream);
+    method public com.google.android.horologist.remotecompose.lottie.format.Animation decodeFromString(String json);
+    method public com.google.android.horologist.remotecompose.lottie.format.Animation load(@RawRes int rawRes, android.content.Context context);
+  }
+
+  @kotlinx.serialization.Serializable(with=BaseBezierPropertySerializer::class) public abstract sealed exhaustive class BaseBezierProperty extends com.google.android.horologist.remotecompose.lottie.format.AnimatableProperty {
     property public abstract boolean animated;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true, generator="sealed:type") public abstract sealed exhaustive class BaseVectorProperty extends com.google.android.horologist.remotecompose.lottie.format.AnimatableProperty {
+  public final class BaseBezierPropertySerializer extends kotlinx.serialization.json.JsonContentPolymorphicSerializer<com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty> {
+    method protected kotlinx.serialization.DeserializationStrategy<com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty> selectDeserializer(kotlinx.serialization.json.JsonElement element);
+    field public static final com.google.android.horologist.remotecompose.lottie.format.BaseBezierPropertySerializer INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable(with=BaseVectorPropertySerializer::class) public abstract sealed exhaustive class BaseVectorProperty extends com.google.android.horologist.remotecompose.lottie.format.AnimatableProperty {
     property public abstract boolean animated;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class BezierKeyframe {
-    ctor public BezierKeyframe(optional @com.squareup.moshi.Json(name="t") float frame, optional @com.squareup.moshi.Json(name="h") boolean hold, optional @com.squareup.moshi.Json(name="i") com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent, optional @com.squareup.moshi.Json(name="o") com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent, @com.squareup.moshi.Json(name="s") java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierValue> value);
+  public final class BaseVectorPropertySerializer extends kotlinx.serialization.json.JsonContentPolymorphicSerializer<com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty> {
+    method protected kotlinx.serialization.DeserializationStrategy<com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty> selectDeserializer(kotlinx.serialization.json.JsonElement element);
+    field public static final com.google.android.horologist.remotecompose.lottie.format.BaseVectorPropertySerializer INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable public final class BezierKeyframe {
+    ctor public BezierKeyframe(optional float frame, optional boolean hold, optional com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent, optional com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent, java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierValue> value);
     method public float component1();
     method public boolean component2();
     method public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? component3();
     method public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? component4();
     method public java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierValue> component5();
-    method public com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe copy(optional @com.squareup.moshi.Json(name="t") float frame, optional @com.squareup.moshi.Json(name="h") boolean hold, optional @com.squareup.moshi.Json(name="i") com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent, optional @com.squareup.moshi.Json(name="o") com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent, optional @com.squareup.moshi.Json(name="s") java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierValue> value);
+    method public com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe copy(optional float frame, optional boolean hold, optional com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent, optional com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent, optional java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierValue> value);
     method @InaccessibleFromKotlin public float getFrame();
     method @InaccessibleFromKotlin public boolean getHold();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? getInTangent();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? getOutTangent();
     method @InaccessibleFromKotlin public java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierValue> getValue();
-    property public float frame;
-    property public boolean hold;
-    property public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent;
-    property public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent;
-    property public java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierValue> value;
+    property @kotlinx.serialization.SerialName("t") public float frame;
+    property @kotlinx.serialization.SerialName("h") public boolean hold;
+    property @kotlinx.serialization.SerialName("i") public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent;
+    property @kotlinx.serialization.SerialName("o") public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent;
+    property @kotlinx.serialization.SerialName("s") public java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierValue> value;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class BezierValue {
-    ctor public BezierValue(@com.squareup.moshi.Json(name="c") boolean closed, @com.squareup.moshi.Json(name="i") java.util.List<? extends java.util.List<java.lang.Float>> inTangents, @com.squareup.moshi.Json(name="o") java.util.List<? extends java.util.List<java.lang.Float>> outTangents, @com.squareup.moshi.Json(name="v") java.util.List<? extends java.util.List<java.lang.Float>> vertices);
+  @kotlinx.serialization.Serializable public final class BezierValue {
+    ctor public BezierValue(boolean closed, java.util.List<? extends java.util.List<java.lang.Float>> inTangents, java.util.List<? extends java.util.List<java.lang.Float>> outTangents, java.util.List<? extends java.util.List<java.lang.Float>> vertices);
     method public boolean component1();
     method public java.util.List<java.util.List<java.lang.Float>> component2();
     method public java.util.List<java.util.List<java.lang.Float>> component3();
     method public java.util.List<java.util.List<java.lang.Float>> component4();
-    method public com.google.android.horologist.remotecompose.lottie.format.BezierValue copy(optional @com.squareup.moshi.Json(name="c") boolean closed, optional @com.squareup.moshi.Json(name="i") java.util.List<? extends java.util.List<java.lang.Float>> inTangents, optional @com.squareup.moshi.Json(name="o") java.util.List<? extends java.util.List<java.lang.Float>> outTangents, optional @com.squareup.moshi.Json(name="v") java.util.List<? extends java.util.List<java.lang.Float>> vertices);
+    method public com.google.android.horologist.remotecompose.lottie.format.BezierValue copy(optional boolean closed, optional java.util.List<? extends java.util.List<java.lang.Float>> inTangents, optional java.util.List<? extends java.util.List<java.lang.Float>> outTangents, optional java.util.List<? extends java.util.List<java.lang.Float>> vertices);
     method @InaccessibleFromKotlin public boolean getClosed();
     method @InaccessibleFromKotlin public java.util.List<java.util.List<java.lang.Float>> getInTangents();
     method @InaccessibleFromKotlin public java.util.List<java.util.List<java.lang.Float>> getOutTangents();
     method @InaccessibleFromKotlin public java.util.List<java.util.List<java.lang.Float>> getVertices();
-    property public boolean closed;
-    property public java.util.List<java.util.List<java.lang.Float>> inTangents;
-    property public java.util.List<java.util.List<java.lang.Float>> outTangents;
-    property public java.util.List<java.util.List<java.lang.Float>> vertices;
+    property @kotlinx.serialization.SerialName("c") public boolean closed;
+    property @kotlinx.serialization.SerialName("i") public java.util.List<java.util.List<java.lang.Float>> inTangents;
+    property @kotlinx.serialization.SerialName("o") public java.util.List<java.util.List<java.lang.Float>> outTangents;
+    property @kotlinx.serialization.SerialName("v") public java.util.List<java.util.List<java.lang.Float>> vertices;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true, generator="sealed:type") public abstract sealed exhaustive class GraphicElement {
+  @kotlinx.serialization.Serializable(with=GraphicElementSerializer::class) public abstract sealed exhaustive class GraphicElement {
     method @InaccessibleFromKotlin public abstract Boolean? getHidden();
     method @InaccessibleFromKotlin public abstract String? getName();
     method @InaccessibleFromKotlin public abstract com.google.android.horologist.remotecompose.lottie.format.ShapeType getType();
@@ -140,65 +157,65 @@ package com.google.android.horologist.remotecompose.lottie.format {
     property public abstract com.google.android.horologist.remotecompose.lottie.format.ShapeType type;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public static final class GraphicElement.Fill extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement {
-    ctor public GraphicElement.Fill(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional @com.squareup.moshi.Json(name="o") com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity, @com.squareup.moshi.Json(name="c") com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty color);
+  @kotlinx.serialization.Serializable public static final class GraphicElement.Fill extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement {
+    ctor public GraphicElement.Fill(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity, com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty color);
     method public String? component1();
     method public Boolean? component2();
     method public com.google.android.horologist.remotecompose.lottie.format.ShapeType component3();
     method public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty component4();
     method public com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty component5();
-    method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Fill copy(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional @com.squareup.moshi.Json(name="o") com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity, optional @com.squareup.moshi.Json(name="c") com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty color);
+    method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Fill copy(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity, optional com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty color);
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty getColor();
     method @InaccessibleFromKotlin public Boolean? getHidden();
     method @InaccessibleFromKotlin public String? getName();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty getOpacity();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.ShapeType getType();
-    property public com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty color;
-    property public Boolean? hidden;
-    property public String? name;
-    property public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity;
-    property public com.google.android.horologist.remotecompose.lottie.format.ShapeType type;
+    property @kotlinx.serialization.SerialName("c") public com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty color;
+    property @kotlinx.serialization.SerialName("hd") public Boolean? hidden;
+    property @kotlinx.serialization.SerialName("nm") public String? name;
+    property @kotlinx.serialization.SerialName("o") public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity;
+    property @kotlinx.serialization.SerialName("ty") public com.google.android.horologist.remotecompose.lottie.format.ShapeType type;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public static final class GraphicElement.Group extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement {
-    ctor public GraphicElement.Group(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.ShapeType type, @com.squareup.moshi.Json(name="np") int numberOfProperties, @com.squareup.moshi.Json(name="it") java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes);
+  @kotlinx.serialization.Serializable public static final class GraphicElement.Group extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement {
+    ctor public GraphicElement.Group(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional Integer? numberOfProperties, java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes);
     method public String? component1();
     method public Boolean? component2();
     method public com.google.android.horologist.remotecompose.lottie.format.ShapeType component3();
-    method public int component4();
+    method public Integer? component4();
     method public java.util.List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement> component5();
-    method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Group copy(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional @com.squareup.moshi.Json(name="np") int numberOfProperties, optional @com.squareup.moshi.Json(name="it") java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes);
+    method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Group copy(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional Integer? numberOfProperties, optional java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes);
     method @InaccessibleFromKotlin public Boolean? getHidden();
     method @InaccessibleFromKotlin public String? getName();
-    method @InaccessibleFromKotlin public int getNumberOfProperties();
+    method @InaccessibleFromKotlin public Integer? getNumberOfProperties();
     method @InaccessibleFromKotlin public java.util.List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement> getShapes();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.ShapeType getType();
-    property public Boolean? hidden;
-    property public String? name;
-    property public int numberOfProperties;
-    property public java.util.List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes;
-    property public com.google.android.horologist.remotecompose.lottie.format.ShapeType type;
+    property @kotlinx.serialization.SerialName("hd") public Boolean? hidden;
+    property @kotlinx.serialization.SerialName("nm") public String? name;
+    property @kotlinx.serialization.SerialName("np") public Integer? numberOfProperties;
+    property @kotlinx.serialization.SerialName("it") public java.util.List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes;
+    property @kotlinx.serialization.SerialName("ty") public com.google.android.horologist.remotecompose.lottie.format.ShapeType type;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public static final class GraphicElement.Path extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement {
-    ctor public GraphicElement.Path(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.ShapeType type, @com.squareup.moshi.Json(name="ks") com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty shape);
+  @kotlinx.serialization.Serializable public static final class GraphicElement.Path extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement {
+    ctor public GraphicElement.Path(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty shape);
     method public String? component1();
     method public Boolean? component2();
     method public com.google.android.horologist.remotecompose.lottie.format.ShapeType component3();
     method public com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty component4();
-    method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Path copy(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional @com.squareup.moshi.Json(name="ks") com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty shape);
+    method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Path copy(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty shape);
     method @InaccessibleFromKotlin public Boolean? getHidden();
     method @InaccessibleFromKotlin public String? getName();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty getShape();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.ShapeType getType();
-    property public Boolean? hidden;
-    property public String? name;
-    property public com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty shape;
-    property public com.google.android.horologist.remotecompose.lottie.format.ShapeType type;
+    property @kotlinx.serialization.SerialName("hd") public Boolean? hidden;
+    property @kotlinx.serialization.SerialName("nm") public String? name;
+    property @kotlinx.serialization.SerialName("ks") public com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty shape;
+    property @kotlinx.serialization.SerialName("ty") public com.google.android.horologist.remotecompose.lottie.format.ShapeType type;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public static final class GraphicElement.Transform extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement {
-    ctor public GraphicElement.Transform(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.ShapeType type, @com.squareup.moshi.Json(name="a") com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty anchorPoint, optional @com.squareup.moshi.Json(name="p") com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty positionTranslation, optional @com.squareup.moshi.Json(name="r") com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty rotation, optional @com.squareup.moshi.Json(name="s") com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty scale, optional @com.squareup.moshi.Json(name="o") com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity);
+  @kotlinx.serialization.Serializable public static final class GraphicElement.Transform extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement {
+    ctor public GraphicElement.Transform(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty anchorPoint, optional com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty positionTranslation, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty rotation, optional com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty scale, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity);
     method public String? component1();
     method public Boolean? component2();
     method public com.google.android.horologist.remotecompose.lottie.format.ShapeType component3();
@@ -207,7 +224,7 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty component6();
     method public com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty component7();
     method public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty component8();
-    method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform copy(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional @com.squareup.moshi.Json(name="a") com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty anchorPoint, optional @com.squareup.moshi.Json(name="p") com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty positionTranslation, optional @com.squareup.moshi.Json(name="r") com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty rotation, optional @com.squareup.moshi.Json(name="s") com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty scale, optional @com.squareup.moshi.Json(name="o") com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity);
+    method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform copy(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty anchorPoint, optional com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty positionTranslation, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty rotation, optional com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty scale, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity);
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty getAnchorPoint();
     method @InaccessibleFromKotlin public Boolean? getHidden();
     method @InaccessibleFromKotlin public String? getName();
@@ -216,17 +233,22 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty getRotation();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty getScale();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.ShapeType getType();
-    property public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty anchorPoint;
-    property public Boolean? hidden;
-    property public String? name;
-    property public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity;
-    property public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty positionTranslation;
-    property public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty rotation;
-    property public com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty scale;
-    property public com.google.android.horologist.remotecompose.lottie.format.ShapeType type;
+    property @kotlinx.serialization.SerialName("a") public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty anchorPoint;
+    property @kotlinx.serialization.SerialName("hd") public Boolean? hidden;
+    property @kotlinx.serialization.SerialName("nm") public String? name;
+    property @kotlinx.serialization.SerialName("o") public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity;
+    property @kotlinx.serialization.SerialName("p") public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty positionTranslation;
+    property @kotlinx.serialization.SerialName("r") public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty rotation;
+    property @kotlinx.serialization.SerialName("s") public com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty scale;
+    property @kotlinx.serialization.SerialName("ty") public com.google.android.horologist.remotecompose.lottie.format.ShapeType type;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true, generator="sealed:type") public abstract sealed exhaustive class Layer {
+  public final class GraphicElementSerializer extends kotlinx.serialization.json.JsonContentPolymorphicSerializer<com.google.android.horologist.remotecompose.lottie.format.GraphicElement> {
+    method protected kotlinx.serialization.DeserializationStrategy<com.google.android.horologist.remotecompose.lottie.format.GraphicElement> selectDeserializer(kotlinx.serialization.json.JsonElement element);
+    field public static final com.google.android.horologist.remotecompose.lottie.format.GraphicElementSerializer INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable(with=LayerSerializer::class) public abstract sealed exhaustive class Layer {
     method @InaccessibleFromKotlin public abstract Integer? getIndex();
     method @InaccessibleFromKotlin public abstract String? getName();
     method @InaccessibleFromKotlin public abstract Integer? getParent();
@@ -239,9 +261,9 @@ package com.google.android.horologist.remotecompose.lottie.format {
     property public abstract com.google.android.horologist.remotecompose.lottie.format.LayerType type;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public static final class Layer.NullLayer extends com.google.android.horologist.remotecompose.lottie.format.Layer {
+  @kotlinx.serialization.Serializable public static final class Layer.NullLayer extends com.google.android.horologist.remotecompose.lottie.format.Layer {
     ctor public Layer.NullLayer();
-    ctor public Layer.NullLayer(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.LayerType type, optional @com.squareup.moshi.Json(name="ind") Integer? index, optional @com.squareup.moshi.Json(name="parent") Integer? parent, optional @com.squareup.moshi.Json(name="ip") Integer? startFrame, optional @com.squareup.moshi.Json(name="op") Integer? endFrame, optional @com.squareup.moshi.Json(name="ks") com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform);
+    ctor public Layer.NullLayer(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.LayerType type, optional Integer? index, optional Integer? parent, optional Integer? startFrame, optional Integer? endFrame, optional com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform);
     method public String? component1();
     method public Boolean? component2();
     method public com.google.android.horologist.remotecompose.lottie.format.LayerType component3();
@@ -250,7 +272,7 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method public Integer? component6();
     method public Integer? component7();
     method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? component8();
-    method public com.google.android.horologist.remotecompose.lottie.format.Layer.NullLayer copy(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.LayerType type, optional @com.squareup.moshi.Json(name="ind") Integer? index, optional @com.squareup.moshi.Json(name="parent") Integer? parent, optional @com.squareup.moshi.Json(name="ip") Integer? startFrame, optional @com.squareup.moshi.Json(name="op") Integer? endFrame, optional @com.squareup.moshi.Json(name="ks") com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform);
+    method public com.google.android.horologist.remotecompose.lottie.format.Layer.NullLayer copy(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.LayerType type, optional Integer? index, optional Integer? parent, optional Integer? startFrame, optional Integer? endFrame, optional com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform);
     method @InaccessibleFromKotlin public Integer? getEndFrame();
     method @InaccessibleFromKotlin public Boolean? getHidden();
     method @InaccessibleFromKotlin public Integer? getIndex();
@@ -259,18 +281,18 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method @InaccessibleFromKotlin public Integer? getStartFrame();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? getTransform();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.LayerType getType();
-    property public Integer? endFrame;
-    property public Boolean? hidden;
-    property public Integer? index;
-    property public String? name;
-    property public Integer? parent;
-    property public Integer? startFrame;
-    property public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform;
-    property public com.google.android.horologist.remotecompose.lottie.format.LayerType type;
+    property @kotlinx.serialization.SerialName("op") public Integer? endFrame;
+    property @kotlinx.serialization.SerialName("hd") public Boolean? hidden;
+    property @kotlinx.serialization.SerialName("ind") public Integer? index;
+    property @kotlinx.serialization.SerialName("nm") public String? name;
+    property @kotlinx.serialization.SerialName("parent") public Integer? parent;
+    property @kotlinx.serialization.SerialName("ip") public Integer? startFrame;
+    property @kotlinx.serialization.SerialName("ks") public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform;
+    property @kotlinx.serialization.SerialName("ty") public com.google.android.horologist.remotecompose.lottie.format.LayerType type;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public static final class Layer.ShapeLayer extends com.google.android.horologist.remotecompose.lottie.format.Layer {
-    ctor public Layer.ShapeLayer(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.LayerType type, optional @com.squareup.moshi.Json(name="ind") Integer? index, optional @com.squareup.moshi.Json(name="parent") Integer? parent, optional @com.squareup.moshi.Json(name="ip") Integer? startFrame, optional @com.squareup.moshi.Json(name="op") Integer? endFrame, optional @com.squareup.moshi.Json(name="ks") com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform, @com.squareup.moshi.Json(name="shapes") java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes);
+  @kotlinx.serialization.Serializable public static final class Layer.ShapeLayer extends com.google.android.horologist.remotecompose.lottie.format.Layer {
+    ctor public Layer.ShapeLayer(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.LayerType type, optional Integer? index, optional Integer? parent, optional Integer? startFrame, optional Integer? endFrame, optional com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform, java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes);
     method public String? component1();
     method public Boolean? component2();
     method public com.google.android.horologist.remotecompose.lottie.format.LayerType component3();
@@ -280,7 +302,7 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method public Integer? component7();
     method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? component8();
     method public java.util.List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement> component9();
-    method public com.google.android.horologist.remotecompose.lottie.format.Layer.ShapeLayer copy(optional @com.squareup.moshi.Json(name="nm") String? name, optional @com.squareup.moshi.Json(name="hd") Boolean? hidden, optional @com.squareup.moshi.Json(name="ty") com.google.android.horologist.remotecompose.lottie.format.LayerType type, optional @com.squareup.moshi.Json(name="ind") Integer? index, optional @com.squareup.moshi.Json(name="parent") Integer? parent, optional @com.squareup.moshi.Json(name="ip") Integer? startFrame, optional @com.squareup.moshi.Json(name="op") Integer? endFrame, optional @com.squareup.moshi.Json(name="ks") com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform, optional @com.squareup.moshi.Json(name="shapes") java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes);
+    method public com.google.android.horologist.remotecompose.lottie.format.Layer.ShapeLayer copy(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.LayerType type, optional Integer? index, optional Integer? parent, optional Integer? startFrame, optional Integer? endFrame, optional com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform, optional java.util.List<? extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes);
     method @InaccessibleFromKotlin public Integer? getEndFrame();
     method @InaccessibleFromKotlin public Boolean? getHidden();
     method @InaccessibleFromKotlin public Integer? getIndex();
@@ -290,18 +312,23 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method @InaccessibleFromKotlin public Integer? getStartFrame();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? getTransform();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.LayerType getType();
-    property public Integer? endFrame;
-    property public Boolean? hidden;
-    property public Integer? index;
-    property public String? name;
-    property public Integer? parent;
-    property public java.util.List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes;
-    property public Integer? startFrame;
-    property public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform;
-    property public com.google.android.horologist.remotecompose.lottie.format.LayerType type;
+    property @kotlinx.serialization.SerialName("op") public Integer? endFrame;
+    property @kotlinx.serialization.SerialName("hd") public Boolean? hidden;
+    property @kotlinx.serialization.SerialName("ind") public Integer? index;
+    property @kotlinx.serialization.SerialName("nm") public String? name;
+    property @kotlinx.serialization.SerialName("parent") public Integer? parent;
+    property @kotlinx.serialization.SerialName("shapes") public java.util.List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement> shapes;
+    property @kotlinx.serialization.SerialName("ip") public Integer? startFrame;
+    property @kotlinx.serialization.SerialName("ks") public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform;
+    property @kotlinx.serialization.SerialName("ty") public com.google.android.horologist.remotecompose.lottie.format.LayerType type;
   }
 
-  public enum LayerType {
+  public final class LayerSerializer extends kotlinx.serialization.json.JsonContentPolymorphicSerializer<com.google.android.horologist.remotecompose.lottie.format.Layer> {
+    method protected kotlinx.serialization.DeserializationStrategy<com.google.android.horologist.remotecompose.lottie.format.Layer> selectDeserializer(kotlinx.serialization.json.JsonElement element);
+    field public static final com.google.android.horologist.remotecompose.lottie.format.LayerSerializer INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable(with=LayerTypeSerializer::class) public enum LayerType {
     method @InaccessibleFromKotlin public int getValue();
     property public int value;
     enum_constant public static final com.google.android.horologist.remotecompose.lottie.format.LayerType Null;
@@ -313,64 +340,24 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method public com.google.android.horologist.remotecompose.lottie.format.LayerType? fromValueOrNull(int value);
   }
 
-  public final class LottieDeserializer {
-    method @InaccessibleFromKotlin public com.squareup.moshi.JsonAdapter<com.google.android.horologist.remotecompose.lottie.format.Animation> getJsonAdapter();
+  public final class LayerTypeSerializer implements kotlinx.serialization.KSerializer<com.google.android.horologist.remotecompose.lottie.format.LayerType> {
+    method public com.google.android.horologist.remotecompose.lottie.format.LayerType deserialize(kotlinx.serialization.encoding.Decoder decoder);
+    method @InaccessibleFromKotlin public kotlinx.serialization.descriptors.SerialDescriptor getDescriptor();
+    method public void serialize(kotlinx.serialization.encoding.Encoder encoder, com.google.android.horologist.remotecompose.lottie.format.LayerType value);
+    property public kotlinx.serialization.descriptors.SerialDescriptor descriptor;
+    field public static final com.google.android.horologist.remotecompose.lottie.format.LayerTypeSerializer INSTANCE;
+  }
+
+  public final class LottieDecoder {
+    method public com.google.android.horologist.remotecompose.lottie.format.Animation decodeFromStream(java.io.InputStream stream);
+    method public com.google.android.horologist.remotecompose.lottie.format.Animation decodeFromString(String jsonString);
+    method @InaccessibleFromKotlin public kotlinx.serialization.json.Json getJson();
     method public com.google.android.horologist.remotecompose.lottie.format.Animation load(@RawRes int rawRes, android.content.Context context);
-    property public com.squareup.moshi.JsonAdapter<com.google.android.horologist.remotecompose.lottie.format.Animation> jsonAdapter;
-    field public static final com.google.android.horologist.remotecompose.lottie.format.LottieDeserializer INSTANCE;
+    property public kotlinx.serialization.json.Json json;
+    field public static final com.google.android.horologist.remotecompose.lottie.format.LottieDecoder INSTANCE;
   }
 
-  public abstract static class LottieDeserializer.AnimatedPropertyJsonAdapter<T extends com.google.android.horologist.remotecompose.lottie.format.AnimatableProperty> extends com.squareup.moshi.JsonAdapter<T> {
-    ctor public LottieDeserializer.AnimatedPropertyJsonAdapter(Class<? extends T> static, Class<? extends T> animated);
-    method @com.squareup.moshi.FromJson public T? fromJson(com.squareup.moshi.JsonReader reader);
-    method @com.squareup.moshi.ToJson public void toJson(com.squareup.moshi.JsonWriter writer, T? value);
-  }
-
-  public static final class LottieDeserializer.BaseBezierPropertyJsonAdapter extends com.google.android.horologist.remotecompose.lottie.format.LottieDeserializer.AnimatedPropertyJsonAdapter<com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty> {
-    field public static final com.google.android.horologist.remotecompose.lottie.format.LottieDeserializer.BaseBezierPropertyJsonAdapter INSTANCE;
-  }
-
-  public static final class LottieDeserializer.BaseVectorPropertyJsonAdapter extends com.google.android.horologist.remotecompose.lottie.format.LottieDeserializer.AnimatedPropertyJsonAdapter<com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty> {
-    field public static final com.google.android.horologist.remotecompose.lottie.format.LottieDeserializer.BaseVectorPropertyJsonAdapter INSTANCE;
-  }
-
-  public static final class LottieDeserializer.LayerJsonAdapter extends com.squareup.moshi.JsonAdapter<com.google.android.horologist.remotecompose.lottie.format.Layer> {
-    ctor public LottieDeserializer.LayerJsonAdapter();
-    method @com.squareup.moshi.FromJson public com.google.android.horologist.remotecompose.lottie.format.Layer? fromJson(com.squareup.moshi.JsonReader reader);
-    method @com.squareup.moshi.ToJson public void toJson(com.squareup.moshi.JsonWriter writer, com.google.android.horologist.remotecompose.lottie.format.Layer? value);
-  }
-
-  public static final class LottieDeserializer.LayerTypeEnumJsonAdapter extends com.squareup.moshi.JsonAdapter<com.google.android.horologist.remotecompose.lottie.format.LayerType> {
-    ctor public LottieDeserializer.LayerTypeEnumJsonAdapter();
-    method @com.squareup.moshi.FromJson public com.google.android.horologist.remotecompose.lottie.format.LayerType? fromJson(com.squareup.moshi.JsonReader reader);
-    method @com.squareup.moshi.ToJson public void toJson(com.squareup.moshi.JsonWriter writer, com.google.android.horologist.remotecompose.lottie.format.LayerType? value);
-  }
-
-  public static final class LottieDeserializer.RemoteColorJsonAdapter extends com.squareup.moshi.JsonAdapter<androidx.compose.remote.creation.compose.state.RemoteColor> {
-    ctor public LottieDeserializer.RemoteColorJsonAdapter();
-    method @com.squareup.moshi.FromJson public androidx.compose.remote.creation.compose.state.RemoteColor? fromJson(com.squareup.moshi.JsonReader reader);
-    method @com.squareup.moshi.ToJson public void toJson(com.squareup.moshi.JsonWriter writer, androidx.compose.remote.creation.compose.state.RemoteColor? value);
-  }
-
-  public static final class LottieDeserializer.RemoteFloatJsonAdapter extends com.squareup.moshi.JsonAdapter<androidx.compose.remote.creation.compose.state.RemoteFloat> {
-    method @com.squareup.moshi.FromJson public androidx.compose.remote.creation.compose.state.RemoteFloat? fromJson(com.squareup.moshi.JsonReader reader);
-    method @com.squareup.moshi.ToJson public void toJson(com.squareup.moshi.JsonWriter writer, androidx.compose.remote.creation.compose.state.RemoteFloat? value);
-    field public static final com.google.android.horologist.remotecompose.lottie.format.LottieDeserializer.RemoteFloatJsonAdapter INSTANCE;
-  }
-
-  public static final class LottieDeserializer.ScalarKeyframeEasingJsonAdapter extends com.squareup.moshi.JsonAdapter<com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing> {
-    method @com.squareup.moshi.FromJson public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? fromJson(com.squareup.moshi.JsonReader reader);
-    method @com.squareup.moshi.ToJson public void toJson(com.squareup.moshi.JsonWriter writer, com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? value);
-    field public static final com.google.android.horologist.remotecompose.lottie.format.LottieDeserializer.ScalarKeyframeEasingJsonAdapter INSTANCE;
-  }
-
-  public static final class LottieDeserializer.ShapeTypeEnumJsonAdapter extends com.squareup.moshi.JsonAdapter<com.google.android.horologist.remotecompose.lottie.format.ShapeType> {
-    ctor public LottieDeserializer.ShapeTypeEnumJsonAdapter();
-    method @com.squareup.moshi.FromJson public com.google.android.horologist.remotecompose.lottie.format.ShapeType? fromJson(com.squareup.moshi.JsonReader reader);
-    method @com.squareup.moshi.ToJson public void toJson(com.squareup.moshi.JsonWriter writer, com.google.android.horologist.remotecompose.lottie.format.ShapeType? value);
-  }
-
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class ScalarKeyframeEasing {
+  @kotlinx.serialization.Serializable(with=ScalarKeyframeEasingSerializer::class) public final class ScalarKeyframeEasing {
     ctor public ScalarKeyframeEasing(float x, float y);
     method public float component1();
     method public float component2();
@@ -381,7 +368,15 @@ package com.google.android.horologist.remotecompose.lottie.format {
     property public float y;
   }
 
-  public enum ShapeType {
+  public final class ScalarKeyframeEasingSerializer implements kotlinx.serialization.KSerializer<com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing> {
+    method public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing deserialize(kotlinx.serialization.encoding.Decoder decoder);
+    method @InaccessibleFromKotlin public kotlinx.serialization.descriptors.SerialDescriptor getDescriptor();
+    method public void serialize(kotlinx.serialization.encoding.Encoder encoder, com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing value);
+    property public kotlinx.serialization.descriptors.SerialDescriptor descriptor;
+    field public static final com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasingSerializer INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable(with=ShapeTypeSerializer::class) public enum ShapeType {
     method @InaccessibleFromKotlin public String getValue();
     property public String value;
     enum_constant public static final com.google.android.horologist.remotecompose.lottie.format.ShapeType Fill;
@@ -395,28 +390,39 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method public com.google.android.horologist.remotecompose.lottie.format.ShapeType? fromValueOrNull(String value);
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class StaticBezierProperty extends com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty {
-    ctor public StaticBezierProperty(optional boolean animated, @com.squareup.moshi.Json(name="k") com.google.android.horologist.remotecompose.lottie.format.BezierValue value);
+  public final class ShapeTypeSerializer implements kotlinx.serialization.KSerializer<com.google.android.horologist.remotecompose.lottie.format.ShapeType> {
+    method public com.google.android.horologist.remotecompose.lottie.format.ShapeType deserialize(kotlinx.serialization.encoding.Decoder decoder);
+    method @InaccessibleFromKotlin public kotlinx.serialization.descriptors.SerialDescriptor getDescriptor();
+    method public void serialize(kotlinx.serialization.encoding.Encoder encoder, com.google.android.horologist.remotecompose.lottie.format.ShapeType value);
+    property public kotlinx.serialization.descriptors.SerialDescriptor descriptor;
+    field public static final com.google.android.horologist.remotecompose.lottie.format.ShapeTypeSerializer INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable public final class StaticBezierProperty extends com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty {
+    ctor public StaticBezierProperty(optional boolean animated, com.google.android.horologist.remotecompose.lottie.format.BezierValue value);
     method public boolean component1();
     method public com.google.android.horologist.remotecompose.lottie.format.BezierValue component2();
-    method public com.google.android.horologist.remotecompose.lottie.format.StaticBezierProperty copy(optional boolean animated, optional @com.squareup.moshi.Json(name="k") com.google.android.horologist.remotecompose.lottie.format.BezierValue value);
+    method public com.google.android.horologist.remotecompose.lottie.format.StaticBezierProperty copy(optional boolean animated, optional com.google.android.horologist.remotecompose.lottie.format.BezierValue value);
     method @InaccessibleFromKotlin public boolean getAnimated();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.BezierValue getValue();
     property public boolean animated;
-    property public com.google.android.horologist.remotecompose.lottie.format.BezierValue value;
+    property @kotlinx.serialization.SerialName("k") public com.google.android.horologist.remotecompose.lottie.format.BezierValue value;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class StaticColorProperty {
-    ctor public StaticColorProperty(optional @com.squareup.moshi.Json(name="sid") String? slotId, optional boolean animated, @com.squareup.moshi.Json(name="k") androidx.compose.remote.creation.compose.state.RemoteColor value);
+  @kotlinx.serialization.Serializable(with=StaticColorPropertySerializer::class) public final class StaticColorProperty {
+    ctor public StaticColorProperty();
+    ctor public StaticColorProperty(optional String? slotId, optional boolean animated, optional int colorInt);
     method public String? component1();
     method public boolean component2();
-    method public androidx.compose.remote.creation.compose.state.RemoteColor component3();
-    method public com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty copy(optional @com.squareup.moshi.Json(name="sid") String? slotId, optional boolean animated, optional @com.squareup.moshi.Json(name="k") androidx.compose.remote.creation.compose.state.RemoteColor value);
+    method public int component3();
+    method public com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty copy(optional String? slotId, optional boolean animated, optional int colorInt);
     method @InaccessibleFromKotlin public boolean getAnimated();
+    method @InaccessibleFromKotlin public int getColorInt();
     method @InaccessibleFromKotlin public String? getSlotId();
     method @InaccessibleFromKotlin public androidx.compose.remote.creation.compose.state.RemoteColor getValue();
     property public boolean animated;
-    property public String? slotId;
+    property @kotlinx.serialization.SerialName("k") public int colorInt;
+    property @kotlinx.serialization.SerialName("sid") public String? slotId;
     property public androidx.compose.remote.creation.compose.state.RemoteColor value;
     field public static final com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty.Companion Companion;
   }
@@ -426,66 +432,74 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method public com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty fromColor(@ColorInt int color);
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class StaticPositionProperty {
-    ctor public StaticPositionProperty(optional @com.squareup.moshi.Json(name="s") String? slotId, optional boolean animated, @com.squareup.moshi.Json(name="k") float[] value);
+  public final class StaticColorPropertySerializer implements kotlinx.serialization.KSerializer<com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty> {
+    method public com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty deserialize(kotlinx.serialization.encoding.Decoder decoder);
+    method @InaccessibleFromKotlin public kotlinx.serialization.descriptors.SerialDescriptor getDescriptor();
+    method public void serialize(kotlinx.serialization.encoding.Encoder encoder, com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty value);
+    property public kotlinx.serialization.descriptors.SerialDescriptor descriptor;
+    field public static final com.google.android.horologist.remotecompose.lottie.format.StaticColorPropertySerializer INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable public final class StaticPositionProperty {
+    ctor public StaticPositionProperty(optional String? slotId, optional boolean animated, float[] value);
     method public String? component1();
     method public boolean component2();
     method public float[] component3();
-    method public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty copy(optional @com.squareup.moshi.Json(name="s") String? slotId, optional boolean animated, optional @com.squareup.moshi.Json(name="k") float[] value);
+    method public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty copy(optional String? slotId, optional boolean animated, optional float[] value);
     method @InaccessibleFromKotlin public boolean getAnimated();
     method @InaccessibleFromKotlin public String? getSlotId();
     method @InaccessibleFromKotlin public float[] getValue();
     property public boolean animated;
-    property public String? slotId;
-    property public float[] value;
+    property @kotlinx.serialization.SerialName("s") public String? slotId;
+    property @kotlinx.serialization.SerialName("k") public float[] value;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class StaticScalarProperty {
-    ctor public StaticScalarProperty(optional @com.squareup.moshi.Json(name="s") String? slotId, optional boolean animated, @com.squareup.moshi.Json(name="k") float value);
+  @kotlinx.serialization.Serializable public final class StaticScalarProperty {
+    ctor public StaticScalarProperty(optional String? slotId, optional boolean animated, float value);
     method public String? component1();
     method public boolean component2();
     method public float component3();
-    method public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty copy(optional @com.squareup.moshi.Json(name="s") String? slotId, optional boolean animated, optional @com.squareup.moshi.Json(name="k") float value);
+    method public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty copy(optional String? slotId, optional boolean animated, optional float value);
     method @InaccessibleFromKotlin public boolean getAnimated();
     method @InaccessibleFromKotlin public String? getSlotId();
     method @InaccessibleFromKotlin public float getValue();
     property public boolean animated;
-    property public String? slotId;
-    property public float value;
+    property @kotlinx.serialization.SerialName("s") public String? slotId;
+    property @kotlinx.serialization.SerialName("k") public float value;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class StaticVectorProperty extends com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty {
-    ctor public StaticVectorProperty(optional @com.squareup.moshi.Json(name="s") String? slotId, optional boolean animated, @com.squareup.moshi.Json(name="k") float[] value);
+  @kotlinx.serialization.Serializable public final class StaticVectorProperty extends com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty {
+    ctor public StaticVectorProperty(optional String? slotId, optional boolean animated, float[] value);
     method public String? component1();
     method public boolean component2();
     method public float[] component3();
-    method public com.google.android.horologist.remotecompose.lottie.format.StaticVectorProperty copy(optional @com.squareup.moshi.Json(name="s") String? slotId, optional boolean animated, optional @com.squareup.moshi.Json(name="k") float[] value);
+    method public com.google.android.horologist.remotecompose.lottie.format.StaticVectorProperty copy(optional String? slotId, optional boolean animated, optional float[] value);
     method @InaccessibleFromKotlin public boolean getAnimated();
     method @InaccessibleFromKotlin public String? getSlotId();
     method @InaccessibleFromKotlin public float[] getValue();
     property public boolean animated;
-    property public String? slotId;
-    property public float[] value;
+    property @kotlinx.serialization.SerialName("s") public String? slotId;
+    property @kotlinx.serialization.SerialName("k") public float[] value;
   }
 
-  @com.squareup.moshi.JsonClass(generateAdapter=true) public final class VectorPropertyKeyframe {
-    ctor public VectorPropertyKeyframe(optional @com.squareup.moshi.Json(name="t") float frame, optional @com.squareup.moshi.Json(name="h") boolean hold, optional @com.squareup.moshi.Json(name="i") com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent, optional @com.squareup.moshi.Json(name="o") com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent, @com.squareup.moshi.Json(name="s") float[] value);
+  @kotlinx.serialization.Serializable public final class VectorPropertyKeyframe {
+    ctor public VectorPropertyKeyframe(optional float frame, optional boolean hold, optional com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent, optional com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent, float[] value);
     method public float component1();
     method public boolean component2();
     method public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? component3();
     method public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? component4();
     method public float[] component5();
-    method public com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe copy(optional @com.squareup.moshi.Json(name="t") float frame, optional @com.squareup.moshi.Json(name="h") boolean hold, optional @com.squareup.moshi.Json(name="i") com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent, optional @com.squareup.moshi.Json(name="o") com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent, optional @com.squareup.moshi.Json(name="s") float[] value);
+    method public com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe copy(optional float frame, optional boolean hold, optional com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent, optional com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent, optional float[] value);
     method @InaccessibleFromKotlin public float getFrame();
     method @InaccessibleFromKotlin public boolean getHold();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? getInTangent();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? getOutTangent();
     method @InaccessibleFromKotlin public float[] getValue();
-    property public float frame;
-    property public boolean hold;
-    property public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent;
-    property public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent;
-    property public float[] value;
+    property @kotlinx.serialization.SerialName("t") public float frame;
+    property @kotlinx.serialization.SerialName("h") public boolean hold;
+    property @kotlinx.serialization.SerialName("i") public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? inTangent;
+    property @kotlinx.serialization.SerialName("o") public com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing? outTangent;
+    property @kotlinx.serialization.SerialName("s") public float[] value;
   }
 
 }

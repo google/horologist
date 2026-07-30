@@ -18,14 +18,14 @@
 
 package com.google.android.horologist.remotecompose.lottie.format
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /** A path defined by a set of bezier curves. */
-@JsonClass(generateAdapter = true)
+@Serializable
 data class BezierValue(
-  @param:Json(name = "c") val closed: Boolean,
-  @param:Json(name = "i") val inTangents: List<List<Float>>,
-  @param:Json(name = "o") val outTangents: List<List<Float>>,
-  @param:Json(name = "v") val vertices: List<List<Float>>,
+  @SerialName("c") val closed: Boolean,
+  @SerialName("i") val inTangents: List<List<Float>>,
+  @SerialName("o") val outTangents: List<List<Float>>,
+  @SerialName("v") val vertices: List<List<Float>>,
 )

@@ -16,8 +16,8 @@
 
 package com.google.android.horologist.remotecompose.lottie.format
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A graphic element in a Lottie animation.
@@ -26,7 +26,7 @@ import com.squareup.moshi.JsonClass
  * rendered to screen), styles (which control the look of shapes - e.g. the fill color), or grouping
  * mechanisms (including transforms).
  */
-@JsonClass(generateAdapter = true, generator = "sealed:type")
+@Serializable(with = GraphicElementSerializer::class)
 sealed class GraphicElement {
   abstract val name: String?
   abstract val hidden: Boolean?
@@ -35,58 +35,59 @@ sealed class GraphicElement {
   // Shapes
 
   /** Draw a path following a bezier curve. */
-  @JsonClass(generateAdapter = true)
+  @Serializable
   data class Path(
-    @param:Json(name = "nm") override val name: String? = "",
-    @param:Json(name = "hd") override val hidden: Boolean? = false,
-    @param:Json(name = "ty") override val type: ShapeType = ShapeType.Path,
-    @param:Json(name = "ks") val shape: BaseBezierProperty,
+    @SerialName("nm") override val name: String? = "",
+    @SerialName("hd") override val hidden: Boolean? = false,
+    @SerialName("ty") override val type: ShapeType = ShapeType.Path,
+    @SerialName("ks") val shape: BaseBezierProperty,
   ) : GraphicElement()
 
   // Grouping
 
   /** A group of other graphic elements. This allows transforms to be nested. */
-  @JsonClass(generateAdapter = true)
+  @Serializable
   data class Group(
-    @param:Json(name = "nm") override val name: String? = "",
-    @param:Json(name = "hd") override val hidden: Boolean? = false,
-    @param:Json(name = "ty") override val type: ShapeType = ShapeType.Group,
-    @param:Json(name = "np") val numberOfProperties: Int,
-    @param:Json(name = "it") val shapes: List<GraphicElement>,
+    @SerialName("nm") override val name: String? = "",
+    @SerialName("hd") override val hidden: Boolean? = false,
+    @SerialName("ty") override val type: ShapeType = ShapeType.Group,
+    @SerialName("np") val numberOfProperties: Int? = null,
+    @SerialName("it") val shapes: List<GraphicElement>,
   ) : GraphicElement()
 
   /**
    * A transform that can be applied to other graphic elements. Transforms must always be in a
    * Group, and must always be the last element in the array.
    */
-  @JsonClass(generateAdapter = true)
+  @Serializable
   data class Transform(
-    @param:Json(name = "nm") override val name: String? = "",
-    @param:Json(name = "hd") override val hidden: Boolean? = false,
-    @param:Json(name = "ty") override val type: ShapeType = ShapeType.Transform,
-    @param:Json(name = "a") val anchorPoint: StaticPositionProperty,
-    @param:Json(name = "p")
+    @SerialName("nm") override val name: String? = "",
+    @SerialName("hd") override val hidden: Boolean? = false,
+    @SerialName("ty") override val type: ShapeType = ShapeType.Transform,
+    @SerialName("a") val anchorPoint: StaticPositionProperty,
+    @SerialName("p")
     val positionTranslation: StaticPositionProperty =
       StaticPositionProperty(value = floatArrayOf(0f, 0f)),
-    @param:Json(name = "r") val rotation: StaticScalarProperty = StaticScalarProperty(value = 0f),
-    @param:Json(name = "s")
+    @SerialName("r") val rotation: StaticScalarProperty = StaticScalarProperty(value = 0f),
+    @SerialName("s")
     val scale: BaseVectorProperty = StaticVectorProperty(value = floatArrayOf(100f, 100f)),
-    @param:Json(name = "o") val opacity: StaticScalarProperty = StaticScalarProperty(value = 100f),
+    @SerialName("o") val opacity: StaticScalarProperty = StaticScalarProperty(value = 100f),
   ) : GraphicElement()
 
   // Styles
 
   /** Solid fill color */
-  @JsonClass(generateAdapter = true)
+  @Serializable
   data class Fill(
-    @param:Json(name = "nm") override val name: String? = "",
-    @param:Json(name = "hd") override val hidden: Boolean? = false,
-    @param:Json(name = "ty") override val type: ShapeType = ShapeType.Fill,
-    @param:Json(name = "o") val opacity: StaticScalarProperty = StaticScalarProperty(value = 100f),
-    @param:Json(name = "c") val color: StaticColorProperty,
+    @SerialName("nm") override val name: String? = "",
+    @SerialName("hd") override val hidden: Boolean? = false,
+    @SerialName("ty") override val type: ShapeType = ShapeType.Fill,
+    @SerialName("o") val opacity: StaticScalarProperty = StaticScalarProperty(value = 100f),
+    @SerialName("c") val color: StaticColorProperty,
   ) : GraphicElement()
 }
 
+@Serializable(with = ShapeTypeSerializer::class)
 enum class ShapeType(val value: String) {
   Fill("fl"),
   Group("gr"),

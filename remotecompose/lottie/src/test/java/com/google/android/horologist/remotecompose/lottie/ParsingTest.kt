@@ -22,7 +22,7 @@ import com.google.android.horologist.remotecompose.lottie.format.AnimatedVectorP
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.Layer
 import com.google.android.horologist.remotecompose.lottie.format.LayerType
-import com.google.android.horologist.remotecompose.lottie.format.LottieDeserializer
+import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.android.horologist.remotecompose.lottie.format.ShapeType
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -40,9 +40,7 @@ class ParsingTest {
   @Test
   fun geometryTest() {
     val json = loadGeometryJson()
-    val deserializer = LottieDeserializer.jsonAdapter
-
-    val animation = deserializer.fromJson(json)!!
+    val animation = LottieDecoder.decodeFromString(json)
 
     assertThat(animation).isNotNull()
     assertThat(animation.name).isEqualTo("[lottie] geometry")
@@ -53,9 +51,7 @@ class ParsingTest {
   @Test
   fun layerPolymorphism_deserializes() {
     val json = loadGeometryJson()
-    val deserializer = LottieDeserializer.jsonAdapter
-
-    val animation = deserializer.fromJson(json)!!
+    val animation = LottieDecoder.decodeFromString(json)
 
     assertThat(animation.layers[0].name).isEqualTo("Scale (Import Fix)")
     assertThat(animation.layers[0].type).isEqualTo(LayerType.Null)
@@ -65,9 +61,7 @@ class ParsingTest {
   @Test
   fun layerTypeEnum_deserializes() {
     val json = loadGeometryJson()
-    val deserializer = LottieDeserializer.jsonAdapter
-
-    val animation = deserializer.fromJson(json)!!
+    val animation = LottieDecoder.decodeFromString(json)
 
     assertThat(animation.layers[0].type).isEqualTo(LayerType.Null)
     assertThat(animation.layers[1].type).isEqualTo(LayerType.Shape)
@@ -76,9 +70,7 @@ class ParsingTest {
   @Test
   fun shapeTypePolymorphism_deserializes() {
     val json = loadGeometryJson()
-    val deserializer = LottieDeserializer.jsonAdapter
-
-    val animation = deserializer.fromJson(json)!!
+    val animation = LottieDecoder.decodeFromString(json)
 
     val shapeLayer = animation.layers[1] as Layer.ShapeLayer
     val group = shapeLayer.shapes[0] as GraphicElement.Group
@@ -89,9 +81,7 @@ class ParsingTest {
   @Test
   fun shapeTypeEnum_deserializes() {
     val json = loadGeometryJson()
-    val deserializer = LottieDeserializer.jsonAdapter
-
-    val animation = deserializer.fromJson(json)!!
+    val animation = LottieDecoder.decodeFromString(json)
 
     val shapeLayer = animation.layers[1] as Layer.ShapeLayer
 
@@ -101,9 +91,7 @@ class ParsingTest {
   @Test
   fun animatedBezierProperty_deserializes() {
     val json = loadGeometryJson()
-    val deserializer = LottieDeserializer.jsonAdapter
-
-    val animation = deserializer.fromJson(json)!!
+    val animation = LottieDecoder.decodeFromString(json)
 
     val shapeLayer = animation.layers[1] as Layer.ShapeLayer
     val group = shapeLayer.shapes[0] as GraphicElement.Group
@@ -119,9 +107,7 @@ class ParsingTest {
   @Test
   fun animatedVectorProperty_deserializes() {
     val json = loadGeometryJson()
-    val deserializer = LottieDeserializer.jsonAdapter
-
-    val animation = deserializer.fromJson(json)!!
+    val animation = LottieDecoder.decodeFromString(json)
 
     val shapeLayer = animation.layers[1] as Layer.ShapeLayer
     val transform = shapeLayer.transform!!

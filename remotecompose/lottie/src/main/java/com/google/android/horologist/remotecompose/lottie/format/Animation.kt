@@ -16,18 +16,18 @@
 
 package com.google.android.horologist.remotecompose.lottie.format
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /** Top level object in a Lottie file, describing the animation. */
-@JsonClass(generateAdapter = true)
+@Serializable
 data class Animation(
-  @param:Json(name = "nm") val name: String? = null,
-  @param:Json(name = "ver") val version: String? = "0.0.0",
-  @param:Json(name = "fr") val frameRate: Int,
-  @param:Json(name = "ip") val startFrame: Int,
-  @param:Json(name = "op") val endFrame: Int,
-  @param:Json(name = "w") val width: Int,
-  @param:Json(name = "h") val height: Int,
-  @param:Json(name = "layers") val layers: List<Layer>,
+  @SerialName("nm") val name: String? = null,
+  @SerialName("ver") val version: String? = "0.0.0",
+  @SerialName("fr") val frameRate: Int,
+  @SerialName("ip") val startFrame: Int,
+  @SerialName("op") val endFrame: Int,
+  @SerialName("w") val width: Int,
+  @SerialName("h") val height: Int,
+  @SerialName("layers") val layers: List<Layer>,
 )

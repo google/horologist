@@ -47,6 +47,10 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
 
+import java.io.InputStream
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.decodeFromStream
+
 /** `kotlinx.serialization` JSON decoder for Lottie animations. */
 object LottieDecoder {
 
@@ -60,11 +64,15 @@ object LottieDecoder {
     return json.decodeFromString(Animation.serializer(), jsonString)
   }
 
+  @OptIn(ExperimentalSerializationApi::class)
+  fun decodeFromStream(stream: InputStream): Animation {
+    return json.decodeFromStream(Animation.serializer(), stream)
+  }
+
   fun load(@RawRes rawRes: Int, context: Context): Animation {
-    val jsonString = context.resources.openRawResource(rawRes).use { stream ->
-      stream.readBytes().decodeToString()
+    return context.resources.openRawResource(rawRes).use { stream ->
+      decodeFromStream(stream)
     }
-    return decodeFromString(jsonString)
   }
 }
 

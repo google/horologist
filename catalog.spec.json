@@ -98,6 +98,11 @@
       "blurb": "The player screen taken apart: title-area states, transport controls, entity screen.",
       "components": [
         {
+          "componentId": "MediaArtwork",
+          "preview": "MediaArtwork",
+          "caption": "Artwork"
+        },
+        {
           "componentId": "MediaControlButtonsPausedAtQueueEnd",
           "preview": "MediaControlButtonsPausedAtQueueEnd",
           "caption": "Control Buttons Paused At Queue End"
@@ -113,9 +118,19 @@
           "caption": "Details Button"
         },
         {
+          "componentId": "MediaDetailsButtonWithArtwork",
+          "preview": "MediaDetailsButtonWithArtwork",
+          "caption": "Details Button With Artwork"
+        },
+        {
           "componentId": "MediaEntityScreen",
           "preview": "MediaEntityScreen",
           "caption": "Entity Screen"
+        },
+        {
+          "componentId": "MediaEntityScreenWithArtwork",
+          "preview": "MediaEntityScreenWithArtwork",
+          "caption": "Entity Screen With Artwork"
         },
         {
           "componentId": "MediaLoadingMediaDisplay",
@@ -217,21 +232,6 @@
           "componentId": "AuthWearSignInPromptScreenLoading",
           "preview": "AuthWearSignInPromptScreenLoading",
           "caption": "Sign In Prompt Screen Loading"
-        },
-        {
-          "componentId": "AuthWearSignedInConfirmationDialog",
-          "preview": "AuthWearSignedInConfirmationDialog",
-          "caption": "Signed In Confirmation Dialog"
-        },
-        {
-          "componentId": "AuthWearSignedInConfirmationDialogEmailOnly",
-          "preview": "AuthWearSignedInConfirmationDialogEmailOnly",
-          "caption": "Signed In Confirmation Dialog Email Only"
-        },
-        {
-          "componentId": "AuthWearSignedInConfirmationDialogTruncated",
-          "preview": "AuthWearSignedInConfirmationDialogTruncated",
-          "caption": "Signed In Confirmation Dialog Truncated"
         }
       ]
     },
@@ -412,43 +412,6 @@
           "componentId": "LayoutScalingLazyColumn",
           "preview": "LayoutScalingLazyColumn",
           "caption": "Scaling Lazy Column"
-        }
-      ]
-    },
-    {
-      "name": "DataLayer Mobile",
-      "blurb": "Phone-side prompts that push a user towards the watch app.",
-      "components": [
-        {
-          "componentId": "DataLayerMobileInstallAppBottomSheet",
-          "preview": "DataLayerMobileInstallAppBottomSheet",
-          "caption": "Install App Bottom Sheet"
-        },
-        {
-          "componentId": "DataLayerMobileInstallTileBottomSheet",
-          "preview": "DataLayerMobileInstallTileBottomSheet",
-          "caption": "Install Tile Bottom Sheet"
-        },
-        {
-          "componentId": "DataLayerMobileReEngageBottomSheet",
-          "preview": "DataLayerMobileReEngageBottomSheet",
-          "caption": "Re Engage Bottom Sheet"
-        }
-      ]
-    },
-    {
-      "name": "Auth Mobile",
-      "blurb": "The phone half of the sign-in story.",
-      "components": [
-        {
-          "componentId": "AuthMobileSignInBottomSheet",
-          "preview": "AuthMobileSignInBottomSheet",
-          "caption": "Sign In Bottom Sheet"
-        },
-        {
-          "componentId": "AuthMobileSignInBottomSheetCustomLabels",
-          "preview": "AuthMobileSignInBottomSheetCustomLabels",
-          "caption": "Sign In Bottom Sheet Custom Labels"
         }
       ]
     }

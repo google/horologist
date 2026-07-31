@@ -18,9 +18,13 @@ package com.google.android.horologist.catalog
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.google.android.horologist.images.coil.CoilPaintable
+import com.google.android.horologist.media.ui.material3.components.MediaArtwork
 import com.google.android.horologist.media.ui.material3.components.MediaControlButtons
 import com.google.android.horologist.media.ui.material3.components.MediaDetailsButton
 import com.google.android.horologist.media.ui.material3.components.PlayPauseButton
@@ -47,6 +51,16 @@ private val WeatherWithYou =
     subtitle = "Crowded House",
     appLabel = "Horologist Media",
   )
+
+/**
+ * Stand-in album art, as a real coil load.
+ *
+ * The model is a drawable resource rather than a URL: the renderer resolves coil requests inline
+ * but refuses `http(s)://` ones, because a preview whose pixels depend on live egress is not
+ * reproducible. This still exercises the production path — `CoilPaintable` →
+ * `rememberAsyncImagePainter` — which is the part that used to capture blank.
+ */
+private val Artwork = CoilPaintable(R.drawable.catalog_album_artwork)
 
 @Composable
 private fun Centred(content: @Composable () -> Unit) {
@@ -152,12 +166,47 @@ internal fun MediaPlayPauseButtonDisabled() {
   }
 }
 
+// --- Artwork ----------------------------------------------------------------------------------
+//
+// A player without artwork is half the screen. These were held back while coil-backed images
+// captured blank — the load never started under the renderer's inspection mode, and an unresolved
+// `AsyncImagePainter` reports no intrinsic size, so it collapsed the layout around it as well as
+// showing nothing. Fixed upstream in yschimke/compose-ai-tools#2971 and shipped in 0.19.11, which
+// is the version this repo now pins.
+
+@MediaCatalog
+@Composable
+internal fun MediaArtwork() {
+  Centred {
+    MediaArtwork(
+      artworkPaintable = Artwork,
+      contentDescription = WeatherWithYou.title,
+      modifier = Modifier.size(120.dp),
+    )
+  }
+}
+
 // --- List / screen surfaces -------------------------------------------------------------------
 
+/**
+ * Artwork-less, and deliberately: the `MediaUiModel.Ready` overload hands `media.artwork` — already
+ * a `Paintable` — to `CoilPaintable` as its *model*, which coil has nothing to do with, so the icon
+ * slot stays empty however the model is populated. [MediaDetailsButtonWithArtwork] is the same
+ * button reached through the overload that does work. Fixing that overload changes committed
+ * roborazzi goldens, so it is deliberately not part of this change.
+ */
 @MediaCatalog
 @Composable
 internal fun MediaDetailsButton() {
   Centred { MediaDetailsButton(media = WeatherWithYou, onClick = {}) }
+}
+
+@MediaCatalog
+@Composable
+internal fun MediaDetailsButtonWithArtwork() {
+  Centred {
+    MediaDetailsButton(title = WeatherWithYou.title, artworkPaintable = Artwork, onClick = {})
+  }
 }
 
 @MediaCatalog
@@ -176,6 +225,26 @@ internal fun MediaEntityScreen() {
         items(3) { index ->
           MediaDetailsButton(
             media = WeatherWithYou.copy(id = index.toString(), title = "Track ${index + 1}"),
+            onClick = {},
+          )
+        }
+      },
+    )
+  }
+}
+
+/** The same list as a playlist actually looks: every row carrying its own artwork. */
+@MediaCatalog
+@Composable
+internal fun MediaEntityScreenWithArtwork() {
+  CatalogWearTheme {
+    EntityScreen(
+      headerContent = { DefaultEntityScreenHeader(title = "Songs to test with") },
+      content = {
+        items(3) { index ->
+          MediaDetailsButton(
+            title = "Track ${index + 1}",
+            artworkPaintable = Artwork,
             onClick = {},
           )
         }

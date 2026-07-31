@@ -21,6 +21,8 @@ import androidx.compose.material.icons.filled.Album
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.images.coil.CoilPaintable
+import com.google.android.horologist.media.ui.SampleArtworkUri
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @Preview(
@@ -33,7 +35,7 @@ fun MediaArtworkPreview() {
         media = MediaUiModel.Ready(
             id = "id",
             title = "title",
-            artwork = null,
+            artwork = CoilPaintable(SampleArtworkUri),
         ),
         placeholder = rememberVectorPainter(image = Icons.Default.Album),
     )

@@ -24,6 +24,7 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.images.base.util.rememberVectorPainter
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
+import com.google.android.horologist.media.ui.SampleArtworkUri
 
 @WearPreviewDevices
 @Composable
@@ -35,14 +36,14 @@ fun PlaylistsScreenPreview() {
                     PlaylistUiModel(
                         id = "id",
                         title = "Rock Classics",
-                        artworkUri = "https://www.example.com/album1.png",
+                        artworkUri = SampleArtworkUri,
                     ),
                 )
                 add(
                     PlaylistUiModel(
                         id = "id",
                         title = "Pop Punk",
-                        artworkUri = "https://www.example.com/album2.png",
+                        artworkUri = SampleArtworkUri,
                     ),
                 )
             },

@@ -119,16 +119,14 @@ jobs:
           # Safety ceiling against a hung build, not a budget — the render is
           # well under this on a healthy runner.
           timeout: '1800'
-          # The CLI auto-injects the plugin into *every* module in the build,
-          # not just the ten that opt in, so the render also picks up the
-          # sample apps. `:ai:sample:wear-gemini`'s `DefaultPreview` previews
-          # `WearApp()` — a Hilt-backed activity entry point — and produces no
-          # output, which under the default `fail` policy sinks the whole run
-          # and with it the baseline push (run #1 died exactly there).
-          #
-          # `warn` keeps that visible in the log without letting one
-          # unrenderable sample preview gate every other module's diff. Fixing
-          # the preview itself (hoist the state out of `WearApp`, or drop the
-          # `@WearPreviewSmallRound`) belongs in that module, not here; tighten
-          # this back to `fail` once it renders.
-          missing-renders: warn
+          # The default. This was `warn` for one reason: the CLI auto-injects
+          # the plugin into *every* module in the build, not just the ten that
+          # opt in, so the render also picks up the sample apps, and
+          # `:ai:sample:wear-gemini`'s `DefaultPreview` previewed `WearApp()` —
+          # a Hilt-backed activity entry point — and produced no output, which
+          # sank the whole run and with it the baseline push (run #1 died
+          # exactly there). That preview now renders: its state is hoisted out
+          # of `WearApp`, so there is nothing left for `warn` to excuse and a
+          # preview that stops rendering should fail the run rather than
+          # scroll past in a log.
+          missing-renders: fail

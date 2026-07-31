@@ -48,15 +48,16 @@ jobs:
       # CLI that renders the bundle can never drift ahead of the applied plugin.
       cli-version: catalog
       catalog-key: composeAiTools
-      # Publish even when some previews fail to render or lack semantics.
-      #
-      # Needed today: eight of the 77 previews are dialog- or bottom-sheet-shaped
-      # and capture blank, because that content composes into its own window and
-      # the renderer captures the host activity's root
-      # (yschimke/compose-ai-tools, branch agent/dialog-window-capture). Without
-      # this the whole bundle would be withheld over a known, tracked renderer
-      # gap. Flip it back to false once that lands.
-      allow-incomplete: true
+      # Refuse to publish a degraded render, the default. This was `true` while
+      # the eight dialog- and bottom-sheet-shaped previews were catalogued: they
+      # capture blank (their content composes into its own window and the
+      # renderer captures the host activity's root), which the export reports as
+      # `no semantics for: …` and which sank the whole publish. Those eight are
+      # now withheld from `catalog.spec.json` rather than published as empty
+      # stickers — see catalog/README.md — so the gate is back on for everything
+      # the catalog does declare. Re-add them to the spec, not this flag, when
+      # yschimke/compose-ai-tools#3048 lands.
+      allow-incomplete: false
       # Carry the executable render bundle onto the delivery branch under bundle/
       # and record liveBundle in catalog.json, so the preview server re-renders the
       # previews live (device / theme / knob controls) instead of replaying baked

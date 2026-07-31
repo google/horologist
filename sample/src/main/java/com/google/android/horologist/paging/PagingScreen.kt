@@ -212,6 +212,10 @@ data class PagingItem(val item: Int, val loadedAt: LocalTime = LocalTime.now()) 
     }
 }
 
+// `PagingItem` stamps `LocalTime.now()` by default and renders it into the card, so a preview that
+// takes the default reports a diff on every single run — the previews below fix the time instead.
+private val PreviewLoadedAt: LocalTime = LocalTime.of(8, 10, 9)
+
 @WearPreviewSquare
 @Composable
 fun PagingItemCardPreviewWithDelayedContent() {
@@ -219,7 +223,7 @@ fun PagingItemCardPreviewWithDelayedContent() {
         var item by remember { mutableStateOf<PagingItem?>(null) }
         LaunchedEffect(Unit) {
             delay(1000)
-            item = PagingItem(10)
+            item = PagingItem(10, PreviewLoadedAt)
         }
         PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
     }
@@ -229,7 +233,7 @@ fun PagingItemCardPreviewWithDelayedContent() {
 @Composable
 fun PagingItemCardPreviewWithInitialContent() {
     Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        val item = remember { PagingItem(10) }
+        val item = remember { PagingItem(10, PreviewLoadedAt) }
         PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
     }
 }

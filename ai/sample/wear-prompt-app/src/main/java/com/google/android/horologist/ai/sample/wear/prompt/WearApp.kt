@@ -21,8 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material3.AppScaffold
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
-import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
-import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.ai.sample.wear.prompt.prompt.SamplePromptScreen
 import com.google.android.horologist.ai.sample.wear.prompt.settings.SettingsScreen
 import com.google.android.horologist.compose.nav.SwipeDismissableNavHost
@@ -50,9 +48,9 @@ fun WearApp(
     }
 }
 
-@WearPreviewSmallRound
-@WearPreviewLargeRound
-@Composable
-fun DefaultPreview() {
-    WearApp()
-}
+// There is deliberately no `@Preview` of `WearApp()`. Its nav host resolves `SamplePromptScreen`,
+// which reaches for `hiltViewModel()`, and there is no Hilt-enabled activity behind a preview — so
+// the capture produces no image at all and fails the render outright. The same fix as
+// `:ai:sample:wear-gemini`: preview the screens, which already have stateless overloads and their
+// own previews in `prompt/SamplePromptScreen.kt` and `settings/SettingsScreen.kt`, so nothing is
+// lost by dropping this one.

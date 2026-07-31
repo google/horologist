@@ -232,6 +232,58 @@
           "componentId": "AuthWearSignInPromptScreenLoading",
           "preview": "AuthWearSignInPromptScreenLoading",
           "caption": "Sign In Prompt Screen Loading"
+        },
+        {
+          "componentId": "AuthWearSignedInConfirmationDialog",
+          "preview": "AuthWearSignedInConfirmationDialog",
+          "caption": "Signed In Confirmation Dialog"
+        },
+        {
+          "componentId": "AuthWearSignedInConfirmationDialogEmailOnly",
+          "preview": "AuthWearSignedInConfirmationDialogEmailOnly",
+          "caption": "Signed In Confirmation Dialog Email Only"
+        },
+        {
+          "componentId": "AuthWearSignedInConfirmationDialogTruncated",
+          "preview": "AuthWearSignedInConfirmationDialogTruncated",
+          "caption": "Signed In Confirmation Dialog Truncated"
+        }
+      ]
+    },
+    {
+      "name": "Auth Mobile",
+      "blurb": "The phone half of the sign-in story, from `:datalayer:phone-ui` — Material 3 on a phone, rendered in the same pass as the Wear auth stickers above.",
+      "components": [
+        {
+          "componentId": "AuthMobileSignInBottomSheet",
+          "preview": "AuthMobileSignInBottomSheet",
+          "caption": "Sign In Bottom Sheet"
+        },
+        {
+          "componentId": "AuthMobileSignInBottomSheetCustomLabels",
+          "preview": "AuthMobileSignInBottomSheetCustomLabels",
+          "caption": "Sign In Bottom Sheet Custom Labels"
+        }
+      ]
+    },
+    {
+      "name": "DataLayer Mobile",
+      "blurb": "The three prompts a phone app shows to push its user towards the watch app.",
+      "components": [
+        {
+          "componentId": "DataLayerMobileInstallAppBottomSheet",
+          "preview": "DataLayerMobileInstallAppBottomSheet",
+          "caption": "Install App Bottom Sheet"
+        },
+        {
+          "componentId": "DataLayerMobileInstallTileBottomSheet",
+          "preview": "DataLayerMobileInstallTileBottomSheet",
+          "caption": "Install Tile Bottom Sheet"
+        },
+        {
+          "componentId": "DataLayerMobileReEngageBottomSheet",
+          "preview": "DataLayerMobileReEngageBottomSheet",
+          "caption": "Re Engage Bottom Sheet"
         }
       ]
     },

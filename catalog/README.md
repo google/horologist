@@ -92,33 +92,29 @@ they are — they're the library author's working previews. This module is the c
 one place where a surface is previewed with realistic data, on the device it ships to, grouped so a
 reader can navigate by area rather than by Gradle path.
 
-## Known gap: dialogs and bottom sheets render blank, and are withheld
+## Dialogs and bottom sheets
 
-72 of the 80 previews render with real content. The 8 that don't are all dialog-shaped:
+All 80 previews render with real content. The 8 dialog-shaped ones —
+`AuthWearSignedInConfirmationDialog` and its two variants (Wear `Dialog`), plus every `Auth Mobile`
+and `DataLayer Mobile` sticker (`ModalBottomSheet`) — were withheld from
+[`catalog.spec.json`](../catalog.spec.json) until compose-ai-tools 0.19.13, and are back in it now.
 
-- `AuthWearSignedInConfirmationDialog` and its two variants (Wear `Dialog`)
-- every `Auth Mobile` and `DataLayer Mobile` sticker (`ModalBottomSheet`)
+They compose into their own window with their own `ViewRootImpl` and Compose root, rather than into
+the host activity's content view. The renderer used to prefer the activity's root unconditionally,
+which for these is present but empty: the previews were discovered, sized (411×914dp for the phone
+sheets) and grouped correctly, but the exported tree had nothing in it — so they reported under
+`no semantics for: …` and the sticker was the whole activity window with the component floating in
+it. Fixed upstream in
+[yschimke/compose-ai-tools#3048](https://github.com/yschimke/compose-ai-tools/issues/3048): the
+renderer now picks the dialog's root and crops the capture to the dialog's own window.
 
-`Dialog`- and `ModalBottomSheet`-based composables compose into their own window with their own
-`ViewRootImpl` and Compose root, and the renderer's capture reads the host activity's root. Those
-previews are discovered, sized (411×914dp for the phone sheets), and grouped correctly — only the
-pixels are missing, and with them the semantics tree, so the export reports them under
-`no semantics for: …`.
+Two things worth knowing when reading these stickers:
 
-This is a renderer-side limitation, not a catalog one: the same previews are blank whether they
-live here or in a library's `src/debug`. Tracked upstream as
-[yschimke/compose-ai-tools#3048](https://github.com/yschimke/compose-ai-tools/issues/3048), with a
-reproduction and the investigation notes on `agent/dialog-window-capture` — capturing the dialog's
-decor view fails Espresso's activity-scoped view matching, and capturing its Compose root returns
-transparent pixels because the capture path is bound to the activity window's surface.
+- A Wear `Dialog` is centred in its window, so its sticker is cropped to the dialog itself rather
+  than to the 227dp round screen the other Wear stickers show.
+- A `ModalBottomSheet`'s window fills the screen, so its sticker keeps the full 411×914dp phone
+  frame — the crop is a no-op there. What changed for those is the semantics, which is what the
+  completeness gate was failing on.
 
-**The eight are withheld from [`catalog.spec.json`](../catalog.spec.json)** rather than published
-as empty stickers. A blank sticker on a browsable sheet is worse than an absent one: it reads as
-"this is what the component looks like". Withholding them also lets `design-artifacts.yml` run with
-`allow-incomplete: false`, so the completeness gate stays on for everything the catalog *does*
-declare — with the flag set, a genuinely broken render elsewhere would have published unnoticed.
-
-The `@Preview`s stay in this module, so when #3048 lands the fix is to put the entries back in the
-spec — the previews themselves need no change. Note the whole phone form factor is in that set:
-every `Auth Mobile` and `DataLayer Mobile` sticker is a `ModalBottomSheet`, so the published catalog
-is Wear-only until then.
+`design-artifacts.yml` runs with `allow-incomplete: false`, so the completeness gate is on for
+everything the catalog declares.

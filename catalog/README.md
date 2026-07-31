@@ -82,7 +82,7 @@ intrinsic size, so it also collapsed the layout around it. That is what the top 
 the same three previews, same code, one plugin version earlier
 ([compose-ai-tools#2952](https://github.com/yschimke/compose-ai-tools/issues/2952)):
 
-![Artwork previews before and after the coil fix](docs/artwork-before-after.png)
+![Artwork previews before and after the coil fix](images/artwork-before-after.png)
 
 ## Relationship to the per-library previews
 

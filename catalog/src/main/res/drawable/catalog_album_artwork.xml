@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2026 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--
+  Stand-in album art for the Media section's artwork-bearing previews.
+
+  A local vector rather than a remote URL on purpose: the renderer resolves coil
+  requests inline, but deliberately refuses `http(s)://` models, because a preview
+  whose pixels depend on live egress is not reproducible. A drawable resource is
+  a real coil load — same `CoilPaintable`, same `AsyncImagePainter` — that renders
+  identically on every machine.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="96dp"
+    android:height="96dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+  <path
+      android:fillColor="#1B4B5A"
+      android:pathData="M0,0h96v96h-96z" />
+  <path
+      android:fillColor="#2E7D8F"
+      android:pathData="M0,60l24,-22 22,18 26,-30 24,20v50h-96z" />
+  <path
+      android:fillColor="#F2C14E"
+      android:pathData="M48,48m-18,0a18,18 0,1 1,36 0a18,18 0,1 1,-36 0" />
+  <path
+      android:fillColor="#1B4B5A"
+      android:pathData="M48,48m-5,0a5,5 0,1 1,10 0a5,5 0,1 1,-10 0" />
+</vector>

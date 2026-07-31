@@ -77,6 +77,8 @@ dependencies {
   implementation(projects.composeMaterial)
   implementation(projects.health.composables)
   implementation(projects.images.base)
+  // `CoilPaintable`, for the Media section's artwork-bearing previews.
+  implementation(projects.images.coil)
   implementation(projects.media.audioUiMaterial3)
   implementation(projects.media.audioUiModel)
   implementation(projects.media.uiMaterial3)

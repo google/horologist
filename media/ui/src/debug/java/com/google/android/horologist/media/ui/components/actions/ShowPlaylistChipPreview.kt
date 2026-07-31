@@ -24,13 +24,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.images.base.util.rememberVectorPainter
 import com.google.android.horologist.images.coil.CoilPaintable
+import com.google.android.horologist.media.ui.SampleArtworkUri
 
 @WearPreview
 @Composable
 fun ShowPlaylistChipPreview() {
     ShowPlaylistChip(
         artworkPaintable = CoilPaintable(
-            "artworkUri",
+            SampleArtworkUri,
             rememberVectorPainter(
                 image = Icons.AutoMirrored.Default.FeaturedPlayList,
                 tintColor = Color.Green,
@@ -64,7 +65,7 @@ fun ShowPlaylistChipPreviewNoArtwork() {
 fun ShowPlaylistChipPreviewNoName() {
     ShowPlaylistChip(
         artworkPaintable = CoilPaintable(
-            "artworkUri",
+            SampleArtworkUri,
             rememberVectorPainter(
                 image = Icons.AutoMirrored.Default.FeaturedPlayList,
                 tintColor = Color.Green,
@@ -84,7 +85,7 @@ fun ShowPlaylistChipPreviewNoName() {
 fun ShowPlaylistChipPreviewVeryLongName() {
     ShowPlaylistChip(
         artworkPaintable = CoilPaintable(
-            "artworkUri",
+            SampleArtworkUri,
             rememberVectorPainter(
                 image = Icons.AutoMirrored.Default.FeaturedPlayList,
                 tintColor = Color.Green,

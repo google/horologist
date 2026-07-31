@@ -188,27 +188,19 @@ internal fun MediaArtwork() {
 
 // --- List / screen surfaces -------------------------------------------------------------------
 
-/**
- * Artwork-less, and deliberately: the `MediaUiModel.Ready` overload hands `media.artwork` — already
- * a `Paintable` — to `CoilPaintable` as its *model*, which coil has nothing to do with, so the icon
- * slot stays empty however the model is populated. [MediaDetailsButtonWithArtwork] is the same
- * button reached through the overload that does work.
- */
+/** The artwork-less state: no artwork on the model, and no placeholder supplied either. */
 @MediaCatalog
 @Composable
 internal fun MediaDetailsButton() {
   Centred { MediaDetailsButton(media = WeatherWithYou, onClick = {}) }
 }
 
+/** The same button through the `MediaUiModel.Ready` overload real callers use. */
 @MediaCatalog
 @Composable
 internal fun MediaDetailsButtonWithArtwork() {
   Centred {
-    MediaDetailsButton(
-      title = WeatherWithYou.title,
-      artworkPaintable = Artwork,
-      onClick = {},
-    )
+    MediaDetailsButton(media = WeatherWithYou.copy(artwork = Artwork), onClick = {})
   }
 }
 
@@ -246,8 +238,12 @@ internal fun MediaEntityScreenWithArtwork() {
       content = {
         items(3) { index ->
           MediaDetailsButton(
-            title = "Track ${index + 1}",
-            artworkPaintable = Artwork,
+            media =
+              WeatherWithYou.copy(
+                id = index.toString(),
+                title = "Track ${index + 1}",
+                artwork = Artwork,
+              ),
             onClick = {},
           )
         }

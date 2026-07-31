@@ -24,6 +24,7 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.images.base.util.rememberVectorPainter
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
+import com.google.android.horologist.media.ui.SampleArtworkUri
 
 @WearPreviewDevices
 @Composable
@@ -197,13 +198,13 @@ private val notDownloaded = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.NotDownloaded(
         id = "id 2",
         title = "Song name 2",
         artist = "Artist name 2",
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
 )
 
@@ -212,14 +213,14 @@ private val notDownloadedAndDownloading = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
         progress = DownloadMediaUiModel.Progress.InProgress(78f),
         size = DownloadMediaUiModel.Size.Known(sizeInBytes = 123456L),
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
 )
 
@@ -228,14 +229,14 @@ private val downloadedAndDownloadingUnknown = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
         progress = DownloadMediaUiModel.Progress.InProgress(78f),
         size = DownloadMediaUiModel.Size.Unknown,
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
 )
 
@@ -244,14 +245,14 @@ private val downloadedAndDownloadingWaiting = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.Downloading(
         id = "id 2",
         title = "Song name 2",
         progress = DownloadMediaUiModel.Progress.Waiting,
         size = DownloadMediaUiModel.Size.Unknown,
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
 )
 
@@ -260,13 +261,13 @@ private val downloadedNotDownloaded = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.NotDownloaded(
         id = "id 2",
         title = "Song name 2",
         artist = "Artist name 2",
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
 )
 
@@ -275,12 +276,12 @@ private val downloaded = listOf(
         id = "id",
         title = "Song name",
         artist = "Artist name",
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.Downloaded(
         id = "id 2",
         title = "Song name 2",
         artist = "Artist name 2",
-        artworkUri = "artworkUri",
+        artworkUri = SampleArtworkUri,
     ),
 )

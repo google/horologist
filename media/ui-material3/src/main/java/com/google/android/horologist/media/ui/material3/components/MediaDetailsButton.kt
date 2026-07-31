@@ -30,7 +30,6 @@ import androidx.wear.compose.material3.FilledTonalButton
 import androidx.wear.compose.material3.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.images.base.paintable.Paintable
-import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 /**
@@ -53,15 +52,26 @@ public fun MediaDetailsButton(
     defaultTitle: String = "",
     placeholder: Painter? = null,
 ) {
-    val artworkUri = media.artwork
     val title = media.title
 
     MediaDetailsButton(
         title = title.takeIf { it.isNotEmpty() } ?: defaultTitle,
-        artworkPaintable = CoilPaintable(artworkUri, placeholder),
+        // `media.artwork` is already a `Paintable` — usually a `CoilPaintable` built from the
+        // media's artwork uri by `MediaUiModelMapper`. It used to be wrapped in a second
+        // `CoilPaintable` as if it were a coil *model*, which coil has nothing to do with, so the
+        // load could never succeed and every caller got the placeholder no matter what artwork they
+        // set. Pass it straight through, and fall back to the placeholder only when there is no
+        // artwork at all.
+        artworkPaintable = media.artwork ?: placeholder?.let(::PainterPaintable),
         onClick = onClick,
         modifier = modifier,
     )
+}
+
+/** Adapts an already-resolved [Painter] to [Paintable], for the no-artwork fallback above. */
+private class PainterPaintable(private val painter: Painter) : Paintable {
+    @Composable
+    override fun rememberPainter(): Painter = painter
 }
 
 /**

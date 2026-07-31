@@ -23,6 +23,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.images.base.util.rememberVectorPainter
+import com.google.android.horologist.images.coil.CoilPaintable
+import com.google.android.horologist.media.ui.SampleArtworkUri
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @WearPreview
@@ -32,7 +34,7 @@ fun MediaChipPreview() {
         media = MediaUiModel.Ready(
             id = "id",
             title = "Red Hot Chilli Peppers",
-            artwork = null,
+            artwork = CoilPaintable(SampleArtworkUri),
         ),
         onClick = {},
         placeholder = rememberVectorPainter(
@@ -88,7 +90,7 @@ fun MediaChipPreviewVeryLongTitle() {
         media = MediaUiModel.Ready(
             id = "id",
             title = "Very very very very very very very very very very very very very very very very very very very long title",
-            artwork = null,
+            artwork = CoilPaintable(SampleArtworkUri),
         ),
         onClick = {},
         placeholder = rememberVectorPainter(

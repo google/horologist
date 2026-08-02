@@ -8,25 +8,38 @@ name: Design Artifacts
 # All the work lives in the reusable pipeline in compose-ai-tools; this file is
 # just the trigger set and the inputs.
 #
+# The catalog is developed on `previews`, so that — not `main` — is the branch
+# this publishes from.
+#
 # When it runs:
 #   - weekly (Monday 06:00 UTC) — the delivery branch is a force-pushed
 #     snapshot, and the renderer moves underneath it even when this repo is
 #     unchanged. The cron is what picks that drift up.
 #   - on demand, via workflow_dispatch.
-#   - on push to `main` when the catalog, its spec, or the pinned
+#   - on push to `previews` when the catalog, its spec, or the pinned
 #     compose-ai-tools version changes. That last one is the "compose-ai-tools
 #     was updated" case in the form this repo can actually observe: renovate
 #     bumps `composeAiTools` in the version catalog, and that bump changes the
 #     rendered output. A release upstream that this repo has not yet pinned is
 #     picked up by the cron rather than immediately — closing that gap would
 #     need a repository_dispatch from compose-ai-tools.
+#
+# Note the asymmetry between the two branch-sensitive triggers, which is why
+# `ref:` below is not redundant with `branches:` above. A `push` run uses the
+# workflow file from the pushed commit and checks that commit out, so it needs
+# `branches: [previews]`. A `schedule` run only ever fires for the copy of this
+# file on the *default* branch and checks that branch out — GitHub gives no way
+# to schedule against another ref — so without an explicit `ref: previews` the
+# weekly run would render `main`'s stale catalog and force-push it over the
+# delivery branch, quietly undoing whatever the last push-triggered run
+# published.
 
 on:
   schedule:
     - cron: '0 6 * * 1'
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: [previews]
     paths:
       - 'catalog/**'
       - 'catalog.spec.json'
@@ -44,19 +57,23 @@ jobs:
       system: horologist
       spec: catalog.spec.json
       module: ':catalog'
+      # The branch the catalog lives on. Needed for the `schedule` run, which
+      # fires only on the default branch and would otherwise render `main`; a
+      # `push` run to `previews` already checks out the right commit and is
+      # unaffected by this. See the note at the top of the file.
+      ref: previews
       # Track the plugin version pinned in this repo's version catalog, so the
       # CLI that renders the bundle can never drift ahead of the applied plugin.
       cli-version: catalog
       catalog-key: composeAiTools
-      # Refuse to publish a degraded render, the default. This was `true` while
-      # the eight dialog- and bottom-sheet-shaped previews were catalogued: they
-      # capture blank (their content composes into its own window and the
-      # renderer captures the host activity's root), which the export reports as
-      # `no semantics for: …` and which sank the whole publish. Those eight are
-      # now withheld from `catalog.spec.json` rather than published as empty
-      # stickers — see catalog/README.md — so the gate is back on for everything
-      # the catalog does declare. Re-add them to the spec, not this flag, when
-      # yschimke/compose-ai-tools#3048 lands.
+      # Refuse to publish a degraded render, the default. This was briefly `true`,
+      # then the eight dialog- and bottom-sheet-shaped previews were withheld from
+      # the spec instead: they captured blank, which the export reported as
+      # `no semantics for: …` and which sank the whole publish. compose-ai-tools
+      # 0.19.13 fixed that capture (yschimke/compose-ai-tools#3048) and the eight
+      # are back in `catalog.spec.json`, so the gate now covers all 80 stickers —
+      # if a dialog regresses to a blank capture the publish fails rather than
+      # shipping empty stickers, which is the point of keeping it on.
       allow-incomplete: false
       # Carry the executable render bundle onto the delivery branch under bundle/
       # and record liveBundle in catalog.json, so the preview server re-renders the

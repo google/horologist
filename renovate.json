@@ -6,6 +6,12 @@
     ":dependencyDashboard",
     "schedule:daily"
   ],
+  "description": "Renovate runs against two branches. `main` keeps the existing behaviour — everything, grouped by group:all, on the daily schedule. `previews` carries the design catalog and its compose-preview tooling, and is deliberately restricted to that tooling alone by the last two packageRules; without the restriction, baseBranches would duplicate every dependency PR onto a branch that only exists to hold the catalog.",
+  "baseBranches": [
+    "main",
+    "previews"
+  ],
+  "platformAutomerge": false,
   "commitMessageExtra": "{{{currentValue}}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
   "packageRules": [
     {
@@ -77,6 +83,34 @@
       ],
       "allowedVersions": "<1.4.0",
       "description": "Requires compileSdk 37"
+    },
+    {
+      "description": "`previews` exists only to carry the design catalog, so Renovate has no business updating the rest of the tree there — main already does that. Without this, adding `previews` to baseBranches would open a duplicate of every dependency PR against it. Must stay second-to-last: packageRules are applied in order and the rule below re-enables the one thing previews does need.",
+      "matchBaseBranches": [
+        "previews"
+      ],
+      "matchDepNames": [
+        "/.*/"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "The compose-preview plugin, pinned on `previews` by the composeAiTools key. design-artifacts.yml resolves the render CLI from that same key (cli-version: catalog, catalog-key: composeAiTools), so this pin IS the renderer that produces the published /horologist/ catalog — the sheet goes stale exactly when this goes stale, which is why it sat on 0.19.13 while upstream reached 0.19.18. Ungrouped from group:all and unscheduled so it lands on its own rather than waiting on a repo-wide PR, and automerged so it actually moves: the catalog only republishes when a bump reaches previews, via the gradle/libs.versions.toml path in design-artifacts.yml's push trigger. platformAutomerge is false above, so Renovate waits for every check on the branch instead of handing the PR to GitHub's native auto-merge, which only waits for checks branch protection marks required.",
+      "matchBaseBranches": [
+        "previews"
+      ],
+      "matchPackageNames": [
+        "/^ee\\.schimke\\.composeai($|[.:])/"
+      ],
+      "enabled": true,
+      "groupName": "compose-ai-tools",
+      "schedule": [
+        "at any time"
+      ],
+      "automerge": true,
+      "automergeSchedule": [
+        "at any time"
+      ]
     }
   ]
 }

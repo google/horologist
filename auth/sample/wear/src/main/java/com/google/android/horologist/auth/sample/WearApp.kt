@@ -37,13 +37,16 @@ import com.google.android.horologist.auth.sample.screens.tokenshare.customkey.To
 import com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.TokenShareDefaultKeyScreen
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
+import com.google.android.horologist.compose.tools.PreviewTimeSource
 
 @Composable
 fun WearApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberSwipeDismissableNavController(),
+    timeText: @Composable () -> Unit = { ResponsiveTimeText() },
 ) {
-    AppScaffold(modifier = modifier) {
+    AppScaffold(modifier = modifier, timeText = timeText) {
         SwipeDismissableNavHost(
             startDestination = Screen.MainScreen.route,
             navController = navController,
@@ -95,5 +98,5 @@ fun WearApp(
 @WearPreviewSmallRound
 @Composable
 fun DefaultPreview() {
-    WearApp()
+    WearApp(timeText = { ResponsiveTimeText(timeSource = PreviewTimeSource) })
 }

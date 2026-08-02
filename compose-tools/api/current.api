@@ -41,6 +41,11 @@ package com.google.android.horologist.compose.tools {
     property public static com.google.android.horologist.compose.tools.Device SamsungGalaxyWatch6Large;
   }
 
+  public final class PreviewTimeSource implements androidx.wear.compose.material.TimeSource {
+    property public String currentTime;
+    field public static final com.google.android.horologist.compose.tools.PreviewTimeSource INSTANCE;
+  }
+
   public final class ThemeColors {
     ctor public ThemeColors();
     ctor @KotlinOnly public ThemeColors(optional androidx.compose.ui.graphics.Color primary, optional androidx.compose.ui.graphics.Color primaryVariant, optional androidx.compose.ui.graphics.Color secondary, optional androidx.compose.ui.graphics.Color secondaryVariant, optional androidx.compose.ui.graphics.Color background, optional androidx.compose.ui.graphics.Color surface, optional androidx.compose.ui.graphics.Color error, optional androidx.compose.ui.graphics.Color onPrimary, optional androidx.compose.ui.graphics.Color onSecondary, optional androidx.compose.ui.graphics.Color onBackground, optional androidx.compose.ui.graphics.Color onSurface, optional androidx.compose.ui.graphics.Color onSurfaceVariant, optional androidx.compose.ui.graphics.Color onError);

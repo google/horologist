@@ -21,6 +21,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.wear.compose.material.Icon
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionResult
@@ -38,6 +39,15 @@ public fun LottieAnimationWithPlaceholder(
     modifier: Modifier = Modifier,
     dynamicProperties: LottieDynamicProperties? = null,
 ) {
+    if (LocalInspectionMode.current) {
+        Icon(
+            modifier = modifier,
+            imageVector = placeholder,
+            contentDescription = contentDescription,
+        )
+        return
+    }
+
     // False positive - https://issuetracker.google.com/issues/349411310
     @Suppress("ProduceStateDoesNotAssignValue")
     val isCompositionReady by produceState(initialValue = false, producer = {

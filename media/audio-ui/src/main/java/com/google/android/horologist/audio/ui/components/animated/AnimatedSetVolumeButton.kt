@@ -24,6 +24,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
@@ -32,6 +33,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
 import com.google.android.horologist.audio.ui.VolumeUiState
 
 /**
@@ -58,13 +60,13 @@ public fun AnimatedSetVolumeButton(
     LaunchedEffect(volumeUiState) {
         val lastVolumeBefore = lastVolume
         lastVolume = volumeUiState.current
-        if (volumeUiState.current > lastVolumeBefore) {
-            lottieAnimatable.animate(
+        when {
+            volumeUiState.current > lastVolumeBefore -> lottieAnimatable.animate(
                 iterations = 1,
                 composition = volumeUp,
             )
-        } else {
-            lottieAnimatable.animate(
+
+            volumeUiState.current < lastVolumeBefore -> lottieAnimatable.animate(
                 iterations = 1,
                 composition = volumeDown,
             )
@@ -76,10 +78,14 @@ public fun AnimatedSetVolumeButton(
         onClick = onVolumeClick,
         colors = ButtonDefaults.iconButtonColors(),
     ) {
-        LottieAnimation(
-            composition = volumeDown,
-            modifier = Modifier.size(24.dp),
-            progress = { lottieAnimatable.progress },
-        )
+        if (LocalInspectionMode.current) {
+            DecreaseIcon()
+        } else {
+            LottieAnimation(
+                composition = volumeDown,
+                modifier = Modifier.size(24.dp),
+                progress = { lottieAnimatable.progress },
+            )
+        }
     }
 }

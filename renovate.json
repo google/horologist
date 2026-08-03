@@ -9,6 +9,17 @@
   "commitMessageExtra": "{{{currentValue}}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
   "packageRules": [
     {
+      "description": "compose-ai-tools ships the preview CLI and the ee.schimke.composeai Gradle plugin as a single release, and that release IS the renderer behind the published catalog. The repo-wide `group:all` folds it into the single all-dependencies PR, which only lands when EVERY dependency in it is green — that is how the composeAiTools pin fell twelve releases behind while the catalog kept serving output from a renderer the repo had long moved off. Break it out into its own PR, off the daily batching window, so a renderer bump can land on its own merits.",
+      "matchPackageNames": [
+        "yschimke/compose-ai-tools",
+        "/^ee\\.schimke\\.composeai($|[.:])/"
+      ],
+      "groupName": "compose-ai-tools",
+      "schedule": [
+        "at any time"
+      ]
+    },
+    {
       "matchPackagePatterns": [
         "androidx.compose.compiler:compiler"
       ],

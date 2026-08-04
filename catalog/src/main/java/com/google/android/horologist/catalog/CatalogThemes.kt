@@ -17,52 +17,88 @@
 package com.google.android.horologist.catalog
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.PreviewWrapperProvider
+import com.google.android.horologist.compose.tools.ThemeColors
+import com.google.android.horologist.compose.tools.themeValues
+import ee.schimke.composeai.preview.WearThemeCatalog
 
 /**
- * The two themes the catalog renders under.
+ * Dark custom themes shared by both Wear Material generations in the catalog.
  *
- * Both form factors need one, and they are genuinely different types — `wear.compose.material3`'s
- * `MaterialTheme` is not `compose.material3`'s — which is the one place the shared module shows the
- * seam. Everything else about the catalog is form-factor agnostic.
+ * Horologist already carries these palettes in `:compose-tools` for its preview and screenshot
+ * coverage. Each provider installs the same palette into Wear Material 3 and Wear Material 2.
  */
-private val CatalogPrimary = Color(0xFFD3E3FD)
+private val BlueTheme = themeValues.single { it.index == 0 }.themeColors
 
-private val CatalogOnPrimary = Color(0xFF001944)
+private val LilacTheme = themeValues.single { it.index == 2 }.themeColors
 
-private val CatalogPrimaryContainer = Color(0xFF04409F)
+private val GreenTheme = themeValues.single { it.index == 3 }.themeColors
 
-private val CatalogOnPrimaryContainer = Color(0xFFD3E3FD)
+@WearThemeCatalog(name = "Blue", group = "Horologist · Dark")
+public class HorologistBlueThemeCatalog : PreviewWrapperProvider {
+  @Composable
+  override fun Wrap(content: @Composable () -> Unit) {
+    HorologistCatalogTheme(colors = BlueTheme, content = content)
+  }
+}
 
-private val CatalogSurfaceContainer = Color(0xFF29303D)
+@WearThemeCatalog(name = "Lilac", group = "Horologist · Dark")
+public class HorologistLilacThemeCatalog : PreviewWrapperProvider {
+  @Composable
+  override fun Wrap(content: @Composable () -> Unit) {
+    HorologistCatalogTheme(colors = LilacTheme, content = content)
+  }
+}
 
-private val CatalogOnSurface = Color(0xFFEBF1FF)
+@WearThemeCatalog(name = "Green", group = "Horologist · Dark")
+public class HorologistGreenThemeCatalog : PreviewWrapperProvider {
+  @Composable
+  override fun Wrap(content: @Composable () -> Unit) {
+    HorologistCatalogTheme(colors = GreenTheme, content = content)
+  }
+}
+
+@Composable
+private fun HorologistCatalogTheme(colors: ThemeColors, content: @Composable () -> Unit) {
+  androidx.wear.compose.material.MaterialTheme(colors = colors.toColors()) {
+    val base = androidx.wear.compose.material3.MaterialTheme.colorScheme
+    androidx.wear.compose.material3.MaterialTheme(
+      colorScheme =
+        base.copy(
+          primary = colors.primary,
+          onPrimary = colors.onPrimary,
+          primaryContainer = colors.primaryVariant,
+          onPrimaryContainer = colors.onPrimary,
+          secondary = colors.secondary,
+          onSecondary = colors.onSecondary,
+          secondaryContainer = colors.secondaryVariant,
+          onSecondaryContainer = colors.onSecondary,
+          background = colors.background,
+          onBackground = colors.onBackground,
+          surfaceContainer = colors.surface,
+          onSurface = colors.onSurface,
+          error = colors.error,
+          onError = colors.onError,
+        ),
+      content = content,
+    )
+  }
+}
 
 /**
- * Wear theme, matching the palette the auth and media samples ship so the catalog and the samples
- * are comparable side by side.
+ * The default theme is installed by the catalog annotation's preview wrapper. Keeping these small
+ * pass-through seams avoids touching every preview body while allowing a selected custom provider
+ * to remain the outermost and only theme installer.
  */
 @Composable
 internal fun CatalogWearTheme(content: @Composable () -> Unit) {
-  androidx.wear.compose.material3.MaterialTheme(
-    colorScheme =
-      androidx.wear.compose.material3.MaterialTheme.colorScheme.copy(
-        primary = CatalogPrimary,
-        onPrimary = CatalogOnPrimary,
-        primaryContainer = CatalogPrimaryContainer,
-        onPrimaryContainer = CatalogOnPrimaryContainer,
-        onBackground = Color.White,
-        surfaceContainer = CatalogSurfaceContainer,
-        onSurface = CatalogOnSurface,
-      ),
-    content = content,
-  )
+  content()
 }
 
 /** Wear Material 2 theme, for the `:compose-material` and `:composables` sections. */
 @Composable
 internal fun CatalogWearMaterial2Theme(content: @Composable () -> Unit) {
-  androidx.wear.compose.material.MaterialTheme(content = content)
+  content()
 }
 
 /** Mobile theme, for the `:datalayer:phone-ui` sections. */

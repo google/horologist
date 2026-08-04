@@ -75,6 +75,7 @@ dependencies {
   implementation(projects.composables)
   implementation(projects.composeLayout)
   implementation(projects.composeMaterial)
+  implementation(projects.composeTools)
   implementation(projects.health.composables)
   implementation(projects.images.base)
   // `CoilPaintable`, for the Media section's artwork-bearing previews.
@@ -95,6 +96,7 @@ dependencies {
   implementation(libs.compose.ui.graphics)
   implementation(libs.compose.ui.text)
   implementation(libs.compose.ui.unit)
+  implementation(libs.composeAiPreviewAnnotations)
   implementation(libs.wearcompose.foundation)
   implementation(libs.wearcompose.material)
   implementation(libs.androidx.wear.compose.material3)

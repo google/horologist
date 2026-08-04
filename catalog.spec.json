@@ -6,6 +6,9 @@
     "dark",
     "light"
   ],
+  "display": {
+    "surface": "dark"
+  },
   "groups": [
     {
       "name": "Material",

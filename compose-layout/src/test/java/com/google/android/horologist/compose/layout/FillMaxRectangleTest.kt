@@ -18,12 +18,14 @@ package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.unit.dp
 import androidx.test.filters.MediumTest
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
 import org.junit.Assert.assertEquals
@@ -68,6 +70,29 @@ class FillMaxRectangleTest {
         }
 
         val width = composeTestRule.onRoot().fetchSemanticsNode().size.width
+        val safeWidth = composeTestRule.onNodeWithTag("boxInset").fetchSemanticsNode().size.width
+
+        val expectedWidth = sqrt(2.0 * (width.toDouble() / 2).pow(2.0))
+        assertEquals(expectedWidth, safeWidth.toDouble(), 1.0)
+    }
+
+    @Test
+    @Config(
+        sdk = [35],
+        qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
+    )
+    fun testCircleUsesAvailableConstraints() {
+        composeTestRule.setContent {
+            Box(modifier = Modifier.size(100.dp).testTag("container")) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxRectangle()
+                        .testTag("boxInset"),
+                )
+            }
+        }
+
+        val width = composeTestRule.onNodeWithTag("container").fetchSemanticsNode().size.width
         val safeWidth = composeTestRule.onNodeWithTag("boxInset").fetchSemanticsNode().size.width
 
         val expectedWidth = sqrt(2.0 * (width.toDouble() / 2).pow(2.0))

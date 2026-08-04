@@ -18,10 +18,9 @@ and cost a second module, a second render invocation, and a duplicated dependenc
 end to end: a single `composePreviewRenderAll` renders the Wear stickers at 227×227dp and the phone
 stickers at 411×914dp in the same pass.
 
-## How sections are declared
+## How groups and sections are declared
 
-Sections are annotations, not configuration. There is no catalog JSON, no manifest, and no registry
-to keep in sync — [`CatalogPreviews.kt`](src/main/java/com/google/android/horologist/catalog/CatalogPreviews.kt)
+Preview groups are annotations. [`CatalogPreviews.kt`](src/main/java/com/google/android/horologist/catalog/CatalogPreviews.kt)
 declares one multipreview annotation per (area, form factor) pair, each fixing the device, the
 background, and the `group`:
 
@@ -39,27 +38,30 @@ internal fun MediaNothingPlayingDisplay() { … }
 ```
 
 The group reaches `previews.json` and the rendered filenames
-(`MediaNothingPlayingDisplay_Media.png`), so the grouping is visible to every downstream consumer
-without anything else being declared anywhere.
+(`MediaNothingPlayingDisplay_Media.png`). [`catalog.spec.json`](../catalog.spec.json) maps those
+groups into the preview server's broader top-level sections: **Auth**, **Media**, **AI**, **Audio**,
+**Health**, **Data Layer**, and **Core UI**. Core UI combines the Material, Composables, and Layout
+groups; Auth combines its Wear and Mobile groups.
 
 The form factor is only spelled out when an area spans both — `Auth Wear` / `Auth Mobile`. An area
 that only exists on the watch is just `Media`, `Material`, `Composables`, `Health`, and reads as
 Wear by default, matching how Horologist itself is described.
 
-Adding an area means adding an annotation and a file. Nothing in the build wiring is per-area.
+Adding an area means adding an annotation and a file, then assigning its spec group to a section.
+Nothing in the build wiring is per-area.
 
-| Section | Form factor | Previews | Source library |
-| --- | --- | --- | --- |
-| Material | Wear | 16 | `:compose-material` |
-| Media | Wear | 16 | `:media:ui-material3` |
-| Auth Wear | Wear | 13 | `:auth:composables-material3`, `:auth:ui-material3` |
-| Composables | Wear | 10 | `:composables` |
-| Health | Wear | 7 | `:health:composables` |
-| Audio | Wear | 5 | `:media:audio-ui-material3` |
-| AI | Wear | 5 | `:ai:ui` |
-| Layout | Wear | 3 | `:compose-layout` |
-| DataLayer Mobile | Phone | 3 | `:datalayer:phone-ui` |
-| Auth Mobile | Phone | 2 | `:datalayer:phone-ui` |
+| Section | Group | Form factor | Previews | Source library |
+| --- | --- | --- | --- | --- |
+| Core UI | Material | Wear | 16 | `:compose-material` |
+| Media | Media | Wear | 16 | `:media:ui-material3` |
+| Auth | Auth Wear | Wear | 13 | `:auth:composables-material3`, `:auth:ui-material3` |
+| Core UI | Composables | Wear | 10 | `:composables` |
+| Health | Health | Wear | 7 | `:health:composables` |
+| Audio | Audio | Wear | 5 | `:media:audio-ui-material3` |
+| AI | AI | Wear | 5 | `:ai:ui` |
+| Core UI | Layout | Wear | 3 | `:compose-layout` |
+| Data Layer | DataLayer Mobile | Phone | 3 | `:datalayer:phone-ui` |
+| Auth | Auth Mobile | Phone | 2 | `:datalayer:phone-ui` |
 
 80 curated component previews are published, plus three generated dark-theme specimen sheets.
 Sections cover a component's *states*, not just its happy path — disabled

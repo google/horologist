@@ -61,8 +61,8 @@ Adding an area means adding an annotation and a file. Nothing in the build wirin
 | DataLayer Mobile | Phone | 3 | `:datalayer:phone-ui` |
 | Auth Mobile | Phone | 2 | `:datalayer:phone-ui` |
 
-80 previews in total, of which 72 are published — see the known gap below. Sections cover a
-component's *states*, not just its happy path — disabled
+80 curated component previews are published, plus three generated dark-theme specimen sheets.
+Sections cover a component's *states*, not just its happy path — disabled
 seek buttons at a queue end, an account row with no display name, a five-digit metric, an empty and
 a complete segmented indicator — because those are the cases that break and the ones a static
 screenshot is good at catching.
@@ -118,3 +118,21 @@ Two things worth knowing when reading these stickers:
 
 `design-artifacts.yml` runs with `allow-incomplete: false`, so the completeness gate is on for
 everything the catalog declares.
+
+## Custom themes
+
+The catalog exposes three dark themes: **Blue**, **Lilac**, and **Green**. They reuse palettes that
+Horologist already carries in `:compose-tools` for preview and screenshot coverage rather than
+inventing catalog-only colours.
+
+Each theme is a `@WearThemeCatalog` `PreviewWrapperProvider` whose wrapper installs the selected
+palette into both Wear Material 3 and Wear Material 2. The default Blue provider is inherited from
+the Wear section annotations through `@PreviewWrapperClass`. A live theme selection replaces that
+provider, so preview-local Wear theme wrappers deliberately remain pass-through and cannot shadow
+the selected theme. The five phone bottom-sheet previews keep their existing fixed Material 3
+presentation outside the Wear theme axis; wrapping their separate dialog window with a preview
+provider produces an empty capture.
+
+Discovery therefore reports 83 entries: the 80 curated previews from `catalog.spec.json` and the
+three generated theme specimen sheets. All custom themes use dark backgrounds and dark colour
+schemes; the catalog does not advertise a synthetic Wear light mode.

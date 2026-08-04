@@ -180,6 +180,7 @@ compose-material-ripple = { group = "androidx.compose.material", name = "materia
 compose-material3 = { module = "androidx.compose.material3:material3", version.ref = "compose-material3" } # version 2023.10.01 from BOM is crashing
 compose-remote-creation = { module = "androidx.compose.remote:remote-creation", version.ref = "composeRemote" }
 compose-remote-creation-compose = { module = "androidx.compose.remote:remote-creation-compose", version.ref = "composeRemote" }
+composeAiPreviewAnnotations = { module = "ee.schimke.composeai:preview-annotations", version.ref = "composeAiTools" }
 compose-runtime = { group = "androidx.compose.runtime", name = "runtime" }
 compose-ui = { group = "androidx.compose.ui", name = "ui" }
 compose-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics" }

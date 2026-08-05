@@ -17,24 +17,23 @@
 package com.google.android.horologist.compose.layout
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Stable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.debugInspectorInfo
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Constraints
+import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
- * A [Modifier] for adding padding for round devices for rectangular content.
+ * A [Modifier] for sizing rectangular content within round devices.
  *
- * If the device is round, an equal amount of padding required to inset the content inside the
- * circle.
+ * If the device is round, the content is measured as the largest square whose corners touch the
+ * circular boundary of the available layout constraints.
  *
- * This method assumes that the layout will fill the entire screen, and that there are no oval
- * devices.
+ * This method assumes that the available layout is square and that there are no oval devices.
  */
 @Stable
 public fun Modifier.fillMaxRectangle(): Modifier = composed(
@@ -43,12 +42,29 @@ public fun Modifier.fillMaxRectangle(): Modifier = composed(
     },
 ) {
     val isRound = LocalConfiguration.current.isScreenRound
-    var inset: Dp = 0.dp
-    if (isRound) {
-        val screenHeightDp = LocalConfiguration.current.screenHeightDp
-        val screenWidthDp = LocalConfiguration.current.smallestScreenWidthDp
-        val maxSquareEdge = (sqrt(((screenHeightDp * screenWidthDp) / 2).toDouble()))
-        inset = Dp(((screenHeightDp - maxSquareEdge) / 2).toFloat())
+    if (!isRound) {
+        return@composed fillMaxSize()
     }
-    fillMaxSize().padding(all = inset)
+
+    layout { measurable, constraints ->
+        if (!constraints.hasBoundedWidth || !constraints.hasBoundedHeight) {
+            val placeable = measurable.measure(constraints)
+            return@layout layout(placeable.width, placeable.height) {
+                placeable.placeRelative(0, 0)
+            }
+        }
+
+        val width = constraints.maxWidth
+        val height = constraints.maxHeight
+        val diameter = min(width, height)
+        val maxSquareEdge = (diameter / sqrt(2.0)).toInt()
+        val placeable = measurable.measure(Constraints.fixed(maxSquareEdge, maxSquareEdge))
+
+        layout(width, height) {
+            placeable.placeRelative(
+                x = (width - maxSquareEdge) / 2,
+                y = (height - maxSquareEdge) / 2,
+            )
+        }
+    }
 }

@@ -7,11 +7,6 @@ package com.google.android.horologist.remotecompose.lottie {
     property public static androidx.compose.runtime.ProvidableCompositionLocal<com.google.android.horologist.remotecompose.lottie.LottieSettings> LocalAnimationSettings;
   }
 
-  public final class LottiePreviewKt {
-    method @KotlinOnly @androidx.compose.runtime.Composable public static void LottiePreview(com.google.android.horologist.remotecompose.lottie.format.Animation animation, optional androidx.compose.remote.creation.compose.modifier.RemoteModifier modifier, optional com.google.android.horologist.remotecompose.lottie.renderer.SlotMap slotMap);
-    method @KotlinOnly @androidx.compose.runtime.Composable public static void LottiePreview(@RawRes int animationResId, optional androidx.compose.remote.creation.compose.modifier.RemoteModifier modifier, optional com.google.android.horologist.remotecompose.lottie.renderer.SlotMap slotMap);
-  }
-
   public final class LottieSettings {
     ctor public LottieSettings(androidx.compose.remote.creation.compose.state.RemoteFloat currentFrame, com.google.android.horologist.remotecompose.lottie.renderer.SlotMap slotMap);
     method public androidx.compose.remote.creation.compose.state.RemoteFloat component1();

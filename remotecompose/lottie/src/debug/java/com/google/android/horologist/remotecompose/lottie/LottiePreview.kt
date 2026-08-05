@@ -18,6 +18,7 @@ package com.google.android.horologist.remotecompose.lottie
 
 import android.annotation.SuppressLint
 import androidx.annotation.RawRes
+import androidx.compose.remote.creation.compose.capture.rememberRemoteDocument
 import androidx.compose.remote.creation.compose.layout.RemoteAlignment
 import androidx.compose.remote.creation.compose.layout.RemoteArrangement
 import androidx.compose.remote.creation.compose.layout.RemoteColumn
@@ -25,8 +26,10 @@ import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.remote.creation.compose.modifier.background
 import androidx.compose.remote.creation.compose.modifier.height
 import androidx.compose.remote.creation.compose.modifier.width
+import androidx.compose.remote.player.compose.RemoteDocumentPlayer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.horologist.remotecompose.lottie.format.Animation
@@ -36,24 +39,35 @@ import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
  * Displays a Lottie animation using Remote Compose.
  *
  * @param animation The parsed Lottie animation to play.
+ * @param modifier The modifier to apply to the host layout.
  * @param slotMap Optional mapping of slot IDs to values for dynamic theming.
  */
 @SuppressLint("RestrictedApi")
 @Composable
 fun LottiePreview(
   animation: Animation,
-  modifier: RemoteModifier = RemoteModifier,
+  modifier: Modifier = Modifier,
   slotMap: SlotMap = SlotMap(emptyMap()),
 ) {
-  RemoteColumn(
-    modifier = modifier.background(Color.Black),
-    horizontalAlignment = RemoteAlignment.CenterHorizontally,
-    verticalArrangement = RemoteArrangement.Center,
-  ) {
-    LottieAnimation(
-      animation,
-      slotMap = slotMap,
-      modifier = RemoteModifier.width(animation.width).height(animation.height),
+  val doc = rememberRemoteDocument {
+    RemoteColumn(
+      modifier = RemoteModifier.background(Color.Black),
+      horizontalAlignment = RemoteAlignment.CenterHorizontally,
+      verticalArrangement = RemoteArrangement.Center,
+    ) {
+      LottieAnimation(
+        animation,
+        slotMap = slotMap,
+        modifier = RemoteModifier.width(animation.width).height(animation.height),
+      )
+    }
+  }
+  doc.value?.let { document ->
+    RemoteDocumentPlayer(
+      document = document,
+      modifier = modifier,
+      documentWidth = animation.width,
+      documentHeight = animation.height,
     )
   }
 }
@@ -62,12 +76,13 @@ fun LottiePreview(
  * Displays a Lottie animation from a raw resource ID using Remote Compose.
  *
  * @param animationResId The raw resource ID of the Lottie JSON file.
+ * @param modifier The modifier to apply to the host layout.
  * @param slotMap Optional mapping of slot IDs to values for dynamic theming.
  */
 @Composable
 fun LottiePreview(
   @RawRes animationResId: Int,
-  modifier: RemoteModifier = RemoteModifier,
+  modifier: Modifier = Modifier,
   slotMap: SlotMap = SlotMap(emptyMap()),
 ) {
   val context = LocalContext.current

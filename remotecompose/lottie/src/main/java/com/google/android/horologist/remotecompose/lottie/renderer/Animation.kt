@@ -244,6 +244,7 @@ private fun lookupValueInBezier(
   duration: Float,
   frame: RemoteFloat,
 ): RemoteFloat {
+  // TODO implement using Remote Compose expressions to avoid a Compose UI impl
   val easing = CubicBezierEasing(a, b, c, d)
   val frameAnimationValues = mutableListOf<Float>()
 

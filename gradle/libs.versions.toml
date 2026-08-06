@@ -94,6 +94,7 @@ androidx-complications-datasource-ktx = { module = "androidx.wear.watchface:watc
 androidx-complications-rendering = { module = "androidx.wear.watchface:watchface-complications-rendering", version.ref = "androidx-wear-watchface-rendering" }
 androidx-compose-remote-player-compose = { module = "androidx.compose.remote:remote-player-compose", version.ref = "composeRemote" }
 androidx-compose-remote-player-core = { module = "androidx.compose.remote:remote-player-core", version.ref = "composeRemote" }
+androidx-compose-remote-player-view = { module = "androidx.compose.remote:remote-player-view", version.ref = "composeRemote" }
 androidx-concurrent-future = { module = "androidx.concurrent:concurrent-futures", version.ref = "androidx-concurrent" }
 androidx-concurrent-future-ktx = { module = "androidx.concurrent:concurrent-futures-ktx", version.ref = "androidx-concurrent" }
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "androidx-constraintlayout-compose" }

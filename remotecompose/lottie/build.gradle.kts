@@ -54,6 +54,7 @@ dependencies {
 
   debugImplementation(libs.androidx.compose.remote.player.core)
   debugImplementation(libs.androidx.compose.remote.player.compose)
+  debugImplementation(libs.androidx.compose.remote.player.view)
 
   testImplementation(libs.junit)
   testImplementation(libs.truth)

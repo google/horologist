@@ -54,6 +54,7 @@ val LocalAnimationSettings =
  * @param modifier The modifier to apply to the Lottie layout.
  * @param transform Optional additional transform to apply to the requested shape.
  * @param slotMap Mapping of slot IDs to values for dynamic theming.
+ * @param progress Optional progress value to drive animation frame instead of clock time.
  */
 @SuppressLint("RestrictedApi")
 @Composable
@@ -63,10 +64,20 @@ public fun LottieAnimation(
   modifier: RemoteModifier = RemoteModifier,
   transform: Transform? = null,
   slotMap: SlotMap = SlotMap(emptyMap()),
+  progress: RemoteFloat? = null,
 ) {
-  val totalFrames = animation.endFrame - animation.startFrame
+  // Total span of frames across the animation timeline.
+  val totalFrames = (animation.endFrame - animation.startFrame).toFloat()
+
+  // Determine current frame: if progress [0.0, 1.0] is provided (e.g. via a named variable
+  // or user-driven state), map it directly to frames; otherwise drive it continuously
+  // from the Remote Compose document animation clock time.
   val currentFrame =
-    floor(RemoteFloat(ANIMATION_TIME) * animation.frameRate.toFloat()) % totalFrames.toFloat()
+    if (progress != null) {
+      progress * totalFrames
+    } else {
+      floor(RemoteFloat(ANIMATION_TIME) * animation.frameRate.toFloat()) % totalFrames
+    }
   val animationSettings = LottieSettings(currentFrame, slotMap)
 
   CompositionLocalProvider(LocalAnimationSettings provides animationSettings) {

@@ -144,6 +144,21 @@ object BaseVectorPropertySerializer :
   }
 }
 
+/** Polymorphic serializer for [BasePositionProperty] based on "a" field. */
+object BasePositionPropertySerializer :
+  JsonContentPolymorphicSerializer<BasePositionProperty>(BasePositionProperty::class) {
+  override fun selectDeserializer(
+    element: JsonElement
+  ): DeserializationStrategy<BasePositionProperty> {
+    val animated = element.jsonObject["a"]?.jsonPrimitive?.intOrNull == 1
+    return if (animated) {
+      AnimatedPositionProperty.serializer()
+    } else {
+      StaticPositionProperty.serializer()
+    }
+  }
+}
+
 /** Polymorphic serializer for [BaseBezierProperty] based on "a" field. */
 object BaseBezierPropertySerializer :
   JsonContentPolymorphicSerializer<BaseBezierProperty>(BaseBezierProperty::class) {

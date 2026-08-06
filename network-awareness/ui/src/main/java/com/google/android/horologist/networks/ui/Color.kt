@@ -22,9 +22,10 @@ import com.google.android.horologist.networks.data.Status
 
 @ExperimentalHorologistApi
 internal val Status.color: Color
-    get() = when (this) {
-        is Status.Available -> Color.Green
-        is Status.Losing -> Color.Yellow
-        is Status.Lost -> Color.Red
-        is Status.Unknown -> Color.Gray
+  get() =
+    when (this) {
+      is Status.Available -> Color.Green
+      is Status.Losing -> Color.Yellow
+      is Status.Lost -> Color.Red
+      is Status.Unknown -> Color.Gray
     }

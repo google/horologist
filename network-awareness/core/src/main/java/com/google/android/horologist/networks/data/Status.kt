@@ -21,23 +21,23 @@ import java.time.Instant
 
 @ExperimentalHorologistApi
 public sealed class Status(public val order: Int) {
-    @ExperimentalHorologistApi
-    public object Available : Status(order = 1) {
-        override fun toString(): String = "Available"
-    }
+  @ExperimentalHorologistApi
+  public object Available : Status(order = 1) {
+    override fun toString(): String = "Available"
+  }
 
-    @ExperimentalHorologistApi
-    public class Losing(public val instant: Instant) : Status(order = 2) {
-        override fun toString(): String = "Losing"
-    }
+  @ExperimentalHorologistApi
+  public class Losing(public val instant: Instant) : Status(order = 2) {
+    override fun toString(): String = "Losing"
+  }
 
-    @ExperimentalHorologistApi
-    public object Lost : Status(order = 3) {
-        override fun toString(): String = "Lost"
-    }
+  @ExperimentalHorologistApi
+  public object Lost : Status(order = 3) {
+    override fun toString(): String = "Lost"
+  }
 
-    @ExperimentalHorologistApi
-    public object Unknown : Status(order = 4) {
-        override fun toString(): String = "Unknown"
-    }
+  @ExperimentalHorologistApi
+  public object Unknown : Status(order = 4) {
+    override fun toString(): String = "Unknown"
+  }
 }

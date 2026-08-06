@@ -25,6 +25,7 @@ import kotlinx.coroutines.flow.Flow
  */
 @ExperimentalHorologistApi
 public interface DataRequestRepository {
-    public fun storeRequest(dataRequest: DataRequest)
-    public fun currentPeriodUsage(): Flow<DataUsageReport>
+  public fun storeRequest(dataRequest: DataRequest)
+
+  public fun currentPeriodUsage(): Flow<DataUsageReport>
 }

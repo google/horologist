@@ -41,53 +41,52 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadd
 
 @Composable
 fun M3TLCButtonAndEdgeButton() {
-    // Disable other screen scaffold
-    com.google.android.horologist.compose.layout.ScreenScaffold(
-        timeText = {},
-        positionIndicator = {},
-    ) {
-        AppScaffold {
-            val columnState = rememberTransformingLazyColumnState()
-            ScreenScaffold(
-                scrollState = columnState,
-                contentPadding = rememberResponsiveColumnPadding(
-                    first = ColumnItemType.IconButton,
-                    last = EdgeButtonPadding,
-                ),
-                edgeButton = {
-                    EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.Large) {
-                        Text("To top")
-                    }
-                },
-            ) { contentPadding ->
-                val transformationSpec = rememberTransformationSpec()
+  // Disable other screen scaffold
+  com.google.android.horologist.compose.layout.ScreenScaffold(
+    timeText = {},
+    positionIndicator = {},
+  ) {
+    AppScaffold {
+      val columnState = rememberTransformingLazyColumnState()
+      ScreenScaffold(
+        scrollState = columnState,
+        contentPadding =
+          rememberResponsiveColumnPadding(
+            first = ColumnItemType.IconButton,
+            last = EdgeButtonPadding,
+          ),
+        edgeButton = {
+          EdgeButton(onClick = {}, buttonSize = EdgeButtonSize.Large) { Text("To top") }
+        },
+      ) { contentPadding ->
+        val transformationSpec = rememberTransformationSpec()
 
-                TransformingLazyColumn(
-                    state = columnState,
-                    contentPadding = contentPadding,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .testTag("TransformingLazyColumn"),
-                ) {
-                    item {
-                        IconButton(onClick = {}) {
-                            Icon(
-                                imageVector = Icons.Rounded.ArrowUpward,
-                                contentDescription = null,
-                            )
-                        }
-                    }
-                    items(3) {
-                        TitleCard(
-                            onClick = { /* Do something */ },
-                            title = { Text("Title card") },
-                            time = { Text("now") },
-                            modifier = Modifier.transformedHeight(this, transformationSpec),
-                            transformation = SurfaceTransformation(transformationSpec),
-                        ) { Text("Card content") }
-                    }
-                }
+        TransformingLazyColumn(
+          state = columnState,
+          contentPadding = contentPadding,
+          modifier = Modifier.fillMaxSize().testTag("TransformingLazyColumn"),
+        ) {
+          item {
+            IconButton(onClick = {}) {
+              Icon(
+                imageVector = Icons.Rounded.ArrowUpward,
+                contentDescription = null,
+              )
             }
+          }
+          items(3) {
+            TitleCard(
+              onClick = { /* Do something */ },
+              title = { Text("Title card") },
+              time = { Text("now") },
+              modifier = Modifier.transformedHeight(this, transformationSpec),
+              transformation = SurfaceTransformation(transformationSpec),
+            ) {
+              Text("Card content")
+            }
+          }
         }
+      }
     }
+  }
 }

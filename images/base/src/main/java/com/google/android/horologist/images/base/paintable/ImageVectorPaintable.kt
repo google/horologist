@@ -23,15 +23,11 @@ import androidx.compose.ui.graphics.vector.rememberVectorPainter
 
 /** An [ImageVector] that can be represented as a [Painter]. */
 @JvmInline
-public value class ImageVectorPaintable(private val imageVector: ImageVector) :
-    PaintableIcon {
+public value class ImageVectorPaintable(private val imageVector: ImageVector) : PaintableIcon {
 
-        @Composable
-        override fun rememberPainter(): Painter = rememberVectorPainter(imageVector)
+  @Composable override fun rememberPainter(): Painter = rememberVectorPainter(imageVector)
 
-        public companion object {
-            public fun ImageVector.asPaintable(): ImageVectorPaintable = ImageVectorPaintable(
-                this,
-            )
-        }
-    }
+  public companion object {
+    public fun ImageVector.asPaintable(): ImageVectorPaintable = ImageVectorPaintable(this)
+  }
+}

@@ -33,79 +33,83 @@ import com.google.android.horologist.mediasample.ui.app.UampTheme
 import com.google.android.horologist.mediasample.ui.player.UampSettingsButtons
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
-import org.junit.Test
 import kotlin.time.Duration.Companion.seconds
+import org.junit.Test
 
 class UampPlayerScreenshotTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
-    @Test
-    fun initial() = runTest {
-        val playerUiState = PlayerUiState(
-            playEnabled = true,
-            pauseEnabled = true,
-            seekBackEnabled = true,
-            seekForwardEnabled = true,
-            seekInCurrentMediaItemEnabled = true,
-            seekToPreviousEnabled = false,
-            seekToNextEnabled = true,
-            shuffleEnabled = false,
-            shuffleOn = false,
-            playPauseEnabled = true,
-            playing = true,
-            media = MediaUiModel.Ready(
-                id = "",
-                title = "Weather with You",
-                subtitle = "Crowded House",
-            ),
-            trackPositionUiModel = TrackPositionUiModel.Actual(
-                percent = 0.133f,
-                position = 30.seconds,
-                duration = 225.seconds,
-            ),
-            connected = true,
-        )
+  @Test
+  fun initial() = runTest {
+    val playerUiState =
+      PlayerUiState(
+        playEnabled = true,
+        pauseEnabled = true,
+        seekBackEnabled = true,
+        seekForwardEnabled = true,
+        seekInCurrentMediaItemEnabled = true,
+        seekToPreviousEnabled = false,
+        seekToNextEnabled = true,
+        shuffleEnabled = false,
+        shuffleOn = false,
+        playPauseEnabled = true,
+        playing = true,
+        media =
+          MediaUiModel.Ready(
+            id = "",
+            title = "Weather with You",
+            subtitle = "Crowded House",
+          ),
+        trackPositionUiModel =
+          TrackPositionUiModel.Actual(
+            percent = 0.133f,
+            position = 30.seconds,
+            duration = 225.seconds,
+          ),
+        connected = true,
+      )
 
-        val volumeUiState = VolumeUiState(current = 1)
+    val volumeUiState = VolumeUiState(current = 1)
 
-        val audioOutput = AudioOutput.BluetoothHeadset(
-            id = "bt0",
-            name = "BT_Headphone",
-        )
+    val audioOutput =
+      AudioOutput.BluetoothHeadset(
+        id = "bt0",
+        name = "BT_Headphone",
+      )
 
-        UampTheme {
-            PlayerScreen(
-                mediaDisplay = {
-                    AnimatedMediaInfoDisplay(
-                        media = playerUiState.media,
-                        loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
-                    )
-                },
-                controlButtons = {
-                    AnimatedMediaControlButtons(
-                        onPlayButtonClick = { },
-                        onPauseButtonClick = { },
-                        playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                        playing = playerUiState.playing,
-                        onSeekToPreviousButtonClick = { },
-                        seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-                        onSeekToNextButtonClick = { },
-                        seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-                        trackPositionUiModel = playerUiState.trackPositionUiModel,
-                    )
-                },
-                buttons = {
-                    UampSettingsButtons(
-                        volumeUiState = volumeUiState,
-                        audioOutputUi = audioOutput.toAudioOutputUi(),
-                        onVolumeClick = { },
-                    )
-                },
-                background = {
-                    ColorBackground(
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.fillMaxSize(),
-                    )
-                },
-            )
-        }
+    UampTheme {
+      PlayerScreen(
+        mediaDisplay = {
+          AnimatedMediaInfoDisplay(
+            media = playerUiState.media,
+            loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
+          )
+        },
+        controlButtons = {
+          AnimatedMediaControlButtons(
+            onPlayButtonClick = {},
+            onPauseButtonClick = {},
+            playPauseButtonEnabled = playerUiState.playPauseEnabled,
+            playing = playerUiState.playing,
+            onSeekToPreviousButtonClick = {},
+            seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
+            onSeekToNextButtonClick = {},
+            seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
+            trackPositionUiModel = playerUiState.trackPositionUiModel,
+          )
+        },
+        buttons = {
+          UampSettingsButtons(
+            volumeUiState = volumeUiState,
+            audioOutputUi = audioOutput.toAudioOutputUi(),
+            onVolumeClick = {},
+          )
+        },
+        background = {
+          ColorBackground(
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.fillMaxSize(),
+          )
+        },
+      )
     }
+  }
 }

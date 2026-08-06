@@ -28,42 +28,38 @@ import com.google.android.horologist.media.database.model.PopulatedPlaylist
 import com.google.android.horologist.media.model.Playlist
 import kotlinx.coroutines.flow.Flow
 
-/**
- * Local data source of [Playlist].
- */
+/** Local data source of [Playlist]. */
 @ExperimentalHorologistApi
 public class PlaylistLocalDataSource(
-    private val roomDatabase: RoomDatabase,
-    private val playlistDao: PlaylistDao,
-    private val playlistMediaDao: PlaylistMediaDao,
+  private val roomDatabase: RoomDatabase,
+  private val playlistDao: PlaylistDao,
+  private val playlistMediaDao: PlaylistMediaDao,
 ) {
 
-    public suspend fun upsert(playlists: List<Playlist>) {
-        for (playlist in playlists) {
-            playlistDao.upsert(
-                PlaylistEntityMapper.map(playlist),
-                playlist.mediaList.map(MediaEntityMapper::map),
-                playlist.mediaList.map { PlaylistMediaEntityMapper.map(playlist, it) },
-            )
-        }
+  public suspend fun upsert(playlists: List<Playlist>) {
+    for (playlist in playlists) {
+      playlistDao.upsert(
+        PlaylistEntityMapper.map(playlist),
+        playlist.mediaList.map(MediaEntityMapper::map),
+        playlist.mediaList.map { PlaylistMediaEntityMapper.map(playlist, it) },
+      )
     }
+  }
 
-    public suspend fun getPopulated(playlistId: String): PopulatedPlaylist? =
-        playlistDao.getPopulated(playlistId)
+  public suspend fun getPopulated(playlistId: String): PopulatedPlaylist? =
+    playlistDao.getPopulated(playlistId)
 
-    public fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist?> =
-        playlistDao.getPopulatedStream(playlistId)
+  public fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist?> =
+    playlistDao.getPopulatedStream(playlistId)
 
-    public fun getAllPopulated(): Flow<List<PopulatedPlaylist>> =
-        playlistDao.getAllPopulated()
+  public fun getAllPopulated(): Flow<List<PopulatedPlaylist>> = playlistDao.getAllPopulated()
 
-    public fun getAllDownloaded(): Flow<List<PopulatedPlaylist>> =
-        playlistDao.getAllDownloaded()
+  public fun getAllDownloaded(): Flow<List<PopulatedPlaylist>> = playlistDao.getAllDownloaded()
 
-    public suspend fun delete(playlistIds: List<String>) {
-        roomDatabase.withTransaction {
-            playlistMediaDao.deleteByPlaylistId(playlistIds)
-            playlistDao.delete(playlistIds)
-        }
+  public suspend fun delete(playlistIds: List<String>) {
+    roomDatabase.withTransaction {
+      playlistMediaDao.deleteByPlaylistId(playlistIds)
+      playlistDao.delete(playlistIds)
     }
+  }
 }

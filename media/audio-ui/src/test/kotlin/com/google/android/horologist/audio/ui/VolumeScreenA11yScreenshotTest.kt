@@ -24,57 +24,60 @@ import org.junit.Test
 
 class VolumeScreenA11yScreenshotTest : WearLegacyA11yTest() {
 
-    @Test
-    fun volumeScreenAtMinimums() {
-        val volumeState = VolumeState(
-            current = 0,
-            max = 100,
-        )
-        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
+  @Test
+  fun volumeScreenAtMinimums() {
+    val volumeState =
+      VolumeState(
+        current = 0,
+        max = 100,
+      )
+    val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        runScreenTest {
-            VolumeScreenTestCase(
-                colors = MaterialTheme.colors,
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
+    runScreenTest {
+      VolumeScreenTestCase(
+        colors = MaterialTheme.colors,
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 
-    @Test
-    fun volumeScreenNotConnected() {
-        val volumeState = VolumeState(
-            current = 0,
-            max = 100,
-        )
-        // Media Router returns "Phone"
-        val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
+  @Test
+  fun volumeScreenNotConnected() {
+    val volumeState =
+      VolumeState(
+        current = 0,
+        max = 100,
+      )
+    // Media Router returns "Phone"
+    val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
 
-        runScreenTest {
-            VolumeScreenTestCase(
-                colors = MaterialTheme.colors,
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
+    runScreenTest {
+      VolumeScreenTestCase(
+        colors = MaterialTheme.colors,
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 
-    @Test
-    fun volumeScreenWatchSpeakerConnected() {
-        val volumeState = VolumeState(
-            current = 0,
-            max = 100,
-        )
+  @Test
+  fun volumeScreenWatchSpeakerConnected() {
+    val volumeState =
+      VolumeState(
+        current = 0,
+        max = 100,
+      )
 
-        // Media Router returns "Phone"
-        val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", true)
+    // Media Router returns "Phone"
+    val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", true)
 
-        runScreenTest {
-            VolumeScreenTestCase(
-                colors = MaterialTheme.colors,
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
+    runScreenTest {
+      VolumeScreenTestCase(
+        colors = MaterialTheme.colors,
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 }

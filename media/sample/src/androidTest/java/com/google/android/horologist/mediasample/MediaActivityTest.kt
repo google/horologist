@@ -28,34 +28,29 @@ import org.junit.Test
 
 @LargeTest
 class MediaActivityTest {
-    @get:Rule
-    var rule = createAndroidComposeRule<MediaActivity>()
+  @get:Rule var rule = createAndroidComposeRule<MediaActivity>()
 
-    @Ignore("https://github.com/google/horologist/issues/282")
-    @Test
-    fun testEvent() {
-        val scenario = rule.activityRule.scenario
+  @Ignore("https://github.com/google/horologist/issues/282")
+  @Test
+  fun testEvent() {
+    val scenario = rule.activityRule.scenario
 
-        rule.waitForIdle()
+    rule.waitForIdle()
 
-        toListAndBack()
+    toListAndBack()
 
-        scenario.moveToState(Lifecycle.State.STARTED)
+    scenario.moveToState(Lifecycle.State.STARTED)
 
-        scenario.moveToState(Lifecycle.State.RESUMED)
+    scenario.moveToState(Lifecycle.State.RESUMED)
 
-        toListAndBack()
-    }
+    toListAndBack()
+  }
 
-    private fun toListAndBack() {
-        rule.runOnUiThread {
-            rule.activity.backStack.navigateToVolume()
-        }
-        rule.waitForIdle()
+  private fun toListAndBack() {
+    rule.runOnUiThread { rule.activity.backStack.navigateToVolume() }
+    rule.waitForIdle()
 
-        rule.runOnUiThread {
-            rule.activity.backStack.navigateToLibrary()
-        }
-        rule.waitForIdle()
-    }
+    rule.runOnUiThread { rule.activity.backStack.navigateToLibrary() }
+    rule.waitForIdle()
+  }
 }

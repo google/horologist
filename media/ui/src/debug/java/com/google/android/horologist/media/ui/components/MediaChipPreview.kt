@@ -28,72 +28,79 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @WearPreview
 @Composable
 fun MediaChipPreview() {
-    MediaChip(
-        media = MediaUiModel.Ready(
-            id = "id",
-            title = "Red Hot Chilli Peppers",
-            artwork = null,
-        ),
-        onClick = {},
-        placeholder = rememberVectorPainter(
-            image = Icons.Default.Album,
-            tintColor = Color.Blue,
-        ),
-    )
+  MediaChip(
+    media =
+      MediaUiModel.Ready(
+        id = "id",
+        title = "Red Hot Chilli Peppers",
+        artwork = null,
+      ),
+    onClick = {},
+    placeholder =
+      rememberVectorPainter(
+        image = Icons.Default.Album,
+        tintColor = Color.Blue,
+      ),
+  )
 }
 
 @Preview(
-    name = "No artwork",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "No artwork",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun MediaChipPreviewNoArtwork() {
-    MediaChip(
-        media = MediaUiModel.Ready(id = "id", title = "Red Hot Chilli Peppers"),
-        onClick = {},
-        placeholder = rememberVectorPainter(
-            image = Icons.Default.Album,
-            tintColor = Color.Blue,
-        ),
-    )
+  MediaChip(
+    media = MediaUiModel.Ready(id = "id", title = "Red Hot Chilli Peppers"),
+    onClick = {},
+    placeholder =
+      rememberVectorPainter(
+        image = Icons.Default.Album,
+        tintColor = Color.Blue,
+      ),
+  )
 }
 
 @Preview(
-    name = "No title",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "No title",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun MediaChipPreviewNoTitle() {
-    MediaChip(
-        media = MediaUiModel.Ready(id = "id", title = "title", artwork = null),
-        onClick = {},
-        defaultTitle = "No title",
-        placeholder = rememberVectorPainter(
-            image = Icons.Default.Album,
-            tintColor = Color.Blue,
-        ),
-    )
+  MediaChip(
+    media = MediaUiModel.Ready(id = "id", title = "title", artwork = null),
+    onClick = {},
+    defaultTitle = "No title",
+    placeholder =
+      rememberVectorPainter(
+        image = Icons.Default.Album,
+        tintColor = Color.Blue,
+      ),
+  )
 }
 
 @Preview(
-    name = "Very long title",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Very long title",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun MediaChipPreviewVeryLongTitle() {
-    MediaChip(
-        media = MediaUiModel.Ready(
-            id = "id",
-            title = "Very very very very very very very very very very very very very very very very very very very long title",
-            artwork = null,
-        ),
-        onClick = {},
-        placeholder = rememberVectorPainter(
-            image = Icons.Default.Album,
-            tintColor = Color.Blue,
-        ),
-    )
+  MediaChip(
+    media =
+      MediaUiModel.Ready(
+        id = "id",
+        title =
+          "Very very very very very very very very very very very very very very very very very very very long title",
+        artwork = null,
+      ),
+    onClick = {},
+    placeholder =
+      rememberVectorPainter(
+        image = Icons.Default.Album,
+        tintColor = Color.Blue,
+      ),
+  )
 }

@@ -18,7 +18,7 @@ package com.google.android.horologist.media.sync.api
 
 public interface ChangeListVersionRepository {
 
-    public suspend fun getChangeListVersion(model: String): Int
+  public suspend fun getChangeListVersion(model: String): Int
 
-    public suspend fun updateChangeListVersion(model: String, newVersion: Int)
+  public suspend fun updateChangeListVersion(model: String, newVersion: Int)
 }

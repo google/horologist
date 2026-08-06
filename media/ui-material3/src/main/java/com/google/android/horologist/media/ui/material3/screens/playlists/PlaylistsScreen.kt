@@ -16,24 +16,23 @@
 
 package com.google.android.horologist.media.ui.material3.screens.playlists
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.lazy.rememberScalingLazyListState
 import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.FilledTonalButton
-import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.ListHeader
 import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.Text
@@ -49,112 +48,108 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistApi
 @Composable
 public fun <T> PlaylistsScreen(
-    playlists: List<T>,
-    playlistContent: @Composable (playlist: T) -> Unit,
-    modifier: Modifier = Modifier,
+  playlists: List<T>,
+  playlistContent: @Composable (playlist: T) -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    PlaylistsScreen(
-        playlistsScreenState = PlaylistsScreenState.Loaded(playlists),
-        playlistContent = playlistContent,
-        modifier = modifier,
-    )
+  PlaylistsScreen(
+    playlistsScreenState = PlaylistsScreenState.Loaded(playlists),
+    playlistContent = playlistContent,
+    modifier = modifier,
+  )
 }
 
 @ExperimentalHorologistApi
 @Composable
 public fun <T> PlaylistsScreen(
-    playlistsScreenState: PlaylistsScreenState<T>,
-    playlistContent: @Composable (playlist: T) -> Unit,
-    modifier: Modifier = Modifier,
+  playlistsScreenState: PlaylistsScreenState<T>,
+  playlistContent: @Composable (playlist: T) -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val scrollState = rememberScalingLazyListState()
+  val scrollState = rememberScalingLazyListState()
 
-    // TODO This should be folded into SectionedList
-    val placeholderState =
-        rememberPlaceholderState(playlistsScreenState is PlaylistsScreenState.Loading)
+  // TODO This should be folded into SectionedList
+  val placeholderState =
+    rememberPlaceholderState(playlistsScreenState is PlaylistsScreenState.Loading)
 
-    ScreenScaffold(scrollState = scrollState) {
-        SectionedList(
-            modifier = modifier,
-            scrollState = scrollState,
-        ) {
-            val sectionState = when (playlistsScreenState) {
-                is PlaylistsScreenState.Loaded<T> -> {
-                    Section.State.Loaded(playlistsScreenState.playlistList)
-                }
+  ScreenScaffold(scrollState = scrollState) {
+    SectionedList(
+      modifier = modifier,
+      scrollState = scrollState,
+    ) {
+      val sectionState =
+        when (playlistsScreenState) {
+          is PlaylistsScreenState.Loaded<T> -> {
+            Section.State.Loaded(playlistsScreenState.playlistList)
+          }
 
-                PlaylistsScreenState.Failed -> Section.State.Failed
-                PlaylistsScreenState.Loading -> Section.State.Loading
-            }
-
-            section(state = sectionState) {
-                header {
-                    ListHeader(
-                        modifier = Modifier.padding(bottom = 12.dp),
-                    ) { Text(text = stringResource(id = R.string.horologist_browse_playlist_title)) }
-                }
-
-                loaded { playlistContent(it) }
-
-                loading(count = 4) {
-                    Column {
-                        PlaceholderButton(
-                            modifier = Modifier.fillMaxWidth(),
-                            placeholderState = placeholderState,
-                            colors = ButtonDefaults.filledTonalButtonColors(),
-                            secondaryLabel = false,
-                        )
-                    }
-                }
-            }
+          PlaylistsScreenState.Failed -> Section.State.Failed
+          PlaylistsScreenState.Loading -> Section.State.Loading
         }
+
+      section(state = sectionState) {
+        header {
+          ListHeader(modifier = Modifier.padding(bottom = 12.dp)) {
+            Text(text = stringResource(id = R.string.horologist_browse_playlist_title))
+          }
+        }
+
+        loaded { playlistContent(it) }
+
+        loading(count = 4) {
+          Column {
+            PlaceholderButton(
+              modifier = Modifier.fillMaxWidth(),
+              placeholderState = placeholderState,
+              colors = ButtonDefaults.filledTonalButtonColors(),
+              secondaryLabel = false,
+            )
+          }
+        }
+      }
     }
+  }
 }
 
 @ExperimentalHorologistApi
 @Composable
 public fun PlaylistsScreen(
-    playlistsScreenState: PlaylistsScreenState<PlaylistUiModel>,
-    onPlaylistItemClick: (PlaylistUiModel) -> Unit,
-    modifier: Modifier = Modifier,
-    playlistItemArtworkPlaceholder: Painter? = null,
+  playlistsScreenState: PlaylistsScreenState<PlaylistUiModel>,
+  onPlaylistItemClick: (PlaylistUiModel) -> Unit,
+  modifier: Modifier = Modifier,
+  playlistItemArtworkPlaceholder: Painter? = null,
 ) {
-    val playlistContent: @Composable (playlist: PlaylistUiModel) -> Unit = { playlist ->
-        FilledTonalButton(
-            modifier = modifier.fillMaxWidth(),
-            label = { Text(playlist.title) },
-            onClick = { onPlaylistItemClick(playlist) },
-            icon = {
-                Image(
-                    painter = CoilPaintable(playlist.artworkUri, playlistItemArtworkPlaceholder).rememberPainter(),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(ButtonDefaults.IconSize)
-                        .clip(CircleShape),
-                    contentScale = ContentScale.Crop,
-                )
-            },
+  val playlistContent: @Composable (playlist: PlaylistUiModel) -> Unit = { playlist ->
+    FilledTonalButton(
+      modifier = modifier.fillMaxWidth(),
+      label = { Text(playlist.title) },
+      onClick = { onPlaylistItemClick(playlist) },
+      icon = {
+        Image(
+          painter =
+            CoilPaintable(playlist.artworkUri, playlistItemArtworkPlaceholder).rememberPainter(),
+          contentDescription = null,
+          modifier = Modifier.size(ButtonDefaults.IconSize).clip(CircleShape),
+          contentScale = ContentScale.Crop,
         )
-    }
-
-    PlaylistsScreen(
-        playlistsScreenState = playlistsScreenState,
-        playlistContent = playlistContent,
-        modifier = modifier,
+      },
     )
+  }
+
+  PlaylistsScreen(
+    playlistsScreenState = playlistsScreenState,
+    playlistContent = playlistContent,
+    modifier = modifier,
+  )
 }
 
-/**
- * Represents the state of [PlaylistsScreen].
- */
+/** Represents the state of [PlaylistsScreen]. */
 @ExperimentalHorologistApi
 public sealed class PlaylistsScreenState<out T> {
 
-    public object Loading : PlaylistsScreenState<Nothing>()
+  public object Loading : PlaylistsScreenState<Nothing>()
 
-    public data class Loaded<T>(
-        val playlistList: List<T>,
-    ) : PlaylistsScreenState<T>()
+  public data class Loaded<T>(val playlistList: List<T>) : PlaylistsScreenState<T>()
 
-    public object Failed : PlaylistsScreenState<Nothing>()
+  public object Failed : PlaylistsScreenState<Nothing>()
 }

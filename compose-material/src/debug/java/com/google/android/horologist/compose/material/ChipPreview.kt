@@ -28,169 +28,171 @@ import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
 @Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ChipPreview() {
-    Chip(
-        label = "Primary label",
-        onClick = { },
-    )
+  Chip(
+    label = "Primary label",
+    onClick = {},
+  )
 }
 
 @Preview(
-    name = "With secondary label",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With secondary label",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ChipPreviewWithSecondaryLabel() {
-    Chip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-    )
+  Chip(
+    label = "Primary label",
+    onClick = {},
+    secondaryLabel = "Secondary label",
+  )
 }
 
 @Preview(
-    name = "With icon",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With icon",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ChipPreviewWithIcon() {
-    Chip(
-        label = "Primary label",
-        onClick = { },
-        icon = ImageVectorPaintable(Icons.Default.Image),
-    )
+  Chip(
+    label = "Primary label",
+    onClick = {},
+    icon = ImageVectorPaintable(Icons.Default.Image),
+  )
 }
 
 @Preview(
-    name = "With large icon",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With large icon",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ChipPreviewWithLargeIcon() {
-    Chip(
-        label = "Primary label",
-        onClick = { },
-        icon = ImageVectorPaintable(Icon32dp),
-        largeIcon = true,
-    )
+  Chip(
+    label = "Primary label",
+    onClick = {},
+    icon = ImageVectorPaintable(Icon32dp),
+    largeIcon = true,
+  )
 }
 
 @Preview(
-    name = "With secondary label and icon",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With secondary label and icon",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ChipPreviewWithSecondaryLabelAndIcon() {
-    Chip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = ImageVectorPaintable(Icons.Default.Image),
-    )
+  Chip(
+    label = "Primary label",
+    onClick = {},
+    secondaryLabel = "Secondary label",
+    icon = ImageVectorPaintable(Icons.Default.Image),
+  )
 }
 
 @Preview(
-    name = "With secondary label and large icon",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With secondary label and large icon",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ChipPreviewWithSecondaryLabelAndLargeIcon() {
-    Chip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = ImageVectorPaintable(Icon32dp),
-        largeIcon = true,
-    )
+  Chip(
+    label = "Primary label",
+    onClick = {},
+    secondaryLabel = "Secondary label",
+    icon = ImageVectorPaintable(Icon32dp),
+    largeIcon = true,
+  )
 }
 
 @Preview(
-    name = "Disabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Disabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ChipPreviewDisabled() {
-    Chip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = ImageVectorPaintable(Icons.Default.Image),
-        enabled = false,
-    )
+  Chip(
+    label = "Primary label",
+    onClick = {},
+    secondaryLabel = "Secondary label",
+    icon = ImageVectorPaintable(Icons.Default.Image),
+    enabled = false,
+  )
 }
 
 @Preview(
-    name = "With secondary chip colors",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With secondary chip colors",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ChipPreviewWithSecondaryChipColors() {
-    Chip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = ImageVectorPaintable(Icons.Default.Image),
-        colors = ChipDefaults.secondaryChipColors(),
-    )
+  Chip(
+    label = "Primary label",
+    onClick = {},
+    secondaryLabel = "Secondary label",
+    icon = ImageVectorPaintable(Icons.Default.Image),
+    colors = ChipDefaults.secondaryChipColors(),
+  )
 }
 
 @Preview(
-    name = "With gradient background chip colors",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With gradient background chip colors",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ChipPreviewWithGradientBackgroundChipColors() {
-    Chip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = ImageVectorPaintable(Icons.Default.Image),
-        colors = ChipDefaults.gradientBackgroundChipColors(),
-    )
+  Chip(
+    label = "Primary label",
+    onClick = {},
+    secondaryLabel = "Secondary label",
+    icon = ImageVectorPaintable(Icons.Default.Image),
+    colors = ChipDefaults.gradientBackgroundChipColors(),
+  )
 }
 
 @Preview(
-    name = "With image background chip colors",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With image background chip colors",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ChipPreviewWithImageBackgroundChipColors() {
-    Chip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = ImageVectorPaintable(Icons.Default.Image),
-        colors = ChipDefaults.imageBackgroundChipColors(
-            backgroundImagePainter = painterResource(id = android.R.drawable.ic_dialog_alert),
-        ),
-    )
+  Chip(
+    label = "Primary label",
+    onClick = {},
+    secondaryLabel = "Secondary label",
+    icon = ImageVectorPaintable(Icons.Default.Image),
+    colors =
+      ChipDefaults.imageBackgroundChipColors(
+        backgroundImagePainter = painterResource(id = android.R.drawable.ic_dialog_alert)
+      ),
+  )
 }
 
 private val Icon32dp: ImageVector
-    get() = ImageVector.Builder(
+  get() =
+    ImageVector.Builder(
         name = "Icon Large",
         defaultWidth = 32f.dp,
         defaultHeight = 32f.dp,
         viewportWidth = 32f,
         viewportHeight = 32f,
-    )
-        .materialPath {
-            horizontalLineToRelative(32.0f)
-            verticalLineToRelative(32.0f)
-            horizontalLineTo(0.0f)
-            close()
-        }
-        .build()
+      )
+      .materialPath {
+        horizontalLineToRelative(32.0f)
+        verticalLineToRelative(32.0f)
+        horizontalLineTo(0.0f)
+        close()
+      }
+      .build()

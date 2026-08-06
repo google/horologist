@@ -49,71 +49,71 @@ import kotlinx.coroutines.launch
 @InstallIn(ActivityRetainedComponent::class)
 object ViewModelModule {
 
-    @ActivityRetainedScoped
-    @Provides
-    fun providesCoroutineScope(
-        activityRetainedLifecycle: ActivityRetainedLifecycle,
-    ): CoroutineScope = CoroutineScope(SupervisorJob() + Dispatchers.Default).also {
-        activityRetainedLifecycle.addOnClearedListener {
-            it.cancel()
-        }
+  @ActivityRetainedScoped
+  @Provides
+  fun providesCoroutineScope(activityRetainedLifecycle: ActivityRetainedLifecycle): CoroutineScope =
+    CoroutineScope(SupervisorJob() + Dispatchers.Default).also {
+      activityRetainedLifecycle.addOnClearedListener { it.cancel() }
     }
 
-    @Provides
-    @ActivityRetainedScoped
-    fun mediaController(
-        @ApplicationContext application: Context,
-        activityRetainedLifecycle: ActivityRetainedLifecycle,
-        coroutineScope: CoroutineScope,
-    ): Deferred<MediaBrowser> = coroutineScope.async {
+  @Provides
+  @ActivityRetainedScoped
+  fun mediaController(
+    @ApplicationContext application: Context,
+    activityRetainedLifecycle: ActivityRetainedLifecycle,
+    coroutineScope: CoroutineScope,
+  ): Deferred<MediaBrowser> =
+    coroutineScope
+      .async {
         MediaBrowser.Builder(
             application,
             SessionToken(application, ComponentName(application, PlaybackService::class.java)),
-        ).buildSuspend()
-    }.also {
+          )
+          .buildSuspend()
+      }
+      .also {
         activityRetainedLifecycle.addOnClearedListener {
-            it.cancel()
-            if (it.isCompleted && !it.isCancelled) {
-                it.getCompleted().release()
-            }
+          it.cancel()
+          if (it.isCompleted && !it.isCancelled) {
+            it.getCompleted().release()
+          }
         }
-    }
+      }
 
-    @Provides
-    @ActivityRetainedScoped
-    fun playerRepositoryImpl(
-        mediaMapper: MediaMapper,
-        mediaItemMapper: MediaItemMapper,
-        activityRetainedLifecycle: ActivityRetainedLifecycle,
-        coroutineScope: CoroutineScope,
-        mediaController: Deferred<MediaBrowser>,
-    ): PlayerRepositoryImpl = PlayerRepositoryImpl(
+  @Provides
+  @ActivityRetainedScoped
+  fun playerRepositoryImpl(
+    mediaMapper: MediaMapper,
+    mediaItemMapper: MediaItemMapper,
+    activityRetainedLifecycle: ActivityRetainedLifecycle,
+    coroutineScope: CoroutineScope,
+    mediaController: Deferred<MediaBrowser>,
+  ): PlayerRepositoryImpl =
+    PlayerRepositoryImpl(
         mediaMapper = mediaMapper,
         mediaItemMapper = mediaItemMapper,
-    ).also { playerRepository ->
-        activityRetainedLifecycle.addOnClearedListener {
-            playerRepository.close()
-        }
+      )
+      .also { playerRepository ->
+        activityRetainedLifecycle.addOnClearedListener { playerRepository.close() }
 
         coroutineScope.launch(Dispatchers.Main) {
-            val player = mediaController.await()
-            playerRepository.connect(
-                player = player,
-                onClose = player::release,
-            )
+          val player = mediaController.await()
+          playerRepository.connect(
+            player = player,
+            onClose = player::release,
+          )
         }
-    }
+      }
 
-    @Provides
-    @ActivityRetainedScoped
-    fun playerRepository(playerRepositoryImpl: PlayerRepositoryImpl): PlayerRepository =
-        playerRepositoryImpl
+  @Provides
+  @ActivityRetainedScoped
+  fun playerRepository(playerRepositoryImpl: PlayerRepositoryImpl): PlayerRepository =
+    playerRepositoryImpl
 
-    @Provides
-    fun mediaItemExtrasMapper(): MediaItemExtrasMapper = MediaItemExtrasMapperNoopImpl
+  @Provides fun mediaItemExtrasMapper(): MediaItemExtrasMapper = MediaItemExtrasMapperNoopImpl
 
-    @Provides
-    @ActivityRetainedScoped
-    fun mediaItemMapper(mediaItemExtrasMapper: MediaItemExtrasMapper): MediaItemMapper =
-        MediaItemMapper(mediaItemExtrasMapper)
+  @Provides
+  @ActivityRetainedScoped
+  fun mediaItemMapper(mediaItemExtrasMapper: MediaItemExtrasMapper): MediaItemMapper =
+    MediaItemMapper(mediaItemExtrasMapper)
 }

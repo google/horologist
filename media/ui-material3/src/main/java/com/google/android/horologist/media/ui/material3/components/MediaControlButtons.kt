@@ -32,86 +32,85 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  * Standard media control buttons with no progress indicator, showing [SeekToPreviousButton],
  * [PlayPauseButton] and [SeekToNextButton].
  */
-
 @Composable
 public fun MediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    onSeekToPreviousButtonClick: () -> Unit,
-    seekToPreviousButtonEnabled: Boolean,
-    onSeekToNextButtonClick: () -> Unit,
-    seekToNextButtonEnabled: Boolean,
-    modifier: Modifier = Modifier,
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  playPauseButtonEnabled: Boolean,
+  playing: Boolean,
+  onSeekToPreviousButtonClick: () -> Unit,
+  seekToPreviousButtonEnabled: Boolean,
+  onSeekToNextButtonClick: () -> Unit,
+  seekToNextButtonEnabled: Boolean,
+  modifier: Modifier = Modifier,
 ) {
-    MediaControlButtons(
-        onPlayButtonClick = onPlayButtonClick,
-        onPauseButtonClick = onPauseButtonClick,
-        playPauseButtonEnabled = playPauseButtonEnabled,
-        playing = playing,
-        onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
-        seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
-        onSeekToNextButtonClick = onSeekToNextButtonClick,
-        seekToNextButtonEnabled = seekToNextButtonEnabled,
-        trackPositionUiModel = TrackPositionUiModel.Hidden,
-        modifier = modifier,
-    )
+  MediaControlButtons(
+    onPlayButtonClick = onPlayButtonClick,
+    onPauseButtonClick = onPauseButtonClick,
+    playPauseButtonEnabled = playPauseButtonEnabled,
+    playing = playing,
+    onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
+    seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
+    onSeekToNextButtonClick = onSeekToNextButtonClick,
+    seekToNextButtonEnabled = seekToNextButtonEnabled,
+    trackPositionUiModel = TrackPositionUiModel.Hidden,
+    modifier = modifier,
+  )
 }
 
 /**
  * Standard media control buttons, showing [SeekToPreviousButton], [PlayPauseProgressButton] and
  * [SeekToNextButton].
  */
-
 @Composable
 public fun MediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    onSeekToPreviousButtonClick: () -> Unit,
-    seekToPreviousButtonEnabled: Boolean,
-    onSeekToNextButtonClick: () -> Unit,
-    seekToNextButtonEnabled: Boolean,
-    modifier: Modifier = Modifier,
-    trackPositionUiModel: TrackPositionUiModel,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  playPauseButtonEnabled: Boolean,
+  playing: Boolean,
+  onSeekToPreviousButtonClick: () -> Unit,
+  seekToPreviousButtonEnabled: Boolean,
+  onSeekToNextButtonClick: () -> Unit,
+  seekToNextButtonEnabled: Boolean,
+  modifier: Modifier = Modifier,
+  trackPositionUiModel: TrackPositionUiModel,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
-    val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
-    val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)
+  val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
+  val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)
 
-    ButtonGroupLayout(
-        modifier = modifier,
-        leftButton = {
-            SeekToPreviousButton(
-                modifier = Modifier.weight(1f).padding(leftButtonPadding).fillMaxSize(),
-                onClick = onSeekToPreviousButtonClick,
-                enabled = seekToPreviousButtonEnabled,
-                colorScheme = colorScheme,
-            )
-        },
-        middleButton = {
-            PlayPauseProgressButton(
-                modifier = Modifier.weight(0.5f)
-                    .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-                    .requiredSize(ButtonGroupLayoutDefaults.middleButtonSize),
-                onPlayClick = onPlayButtonClick,
-                onPauseClick = onPauseButtonClick,
-                enabled = playPauseButtonEnabled,
-                playing = playing,
-                trackPositionUiModel = trackPositionUiModel,
-                colorScheme = colorScheme,
-                iconSize = IconButtonDefaults.LargeIconSize,
-            )
-        },
-        rightButton = {
-            SeekToNextButton(
-                modifier = Modifier.weight(1f).padding(rightButtonPadding).fillMaxSize(),
-                onClick = onSeekToNextButtonClick,
-                enabled = seekToNextButtonEnabled,
-                colorScheme = colorScheme,
-            )
-        },
-    )
+  ButtonGroupLayout(
+    modifier = modifier,
+    leftButton = {
+      SeekToPreviousButton(
+        modifier = Modifier.weight(1f).padding(leftButtonPadding).fillMaxSize(),
+        onClick = onSeekToPreviousButtonClick,
+        enabled = seekToPreviousButtonEnabled,
+        colorScheme = colorScheme,
+      )
+    },
+    middleButton = {
+      PlayPauseProgressButton(
+        modifier =
+          Modifier.weight(0.5f)
+            .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+            .requiredSize(ButtonGroupLayoutDefaults.middleButtonSize),
+        onPlayClick = onPlayButtonClick,
+        onPauseClick = onPauseButtonClick,
+        enabled = playPauseButtonEnabled,
+        playing = playing,
+        trackPositionUiModel = trackPositionUiModel,
+        colorScheme = colorScheme,
+        iconSize = IconButtonDefaults.LargeIconSize,
+      )
+    },
+    rightButton = {
+      SeekToNextButton(
+        modifier = Modifier.weight(1f).padding(rightButtonPadding).fillMaxSize(),
+        onClick = onSeekToNextButtonClick,
+        enabled = seekToNextButtonEnabled,
+        colorScheme = colorScheme,
+      )
+    },
+  )
 }

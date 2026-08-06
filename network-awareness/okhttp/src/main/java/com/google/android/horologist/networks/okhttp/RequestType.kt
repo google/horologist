@@ -23,23 +23,23 @@ import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder
 import okhttp3.Request
 
 public val Request.requestType: RequestType
-    get() = requestTypeOrNull ?: RequestType.UnknownRequest
+  get() = requestTypeOrNull ?: RequestType.UnknownRequest
 
 public val Request.requestTypeOrNull: RequestType?
-    get() = this.tag(RequestTypeHolder::class.java)?.requestType
+  get() = this.tag(RequestTypeHolder::class.java)?.requestType
 
 public var Request.networkInfo: NetworkInfo?
-    get() {
-        return this.tag(RequestTypeHolder::class.java)!!.networkInfo
-    }
-    set(value) {
-        this.tag(RequestTypeHolder::class.java)!!.networkInfo = value
-    }
+  get() {
+    return this.tag(RequestTypeHolder::class.java)!!.networkInfo
+  }
+  set(value) {
+    this.tag(RequestTypeHolder::class.java)!!.networkInfo = value
+  }
 
 public var Request.highBandwidthConnectionLease: HighBandwidthConnectionLease?
-    get() {
-        return this.tag(RequestTypeHolder::class.java)!!.highBandwidthConnectionLease
-    }
-    set(value) {
-        this.tag(RequestTypeHolder::class.java)!!.highBandwidthConnectionLease = value
-    }
+  get() {
+    return this.tag(RequestTypeHolder::class.java)!!.highBandwidthConnectionLease
+  }
+  set(value) {
+    this.tag(RequestTypeHolder::class.java)!!.highBandwidthConnectionLease = value
+  }

@@ -20,10 +20,8 @@ import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
 class SignInPlaceholderScreenTest : WearLegacyScreenTest() {
-    @Test
-    fun signInPlaceholderScreen() {
-        runTest {
-            SignInPlaceholderScreen()
-        }
-    }
+  @Test
+  fun signInPlaceholderScreen() {
+    runTest { SignInPlaceholderScreen() }
+  }
 }

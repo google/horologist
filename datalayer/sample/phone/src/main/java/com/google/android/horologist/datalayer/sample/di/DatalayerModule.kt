@@ -25,40 +25,41 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DatalayerModule {
 
-    @Singleton
-    @Provides
-    fun providesCoroutineScope(): CoroutineScope {
-        return CoroutineScope(SupervisorJob() + Dispatchers.Default)
-    }
+  @Singleton
+  @Provides
+  fun providesCoroutineScope(): CoroutineScope {
+    return CoroutineScope(SupervisorJob() + Dispatchers.Default)
+  }
 
-    @Singleton
-    @Provides
-    fun phoneDataLayerAppHelper(
-        @ApplicationContext applicationContext: Context,
-        wearDataLayerRegistry: WearDataLayerRegistry,
-    ) = PhoneDataLayerAppHelper(
-        context = applicationContext,
-        registry = wearDataLayerRegistry,
+  @Singleton
+  @Provides
+  fun phoneDataLayerAppHelper(
+    @ApplicationContext applicationContext: Context,
+    wearDataLayerRegistry: WearDataLayerRegistry,
+  ) =
+    PhoneDataLayerAppHelper(
+      context = applicationContext,
+      registry = wearDataLayerRegistry,
     )
 
-    @Singleton
-    @Provides
-    fun wearDataLayerRegistry(
-        @ApplicationContext applicationContext: Context,
-        coroutineScope: CoroutineScope,
-    ): WearDataLayerRegistry = WearDataLayerRegistry.fromContext(
+  @Singleton
+  @Provides
+  fun wearDataLayerRegistry(
+    @ApplicationContext applicationContext: Context,
+    coroutineScope: CoroutineScope,
+  ): WearDataLayerRegistry =
+    WearDataLayerRegistry.fromContext(
         application = applicationContext,
         coroutineScope = coroutineScope,
-    ).apply {
-        registerSerializer(CounterValueSerializer)
-    }
+      )
+      .apply { registerSerializer(CounterValueSerializer) }
 }

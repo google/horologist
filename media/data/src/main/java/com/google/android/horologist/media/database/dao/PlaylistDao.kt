@@ -28,49 +28,51 @@ import com.google.android.horologist.media.database.model.PlaylistMediaEntity
 import com.google.android.horologist.media.database.model.PopulatedPlaylist
 import kotlinx.coroutines.flow.Flow
 
-/**
- * DAO for [com.google.android.horologist.media.database.model.PlaylistEntity].
- */
+/** DAO for [com.google.android.horologist.media.database.model.PlaylistEntity]. */
 @ExperimentalHorologistApi
 @Dao
 public interface PlaylistDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public suspend fun upsert(
-        playlistEntity: PlaylistEntity,
-        mediaEntityList: List<MediaEntity>,
-        playlistMediaEntityList: List<PlaylistMediaEntity>,
-    )
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  public suspend fun upsert(
+    playlistEntity: PlaylistEntity,
+    mediaEntityList: List<MediaEntity>,
+    playlistMediaEntityList: List<PlaylistMediaEntity>,
+  )
 
-    @Transaction
-    @Query(
-        value = """
+  @Transaction
+  @Query(
+    value =
+      """
         SELECT * FROM PlaylistEntity
         WHERE playlistId = :playlistId
-    """,
-    )
-    public suspend fun getPopulated(playlistId: String): PopulatedPlaylist?
+    """
+  )
+  public suspend fun getPopulated(playlistId: String): PopulatedPlaylist?
 
-    @Transaction
-    @Query(
-        value = """
+  @Transaction
+  @Query(
+    value =
+      """
         SELECT * FROM playlistentity
         WHERE playlistId = :playlistId
-    """,
-    )
-    public fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist?>
+    """
+  )
+  public fun getPopulatedStream(playlistId: String): Flow<PopulatedPlaylist?>
 
-    @Transaction
-    @Query(
-        value = """
+  @Transaction
+  @Query(
+    value =
+      """
         SELECT * FROM PlaylistEntity
-    """,
-    )
-    public fun getAllPopulated(): Flow<List<PopulatedPlaylist>>
+    """
+  )
+  public fun getAllPopulated(): Flow<List<PopulatedPlaylist>>
 
-    @Transaction
-    @Query(
-        value = """
+  @Transaction
+  @Query(
+    value =
+      """
         SELECT * FROM PlaylistEntity
         WHERE EXISTS (
             SELECT 1 FROM PlaylistMediaEntity
@@ -80,15 +82,16 @@ public interface PlaylistDao {
                 WHERE MediaDownloadEntity.mediaId = PlaylistMediaEntity.mediaId
             )
         )
-    """,
-    )
-    public fun getAllDownloaded(): Flow<List<PopulatedPlaylist>>
+    """
+  )
+  public fun getAllDownloaded(): Flow<List<PopulatedPlaylist>>
 
-    @Query(
-        value = """
+  @Query(
+    value =
+      """
         DELETE FROM PlaylistEntity
         WHERE playlistId in (:playlistIds)
-    """,
-    )
-    public fun delete(playlistIds: List<String>)
+    """
+  )
+  public fun delete(playlistIds: List<String>)
 }

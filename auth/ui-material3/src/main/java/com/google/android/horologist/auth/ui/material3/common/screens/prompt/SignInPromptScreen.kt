@@ -51,77 +51,77 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
  */
 @Composable
 public fun SignInPromptScreen(
-    message: String,
-    onAlreadySignedIn: (account: AccountUiModel) -> Unit,
-    modifier: Modifier = Modifier,
-    title: String = stringResource(id = R.string.horologist_signin_prompt_title),
-    viewModel: SignInPromptViewModel = viewModel(),
-    loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
-    content: ScalingLazyListScope.() -> Unit,
+  message: String,
+  onAlreadySignedIn: (account: AccountUiModel) -> Unit,
+  modifier: Modifier = Modifier,
+  title: String = stringResource(id = R.string.horologist_signin_prompt_title),
+  viewModel: SignInPromptViewModel = viewModel(),
+  loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
+  content: ScalingLazyListScope.() -> Unit,
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    SignInPromptScreen(
-        state = state,
-        title = title,
-        message = message,
-        onIdleStateObserved = { viewModel.onIdleStateObserved() },
-        onAlreadySignedIn = onAlreadySignedIn,
-        loadingContent = loadingContent,
-        modifier = modifier,
-        content = content,
-    )
+  SignInPromptScreen(
+    state = state,
+    title = title,
+    message = message,
+    onIdleStateObserved = { viewModel.onIdleStateObserved() },
+    onAlreadySignedIn = onAlreadySignedIn,
+    loadingContent = loadingContent,
+    modifier = modifier,
+    content = content,
+  )
 }
 
 @Composable
 public fun SignInPromptScreen(
-    state: SignInPromptScreenState,
-    title: String,
-    message: String,
-    onIdleStateObserved: () -> Unit,
-    onAlreadySignedIn: (account: AccountUiModel) -> Unit,
-    modifier: Modifier = Modifier,
-    loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
-    content: ScalingLazyListScope.() -> Unit,
+  state: SignInPromptScreenState,
+  title: String,
+  message: String,
+  onIdleStateObserved: () -> Unit,
+  onAlreadySignedIn: (account: AccountUiModel) -> Unit,
+  modifier: Modifier = Modifier,
+  loadingContent: @Composable () -> Unit = { SignInPlaceholderScreen(modifier = modifier) },
+  content: ScalingLazyListScope.() -> Unit,
 ) {
-    ScreenScaffold(timeText = {}) {
-        when (state) {
-            SignInPromptScreenState.Idle -> {
-                SideEffect {
-                    onIdleStateObserved()
-                }
+  ScreenScaffold(timeText = {}) {
+    when (state) {
+      SignInPromptScreenState.Idle -> {
+        SideEffect { onIdleStateObserved() }
 
-                loadingContent()
-            }
+        loadingContent()
+      }
 
-            SignInPromptScreenState.Loading -> {
-                loadingContent()
-            }
+      SignInPromptScreenState.Loading -> {
+        loadingContent()
+      }
 
-            is SignInPromptScreenState.SignedIn -> {
-                SignInPlaceholderScreen(modifier = modifier)
+      is SignInPromptScreenState.SignedIn -> {
+        SignInPlaceholderScreen(modifier = modifier)
 
-                onAlreadySignedIn(state.account)
-            }
+        onAlreadySignedIn(state.account)
+      }
 
-            SignInPromptScreenState.SignedOut -> {
-                AlertDialogContent(
-                    title = @Composable {
-                        Text(
-                            text = title,
-                            style = MaterialTheme.typography.titleLarge,
-                        )
-                    },
-                    text = @Composable {
-                        Text(
-                            text = message,
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
-                    },
-                    content = content,
-                    modifier = modifier,
-                )
-            }
-        }
+      SignInPromptScreenState.SignedOut -> {
+        AlertDialogContent(
+          title =
+            @Composable {
+              Text(
+                text = title,
+                style = MaterialTheme.typography.titleLarge,
+              )
+            },
+          text =
+            @Composable {
+              Text(
+                text = message,
+                style = MaterialTheme.typography.bodyMedium,
+              )
+            },
+          content = content,
+          modifier = modifier,
+        )
+      }
     }
+  }
 }

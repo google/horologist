@@ -32,13 +32,11 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MediaCollectionsWidgetService : GlanceWearWidgetService() {
 
-    @Inject
-    lateinit var playlistRepository: PlaylistRepository
+  @Inject lateinit var playlistRepository: PlaylistRepository
 
-    @Inject
-    lateinit var imageLoader: ImageLoader
+  @Inject lateinit var imageLoader: ImageLoader
 
-    override val widget: GlanceWearWidget by lazy {
-        MediaCollectionsWidget(playlistRepository, imageLoader)
-    }
+  override val widget: GlanceWearWidget by lazy {
+    MediaCollectionsWidget(playlistRepository, imageLoader)
+  }
 }

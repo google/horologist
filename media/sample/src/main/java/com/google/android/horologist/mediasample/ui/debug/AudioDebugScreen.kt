@@ -40,108 +40,112 @@ import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun AudioDebugScreen(
-    audioDebugScreenViewModel: AudioDebugScreenViewModel,
-    modifier: Modifier = Modifier,
+  audioDebugScreenViewModel: AudioDebugScreenViewModel,
+  modifier: Modifier = Modifier,
 ) {
-    val uiState by audioDebugScreenViewModel.uiState.collectAsStateWithLifecycle()
+  val uiState by audioDebugScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ItemType.Text,
+          last = ItemType.Chip,
+        )
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(
-            columnState = columnState,
-            modifier = modifier,
-        ) {
-            item {
-                Text(
-                    text = stringResource(id = R.string.sample_audio_debug),
-                    modifier = Modifier.padding(bottom = 12.dp),
-                    style = MaterialTheme.typography.title3,
-                )
-            }
-            item {
-                val format = uiState?.audioOffloadStatus?.format?.run {
-                    "$sampleMimeType $sampleRate"
-                }.orEmpty()
-                Text(
-                    text = stringResource(id = R.string.sample_debug_format, format),
-                    style = MaterialTheme.typography.body2,
-                )
-            }
-            item {
-                // Currently will always be N/A until support in ExoPlayer
-                val supported = uiState?.audioOffloadStatus?.trackOffloadDescription() ?: "N/A"
-                Text(
-                    text = stringResource(id = R.string.sample_track_offloaded, supported),
-                    style = MaterialTheme.typography.body2,
-                )
-            }
-            item {
-                val supported = uiState?.formatSupported?.toString().orEmpty()
-                Text(
-                    text = stringResource(id = R.string.sample_offload_supported, supported),
-                    style = MaterialTheme.typography.body2,
-                )
-            }
-            item {
-                Text(
-                    text = stringResource(
-                        id = R.string.sample_debug_offload_sleeping,
-                        uiState?.audioOffloadStatus?.sleepingForOffload?.toString().orEmpty(),
-                    ),
-                    style = MaterialTheme.typography.body2,
-                )
-            }
-            item {
-                Text(
-                    text = stringResource(
-                        id = R.string.sample_debug_offload_scheduled,
-                        uiState?.audioOffloadStatus?.offloadSchedulingEnabled.toString().orEmpty(),
-                    ),
-                    style = MaterialTheme.typography.body2,
-                )
-            }
-            item {
-                val times = uiState?.audioOffloadStatus?.updateToNow()
-                val enabled = times?.run { formatDuration(enabled) }.orEmpty()
-                val disabled = times?.run { formatDuration(disabled) }.orEmpty()
-                Text(
-                    text = stringResource(
-                        id = R.string.sample_debug_offload_percent,
-                        times?.percent + "($enabled/$disabled)",
-                    ),
-                    style = MaterialTheme.typography.body2,
-                )
-            }
-            item {
-                Text(
-                    text = stringResource(id = R.string.sample_audio_debug_events),
-                    modifier = Modifier.padding(vertical = 12.dp),
-                    style = MaterialTheme.typography.title3,
-                )
-            }
-            items(uiState?.audioOffloadStatus?.errors.orEmpty().reversed()) {
-                val message = remember(it.time) {
-                    val time = Instant.ofEpochMilli(it.time).atZone(ZoneId.systemDefault())
-                        .toLocalTime()
-                    "$time ${it.message}"
-                }
-                Text(
-                    text = message,
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.caption3,
-                )
-            }
-        }
+  ScreenScaffold(scrollState = columnState) {
+    ScalingLazyColumn(
+      columnState = columnState,
+      modifier = modifier,
+    ) {
+      item {
+        Text(
+          text = stringResource(id = R.string.sample_audio_debug),
+          modifier = Modifier.padding(bottom = 12.dp),
+          style = MaterialTheme.typography.title3,
+        )
+      }
+      item {
+        val format =
+          uiState?.audioOffloadStatus?.format?.run { "$sampleMimeType $sampleRate" }.orEmpty()
+        Text(
+          text = stringResource(id = R.string.sample_debug_format, format),
+          style = MaterialTheme.typography.body2,
+        )
+      }
+      item {
+        // Currently will always be N/A until support in ExoPlayer
+        val supported = uiState?.audioOffloadStatus?.trackOffloadDescription() ?: "N/A"
+        Text(
+          text = stringResource(id = R.string.sample_track_offloaded, supported),
+          style = MaterialTheme.typography.body2,
+        )
+      }
+      item {
+        val supported = uiState?.formatSupported?.toString().orEmpty()
+        Text(
+          text = stringResource(id = R.string.sample_offload_supported, supported),
+          style = MaterialTheme.typography.body2,
+        )
+      }
+      item {
+        Text(
+          text =
+            stringResource(
+              id = R.string.sample_debug_offload_sleeping,
+              uiState?.audioOffloadStatus?.sleepingForOffload?.toString().orEmpty(),
+            ),
+          style = MaterialTheme.typography.body2,
+        )
+      }
+      item {
+        Text(
+          text =
+            stringResource(
+              id = R.string.sample_debug_offload_scheduled,
+              uiState?.audioOffloadStatus?.offloadSchedulingEnabled.toString().orEmpty(),
+            ),
+          style = MaterialTheme.typography.body2,
+        )
+      }
+      item {
+        val times = uiState?.audioOffloadStatus?.updateToNow()
+        val enabled = times?.run { formatDuration(enabled) }.orEmpty()
+        val disabled = times?.run { formatDuration(disabled) }.orEmpty()
+        Text(
+          text =
+            stringResource(
+              id = R.string.sample_debug_offload_percent,
+              times?.percent + "($enabled/$disabled)",
+            ),
+          style = MaterialTheme.typography.body2,
+        )
+      }
+      item {
+        Text(
+          text = stringResource(id = R.string.sample_audio_debug_events),
+          modifier = Modifier.padding(vertical = 12.dp),
+          style = MaterialTheme.typography.title3,
+        )
+      }
+      items(uiState?.audioOffloadStatus?.errors.orEmpty().reversed()) {
+        val message =
+          remember(it.time) {
+            val time = Instant.ofEpochMilli(it.time).atZone(ZoneId.systemDefault()).toLocalTime()
+            "$time ${it.message}"
+          }
+        Text(
+          text = message,
+          maxLines = 3,
+          overflow = TextOverflow.Ellipsis,
+          style = MaterialTheme.typography.caption3,
+        )
+      }
     }
+  }
 }
 
 fun formatDuration(millis: Long): String {
-    return (millis / 1000).seconds.toString()
+  return (millis / 1000).seconds.toString()
 }

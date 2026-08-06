@@ -32,8 +32,8 @@ import com.google.android.horologist.mediasample.ui.app.MediaActivity
 import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.images.loadImageResource
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.first
 import javax.inject.Inject
+import kotlinx.coroutines.flow.first
 
 /**
  * A Tile with links to open the app, or two specific media collections (playlist, album).
@@ -43,101 +43,94 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MediaCollectionsTileService : SuspendingTileService() {
 
-    @Inject
-    lateinit var playlistRepository: PlaylistRepository
+  @Inject lateinit var playlistRepository: PlaylistRepository
 
-    @Inject
-    internal lateinit var imageLoader: ImageLoader
+  @Inject internal lateinit var imageLoader: ImageLoader
 
-    private val renderer: MediaCollectionsTileRenderer = MediaCollectionsTileRenderer(
-        context = this,
-        // TO DO Migrate Tile to Material 3 theme from app
-        materialTheme = Colors.DEFAULT,
-        debugResourceMode = BuildConfig.DEBUG,
+  private val renderer: MediaCollectionsTileRenderer =
+    MediaCollectionsTileRenderer(
+      context = this,
+      // TO DO Migrate Tile to Material 3 theme from app
+      materialTheme = Colors.DEFAULT,
+      debugResourceMode = BuildConfig.DEBUG,
     )
 
-    /**
-     * Render a Playlist primary button and two chips with direct links to collections.
-     */
-    override suspend fun tileRequest(requestParams: TileRequest): Tile {
-        val playlists = playlistRepository.getAll().first()
+  /** Render a Playlist primary button and two chips with direct links to collections. */
+  override suspend fun tileRequest(requestParams: TileRequest): Tile {
+    val playlists = playlistRepository.getAll().first()
 
-        val firstPlaylist = playlists.first()
-        val firstSong = firstPlaylist.mediaList.first()
+    val firstPlaylist = playlists.first()
+    val firstSong = firstPlaylist.mediaList.first()
 
-        val lastPlaylist = playlists.last()
+    val lastPlaylist = playlists.last()
 
-        return renderer.renderTimeline(
-            state = MediaCollectionsTileRenderer.MediaCollectionsState(
-                R.string.sample_playlists,
-                appLauncher(),
-                MediaCollectionsTileRenderer.MediaCollection(
-                    name = firstSong.title,
-                    artworkId = firstSong.id,
-                    action = appLauncher {
-                        addStringExtra(MediaActivity.CollectionKey, firstPlaylist.id)
-                        addStringExtra(MediaActivity.MediaIdKey, firstSong.id)
-                    },
-                ),
-                MediaCollectionsTileRenderer.MediaCollection(
-                    name = lastPlaylist.name,
-                    artworkId = lastPlaylist.id,
-                    action = appLauncher {
-                        addStringExtra(MediaActivity.CollectionKey, lastPlaylist.id)
-                    },
-                ),
-            ),
-            requestParams = requestParams,
-        )
-    }
+    return renderer.renderTimeline(
+      state =
+        MediaCollectionsTileRenderer.MediaCollectionsState(
+          R.string.sample_playlists,
+          appLauncher(),
+          MediaCollectionsTileRenderer.MediaCollection(
+            name = firstSong.title,
+            artworkId = firstSong.id,
+            action =
+              appLauncher {
+                addStringExtra(MediaActivity.CollectionKey, firstPlaylist.id)
+                addStringExtra(MediaActivity.MediaIdKey, firstSong.id)
+              },
+          ),
+          MediaCollectionsTileRenderer.MediaCollection(
+            name = lastPlaylist.name,
+            artworkId = lastPlaylist.id,
+            action = appLauncher { addStringExtra(MediaActivity.CollectionKey, lastPlaylist.id) },
+          ),
+        ),
+      requestParams = requestParams,
+    )
+  }
 
-    private fun AndroidActivity.Builder.addStringExtra(key: String, value: String) {
-        addKeyToExtraMapping(
-            key,
-            ActionBuilders.AndroidStringExtra.Builder().setValue(value).build(),
-        )
-    }
+  private fun AndroidActivity.Builder.addStringExtra(key: String, value: String) {
+    addKeyToExtraMapping(
+      key,
+      ActionBuilders.AndroidStringExtra.Builder().setValue(value).build(),
+    )
+  }
 
-    /**
-     * Create a launcher to an activity, with an optional extra "collection" linking to
-     * a screen to open.
-     */
-    private fun appLauncher(
-        extrasBuilder: AndroidActivity.Builder.() -> Unit = {},
-    ) = ActionBuilders.LaunchAction.Builder().setAndroidActivity(
-        AndroidActivity.Builder().setClassName(MediaActivity::class.java.name)
-            .setPackageName(this.packageName).apply {
-                extrasBuilder()
-            }.build(),
-    ).build()
+  /**
+   * Create a launcher to an activity, with an optional extra "collection" linking to a screen to
+   * open.
+   */
+  private fun appLauncher(extrasBuilder: AndroidActivity.Builder.() -> Unit = {}) =
+    ActionBuilders.LaunchAction.Builder()
+      .setAndroidActivity(
+        AndroidActivity.Builder()
+          .setClassName(MediaActivity::class.java.name)
+          .setPackageName(this.packageName)
+          .apply { extrasBuilder() }
+          .build()
+      )
+      .build()
 
-    /**
-     * Show UAMP as AppIcon, and favourites and podcasts icons.
-     */
-    override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
-        val playlists = playlistRepository.getAll().first()
+  /** Show UAMP as AppIcon, and favourites and podcasts icons. */
+  override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
+    val playlists = playlistRepository.getAll().first()
 
-        val firstPlaylist = playlists.first()
-        val firstSong = firstPlaylist.mediaList.first()
+    val firstPlaylist = playlists.first()
+    val firstSong = firstPlaylist.mediaList.first()
 
-        val lastPlaylist = playlists.last()
+    val lastPlaylist = playlists.last()
 
-        val songResource = imageLoader.loadImageResource(this, firstSong.artworkUri) {
-            size(128)
-        }
-        val albumResource = imageLoader.loadImageResource(this, lastPlaylist.artworkUri) {
-            size(128)
-        }
+    val songResource = imageLoader.loadImageResource(this, firstSong.artworkUri) { size(128) }
+    val albumResource = imageLoader.loadImageResource(this, lastPlaylist.artworkUri) { size(128) }
 
-        return renderer.produceRequestedResources(
-            MediaCollectionsTileRenderer.ResourceState(
-                com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
-                mapOf(
-                    firstSong.id to songResource,
-                    lastPlaylist.id to albumResource,
-                ),
-            ),
-            requestParams,
-        )
-    }
+    return renderer.produceRequestedResources(
+      MediaCollectionsTileRenderer.ResourceState(
+        com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
+        mapOf(
+          firstSong.id to songResource,
+          lastPlaylist.id to albumResource,
+        ),
+      ),
+      requestParams,
+    )
+  }
 }

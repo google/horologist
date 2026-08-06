@@ -48,37 +48,37 @@ import kotlinx.coroutines.flow.collectLatest
  */
 @Composable
 public fun VolumeLevelIndicator(
-    volumeUiState: () -> VolumeUiState,
-    modifier: Modifier = Modifier,
-    displayIndicatorEvents: Flow<Unit>? = null,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  volumeUiState: () -> VolumeUiState,
+  modifier: Modifier = Modifier,
+  displayIndicatorEvents: Flow<Unit>? = null,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
-    val visible by
-        produceState(displayIndicatorEvents == null, displayIndicatorEvents) {
-            displayIndicatorEvents?.collectLatest {
-                value = true
-                delay(2500)
-                value = false
-            }
-        }
-    val uiState = volumeUiState()
-
-    AnimatedVisibility(
-        visible = visible,
-        enter = fadeIn(animationSpec = MaterialTheme.motionScheme.fastEffectsSpec()),
-        exit = fadeOut(animationSpec = MaterialTheme.motionScheme.slowEffectsSpec()),
-    ) {
-        StepperLevelIndicator(
-            modifier = modifier.fillMaxSize(),
-            value = { uiState.current.toFloat() },
-            valueRange = (uiState.min.toFloat())..(uiState.max.toFloat()),
-            colors =
-                LevelIndicatorDefaults.colors(
-                    indicatorColor = colorScheme.secondaryDim,
-                    trackColor = colorScheme.surfaceContainer,
-                    disabledIndicatorColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-                    disabledTrackColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-                ),
-        )
+  val visible by
+    produceState(displayIndicatorEvents == null, displayIndicatorEvents) {
+      displayIndicatorEvents?.collectLatest {
+        value = true
+        delay(2500)
+        value = false
+      }
     }
+  val uiState = volumeUiState()
+
+  AnimatedVisibility(
+    visible = visible,
+    enter = fadeIn(animationSpec = MaterialTheme.motionScheme.fastEffectsSpec()),
+    exit = fadeOut(animationSpec = MaterialTheme.motionScheme.slowEffectsSpec()),
+  ) {
+    StepperLevelIndicator(
+      modifier = modifier.fillMaxSize(),
+      value = { uiState.current.toFloat() },
+      valueRange = (uiState.min.toFloat())..(uiState.max.toFloat()),
+      colors =
+        LevelIndicatorDefaults.colors(
+          indicatorColor = colorScheme.secondaryDim,
+          trackColor = colorScheme.surfaceContainer,
+          disabledIndicatorColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+          disabledTrackColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+        ),
+    )
+  }
 }

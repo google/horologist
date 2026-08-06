@@ -17,11 +17,11 @@
 package com.google.android.horologist.mediasample.ui.app
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.MaterialTheme
 
-public val UampColors: ColorScheme = ColorScheme(
+public val UampColors: ColorScheme =
+  ColorScheme(
     primary = UampPrimary,
     onPrimary = UampOnPrimary,
     primaryContainer = UampPrimaryContainer,
@@ -44,11 +44,9 @@ public val UampColors: ColorScheme = ColorScheme(
     onSurfaceVariant = UampOnSurfaceVariant,
     outline = UampOutline,
     outlineVariant = UampOutlineVariant,
-)
+  )
 
 @Composable
 public fun UampTheme(block: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = UampColors) {
-        block()
-    }
+  MaterialTheme(colorScheme = UampColors) { block() }
 }

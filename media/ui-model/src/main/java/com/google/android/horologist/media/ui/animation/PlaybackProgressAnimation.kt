@@ -20,12 +20,12 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.SpringSpec
 
 public object PlaybackProgressAnimation {
-    public val PLAYBACK_PROGRESS_ANIMATION_SPEC: SpringSpec<Float> =
-        SpringSpec(
-            dampingRatio = Spring.DampingRatioNoBouncy,
-            stiffness = 100f,
-            // The default threshold is 0.01, or 1% of the overall progress range, which is quite
-            // large and noticeable.
-            visibilityThreshold = 1 / 1000f,
-        )
+  public val PLAYBACK_PROGRESS_ANIMATION_SPEC: SpringSpec<Float> =
+    SpringSpec(
+      dampingRatio = Spring.DampingRatioNoBouncy,
+      stiffness = 100f,
+      // The default threshold is 0.01, or 1% of the overall progress range, which is quite
+      // large and noticeable.
+      visibilityThreshold = 1 / 1000f,
+    )
 }

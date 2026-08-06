@@ -26,137 +26,111 @@ import androidx.wear.compose.material3.ScreenScaffold
 import androidx.wear.compose.material3.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * A screen that displays a media collection and allow actions to be taken on it.
- */
+/** A screen that displays a media collection and allow actions to be taken on it. */
 @ExperimentalHorologistApi
 @Composable
 public fun EntityScreen(
-    headerContent: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    buttonsContent: (@Composable () -> Unit)? = null,
-    content: (ScalingLazyListScope.() -> Unit)? = null,
+  headerContent: @Composable () -> Unit,
+  modifier: Modifier = Modifier,
+  buttonsContent: (@Composable () -> Unit)? = null,
+  content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
-    val scrollState = rememberScalingLazyListState()
+  val scrollState = rememberScalingLazyListState()
 
-    ScreenScaffold(scrollState = scrollState) {
-        ScalingLazyColumn(
-            state = scrollState,
-            modifier = modifier,
-        ) {
-            item {
-                headerContent()
-            }
+  ScreenScaffold(scrollState = scrollState) {
+    ScalingLazyColumn(
+      state = scrollState,
+      modifier = modifier,
+    ) {
+      item { headerContent() }
 
-            buttonsContent?.let {
-                item {
-                    buttonsContent()
-                }
-            }
+      buttonsContent?.let { item { buttonsContent() } }
 
-            content?.let {
-                content()
-            }
-        }
+      content?.let { content() }
     }
+  }
+}
+
+/** A screen that displays a [Media] collection and allow actions to be taken on it. */
+@ExperimentalHorologistApi
+@Composable
+public fun <Media> EntityScreen(
+  headerContent: @Composable () -> Unit,
+  mediaList: List<Media>,
+  mediaContent: @Composable (media: Media) -> Unit,
+  modifier: Modifier = Modifier,
+  buttonsContent: (@Composable () -> Unit)? = null,
+) {
+  EntityScreen(
+    headerContent = headerContent,
+    modifier = modifier,
+    buttonsContent = buttonsContent,
+    content = { items(count = mediaList.size) { index -> mediaContent(mediaList[index]) } },
+  )
 }
 
 /**
- * A screen that displays a [Media] collection and allow actions to be taken on it.
+ * A screen that displays a [Media] collection and allow actions to be taken on it. The content
+ * displayed is based on the screen's [state][EntityScreenState].
  */
 @ExperimentalHorologistApi
 @Composable
 public fun <Media> EntityScreen(
-    headerContent: @Composable () -> Unit,
-    mediaList: List<Media>,
-    mediaContent: @Composable (media: Media) -> Unit,
-    modifier: Modifier = Modifier,
-    buttonsContent: (@Composable () -> Unit)? = null,
+  entityScreenState: EntityScreenState<Media>,
+  headerContent: @Composable () -> Unit,
+  loadingContent: ScalingLazyListScope.() -> Unit,
+  mediaContent: @Composable (media: Media) -> Unit,
+  modifier: Modifier = Modifier,
+  buttonsContent: (@Composable () -> Unit)? = null,
+  failedContent: (@Composable () -> Unit)? = null,
 ) {
-    EntityScreen(
+  when (entityScreenState) {
+    EntityScreenState.Loading -> {
+      EntityScreen(
         headerContent = headerContent,
         modifier = modifier,
         buttonsContent = buttonsContent,
-        content = {
-            items(count = mediaList.size) { index ->
-                mediaContent(mediaList[index])
-            }
-        },
-    )
-}
-
-/**
- * A screen that displays a [Media] collection and allow actions to be taken on it.
- * The content displayed is based on the screen's [state][EntityScreenState].
- */
-@ExperimentalHorologistApi
-@Composable
-public fun <Media> EntityScreen(
-    entityScreenState: EntityScreenState<Media>,
-    headerContent: @Composable () -> Unit,
-    loadingContent: ScalingLazyListScope.() -> Unit,
-    mediaContent: @Composable (media: Media) -> Unit,
-    modifier: Modifier = Modifier,
-    buttonsContent: (@Composable () -> Unit)? = null,
-    failedContent: (@Composable () -> Unit)? = null,
-) {
-    when (entityScreenState) {
-        EntityScreenState.Loading -> {
-            EntityScreen(
-                headerContent = headerContent,
-                modifier = modifier,
-                buttonsContent = buttonsContent,
-                content = loadingContent,
-            )
-        }
-
-        is EntityScreenState.Loaded -> {
-            EntityScreen(
-                headerContent = headerContent,
-                mediaList = entityScreenState.mediaList,
-                mediaContent = mediaContent,
-                modifier = modifier,
-                buttonsContent = buttonsContent,
-            )
-        }
-
-        EntityScreenState.Failed -> {
-            EntityScreen(
-                headerContent = headerContent,
-                modifier = modifier,
-                buttonsContent = buttonsContent,
-                content = failedContent?.let {
-                    {
-                        item { failedContent() }
-                    }
-                },
-            )
-        }
+        content = loadingContent,
+      )
     }
+
+    is EntityScreenState.Loaded -> {
+      EntityScreen(
+        headerContent = headerContent,
+        mediaList = entityScreenState.mediaList,
+        mediaContent = mediaContent,
+        modifier = modifier,
+        buttonsContent = buttonsContent,
+      )
+    }
+
+    EntityScreenState.Failed -> {
+      EntityScreen(
+        headerContent = headerContent,
+        modifier = modifier,
+        buttonsContent = buttonsContent,
+        content = failedContent?.let { { item { failedContent() } } },
+      )
+    }
+  }
 }
 
-/**
- * Represents the state of [EntityScreen].
- */
+/** Represents the state of [EntityScreen]. */
 @ExperimentalHorologistApi
 public sealed class EntityScreenState<out Media> {
-    public object Loading : EntityScreenState<Nothing>()
+  public object Loading : EntityScreenState<Nothing>()
 
-    public data class Loaded<Media>(
-        val mediaList: List<Media>,
-    ) : EntityScreenState<Media>()
+  public data class Loaded<Media>(val mediaList: List<Media>) : EntityScreenState<Media>()
 
-    public object Failed : EntityScreenState<Nothing>()
+  public object Failed : EntityScreenState<Nothing>()
 }
 
-/**
- * A default implementation of a header for [EntityScreen].
- */
+/** A default implementation of a header for [EntityScreen]. */
 @ExperimentalHorologistApi
 @Composable
 public fun DefaultEntityScreenHeader(
-    title: String,
-    modifier: Modifier = Modifier,
+  title: String,
+  modifier: Modifier = Modifier,
 ) {
-    ListHeader(modifier = modifier) { Text(title) }
+  ListHeader(modifier = modifier) { Text(title) }
 }

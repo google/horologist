@@ -21,57 +21,55 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class NodesListenerViewModel
-    @Inject
-    constructor(
-        private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-    ) : ViewModel() {
+@Inject
+constructor(private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper) : ViewModel() {
 
-        private var initializeCalled = false
+  private var initializeCalled = false
 
-        private val _uiState =
-            MutableStateFlow<NodesListenerScreenState>(NodesListenerScreenState.Idle)
-        public val uiState: StateFlow<NodesListenerScreenState> = _uiState
+  private val _uiState = MutableStateFlow<NodesListenerScreenState>(NodesListenerScreenState.Idle)
+  public val uiState: StateFlow<NodesListenerScreenState> = _uiState
 
-        @MainThread
-        fun initialize() {
-            if (initializeCalled) return
-            initializeCalled = true
+  @MainThread
+  fun initialize() {
+    if (initializeCalled) return
+    initializeCalled = true
 
-            _uiState.value = NodesListenerScreenState.Loading
+    _uiState.value = NodesListenerScreenState.Loading
 
-            viewModelScope.launch {
-                if (!phoneDataLayerAppHelper.isAvailable()) {
-                    _uiState.value = NodesListenerScreenState.ApiNotAvailable
-                } else {
-                    loadNodes()
-                }
-            }
-        }
-
-        private suspend fun loadNodes() {
-            _uiState.value = NodesListenerScreenState.Loading
-
-            phoneDataLayerAppHelper.connectedAndInstalledNodes.collect { nodes ->
-                _uiState.value = NodesListenerScreenState.Loaded(
-                    nodeList = nodes.mapTo(mutableSetOf()) { it.toNodesUIMapper() },
-                )
-            }
-        }
+    viewModelScope.launch {
+      if (!phoneDataLayerAppHelper.isAvailable()) {
+        _uiState.value = NodesListenerScreenState.ApiNotAvailable
+      } else {
+        loadNodes()
+      }
     }
+  }
+
+  private suspend fun loadNodes() {
+    _uiState.value = NodesListenerScreenState.Loading
+
+    phoneDataLayerAppHelper.connectedAndInstalledNodes.collect { nodes ->
+      _uiState.value =
+        NodesListenerScreenState.Loaded(
+          nodeList = nodes.mapTo(mutableSetOf()) { it.toNodesUIMapper() }
+        )
+    }
+  }
+}
 
 sealed class NodesListenerScreenState {
-    data object Idle : NodesListenerScreenState()
+  data object Idle : NodesListenerScreenState()
 
-    data object Loading : NodesListenerScreenState()
+  data object Loading : NodesListenerScreenState()
 
-    data class Loaded(val nodeList: Set<NodeUiModel>) : NodesListenerScreenState()
+  data class Loaded(val nodeList: Set<NodeUiModel>) : NodesListenerScreenState()
 
-    data object ApiNotAvailable : NodesListenerScreenState()
+  data object ApiNotAvailable : NodesListenerScreenState()
 }

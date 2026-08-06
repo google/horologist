@@ -20,16 +20,12 @@ import androidx.media3.common.Player
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 
-/**
- * Wait for the Player to reach isPlaying state.
- */
+/** Wait for the Player to reach isPlaying state. */
 public suspend fun Player.waitForPlaying() {
-    isPlayingFlow().filter { it }.first()
+  isPlayingFlow().filter { it }.first()
 }
 
-/**
- * Wait for the Player to leave isPlaying state.
- */
+/** Wait for the Player to leave isPlaying state. */
 public suspend fun Player.waitForNotPlaying() {
-    isPlayingFlow().filter { !it }.first()
+  isPlayingFlow().filter { !it }.first()
 }

@@ -52,165 +52,159 @@ import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScr
 
 @Composable
 fun UampSettingsScreen(
-    viewModel: SettingsScreenViewModel,
-    backStack: NavBackStack<MediaRoute>,
-    modifier: Modifier = Modifier,
+  viewModel: SettingsScreenViewModel,
+  backStack: NavBackStack<MediaRoute>,
+  modifier: Modifier = Modifier,
 ) {
-    val screenState by viewModel.screenState.collectAsStateWithLifecycle()
+  val screenState by viewModel.screenState.collectAsStateWithLifecycle()
 
-    val transformationSpec = rememberTransformationSpec()
-    val columnState = rememberTransformingLazyColumnState()
+  val transformationSpec = rememberTransformationSpec()
+  val columnState = rememberTransformingLazyColumnState()
 
-    ScreenScaffold(
-        scrollState = columnState,
-        modifier = modifier,
-    ) { contentPadding ->
-        TransformingLazyColumn(
-            state = columnState,
-            contentPadding = contentPadding,
+  ScreenScaffold(
+    scrollState = columnState,
+    modifier = modifier,
+  ) { contentPadding ->
+    TransformingLazyColumn(
+      state = columnState,
+      contentPadding = contentPadding,
+    ) {
+      item {
+        ListHeader(
+          modifier =
+            Modifier.fillMaxWidth()
+              .transformedHeight(this, transformationSpec)
+              .minimumVerticalContentPadding(ListHeaderDefaults.minimumTopListContentPadding),
+          transformation = SurfaceTransformation(transformationSpec),
         ) {
-            item {
-                ListHeader(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .transformedHeight(this, transformationSpec)
-                        .minimumVerticalContentPadding(ListHeaderDefaults.minimumTopListContentPadding),
-                    transformation = SurfaceTransformation(transformationSpec),
-                ) {
-                    Text(text = stringResource(id = R.string.sample_settings))
-                }
-            }
-            item {
-                if (screenState.authUser == null) {
-                    FilledTonalButton(
-                        label = { Text(stringResource(id = R.string.login)) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .transformedHeight(this, transformationSpec)
-                            .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
-                        onClick = {
-                            backStack.add(CustomRoute(GoogleSignInScreen.navRoute))
-                        },
-                        enabled = !screenState.guestMode,
-                        transformation = SurfaceTransformation(transformationSpec),
-                    )
-                } else {
-                    FilledTonalButton(
-                        label = { Text(stringResource(id = R.string.logout)) },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .transformedHeight(this, transformationSpec)
-                            .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
-                        onClick = {
-                            backStack.clear()
-                            backStack.add(PlayerRoute(page = 0))
-                            backStack.add(CustomRoute(GoogleSignOutScreen.navRoute))
-                        },
-                        transformation = SurfaceTransformation(transformationSpec),
-                    )
-                }
-            }
-            item {
-                CheckedSetting(
-                    value = screenState.guestMode,
-                    text = stringResource(id = R.string.sample_guest_mode),
-                    enabled = screenState.writable,
-                    transformation = SurfaceTransformation(transformationSpec),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .transformedHeight(this, transformationSpec)
-                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
-                ) {
-                    viewModel.setGuestMode(it)
-                }
-            }
-            if (screenState.showDeveloperOptions) {
-                item {
-                    ActionSetting(
-                        text = stringResource(id = R.string.sample_developer_options),
-                        icon = Icons.Default.DataObject,
-                        transformation = SurfaceTransformation(transformationSpec),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .transformedHeight(this, transformationSpec)
-                            .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
-                        onClick = {
-                            backStack.add(CustomRoute(DeveloperOptions.navRoute))
-                        },
-                    )
-                }
-            }
-            item {
-                val activity = LocalActivity.current
-                FilledTonalButton(
-                    label = { Text(stringResource(id = R.string.show_licenses)) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .transformedHeight(this, transformationSpec)
-                        .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
-                    onClick = {
-                        activity?.startActivity(
-                            Intent().apply {
-                                setPackage(activity.packageName)
-                                setAction("com.google.wear.ACTION_SHOW_LICENSE")
-                            },
-                        )
-                    },
-                    enabled = true,
-                    transformation = SurfaceTransformation(transformationSpec),
-                )
-            }
+          Text(text = stringResource(id = R.string.sample_settings))
         }
+      }
+      item {
+        if (screenState.authUser == null) {
+          FilledTonalButton(
+            label = { Text(stringResource(id = R.string.login)) },
+            modifier =
+              Modifier.fillMaxWidth()
+                .transformedHeight(this, transformationSpec)
+                .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
+            onClick = { backStack.add(CustomRoute(GoogleSignInScreen.navRoute)) },
+            enabled = !screenState.guestMode,
+            transformation = SurfaceTransformation(transformationSpec),
+          )
+        } else {
+          FilledTonalButton(
+            label = { Text(stringResource(id = R.string.logout)) },
+            modifier =
+              Modifier.fillMaxWidth()
+                .transformedHeight(this, transformationSpec)
+                .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
+            onClick = {
+              backStack.clear()
+              backStack.add(PlayerRoute(page = 0))
+              backStack.add(CustomRoute(GoogleSignOutScreen.navRoute))
+            },
+            transformation = SurfaceTransformation(transformationSpec),
+          )
+        }
+      }
+      item {
+        CheckedSetting(
+          value = screenState.guestMode,
+          text = stringResource(id = R.string.sample_guest_mode),
+          enabled = screenState.writable,
+          transformation = SurfaceTransformation(transformationSpec),
+          modifier =
+            Modifier.fillMaxWidth()
+              .transformedHeight(this, transformationSpec)
+              .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
+        ) {
+          viewModel.setGuestMode(it)
+        }
+      }
+      if (screenState.showDeveloperOptions) {
+        item {
+          ActionSetting(
+            text = stringResource(id = R.string.sample_developer_options),
+            icon = Icons.Default.DataObject,
+            transformation = SurfaceTransformation(transformationSpec),
+            modifier =
+              Modifier.fillMaxWidth()
+                .transformedHeight(this, transformationSpec)
+                .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
+            onClick = { backStack.add(CustomRoute(DeveloperOptions.navRoute)) },
+          )
+        }
+      }
+      item {
+        val activity = LocalActivity.current
+        FilledTonalButton(
+          label = { Text(stringResource(id = R.string.show_licenses)) },
+          modifier =
+            Modifier.fillMaxWidth()
+              .transformedHeight(this, transformationSpec)
+              .minimumVerticalContentPadding(ButtonDefaults.minimumVerticalListContentPadding),
+          onClick = {
+            activity?.startActivity(
+              Intent().apply {
+                setPackage(activity.packageName)
+                setAction("com.google.wear.ACTION_SHOW_LICENSE")
+              }
+            )
+          },
+          enabled = true,
+          transformation = SurfaceTransformation(transformationSpec),
+        )
+      }
     }
+  }
 }
 
 @Composable
 fun ActionSetting(
-    text: String,
-    modifier: Modifier = Modifier,
-    icon: ImageVector? = null,
-    enabled: Boolean = true,
-    transformation: SurfaceTransformation? = null,
-    onClick: () -> Unit,
+  text: String,
+  modifier: Modifier = Modifier,
+  icon: ImageVector? = null,
+  enabled: Boolean = true,
+  transformation: SurfaceTransformation? = null,
+  onClick: () -> Unit,
 ) {
-    FilledTonalButton(
-        onClick = onClick,
-        label = {
-            Text(
-                text = text,
-                modifier = Modifier.fillMaxWidth(),
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 2,
-            )
-        },
-        enabled = enabled,
-        modifier = modifier,
-        icon = {
-            if (icon != null) {
-                Icon(imageVector = icon, contentDescription = text)
-            }
-        },
-        transformation = transformation,
-    )
+  FilledTonalButton(
+    onClick = onClick,
+    label = {
+      Text(
+        text = text,
+        modifier = Modifier.fillMaxWidth(),
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 2,
+      )
+    },
+    enabled = enabled,
+    modifier = modifier,
+    icon = {
+      if (icon != null) {
+        Icon(imageVector = icon, contentDescription = text)
+      }
+    },
+    transformation = transformation,
+  )
 }
 
 @Composable
 fun CheckedSetting(
-    value: Boolean,
-    text: String,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    transformation: SurfaceTransformation? = null,
-    onCheckedChange: (Boolean) -> Unit,
+  value: Boolean,
+  text: String,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  transformation: SurfaceTransformation? = null,
+  onCheckedChange: (Boolean) -> Unit,
 ) {
-    CheckboxButton(
-        checked = value,
-        onCheckedChange = onCheckedChange,
-        enabled = enabled,
-        label = {
-            Text(text)
-        },
-        modifier = modifier,
-        transformation = transformation,
-    )
+  CheckboxButton(
+    checked = value,
+    onCheckedChange = onCheckedChange,
+    enabled = enabled,
+    label = { Text(text) },
+    modifier = modifier,
+    transformation = transformation,
+  )
 }

@@ -24,39 +24,42 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import kotlin.time.Duration
 
-/**
- * Map [PlayerState], [Command] plus other set of properties into a [PlayerUiState].
- */
+/** Map [PlayerState], [Command] plus other set of properties into a [PlayerUiState]. */
 public object PlayerUiStateMapper {
 
-    public fun map(
-        currentState: PlayerState,
-        availableCommands: Set<Command>,
-        media: Media?,
-        playbackStateEvent: PlaybackStateEvent,
-        shuffleModeEnabled: Boolean,
-        connected: Boolean,
-        seekBackIncrement: Duration?,
-        seekForwardIncrement: Duration?,
-    ): PlayerUiState {
-        val playPauseCommandAvailable = availableCommands.contains(Command.PlayPause) && currentState != PlayerState.Idle
-        return PlayerUiState(
-            playEnabled = playPauseCommandAvailable,
-            pauseEnabled = playPauseCommandAvailable,
-            seekBackEnabled = availableCommands.contains(Command.SeekBack),
-            seekForwardEnabled = availableCommands.contains(Command.SeekForward),
-            seekInCurrentMediaItemEnabled = availableCommands.contains(Command.SeekInCurrentMediaItem),
-            seekToPreviousEnabled = availableCommands.contains(Command.SkipToPreviousMedia),
-            seekToNextEnabled = availableCommands.contains(Command.SkipToNextMedia),
-            shuffleEnabled = availableCommands.contains(Command.SetShuffle),
-            shuffleOn = shuffleModeEnabled,
-            playPauseEnabled = playPauseCommandAvailable,
-            playing = currentState == PlayerState.Playing || currentState == PlayerState.Loading,
-            media = media?.let(MediaUiModelMapper::map),
-            trackPositionUiModel = TrackPositionUiModelMapper.map(playbackStateEvent),
-            connected = connected,
-            seekBackButtonIncrement = seekBackIncrement?.let { SeekButtonIncrement.ofDuration(it) } ?: SeekButtonIncrement.Unknown,
-            seekForwardButtonIncrement = seekForwardIncrement?.let { SeekButtonIncrement.ofDuration(it) } ?: SeekButtonIncrement.Unknown,
-        )
-    }
+  public fun map(
+    currentState: PlayerState,
+    availableCommands: Set<Command>,
+    media: Media?,
+    playbackStateEvent: PlaybackStateEvent,
+    shuffleModeEnabled: Boolean,
+    connected: Boolean,
+    seekBackIncrement: Duration?,
+    seekForwardIncrement: Duration?,
+  ): PlayerUiState {
+    val playPauseCommandAvailable =
+      availableCommands.contains(Command.PlayPause) && currentState != PlayerState.Idle
+    return PlayerUiState(
+      playEnabled = playPauseCommandAvailable,
+      pauseEnabled = playPauseCommandAvailable,
+      seekBackEnabled = availableCommands.contains(Command.SeekBack),
+      seekForwardEnabled = availableCommands.contains(Command.SeekForward),
+      seekInCurrentMediaItemEnabled = availableCommands.contains(Command.SeekInCurrentMediaItem),
+      seekToPreviousEnabled = availableCommands.contains(Command.SkipToPreviousMedia),
+      seekToNextEnabled = availableCommands.contains(Command.SkipToNextMedia),
+      shuffleEnabled = availableCommands.contains(Command.SetShuffle),
+      shuffleOn = shuffleModeEnabled,
+      playPauseEnabled = playPauseCommandAvailable,
+      playing = currentState == PlayerState.Playing || currentState == PlayerState.Loading,
+      media = media?.let(MediaUiModelMapper::map),
+      trackPositionUiModel = TrackPositionUiModelMapper.map(playbackStateEvent),
+      connected = connected,
+      seekBackButtonIncrement =
+        seekBackIncrement?.let { SeekButtonIncrement.ofDuration(it) }
+          ?: SeekButtonIncrement.Unknown,
+      seekForwardButtonIncrement =
+        seekForwardIncrement?.let { SeekButtonIncrement.ofDuration(it) }
+          ?: SeekButtonIncrement.Unknown,
+    )
+  }
 }

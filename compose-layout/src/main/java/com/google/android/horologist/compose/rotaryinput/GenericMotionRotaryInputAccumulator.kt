@@ -30,55 +30,55 @@ import androidx.core.view.ViewConfigurationCompat
  * This should normally be passed events received from [android.view.View.onGenericMotionEvent].
  */
 public class GenericMotionRotaryInputAccumulator(
-    context: Context,
-    onValueChange: State<(change: Float) -> Unit>,
-    eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
-    minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
-    rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
+  context: Context,
+  onValueChange: State<(change: Float) -> Unit>,
+  eventAccumulationThresholdMs: Long =
+    RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
+  minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
+  rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
 ) {
 
-    private val rotaryInputEventReader: RotaryInputEventReader = RotaryInputEventReader(context)
-    private val rotaryInputAccumulator: RotaryInputAccumulator =
-        RotaryInputAccumulator(
-            eventAccumulationThresholdMs = eventAccumulationThresholdMs,
-            minValueChangeDistancePx = minValueChangeDistancePx,
-            rateLimitCoolDownMs = rateLimitCoolDownMs,
-            onValueChange = onValueChange,
-        )
+  private val rotaryInputEventReader: RotaryInputEventReader = RotaryInputEventReader(context)
+  private val rotaryInputAccumulator: RotaryInputAccumulator =
+    RotaryInputAccumulator(
+      eventAccumulationThresholdMs = eventAccumulationThresholdMs,
+      minValueChangeDistancePx = minValueChangeDistancePx,
+      rateLimitCoolDownMs = rateLimitCoolDownMs,
+      onValueChange = onValueChange,
+    )
 
-    /**
-     * Process a [MotionEvent].
-     *
-     * @param event the [MotionEvent] to be processed.
-     * @return `true` when the event has produced change in the accumulator.
-     */
-    public fun onGenericMotionEvent(event: MotionEvent): Boolean {
-        if (!rotaryInputEventReader.isRotaryScrollEvent(event)) {
-            return false
-        }
-        rotaryInputAccumulator.onRotaryScroll(
-            rotaryInputEventReader.getScrollDistance(event),
-            event.eventTime,
-        )
-        return true
+  /**
+   * Process a [MotionEvent].
+   *
+   * @param event the [MotionEvent] to be processed.
+   * @return `true` when the event has produced change in the accumulator.
+   */
+  public fun onGenericMotionEvent(event: MotionEvent): Boolean {
+    if (!rotaryInputEventReader.isRotaryScrollEvent(event)) {
+      return false
     }
+    rotaryInputAccumulator.onRotaryScroll(
+      rotaryInputEventReader.getScrollDistance(event),
+      event.eventTime,
+    )
+    return true
+  }
 
-    /**
-     * Reads [android.view.MotionEvent] to determine whether they are rotary input events and to
-     * obtain axis value.
-     */
-    private class RotaryInputEventReader(context: Context) {
-        private val scaledScrollFactor =
-            ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                ViewConfiguration.get(context),
-                context,
-            )
+  /**
+   * Reads [android.view.MotionEvent] to determine whether they are rotary input events and to
+   * obtain axis value.
+   */
+  private class RotaryInputEventReader(context: Context) {
+    private val scaledScrollFactor =
+      ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        ViewConfiguration.get(context),
+        context,
+      )
 
-        fun isRotaryScrollEvent(ev: MotionEvent): Boolean =
-            ev.source == InputDeviceCompat.SOURCE_ROTARY_ENCODER &&
-                ev.action == MotionEvent.ACTION_SCROLL
+    fun isRotaryScrollEvent(ev: MotionEvent): Boolean =
+      ev.source == InputDeviceCompat.SOURCE_ROTARY_ENCODER && ev.action == MotionEvent.ACTION_SCROLL
 
-        fun getScrollDistance(ev: MotionEvent): Float =
-            -ev.getAxisValue(MotionEventCompat.AXIS_SCROLL) * scaledScrollFactor
-    }
+    fun getScrollDistance(ev: MotionEvent): Float =
+      -ev.getAxisValue(MotionEventCompat.AXIS_SCROLL) * scaledScrollFactor
+  }
 }

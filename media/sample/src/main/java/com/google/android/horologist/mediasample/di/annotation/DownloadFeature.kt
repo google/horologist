@@ -18,6 +18,4 @@ package com.google.android.horologist.mediasample.di.annotation
 
 import javax.inject.Qualifier
 
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class DownloadFeature
+@Qualifier @Retention(AnnotationRetention.BINARY) annotation class DownloadFeature

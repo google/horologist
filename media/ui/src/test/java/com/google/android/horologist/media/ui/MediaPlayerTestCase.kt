@@ -44,67 +44,61 @@ import kotlinx.coroutines.flow.flowOf
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MediaPlayerTestCase(
-    playerUiState: PlayerUiState,
-    mediaDisplay: @Composable () -> Unit = {
-        AnimatedMediaInfoDisplay(playerUiState.media, loading = false)
-    },
-    controlButtons: @Composable () -> Unit = {
-        AnimatedMediaControlButtons(
-            onPlayButtonClick = { },
-            onPauseButtonClick = { },
-            playPauseButtonEnabled = playerUiState.playPauseEnabled,
-            playing = playerUiState.playing,
-            onSeekToPreviousButtonClick = { },
-            seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-            onSeekToNextButtonClick = { },
-            seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-            trackPositionUiModel = playerUiState.trackPositionUiModel,
+  playerUiState: PlayerUiState,
+  mediaDisplay: @Composable () -> Unit = {
+    AnimatedMediaInfoDisplay(playerUiState.media, loading = false)
+  },
+  controlButtons: @Composable () -> Unit = {
+    AnimatedMediaControlButtons(
+      onPlayButtonClick = {},
+      onPauseButtonClick = {},
+      playPauseButtonEnabled = playerUiState.playPauseEnabled,
+      playing = playerUiState.playing,
+      onSeekToPreviousButtonClick = {},
+      seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
+      onSeekToNextButtonClick = {},
+      seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
+      trackPositionUiModel = playerUiState.trackPositionUiModel,
+    )
+  },
+  buttons: @Composable () -> Unit = {
+    SettingsButtons(
+      volumeUiState = VolumeUiState(5, 10),
+      onVolumeClick = { /*TODO*/ },
+      onOutputClick = {},
+      brandIcon = {
+        SettingsButtonsDefaults.BrandIcon(
+          com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
+          enabled = playerUiState.connected,
         )
-    },
-    buttons: @Composable () -> Unit = {
-        SettingsButtons(
-            volumeUiState = VolumeUiState(5, 10),
-            onVolumeClick = { /*TODO*/ },
-            onOutputClick = { },
-            brandIcon = {
-                SettingsButtonsDefaults.BrandIcon(
-                    com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
-                    enabled = playerUiState.connected,
-                )
-            },
-            enabled = playerUiState.connected,
-        )
-    },
-    colors: Colors = MaterialTheme.colors,
+      },
+      enabled = playerUiState.connected,
+    )
+  },
+  colors: Colors = MaterialTheme.colors,
 ) {
-    MaterialTheme(colors = colors) {
-        Scaffold(
-            positionIndicator = {
-                VolumePositionIndicator(
-                    volumeUiState = {
-                        VolumeUiStateMapper.map(volumeState = VolumeState(6, 10))
-                    },
-                    displayIndicatorEvents = flowOf(),
-                )
-            },
-        ) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                PagerScreen(
-                    state = rememberPagerState {
-                        2
-                    },
-                ) {
-                    if (it == 0) {
-                        PlayerScreen(
-                            modifier = Modifier.fillMaxSize(),
-                            mediaDisplay = mediaDisplay,
-                            controlButtons = controlButtons,
-                            buttons = buttons,
-                            background = { RadialBackground(color = colors.primary) },
-                        )
-                    }
-                }
-            }
+  MaterialTheme(colors = colors) {
+    Scaffold(
+      positionIndicator = {
+        VolumePositionIndicator(
+          volumeUiState = { VolumeUiStateMapper.map(volumeState = VolumeState(6, 10)) },
+          displayIndicatorEvents = flowOf(),
+        )
+      }
+    ) {
+      Box(modifier = Modifier.fillMaxSize()) {
+        PagerScreen(state = rememberPagerState { 2 }) {
+          if (it == 0) {
+            PlayerScreen(
+              modifier = Modifier.fillMaxSize(),
+              mediaDisplay = mediaDisplay,
+              controlButtons = controlButtons,
+              buttons = buttons,
+              background = { RadialBackground(color = colors.primary) },
+            )
+          }
         }
+      }
     }
+  }
 }

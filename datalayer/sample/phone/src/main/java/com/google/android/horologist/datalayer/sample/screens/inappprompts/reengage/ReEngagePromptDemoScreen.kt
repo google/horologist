@@ -40,135 +40,127 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun ReEngagePromptDemoScreen(
-    modifier: Modifier = Modifier,
-    viewModel: ReEngagePromptDemoViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: ReEngagePromptDemoViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == ReEngagePromptDemoScreenState.Idle) {
-        SideEffect {
-            viewModel.initialize()
-        }
-    }
+  if (state == ReEngagePromptDemoScreenState.Idle) {
+    SideEffect { viewModel.initialize() }
+  }
 
-    val context = LocalContext.current
-    val topMessage = stringResource(R.string.reengage_prompt_demo_prompt_top_message)
-    val bottomMessage = stringResource(R.string.reengage_prompt_demo_prompt_bottom_message)
+  val context = LocalContext.current
+  val topMessage = stringResource(R.string.reengage_prompt_demo_prompt_top_message)
+  val bottomMessage = stringResource(R.string.reengage_prompt_demo_prompt_bottom_message)
 
-    ReEngagePromptDemoScreen(
-        state = state,
-        onRunDemoClick = viewModel::onRunDemoClick,
-        getReEngagePromptIntent = { nodeId ->
-            viewModel.reEngagePrompt.getIntent(
-                context = context,
-                nodeId = nodeId,
-                image = R.drawable.watch_app_screenshot,
-                topMessage = topMessage,
-                bottomMessage = bottomMessage,
-            )
-        },
-        onPromptLaunched = viewModel::onPromptLaunched,
-        onPromptPositiveButtonClick = viewModel::onPromptPositiveButtonClick,
-        onPromptDismiss = viewModel::onPromptDismiss,
-        modifier = modifier,
-    )
+  ReEngagePromptDemoScreen(
+    state = state,
+    onRunDemoClick = viewModel::onRunDemoClick,
+    getReEngagePromptIntent = { nodeId ->
+      viewModel.reEngagePrompt.getIntent(
+        context = context,
+        nodeId = nodeId,
+        image = R.drawable.watch_app_screenshot,
+        topMessage = topMessage,
+        bottomMessage = bottomMessage,
+      )
+    },
+    onPromptLaunched = viewModel::onPromptLaunched,
+    onPromptPositiveButtonClick = viewModel::onPromptPositiveButtonClick,
+    onPromptDismiss = viewModel::onPromptDismiss,
+    modifier = modifier,
+  )
 }
 
 @Composable
 fun ReEngagePromptDemoScreen(
-    state: ReEngagePromptDemoScreenState,
-    onRunDemoClick: () -> Unit,
-    getReEngagePromptIntent: (nodeId: String) -> Intent,
-    onPromptLaunched: () -> Unit,
-    onPromptPositiveButtonClick: () -> Unit,
-    onPromptDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
+  state: ReEngagePromptDemoScreenState,
+  onRunDemoClick: () -> Unit,
+  getReEngagePromptIntent: (nodeId: String) -> Intent,
+  onPromptLaunched: () -> Unit,
+  onPromptPositiveButtonClick: () -> Unit,
+  onPromptDismiss: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val launcher = rememberLauncherForActivityResult(
-        ActivityResultContracts.StartActivityForResult(),
-    ) { result ->
-        if (result.resultCode == RESULT_OK) {
-            onPromptPositiveButtonClick()
-        } else {
-            onPromptDismiss()
-        }
+  val launcher =
+    rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      if (result.resultCode == RESULT_OK) {
+        onPromptPositiveButtonClick()
+      } else {
+        onPromptDismiss()
+      }
     }
 
-    Column(
-        modifier = modifier.padding(all = 10.dp),
+  Column(modifier = modifier.padding(all = 10.dp)) {
+    Text(text = stringResource(id = R.string.reengage_prompt_api_call_demo_message))
+
+    Button(
+      onClick = onRunDemoClick,
+      modifier = Modifier.padding(top = 10.dp).align(Alignment.CenterHorizontally),
+      enabled = state != ReEngagePromptDemoScreenState.ApiNotAvailable,
     ) {
-        Text(text = stringResource(id = R.string.reengage_prompt_api_call_demo_message))
-
-        Button(
-            onClick = onRunDemoClick,
-            modifier = Modifier
-                .padding(top = 10.dp)
-                .align(Alignment.CenterHorizontally),
-            enabled = state != ReEngagePromptDemoScreenState.ApiNotAvailable,
-        ) {
-            Text(text = stringResource(id = R.string.reengage_prompt_run_demo_button_label))
-        }
-
-        when (state) {
-            ReEngagePromptDemoScreenState.Idle,
-            ReEngagePromptDemoScreenState.Loaded,
-            -> {
-                /* do nothing */
-            }
-
-            ReEngagePromptDemoScreenState.Loading -> {
-                CircularProgressIndicator()
-            }
-
-            is ReEngagePromptDemoScreenState.WatchFound -> {
-                SideEffect { launcher.launch(getReEngagePromptIntent(state.nodeId)) }
-
-                onPromptLaunched()
-            }
-
-            ReEngagePromptDemoScreenState.WatchNotFound -> {
-                Text(
-                    stringResource(
-                        id = R.string.reengage_prompt_demo_result_label,
-                        stringResource(id = R.string.reengage_prompt_demo_no_watches_found_label),
-                    ),
-                )
-            }
-
-            ReEngagePromptDemoScreenState.PromptPositiveButtonClicked -> {
-                Text(
-                    stringResource(
-                        id = R.string.reengage_prompt_demo_result_label,
-                        stringResource(id = R.string.reengage_prompt_demo_prompt_positive_result_label),
-                    ),
-                )
-            }
-
-            ReEngagePromptDemoScreenState.PromptDismissed -> {
-                Text(
-                    stringResource(
-                        id = R.string.reengage_prompt_demo_result_label,
-                        stringResource(id = R.string.reengage_prompt_demo_prompt_dismiss_result_label),
-                    ),
-                )
-            }
-
-            ReEngagePromptDemoScreenState.ApiNotAvailable -> {
-                Text(stringResource(id = R.string.wearable_message_api_unavailable))
-            }
-        }
+      Text(text = stringResource(id = R.string.reengage_prompt_run_demo_button_label))
     }
+
+    when (state) {
+      ReEngagePromptDemoScreenState.Idle,
+      ReEngagePromptDemoScreenState.Loaded -> {
+        /* do nothing */
+      }
+
+      ReEngagePromptDemoScreenState.Loading -> {
+        CircularProgressIndicator()
+      }
+
+      is ReEngagePromptDemoScreenState.WatchFound -> {
+        SideEffect { launcher.launch(getReEngagePromptIntent(state.nodeId)) }
+
+        onPromptLaunched()
+      }
+
+      ReEngagePromptDemoScreenState.WatchNotFound -> {
+        Text(
+          stringResource(
+            id = R.string.reengage_prompt_demo_result_label,
+            stringResource(id = R.string.reengage_prompt_demo_no_watches_found_label),
+          )
+        )
+      }
+
+      ReEngagePromptDemoScreenState.PromptPositiveButtonClicked -> {
+        Text(
+          stringResource(
+            id = R.string.reengage_prompt_demo_result_label,
+            stringResource(id = R.string.reengage_prompt_demo_prompt_positive_result_label),
+          )
+        )
+      }
+
+      ReEngagePromptDemoScreenState.PromptDismissed -> {
+        Text(
+          stringResource(
+            id = R.string.reengage_prompt_demo_result_label,
+            stringResource(id = R.string.reengage_prompt_demo_prompt_dismiss_result_label),
+          )
+        )
+      }
+
+      ReEngagePromptDemoScreenState.ApiNotAvailable -> {
+        Text(stringResource(id = R.string.wearable_message_api_unavailable))
+      }
+    }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ReEngagePromptDemoScreenPreview() {
-    ReEngagePromptDemoScreen(
-        state = ReEngagePromptDemoScreenState.Idle,
-        onRunDemoClick = { },
-        getReEngagePromptIntent = { Intent() },
-        onPromptLaunched = { },
-        onPromptPositiveButtonClick = { },
-        onPromptDismiss = { },
-    )
+  ReEngagePromptDemoScreen(
+    state = ReEngagePromptDemoScreenState.Idle,
+    onRunDemoClick = {},
+    getReEngagePromptIntent = { Intent() },
+    onPromptLaunched = {},
+    onPromptPositiveButtonClick = {},
+    onPromptDismiss = {},
+  )
 }

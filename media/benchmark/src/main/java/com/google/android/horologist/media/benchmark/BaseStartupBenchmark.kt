@@ -30,25 +30,25 @@ import org.junit.runners.Parameterized
 @LargeTest
 @RunWith(Parameterized::class)
 public abstract class BaseStartupBenchmark {
-    @get:Rule
-    public val benchmarkRule: MacrobenchmarkRule = MacrobenchmarkRule()
+  @get:Rule public val benchmarkRule: MacrobenchmarkRule = MacrobenchmarkRule()
 
-    public open val compilationMode: CompilationMode = CompilationMode.Partial()
+  public open val compilationMode: CompilationMode = CompilationMode.Partial()
 
-    public abstract val mediaApp: MediaApp
+  public abstract val mediaApp: MediaApp
 
-    @Test
-    public fun startup(): Unit = benchmarkRule.measureRepeated(
-        packageName = mediaApp.packageName,
-        metrics = metrics(),
-        compilationMode = compilationMode,
-        iterations = 5,
-        startupMode = StartupMode.COLD,
+  @Test
+  public fun startup(): Unit =
+    benchmarkRule.measureRepeated(
+      packageName = mediaApp.packageName,
+      metrics = metrics(),
+      compilationMode = compilationMode,
+      iterations = 5,
+      startupMode = StartupMode.COLD,
     ) {
-        startActivityAndWait()
-        // sleep to allow time for report fully drawn
-        Thread.sleep(5000)
+      startActivityAndWait()
+      // sleep to allow time for report fully drawn
+      Thread.sleep(5000)
     }
 
-    public open fun metrics(): List<Metric> = listOf(StartupTimingMetric())
+  public open fun metrics(): List<Metric> = listOf(StartupTimingMetric())
 }

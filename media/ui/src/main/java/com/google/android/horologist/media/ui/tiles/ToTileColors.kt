@@ -22,10 +22,10 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
 public fun Colors.toTileColors(): androidx.wear.protolayout.material.Colors {
-    return androidx.wear.protolayout.material.Colors(
-        primary.toArgb(),
-        onPrimary.toArgb(),
-        surface.toArgb(),
-        onSurface.toArgb(),
-    )
+  return androidx.wear.protolayout.material.Colors(
+    primary.toArgb(),
+    onPrimary.toArgb(),
+    surface.toArgb(),
+    onSurface.toArgb(),
+  )
 }

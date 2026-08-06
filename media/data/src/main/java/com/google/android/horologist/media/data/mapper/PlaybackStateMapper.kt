@@ -27,50 +27,56 @@ import com.google.android.horologist.media.model.TimestampProvider
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
-/**
- * Maps a [Media3 player][Player] position into a [PlaybackState].
- */
+/** Maps a [Media3 player][Player] position into a [PlaybackState]. */
 @ExperimentalHorologistApi
-public class PlaybackStateMapper(private val timestampProvider: TimestampProvider = TimestampProvider { SystemClock.elapsedRealtime() }) {
-    public fun createEvent(player: Player?, cause: PlaybackStateEvent.Cause, seekProjection: Duration? = null): PlaybackStateEvent =
-        PlaybackStateEvent(
-            playbackState = map(player, seekProjection),
-            cause = cause,
-            timestamp = timestampProvider.getTimestamp().milliseconds,
-        )
+public class PlaybackStateMapper(
+  private val timestampProvider: TimestampProvider = TimestampProvider {
+    SystemClock.elapsedRealtime()
+  }
+) {
+  public fun createEvent(
+    player: Player?,
+    cause: PlaybackStateEvent.Cause,
+    seekProjection: Duration? = null,
+  ): PlaybackStateEvent =
+    PlaybackStateEvent(
+      playbackState = map(player, seekProjection),
+      cause = cause,
+      timestamp = timestampProvider.getTimestamp().milliseconds,
+    )
 
-    // should only be mapped as an event
-    internal fun map(player: Player?, seekProjection: Duration? = null): PlaybackState {
-        if (player == null) {
-            return PlaybackState.IDLE
-        }
-        val playbackSpeed = player.playbackParameters.speed
-        val isLive = player.isCurrentMediaItemLive && player.isCurrentMediaItemDynamic
-        val playerState = PlayerStateMapper.map(player)
-        return if (
-            player.currentMediaItem == null ||
-            player.duration == C.TIME_UNSET ||
-            player.duration <= 0L ||
-            player.currentPosition < 0L ||
-            playerState == PlayerState.Idle
-        ) {
-            PlaybackState(
-                playerState = playerState,
-                currentPosition = null,
-                seekProjection = null,
-                duration = null,
-                playbackSpeed = playbackSpeed,
-                isLive = isLive,
-            )
-        } else {
-            PlaybackState(
-                playerState = playerState,
-                currentPosition = player.currentPosition.milliseconds,
-                seekProjection = seekProjection,
-                duration = (player.duration.coerceAtLeast(player.currentPosition)).milliseconds,
-                playbackSpeed = playbackSpeed,
-                isLive = isLive,
-            )
-        }
+  // should only be mapped as an event
+  internal fun map(player: Player?, seekProjection: Duration? = null): PlaybackState {
+    if (player == null) {
+      return PlaybackState.IDLE
     }
+    val playbackSpeed = player.playbackParameters.speed
+    val isLive = player.isCurrentMediaItemLive && player.isCurrentMediaItemDynamic
+    val playerState = PlayerStateMapper.map(player)
+    return if (
+      player.currentMediaItem == null ||
+        player.duration == C.TIME_UNSET ||
+        player.duration <= 0L ||
+        player.currentPosition < 0L ||
+        playerState == PlayerState.Idle
+    ) {
+      PlaybackState(
+        playerState = playerState,
+        currentPosition = null,
+        seekProjection = null,
+        duration = null,
+        playbackSpeed = playbackSpeed,
+        isLive = isLive,
+      )
+    } else {
+      PlaybackState(
+        playerState = playerState,
+        currentPosition = player.currentPosition.milliseconds,
+        seekProjection = seekProjection,
+        duration = (player.duration.coerceAtLeast(player.currentPosition)).milliseconds,
+        playbackSpeed = playbackSpeed,
+        isLive = isLive,
+      )
+    }
+  }
 }

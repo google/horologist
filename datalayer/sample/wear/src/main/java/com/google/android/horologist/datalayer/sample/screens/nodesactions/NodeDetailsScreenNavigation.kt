@@ -35,37 +35,38 @@ private const val routePrefix = "appHelperNodeDetailsScreen"
 
 private val URL_CHARACTER_ENCODING = Charsets.UTF_8.name()
 
-const val nodeDetailsScreenRoute = "$routePrefix/$nodeIdArg={$nodeIdArg}&$appInstalledArg={$appInstalledArg}"
+const val nodeDetailsScreenRoute =
+  "$routePrefix/$nodeIdArg={$nodeIdArg}&$appInstalledArg={$appInstalledArg}"
 
 internal class NodeDetailsScreenArgs(
-    val nodeId: String,
-    val appInstalled: Boolean,
+  val nodeId: String,
+  val appInstalled: Boolean,
 ) {
-    constructor(savedStateHandle: SavedStateHandle) : this(
-        URLDecoder.decode(checkNotNull(savedStateHandle[nodeIdArg]), URL_CHARACTER_ENCODING),
-        checkNotNull(savedStateHandle[appInstalledArg]),
-    )
+  constructor(
+    savedStateHandle: SavedStateHandle
+  ) : this(
+    URLDecoder.decode(checkNotNull(savedStateHandle[nodeIdArg]), URL_CHARACTER_ENCODING),
+    checkNotNull(savedStateHandle[appInstalledArg]),
+  )
 }
 
 fun NavController.navigateToNodeDetailsScreen(nodeId: String, appInstalled: Boolean) {
-    val encodedNodeId = URLEncoder.encode(nodeId, URL_CHARACTER_ENCODING)
-    this.navigate("$routePrefix/$nodeIdArg=$encodedNodeId&$appInstalledArg=$appInstalled")
+  val encodedNodeId = URLEncoder.encode(nodeId, URL_CHARACTER_ENCODING)
+  this.navigate("$routePrefix/$nodeIdArg=$encodedNodeId&$appInstalledArg=$appInstalled")
 }
 
 fun NavGraphBuilder.nodeDetailsScreen() {
-    composable(
-        route = Screen.AppHelperNodeDetailsScreen.route,
-        arguments = listOf(
-            navArgument(nodeIdArg) { type = NavType.StringType },
-            navArgument(appInstalledArg) { type = NavType.BoolType },
-        ),
-    ) {
-        val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
+  composable(
+    route = Screen.AppHelperNodeDetailsScreen.route,
+    arguments =
+      listOf(
+        navArgument(nodeIdArg) { type = NavType.StringType },
+        navArgument(appInstalledArg) { type = NavType.BoolType },
+      ),
+  ) {
+    val columnState =
+      rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
-        ScreenScaffold(scrollState = columnState) {
-            NodeDetailsScreen(
-                columnState = columnState,
-            )
-        }
-    }
+    ScreenScaffold(scrollState = columnState) { NodeDetailsScreen(columnState = columnState) }
+  }
 }

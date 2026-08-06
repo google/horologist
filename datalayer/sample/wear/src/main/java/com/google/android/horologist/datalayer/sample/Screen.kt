@@ -19,19 +19,20 @@ package com.google.android.horologist.datalayer.sample
 import com.google.android.horologist.datalayer.sample.screens.info.infoScreenRoute
 import com.google.android.horologist.datalayer.sample.screens.nodesactions.nodeDetailsScreenRoute
 
-sealed class Screen(
-    val route: String,
-) {
-    data object MainScreen : Screen("mainScreen")
+sealed class Screen(val route: String) {
+  data object MainScreen : Screen("mainScreen")
 
-    data object CounterScreen : Screen("counterScreen")
-    data object ListNodesScreen : Screen("listNodesScreen")
+  data object CounterScreen : Screen("counterScreen")
 
-    data object AppHelperTrackingScreen : Screen("appHelperTrackingScreen")
-    data object AppHelperNodesActionsScreen : Screen("appHelperNodesActionsScreen")
-    data object AppHelperNodesListenerScreen : Screen("appHelperNodesListenerScreen")
+  data object ListNodesScreen : Screen("listNodesScreen")
 
-    data object AppHelperNodeDetailsScreen : Screen(nodeDetailsScreenRoute)
+  data object AppHelperTrackingScreen : Screen("appHelperTrackingScreen")
 
-    data object InfoScreen : Screen(infoScreenRoute)
+  data object AppHelperNodesActionsScreen : Screen("appHelperNodesActionsScreen")
+
+  data object AppHelperNodesListenerScreen : Screen("appHelperNodesListenerScreen")
+
+  data object AppHelperNodeDetailsScreen : Screen(nodeDetailsScreenRoute)
+
+  data object InfoScreen : Screen(infoScreenRoute)
 }

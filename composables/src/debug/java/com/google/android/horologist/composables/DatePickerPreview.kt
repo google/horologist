@@ -30,42 +30,44 @@ import java.time.LocalDate
 @WearPreviewFontScales
 @Composable
 fun DatePickerPreview() {
-    DatePicker(
-        onDateConfirm = {},
-        date = LocalDate.of(2022, 4, 25),
-    )
+  DatePicker(
+    onDateConfirm = {},
+    date = LocalDate.of(2022, 4, 25),
+  )
 }
 
 @Composable
 @Preview(
-    device = WearDevices.SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Fonts - Largest",
-    fontScale = 1.24f,
+  device = WearDevices.SMALL_ROUND,
+  showSystemUi = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
+  group = "Fonts - Largest",
+  fontScale = 1.24f,
 )
 fun DatePickerPreviewSmallDeviceWithLargeFontBold() {
-    MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
-        DatePicker(
-            onDateConfirm = {},
-            date = LocalDate.of(2022, 1, 25),
-        )
-    }
+  MaterialTheme(
+    typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }
+  ) {
+    DatePicker(
+      onDateConfirm = {},
+      date = LocalDate.of(2022, 1, 25),
+    )
+  }
 }
 
 @Composable
 @Preview(
-    device = WearDevices.LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Fonts - Small",
-    fontScale = 0.94f,
+  device = WearDevices.LARGE_ROUND,
+  showSystemUi = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
+  group = "Fonts - Small",
+  fontScale = 0.94f,
 )
 fun DatePickerPreviewLargeDeviceSmallFont() {
-    DatePicker(
-        onDateConfirm = {},
-        date = LocalDate.of(2022, 1, 25),
-    )
+  DatePicker(
+    onDateConfirm = {},
+    date = LocalDate.of(2022, 1, 25),
+  )
 }

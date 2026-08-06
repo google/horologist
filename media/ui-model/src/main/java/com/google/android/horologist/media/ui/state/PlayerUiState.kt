@@ -41,43 +41,42 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
  */
 @ExperimentalHorologistApi
 public data class PlayerUiState(
-    val playEnabled: Boolean,
-    val pauseEnabled: Boolean,
-    val seekBackEnabled: Boolean,
-    val seekForwardEnabled: Boolean,
-    val seekInCurrentMediaItemEnabled: Boolean,
-    val seekToPreviousEnabled: Boolean,
-    val seekToNextEnabled: Boolean,
-    val shuffleEnabled: Boolean,
-    val shuffleOn: Boolean,
-    val playPauseEnabled: Boolean,
-    val playing: Boolean,
-    val media: MediaUiModel?,
-    val trackPositionUiModel: TrackPositionUiModel,
-    val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    val connected: Boolean,
+  val playEnabled: Boolean,
+  val pauseEnabled: Boolean,
+  val seekBackEnabled: Boolean,
+  val seekForwardEnabled: Boolean,
+  val seekInCurrentMediaItemEnabled: Boolean,
+  val seekToPreviousEnabled: Boolean,
+  val seekToNextEnabled: Boolean,
+  val shuffleEnabled: Boolean,
+  val shuffleOn: Boolean,
+  val playPauseEnabled: Boolean,
+  val playing: Boolean,
+  val media: MediaUiModel?,
+  val trackPositionUiModel: TrackPositionUiModel,
+  val seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+  val seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+  val connected: Boolean,
 ) {
-    // TODO: Consider exposing PlayerState.Idle to be consumed in NothingPlaying screen.
-    public companion object {
-        /**
-         * Value for UIs before a connected player is available.
-         */
-        public val NotConnected: PlayerUiState = PlayerUiState(
-            playEnabled = false,
-            pauseEnabled = false,
-            seekBackEnabled = false,
-            seekForwardEnabled = false,
-            seekInCurrentMediaItemEnabled = false,
-            seekToPreviousEnabled = false,
-            seekToNextEnabled = false,
-            shuffleEnabled = false,
-            shuffleOn = false,
-            playPauseEnabled = false,
-            playing = false,
-            media = null,
-            trackPositionUiModel = TrackPositionUiModel.Hidden,
-            connected = false,
-        )
-    }
+  // TODO: Consider exposing PlayerState.Idle to be consumed in NothingPlaying screen.
+  public companion object {
+    /** Value for UIs before a connected player is available. */
+    public val NotConnected: PlayerUiState =
+      PlayerUiState(
+        playEnabled = false,
+        pauseEnabled = false,
+        seekBackEnabled = false,
+        seekForwardEnabled = false,
+        seekInCurrentMediaItemEnabled = false,
+        seekToPreviousEnabled = false,
+        seekToNextEnabled = false,
+        shuffleEnabled = false,
+        shuffleOn = false,
+        playPauseEnabled = false,
+        playing = false,
+        media = null,
+        trackPositionUiModel = TrackPositionUiModel.Hidden,
+        connected = false,
+      )
+  }
 }

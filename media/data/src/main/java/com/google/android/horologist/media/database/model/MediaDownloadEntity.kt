@@ -20,21 +20,20 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * A table to store [media][MediaEntity] download information.
- */
+/** A table to store [media][MediaEntity] download information. */
 @ExperimentalHorologistApi
 @Entity
 public data class MediaDownloadEntity(
-    @PrimaryKey val mediaId: String,
-    val status: MediaDownloadEntityStatus,
-    val progress: Float,
-    val size: Long,
+  @PrimaryKey val mediaId: String,
+  val status: MediaDownloadEntityStatus,
+  val progress: Float,
+  val size: Long,
 )
 
-/**
- * Represents the download status of [MediaDownloadEntity].
- */
+/** Represents the download status of [MediaDownloadEntity]. */
 public enum class MediaDownloadEntityStatus {
-    NotDownloaded, Downloading, Downloaded, Failed
+  NotDownloaded,
+  Downloading,
+  Downloaded,
+  Failed,
 }

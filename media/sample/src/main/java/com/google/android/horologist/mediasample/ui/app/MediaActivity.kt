@@ -24,65 +24,61 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.snapshotFlow
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.rememberNavBackStack
+import com.google.android.horologist.media.ui.material3.navigation.CollectionRoute
 import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
+import com.google.android.horologist.media.ui.material3.navigation.MediaItemRoute
 import com.google.android.horologist.media.ui.material3.navigation.MediaRoute
 import com.google.android.horologist.media.ui.material3.navigation.PlayerRoute
-import com.google.android.horologist.media.ui.material3.navigation.CollectionRoute
-import com.google.android.horologist.media.ui.material3.navigation.MediaItemRoute
-import com.google.android.horologist.media.ui.material3.navigation.NavigationScreens
 import com.google.android.horologist.mediasample.ui.util.JankPrinter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MediaActivity : ComponentActivity() {
-    private lateinit var jankPrinter: JankPrinter
-    lateinit var backStack: NavBackStack<MediaRoute>
+  private lateinit var jankPrinter: JankPrinter
+  lateinit var backStack: NavBackStack<MediaRoute>
 
-    @Suppress("UNCHECKED_CAST")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  @Suppress("UNCHECKED_CAST")
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        jankPrinter = JankPrinter()
+    jankPrinter = JankPrinter()
 
-        setTheme(android.R.style.Theme_DeviceDefault)
+    setTheme(android.R.style.Theme_DeviceDefault)
 
-        setContent {
-            backStack = rememberNavBackStack(
-                PlayerRoute(page = 0),
-            ) as NavBackStack<MediaRoute>
+    setContent {
+      backStack = rememberNavBackStack(PlayerRoute(page = 0)) as NavBackStack<MediaRoute>
 
-            UampWearApp(
-                backStack = backStack,
-                intent = intent,
-            )
+      UampWearApp(
+        backStack = backStack,
+        intent = intent,
+      )
 
-            LaunchedEffect(backStack) {
-                snapshotFlow {
-                    when (val last = backStack.lastOrNull()) {
-                        is CustomRoute -> last.route
-                        is PlayerRoute -> "player?page=${last.page}"
-                        is CollectionRoute -> "collection?id=${last.id}"
-                        is MediaItemRoute -> "mediaItem?id=${last.id}"
-                        null -> ""
-                        else -> last.javaClass.simpleName
-                    }
-                }.collect { route ->
-                    jankPrinter.setRouteState(route = route)
-                }
-            }
+      LaunchedEffect(backStack) {
+        snapshotFlow {
+          when (val last = backStack.lastOrNull()) {
+            is CustomRoute -> last.route
+            is PlayerRoute -> "player?page=${last.page}"
+            is CollectionRoute -> "collection?id=${last.id}"
+            is MediaItemRoute -> "mediaItem?id=${last.id}"
+            null -> ""
+            else -> last.javaClass.simpleName
+          }
         }
-
-        jankPrinter.installJankStats(activity = this)
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // Don't show progress on resume since it can be out of date
-            setRecentsScreenshotEnabled(false)
-        }
+          .collect { route -> jankPrinter.setRouteState(route = route) }
+      }
     }
 
-    companion object {
-        const val CollectionKey = "collection"
-        const val MediaIdKey = "mediaId"
-        const val PositionKey = "position"
+    jankPrinter.installJankStats(activity = this)
+
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      // Don't show progress on resume since it can be out of date
+      setRecentsScreenshotEnabled(false)
     }
+  }
+
+  companion object {
+    const val CollectionKey = "collection"
+    const val MediaIdKey = "mediaId"
+    const val PositionKey = "position"
+  }
 }

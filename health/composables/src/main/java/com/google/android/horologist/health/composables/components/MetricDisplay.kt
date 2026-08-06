@@ -29,52 +29,46 @@ import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.health.composables.model.MetricUiModel
 
-/**
- * A component to display metrics, e.g. workout metrics.
- */
+/** A component to display metrics, e.g. workout metrics. */
 @Composable
 public fun MetricDisplay(
-    metric: MetricUiModel,
-    modifier: Modifier = Modifier,
+  metric: MetricUiModel,
+  modifier: Modifier = Modifier,
 ) {
-    Row(modifier = modifier) {
-        val style = MaterialTheme.typography.display3
-        // Prevent font size from scaling:
-        val fontSize = style.fontSize / LocalDensity.current.fontScale
+  Row(modifier = modifier) {
+    val style = MaterialTheme.typography.display3
+    // Prevent font size from scaling:
+    val fontSize = style.fontSize / LocalDensity.current.fontScale
 
-        Text(
-            text = metric.text,
-            modifier = Modifier.alignBy(LastBaseline),
+    Text(
+      text = metric.text,
+      modifier = Modifier.alignBy(LastBaseline),
+      color = metric.color,
+      fontSize = fontSize,
+      overflow = TextOverflow.Ellipsis,
+      maxLines = 1,
+      style = style,
+    )
+
+    if (!metric.topRightText.isNullOrEmpty() || !metric.bottomRightText.isNullOrEmpty()) {
+      Column(modifier = Modifier.padding(start = 4.dp).alignBy(LastBaseline)) {
+        metric.topRightText?.let {
+          Text(
+            text = it,
             color = metric.color,
-            fontSize = fontSize,
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
-            style = style,
-        )
-
-        if (!metric.topRightText.isNullOrEmpty() || !metric.bottomRightText.isNullOrEmpty()) {
-            Column(
-                modifier = Modifier
-                    .padding(start = 4.dp)
-                    .alignBy(LastBaseline),
-            ) {
-                metric.topRightText?.let {
-                    Text(
-                        text = it,
-                        color = metric.color,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 1,
-                        style = MaterialTheme.typography.body2,
-                    )
-                }
-                Text(
-                    text = metric.bottomRightText ?: "",
-                    color = metric.color,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.body2,
-                )
-            }
+            style = MaterialTheme.typography.body2,
+          )
         }
+        Text(
+          text = metric.bottomRightText ?: "",
+          color = metric.color,
+          overflow = TextOverflow.Ellipsis,
+          maxLines = 1,
+          style = MaterialTheme.typography.body2,
+        )
+      }
     }
+  }
 }

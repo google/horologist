@@ -35,7 +35,6 @@ import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation3.runtime.NavBackStack
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInScreen
 import com.google.android.horologist.media.ui.material3.navigation.CustomRoute
-import com.google.android.horologist.media.ui.material3.navigation.MediaRoute
 import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToCollection
 import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToCollections
 import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToLibrary
@@ -43,6 +42,7 @@ import com.google.android.horologist.media.ui.material3.navigation.MediaNavContr
 import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToSettings
 import com.google.android.horologist.media.ui.material3.navigation.MediaNavController.navigateToVolume
 import com.google.android.horologist.media.ui.material3.navigation.MediaPlayerScaffold
+import com.google.android.horologist.media.ui.material3.navigation.MediaRoute
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.ui.auth.prompt.GoogleSignInPromptScreen
 import com.google.android.horologist.mediasample.ui.auth.prompt.UampSignInPromptViewModel
@@ -67,192 +67,173 @@ import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
 @Suppress("UNCHECKED_CAST")
 @Composable
 fun UampWearApp(
-    backStack: NavBackStack<MediaRoute>,
-    intent: Intent,
+  backStack: NavBackStack<MediaRoute>,
+  intent: Intent,
 ) {
-    val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
-    val volumeViewModel: VolumeViewModel = hiltViewModel()
-    val mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel = hiltViewModel()
+  val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
+  val volumeViewModel: VolumeViewModel = hiltViewModel()
+  val mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel = hiltViewModel()
 
-    val appState by appViewModel.appState.collectAsStateWithLifecycle()
+  val appState by appViewModel.appState.collectAsStateWithLifecycle()
 
-    UampTheme {
-        MediaPlayerScaffold(
-            playerScreen = {
-                UampMediaPlayerScreen(
-                    modifier = Modifier.fillMaxSize(),
-                    mediaPlayerScreenViewModel = hiltViewModel(),
-                    volumeViewModel = volumeViewModel,
-                    onVolumeClick = {
-                        backStack.navigateToVolume()
-                    },
-                )
-            },
-            libraryScreen = {
-                if (appState.streamingMode == true) {
-                    UampStreamingBrowseScreen(
-                        onPlaylistsClick = {
-                            backStack.navigateToCollections()
-                        },
-                        onSettingsClick = {
-                            backStack.navigateToSettings()
-                        },
-                    )
-                } else {
-                    UampBrowseScreen(
-                        uampBrowseScreenViewModel = hiltViewModel(),
-                        onDownloadItemClick = {
-                            backStack.navigateToCollection(
-                                collectionId = it.playlistUiModel.id,
-                                collectionName = it.playlistUiModel.title,
-                            )
-                        },
-                        onPlaylistsClick = {
-                            backStack.navigateToCollections()
-                        },
-                        onSettingsClick = {
-                            backStack.navigateToSettings()
-                        },
-                    )
-                }
-            },
-            categoryEntityScreen = { id, name ->
-                val viewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current)
-                val defaultExtras = if (viewModelStoreOwner is HasDefaultViewModelProviderFactory) {
-                    viewModelStoreOwner.defaultViewModelCreationExtras
-                } else {
-                    androidx.lifecycle.viewmodel.CreationExtras.Empty
-                }
-                val extras = MutableCreationExtras(defaultExtras).apply {
-                    set(DEFAULT_ARGS_KEY, bundleOf("id" to id, "name" to name))
-                }
-                val customOwner = object : ViewModelStoreOwner by viewModelStoreOwner, HasDefaultViewModelProviderFactory {
-                    override val defaultViewModelCreationExtras: androidx.lifecycle.viewmodel.CreationExtras
-                        get() = extras
-                    override val defaultViewModelProviderFactory: ViewModelProvider.Factory
-                        get() = (viewModelStoreOwner as? HasDefaultViewModelProviderFactory)?.defaultViewModelProviderFactory
-                            ?: ViewModelProvider.NewInstanceFactory()
-                }
-
-                CompositionLocalProvider(LocalViewModelStoreOwner provides customOwner) {
-                    if (appState.streamingMode == true) {
-                        val viewModel: UampStreamingPlaylistScreenViewModel = hiltViewModel()
-
-                        UampStreamingPlaylistScreen(
-                            playlistName = name,
-                            viewModel = viewModel,
-                            onDownloadItemClick = {
-                                backStack.navigateToPlayer()
-                            },
-                            onShuffleClick = { backStack.navigateToPlayer() },
-                            onPlayClick = { backStack.navigateToPlayer() },
-                        )
-                    } else {
-                        val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
-
-                        UampEntityScreen(
-                            playlistName = name,
-                            uampEntityScreenViewModel = uampEntityScreenViewModel,
-                            onDownloadItemClick = {
-                                backStack.navigateToPlayer()
-                            },
-                            onShuffleClick = { backStack.navigateToPlayer() },
-                            onPlayClick = { backStack.navigateToPlayer() },
-                            onErrorDialogCancelClick = { backStack.removeLastOrNull() },
-                        )
-                    }
-                }
-            },
-             mediaEntityScreen = {
-                UampPlaylistsScreen(
-                    uampPlaylistsScreenViewModel = hiltViewModel(),
-                    onPlaylistItemClick = {
-                        backStack.navigateToCollection(it.id, it.title)
-                    },
-                    onErrorDialogCancelClick = { backStack.removeLastOrNull() },
-                )
-            },
-            playlistsScreen = {
-                UampPlaylistsScreen(
-                    uampPlaylistsScreenViewModel = hiltViewModel(),
-                    onPlaylistItemClick = {
-                        backStack.navigateToCollection(it.id, it.title)
-                    },
-                    onErrorDialogCancelClick = { backStack.removeLastOrNull() },
-                )
-            },
-            settingsScreen = {
-                UampSettingsScreen(
-                    viewModel = hiltViewModel(),
-                    backStack = backStack,
-                )
-            },
-            volumeViewModel = volumeViewModel,
-            timeText = {
-                MediaInfoTimeText(
-                    mediaInfoTimeTextViewModel = mediaInfoTimeTextViewModel,
-                )
-            },
-            deepLinkPrefix = appViewModel.deepLinkPrefix,
-            backStack = backStack,
-            additionalEntries = {
-                entry(CustomRoute(UampNavigationScreen.AudioDebug.navRoute)) {
-                    AudioDebugScreen(
-                        audioDebugScreenViewModel = hiltViewModel(),
-                    )
-                }
-
-                entry(CustomRoute(UampNavigationScreen.Samples.navRoute)) {
-                    SamplesScreen(
-                        samplesScreenViewModel = hiltViewModel(),
-                        backStack = backStack as NavBackStack<CustomRoute>,
-                    )
-                }
-
-                entry(CustomRoute(UampNavigationScreen.DeveloperOptions.navRoute)) {
-                    DeveloperOptionsScreen(
-                        developerOptionsScreenViewModel = hiltViewModel(),
-                        backStack = backStack as NavBackStack<CustomRoute>,
-                    )
-                }
-
-                entry(CustomRoute(UampNavigationScreen.GoogleSignInPromptScreen.navRoute)) {
-                    GoogleSignInPromptScreen(
-                        backStack = backStack as NavBackStack<CustomRoute>,
-                        viewModel = hiltViewModel< UampSignInPromptViewModel>(),
-                    )
-                }
-
-                entry(CustomRoute(UampNavigationScreen.GoogleSignInScreen.navRoute)) {
-                    GoogleSignInScreen(
-                        onAuthCancelled = { backStack.removeLastOrNull() },
-                        onAuthSucceed = { backStack.navigateToLibrary() },
-                        viewModel = hiltViewModel<UampGoogleSignInViewModel>(),
-                    )
-                }
-
-                entry(CustomRoute(UampNavigationScreen.GoogleSignOutScreen.navRoute)) {
-                    GoogleSignOutScreen(
-                        backStack = backStack as NavBackStack<CustomRoute>,
-                        viewModel = hiltViewModel(),
-                    )
-                }
-            },
+  UampTheme {
+    MediaPlayerScaffold(
+      playerScreen = {
+        UampMediaPlayerScreen(
+          modifier = Modifier.fillMaxSize(),
+          mediaPlayerScreenViewModel = hiltViewModel(),
+          volumeViewModel = volumeViewModel,
+          onVolumeClick = { backStack.navigateToVolume() },
         )
-    }
-
-    if (BuildConfig.BENCHMARK) {
-        if (intent.hasExtra("launchAndPlay")) {
-            val launchAndPlay = intent.getBooleanExtra("launchAndPlay", false)
-            println("Found launchAndPlay = $launchAndPlay")
-            intent.removeExtra("launchAndPlay")
-            LaunchedEffect(Unit) {
-                if (launchAndPlay) {
-                    appViewModel.startBenchmarkPlayback()
-                } else {
-                    appViewModel.stopBenchmarkPlayback()
-                }
-            }
+      },
+      libraryScreen = {
+        if (appState.streamingMode == true) {
+          UampStreamingBrowseScreen(
+            onPlaylistsClick = { backStack.navigateToCollections() },
+            onSettingsClick = { backStack.navigateToSettings() },
+          )
+        } else {
+          UampBrowseScreen(
+            uampBrowseScreenViewModel = hiltViewModel(),
+            onDownloadItemClick = {
+              backStack.navigateToCollection(
+                collectionId = it.playlistUiModel.id,
+                collectionName = it.playlistUiModel.title,
+              )
+            },
+            onPlaylistsClick = { backStack.navigateToCollections() },
+            onSettingsClick = { backStack.navigateToSettings() },
+          )
         }
+      },
+      categoryEntityScreen = { id, name ->
+        val viewModelStoreOwner = checkNotNull(LocalViewModelStoreOwner.current)
+        val defaultExtras =
+          if (viewModelStoreOwner is HasDefaultViewModelProviderFactory) {
+            viewModelStoreOwner.defaultViewModelCreationExtras
+          } else {
+            androidx.lifecycle.viewmodel.CreationExtras.Empty
+          }
+        val extras =
+          MutableCreationExtras(defaultExtras).apply {
+            set(DEFAULT_ARGS_KEY, bundleOf("id" to id, "name" to name))
+          }
+        val customOwner =
+          object : ViewModelStoreOwner by viewModelStoreOwner, HasDefaultViewModelProviderFactory {
+            override val defaultViewModelCreationExtras: androidx.lifecycle.viewmodel.CreationExtras
+              get() = extras
+
+            override val defaultViewModelProviderFactory: ViewModelProvider.Factory
+              get() =
+                (viewModelStoreOwner as? HasDefaultViewModelProviderFactory)
+                  ?.defaultViewModelProviderFactory ?: ViewModelProvider.NewInstanceFactory()
+          }
+
+        CompositionLocalProvider(LocalViewModelStoreOwner provides customOwner) {
+          if (appState.streamingMode == true) {
+            val viewModel: UampStreamingPlaylistScreenViewModel = hiltViewModel()
+
+            UampStreamingPlaylistScreen(
+              playlistName = name,
+              viewModel = viewModel,
+              onDownloadItemClick = { backStack.navigateToPlayer() },
+              onShuffleClick = { backStack.navigateToPlayer() },
+              onPlayClick = { backStack.navigateToPlayer() },
+            )
+          } else {
+            val uampEntityScreenViewModel: UampEntityScreenViewModel = hiltViewModel()
+
+            UampEntityScreen(
+              playlistName = name,
+              uampEntityScreenViewModel = uampEntityScreenViewModel,
+              onDownloadItemClick = { backStack.navigateToPlayer() },
+              onShuffleClick = { backStack.navigateToPlayer() },
+              onPlayClick = { backStack.navigateToPlayer() },
+              onErrorDialogCancelClick = { backStack.removeLastOrNull() },
+            )
+          }
+        }
+      },
+      mediaEntityScreen = {
+        UampPlaylistsScreen(
+          uampPlaylistsScreenViewModel = hiltViewModel(),
+          onPlaylistItemClick = { backStack.navigateToCollection(it.id, it.title) },
+          onErrorDialogCancelClick = { backStack.removeLastOrNull() },
+        )
+      },
+      playlistsScreen = {
+        UampPlaylistsScreen(
+          uampPlaylistsScreenViewModel = hiltViewModel(),
+          onPlaylistItemClick = { backStack.navigateToCollection(it.id, it.title) },
+          onErrorDialogCancelClick = { backStack.removeLastOrNull() },
+        )
+      },
+      settingsScreen = {
+        UampSettingsScreen(
+          viewModel = hiltViewModel(),
+          backStack = backStack,
+        )
+      },
+      volumeViewModel = volumeViewModel,
+      timeText = { MediaInfoTimeText(mediaInfoTimeTextViewModel = mediaInfoTimeTextViewModel) },
+      deepLinkPrefix = appViewModel.deepLinkPrefix,
+      backStack = backStack,
+      additionalEntries = {
+        entry(CustomRoute(UampNavigationScreen.AudioDebug.navRoute)) {
+          AudioDebugScreen(audioDebugScreenViewModel = hiltViewModel())
+        }
+
+        entry(CustomRoute(UampNavigationScreen.Samples.navRoute)) {
+          SamplesScreen(
+            samplesScreenViewModel = hiltViewModel(),
+            backStack = backStack as NavBackStack<CustomRoute>,
+          )
+        }
+
+        entry(CustomRoute(UampNavigationScreen.DeveloperOptions.navRoute)) {
+          DeveloperOptionsScreen(
+            developerOptionsScreenViewModel = hiltViewModel(),
+            backStack = backStack as NavBackStack<CustomRoute>,
+          )
+        }
+
+        entry(CustomRoute(UampNavigationScreen.GoogleSignInPromptScreen.navRoute)) {
+          GoogleSignInPromptScreen(
+            backStack = backStack as NavBackStack<CustomRoute>,
+            viewModel = hiltViewModel<UampSignInPromptViewModel>(),
+          )
+        }
+
+        entry(CustomRoute(UampNavigationScreen.GoogleSignInScreen.navRoute)) {
+          GoogleSignInScreen(
+            onAuthCancelled = { backStack.removeLastOrNull() },
+            onAuthSucceed = { backStack.navigateToLibrary() },
+            viewModel = hiltViewModel<UampGoogleSignInViewModel>(),
+          )
+        }
+
+        entry(CustomRoute(UampNavigationScreen.GoogleSignOutScreen.navRoute)) {
+          GoogleSignOutScreen(
+            backStack = backStack as NavBackStack<CustomRoute>,
+            viewModel = hiltViewModel(),
+          )
+        }
+      },
+    )
+  }
+
+  if (BuildConfig.BENCHMARK) {
+    if (intent.hasExtra("launchAndPlay")) {
+      val launchAndPlay = intent.getBooleanExtra("launchAndPlay", false)
+      println("Found launchAndPlay = $launchAndPlay")
+      intent.removeExtra("launchAndPlay")
+      LaunchedEffect(Unit) {
+        if (launchAndPlay) {
+          appViewModel.startBenchmarkPlayback()
+        } else {
+          appViewModel.stopBenchmarkPlayback()
+        }
+      }
     }
+  }
 }

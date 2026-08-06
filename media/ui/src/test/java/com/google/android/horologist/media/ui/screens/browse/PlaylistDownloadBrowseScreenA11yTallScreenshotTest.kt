@@ -33,56 +33,62 @@ import org.junit.Test
 import org.robolectric.annotation.Config
 
 @Config(
-    sdk = [35],
-    qualifiers = "w227dp-h330dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
+  sdk = [35],
+  qualifiers = "w227dp-h330dp-small-notlong-notround-watch-xhdpi-keyshidden-nonav",
 )
 class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() {
-    // TODO fix this warning
-    override fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> =
-        AccessibilityCheckResultUtils.matchesCheck(DuplicateSpeakableTextCheck::class.java)
+  // TODO fix this warning
+  override fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> =
+    AccessibilityCheckResultUtils.matchesCheck(DuplicateSpeakableTextCheck::class.java)
 
-    @Test
-    fun browseScreen() {
-        val screenState = BrowseScreenState.Loaded(downloadList)
+  @Test
+  fun browseScreen() {
+    val screenState = BrowseScreenState.Loaded(downloadList)
 
-        runScreenTest {
-            val columnState = rememberResponsiveColumnState().copy(
-                scalingParams = scalingParams(
-                    edgeScale = 1f,
-                    edgeAlpha = 1f,
-                ),
-            )
+    runScreenTest {
+      val columnState =
+        rememberResponsiveColumnState()
+          .copy(
+            scalingParams =
+              scalingParams(
+                edgeScale = 1f,
+                edgeAlpha = 1f,
+              )
+          )
 
-            ScreenScaffold(scrollState = columnState) {
-                SectionedList(
-                    columnState = columnState,
-                    sections = BrowseScreenScope().apply {
-                        PlaylistDownloadBrowseScreenContent(
-                            browseScreenState = screenState,
-                            onDownloadItemClick = { },
-                            onDownloadItemInProgressClick = { },
-                            onPlaylistsClick = { },
-                            onSettingsClick = { },
-                            onDownloadItemInProgressClickActionLabel = "cancel",
-                        )
-                    }.sections,
+      ScreenScaffold(scrollState = columnState) {
+        SectionedList(
+          columnState = columnState,
+          sections =
+            BrowseScreenScope()
+              .apply {
+                PlaylistDownloadBrowseScreenContent(
+                  browseScreenState = screenState,
+                  onDownloadItemClick = {},
+                  onDownloadItemInProgressClick = {},
+                  onPlaylistsClick = {},
+                  onSettingsClick = {},
+                  onDownloadItemInProgressClickActionLabel = "cancel",
                 )
-            }
-        }
+              }
+              .sections,
+        )
+      }
     }
+  }
 }
 
 public fun ScalingLazyColumnState.copy(scalingParams: ScalingParams): ScalingLazyColumnState =
-    ScalingLazyColumnState(
-        initialScrollPosition = initialScrollPosition,
-        timeTextHomeOffset = timeTextHomeOffset,
-        autoCentering = autoCentering,
-        anchorType = anchorType,
-        contentPadding = contentPadding,
-        rotaryMode = rotaryMode,
-        reverseLayout = reverseLayout,
-        verticalArrangement = verticalArrangement,
-        horizontalAlignment = horizontalAlignment,
-        userScrollEnabled = userScrollEnabled,
-        scalingParams = scalingParams,
-    )
+  ScalingLazyColumnState(
+    initialScrollPosition = initialScrollPosition,
+    timeTextHomeOffset = timeTextHomeOffset,
+    autoCentering = autoCentering,
+    anchorType = anchorType,
+    contentPadding = contentPadding,
+    rotaryMode = rotaryMode,
+    reverseLayout = reverseLayout,
+    verticalArrangement = verticalArrangement,
+    horizontalAlignment = horizontalAlignment,
+    userScrollEnabled = userScrollEnabled,
+    scalingParams = scalingParams,
+  )

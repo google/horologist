@@ -18,8 +18,6 @@ package com.google.android.horologist.ai.sample.wear.prompt
 
 import kotlinx.serialization.Serializable
 
-@Serializable
-object Prompt
+@Serializable object Prompt
 
-@Serializable
-object Settings
+@Serializable object Settings

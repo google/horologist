@@ -25,44 +25,44 @@ import android.content.pm.ApplicationInfo
  * Support for launching the system output switcher.
  *
  * https://developer.android.com/guide/topics/media/media-routing#output-switcher.
- *
  */
 public object OutputSwitcher {
-    /**
-     * Open the Output Switcher Dialog.
-     */
-    public fun Context.launchSystemMediaOutputSwitcherUi(callingPkgName: String? = null): Boolean {
-        val outputSwitcherLaunchIntent: Intent = Intent(OUTPUT_SWITCHER_INTENT_ACTION_NAME)
-            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            .putExtra(EXTRA_OUTPUT_SWITCHER_PACKAGE_NAME, callingPkgName ?: packageName)
-        val outputSwitcherSystemComponentName =
-            getSystemOrSystemUpdatedAppComponent(outputSwitcherLaunchIntent)
-        if (outputSwitcherSystemComponentName != null) {
-            outputSwitcherLaunchIntent.component = outputSwitcherSystemComponentName
-            startActivity(outputSwitcherLaunchIntent)
-            return true
-        }
-        return false
+  /** Open the Output Switcher Dialog. */
+  public fun Context.launchSystemMediaOutputSwitcherUi(callingPkgName: String? = null): Boolean {
+    val outputSwitcherLaunchIntent: Intent =
+      Intent(OUTPUT_SWITCHER_INTENT_ACTION_NAME)
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        .putExtra(EXTRA_OUTPUT_SWITCHER_PACKAGE_NAME, callingPkgName ?: packageName)
+    val outputSwitcherSystemComponentName =
+      getSystemOrSystemUpdatedAppComponent(outputSwitcherLaunchIntent)
+    if (outputSwitcherSystemComponentName != null) {
+      outputSwitcherLaunchIntent.component = outputSwitcherSystemComponentName
+      startActivity(outputSwitcherLaunchIntent)
+      return true
     }
+    return false
+  }
 
-    private fun Context.getSystemOrSystemUpdatedAppComponent(intent: Intent): ComponentName? {
-        val packageManager = packageManager
-        val resolveInfos = packageManager.queryIntentActivities(intent, 0)
-        for (resolveInfo in resolveInfos) {
-            val activityInfo = resolveInfo.activityInfo
-            if (activityInfo?.applicationInfo == null) {
-                continue
-            }
-            val appInfo = activityInfo.applicationInfo
-            val systemAndUpdatedSystemAppFlags =
-                ApplicationInfo.FLAG_SYSTEM or ApplicationInfo.FLAG_UPDATED_SYSTEM_APP
-            if (systemAndUpdatedSystemAppFlags and appInfo.flags != 0) {
-                return ComponentName(activityInfo.packageName, activityInfo.name)
-            }
-        }
-        return null
+  private fun Context.getSystemOrSystemUpdatedAppComponent(intent: Intent): ComponentName? {
+    val packageManager = packageManager
+    val resolveInfos = packageManager.queryIntentActivities(intent, 0)
+    for (resolveInfo in resolveInfos) {
+      val activityInfo = resolveInfo.activityInfo
+      if (activityInfo?.applicationInfo == null) {
+        continue
+      }
+      val appInfo = activityInfo.applicationInfo
+      val systemAndUpdatedSystemAppFlags =
+        ApplicationInfo.FLAG_SYSTEM or ApplicationInfo.FLAG_UPDATED_SYSTEM_APP
+      if (systemAndUpdatedSystemAppFlags and appInfo.flags != 0) {
+        return ComponentName(activityInfo.packageName, activityInfo.name)
+      }
     }
+    return null
+  }
 
-    private const val EXTRA_OUTPUT_SWITCHER_PACKAGE_NAME = "com.android.settings.panel.extra.PACKAGE_NAME"
-    private const val OUTPUT_SWITCHER_INTENT_ACTION_NAME = "com.android.settings.panel.action.MEDIA_OUTPUT"
+  private const val EXTRA_OUTPUT_SWITCHER_PACKAGE_NAME =
+    "com.android.settings.panel.extra.PACKAGE_NAME"
+  private const val OUTPUT_SWITCHER_INTENT_ACTION_NAME =
+    "com.android.settings.panel.action.MEDIA_OUTPUT"
 }

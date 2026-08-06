@@ -23,45 +23,43 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
 public class InMemoryStatusLogger : NetworkStatusLogger {
-    public val events: MutableStateFlow<List<Event>> = MutableStateFlow(listOf())
+  public val events: MutableStateFlow<List<Event>> = MutableStateFlow(listOf())
 
-    override fun logNetworkEvent(event: String, error: Boolean) {
-        add(Event.Message(event))
-    }
+  override fun logNetworkEvent(event: String, error: Boolean) {
+    add(Event.Message(event))
+  }
 
-    private fun add(message: Event) {
-        events.update {
-            it + message
-        }
-    }
+  private fun add(message: Event) {
+    events.update { it + message }
+  }
 
-    override fun logJobEvent(event: String, error: Boolean) {
-        add(Event.Message(event))
-    }
+  override fun logJobEvent(event: String, error: Boolean) {
+    add(Event.Message(event))
+  }
 
-    override fun debugNetworkEvent(event: String) {
-        println(event)
-    }
+  override fun debugNetworkEvent(event: String) {
+    println(event)
+  }
 
-    override fun logNetworkResponse(
-        requestType: RequestType,
-        networkInfo: NetworkInfo,
-        bytesTransferred: Long,
-    ) {
-        val event = "response $requestType ${networkInfo.type} ${bytesTransferred}B"
-        add(Event.NetworkResponse(event, requestType, networkInfo, bytesTransferred))
-    }
+  override fun logNetworkResponse(
+    requestType: RequestType,
+    networkInfo: NetworkInfo,
+    bytesTransferred: Long,
+  ) {
+    val event = "response $requestType ${networkInfo.type} ${bytesTransferred}B"
+    add(Event.NetworkResponse(event, requestType, networkInfo, bytesTransferred))
+  }
 
-    sealed interface Event {
-        val message: String
+  sealed interface Event {
+    val message: String
 
-        data class NetworkResponse(
-            override val message: String,
-            val requestType: RequestType,
-            val networkInfo: NetworkInfo,
-            val bytesTransferred: Long,
-        ) : Event
+    data class NetworkResponse(
+      override val message: String,
+      val requestType: RequestType,
+      val networkInfo: NetworkInfo,
+      val bytesTransferred: Long,
+    ) : Event
 
-        data class Message(override val message: String) : Event
-    }
+    data class Message(override val message: String) : Event
+  }
 }

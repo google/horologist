@@ -53,209 +53,182 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : WearScreenshotTest() {
 
-    override fun testName(suffix: String): String =
-        "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName}_" +
-            "${device.id}$suffix.png"
+  override fun testName(suffix: String): String =
+    "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName}_" +
+      "${device.id}$suffix.png"
 
-    override val tolerance: Float
-        get() = if (device == WearDevice.Companion.GooglePixelWatchLargeFont) 0.05f else 0.0f
+  override val tolerance: Float
+    get() = if (device == WearDevice.Companion.GooglePixelWatchLargeFont) 0.05f else 0.0f
 
-    @Composable
-    override fun TestScaffold(content: @Composable (() -> Unit)) {
-        content()
+  @Composable
+  override fun TestScaffold(content: @Composable (() -> Unit)) {
+    content()
+  }
+
+  @Test
+  fun TitleAndCard() {
+    lateinit var columnState: TransformingLazyColumnState
+    runTest {
+      AppScaffold(
+        timeText = { TimeText(timeSource = FixedTimeSource3) },
+        // Why black needed here
+        modifier = Modifier.background(MaterialTheme.colorScheme.background),
+      ) {
+        columnState = rememberTransformingLazyColumnState()
+        ScreenScaffold(
+          scrollState = columnState,
+          contentPadding =
+            rememberResponsiveColumnPadding(
+              first = ColumnItemType.ListHeader,
+              last = ColumnItemType.Card,
+            ),
+        ) { contentPadding ->
+          val transformationSpec = rememberTransformationSpec()
+
+          TransformingLazyColumn(
+            state = columnState,
+            contentPadding = contentPadding,
+            modifier = Modifier.fillMaxSize().testTag("TransformingLazyColumn"),
+          ) {
+            item { ListHeader { Text("Title") } }
+            items(3) {
+              TitleCard(
+                onClick = { /* Do something */ },
+                title = { Text("Title card") },
+                time = { Text("now") },
+                modifier = Modifier.transformedHeight(this, transformationSpec),
+                transformation = SurfaceTransformation(transformationSpec),
+              ) {
+                Text("Card content")
+              }
+            }
+          }
+        }
+      }
     }
 
-    @Test
-    fun TitleAndCard() {
-        lateinit var columnState: TransformingLazyColumnState
-        runTest {
-            AppScaffold(
-                timeText = {
-                    TimeText(timeSource = FixedTimeSource3)
-                },
-                // Why black needed here
-                modifier = Modifier.background(MaterialTheme.colorScheme.background),
-            ) {
-                columnState = rememberTransformingLazyColumnState()
-                ScreenScaffold(
-                    scrollState = columnState,
-                    contentPadding = rememberResponsiveColumnPadding(
-                        first = ColumnItemType.ListHeader,
-                        last = ColumnItemType.Card,
-                    ),
-                ) { contentPadding ->
-                    val transformationSpec = rememberTransformationSpec()
+    composeRule.waitForIdle()
 
-                    TransformingLazyColumn(
-                        state = columnState,
-                        contentPadding = contentPadding,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .testTag("TransformingLazyColumn"),
-                    ) {
-                        item {
-                            ListHeader {
-                                Text("Title")
-                            }
-                        }
-                        items(3) {
-                            TitleCard(
-                                onClick = { /* Do something */ },
-                                title = { Text("Title card") },
-                                time = { Text("now") },
-                                modifier = Modifier.transformedHeight(this, transformationSpec),
-                                transformation = SurfaceTransformation(transformationSpec),
-                            ) { Text("Card content") }
-                        }
-                    }
-                }
+    runBlocking { columnState.scroll { scrollBy(2000f) } }
+
+    captureScreenshot("_end")
+  }
+
+  @Test
+  fun ButtonAndEdgeButton() {
+    lateinit var columnState: TransformingLazyColumnState
+    runTest {
+      AppScaffold(
+        timeText = { TimeText(timeSource = FixedTimeSource3) },
+        // Why black needed here
+        modifier = Modifier.background(MaterialTheme.colorScheme.background),
+      ) {
+        columnState = rememberTransformingLazyColumnState()
+        ScreenScaffold(
+          scrollState = columnState,
+          contentPadding =
+            rememberResponsiveColumnPadding(
+              first = ColumnItemType.IconButton,
+              last = EdgeButtonPadding,
+            ),
+          edgeButton = {
+            EdgeButton(onClick = {}, buttonSize = EdgeButtonSize.Large) { Text("To top") }
+          },
+        ) { contentPadding ->
+          val transformationSpec = rememberTransformationSpec()
+
+          TransformingLazyColumn(
+            state = columnState,
+            contentPadding = contentPadding,
+            modifier = Modifier.fillMaxSize().testTag("TransformingLazyColumn"),
+          ) {
+            item {
+              IconButton(onClick = {}) {
+                Icon(
+                  imageVector = Icons.Rounded.ArrowUpward,
+                  contentDescription = null,
+                )
+              }
             }
-        }
-
-        composeRule.waitForIdle()
-
-        runBlocking {
-            columnState.scroll {
-                scrollBy(2000f)
+            items(3) {
+              TitleCard(
+                onClick = { /* Do something */ },
+                title = { Text("Title card") },
+                time = { Text("now") },
+                modifier = Modifier.transformedHeight(this, transformationSpec),
+                transformation = SurfaceTransformation(transformationSpec),
+              ) {
+                Text("Card content")
+              }
             }
+          }
         }
-
-        captureScreenshot("_end")
+      }
     }
 
-    @Test
-    fun ButtonAndEdgeButton() {
-        lateinit var columnState: TransformingLazyColumnState
-        runTest {
-            AppScaffold(
-                timeText = {
-                    TimeText(timeSource = FixedTimeSource3)
-                },
-                // Why black needed here
-                modifier = Modifier.background(MaterialTheme.colorScheme.background),
-            ) {
-                columnState = rememberTransformingLazyColumnState()
-                ScreenScaffold(
-                    scrollState = columnState,
-                    contentPadding = rememberResponsiveColumnPadding(
-                        first = ColumnItemType.IconButton,
-                        last = EdgeButtonPadding,
-                    ),
-                    edgeButton = {
-                        EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.Large) {
-                            Text("To top")
-                        }
-                    },
-                ) { contentPadding ->
-                    val transformationSpec = rememberTransformationSpec()
+    composeRule.waitForIdle()
 
-                    TransformingLazyColumn(
-                        state = columnState,
-                        contentPadding = contentPadding,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .testTag("TransformingLazyColumn"),
-                    ) {
-                        item {
-                            IconButton(onClick = {}) {
-                                Icon(
-                                    imageVector = Icons.Rounded.ArrowUpward,
-                                    contentDescription = null,
-                                )
-                            }
-                        }
-                        items(3) {
-                            TitleCard(
-                                onClick = { /* Do something */ },
-                                title = { Text("Title card") },
-                                time = { Text("now") },
-                                modifier = Modifier.transformedHeight(this, transformationSpec),
-                                transformation = SurfaceTransformation(transformationSpec),
-                            ) { Text("Card content") }
-                        }
-                    }
-                }
+    runBlocking { columnState.scroll { scrollBy(2000f) } }
+
+    captureScreenshot("_end")
+  }
+
+  @Test
+  fun IconButtonAndExtraSmallEdgeButton() {
+    lateinit var columnState: TransformingLazyColumnState
+    runTest {
+      AppScaffold(
+        timeText = { TimeText { timeTextCurvedText("10:10") } },
+        // Why black needed here
+        modifier = Modifier.background(MaterialTheme.colorScheme.background),
+      ) {
+        columnState = rememberTransformingLazyColumnState()
+        ScreenScaffold(
+          scrollState = columnState,
+          contentPadding =
+            rememberResponsiveColumnPadding(
+              first = ColumnItemType.IconButton,
+              last = EdgeButtonPadding,
+            ),
+          edgeButton = {
+            EdgeButton(onClick = {}, buttonSize = EdgeButtonSize.ExtraSmall) { Text("To top") }
+          },
+        ) { contentPadding ->
+          TransformingLazyColumn(
+            state = columnState,
+            contentPadding = contentPadding,
+            modifier = Modifier.fillMaxSize().testTag("TransformingLazyColumn"),
+          ) {
+            item {
+              OutlinedIconButton(onClick = {}) {
+                Icon(
+                  imageVector = Icons.Rounded.ArrowUpward,
+                  contentDescription = null,
+                )
+              }
             }
-        }
-
-        composeRule.waitForIdle()
-
-        runBlocking {
-            columnState.scroll {
-                scrollBy(2000f)
+            items(3) {
+              TitleCard(
+                onClick = { /* Do something */ },
+                title = { Text("Title card") },
+                time = { Text("now") },
+              ) {
+                Text("Card content")
+              }
             }
+          }
         }
-
-        captureScreenshot("_end")
+      }
     }
 
-    @Test
-    fun IconButtonAndExtraSmallEdgeButton() {
-        lateinit var columnState: TransformingLazyColumnState
-        runTest {
-            AppScaffold(
-                timeText = {
-                    TimeText {
-                        timeTextCurvedText("10:10")
-                    }
-                },
-                // Why black needed here
-                modifier = Modifier.background(MaterialTheme.colorScheme.background),
-            ) {
-                columnState = rememberTransformingLazyColumnState()
-                ScreenScaffold(
-                    scrollState = columnState,
-                    contentPadding = rememberResponsiveColumnPadding(
-                        first = ColumnItemType.IconButton,
-                        last = EdgeButtonPadding,
-                    ),
-                    edgeButton = {
-                        EdgeButton(onClick = { }, buttonSize = EdgeButtonSize.ExtraSmall) {
-                            Text("To top")
-                        }
-                    },
-                ) { contentPadding ->
-                    TransformingLazyColumn(
-                        state = columnState,
-                        contentPadding = contentPadding,
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .testTag("TransformingLazyColumn"),
-                    ) {
-                        item {
-                            OutlinedIconButton(onClick = {}) {
-                                Icon(
-                                    imageVector = Icons.Rounded.ArrowUpward,
-                                    contentDescription = null,
-                                )
-                            }
-                        }
-                        items(3) {
-                            TitleCard(
-                                onClick = { /* Do something */ },
-                                title = { Text("Title card") },
-                                time = { Text("now") },
-                            ) { Text("Card content") }
-                        }
-                    }
-                }
-            }
-        }
+    composeRule.waitForIdle()
 
-        composeRule.waitForIdle()
+    runBlocking { columnState.scroll { scrollBy(2000f) } }
 
-        runBlocking {
-            columnState.scroll {
-                scrollBy(2000f)
-            }
-        }
+    captureScreenshot("_end")
+  }
 
-        captureScreenshot("_end")
-    }
-
-    companion object {
-        @JvmStatic
-        @ParameterizedRobolectricTestRunner.Parameters
-        fun devices() = WearDevice.entries
-    }
+  companion object {
+    @JvmStatic @ParameterizedRobolectricTestRunner.Parameters fun devices() = WearDevice.entries
+  }
 }

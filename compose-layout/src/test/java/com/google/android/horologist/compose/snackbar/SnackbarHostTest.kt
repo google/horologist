@@ -48,221 +48,218 @@ import org.robolectric.annotation.Config
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
 @Config(
-    sdk = [35],
-    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
+  sdk = [35],
+  qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 class SnackbarHostTest {
 
-    @get:Rule
-    val rule = createComposeRule()
+  @get:Rule val rule = createComposeRule()
 
-    @Test
-    fun snackbarHost_observePushedData() {
-        var resultedInvocation = ""
-        val hostState = SnackbarHostState()
-        lateinit var scope: CoroutineScope
-        rule.setContent {
-            scope = rememberCoroutineScope()
-            SnackbarHost(hostState) { data ->
-                LaunchedEffect(data) {
-                    resultedInvocation += data.message
-                    data.dismiss()
-                }
-            }
+  @Test
+  fun snackbarHost_observePushedData() {
+    var resultedInvocation = ""
+    val hostState = SnackbarHostState()
+    lateinit var scope: CoroutineScope
+    rule.setContent {
+      scope = rememberCoroutineScope()
+      SnackbarHost(hostState) { data ->
+        LaunchedEffect(data) {
+          resultedInvocation += data.message
+          data.dismiss()
         }
-        val job = scope.launch {
-            hostState.showSnackbar("1")
-            Truth.assertThat(resultedInvocation).isEqualTo("1")
-            hostState.showSnackbar("2")
-            Truth.assertThat(resultedInvocation).isEqualTo("12")
-            hostState.showSnackbar("3")
-            Truth.assertThat(resultedInvocation).isEqualTo("123")
-        }
-
-        rule.waitUntil { job.isCompleted }
+      }
+    }
+    val job = scope.launch {
+      hostState.showSnackbar("1")
+      Truth.assertThat(resultedInvocation).isEqualTo("1")
+      hostState.showSnackbar("2")
+      Truth.assertThat(resultedInvocation).isEqualTo("12")
+      hostState.showSnackbar("3")
+      Truth.assertThat(resultedInvocation).isEqualTo("123")
     }
 
-    @Test
-    fun snackbarHost_fifoQueueContract() {
-        var resultedInvocation = ""
-        val hostState = SnackbarHostState()
-        lateinit var scope: CoroutineScope
-        rule.setContent {
-            scope = rememberCoroutineScope()
-            SnackbarHost(hostState) { data ->
-                LaunchedEffect(data) {
-                    resultedInvocation += data.message
-                    launch {
-                        delay(30L)
-                        data.dismiss()
-                    }
-                }
-            }
-        }
-        val parent = SupervisorJob()
-        repeat(10) {
-            scope.launch(parent) {
-                delay(it * 10L)
-                hostState.showSnackbar(it.toString())
-            }
-        }
+    rule.waitUntil { job.isCompleted }
+  }
 
-        rule.waitUntil { parent.children.all { it.isCompleted } }
-        Truth.assertThat(resultedInvocation).isEqualTo("0123456789")
+  @Test
+  fun snackbarHost_fifoQueueContract() {
+    var resultedInvocation = ""
+    val hostState = SnackbarHostState()
+    lateinit var scope: CoroutineScope
+    rule.setContent {
+      scope = rememberCoroutineScope()
+      SnackbarHost(hostState) { data ->
+        LaunchedEffect(data) {
+          resultedInvocation += data.message
+          launch {
+            delay(30L)
+            data.dismiss()
+          }
+        }
+      }
+    }
+    val parent = SupervisorJob()
+    repeat(10) {
+      scope.launch(parent) {
+        delay(it * 10L)
+        hostState.showSnackbar(it.toString())
+      }
     }
 
-    @Test
-    @Ignore("ComposeTimeoutException: Condition still not satisfied after 5000 ms")
-    fun snackbarHost_returnedResult() {
-        val hostState = SnackbarHostState()
-        lateinit var scope: CoroutineScope
-        rule.setContent {
-            scope = rememberCoroutineScope()
-            SnackbarHost(hostState) { data ->
-                TestSnackbar(data)
-            }
-        }
-        val job1 = scope.launch {
-            val result = hostState.showSnackbar("1", actionLabel = "press")
-            Truth.assertThat(result).isEqualTo(SnackbarResult.ActionPerformed)
-        }
-        rule.onNodeWithText("press")
-            .performClick()
+    rule.waitUntil { parent.children.all { it.isCompleted } }
+    Truth.assertThat(resultedInvocation).isEqualTo("0123456789")
+  }
 
-        rule.waitUntil { job1.isCompleted }
+  @Test
+  @Ignore("ComposeTimeoutException: Condition still not satisfied after 5000 ms")
+  fun snackbarHost_returnedResult() {
+    val hostState = SnackbarHostState()
+    lateinit var scope: CoroutineScope
+    rule.setContent {
+      scope = rememberCoroutineScope()
+      SnackbarHost(hostState) { data -> TestSnackbar(data) }
+    }
+    val job1 = scope.launch {
+      val result = hostState.showSnackbar("1", actionLabel = "press")
+      Truth.assertThat(result).isEqualTo(SnackbarResult.ActionPerformed)
+    }
+    rule.onNodeWithText("press").performClick()
 
-        val job2 = scope.launch {
-            val result = hostState.showSnackbar(
-                message = "1",
-                actionLabel = "do not press",
-            )
-            Truth.assertThat(result).isEqualTo(SnackbarResult.Dismissed)
-        }
+    rule.waitUntil { job1.isCompleted }
 
-        rule.waitUntil(timeoutMillis = 5_000) { job2.isCompleted }
+    val job2 = scope.launch {
+      val result =
+        hostState.showSnackbar(
+          message = "1",
+          actionLabel = "do not press",
+        )
+      Truth.assertThat(result).isEqualTo(SnackbarResult.Dismissed)
     }
 
-    @Test
-    @Ignore("Failing and Snackbar is not a recommended pattern")
-    fun snackbarHost_scopeLifecycleRespect() {
-        val switchState = mutableStateOf(true)
-        val hostState = SnackbarHostState()
-        lateinit var scope: CoroutineScope
-        rule.setContent {
-            if (switchState.value) {
-                scope = rememberCoroutineScope()
-            }
-            SnackbarHost(hostState) { data ->
-                TestSnackbar(data)
-            }
-        }
-        val job1 = scope.launch {
-            hostState.showSnackbar("1")
-            Truth.assertWithMessage("Result shouldn't happen due to cancellation").fail()
-        }
-        val job2 = scope.launch {
-            delay(10)
-            switchState.value = false
-        }
+    rule.waitUntil(timeoutMillis = 5_000) { job2.isCompleted }
+  }
 
-        rule.waitUntil { job1.isCompleted && job2.isCompleted }
+  @Test
+  @Ignore("Failing and Snackbar is not a recommended pattern")
+  fun snackbarHost_scopeLifecycleRespect() {
+    val switchState = mutableStateOf(true)
+    val hostState = SnackbarHostState()
+    lateinit var scope: CoroutineScope
+    rule.setContent {
+      if (switchState.value) {
+        scope = rememberCoroutineScope()
+      }
+      SnackbarHost(hostState) { data -> TestSnackbar(data) }
+    }
+    val job1 = scope.launch {
+      hostState.showSnackbar("1")
+      Truth.assertWithMessage("Result shouldn't happen due to cancellation").fail()
+    }
+    val job2 = scope.launch {
+      delay(10)
+      switchState.value = false
     }
 
-    @Ignore("Failing and Snackbar is not a recommended pattern")
-    @Test
-    fun snackbarHost_semantics() {
-        val hostState = SnackbarHostState()
-        lateinit var scope: CoroutineScope
-        rule.setContent {
-            scope = rememberCoroutineScope()
-            SnackbarHost(hostState) { data ->
-                TestSnackbar(data)
-            }
-        }
-        val job1 = scope.launch {
-            val result = hostState.showSnackbar("1", actionLabel = "press")
-            Truth.assertThat(result).isEqualTo(SnackbarResult.Dismissed)
-        }
-        rule.onNodeWithText("1").onParent().onParent().onParent()
-            .assert(
-                SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite),
-            )
-            .assert(SemanticsMatcher.keyIsDefined(SemanticsActions.Dismiss))
-            .performSemanticsAction(SemanticsActions.Dismiss)
+    rule.waitUntil { job1.isCompleted && job2.isCompleted }
+  }
 
-        rule.waitUntil { job1.isCompleted }
+  @Ignore("Failing and Snackbar is not a recommended pattern")
+  @Test
+  fun snackbarHost_semantics() {
+    val hostState = SnackbarHostState()
+    lateinit var scope: CoroutineScope
+    rule.setContent {
+      scope = rememberCoroutineScope()
+      SnackbarHost(hostState) { data -> TestSnackbar(data) }
     }
+    val job1 = scope.launch {
+      val result = hostState.showSnackbar("1", actionLabel = "press")
+      Truth.assertThat(result).isEqualTo(SnackbarResult.Dismissed)
+    }
+    rule
+      .onNodeWithText("1")
+      .onParent()
+      .onParent()
+      .onParent()
+      .assert(SemanticsMatcher.expectValue(SemanticsProperties.LiveRegion, LiveRegionMode.Polite))
+      .assert(SemanticsMatcher.keyIsDefined(SemanticsActions.Dismiss))
+      .performSemanticsAction(SemanticsActions.Dismiss)
 
-    @Ignore("Failing and Snackbar is not a recommended pattern")
-    @Test
-    fun snackbarDuration_toMillis_nonNullAccessibilityManager() {
-        val mockDurationControl = 10000L
-        val mockDurationNonControl = 5000L
-        val accessibilityManager: AccessibilityManager = object : AccessibilityManager {
-            override fun calculateRecommendedTimeoutMillis(
-                originalTimeoutMillis: Long,
-                containsIcons: Boolean,
-                containsText: Boolean,
-                containsControls: Boolean,
-            ): Long = if (originalTimeoutMillis == Long.MAX_VALUE) {
-                Long.MAX_VALUE
-            } else if (containsControls == true) {
-                mockDurationControl
-            } else {
-                mockDurationNonControl
-            }
-        }
-        assertEquals(
-            Long.MAX_VALUE,
-            SnackbarDuration.Indefinite.toMillis(true, accessibilityManager),
-        )
-        assertEquals(
-            Long.MAX_VALUE,
-            SnackbarDuration.Indefinite.toMillis(false, accessibilityManager),
-        )
-        assertEquals(
-            mockDurationControl,
-            SnackbarDuration.Long.toMillis(true, accessibilityManager),
-        )
-        assertEquals(
-            mockDurationNonControl,
-            SnackbarDuration.Long.toMillis(false, accessibilityManager),
-        )
-        assertEquals(
-            mockDurationControl,
-            SnackbarDuration.Short.toMillis(true, accessibilityManager),
-        )
-        assertEquals(
-            mockDurationNonControl,
-            SnackbarDuration.Short.toMillis(false, accessibilityManager),
-        )
-    }
+    rule.waitUntil { job1.isCompleted }
+  }
 
-    @Test
-    fun snackbarDuration_toMillis_nullAccessibilityManager() {
-        assertEquals(
-            Long.MAX_VALUE,
-            SnackbarDuration.Indefinite.toMillis(true, null),
-        )
-        assertEquals(
-            Long.MAX_VALUE,
-            SnackbarDuration.Indefinite.toMillis(false, null),
-        )
-        assertEquals(
-            10000L,
-            SnackbarDuration.Long.toMillis(true, null),
-        )
-        assertEquals(
-            10000L,
-            SnackbarDuration.Long.toMillis(false, null),
-        )
-        assertEquals(
-            4000L,
-            SnackbarDuration.Short.toMillis(true, null),
-        )
-        assertEquals(
-            4000L,
-            SnackbarDuration.Short.toMillis(false, null),
-        )
-    }
+  @Ignore("Failing and Snackbar is not a recommended pattern")
+  @Test
+  fun snackbarDuration_toMillis_nonNullAccessibilityManager() {
+    val mockDurationControl = 10000L
+    val mockDurationNonControl = 5000L
+    val accessibilityManager: AccessibilityManager =
+      object : AccessibilityManager {
+        override fun calculateRecommendedTimeoutMillis(
+          originalTimeoutMillis: Long,
+          containsIcons: Boolean,
+          containsText: Boolean,
+          containsControls: Boolean,
+        ): Long =
+          if (originalTimeoutMillis == Long.MAX_VALUE) {
+            Long.MAX_VALUE
+          } else if (containsControls == true) {
+            mockDurationControl
+          } else {
+            mockDurationNonControl
+          }
+      }
+    assertEquals(
+      Long.MAX_VALUE,
+      SnackbarDuration.Indefinite.toMillis(true, accessibilityManager),
+    )
+    assertEquals(
+      Long.MAX_VALUE,
+      SnackbarDuration.Indefinite.toMillis(false, accessibilityManager),
+    )
+    assertEquals(
+      mockDurationControl,
+      SnackbarDuration.Long.toMillis(true, accessibilityManager),
+    )
+    assertEquals(
+      mockDurationNonControl,
+      SnackbarDuration.Long.toMillis(false, accessibilityManager),
+    )
+    assertEquals(
+      mockDurationControl,
+      SnackbarDuration.Short.toMillis(true, accessibilityManager),
+    )
+    assertEquals(
+      mockDurationNonControl,
+      SnackbarDuration.Short.toMillis(false, accessibilityManager),
+    )
+  }
+
+  @Test
+  fun snackbarDuration_toMillis_nullAccessibilityManager() {
+    assertEquals(
+      Long.MAX_VALUE,
+      SnackbarDuration.Indefinite.toMillis(true, null),
+    )
+    assertEquals(
+      Long.MAX_VALUE,
+      SnackbarDuration.Indefinite.toMillis(false, null),
+    )
+    assertEquals(
+      10000L,
+      SnackbarDuration.Long.toMillis(true, null),
+    )
+    assertEquals(
+      10000L,
+      SnackbarDuration.Long.toMillis(false, null),
+    )
+    assertEquals(
+      4000L,
+      SnackbarDuration.Short.toMillis(true, null),
+    )
+    assertEquals(
+      4000L,
+      SnackbarDuration.Short.toMillis(false, null),
+    )
+  }
 }

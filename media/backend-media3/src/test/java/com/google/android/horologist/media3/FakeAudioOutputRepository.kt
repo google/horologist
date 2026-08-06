@@ -21,12 +21,10 @@ import com.google.android.horologist.audio.AudioOutputRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 
 open class FakeAudioOutputRepository : AudioOutputRepository {
-    override val audioOutput: MutableStateFlow<AudioOutput> = MutableStateFlow(AudioOutput.None)
-    override val available: MutableStateFlow<List<AudioOutput>> = MutableStateFlow(listOf())
+  override val audioOutput: MutableStateFlow<AudioOutput> = MutableStateFlow(AudioOutput.None)
+  override val available: MutableStateFlow<List<AudioOutput>> = MutableStateFlow(listOf())
 
-    override fun launchOutputSelection(closeOnConnect: Boolean, clientPackageName: String?) {
-    }
+  override fun launchOutputSelection(closeOnConnect: Boolean, clientPackageName: String?) {}
 
-    override fun close() {
-    }
+  override fun close() {}
 }

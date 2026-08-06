@@ -37,107 +37,109 @@ private const val TAG = "HorologistAudioUi"
 
 @Composable
 public fun volumeRotaryBehavior(
-    volumeUiStateProvider: () -> VolumeUiState,
-    onRotaryVolumeInput: (Int) -> Unit,
+  volumeUiStateProvider: () -> VolumeUiState,
+  onRotaryVolumeInput: (Int) -> Unit,
 ): RotaryScrollableBehavior {
-    return if (isLowResInput()) {
-        lowResVolumeRotaryBehavior(
-            volumeUiStateProvider = volumeUiStateProvider,
-            onRotaryVolumeInput = onRotaryVolumeInput,
-        )
-    } else {
-        highResVolumeRotaryBehavior(
-            volumeUiStateProvider = volumeUiStateProvider,
-            onRotaryVolumeInput = onRotaryVolumeInput,
-        )
-    }
+  return if (isLowResInput()) {
+    lowResVolumeRotaryBehavior(
+      volumeUiStateProvider = volumeUiStateProvider,
+      onRotaryVolumeInput = onRotaryVolumeInput,
+    )
+  } else {
+    highResVolumeRotaryBehavior(
+      volumeUiStateProvider = volumeUiStateProvider,
+      onRotaryVolumeInput = onRotaryVolumeInput,
+    )
+  }
 }
 
 @Composable
 public fun lowResVolumeRotaryBehavior(
-    volumeUiStateProvider: () -> VolumeUiState,
-    onRotaryVolumeInput: (Int) -> Unit,
+  volumeUiStateProvider: () -> VolumeUiState,
+  onRotaryVolumeInput: (Int) -> Unit,
 ): RotaryScrollableBehavior {
-    val localView = LocalView.current
+  val localView = LocalView.current
 
-    return accumulatedBehavior(rateLimitCoolDownMs = RATE_LIMITING_DISABLED) { change ->
-        Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
+  return accumulatedBehavior(rateLimitCoolDownMs = RATE_LIMITING_DISABLED) { change ->
+    Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
 
-        if (change != 0f) {
-            val targetVolume =
-                (volumeUiStateProvider().current + change.toInt()).coerceIn(
-                    0,
-                    volumeUiStateProvider().max,
-                )
+    if (change != 0f) {
+      val targetVolume =
+        (volumeUiStateProvider().current + change.toInt()).coerceIn(
+          0,
+          volumeUiStateProvider().max,
+        )
 
-            Log.d(
-                TAG,
-                "change=$change, " +
-                    "currentVolume=${volumeUiStateProvider().current}, " +
-                    "targetVolume=$targetVolume ",
-            )
+      Log.d(
+        TAG,
+        "change=$change, " +
+          "currentVolume=${volumeUiStateProvider().current}, " +
+          "targetVolume=$targetVolume ",
+      )
 
-            performHapticFeedback(
-                targetVolume = targetVolume,
-                volumeUiStateProvider = volumeUiStateProvider,
-                localView = localView,
-            )
+      performHapticFeedback(
+        targetVolume = targetVolume,
+        volumeUiStateProvider = volumeUiStateProvider,
+        localView = localView,
+      )
 
-            onRotaryVolumeInput(targetVolume)
-        }
+      onRotaryVolumeInput(targetVolume)
     }
+  }
 }
 
 @Composable
 public fun highResVolumeRotaryBehavior(
-    volumeUiStateProvider: () -> VolumeUiState,
-    onRotaryVolumeInput: (Int) -> Unit,
+  volumeUiStateProvider: () -> VolumeUiState,
+  onRotaryVolumeInput: (Int) -> Unit,
 ): RotaryScrollableBehavior {
-    val localView = LocalView.current
+  val localView = LocalView.current
 
-    return accumulatedBehavior(rateLimitCoolDownMs = RATE_LIMITING_DISABLED) { change ->
-        Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
+  return accumulatedBehavior(rateLimitCoolDownMs = RATE_LIMITING_DISABLED) { change ->
+    Log.d(TAG, "maxVolume=${volumeUiStateProvider().max}")
 
-        if (change != 0f) {
-            val targetVolume = convertPixelToVolume(change, volumeUiStateProvider)
+    if (change != 0f) {
+      val targetVolume = convertPixelToVolume(change, volumeUiStateProvider)
 
-            Log.d(
-                TAG,
-                "change=$change, " +
-                    "currentVolume=${volumeUiStateProvider().current}, " +
-                    "targetVolume=$targetVolume ",
-            )
+      Log.d(
+        TAG,
+        "change=$change, " +
+          "currentVolume=${volumeUiStateProvider().current}, " +
+          "targetVolume=$targetVolume ",
+      )
 
-            performHapticFeedback(
-                targetVolume = targetVolume,
-                volumeUiStateProvider = volumeUiStateProvider,
-                localView = localView,
-            )
+      performHapticFeedback(
+        targetVolume = targetVolume,
+        volumeUiStateProvider = volumeUiStateProvider,
+        localView = localView,
+      )
 
-            onRotaryVolumeInput(targetVolume)
-        }
+      onRotaryVolumeInput(targetVolume)
     }
+  }
 }
 
 /**
  * Converting of pixels to volume. Note this conversion is applicable to devices with high
  * resolution rotary only.
  *
- * Maps 1 pixel changes to 0.1% volume change. However, when max volume is small, we make sure to use
- * the threshold [VOLUME_FRACTION_PER_PIXEL] to trigger at least one volume change, otherwise the
- * devices with max volume that are less than ~20 would need significant quicker turning to
+ * Maps 1 pixel changes to 0.1% volume change. However, when max volume is small, we make sure to
+ * use the threshold [VOLUME_FRACTION_PER_PIXEL] to trigger at least one volume change, otherwise
+ * the devices with max volume that are less than ~20 would need significant quicker turning to
  * trigger a volume change (which is bad experience).
  */
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 internal fun convertPixelToVolume(change: Float, volumeUiStateProvider: () -> VolumeUiState): Int {
-    val scale =
-        max(
-            volumeUiStateProvider().max * VOLUME_FRACTION_PER_PIXEL,
-            1 / VOLUME_PERCENT_CHANGE_PIXEL,
-        )
+  val scale =
+    max(
+      volumeUiStateProvider().max * VOLUME_FRACTION_PER_PIXEL,
+      1 / VOLUME_PERCENT_CHANGE_PIXEL,
+    )
 
-    return (volumeUiStateProvider().current + (change * scale).roundToInt())
-        .coerceIn(0, volumeUiStateProvider().max)
+  return (volumeUiStateProvider().current + (change * scale).roundToInt()).coerceIn(
+    0,
+    volumeUiStateProvider().max,
+  )
 }
 
 /**
@@ -146,16 +148,18 @@ internal fun convertPixelToVolume(change: Float, volumeUiStateProvider: () -> Vo
  * volume range, otherwise returns [HapticFeedbackConstants.KEYBOARD_TAP]
  */
 private fun performHapticFeedback(
-    targetVolume: Int,
-    volumeUiStateProvider: () -> VolumeUiState,
-    localView: View,
+  targetVolume: Int,
+  volumeUiStateProvider: () -> VolumeUiState,
+  localView: View,
 ) {
-    if (targetVolume != volumeUiStateProvider().current) {
-        if (targetVolume == volumeUiStateProvider().min || targetVolume == volumeUiStateProvider().max) {
-            // Use stronger haptic feedback when reaching max or min
-            localView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
-        } else {
-            localView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
-        }
+  if (targetVolume != volumeUiStateProvider().current) {
+    if (
+      targetVolume == volumeUiStateProvider().min || targetVolume == volumeUiStateProvider().max
+    ) {
+      // Use stronger haptic feedback when reaching max or min
+      localView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS)
+    } else {
+      localView.performHapticFeedback(HapticFeedbackConstants.KEYBOARD_TAP)
     }
+  }
 }

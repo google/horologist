@@ -19,23 +19,22 @@ package com.google.android.horologist.composables
 import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.onNodeWithContentDescription
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
-import org.junit.Test
 import java.time.LocalTime
+import org.junit.Test
 
 class TimePickerA11yTest : WearLegacyA11yTest() {
 
-    @Test
-    fun initial() {
-        enableTouchExploration()
+  @Test
+  fun initial() {
+    enableTouchExploration()
 
-        runScreenTest {
-            TimePicker(
-                time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {},
-            )
-        }
-
-        composeRule.onNodeWithContentDescription("Confirm")
-            .assertHasClickAction()
+    runScreenTest {
+      TimePicker(
+        time = LocalTime.of(10, 10, 0),
+        onTimeConfirm = {},
+      )
     }
+
+    composeRule.onNodeWithContentDescription("Confirm").assertHasClickAction()
+  }
 }

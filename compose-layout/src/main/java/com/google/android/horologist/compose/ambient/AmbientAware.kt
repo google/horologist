@@ -32,9 +32,9 @@ import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.wear.ambient.AmbientLifecycleObserver
 
 /**
- * Composable for general handling of changes and updates to ambient status. A new
- * [AmbientState] is generated with any change of ambient state, as well as with any periodic
- * update generated whilst the screen is in ambient mode.
+ * Composable for general handling of changes and updates to ambient status. A new [AmbientState] is
+ * generated with any change of ambient state, as well as with any periodic update generated whilst
+ * the screen is in ambient mode.
  *
  * This composable changes the behavior of the activity, enabling Always-On. See:
  *
@@ -44,91 +44,93 @@ import androidx.wear.ambient.AmbientLifecycleObserver
  *
  * @param lifecycle The [Lifecycle] of the activity or current owner such as NavBackStackEntry.
  * @param content Lambda that will be used for building the UI, which is passed the current ambient
- * state.
+ *   state.
  */
 @Composable
 fun AmbientAware(
-    lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
-    content: @Composable (AmbientState) -> Unit,
+  lifecycle: Lifecycle = LocalLifecycleOwner.current.lifecycle,
+  content: @Composable (AmbientState) -> Unit,
 ) {
-    // Using AmbientAware correctly relies on there being an Activity context. If there isn't, then
-    // gracefully allow the composition of [block], but no ambient-mode functionality is enabled.
-    val activity = LocalContext.current.findActivityOrNull()
+  // Using AmbientAware correctly relies on there being an Activity context. If there isn't, then
+  // gracefully allow the composition of [block], but no ambient-mode functionality is enabled.
+  val activity = LocalContext.current.findActivityOrNull()
 
-    val ambientState = rememberAmbientState(activity, lifecycle)
+  val ambientState = rememberAmbientState(activity, lifecycle)
 
-    CompositionLocalProvider(LocalAmbientState provides ambientState.value) {
-        content(ambientState.value)
-    }
+  CompositionLocalProvider(LocalAmbientState provides ambientState.value) {
+    content(ambientState.value)
+  }
 }
 
 @Composable
 private fun rememberAmbientState(
-    activity: Activity?,
-    lifecycle: Lifecycle,
+  activity: Activity?,
+  lifecycle: Lifecycle,
 ): State<AmbientState> {
-    val ambientState = remember {
-        mutableStateOf<AmbientState>(AmbientState.Inactive)
-    }
+  val ambientState = remember { mutableStateOf<AmbientState>(AmbientState.Inactive) }
 
-    remember {
-        if (activity != null) {
-            createObserver(activity, ambientState, lifecycle)
-        } else {
-            null
-        }
+  remember {
+    if (activity != null) {
+      createObserver(activity, ambientState, lifecycle)
+    } else {
+      null
     }
+  }
 
-    return ambientState
+  return ambientState
 }
 
 private fun createObserver(
-    activity: Activity,
-    ambientState: MutableState<AmbientState>,
-    lifecycle: Lifecycle,
+  activity: Activity,
+  ambientState: MutableState<AmbientState>,
+  lifecycle: Lifecycle,
 ): AmbientLifecycleObserver? {
-    return try {
-        AmbientLifecycleObserver(
-            activity,
-            object : AmbientLifecycleObserver.AmbientLifecycleCallback {
-                override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
-                    ambientState.value = AmbientState.Ambient(
-                        burnInProtectionRequired = ambientDetails.burnInProtectionRequired,
-                        deviceHasLowBitAmbient = ambientDetails.deviceHasLowBitAmbient,
-                    )
-                }
-
-                override fun onExitAmbient() {
-                    ambientState.value = AmbientState.Interactive
-                }
-
-                override fun onUpdateAmbient() {
-                    val lastAmbientDetails =
-                        (ambientState.value as? AmbientState.Ambient)
-                    ambientState.value = AmbientState.Ambient(
-                        burnInProtectionRequired = lastAmbientDetails?.burnInProtectionRequired == true,
-                        deviceHasLowBitAmbient = lastAmbientDetails?.deviceHasLowBitAmbient == true,
-                    )
-                }
-            },
-        ).also { observer ->
+  return try {
+    AmbientLifecycleObserver(
+        activity,
+        object : AmbientLifecycleObserver.AmbientLifecycleCallback {
+          override fun onEnterAmbient(ambientDetails: AmbientLifecycleObserver.AmbientDetails) {
             ambientState.value =
-                if (observer.isAmbient) AmbientState.Ambient() else AmbientState.Interactive
+              AmbientState.Ambient(
+                burnInProtectionRequired = ambientDetails.burnInProtectionRequired,
+                deviceHasLowBitAmbient = ambientDetails.deviceHasLowBitAmbient,
+              )
+          }
 
-            lifecycle.addObserver(observer)
-        }
-    } catch (e: NoClassDefFoundError) {
-        // Fails in Robolectric
-        // java.lang.NoClassDefFoundError: com/google/android/wearable/compat/WearableActivityController$AmbientCallback
-        null
-    }
+          override fun onExitAmbient() {
+            ambientState.value = AmbientState.Interactive
+          }
+
+          override fun onUpdateAmbient() {
+            val lastAmbientDetails = (ambientState.value as? AmbientState.Ambient)
+            ambientState.value =
+              AmbientState.Ambient(
+                burnInProtectionRequired = lastAmbientDetails?.burnInProtectionRequired == true,
+                deviceHasLowBitAmbient = lastAmbientDetails?.deviceHasLowBitAmbient == true,
+              )
+          }
+        },
+      )
+      .also { observer ->
+        ambientState.value =
+          if (observer.isAmbient) AmbientState.Ambient() else AmbientState.Interactive
+
+        lifecycle.addObserver(observer)
+      }
+  } catch (e: NoClassDefFoundError) {
+    // Fails in Robolectric
+    // java.lang.NoClassDefFoundError:
+    // com/google/android/wearable/compat/WearableActivityController$AmbientCallback
+    null
+  }
 }
 
 /**
- * AmbientState represents the current state of an ambient effect.
- * It defaults to [AmbientState.Inactive] if no state is provided.
+ * AmbientState represents the current state of an ambient effect. It defaults to
+ * [AmbientState.Inactive] if no state is provided.
  *
  * @sample
+ *
  * ```kotlin
  * val state = LocalAmbientState.current
  * if (state is AmbientState.Active) {
@@ -139,10 +141,10 @@ private fun createObserver(
 val LocalAmbientState = compositionLocalOf<AmbientState> { AmbientState.Inactive }
 
 private fun Context.findActivityOrNull(): Activity? {
-    var context = this
-    while (context is ContextWrapper) {
-        if (context is Activity) return context
-        context = context.baseContext
-    }
-    return null
+  var context = this
+  while (context is ContextWrapper) {
+    if (context is Activity) return context
+    context = context.baseContext
+  }
+  return null
 }

@@ -34,55 +34,53 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class GoogleSignOutViewModel(
-    private val googleSignInClient: GoogleSignInClient,
-) : ViewModel() {
+class GoogleSignOutViewModel(private val googleSignInClient: GoogleSignInClient) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(GoogleSignOutScreenState.Idle)
-    public val uiState: StateFlow<GoogleSignOutScreenState> = _uiState
+  private val _uiState = MutableStateFlow(GoogleSignOutScreenState.Idle)
+  public val uiState: StateFlow<GoogleSignOutScreenState> = _uiState
 
-    fun onIdleStateObserved() {
-        if (_uiState.compareAndSet(
-                expect = GoogleSignOutScreenState.Idle,
-                update = GoogleSignOutScreenState.Loading,
-            )
-        ) {
-            viewModelScope.launch {
-                try {
-                    googleSignInClient.signOut().await()
-                    _uiState.value = GoogleSignOutScreenState.Success
-                } catch (apiException: ApiException) {
-                    Log.w(TAG, "Sign out failed: $apiException")
-                    _uiState.value = GoogleSignOutScreenState.Failed
-                }
-            }
+  fun onIdleStateObserved() {
+    if (
+      _uiState.compareAndSet(
+        expect = GoogleSignOutScreenState.Idle,
+        update = GoogleSignOutScreenState.Loading,
+      )
+    ) {
+      viewModelScope.launch {
+        try {
+          googleSignInClient.signOut().await()
+          _uiState.value = GoogleSignOutScreenState.Success
+        } catch (apiException: ApiException) {
+          Log.w(TAG, "Sign out failed: $apiException")
+          _uiState.value = GoogleSignOutScreenState.Failed
         }
+      }
     }
+  }
 
-    companion object {
+  companion object {
 
-        private val TAG = GoogleSignOutViewModel::class.java.simpleName
+    private val TAG = GoogleSignOutViewModel::class.java.simpleName
 
-        val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = this[APPLICATION_KEY]!!
+    val Factory: ViewModelProvider.Factory = viewModelFactory {
+      initializer {
+        val application = this[APPLICATION_KEY]!!
 
-                val googleSignInClient = GoogleSignIn.getClient(
-                    application,
-                    GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestEmail()
-                        .build(),
-                )
+        val googleSignInClient =
+          GoogleSignIn.getClient(
+            application,
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build(),
+          )
 
-                GoogleSignOutViewModel(googleSignInClient)
-            }
-        }
+        GoogleSignOutViewModel(googleSignInClient)
+      }
     }
+  }
 }
 
 enum class GoogleSignOutScreenState {
-    Idle,
-    Loading,
-    Success,
-    Failed,
+  Idle,
+  Loading,
+  Success,
+  Failed,
 }

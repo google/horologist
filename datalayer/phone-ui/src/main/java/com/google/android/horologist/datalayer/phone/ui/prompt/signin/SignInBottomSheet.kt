@@ -57,232 +57,205 @@ private val PADDING_BLUE = 32.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun SignInBottomSheet(
-    image: @Composable (() -> Unit)?,
-    topMessage: String,
-    bottomMessage: String,
-    onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
-    modifier: Modifier = Modifier,
-    positiveButtonLabel: String? = null,
-    negativeButtonLabel: String? = null,
-    sheetState: SheetState = rememberModalBottomSheetState(),
+  image: @Composable (() -> Unit)?,
+  topMessage: String,
+  bottomMessage: String,
+  onDismissRequest: () -> Unit,
+  onConfirmation: () -> Unit,
+  modifier: Modifier = Modifier,
+  positiveButtonLabel: String? = null,
+  negativeButtonLabel: String? = null,
+  sheetState: SheetState = rememberModalBottomSheetState(),
 ) {
-    ModalBottomSheet(
-        onDismissRequest = onDismissRequest,
-        modifier = modifier,
-        sheetState = sheetState,
-        dragHandle = null,
-    ) {
-        val configuration = LocalConfiguration.current
-        when (configuration.orientation) {
-            Configuration.ORIENTATION_PORTRAIT -> {
-                SignInBottomSheetPortraitContent(
-                    image = image,
-                    topMessage = topMessage,
-                    bottomMessage = bottomMessage,
-                    positiveButtonLabel = positiveButtonLabel
-                        ?: stringResource(id = R.string.horologist_signin_prompt_ok_btn_label),
-                    negativeButtonLabel = negativeButtonLabel
-                        ?: stringResource(id = R.string.horologist_signin_prompt_cancel_btn_label),
-                    onDismissRequest = onDismissRequest,
-                    onConfirmation = onConfirmation,
-                )
-            }
+  ModalBottomSheet(
+    onDismissRequest = onDismissRequest,
+    modifier = modifier,
+    sheetState = sheetState,
+    dragHandle = null,
+  ) {
+    val configuration = LocalConfiguration.current
+    when (configuration.orientation) {
+      Configuration.ORIENTATION_PORTRAIT -> {
+        SignInBottomSheetPortraitContent(
+          image = image,
+          topMessage = topMessage,
+          bottomMessage = bottomMessage,
+          positiveButtonLabel =
+            positiveButtonLabel
+              ?: stringResource(id = R.string.horologist_signin_prompt_ok_btn_label),
+          negativeButtonLabel =
+            negativeButtonLabel
+              ?: stringResource(id = R.string.horologist_signin_prompt_cancel_btn_label),
+          onDismissRequest = onDismissRequest,
+          onConfirmation = onConfirmation,
+        )
+      }
 
-            else -> {
-                SignInBottomSheetLandscapeContent(
-                    image = image,
-                    topMessage = topMessage,
-                    bottomMessage = bottomMessage,
-                    positiveButtonLabel = positiveButtonLabel
-                        ?: stringResource(id = R.string.horologist_signin_prompt_ok_btn_label),
-                    negativeButtonLabel = negativeButtonLabel
-                        ?: stringResource(id = R.string.horologist_signin_prompt_cancel_btn_label),
-                    onDismissRequest = onDismissRequest,
-                    onConfirmation = onConfirmation,
-                )
-            }
-        }
+      else -> {
+        SignInBottomSheetLandscapeContent(
+          image = image,
+          topMessage = topMessage,
+          bottomMessage = bottomMessage,
+          positiveButtonLabel =
+            positiveButtonLabel
+              ?: stringResource(id = R.string.horologist_signin_prompt_ok_btn_label),
+          negativeButtonLabel =
+            negativeButtonLabel
+              ?: stringResource(id = R.string.horologist_signin_prompt_cancel_btn_label),
+          onDismissRequest = onDismissRequest,
+          onConfirmation = onConfirmation,
+        )
+      }
     }
+  }
 }
 
 @Composable
 internal fun SignInBottomSheetPortraitContent(
-    image: @Composable (() -> Unit)?,
-    topMessage: String,
-    bottomMessage: String,
-    positiveButtonLabel: String,
-    negativeButtonLabel: String,
-    onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
-    modifier: Modifier = Modifier,
+  image: @Composable (() -> Unit)?,
+  topMessage: String,
+  bottomMessage: String,
+  positiveButtonLabel: String,
+  negativeButtonLabel: String,
+  onDismissRequest: () -> Unit,
+  onConfirmation: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-            .padding(PADDING_PINK)
-            .fillMaxWidth()
-            .verticalScroll(rememberScrollState()),
-    ) {
-        image?.let {
-            Box(
-                modifier = Modifier
-                    .padding(top = PADDING_PURPLE)
-                    .align(Alignment.CenterHorizontally),
-            ) {
-                image()
-            }
-        }
-
-        if (topMessage.isNotBlank()) {
-            Text(
-                text = topMessage,
-                modifier = Modifier
-                    .padding(top = PADDING_PURPLE)
-                    .fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.Center,
-                maxLines = 3,
-                style = MaterialTheme.typography.titleLarge,
-            )
-        }
-
-        if (bottomMessage.isNotBlank()) {
-            Text(
-                text = bottomMessage,
-                modifier = Modifier
-                    .padding(top = PADDING_PINK)
-                    .fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-                maxLines = 3,
-                style = MaterialTheme.typography.bodyLarge,
-            )
-        }
-
-        Spacer(modifier = Modifier.height(PADDING_PURPLE))
-
-        Row(
-            modifier = Modifier
-                .padding(horizontal = PADDING_PINK)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-        ) {
-            TextButton(
-                onClick = onDismissRequest,
-                modifier = Modifier
-                    .padding(end = PADDING_GREEN),
-            ) {
-                Text(text = negativeButtonLabel)
-            }
-
-            Button(
-                onClick = onConfirmation,
-            ) {
-                Text(text = positiveButtonLabel)
-            }
-        }
+  Column(
+    modifier = modifier.padding(PADDING_PINK).fillMaxWidth().verticalScroll(rememberScrollState())
+  ) {
+    image?.let {
+      Box(modifier = Modifier.padding(top = PADDING_PURPLE).align(Alignment.CenterHorizontally)) {
+        image()
+      }
     }
+
+    if (topMessage.isNotBlank()) {
+      Text(
+        text = topMessage,
+        modifier = Modifier.padding(top = PADDING_PURPLE).fillMaxWidth(),
+        color = MaterialTheme.colorScheme.onSurface,
+        textAlign = TextAlign.Center,
+        maxLines = 3,
+        style = MaterialTheme.typography.titleLarge,
+      )
+    }
+
+    if (bottomMessage.isNotBlank()) {
+      Text(
+        text = bottomMessage,
+        modifier = Modifier.padding(top = PADDING_PINK).fillMaxWidth(),
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+        maxLines = 3,
+        style = MaterialTheme.typography.bodyLarge,
+      )
+    }
+
+    Spacer(modifier = Modifier.height(PADDING_PURPLE))
+
+    Row(
+      modifier = Modifier.padding(horizontal = PADDING_PINK).fillMaxWidth(),
+      horizontalArrangement = Arrangement.End,
+    ) {
+      TextButton(
+        onClick = onDismissRequest,
+        modifier = Modifier.padding(end = PADDING_GREEN),
+      ) {
+        Text(text = negativeButtonLabel)
+      }
+
+      Button(onClick = onConfirmation) { Text(text = positiveButtonLabel) }
+    }
+  }
 }
 
 @Composable
 internal fun SignInBottomSheetLandscapeContent(
-    image: @Composable (() -> Unit)?,
-    topMessage: String,
-    bottomMessage: String,
-    positiveButtonLabel: String,
-    negativeButtonLabel: String,
-    onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
-    modifier: Modifier = Modifier,
+  image: @Composable (() -> Unit)?,
+  topMessage: String,
+  bottomMessage: String,
+  positiveButtonLabel: String,
+  negativeButtonLabel: String,
+  onDismissRequest: () -> Unit,
+  onConfirmation: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-            .padding(horizontal = PADDING_PURPLE)
-            .padding(top = PADDING_BLUE)
-            .verticalScroll(rememberScrollState()),
-    ) {
-        Row {
-            image?.let {
-                Box(modifier = Modifier.padding(end = PADDING_PURPLE)) {
-                    image()
-                }
-            }
+  Column(
+    modifier =
+      modifier
+        .padding(horizontal = PADDING_PURPLE)
+        .padding(top = PADDING_BLUE)
+        .verticalScroll(rememberScrollState())
+  ) {
+    Row {
+      image?.let { Box(modifier = Modifier.padding(end = PADDING_PURPLE)) { image() } }
 
-            Column {
-                if (topMessage.isNotBlank()) {
-                    Text(
-                        text = topMessage,
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        textAlign = TextAlign.Start,
-                        maxLines = 3,
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                }
-
-                if (bottomMessage.isNotBlank()) {
-                    Text(
-                        text = bottomMessage,
-                        modifier = Modifier
-                            .padding(top = PADDING_PINK)
-                            .fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        textAlign = TextAlign.Start,
-                        maxLines = 3,
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                }
-            }
+      Column {
+        if (topMessage.isNotBlank()) {
+          Text(
+            text = topMessage,
+            modifier = Modifier.fillMaxWidth(),
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Start,
+            maxLines = 3,
+            style = MaterialTheme.typography.titleLarge,
+          )
         }
 
-        Row(
-            modifier = Modifier
-                .padding(top = PADDING_BLUE, bottom = PADDING_PINK)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-        ) {
-            TextButton(
-                onClick = onDismissRequest,
-                modifier = Modifier
-                    .padding(end = PADDING_GREEN),
-            ) {
-                Text(text = negativeButtonLabel)
-            }
-
-            Button(
-                onClick = onConfirmation,
-            ) {
-                Text(text = positiveButtonLabel)
-            }
+        if (bottomMessage.isNotBlank()) {
+          Text(
+            text = bottomMessage,
+            modifier = Modifier.padding(top = PADDING_PINK).fillMaxWidth(),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Start,
+            maxLines = 3,
+            style = MaterialTheme.typography.bodyLarge,
+          )
         }
+      }
     }
+
+    Row(
+      modifier = Modifier.padding(top = PADDING_BLUE, bottom = PADDING_PINK).fillMaxWidth(),
+      horizontalArrangement = Arrangement.End,
+    ) {
+      TextButton(
+        onClick = onDismissRequest,
+        modifier = Modifier.padding(end = PADDING_GREEN),
+      ) {
+        Text(text = negativeButtonLabel)
+      }
+
+      Button(onClick = onConfirmation) { Text(text = positiveButtonLabel) }
+    }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun SignInBottomSheetContentPreview() {
-    SignInBottomSheetPortraitContent(
-        image = { Icon(Icons.Default.Email, contentDescription = null) },
-        topMessage = "Stay productive and manage emails right from your wrist.",
-        bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
-        positiveButtonLabel = "Try on watch",
-        negativeButtonLabel = "Now now",
-        onDismissRequest = { },
-        onConfirmation = { },
-    )
+  SignInBottomSheetPortraitContent(
+    image = { Icon(Icons.Default.Email, contentDescription = null) },
+    topMessage = "Stay productive and manage emails right from your wrist.",
+    bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
+    positiveButtonLabel = "Try on watch",
+    negativeButtonLabel = "Now now",
+    onDismissRequest = {},
+    onConfirmation = {},
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun SignInBottomSheetContentPreviewNoIcon() {
-    SignInBottomSheetPortraitContent(
-        image = null,
-        topMessage = "Stay productive and manage emails right from your wrist.",
-        bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
-        positiveButtonLabel = "Try on watch",
-        negativeButtonLabel = "Now now",
-        onDismissRequest = { },
-        onConfirmation = { },
-    )
+  SignInBottomSheetPortraitContent(
+    image = null,
+    topMessage = "Stay productive and manage emails right from your wrist.",
+    bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
+    positiveButtonLabel = "Try on watch",
+    negativeButtonLabel = "Now now",
+    onDismissRequest = {},
+    onConfirmation = {},
+  )
 }

@@ -25,25 +25,23 @@ import com.google.android.horologist.media.database.dao.PlaylistMediaDao
 import com.google.android.horologist.media.database.mapper.MediaEntityMapper
 import com.google.android.horologist.media.model.Media
 
-/**
- * Local data source of [Media].
- */
+/** Local data source of [Media]. */
 @ExperimentalHorologistApi
 public class MediaLocalDataSource(
-    private val roomDatabase: RoomDatabase,
-    private val mediaDao: MediaDao,
-    private val playlistMediaDao: PlaylistMediaDao,
-    private val mediaDownloadDao: MediaDownloadDao,
+  private val roomDatabase: RoomDatabase,
+  private val mediaDao: MediaDao,
+  private val playlistMediaDao: PlaylistMediaDao,
+  private val mediaDownloadDao: MediaDownloadDao,
 ) {
 
-    public suspend fun upsert(mediaList: List<Media>): Unit =
-        mediaDao.upsert(mediaList.map(MediaEntityMapper::map))
+  public suspend fun upsert(mediaList: List<Media>): Unit =
+    mediaDao.upsert(mediaList.map(MediaEntityMapper::map))
 
-    public suspend fun delete(mediaIds: List<String>) {
-        roomDatabase.withTransaction {
-            mediaDownloadDao.delete(mediaIds)
-            playlistMediaDao.deleteByMediaId(mediaIds)
-            mediaDao.delete(mediaIds)
-        }
+  public suspend fun delete(mediaIds: List<String>) {
+    roomDatabase.withTransaction {
+      mediaDownloadDao.delete(mediaIds)
+      playlistMediaDao.deleteByMediaId(mediaIds)
+      mediaDao.delete(mediaIds)
     }
+  }
 }

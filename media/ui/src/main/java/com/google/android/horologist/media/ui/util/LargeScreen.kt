@@ -19,4 +19,5 @@ package com.google.android.horologist.media.ui.util
 import android.content.res.Configuration
 
 /** Whether the device is considered large screen for layout adjustment purposes. */
-public val Configuration.isLargeScreen: Boolean get() = screenHeightDp > 224
+public val Configuration.isLargeScreen: Boolean
+  get() = screenHeightDp > 224

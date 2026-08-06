@@ -22,52 +22,60 @@ import kotlin.time.Duration
 
 @ExperimentalHorologistApi
 public sealed class TrackPositionUiModel {
-    public abstract val showProgress: Boolean
-    public abstract val shouldAnimate: Boolean
-    public abstract val isLoading: Boolean
+  public abstract val showProgress: Boolean
+  public abstract val shouldAnimate: Boolean
+  public abstract val isLoading: Boolean
 
-    public data class Predictive(
-        public val predictor: PositionPredictor,
-        public override val shouldAnimate: Boolean = false,
-        public override val isLoading: Boolean = false,
-    ) : TrackPositionUiModel() {
-        override val showProgress: Boolean get() = true
+  public data class Predictive(
+    public val predictor: PositionPredictor,
+    public override val shouldAnimate: Boolean = false,
+    public override val isLoading: Boolean = false,
+  ) : TrackPositionUiModel() {
+    override val showProgress: Boolean
+      get() = true
+  }
+
+  public data class SeekProjection(
+    public val percent: Float,
+    public val duration: Duration,
+    public val position: Duration,
+    public override val shouldAnimate: Boolean = false,
+  ) : TrackPositionUiModel() {
+    override val showProgress: Boolean = true
+    override val isLoading: Boolean = false
+  }
+
+  public data class Actual(
+    public val percent: Float,
+    public val duration: Duration,
+    public val position: Duration,
+    public override val shouldAnimate: Boolean = false,
+    public override val isLoading: Boolean = false,
+  ) : TrackPositionUiModel() {
+    override val showProgress: Boolean
+      get() = true
+
+    public companion object {
+      public val ZERO: Actual = Actual(0f, Duration.ZERO, Duration.ZERO)
     }
+  }
 
-    public data class SeekProjection(
-        public val percent: Float,
-        public val duration: Duration,
-        public val position: Duration,
-        public override val shouldAnimate: Boolean = false,
-    ) : TrackPositionUiModel() {
-        override val showProgress: Boolean = true
-        override val isLoading: Boolean = false
-    }
+  public data class Loading(
+    public override val shouldAnimate: Boolean = false,
+    public override val showProgress: Boolean = false,
+  ) : TrackPositionUiModel() {
+    override val isLoading: Boolean
+      get() = true
+  }
 
-    public data class Actual(
-        public val percent: Float,
-        public val duration: Duration,
-        public val position: Duration,
-        public override val shouldAnimate: Boolean = false,
-        public override val isLoading: Boolean = false,
-    ) : TrackPositionUiModel() {
-        override val showProgress: Boolean get() = true
+  public object Hidden : TrackPositionUiModel() {
+    override val showProgress: Boolean
+      get() = false
 
-        public companion object {
-            public val ZERO: Actual = Actual(0f, Duration.ZERO, Duration.ZERO)
-        }
-    }
+    override val shouldAnimate: Boolean
+      get() = false
 
-    public data class Loading(
-        public override val shouldAnimate: Boolean = false,
-        public override val showProgress: Boolean = false,
-    ) : TrackPositionUiModel() {
-        override val isLoading: Boolean get() = true
-    }
-
-    public object Hidden : TrackPositionUiModel() {
-        override val showProgress: Boolean get() = false
-        override val shouldAnimate: Boolean get() = false
-        override val isLoading: Boolean get() = false
-    }
+    override val isLoading: Boolean
+      get() = false
+  }
 }

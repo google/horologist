@@ -27,79 +27,73 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.It
  * Calculates and remembers padding values for a Wear column based on screen size and item types.
  *
  * This function is designed to provide responsive padding for columns, specifically in Wear OS,
- * taking into account the screen shape (round or rectangular) and the types of items
- * at the beginning and end of the column.
+ * taking into account the screen shape (round or rectangular) and the types of items at the
+ * beginning and end of the column.
  *
- * @param first The type of the first item in the column. Used to determine top padding.
- *              Defaults to a safe value of [ItemType.Unspecified].
- * @param last The type of the last item in the column. Used to determine bottom padding.
- *             Defaults to a safe value of [ItemType.Unspecified].
+ * @param first The type of the first item in the column. Used to determine top padding. Defaults to
+ *   a safe value of [ItemType.Unspecified].
+ * @param last The type of the last item in the column. Used to determine bottom padding. Defaults
+ *   to a safe value of [ItemType.Unspecified].
  * @param horizontalPercent The percentage of the screen width to use for horizontal padding.
- *                          Defaults to 5.2%.
- *
+ *   Defaults to 5.2%.
  * @return A [PaddingValues] object containing the calculated padding values.
  */
 @Composable
 public fun rememberResponsiveColumnPadding(
-    first: ColumnItemType = ItemType.Unspecified,
-    last: ColumnItemType = ItemType.Unspecified,
-    horizontalPercent: Float = 0.052f,
+  first: ColumnItemType = ItemType.Unspecified,
+  last: ColumnItemType = ItemType.Unspecified,
+  horizontalPercent: Float = 0.052f,
 ): PaddingValues {
-    val configuration = LocalConfiguration.current
-    val screenWidthDp = configuration.screenWidthDp.dp
+  val configuration = LocalConfiguration.current
+  val screenWidthDp = configuration.screenWidthDp.dp
 
-    val horizontalPadding = (screenWidthDp * horizontalPercent).ceilPx()
+  val horizontalPadding = (screenWidthDp * horizontalPercent).ceilPx()
 
-    return PaddingValues(
-        top = first.topPadding(horizontalPercent).ceilPx(),
-        bottom = last.bottomPadding(horizontalPercent).ceilPx(),
-        start = horizontalPadding,
-        end = horizontalPadding,
-    )
+  return PaddingValues(
+    top = first.topPadding(horizontalPercent).ceilPx(),
+    bottom = last.bottomPadding(horizontalPercent).ceilPx(),
+    start = horizontalPadding,
+    end = horizontalPadding,
+  )
 }
 
 /**
- * Represents the types of items that can be placed in a Wear column and how to calculate an
- * optimal or safe padding.
+ * Represents the types of items that can be placed in a Wear column and how to calculate an optimal
+ * or safe padding.
  */
 public interface ColumnItemType {
-    /**
-     * Calculates the padding for the top of the Column based on the provided horizontal padding.
-     */
-    @Composable
-    public fun topPadding(horizontalPercent: Float): Dp
+  /** Calculates the padding for the top of the Column based on the provided horizontal padding. */
+  @Composable public fun topPadding(horizontalPercent: Float): Dp
 
-    /**
-     * Calculates the padding for the bottom of the Column based on the provided horizontal padding.
-     */
-    @Composable
-    public fun bottomPadding(horizontalPercent: Float): Dp
+  /**
+   * Calculates the padding for the bottom of the Column based on the provided horizontal padding.
+   */
+  @Composable public fun bottomPadding(horizontalPercent: Float): Dp
 
-    companion object {
-        val Button: ColumnItemType
-            get() = ItemType.Chip
+  companion object {
+    val Button: ColumnItemType
+      get() = ItemType.Chip
 
-        val ListHeader: ColumnItemType
-            get() = ItemType.Text
+    val ListHeader: ColumnItemType
+      get() = ItemType.Text
 
-        val BodyText: ColumnItemType
-            get() = ItemType.BodyText
+    val BodyText: ColumnItemType
+      get() = ItemType.BodyText
 
-        val Card: ColumnItemType
-            get() = ItemType.Card
+    val Card: ColumnItemType
+      get() = ItemType.Card
 
-        val IconButton: ColumnItemType
-            get() = ItemType.SingleButton
+    val IconButton: ColumnItemType
+      get() = ItemType.SingleButton
 
-        val ButtonRow: ColumnItemType
-            get() = ItemType.MultiButton
+    val ButtonRow: ColumnItemType
+      get() = ItemType.MultiButton
 
-        val EdgeButtonPadding: ColumnItemType = object : ColumnItemType {
-            @Composable
-            override fun topPadding(horizontalPercent: Float): Dp = 0.dp
+    val EdgeButtonPadding: ColumnItemType =
+      object : ColumnItemType {
+        @Composable override fun topPadding(horizontalPercent: Float): Dp = 0.dp
 
-            @Composable
-            override fun bottomPadding(horizontalPercent: Float): Dp = 0.dp
-        }
-    }
+        @Composable override fun bottomPadding(horizontalPercent: Float): Dp = 0.dp
+      }
+  }
 }

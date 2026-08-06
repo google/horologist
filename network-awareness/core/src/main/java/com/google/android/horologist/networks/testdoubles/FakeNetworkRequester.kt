@@ -23,39 +23,40 @@ import com.google.android.horologist.networks.request.HighBandwidthRequest
 import com.google.android.horologist.networks.request.NetworkLease
 import com.google.android.horologist.networks.request.NetworkReference
 import com.google.android.horologist.networks.request.NetworkRequester
-import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.Instant
+import kotlinx.coroutines.flow.MutableStateFlow
 
-public class FakeNetworkRequester(
-    private val networkRepository: FakeNetworkRepository,
-) : NetworkRequester {
-    public var supportedNetworks: List<NetworkType> = listOf(Cell, Wifi)
+public class FakeNetworkRequester(private val networkRepository: FakeNetworkRepository) :
+  NetworkRequester {
+  public var supportedNetworks: List<NetworkType> = listOf(Cell, Wifi)
 
-    override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
-        val newNetworkType = if (request.type.cell && supportedNetworks.contains(Cell)) {
-            Cell
-        } else if (request.type.wifi && supportedNetworks.contains(Wifi)) {
-            Wifi
-        } else {
-            null
-        }
+  override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
+    val newNetworkType =
+      if (request.type.cell && supportedNetworks.contains(Cell)) {
+        Cell
+      } else if (request.type.wifi && supportedNetworks.contains(Wifi)) {
+        Wifi
+      } else {
+        null
+      }
 
-        networkRepository.pinNetwork(newNetworkType)
-        val networkReference = if (newNetworkType != null) {
-            NetworkReference("1", newNetworkType)
-        } else {
-            null
-        }
+    networkRepository.pinNetwork(newNetworkType)
+    val networkReference =
+      if (newNetworkType != null) {
+        NetworkReference("1", newNetworkType)
+      } else {
+        null
+      }
 
-        return object : NetworkLease {
-            override val acquiredAt: Instant = Instant.now()
+    return object : NetworkLease {
+      override val acquiredAt: Instant = Instant.now()
 
-            override val grantedNetwork = MutableStateFlow(networkReference)
+      override val grantedNetwork = MutableStateFlow(networkReference)
 
-            override fun close() {
-                grantedNetwork.value = null
-                networkRepository.pinNetwork(null)
-            }
-        }
+      override fun close() {
+        grantedNetwork.value = null
+        networkRepository.pinNetwork(null)
+      }
     }
+  }
 }

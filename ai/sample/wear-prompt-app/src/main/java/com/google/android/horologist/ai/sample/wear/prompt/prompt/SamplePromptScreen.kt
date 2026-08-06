@@ -55,229 +55,226 @@ import com.mikepenz.markdown.compose.Markdown
 
 @Composable
 fun SamplePromptScreen(
-    modifier: Modifier = Modifier,
-    viewModel: SamplePromptViewModel = hiltViewModel(),
-    onSettingsClick: (() -> Unit)? = null,
+  modifier: Modifier = Modifier,
+  viewModel: SamplePromptViewModel = hiltViewModel(),
+  onSettingsClick: (() -> Unit)? = null,
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+  val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val voiceLauncher = rememberLauncherForActivityResult(
-        VoiceContract(),
+  val voiceLauncher =
+    rememberLauncherForActivityResult(VoiceContract()) {
+      when (it) {
+        VoiceContract.Result.Empty -> {
+          /* NO-OP */
+        }
+
+        is VoiceContract.Result.EnteredPrompt -> {
+          viewModel.askQuestion(it.prompt)
+        }
+      }
+    }
+
+  val voiceIntent: Intent =
+    Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+      putExtra(
+        RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM,
+      )
+
+      putExtra(
+        RecognizerIntent.EXTRA_PROMPT,
+        stringResource(R.string.prompt_input),
+      )
+    }
+
+  SamplePromptScreen(
+    uiState = uiState,
+    modifier = modifier,
+    onSettingsClick = onSettingsClick,
+  ) { pending ->
+    EdgeButton(
+      onClick = { voiceLauncher.launch(voiceIntent) },
+      buttonSize = EdgeButtonSize.ExtraSmall,
+      enabled = !pending,
     ) {
-        when (it) {
-            VoiceContract.Result.Empty -> {
-                /* NO-OP */
-            }
-
-            is VoiceContract.Result.EnteredPrompt -> {
-                viewModel.askQuestion(it.prompt)
-            }
-        }
+      Icon(
+        Icons.Default.Mic,
+        contentDescription = stringResource(R.string.prompt_input),
+      )
     }
-
-    val voiceIntent: Intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-        putExtra(
-            RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-            RecognizerIntent.LANGUAGE_MODEL_FREE_FORM,
-        )
-
-        putExtra(
-            RecognizerIntent.EXTRA_PROMPT,
-            stringResource(R.string.prompt_input),
-        )
-    }
-
-    SamplePromptScreen(
-        uiState = uiState,
-        modifier = modifier,
-        onSettingsClick = onSettingsClick,
-    ) { pending ->
-        EdgeButton(
-            onClick = {
-                voiceLauncher.launch(voiceIntent)
-            },
-            buttonSize = EdgeButtonSize.ExtraSmall,
-            enabled = !pending,
-        ) {
-            Icon(
-                Icons.Default.Mic,
-                contentDescription = stringResource(R.string.prompt_input),
-            )
-        }
-    }
+  }
 }
 
 @Composable
 private fun SamplePromptScreen(
-    uiState: PromptUiState,
-    modifier: Modifier = Modifier,
-    onSettingsClick: (() -> Unit)? = null,
-    promptEntry: @Composable (Boolean) -> Unit,
+  uiState: PromptUiState,
+  modifier: Modifier = Modifier,
+  onSettingsClick: (() -> Unit)? = null,
+  promptEntry: @Composable (Boolean) -> Unit,
 ) {
-    CompositionLocalProvider(
-        LocalMarkdownColors provides sampleColors(),
-        LocalMarkdownTypography provides sampleTypography(),
-    ) {
-        PromptScreen(
-            uiState = uiState,
-            modifier = modifier,
-            promptEntry = promptEntry,
-            onSettingsClick = onSettingsClick,
-            promptDisplay = { model, modifier, spec ->
-                ModelDisplay(model, modifier, spec)
-            },
-        )
-    }
+  CompositionLocalProvider(
+    LocalMarkdownColors provides sampleColors(),
+    LocalMarkdownTypography provides sampleTypography(),
+  ) {
+    PromptScreen(
+      uiState = uiState,
+      modifier = modifier,
+      promptEntry = promptEntry,
+      onSettingsClick = onSettingsClick,
+      promptDisplay = { model, modifier, spec -> ModelDisplay(model, modifier, spec) },
+    )
+  }
 }
 
 @Composable
 private fun ModelDisplay(
-    model: PromptOrResponseUiModel,
-    modifier: Modifier = Modifier,
-    transformation: SurfaceTransformation? = null,
+  model: PromptOrResponseUiModel,
+  modifier: Modifier = Modifier,
+  transformation: SurfaceTransformation? = null,
 ) {
-    if (model is TextResponseUiModel) {
-        SampleTextResponseCard(
-            model,
-            modifier = modifier,
-            transformation = transformation,
-        )
-    } else {
-        PromptOrResponseDisplay(
-            promptResponse = model,
-            modifier = modifier,
-            transformation = transformation,
-        )
-    }
+  if (model is TextResponseUiModel) {
+    SampleTextResponseCard(
+      model,
+      modifier = modifier,
+      transformation = transformation,
+    )
+  } else {
+    PromptOrResponseDisplay(
+      promptResponse = model,
+      modifier = modifier,
+      transformation = transformation,
+    )
+  }
 }
 
 @Composable
 public fun SampleTextResponseCard(
-    textResponseUiModel: TextResponseUiModel,
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    transformation: SurfaceTransformation? = null,
+  textResponseUiModel: TextResponseUiModel,
+  modifier: Modifier = Modifier,
+  onClick: () -> Unit = {},
+  transformation: SurfaceTransformation? = null,
 ) {
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        onClick = onClick,
-        colors = CardDefaults.cardColors(
-            MaterialTheme.colorScheme.surfaceContainer,
-        ),
-        transformation = transformation,
-    ) {
-        Markdown(
-            textResponseUiModel.text,
-            colors = sampleColors(),
-            typography = sampleTypography(),
-        )
-    }
+  Card(
+    modifier = modifier.fillMaxWidth(),
+    onClick = onClick,
+    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceContainer),
+    transformation = transformation,
+  ) {
+    Markdown(
+      textResponseUiModel.text,
+      colors = sampleColors(),
+      typography = sampleTypography(),
+    )
+  }
 }
 
 @WearPreviewLargeRound
 @WearPreviewSmallRound
 @Composable
 fun SamplePromptScreenPreviewEmpty() {
-    SamplePromptScreen(
-        uiState = PromptUiState(),
-        promptEntry = {
-            EdgeButton(
-                onClick = { },
-                buttonSize = EdgeButtonSize.ExtraSmall,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.QuestionAnswer,
-                    contentDescription = stringResource(R.string.ask_again),
-                )
-            }
-        },
-    )
+  SamplePromptScreen(
+    uiState = PromptUiState(),
+    promptEntry = {
+      EdgeButton(
+        onClick = {},
+        buttonSize = EdgeButtonSize.ExtraSmall,
+      ) {
+        Icon(
+          imageVector = Icons.Default.QuestionAnswer,
+          contentDescription = stringResource(R.string.ask_again),
+        )
+      }
+    },
+  )
 }
 
 @WearPreviewLargeRound
 @WearPreviewSmallRound
 @Composable
 fun SamplePromptScreenPreviewMany() {
-    SamplePromptScreen(
-        uiState = PromptUiState(
-            ModelInstanceUiModel("id", "Demo Model"),
-            listOf(
-                TextPromptUiModel("why did the chicken cross the road?"),
-                TextResponseUiModel("To get to the other side."),
-                TextPromptUiModel("why did the chicken cross the road?"),
-                TextResponseUiModel(
-                    "To get to the other side. " +
-                        "To get to the other side. " +
-                        "To get to the other side. " +
-                        "To get to the other side. " +
-                        "To get to the other side.",
-                ),
-                TextPromptUiModel("why did the chicken cross the road?"),
-                TextResponseUiModel("To get to the other side."),
-            ),
+  SamplePromptScreen(
+    uiState =
+      PromptUiState(
+        ModelInstanceUiModel("id", "Demo Model"),
+        listOf(
+          TextPromptUiModel("why did the chicken cross the road?"),
+          TextResponseUiModel("To get to the other side."),
+          TextPromptUiModel("why did the chicken cross the road?"),
+          TextResponseUiModel(
+            "To get to the other side. " +
+              "To get to the other side. " +
+              "To get to the other side. " +
+              "To get to the other side. " +
+              "To get to the other side."
+          ),
+          TextPromptUiModel("why did the chicken cross the road?"),
+          TextResponseUiModel("To get to the other side."),
         ),
-        promptEntry = {
-            EdgeButton(
-                onClick = { },
-                buttonSize = EdgeButtonSize.ExtraSmall,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.QuestionAnswer,
-                    contentDescription = stringResource(R.string.ask_again),
-                )
-            }
-        },
-    )
+      ),
+    promptEntry = {
+      EdgeButton(
+        onClick = {},
+        buttonSize = EdgeButtonSize.ExtraSmall,
+      ) {
+        Icon(
+          imageVector = Icons.Default.QuestionAnswer,
+          contentDescription = stringResource(R.string.ask_again),
+        )
+      }
+    },
+  )
 }
 
 @WearPreviewLargeRound
 @WearPreviewSmallRound
 @Composable
 fun SamplePromptScreenPreviewQuestion() {
-    SamplePromptScreen(
-        uiState = PromptUiState(
-            ModelInstanceUiModel("id", "Demo Model"),
-            listOf(
-                TextPromptUiModel("why did the chicken cross the road?"),
-                TextResponseUiModel("To get to the other side."),
-            ),
-            true,
+  SamplePromptScreen(
+    uiState =
+      PromptUiState(
+        ModelInstanceUiModel("id", "Demo Model"),
+        listOf(
+          TextPromptUiModel("why did the chicken cross the road?"),
+          TextResponseUiModel("To get to the other side."),
         ),
-        promptEntry = {
-            EdgeButton(
-                onClick = { },
-                buttonSize = EdgeButtonSize.ExtraSmall,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.QuestionAnswer,
-                    contentDescription = stringResource(R.string.ask_again),
-                )
-            }
-        },
-    )
+        true,
+      ),
+    promptEntry = {
+      EdgeButton(
+        onClick = {},
+        buttonSize = EdgeButtonSize.ExtraSmall,
+      ) {
+        Icon(
+          imageVector = Icons.Default.QuestionAnswer,
+          contentDescription = stringResource(R.string.ask_again),
+        )
+      }
+    },
+  )
 }
 
 @WearPreviewLargeRound
 @Composable
 fun SamplePromptScreenPreviewMarkdown() {
-    SamplePromptScreen(
-        uiState = PromptUiState(
-            ModelInstanceUiModel("id", "Demo Model"),
-            listOf(
-                TextPromptUiModel("why did the chicken cross the road?"),
-                TextResponseUiModel("To **get** to _the_ other side."),
-            ),
+  SamplePromptScreen(
+    uiState =
+      PromptUiState(
+        ModelInstanceUiModel("id", "Demo Model"),
+        listOf(
+          TextPromptUiModel("why did the chicken cross the road?"),
+          TextResponseUiModel("To **get** to _the_ other side."),
         ),
-        promptEntry = {
-            EdgeButton(
-                onClick = { },
-                buttonSize = EdgeButtonSize.ExtraSmall,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.QuestionAnswer,
-                    contentDescription = stringResource(R.string.ask_again),
-                )
-            }
-        },
-    )
+      ),
+    promptEntry = {
+      EdgeButton(
+        onClick = {},
+        buttonSize = EdgeButtonSize.ExtraSmall,
+      ) {
+        Icon(
+          imageVector = Icons.Default.QuestionAnswer,
+          contentDescription = stringResource(R.string.ask_again),
+        )
+      }
+    },
+  )
 }

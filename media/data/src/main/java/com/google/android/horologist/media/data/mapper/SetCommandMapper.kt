@@ -20,19 +20,17 @@ import androidx.media3.common.Player
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Command
 
-/**
- * Maps [Player.Commands] into a [Set] of [Command].
- */
+/** Maps [Player.Commands] into a [Set] of [Command]. */
 @ExperimentalHorologistApi
 public object SetCommandMapper {
 
-    public fun map(commands: Player.Commands): Set<Command> = buildSet {
-        for (i in 0 until commands.size()) {
-            try {
-                add(CommandMapper.map(commands.get(i)))
-            } catch (e: IllegalArgumentException) {
-                // no action needed, command is not yet mapped into our domain.
-            }
-        }
+  public fun map(commands: Player.Commands): Set<Command> = buildSet {
+    for (i in 0 until commands.size()) {
+      try {
+        add(CommandMapper.map(commands.get(i)))
+      } catch (e: IllegalArgumentException) {
+        // no action needed, command is not yet mapped into our domain.
+      }
     }
+  }
 }

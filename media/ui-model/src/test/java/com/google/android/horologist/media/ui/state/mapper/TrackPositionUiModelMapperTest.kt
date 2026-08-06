@@ -21,158 +21,166 @@ import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlayerState
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.common.truth.Truth.assertThat
-import org.junit.Test
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
+import org.junit.Test
 
 class TrackPositionUiModelMapperTest {
 
-    @Test
-    fun givenMediaPosition_thenMapsCorrectly() {
-        // given
-        val current = 1.seconds
-        val duration = 2.seconds
-        val playbackStateEvent = PlaybackStateEvent(
-            PlaybackState(
-                playerState = PlayerState.Playing,
-                isLive = false,
-                currentPosition = current,
-                seekProjection = null,
-                duration = duration,
-                playbackSpeed = 1f,
-            ),
-            timestamp = 0.toDuration(DurationUnit.SECONDS),
-            cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
-        )
+  @Test
+  fun givenMediaPosition_thenMapsCorrectly() {
+    // given
+    val current = 1.seconds
+    val duration = 2.seconds
+    val playbackStateEvent =
+      PlaybackStateEvent(
+        PlaybackState(
+          playerState = PlayerState.Playing,
+          isLive = false,
+          currentPosition = current,
+          seekProjection = null,
+          duration = duration,
+          playbackSpeed = 1f,
+        ),
+        timestamp = 0.toDuration(DurationUnit.SECONDS),
+        cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
+      )
 
-        // when
-        val result = TrackPositionUiModelMapper.map(playbackStateEvent)
+    // when
+    val result = TrackPositionUiModelMapper.map(playbackStateEvent)
 
-        // then
-        assertThat(result).isInstanceOf(TrackPositionUiModel.Predictive::class.java)
-        result as TrackPositionUiModel.Predictive
-        assertThat(result.predictor.predictPercent(0)).isEqualTo(0.5f)
-        assertThat(result.predictor.predictPercent(duration.inWholeMilliseconds)).isEqualTo(1f)
-    }
+    // then
+    assertThat(result).isInstanceOf(TrackPositionUiModel.Predictive::class.java)
+    result as TrackPositionUiModel.Predictive
+    assertThat(result.predictor.predictPercent(0)).isEqualTo(0.5f)
+    assertThat(result.predictor.predictPercent(duration.inWholeMilliseconds)).isEqualTo(1f)
+  }
 
-    @Test
-    fun givenMediaPositionNotPlaying_thenMapsCorrectly() {
-        // given
-        val current = 1.seconds
-        val duration = 2.seconds
-        val playbackStateEvent = PlaybackStateEvent(
-            PlaybackState(
-                playerState = PlayerState.Stopped,
-                isLive = false,
-                currentPosition = current,
-                seekProjection = null,
-                duration = duration,
-                playbackSpeed = 1f,
-            ),
-            timestamp = 0.toDuration(DurationUnit.SECONDS),
-            cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
-        )
+  @Test
+  fun givenMediaPositionNotPlaying_thenMapsCorrectly() {
+    // given
+    val current = 1.seconds
+    val duration = 2.seconds
+    val playbackStateEvent =
+      PlaybackStateEvent(
+        PlaybackState(
+          playerState = PlayerState.Stopped,
+          isLive = false,
+          currentPosition = current,
+          seekProjection = null,
+          duration = duration,
+          playbackSpeed = 1f,
+        ),
+        timestamp = 0.toDuration(DurationUnit.SECONDS),
+        cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
+      )
 
-        // when
-        val result = TrackPositionUiModelMapper.map(playbackStateEvent)
+    // when
+    val result = TrackPositionUiModelMapper.map(playbackStateEvent)
 
-        // then
-        assertThat(result).isInstanceOf(TrackPositionUiModel.Actual::class.java)
-        result as TrackPositionUiModel.Actual
-        assertThat(result.percent).isEqualTo(0.5f)
-    }
+    // then
+    assertThat(result).isInstanceOf(TrackPositionUiModel.Actual::class.java)
+    result as TrackPositionUiModel.Actual
+    assertThat(result.percent).isEqualTo(0.5f)
+  }
 
-    @Test
-    fun givenLoadingPlayerState_thenMapsCorrectly() {
-        // given
-        val current = 1.seconds
-        val duration = 2.seconds
-        val playbackStateEvent = PlaybackStateEvent(
-            PlaybackState(
-                playerState = PlayerState.Loading,
-                isLive = false,
-                currentPosition = current,
-                seekProjection = null,
-                duration = duration,
-                playbackSpeed = 1f,
-            ),
-            cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
-        )
+  @Test
+  fun givenLoadingPlayerState_thenMapsCorrectly() {
+    // given
+    val current = 1.seconds
+    val duration = 2.seconds
+    val playbackStateEvent =
+      PlaybackStateEvent(
+        PlaybackState(
+          playerState = PlayerState.Loading,
+          isLive = false,
+          currentPosition = current,
+          seekProjection = null,
+          duration = duration,
+          playbackSpeed = 1f,
+        ),
+        cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
+      )
 
-        // when
-        val result = TrackPositionUiModelMapper.map(playbackStateEvent)
+    // when
+    val result = TrackPositionUiModelMapper.map(playbackStateEvent)
 
-        // then
-        assertThat(result).isInstanceOf(TrackPositionUiModel.Loading::class.java)
-        result as TrackPositionUiModel.Loading
-        assertThat(result.isLoading).isTrue()
-    }
+    // then
+    assertThat(result).isInstanceOf(TrackPositionUiModel.Loading::class.java)
+    result as TrackPositionUiModel.Loading
+    assertThat(result.isLoading).isTrue()
+  }
 
-    @Test
-    fun givenSeekProjectionNotNullButZero_thenMapsCorrectly() {
-        // given
-        val current = 1.seconds
-        val duration = 2.seconds
-        val playbackStateEvent = PlaybackStateEvent(
-            PlaybackState(
-                playerState = PlayerState.Playing,
-                isLive = false,
-                currentPosition = current,
-                seekProjection = Duration.ZERO,
-                duration = duration,
-                playbackSpeed = 1f,
-            ),
-            cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
-        )
+  @Test
+  fun givenSeekProjectionNotNullButZero_thenMapsCorrectly() {
+    // given
+    val current = 1.seconds
+    val duration = 2.seconds
+    val playbackStateEvent =
+      PlaybackStateEvent(
+        PlaybackState(
+          playerState = PlayerState.Playing,
+          isLive = false,
+          currentPosition = current,
+          seekProjection = Duration.ZERO,
+          duration = duration,
+          playbackSpeed = 1f,
+        ),
+        cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
+      )
 
-        // when
-        val result = TrackPositionUiModelMapper.map(playbackStateEvent)
+    // when
+    val result = TrackPositionUiModelMapper.map(playbackStateEvent)
 
-        // then
-        assertThat(result).isInstanceOf(TrackPositionUiModel.SeekProjection::class.java)
-        result as TrackPositionUiModel.SeekProjection
-        assertThat(result.percent).isEqualTo(0.0f)
-    }
+    // then
+    assertThat(result).isInstanceOf(TrackPositionUiModel.SeekProjection::class.java)
+    result as TrackPositionUiModel.SeekProjection
+    assertThat(result.percent).isEqualTo(0.0f)
+  }
 
-    @Test
-    fun givenSeekProjectionNotNullAndNotZero_thenMapsCorrectly() {
-        // given
-        val current = 0.seconds
-        val duration = 2.seconds
-        val seekDuration = 1.seconds
-        val playbackStateEvent = PlaybackStateEvent(
-            PlaybackState(
-                playerState = PlayerState.Playing,
-                isLive = false,
-                currentPosition = current,
-                seekProjection = seekDuration,
-                duration = duration,
-                playbackSpeed = 1f,
-            ),
-            cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
-        )
+  @Test
+  fun givenSeekProjectionNotNullAndNotZero_thenMapsCorrectly() {
+    // given
+    val current = 0.seconds
+    val duration = 2.seconds
+    val seekDuration = 1.seconds
+    val playbackStateEvent =
+      PlaybackStateEvent(
+        PlaybackState(
+          playerState = PlayerState.Playing,
+          isLive = false,
+          currentPosition = current,
+          seekProjection = seekDuration,
+          duration = duration,
+          playbackSpeed = 1f,
+        ),
+        cause = PlaybackStateEvent.Cause.PositionDiscontinuity,
+      )
 
-        // when
-        val result = TrackPositionUiModelMapper.map(playbackStateEvent)
+    // when
+    val result = TrackPositionUiModelMapper.map(playbackStateEvent)
 
-        // then
-        assertThat(result).isInstanceOf(TrackPositionUiModel.SeekProjection::class.java)
-        result as TrackPositionUiModel.SeekProjection
-        assertThat(result.percent).isEqualTo(0.5f)
-    }
+    // then
+    assertThat(result).isInstanceOf(TrackPositionUiModel.SeekProjection::class.java)
+    result as TrackPositionUiModel.SeekProjection
+    assertThat(result.percent).isEqualTo(0.5f)
+  }
 
-    @Test
-    fun givenUnknownMediaPosition_thenMapsCorrectly() {
-        // given
-        val playbackState = PlaybackState.IDLE
+  @Test
+  fun givenUnknownMediaPosition_thenMapsCorrectly() {
+    // given
+    val playbackState = PlaybackState.IDLE
 
-        // when
-        val result = TrackPositionUiModelMapper.map(PlaybackStateEvent(playbackState, PlaybackStateEvent.Cause.Initial))
+    // when
+    val result =
+      TrackPositionUiModelMapper.map(
+        PlaybackStateEvent(playbackState, PlaybackStateEvent.Cause.Initial)
+      )
 
-        // then
-        assertThat(result).isInstanceOf(TrackPositionUiModel.Hidden::class.java)
-        assertThat(result.showProgress).isEqualTo(false)
-    }
+    // then
+    assertThat(result).isInstanceOf(TrackPositionUiModel.Hidden::class.java)
+    assertThat(result.showProgress).isEqualTo(false)
+  }
 }

@@ -23,113 +23,109 @@ import androidx.wear.watchface.complications.data.ComplicationType
 import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+import kotlin.text.substringAfterLast
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import javax.inject.Inject
-import kotlin.text.substringAfterLast
 
 @HiltViewModel
 class TrackingScreenViewModel
-    @Inject
-    constructor(
-        private val wearDataLayerAppHelper: WearDataLayerAppHelper,
-    ) : ViewModel() {
+@Inject
+constructor(private val wearDataLayerAppHelper: WearDataLayerAppHelper) : ViewModel() {
 
-        private val realTileList = listOf(
-            "com.google.android.horologist.datalayer.sample.SampleTileService",
-        )
-        private val fakeComplicationList = listOf("Comp1", "Comp2")
+  private val realTileList =
+    listOf("com.google.android.horologist.datalayer.sample.SampleTileService")
+  private val fakeComplicationList = listOf("Comp1", "Comp2")
 
-        private var initializeCalled = false
+  private var initializeCalled = false
 
-        private val _uiState = MutableStateFlow<TrackingScreenUiState>(TrackingScreenUiState.Idle)
-        public val uiState: StateFlow<TrackingScreenUiState> = _uiState
+  private val _uiState = MutableStateFlow<TrackingScreenUiState>(TrackingScreenUiState.Idle)
+  public val uiState: StateFlow<TrackingScreenUiState> = _uiState
 
-        @MainThread
-        fun initialize() {
-            if (initializeCalled) return
-            initializeCalled = true
+  @MainThread
+  fun initialize() {
+    if (initializeCalled) return
+    initializeCalled = true
 
-            _uiState.value = TrackingScreenUiState.Loading
+    _uiState.value = TrackingScreenUiState.Loading
 
-            viewModelScope.launch {
-                wearDataLayerAppHelper.surfacesInfo.collectLatest { surfacesInfo ->
-                    when (_uiState.value) {
-                        TrackingScreenUiState.Loading,
-                        is TrackingScreenUiState.Loaded,
-                        -> {
-                            val tilesMap = mutableMapOf<String, Boolean>()
-                            for (tile in realTileList) {
-                                tilesMap.put(
-                                    tile.substringAfterLast("."),
-                                    surfacesInfo.tilesList.any { it.name == tile },
-                                )
-                            }
-
-                            val complicationsMap = fakeComplicationList.associateWith { complication ->
-                                surfacesInfo.complicationsList.any { it.name == complication }
-                            }
-
-                            _uiState.value = TrackingScreenUiState.Loaded(
-                                activityLaunchedOnce = surfacesInfo.activityLaunched.activityLaunchedOnce,
-                                setupCompleted = surfacesInfo.usageInfo.usageStatus == UsageStatus.USAGE_STATUS_SETUP_COMPLETE,
-                                tilesInstalled = tilesMap,
-                                complicationsInstalled = complicationsMap,
-                            )
-                        }
-
-                        else -> {
-                            /* noop */
-                        }
-                    }
-                }
+    viewModelScope.launch {
+      wearDataLayerAppHelper.surfacesInfo.collectLatest { surfacesInfo ->
+        when (_uiState.value) {
+          TrackingScreenUiState.Loading,
+          is TrackingScreenUiState.Loaded -> {
+            val tilesMap = mutableMapOf<String, Boolean>()
+            for (tile in realTileList) {
+              tilesMap.put(
+                tile.substringAfterLast("."),
+                surfacesInfo.tilesList.any { it.name == tile },
+              )
             }
-        }
 
-        fun onActivityLaunchedOnceCheckedChanged(checked: Boolean) {
-            if (checked) {
-                viewModelScope.launch {
-                    wearDataLayerAppHelper.markActivityLaunchedOnce()
-                }
+            val complicationsMap = fakeComplicationList.associateWith { complication ->
+              surfacesInfo.complicationsList.any { it.name == complication }
             }
-        }
 
-        fun onSetupCompletedCheckedChanged(checked: Boolean) {
-            viewModelScope.launch {
-                if (checked) {
-                    wearDataLayerAppHelper.markSetupComplete()
-                } else {
-                    wearDataLayerAppHelper.markSetupNoLongerComplete()
-                }
-            }
-        }
+            _uiState.value =
+              TrackingScreenUiState.Loaded(
+                activityLaunchedOnce = surfacesInfo.activityLaunched.activityLaunchedOnce,
+                setupCompleted =
+                  surfacesInfo.usageInfo.usageStatus == UsageStatus.USAGE_STATUS_SETUP_COMPLETE,
+                tilesInstalled = tilesMap,
+                complicationsInstalled = complicationsMap,
+              )
+          }
 
-        fun onComplicationCheckedChanged(complication: String, checked: Boolean) {
-            viewModelScope.launch {
-                if (checked) {
-                    wearDataLayerAppHelper.markComplicationAsActivated(
-                        complicationName = complication,
-                        complicationInstanceId = 1234,
-                        complicationType = ComplicationType.SHORT_TEXT,
-                    )
-                } else {
-                    wearDataLayerAppHelper.markComplicationAsDeactivated(
-                        complicationInstanceId = 1234,
-                    )
-                }
-            }
+          else -> {
+            /* noop */
+          }
         }
+      }
     }
+  }
+
+  fun onActivityLaunchedOnceCheckedChanged(checked: Boolean) {
+    if (checked) {
+      viewModelScope.launch { wearDataLayerAppHelper.markActivityLaunchedOnce() }
+    }
+  }
+
+  fun onSetupCompletedCheckedChanged(checked: Boolean) {
+    viewModelScope.launch {
+      if (checked) {
+        wearDataLayerAppHelper.markSetupComplete()
+      } else {
+        wearDataLayerAppHelper.markSetupNoLongerComplete()
+      }
+    }
+  }
+
+  fun onComplicationCheckedChanged(complication: String, checked: Boolean) {
+    viewModelScope.launch {
+      if (checked) {
+        wearDataLayerAppHelper.markComplicationAsActivated(
+          complicationName = complication,
+          complicationInstanceId = 1234,
+          complicationType = ComplicationType.SHORT_TEXT,
+        )
+      } else {
+        wearDataLayerAppHelper.markComplicationAsDeactivated(complicationInstanceId = 1234)
+      }
+    }
+  }
+}
 
 sealed class TrackingScreenUiState {
-    data object Idle : TrackingScreenUiState()
-    data object Loading : TrackingScreenUiState()
-    data class Loaded(
-        val activityLaunchedOnce: Boolean,
-        val setupCompleted: Boolean,
-        val tilesInstalled: Map<String, Boolean>,
-        val complicationsInstalled: Map<String, Boolean>,
-    ) : TrackingScreenUiState()
+  data object Idle : TrackingScreenUiState()
+
+  data object Loading : TrackingScreenUiState()
+
+  data class Loaded(
+    val activityLaunchedOnce: Boolean,
+    val setupCompleted: Boolean,
+    val tilesInstalled: Map<String, Boolean>,
+    val complicationsInstalled: Map<String, Boolean>,
+  ) : TrackingScreenUiState()
 }

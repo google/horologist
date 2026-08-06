@@ -34,62 +34,61 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.pager.PagerScreen
 import com.google.android.horologist.media.ui.navigation.NavigationScreen
-import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.CancellationException
+import kotlinx.coroutines.flow.Flow
 
 /**
- * A HorizontalPager with a player screen, using volume control on the left,
- * and library screen with column scrolling on the right.
+ * A HorizontalPager with a player screen, using volume control on the left, and library screen with
+ * column scrolling on the right.
  */
 @Composable
 public fun PlayerLibraryPagerScreen(
-    pagerState: PagerState,
-    volumeUiState: () -> VolumeUiState,
-    displayVolumeIndicatorEvents: Flow<Unit>,
-    playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable () -> Unit,
-    backStack: NavBackStackEntry,
-    modifier: Modifier = Modifier,
+  pagerState: PagerState,
+  volumeUiState: () -> VolumeUiState,
+  displayVolumeIndicatorEvents: Flow<Unit>,
+  playerScreen: @Composable () -> Unit,
+  libraryScreen: @Composable () -> Unit,
+  backStack: NavBackStackEntry,
+  modifier: Modifier = Modifier,
 ) {
-    val route = backStack.toRoute<NavigationScreen.Player>()
-    var pageApplied by rememberSaveable(backStack) { mutableStateOf(false) }
+  val route = backStack.toRoute<NavigationScreen.Player>()
+  var pageApplied by rememberSaveable(backStack) { mutableStateOf(false) }
 
-    LaunchedEffect(route.page) {
-        if (route.page != -1 && !pageApplied) {
-            try {
-                pagerState.animateScrollToPage(route.page)
-            } catch (e: CancellationException) {
-                // Not sure why we get a cancellation here, but we want the page
-                // nav to take effect and persist
-                pagerState.scrollToPage(route.page)
-            }
-            pageApplied = true
-        }
+  LaunchedEffect(route.page) {
+    if (route.page != -1 && !pageApplied) {
+      try {
+        pagerState.animateScrollToPage(route.page)
+      } catch (e: CancellationException) {
+        // Not sure why we get a cancellation here, but we want the page
+        // nav to take effect and persist
+        pagerState.scrollToPage(route.page)
+      }
+      pageApplied = true
     }
+  }
 
-    PagerScreen(
-        modifier = modifier.background(Color.Transparent),
-        state = pagerState,
-    ) { page ->
-        when (page) {
-            0 -> {
-                ScreenScaffold(
-                    positionIndicator = {
-                        VolumePositionIndicator(volumeUiState = volumeUiState, displayIndicatorEvents = displayVolumeIndicatorEvents)
-                    },
-                ) {
-                    playerScreen()
-                }
-            }
-
-            1 -> {
-                val config = rememberResponsiveColumnState()
-                ScreenScaffold(
-                    scrollState = config,
-                ) {
-                    libraryScreen()
-                }
-            }
+  PagerScreen(
+    modifier = modifier.background(Color.Transparent),
+    state = pagerState,
+  ) { page ->
+    when (page) {
+      0 -> {
+        ScreenScaffold(
+          positionIndicator = {
+            VolumePositionIndicator(
+              volumeUiState = volumeUiState,
+              displayIndicatorEvents = displayVolumeIndicatorEvents,
+            )
+          }
+        ) {
+          playerScreen()
         }
+      }
+
+      1 -> {
+        val config = rememberResponsiveColumnState()
+        ScreenScaffold(scrollState = config) { libraryScreen() }
+      }
     }
+  }
 }

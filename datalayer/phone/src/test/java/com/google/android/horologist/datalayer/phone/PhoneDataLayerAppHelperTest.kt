@@ -34,34 +34,34 @@ import org.robolectric.Shadows.shadowOf
 @RunWith(AndroidJUnit4::class)
 class PhoneDataLayerAppHelperTest {
 
-    @Test
-    fun testAvailable() = runTest {
-        val context = ApplicationProvider.getApplicationContext<Application>()
-        val capabilityClient = Wearable.getCapabilityClient(context)
+  @Test
+  fun testAvailable() = runTest {
+    val context = ApplicationProvider.getApplicationContext<Application>()
+    val capabilityClient = Wearable.getCapabilityClient(context)
 
-        val checkApiAvailability = async { WearableApiAvailability.isAvailable(capabilityClient) }
+    val checkApiAvailability = async { WearableApiAvailability.isAvailable(capabilityClient) }
 
-        while (!checkApiAvailability.isCompleted) {
-            delay(1000)
-            shadowOf(getMainLooper()).idle()
-        }
-
-        assertThat(checkApiAvailability.await()).isFalse()
+    while (!checkApiAvailability.isCompleted) {
+      delay(1000)
+      shadowOf(getMainLooper()).idle()
     }
 
-    @Test
-    fun testCreate() = runTest {
-        val context = ApplicationProvider.getApplicationContext<Application>()
-        val registry = WearDataLayerRegistry.fromContext(context, this)
-        val helper = PhoneDataLayerAppHelper(context, registry)
+    assertThat(checkApiAvailability.await()).isFalse()
+  }
 
-        val checkApiAvailability = async { helper.isAvailable() }
+  @Test
+  fun testCreate() = runTest {
+    val context = ApplicationProvider.getApplicationContext<Application>()
+    val registry = WearDataLayerRegistry.fromContext(context, this)
+    val helper = PhoneDataLayerAppHelper(context, registry)
 
-        while (!checkApiAvailability.isCompleted) {
-            delay(1000)
-            shadowOf(getMainLooper()).idle()
-        }
+    val checkApiAvailability = async { helper.isAvailable() }
 
-        assertThat(checkApiAvailability.await()).isFalse()
+    while (!checkApiAvailability.isCompleted) {
+      delay(1000)
+      shadowOf(getMainLooper()).idle()
     }
+
+    assertThat(checkApiAvailability.await()).isFalse()
+  }
 }

@@ -25,6 +25,7 @@ import com.google.android.horologist.media.data.mapper.MediaItemMapper
 import com.google.android.horologist.media3.flows.waitForPlaying
 import com.google.common.truth.Truth.assertThat
 import dagger.hilt.android.testing.HiltAndroidTest
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.withContext
@@ -32,7 +33,6 @@ import kotlinx.coroutines.withTimeout
 import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
-import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
@@ -40,42 +40,41 @@ import kotlin.time.Duration.Companion.seconds
 @Ignore("Broken after hilt change")
 class PlaybackNotificationTest : BasePlaybackTest() {
 
-    private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
+  private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
 
-    @Test
-    fun testCausesNotification() = runTest {
-        withContext(Dispatchers.Main) {
-            val browser = browser()
+  @Test
+  fun testCausesNotification() = runTest {
+    withContext(Dispatchers.Main) {
+      val browser = browser()
 
-            val mediaItem = mediaItemMapper.map(TestMedia.songMp3)
-            assertThat(mediaItem).isNotNull()
-            browser.setMediaItem(mediaItem)
-            assertThat(browser.currentMediaItem).isNotNull()
-            browser.prepare()
-            browser.play()
+      val mediaItem = mediaItemMapper.map(TestMedia.songMp3)
+      assertThat(mediaItem).isNotNull()
+      browser.setMediaItem(mediaItem)
+      assertThat(browser.currentMediaItem).isNotNull()
+      browser.prepare()
+      browser.play()
 
-            assertThat(browser.currentMediaItem).isNotNull()
+      assertThat(browser.currentMediaItem).isNotNull()
 
-            withTimeout(10.seconds) {
-                browser.waitForPlaying()
-            }
+      withTimeout(10.seconds) { browser.waitForPlaying() }
 
-            val activeNotifications = notificationManager.activeNotifications.toList()
+      val activeNotifications = notificationManager.activeNotifications.toList()
 
-            assertThat(activeNotifications).isNotEmpty()
+      assertThat(activeNotifications).isNotEmpty()
 
-            val mediaNotifications =
-                activeNotifications.filter { it.packageName == application.packageName }
+      val mediaNotifications = activeNotifications.filter {
+        it.packageName == application.packageName
+      }
 
-            assertThat(activeNotifications).hasSize(1)
-            val playbackNotification = mediaNotifications.first()
-            val notification = playbackNotification.notification
+      assertThat(activeNotifications).hasSize(1)
+      val playbackNotification = mediaNotifications.first()
+      val notification = playbackNotification.notification
 
-            assertThat(playbackNotification.isOngoing).isTrue()
-            assertThat(notification.category).isEqualTo(NotificationCompat.CATEGORY_TRANSPORT)
-            // Media3 MediaNotificationHandler
-            assertThat(notification.channelId).isEqualTo("default_channel_id")
-            assertThat(notification.visibility).isEqualTo(Notification.VISIBILITY_PUBLIC)
-        }
+      assertThat(playbackNotification.isOngoing).isTrue()
+      assertThat(notification.category).isEqualTo(NotificationCompat.CATEGORY_TRANSPORT)
+      // Media3 MediaNotificationHandler
+      assertThat(notification.channelId).isEqualTo("default_channel_id")
+      assertThat(notification.visibility).isEqualTo(Notification.VISIBILITY_PUBLIC)
     }
+  }
 }

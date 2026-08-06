@@ -27,28 +27,28 @@ import androidx.media3.exoplayer.mediacodec.MediaCodecSelector
 
 @SuppressLint("UnsafeOptInUsageError")
 public open class WearMedia3Factory(private val context: Context) {
-    public fun audioSink(audioOffloadListener: AudioOffloadListener?): DefaultAudioSink =
-        DefaultAudioSink.Builder(context)
-            .setAudioProcessorChain(DefaultAudioSink.DefaultAudioProcessorChain())
-            .setExperimentalAudioOffloadListener(audioOffloadListener)
-            .setEnableFloatOutput(false) // default
-            .setEnableAudioOutputPlaybackParameters(false) // default
-            .build()
+  public fun audioSink(audioOffloadListener: AudioOffloadListener?): DefaultAudioSink =
+    DefaultAudioSink.Builder(context)
+      .setAudioProcessorChain(DefaultAudioSink.DefaultAudioProcessorChain())
+      .setExperimentalAudioOffloadListener(audioOffloadListener)
+      .setEnableFloatOutput(false) // default
+      .setEnableAudioOutputPlaybackParameters(false) // default
+      .build()
 
-    public fun audioOnlyRenderersFactory(
-        audioSink: AudioSink,
-        mediaCodecSelector: MediaCodecSelector = MediaCodecSelector.DEFAULT,
-    ): RenderersFactory = RenderersFactory { handler, _, audioListener, _, _ ->
-        arrayOf(
-            MediaCodecAudioRenderer(
-                context,
-                mediaCodecSelector,
-                handler,
-                audioListener,
-                audioSink,
-            ),
-        )
-    }
+  public fun audioOnlyRenderersFactory(
+    audioSink: AudioSink,
+    mediaCodecSelector: MediaCodecSelector = MediaCodecSelector.DEFAULT,
+  ): RenderersFactory = RenderersFactory { handler, _, audioListener, _, _ ->
+    arrayOf(
+      MediaCodecAudioRenderer(
+        context,
+        mediaCodecSelector,
+        handler,
+        audioListener,
+        audioSink,
+      )
+    )
+  }
 
-    public fun mediaCodecSelector(): MediaCodecSelector = MediaCodecSelector.DEFAULT
+  public fun mediaCodecSelector(): MediaCodecSelector = MediaCodecSelector.DEFAULT
 }

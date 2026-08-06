@@ -19,7 +19,7 @@ package com.google.android.horologist.audio.ui.material3
 import androidx.compose.ui.graphics.Color
 
 internal fun Color.toDisabledColor(disabledAlpha: Float) =
-    this.copy(alpha = this.alpha * disabledAlpha)
+  this.copy(alpha = this.alpha * disabledAlpha)
 
 internal const val DisabledContentAlpha = 0.38f
 internal const val DisabledContainerAlpha = 0.16f

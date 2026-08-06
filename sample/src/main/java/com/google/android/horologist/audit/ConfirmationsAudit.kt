@@ -36,50 +36,42 @@ import com.google.android.horologist.sample.R
 @OptIn(ExperimentalAnimationGraphicsApi::class)
 @Composable
 fun ConfirmationsAudit(route: AuditNavigation.Confirmations.Audit) {
-    when (route.config) {
-        AuditNavigation.Confirmations.Config.IconAnd1Line -> {
-            Confirmation(
-                showDialog = true,
-                title = "Title",
-                icon = {
-                    AnimatedIcon(
-                        AnimatedImageVector.animatedVectorResource(R.drawable.openonphone),
-                    )
-                },
-                onTimeout = {},
-            )
-        }
-
-        AuditNavigation.Confirmations.Config.IconAnd3Line -> {
-            Confirmation(
-                showDialog = true,
-                title = "Title\nThis is a second and third line.",
-                icon = {
-                    AnimatedIcon(
-                        AnimatedImageVector.animatedVectorResource(R.drawable.openonphone),
-                    )
-                },
-                onTimeout = {},
-            )
-        }
+  when (route.config) {
+    AuditNavigation.Confirmations.Config.IconAnd1Line -> {
+      Confirmation(
+        showDialog = true,
+        title = "Title",
+        icon = { AnimatedIcon(AnimatedImageVector.animatedVectorResource(R.drawable.openonphone)) },
+        onTimeout = {},
+      )
     }
+
+    AuditNavigation.Confirmations.Config.IconAnd3Line -> {
+      Confirmation(
+        showDialog = true,
+        title = "Title\nThis is a second and third line.",
+        icon = { AnimatedIcon(AnimatedImageVector.animatedVectorResource(R.drawable.openonphone)) },
+        onTimeout = {},
+      )
+    }
+  }
 }
 
 @OptIn(ExperimentalAnimationGraphicsApi::class)
 @Composable
 private fun AnimatedIcon(animation: AnimatedImageVector) {
-    // Initially, animation is static and shown at the start position (atEnd =
-    // false).
-    // Then, we use the EffectAPI to trigger a state change to atEnd = true,
-    // which plays the animation from start to end.
-    var atEnd by remember { mutableStateOf(false) }
-    DisposableEffect(Unit) {
-        atEnd = true
-        onDispose {}
-    }
-    Image(
-        painter = rememberAnimatedVectorPainter(animation, atEnd),
-        contentDescription = "Open on phone",
-        modifier = Modifier.size(48.dp),
-    )
+  // Initially, animation is static and shown at the start position (atEnd =
+  // false).
+  // Then, we use the EffectAPI to trigger a state change to atEnd = true,
+  // which plays the animation from start to end.
+  var atEnd by remember { mutableStateOf(false) }
+  DisposableEffect(Unit) {
+    atEnd = true
+    onDispose {}
+  }
+  Image(
+    painter = rememberAnimatedVectorPainter(animation, atEnd),
+    contentDescription = "Open on phone",
+    modifier = Modifier.size(48.dp),
+  )
 }

@@ -55,124 +55,119 @@ import com.google.android.horologist.media.ui.material3.screens.playerlibrarypag
  */
 @Composable
 public fun MediaPlayerScaffold(
-    volumeViewModel: VolumeViewModel,
-    playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable () -> Unit,
-    categoryEntityScreen: @Composable (id: String, name: String) -> Unit,
-    mediaEntityScreen: @Composable () -> Unit,
-    playlistsScreen: @Composable () -> Unit,
-    settingsScreen: @Composable () -> Unit,
-    deepLinkPrefix: String,
-    backStack: NavBackStack<MediaRoute>,
-    modifier: Modifier = Modifier,
-    volumeScreen: @Composable () -> Unit = { VolumeScreen(volumeViewModel = volumeViewModel) },
-    timeText: @Composable () -> Unit = { TimeText() },
-    additionalEntries: EntryProviderScope<MediaRoute>.() -> Unit = {},
+  volumeViewModel: VolumeViewModel,
+  playerScreen: @Composable () -> Unit,
+  libraryScreen: @Composable () -> Unit,
+  categoryEntityScreen: @Composable (id: String, name: String) -> Unit,
+  mediaEntityScreen: @Composable () -> Unit,
+  playlistsScreen: @Composable () -> Unit,
+  settingsScreen: @Composable () -> Unit,
+  deepLinkPrefix: String,
+  backStack: NavBackStack<MediaRoute>,
+  modifier: Modifier = Modifier,
+  volumeScreen: @Composable () -> Unit = { VolumeScreen(volumeViewModel = volumeViewModel) },
+  timeText: @Composable () -> Unit = { TimeText() },
+  additionalEntries: EntryProviderScope<MediaRoute>.() -> Unit = {},
 ) {
-    AppScaffold {
-        val currentRoute = backStack.lastOrNull()
-        val entryProvider = entryProvider(
-            fallback = { key ->
-                NavEntry(key) {
-                    when (key) {
-                        is PlayerRoute -> {
-                            val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
-                            val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
+  AppScaffold {
+    val currentRoute = backStack.lastOrNull()
+    val entryProvider =
+      entryProvider(
+        fallback = { key ->
+          NavEntry(key) {
+            when (key) {
+              is PlayerRoute -> {
+                val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
+                val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
 
-                            PlayerLibraryPagerScreen(
-                                pagerState = pagerState,
-                                volumeUiState = { volumeState },
-                                displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
-                                playerScreen = { playerScreen() },
-                                libraryScreen = { libraryScreen() },
-                                page = key.page,
-                                modifier = modifier,
-                                scrollTrigger = currentRoute,
-                            )
-                        }
+                PlayerLibraryPagerScreen(
+                  pagerState = pagerState,
+                  volumeUiState = { volumeState },
+                  displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
+                  playerScreen = { playerScreen() },
+                  libraryScreen = { libraryScreen() },
+                  page = key.page,
+                  modifier = modifier,
+                  scrollTrigger = currentRoute,
+                )
+              }
 
-                        is CollectionRoute -> {
-                            categoryEntityScreen(key.id, key.name)
-                        }
+              is CollectionRoute -> {
+                categoryEntityScreen(key.id, key.name)
+              }
 
-                        is MediaItemRoute -> {
-                            mediaEntityScreen()
-                        }
+              is MediaItemRoute -> {
+                mediaEntityScreen()
+              }
 
-                        is CustomRoute -> {
-                            val route = key.route
-                            val request = DeepLinkRequest.fromUriString("app://" + route)
-                            when {
-                                route.startsWith("player") -> {
-                                    val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
-                                    val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
-                                    val pageParam = NavigationScreens.Player.getPageParam(route)
+              is CustomRoute -> {
+                val route = key.route
+                val request = DeepLinkRequest.fromUriString("app://" + route)
+                when {
+                  route.startsWith("player") -> {
+                    val volumeState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
+                    val pagerState = rememberPagerState(initialPage = 0, pageCount = { 2 })
+                    val pageParam = NavigationScreens.Player.getPageParam(route)
 
-                                    PlayerLibraryPagerScreen(
-                                        pagerState = pagerState,
-                                        volumeUiState = { volumeState },
-                                        displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
-                                        playerScreen = { playerScreen() },
-                                        libraryScreen = { libraryScreen() },
-                                        page = pageParam,
-                                        modifier = modifier,
-                                        scrollTrigger = currentRoute,
-                                    )
-                                }
+                    PlayerLibraryPagerScreen(
+                      pagerState = pagerState,
+                      volumeUiState = { volumeState },
+                      displayVolumeIndicatorEvents = volumeViewModel.displayIndicatorEvents,
+                      playerScreen = { playerScreen() },
+                      libraryScreen = { libraryScreen() },
+                      page = pageParam,
+                      modifier = modifier,
+                      scrollTrigger = currentRoute,
+                    )
+                  }
 
-                                route.startsWith("collection") -> {
-                                    val id = request.getQueryParameter("id")
-                                    val name = request.getQueryParameter("name")
-                                    checkNotNull(id)
-                                    checkNotNull(name)
-                                    categoryEntityScreen(id, name)
-                                }
+                  route.startsWith("collection") -> {
+                    val id = request.getQueryParameter("id")
+                    val name = request.getQueryParameter("name")
+                    checkNotNull(id)
+                    checkNotNull(name)
+                    categoryEntityScreen(id, name)
+                  }
 
-                                route.startsWith("mediaItem") -> {
-                                    mediaEntityScreen()
-                                }
+                  route.startsWith("mediaItem") -> {
+                    mediaEntityScreen()
+                  }
 
-                                else -> {
-                                    throw IllegalStateException("Unknown route: $route")
-                                }
-                            }
-                        }
-
-                        else -> {
-                            throw IllegalStateException("Unknown route key: $key")
-                        }
-                    }
+                  else -> {
+                    throw IllegalStateException("Unknown route: $route")
+                  }
                 }
-            },
-        ) {
-            entry(CollectionsRoute) {
-                playlistsScreen()
-            }
-            entry(SettingsRoute) {
-                settingsScreen()
-            }
-            entry(VolumeRoute) {
-                ScreenScaffold(timeText = {}) { volumeScreen() }
-            }
+              }
 
-            additionalEntries()
+              else -> {
+                throw IllegalStateException("Unknown route key: $key")
+              }
+            }
+          }
         }
+      ) {
+        entry(CollectionsRoute) { playlistsScreen() }
+        entry(SettingsRoute) { settingsScreen() }
+        entry(VolumeRoute) { ScreenScaffold(timeText = {}) { volumeScreen() } }
 
-        NavDisplay(
-            backStack = backStack,
-            sceneStrategies = listOf(rememberSwipeDismissableSceneStrategy()),
-            entryProvider = entryProvider,
-            modifier = modifier,
-        )
-    }
+        additionalEntries()
+      }
+
+    NavDisplay(
+      backStack = backStack,
+      sceneStrategies = listOf(rememberSwipeDismissableSceneStrategy()),
+      entryProvider = entryProvider,
+      modifier = modifier,
+    )
+  }
 }
 
 public class DeepLinkRequest private constructor(private val uri: android.net.Uri) {
-    public fun getQueryParameter(key: String): String? = uri.getQueryParameter(key)
+  public fun getQueryParameter(key: String): String? = uri.getQueryParameter(key)
 
-    public companion object {
-        public fun fromUriString(uriString: String): DeepLinkRequest {
-            return DeepLinkRequest(uriString.toUri())
-        }
+  public companion object {
+    public fun fromUriString(uriString: String): DeepLinkRequest {
+      return DeepLinkRequest(uriString.toUri())
     }
+  }
 }

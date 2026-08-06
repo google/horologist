@@ -60,165 +60,151 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 @ExperimentalHorologistApi
 @Composable
 public fun ResponsiveDialogContent(
-    modifier: Modifier = Modifier,
-    icon: @Composable (() -> Unit)? = null,
-    title: @Composable (() -> Unit)? = null,
-    message: @Composable (() -> Unit)? = null,
-    onOk: (() -> Unit)? = null,
-    onCancel: (() -> Unit)? = null,
-    okButtonContentDescription: String = stringResource(android.R.string.ok),
-    cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    state: ScalingLazyColumnState =
-        rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(
-                first = ScalingLazyColumnDefaults.ItemType.Dialog,
-                last = ScalingLazyColumnDefaults.ItemType.Dialog,
-            ),
-        ),
-    showPositionIndicator: Boolean = true,
-    content: (ScalingLazyListScope.() -> Unit)? = null,
+  modifier: Modifier = Modifier,
+  icon: @Composable (() -> Unit)? = null,
+  title: @Composable (() -> Unit)? = null,
+  message: @Composable (() -> Unit)? = null,
+  onOk: (() -> Unit)? = null,
+  onCancel: (() -> Unit)? = null,
+  okButtonContentDescription: String = stringResource(android.R.string.ok),
+  cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
+  state: ScalingLazyColumnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        ScalingLazyColumnDefaults.padding(
+          first = ScalingLazyColumnDefaults.ItemType.Dialog,
+          last = ScalingLazyColumnDefaults.ItemType.Dialog,
+        )
+    ),
+  showPositionIndicator: Boolean = true,
+  content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
-    ScreenScaffold(
-        modifier = modifier.fillMaxSize(),
-        scrollState = if (showPositionIndicator) state else null,
-        positionIndicator = if (showPositionIndicator) {
-            null
-        } else {
-            {}
-        },
-        timeText = {},
-    ) {
-        // This will be applied only to the content.
-        CompositionLocalProvider(
-            LocalTextStyle provides MaterialTheme.typography.body2,
-        ) {
-            ScalingLazyColumn(columnState = state) {
-                icon?.let {
-                    item {
-                        Row(
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(bottom = 4.dp), // 8.dp bellow icon
-                            horizontalArrangement = Arrangement.Center,
-                        ) {
-                            it()
-                        }
-                    }
-                }
-                title?.let {
-                    item {
-                        CompositionLocalProvider(
-                            LocalTextStyle provides MaterialTheme.typography.title3,
-                        ) {
-                            Box(
-                                Modifier
-                                    .fillMaxWidth(titleMaxWidthFraction)
-                                    .padding(bottom = if (message == null) 12.dp else 8.dp), // 16.dp or 12.dp below title
-                            ) { it() }
-                        }
-                    }
-                }
-                if (icon == null && title == null) {
-                    // Ensure the content is visible when there is nothing above it.
-                    item {
-                        Spacer(Modifier.height(20.dp))
-                    }
-                }
-                message?.let {
-                    item {
-                        Box(
-                            Modifier
-                                .fillMaxWidth(messageMaxWidthFraction)
-                                .padding(bottom = 12.dp),
-                        ) { it() }
-                    }
-                }
-                content?.let {
-                    it()
-                }
-                if (onOk != null || onCancel != null) {
-                    item {
-                        val (buttonSpacedBy, buttonWidth) = responsiveButtonWidth(if (onOk != null && onCancel != null) 2 else 1)
-                        Row(
-                            Modifier
-                                .fillMaxWidth()
-                                .padding(
-                                    top = if (content != null) 12.dp else 0.dp,
-                                ),
-                            horizontalArrangement = spacedBy(
-                                buttonSpacedBy,
-                                Alignment.CenterHorizontally,
-                            ),
-                            verticalAlignment = Alignment.CenterVertically,
-                        ) {
-                            onCancel?.let {
-                                ResponsiveButton(
-                                    icon = Icons.Default.Close,
-                                    cancelButtonContentDescription,
-                                    onClick = it,
-                                    buttonWidth,
-                                    ChipDefaults.secondaryChipColors(),
-                                )
-                            }
-                            onOk?.let {
-                                ResponsiveButton(
-                                    icon = Icons.Default.Check,
-                                    okButtonContentDescription,
-                                    onClick = it,
-                                    buttonWidth,
-                                )
-                            }
-                        }
-                    }
-                }
+  ScreenScaffold(
+    modifier = modifier.fillMaxSize(),
+    scrollState = if (showPositionIndicator) state else null,
+    positionIndicator =
+      if (showPositionIndicator) {
+        null
+      } else {
+        {}
+      },
+    timeText = {},
+  ) {
+    // This will be applied only to the content.
+    CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.body2) {
+      ScalingLazyColumn(columnState = state) {
+        icon?.let {
+          item {
+            Row(
+              Modifier.fillMaxWidth().padding(bottom = 4.dp), // 8.dp bellow icon
+              horizontalArrangement = Arrangement.Center,
+            ) {
+              it()
             }
+          }
         }
+        title?.let {
+          item {
+            CompositionLocalProvider(LocalTextStyle provides MaterialTheme.typography.title3) {
+              Box(
+                Modifier.fillMaxWidth(titleMaxWidthFraction)
+                  .padding(
+                    bottom = if (message == null) 12.dp else 8.dp
+                  ) // 16.dp or 12.dp below title
+              ) {
+                it()
+              }
+            }
+          }
+        }
+        if (icon == null && title == null) {
+          // Ensure the content is visible when there is nothing above it.
+          item { Spacer(Modifier.height(20.dp)) }
+        }
+        message?.let {
+          item {
+            Box(Modifier.fillMaxWidth(messageMaxWidthFraction).padding(bottom = 12.dp)) { it() }
+          }
+        }
+        content?.let { it() }
+        if (onOk != null || onCancel != null) {
+          item {
+            val (buttonSpacedBy, buttonWidth) =
+              responsiveButtonWidth(if (onOk != null && onCancel != null) 2 else 1)
+            Row(
+              Modifier.fillMaxWidth().padding(top = if (content != null) 12.dp else 0.dp),
+              horizontalArrangement =
+                spacedBy(
+                  buttonSpacedBy,
+                  Alignment.CenterHorizontally,
+                ),
+              verticalAlignment = Alignment.CenterVertically,
+            ) {
+              onCancel?.let {
+                ResponsiveButton(
+                  icon = Icons.Default.Close,
+                  cancelButtonContentDescription,
+                  onClick = it,
+                  buttonWidth,
+                  ChipDefaults.secondaryChipColors(),
+                )
+              }
+              onOk?.let {
+                ResponsiveButton(
+                  icon = Icons.Default.Check,
+                  okButtonContentDescription,
+                  onClick = it,
+                  buttonWidth,
+                )
+              }
+            }
+          }
+        }
+      }
     }
+  }
 }
 
 @Composable
-public fun responsiveButtonWidth(
-    buttonCount: Int,
-): Pair<Dp, Dp> {
-    val width = LocalConfiguration.current.screenWidthDp
-    val buttonSpacedBy = 12.dp
-    // Single buttons, or buttons on smaller screens are not meant to be
-    // responsive.
-    val buttonWidth = if (width < 225 || buttonCount != 2) {
-        ButtonDefaults.DefaultButtonSize
+public fun responsiveButtonWidth(buttonCount: Int): Pair<Dp, Dp> {
+  val width = LocalConfiguration.current.screenWidthDp
+  val buttonSpacedBy = 12.dp
+  // Single buttons, or buttons on smaller screens are not meant to be
+  // responsive.
+  val buttonWidth =
+    if (width < 225 || buttonCount != 2) {
+      ButtonDefaults.DefaultButtonSize
     } else {
-        // 14.56% margin on the sides, 12.dp between.
-        ((width * (1f - 2 * 0.1456f) - buttonSpacedBy.value) / 2).dp
+      // 14.56% margin on the sides, 12.dp between.
+      ((width * (1f - 2 * 0.1456f) - buttonSpacedBy.value) / 2).dp
     }
-    return Pair(buttonSpacedBy, buttonWidth)
+  return Pair(buttonSpacedBy, buttonWidth)
 }
 
 @Composable
 public fun ResponsiveButton(
-    icon: ImageVector,
-    contentDescription: String,
-    onClick: () -> Unit,
-    buttonWidth: Dp,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
+  icon: ImageVector,
+  contentDescription: String,
+  onClick: () -> Unit,
+  buttonWidth: Dp,
+  colors: ChipColors = ChipDefaults.primaryChipColors(),
 ) {
-    androidx.wear.compose.material.Chip(
-        label = {
-            Box(Modifier.fillMaxWidth()) {
-                Icon(
-                    paintable = ImageVectorPaintable(icon),
-                    contentDescription = contentDescription,
-                    modifier = Modifier
-                        .size(ButtonDefaults.DefaultIconSize)
-                        .align(Alignment.Center),
-                )
-            }
-        },
-        contentPadding = PaddingValues(0.dp),
-        shape = CircleShape,
-        onClick = onClick,
-        modifier = Modifier.width(buttonWidth),
-        colors = colors,
-    )
+  androidx.wear.compose.material.Chip(
+    label = {
+      Box(Modifier.fillMaxWidth()) {
+        Icon(
+          paintable = ImageVectorPaintable(icon),
+          contentDescription = contentDescription,
+          modifier = Modifier.size(ButtonDefaults.DefaultIconSize).align(Alignment.Center),
+        )
+      }
+    },
+    contentPadding = PaddingValues(0.dp),
+    shape = CircleShape,
+    onClick = onClick,
+    modifier = Modifier.width(buttonWidth),
+    colors = colors,
+  )
 }
 
 internal const val globalHorizontalPadding = 5.2f
@@ -226,26 +212,24 @@ internal const val messageExtraHorizontalPadding = 4.16f
 internal const val titleExtraHorizontalPadding = 8.84f
 
 // Fraction of the max available width that message should take (after global and message padding)
-internal val messageMaxWidthFraction = 1f - 2f * calculatePaddingFraction(
-    messageExtraHorizontalPadding,
-)
+internal val messageMaxWidthFraction =
+  1f - 2f * calculatePaddingFraction(messageExtraHorizontalPadding)
 
 // Fraction of the max available width that title should take (after global and message padding)
-internal val titleMaxWidthFraction = 1f - 2f * calculatePaddingFraction(
-    titleExtraHorizontalPadding,
-)
+internal val titleMaxWidthFraction = 1f - 2f * calculatePaddingFraction(titleExtraHorizontalPadding)
 
 // Calculate total padding given global padding and additional padding required inside that.
 internal fun calculatePaddingFraction(extraPadding: Float) =
-    extraPadding / (100f - 2f * globalHorizontalPadding)
+  extraPadding / (100f - 2f * globalHorizontalPadding)
 
 @Suppress("DEPRECATION")
 @Composable
-public fun centeredDialogColumnState(): ScalingLazyColumnState = rememberColumnState(
+public fun centeredDialogColumnState(): ScalingLazyColumnState =
+  rememberColumnState(
     ScalingLazyColumnDefaults.scalingLazyColumnDefaults(
-        initialCenterIndex = 0,
-        initialCenterOffset = 50,
-        verticalArrangement = spacedBy(4.dp, Alignment.CenterVertically),
-        autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 50),
-    ),
-)
+      initialCenterIndex = 0,
+      initialCenterOffset = 50,
+      verticalArrangement = spacedBy(4.dp, Alignment.CenterVertically),
+      autoCentering = AutoCenteringParams(itemIndex = 0, itemOffset = 50),
+    )
+  )

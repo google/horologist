@@ -31,37 +31,37 @@ import com.google.android.horologist.networks.data.Networks
 @ExperimentalHorologistApi
 @Composable
 public fun DataUsageTimeText(
-    showData: Boolean,
-    networkStatus: Networks,
-    networkUsage: DataUsageReport?,
-    modifier: Modifier = Modifier,
-    pinnedNetworks: Set<NetworkType> = setOf(),
+  showData: Boolean,
+  networkStatus: Networks,
+  networkUsage: DataUsageReport?,
+  modifier: Modifier = Modifier,
+  pinnedNetworks: Set<NetworkType> = setOf(),
 ) {
-    val style = CurvedTextStyle(MaterialTheme.typography.caption1)
-    val context = LocalContext.current
+  val style = CurvedTextStyle(MaterialTheme.typography.caption1)
+  val context = LocalContext.current
 
-    if (showData) {
-        ResponsiveTimeText(
-            modifier = modifier,
-            startCurvedContent = {
-                curveDataUsage(
-                    networkStatus = networkStatus,
-                    networkUsage = networkUsage,
-                    style = style,
-                    context = context,
-                    pinnedNetworks = pinnedNetworks,
-                )
-            },
-            startLinearContent = {
-                LinearDataUsage(
-                    networkStatus = networkStatus,
-                    networkUsage = networkUsage,
-                    style = MaterialTheme.typography.caption1,
-                    context = context,
-                )
-            },
+  if (showData) {
+    ResponsiveTimeText(
+      modifier = modifier,
+      startCurvedContent = {
+        curveDataUsage(
+          networkStatus = networkStatus,
+          networkUsage = networkUsage,
+          style = style,
+          context = context,
+          pinnedNetworks = pinnedNetworks,
         )
-    } else {
-        TimeText(modifier = modifier)
-    }
+      },
+      startLinearContent = {
+        LinearDataUsage(
+          networkStatus = networkStatus,
+          networkUsage = networkUsage,
+          style = MaterialTheme.typography.caption1,
+          context = context,
+        )
+      },
+    )
+  } else {
+    TimeText(modifier = modifier)
+  }
 }

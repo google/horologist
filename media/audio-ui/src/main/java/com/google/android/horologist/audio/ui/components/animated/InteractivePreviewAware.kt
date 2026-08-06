@@ -27,32 +27,31 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalInspectionMode
 
-public val LocalInteractivePreview: ProvidableCompositionLocal<Boolean> = compositionLocalOf { false }
+public val LocalInteractivePreview: ProvidableCompositionLocal<Boolean> = compositionLocalOf {
+  false
+}
 
 public val LocalStaticPreview: ProvidableCompositionLocal<Boolean> = compositionLocalOf { false }
 
 /**
- * Utility to determine the preview mode and set LocalInteractivePreview or
- * LocalStaticPreview.  All previews will start out as static, since they are identical
- * to the runtime until the second frame (when LaunchedEffect has run) when it will be set
- * correctly.
+ * Utility to determine the preview mode and set LocalInteractivePreview or LocalStaticPreview. All
+ * previews will start out as static, since they are identical to the runtime until the second frame
+ * (when LaunchedEffect has run) when it will be set correctly.
  */
 @Composable
 public fun InteractivePreviewAware(block: @Composable () -> Unit) {
-    if (LocalInspectionMode.current) {
-        var interactive by remember { mutableStateOf(false) }
+  if (LocalInspectionMode.current) {
+    var interactive by remember { mutableStateOf(false) }
 
-        LaunchedEffect(Unit) {
-            interactive = true
-        }
+    LaunchedEffect(Unit) { interactive = true }
 
-        CompositionLocalProvider(
-            LocalInteractivePreview.provides(interactive),
-            LocalStaticPreview.provides(!interactive),
-        ) {
-            block()
-        }
-    } else {
-        block()
+    CompositionLocalProvider(
+      LocalInteractivePreview.provides(interactive),
+      LocalStaticPreview.provides(!interactive),
+    ) {
+      block()
     }
+  } else {
+    block()
+  }
 }

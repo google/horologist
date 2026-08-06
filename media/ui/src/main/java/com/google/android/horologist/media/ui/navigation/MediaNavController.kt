@@ -18,32 +18,26 @@ package com.google.android.horologist.media.ui.navigation
 
 import androidx.navigation.NavController
 
-/**
- * Domain focused NavController extensions that links to the screens of a typical Media app.
- */
+/** Domain focused NavController extensions that links to the screens of a typical Media app. */
 public object MediaNavController {
 
-    /**
-     * Navigate to the player page, removing other entries from the backstack.
-     */
-    public fun NavController.navigateToPlayer() {
-        navigate(NavigationScreen.Player(NavigationScreen.Player.Player)) {
-            popUpTo<NavigationScreen.Player> {
-                inclusive = true
-                saveState = false
-            }
-        }
+  /** Navigate to the player page, removing other entries from the backstack. */
+  public fun NavController.navigateToPlayer() {
+    navigate(NavigationScreen.Player(NavigationScreen.Player.Player)) {
+      popUpTo<NavigationScreen.Player> {
+        inclusive = true
+        saveState = false
+      }
     }
+  }
 
-    /**
-     * Navigate to the library page, removing other entries from the backstack.
-     */
-    public fun NavController.navigateToLibrary() {
-        navigate(NavigationScreen.Player(NavigationScreen.Player.Library)) {
-            popUpTo<NavigationScreen.Player> {
-                inclusive = true
-                saveState = false
-            }
-        }
+  /** Navigate to the library page, removing other entries from the backstack. */
+  public fun NavController.navigateToLibrary() {
+    navigate(NavigationScreen.Player(NavigationScreen.Player.Library)) {
+      popUpTo<NavigationScreen.Player> {
+        inclusive = true
+        saveState = false
+      }
     }
+  }
 }

@@ -22,75 +22,81 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.phone.ui.prompt.signin.SignInPrompt
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class SignInCustomPromptDemoViewModel
-    @Inject
-    constructor(
-        private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-        private val signInCustomPrompt: SignInPrompt,
-    ) : ViewModel() {
+@Inject
+constructor(
+  private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+  private val signInCustomPrompt: SignInPrompt,
+) : ViewModel() {
 
-        private var initializeCalled = false
+  private var initializeCalled = false
 
-        private val _uiState =
-            MutableStateFlow<SignInCustomPromptDemoScreenState>(SignInCustomPromptDemoScreenState.Idle)
-        public val uiState: StateFlow<SignInCustomPromptDemoScreenState> = _uiState
+  private val _uiState =
+    MutableStateFlow<SignInCustomPromptDemoScreenState>(SignInCustomPromptDemoScreenState.Idle)
+  public val uiState: StateFlow<SignInCustomPromptDemoScreenState> = _uiState
 
-        @MainThread
-        fun initialize() {
-            if (initializeCalled) return
-            initializeCalled = true
+  @MainThread
+  fun initialize() {
+    if (initializeCalled) return
+    initializeCalled = true
 
-            _uiState.value = SignInCustomPromptDemoScreenState.Loading
+    _uiState.value = SignInCustomPromptDemoScreenState.Loading
 
-            viewModelScope.launch {
-                if (!phoneDataLayerAppHelper.isAvailable()) {
-                    _uiState.value = SignInCustomPromptDemoScreenState.ApiNotAvailable
-                } else {
-                    _uiState.value = SignInCustomPromptDemoScreenState.Loaded
-                }
-            }
-        }
+    viewModelScope.launch {
+      if (!phoneDataLayerAppHelper.isAvailable()) {
+        _uiState.value = SignInCustomPromptDemoScreenState.ApiNotAvailable
+      } else {
+        _uiState.value = SignInCustomPromptDemoScreenState.Loaded
+      }
+    }
+  }
 
-        fun onRunDemoClick() {
-            _uiState.value = SignInCustomPromptDemoScreenState.Loading
+  fun onRunDemoClick() {
+    _uiState.value = SignInCustomPromptDemoScreenState.Loading
 
-            viewModelScope.launch {
-                val node = signInCustomPrompt.shouldDisplayPrompt()
+    viewModelScope.launch {
+      val node = signInCustomPrompt.shouldDisplayPrompt()
 
-                _uiState.value = if (node != null) {
-                    SignInCustomPromptDemoScreenState.WatchFound(node.id)
-                } else {
-                    SignInCustomPromptDemoScreenState.WatchNotFound
-                }
-            }
-        }
-
-        fun onPromptSignInClick(nodeId: String) {
-            viewModelScope.launch {
-                signInCustomPrompt.performAction(nodeId = nodeId)
-            }
-
-            _uiState.value = SignInCustomPromptDemoScreenState.PromptSignInClicked
-        }
-
-        fun onPromptDismiss() {
-            _uiState.value = SignInCustomPromptDemoScreenState.PromptDismissed
+      _uiState.value =
+        if (node != null) {
+          SignInCustomPromptDemoScreenState.WatchFound(node.id)
+        } else {
+          SignInCustomPromptDemoScreenState.WatchNotFound
         }
     }
+  }
+
+  fun onPromptSignInClick(nodeId: String) {
+    viewModelScope.launch { signInCustomPrompt.performAction(nodeId = nodeId) }
+
+    _uiState.value = SignInCustomPromptDemoScreenState.PromptSignInClicked
+  }
+
+  fun onPromptDismiss() {
+    _uiState.value = SignInCustomPromptDemoScreenState.PromptDismissed
+  }
+}
 
 sealed class SignInCustomPromptDemoScreenState {
-    data object Idle : SignInCustomPromptDemoScreenState()
-    data object Loading : SignInCustomPromptDemoScreenState()
-    data object Loaded : SignInCustomPromptDemoScreenState()
-    data class WatchFound(val nodeId: String) : SignInCustomPromptDemoScreenState()
-    data object WatchNotFound : SignInCustomPromptDemoScreenState()
-    data object PromptSignInClicked : SignInCustomPromptDemoScreenState()
-    data object PromptDismissed : SignInCustomPromptDemoScreenState()
-    data object ApiNotAvailable : SignInCustomPromptDemoScreenState()
+  data object Idle : SignInCustomPromptDemoScreenState()
+
+  data object Loading : SignInCustomPromptDemoScreenState()
+
+  data object Loaded : SignInCustomPromptDemoScreenState()
+
+  data class WatchFound(val nodeId: String) : SignInCustomPromptDemoScreenState()
+
+  data object WatchNotFound : SignInCustomPromptDemoScreenState()
+
+  data object PromptSignInClicked : SignInCustomPromptDemoScreenState()
+
+  data object PromptDismissed : SignInCustomPromptDemoScreenState()
+
+  data object ApiNotAvailable : SignInCustomPromptDemoScreenState()
 }

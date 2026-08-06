@@ -28,19 +28,19 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 @WearPreview
 @Composable
 fun IconPreview() {
-    Icon(
-        paintable = ImageVectorPaintable(Icons.AutoMirrored.Outlined.VolumeDown),
-        contentDescription = "contentDescription",
-    )
+  Icon(
+    paintable = ImageVectorPaintable(Icons.AutoMirrored.Outlined.VolumeDown),
+    contentDescription = "contentDescription",
+  )
 }
 
 @WearPreview
 @Composable
 fun IconPreviewMirrored() {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        Icon(
-            paintable = ImageVectorPaintable(Icons.AutoMirrored.Outlined.VolumeDown),
-            contentDescription = "contentDescription",
-        )
-    }
+  CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+    Icon(
+      paintable = ImageVectorPaintable(Icons.AutoMirrored.Outlined.VolumeDown),
+      contentDescription = "contentDescription",
+    )
+  }
 }

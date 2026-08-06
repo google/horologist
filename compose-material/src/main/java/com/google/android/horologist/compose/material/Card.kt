@@ -34,69 +34,67 @@ import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.Card as MaterialCard
 import androidx.wear.compose.material.CardDefaults
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
-import androidx.wear.compose.material.Card as MaterialCard
 
-/**
- * This component is an alternative to [Card], adding support for long and double-clicks.
- */
+/** This component is an alternative to [Card], adding support for long and double-clicks. */
 @ExperimentalHorologistApi
 @Composable
 public fun Card(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    onLongClick: (() -> Unit)? = null,
-    backgroundPainter: Painter = CardDefaults.cardBackgroundPainter(),
-    contentColor: Color = MaterialTheme.colors.onSurfaceVariant,
-    enabled: Boolean = true,
-    contentPadding: PaddingValues = CardDefaults.ContentPadding,
-    shape: Shape = MaterialTheme.shapes.large,
-    role: Role? = null,
-    content: @Composable ColumnScope.() -> Unit,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  onLongClick: (() -> Unit)? = null,
+  backgroundPainter: Painter = CardDefaults.cardBackgroundPainter(),
+  contentColor: Color = MaterialTheme.colors.onSurfaceVariant,
+  enabled: Boolean = true,
+  contentPadding: PaddingValues = CardDefaults.ContentPadding,
+  shape: Shape = MaterialTheme.shapes.large,
+  role: Role? = null,
+  content: @Composable ColumnScope.() -> Unit,
 ) {
-    if (onLongClick != null) {
-        val interactionSource = remember { MutableInteractionSource() }
-        MaterialCard(
-            onClick = onClick,
-            modifier = modifier,
-            backgroundPainter = backgroundPainter,
-            contentColor = contentColor,
-            enabled = enabled,
-            contentPadding = PaddingValues(0.dp),
-            shape = shape,
-            interactionSource = interactionSource,
-            role = role,
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .combinedClickable(
-                        interactionSource = interactionSource,
-                        indication = null,
-                        enabled = enabled,
-                        onClick = onClick,
-                        onLongClick = onLongClick,
-                        role = role,
-                    )
-                    .padding(contentPadding),
-            ) {
-                content()
-            }
-        }
-    } else {
-        MaterialCard(
-            onClick = onClick,
-            modifier = modifier,
-            backgroundPainter = backgroundPainter,
-            contentColor = contentColor,
-            enabled = enabled,
-            contentPadding = contentPadding,
-            shape = shape,
-            role = role,
-        ) {
-            content()
-        }
+  if (onLongClick != null) {
+    val interactionSource = remember { MutableInteractionSource() }
+    MaterialCard(
+      onClick = onClick,
+      modifier = modifier,
+      backgroundPainter = backgroundPainter,
+      contentColor = contentColor,
+      enabled = enabled,
+      contentPadding = PaddingValues(0.dp),
+      shape = shape,
+      interactionSource = interactionSource,
+      role = role,
+    ) {
+      Column(
+        modifier =
+          Modifier.fillMaxSize()
+            .combinedClickable(
+              interactionSource = interactionSource,
+              indication = null,
+              enabled = enabled,
+              onClick = onClick,
+              onLongClick = onLongClick,
+              role = role,
+            )
+            .padding(contentPadding)
+      ) {
+        content()
+      }
     }
+  } else {
+    MaterialCard(
+      onClick = onClick,
+      modifier = modifier,
+      backgroundPainter = backgroundPainter,
+      contentColor = contentColor,
+      enabled = enabled,
+      contentPadding = contentPadding,
+      shape = shape,
+      role = role,
+    ) {
+      content()
+    }
+  }
 }

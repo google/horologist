@@ -25,66 +25,60 @@ import com.google.android.horologist.media.sync.api.Synchronizer
 import com.google.android.horologist.media.sync.api.changeListSync
 import com.google.android.horologist.mediasample.data.api.NetworkChangeListService
 import com.google.android.horologist.mediasample.data.datasource.PlaylistRemoteDataSource
+import com.google.android.horologist.mediasample.data.mapper.PlaylistMapper as MediaSamplePlaylistMapper
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
-import com.google.android.horologist.mediasample.data.mapper.PlaylistMapper as MediaSamplePlaylistMapper
 
 class PlaylistRepositorySyncable(
-    private val playlistLocalDataSource: PlaylistLocalDataSource,
-    private val playlistRemoteDataSource: PlaylistRemoteDataSource,
-    private val networkChangeListService: NetworkChangeListService,
-    private val mediaLocalDataSource: MediaLocalDataSource,
-    private val playlistMapper: PlaylistMapper,
+  private val playlistLocalDataSource: PlaylistLocalDataSource,
+  private val playlistRemoteDataSource: PlaylistRemoteDataSource,
+  private val networkChangeListService: NetworkChangeListService,
+  private val mediaLocalDataSource: MediaLocalDataSource,
+  private val playlistMapper: PlaylistMapper,
 ) : Syncable {
 
-    override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
-        val localPlaylists = playlistLocalDataSource.getAllPopulated()
-            .first()
-            .map(playlistMapper::map)
+  override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
+    val localPlaylists = playlistLocalDataSource.getAllPopulated().first().map(playlistMapper::map)
 
-        val remotePlaylists = playlistRemoteDataSource.getPlaylists()
-            .map(MediaSamplePlaylistMapper::map)
-            .first()
+    val remotePlaylists =
+      playlistRemoteDataSource.getPlaylists().map(MediaSamplePlaylistMapper::map).first()
 
-        return synchronizer.changeListSync(
-            models = listOf(MEDIA_SYNC_MODEL_NAME, PLAYLIST_SYNC_MODEL_NAME),
-            changeListFetcher = { model, _ ->
-                if (model == PLAYLIST_SYNC_MODEL_NAME) {
-                    networkChangeListService.getForPlaylist(
-                        localPlaylists = localPlaylists,
-                        remotePlaylists = remotePlaylists,
-                    )
-                } else {
-                    networkChangeListService.getForMedia(
-                        localPlaylists = localPlaylists,
-                        remotePlaylists = remotePlaylists,
-                    )
-                }
-            },
-            modelDeleter = { model, ids ->
-                if (model == PLAYLIST_SYNC_MODEL_NAME) {
-                    playlistLocalDataSource.delete(ids)
-                } else {
-                    mediaLocalDataSource.delete(ids)
-                }
-            },
-            modelUpdater = { model, ids ->
-                if (model == PLAYLIST_SYNC_MODEL_NAME) {
-                    playlistLocalDataSource.upsert(remotePlaylists.filter { ids.contains(it.id) })
-                } else {
-                    mediaLocalDataSource.upsert(
-                        remotePlaylists
-                            .flatMap(Playlist::mediaList)
-                            .filter { ids.contains(it.id) }
-                            .distinct(),
-                    )
-                }
-            },
-        )
-    }
+    return synchronizer.changeListSync(
+      models = listOf(MEDIA_SYNC_MODEL_NAME, PLAYLIST_SYNC_MODEL_NAME),
+      changeListFetcher = { model, _ ->
+        if (model == PLAYLIST_SYNC_MODEL_NAME) {
+          networkChangeListService.getForPlaylist(
+            localPlaylists = localPlaylists,
+            remotePlaylists = remotePlaylists,
+          )
+        } else {
+          networkChangeListService.getForMedia(
+            localPlaylists = localPlaylists,
+            remotePlaylists = remotePlaylists,
+          )
+        }
+      },
+      modelDeleter = { model, ids ->
+        if (model == PLAYLIST_SYNC_MODEL_NAME) {
+          playlistLocalDataSource.delete(ids)
+        } else {
+          mediaLocalDataSource.delete(ids)
+        }
+      },
+      modelUpdater = { model, ids ->
+        if (model == PLAYLIST_SYNC_MODEL_NAME) {
+          playlistLocalDataSource.upsert(remotePlaylists.filter { ids.contains(it.id) })
+        } else {
+          mediaLocalDataSource.upsert(
+            remotePlaylists.flatMap(Playlist::mediaList).filter { ids.contains(it.id) }.distinct()
+          )
+        }
+      },
+    )
+  }
 
-    companion object {
-        private const val PLAYLIST_SYNC_MODEL_NAME = "Playlist"
-        private const val MEDIA_SYNC_MODEL_NAME = "Media"
-    }
+  companion object {
+    private const val PLAYLIST_SYNC_MODEL_NAME = "Playlist"
+    private const val MEDIA_SYNC_MODEL_NAME = "Media"
+  }
 }

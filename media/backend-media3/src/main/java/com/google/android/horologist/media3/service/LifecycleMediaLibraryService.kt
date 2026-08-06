@@ -26,44 +26,43 @@ import androidx.media3.session.MediaLibraryService
 import androidx.media3.session.MediaSession
 
 public abstract class LifecycleMediaLibraryService : MediaLibraryService(), LifecycleOwner {
-    private val dispatcher = ServiceLifecycleDispatcher(this)
+  private val dispatcher = ServiceLifecycleDispatcher(this)
 
-    protected abstract val mediaLibrarySession: MediaLibrarySession
+  protected abstract val mediaLibrarySession: MediaLibrarySession
 
-    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {
-        return mediaLibrarySession
-    }
+  override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession? {
+    return mediaLibrarySession
+  }
 
-    @CallSuper
-    override fun onCreate() {
-        dispatcher.onServicePreSuperOnCreate()
-        super.onCreate()
-    }
+  @CallSuper
+  override fun onCreate() {
+    dispatcher.onServicePreSuperOnCreate()
+    super.onCreate()
+  }
 
-    @CallSuper
-    override fun onBind(intent: Intent?): IBinder? {
-        dispatcher.onServicePreSuperOnBind()
-        return super.onBind(intent)
-    }
+  @CallSuper
+  override fun onBind(intent: Intent?): IBinder? {
+    dispatcher.onServicePreSuperOnBind()
+    return super.onBind(intent)
+  }
 
-    @Deprecated("Use onStartCommand")
-    final override fun onStart(intent: Intent?, startId: Int) {
-        dispatcher.onServicePreSuperOnStart()
-        @Suppress("DEPRECATION")
-        super.onStart(intent, startId)
-    }
+  @Deprecated("Use onStartCommand")
+  final override fun onStart(intent: Intent?, startId: Int) {
+    dispatcher.onServicePreSuperOnStart()
+    @Suppress("DEPRECATION") super.onStart(intent, startId)
+  }
 
-    @CallSuper
-    final override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return super.onStartCommand(intent, flags, startId)
-    }
+  @CallSuper
+  final override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+    return super.onStartCommand(intent, flags, startId)
+  }
 
-    @CallSuper
-    override fun onDestroy() {
-        dispatcher.onServicePreSuperOnDestroy()
-        super.onDestroy()
-    }
+  @CallSuper
+  override fun onDestroy() {
+    dispatcher.onServicePreSuperOnDestroy()
+    super.onDestroy()
+  }
 
-    override val lifecycle: Lifecycle
-        get() = dispatcher.lifecycle
+  override val lifecycle: Lifecycle
+    get() = dispatcher.lifecycle
 }

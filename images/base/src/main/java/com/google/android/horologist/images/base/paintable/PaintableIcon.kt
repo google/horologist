@@ -22,6 +22,5 @@ import androidx.compose.ui.graphics.painter.Painter
 /**
  * Represents an image or graphic that can be displayed in a compose context via a [Painter], but
  * that should be treated as an icon rather than an image (for example, tinting can be applied).
- **/
-@Stable
-public interface PaintableIcon : Paintable
+ */
+@Stable public interface PaintableIcon : Paintable

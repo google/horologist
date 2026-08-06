@@ -23,20 +23,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.google.android.horologist.audio.ui.model.R
 
-/**
- * A button to launch the system bluetooth settings to connect to a headset.
- */
+/** A button to launch the system bluetooth settings to connect to a headset. */
 @Composable
 public fun AudioOutputButton(
-    onOutputClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
+  onOutputClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
 ) {
-    SettingsButton(
-        modifier = modifier,
-        onClick = onOutputClick,
-        enabled = enabled,
-        imageVector = Icons.Default.Radio,
-        contentDescription = stringResource(R.string.horologist_audio_output_content_description),
-    )
+  SettingsButton(
+    modifier = modifier,
+    onClick = onOutputClick,
+    enabled = enabled,
+    imageVector = Icons.Default.Radio,
+    contentDescription = stringResource(R.string.horologist_audio_output_content_description),
+  )
 }

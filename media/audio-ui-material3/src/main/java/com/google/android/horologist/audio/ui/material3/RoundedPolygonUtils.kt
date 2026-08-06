@@ -32,28 +32,28 @@ import androidx.graphics.shapes.toPath
 
 @Composable
 internal fun RoundedPolygon.toShape(): Shape {
-    return remember(this) {
-        object : Shape {
-            // Store the Path we convert from the RoundedPolygon here. The path we will be
-            // manipulating and using on the createOutline would be a copy of this to ensure we
-            // don't mutate the original.
-            private val shapePath: Path = toPath().asComposePath()
-            private val workPath: Path = Path()
+  return remember(this) {
+    object : Shape {
+      // Store the Path we convert from the RoundedPolygon here. The path we will be
+      // manipulating and using on the createOutline would be a copy of this to ensure we
+      // don't mutate the original.
+      private val shapePath: Path = toPath().asComposePath()
+      private val workPath: Path = Path()
 
-            override fun createOutline(
-                size: Size,
-                layoutDirection: LayoutDirection,
-                density: Density,
-            ): Outline {
-                workPath.rewind()
-                workPath.addPath(shapePath)
-                val scaleMatrix = Matrix().apply { scale(x = size.width, y = size.height) }
-                // Scale and translate the path to align its center with the available size
-                // center.
-                workPath.transform(scaleMatrix)
-                workPath.translate(size.center - workPath.getBounds().center)
-                return Outline.Generic(workPath)
-            }
-        }
+      override fun createOutline(
+        size: Size,
+        layoutDirection: LayoutDirection,
+        density: Density,
+      ): Outline {
+        workPath.rewind()
+        workPath.addPath(shapePath)
+        val scaleMatrix = Matrix().apply { scale(x = size.width, y = size.height) }
+        // Scale and translate the path to align its center with the available size
+        // center.
+        workPath.transform(scaleMatrix)
+        workPath.translate(size.center - workPath.getBounds().center)
+        return Outline.Generic(workPath)
+      }
     }
+  }
 }

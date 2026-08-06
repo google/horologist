@@ -27,15 +27,11 @@ import androidx.wear.compose.material.rememberPlaceholderState
 
 @Composable
 fun rememberActivePlaceholderState(isContentReady: () -> Boolean): PlaceholderState {
-    val placeholderState = rememberPlaceholderState {
-        isContentReady()
-    }
+  val placeholderState = rememberPlaceholderState { isContentReady() }
 
-    if (!placeholderState.isShowContent) {
-        LaunchedEffect(Unit) {
-            placeholderState.startPlaceholderAnimation()
-        }
-    }
+  if (!placeholderState.isShowContent) {
+    LaunchedEffect(Unit) { placeholderState.startPlaceholderAnimation() }
+  }
 
-    return placeholderState
+  return placeholderState
 }

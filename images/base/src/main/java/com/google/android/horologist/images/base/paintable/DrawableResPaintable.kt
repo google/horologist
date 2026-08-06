@@ -23,10 +23,7 @@ import androidx.compose.ui.res.painterResource
 
 /** A drawable resource ID that can be represented as a [Painter]. */
 @JvmInline
-public value class DrawableResPaintable(
-    @param:DrawableRes private val id: Int,
-) : PaintableIcon {
+public value class DrawableResPaintable(@param:DrawableRes private val id: Int) : PaintableIcon {
 
-    @Composable
-    override fun rememberPainter(): Painter = painterResource(id = id)
+  @Composable override fun rememberPainter(): Painter = painterResource(id = id)
 }

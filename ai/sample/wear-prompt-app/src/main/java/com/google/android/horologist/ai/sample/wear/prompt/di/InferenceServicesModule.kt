@@ -28,47 +28,47 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineScope
 
 @Module
 @InstallIn(SingletonComponent::class)
 object InferenceServicesModule {
 
-    @Provides
-    @Singleton
-    fun binderRegistry(
-        @ApplicationContext context: Context,
-        coroutineScope: CoroutineScope,
-    ): BinderInferenceServiceRegistry {
-        return BinderInferenceServiceRegistry(coroutineScope, context)
-    }
+  @Provides
+  @Singleton
+  fun binderRegistry(
+    @ApplicationContext context: Context,
+    coroutineScope: CoroutineScope,
+  ): BinderInferenceServiceRegistry {
+    return BinderInferenceServiceRegistry(coroutineScope, context)
+  }
 
-    @Provides
-    @Singleton
-    fun dataLayerRegistry(
-        dataLayerRegistry: WearDataLayerRegistry,
-        coroutineScope: CoroutineScope,
-    ): DataLayerInferenceServiceRegistry {
-        return DataLayerInferenceServiceRegistry(dataLayerRegistry, coroutineScope)
-    }
+  @Provides
+  @Singleton
+  fun dataLayerRegistry(
+    dataLayerRegistry: WearDataLayerRegistry,
+    coroutineScope: CoroutineScope,
+  ): DataLayerInferenceServiceRegistry {
+    return DataLayerInferenceServiceRegistry(dataLayerRegistry, coroutineScope)
+  }
 
-    @Provides
-    @Singleton
-    fun localRegistry(): LocalInferenceServiceRegistry {
-        return LocalInferenceServiceRegistry(
-            listOf(DummyInferenceServiceImpl("dummy-local")),
-            priority = Int.MIN_VALUE,
-        )
-    }
+  @Provides
+  @Singleton
+  fun localRegistry(): LocalInferenceServiceRegistry {
+    return LocalInferenceServiceRegistry(
+      listOf(DummyInferenceServiceImpl("dummy-local")),
+      priority = Int.MIN_VALUE,
+    )
+  }
 
-    @Provides
-    @Singleton
-    fun combinedRegistry(
-        binder: BinderInferenceServiceRegistry,
-        local: LocalInferenceServiceRegistry,
-        dataLayer: DataLayerInferenceServiceRegistry,
-    ): CombinedInferenceServiceRegistry {
-        return CombinedInferenceServiceRegistry(listOf(local, binder, dataLayer))
-    }
+  @Provides
+  @Singleton
+  fun combinedRegistry(
+    binder: BinderInferenceServiceRegistry,
+    local: LocalInferenceServiceRegistry,
+    dataLayer: DataLayerInferenceServiceRegistry,
+  ): CombinedInferenceServiceRegistry {
+    return CombinedInferenceServiceRegistry(listOf(local, binder, dataLayer))
+  }
 }

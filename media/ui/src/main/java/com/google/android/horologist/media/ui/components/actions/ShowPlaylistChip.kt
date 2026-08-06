@@ -27,32 +27,30 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.components.MediaArtwork
 
-/**
- * [Chip] to show all items in the selected category.
- */
+/** [Chip] to show all items in the selected category. */
 @ExperimentalHorologistApi
 @Composable
 public fun ShowPlaylistChip(
-    artworkPaintable: Paintable?,
-    name: String?,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+  artworkPaintable: Paintable?,
+  name: String?,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val appIcon: (@Composable BoxScope.() -> Unit)? = artworkPaintable?.let {
-        {
-            MediaArtwork(
-                modifier = Modifier.size(ChipDefaults.LargeIconSize),
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                artworkPaintable = it,
-            )
-        }
+  val appIcon: (@Composable BoxScope.() -> Unit)? = artworkPaintable?.let {
+    {
+      MediaArtwork(
+        modifier = Modifier.size(ChipDefaults.LargeIconSize),
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+        artworkPaintable = it,
+      )
     }
+  }
 
-    Chip(
-        label = name.orEmpty(),
-        onClick = onClick,
-        modifier = modifier,
-        icon = appIcon,
-        colors = ChipDefaults.secondaryChipColors(),
-    )
+  Chip(
+    label = name.orEmpty(),
+    onClick = onClick,
+    modifier = modifier,
+    icon = appIcon,
+    colors = ChipDefaults.secondaryChipColors(),
+  )
 }

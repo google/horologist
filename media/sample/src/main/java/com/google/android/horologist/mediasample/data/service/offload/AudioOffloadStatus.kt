@@ -23,40 +23,42 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
 public data class AudioOffloadStatus(
-    public val offloadSchedulingEnabled: Boolean,
-    public val sleepingForOffload: Boolean,
-    public val trackOffload: Boolean = false,
-    public val format: Format?,
-    public val isPlaying: Boolean,
-    public val errors: List<AudioError>,
-    public val offloadTimes: OffloadTimes,
-    public val audioOffloadPreferences: AudioOffloadPreferences,
+  public val offloadSchedulingEnabled: Boolean,
+  public val sleepingForOffload: Boolean,
+  public val trackOffload: Boolean = false,
+  public val format: Format?,
+  public val isPlaying: Boolean,
+  public val errors: List<AudioError>,
+  public val offloadTimes: OffloadTimes,
+  public val audioOffloadPreferences: AudioOffloadPreferences,
 ) {
-    public fun updateToNow(): OffloadTimes = offloadTimes.timesToNow(
-        sleepingForOffload,
-        isPlaying,
+  public fun updateToNow(): OffloadTimes =
+    offloadTimes.timesToNow(
+      sleepingForOffload,
+      isPlaying,
     )
-    public fun describe(): String {
-        return "Offload State: " +
-            "sleeping: $sleepingForOffload " +
-            "format: ${format?.shortDescription} " +
-            "times: ${offloadTimes.shortDescription}"
-    }
 
-    public fun trackOffloadDescription(): String = if (trackOffload) "HW" else "SW"
+  public fun describe(): String {
+    return "Offload State: " +
+      "sleeping: $sleepingForOffload " +
+      "format: ${format?.shortDescription} " +
+      "times: ${offloadTimes.shortDescription}"
+  }
 
-    public companion object {
-        @SuppressLint("UnsafeOptInUsageError")
-        public val Disabled: AudioOffloadStatus = AudioOffloadStatus(
-            offloadSchedulingEnabled = false,
-            sleepingForOffload = false,
-            trackOffload = false,
-            format = null,
-            isPlaying = false,
-            errors = listOf(),
-            offloadTimes = OffloadTimes(),
-            audioOffloadPreferences = AudioOffloadPreferences.Builder()
-                .build(),
-        )
-    }
+  public fun trackOffloadDescription(): String = if (trackOffload) "HW" else "SW"
+
+  public companion object {
+    @SuppressLint("UnsafeOptInUsageError")
+    public val Disabled: AudioOffloadStatus =
+      AudioOffloadStatus(
+        offloadSchedulingEnabled = false,
+        sleepingForOffload = false,
+        trackOffload = false,
+        format = null,
+        isPlaying = false,
+        errors = listOf(),
+        offloadTimes = OffloadTimes(),
+        audioOffloadPreferences = AudioOffloadPreferences.Builder().build(),
+      )
+  }
 }

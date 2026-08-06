@@ -30,79 +30,75 @@ import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptS
 @WearPreviewDevices
 @Composable
 fun SignInPromptScreenPreviewSignedOut() {
-    SignInPromptScreen(
-        state = SignInPromptScreenState.SignedOut,
-        title = "Sign in",
-        message = "Send messages and create chat groups with your friends",
-        onIdleStateObserved = { },
-        onAlreadySignedIn = { },
-    ) {
-        item {
-            SignInChip(
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-        item {
-            GuestModeChip(
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  SignInPromptScreen(
+    state = SignInPromptScreenState.SignedOut,
+    title = "Sign in",
+    message = "Send messages and create chat groups with your friends",
+    onIdleStateObserved = {},
+    onAlreadySignedIn = {},
+  ) {
+    item {
+      SignInChip(
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
     }
+    item {
+      GuestModeChip(
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun SignInPromptScreenPreviewLoading() {
-    SignInPromptScreen(
-        state = SignInPromptScreenState.Loading,
-        title = "Sign in",
-        message = "Send messages and create chat groups with your friends",
-        onIdleStateObserved = { },
-        onAlreadySignedIn = { },
-    ) {
-        item {
-            SignInChip(
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-        item {
-            GuestModeChip(
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  SignInPromptScreen(
+    state = SignInPromptScreenState.Loading,
+    title = "Sign in",
+    message = "Send messages and create chat groups with your friends",
+    onIdleStateObserved = {},
+    onAlreadySignedIn = {},
+  ) {
+    item {
+      SignInChip(
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
     }
+    item {
+      GuestModeChip(
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun SignInPromptScreenPreviewCustomLoading() {
-    SignInPromptScreen(
-        state = SignInPromptScreenState.Loading,
-        title = "Sign in",
-        message = "Send messages and create chat groups with your friends",
-        onIdleStateObserved = { },
-        onAlreadySignedIn = { },
-        loadingContent = {
-            Box(contentAlignment = Alignment.Center) {
-                Text("Loading...")
-            }
-        },
-    ) {
-        item {
-            SignInChip(
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-        item {
-            GuestModeChip(
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  SignInPromptScreen(
+    state = SignInPromptScreenState.Loading,
+    title = "Sign in",
+    message = "Send messages and create chat groups with your friends",
+    onIdleStateObserved = {},
+    onAlreadySignedIn = {},
+    loadingContent = { Box(contentAlignment = Alignment.Center) { Text("Loading...") } },
+  ) {
+    item {
+      SignInChip(
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
     }
+    item {
+      GuestModeChip(
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+  }
 }

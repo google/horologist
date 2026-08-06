@@ -22,12 +22,11 @@ import com.google.android.horologist.datalayer.watch.WearDataLayerAppHelper
 import kotlinx.coroutines.tasks.await
 
 class TileSync(
-    private val registry: WearDataLayerRegistry,
-    private val wearAppHelper: WearDataLayerAppHelper,
+  private val registry: WearDataLayerRegistry,
+  private val wearAppHelper: WearDataLayerAppHelper,
 ) {
-    suspend fun trackInstalledTiles() {
-        registry.dataClient
-            .putDataItem(PutDataRequest.create("/tile_tracking_enabled")).await()
-        wearAppHelper.updateInstalledTiles()
-    }
+  suspend fun trackInstalledTiles() {
+    registry.dataClient.putDataItem(PutDataRequest.create("/tile_tracking_enabled")).await()
+    wearAppHelper.updateInstalledTiles()
+  }
 }

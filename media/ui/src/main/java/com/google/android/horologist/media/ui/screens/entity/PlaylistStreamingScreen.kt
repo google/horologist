@@ -42,82 +42,81 @@ import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 /**
- * An implementation of [EntityScreen] using [PlaylistUiModel] and [DownloadMediaUiModel] as
- * models.
+ * An implementation of [EntityScreen] using [PlaylistUiModel] and [DownloadMediaUiModel] as models.
  */
 @ExperimentalHorologistApi
 @Composable
 public fun PlaylistStreamingScreen(
-    playlistName: String,
-    playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
-    onShuffleButtonClick: () -> Unit,
-    onPlayButtonClick: () -> Unit,
-    onPlayItemClick: (DownloadMediaUiModel) -> Unit,
-    modifier: Modifier = Modifier,
-    defaultMediaTitle: String = "",
+  playlistName: String,
+  playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
+  onShuffleButtonClick: () -> Unit,
+  onPlayButtonClick: () -> Unit,
+  onPlayItemClick: (DownloadMediaUiModel) -> Unit,
+  modifier: Modifier = Modifier,
+  defaultMediaTitle: String = "",
 ) {
-    val entityScreenState: EntityScreenState<DownloadMediaUiModel> =
-        when (playlistDownloadScreenState) {
-            PlaylistDownloadScreenState.Loading -> EntityScreenState.Loading
-            is PlaylistDownloadScreenState.Loaded -> EntityScreenState.Loaded(
-                playlistDownloadScreenState.mediaList,
-            )
+  val entityScreenState: EntityScreenState<DownloadMediaUiModel> =
+    when (playlistDownloadScreenState) {
+      PlaylistDownloadScreenState.Loading -> EntityScreenState.Loading
+      is PlaylistDownloadScreenState.Loaded ->
+        EntityScreenState.Loaded(playlistDownloadScreenState.mediaList)
 
-            PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed
-        }
+      PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed
+    }
 
-    // TODO This should be folded into SectionedList
-    val placeholderState =
-        rememberActivePlaceholderState { entityScreenState !is EntityScreenState.Loading }
+  // TODO This should be folded into SectionedList
+  val placeholderState = rememberActivePlaceholderState {
+    entityScreenState !is EntityScreenState.Loading
+  }
 
-    EntityScreen(
-        entityScreenState = entityScreenState,
-        headerContent = { DefaultEntityScreenHeader(title = playlistName) },
-        loadingContent = {
-            items(count = 2) {
-                PlaceholderChip(
-                    colors = ChipDefaults.secondaryChipColors(),
-                    placeholderState = placeholderState,
-                    secondaryLabel = false,
-                )
-            }
-        },
-        mediaContent = { mediaUiModel ->
-            val mediaTitle = mediaUiModel.title ?: defaultMediaTitle
-            Chip(
-                label = mediaTitle,
-                onClick = { onPlayItemClick(mediaUiModel) },
-                icon = CoilPaintable(mediaUiModel.artworkUri),
-                largeIcon = true,
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        },
-        modifier = modifier,
-        buttonsContent = {
-            Row(
-                modifier = Modifier
-                    .padding(bottom = 16.dp)
-                    .height(52.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Button(
-                    imageVector = Icons.Default.Shuffle,
-                    contentDescription = stringResource(id = R.string.horologist_playlist_download_button_shuffle_content_description),
-                    onClick = { onShuffleButtonClick() },
-                    modifier = Modifier
-                        .padding(start = 6.dp)
-                        .weight(weight = 0.3F, fill = false),
-                )
+  EntityScreen(
+    entityScreenState = entityScreenState,
+    headerContent = { DefaultEntityScreenHeader(title = playlistName) },
+    loadingContent = {
+      items(count = 2) {
+        PlaceholderChip(
+          colors = ChipDefaults.secondaryChipColors(),
+          placeholderState = placeholderState,
+          secondaryLabel = false,
+        )
+      }
+    },
+    mediaContent = { mediaUiModel ->
+      val mediaTitle = mediaUiModel.title ?: defaultMediaTitle
+      Chip(
+        label = mediaTitle,
+        onClick = { onPlayItemClick(mediaUiModel) },
+        icon = CoilPaintable(mediaUiModel.artworkUri),
+        largeIcon = true,
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    },
+    modifier = modifier,
+    buttonsContent = {
+      Row(
+        modifier = Modifier.padding(bottom = 16.dp).height(52.dp),
+        verticalAlignment = Alignment.CenterVertically,
+      ) {
+        Button(
+          imageVector = Icons.Default.Shuffle,
+          contentDescription =
+            stringResource(
+              id = R.string.horologist_playlist_download_button_shuffle_content_description
+            ),
+          onClick = { onShuffleButtonClick() },
+          modifier = Modifier.padding(start = 6.dp).weight(weight = 0.3F, fill = false),
+        )
 
-                Button(
-                    imageVector = Icons.Filled.PlayArrow,
-                    contentDescription = stringResource(id = R.string.horologist_playlist_download_button_play_content_description),
-                    onClick = { onPlayButtonClick() },
-                    modifier = Modifier
-                        .padding(start = 6.dp)
-                        .weight(weight = 0.3F, fill = false),
-                )
-            }
-        },
-    )
+        Button(
+          imageVector = Icons.Filled.PlayArrow,
+          contentDescription =
+            stringResource(
+              id = R.string.horologist_playlist_download_button_play_content_description
+            ),
+          onClick = { onPlayButtonClick() },
+          modifier = Modifier.padding(start = 6.dp).weight(weight = 0.3F, fill = false),
+        )
+      }
+    },
+  )
 }

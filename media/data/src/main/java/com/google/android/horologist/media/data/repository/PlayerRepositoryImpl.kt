@@ -31,313 +31,324 @@ import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.PlaybackStateEvent
 import com.google.android.horologist.media.model.PlaybackStateEvent.Cause
 import com.google.android.horologist.media.repository.PlayerRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import java.io.Closeable
 import kotlin.time.Duration
 import kotlin.time.DurationUnit
 import kotlin.time.toDuration
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 /**
  * Repository for the current Media3 Player for a Player Activity.
  *
- * The current implementation is available as soon as the ListenableFuture
- * to connect to the MediaSession completes.
+ * The current implementation is available as soon as the ListenableFuture to connect to the
+ * MediaSession completes.
  */
 @ExperimentalHorologistApi
 public class PlayerRepositoryImpl(
-    private val mediaMapper: MediaMapper = MediaMapper(MediaExtrasMapperNoopImpl),
-    private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl),
-    private val playbackStateMapper: PlaybackStateMapper = PlaybackStateMapper(),
+  private val mediaMapper: MediaMapper = MediaMapper(MediaExtrasMapperNoopImpl),
+  private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl),
+  private val playbackStateMapper: PlaybackStateMapper = PlaybackStateMapper(),
 ) : PlayerRepository, Closeable {
 
-    private var onClose: (() -> Unit)? = null
-    private var closed = false
+  private var onClose: (() -> Unit)? = null
+  private var closed = false
 
-    /**
-     * The active player, or null if no active player is currently available.
-     */
-    private var _player = MutableStateFlow<Player?>(null)
-    public val player: StateFlow<Player?> get() = _player
+  /** The active player, or null if no active player is currently available. */
+  private var _player = MutableStateFlow<Player?>(null)
+  public val player: StateFlow<Player?>
+    get() = _player
 
-    private val _connected = MutableStateFlow(false)
-    override val connected: StateFlow<Boolean> get() = _connected
+  private val _connected = MutableStateFlow(false)
+  override val connected: StateFlow<Boolean>
+    get() = _connected
 
-    private val _availableCommands = MutableStateFlow(emptySet<Command>())
-    override val availableCommands: StateFlow<Set<Command>> get() = _availableCommands
+  private val _availableCommands = MutableStateFlow(emptySet<Command>())
+  override val availableCommands: StateFlow<Set<Command>>
+    get() = _availableCommands
 
-    /**
-     * The current media playing, or that would play when user hit play.
-     */
-    private var _currentMedia = MutableStateFlow<Media?>(null)
-    override val currentMedia: StateFlow<Media?> get() = _currentMedia
+  /** The current media playing, or that would play when user hit play. */
+  private var _currentMedia = MutableStateFlow<Media?>(null)
+  override val currentMedia: StateFlow<Media?>
+    get() = _currentMedia
 
-    private var _latestPlaybackState = MutableStateFlow(PlaybackStateEvent.INITIAL)
-    override val latestPlaybackState: StateFlow<PlaybackStateEvent> get() = _latestPlaybackState
+  private var _latestPlaybackState = MutableStateFlow(PlaybackStateEvent.INITIAL)
+  override val latestPlaybackState: StateFlow<PlaybackStateEvent>
+    get() = _latestPlaybackState
 
-    private var _shuffleModeEnabled = MutableStateFlow(false)
-    override val shuffleModeEnabled: StateFlow<Boolean> get() = _shuffleModeEnabled
+  private var _shuffleModeEnabled = MutableStateFlow(false)
+  override val shuffleModeEnabled: StateFlow<Boolean>
+    get() = _shuffleModeEnabled
 
-    private var _seekBackIncrement = MutableStateFlow<Duration?>(null)
-    override val seekBackIncrement: StateFlow<Duration?> get() = _seekBackIncrement
+  private var _seekBackIncrement = MutableStateFlow<Duration?>(null)
+  override val seekBackIncrement: StateFlow<Duration?>
+    get() = _seekBackIncrement
 
-    private var _seekForwardIncrement = MutableStateFlow<Duration?>(null)
-    override val seekForwardIncrement: StateFlow<Duration?> get() = _seekForwardIncrement
+  private var _seekForwardIncrement = MutableStateFlow<Duration?>(null)
+  override val seekForwardIncrement: StateFlow<Duration?>
+    get() = _seekForwardIncrement
 
-    private val listener = object : Player.Listener {
-        private val eventHandlers = mapOf(
-            Player.EVENT_AVAILABLE_COMMANDS_CHANGED to ::updateAvailableCommands,
-            Player.EVENT_MEDIA_ITEM_TRANSITION to ::updateCurrentMedia,
-            Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED to ::updateShuffleMode,
-            Player.EVENT_PLAYBACK_PARAMETERS_CHANGED to { updatePlaybackState(it, Cause.ParametersChanged) },
-            Player.EVENT_POSITION_DISCONTINUITY to { updatePlaybackState(it, Cause.PositionDiscontinuity) },
-            Player.EVENT_SEEK_BACK_INCREMENT_CHANGED to ::updateSeekBackIncrement,
-            Player.EVENT_SEEK_FORWARD_INCREMENT_CHANGED to ::updateSeekForwardIncrement,
-            Player.EVENT_MEDIA_METADATA_CHANGED to ::updateCurrentMedia,
+  private val listener =
+    object : Player.Listener {
+      private val eventHandlers =
+        mapOf(
+          Player.EVENT_AVAILABLE_COMMANDS_CHANGED to ::updateAvailableCommands,
+          Player.EVENT_MEDIA_ITEM_TRANSITION to ::updateCurrentMedia,
+          Player.EVENT_SHUFFLE_MODE_ENABLED_CHANGED to ::updateShuffleMode,
+          Player.EVENT_PLAYBACK_PARAMETERS_CHANGED to
+            {
+              updatePlaybackState(it, Cause.ParametersChanged)
+            },
+          Player.EVENT_POSITION_DISCONTINUITY to
+            {
+              updatePlaybackState(it, Cause.PositionDiscontinuity)
+            },
+          Player.EVENT_SEEK_BACK_INCREMENT_CHANGED to ::updateSeekBackIncrement,
+          Player.EVENT_SEEK_FORWARD_INCREMENT_CHANGED to ::updateSeekForwardIncrement,
+          Player.EVENT_MEDIA_METADATA_CHANGED to ::updateCurrentMedia,
 
-            // Reason for handling these events here, instead of using individual callbacks
-            // (onIsLoadingChanged, onIsPlayingChanged, onPlaybackStateChanged, etc):
-            // - The listener intends to use multiple state values that are reported through
-            //   separate callbacks together, or in combination with Player getter methods
-            // Reference:
-            // https://exoplayer.dev/listening-to-player-events.html#individual-callbacks-vs-onevents
-            Player.EVENT_IS_PLAYING_CHANGED to ::updateState,
-            Player.EVENT_PLAYBACK_STATE_CHANGED to ::updateState,
-            Player.EVENT_PLAY_WHEN_READY_CHANGED to ::updateState,
-            Player.EVENT_TIMELINE_CHANGED to ::updateState,
+          // Reason for handling these events here, instead of using individual callbacks
+          // (onIsLoadingChanged, onIsPlayingChanged, onPlaybackStateChanged, etc):
+          // - The listener intends to use multiple state values that are reported through
+          //   separate callbacks together, or in combination with Player getter methods
+          // Reference:
+          // https://exoplayer.dev/listening-to-player-events.html#individual-callbacks-vs-onevents
+          Player.EVENT_IS_PLAYING_CHANGED to ::updateState,
+          Player.EVENT_PLAYBACK_STATE_CHANGED to ::updateState,
+          Player.EVENT_PLAY_WHEN_READY_CHANGED to ::updateState,
+          Player.EVENT_TIMELINE_CHANGED to ::updateState,
         )
 
-        override fun onEvents(player: Player, events: Player.Events) {
-            val called = mutableSetOf<(Player) -> Unit>()
-            for ((event, handler) in eventHandlers) {
-                if (events.contains(event) && !called.contains(handler)) {
-                    handler.invoke(player)
-                    called.add(handler)
-                }
-            }
+      override fun onEvents(player: Player, events: Player.Events) {
+        val called = mutableSetOf<(Player) -> Unit>()
+        for ((event, handler) in eventHandlers) {
+          if (events.contains(event) && !called.contains(handler)) {
+            handler.invoke(player)
+            called.add(handler)
+          }
         }
+      }
     }
 
-    private fun updateShuffleMode(player: Player) {
-        _shuffleModeEnabled.value = player.shuffleModeEnabled
+  private fun updateShuffleMode(player: Player) {
+    _shuffleModeEnabled.value = player.shuffleModeEnabled
+  }
+
+  private fun updateCurrentMedia(player: Player) {
+    _currentMedia.value = player.currentMediaItem?.let { mediaMapper.map(it, player.mediaMetadata) }
+  }
+
+  private fun updateAvailableCommands(player: Player) {
+    player.availableCommands.let { _availableCommands.value = SetCommandMapper.map(it) }
+  }
+
+  private fun updateSeekBackIncrement(player: Player) {
+    _seekBackIncrement.value = player.seekBackIncrement.toDuration(DurationUnit.MILLISECONDS)
+  }
+
+  private fun updateSeekForwardIncrement(player: Player) {
+    _seekForwardIncrement.value = player.seekForwardIncrement.toDuration(DurationUnit.MILLISECONDS)
+  }
+
+  private fun updateState(player: Player) {
+    updatePlaybackState(player, Cause.PlayerStateChanged)
+  }
+
+  private fun updatePlaybackState(player: Player, cause: Cause = Cause.Other) {
+    _latestPlaybackState.value = playbackStateMapper.createEvent(player, cause)
+  }
+
+  /** Connect this repository to the player including listening to events. */
+  public fun connect(player: Player, onClose: () -> Unit) {
+    // TODO support a cycle of changing players
+
+    checkNotClosed()
+
+    if (this.onClose != null) {
+      throw IllegalStateException("previously connected")
     }
 
-    private fun updateCurrentMedia(player: Player) {
-        _currentMedia.value = player.currentMediaItem?.let { mediaMapper.map(it, player.mediaMetadata) }
+    _player.value = player
+    _connected.value = true
+    player.addListener(listener)
+
+    updateCurrentMedia(player)
+    updateAvailableCommands(player)
+    updateShuffleMode(player)
+    updateState(player)
+    updateSeekBackIncrement(player)
+    updateSeekForwardIncrement(player)
+    updatePlaybackState(player, Cause.Initial)
+
+    this.onClose = onClose
+  }
+
+  /** Close this repository and release the listener from the player. */
+  override fun close() {
+    closed = true
+
+    // TODO consider ordering for UI updates purposes
+    _player.value?.removeListener(listener)
+    onClose?.invoke()
+    _player.value?.release()
+    _connected.value = false
+  }
+
+  override fun seekToDefaultPosition(mediaIndex: Int) {
+    checkNotClosed()
+
+    _player.value?.seekToDefaultPosition(mediaIndex)
+  }
+
+  override fun play() {
+    checkNotClosed()
+    _player.value?.let {
+      when (it.playbackState) {
+        Player.STATE_IDLE -> it.prepare()
+        Player.STATE_ENDED -> it.seekTo(it.currentMediaItemIndex, C.TIME_UNSET)
+        Player.STATE_BUFFERING,
+        Player.STATE_READY -> {}
+      }
+      it.play()
     }
+  }
 
-    private fun updateAvailableCommands(player: Player) {
-        player.availableCommands.let {
-            _availableCommands.value = SetCommandMapper.map(it)
-        }
+  override fun pause() {
+    checkNotClosed()
+
+    player.value?.let {
+      it.currentPosition // hack to make sure position is not stale
+      it.pause()
     }
+  }
 
-    private fun updateSeekBackIncrement(player: Player) {
-        _seekBackIncrement.value = player.seekBackIncrement.toDuration(DurationUnit.MILLISECONDS)
-    }
+  override fun hasPreviousMedia(): Boolean {
+    checkNotClosed()
 
-    private fun updateSeekForwardIncrement(player: Player) {
-        _seekForwardIncrement.value = player.seekForwardIncrement.toDuration(DurationUnit.MILLISECONDS)
-    }
+    return player.value?.hasPreviousMediaItem() ?: false
+  }
 
-    private fun updateState(player: Player) {
-        updatePlaybackState(player, Cause.PlayerStateChanged)
-    }
+  override fun skipToPreviousMedia() {
+    checkNotClosed()
 
-    private fun updatePlaybackState(player: Player, cause: Cause = Cause.Other) {
-        _latestPlaybackState.value = playbackStateMapper.createEvent(player, cause)
-    }
+    player.value?.seekToPreviousMediaItem()
+  }
 
-    /**
-     * Connect this repository to the player including listening to events.
-     */
-    public fun connect(player: Player, onClose: () -> Unit) {
-        // TODO support a cycle of changing players
+  override fun hasNextMedia(): Boolean {
+    checkNotClosed()
 
-        checkNotClosed()
+    return player.value?.hasNextMediaItem() ?: false
+  }
 
-        if (this.onClose != null) {
-            throw IllegalStateException("previously connected")
-        }
+  override fun skipToNextMedia() {
+    checkNotClosed()
 
-        _player.value = player
-        _connected.value = true
-        player.addListener(listener)
+    player.value?.seekToNextMediaItem()
+  }
 
-        updateCurrentMedia(player)
-        updateAvailableCommands(player)
-        updateShuffleMode(player)
-        updateState(player)
-        updateSeekBackIncrement(player)
-        updateSeekForwardIncrement(player)
-        updatePlaybackState(player, Cause.Initial)
+  override fun seekBack() {
+    checkNotClosed()
 
-        this.onClose = onClose
-    }
+    player.value?.seekBack()
+  }
 
-    /**
-     * Close this repository and release the listener from the player.
-     */
-    override fun close() {
-        closed = true
+  override fun seekForward() {
+    checkNotClosed()
 
-        // TODO consider ordering for UI updates purposes
-        _player.value?.removeListener(listener)
-        onClose?.invoke()
-        _player.value?.release()
-        _connected.value = false
-    }
+    player.value?.seekForward()
+  }
 
-    override fun seekToDefaultPosition(mediaIndex: Int) {
-        checkNotClosed()
+  override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) {
+    checkNotClosed()
 
-        _player.value?.seekToDefaultPosition(mediaIndex)
-    }
+    player.value?.shuffleModeEnabled = shuffleModeEnabled
+  }
 
-    override fun play() {
-        checkNotClosed()
-        _player.value?.let {
-            when (it.playbackState) {
-                Player.STATE_IDLE -> it.prepare()
-                Player.STATE_ENDED -> it.seekTo(it.currentMediaItemIndex, C.TIME_UNSET)
-                Player.STATE_BUFFERING, Player.STATE_READY -> {}
-            }
-            it.play()
-        }
-    }
+  /**
+   * This operation will stop the current MediaItem that is playing, if there is one, as per
+   * [Player.setMediaItem].
+   */
+  override fun setMedia(media: Media) {
+    checkNotClosed()
 
-    override fun pause() {
-        checkNotClosed()
+    player.value?.setMediaItem(mediaItemMapper.map(media))
+  }
 
-        player.value?.let {
-            it.currentPosition // hack to make sure position is not stale
-            it.pause()
-        }
-    }
+  /**
+   * This operation will stop the current [MediaItem] that is playing, if there is one, as per
+   * [Player.setMediaItems].
+   */
+  override fun setMediaList(mediaList: List<Media>) {
+    checkNotClosed()
 
-    override fun hasPreviousMedia(): Boolean {
-        checkNotClosed()
+    player.value?.setMediaItems(mediaList.map(mediaItemMapper::map))
+  }
 
-        return player.value?.hasPreviousMediaItem() ?: false
-    }
+  /**
+   * This operation will stop the current [MediaItem] that is playing, if there is one, as per
+   * [Player.setMediaItems] and set the starting position to the position passed as parameter.
+   */
+  override fun setMediaList(mediaList: List<Media>, index: Int, position: Duration?) {
+    checkNotClosed()
 
-    override fun skipToPreviousMedia() {
-        checkNotClosed()
+    player.value?.setMediaItems(
+      mediaList.map(mediaItemMapper::map),
+      index,
+      position?.inWholeMilliseconds ?: C.TIME_UNSET,
+    )
+  }
 
-        player.value?.seekToPreviousMediaItem()
-    }
+  override fun addMedia(media: Media) {
+    checkNotClosed()
 
-    override fun hasNextMedia(): Boolean {
-        checkNotClosed()
+    player.value?.addMediaItem(mediaItemMapper.map(media))
+  }
 
-        return player.value?.hasNextMediaItem() ?: false
-    }
+  override fun addMedia(index: Int, media: Media) {
+    checkNotClosed()
 
-    override fun skipToNextMedia() {
-        checkNotClosed()
+    player.value?.addMediaItem(index, mediaItemMapper.map(media))
+  }
 
-        player.value?.seekToNextMediaItem()
-    }
+  override fun removeMedia(index: Int) {
+    checkNotClosed()
 
-    override fun seekBack() {
-        checkNotClosed()
+    player.value?.removeMediaItem(index)
+  }
 
-        player.value?.seekBack()
-    }
+  override fun clearMediaList() {
+    checkNotClosed()
 
-    override fun seekForward() {
-        checkNotClosed()
+    player.value?.clearMediaItems()
+  }
 
-        player.value?.seekForward()
-    }
+  override fun getMediaCount(): Int {
+    checkNotClosed()
 
-    override fun setShuffleModeEnabled(shuffleModeEnabled: Boolean) {
-        checkNotClosed()
+    return player.value?.mediaItemCount ?: 0
+  }
 
-        player.value?.shuffleModeEnabled = shuffleModeEnabled
-    }
+  override fun getMediaAt(index: Int): Media? {
+    checkNotClosed()
 
-    /**
-     * This operation will stop the current MediaItem that is playing, if there is one, as per
-     * [Player.setMediaItem].
-     */
-    override fun setMedia(media: Media) {
-        checkNotClosed()
+    return player.value?.getMediaItemAt(index)?.let { mediaMapper.map(it, it.mediaMetadata) }
+  }
 
-        player.value?.setMediaItem(mediaItemMapper.map(media))
-    }
+  override fun getCurrentMediaIndex(): Int {
+    checkNotClosed()
 
-    /**
-     * This operation will stop the current [MediaItem] that is playing, if there is one, as per
-     * [Player.setMediaItems].
-     */
-    override fun setMediaList(mediaList: List<Media>) {
-        checkNotClosed()
+    return player.value?.currentMediaItemIndex ?: 0
+  }
 
-        player.value?.setMediaItems(mediaList.map(mediaItemMapper::map))
-    }
+  override fun setPlaybackSpeed(speed: Float) {
+    player.value?.setPlaybackSpeed(speed)
+  }
 
-    /**
-     * This operation will stop the current [MediaItem] that is playing, if there is one, as per
-     * [Player.setMediaItems] and set the starting position to the position passed as parameter.
-     */
-    override fun setMediaList(mediaList: List<Media>, index: Int, position: Duration?) {
-        checkNotClosed()
+  private fun checkNotClosed() {
+    check(!closed) { "Player is already closed." }
+  }
 
-        player.value?.setMediaItems(mediaList.map(mediaItemMapper::map), index, position?.inWholeMilliseconds ?: C.TIME_UNSET)
-    }
-
-    override fun addMedia(media: Media) {
-        checkNotClosed()
-
-        player.value?.addMediaItem(mediaItemMapper.map(media))
-    }
-
-    override fun addMedia(index: Int, media: Media) {
-        checkNotClosed()
-
-        player.value?.addMediaItem(index, mediaItemMapper.map(media))
-    }
-
-    override fun removeMedia(index: Int) {
-        checkNotClosed()
-
-        player.value?.removeMediaItem(index)
-    }
-
-    override fun clearMediaList() {
-        checkNotClosed()
-
-        player.value?.clearMediaItems()
-    }
-
-    override fun getMediaCount(): Int {
-        checkNotClosed()
-
-        return player.value?.mediaItemCount ?: 0
-    }
-
-    override fun getMediaAt(index: Int): Media? {
-        checkNotClosed()
-
-        return player.value?.getMediaItemAt(index)?.let { mediaMapper.map(it, it.mediaMetadata) }
-    }
-
-    override fun getCurrentMediaIndex(): Int {
-        checkNotClosed()
-
-        return player.value?.currentMediaItemIndex ?: 0
-    }
-
-    override fun setPlaybackSpeed(speed: Float) {
-        player.value?.setPlaybackSpeed(speed)
-    }
-
-    private fun checkNotClosed() {
-        check(!closed) { "Player is already closed." }
-    }
-
-    private companion object {
-        private val TAG = PlayerRepositoryImpl::class.java.simpleName
-    }
+  private companion object {
+    private val TAG = PlayerRepositoryImpl::class.java.simpleName
+  }
 }

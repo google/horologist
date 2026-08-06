@@ -41,309 +41,306 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState.Rotar
 import kotlin.math.ceil
 import kotlin.math.sqrt
 
-/**
- * Default layouts for ScalingLazyColumnState, based on UX guidance.
- */
+/** Default layouts for ScalingLazyColumnState, based on UX guidance. */
 public object ScalingLazyColumnDefaults {
-    /**
-     * Layout the item [initialCenterIndex] at [initialCenterOffset] from the
-     * center of the screen.
-     */
-    @ExperimentalHorologistApi
-    public fun scalingLazyColumnDefaults(
-        rotaryMode: RotaryMode = RotaryMode.Scroll,
-        initialCenterIndex: Int = 1,
-        initialCenterOffset: Int = 0,
-        verticalArrangement: Arrangement.Vertical =
-            Arrangement.spacedBy(
-                space = 4.dp,
-                alignment = Alignment.Top,
-            ),
-        horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
-        contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
-        autoCentering: AutoCenteringParams? = AutoCenteringParams(
-            initialCenterIndex,
-            initialCenterOffset,
-        ),
-        anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
-        hapticsEnabled: Boolean = true,
-        reverseLayout: Boolean = false,
-        userScrollEnabled: Boolean = true,
-    ): ScalingLazyColumnState.Factory {
-        return object : ScalingLazyColumnState.Factory {
-            @Composable
-            override fun create(): ScalingLazyColumnState {
-                return remember {
-                    ScalingLazyColumnState(
-                        initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
-                            index = initialCenterIndex,
-                            offsetPx = initialCenterOffset,
-                        ),
-                        rotaryMode = rotaryMode,
-                        verticalArrangement = verticalArrangement,
-                        horizontalAlignment = horizontalAlignment,
-                        contentPadding = contentPadding,
-                        autoCentering = autoCentering,
-                        anchorType = anchorType,
-                        hapticsEnabled = hapticsEnabled,
-                        reverseLayout = reverseLayout,
-                        userScrollEnabled = userScrollEnabled,
-                    )
-                }
-            }
+  /**
+   * Layout the item [initialCenterIndex] at [initialCenterOffset] from the center of the screen.
+   */
+  @ExperimentalHorologistApi
+  public fun scalingLazyColumnDefaults(
+    rotaryMode: RotaryMode = RotaryMode.Scroll,
+    initialCenterIndex: Int = 1,
+    initialCenterOffset: Int = 0,
+    verticalArrangement: Arrangement.Vertical =
+      Arrangement.spacedBy(
+        space = 4.dp,
+        alignment = Alignment.Top,
+      ),
+    horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
+    contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
+    autoCentering: AutoCenteringParams? =
+      AutoCenteringParams(
+        initialCenterIndex,
+        initialCenterOffset,
+      ),
+    anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
+    hapticsEnabled: Boolean = true,
+    reverseLayout: Boolean = false,
+    userScrollEnabled: Boolean = true,
+  ): ScalingLazyColumnState.Factory {
+    return object : ScalingLazyColumnState.Factory {
+      @Composable
+      override fun create(): ScalingLazyColumnState {
+        return remember {
+          ScalingLazyColumnState(
+            initialScrollPosition =
+              ScalingLazyColumnState.ScrollPosition(
+                index = initialCenterIndex,
+                offsetPx = initialCenterOffset,
+              ),
+            rotaryMode = rotaryMode,
+            verticalArrangement = verticalArrangement,
+            horizontalAlignment = horizontalAlignment,
+            contentPadding = contentPadding,
+            autoCentering = autoCentering,
+            anchorType = anchorType,
+            hapticsEnabled = hapticsEnabled,
+            reverseLayout = reverseLayout,
+            userScrollEnabled = userScrollEnabled,
+          )
         }
+      }
     }
+  }
 
-    /**
-     * Creates a Responsive layout for ScalingLazyColumn. The first and last items will scroll
-     * just onto screen at full size, assuming rounded corners of a Chip.
-     *
-     * @param firstItemIsFullWidth set to false if the first item is small enough to fit at the top,
-     * however it may be scaled.
-     * @param additionalPaddingAtBottom additional padding at end of content to avoid problem items
-     * clipping
-     * @param verticalArrangement the ScalingLazyColumn verticalArrangement.
-     * @param horizontalPaddingPercent the amount of horizontal padding as a percent.
-     * @param rotaryMode the rotary handling, such as Fling or Snap.
-     * @param hapticsEnabled whether haptics are enabled.
-     * @param reverseLayout whether to start at the bottom.
-     * @param userScrollEnabled whether to allow user to scroll.
-     */
-    @Deprecated("Use rememberResponsiveColumnState")
-    public fun responsive(
-        firstItemIsFullWidth: Boolean = true,
-        additionalPaddingAtBottom: Dp = 10.dp,
-        verticalArrangement: Arrangement.Vertical =
-            Arrangement.spacedBy(
-                space = 4.dp,
-                alignment = Alignment.Top,
-            ),
-        horizontalPaddingPercent: Float = 0.052f,
-        rotaryMode: RotaryMode? = RotaryMode.Scroll,
-        hapticsEnabled: Boolean = true,
-        reverseLayout: Boolean = false,
-        userScrollEnabled: Boolean = true,
-    ): ScalingLazyColumnState.Factory {
-        return object : ScalingLazyColumnState.Factory {
-            @Composable
-            override fun create(): ScalingLazyColumnState {
-                val density = LocalDensity.current
-                val configuration = LocalConfiguration.current
-                val screenWidthDp = configuration.screenWidthDp.toFloat()
-                val screenHeightDp = configuration.screenHeightDp.toFloat()
-
-                return remember {
-                    val padding = screenWidthDp * horizontalPaddingPercent
-                    val topPaddingDp: Dp =
-                        if (firstItemIsFullWidth && configuration.isScreenRound) {
-                            calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
-                        } else {
-                            32.dp
-                        }
-                    val bottomPaddingDp: Dp = if (configuration.isScreenRound) {
-                        calculateVerticalOffsetForChip(
-                            screenWidthDp,
-                            horizontalPaddingPercent,
-                        ) + additionalPaddingAtBottom
-                    } else {
-                        0.dp
-                    }
-                    val contentPadding = PaddingValues(
-                        start = padding.dp,
-                        end = padding.dp,
-                        top = topPaddingDp,
-                        bottom = bottomPaddingDp,
-                    )
-
-                    val scalingParams = responsiveScalingParams(screenWidthDp)
-
-                    val screenHeightPx =
-                        with(density) { screenHeightDp.dp.roundToPx() }
-                    val topPaddingPx = with(density) { topPaddingDp.roundToPx() }
-                    val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
-
-                    val initialScrollPosition = ScalingLazyColumnState.ScrollPosition(
-                        index = 0,
-                        offsetPx = topScreenOffsetPx,
-                    )
-                    ScalingLazyColumnState(
-                        initialScrollPosition = initialScrollPosition,
-                        autoCentering = null,
-                        anchorType = ScalingLazyListAnchorType.ItemStart,
-                        rotaryMode = rotaryMode,
-                        verticalArrangement = verticalArrangement,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        contentPadding = contentPadding,
-                        scalingParams = scalingParams,
-                        hapticsEnabled = hapticsEnabled,
-                        reverseLayout = reverseLayout,
-                        userScrollEnabled = userScrollEnabled,
-                    )
-                }
-            }
-        }
-    }
-
-    internal fun calculateVerticalOffsetForChip(
-        viewportDiameter: Float,
-        horizontalPaddingPercent: Float,
-    ): Dp {
-        val childViewHeight: Float = ChipDefaults.Height.value
-        val childViewWidth: Float = viewportDiameter * (1.0f - (2f * horizontalPaddingPercent))
-        val radius = viewportDiameter / 2f
-        return (
-            radius -
-                sqrt(
-                    (radius - childViewHeight + childViewWidth * 0.5f) * (radius - childViewWidth * 0.5f),
-                ) -
-                childViewHeight * 0.5f
-            ).dp
-    }
-
-    fun responsiveScalingParams(screenWidthDp: Float): ScalingParams {
-        val sizeRatio =
-            ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
-        val presetRatio = 0f
-
-        val minElementHeight = lerp(0.2f, 0.157f, sizeRatio)
-        val maxElementHeight =
-            lerp(0.6f, 0.472f, sizeRatio).coerceAtLeast(minElementHeight)
-        val minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio)
-        val maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio)
-
-        val scalingParams = ScalingLazyColumnDefaults.scalingParams(
-            minElementHeight = minElementHeight,
-            maxElementHeight = maxElementHeight,
-            minTransitionArea = minTransitionArea,
-            maxTransitionArea = maxTransitionArea,
-        )
-        return scalingParams
-    }
-
-    internal val Padding12Pct = 0.1248f
-    internal val Padding14Pct = 0.1456f
-    internal val Padding16Pct = 0.1664f
-    internal val Padding20Pct = 0.2083f
-    internal val Padding21Pct = 0.2188f
-    internal val Padding31Pct = 0.3646f
-
-    enum class ItemType(
-        val topPaddingPct: Float,
-        val bottomPaddingPct: Float,
-        val paddingCorrection: Dp = 0.dp,
-    ) : ColumnItemType {
-        Card(Padding21Pct, Padding31Pct),
-        Chip(Padding21Pct, Padding31Pct),
-        CompactChip(
-            topPaddingPct = Padding12Pct,
-            bottomPaddingPct = Padding20Pct,
-            paddingCorrection = (-8).dp,
-        ),
-        Icon(Padding12Pct, Padding21Pct),
-        MultiButton(Padding21Pct, Padding20Pct),
-        SingleButton(Padding12Pct, Padding20Pct),
-        Text(Padding16Pct, Padding31Pct),
-        BodyText(Padding21Pct, Padding31Pct),
-        Dialog(Padding14Pct, Padding20Pct),
-        Unspecified(0f, 0f),
-        ;
-
-        @Composable
-        override fun topPadding(horizontalPercent: Float): Dp {
-            val configuration = LocalConfiguration.current
-            val screenWidthDp = configuration.screenWidthDp.dp
-            val screenHeightDp = configuration.screenHeightDp.dp
-
-            return (
-                if (this != Unspecified) {
-                    topPaddingPct * screenHeightDp + paddingCorrection
-                } else {
-                    if (configuration.isScreenRound) {
-                        calculateVerticalOffsetForChip(screenWidthDp.value, horizontalPercent)
-                    } else {
-                        32.dp
-                    }
-                }
-                ).ceilPx()
-        }
-
-        @Composable
-        override fun bottomPadding(horizontalPercent: Float): Dp {
-            val configuration = LocalConfiguration.current
-            val screenWidthDp = configuration.screenWidthDp.dp
-            val screenHeightDp = configuration.screenHeightDp.dp
-            return (
-                if (this != Unspecified) {
-                    bottomPaddingPct * screenHeightDp + paddingCorrection
-                } else {
-                    if (configuration.isScreenRound) {
-                        calculateVerticalOffsetForChip(
-                            screenWidthDp.value,
-                            horizontalPercent,
-                        ) + 10.dp
-                    } else {
-                        0.dp
-                    }
-                }
-                ).ceilPx()
-        }
-    }
-
-    @Composable
-    public fun padding(
-        first: ItemType = ItemType.Unspecified,
-        last: ItemType = ItemType.Unspecified,
-        horizontalPercent: Float = 0.052f,
-    ): @Composable () -> PaddingValues {
+  /**
+   * Creates a Responsive layout for ScalingLazyColumn. The first and last items will scroll just
+   * onto screen at full size, assuming rounded corners of a Chip.
+   *
+   * @param firstItemIsFullWidth set to false if the first item is small enough to fit at the top,
+   *   however it may be scaled.
+   * @param additionalPaddingAtBottom additional padding at end of content to avoid problem items
+   *   clipping
+   * @param verticalArrangement the ScalingLazyColumn verticalArrangement.
+   * @param horizontalPaddingPercent the amount of horizontal padding as a percent.
+   * @param rotaryMode the rotary handling, such as Fling or Snap.
+   * @param hapticsEnabled whether haptics are enabled.
+   * @param reverseLayout whether to start at the bottom.
+   * @param userScrollEnabled whether to allow user to scroll.
+   */
+  @Deprecated("Use rememberResponsiveColumnState")
+  public fun responsive(
+    firstItemIsFullWidth: Boolean = true,
+    additionalPaddingAtBottom: Dp = 10.dp,
+    verticalArrangement: Arrangement.Vertical =
+      Arrangement.spacedBy(
+        space = 4.dp,
+        alignment = Alignment.Top,
+      ),
+    horizontalPaddingPercent: Float = 0.052f,
+    rotaryMode: RotaryMode? = RotaryMode.Scroll,
+    hapticsEnabled: Boolean = true,
+    reverseLayout: Boolean = false,
+    userScrollEnabled: Boolean = true,
+  ): ScalingLazyColumnState.Factory {
+    return object : ScalingLazyColumnState.Factory {
+      @Composable
+      override fun create(): ScalingLazyColumnState {
+        val density = LocalDensity.current
         val configuration = LocalConfiguration.current
         val screenWidthDp = configuration.screenWidthDp.toFloat()
         val screenHeightDp = configuration.screenHeightDp.toFloat()
 
-        return {
-            val height = screenHeightDp.dp
-            val horizontalPadding = screenWidthDp.dp * horizontalPercent
-
-            val topPadding = if (first != ItemType.Unspecified) {
-                first.topPaddingPct * height + first.paddingCorrection
+        return remember {
+          val padding = screenWidthDp * horizontalPaddingPercent
+          val topPaddingDp: Dp =
+            if (firstItemIsFullWidth && configuration.isScreenRound) {
+              calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent)
             } else {
-                if (configuration.isScreenRound) {
-                    calculateVerticalOffsetForChip(screenWidthDp, horizontalPercent)
-                } else {
-                    32.dp
-                }
+              32.dp
             }
-
-            val bottomPadding = if (last != ItemType.Unspecified) {
-                last.bottomPaddingPct * height + first.paddingCorrection
+          val bottomPaddingDp: Dp =
+            if (configuration.isScreenRound) {
+              calculateVerticalOffsetForChip(
+                screenWidthDp,
+                horizontalPaddingPercent,
+              ) + additionalPaddingAtBottom
             } else {
-                if (configuration.isScreenRound) {
-                    calculateVerticalOffsetForChip(
-                        screenWidthDp,
-                        horizontalPercent,
-                    ) + 10.dp
-                } else {
-                    0.dp
-                }
+              0.dp
             }
-
+          val contentPadding =
             PaddingValues(
-                top = topPadding,
-                bottom = bottomPadding,
-                start = horizontalPadding,
-                end = horizontalPadding,
+              start = padding.dp,
+              end = padding.dp,
+              top = topPaddingDp,
+              bottom = bottomPaddingDp,
             )
+
+          val scalingParams = responsiveScalingParams(screenWidthDp)
+
+          val screenHeightPx = with(density) { screenHeightDp.dp.roundToPx() }
+          val topPaddingPx = with(density) { topPaddingDp.roundToPx() }
+          val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
+
+          val initialScrollPosition =
+            ScalingLazyColumnState.ScrollPosition(
+              index = 0,
+              offsetPx = topScreenOffsetPx,
+            )
+          ScalingLazyColumnState(
+            initialScrollPosition = initialScrollPosition,
+            autoCentering = null,
+            anchorType = ScalingLazyListAnchorType.ItemStart,
+            rotaryMode = rotaryMode,
+            verticalArrangement = verticalArrangement,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            contentPadding = contentPadding,
+            scalingParams = scalingParams,
+            hapticsEnabled = hapticsEnabled,
+            reverseLayout = reverseLayout,
+            userScrollEnabled = userScrollEnabled,
+          )
         }
+      }
+    }
+  }
+
+  internal fun calculateVerticalOffsetForChip(
+    viewportDiameter: Float,
+    horizontalPaddingPercent: Float,
+  ): Dp {
+    val childViewHeight: Float = ChipDefaults.Height.value
+    val childViewWidth: Float = viewportDiameter * (1.0f - (2f * horizontalPaddingPercent))
+    val radius = viewportDiameter / 2f
+    return (radius -
+        sqrt(
+          (radius - childViewHeight + childViewWidth * 0.5f) * (radius - childViewWidth * 0.5f)
+        ) -
+        childViewHeight * 0.5f)
+      .dp
+  }
+
+  fun responsiveScalingParams(screenWidthDp: Float): ScalingParams {
+    val sizeRatio = ((screenWidthDp - 192) / (233 - 192).toFloat()).coerceIn(0f, 1.5f)
+    val presetRatio = 0f
+
+    val minElementHeight = lerp(0.2f, 0.157f, sizeRatio)
+    val maxElementHeight = lerp(0.6f, 0.472f, sizeRatio).coerceAtLeast(minElementHeight)
+    val minTransitionArea = lerp(0.35f, lerp(0.35f, 0.393f, presetRatio), sizeRatio)
+    val maxTransitionArea = lerp(0.55f, lerp(0.55f, 0.593f, presetRatio), sizeRatio)
+
+    val scalingParams =
+      ScalingLazyColumnDefaults.scalingParams(
+        minElementHeight = minElementHeight,
+        maxElementHeight = maxElementHeight,
+        minTransitionArea = minTransitionArea,
+        maxTransitionArea = maxTransitionArea,
+      )
+    return scalingParams
+  }
+
+  internal val Padding12Pct = 0.1248f
+  internal val Padding14Pct = 0.1456f
+  internal val Padding16Pct = 0.1664f
+  internal val Padding20Pct = 0.2083f
+  internal val Padding21Pct = 0.2188f
+  internal val Padding31Pct = 0.3646f
+
+  enum class ItemType(
+    val topPaddingPct: Float,
+    val bottomPaddingPct: Float,
+    val paddingCorrection: Dp = 0.dp,
+  ) : ColumnItemType {
+    Card(Padding21Pct, Padding31Pct),
+    Chip(Padding21Pct, Padding31Pct),
+    CompactChip(
+      topPaddingPct = Padding12Pct,
+      bottomPaddingPct = Padding20Pct,
+      paddingCorrection = (-8).dp,
+    ),
+    Icon(Padding12Pct, Padding21Pct),
+    MultiButton(Padding21Pct, Padding20Pct),
+    SingleButton(Padding12Pct, Padding20Pct),
+    Text(Padding16Pct, Padding31Pct),
+    BodyText(Padding21Pct, Padding31Pct),
+    Dialog(Padding14Pct, Padding20Pct),
+    Unspecified(0f, 0f);
+
+    @Composable
+    override fun topPadding(horizontalPercent: Float): Dp {
+      val configuration = LocalConfiguration.current
+      val screenWidthDp = configuration.screenWidthDp.dp
+      val screenHeightDp = configuration.screenHeightDp.dp
+
+      return (if (this != Unspecified) {
+          topPaddingPct * screenHeightDp + paddingCorrection
+        } else {
+          if (configuration.isScreenRound) {
+            calculateVerticalOffsetForChip(screenWidthDp.value, horizontalPercent)
+          } else {
+            32.dp
+          }
+        })
+        .ceilPx()
     }
 
     @Composable
-    fun Modifier.listTextPadding() = this.padding(horizontal = 0.052f * LocalConfiguration.current.screenWidthDp.dp)
+    override fun bottomPadding(horizontalPercent: Float): Dp {
+      val configuration = LocalConfiguration.current
+      val screenWidthDp = configuration.screenWidthDp.dp
+      val screenHeightDp = configuration.screenHeightDp.dp
+      return (if (this != Unspecified) {
+          bottomPaddingPct * screenHeightDp + paddingCorrection
+        } else {
+          if (configuration.isScreenRound) {
+            calculateVerticalOffsetForChip(
+              screenWidthDp.value,
+              horizontalPercent,
+            ) + 10.dp
+          } else {
+            0.dp
+          }
+        })
+        .ceilPx()
+    }
+  }
+
+  @Composable
+  public fun padding(
+    first: ItemType = ItemType.Unspecified,
+    last: ItemType = ItemType.Unspecified,
+    horizontalPercent: Float = 0.052f,
+  ): @Composable () -> PaddingValues {
+    val configuration = LocalConfiguration.current
+    val screenWidthDp = configuration.screenWidthDp.toFloat()
+    val screenHeightDp = configuration.screenHeightDp.toFloat()
+
+    return {
+      val height = screenHeightDp.dp
+      val horizontalPadding = screenWidthDp.dp * horizontalPercent
+
+      val topPadding =
+        if (first != ItemType.Unspecified) {
+          first.topPaddingPct * height + first.paddingCorrection
+        } else {
+          if (configuration.isScreenRound) {
+            calculateVerticalOffsetForChip(screenWidthDp, horizontalPercent)
+          } else {
+            32.dp
+          }
+        }
+
+      val bottomPadding =
+        if (last != ItemType.Unspecified) {
+          last.bottomPaddingPct * height + first.paddingCorrection
+        } else {
+          if (configuration.isScreenRound) {
+            calculateVerticalOffsetForChip(
+              screenWidthDp,
+              horizontalPercent,
+            ) + 10.dp
+          } else {
+            0.dp
+          }
+        }
+
+      PaddingValues(
+        top = topPadding,
+        bottom = bottomPadding,
+        start = horizontalPadding,
+        end = horizontalPadding,
+      )
+    }
+  }
+
+  @Composable
+  fun Modifier.listTextPadding() =
+    this.padding(horizontal = 0.052f * LocalConfiguration.current.screenWidthDp.dp)
 }
 
 @Composable
 internal fun Dp.ceilPx(): Dp {
-    val density = LocalDensity.current
+  val density = LocalDensity.current
 
-    return with(density) {
-        ceil(this@ceilPx.toPx()).toDp()
-    }
+  return with(density) { ceil(this@ceilPx.toPx()).toDp() }
 }

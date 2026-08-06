@@ -28,14 +28,14 @@ import org.junit.Test
 
 class LottieBasicScreenshotTest : WearScreenshotTest() {
 
-    @Test
-    fun geometry() {
-        composeRule.setContent {
-            Box(modifier = Modifier.background(Color.Black).testTag("Box")) {
-                LottiePreview(R.raw.geometry, clock = FixedRemoteClock())
-            }
-        }
-
-        composeRule.onNodeWithTag("Box").captureRoboImage(testName(""))
+  @Test
+  fun geometry() {
+    composeRule.setContent {
+      Box(modifier = Modifier.background(Color.Black).testTag("Box")) {
+        LottiePreview(R.raw.geometry, clock = FixedRemoteClock())
+      }
     }
+
+    composeRule.onNodeWithTag("Box").captureRoboImage(testName(""))
+  }
 }

@@ -41,72 +41,74 @@ import org.robolectric.shadows.ShadowNetworkInfo
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [35])
 class NetworkRequesterTest {
-    val connectivityManager = ApplicationProvider.getApplicationContext<Context>()
-        .getSystemService(ConnectivityManager::class.java)
-    val networkRequester = NetworkRequesterImpl(connectivityManager)
-    val shadowConnectivityManager = shadowOf(connectivityManager)
+  val connectivityManager =
+    ApplicationProvider.getApplicationContext<Context>()
+      .getSystemService(ConnectivityManager::class.java)
+  val networkRequester = NetworkRequesterImpl(connectivityManager)
+  val shadowConnectivityManager = shadowOf(connectivityManager)
 
-    val request = HighBandwidthRequest(HighBandwidthRequest.Type.CellOnly)
+  val request = HighBandwidthRequest(HighBandwidthRequest.Type.CellOnly)
 
-    @Test
-    fun returnsResult() {
-        val lease = networkRequester.requestHighBandwidthNetwork(request)
+  @Test
+  fun returnsResult() {
+    val lease = networkRequester.requestHighBandwidthNetwork(request)
 
-        val callback = shadowConnectivityManager.networkCallbacks.first()
+    val callback = shadowConnectivityManager.networkCallbacks.first()
 
-        val cellNetwork: Network = ShadowNetwork.newInstance(123)
+    val cellNetwork: Network = ShadowNetwork.newInstance(123)
 
-        @Suppress("DEPRECATION")
-        val cellNetworkInfo: NetworkInfo =
-            ShadowNetworkInfo.newInstance(
-                NetworkInfo.DetailedState.CONNECTED,
-                ConnectivityManager.TYPE_VPN,
-                0,
-                true,
-                NetworkInfo.State.CONNECTED,
-            )
-        val cellCapabilities = ShadowNetworkCapabilities.newInstance()
-        shadowOf(cellCapabilities).addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
-        shadowConnectivityManager.addNetwork(cellNetwork, cellNetworkInfo)
-        shadowConnectivityManager.setNetworkCapabilities(cellNetwork, cellCapabilities)
+    @Suppress("DEPRECATION")
+    val cellNetworkInfo: NetworkInfo =
+      ShadowNetworkInfo.newInstance(
+        NetworkInfo.DetailedState.CONNECTED,
+        ConnectivityManager.TYPE_VPN,
+        0,
+        true,
+        NetworkInfo.State.CONNECTED,
+      )
+    val cellCapabilities = ShadowNetworkCapabilities.newInstance()
+    shadowOf(cellCapabilities).addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
+    shadowConnectivityManager.addNetwork(cellNetwork, cellNetworkInfo)
+    shadowConnectivityManager.setNetworkCapabilities(cellNetwork, cellCapabilities)
 
-        callback.onAvailable(cellNetwork)
+    callback.onAvailable(cellNetwork)
 
-        assertThat(lease.grantedNetwork.value).isEqualTo(
-            NetworkReference(
-                id = cellNetwork.id,
-                type = NetworkType.Cell,
-            ),
+    assertThat(lease.grantedNetwork.value)
+      .isEqualTo(
+        NetworkReference(
+          id = cellNetwork.id,
+          type = NetworkType.Cell,
         )
-    }
+      )
+  }
 
-    @Test
-    fun returnsUnavailable() {
-        val lease = networkRequester.requestHighBandwidthNetwork(request)
+  @Test
+  fun returnsUnavailable() {
+    val lease = networkRequester.requestHighBandwidthNetwork(request)
 
-        val callback = shadowConnectivityManager.networkCallbacks.first()
+    val callback = shadowConnectivityManager.networkCallbacks.first()
 
-        callback.onUnavailable()
+    callback.onUnavailable()
 
-        assertThat(lease.grantedNetwork.value).isNull()
-    }
+    assertThat(lease.grantedNetwork.value).isNull()
+  }
 
-    @Test
-    @Config(shadows = [FailingConnectivityManager::class])
-    fun catchesTooManyRequestsException() {
-        val lease = networkRequester.requestHighBandwidthNetwork(request)
+  @Test
+  @Config(shadows = [FailingConnectivityManager::class])
+  fun catchesTooManyRequestsException() {
+    val lease = networkRequester.requestHighBandwidthNetwork(request)
 
-        assertThat(lease.grantedNetwork.value).isNull()
-    }
+    assertThat(lease.grantedNetwork.value).isNull()
+  }
 }
 
 @Implements(ConnectivityManager::class)
 public class FailingConnectivityManager : ShadowConnectivityManager() {
-    override fun registerNetworkCallback(
-        request: NetworkRequest,
-        networkCallback: ConnectivityManager.NetworkCallback,
-        handler: Handler,
-    ) {
-        throw RuntimeException("TooManyRequestsException")
-    }
+  override fun registerNetworkCallback(
+    request: NetworkRequest,
+    networkCallback: ConnectivityManager.NetworkCallback,
+    handler: Handler,
+  ) {
+    throw RuntimeException("TooManyRequestsException")
+  }
 }

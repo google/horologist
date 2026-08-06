@@ -38,46 +38,44 @@ import androidx.wear.compose.material.Text
 import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
-internal fun SampleConfirmationScreen(
-    modifier: Modifier = Modifier,
-) {
-    Confirmation(
-        modifier = modifier.fillMaxSize(),
-        onTimeout = {},
-    ) {
-        ConfirmationContent()
-    }
+internal fun SampleConfirmationScreen(modifier: Modifier = Modifier) {
+  Confirmation(
+    modifier = modifier.fillMaxSize(),
+    onTimeout = {},
+  ) {
+    ConfirmationContent()
+  }
 }
 
 @Composable
 internal fun SampleConfirmationLauncher() {
-    var showDialog by remember { mutableStateOf(false) }
-    Column(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Chip(
-            onClick = { showDialog = true },
-            label = { Text("Show dialog") },
-            colors = ChipDefaults.secondaryChipColors(),
-        )
-    }
-    Confirmation(
-        showDialog = showDialog,
-        onTimeout = { showDialog = false },
-        icon = {
-            Icon(
-                imageVector = Icons.Filled.Check,
-                contentDescription = "Completed",
-                tint = Color.Green,
-            )
-        },
-        title = "Alarm in 23 hr 59 min",
+  var showDialog by remember { mutableStateOf(false) }
+  Column(
+    modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
+    verticalArrangement = Arrangement.Center,
+    horizontalAlignment = Alignment.CenterHorizontally,
+  ) {
+    Chip(
+      onClick = { showDialog = true },
+      label = { Text("Show dialog") },
+      colors = ChipDefaults.secondaryChipColors(),
     )
+  }
+  Confirmation(
+    showDialog = showDialog,
+    onTimeout = { showDialog = false },
+    icon = {
+      Icon(
+        imageVector = Icons.Filled.Check,
+        contentDescription = "Completed",
+        tint = Color.Green,
+      )
+    },
+    title = "Alarm in 23 hr 59 min",
+  )
 }
 
 @Composable
 private fun ConfirmationContent() {
-    Text(text = "Confirmation Content")
+  Text(text = "Confirmation Content")
 }

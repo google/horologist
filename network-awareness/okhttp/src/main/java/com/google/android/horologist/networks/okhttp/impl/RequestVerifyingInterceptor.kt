@@ -25,29 +25,27 @@ import okhttp3.Interceptor
 import okhttp3.Response
 
 /**
- * Interceptor that short circuits and requests on unsuitable
- * networks, such that accidental downloads over expensive networks are
- * not possible.
+ * Interceptor that short circuits and requests on unsuitable networks, such that accidental
+ * downloads over expensive networks are not possible.
  *
  * No specific rules are implemented, instead deferring to
  * [com.google.android.horologist.networks.rules.NetworkingRules]
  */
 @ExperimentalHorologistApi
-public class RequestVerifyingInterceptor(
-    private val networkingRulesEngine: NetworkingRulesEngine,
-) : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
+public class RequestVerifyingInterceptor(private val networkingRulesEngine: NetworkingRulesEngine) :
+  Interceptor {
+  override fun intercept(chain: Interceptor.Chain): Response {
+    val request = chain.request()
 
-        val requestType = request.requestType
-        val networkType = request.networkInfo
+    val requestType = request.requestType
+    val networkType = request.networkInfo
 
-        val check = networkingRulesEngine.checkValidRequest(requestType, networkType)
+    val check = networkingRulesEngine.checkValidRequest(requestType, networkType)
 
-        if (check.isForbidden) {
-            throw ForbiddenRequest("Request $requestType is forbidden on $networkType")
-        }
-
-        return chain.proceed(request)
+    if (check.isForbidden) {
+      throw ForbiddenRequest("Request $requestType is forbidden on $networkType")
     }
+
+    return chain.proceed(request)
+  }
 }

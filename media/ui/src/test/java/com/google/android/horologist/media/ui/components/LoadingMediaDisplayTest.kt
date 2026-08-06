@@ -38,77 +38,65 @@ import org.junit.Test
 import org.robolectric.annotation.Config
 
 class LoadingMediaDisplayTest : WearLegacyComponentTest() {
-    @Test
-    fun default() {
-        runComponentTest {
-            LoadingMediaDisplay()
-        }
-    }
+  @Test
+  fun default() {
+    runComponentTest { LoadingMediaDisplay() }
+  }
 
-    @Test
-    fun loadingMediaDisplay_textMediaDisplay_overlay_largeScreen() {
-        runComponentTest {
-            DisplayArea {
-                LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
-                TextMediaDisplay(title = "Sorrow", subtitle = "David Bowie")
-            }
-        }
+  @Test
+  fun loadingMediaDisplay_textMediaDisplay_overlay_largeScreen() {
+    runComponentTest {
+      DisplayArea {
+        LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
+        TextMediaDisplay(title = "Sorrow", subtitle = "David Bowie")
+      }
     }
+  }
 
-    @Test
-    fun loadingMediaDisplay_marqueeTextMediaDisplay_overlay_largeScreen() {
-        runComponentTest {
-            DisplayArea {
-                LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
-                MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")
-            }
-        }
+  @Test
+  fun loadingMediaDisplay_marqueeTextMediaDisplay_overlay_largeScreen() {
+    runComponentTest {
+      DisplayArea {
+        LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
+        MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")
+      }
     }
+  }
 
-    @Config(
-        qualifiers = "+w192dp-h192dp",
-    )
-    @Test
-    fun loadingMediaDisplay_textMediaDisplay_overlay_smallScreen() {
-        runComponentTest {
-            DisplayArea {
-                LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
-                TextMediaDisplay(title = "Sorrow", subtitle = "David Bowie")
-            }
-        }
+  @Config(qualifiers = "+w192dp-h192dp")
+  @Test
+  fun loadingMediaDisplay_textMediaDisplay_overlay_smallScreen() {
+    runComponentTest {
+      DisplayArea {
+        LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
+        TextMediaDisplay(title = "Sorrow", subtitle = "David Bowie")
+      }
     }
+  }
 
-    @Config(
-        qualifiers = "+w192dp-h192dp",
-    )
-    @Test
-    fun loadingMediaDisplay_marqueeTextMediaDisplay_overlay_smallScreen() {
-        runComponentTest {
-            DisplayArea {
-                LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
-                MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")
-            }
-        }
+  @Config(qualifiers = "+w192dp-h192dp")
+  @Test
+  fun loadingMediaDisplay_marqueeTextMediaDisplay_overlay_smallScreen() {
+    runComponentTest {
+      DisplayArea {
+        LoadingMediaDisplay(modifier = Modifier.alpha(0.5f))
+        MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")
+      }
     }
+  }
 
-    @Composable
-    fun DisplayArea(content: @Composable () -> Unit) {
-        Box(
-            modifier = Modifier
-                .wrapContentSize()
-                .background(Color.Black.copy(alpha = 0.5f)),
-            contentAlignment = Alignment.Center,
-        ) {
-            content()
-        }
+  @Composable
+  fun DisplayArea(content: @Composable () -> Unit) {
+    Box(
+      modifier = Modifier.wrapContentSize().background(Color.Black.copy(alpha = 0.5f)),
+      contentAlignment = Alignment.Center,
+    ) {
+      content()
     }
+  }
 
-    @Composable
-    override fun ComponentScaffold(content: @Composable () -> Unit) {
-        CompositionLocalProvider(
-            LocalReduceMotion provides true,
-        ) {
-            super.ComponentScaffold(content)
-        }
-    }
+  @Composable
+  override fun ComponentScaffold(content: @Composable () -> Unit) {
+    CompositionLocalProvider(LocalReduceMotion provides true) { super.ComponentScaffold(content) }
+  }
 }

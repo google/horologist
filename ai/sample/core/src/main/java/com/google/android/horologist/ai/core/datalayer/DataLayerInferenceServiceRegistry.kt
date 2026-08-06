@@ -26,36 +26,38 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
 class DataLayerInferenceServiceRegistry(
-    val dataLayerRegistry: WearDataLayerRegistry,
-    val coroutineScope: CoroutineScope,
+  val dataLayerRegistry: WearDataLayerRegistry,
+  val coroutineScope: CoroutineScope,
 ) : InferenceServiceRegistry {
-    override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
-        return flow {
-            val allCapabilities = dataLayerRegistry.capabilityClient.getAllCapabilities(CapabilityClient.FILTER_ALL).await()
-            allCapabilities.forEach { (key, list) ->
-                println(key)
-                list.nodes.forEach {
-                    println(it.id + " " + it.displayName + " " + it.isNearby)
-                }
-            }
+  override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
+    return flow {
+      val allCapabilities =
+        dataLayerRegistry.capabilityClient.getAllCapabilities(CapabilityClient.FILTER_ALL).await()
+      allCapabilities.forEach { (key, list) ->
+        println(key)
+        list.nodes.forEach { println(it.id + " " + it.displayName + " " + it.isNearby) }
+      }
 
-            val capabilities = dataLayerRegistry.capabilityClient.getCapability(
-                CAPABILITY_INFERENCE_SERVICE,
-                CapabilityClient.FILTER_REACHABLE,
-            ).await()
+      val capabilities =
+        dataLayerRegistry.capabilityClient
+          .getCapability(
+            CAPABILITY_INFERENCE_SERVICE,
+            CapabilityClient.FILTER_REACHABLE,
+          )
+          .await()
 
-            emit(
-                capabilities.nodes.map { node ->
-                    DataLayerInferenceService(dataLayerRegistry, node, coroutineScope)
-                },
-            )
+      emit(
+        capabilities.nodes.map { node ->
+          DataLayerInferenceService(dataLayerRegistry, node, coroutineScope)
         }
+      )
     }
+  }
 
-    override val priority: Int
-        get() = 2
+  override val priority: Int
+    get() = 2
 
-    companion object {
-        val CAPABILITY_INFERENCE_SERVICE = "InferenceService"
-    }
+  companion object {
+    val CAPABILITY_INFERENCE_SERVICE = "InferenceService"
+  }
 }

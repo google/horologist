@@ -25,29 +25,33 @@ import kotlin.time.Duration.Companion.nanoseconds
 import kotlin.time.DurationUnit
 
 public class CompositionMetric(private val composable: String) : TraceMetric() {
-    override fun getMeasurements(
-        captureInfo: CaptureInfo,
-        traceSession: TraceProcessor.Session,
-    ): List<Measurement> {
-        val shortName = composable.substringAfterLast(".")
+  override fun getMeasurements(
+    captureInfo: CaptureInfo,
+    traceSession: TraceProcessor.Session,
+  ): List<Measurement> {
+    val shortName = composable.substringAfterLast(".")
 
-        val durationsNs = traceSession.query(
-            """
+    val durationsNs =
+      traceSession
+        .query(
+          """
                 SELECT * FROM slice
                     INNER JOIN thread_track on slice.track_id = thread_track.id
                     INNER JOIN thread USING(utid)
                     INNER JOIN process USING(upid)
                 WHERE process.name LIKE "${captureInfo.targetPackageName}"
                     AND slice.name LIKE "$composable (%)"
-            """.trimIndent(),
-        ).map { it.long("dur") }
-
-        return listOf(
-            Measurement(
-                "${shortName}RecomposeDurMs",
-                durationsNs.sumOf { it }.nanoseconds.toDouble(DurationUnit.MILLISECONDS),
-            ),
-            Measurement("${shortName}RecomposeCount", durationsNs.count().toDouble()),
+            """
+            .trimIndent()
         )
-    }
+        .map { it.long("dur") }
+
+    return listOf(
+      Measurement(
+        "${shortName}RecomposeDurMs",
+        durationsNs.sumOf { it }.nanoseconds.toDouble(DurationUnit.MILLISECONDS),
+      ),
+      Measurement("${shortName}RecomposeCount", durationsNs.count().toDouble()),
+    )
+  }
 }

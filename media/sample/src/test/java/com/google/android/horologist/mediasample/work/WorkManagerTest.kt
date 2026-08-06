@@ -32,29 +32,28 @@ import org.junit.Test
 
 @HiltAndroidTest
 class WorkManagerTest : BaseAppTest() {
-    @Before
-    fun setUp() {
-        val context = ApplicationProvider.getApplicationContext<Context>()
+  @Before
+  fun setUp() {
+    val context = ApplicationProvider.getApplicationContext<Context>()
 
-        WorkManagerTestInitHelper.initializeTestWorkManager(context)
-    }
+    WorkManagerTestInitHelper.initializeTestWorkManager(context)
+  }
 
-    @Test
-    fun refreshJob() {
-        val context = ApplicationProvider.getApplicationContext<Context>()
+  @Test
+  fun refreshJob() {
+    val context = ApplicationProvider.getApplicationContext<Context>()
 
-        val workManager = WorkManager.getInstance(context)
+    val workManager = WorkManager.getInstance(context)
 
-        val workRequest = SyncWorker.startUpSyncWork()
+    val workRequest = SyncWorker.startUpSyncWork()
 
-        val worker: CoroutineWorker = TestListenableWorkerBuilder.from(context, workRequest)
-            .setWorkerFactory(workManager.configuration.workerFactory)
-            .build() as CoroutineWorker
+    val worker: CoroutineWorker =
+      TestListenableWorkerBuilder.from(context, workRequest)
+        .setWorkerFactory(workManager.configuration.workerFactory)
+        .build() as CoroutineWorker
 
-        val result = runBlocking {
-            worker.doWork()
-        }
+    val result = runBlocking { worker.doWork() }
 
-        assertEquals(success(), result)
-    }
+    assertEquals(success(), result)
+  }
 }

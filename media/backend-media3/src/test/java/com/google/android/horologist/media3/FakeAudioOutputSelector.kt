@@ -20,16 +20,15 @@ import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.media3.audio.AudioOutputSelector
 
 open class FakeAudioOutputSelector(
-    private val newOutput: AudioOutput?,
-    private val audioOutputRepository: FakeAudioOutputRepository,
+  private val newOutput: AudioOutput?,
+  private val audioOutputRepository: FakeAudioOutputRepository,
 ) : AudioOutputSelector {
-    override suspend fun selectNewOutput(currentAudioOutput: AudioOutput): AudioOutput? {
-        if (newOutput != null) {
-            audioOutputRepository.audioOutput.value = newOutput
-        }
-        return newOutput
+  override suspend fun selectNewOutput(currentAudioOutput: AudioOutput): AudioOutput? {
+    if (newOutput != null) {
+      audioOutputRepository.audioOutput.value = newOutput
     }
+    return newOutput
+  }
 
-    override fun launchSelector() {
-    }
+  override fun launchSelector() {}
 }

@@ -30,22 +30,23 @@ import com.google.android.horologist.media.database.model.PlaylistMediaEntity
 
 @ExperimentalHorologistApi
 @Database(
-    entities = [
-        MediaDownloadEntity::class,
-        MediaEntity::class,
-        PlaylistEntity::class,
-        PlaylistMediaEntity::class,
+  entities =
+    [
+      MediaDownloadEntity::class,
+      MediaEntity::class,
+      PlaylistEntity::class,
+      PlaylistMediaEntity::class,
     ],
-    version = 1,
-    exportSchema = false,
+  version = 1,
+  exportSchema = false,
 )
 public abstract class MediaDatabase : RoomDatabase() {
 
-    public abstract fun mediaDownloadDao(): MediaDownloadDao
+  public abstract fun mediaDownloadDao(): MediaDownloadDao
 
-    public abstract fun playlistDao(): PlaylistDao
+  public abstract fun playlistDao(): PlaylistDao
 
-    public abstract fun playlistMediaDao(): PlaylistMediaDao
+  public abstract fun playlistMediaDao(): PlaylistMediaDao
 
-    public abstract fun mediaDao(): MediaDao
+  public abstract fun mediaDao(): MediaDao
 }

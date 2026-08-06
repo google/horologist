@@ -24,19 +24,19 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Mediator for High Bandwidth requests, such as Cell or Wifi.
  *
- * By default Wear will use BT connection when available, even when temporarily connecting
- * via Wifi or Cell would be more power efficient and performance.
+ * By default Wear will use BT connection when available, even when temporarily connecting via Wifi
+ * or Cell would be more power efficient and performance.
  */
 @ExperimentalHorologistApi
 public interface HighBandwidthNetworkMediator {
-    /**
-     * The current resulting network specifically from high bandwidth requests.
-     */
-    public val pinned: Flow<Set<NetworkType>>
+  /** The current resulting network specifically from high bandwidth requests. */
+  public val pinned: Flow<Set<NetworkType>>
 
-    /**
-     * Make a request for a high bandwidth network, with request details provided in
-     * `request`. Returns a cancellation Token, that also allows waiting for a connection.
-     */
-    public fun requestHighBandwidthNetwork(request: HighBandwidthRequest): HighBandwidthConnectionLease
+  /**
+   * Make a request for a high bandwidth network, with request details provided in `request`.
+   * Returns a cancellation Token, that also allows waiting for a connection.
+   */
+  public fun requestHighBandwidthNetwork(
+    request: HighBandwidthRequest
+  ): HighBandwidthConnectionLease
 }

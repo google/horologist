@@ -29,7 +29,8 @@ class LottieDecoderResilienceTest {
 
   @Test
   fun unknownLayerType_deserializesAsNullLayerFallback() {
-    val json = """
+    val json =
+      """
       {
         "v": "5.7.0",
         "fr": 60,
@@ -42,7 +43,8 @@ class LottieDecoderResilienceTest {
           { "ty": 4, "nm": "ValidShapeLayer", "ind": 2, "shapes": [] }
         ]
       }
-    """.trimIndent()
+      """
+        .trimIndent()
 
     val animation = Animation.decodeFromString(json)
 
@@ -54,7 +56,8 @@ class LottieDecoderResilienceTest {
 
   @Test
   fun unknownShapeType_deserializesAsGroupFallback() {
-    val json = """
+    val json =
+      """
       {
         "v": "5.7.0",
         "fr": 30,
@@ -77,7 +80,8 @@ class LottieDecoderResilienceTest {
           }
         ]
       }
-    """.trimIndent()
+      """
+        .trimIndent()
 
     val animation = Animation.decodeFromString(json)
 
@@ -89,7 +93,8 @@ class LottieDecoderResilienceTest {
 
   @Test
   fun colorProperty_handlesRgbRgbaAndScaledIntegers() {
-    val json = """
+    val json =
+      """
       {
         "v": "5.7.0",
         "fr": 30,
@@ -116,7 +121,8 @@ class LottieDecoderResilienceTest {
           }
         ]
       }
-    """.trimIndent()
+      """
+        .trimIndent()
 
     val animation = Animation.decodeFromString(json)
 
@@ -130,7 +136,8 @@ class LottieDecoderResilienceTest {
 
   @Test
   fun extraPluginMetadata_ignoredCleanly() {
-    val json = """
+    val json =
+      """
       {
         "v": "5.7.0",
         "fr": 30,
@@ -142,7 +149,8 @@ class LottieDecoderResilienceTest {
         "_ae_version": "17.5.0",
         "layers": []
       }
-    """.trimIndent()
+      """
+        .trimIndent()
 
     val animation = Animation.decodeFromString(json)
 

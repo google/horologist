@@ -37,81 +37,78 @@ import com.google.android.horologist.compose.nav.composable
 import kotlin.reflect.typeOf
 
 @Composable
-fun AuditWearApp(
-    navController: NavHostController = rememberSwipeDismissableNavController(),
-) {
-    AppScaffold {
-        SwipeDismissableNavHost(navController = navController, startDestination = AuditNavigation.MainMenu) {
-            composable<AuditNavigation.MainMenu> {
-                AuditMenuScreen(onClick = { navController.navigate(it) })
-            }
-            composable<Lists.Audit>(
-                typeMap = mapOf(typeOf<Lists.Config>() to enumType<Lists.Config>()),
-            ) {
-                val route = it.toRoute<Lists.Audit>()
+fun AuditWearApp(navController: NavHostController = rememberSwipeDismissableNavController()) {
+  AppScaffold {
+    SwipeDismissableNavHost(
+      navController = navController,
+      startDestination = AuditNavigation.MainMenu,
+    ) {
+      composable<AuditNavigation.MainMenu> {
+        AuditMenuScreen(onClick = { navController.navigate(it) })
+      }
+      composable<Lists.Audit>(typeMap = mapOf(typeOf<Lists.Config>() to enumType<Lists.Config>())) {
+        val route = it.toRoute<Lists.Audit>()
 
-                route.compose()
-            }
-            composable<Dialogs.Audit>(
-                typeMap = mapOf(typeOf<Dialogs.Config>() to enumType<Dialogs.Config>()),
-            ) {
-                val route = it.toRoute<Dialogs.Audit>()
-                DialogsAudit(route)
-            }
-            composable<Confirmations.Audit>(
-                typeMap = mapOf(typeOf<Confirmations.Config>() to enumType<Confirmations.Config>()),
-            ) {
-                val route = it.toRoute<Confirmations.Audit>()
-                ConfirmationsAudit(route)
-            }
-            composable<Pickers.Audit>(
-                typeMap = mapOf(typeOf<Pickers.Config>() to enumType<Pickers.Config>()),
-            ) {
-                val route = it.toRoute<Pickers.Audit>()
-                PickersAudit(route)
-            }
-            composable<Stepper.Audit>(
-                typeMap = mapOf(typeOf<Stepper.Config>() to enumType<Stepper.Config>()),
-            ) {
-                val route = it.toRoute<Stepper.Audit>()
-                StepperAudit(route)
-            }
-            composable<ProgressIndicator.Audit>(
-                typeMap = mapOf(typeOf<ProgressIndicator.Config>() to enumType<ProgressIndicator.Config>()),
-            ) {
-                val route = it.toRoute<ProgressIndicator.Audit>()
-                ProgressIndicatorAudit(route)
-            }
-            composable<PageIndicator.Audit>(
-                typeMap = mapOf(typeOf<PageIndicator.Config>() to enumType<PageIndicator.Config>()),
-            ) {
-                val route = it.toRoute<PageIndicator.Audit>()
-                PageIndicatorAudit(route)
-            }
-            composable<PositionIndicator.Audit>(
-                typeMap = mapOf(typeOf<PositionIndicator.Config>() to enumType<PositionIndicator.Config>()),
-            ) {
-                val route = it.toRoute<PositionIndicator.Audit>()
-                PositionIndicatorAudit(route)
-            }
-            composable<VolumeRsb.Audit>(
-                typeMap = mapOf(typeOf<VolumeRsb.Config>() to enumType<VolumeRsb.Config>()),
-            ) {
-                val route = it.toRoute<VolumeRsb.Audit>()
-                VolumeRsbAudit(route)
-            }
-            composable<CurvedTimeText.Audit>(
-                typeMap = mapOf(typeOf<CurvedTimeText.Config>() to enumType<CurvedTimeText.Config>()),
-            ) {
-                val route = it.toRoute<CurvedTimeText.Audit>()
-                CurvedTimeTextAudit(route)
-            }
-            composable<Cards.Audit>(
-                typeMap = mapOf(typeOf<Cards.Config>() to enumType<Cards.Config>()),
-            ) {
-                val route = it.toRoute<Cards.Audit>()
-                CardsAudit(route)
-            }
-        }
+        route.compose()
+      }
+      composable<Dialogs.Audit>(
+        typeMap = mapOf(typeOf<Dialogs.Config>() to enumType<Dialogs.Config>())
+      ) {
+        val route = it.toRoute<Dialogs.Audit>()
+        DialogsAudit(route)
+      }
+      composable<Confirmations.Audit>(
+        typeMap = mapOf(typeOf<Confirmations.Config>() to enumType<Confirmations.Config>())
+      ) {
+        val route = it.toRoute<Confirmations.Audit>()
+        ConfirmationsAudit(route)
+      }
+      composable<Pickers.Audit>(
+        typeMap = mapOf(typeOf<Pickers.Config>() to enumType<Pickers.Config>())
+      ) {
+        val route = it.toRoute<Pickers.Audit>()
+        PickersAudit(route)
+      }
+      composable<Stepper.Audit>(
+        typeMap = mapOf(typeOf<Stepper.Config>() to enumType<Stepper.Config>())
+      ) {
+        val route = it.toRoute<Stepper.Audit>()
+        StepperAudit(route)
+      }
+      composable<ProgressIndicator.Audit>(
+        typeMap = mapOf(typeOf<ProgressIndicator.Config>() to enumType<ProgressIndicator.Config>())
+      ) {
+        val route = it.toRoute<ProgressIndicator.Audit>()
+        ProgressIndicatorAudit(route)
+      }
+      composable<PageIndicator.Audit>(
+        typeMap = mapOf(typeOf<PageIndicator.Config>() to enumType<PageIndicator.Config>())
+      ) {
+        val route = it.toRoute<PageIndicator.Audit>()
+        PageIndicatorAudit(route)
+      }
+      composable<PositionIndicator.Audit>(
+        typeMap = mapOf(typeOf<PositionIndicator.Config>() to enumType<PositionIndicator.Config>())
+      ) {
+        val route = it.toRoute<PositionIndicator.Audit>()
+        PositionIndicatorAudit(route)
+      }
+      composable<VolumeRsb.Audit>(
+        typeMap = mapOf(typeOf<VolumeRsb.Config>() to enumType<VolumeRsb.Config>())
+      ) {
+        val route = it.toRoute<VolumeRsb.Audit>()
+        VolumeRsbAudit(route)
+      }
+      composable<CurvedTimeText.Audit>(
+        typeMap = mapOf(typeOf<CurvedTimeText.Config>() to enumType<CurvedTimeText.Config>())
+      ) {
+        val route = it.toRoute<CurvedTimeText.Audit>()
+        CurvedTimeTextAudit(route)
+      }
+      composable<Cards.Audit>(typeMap = mapOf(typeOf<Cards.Config>() to enumType<Cards.Config>())) {
+        val route = it.toRoute<Cards.Audit>()
+        CardsAudit(route)
+      }
     }
+  }
 }

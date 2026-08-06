@@ -19,11 +19,11 @@ package com.google.android.horologist.auth.ui.ext
 import kotlinx.coroutines.flow.MutableStateFlow
 
 internal fun <T> MutableStateFlow<T>.compareAndSet(
-    expect: T,
-    update: T,
-    executeOnUpdate: () -> Unit,
+  expect: T,
+  update: T,
+  executeOnUpdate: () -> Unit,
 ) {
-    if (compareAndSet(expect = expect, update = update)) {
-        executeOnUpdate()
-    }
+  if (compareAndSet(expect = expect, update = update)) {
+    executeOnUpdate()
+  }
 }

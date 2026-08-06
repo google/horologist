@@ -38,44 +38,41 @@ import kotlinx.coroutines.launch
 
 @ExperimentalHorologistApi
 public class PlaylistDownloadRepositoryImpl(
-    private val coroutineScope: CoroutineScope,
-    private val playlistLocalDataSource: PlaylistLocalDataSource,
-    private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
-    private val media3DownloadDataSource: Media3DownloadDataSource,
-    private val playlistDownloadMapper: PlaylistDownloadMapper,
+  private val coroutineScope: CoroutineScope,
+  private val playlistLocalDataSource: PlaylistLocalDataSource,
+  private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
+  private val media3DownloadDataSource: Media3DownloadDataSource,
+  private val playlistDownloadMapper: PlaylistDownloadMapper,
 ) : PlaylistDownloadRepository {
 
-    @OptIn(FlowPreview::class)
-    override fun get(playlistId: String): Flow<PlaylistDownload?> =
-        playlistLocalDataSource.getPopulatedStream(playlistId).flatMapMerge { populatedPlaylist ->
-            if (populatedPlaylist != null) {
-                combine(
-                    flowOf(populatedPlaylist),
-                    mediaDownloadLocalDataSource.get(
-                        populatedPlaylist.mediaList
-                            .map { it.mediaId }.toList(),
-                    ),
-                ) { _, mediaDownloadList ->
-                    playlistDownloadMapper.map(populatedPlaylist, mediaDownloadList)
-                }
-            } else {
-                flowOf(null)
-            }
+  @OptIn(FlowPreview::class)
+  override fun get(playlistId: String): Flow<PlaylistDownload?> =
+    playlistLocalDataSource.getPopulatedStream(playlistId).flatMapMerge { populatedPlaylist ->
+      if (populatedPlaylist != null) {
+        combine(
+          flowOf(populatedPlaylist),
+          mediaDownloadLocalDataSource.get(populatedPlaylist.mediaList.map { it.mediaId }.toList()),
+        ) { _, mediaDownloadList ->
+          playlistDownloadMapper.map(populatedPlaylist, mediaDownloadList)
         }
-
-    override fun download(playlist: Playlist) {
-        coroutineScope.launch {
-            for (media in playlist.mediaList) {
-                mediaDownloadLocalDataSource.add(mediaId = media.id)
-
-                media3DownloadDataSource.download(media.id, media.uri.toUri())
-            }
-        }
+      } else {
+        flowOf(null)
+      }
     }
 
-    override fun remove(playlist: Playlist) {
-        for (media in playlist.mediaList) {
-            media3DownloadDataSource.removeDownload(media.id)
-        }
+  override fun download(playlist: Playlist) {
+    coroutineScope.launch {
+      for (media in playlist.mediaList) {
+        mediaDownloadLocalDataSource.add(mediaId = media.id)
+
+        media3DownloadDataSource.download(media.id, media.uri.toUri())
+      }
     }
+  }
+
+  override fun remove(playlist: Playlist) {
+    for (media in playlist.mediaList) {
+      media3DownloadDataSource.removeDownload(media.id)
+    }
+  }
 }

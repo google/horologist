@@ -24,19 +24,17 @@ import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import com.google.android.horologist.sample.di.SampleAppDI
 
 class NavActivity : ComponentActivity() {
-    lateinit var navController: NavHostController
+  lateinit var navController: NavHostController
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        SampleAppDI.inject(this)
+    SampleAppDI.inject(this)
 
-        setContent {
-            navController = rememberSwipeDismissableNavController()
+    setContent {
+      navController = rememberSwipeDismissableNavController()
 
-            NavWearApp(
-                navController = navController,
-            )
-        }
+      NavWearApp(navController = navController)
     }
+  }
 }

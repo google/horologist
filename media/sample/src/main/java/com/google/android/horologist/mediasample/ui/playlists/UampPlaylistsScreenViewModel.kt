@@ -23,32 +23,31 @@ import com.google.android.horologist.media.ui.material3.screens.playlists.Playli
 import com.google.android.horologist.media.ui.state.mapper.PlaylistUiModelMapper
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import javax.inject.Inject
 
 @HiltViewModel
-class UampPlaylistsScreenViewModel
-    @Inject
-    constructor(
-        playlistRepository: PlaylistRepository,
-    ) : ViewModel() {
+class UampPlaylistsScreenViewModel @Inject constructor(playlistRepository: PlaylistRepository) :
+  ViewModel() {
 
-        val uiState: StateFlow<PlaylistsScreenState<PlaylistUiModel>> =
-            playlistRepository.getAll().map {
-                if (it.isNotEmpty()) {
-                    PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
-                } else {
-                    PlaylistsScreenState.Failed
-                }
-            }.catch {
-                emit(PlaylistsScreenState.Failed)
-            }.stateIn(
-                viewModelScope,
-                started = SharingStarted.Eagerly,
-                initialValue = PlaylistsScreenState.Loading,
-            )
-    }
+  val uiState: StateFlow<PlaylistsScreenState<PlaylistUiModel>> =
+    playlistRepository
+      .getAll()
+      .map {
+        if (it.isNotEmpty()) {
+          PlaylistsScreenState.Loaded(it.map(PlaylistUiModelMapper::map))
+        } else {
+          PlaylistsScreenState.Failed
+        }
+      }
+      .catch { emit(PlaylistsScreenState.Failed) }
+      .stateIn(
+        viewModelScope,
+        started = SharingStarted.Eagerly,
+        initialValue = PlaylistsScreenState.Loading,
+      )
+}

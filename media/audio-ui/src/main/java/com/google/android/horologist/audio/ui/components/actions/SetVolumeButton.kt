@@ -32,31 +32,34 @@ import com.google.android.horologist.audio.ui.model.R
  * It is recommended to use [SetAudioOutputButton] as it also provides the information about current
  * audio output.
  *
- * Button to launch a screen to control the system volume, using volume up icon as
- * default if no [volumeUiState] is passed in.
+ * Button to launch a screen to control the system volume, using volume up icon as default if no
+ * [volumeUiState] is passed in.
  *
  * See [VolumeUiState]
  */
 @Composable
 public fun SetVolumeButton(
-    onVolumeClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    volumeUiState: VolumeUiState? = null,
-    enabled: Boolean = true,
-    iconAlignment: Alignment = Alignment.Center,
-    iconPadding: PaddingValues? = null,
+  onVolumeClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  volumeUiState: VolumeUiState? = null,
+  enabled: Boolean = true,
+  iconAlignment: Alignment = Alignment.Center,
+  iconPadding: PaddingValues? = null,
 ) {
-    SettingsButton(
-        modifier = modifier,
-        onClick = onVolumeClick,
-        enabled = enabled,
-        imageVector = when {
-            volumeUiState?.isMin == true -> Icons.AutoMirrored.Default.VolumeMute
-            volumeUiState?.isMax == false -> Icons.AutoMirrored.Default.VolumeDown
-            else -> Icons.AutoMirrored.Default.VolumeUp // volumeUiState == null || volumeUiState.isMax == true
-        },
-        contentDescription = stringResource(R.string.horologist_set_volume_content_description),
-        iconAlignment = iconAlignment,
-        iconPadding = iconPadding,
-    )
+  SettingsButton(
+    modifier = modifier,
+    onClick = onVolumeClick,
+    enabled = enabled,
+    imageVector =
+      when {
+        volumeUiState?.isMin == true -> Icons.AutoMirrored.Default.VolumeMute
+        volumeUiState?.isMax == false -> Icons.AutoMirrored.Default.VolumeDown
+        else ->
+          Icons.AutoMirrored.Default
+            .VolumeUp // volumeUiState == null || volumeUiState.isMax == true
+      },
+    contentDescription = stringResource(R.string.horologist_set_volume_content_description),
+    iconAlignment = iconAlignment,
+    iconPadding = iconPadding,
+  )
 }

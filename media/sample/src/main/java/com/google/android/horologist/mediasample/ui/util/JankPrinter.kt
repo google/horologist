@@ -25,53 +25,52 @@ import androidx.metrics.performance.PerformanceMetricsState
 import com.google.android.horologist.mediasample.BuildConfig
 import java.util.concurrent.TimeUnit
 
-/**
- * Simple Jank log printer.
- */
+/** Simple Jank log printer. */
 class JankPrinter {
-    private var stateHolder: PerformanceMetricsState.Holder? = null
-    private lateinit var jankStats: JankStats
-    private var nonJank = 0
+  private var stateHolder: PerformanceMetricsState.Holder? = null
+  private lateinit var jankStats: JankStats
+  private var nonJank = 0
 
-    private fun Long.nanosToMillis() = "${TimeUnit.NANOSECONDS.toMillis(this)}ms"
+  private fun Long.nanosToMillis() = "${TimeUnit.NANOSECONDS.toMillis(this)}ms"
 
-    fun installJankStats(activity: ComponentActivity) {
-        if (!BuildConfig.DEBUG) {
-            // Assume Compose is used
-            val contentView = activity.window.decorView.findViewById<ViewGroup>(android.R.id.content)
-                .getChildAt(0) as ComposeView
+  fun installJankStats(activity: ComponentActivity) {
+    if (!BuildConfig.DEBUG) {
+      // Assume Compose is used
+      val contentView =
+        activity.window.decorView.findViewById<ViewGroup>(android.R.id.content).getChildAt(0)
+          as ComposeView
 
-            stateHolder = PerformanceMetricsState.getHolderForHierarchy(contentView).apply {
-                state?.putState("Activity", activity.javaClass.simpleName)
-            }
-
-            jankStats = JankStats.createAndTrack(
-                activity.window,
-            ) {
-                if (it.isJank) {
-                    val route =
-                        it.states.find { state -> state.key == "route" }?.value.orEmpty()
-                    val duration = it.frameDurationUiNanos.nanosToMillis()
-                    Log.w("Jank", "Jank $duration route:$route non:$nonJank")
-                    nonJank = 0
-                } else {
-                    nonJank++
-                }
-            }.apply {
-                // 3x isn't very noticeable for a few frames and settles down after the app has
-                // been optimised.
-                jankHeuristicMultiplier = 3f
-            }
+      stateHolder =
+        PerformanceMetricsState.getHolderForHierarchy(contentView).apply {
+          state?.putState("Activity", activity.javaClass.simpleName)
         }
-    }
 
-    fun setRouteState(route: String?) {
-        stateHolder?.state?.let {
-            if (route != null) {
-                it.putState("route", route)
+      jankStats =
+        JankStats.createAndTrack(activity.window) {
+            if (it.isJank) {
+              val route = it.states.find { state -> state.key == "route" }?.value.orEmpty()
+              val duration = it.frameDurationUiNanos.nanosToMillis()
+              Log.w("Jank", "Jank $duration route:$route non:$nonJank")
+              nonJank = 0
             } else {
-                it.removeState("route")
+              nonJank++
             }
-        }
+          }
+          .apply {
+            // 3x isn't very noticeable for a few frames and settles down after the app has
+            // been optimised.
+            jankHeuristicMultiplier = 3f
+          }
     }
+  }
+
+  fun setRouteState(route: String?) {
+    stateHolder?.state?.let {
+      if (route != null) {
+        it.putState("route", route)
+      } else {
+        it.removeState("route")
+      }
+    }
+  }
 }

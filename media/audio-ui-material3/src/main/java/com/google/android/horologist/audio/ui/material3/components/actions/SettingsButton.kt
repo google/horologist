@@ -54,143 +54,146 @@ import com.google.android.horologist.audio.ui.material3.toShape
 /** An icon button to launch a screen to control the system. */
 @Composable
 public fun SettingsButton(
-    onClick: () -> Unit,
-    imageVector: ImageVector,
-    contentDescription: String,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    alignment: Alignment = Alignment.Center,
-    buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
-    shape: Shape = CircleShape,
-    iconSize: Dp = ICON_SIZE,
-    badgeVector: ImageVector? = null,
-    badgeShape: Shape = defaultBadgeShape(),
-    badgeColors: IconButtonColors = SettingsButtonDefaults.badgeColors(),
-    border: BorderStroke? = null,
+  onClick: () -> Unit,
+  imageVector: ImageVector,
+  contentDescription: String,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  alignment: Alignment = Alignment.Center,
+  buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
+  shape: Shape = CircleShape,
+  iconSize: Dp = ICON_SIZE,
+  badgeVector: ImageVector? = null,
+  badgeShape: Shape = defaultBadgeShape(),
+  badgeColors: IconButtonColors = SettingsButtonDefaults.badgeColors(),
+  border: BorderStroke? = null,
 ) {
-    val buttonContentColor =
-        rememberUpdatedState(buttonColors.run { if (enabled) contentColor else disabledContentColor })
-    val buttonContainerColor =
-        rememberUpdatedState(
-            buttonColors.run { if (enabled) containerColor else disabledContainerColor },
-        )
+  val buttonContentColor =
+    rememberUpdatedState(buttonColors.run { if (enabled) contentColor else disabledContentColor })
+  val buttonContainerColor =
+    rememberUpdatedState(
+      buttonColors.run { if (enabled) containerColor else disabledContainerColor }
+    )
+  Box(
+    contentAlignment = alignment,
+    modifier =
+      modifier
+        .fillMaxSize()
+        .clickable(
+          onClick = onClick,
+          enabled = enabled,
+          indication = null,
+          interactionSource = null,
+          role = Role.Button,
+        ),
+  ) {
     Box(
-        contentAlignment = alignment,
-        modifier =
-            modifier
-                .fillMaxSize()
-                .clickable(
-                    onClick = onClick,
-                    enabled = enabled,
-                    indication = null,
-                    interactionSource = null,
-                    role = Role.Button,
-                ),
+      modifier = Modifier.minimumInteractiveComponentSize().size(BUTTON_WIDTH, BUTTON_HEIGHT),
+      contentAlignment = Alignment.Center,
     ) {
+      Box(
+        modifier =
+          Modifier.fillMaxSize()
+            .then(border?.let { Modifier.border(border = it, shape = shape) } ?: Modifier)
+            .background(color = buttonContainerColor.value, shape = shape),
+        contentAlignment = Alignment.Center,
+      ) {
+        Icon(
+          imageVector = imageVector,
+          contentDescription = contentDescription,
+          modifier = Modifier.size(iconSize),
+          tint = buttonContentColor.value,
+        )
+      }
+      badgeVector?.let {
+        val badgeContentColor =
+          rememberUpdatedState(
+            badgeColors.run { if (enabled) contentColor else disabledContentColor }
+          )
+        val badgeContainerColor =
+          rememberUpdatedState(
+            badgeColors.run { if (enabled) containerColor else disabledContainerColor }
+          )
         Box(
-            modifier =
-                Modifier.minimumInteractiveComponentSize()
-                    .size(BUTTON_WIDTH, BUTTON_HEIGHT),
-            contentAlignment = Alignment.Center,
+          modifier =
+            Modifier.size(BADGE_SIZE)
+              .align(Alignment.TopEnd)
+              .offset(x = BADGE_SIZE / 2)
+              .background(badgeContainerColor.value, badgeShape),
+          contentAlignment = Alignment.Center,
         ) {
-            Box(
-                modifier =
-                    Modifier
-                        .fillMaxSize()
-                        .then(border?.let { Modifier.border(border = it, shape = shape) } ?: Modifier)
-                        .background(color = buttonContainerColor.value, shape = shape),
-                contentAlignment = Alignment.Center,
-            ) {
-                Icon(
-                    imageVector = imageVector,
-                    contentDescription = contentDescription,
-                    modifier = Modifier.size(iconSize),
-                    tint = buttonContentColor.value,
-                )
-            }
-            badgeVector?.let {
-                val badgeContentColor =
-                    rememberUpdatedState(
-                        badgeColors.run { if (enabled) contentColor else disabledContentColor },
-                    )
-                val badgeContainerColor =
-                    rememberUpdatedState(
-                        badgeColors.run { if (enabled) containerColor else disabledContainerColor },
-                    )
-                Box(
-                    modifier =
-                        Modifier.size(BADGE_SIZE)
-                            .align(Alignment.TopEnd)
-                            .offset(x = BADGE_SIZE / 2)
-                            .background(badgeContainerColor.value, badgeShape),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Icon(
-                        imageVector = it,
-                        contentDescription = null,
-                        modifier = Modifier.size(BADGE_ICON_SIZE),
-                        tint = badgeContentColor.value,
-                    )
-                }
-            }
+          Icon(
+            imageVector = it,
+            contentDescription = null,
+            modifier = Modifier.size(BADGE_ICON_SIZE),
+            tint = badgeContentColor.value,
+          )
         }
+      }
     }
+  }
 }
 
 /** Default values for [SettingsButton]. */
 public object SettingsButtonDefaults {
-    /** Button colors for [SettingsButton]. */
-    @Composable
-    public fun buttonColors(colorScheme: ColorScheme = MaterialTheme.colorScheme): IconButtonColors =
-        IconButtonDefaults.iconButtonColors(
-            containerColor = colorScheme.onSurface.copy(alpha = 0.24f),
-            contentColor = colorScheme.onSurface,
-            disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-            disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-        )
+  /** Button colors for [SettingsButton]. */
+  @Composable
+  public fun buttonColors(colorScheme: ColorScheme = MaterialTheme.colorScheme): IconButtonColors =
+    IconButtonDefaults.iconButtonColors(
+      containerColor = colorScheme.onSurface.copy(alpha = 0.24f),
+      contentColor = colorScheme.onSurface,
+      disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+      disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+    )
 
-    /** Colors for the settings item badge. */
-    @Composable
-    public fun badgeColors(colorScheme: ColorScheme = MaterialTheme.colorScheme): IconButtonColors =
-        IconButtonDefaults.filledIconButtonColors(
-            containerColor = colorScheme.primaryDim,
-            contentColor = colorScheme.onPrimary,
-            disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-            disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-        )
+  /** Colors for the settings item badge. */
+  @Composable
+  public fun badgeColors(colorScheme: ColorScheme = MaterialTheme.colorScheme): IconButtonColors =
+    IconButtonDefaults.filledIconButtonColors(
+      containerColor = colorScheme.primaryDim,
+      contentColor = colorScheme.onPrimary,
+      disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+      disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+    )
 
-    /** Button colors for [SettingsButton] in the ambient mode. */
-    @Composable
-    public fun ambientButtonColors(colorScheme: ColorScheme = MaterialTheme.colorScheme): IconButtonColors =
-        IconButtonDefaults.outlinedIconButtonColors(
-            contentColor = colorScheme.onSurface,
-            disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-        )
+  /** Button colors for [SettingsButton] in the ambient mode. */
+  @Composable
+  public fun ambientButtonColors(
+    colorScheme: ColorScheme = MaterialTheme.colorScheme
+  ): IconButtonColors =
+    IconButtonDefaults.outlinedIconButtonColors(
+      contentColor = colorScheme.onSurface,
+      disabledContentColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+    )
 
-    /**
-     * Provides the appropriate [BorderStroke] for the [SettingsButton] in the ambient mode.
-     *
-     * @param enabled Whether the outline should be for an enabled [SettingsButton].
-     * @param colorScheme [ColorScheme] to be used. Defaults to [MaterialTheme.colorScheme].
-     */
-    @Composable
-    public fun ambientButtonBorder(
-        enabled: Boolean,
-        colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    ): BorderStroke =
-        ButtonDefaults.outlinedButtonBorder(
-            enabled = enabled,
-            borderColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
-            disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-        )
+  /**
+   * Provides the appropriate [BorderStroke] for the [SettingsButton] in the ambient mode.
+   *
+   * @param enabled Whether the outline should be for an enabled [SettingsButton].
+   * @param colorScheme [ColorScheme] to be used. Defaults to [MaterialTheme.colorScheme].
+   */
+  @Composable
+  public fun ambientButtonBorder(
+    enabled: Boolean,
+    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  ): BorderStroke =
+    ButtonDefaults.outlinedButtonBorder(
+      enabled = enabled,
+      borderColor = colorScheme.onSurface.toDisabledColor(DisabledContentAlpha),
+      disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+    )
 }
 
 @Composable
-internal fun defaultBadgeShape(): Shape = RoundedPolygon.star(
-    numVerticesPerRadius = 7,
-    innerRadius = .75f,
-    rounding = CornerRounding(radius = .5f),
-).transformed(Matrix().apply { setRotate(-90f) }).normalized().toShape()
+internal fun defaultBadgeShape(): Shape =
+  RoundedPolygon.star(
+      numVerticesPerRadius = 7,
+      innerRadius = .75f,
+      rounding = CornerRounding(radius = .5f),
+    )
+    .transformed(Matrix().apply { setRotate(-90f) })
+    .normalized()
+    .toShape()
 
 private val BUTTON_WIDTH = 44.dp
 private val BUTTON_HEIGHT = 32.dp

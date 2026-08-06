@@ -30,24 +30,24 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  *
  * @param [image] ImageVector used to create a vector graphic sub-composition.
  * @param [tintColor] color used to tint the root group of this vector graphic.
- * @param [tintBlendMode] optional BlendMode used in combination with [tintColor], defaults to
- * value defined in [image].
+ * @param [tintBlendMode] optional BlendMode used in combination with [tintColor], defaults to value
+ *   defined in [image].
  */
 @ExperimentalHorologistApi
 @Composable
 public fun rememberVectorPainter(
-    image: ImageVector,
-    tintColor: Color,
-    tintBlendMode: BlendMode = image.tintBlendMode,
+  image: ImageVector,
+  tintColor: Color,
+  tintBlendMode: BlendMode = image.tintBlendMode,
 ): VectorPainter =
-    androidx.compose.ui.graphics.vector.rememberVectorPainter(
-        defaultWidth = image.defaultWidth,
-        defaultHeight = image.defaultHeight,
-        viewportWidth = image.viewportWidth,
-        viewportHeight = image.viewportHeight,
-        name = image.name,
-        tintColor = tintColor,
-        tintBlendMode = tintBlendMode,
-        autoMirror = image.autoMirror,
-        content = { _, _ -> RenderVectorGroup(group = image.root) },
-    )
+  androidx.compose.ui.graphics.vector.rememberVectorPainter(
+    defaultWidth = image.defaultWidth,
+    defaultHeight = image.defaultHeight,
+    viewportWidth = image.viewportWidth,
+    viewportHeight = image.viewportHeight,
+    name = image.name,
+    tintColor = tintColor,
+    tintBlendMode = tintBlendMode,
+    autoMirror = image.autoMirror,
+    content = { _, _ -> RenderVectorGroup(group = image.root) },
+  )

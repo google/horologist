@@ -21,40 +21,40 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.audio.ui.VolumeUiState
 
 @Preview(
-    name = "Other volume",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Other volume",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SetVolumeButtonPreview() {
-    SetVolumeButton(
-        onVolumeClick = {},
-        volumeUiState = VolumeUiState(current = 4, max = 10),
-    )
+  SetVolumeButton(
+    onVolumeClick = {},
+    volumeUiState = VolumeUiState(current = 4, max = 10),
+  )
 }
 
 @Preview(
-    name = "Min volume",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Min volume",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SetVolumeButtonPreviewMinVolume() {
-    SetVolumeButton(
-        onVolumeClick = {},
-        volumeUiState = VolumeUiState(current = 0, max = 10),
-    )
+  SetVolumeButton(
+    onVolumeClick = {},
+    volumeUiState = VolumeUiState(current = 0, max = 10),
+  )
 }
 
 @Preview(
-    name = "Max volume",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Max volume",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SetVolumeButtonPreviewMaxVolume() {
-    SetVolumeButton(
-        onVolumeClick = {},
-        volumeUiState = VolumeUiState(current = 10, max = 10),
-    )
+  SetVolumeButton(
+    onVolumeClick = {},
+    volumeUiState = VolumeUiState(current = 10, max = 10),
+  )
 }

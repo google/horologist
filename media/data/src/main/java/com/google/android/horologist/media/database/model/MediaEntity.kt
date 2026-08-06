@@ -21,15 +21,13 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * A table to store media information.
- */
+/** A table to store media information. */
 @ExperimentalHorologistApi
 @Entity
 public data class MediaEntity(
-    @PrimaryKey val mediaId: String,
-    @ColumnInfo val mediaUrl: String,
-    @ColumnInfo val artworkUrl: String,
-    @ColumnInfo val title: String?,
-    @ColumnInfo val artist: String?,
+  @PrimaryKey val mediaId: String,
+  @ColumnInfo val mediaUrl: String,
+  @ColumnInfo val artworkUrl: String,
+  @ColumnInfo val title: String?,
+  @ColumnInfo val artist: String?,
 )

@@ -22,5 +22,5 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @WearPreviewDevices
 @Composable
 fun AuthErrorScreenPreview() {
-    AuthErrorScreen()
+  AuthErrorScreen()
 }

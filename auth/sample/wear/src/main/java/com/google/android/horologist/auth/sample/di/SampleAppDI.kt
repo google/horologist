@@ -24,31 +24,30 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 
-/**
- * Simple DI implementation.
- */
+/** Simple DI implementation. */
 object SampleAppDI {
 
-    fun inject(sampleApplication: SampleApplication) {
-        sampleApplication.registry = registry(sampleApplication, servicesCoroutineScope())
-    }
+  fun inject(sampleApplication: SampleApplication) {
+    sampleApplication.registry = registry(sampleApplication, servicesCoroutineScope())
+  }
 
-    private fun registry(
-        sampleApplication: SampleApplication,
-        coroutineScope: CoroutineScope,
-    ): WearDataLayerRegistry = WearDataLayerRegistry.fromContext(
-        application = sampleApplication,
-        coroutineScope = coroutineScope,
+  private fun registry(
+    sampleApplication: SampleApplication,
+    coroutineScope: CoroutineScope,
+  ): WearDataLayerRegistry =
+    WearDataLayerRegistry.fromContext(
+      application = sampleApplication,
+      coroutineScope = coroutineScope,
     )
 
-    private fun servicesCoroutineScope(): CoroutineScope {
-        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-            Log.e(
-                "SampleApplication",
-                "Uncaught exception thrown by a service: ${throwable.message}",
-                throwable,
-            )
-        }
-        return CoroutineScope(Dispatchers.IO + SupervisorJob() + coroutineExceptionHandler)
+  private fun servicesCoroutineScope(): CoroutineScope {
+    val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+      Log.e(
+        "SampleApplication",
+        "Uncaught exception thrown by a service: ${throwable.message}",
+        throwable,
+      )
     }
+    return CoroutineScope(Dispatchers.IO + SupervisorJob() + coroutineExceptionHandler)
+  }
 }

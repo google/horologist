@@ -23,28 +23,29 @@ import org.junit.Test
 
 class MediaUiModelMapperTest {
 
-    @Test
-    fun givenMedia_thenMapsCorrectly() {
-        // given
-        val id = "id"
-        val title = "title"
-        val artist = "artist"
-        val artworkUri = "artworkUri"
-        val media = Media(
-            id = id,
-            uri = "http://www.example.com",
-            title = title,
-            artist = artist,
-            artworkUri = artworkUri,
-        )
+  @Test
+  fun givenMedia_thenMapsCorrectly() {
+    // given
+    val id = "id"
+    val title = "title"
+    val artist = "artist"
+    val artworkUri = "artworkUri"
+    val media =
+      Media(
+        id = id,
+        uri = "http://www.example.com",
+        title = title,
+        artist = artist,
+        artworkUri = artworkUri,
+      )
 
-        // when
-        val result = MediaUiModelMapper.map(media)
+    // when
+    val result = MediaUiModelMapper.map(media)
 
-        // then
-        assertThat(result.id).isEqualTo(id)
-        assertThat(result.title).isEqualTo(title)
-        assertThat(result.subtitle).isEqualTo(artist)
-        assertThat(result.artwork).isEqualTo(CoilPaintable(artworkUri))
-    }
+    // then
+    assertThat(result.id).isEqualTo(id)
+    assertThat(result.title).isEqualTo(title)
+    assertThat(result.subtitle).isEqualTo(artist)
+    assertThat(result.artwork).isEqualTo(CoilPaintable(artworkUri))
+  }
 }

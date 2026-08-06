@@ -25,6 +25,7 @@ import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.status.NetworkRepository
+import java.io.IOException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -37,90 +38,97 @@ import okhttp3.Call
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.coroutines.executeAsync
-import java.io.IOException
 
 public class NetworkScreenViewModel(
-    private val networkRepository: NetworkRepository,
-    private val dataRequestRepository: DataRequestRepository,
-    private val inMemory: InMemoryStatusLogger,
-    private val callFactory: Call.Factory,
-    private val okHttpClient: OkHttpClient,
+  private val networkRepository: NetworkRepository,
+  private val dataRequestRepository: DataRequestRepository,
+  private val inMemory: InMemoryStatusLogger,
+  private val callFactory: Call.Factory,
+  private val okHttpClient: OkHttpClient,
 ) : ViewModel() {
-    val request = Request.Builder()
-        .url("https://github.com/google/horologist/raw/main/media/sample/backend/images/album_art.jpg")
-        .build()
+  val request =
+    Request.Builder()
+      .url(
+        "https://github.com/google/horologist/raw/main/media/sample/backend/images/album_art.jpg"
+      )
+      .build()
 
-    fun makeRequests() {
-        viewModelScope.launch {
-            val networkSelectingResponse = makeRequest(callFactory)
-            delay(50)
-            val standardCallResponse = makeRequest(okHttpClient)
+  fun makeRequests() {
+    viewModelScope.launch {
+      val networkSelectingResponse = makeRequest(callFactory)
+      delay(50)
+      val standardCallResponse = makeRequest(okHttpClient)
 
-            responses.value = mapOf("network aware" to networkSelectingResponse.await(), "standard" to standardCallResponse.await())
-        }
+      responses.value =
+        mapOf(
+          "network aware" to networkSelectingResponse.await(),
+          "standard" to standardCallResponse.await(),
+        )
     }
+  }
 
-    private fun CoroutineScope.makeRequest(callFactory1: Call.Factory) =
-        async {
-            try {
-                callFactory1.newCall(request).executeAsync().use {
-                    it.body.bytes()
-                    it.code.toString()
-                }
-            } catch (e: IOException) {
-                e.toString()
-            }
-        }
-
-    private val responses = MutableStateFlow(mapOf<String, String>())
-
-    val state =
-        combine(
-            networkRepository.networkStatus,
-            dataRequestRepository.currentPeriodUsage(),
-            inMemory.events,
-            responses,
-        ) { networkStatus, currentPeriodUsage, requests, responses ->
-            NetworkScreenUiState(
-                networks = networkStatus,
-                dataUsage = currentPeriodUsage,
-                requests = requests,
-                responses = responses,
-            )
-        }
-            .stateIn(
-                viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000),
-                initialValue = NetworkScreenUiState(
-                    networks = networkRepository.networkStatus.value,
-                    dataUsage = DataUsageReport.Empty,
-                    requests = listOf(),
-                    responses = mapOf(),
-                ),
-            )
-
-    data class NetworkScreenUiState(
-        val networks: Networks,
-        val dataUsage: DataUsageReport,
-        val requests: List<InMemoryStatusLogger.Event>,
-        val responses: Map<String, String>,
-    )
-
-    public object Factory : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-            check(modelClass == NetworkScreenViewModel::class.java)
-
-            val application =
-                extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as SampleApplication
-
-            return NetworkScreenViewModel(
-                networkRepository = application.networkRepository,
-                dataRequestRepository = application.dataRequestRepository,
-                inMemory = application.networkLogger,
-                callFactory = application.networkAwareCallFactory,
-                okHttpClient = application.okHttpClient,
-            ) as T
-        }
+  private fun CoroutineScope.makeRequest(callFactory1: Call.Factory) = async {
+    try {
+      callFactory1.newCall(request).executeAsync().use {
+        it.body.bytes()
+        it.code.toString()
+      }
+    } catch (e: IOException) {
+      e.toString()
     }
+  }
+
+  private val responses = MutableStateFlow(mapOf<String, String>())
+
+  val state =
+    combine(
+        networkRepository.networkStatus,
+        dataRequestRepository.currentPeriodUsage(),
+        inMemory.events,
+        responses,
+      ) { networkStatus, currentPeriodUsage, requests, responses ->
+        NetworkScreenUiState(
+          networks = networkStatus,
+          dataUsage = currentPeriodUsage,
+          requests = requests,
+          responses = responses,
+        )
+      }
+      .stateIn(
+        viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue =
+          NetworkScreenUiState(
+            networks = networkRepository.networkStatus.value,
+            dataUsage = DataUsageReport.Empty,
+            requests = listOf(),
+            responses = mapOf(),
+          ),
+      )
+
+  data class NetworkScreenUiState(
+    val networks: Networks,
+    val dataUsage: DataUsageReport,
+    val requests: List<InMemoryStatusLogger.Event>,
+    val responses: Map<String, String>,
+  )
+
+  public object Factory : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+      check(modelClass == NetworkScreenViewModel::class.java)
+
+      val application =
+        extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as SampleApplication
+
+      return NetworkScreenViewModel(
+        networkRepository = application.networkRepository,
+        dataRequestRepository = application.dataRequestRepository,
+        inMemory = application.networkLogger,
+        callFactory = application.networkAwareCallFactory,
+        okHttpClient = application.okHttpClient,
+      )
+        as T
+    }
+  }
 }

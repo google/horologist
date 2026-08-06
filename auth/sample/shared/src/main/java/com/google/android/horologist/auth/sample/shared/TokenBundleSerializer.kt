@@ -25,16 +25,16 @@ import java.io.OutputStream
 
 public object TokenBundleSerializer : Serializer<TokenBundle?> {
 
-    override val defaultValue: TokenBundle? = null
+  override val defaultValue: TokenBundle? = null
 
-    override suspend fun readFrom(input: InputStream): TokenBundle? =
-        try {
-            TokenBundle.parseFrom(input)
-        } catch (exception: InvalidProtocolBufferException) {
-            throw CorruptionException("Cannot read proto.", exception)
-        }
-
-    override suspend fun writeTo(t: TokenBundle?, output: OutputStream) {
-        t?.writeTo(output)
+  override suspend fun readFrom(input: InputStream): TokenBundle? =
+    try {
+      TokenBundle.parseFrom(input)
+    } catch (exception: InvalidProtocolBufferException) {
+      throw CorruptionException("Cannot read proto.", exception)
     }
+
+  override suspend fun writeTo(t: TokenBundle?, output: OutputStream) {
+    t?.writeTo(output)
+  }
 }

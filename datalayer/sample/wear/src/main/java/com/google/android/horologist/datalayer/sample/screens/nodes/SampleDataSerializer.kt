@@ -25,18 +25,18 @@ import java.io.InputStream
 import java.io.OutputStream
 
 object SampleDataSerializer : Serializer<Data> {
-    override val defaultValue: Data = data {
-        this.value = 0
-        this.name = ""
-    }
+  override val defaultValue: Data = data {
+    this.value = 0
+    this.name = ""
+  }
 
-    override suspend fun readFrom(input: InputStream): Data {
-        try {
-            return Data.parseFrom(input)
-        } catch (exception: InvalidProtocolBufferException) {
-            throw CorruptionException("Cannot read proto.", exception)
-        }
+  override suspend fun readFrom(input: InputStream): Data {
+    try {
+      return Data.parseFrom(input)
+    } catch (exception: InvalidProtocolBufferException) {
+      throw CorruptionException("Cannot read proto.", exception)
     }
+  }
 
-    override suspend fun writeTo(t: Data, output: OutputStream) = t.writeTo(output)
+  override suspend fun writeTo(t: Data, output: OutputStream) = t.writeTo(output)
 }

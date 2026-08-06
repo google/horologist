@@ -38,71 +38,72 @@ import org.robolectric.Shadows.shadowOf
 
 @RunWith(AndroidJUnit4::class)
 class BinderConnectionTest {
-    private lateinit var application: Application
-    private lateinit var service: TestService
+  private lateinit var application: Application
+  private lateinit var service: TestService
 
-    @Before
-    fun setup() {
-        service = Robolectric.setupService(TestService::class.java)
-        application = ApplicationProvider.getApplicationContext()
+  @Before
+  fun setup() {
+    service = Robolectric.setupService(TestService::class.java)
+    application = ApplicationProvider.getApplicationContext()
 
-        shadowOf(application).setBindServiceCallsOnServiceConnectedDirectly(true)
-        shadowOf(application).setComponentNameAndServiceForBindService(
-            ComponentName(
-                application,
-                TestService::class.java,
-            ),
-            service.localBinder,
-        )
-    }
+    shadowOf(application).setBindServiceCallsOnServiceConnectedDirectly(true)
+    shadowOf(application)
+      .setComponentNameAndServiceForBindService(
+        ComponentName(
+          application,
+          TestService::class.java,
+        ),
+        service.localBinder,
+      )
+  }
 
-    @Test
-    fun testScopeBinding() = runTest {
-        assertThat(shadowOf(application).boundServiceConnections).hasSize(0)
+  @Test
+  fun testScopeBinding() = runTest {
+    assertThat(shadowOf(application).boundServiceConnections).hasSize(0)
 
-        var connected = false
+    var connected = false
 
-        try {
-            withContext(Dispatchers.Default) {
-                val x = bindService<TestService.LocalBinder, TestService>(application)
+    try {
+      withContext(Dispatchers.Default) {
+        val x = bindService<TestService.LocalBinder, TestService>(application)
 
-                x.runWhenConnected {
-                    assertThat(it.getService().doSomething()).isEqualTo("Something")
+        x.runWhenConnected {
+          assertThat(it.getService().doSomething()).isEqualTo("Something")
 
-                    assertThat(shadowOf(application).boundServiceConnections).hasSize(1)
+          assertThat(shadowOf(application).boundServiceConnections).hasSize(1)
 
-                    connected = true
-                }
-
-                assertThat(connected).isTrue()
-
-                this.cancel()
-            }
-        } catch (e: CancellationException) {
-            // expected
+          connected = true
         }
 
-        shadowOf(getMainLooper()).idle()
+        assertThat(connected).isTrue()
 
-        assertThat(shadowOf(application).boundServiceConnections).hasSize(0)
+        this.cancel()
+      }
+    } catch (e: CancellationException) {
+      // expected
     }
 
-    @Test
-    fun testScopeBindingFlow() = runTest {
-        try {
-            withContext(Dispatchers.Default) {
-                val x = bindService<TestService.LocalBinder, TestService>(application)
+    shadowOf(getMainLooper()).idle()
 
-                val flow: Flow<String> = x.flowWhenConnected(TestService.LocalBinder::flow)
+    assertThat(shadowOf(application).boundServiceConnections).hasSize(0)
+  }
 
-                assertThat(flow.first()).isEqualTo("Something 1")
+  @Test
+  fun testScopeBindingFlow() = runTest {
+    try {
+      withContext(Dispatchers.Default) {
+        val x = bindService<TestService.LocalBinder, TestService>(application)
 
-                this.cancel()
-            }
-        } catch (e: CancellationException) {
-            // expected
-        }
+        val flow: Flow<String> = x.flowWhenConnected(TestService.LocalBinder::flow)
 
-        shadowOf(getMainLooper()).idle()
+        assertThat(flow.first()).isEqualTo("Something 1")
+
+        this.cancel()
+      }
+    } catch (e: CancellationException) {
+      // expected
     }
+
+    shadowOf(getMainLooper()).idle()
+  }
 }

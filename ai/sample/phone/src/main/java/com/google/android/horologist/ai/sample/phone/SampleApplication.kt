@@ -21,20 +21,20 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class SampleApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        setStrictMode()
-    }
+    setStrictMode()
+  }
 
-    private fun setStrictMode() {
-//        StrictMode.setThreadPolicy(
-//            StrictMode.ThreadPolicy.Builder()
-//                .detectDiskReads()
-//                .detectDiskWrites()
-//                .detectNetwork()
-//                .penaltyDeath()
-//                .build(),
-//        )
-    }
+  private fun setStrictMode() {
+    //        StrictMode.setThreadPolicy(
+    //            StrictMode.ThreadPolicy.Builder()
+    //                .detectDiskReads()
+    //                .detectDiskWrites()
+    //                .detectNetwork()
+    //                .penaltyDeath()
+    //                .build(),
+    //        )
+  }
 }

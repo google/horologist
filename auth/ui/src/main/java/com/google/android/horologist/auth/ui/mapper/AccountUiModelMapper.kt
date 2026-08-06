@@ -20,17 +20,14 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.images.coil.CoilPaintable
 
-/**
- * Functions to map models from other layers and / or packages into a [AccountUiModel].
- */
+/** Functions to map models from other layers and / or packages into a [AccountUiModel]. */
 public object AccountUiModelMapper {
 
-    /**
-     * Maps from a [AuthUser].
-     */
-    public fun map(authUser: AuthUser, defaultEmail: String = ""): AccountUiModel = AccountUiModel(
-        email = authUser.email ?: defaultEmail,
-        name = authUser.displayName,
-        avatar = authUser.avatarUri?.let { CoilPaintable(it) },
+  /** Maps from a [AuthUser]. */
+  public fun map(authUser: AuthUser, defaultEmail: String = ""): AccountUiModel =
+    AccountUiModel(
+      email = authUser.email ?: defaultEmail,
+      name = authUser.displayName,
+      avatar = authUser.avatarUri?.let { CoilPaintable(it) },
     )
 }

@@ -28,18 +28,15 @@ import org.junit.rules.TestRule
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
 
-/**
- * Reusable JUnit4 [TestRule] to override the [main][Dispatchers.Main] dispatcher.
- */
-class MainDispatcherRule(
-    val testDispatcher: TestDispatcher = UnconfinedTestDispatcher(),
-) : TestWatcher() {
+/** Reusable JUnit4 [TestRule] to override the [main][Dispatchers.Main] dispatcher. */
+class MainDispatcherRule(val testDispatcher: TestDispatcher = UnconfinedTestDispatcher()) :
+  TestWatcher() {
 
-    override fun starting(description: Description) {
-        Dispatchers.setMain(testDispatcher)
-    }
+  override fun starting(description: Description) {
+    Dispatchers.setMain(testDispatcher)
+  }
 
-    override fun finished(description: Description) {
-        Dispatchers.resetMain()
-    }
+  override fun finished(description: Description) {
+    Dispatchers.resetMain()
+  }
 }

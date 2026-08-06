@@ -32,322 +32,328 @@ import org.robolectric.annotation.Config
 
 class ToggleChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun switch() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-            )
-        }
+  @Test
+  fun switch() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Switch,
+      )
     }
+  }
 
-    @Test
-    fun radio() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Radio,
-            )
-        }
+  @Test
+  fun radio() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Radio,
+      )
     }
+  }
 
-    @Test
-    fun checkbox() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Checkbox,
-            )
-        }
+  @Test
+  fun checkbox() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Checkbox,
+      )
     }
+  }
 
-    @Test
-    fun unchecked() {
-        runComponentTest {
-            ToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-            )
-        }
+  @Test
+  fun unchecked() {
+    runComponentTest {
+      ToggleChip(
+        checked = false,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Switch,
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryLabel() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = stringResource(R.string.secondary_label),
-            )
-        }
+  @Test
+  fun withSecondaryLabel() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Switch,
+        secondaryLabel = stringResource(R.string.secondary_label),
+      )
     }
+  }
 
-    @Test
-    fun withIcon() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
+  @Test
+  fun withIcon() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icons.Default.Image.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryLabelAndIcon() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image.asPaintable(),
-                secondaryLabel = stringResource(R.string.secondary_label),
-            )
-        }
+  @Test
+  fun withSecondaryLabelAndIcon() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icons.Default.Image.asPaintable(),
+        secondaryLabel = stringResource(R.string.secondary_label),
+      )
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Switch,
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun uncheckedAndDisabled() {
-        runComponentTest {
-            ToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false,
-            )
-        }
+  @Test
+  fun uncheckedAndDisabled() {
+    runComponentTest {
+      ToggleChip(
+        checked = false,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Switch,
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun withLongText() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                toggleControl = ToggleChipToggleControl.Switch,
-            )
-        }
+  @Test
+  fun withLongText() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label =
+          "Primary label very very very very very very very very very very very very very very very very very long text",
+        toggleControl = ToggleChipToggleControl.Switch,
+      )
     }
+  }
 
-    @Test
-    fun withLongTextAndLargestFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-                ToggleChip(
-                    checked = true,
-                    onCheckedChanged = { },
-                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    toggleControl = ToggleChipToggleControl.Switch,
-                )
-            }
-        }
+  @Test
+  fun withLongTextAndLargestFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
+        ToggleChip(
+          checked = true,
+          onCheckedChanged = {},
+          label =
+            "Primary label very very very very very very very very very very very very very very very very very long text",
+          toggleControl = ToggleChipToggleControl.Switch,
+        )
+      }
     }
+  }
 
-    @Test
-    fun withIconAndLongText() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
+  @Test
+  fun withIconAndLongText() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label =
+          "Primary label very very very very very very very very very very very very very very very very very long text",
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icons.Default.Image.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun withIconAndLongTextAndLargestFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-                ToggleChip(
-                    checked = true,
-                    onCheckedChanged = { },
-                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    toggleControl = ToggleChipToggleControl.Switch,
-                    icon = Icons.Default.Image.asPaintable(),
-                )
-            }
-        }
+  @Test
+  fun withIconAndLongTextAndLargestFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
+        ToggleChip(
+          checked = true,
+          onCheckedChanged = {},
+          label =
+            "Primary label very very very very very very very very very very very very very very very very very long text",
+          toggleControl = ToggleChipToggleControl.Switch,
+          icon = Icons.Default.Image.asPaintable(),
+        )
+      }
     }
+  }
 
-    @Test
-    fun withSecondaryLabelAndLongText() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label very very very very very very very very long text",
-                secondaryLabel = "Secondary label very very very very very very very very very long text",
-                toggleControl = ToggleChipToggleControl.Switch,
-            )
-        }
+  @Test
+  fun withSecondaryLabelAndLongText() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = "Primary label very very very very very very very very long text",
+        secondaryLabel = "Secondary label very very very very very very very very very long text",
+        toggleControl = ToggleChipToggleControl.Switch,
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryLabelAndLongTextAndLargestFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-                ToggleChip(
-                    checked = true,
-                    onCheckedChanged = { },
-                    label = "Primary label very very very very very very very very long text",
-                    secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    toggleControl = ToggleChipToggleControl.Switch,
-                )
-            }
-        }
+  @Test
+  fun withSecondaryLabelAndLongTextAndLargestFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
+        ToggleChip(
+          checked = true,
+          onCheckedChanged = {},
+          label = "Primary label very very very very very very very very long text",
+          secondaryLabel = "Secondary label very very very very very very very very very long text",
+          toggleControl = ToggleChipToggleControl.Switch,
+        )
+      }
     }
+  }
 
-    @Test
-    fun withIconAndSecondaryLabelAndLongText() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label very very very very very very very very long text",
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image.asPaintable(),
-                secondaryLabel = "Secondary label very very very very very very very very very long text",
-            )
-        }
+  @Test
+  fun withIconAndSecondaryLabelAndLongText() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = "Primary label very very very very very very very very long text",
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icons.Default.Image.asPaintable(),
+        secondaryLabel = "Secondary label very very very very very very very very very long text",
+      )
     }
+  }
 
-    @Test
-    fun withIconAndSecondaryLabelAndLongTextAndLargestFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-                ToggleChip(
-                    checked = true,
-                    onCheckedChanged = { },
-                    label = "Primary label very very very very very very very very long text",
-                    toggleControl = ToggleChipToggleControl.Switch,
-                    icon = Icons.Default.Image.asPaintable(),
-                    secondaryLabel = "Secondary label very very very very very very very very very long text",
-                )
-            }
-        }
+  @Test
+  fun withIconAndSecondaryLabelAndLongTextAndLargestFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
+        ToggleChip(
+          checked = true,
+          onCheckedChanged = {},
+          label = "Primary label very very very very very very very very long text",
+          toggleControl = ToggleChipToggleControl.Switch,
+          icon = Icons.Default.Image.asPaintable(),
+          secondaryLabel = "Secondary label very very very very very very very very very long text",
+        )
+      }
     }
+  }
 
-    @Test
-    fun usingSmallIcon() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icon12dp.asPaintable(),
-            )
-        }
+  @Test
+  fun usingSmallIcon() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icon12dp.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun usingLargeIcon() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icon32dp.asPaintable(),
-            )
-        }
+  @Test
+  fun usingLargeIcon() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icon32dp.asPaintable(),
+      )
     }
+  }
 
-    // This test is redundant to "withSecondaryLabelAndIcon" test, but it's added to help compare
-    // with "defaultRtl" test, as it uses a different icon that is easier to see mirrored.
-    @Test
-    fun default() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.PlayArrow.asPaintable(),
-                secondaryLabel = stringResource(R.string.secondary_label),
-            )
-        }
+  // This test is redundant to "withSecondaryLabelAndIcon" test, but it's added to help compare
+  // with "defaultRtl" test, as it uses a different icon that is easier to see mirrored.
+  @Test
+  fun default() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icons.Default.PlayArrow.asPaintable(),
+        secondaryLabel = stringResource(R.string.secondary_label),
+      )
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun defaultRtl() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.PlayArrow.asPaintable(),
-                secondaryLabel = stringResource(R.string.secondary_label),
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun defaultRtl() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icons.Default.PlayArrow.asPaintable(),
+        secondaryLabel = stringResource(R.string.secondary_label),
+      )
     }
+  }
 
-    companion object {
-        private const val largestFontScale = 1.18f
+  companion object {
+    private const val largestFontScale = 1.18f
 
-        private val Icon12dp: ImageVector
-            get() = ImageVector.Builder(
-                name = "Icon Small",
-                defaultWidth = 12f.dp,
-                defaultHeight = 12f.dp,
-                viewportWidth = 12f,
-                viewportHeight = 12f,
-            )
-                .materialPath {
-                    horizontalLineToRelative(12.0f)
-                    verticalLineToRelative(12.0f)
-                    horizontalLineTo(0.0f)
-                    close()
-                }
-                .build()
+    private val Icon12dp: ImageVector
+      get() =
+        ImageVector.Builder(
+            name = "Icon Small",
+            defaultWidth = 12f.dp,
+            defaultHeight = 12f.dp,
+            viewportWidth = 12f,
+            viewportHeight = 12f,
+          )
+          .materialPath {
+            horizontalLineToRelative(12.0f)
+            verticalLineToRelative(12.0f)
+            horizontalLineTo(0.0f)
+            close()
+          }
+          .build()
 
-        private val Icon32dp: ImageVector
-            get() = ImageVector.Builder(
-                name = "Icon Large",
-                defaultWidth = 32f.dp,
-                defaultHeight = 32f.dp,
-                viewportWidth = 32f,
-                viewportHeight = 32f,
-            )
-                .materialPath {
-                    horizontalLineToRelative(32.0f)
-                    verticalLineToRelative(32.0f)
-                    horizontalLineTo(0.0f)
-                    close()
-                }
-                .build()
-    }
+    private val Icon32dp: ImageVector
+      get() =
+        ImageVector.Builder(
+            name = "Icon Large",
+            defaultWidth = 32f.dp,
+            defaultHeight = 32f.dp,
+            viewportWidth = 32f,
+            viewportHeight = 32f,
+          )
+          .materialPath {
+            horizontalLineToRelative(32.0f)
+            verticalLineToRelative(32.0f)
+            horizontalLineTo(0.0f)
+            close()
+          }
+          .build()
+  }
 }

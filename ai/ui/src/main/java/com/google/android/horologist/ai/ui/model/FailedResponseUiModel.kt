@@ -20,8 +20,8 @@ import android.content.Context
 import com.google.android.horologist.ai.ui.R
 
 public data class FailedResponseUiModel(public val message: String) : PromptOrResponseUiModel {
-    public companion object {
-        public fun NoCompanion(context: Context): FailedResponseUiModel =
-            FailedResponseUiModel(context.getString(R.string.horologist_no_companion_app_found))
-    }
+  public companion object {
+    public fun NoCompanion(context: Context): FailedResponseUiModel =
+      FailedResponseUiModel(context.getString(R.string.horologist_no_companion_app_found))
+  }
 }

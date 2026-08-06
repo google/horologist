@@ -25,40 +25,43 @@ import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.status.NetworkRepository
 
 /**
- * Networking Rules that bridges between app specific rules
- * and specific network actions, like opening a network socket.
+ * Networking Rules that bridges between app specific rules and specific network actions, like
+ * opening a network socket.
  */
 @ExperimentalHorologistApi
 public class NetworkingRulesEngine(
-    internal val networkRepository: NetworkRepository,
-    internal val logger: NetworkStatusLogger = NetworkStatusLogger.Logging,
-    private val networkingRules: NetworkingRules = NetworkingRules.Lenient,
+  internal val networkRepository: NetworkRepository,
+  internal val logger: NetworkStatusLogger = NetworkStatusLogger.Logging,
+  private val networkingRules: NetworkingRules = NetworkingRules.Lenient,
 ) {
-    public fun preferredNetwork(requestType: RequestType): NetworkStatus? {
-        val networks = networkRepository.networkStatus.value
+  public fun preferredNetwork(requestType: RequestType): NetworkStatus? {
+    val networks = networkRepository.networkStatus.value
 
-        return networkingRules.getPreferredNetwork(networks, requestType)
-    }
+    return networkingRules.getPreferredNetwork(networks, requestType)
+  }
 
-    public fun checkValidRequest(
-        requestType: RequestType,
-        currentNetworkInfo: NetworkInfo?,
-    ): RequestCheck {
-        return networkingRules.checkValidRequest(requestType, currentNetworkInfo ?: NetworkInfo.Unknown("unknown"))
-    }
+  public fun checkValidRequest(
+    requestType: RequestType,
+    currentNetworkInfo: NetworkInfo?,
+  ): RequestCheck {
+    return networkingRules.checkValidRequest(
+      requestType,
+      currentNetworkInfo ?: NetworkInfo.Unknown("unknown"),
+    )
+  }
 
-    public fun isHighBandwidthRequest(requestType: RequestType): Boolean {
-        return networkingRules.isHighBandwidthRequest(requestType)
-    }
+  public fun isHighBandwidthRequest(requestType: RequestType): Boolean {
+    return networkingRules.isHighBandwidthRequest(requestType)
+  }
 
-    public fun supportedTypes(requestType: RequestType): List<NetworkType> {
-        return buildList {
-            if (checkValidRequest(requestType, NetworkInfo.Wifi("test")) is Allow) {
-                add(NetworkType.Wifi)
-            }
-            if (checkValidRequest(requestType, NetworkInfo.Cellular("test")) is Allow) {
-                add(NetworkType.Cell)
-            }
-        }
+  public fun supportedTypes(requestType: RequestType): List<NetworkType> {
+    return buildList {
+      if (checkValidRequest(requestType, NetworkInfo.Wifi("test")) is Allow) {
+        add(NetworkType.Wifi)
+      }
+      if (checkValidRequest(requestType, NetworkInfo.Cellular("test")) is Allow) {
+        add(NetworkType.Cell)
+      }
     }
+  }
 }

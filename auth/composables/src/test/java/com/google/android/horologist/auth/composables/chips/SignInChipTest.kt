@@ -22,41 +22,39 @@ import org.junit.Test
 
 class SignInChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            SignInChip(onClick = {})
-        }
-    }
+  @Test
+  fun default() {
+    runComponentTest { SignInChip(onClick = {}) }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            SignInChip(
-                onClick = {},
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      SignInChip(
+        onClick = {},
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryChipType() {
-        runComponentTest {
-            SignInChip(
-                onClick = {},
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  @Test
+  fun withSecondaryChipType() {
+    runComponentTest {
+      SignInChip(
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryChipTypeDisabled() {
-        runComponentTest {
-            SignInChip(
-                onClick = {},
-                colors = ChipDefaults.secondaryChipColors(),
-                enabled = false,
-            )
-        }
+  @Test
+  fun withSecondaryChipTypeDisabled() {
+    runComponentTest {
+      SignInChip(
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+        enabled = false,
+      )
     }
+  }
 }

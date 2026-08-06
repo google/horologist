@@ -28,22 +28,23 @@ import androidx.wear.compose.material3.MaterialTheme
 
 @Composable
 public fun RadialBackground(
-    color: Color?,
-    background: Color = MaterialTheme.colorScheme.background,
+  color: Color?,
+  background: Color = MaterialTheme.colorScheme.background,
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(radialBackgroundBrush(color = color, background = background)),
-    )
+  Box(
+    modifier =
+      Modifier.fillMaxSize()
+        .background(radialBackgroundBrush(color = color, background = background))
+  )
 }
 
 public fun radialBackgroundBrush(
-    color: Color?,
-    background: Color,
-): Brush = Brush.radialGradient(
+  color: Color?,
+  background: Color,
+): Brush =
+  Brush.radialGradient(
     listOf(
-        (color ?: Color.Black).copy(alpha = 0.5f).compositeOver(background),
-        background,
-    ),
-)
+      (color ?: Color.Black).copy(alpha = 0.5f).compositeOver(background),
+      background,
+    )
+  )

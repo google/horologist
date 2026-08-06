@@ -25,66 +25,66 @@ import org.junit.Test
 @Ignore("Working through alpha changes")
 class PlaylistDownloadBrowseScreenA11yScreenshotTest : WearLegacyA11yTest() {
 
-    @Test
-    fun browseScreen() {
-        val screenState = BrowseScreenState.Loaded(downloadList)
+  @Test
+  fun browseScreen() {
+    val screenState = BrowseScreenState.Loaded(downloadList)
 
-        runScreenTest {
-            PlaylistDownloadBrowseScreen(
-                browseScreenState = screenState,
-                onDownloadItemClick = { },
-                onDownloadItemInProgressClick = { },
-                onPlaylistsClick = { },
-                onSettingsClick = { },
-                onDownloadItemInProgressClickActionLabel = "cancel",
-            )
-        }
+    runScreenTest {
+      PlaylistDownloadBrowseScreen(
+        browseScreenState = screenState,
+        onDownloadItemClick = {},
+        onDownloadItemInProgressClick = {},
+        onPlaylistsClick = {},
+        onSettingsClick = {},
+        onDownloadItemInProgressClickActionLabel = "cancel",
+      )
+    }
+  }
+
+  @Test
+  fun secondPage() {
+    val screenState = BrowseScreenState.Loaded(downloadList)
+
+    composeRule.setContent {
+      TestScaffold {
+        PlaylistDownloadBrowseScreen(
+          browseScreenState = screenState,
+          onDownloadItemClick = {},
+          onDownloadItemInProgressClick = {},
+          onPlaylistsClick = {},
+          onSettingsClick = {},
+          onDownloadItemInProgressClickActionLabel = "cancel",
+        )
+      }
     }
 
-    @Test
-    fun secondPage() {
-        val screenState = BrowseScreenState.Loaded(downloadList)
-
-        composeRule.setContent {
-            TestScaffold {
-                PlaylistDownloadBrowseScreen(
-                    browseScreenState = screenState,
-                    onDownloadItemClick = { },
-                    onDownloadItemInProgressClick = { },
-                    onPlaylistsClick = { },
-                    onSettingsClick = { },
-                    onDownloadItemInProgressClickActionLabel = "cancel",
-                )
-            }
-        }
-
-        // TODO https://github.com/google/horologist/issues/2237
-//        composeRule.onNode(hasScrollToNodeAction())
-//            .performTouchInput { repeat(10) { swipeUp() } }
-//
-//        captureScreenshot()
-    }
+    // TODO https://github.com/google/horologist/issues/2237
+    //        composeRule.onNode(hasScrollToNodeAction())
+    //            .performTouchInput { repeat(10) { swipeUp() } }
+    //
+    //        captureScreenshot()
+  }
 }
 
 internal val downloadList = buildList {
-    add(
-        PlaylistDownloadUiModel.InProgress(
-            PlaylistUiModel(
-                id = "id",
-                title = "Rock Classics",
-                artworkUri = "https://www.example.com/album1.png",
-            ),
-            percentage = 15,
-        ),
+  add(
+    PlaylistDownloadUiModel.InProgress(
+      PlaylistUiModel(
+        id = "id",
+        title = "Rock Classics",
+        artworkUri = "https://www.example.com/album1.png",
+      ),
+      percentage = 15,
     )
+  )
 
-    add(
-        PlaylistDownloadUiModel.Completed(
-            PlaylistUiModel(
-                id = "id",
-                title = "Pop Punk",
-                artworkUri = "https://www.example.com/album2.png",
-            ),
-        ),
+  add(
+    PlaylistDownloadUiModel.Completed(
+      PlaylistUiModel(
+        id = "id",
+        title = "Pop Punk",
+        artworkUri = "https://www.example.com/album2.png",
+      )
     )
+  )
 }

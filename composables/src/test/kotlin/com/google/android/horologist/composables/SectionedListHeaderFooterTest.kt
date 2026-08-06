@@ -36,86 +36,89 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class SectionedListHeaderFooterTest(
-    private val headerVisibleStatesParam: Section.VisibleStates,
-    private val footerVisibleStatesParam: Section.VisibleStates,
-    private val sectionStateParam: Section.State<String>,
+  private val headerVisibleStatesParam: Section.VisibleStates,
+  private val footerVisibleStatesParam: Section.VisibleStates,
+  private val sectionStateParam: Section.State<String>,
 ) : WearLegacyScreenTest() {
 
-    @Test
-    fun test() {
-        runTest {
-            val columnState = rememberResponsiveColumnState(
-                contentPadding = padding(
-                    first = if (headerVisibleStatesParam == ALL_STATES) ItemType.Text else ItemType.Chip,
-                    last = ItemType.Chip,
-                ),
+  @Test
+  fun test() {
+    runTest {
+      val columnState =
+        rememberResponsiveColumnState(
+          contentPadding =
+            padding(
+              first = if (headerVisibleStatesParam == ALL_STATES) ItemType.Text else ItemType.Chip,
+              last = ItemType.Chip,
             )
-
-            ScreenScaffold(scrollState = columnState) {
-                SectionedList(columnState = columnState) {
-                    section(state = sectionStateParam) {
-                        header(visibleStates = headerVisibleStatesParam) { DownloadsHeader() }
-
-                        loading { DownloadsLoading() }
-
-                        loaded { DownloadsLoaded(it) }
-
-                        failed { DownloadsFailed() }
-
-                        empty { DownloadsEmpty() }
-
-                        footer(visibleStates = footerVisibleStatesParam) { DownloadsFooter() }
-                    }
-                }
-            }
-        }
-    }
-
-    companion object {
-        @JvmStatic
-        @ParameterizedRobolectricTestRunner.Parameters
-        @Suppress("unused") // it's used by the test as params
-        fun params() = listOf(
-            arrayOf(
-                ALL_STATES,
-                NO_STATES,
-                Section.State.Loading,
-            ),
-            arrayOf(
-                ALL_STATES,
-                NO_STATES,
-                Section.State.Loaded(downloads),
-            ),
-            arrayOf(
-                ALL_STATES,
-                NO_STATES,
-                Section.State.Failed,
-            ),
-            arrayOf(
-                ALL_STATES,
-                NO_STATES,
-                Section.State.Empty,
-            ),
-            arrayOf(
-                NO_STATES,
-                ALL_STATES,
-                Section.State.Loading,
-            ),
-            arrayOf(
-                NO_STATES,
-                ALL_STATES,
-                Section.State.Loaded(downloads),
-            ),
-            arrayOf(
-                NO_STATES,
-                ALL_STATES,
-                Section.State.Failed,
-            ),
-            arrayOf(
-                NO_STATES,
-                ALL_STATES,
-                Section.State.Empty,
-            ),
         )
+
+      ScreenScaffold(scrollState = columnState) {
+        SectionedList(columnState = columnState) {
+          section(state = sectionStateParam) {
+            header(visibleStates = headerVisibleStatesParam) { DownloadsHeader() }
+
+            loading { DownloadsLoading() }
+
+            loaded { DownloadsLoaded(it) }
+
+            failed { DownloadsFailed() }
+
+            empty { DownloadsEmpty() }
+
+            footer(visibleStates = footerVisibleStatesParam) { DownloadsFooter() }
+          }
+        }
+      }
     }
+  }
+
+  companion object {
+    @JvmStatic
+    @ParameterizedRobolectricTestRunner.Parameters
+    @Suppress("unused") // it's used by the test as params
+    fun params() =
+      listOf(
+        arrayOf(
+          ALL_STATES,
+          NO_STATES,
+          Section.State.Loading,
+        ),
+        arrayOf(
+          ALL_STATES,
+          NO_STATES,
+          Section.State.Loaded(downloads),
+        ),
+        arrayOf(
+          ALL_STATES,
+          NO_STATES,
+          Section.State.Failed,
+        ),
+        arrayOf(
+          ALL_STATES,
+          NO_STATES,
+          Section.State.Empty,
+        ),
+        arrayOf(
+          NO_STATES,
+          ALL_STATES,
+          Section.State.Loading,
+        ),
+        arrayOf(
+          NO_STATES,
+          ALL_STATES,
+          Section.State.Loaded(downloads),
+        ),
+        arrayOf(
+          NO_STATES,
+          ALL_STATES,
+          Section.State.Failed,
+        ),
+        arrayOf(
+          NO_STATES,
+          ALL_STATES,
+          Section.State.Empty,
+        ),
+      )
+  }
 }

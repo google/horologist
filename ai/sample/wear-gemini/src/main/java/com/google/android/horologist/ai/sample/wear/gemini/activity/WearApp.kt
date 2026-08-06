@@ -27,25 +27,21 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 
 @Composable
 fun WearApp(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberSwipeDismissableNavController(),
+  modifier: Modifier = Modifier,
+  navController: NavHostController = rememberSwipeDismissableNavController(),
 ) {
-    AppScaffold(modifier = modifier) {
-        SwipeDismissableNavHost(
-            startDestination = "Home",
-            navController = navController,
-        ) {
-            composable(
-                route = "Home",
-            ) {
-                DeviceStatusScreen()
-            }
-        }
+  AppScaffold(modifier = modifier) {
+    SwipeDismissableNavHost(
+      startDestination = "Home",
+      navController = navController,
+    ) {
+      composable(route = "Home") { DeviceStatusScreen() }
     }
+  }
 }
 
 @WearPreviewSmallRound
 @Composable
 fun DefaultPreview() {
-    WearApp()
+  WearApp()
 }

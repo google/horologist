@@ -30,9 +30,9 @@ import com.google.android.horologist.auth.ui.common.screens.prompt.SignInPromptV
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
  */
 public val GoogleSignInPromptViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
-    initializer {
-        val application = this[APPLICATION_KEY]!!
+  initializer {
+    val application = this[APPLICATION_KEY]!!
 
-        SignInPromptViewModel(GoogleSignInAuthUserRepository(application))
-    }
+    SignInPromptViewModel(GoogleSignInAuthUserRepository(application))
+  }
 }

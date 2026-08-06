@@ -30,52 +30,44 @@ import org.junit.Test
 import org.robolectric.annotation.Config
 
 class MessageMediaDisplayTest : WearLegacyComponentTest() {
-    @Test
-    fun default() {
-        runComponentTest {
-            MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "Test")
-        }
-    }
+  @Test
+  fun default() {
+    runComponentTest { MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "Test") }
+  }
 
-    @Test
-    fun messageMediaDisplay_whenEmptyMessage() {
-        runComponentTest {
-            DisplayArea {
-                MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "")
-            }
-        }
+  @Test
+  fun messageMediaDisplay_whenEmptyMessage() {
+    runComponentTest {
+      DisplayArea { MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "") }
     }
+  }
 
-    @Config(
-        qualifiers = "+w192dp-h192dp",
-    )
-    @Test
-    fun messageMediaDisplay_whenSmallScreen() {
-        runComponentTest {
-            DisplayArea {
-                MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "David Mode")
-            }
-        }
+  @Config(qualifiers = "+w192dp-h192dp")
+  @Test
+  fun messageMediaDisplay_whenSmallScreen() {
+    runComponentTest {
+      DisplayArea {
+        MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "David Mode")
+      }
     }
+  }
 
-    @Test
-    fun messageMediaDisplay_whenLargeScreen() {
-        runComponentTest {
-            DisplayArea {
-                MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "David Mode")
-            }
-        }
+  @Test
+  fun messageMediaDisplay_whenLargeScreen() {
+    runComponentTest {
+      DisplayArea {
+        MessageMediaDisplay(modifier = Modifier.alpha(0.5f).fillMaxSize(), "David Mode")
+      }
     }
+  }
 
-    @Composable
-    private fun DisplayArea(content: @Composable () -> Unit) {
-        Box(
-            modifier = Modifier
-                .wrapContentSize()
-                .background(Color.Black.copy(alpha = 0.5f)),
-            contentAlignment = Alignment.Center,
-        ) {
-            content()
-        }
+  @Composable
+  private fun DisplayArea(content: @Composable () -> Unit) {
+    Box(
+      modifier = Modifier.wrapContentSize().background(Color.Black.copy(alpha = 0.5f)),
+      contentAlignment = Alignment.Center,
+    ) {
+      content()
     }
+  }
 }

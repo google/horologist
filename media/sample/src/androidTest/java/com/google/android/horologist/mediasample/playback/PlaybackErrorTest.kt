@@ -37,31 +37,30 @@ import org.junit.runner.RunWith
 @HiltAndroidTest
 class PlaybackErrorTest : BasePlaybackTest() {
 
-    private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
+  private val mediaItemMapper: MediaItemMapper = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
 
-    @Test
-    fun testFailingItem() = runTest {
-        withContext(Dispatchers.Main) {
-            val browser = browser()
+  @Test
+  fun testFailingItem() = runTest {
+    withContext(Dispatchers.Main) {
+      val browser = browser()
 
-            val badContent = Media(
-                "1",
-                "milkjawn",
-                "milkjawn",
-                "Milk Jawn",
-                "https://cdn.player.fm/images/14416069/series/stoRUvKcFOzInZ1X/512.jpg",
-            )
+      val badContent =
+        Media(
+          "1",
+          "milkjawn",
+          "milkjawn",
+          "Milk Jawn",
+          "https://cdn.player.fm/images/14416069/series/stoRUvKcFOzInZ1X/512.jpg",
+        )
 
-            browser.setMediaItem(
-                mediaItemMapper.map(badContent),
-            )
-            browser.prepare()
-            browser.play()
+      browser.setMediaItem(mediaItemMapper.map(badContent))
+      browser.prepare()
+      browser.play()
 
-            // allow for async operations
-            delay(5000)
+      // allow for async operations
+      delay(5000)
 
-            assertThat(browser.isPlaying).isFalse()
-        }
+      assertThat(browser.isPlaying).isFalse()
     }
+  }
 }

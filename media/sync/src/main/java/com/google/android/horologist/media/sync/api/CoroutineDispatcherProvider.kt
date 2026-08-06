@@ -20,5 +20,5 @@ import kotlinx.coroutines.CoroutineDispatcher
 
 public interface CoroutineDispatcherProvider {
 
-    public fun getIODispatcher(): CoroutineDispatcher
+  public fun getIODispatcher(): CoroutineDispatcher
 }

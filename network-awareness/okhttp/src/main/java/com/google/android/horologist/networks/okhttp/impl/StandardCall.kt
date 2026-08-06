@@ -22,18 +22,18 @@ import com.google.android.horologist.networks.okhttp.requestType
 import okhttp3.Call
 
 /**
- * A standard call Wrapper, that exists solely to ensure that the
- * [NetworkSelectingCallFactory] is used for [clone].
+ * A standard call Wrapper, that exists solely to ensure that the [NetworkSelectingCallFactory] is
+ * used for [clone].
  */
 @ExperimentalHorologistApi
 internal class StandardCall(
-    private val callFactory: Call.Factory,
-    private val delegate: Call,
+  private val callFactory: Call.Factory,
+  private val delegate: Call,
 ) : Call by delegate {
-    override fun clone(): Call {
-        val request = request()
-        // Remove network and lease from new request
-        val cleanRequest = request.newBuilder().requestType(request.requestType).build()
-        return callFactory.newCall(cleanRequest)
-    }
+  override fun clone(): Call {
+    val request = request()
+    // Remove network and lease from new request
+    val cleanRequest = request.newBuilder().requestType(request.requestType).build()
+    return callFactory.newCall(cleanRequest)
+  }
 }

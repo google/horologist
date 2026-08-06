@@ -23,6 +23,5 @@ import androidx.compose.ui.graphics.painter.Painter
 /** Represents an image or graphic that can be displayed in a compose context via a [Painter]. */
 @Stable
 public interface Paintable {
-    @Composable
-    public fun rememberPainter(): Painter
+  @Composable public fun rememberPainter(): Painter
 }

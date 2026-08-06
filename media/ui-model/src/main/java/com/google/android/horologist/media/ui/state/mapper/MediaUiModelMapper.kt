@@ -22,26 +22,28 @@ import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
-/**
- * Map a [Media] into a [MediaUiModel]
- */
+/** Map a [Media] into a [MediaUiModel] */
 @ExperimentalHorologistApi
 public object MediaUiModelMapper {
 
-    public fun map(media: Media, defaultTitle: String = "", defaultArtist: String = ""): MediaUiModel.Ready {
-        var title = media.title
-        var artist = media.artist
-        if (title.isEmpty() && artist.isEmpty()) {
-            title = defaultTitle
-            artist = defaultArtist
-        }
-        return MediaUiModel.Ready(
-            id = media.id,
-            title = title,
-            subtitle = artist,
-            clientPackageName = media.clientPackageName,
-            artwork = media.artworkUri?.let { CoilPaintable(it) },
-            artworkColor = media.artworkColor?.let { Color(it) },
-        )
+  public fun map(
+    media: Media,
+    defaultTitle: String = "",
+    defaultArtist: String = "",
+  ): MediaUiModel.Ready {
+    var title = media.title
+    var artist = media.artist
+    if (title.isEmpty() && artist.isEmpty()) {
+      title = defaultTitle
+      artist = defaultArtist
     }
+    return MediaUiModel.Ready(
+      id = media.id,
+      title = title,
+      subtitle = artist,
+      clientPackageName = media.clientPackageName,
+      artwork = media.artworkUri?.let { CoilPaintable(it) },
+      artworkColor = media.artworkColor?.let { Color(it) },
+    )
+  }
 }

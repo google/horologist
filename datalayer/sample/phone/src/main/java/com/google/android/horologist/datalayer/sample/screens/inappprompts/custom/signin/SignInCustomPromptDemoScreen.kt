@@ -43,146 +43,147 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun SignInCustomPromptDemoScreen(
-    modifier: Modifier = Modifier,
-    viewModel: SignInCustomPromptDemoViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: SignInCustomPromptDemoViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == SignInCustomPromptDemoScreenState.Idle) {
-        SideEffect {
-            viewModel.initialize()
-        }
-    }
+  if (state == SignInCustomPromptDemoScreenState.Idle) {
+    SideEffect { viewModel.initialize() }
+  }
 
-    SignInCustomPromptDemoScreen(
-        state = state,
-        onRunDemoClick = viewModel::onRunDemoClick,
-        onPromptSignInClick = viewModel::onPromptSignInClick,
-        onPromptDismiss = viewModel::onPromptDismiss,
-        modifier = modifier,
-    )
+  SignInCustomPromptDemoScreen(
+    state = state,
+    onRunDemoClick = viewModel::onRunDemoClick,
+    onPromptSignInClick = viewModel::onPromptSignInClick,
+    onPromptDismiss = viewModel::onPromptDismiss,
+    modifier = modifier,
+  )
 }
 
 @Composable
 fun SignInCustomPromptDemoScreen(
-    state: SignInCustomPromptDemoScreenState,
-    onRunDemoClick: () -> Unit,
-    onPromptSignInClick: (nodeId: String) -> Unit,
-    onPromptDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
+  state: SignInCustomPromptDemoScreenState,
+  onRunDemoClick: () -> Unit,
+  onPromptSignInClick: (nodeId: String) -> Unit,
+  onPromptDismiss: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.padding(all = 10.dp),
+  Column(modifier = modifier.padding(all = 10.dp)) {
+    Text(text = stringResource(id = R.string.signin_custom_prompt_api_call_demo_message))
+
+    Button(
+      onClick = onRunDemoClick,
+      modifier = Modifier.padding(top = 10.dp).align(Alignment.CenterHorizontally),
+      enabled = state != SignInCustomPromptDemoScreenState.ApiNotAvailable,
     ) {
-        Text(text = stringResource(id = R.string.signin_custom_prompt_api_call_demo_message))
-
-        Button(
-            onClick = onRunDemoClick,
-            modifier = Modifier
-                .padding(top = 10.dp)
-                .align(Alignment.CenterHorizontally),
-            enabled = state != SignInCustomPromptDemoScreenState.ApiNotAvailable,
-        ) {
-            Text(text = stringResource(id = R.string.signin_custom_prompt_run_demo_button_label))
-        }
-
-        when (state) {
-            SignInCustomPromptDemoScreenState.Idle,
-            SignInCustomPromptDemoScreenState.Loaded,
-            -> {
-                /* do nothing */
-            }
-
-            SignInCustomPromptDemoScreenState.Loading -> {
-                CircularProgressIndicator()
-            }
-
-            is SignInCustomPromptDemoScreenState.WatchFound -> {
-                Row(
-                    modifier = Modifier
-                        .padding(top = 30.dp)
-                        .border(width = 1.dp, color = MaterialTheme.colorScheme.onSurface)
-                        .padding(horizontal = 20.dp, vertical = 10.dp),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Watch,
-                        contentDescription = null,
-                        modifier = Modifier.padding(top = 20.dp, end = 20.dp),
-                    )
-                    Column {
-                        Text(text = stringResource(id = R.string.signin_custom_prompt_demo_prompt_top_message))
-                        Text(text = stringResource(id = R.string.signin_custom_prompt_demo_prompt_bottom_message))
-                        Row {
-                            TextButton(
-                                onClick = onPromptDismiss,
-                            ) {
-                                Text(text = stringResource(id = R.string.signin_custom_prompt_demo_prompt_dismiss_button_label))
-                            }
-
-                            Spacer(modifier = Modifier.weight(1f))
-
-                            TextButton(
-                                onClick = { onPromptSignInClick(state.nodeId) },
-                            ) {
-                                Text(text = stringResource(id = R.string.signin_custom_prompt_demo_prompt_confirm_button_label))
-                            }
-                        }
-                    }
-                }
-            }
-
-            SignInCustomPromptDemoScreenState.WatchNotFound -> {
-                Text(
-                    stringResource(
-                        id = R.string.signin_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.signin_custom_prompt_demo_no_watches_found_label),
-                    ),
-                )
-            }
-
-            SignInCustomPromptDemoScreenState.PromptSignInClicked -> {
-                Text(
-                    stringResource(
-                        id = R.string.signin_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.signin_custom_prompt_demo_prompt_positive_result_label),
-                    ),
-                )
-            }
-
-            SignInCustomPromptDemoScreenState.PromptDismissed -> {
-                Text(
-                    stringResource(
-                        id = R.string.signin_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.signin_custom_prompt_demo_prompt_dismiss_result_label),
-                    ),
-                )
-            }
-
-            SignInCustomPromptDemoScreenState.ApiNotAvailable -> {
-                Text(stringResource(id = R.string.wearable_message_api_unavailable))
-            }
-        }
+      Text(text = stringResource(id = R.string.signin_custom_prompt_run_demo_button_label))
     }
+
+    when (state) {
+      SignInCustomPromptDemoScreenState.Idle,
+      SignInCustomPromptDemoScreenState.Loaded -> {
+        /* do nothing */
+      }
+
+      SignInCustomPromptDemoScreenState.Loading -> {
+        CircularProgressIndicator()
+      }
+
+      is SignInCustomPromptDemoScreenState.WatchFound -> {
+        Row(
+          modifier =
+            Modifier.padding(top = 30.dp)
+              .border(width = 1.dp, color = MaterialTheme.colorScheme.onSurface)
+              .padding(horizontal = 20.dp, vertical = 10.dp)
+        ) {
+          Icon(
+            imageVector = Icons.Default.Watch,
+            contentDescription = null,
+            modifier = Modifier.padding(top = 20.dp, end = 20.dp),
+          )
+          Column {
+            Text(text = stringResource(id = R.string.signin_custom_prompt_demo_prompt_top_message))
+            Text(
+              text = stringResource(id = R.string.signin_custom_prompt_demo_prompt_bottom_message)
+            )
+            Row {
+              TextButton(onClick = onPromptDismiss) {
+                Text(
+                  text =
+                    stringResource(
+                      id = R.string.signin_custom_prompt_demo_prompt_dismiss_button_label
+                    )
+                )
+              }
+
+              Spacer(modifier = Modifier.weight(1f))
+
+              TextButton(onClick = { onPromptSignInClick(state.nodeId) }) {
+                Text(
+                  text =
+                    stringResource(
+                      id = R.string.signin_custom_prompt_demo_prompt_confirm_button_label
+                    )
+                )
+              }
+            }
+          }
+        }
+      }
+
+      SignInCustomPromptDemoScreenState.WatchNotFound -> {
+        Text(
+          stringResource(
+            id = R.string.signin_custom_prompt_demo_result_label,
+            stringResource(id = R.string.signin_custom_prompt_demo_no_watches_found_label),
+          )
+        )
+      }
+
+      SignInCustomPromptDemoScreenState.PromptSignInClicked -> {
+        Text(
+          stringResource(
+            id = R.string.signin_custom_prompt_demo_result_label,
+            stringResource(id = R.string.signin_custom_prompt_demo_prompt_positive_result_label),
+          )
+        )
+      }
+
+      SignInCustomPromptDemoScreenState.PromptDismissed -> {
+        Text(
+          stringResource(
+            id = R.string.signin_custom_prompt_demo_result_label,
+            stringResource(id = R.string.signin_custom_prompt_demo_prompt_dismiss_result_label),
+          )
+        )
+      }
+
+      SignInCustomPromptDemoScreenState.ApiNotAvailable -> {
+        Text(stringResource(id = R.string.wearable_message_api_unavailable))
+      }
+    }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun SignInCustomPromptDemoScreenPreview() {
-    SignInCustomPromptDemoScreen(
-        state = SignInCustomPromptDemoScreenState.Idle,
-        onRunDemoClick = { },
-        onPromptSignInClick = { },
-        onPromptDismiss = { },
-    )
+  SignInCustomPromptDemoScreen(
+    state = SignInCustomPromptDemoScreenState.Idle,
+    onRunDemoClick = {},
+    onPromptSignInClick = {},
+    onPromptDismiss = {},
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun SignInCustomPromptDemoScreenPreviewWithPrompt() {
-    SignInCustomPromptDemoScreen(
-        state = SignInCustomPromptDemoScreenState.WatchFound("nodeId"),
-        onRunDemoClick = { },
-        onPromptSignInClick = { },
-        onPromptDismiss = { },
-    )
+  SignInCustomPromptDemoScreen(
+    state = SignInCustomPromptDemoScreenState.WatchFound("nodeId"),
+    onRunDemoClick = {},
+    onPromptSignInClick = {},
+    onPromptDismiss = {},
+  )
 }

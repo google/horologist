@@ -31,37 +31,37 @@ import com.google.android.horologist.audio.AudioOutput.Companion.TYPE_NONE
 import com.google.android.horologist.audio.AudioOutput.Companion.TYPE_WATCH
 import com.google.android.horologist.audio.ui.model.R
 
-/**
- * UI representation of [AudioOutput].
- */
+/** UI representation of [AudioOutput]. */
 public data class AudioOutputUi(
-    val displayName: String,
-    val imageVector: ImageVector,
-    val isConnected: Boolean,
+  val displayName: String,
+  val imageVector: ImageVector,
+  val isConnected: Boolean,
 )
 
 @Composable
 public fun AudioOutput.toAudioOutputUi(): AudioOutputUi {
-    if (isPlayable) {
-        return AudioOutputUi(
-            displayName = when (type) {
-                TYPE_WATCH -> stringResource(id = R.string.horologist_speaker_name)
-                TYPE_NONE -> stringResource(id = R.string.horologist_output_none)
-                else -> name
-            },
-            imageVector = when (type) {
-                TYPE_HEADPHONES -> Icons.Default.Headphones
-                TYPE_WATCH -> Icons.Default.Watch
-                TYPE_NONE -> Icons.AutoMirrored.Default.VolumeOff
-                else -> Icons.Default.DeviceUnknown
-            },
-            isConnected = this is AudioOutput.BluetoothHeadset || this is AudioOutput.WatchSpeaker,
-        )
-    } else {
-        return AudioOutputUi(
-            displayName = stringResource(id = R.string.choose_device),
-            imageVector = Icons.Default.Add,
-            isConnected = false,
-        )
-    }
+  if (isPlayable) {
+    return AudioOutputUi(
+      displayName =
+        when (type) {
+          TYPE_WATCH -> stringResource(id = R.string.horologist_speaker_name)
+          TYPE_NONE -> stringResource(id = R.string.horologist_output_none)
+          else -> name
+        },
+      imageVector =
+        when (type) {
+          TYPE_HEADPHONES -> Icons.Default.Headphones
+          TYPE_WATCH -> Icons.Default.Watch
+          TYPE_NONE -> Icons.AutoMirrored.Default.VolumeOff
+          else -> Icons.Default.DeviceUnknown
+        },
+      isConnected = this is AudioOutput.BluetoothHeadset || this is AudioOutput.WatchSpeaker,
+    )
+  } else {
+    return AudioOutputUi(
+      displayName = stringResource(id = R.string.choose_device),
+      imageVector = Icons.Default.Add,
+      isConnected = false,
+    )
+  }
 }

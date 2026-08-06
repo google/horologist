@@ -46,211 +46,195 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewSquare
 import kotlinx.coroutines.delay
 
 enum class PreviewAnimationState(val target: Float) {
-    Start(0f), End(1f)
+  Start(0f),
+  End(1f),
 }
 
 @WearPreviewSquare
 @Composable
 fun PreviewProgressAnimation() {
-    var progressState by remember { mutableStateOf(PreviewAnimationState.Start) }
+  var progressState by remember { mutableStateOf(PreviewAnimationState.Start) }
 
-    val transition = updateTransition(
-        targetState = progressState,
-        label = "Square Progress Indicator",
+  val transition =
+    updateTransition(
+      targetState = progressState,
+      label = "Square Progress Indicator",
     )
 
-    val progress by transition.animateFloat(
-        label = "Progress",
-        targetValueByState = { it.target },
-        transitionSpec = {
-            tween(durationMillis = 1000, easing = LinearEasing)
+  val progress by
+    transition.animateFloat(
+      label = "Progress",
+      targetValueByState = { it.target },
+      transitionSpec = { tween(durationMillis = 1000, easing = LinearEasing) },
+    )
+
+  val cornerRadiusDp = 10.dp
+  Box(modifier = Modifier.size(300.dp)) {
+    SquareSegmentedProgressIndicator(
+      modifier =
+        Modifier.align(Alignment.Center).height(300.dp).width(300.dp).clickable {
+          progressState =
+            if (progressState == PreviewAnimationState.Start) {
+              PreviewAnimationState.End
+            } else {
+              PreviewAnimationState.Start
+            }
         },
+      progress = progress,
+      trackSegments = previewProgressSections,
+      cornerRadiusDp = cornerRadiusDp,
+      paddingDp = 8.dp,
     )
+    Text(
+      modifier = Modifier.align(Alignment.Center),
+      text = "${(progress * 100).toInt()}%",
+      color = Color.White,
+    )
+    val cornerRadiusPx: Float = with(LocalDensity.current) { cornerRadiusDp.toPx() }
+    Canvas(modifier = Modifier.fillMaxSize()) {
+      drawLine(
+        Color.LightGray,
+        Offset(size.width / 2, 0f),
+        Offset(size.width / 2, size.height),
+        strokeWidth = 0.2f,
+      )
+      drawLine(
+        Color.LightGray,
+        Offset(0f, size.height / 2),
+        Offset(size.width, size.height / 2),
+        strokeWidth = 0.2f,
+      )
 
-    val cornerRadiusDp = 10.dp
-    Box(modifier = Modifier.size(300.dp)) {
-        SquareSegmentedProgressIndicator(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .height(300.dp)
-                .width(300.dp)
-                .clickable {
-                    progressState = if (progressState == PreviewAnimationState.Start) {
-                        PreviewAnimationState.End
-                    } else {
-                        PreviewAnimationState.Start
-                    }
-                },
-            progress = progress,
-            trackSegments = previewProgressSections,
-            cornerRadiusDp = cornerRadiusDp,
-            paddingDp = 8.dp,
-        )
-        Text(
-            modifier = Modifier.align(Alignment.Center),
-            text = "${(progress * 100).toInt()}%",
-            color = Color.White,
-        )
-        val cornerRadiusPx: Float = with(LocalDensity.current) { cornerRadiusDp.toPx() }
-        Canvas(modifier = Modifier.fillMaxSize()) {
-            drawLine(
-                Color.LightGray,
-                Offset(size.width / 2, 0f),
-                Offset(size.width / 2, size.height),
-                strokeWidth = 0.2f,
-            )
-            drawLine(
-                Color.LightGray,
-                Offset(0f, size.height / 2),
-                Offset(size.width, size.height / 2),
-                strokeWidth = 0.2f,
-            )
+      drawLine(
+        Color.LightGray,
+        Offset(cornerRadiusPx, 0f),
+        Offset(cornerRadiusPx, size.height),
+        strokeWidth = 0.2f,
+      )
+      drawLine(
+        Color.LightGray,
+        Offset(size.width - cornerRadiusPx, 0f),
+        Offset(size.width - cornerRadiusPx, size.height),
+        strokeWidth = 0.2f,
+      )
 
-            drawLine(
-                Color.LightGray,
-                Offset(cornerRadiusPx, 0f),
-                Offset(cornerRadiusPx, size.height),
-                strokeWidth = 0.2f,
-            )
-            drawLine(
-                Color.LightGray,
-                Offset(size.width - cornerRadiusPx, 0f),
-                Offset(size.width - cornerRadiusPx, size.height),
-                strokeWidth = 0.2f,
-            )
-
-            drawLine(
-                Color.LightGray,
-                Offset(0f, cornerRadiusPx),
-                Offset(size.width, cornerRadiusPx),
-                strokeWidth = 0.2f,
-            )
-            drawLine(
-                Color.LightGray,
-                Offset(0f, size.height - cornerRadiusPx),
-                Offset(size.width, size.height - cornerRadiusPx),
-                strokeWidth = 0.2f,
-            )
-        }
+      drawLine(
+        Color.LightGray,
+        Offset(0f, cornerRadiusPx),
+        Offset(size.width, cornerRadiusPx),
+        strokeWidth = 0.2f,
+      )
+      drawLine(
+        Color.LightGray,
+        Offset(0f, size.height - cornerRadiusPx),
+        Offset(size.width, size.height - cornerRadiusPx),
+        strokeWidth = 0.2f,
+      )
     }
+  }
 
-    LaunchedEffect(Unit) {
-        while (true) {
-            progressState = PreviewAnimationState.End
-            delay(1000)
-            progressState = PreviewAnimationState.Start
-        }
+  LaunchedEffect(Unit) {
+    while (true) {
+      progressState = PreviewAnimationState.End
+      delay(1000)
+      progressState = PreviewAnimationState.Start
     }
+  }
 }
 
 @WearPreviewSquare
 @Composable
 fun PreviewHighCornerRadius() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black),
-    ) {
-        SquareSegmentedProgressIndicator(
-            modifier = Modifier
-                .height(300.dp)
-                .width(300.dp),
-            progress = 0.5f,
-            trackSegments = previewProgressSections,
-            cornerRadiusDp = 50.dp,
-        )
-    }
+  Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
+    SquareSegmentedProgressIndicator(
+      modifier = Modifier.height(300.dp).width(300.dp),
+      progress = 0.5f,
+      trackSegments = previewProgressSections,
+      cornerRadiusDp = 50.dp,
+    )
+  }
 }
 
 @WearPreviewSquare
 @Composable
 fun PreviewSquare() {
-    SquareSegmentedProgressIndicator(
-        modifier = Modifier
-            .height(300.dp)
-            .width(300.dp),
-        progress = 1f,
-        trackSegments = previewProgressSections,
-        cornerRadiusDp = 0.dp,
-        paddingDp = 10.dp,
-    )
+  SquareSegmentedProgressIndicator(
+    modifier = Modifier.height(300.dp).width(300.dp),
+    progress = 1f,
+    trackSegments = previewProgressSections,
+    cornerRadiusDp = 0.dp,
+    paddingDp = 10.dp,
+  )
 }
 
 @WearPreviewSquare
 @Composable
 fun PreviewSquareWithBrushColors() {
-    SquareSegmentedProgressIndicator(
-        modifier = Modifier
-            .height(300.dp)
-            .width(300.dp),
-        progress = 1f,
-        trackSegments = previewProgressSectionsBrush,
-        cornerRadiusDp = 0.dp,
-        paddingDp = 10.dp,
-    )
+  SquareSegmentedProgressIndicator(
+    modifier = Modifier.height(300.dp).width(300.dp),
+    progress = 1f,
+    trackSegments = previewProgressSectionsBrush,
+    cornerRadiusDp = 0.dp,
+    paddingDp = 10.dp,
+  )
 }
 
 @WearPreviewSquare
 @Composable
 fun PreviewSquareWithBrushAndColorsCombined() {
-    SquareSegmentedProgressIndicator(
-        modifier = Modifier
-            .height(300.dp)
-            .width(300.dp),
-        progress = 1f,
-        trackSegments = previewProgressSectionsBrushAndColorCombined,
-        cornerRadiusDp = 0.dp,
-        paddingDp = 10.dp,
-    )
+  SquareSegmentedProgressIndicator(
+    modifier = Modifier.height(300.dp).width(300.dp),
+    progress = 1f,
+    trackSegments = previewProgressSectionsBrushAndColorCombined,
+    cornerRadiusDp = 0.dp,
+    paddingDp = 10.dp,
+  )
 }
 
-val previewProgressSections = listOf(
+val previewProgressSections =
+  listOf(
     ProgressIndicatorSegment(
-        weight = 3f,
-        indicatorColor = Color.Cyan,
+      weight = 3f,
+      indicatorColor = Color.Cyan,
     ),
     ProgressIndicatorSegment(
-        weight = 3f,
-        indicatorColor = Color.Magenta,
+      weight = 3f,
+      indicatorColor = Color.Magenta,
     ),
     ProgressIndicatorSegment(
-        weight = 3f,
-        indicatorColor = Color.Yellow,
+      weight = 3f,
+      indicatorColor = Color.Yellow,
     ),
-)
+  )
 
-val previewProgressSectionsBrush = listOf(
+val previewProgressSectionsBrush =
+  listOf(
     ProgressIndicatorSegment(
-        1f,
-        Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
+      1f,
+      Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
     ),
     ProgressIndicatorSegment(
-        weight = 1f,
-        indicatorBrush = Brush.horizontalGradient(
-            listOf(Color.Cyan, Color.Magenta, Color.Yellow),
-        ),
+      weight = 1f,
+      indicatorBrush = Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Yellow)),
     ),
     ProgressIndicatorSegment(
-        weight = 1f,
-        indicatorBrush = Brush.horizontalGradient(
-            listOf(Color.Yellow, Color.Magenta, Color.Cyan),
-        ),
+      weight = 1f,
+      indicatorBrush = Brush.horizontalGradient(listOf(Color.Yellow, Color.Magenta, Color.Cyan)),
     ),
-)
+  )
 
-val previewProgressSectionsBrushAndColorCombined = listOf(
+val previewProgressSectionsBrushAndColorCombined =
+  listOf(
     ProgressIndicatorSegment(
-        1f,
-        Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
+      1f,
+      Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
     ),
     ProgressIndicatorSegment(
-        weight = 1f,
-        indicatorColor = Color.Cyan,
+      weight = 1f,
+      indicatorColor = Color.Cyan,
     ),
     ProgressIndicatorSegment(
-        weight = 1f,
-        indicatorBrush = Brush.horizontalGradient(
-            listOf(Color.Yellow, Color.Magenta, Color.Cyan),
-        ),
+      weight = 1f,
+      indicatorBrush = Brush.horizontalGradient(listOf(Color.Yellow, Color.Magenta, Color.Cyan)),
     ),
-)
+  )

@@ -28,83 +28,81 @@ import org.junit.Test
 
 class SignedInConfirmationDialogTest : WearLegacyScreenTest() {
 
-    @Test
-    fun signedInConfirmationDialog() {
-        runTest {
-            Box(
-                modifier = Modifier.background(Color.Black),
-                contentAlignment = Alignment.Center,
-            ) {
-                SignedInConfirmationDialog(
-                    onDismissOrTimeout = {},
-                    name = "Maggie",
-                    email = "maggie@example.com",
-                    avatar = DrawableResPaintable(R.mipmap.sym_def_app_icon),
-                )
-            }
-        }
+  @Test
+  fun signedInConfirmationDialog() {
+    runTest {
+      Box(
+        modifier = Modifier.background(Color.Black),
+        contentAlignment = Alignment.Center,
+      ) {
+        SignedInConfirmationDialog(
+          onDismissOrTimeout = {},
+          name = "Maggie",
+          email = "maggie@example.com",
+          avatar = DrawableResPaintable(R.mipmap.sym_def_app_icon),
+        )
+      }
     }
+  }
 
-    @Test
-    fun signedInConfirmationDialogNoName() {
-        runTest {
-            SignedInConfirmationDialog(
-                onDismissOrTimeout = {},
-                email = "maggie@example.com",
-                avatar = DrawableResPaintable(R.mipmap.sym_def_app_icon),
-            )
-        }
+  @Test
+  fun signedInConfirmationDialogNoName() {
+    runTest {
+      SignedInConfirmationDialog(
+        onDismissOrTimeout = {},
+        email = "maggie@example.com",
+        avatar = DrawableResPaintable(R.mipmap.sym_def_app_icon),
+      )
     }
+  }
 
-    @Test
-    fun signedInConfirmationDialogEmptyName() {
-        runTest {
-            SignedInConfirmationDialog(
-                onDismissOrTimeout = {},
-                name = "",
-                email = "maggie@example.com",
-                avatar = DrawableResPaintable(R.mipmap.sym_def_app_icon),
-            )
-        }
+  @Test
+  fun signedInConfirmationDialogEmptyName() {
+    runTest {
+      SignedInConfirmationDialog(
+        onDismissOrTimeout = {},
+        name = "",
+        email = "maggie@example.com",
+        avatar = DrawableResPaintable(R.mipmap.sym_def_app_icon),
+      )
     }
+  }
 
-    @Test
-    fun signedInConfirmationDialogNoNameNoAvatar() {
-        runTest {
-            SignedInConfirmationDialog(
-                onDismissOrTimeout = {},
-                email = "maggie@example.com",
-            )
-        }
+  @Test
+  fun signedInConfirmationDialogNoNameNoAvatar() {
+    runTest {
+      SignedInConfirmationDialog(
+        onDismissOrTimeout = {},
+        email = "maggie@example.com",
+      )
     }
+  }
 
-    @Test
-    fun signedInConfirmationDialogNoEmail() {
-        runTest {
-            SignedInConfirmationDialog(
-                onDismissOrTimeout = {},
-                name = "Maggie",
-                avatar = DrawableResPaintable(R.mipmap.sym_def_app_icon),
-            )
-        }
+  @Test
+  fun signedInConfirmationDialogNoEmail() {
+    runTest {
+      SignedInConfirmationDialog(
+        onDismissOrTimeout = {},
+        name = "Maggie",
+        avatar = DrawableResPaintable(R.mipmap.sym_def_app_icon),
+      )
     }
+  }
 
-    @Test
-    fun signedInConfirmationDialogNoInformation() {
-        runTest {
-            SignedInConfirmationDialog(onDismissOrTimeout = {})
-        }
-    }
+  @Test
+  fun signedInConfirmationDialogNoInformation() {
+    runTest { SignedInConfirmationDialog(onDismissOrTimeout = {}) }
+  }
 
-    @Test
-    fun signedInConfirmationDialogTruncation() {
-        runTest {
-            SignedInConfirmationDialog(
-                onDismissOrTimeout = {},
-                name = "Wolfeschlegelsteinhausenbergerdorff",
-                email = "wolfeschlegelsteinhausenbergerdorff@example.com",
-                avatar = DrawableResPaintable(R.mipmap.sym_def_app_icon),
-            )
-        }
+  @Test
+  fun signedInConfirmationDialogTruncation() {
+    runTest {
+      SignedInConfirmationDialog(
+        onDismissOrTimeout = {},
+        name = "Wolfeschlegelsteinhausenbergerdorff",
+        email = "wolfeschlegelsteinhausenbergerdorff@example.com",
+        avatar = DrawableResPaintable(R.mipmap.sym_def_app_icon),
+      )
     }
+  }
 }

@@ -55,31 +55,31 @@ import com.google.android.horologist.media.ui.material3.components.controls.Medi
  */
 @Composable
 public fun CustomActionAmbientMediaButton(
-    onClick: () -> Unit,
-    icon: Paintable,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    shape: Shape = CircleShape,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    interactionSource: MutableInteractionSource? = null,
-    iconSize: Dp = IconButtonDefaults.SmallIconSize,
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(colorScheme),
-    border: BorderStroke? =
-        MediaButtonDefaults.ambientButtonBorder(enabled = enabled, colorScheme = colorScheme),
+  onClick: () -> Unit,
+  icon: Paintable,
+  contentDescription: String?,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  shape: Shape = CircleShape,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  interactionSource: MutableInteractionSource? = null,
+  iconSize: Dp = IconButtonDefaults.SmallIconSize,
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(colorScheme),
+  border: BorderStroke? =
+    MediaButtonDefaults.ambientButtonBorder(enabled = enabled, colorScheme = colorScheme),
 ) {
-    CustomActionMediaButton(
-        onClick = onClick,
-        icon = icon,
-        contentDescription = contentDescription,
-        modifier = modifier,
-        enabled = enabled,
-        shape = shape,
-        colors = colors,
-        buttonPadding = buttonPadding,
-        interactionSource = interactionSource,
-        iconSize = iconSize,
-        border = border,
-    )
+  CustomActionMediaButton(
+    onClick = onClick,
+    icon = icon,
+    contentDescription = contentDescription,
+    modifier = modifier,
+    enabled = enabled,
+    shape = shape,
+    colors = colors,
+    buttonPadding = buttonPadding,
+    interactionSource = interactionSource,
+    iconSize = iconSize,
+    border = border,
+  )
 }

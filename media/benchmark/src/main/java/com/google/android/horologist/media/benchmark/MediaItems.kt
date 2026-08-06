@@ -21,30 +21,33 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 
 public object MediaItems {
-    public fun buildMediaItem(id: String, mediaUri: String, artworkUri: String?, title: String, artist: String): MediaItem {
-        val parsedUri = Uri.parse(mediaUri)
+  public fun buildMediaItem(
+    id: String,
+    mediaUri: String,
+    artworkUri: String?,
+    title: String,
+    artist: String,
+  ): MediaItem {
+    val parsedUri = Uri.parse(mediaUri)
 
-        val mediaItemBuilder = MediaItem.Builder()
-        val mediaMetadataBuilder = MediaMetadata.Builder()
-        val requestMetadataBuilder = MediaItem.RequestMetadata.Builder()
+    val mediaItemBuilder = MediaItem.Builder()
+    val mediaMetadataBuilder = MediaMetadata.Builder()
+    val requestMetadataBuilder = MediaItem.RequestMetadata.Builder()
 
-        mediaItemBuilder
-            .setMediaId(id)
-            .setUri(parsedUri)
+    mediaItemBuilder.setMediaId(id).setUri(parsedUri)
 
-        mediaMetadataBuilder
-            .setTitle(title)
-            .setDisplayTitle(title)
-            .setArtist(artist)
-            .setArtworkUri(artworkUri?.let<String, Uri?>(Uri::parse))
+    mediaMetadataBuilder
+      .setTitle(title)
+      .setDisplayTitle(title)
+      .setArtist(artist)
+      .setArtworkUri(artworkUri?.let<String, Uri?>(Uri::parse))
 
-        requestMetadataBuilder
-            .setMediaUri(parsedUri)
+    requestMetadataBuilder.setMediaUri(parsedUri)
 
-        mediaItemBuilder
-            .setMediaMetadata(mediaMetadataBuilder.build())
-            .setRequestMetadata(requestMetadataBuilder.build())
+    mediaItemBuilder
+      .setMediaMetadata(mediaMetadataBuilder.build())
+      .setRequestMetadata(requestMetadataBuilder.build())
 
-        return mediaItemBuilder.build()
-    }
+    return mediaItemBuilder.build()
+  }
 }

@@ -35,115 +35,105 @@ import coil.request.ErrorResult
 import coil.request.ImageRequest
 import coil.request.ImageResult
 import coil.request.SuccessResult
-import kotlinx.coroutines.awaitCancellation
 import java.io.IOException
+import kotlinx.coroutines.awaitCancellation
 
 // https://coil-kt.github.io/coil/image_loaders/#testing
 public class FakeImageLoader(private val imageFn: suspend (ImageRequest) -> ImageResult) :
-    ImageLoader {
-        override val defaults: DefaultRequestOptions = DefaultRequestOptions()
-        override val components: ComponentRegistry = ComponentRegistry()
-        override val memoryCache: MemoryCache? get() = null
-        override val diskCache: DiskCache? get() = null
+  ImageLoader {
+  override val defaults: DefaultRequestOptions = DefaultRequestOptions()
+  override val components: ComponentRegistry = ComponentRegistry()
+  override val memoryCache: MemoryCache?
+    get() = null
 
-        override fun enqueue(request: ImageRequest): Disposable = TODO()
+  override val diskCache: DiskCache?
+    get() = null
 
-        override suspend fun execute(request: ImageRequest): ImageResult {
-            return imageFn(request)
-        }
+  override fun enqueue(request: ImageRequest): Disposable = TODO()
 
-        override fun newBuilder(): ImageLoader.Builder = throw UnsupportedOperationException()
+  override suspend fun execute(request: ImageRequest): ImageResult {
+    return imageFn(request)
+  }
 
-        override fun shutdown() {}
+  override fun newBuilder(): ImageLoader.Builder = throw UnsupportedOperationException()
 
-        // To be replaced by https://github.com/coil-kt/coil/pull/1451
-        public inline fun override(function: () -> Unit) {
-            Coil.setImageLoader(this)
+  override fun shutdown() {}
 
-            try {
-                function()
-            } finally {
-                Coil::class.java.getDeclaredField("imageLoader").apply {
-                    isAccessible = true
-                }.set(null, null)
-            }
-        }
+  // To be replaced by https://github.com/coil-kt/coil/pull/1451
+  public inline fun override(function: () -> Unit) {
+    Coil.setImageLoader(this)
 
-        @SuppressLint("ComposableNaming")
-        @Suppress("DEPRECATION")
-        @Composable
-        public fun apply(content: @Composable () -> Unit) {
-            // Not sure why this is needed, but Coil has improved
-            // test support in next release
-            this.override {
-                CompositionLocalProvider(LocalImageLoader provides this) {
-                    content()
-                }
-            }
-        }
-
-        public companion object {
-            public val NotFound: FakeImageLoader =
-                FakeImageLoader { ErrorResult(null, it, IOException()) }
-
-            public val Never: FakeImageLoader =
-                FakeImageLoader { awaitCancellation() }
-
-            public val Resources: FakeImageLoader =
-                FakeImageLoader { request ->
-                    val context = request.context
-                    val data = dataAsResourceId(request.data)
-
-                    if (data != null) {
-                        loadSuccessBitmap(context, request, data)
-                    } else {
-                        loadErrorBitmap(request)
-                    }
-                }
-
-            public fun Fixed(
-                @DrawableRes resId: Int,
-            ): FakeImageLoader =
-                FakeImageLoader { request ->
-                    val drawable = ContextCompat.getDrawable(request.context, resId)!!
-                    SuccessResult(drawable, request, DataSource.DISK)
-                }
-
-            public fun loadSuccessBitmap(
-                context: Context,
-                request: ImageRequest,
-                @DrawableRes id: Int,
-            ): ImageResult {
-                val drawable = ContextCompat.getDrawable(context, id)!!
-                return SuccessResult(
-                    drawable = drawable,
-                    request = request,
-                    dataSource = DataSource.DISK,
-                )
-            }
-
-            public fun loadErrorBitmap(
-                request: ImageRequest,
-            ): ImageResult {
-                return ErrorResult(
-                    drawable = null,
-                    request = request,
-                    throwable = IOException("request for fake image failed"),
-                )
-            }
-
-            public fun dataAsResourceId(data: Any?): Int? {
-                return if (data is Int) {
-                    data
-                } else if (data is String && data.startsWith(TestUriPrefix)) {
-                    data.substring(TestUriPrefix.length).toInt()
-                } else {
-                    null
-                }
-            }
-
-            @DrawableRes public val TestIconResource: Int = R.drawable.sample_image
-            public const val TestUriPrefix: String = "android.resource://com.google.android.horologist.compose.tools/"
-            public val TestIconResourceUri: String = TestUriPrefix + TestIconResource
-        }
+    try {
+      function()
+    } finally {
+      Coil::class.java.getDeclaredField("imageLoader").apply { isAccessible = true }.set(null, null)
     }
+  }
+
+  @SuppressLint("ComposableNaming")
+  @Suppress("DEPRECATION")
+  @Composable
+  public fun apply(content: @Composable () -> Unit) {
+    // Not sure why this is needed, but Coil has improved
+    // test support in next release
+    this.override { CompositionLocalProvider(LocalImageLoader provides this) { content() } }
+  }
+
+  public companion object {
+    public val NotFound: FakeImageLoader = FakeImageLoader { ErrorResult(null, it, IOException()) }
+
+    public val Never: FakeImageLoader = FakeImageLoader { awaitCancellation() }
+
+    public val Resources: FakeImageLoader = FakeImageLoader { request ->
+      val context = request.context
+      val data = dataAsResourceId(request.data)
+
+      if (data != null) {
+        loadSuccessBitmap(context, request, data)
+      } else {
+        loadErrorBitmap(request)
+      }
+    }
+
+    public fun Fixed(@DrawableRes resId: Int): FakeImageLoader = FakeImageLoader { request ->
+      val drawable = ContextCompat.getDrawable(request.context, resId)!!
+      SuccessResult(drawable, request, DataSource.DISK)
+    }
+
+    public fun loadSuccessBitmap(
+      context: Context,
+      request: ImageRequest,
+      @DrawableRes id: Int,
+    ): ImageResult {
+      val drawable = ContextCompat.getDrawable(context, id)!!
+      return SuccessResult(
+        drawable = drawable,
+        request = request,
+        dataSource = DataSource.DISK,
+      )
+    }
+
+    public fun loadErrorBitmap(request: ImageRequest): ImageResult {
+      return ErrorResult(
+        drawable = null,
+        request = request,
+        throwable = IOException("request for fake image failed"),
+      )
+    }
+
+    public fun dataAsResourceId(data: Any?): Int? {
+      return if (data is Int) {
+        data
+      } else if (data is String && data.startsWith(TestUriPrefix)) {
+        data.substring(TestUriPrefix.length).toInt()
+      } else {
+        null
+      }
+    }
+
+    @DrawableRes public val TestIconResource: Int = R.drawable.sample_image
+    public const val TestUriPrefix: String =
+      "android.resource://com.google.android.horologist.compose.tools/"
+    public val TestIconResourceUri: String = TestUriPrefix + TestIconResource
+  }
+}

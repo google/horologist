@@ -10,6 +10,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     # Skip build if head commit contains 'skip ci'
@@ -27,19 +30,19 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: set up JDK
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           distribution: 'zulu'
           java-version: 21
 
       - name: Unit Tests
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
         with:
           arguments: testDebug -Dtest.excludeCategories=com.google.android.horologist.screenshots.rng.ScreenshotTest
 
       - name: test-results
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: build-results
           path: |
@@ -63,20 +66,20 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: set up JDK
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           distribution: 'zulu'
           java-version: 21
 
       - name: Unit Tests
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
         id: screenshotsverify
         with:
-          arguments: --no-daemon verifyRoborazziDebug -x composables:verifyRoborazziDebug -x sample:verifyRoborazziDebug
+          arguments: verifyRoborazziDebug -x composables:verifyRoborazziDebug -x sample:verifyRoborazziDebug
 
       - name: screenshot-test-results-1
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: screenshot-results-1
           path: |
@@ -101,20 +104,20 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: set up JDK
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           distribution: 'zulu'
           java-version: 21
 
       - name: Unit Tests 2
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
         id: screenshotsverify2
         with:
-          arguments: --no-daemon composables:verifyRoborazziDebug sample:verifyRoborazziDebug
+          arguments: composables:verifyRoborazziDebug sample:verifyRoborazziDebug
 
       - name: screenshot-test-results-2
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: screenshot-results-2
           path: |
@@ -142,17 +145,73 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: set up JDK
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           distribution: 'zulu'
           java-version: 21
 
       - name: Compile tests
-        uses: gradle/gradle-build-action@v3
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
         with:
           arguments: -Pstrict.build=true compileDebugAndroidTestSources
 
-  verify:
+  format:
+    # Skip build if head commit contains 'skip ci'
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: 'true'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: 'zulu'
+          java-version: 21
+
+      - name: Check GIT lfs images
+        run: |
+          ./scripts/git-lfs-check.sh
+
+      - name: Code format check
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
+        with:
+          arguments: --stacktrace ktfmtCheck
+
+  api-check:
+    # Skip build if head commit contains 'skip ci'
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: 'true'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: 'zulu'
+          java-version: 21
+
+      - name: Metalava compatibility check
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
+        with:
+          arguments: --stacktrace metalavaCheckCompatibility metalavaCheckCompatibilityRelease
+
+  lint:
     # Skip build if head commit contains 'skip ci'
     if: "!contains(github.event.head_commit.message, 'skip ci')"
 
@@ -168,34 +227,20 @@ jobs:
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
       - name: set up JDK
-        uses: actions/setup-java@v5
+        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
         with:
           distribution: 'zulu'
           java-version: 21
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
-
-      - name: Check GIT lfs images
-        run: |
-          ./scripts/git-lfs-check.sh
-
-      - name: Metalava compatibility check
-        uses: gradle/gradle-build-action@v3
+      - name: Lint analysis
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
         with:
-          arguments: --stacktrace
-            metalavaCheckCompatibility metalavaCheckCompatibilityRelease
+          arguments: --stacktrace lintDebug
 
-      - name: Code analysis
-        uses: gradle/gradle-build-action@v3
+      - name: lint-results
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          arguments: --stacktrace
-            ktfmtCheck
-            lintDebug
-
-      - name: Dependencies analysis
-        uses: gradle/gradle-build-action@v3
-        if: ${{ false }} # Disabled until -android supported https://github.com/google/horologist/issues/1314
-        with:
-          arguments: --stacktrace
-            projectHealth
+          name: lint-results
+          path: |
+            **/build/reports/lint-results*

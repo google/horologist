@@ -31,10 +31,7 @@ class SelectAccountScreenTest : WearLegacyScreenTest() {
       SelectAccountScreen(
         accounts =
           listOf(
-            AccountUiModel(
-              email = "maggie@example.com",
-              avatar = Icons.Default.Face.asPaintable(),
-            ),
+            AccountUiModel(email = "maggie@example.com", avatar = Icons.Default.Face.asPaintable()),
             AccountUiModel(email = "thisisaverylongemail@example.com"),
           ),
         onAccountClicked = { _, _ -> },

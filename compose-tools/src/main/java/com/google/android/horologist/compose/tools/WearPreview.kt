@@ -18,8 +18,4 @@ package com.google.android.horologist.compose.tools
 
 import androidx.compose.ui.tooling.preview.Preview
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
-public annotation class WearPreview
+@Preview(backgroundColor = 0xff000000, showBackground = true) public annotation class WearPreview

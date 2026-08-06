@@ -31,10 +31,7 @@ import kotlinx.coroutines.withContext
 public object MediaControllerHelper {
   public fun lookupController(component: ComponentName): ListenableFuture<MediaBrowser> {
     val context = InstrumentationRegistry.getInstrumentation().context
-    return MediaBrowser.Builder(
-        context,
-        SessionToken(context, component),
-      )
+    return MediaBrowser.Builder(context, SessionToken(context, component))
       .setApplicationLooper(Looper.getMainLooper())
       .buildAsync()
   }

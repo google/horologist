@@ -64,7 +64,4 @@ sealed interface DeviceStatusUiState
 
 data object Loading : DeviceStatusUiState
 
-data class Loaded(
-  val image: ByteArray?,
-  val description: String?,
-) : DeviceStatusUiState
+data class Loaded(val image: ByteArray?, val description: String?) : DeviceStatusUiState

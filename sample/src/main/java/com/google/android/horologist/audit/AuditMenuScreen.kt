@@ -42,11 +42,7 @@ import com.google.android.horologist.compose.material.Title
 fun AuditMenuScreen(
   columnState: ScalingLazyColumnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Text,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     ),
   onClick: (AuditNavigation) -> Unit,
 ) {

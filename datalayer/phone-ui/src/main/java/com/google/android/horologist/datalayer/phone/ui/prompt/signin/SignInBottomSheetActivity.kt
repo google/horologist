@@ -83,12 +83,7 @@ internal class SignInBottomSheetActivity : ComponentActivity() {
           imageResId
             .takeIf { it != NO_IMAGE }
             ?.let {
-              {
-                Image(
-                  painter = painterResource(id = imageResId),
-                  contentDescription = null,
-                )
-              }
+              { Image(painter = painterResource(id = imageResId), contentDescription = null) }
             }
 
         SignInBottomSheet(
@@ -118,10 +113,7 @@ internal class SignInBottomSheetActivity : ComponentActivity() {
     // Can't use the Activity's lifecycleScope as it is going to finish the activity immediately
     // after this call
     coroutineAppScope.launch {
-      SignInPromptAction.run(
-        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
-        nodeId = nodeId,
-      )
+      SignInPromptAction.run(phoneDataLayerAppHelper = phoneDataLayerAppHelper, nodeId = nodeId)
     }
 
     // It returns OK to indicate that the user tapped on the positive button.

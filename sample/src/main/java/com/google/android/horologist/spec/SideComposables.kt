@@ -31,10 +31,7 @@ fun SideMixed() {
     columnState =
       rememberResponsiveColumnState(
         contentPadding =
-          ScalingLazyColumnDefaults.padding(
-            first = ItemType.Chip,
-            last = ItemType.Text,
-          )
+          ScalingLazyColumnDefaults.padding(first = ItemType.Chip, last = ItemType.Text)
       ),
     borders = { side(0.052f) },
   ) {
@@ -50,10 +47,7 @@ fun SideChips() {
   SampleMenu(
     rememberResponsiveColumnState(
       contentPadding =
-        ScalingLazyColumnDefaults.padding(
-          first = ItemType.Chip,
-          last = ItemType.Chip,
-        )
+        ScalingLazyColumnDefaults.padding(first = ItemType.Chip, last = ItemType.Chip)
     ),
     borders = { side(0.052f) },
   )
@@ -65,10 +59,7 @@ fun SideCards() {
   SampleMenu(
     rememberResponsiveColumnState(
       contentPadding =
-        ScalingLazyColumnDefaults.padding(
-          first = ItemType.Card,
-          last = ItemType.Card,
-        )
+        ScalingLazyColumnDefaults.padding(first = ItemType.Card, last = ItemType.Card)
     ),
     borders = { side(0.052f) },
   ) {
@@ -83,10 +74,7 @@ fun SideText() {
   SampleMenu(
     rememberResponsiveColumnState(
       contentPadding =
-        ScalingLazyColumnDefaults.padding(
-          first = ItemType.Text,
-          last = ItemType.Text,
-        )
+        ScalingLazyColumnDefaults.padding(first = ItemType.Text, last = ItemType.Text)
     ),
     borders = {
       side(0.052f)

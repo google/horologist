@@ -45,11 +45,7 @@ public fun <T> DataClient.dataItemFlow(
   val uri =
     Uri.Builder().scheme(PutDataRequest.WEAR_URI_SCHEME).path(path).authority(nodeId).build()
 
-  addListener(
-      listener,
-      uri,
-      DataClient.FILTER_LITERAL,
-    )
+  addListener(listener, uri, DataClient.FILTER_LITERAL)
     .await() // Ensure we are subscribed to updates first,
 
   val item: DataItem? = this@dataItemFlow.getDataItem(uri).await() // then get the current value.

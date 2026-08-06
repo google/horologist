@@ -56,11 +56,7 @@ public fun VolumePositionIndicator(
     }
   val uiState = volumeUiState()
 
-  AnimatedVisibility(
-    visible = visible,
-    enter = fadeIn(),
-    exit = fadeOut(),
-  ) {
+  AnimatedVisibility(visible = visible, enter = fadeIn(), exit = fadeOut()) {
     PositionIndicator(
       modifier = modifier,
       // RSB indicator uses secondary colors (surface/onSurface)

@@ -20,7 +20,5 @@ import java.time.Instant
 
 public sealed interface PromptUiModel : PromptOrResponseUiModel
 
-public data class TextPromptUiModel(
-  val prompt: String,
-  val submitted: Instant = Instant.now(),
-) : PromptUiModel
+public data class TextPromptUiModel(val prompt: String, val submitted: Instant = Instant.now()) :
+  PromptUiModel

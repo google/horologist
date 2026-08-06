@@ -38,11 +38,7 @@ public abstract class BaseGrpcDataService<T : BindableService> : WearDataService
   override fun onCreate() {
     super.onCreate()
 
-    rpcServer =
-      MessageClientServer(
-        buildService(),
-        lifecycleScope,
-      )
+    rpcServer = MessageClientServer(buildService(), lifecycleScope)
   }
 
   override fun onRequest(nodeId: String, path: String, data: ByteArray): Task<ByteArray>? {

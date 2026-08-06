@@ -107,10 +107,7 @@ class DataModule {
   @Singleton
   @Provides
   fun media3DownloadDataSource(@ApplicationContext applicationContext: Context) =
-    Media3DownloadDataSource(
-      applicationContext,
-      MediaDownloadServiceImpl::class.java,
-    )
+    Media3DownloadDataSource(applicationContext, MediaDownloadServiceImpl::class.java)
 
   @Provides
   @Singleton
@@ -137,10 +134,7 @@ class DataModule {
     uampService: UampService,
     @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
   ): PlaylistRemoteDataSource =
-    PlaylistRemoteDataSource(
-      ioDispatcher = ioDispatcher,
-      uampService = uampService,
-    )
+    PlaylistRemoteDataSource(ioDispatcher = ioDispatcher, uampService = uampService)
 
   @Singleton
   @Provides

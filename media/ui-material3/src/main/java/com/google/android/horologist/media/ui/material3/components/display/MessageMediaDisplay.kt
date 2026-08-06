@@ -33,10 +33,7 @@ import com.google.android.horologist.media.ui.material3.util.isLargeScreen
 
 /** A simple marquee-text display showing status information or a message. */
 @Composable
-public fun MessageMediaDisplay(
-  modifier: Modifier = Modifier,
-  message: String,
-) {
+public fun MessageMediaDisplay(modifier: Modifier = Modifier, message: String) {
   val isLargeScreen = LocalConfiguration.current.isLargeScreen
   Box(modifier = modifier, contentAlignment = Alignment.Center) {
     MarqueeText(

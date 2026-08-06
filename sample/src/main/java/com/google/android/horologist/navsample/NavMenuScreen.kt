@@ -33,10 +33,7 @@ fun NavMenuScreen(
   navigateToRoute: (String) -> Unit,
   columnState: ScalingLazyColumnState,
 ) {
-  ScalingLazyColumn(
-    modifier = modifier,
-    columnState = columnState,
-  ) {
+  ScalingLazyColumn(modifier = modifier, columnState = columnState) {
     item {
       Chip(
         modifier = Modifier.fillMaxWidth(),

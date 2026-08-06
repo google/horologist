@@ -45,10 +45,7 @@ fun SectionedListStatelessScreen(
   modifier: Modifier = Modifier,
   columnState: ScalingLazyColumnState,
 ) {
-  SectionedList(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  SectionedList(columnState = columnState, modifier = modifier) {
     topMenuSection()
 
     recommendationsSection()

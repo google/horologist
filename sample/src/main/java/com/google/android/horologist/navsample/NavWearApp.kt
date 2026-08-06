@@ -122,10 +122,7 @@ fun NavWearApp(navController: NavHostController) {
             modifier = Modifier.fillMaxSize().edgeSwipeToDismiss(swipeDismissState),
             state = pagerState,
           ) {
-            Box(
-              modifier = Modifier.fillMaxSize(),
-              contentAlignment = Alignment.Center,
-            ) {
+            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
               Text(text = "Screen $it")
             }
           }

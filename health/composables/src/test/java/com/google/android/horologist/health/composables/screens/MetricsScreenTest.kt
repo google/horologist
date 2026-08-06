@@ -31,11 +31,7 @@ class MetricsScreenTest : WearLegacyScreenTest() {
   fun metricsScreenOneMetric() {
     runTest {
       MetricsScreen(
-        firstMetric =
-          MetricUiModel(
-            text = "21:34",
-            bottomRightText = "6",
-          ),
+        firstMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
         positionIndicator = { PositionIndicator(value = { 0.25f }) },
       )
     }
@@ -45,16 +41,8 @@ class MetricsScreenTest : WearLegacyScreenTest() {
   fun metricsScreenTwoMetrics() {
     runTest {
       MetricsScreen(
-        firstMetric =
-          MetricUiModel(
-            text = "21:34",
-            bottomRightText = "6",
-          ),
-        secondMetric =
-          MetricUiModel(
-            text = "138",
-            bottomRightText = "cal",
-          ),
+        firstMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+        secondMetric = MetricUiModel(text = "138", bottomRightText = "cal"),
         positionIndicator = { PositionIndicator(value = { 0.5f }) },
       )
     }
@@ -64,22 +52,9 @@ class MetricsScreenTest : WearLegacyScreenTest() {
   fun metricsScreenThreeMetrics() {
     runTest {
       MetricsScreen(
-        firstMetric =
-          MetricUiModel(
-            text = "164",
-            bottomRightText = "Vigorous",
-            color = HR_HARD,
-          ),
-        secondMetric =
-          MetricUiModel(
-            text = "2.7",
-            bottomRightText = "mi",
-          ),
-        thirdMetric =
-          MetricUiModel(
-            text = "21:34",
-            bottomRightText = "6",
-          ),
+        firstMetric = MetricUiModel(text = "164", bottomRightText = "Vigorous", color = HR_HARD),
+        secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
+        thirdMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
         positionIndicator = { PositionIndicator(value = { 0.75f }) },
       )
     }
@@ -89,27 +64,10 @@ class MetricsScreenTest : WearLegacyScreenTest() {
   fun metricsScreenFourMetrics() {
     runTest {
       MetricsScreen(
-        firstMetric =
-          MetricUiModel(
-            text = "198",
-            bottomRightText = "Peak",
-            color = HR_MAXIMUM,
-          ),
-        secondMetric =
-          MetricUiModel(
-            text = "2.7",
-            bottomRightText = "mi",
-          ),
-        thirdMetric =
-          MetricUiModel(
-            text = "8'51\"",
-            bottomRightText = "pace",
-          ),
-        fourthMetric =
-          MetricUiModel(
-            text = "21:34",
-            bottomRightText = "6",
-          ),
+        firstMetric = MetricUiModel(text = "198", bottomRightText = "Peak", color = HR_MAXIMUM),
+        secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
+        thirdMetric = MetricUiModel(text = "8'51\"", bottomRightText = "pace"),
+        fourthMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
         positionIndicator = { PositionIndicator(value = { 1f }) },
       )
     }
@@ -119,17 +77,8 @@ class MetricsScreenTest : WearLegacyScreenTest() {
   fun metricsScreenMetricsSkipped() {
     runTest {
       MetricsScreen(
-        firstMetric =
-          MetricUiModel(
-            text = "198",
-            bottomRightText = "Peak",
-            color = HR_MAXIMUM,
-          ),
-        fourthMetric =
-          MetricUiModel(
-            text = "21:34",
-            bottomRightText = "6",
-          ),
+        firstMetric = MetricUiModel(text = "198", bottomRightText = "Peak", color = HR_MAXIMUM),
+        fourthMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
         positionIndicator = { PositionIndicator(value = { 0.75f }) },
       )
     }
@@ -141,27 +90,10 @@ class MetricsScreenTest : WearLegacyScreenTest() {
     runTest(applyDeviceConfig = false) {
       DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(smallestFontScale)) {
         MetricsScreen(
-          firstMetric =
-            MetricUiModel(
-              text = "198",
-              bottomRightText = "Peak",
-              color = HR_MAXIMUM,
-            ),
-          secondMetric =
-            MetricUiModel(
-              text = "2.7",
-              bottomRightText = "mi",
-            ),
-          thirdMetric =
-            MetricUiModel(
-              text = "8'51\"",
-              bottomRightText = "pace",
-            ),
-          fourthMetric =
-            MetricUiModel(
-              text = "21:34",
-              bottomRightText = "6",
-            ),
+          firstMetric = MetricUiModel(text = "198", bottomRightText = "Peak", color = HR_MAXIMUM),
+          secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
+          thirdMetric = MetricUiModel(text = "8'51\"", bottomRightText = "pace"),
+          fourthMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
           positionIndicator = { PositionIndicator(value = { 0.75f }) },
         )
       }
@@ -174,27 +106,10 @@ class MetricsScreenTest : WearLegacyScreenTest() {
     runTest(applyDeviceConfig = false) {
       DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
         MetricsScreen(
-          firstMetric =
-            MetricUiModel(
-              text = "198",
-              bottomRightText = "Peak",
-              color = HR_MAXIMUM,
-            ),
-          secondMetric =
-            MetricUiModel(
-              text = "2.7",
-              bottomRightText = "mi",
-            ),
-          thirdMetric =
-            MetricUiModel(
-              text = "8'51\"",
-              bottomRightText = "pace",
-            ),
-          fourthMetric =
-            MetricUiModel(
-              text = "21:34",
-              bottomRightText = "6",
-            ),
+          firstMetric = MetricUiModel(text = "198", bottomRightText = "Peak", color = HR_MAXIMUM),
+          secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
+          thirdMetric = MetricUiModel(text = "8'51\"", bottomRightText = "pace"),
+          fourthMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
           positionIndicator = { PositionIndicator(value = { 0.75f }) },
         )
       }

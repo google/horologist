@@ -72,11 +72,7 @@ class SLCTitleTest(device: WearDevice) : WearDeviceScreenshotTest(device) {
         AppScaffold(timeText = { TimeText(timeSource = FixedTimeSource) }) {
           val columnState =
             rememberResponsiveColumnState(
-              contentPadding =
-                padding(
-                  first = topPadding,
-                  last = ItemType.Text,
-                )
+              contentPadding = padding(first = topPadding, last = ItemType.Text)
             )
 
           val alpha = remember {

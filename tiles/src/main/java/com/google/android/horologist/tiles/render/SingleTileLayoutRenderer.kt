@@ -43,10 +43,7 @@ public abstract class SingleTileLayoutRenderer<T, R>(
 
   public open val freshnessIntervalMillis: Long = 0L
 
-  final override fun renderTimeline(
-    state: T,
-    requestParams: RequestBuilders.TileRequest,
-  ): Tile {
+  final override fun renderTimeline(state: T, requestParams: RequestBuilders.TileRequest): Tile {
     val rootLayout = renderTile(state, requestParams.deviceConfiguration)
 
     val singleTileTimeline =

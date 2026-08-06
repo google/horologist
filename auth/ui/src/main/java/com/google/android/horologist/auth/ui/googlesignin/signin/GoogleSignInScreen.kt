@@ -148,10 +148,7 @@ public fun GoogleSignInScreen(
 private class GoogleSignInContract(private val googleSignInClient: GoogleSignInClient) :
   ActivityResultContract<Unit, GoogleSignInContract.Result>() {
 
-  override fun createIntent(
-    context: Context,
-    input: Unit,
-  ): Intent = googleSignInClient.signInIntent
+  override fun createIntent(context: Context, input: Unit): Intent = googleSignInClient.signInIntent
 
   override fun parseResult(resultCode: Int, intent: Intent?): Result {
     val task = GoogleSignIn.getSignedInAccountFromIntent(intent)

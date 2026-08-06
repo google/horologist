@@ -64,12 +64,7 @@ public fun <T : Any> ScalingLazyListScope.items(
         }
       }
     }
-  items(
-    count = items.itemCount,
-    key = keyFn,
-  ) { index ->
-    itemContent(items[index])
-  }
+  items(count = items.itemCount, key = keyFn) { index -> itemContent(items[index]) }
 }
 
 @SuppressLint("BanParcelableUsage")

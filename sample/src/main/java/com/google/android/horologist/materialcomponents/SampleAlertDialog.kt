@@ -57,10 +57,7 @@ internal fun SampleAlertDialog(modifier: Modifier = Modifier) {
   var showCenteredDialog by remember { mutableStateOf(false) }
 
   ScreenScaffold(scrollState = columnState) {
-    ScalingLazyColumn(
-      columnState = columnState,
-      modifier = modifier,
-    ) {
+    ScalingLazyColumn(columnState = columnState, modifier = modifier) {
       item { Title("AlertDialog samples") }
       item {
         Chip(
@@ -103,10 +100,7 @@ internal fun SampleAlertDialog(modifier: Modifier = Modifier) {
     onCancel = { showSimpleDialog = false },
     onOk = { showSimpleDialog = false },
     icon = {
-      Icon(
-        imageVector = Icons.AutoMirrored.Outlined.Help,
-        contentDescription = "Question",
-      )
+      Icon(imageVector = Icons.AutoMirrored.Outlined.Help, contentDescription = "Question")
     },
     title = "A Simple Dialog",
     message = "Icon and Text dialog use up to 2 lines.",
@@ -149,10 +143,7 @@ internal fun SampleAlertDialog(modifier: Modifier = Modifier) {
     showDialog = showAllowDebuggingDialog,
     onDismiss = { showAllowDebuggingDialog = false },
     icon = {
-      Icon(
-        imageVector = Icons.AutoMirrored.Outlined.Help,
-        contentDescription = "Question",
-      )
+      Icon(imageVector = Icons.AutoMirrored.Outlined.Help, contentDescription = "Question")
     },
     title = "Allow debugging?",
     content = {

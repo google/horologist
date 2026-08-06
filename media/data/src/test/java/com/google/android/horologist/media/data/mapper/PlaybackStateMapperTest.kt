@@ -38,10 +38,7 @@ class PlaybackStateMapperTest {
 
   @Test
   fun `check position calculation unset results in null position and duration`() {
-    fakeStatePlayer.overridePosition(
-      currentPosition = 10L,
-      duration = C.TIME_UNSET,
-    )
+    fakeStatePlayer.overridePosition(currentPosition = 10L, duration = C.TIME_UNSET)
     val playbackState = playbackStateMapper.map(fakeStatePlayer)
     assertThat(playbackState.currentPosition).isNull()
     assertThat(playbackState.duration).isNull()
@@ -49,10 +46,7 @@ class PlaybackStateMapperTest {
 
   @Test
   fun `check position calculation invalid results in null position and duration`() {
-    fakeStatePlayer.overridePosition(
-      currentPosition = 10L,
-      duration = -500L,
-    )
+    fakeStatePlayer.overridePosition(currentPosition = 10L, duration = -500L)
     val playbackState = playbackStateMapper.map(fakeStatePlayer)
     assertThat(playbackState.currentPosition).isNull()
     assertThat(playbackState.duration).isNull()
@@ -61,10 +55,7 @@ class PlaybackStateMapperTest {
   @Test
   fun `check position calculations past end`() {
     fakeStatePlayer.overrideState(Player.STATE_READY)
-    fakeStatePlayer.overridePosition(
-      currentPosition = 100L,
-      duration = 99L,
-    )
+    fakeStatePlayer.overridePosition(currentPosition = 100L, duration = 99L)
     val playbackState = playbackStateMapper.map(fakeStatePlayer)
     assertThat(playbackState.currentPosition).isEqualTo(100.milliseconds)
     assertThat(playbackState.duration).isEqualTo(100.milliseconds)
@@ -73,10 +64,7 @@ class PlaybackStateMapperTest {
   @Test
   fun `check position calculations during`() {
     fakeStatePlayer.overrideState(Player.STATE_READY)
-    fakeStatePlayer.overridePosition(
-      currentPosition = 100L,
-      duration = 1000L,
-    )
+    fakeStatePlayer.overridePosition(currentPosition = 100L, duration = 1000L)
     fakeStatePlayer.overridePlaybackSpeed(2f)
     val playbackState = playbackStateMapper.map(fakeStatePlayer)
     assertThat(playbackState.currentPosition).isEqualTo(100.milliseconds)

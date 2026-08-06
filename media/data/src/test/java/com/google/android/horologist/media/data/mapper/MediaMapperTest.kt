@@ -180,14 +180,12 @@ class MediaMapperTest {
     val sut =
       MediaMapper(
         object : MediaExtrasMapper {
-          override fun map(
-            mediaItem: MediaItem,
-            mediaMetadata: MediaMetadata?,
-          ): Map<String, Any> = buildMap {
-            put(id, mediaItem.mediaId)
-            put(uri, mediaItem.localConfiguration!!.uri)
-            put(artist, mediaItem.mediaMetadata.artist!!)
-          }
+          override fun map(mediaItem: MediaItem, mediaMetadata: MediaMetadata?): Map<String, Any> =
+            buildMap {
+              put(id, mediaItem.mediaId)
+              put(uri, mediaItem.localConfiguration!!.uri)
+              put(artist, mediaItem.mediaMetadata.artist!!)
+            }
         }
       )
 

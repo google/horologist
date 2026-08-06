@@ -31,10 +31,7 @@ import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 
-@Config(
-  sdk = [35],
-  qualifiers = RobolectricDeviceQualifiers.WearOSSquare,
-)
+@Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSSquare)
 class SquareSegmentedProgressIndicatorTest : WearLegacyScreenTest() {
 
   @Test
@@ -42,18 +39,9 @@ class SquareSegmentedProgressIndicatorTest : WearLegacyScreenTest() {
     runTest {
       val segments =
         listOf(
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Cyan,
-          ),
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Magenta,
-          ),
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Yellow,
-          ),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Cyan),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Magenta),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Yellow),
         )
       Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
         SquareSegmentedProgressIndicator(
@@ -72,18 +60,9 @@ class SquareSegmentedProgressIndicatorTest : WearLegacyScreenTest() {
     runTest {
       val segments =
         listOf(
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Cyan,
-          ),
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Magenta,
-          ),
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Yellow,
-          ),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Cyan),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Magenta),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Yellow),
         )
       Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
         SquareSegmentedProgressIndicator(
@@ -102,26 +81,11 @@ class SquareSegmentedProgressIndicatorTest : WearLegacyScreenTest() {
     runTest {
       val segments =
         listOf(
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Cyan,
-          ),
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Magenta,
-          ),
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Yellow,
-          ),
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Black,
-          ),
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Green,
-          ),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Cyan),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Magenta),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Yellow),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Black),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Green),
         )
       Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
         SquareSegmentedProgressIndicator(
@@ -140,14 +104,8 @@ class SquareSegmentedProgressIndicatorTest : WearLegacyScreenTest() {
     runTest {
       val segments =
         listOf(
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Yellow,
-          ),
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Yellow,
-          ),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Yellow),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Yellow),
         )
       Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
         SquareSegmentedProgressIndicator(
@@ -202,10 +160,7 @@ class SquareSegmentedProgressIndicatorTest : WearLegacyScreenTest() {
             1f,
             Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
           ),
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Cyan,
-          ),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Cyan),
           ProgressIndicatorSegment(
             weight = 1f,
             indicatorBrush =

@@ -30,10 +30,7 @@ import java.time.LocalDate
 @WearPreviewFontScales
 @Composable
 fun DatePickerPreview() {
-  DatePicker(
-    onDateConfirm = {},
-    date = LocalDate.of(2022, 4, 25),
-  )
+  DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 4, 25))
 }
 
 @Composable
@@ -49,10 +46,7 @@ fun DatePickerPreviewSmallDeviceWithLargeFontBold() {
   MaterialTheme(
     typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }
   ) {
-    DatePicker(
-      onDateConfirm = {},
-      date = LocalDate.of(2022, 1, 25),
-    )
+    DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 1, 25))
   }
 }
 
@@ -66,8 +60,5 @@ fun DatePickerPreviewSmallDeviceWithLargeFontBold() {
   fontScale = 0.94f,
 )
 fun DatePickerPreviewLargeDeviceSmallFont() {
-  DatePicker(
-    onDateConfirm = {},
-    date = LocalDate.of(2022, 1, 25),
-  )
+  DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 1, 25))
 }

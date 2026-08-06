@@ -52,11 +52,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
     // when
     val result =
       createPlaylistDownloadScreenStateLoaded(
-          playlistModel =
-            PlaylistUiModel(
-              id = "id",
-              title = "title",
-            ),
+          playlistModel = PlaylistUiModel(id = "id", title = "title"),
           downloadMediaList = downloads,
         )
         .downloadMediaListState
@@ -94,11 +90,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
     // when
     val result =
       createPlaylistDownloadScreenStateLoaded(
-          playlistModel =
-            PlaylistUiModel(
-              id = "id",
-              title = "title",
-            ),
+          playlistModel = PlaylistUiModel(id = "id", title = "title"),
           downloadMediaList = downloads,
         )
         .downloadMediaListState
@@ -131,11 +123,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
     // when
     val result =
       createPlaylistDownloadScreenStateLoaded(
-          playlistModel =
-            PlaylistUiModel(
-              id = "id",
-              title = "title",
-            ),
+          playlistModel = PlaylistUiModel(id = "id", title = "title"),
           downloadMediaList = downloads,
         )
         .downloadMediaListState
@@ -167,11 +155,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
     // when
     val result =
       createPlaylistDownloadScreenStateLoaded(
-          playlistModel =
-            PlaylistUiModel(
-              id = "id",
-              title = "title",
-            ),
+          playlistModel = PlaylistUiModel(id = "id", title = "title"),
           downloadMediaList = downloads,
         )
         .downloadMediaListState
@@ -188,11 +172,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
     // when
     val result =
       createPlaylistDownloadScreenStateLoaded(
-          playlistModel =
-            PlaylistUiModel(
-              id = "id",
-              title = "title",
-            ),
+          playlistModel = PlaylistUiModel(id = "id", title = "title"),
           downloadMediaList = downloads,
         )
         .downloadMediaListState
@@ -223,11 +203,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
     // when
     val result =
       createPlaylistDownloadScreenStateLoaded(
-          playlistModel =
-            PlaylistUiModel(
-              id = "id",
-              title = "title",
-            ),
+          playlistModel = PlaylistUiModel(id = "id", title = "title"),
           downloadMediaList = downloads,
         )
         .downloadsProgress
@@ -272,11 +248,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
     // when
     val result =
       createPlaylistDownloadScreenStateLoaded(
-          playlistModel =
-            PlaylistUiModel(
-              id = "id",
-              title = "title",
-            ),
+          playlistModel = PlaylistUiModel(id = "id", title = "title"),
           downloadMediaList = downloads,
         )
         .downloadsProgress
@@ -294,11 +266,7 @@ class CreatePlaylistDownloadScreenStateLoadedTest {
     // when
     val result =
       createPlaylistDownloadScreenStateLoaded(
-          playlistModel =
-            PlaylistUiModel(
-              id = "id",
-              title = "title",
-            ),
+          playlistModel = PlaylistUiModel(id = "id", title = "title"),
           downloadMediaList = downloads,
         )
         .downloadsProgress

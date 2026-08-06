@@ -53,11 +53,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     runTest {
       val columnState =
         rememberResponsiveColumnState(
-          contentPadding =
-            padding(
-              first = ItemType.Text,
-              last = ItemType.Chip,
-            )
+          contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
         )
 
       ScreenScaffold(scrollState = columnState) {
@@ -75,11 +71,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     runTest {
       val columnState =
         rememberResponsiveColumnState(
-          contentPadding =
-            padding(
-              first = ItemType.Text,
-              last = ItemType.Chip,
-            )
+          contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
         )
 
       ScreenScaffold(scrollState = columnState) {
@@ -97,11 +89,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     runTest(captureScreenshot = false) {
       val columnState =
         rememberResponsiveColumnState(
-          contentPadding =
-            padding(
-              first = ItemType.Text,
-              last = ItemType.Chip,
-            )
+          contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
         )
 
       ScreenScaffold(scrollState = columnState) {
@@ -125,11 +113,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     runTest {
       val columnState =
         rememberResponsiveColumnState(
-          contentPadding =
-            padding(
-              first = ItemType.Text,
-              last = ItemType.Chip,
-            )
+          contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
         )
 
       ScreenScaffold(scrollState = columnState) {
@@ -147,11 +131,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     runTest(captureScreenshot = false) {
       val columnState =
         rememberResponsiveColumnState(
-          contentPadding =
-            padding(
-              first = ItemType.Text,
-              last = ItemType.Chip,
-            )
+          contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
         )
 
       ScreenScaffold(scrollState = columnState) {
@@ -175,11 +155,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     runTest {
       val columnState =
         rememberResponsiveColumnState(
-          contentPadding =
-            padding(
-              first = ItemType.Text,
-              last = ItemType.Chip,
-            )
+          contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
         )
 
       ScreenScaffold(scrollState = columnState) {
@@ -197,11 +173,7 @@ class SectionedListTest : WearLegacyScreenTest() {
     runTest {
       val columnState =
         rememberResponsiveColumnState(
-          contentPadding =
-            padding(
-              first = ItemType.Text,
-              last = ItemType.Chip,
-            )
+          contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
         )
 
       ScreenScaffold(scrollState = columnState) {
@@ -306,11 +278,7 @@ class SectionedListTest : WearLegacyScreenTest() {
 
     @Composable
     fun DownloadsFooter() {
-      Chip(
-        label = "More downloads..",
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
+      Chip(label = "More downloads..", onClick = {}, colors = ChipDefaults.secondaryChipColors())
     }
 
     val favourites = listOf("Dance Anthems", "Indie Jukebox")
@@ -387,11 +355,7 @@ class SectionedListTest : WearLegacyScreenTest() {
 
     @Composable
     fun FavouritesFooter() {
-      Chip(
-        label = "More favourites..",
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
+      Chip(label = "More favourites..", onClick = {}, colors = ChipDefaults.secondaryChipColors())
     }
   }
 }

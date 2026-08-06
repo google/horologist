@@ -82,12 +82,7 @@ fun WearPickerApp() {
       selected = size,
       optionWidth = 50.dp,
     )
-    ToggleRow(
-      title = "Type",
-      options = pickerTypes,
-      selected = pickerType,
-      optionWidth = 80.dp,
-    )
+    ToggleRow(title = "Type", options = pickerTypes, selected = pickerType, optionWidth = 80.dp)
     Text(time.format(DateTimeFormatter.ISO_DATE_TIME))
   }
 }

@@ -22,10 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleChipSwitchPreview() {
   ToggleChip(
@@ -36,10 +33,7 @@ fun ToggleChipSwitchPreview() {
   )
 }
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleChipRadioPreview() {
   ToggleChip(
@@ -50,10 +44,7 @@ fun ToggleChipRadioPreview() {
   )
 }
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleChipCheckboxPreview() {
   ToggleChip(
@@ -64,10 +55,7 @@ fun ToggleChipCheckboxPreview() {
   )
 }
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleChipUncheckedPreview() {
   ToggleChip(
@@ -78,11 +66,7 @@ fun ToggleChipUncheckedPreview() {
   )
 }
 
-@Preview(
-  name = "With secondary label",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "With secondary label", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleChipWithSecondaryLabel() {
   ToggleChip(
@@ -94,11 +78,7 @@ fun ToggleChipWithSecondaryLabel() {
   )
 }
 
-@Preview(
-  name = "With icon",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "With icon", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleChipPreviewWithIcon() {
   ToggleChip(
@@ -127,11 +107,7 @@ fun ToggleChipPreviewWithSecondaryLabelAndIcon() {
   )
 }
 
-@Preview(
-  name = "Disabled",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "Disabled", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleChipPreviewDisabled() {
   ToggleChip(
@@ -143,10 +119,7 @@ fun ToggleChipPreviewDisabled() {
   )
 }
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleChipUncheckedAndDisabledPreview() {
   ToggleChip(

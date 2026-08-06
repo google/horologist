@@ -119,10 +119,7 @@ abstract class DataLayerAppHelper(
       suspend fun sendNearbyNodes() {
         val capabilityInfo =
           registry.capabilityClient
-            .getCapability(
-              capability,
-              CapabilityClient.FILTER_REACHABLE,
-            )
+            .getCapability(capability, CapabilityClient.FILTER_REACHABLE)
             .await()
 
         @Suppress("UNUSED_VARIABLE") val unused = trySend(capabilityInfo.nodes.toSet())

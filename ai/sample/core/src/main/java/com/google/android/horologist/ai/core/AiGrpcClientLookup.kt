@@ -31,10 +31,7 @@ object AiGrpcClientLookup {
   ): InferenceServiceGrpcKt.InferenceServiceCoroutineStub {
     val mySignature =
       context.packageManager
-        .getPackageInfo(
-          context.packageName,
-          android.content.pm.PackageManager.GET_SIGNATURES,
-        )
+        .getPackageInfo(context.packageName, android.content.pm.PackageManager.GET_SIGNATURES)
         .signatures!![0]
 
     val channel =

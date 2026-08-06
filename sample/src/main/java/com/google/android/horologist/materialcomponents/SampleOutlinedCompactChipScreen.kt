@@ -30,16 +30,8 @@ internal fun SampleOutlinedCompactChipScreen(
   modifier: Modifier = Modifier,
   columnState: ScalingLazyColumnState,
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
-    item {
-      OutlinedCompactChip(
-        onClick = {},
-        label = "Primary label",
-      )
-    }
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
+    item { OutlinedCompactChip(onClick = {}, label = "Primary label") }
     item {
       OutlinedCompactChip(
         onClick = {},

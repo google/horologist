@@ -39,10 +39,7 @@ class ChipTest : WearLegacyComponentTest() {
             CoilPaintable(
               "iconUri",
               placeholder =
-                rememberVectorPainter(
-                  image = Icons.Default.Image,
-                  tintColor = Color.Black,
-                ),
+                rememberVectorPainter(image = Icons.Default.Image, tintColor = Color.Black),
             ),
         )
       }
@@ -62,10 +59,7 @@ class ChipTest : WearLegacyComponentTest() {
             CoilPaintable(
               "iconUri",
               placeholder =
-                rememberVectorPainter(
-                  image = Icons.Default.Image,
-                  tintColor = Color.Black,
-                ),
+                rememberVectorPainter(image = Icons.Default.Image, tintColor = Color.Black),
             ),
           enabled = false,
         )

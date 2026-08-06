@@ -52,17 +52,11 @@ public object ScalingLazyColumnDefaults {
     initialCenterIndex: Int = 1,
     initialCenterOffset: Int = 0,
     verticalArrangement: Arrangement.Vertical =
-      Arrangement.spacedBy(
-        space = 4.dp,
-        alignment = Alignment.Top,
-      ),
+      Arrangement.spacedBy(space = 4.dp, alignment = Alignment.Top),
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,
     contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
     autoCentering: AutoCenteringParams? =
-      AutoCenteringParams(
-        initialCenterIndex,
-        initialCenterOffset,
-      ),
+      AutoCenteringParams(initialCenterIndex, initialCenterOffset),
     anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
     hapticsEnabled: Boolean = true,
     reverseLayout: Boolean = false,
@@ -113,10 +107,7 @@ public object ScalingLazyColumnDefaults {
     firstItemIsFullWidth: Boolean = true,
     additionalPaddingAtBottom: Dp = 10.dp,
     verticalArrangement: Arrangement.Vertical =
-      Arrangement.spacedBy(
-        space = 4.dp,
-        alignment = Alignment.Top,
-      ),
+      Arrangement.spacedBy(space = 4.dp, alignment = Alignment.Top),
     horizontalPaddingPercent: Float = 0.052f,
     rotaryMode: RotaryMode? = RotaryMode.Scroll,
     hapticsEnabled: Boolean = true,
@@ -141,10 +132,8 @@ public object ScalingLazyColumnDefaults {
             }
           val bottomPaddingDp: Dp =
             if (configuration.isScreenRound) {
-              calculateVerticalOffsetForChip(
-                screenWidthDp,
-                horizontalPaddingPercent,
-              ) + additionalPaddingAtBottom
+              calculateVerticalOffsetForChip(screenWidthDp, horizontalPaddingPercent) +
+                additionalPaddingAtBottom
             } else {
               0.dp
             }
@@ -163,10 +152,7 @@ public object ScalingLazyColumnDefaults {
           val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
 
           val initialScrollPosition =
-            ScalingLazyColumnState.ScrollPosition(
-              index = 0,
-              offsetPx = topScreenOffsetPx,
-            )
+            ScalingLazyColumnState.ScrollPosition(index = 0, offsetPx = topScreenOffsetPx)
           ScalingLazyColumnState(
             initialScrollPosition = initialScrollPosition,
             autoCentering = null,
@@ -273,10 +259,7 @@ public object ScalingLazyColumnDefaults {
           bottomPaddingPct * screenHeightDp + paddingCorrection
         } else {
           if (configuration.isScreenRound) {
-            calculateVerticalOffsetForChip(
-              screenWidthDp.value,
-              horizontalPercent,
-            ) + 10.dp
+            calculateVerticalOffsetForChip(screenWidthDp.value, horizontalPercent) + 10.dp
           } else {
             0.dp
           }
@@ -315,10 +298,7 @@ public object ScalingLazyColumnDefaults {
           last.bottomPaddingPct * height + first.paddingCorrection
         } else {
           if (configuration.isScreenRound) {
-            calculateVerticalOffsetForChip(
-              screenWidthDp,
-              horizontalPercent,
-            ) + 10.dp
+            calculateVerticalOffsetForChip(screenWidthDp, horizontalPercent) + 10.dp
           } else {
             0.dp
           }

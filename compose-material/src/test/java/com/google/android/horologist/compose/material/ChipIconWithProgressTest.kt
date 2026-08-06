@@ -43,11 +43,7 @@ class ChipIconWithProgressTest : WearLegacyComponentTest() {
   @Test
   fun withProgressLargeIcon() {
     runComponentTest {
-      ChipIconWithProgress(
-        progress = 75f,
-        icon = Icon48dp.asPaintable(),
-        largeIcon = true,
-      )
+      ChipIconWithProgress(progress = 75f, icon = Icon48dp.asPaintable(), largeIcon = true)
     }
   }
 

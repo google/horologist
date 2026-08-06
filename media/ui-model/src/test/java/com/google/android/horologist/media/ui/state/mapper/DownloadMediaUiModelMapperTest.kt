@@ -33,14 +33,7 @@ class DownloadMediaUiModelMapperTest {
     val artworkUri = "artworkUri"
     val mediaDownload =
       MediaDownload(
-        media =
-          Media(
-            id = id,
-            uri = "",
-            title = title,
-            artist = artist,
-            artworkUri = artworkUri,
-          ),
+        media = Media(id = id, uri = "", title = title, artist = artist, artworkUri = artworkUri),
         status = MediaDownload.Status.Idle,
         size = MediaDownload.Size.Unknown,
       )
@@ -69,14 +62,7 @@ class DownloadMediaUiModelMapperTest {
     val artworkUri = "artworkUri"
     val mediaDownload =
       MediaDownload(
-        media =
-          Media(
-            id = id,
-            uri = "",
-            title = title,
-            artist = artist,
-            artworkUri = artworkUri,
-          ),
+        media = Media(id = id, uri = "", title = title, artist = artist, artworkUri = artworkUri),
         status = MediaDownload.Status.InProgress(progress = 0F),
         size = MediaDownload.Size.Unknown,
       )
@@ -106,14 +92,7 @@ class DownloadMediaUiModelMapperTest {
     val artworkUri = "artworkUri"
     val mediaDownload =
       MediaDownload(
-        media =
-          Media(
-            id = id,
-            uri = "",
-            title = title,
-            artist = artist,
-            artworkUri = artworkUri,
-          ),
+        media = Media(id = id, uri = "", title = title, artist = artist, artworkUri = artworkUri),
         status = MediaDownload.Status.Completed,
         size = MediaDownload.Size.Unknown,
       )

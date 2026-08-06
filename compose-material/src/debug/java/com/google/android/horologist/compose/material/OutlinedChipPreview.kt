@@ -25,37 +25,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun OutlinedChipPreview() {
-  OutlinedChip(
-    label = "Primary label",
-    onClick = {},
-  )
+  OutlinedChip(label = "Primary label", onClick = {})
 }
 
-@Preview(
-  name = "With secondary label",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "With secondary label", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun OutlinedChipPreviewWithSecondaryLabel() {
-  OutlinedChip(
-    label = "Primary label",
-    onClick = {},
-    secondaryLabel = "Secondary label",
-  )
+  OutlinedChip(label = "Primary label", onClick = {}, secondaryLabel = "Secondary label")
 }
 
-@Preview(
-  name = "With icon",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "With icon", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun OutlinedChipPreviewWithIcon() {
   OutlinedChip(
@@ -65,11 +47,7 @@ fun OutlinedChipPreviewWithIcon() {
   )
 }
 
-@Preview(
-  name = "With large icon",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "With large icon", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun OutlinedChipPreviewWithLargeIcon() {
   OutlinedChip(
@@ -111,11 +89,7 @@ fun OutlinedChipPreviewWithSecondaryLabelAndLargeIcon() {
   )
 }
 
-@Preview(
-  name = "Disabled",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "Disabled", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun OutlinedChipPreviewDisabled() {
   OutlinedChip(

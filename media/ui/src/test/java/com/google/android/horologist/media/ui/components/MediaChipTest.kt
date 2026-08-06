@@ -41,11 +41,7 @@ class MediaChipTest : WearLegacyComponentTest() {
   @Test
   fun givenMediaWithNOArtwork_thenDoesNOTDisplayArtwork() {
     runComponentTest {
-      MediaChip(
-        title = "Red Hot Chilli Peppers",
-        artworkPaintable = null,
-        onClick = {},
-      )
+      MediaChip(title = "Red Hot Chilli Peppers", artworkPaintable = null, onClick = {})
     }
   }
 
@@ -64,11 +60,7 @@ class MediaChipTest : WearLegacyComponentTest() {
   fun givenNOTitle_thenDisplaysDefaultTitle() {
     runComponentTest {
       MediaChip(
-        media =
-          MediaUiModel.Ready(
-            id = "id",
-            title = "",
-          ),
+        media = MediaUiModel.Ready(id = "id", title = ""),
         onClick = {},
         defaultTitle = "No title",
       )
@@ -79,11 +71,7 @@ class MediaChipTest : WearLegacyComponentTest() {
   fun givenModifier_thenAppliesModifierCorrectly() {
     runComponentTest {
       MediaChip(
-        media =
-          MediaUiModel.Ready(
-            id = "id",
-            title = "Red Hot Chilli Peppers",
-          ),
+        media = MediaUiModel.Ready(id = "id", title = "Red Hot Chilli Peppers"),
         onClick = {},
         modifier = Modifier.height(120.dp),
       )

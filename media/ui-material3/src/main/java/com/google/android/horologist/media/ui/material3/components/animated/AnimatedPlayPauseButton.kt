@@ -161,10 +161,7 @@ public fun AnimatedPlayPauseProgressButton(
 ) {
   val configuration = LocalConfiguration.current
   val transition =
-    updateTransition(
-      targetState = isAnyButtonPressed.value,
-      label = SHAPE_TRANSITION_LABEL,
-    )
+    updateTransition(targetState = isAnyButtonPressed.value, label = SHAPE_TRANSITION_LABEL)
   val shapeMorphProgress = animatedScallopShapeProgress(transition = transition)
   val infiniteTransition = rememberInfiniteTransition("Rotation transition")
   val rotationProgress =

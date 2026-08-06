@@ -30,10 +30,7 @@ import java.time.LocalTime
 @WearPreviewFontScales
 @Composable
 fun TimePicker12hPreview() {
-  TimePickerWith12HourClock(
-    time = LocalTime.of(10, 10, 0),
-    onTimeConfirm = {},
-  )
+  TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
 }
 
 @Composable
@@ -49,10 +46,7 @@ fun TimePicker12hPreviewSmallDeviceWithLargeFontBold() {
   MaterialTheme(
     typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }
   ) {
-    TimePickerWith12HourClock(
-      time = LocalTime.of(10, 0, 0),
-      onTimeConfirm = {},
-    )
+    TimePickerWith12HourClock(time = LocalTime.of(10, 0, 0), onTimeConfirm = {})
   }
 }
 
@@ -66,8 +60,5 @@ fun TimePicker12hPreviewSmallDeviceWithLargeFontBold() {
   fontScale = 0.94f,
 )
 fun TimePicker12hPreviewLargeDeviceSmallFont() {
-  TimePickerWith12HourClock(
-    time = LocalTime.of(10, 0, 0),
-    onTimeConfirm = {},
-  )
+  TimePickerWith12HourClock(time = LocalTime.of(10, 0, 0), onTimeConfirm = {})
 }

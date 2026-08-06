@@ -63,10 +63,7 @@ fun AmbientAware(
 }
 
 @Composable
-private fun rememberAmbientState(
-  activity: Activity?,
-  lifecycle: Lifecycle,
-): State<AmbientState> {
+private fun rememberAmbientState(activity: Activity?, lifecycle: Lifecycle): State<AmbientState> {
   val ambientState = remember { mutableStateOf<AmbientState>(AmbientState.Inactive) }
 
   remember {

@@ -74,10 +74,7 @@ object DownloadModule {
     @DownloadFeature transferListener: TransferListener,
   ): DataSource.Factory =
     OkHttpDataSource.Factory(
-        NetworkAwareCallFactory(
-          delegate = callFactory,
-          defaultRequestType = DownloadRequest,
-        )
+        NetworkAwareCallFactory(delegate = callFactory, defaultRequestType = DownloadRequest)
       )
       .setCacheControl(CacheControl.Builder().noCache().noStore().build())
       .setTransferListener(transferListener)
@@ -191,9 +188,5 @@ object DownloadModule {
     highBandwithRequester: HighBandwidthNetworkMediator,
     networkingRulesEngine: NetworkingRulesEngine,
   ): NetworkAwareDownloadListener =
-    NetworkAwareDownloadListener(
-      errorReporter,
-      highBandwithRequester,
-      networkingRulesEngine,
-    )
+    NetworkAwareDownloadListener(errorReporter, highBandwithRequester, networkingRulesEngine)
 }

@@ -63,10 +63,7 @@ public fun PlayerLibraryPagerScreen(
     }
   }
 
-  HorizontalPagerScaffold(
-    modifier = modifier,
-    pagerState = pagerState,
-  ) {
+  HorizontalPagerScaffold(modifier = modifier, pagerState = pagerState) {
     HorizontalPager(state = pagerState) { page ->
       when (page) {
         0 -> {

@@ -26,10 +26,8 @@ import okhttp3.Call
  * used for [clone].
  */
 @ExperimentalHorologistApi
-internal class StandardCall(
-  private val callFactory: Call.Factory,
-  private val delegate: Call,
-) : Call by delegate {
+internal class StandardCall(private val callFactory: Call.Factory, private val delegate: Call) :
+  Call by delegate {
   override fun clone(): Call {
     val request = request()
     // Remove network and lease from new request

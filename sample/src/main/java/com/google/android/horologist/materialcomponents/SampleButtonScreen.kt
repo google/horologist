@@ -31,10 +31,7 @@ internal fun SampleButtonScreen(
   modifier: Modifier = Modifier,
   columnState: ScalingLazyColumnState,
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
     item {
       Button(
         imageVector = Icons.Default.Check,

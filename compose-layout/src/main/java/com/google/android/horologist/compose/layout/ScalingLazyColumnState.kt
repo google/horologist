@@ -57,10 +57,7 @@ public class ScalingLazyColumnState(
   public val initialScrollPosition: ScrollPosition = ScrollPosition(1, 0),
   public val timeTextHomeOffset: ScrollPosition = initialScrollPosition,
   public val autoCentering: AutoCenteringParams? =
-    AutoCenteringParams(
-      initialScrollPosition.index,
-      initialScrollPosition.offsetPx,
-    ),
+    AutoCenteringParams(initialScrollPosition.index, initialScrollPosition.offsetPx),
   public val anchorType: ScalingLazyListAnchorType = ScalingLazyListAnchorType.ItemCenter,
   public val contentPadding: PaddingValues = PaddingValues(horizontal = 10.dp),
   public val rotaryMode: RotaryMode? = RotaryMode.Scroll,
@@ -79,11 +76,7 @@ public class ScalingLazyColumnState(
   public var state: ScalingLazyListState
     get() {
       if (_state == null) {
-        _state =
-          ScalingLazyListState(
-            initialScrollPosition.index,
-            initialScrollPosition.offsetPx,
-          )
+        _state = ScalingLazyListState(initialScrollPosition.index, initialScrollPosition.offsetPx)
       }
       return _state!!
     }
@@ -115,10 +108,7 @@ public class ScalingLazyColumnState(
     public object Scroll : RotaryMode
   }
 
-  public data class ScrollPosition(
-    val index: Int,
-    val offsetPx: Int,
-  )
+  public data class ScrollPosition(val index: Int, val offsetPx: Int)
 
   public fun interface Factory {
     @Composable public fun create(): ScalingLazyColumnState
@@ -143,10 +133,7 @@ public fun rememberResponsiveColumnState(
   first: ItemType,
   last: ItemType,
   verticalArrangement: Arrangement.Vertical =
-    Arrangement.spacedBy(
-      space = 4.dp,
-      alignment = Alignment.Top,
-    ),
+    Arrangement.spacedBy(space = 4.dp, alignment = Alignment.Top),
   rotaryMode: RotaryMode? = RotaryMode.Scroll,
   hapticsEnabled: Boolean = true,
   reverseLayout: Boolean = false,
@@ -154,10 +141,7 @@ public fun rememberResponsiveColumnState(
   initialItemIndex: Int = 0,
 ): ScalingLazyColumnState {
   return rememberResponsiveColumnState(
-    ScalingLazyColumnDefaults.padding(
-      first = first,
-      last = last,
-    ),
+    ScalingLazyColumnDefaults.padding(first = first, last = last),
     verticalArrangement,
     rotaryMode,
     hapticsEnabled,
@@ -170,16 +154,10 @@ public fun rememberResponsiveColumnState(
 @Composable
 public fun rememberResponsiveColumnState(
   contentPadding: @Composable () -> PaddingValues = {
-    rememberResponsiveColumnPadding(
-      first = ItemType.Unspecified,
-      last = ItemType.Unspecified,
-    )
+    rememberResponsiveColumnPadding(first = ItemType.Unspecified, last = ItemType.Unspecified)
   },
   verticalArrangement: Arrangement.Vertical =
-    Arrangement.spacedBy(
-      space = 4.dp,
-      alignment = Alignment.Top,
-    ),
+    Arrangement.spacedBy(space = 4.dp, alignment = Alignment.Top),
   rotaryMode: RotaryMode? = RotaryMode.Scroll,
   hapticsEnabled: Boolean = true,
   reverseLayout: Boolean = false,
@@ -200,11 +178,7 @@ public fun rememberResponsiveColumnState(
   val topScreenOffsetPx = screenHeightPx / 2 - topPaddingPx
 
   // Calculate the offset from which TimeText scrollAway should move
-  val timeTextHomeOffset =
-    ScrollPosition(
-      index = 0,
-      offsetPx = topScreenOffsetPx,
-    )
+  val timeTextHomeOffset = ScrollPosition(index = 0, offsetPx = topScreenOffsetPx)
   val initialScrollPosition =
     ScrollPosition(
       index = if (initialItemIndex > 0) initialItemIndex else 0,

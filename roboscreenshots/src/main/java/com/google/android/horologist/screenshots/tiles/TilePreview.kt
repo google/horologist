@@ -118,11 +118,7 @@ private fun TileRenderer.preview(
   tile.state?.let { state -> setState(state.keyToValueMapping) }
 
   // Returning a future
-  return inflateAsync(
-    tile.tileTimeline?.timelineEntries?.first()?.layout!!,
-    tileResources,
-    parent,
-  )
+  return inflateAsync(tile.tileTimeline?.timelineEntries?.first()?.layout!!, tileResources, parent)
 }
 
 /** Preview a smaller tile component such as a Button, that is not full screen. */

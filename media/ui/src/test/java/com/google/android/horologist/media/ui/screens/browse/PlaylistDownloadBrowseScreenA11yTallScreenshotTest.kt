@@ -48,13 +48,7 @@ class PlaylistDownloadBrowseScreenA11yTallScreenshotTest : WearLegacyA11yTest() 
     runScreenTest {
       val columnState =
         rememberResponsiveColumnState()
-          .copy(
-            scalingParams =
-              scalingParams(
-                edgeScale = 1f,
-                edgeAlpha = 1f,
-              )
-          )
+          .copy(scalingParams = scalingParams(edgeScale = 1f, edgeAlpha = 1f))
 
       ScreenScaffold(scrollState = columnState) {
         SectionedList(

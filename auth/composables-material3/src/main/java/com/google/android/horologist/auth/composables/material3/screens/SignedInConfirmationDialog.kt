@@ -200,10 +200,7 @@ internal fun SignedInConfirmationDialogContent(
       Text(
         text =
           if (hasName) {
-            stringResource(
-              id = R.string.horologist_signedin_confirmation_greeting,
-              name,
-            )
+            stringResource(id = R.string.horologist_signedin_confirmation_greeting, name)
           } else {
             stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)
           },

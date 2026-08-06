@@ -42,12 +42,7 @@ class StandardHighBandwidthNetworkMediatorTest {
   private val networkRequester = FakeNetworkRequester(networkRepository)
   private val delayToRelease = 3.seconds
   private val highBandwidthRequester =
-    StandardHighBandwidthNetworkMediator(
-      logger,
-      networkRequester,
-      testScope,
-      delayToRelease,
-    )
+    StandardHighBandwidthNetworkMediator(logger, networkRequester, testScope, delayToRelease)
   val wifiRequest = HighBandwidthRequest(HighBandwidthRequest.Type.WifiOnly)
 
   @Test

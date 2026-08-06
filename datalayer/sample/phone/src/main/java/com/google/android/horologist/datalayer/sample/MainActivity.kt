@@ -35,10 +35,7 @@ class MainActivity : ComponentActivity() {
 
     setContent {
       HorologistTheme {
-        Surface(
-          modifier = Modifier.fillMaxSize(),
-          color = MaterialTheme.colorScheme.background,
-        ) {
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
           MainScreen()
         }
       }

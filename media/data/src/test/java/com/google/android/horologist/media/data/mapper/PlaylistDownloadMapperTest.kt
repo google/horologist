@@ -68,13 +68,7 @@ class PlaylistDownloadMapperTest {
       )
 
     val expectedMedia =
-      Media(
-        id = mediaId,
-        uri = mediaUrl,
-        title = title,
-        artist = artist,
-        artworkUri = artworkUrl,
-      )
+      Media(id = mediaId, uri = mediaUrl, title = title, artist = artist, artworkUri = artworkUrl)
 
     val mediaDownloadEntity = listOf<MediaDownloadEntity>()
 

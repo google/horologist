@@ -36,11 +36,7 @@ class VolumeScreenThemeTest(private val themeValue: ThemeValues) : WearLegacyScr
 
   @Test
   fun volumeScreenThemes() {
-    val volumeState =
-      VolumeState(
-        current = 50,
-        max = 100,
-      )
+    val volumeState = VolumeState(current = 50, max = 100)
     val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
     runTest {

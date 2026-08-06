@@ -167,12 +167,7 @@ internal constructor(
       "Executor is null, something is wrong during initalization of WearDataLayerAppHelper"
     }
 
-    val activeTiles =
-      TileService.getActiveTilesAsync(
-          context,
-          executor,
-        )
-        .await()
+    val activeTiles = TileService.getActiveTilesAsync(context, executor).await()
 
     surfacesInfoDataStore.updateData { info ->
       val builder = info.toBuilder()

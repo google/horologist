@@ -28,12 +28,7 @@ import kotlin.math.round
 @Composable
 internal fun SampleStepperScreen() {
   var value by remember { mutableFloatStateOf(0f) }
-  Stepper(
-    value = value,
-    onValueChange = { value = round(it) },
-    valueRange = 0f..100f,
-    steps = 9,
-  ) {
+  Stepper(value = value, onValueChange = { value = round(it) }, valueRange = 0f..100f, steps = 9) {
     Text("Value: $value")
   }
 }

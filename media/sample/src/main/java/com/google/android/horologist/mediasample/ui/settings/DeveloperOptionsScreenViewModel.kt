@@ -114,12 +114,7 @@ constructor(
   }
 
   fun showDialog(message: String) {
-    snackbarManager.showMessage(
-      UiMessage(
-        message = message,
-        error = true,
-      )
-    )
+    snackbarManager.showMessage(UiMessage(message = message, error = true))
   }
 
   fun toggleNetworkRequest() {

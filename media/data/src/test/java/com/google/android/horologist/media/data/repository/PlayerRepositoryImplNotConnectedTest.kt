@@ -101,18 +101,10 @@ class PlayerRepositoryImplNotConnectedTest(
         param("setPlaybackSpeed") { sut: PlayerRepositoryImpl -> sut.setPlaybackSpeed(2f) },
       )
 
-    private fun param(
-      description: String,
-      whenBlock: (PlayerRepositoryImpl) -> Unit,
-    ) = arrayOf(description, whenBlock)
+    private fun param(description: String, whenBlock: (PlayerRepositoryImpl) -> Unit) =
+      arrayOf(description, whenBlock)
 
     private fun getDummyMedia() =
-      Media(
-        id = "id",
-        uri = "uri",
-        title = "title",
-        artist = "artist",
-        artworkUri = "artworkUri",
-      )
+      Media(id = "id", uri = "uri", title = "title", artist = "artist", artworkUri = "artworkUri")
   }
 }

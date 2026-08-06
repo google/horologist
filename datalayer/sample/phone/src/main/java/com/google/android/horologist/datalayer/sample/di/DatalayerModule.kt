@@ -45,11 +45,7 @@ object DatalayerModule {
   fun phoneDataLayerAppHelper(
     @ApplicationContext applicationContext: Context,
     wearDataLayerRegistry: WearDataLayerRegistry,
-  ) =
-    PhoneDataLayerAppHelper(
-      context = applicationContext,
-      registry = wearDataLayerRegistry,
-    )
+  ) = PhoneDataLayerAppHelper(context = applicationContext, registry = wearDataLayerRegistry)
 
   @Singleton
   @Provides

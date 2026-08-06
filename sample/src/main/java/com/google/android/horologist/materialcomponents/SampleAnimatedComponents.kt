@@ -40,17 +40,9 @@ internal fun SampleAnimatedComponents(
   modifier: Modifier = Modifier,
   columnState: ScalingLazyColumnState,
 ) {
-  val secondaryLabels =
-    arrayOf(
-      "Click to change this text",
-      "Click again to hide",
-      null,
-    )
+  val secondaryLabels = arrayOf("Click to change this text", "Click again to hide", null)
 
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
     item {
       var selectedText by remember { mutableStateOf(0) }
       Chip(
@@ -60,12 +52,7 @@ internal fun SampleAnimatedComponents(
         secondaryLabel = {
           AnimatedDefaultText(secondaryLabels[selectedText % secondaryLabels.size])
         },
-        icon = {
-          Icon(
-            paintable = Icons.Default.Image.asPaintable(),
-            contentDescription = "",
-          )
-        },
+        icon = { Icon(paintable = Icons.Default.Image.asPaintable(), contentDescription = "") },
       )
     }
     item {
@@ -77,25 +64,13 @@ internal fun SampleAnimatedComponents(
         secondaryLabel = {
           AnimatedDefaultText(secondaryLabels[selectedText % secondaryLabels.size])
         },
-        icon = {
-          Icon(
-            paintable = Icons.Default.Image.asPaintable(),
-            contentDescription = "",
-          )
-        },
+        icon = { Icon(paintable = Icons.Default.Image.asPaintable(), contentDescription = "") },
       )
     }
     item {
-      val cardContents =
-        arrayOf(
-          "Click to change this text",
-          "Click again to change",
-        )
+      val cardContents = arrayOf("Click to change this text", "Click again to change")
       var selectedText by remember { mutableStateOf(0) }
-      TitleCard(
-        title = { Text("Card") },
-        onClick = { selectedText++ },
-      ) {
+      TitleCard(title = { Text("Card") }, onClick = { selectedText++ }) {
         AnimatedDefaultText(cardContents[selectedText % cardContents.size])
       }
     }

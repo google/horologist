@@ -37,11 +37,7 @@ class UampBrowseScreenViewModel @Inject constructor(playlistRepository: Playlist
   private val playlists: StateFlow<List<Playlist>?> =
     playlistRepository
       .getAllDownloaded()
-      .stateIn(
-        viewModelScope,
-        started = SharingStarted.Eagerly,
-        initialValue = null,
-      )
+      .stateIn(viewModelScope, started = SharingStarted.Eagerly, initialValue = null)
 
   val uiState =
     playlists

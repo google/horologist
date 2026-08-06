@@ -61,11 +61,7 @@ class FakeImageLoader(val imageFn: (ImageRequest) -> ImageResult) : ImageLoader 
     ): ImageResult {
       val bitmap = BitmapFactory.decodeResource(context.resources, id)
       val result = BitmapDrawable(context.resources, bitmap)
-      return SuccessResult(
-        drawable = result,
-        request = request,
-        dataSource = DataSource.NETWORK,
-      )
+      return SuccessResult(drawable = result, request = request, dataSource = DataSource.NETWORK)
     }
 
     fun loadErrorBitmap(

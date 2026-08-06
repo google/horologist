@@ -28,10 +28,7 @@ internal fun SampleSplitToggleChipScreen(
   modifier: Modifier = Modifier,
   columnState: ScalingLazyColumnState,
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
     item {
       SplitToggleChip(
         checked = true,

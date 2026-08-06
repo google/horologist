@@ -45,23 +45,14 @@ fun FillerScreen(label: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun BigScalingLazyColumn(
-  columnState: ScalingLazyColumnState,
-  modifier: Modifier = Modifier,
-) {
-  ScalingLazyColumn(
-    modifier = modifier,
-    columnState = columnState,
-  ) {
+fun BigScalingLazyColumn(columnState: ScalingLazyColumnState, modifier: Modifier = Modifier) {
+  ScalingLazyColumn(modifier = modifier, columnState = columnState) {
     items(100) { Text("i = $it") }
   }
 }
 
 @Composable
-fun BigColumn(
-  scrollState: ScrollState,
-  modifier: Modifier = Modifier,
-) {
+fun BigColumn(scrollState: ScrollState, modifier: Modifier = Modifier) {
   Column(
     modifier =
       modifier

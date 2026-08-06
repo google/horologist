@@ -28,63 +28,35 @@ class TimePickerTest : WearLegacyScreenTest() {
 
   @Test
   fun initial() {
-    runTest {
-      TimePicker(
-        time = LocalTime.of(10, 10, 0),
-        onTimeConfirm = {},
-      )
-    }
+    runTest { TimePicker(time = LocalTime.of(10, 10, 0), onTimeConfirm = {}) }
   }
 
   @Test
   fun midnight() {
-    runTest {
-      TimePicker(
-        time = LocalTime.of(0, 0, 0),
-        onTimeConfirm = {},
-        showSeconds = false,
-      )
-    }
+    runTest { TimePicker(time = LocalTime.of(0, 0, 0), onTimeConfirm = {}, showSeconds = false) }
   }
 
   @Test
   @Config(fontScale = 1.24f)
   fun largestFontScaling() {
     runTest(applyDeviceConfig = false) {
-      TestScaffold {
-        TimePicker(
-          time = LocalTime.of(10, 10, 0),
-          onTimeConfirm = {},
-        )
-      }
+      TestScaffold { TimePicker(time = LocalTime.of(10, 10, 0), onTimeConfirm = {}) }
     }
   }
 
   @Test
   fun noSeconds() {
-    runTest {
-      TimePicker(
-        time = LocalTime.of(10, 10, 0),
-        onTimeConfirm = {},
-        showSeconds = false,
-      )
-    }
+    runTest { TimePicker(time = LocalTime.of(10, 10, 0), onTimeConfirm = {}, showSeconds = false) }
   }
 
   @Test
-  @Config(
-    qualifiers = "+w192dp-h192dp",
-    fontScale = 1.24f,
-  )
+  @Config(qualifiers = "+w192dp-h192dp", fontScale = 1.24f)
   fun smallDeviceLargeFontBold() {
     runTest(applyDeviceConfig = false) {
       MaterialTheme(
         typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }
       ) {
-        TimePicker(
-          time = LocalTime.of(10, 10, 0),
-          onTimeConfirm = {},
-        )
+        TimePicker(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
       }
     }
   }

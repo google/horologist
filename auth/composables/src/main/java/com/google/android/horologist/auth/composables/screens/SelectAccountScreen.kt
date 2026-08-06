@@ -58,18 +58,11 @@ public fun SelectAccountScreen(
 ) {
   val columnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Text,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
   ScreenScaffold(scrollState = columnState) {
-    ScalingLazyColumn(
-      modifier = modifier,
-      columnState = columnState,
-    ) {
+    ScalingLazyColumn(modifier = modifier, columnState = columnState) {
       item {
         ResponsiveListHeader(contentPadding = firstItemPadding()) {
           Text(

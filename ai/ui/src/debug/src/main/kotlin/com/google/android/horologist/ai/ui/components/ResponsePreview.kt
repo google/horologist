@@ -19,29 +19,23 @@ package com.google.android.horologist.ai.ui.components
 @WearPreviewLargeRound
 @Composable
 internal fun TextResponseCardPreview() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
-        PromptOrResponseDisplay(
-            TextResponseUiModel(LoremIpsum(20).values.joinToString("\n")),
-        )
-    }
+  Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
+    PromptOrResponseDisplay(TextResponseUiModel(LoremIpsum(20).values.joinToString("\n")))
+  }
 }
 
 @WearPreviewLargeRound
 @Composable
 internal fun FailedResponseChipPreview() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        PromptOrResponseDisplay(
-            FailedResponseUiModel("Error"),
-        )
-    }
+  Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    PromptOrResponseDisplay(FailedResponseUiModel("Error"))
+  }
 }
 
 @WearPreviewLargeRound
 @Composable
 internal fun ResponseInProgressCardPreview() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        PromptOrResponseDisplay(
-            InProgressResponseUiModel,
-        )
-    }
+  Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    PromptOrResponseDisplay(InProgressResponseUiModel)
+  }
 }

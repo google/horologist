@@ -40,10 +40,7 @@ import kotlinx.coroutines.flow.stateIn
 @Singleton
 class InferenceService
 @Inject
-constructor(
-  val registry: CombinedInferenceServiceRegistry,
-  val coroutineScope: CoroutineScope,
-) {
+constructor(val registry: CombinedInferenceServiceRegistry, val coroutineScope: CoroutineScope) {
   val connectedModel = MutableStateFlow<ModelId?>(null)
 
   val models = flow {

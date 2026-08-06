@@ -45,12 +45,7 @@ class MediaPlayerScreenTest() : WearLegacyScreenTest() {
         shuffleOn = false,
         playPauseEnabled = true,
         playing = true,
-        media =
-          MediaUiModel.Ready(
-            id = "",
-            title = "Weather with You",
-            subtitle = "Crowded House",
-          ),
+        media = MediaUiModel.Ready(id = "", title = "Weather with You", subtitle = "Crowded House"),
         trackPositionUiModel =
           TrackPositionUiModel.Actual(
             percent = 0.1f,
@@ -78,12 +73,7 @@ class MediaPlayerScreenTest() : WearLegacyScreenTest() {
         shuffleOn = false,
         playPauseEnabled = true,
         playing = true,
-        media =
-          MediaUiModel.Ready(
-            id = "",
-            title = "Weather with You",
-            subtitle = "Crowded House",
-          ),
+        media = MediaUiModel.Ready(id = "", title = "Weather with You", subtitle = "Crowded House"),
         trackPositionUiModel =
           TrackPositionUiModel.Actual(
             percent = 0.1f,

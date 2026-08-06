@@ -40,10 +40,7 @@ public interface TileLayoutRenderer<T, R> {
    * @param tileState the state of the tile, typically a data class
    * @param requestParams the incoming request params.
    */
-  public fun renderTimeline(
-    state: T,
-    requestParams: RequestBuilders.TileRequest,
-  ): Tile
+  public fun renderTimeline(state: T, requestParams: RequestBuilders.TileRequest): Tile
 
   /**
    * Produce resources for the given request. The implementation should read

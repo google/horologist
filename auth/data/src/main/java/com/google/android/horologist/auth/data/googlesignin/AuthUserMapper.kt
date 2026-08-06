@@ -26,10 +26,6 @@ public object AuthUserMapper {
 
   /** Maps from a [GoogleSignInAccount]. */
   public fun map(googleSignInAccount: GoogleSignInAccount?): AuthUser? = googleSignInAccount?.let {
-    AuthUser(
-      displayName = it.displayName,
-      email = it.email,
-      avatarUri = it.photoUrl.toString(),
-    )
+    AuthUser(displayName = it.displayName, email = it.email, avatarUri = it.photoUrl.toString())
   }
 }

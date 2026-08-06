@@ -29,12 +29,7 @@ public sealed class DownloadMediaUiModel(
     override val title: String? = null,
     val artist: String? = null,
     override val artworkUri: String? = null,
-  ) :
-    DownloadMediaUiModel(
-      id = id,
-      title = title,
-      artworkUri = artworkUri,
-    )
+  ) : DownloadMediaUiModel(id = id, title = title, artworkUri = artworkUri)
 
   public data class Downloading(
     override val id: String,
@@ -42,24 +37,14 @@ public sealed class DownloadMediaUiModel(
     val progress: Progress,
     val size: Size,
     override val artworkUri: String? = null,
-  ) :
-    DownloadMediaUiModel(
-      id = id,
-      title = title,
-      artworkUri = artworkUri,
-    )
+  ) : DownloadMediaUiModel(id = id, title = title, artworkUri = artworkUri)
 
   public data class NotDownloaded(
     override val id: String,
     override val title: String? = null,
     val artist: String? = null,
     override val artworkUri: String? = null,
-  ) :
-    DownloadMediaUiModel(
-      id = id,
-      title = title,
-      artworkUri = artworkUri,
-    )
+  ) : DownloadMediaUiModel(id = id, title = title, artworkUri = artworkUri)
 
   public sealed class Progress {
     public object Waiting : Progress()

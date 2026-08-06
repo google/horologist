@@ -30,10 +30,7 @@ fun SelectAccountScreenPreview() {
     SelectAccountScreen(
       accounts =
         listOf(
-          AccountUiModel(
-            email = "john@example.com",
-            name = "John Doe",
-          ),
+          AccountUiModel(email = "john@example.com", name = "John Doe"),
           AccountUiModel(
             email = "tim@example.com",
             name = "Timothy Andrews",
@@ -62,18 +59,9 @@ fun SelectAccountScreenManyAccountsPreview() {
             email = "thisisaverylongemailaccountsample@example.com",
             name = "Extenta Namuratus Hereditus III",
           ),
-          AccountUiModel(
-            email = "timandrews123@example.com",
-            name = "Timothy Andrews",
-          ),
-          AccountUiModel(
-            email = "john@example.com",
-            name = "John Doe",
-          ),
-          AccountUiModel(
-            email = "john@example.com",
-            name = "John Doe",
-          ),
+          AccountUiModel(email = "timandrews123@example.com", name = "Timothy Andrews"),
+          AccountUiModel(email = "john@example.com", name = "John Doe"),
+          AccountUiModel(email = "john@example.com", name = "John Doe"),
         ),
       onAccountClicked = { _, _ -> },
       title = "Select Account",
@@ -88,10 +76,7 @@ fun SelectAccountScreenOneLineAccountsPreview() {
     SelectAccountScreen(
       accounts =
         listOf(
-          AccountUiModel(
-            email = "john@example.com",
-            name = "John Doe",
-          ),
+          AccountUiModel(email = "john@example.com", name = "John Doe"),
           AccountUiModel(
             email = "timandrews123@example.com",
             name = "Tim Andrews",

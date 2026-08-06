@@ -116,11 +116,7 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
           ) {
             val animation = animationResult.getOrNull()
             if (animation != null) {
-              LottiePreview(
-                animation = animation,
-                clock = clock,
-                modifier = Modifier.fillMaxSize(),
-              )
+              LottiePreview(animation = animation, clock = clock, modifier = Modifier.fillMaxSize())
             } else {
               val errorMessage = sanitizeErrorMessage(animationResult.exceptionOrNull())
               BasicText(

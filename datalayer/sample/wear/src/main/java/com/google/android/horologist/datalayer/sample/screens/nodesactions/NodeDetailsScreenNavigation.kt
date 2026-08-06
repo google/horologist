@@ -38,10 +38,7 @@ private val URL_CHARACTER_ENCODING = Charsets.UTF_8.name()
 const val nodeDetailsScreenRoute =
   "$routePrefix/$nodeIdArg={$nodeIdArg}&$appInstalledArg={$appInstalledArg}"
 
-internal class NodeDetailsScreenArgs(
-  val nodeId: String,
-  val appInstalled: Boolean,
-) {
+internal class NodeDetailsScreenArgs(val nodeId: String, val appInstalled: Boolean) {
   constructor(
     savedStateHandle: SavedStateHandle
   ) : this(

@@ -57,20 +57,13 @@ fun DialogsAudit(route: AuditNavigation.Dialogs.Audit) {
     AuditNavigation.Dialogs.Config.OneBottomButton -> {
       AlertDialog(showDialog = true, title = "Title", onDismiss = {}) {
         item {
-          Button(
-            onClick = {},
-            imageVector = Icons.Default.WhereToVote,
-            contentDescription = "",
-          )
+          Button(onClick = {}, imageVector = Icons.Default.WhereToVote, contentDescription = "")
         }
       }
     }
 
     AuditNavigation.Dialogs.Config.NonScrollable -> {
-      Dialog(
-        showDialog = true,
-        onDismissRequest = {},
-      ) {
+      Dialog(showDialog = true, onDismissRequest = {}) {
         NonScrollableAlertContent(
           icon = { Icon(Icons.Default.MedicalServices, contentDescription = "") },
           title = "Title",

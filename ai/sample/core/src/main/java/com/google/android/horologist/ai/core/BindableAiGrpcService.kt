@@ -40,16 +40,9 @@ abstract class BindableAiGrpcService : LifecycleService() {
   open val securityPolicy: SecurityPolicy by lazy {
     val mySignature =
       packageManager
-        .getPackageInfo(
-          packageName,
-          android.content.pm.PackageManager.GET_SIGNATURES,
-        )
+        .getPackageInfo(packageName, android.content.pm.PackageManager.GET_SIGNATURES)
         .signatures!![0]
-    io.grpc.binder.SecurityPolicies.hasSignature(
-      packageManager,
-      packageName,
-      mySignature,
-    )
+    io.grpc.binder.SecurityPolicies.hasSignature(packageManager, packageName, mySignature)
   }
 
   abstract val bindableService: BindableService

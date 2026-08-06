@@ -40,10 +40,6 @@ class MarqueeA11yTest : WearLegacyA11yTest() {
 
   @Composable
   private fun MarqueeSample(text: String) {
-    MarqueeText(
-      text = text,
-      textAlign = TextAlign.Center,
-      modifier = Modifier.width(192.dp),
-    )
+    MarqueeText(text = text, textAlign = TextAlign.Center, modifier = Modifier.width(192.dp))
   }
 }

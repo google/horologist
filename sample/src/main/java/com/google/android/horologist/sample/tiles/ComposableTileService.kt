@@ -80,10 +80,7 @@ class ComposableTileService : SuspendingTileService() {
       .setVersion(requestParams.version)
       .apply {
         if (circleComposeBitmap != null) {
-          addIdToImageMapping(
-            composeId,
-            circleComposeBitmap.toImageResource(),
-          )
+          addIdToImageMapping(composeId, circleComposeBitmap.toImageResource())
         }
       }
       .build()

@@ -117,20 +117,11 @@ public fun TimePicker(
   val fullyDrawn = remember { Animatable(if (inspectionMode) 1f else 0f) }
 
   val hourState =
-    rememberPickerState(
-      initialNumberOfOptions = 24,
-      initiallySelectedOption = time.hour,
-    )
+    rememberPickerState(initialNumberOfOptions = 24, initiallySelectedOption = time.hour)
   val minuteState =
-    rememberPickerState(
-      initialNumberOfOptions = 60,
-      initiallySelectedOption = time.minute,
-    )
+    rememberPickerState(initialNumberOfOptions = 60, initiallySelectedOption = time.minute)
   val secondState =
-    rememberPickerState(
-      initialNumberOfOptions = 60,
-      initiallySelectedOption = time.second,
-    )
+    rememberPickerState(initialNumberOfOptions = 60, initiallySelectedOption = time.second)
 
   val touchExplorationStateProvider = remember { DefaultTouchExplorationStateProvider() }
   val touchExplorationServicesEnabled by touchExplorationStateProvider.touchExplorationState()
@@ -155,17 +146,8 @@ public fun TimePicker(
   val measurer = rememberTextMeasurer()
   val density = LocalDensity.current
   val digitWidth =
-    remember(
-      density.density,
-      LocalConfiguration.current.screenWidthDp,
-      textStyle,
-    ) {
-      val mm =
-        measurer.measure(
-          "0123456789",
-          style = textStyle,
-          density = density,
-        )
+    remember(density.density, LocalConfiguration.current.screenWidthDp, textStyle) {
+      val mm = measurer.measure("0123456789", style = textStyle, density = density)
 
       (0..9).maxOf { mm.getBoundingBox(it).width }
     }
@@ -217,10 +199,7 @@ public fun TimePicker(
 
   val paddingAroundPicker = if (isLargeScreen) 6.dp else 4.dp
 
-  ScreenScaffold(
-    modifier = modifier.fillMaxSize().alpha(fullyDrawn.value),
-    timeText = {},
-  ) {
+  ScreenScaffold(modifier = modifier.fillMaxSize().alpha(fullyDrawn.value), timeText = {}) {
     Column(
       Modifier.fillMaxSize(),
       verticalArrangement = Arrangement.Center,
@@ -307,11 +286,7 @@ public fun TimePicker(
         onClick = {
           val seconds = if (showSeconds) secondState.selectedOption else 0
           val confirmedTime =
-            LocalTime.of(
-              hourState.selectedOption,
-              minuteState.selectedOption,
-              seconds,
-            )
+            LocalTime.of(hourState.selectedOption, minuteState.selectedOption, seconds)
           onTimeConfirm(confirmedTime)
         },
         modifier =
@@ -364,10 +339,7 @@ public fun TimePickerWith12HourClock(
       initiallySelectedOption = time[ChronoField.CLOCK_HOUR_OF_AMPM] - 1,
     )
   val minuteState =
-    rememberPickerState(
-      initialNumberOfOptions = 60,
-      initiallySelectedOption = time.minute,
-    )
+    rememberPickerState(initialNumberOfOptions = 60, initiallySelectedOption = time.minute)
   val periodState =
     rememberPickerState(
       initialNumberOfOptions = 2,
@@ -427,10 +399,7 @@ public fun TimePickerWith12HourClock(
     }
 
   val periodContentDescription by
-    remember(
-      pickerGroupState.selectedIndex,
-      periodState.selectedOption,
-    ) {
+    remember(pickerGroupState.selectedIndex, periodState.selectedOption) {
       derivedStateOf {
         if (pickerGroupState.selectedIndex == FocusableElement12Hour.NONE.index) {
           periodString
@@ -444,10 +413,7 @@ public fun TimePickerWith12HourClock(
 
   val paddingAroundPicker = if (isLargeScreen) 6.dp else 4.dp
 
-  ScreenScaffold(
-    modifier = modifier.fillMaxSize().alpha(fullyDrawn.value),
-    timeText = {},
-  ) {
+  ScreenScaffold(modifier = modifier.fillMaxSize().alpha(fullyDrawn.value), timeText = {}) {
     Column(
       modifier = modifier.fillMaxSize(),
       verticalArrangement = Arrangement.Center,
@@ -470,10 +436,7 @@ public fun TimePickerWith12HourClock(
         val measurer = rememberTextMeasurer()
         val density = LocalDensity.current
         val (digitWidth, amPmWidth) =
-          remember(
-            density.density,
-            LocalConfiguration.current.screenWidthDp,
-          ) {
+          remember(density.density, LocalConfiguration.current.screenWidthDp) {
             val mm =
               measurer.measure(
                 "0123456789\n$amString\n$pmString",
@@ -508,10 +471,7 @@ public fun TimePickerWith12HourClock(
               pickerState = hourState,
               modifier = Modifier.width(pickerWidth).fillMaxHeight(),
               onSelected = {
-                doubleTapToNext(
-                  FocusableElement12Hour.HOURS,
-                  FocusableElement12Hour.MINUTES,
-                )
+                doubleTapToNext(FocusableElement12Hour.HOURS, FocusableElement12Hour.MINUTES)
               },
               contentDescription = hoursContentDescription,
               option = pickerTextOption(textStyle, { "%02d".format(it + 1) }),
@@ -520,10 +480,7 @@ public fun TimePickerWith12HourClock(
               pickerState = minuteState,
               modifier = Modifier.width(pickerWidth).fillMaxHeight(),
               onSelected = {
-                doubleTapToNext(
-                  FocusableElement12Hour.MINUTES,
-                  FocusableElement12Hour.PERIOD,
-                )
+                doubleTapToNext(FocusableElement12Hour.MINUTES, FocusableElement12Hour.PERIOD)
               },
               contentDescription = minutesContentDescription,
               option = pickerTextOption(textStyle, { "%02d".format(it) }),
@@ -538,11 +495,7 @@ public fun TimePickerWith12HourClock(
                   FocusableElement12Hour.CONFIRM_BUTTON,
                 )
               },
-              option =
-                pickerTextOption(
-                  textStyle,
-                  { if (it == 0) amString else pmString },
-                ),
+              option = pickerTextOption(textStyle, { if (it == 0) amString else pmString }),
             ),
             modifier = Modifier.fillMaxSize(),
             autoCenter = false,
@@ -556,11 +509,7 @@ public fun TimePickerWith12HourClock(
       Button(
         onClick = {
           val confirmedTime =
-            LocalTime.of(
-                hourState.selectedOption + 1,
-                minuteState.selectedOption,
-                0,
-              )
+            LocalTime.of(hourState.selectedOption + 1, minuteState.selectedOption, 0)
               .with(ChronoField.AMPM_OF_DAY, periodState.selectedOption.toLong())
           onTimeConfirm(confirmedTime)
         },

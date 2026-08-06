@@ -57,10 +57,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : WearLegacyA11yTest() {
         interceptor = {
           SuccessResult(
             drawable =
-              ContextCompat.getDrawable(
-                it.request.context,
-                FakeImageLoader.TestIconResource,
-              )!!,
+              ContextCompat.getDrawable(it.request.context, FakeImageLoader.TestIconResource)!!,
             request = it.request,
             dataSource = DataSource.DISK,
           )
@@ -102,10 +99,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : WearLegacyA11yTest() {
         onShuffleButtonClick = {},
         onPlayButtonClick = {},
         downloadItemArtworkPlaceholder =
-          rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-          ),
+          rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
         onDownloadItemInProgressClickActionLabel = "cancel",
       )
     }
@@ -128,10 +122,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : WearLegacyA11yTest() {
         onShuffleButtonClick = {},
         onPlayButtonClick = {},
         downloadItemArtworkPlaceholder =
-          rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-          ),
+          rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
         onDownloadItemInProgressClickActionLabel = "cancel",
       )
     }
@@ -154,10 +145,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : WearLegacyA11yTest() {
         onShuffleButtonClick = {},
         onPlayButtonClick = {},
         downloadItemArtworkPlaceholder =
-          rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-          ),
+          rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
         onDownloadItemInProgressClickActionLabel = "cancel",
       )
     }
@@ -180,10 +168,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : WearLegacyA11yTest() {
         onShuffleButtonClick = {},
         onPlayButtonClick = {},
         downloadItemArtworkPlaceholder =
-          rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-          ),
+          rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
         onDownloadItemInProgressClickActionLabel = "cancel",
       )
     }
@@ -206,10 +191,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : WearLegacyA11yTest() {
         onShuffleButtonClick = {},
         onPlayButtonClick = {},
         downloadItemArtworkPlaceholder =
-          rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-          ),
+          rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
         onDownloadItemInProgressClickActionLabel = "cancel",
       )
     }
@@ -232,10 +214,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : WearLegacyA11yTest() {
         onShuffleButtonClick = {},
         onPlayButtonClick = {},
         downloadItemArtworkPlaceholder =
-          rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-          ),
+          rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
         onDownloadItemInProgressClickActionLabel = "cancel",
       )
     }
@@ -274,11 +253,7 @@ class PlaylistDownloadScreenA11yScreenshotTest : WearLegacyA11yTest() {
   }
 }
 
-private val playlistUiModel =
-  PlaylistUiModel(
-    id = "id",
-    title = "Playlist name",
-  )
+private val playlistUiModel = PlaylistUiModel(id = "id", title = "Playlist name")
 
 private val notDownloaded =
   listOf(

@@ -27,11 +27,7 @@ import org.junit.Test
 class VolumeScreenIndividualTest : WearLegacyScreenTest() {
   @Test
   fun volumeScreenAtMinimum() {
-    val volumeState =
-      VolumeState(
-        current = 0,
-        max = 100,
-      )
+    val volumeState = VolumeState(current = 0, max = 100)
     val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
     runTest {
@@ -45,11 +41,7 @@ class VolumeScreenIndividualTest : WearLegacyScreenTest() {
 
   @Test
   fun volumeScreenAtMaximum() {
-    val volumeState =
-      VolumeState(
-        current = 100,
-        max = 100,
-      )
+    val volumeState = VolumeState(current = 100, max = 100)
     val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
     runTest {
@@ -63,11 +55,7 @@ class VolumeScreenIndividualTest : WearLegacyScreenTest() {
 
   @Test
   fun volumeScreenWithLongTest() {
-    val volumeState =
-      VolumeState(
-        current = 50,
-        max = 100,
-      )
+    val volumeState = VolumeState(current = 50, max = 100)
     val audioOutput = AudioOutput.BluetoothHeadset("id", "Galaxy Watch 4")
 
     runTest {
@@ -81,11 +69,7 @@ class VolumeScreenIndividualTest : WearLegacyScreenTest() {
 
   @Test
   fun volumeScreenWithWatchSpeaker() {
-    val volumeState =
-      VolumeState(
-        current = 50,
-        max = 100,
-      )
+    val volumeState = VolumeState(current = 50, max = 100)
     // Media Router returns "Phone"
     val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", true)
 
@@ -100,11 +84,7 @@ class VolumeScreenIndividualTest : WearLegacyScreenTest() {
 
   @Test
   fun volumeScreenWithWatchSpeakerNotPlayable() {
-    val volumeState =
-      VolumeState(
-        current = 50,
-        max = 100,
-      )
+    val volumeState = VolumeState(current = 50, max = 100)
     // Media Router returns "Phone"
     val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
 
@@ -119,11 +99,7 @@ class VolumeScreenIndividualTest : WearLegacyScreenTest() {
 
   @Test
   fun volumeScreenWithLabel() {
-    val volumeState =
-      VolumeState(
-        current = 50,
-        max = 100,
-      )
+    val volumeState = VolumeState(current = 50, max = 100)
     val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
 
     runTest {

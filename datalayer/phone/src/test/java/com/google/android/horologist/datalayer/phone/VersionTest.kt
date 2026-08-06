@@ -24,12 +24,7 @@ class VersionTest {
   fun testValid() {
     assertThat(Version.parse("1.2")!!.inputVersion).containsExactly(1, 2).inOrder()
     assertThat(Version.parse("2.1.0.576785526")!!.inputVersion)
-      .containsExactly(
-        2,
-        1,
-        0,
-        576785526,
-      )
+      .containsExactly(2, 1, 0, 576785526)
       .inOrder()
   }
 

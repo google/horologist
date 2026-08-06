@@ -40,10 +40,8 @@ private const val SAMSUNG_COMPANION_PKG = "com.samsung.android.app.watchmanager"
 
 /** Subclass of [DataLayerAppHelper] for use on phones. */
 @ExperimentalHorologistApi
-public class PhoneDataLayerAppHelper(
-  context: Context,
-  registry: WearDataLayerRegistry,
-) : DataLayerAppHelper(context, registry) {
+public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRegistry) :
+  DataLayerAppHelper(context, registry) {
 
   override val connectedAndInstalledNodes: Flow<Set<Node>>
     get() = connectedAndInstalledNodes(WATCH_CAPABILITY)

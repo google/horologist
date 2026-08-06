@@ -138,23 +138,13 @@ public fun DatePicker(
   val shortMonthNames = remember { getMonthNames("MMM") }
   val fullMonthNames = remember { getMonthNames("MMMM") }
   val yearContentDescription by
-    remember(
-      pickerGroupState.selectedIndex,
-      datePickerState.currentYear(),
-    ) {
+    remember(pickerGroupState.selectedIndex, datePickerState.currentYear()) {
       derivedStateOf {
-        createDescriptionDatePicker(
-          pickerGroupState,
-          datePickerState.currentYear(),
-          yearString,
-        )
+        createDescriptionDatePicker(pickerGroupState, datePickerState.currentYear(), yearString)
       }
     }
   val monthContentDescription by
-    remember(
-      pickerGroupState.selectedIndex,
-      datePickerState.currentMonth(),
-    ) {
+    remember(pickerGroupState.selectedIndex, datePickerState.currentMonth()) {
       derivedStateOf {
         if (pickerGroupState.selectedIndex == FocusableElementDatePicker.NONE.index) {
           monthString
@@ -164,16 +154,9 @@ public fun DatePicker(
       }
     }
   val dayContentDescription by
-    remember(
-      pickerGroupState.selectedIndex,
-      datePickerState.currentDay(),
-    ) {
+    remember(pickerGroupState.selectedIndex, datePickerState.currentDay()) {
       derivedStateOf {
-        createDescriptionDatePicker(
-          pickerGroupState,
-          datePickerState.currentDay(),
-          dayString,
-        )
+        createDescriptionDatePicker(pickerGroupState, datePickerState.currentDay(), dayString)
       }
     }
   val onPickerSelected = { current: FocusableElementDatePicker, next: FocusableElementDatePicker ->
@@ -189,10 +172,7 @@ public fun DatePicker(
 
   val paddingAroundPicker = if (isLargeScreen) 6.dp else 4.dp
 
-  ScreenScaffold(
-    modifier = modifier.fillMaxSize().alpha(fullyDrawn.value),
-    timeText = {},
-  ) {
+  ScreenScaffold(modifier = modifier.fillMaxSize().alpha(fullyDrawn.value), timeText = {}) {
     BoxWithConstraints(modifier = modifier.fillMaxSize()) {
       val boxConstraints = this
       Column(
@@ -220,10 +200,7 @@ public fun DatePicker(
           val measurer = rememberTextMeasurer()
           val density = LocalDensity.current
           val (digitWidth, maxMonthWidth) =
-            remember(
-              density.density,
-              LocalConfiguration.current.screenWidthDp,
-            ) {
+            remember(density.density, LocalConfiguration.current.screenWidthDp) {
               val mm =
                 measurer.measure(
                   "0123456789\n" + shortMonthNames.joinToString("\n"),
@@ -264,10 +241,7 @@ public fun DatePicker(
                 pickerState = datePickerState.dayState,
                 modifier = Modifier.width(dayWidth).fillMaxHeight(),
                 onSelected = {
-                  onPickerSelected(
-                    FocusableElementDatePicker.DAY,
-                    FocusableElementDatePicker.MONTH,
-                  )
+                  onPickerSelected(FocusableElementDatePicker.DAY, FocusableElementDatePicker.MONTH)
                 },
                 contentDescription = dayContentDescription,
                 option =
@@ -328,20 +302,11 @@ public fun DatePicker(
               val confirmedDate = LocalDate.of(confirmedYear, confirmedMonth, confirmedDay)
               onDateConfirm(confirmedDate)
             } else if (pickerGroupState.selectedIndex == FocusableElementDatePicker.DAY.index) {
-              onPickerSelected(
-                FocusableElementDatePicker.DAY,
-                FocusableElementDatePicker.MONTH,
-              )
+              onPickerSelected(FocusableElementDatePicker.DAY, FocusableElementDatePicker.MONTH)
             } else if (pickerGroupState.selectedIndex == FocusableElementDatePicker.MONTH.index) {
-              onPickerSelected(
-                FocusableElementDatePicker.MONTH,
-                FocusableElementDatePicker.YEAR,
-              )
+              onPickerSelected(FocusableElementDatePicker.MONTH, FocusableElementDatePicker.YEAR)
             } else {
-              onPickerSelected(
-                FocusableElementDatePicker.NONE,
-                FocusableElementDatePicker.DAY,
-              )
+              onPickerSelected(FocusableElementDatePicker.NONE, FocusableElementDatePicker.DAY)
             }
           },
           modifier =
@@ -384,11 +349,7 @@ public fun DatePicker(
   }
 }
 
-private fun verifyDates(
-  date: LocalDate,
-  fromDate: LocalDate,
-  toDate: LocalDate,
-) {
+private fun verifyDates(date: LocalDate, fromDate: LocalDate, toDate: LocalDate) {
   require(toDate >= fromDate) { "toDate should be greater than or equal to fromDate" }
   require(date in fromDate..toDate) { "date should lie between fromDate and toDate" }
 }
@@ -437,10 +398,7 @@ internal class DatePickerState(
       201
     }
   val yearState =
-    PickerState(
-      initialNumberOfOptions = 201,
-      initiallySelectedOption = date.year - startYear,
-    )
+    PickerState(initialNumberOfOptions = 201, initiallySelectedOption = date.year - startYear)
 
   val selectedYearEqualsFromYear: Boolean
     get() = fromDate?.year == currentYear()
@@ -462,10 +420,7 @@ internal class DatePickerState(
   }
 
   val monthState =
-    PickerState(
-      initialNumberOfOptions = 12,
-      initiallySelectedOption = date.monthValue - 1,
-    )
+    PickerState(initialNumberOfOptions = 12, initiallySelectedOption = date.monthValue - 1)
 
   val selectedMonthEqualsFromMonth: Boolean
     get() = selectedYearEqualsFromYear && fromDate?.monthValue == currentMonth()
@@ -488,12 +443,7 @@ internal class DatePickerState(
   }
 
   private val firstDayOfMonth: LocalDate
-    get() =
-      LocalDate.of(
-        currentYear(),
-        currentMonth(),
-        1,
-      )
+    get() = LocalDate.of(currentYear(), currentMonth(), 1)
 
   val maxDaysInMonth: Int
     get() = firstDayOfMonth.with(TemporalAdjusters.lastDayOfMonth()).dayOfMonth

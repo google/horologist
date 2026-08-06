@@ -22,11 +22,7 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlin.time.Duration.Companion.seconds
 
-@Preview(
-  "Enabled - Playing - With progress",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview("Enabled - Playing - With progress", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun PodcastControlButtonsPreview() {
   PodcastControlButtons(
@@ -44,11 +40,7 @@ fun PodcastControlButtonsPreview() {
   )
 }
 
-@Preview(
-  "Enabled - Playing - With progress",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview("Enabled - Playing - With progress", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun PodcastControlButtonsPreviewUnknown() {
   PodcastControlButtons(
@@ -87,10 +79,7 @@ fun PodcastControlButtonsPreviewNoProgress() {
   )
 }
 
-@Preview(
-  backgroundColor = 0xff888800,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff888800, showBackground = true)
 @Composable
 fun PodcastControlDisabledLightBackground() {
   PodcastControlButtons(

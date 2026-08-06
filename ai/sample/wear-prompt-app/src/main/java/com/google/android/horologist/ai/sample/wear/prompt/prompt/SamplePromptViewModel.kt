@@ -106,11 +106,10 @@ class SamplePromptViewModel @Inject constructor(private val inferenceService: In
   }
 
   val uiState: StateFlow<PromptUiState> =
-    combine(
-        previousQuestions,
-        pendingQuestion,
-        inferenceService.currentModelInfo,
-      ) { prev, pending, info ->
+    combine(previousQuestions, pendingQuestion, inferenceService.currentModelInfo) {
+        prev,
+        pending,
+        info ->
         val modelInfo = info?.first?.let { ModelInstanceUiModel(it.modelId.id, it.name) }
         PromptUiState(modelInfo, prev, pending)
       }

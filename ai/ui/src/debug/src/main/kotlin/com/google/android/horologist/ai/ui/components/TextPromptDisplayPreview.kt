@@ -19,9 +19,7 @@ package com.google.android.horologist.ai.ui.components
 @WearPreviewLargeRound
 @Composable
 internal fun TextPromptDisplayPreview() {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        TextPromptDisplay(
-            TextPromptUiModel("why did the chicken cross the road?"),
-        )
-    }
+  Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    TextPromptDisplay(TextPromptUiModel("why did the chicken cross the road?"))
+  }
 }

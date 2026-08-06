@@ -63,10 +63,7 @@ public fun ArtworkImageBackground(
           modifier =
             modifier.fillMaxSize().drawWithCache {
               val gradientBrush =
-                Brush.radialGradient(
-                  0.65f to Color.Transparent,
-                  1f to colorScheme.background,
-                )
+                Brush.radialGradient(0.65f to Color.Transparent, 1f to colorScheme.background)
               onDrawWithContent {
                 drawRect(colorScheme.background)
                 drawContent()

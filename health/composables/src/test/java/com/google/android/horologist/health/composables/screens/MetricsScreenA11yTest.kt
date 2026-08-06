@@ -37,10 +37,7 @@ class MetricsScreenA11yTest : WearLegacyA11yTest() {
             color = HR_MAXIMUM,
           ),
         secondMetric =
-          MetricUiModel(
-            text = "2.7",
-            bottomRightText = stringResource(R.string.horologist_miles),
-          ),
+          MetricUiModel(text = "2.7", bottomRightText = stringResource(R.string.horologist_miles)),
       )
     }
   }
@@ -57,10 +54,7 @@ class MetricsScreenA11yTest : WearLegacyA11yTest() {
             color = HR_MAXIMUM,
           ),
         secondMetric =
-          MetricUiModel(
-            text = "2.7",
-            bottomRightText = stringResource(R.string.horologist_miles),
-          ),
+          MetricUiModel(text = "2.7", bottomRightText = stringResource(R.string.horologist_miles)),
       )
     }
   }

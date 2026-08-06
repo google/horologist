@@ -56,10 +56,7 @@ fun PreviewProgressAnimation() {
   var progressState by remember { mutableStateOf(PreviewAnimationState.Start) }
 
   val transition =
-    updateTransition(
-      targetState = progressState,
-      label = "Square Progress Indicator",
-    )
+    updateTransition(targetState = progressState, label = "Square Progress Indicator")
 
   val progress by
     transition.animateFloat(
@@ -193,18 +190,9 @@ fun PreviewSquareWithBrushAndColorsCombined() {
 
 val previewProgressSections =
   listOf(
-    ProgressIndicatorSegment(
-      weight = 3f,
-      indicatorColor = Color.Cyan,
-    ),
-    ProgressIndicatorSegment(
-      weight = 3f,
-      indicatorColor = Color.Magenta,
-    ),
-    ProgressIndicatorSegment(
-      weight = 3f,
-      indicatorColor = Color.Yellow,
-    ),
+    ProgressIndicatorSegment(weight = 3f, indicatorColor = Color.Cyan),
+    ProgressIndicatorSegment(weight = 3f, indicatorColor = Color.Magenta),
+    ProgressIndicatorSegment(weight = 3f, indicatorColor = Color.Yellow),
   )
 
 val previewProgressSectionsBrush =
@@ -229,10 +217,7 @@ val previewProgressSectionsBrushAndColorCombined =
       1f,
       Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
     ),
-    ProgressIndicatorSegment(
-      weight = 1f,
-      indicatorColor = Color.Cyan,
-    ),
+    ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Cyan),
     ProgressIndicatorSegment(
       weight = 1f,
       indicatorBrush = Brush.horizontalGradient(listOf(Color.Yellow, Color.Magenta, Color.Cyan)),

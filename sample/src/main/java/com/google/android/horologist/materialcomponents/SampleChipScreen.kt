@@ -32,14 +32,8 @@ import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 @Composable
-internal fun SampleChipScreen(
-  modifier: Modifier = Modifier,
-  columnState: ScalingLazyColumnState,
-) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+internal fun SampleChipScreen(modifier: Modifier = Modifier, columnState: ScalingLazyColumnState) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
     item {
       Chip(
         label = "Primary label",
@@ -47,20 +41,9 @@ internal fun SampleChipScreen(
         onLongClick = { println("LongClick") },
       )
     }
+    item { Chip(label = "Primary label", onClick = {}, icon = Icons.Default.Image.asPaintable()) }
     item {
-      Chip(
-        label = "Primary label",
-        onClick = {},
-        icon = Icons.Default.Image.asPaintable(),
-      )
-    }
-    item {
-      Chip(
-        label = "Primary label",
-        onClick = {},
-        icon = Icon32dp.asPaintable(),
-        largeIcon = true,
-      )
+      Chip(label = "Primary label", onClick = {}, icon = Icon32dp.asPaintable(), largeIcon = true)
     }
     item {
       Chip(

@@ -198,13 +198,7 @@ public fun Chip(
   }
 
   val secondaryLabelParam: (@Composable RowScope.() -> Unit)? = secondaryLabel?.let {
-    {
-      Text(
-        text = secondaryLabel,
-        overflow = TextOverflow.Ellipsis,
-        maxLines = 1,
-      )
-    }
+    { Text(text = secondaryLabel, overflow = TextOverflow.Ellipsis, maxLines = 1) }
   }
 
   val contentPadding =

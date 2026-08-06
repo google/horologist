@@ -36,17 +36,10 @@ public class TransferListener(private val appEventLogger: ErrorReporter) :
   override fun onCachedBytesRead(cacheSizeBytes: Long, cachedBytesRead: Long) {}
 
   override fun onCacheIgnored(reason: Int) {
-    appEventLogger.logMessage(
-      "cache ignored $reason",
-      category = ErrorReporter.Category.Network,
-    )
+    appEventLogger.logMessage("cache ignored $reason", category = ErrorReporter.Category.Network)
   }
 
-  override fun onTransferInitializing(
-    source: DataSource,
-    dataSpec: DataSpec,
-    isNetwork: Boolean,
-  ) {
+  override fun onTransferInitializing(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {
     appEventLogger.logMessage("init $isNetwork", category = ErrorReporter.Category.Network)
   }
 

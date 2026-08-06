@@ -42,11 +42,7 @@ fun SecondaryTitlePreviewWithLongText() {
 @WearPreview
 @Composable
 fun SecondaryTitlePreviewWithIcon() {
-  SecondaryTitle(
-    text = "Title",
-    icon = Icons.Filled.Add,
-    iconTint = Color(0xFF946EB1),
-  )
+  SecondaryTitle(text = "Title", icon = Icons.Filled.Add, iconTint = Color(0xFF946EB1))
 }
 
 @WearPreview

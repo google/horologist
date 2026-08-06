@@ -50,10 +50,7 @@ public fun ArtworkColorBackground(
   background: Color = MaterialTheme.colors.background,
 ) {
   val artworkColor =
-    rememberArtworkColor(
-      model = paintable?.model,
-      defaultColor = defaultColor ?: Color.Black,
-    )
+    rememberArtworkColor(model = paintable?.model, defaultColor = defaultColor ?: Color.Black)
 
   ColorBackground(artworkColor.value, modifier = modifier, background = background)
 }

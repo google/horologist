@@ -84,45 +84,23 @@ class ToggleButtonTest : WearLegacyComponentTest() {
 
   @Test
   fun text() {
-    runComponentTest {
-      ToggleButton(
-        text = "Monday",
-        onCheckedChanged = {},
-      )
-    }
+    runComponentTest { ToggleButton(text = "Monday", onCheckedChanged = {}) }
   }
 
   @Test
   fun textNotChecked() {
-    runComponentTest {
-      ToggleButton(
-        text = "Monday",
-        onCheckedChanged = {},
-        checked = false,
-      )
-    }
+    runComponentTest { ToggleButton(text = "Monday", onCheckedChanged = {}, checked = false) }
   }
 
   @Test
   fun textDisabled() {
-    runComponentTest {
-      ToggleButton(
-        text = "Monday",
-        onCheckedChanged = {},
-        enabled = false,
-      )
-    }
+    runComponentTest { ToggleButton(text = "Monday", onCheckedChanged = {}, enabled = false) }
   }
 
   @Test
   fun textNotCheckedDisabled() {
     runComponentTest {
-      ToggleButton(
-        text = "Monday",
-        onCheckedChanged = {},
-        checked = false,
-        enabled = false,
-      )
+      ToggleButton(text = "Monday", onCheckedChanged = {}, checked = false, enabled = false)
     }
   }
 
@@ -254,10 +232,7 @@ class ToggleButtonTest : WearLegacyComponentTest() {
   fun textWithLargestFontScale() {
     runComponentTest {
       DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-        ToggleButton(
-          text = "Monday",
-          onCheckedChanged = {},
-        )
+        ToggleButton(text = "Monday", onCheckedChanged = {})
       }
     }
   }

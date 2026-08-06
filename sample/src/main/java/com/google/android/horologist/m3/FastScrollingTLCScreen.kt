@@ -122,21 +122,13 @@ fun FastScrollingTLCScreen() {
       ScreenScaffold(
         scrollState = columnState,
         contentPadding =
-          rememberResponsiveColumnPadding(
-            first = ColumnItemType.Card,
-            last = ColumnItemType.Card,
-          ),
+          rememberResponsiveColumnPadding(first = ColumnItemType.Card, last = ColumnItemType.Card),
       ) { contentPadding ->
         val transformationSpec = rememberTransformationSpec()
         val headers = remember {
           val letterIndexes =
             tlcContent
-              .mapIndexed { index, item ->
-                HeaderInfo(
-                  index,
-                  item.content.take(1),
-                )
-              }
+              .mapIndexed { index, item -> HeaderInfo(index, item.content.take(1)) }
               .distinctBy { it.value }
           letterIndexes.toMutableStateList()
         }

@@ -31,10 +31,7 @@ import com.google.android.horologist.health.composables.model.MetricUiModel
 
 /** A component to display metrics, e.g. workout metrics. */
 @Composable
-public fun MetricDisplay(
-  metric: MetricUiModel,
-  modifier: Modifier = Modifier,
-) {
+public fun MetricDisplay(metric: MetricUiModel, modifier: Modifier = Modifier) {
   Row(modifier = modifier) {
     val style = MaterialTheme.typography.display3
     // Prevent font size from scaling:

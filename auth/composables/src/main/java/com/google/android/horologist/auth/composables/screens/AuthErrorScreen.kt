@@ -37,10 +37,7 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 @Composable
 public fun AuthErrorScreen(modifier: Modifier = Modifier) {
   ScreenScaffold(timeText = {}) {
-    Column(
-      modifier = modifier.fillMaxSize(),
-      verticalArrangement = Arrangement.Center,
-    ) {
+    Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
       Text(
         text = stringResource(id = R.string.horologist_auth_error_message),
         modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp),

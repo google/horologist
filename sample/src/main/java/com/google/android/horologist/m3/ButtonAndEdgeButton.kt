@@ -68,10 +68,7 @@ fun M3TLCButtonAndEdgeButton() {
         ) {
           item {
             IconButton(onClick = {}) {
-              Icon(
-                imageVector = Icons.Rounded.ArrowUpward,
-                contentDescription = null,
-              )
+              Icon(imageVector = Icons.Rounded.ArrowUpward, contentDescription = null)
             }
           }
           items(3) {

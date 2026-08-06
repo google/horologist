@@ -49,11 +49,7 @@ fun NodesListenerScreen(
     SideEffect { viewModel.initialize() }
   }
 
-  NodesListenerScreen(
-    state = state,
-    columnState = columnState,
-    modifier = modifier,
-  )
+  NodesListenerScreen(state = state, columnState = columnState, modifier = modifier)
 }
 
 @Composable
@@ -62,10 +58,7 @@ fun NodesListenerScreen(
   columnState: ScalingLazyColumnState,
   modifier: Modifier = Modifier,
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier.fillMaxSize(),
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier.fillMaxSize()) {
     item {
       Title(
         textId = R.string.nodes_listener_screen_header,
@@ -116,16 +109,8 @@ fun NodesListenerScreenPreviewLoaded() {
       NodesListenerScreenState.Loaded(
         nodeList =
           setOf(
-            NodeUiModel(
-              id = "903b8371",
-              displayName = "Google Pixel Watch",
-              isNearby = true,
-            ),
-            NodeUiModel(
-              id = "813d1812",
-              displayName = "Galaxy Watch4 Classic",
-              isNearby = false,
-            ),
+            NodeUiModel(id = "903b8371", displayName = "Google Pixel Watch", isNearby = true),
+            NodeUiModel(id = "813d1812", displayName = "Galaxy Watch4 Classic", isNearby = false),
           )
       ),
     columnState = rememberResponsiveColumnState(),

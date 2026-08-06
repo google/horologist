@@ -44,14 +44,8 @@ class PromptScreenTest : WearLegacyScreenTest() {
               ),
           ),
         promptEntry = {
-          EdgeButton(
-            onClick = { /*TODO*/ },
-            buttonSize = EdgeButtonSize.ExtraSmall,
-          ) {
-            Icon(
-              imageVector = Icons.Default.KeyboardVoice,
-              contentDescription = "Voice Prompt",
-            )
+          EdgeButton(onClick = { /*TODO*/ }, buttonSize = EdgeButtonSize.ExtraSmall) {
+            Icon(imageVector = Icons.Default.KeyboardVoice, contentDescription = "Voice Prompt")
           }
         },
       )

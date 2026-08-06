@@ -111,12 +111,7 @@ class StreamlineSignInDefaultViewModelTest {
       sut.uiState.test {
         assertThat(awaitItem())
           .isEqualTo(
-            StreamlineSignInDefaultScreenState.SignedIn(
-              AccountUiModel(
-                email = email,
-                name = name,
-              )
-            )
+            StreamlineSignInDefaultScreenState.SignedIn(AccountUiModel(email = email, name = name))
           )
       }
     }

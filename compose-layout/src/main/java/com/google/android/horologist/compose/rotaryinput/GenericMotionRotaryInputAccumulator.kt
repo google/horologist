@@ -70,10 +70,7 @@ public class GenericMotionRotaryInputAccumulator(
    */
   private class RotaryInputEventReader(context: Context) {
     private val scaledScrollFactor =
-      ViewConfigurationCompat.getScaledVerticalScrollFactor(
-        ViewConfiguration.get(context),
-        context,
-      )
+      ViewConfigurationCompat.getScaledVerticalScrollFactor(ViewConfiguration.get(context), context)
 
     fun isRotaryScrollEvent(ev: MotionEvent): Boolean =
       ev.source == InputDeviceCompat.SOURCE_ROTARY_ENCODER && ev.action == MotionEvent.ACTION_SCROLL

@@ -34,10 +34,7 @@ fun WearApp(
   navController: NavHostController = rememberSwipeDismissableNavController(),
 ) {
   AppScaffold(modifier = modifier) {
-    SwipeDismissableNavHost(
-      startDestination = Prompt,
-      navController = navController,
-    ) {
+    SwipeDismissableNavHost(startDestination = Prompt, navController = navController) {
       composable<Prompt> {
         SamplePromptScreen(onSettingsClick = { navController.navigate(Settings) })
       }

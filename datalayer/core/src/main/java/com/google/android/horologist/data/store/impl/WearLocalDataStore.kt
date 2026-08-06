@@ -60,23 +60,12 @@ public class WearLocalDataStore<T>(
 
   private fun nodeIdFlow() = flow {
     val nodeId = TargetNodeId.ThisNodeId.evaluate(wearDataLayerRegistry)
-    emit(
-      NodeIdAndPath(
-        nodeId = nodeId,
-        fullPath = buildUri(nodeId, path),
-      )
-    )
+    emit(NodeIdAndPath(nodeId = nodeId, fullPath = buildUri(nodeId, path)))
   }
 
   private val sharedFlow: SharedFlow<T> =
     nodeIdFlow
-      .flatMapLatest { (nodeId, _) ->
-        dataClient.dataItemFlow(
-          nodeId,
-          path,
-          serializer,
-        )
-      }
+      .flatMapLatest { (nodeId, _) -> dataClient.dataItemFlow(nodeId, path, serializer) }
       .shareIn(coroutineScope, started = SharingStarted.Eagerly, replay = 1)
 
   override val data: Flow<T> = sharedFlow
@@ -118,7 +107,4 @@ public class WearLocalDataStore<T>(
   }
 }
 
-data class NodeIdAndPath(
-  val nodeId: String,
-  val fullPath: Uri,
-)
+data class NodeIdAndPath(val nodeId: String, val fullPath: Uri)

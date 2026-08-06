@@ -71,10 +71,7 @@ fun TrackingScreen(
   columnState: ScalingLazyColumnState,
   modifier: Modifier = Modifier,
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
     item { Title(text = stringResource(id = R.string.apphelper_tracking_title)) }
 
     item {
@@ -125,10 +122,7 @@ fun TrackingScreen(
         for (tileEntry in state.tilesInstalled) {
           item {
             val info =
-              stringResource(
-                id = R.string.apphelper_tracking_tile_installation_info,
-                tileEntry.key,
-              )
+              stringResource(id = R.string.apphelper_tracking_tile_installation_info, tileEntry.key)
             SplitToggleChip(
               checked = tileEntry.value,
               onCheckedChanged = { /* NO-OP */ },
@@ -158,12 +152,7 @@ fun TrackingScreen(
               )
             SplitToggleChip(
               checked = complicationEntry.value,
-              onCheckedChanged = {
-                onComplicationCheckedChanged(
-                  complicationEntry.key,
-                  it,
-                )
-              },
+              onCheckedChanged = { onComplicationCheckedChanged(complicationEntry.key, it) },
               label = complicationEntry.key,
               onClick = { onDisplayInfoClicked(info) },
               toggleControl = ToggleChipToggleControl.Switch,

@@ -123,10 +123,7 @@ class VolumeScreenTest {
   @Test
   fun testLabelOrdering() {
     composeTestRule.setContent {
-      TestVolumeScreen(
-        volumeState = volumeState,
-        audioOutput = audioOutput,
-      )
+      TestVolumeScreen(volumeState = volumeState, audioOutput = audioOutput)
     }
 
     composeTestRule.onNodeWithContentDescription("Volume set to 50%").assertIsDisplayed()
@@ -164,10 +161,7 @@ class VolumeScreenTest {
       )
 
     @Composable
-    fun TestVolumeScreen(
-      volumeState: VolumeState,
-      audioOutput: AudioOutput,
-    ) {
+    fun TestVolumeScreen(volumeState: VolumeState, audioOutput: AudioOutput) {
       val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
       VolumeScreen(
         volume = { volumeUiState },

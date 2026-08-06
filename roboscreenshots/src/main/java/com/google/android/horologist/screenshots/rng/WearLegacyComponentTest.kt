@@ -41,10 +41,7 @@ import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
-@Config(
-  sdk = [35],
-  qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-)
+@Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 public abstract class WearLegacyComponentTest {

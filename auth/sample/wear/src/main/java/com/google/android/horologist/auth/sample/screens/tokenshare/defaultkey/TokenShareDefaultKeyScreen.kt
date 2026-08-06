@@ -49,18 +49,11 @@ fun TokenShareDefaultKeyScreen(
 
   val columnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Text,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
   ScreenScaffold(scrollState = columnState) {
-    ScalingLazyColumn(
-      columnState = columnState,
-      modifier = modifier,
-    ) {
+    ScalingLazyColumn(columnState = columnState, modifier = modifier) {
       item {
         ResponsiveListHeader(contentPadding = firstItemPadding()) {
           Text(

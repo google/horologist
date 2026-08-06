@@ -53,10 +53,7 @@ object AuthModule {
     @ApplicationContext application: Context,
     googleSignInClient: GoogleSignInClient,
   ): GoogleSignInAuthUserRepository =
-    GoogleSignInAuthUserRepository(
-      application,
-      googleSignInClient,
-    )
+    GoogleSignInAuthUserRepository(application, googleSignInClient)
 
   @Singleton
   @Provides

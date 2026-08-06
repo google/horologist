@@ -69,16 +69,8 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
       }
   }
 
-  private fun drawImageWithOverlays(
-    canvas: Canvas,
-    originalBitmap: Bitmap,
-  ) {
-    canvas.drawBitmap(
-      originalBitmap,
-      0f,
-      0f,
-      Paint().apply { alpha = 180 },
-    )
+  private fun drawImageWithOverlays(canvas: Canvas, originalBitmap: Bitmap) {
+    canvas.drawBitmap(originalBitmap, 0f, 0f, Paint().apply { alpha = 180 })
 
     elements.forEachIndexed { i, it ->
       val bounds = it.touchBounds ?: it.displayBounds
@@ -92,10 +84,7 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
     }
   }
 
-  private fun drawLegend(
-    canvas: Canvas,
-    elements: List<AccessibilityState.Element>,
-  ) {
+  private fun drawLegend(canvas: Canvas, elements: List<AccessibilityState.Element>) {
     val height = canvas.height
     val width = canvas.width
     val leftEdge = width / 2
@@ -152,15 +141,7 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
 
       paint.color = colorForIndex(i).toArgb()
       paint.alpha = 50
-      canvas.drawRect(
-        Rect(
-          10 + leftEdge,
-          start * 28 - 21,
-          width - 20,
-          end * 28 - 21,
-        ),
-        paint,
-      )
+      canvas.drawRect(Rect(10 + leftEdge, start * 28 - 21, width - 20, end * 28 - 21), paint)
 
       index++
     }
@@ -216,12 +197,7 @@ internal class A11ySnapshotTransformer : SnapshotTransformer {
           heading,
           customActions?.map { AccessibilityState.CustomAction(label = it.label) },
           progress?.let {
-            AccessibilityState.Progress(
-              it.current,
-              it.range,
-              it.steps,
-              hasProgressAction,
-            )
+            AccessibilityState.Progress(it.current, it.range, it.steps, hasProgressAction)
           },
         )
       )

@@ -43,10 +43,7 @@ public interface TargetNodeId {
     override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String? {
       val capabilitySearch =
         dataLayerRegistry.capabilityClient
-          .getCapability(
-            HOROLOGIST_PHONE,
-            CapabilityClient.FILTER_ALL,
-          )
+          .getCapability(HOROLOGIST_PHONE, CapabilityClient.FILTER_ALL)
           .await()
 
       return capabilitySearch.nodes.singleOrNull()?.id

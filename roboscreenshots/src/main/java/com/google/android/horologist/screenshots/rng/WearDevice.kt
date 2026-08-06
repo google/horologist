@@ -94,11 +94,7 @@ public data class WearDevice(
       )
 
     public fun triad(): List<WearDevice> =
-      listOf(
-        GenericSmallRound,
-        GenericLargeRound,
-        GooglePixelWatchLargeFont,
-      )
+      listOf(GenericSmallRound, GenericLargeRound, GooglePixelWatchLargeFont)
   }
 
   public val dp: Int = (screenSizePx / density).roundToInt()

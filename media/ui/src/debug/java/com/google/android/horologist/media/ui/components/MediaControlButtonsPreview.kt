@@ -21,11 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlin.time.Duration.Companion.minutes
 
-@Preview(
-  "Enabled - Playing - With progress",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview("Enabled - Playing - With progress", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun MediaControlButtonsPreview() {
   MediaControlButtons(

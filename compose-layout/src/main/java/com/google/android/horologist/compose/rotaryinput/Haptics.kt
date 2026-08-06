@@ -224,10 +224,7 @@ public fun rememberRotaryHapticHandler(
 @Deprecated("Replaced by wear compose")
 @Composable
 private fun rememberHapticChannel() = remember {
-  Channel<RotaryHapticsType>(
-    capacity = 2,
-    onBufferOverflow = BufferOverflow.DROP_OLDEST,
-  )
+  Channel<RotaryHapticsType>(capacity = 2, onBufferOverflow = BufferOverflow.DROP_OLDEST)
 }
 
 @Composable

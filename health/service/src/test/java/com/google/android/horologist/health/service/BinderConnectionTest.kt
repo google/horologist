@@ -49,10 +49,7 @@ class BinderConnectionTest {
     shadowOf(application).setBindServiceCallsOnServiceConnectedDirectly(true)
     shadowOf(application)
       .setComponentNameAndServiceForBindService(
-        ComponentName(
-          application,
-          TestService::class.java,
-        ),
+        ComponentName(application, TestService::class.java),
         service.localBinder,
       )
   }

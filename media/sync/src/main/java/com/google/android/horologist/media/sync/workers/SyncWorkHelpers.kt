@@ -76,10 +76,7 @@ private fun Context.syncWorkNotification(
 
   notificationManager?.createNotificationChannel(channel)
 
-  return NotificationCompat.Builder(
-      this,
-      SyncNotificationChannelID,
-    )
+  return NotificationCompat.Builder(this, SyncNotificationChannelID)
     .setSmallIcon(notificationIcon)
     .setContentTitle(notificationTitle)
     .setPriority(NotificationCompat.PRIORITY_DEFAULT)

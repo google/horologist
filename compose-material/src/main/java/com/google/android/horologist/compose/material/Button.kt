@@ -167,11 +167,7 @@ internal fun Button(
       ) {
         val iconModifier = Modifier.size(buttonSize.iconSize).align(Alignment.Center)
 
-        Icon(
-          paintable = icon,
-          contentDescription = contentDescription,
-          modifier = iconModifier,
-        )
+        Icon(paintable = icon, contentDescription = contentDescription, modifier = iconModifier)
       }
     }
   } else {
@@ -183,20 +179,13 @@ internal fun Button(
     ) {
       val iconModifier = Modifier.size(buttonSize.iconSize).align(Alignment.Center)
 
-      Icon(
-        paintable = icon,
-        contentDescription = contentDescription,
-        modifier = iconModifier,
-      )
+      Icon(paintable = icon, contentDescription = contentDescription, modifier = iconModifier)
     }
   }
 }
 
 @ExperimentalHorologistApi
-public sealed class ButtonSize(
-  public val iconSize: Dp,
-  public val tapTargetSize: Dp,
-) {
+public sealed class ButtonSize(public val iconSize: Dp, public val tapTargetSize: Dp) {
   public object Default : ButtonSize(iconSize = DefaultIconSize, tapTargetSize = DefaultButtonSize)
 
   public object Large : ButtonSize(iconSize = LargeIconSize, tapTargetSize = LargeButtonSize)

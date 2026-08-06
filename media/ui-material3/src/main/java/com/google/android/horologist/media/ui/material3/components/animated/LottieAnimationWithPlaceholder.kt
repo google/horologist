@@ -61,10 +61,6 @@ public fun LottieAnimationWithPlaceholder(
       dynamicProperties = dynamicProperties,
     )
   } else {
-    Icon(
-      modifier = modifier,
-      imageVector = placeholder,
-      contentDescription = contentDescription,
-    )
+    Icon(modifier = modifier, imageVector = placeholder, contentDescription = contentDescription)
   }
 }

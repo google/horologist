@@ -41,10 +41,7 @@ fun SectionedListMenuScreen(
   columnState: ScalingLazyColumnState,
 ) {
   ScreenScaffold(scrollState = columnState) {
-    SectionedList(
-      columnState = columnState,
-      modifier = modifier.fillMaxSize(),
-    ) {
+    SectionedList(columnState = columnState, modifier = modifier.fillMaxSize()) {
       section(
         listOf(
           Pair(
@@ -79,8 +76,5 @@ fun SectionedListMenuScreen(
 @Composable
 @WearPreviewLargeRound
 fun Preview() {
-  SectionedListMenuScreen(
-    navigateToRoute = {},
-    columnState = rememberResponsiveColumnState(),
-  )
+  SectionedListMenuScreen(navigateToRoute = {}, columnState = rememberResponsiveColumnState())
 }

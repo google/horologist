@@ -48,10 +48,7 @@ class MediaActivity : ComponentActivity() {
     setContent {
       backStack = rememberNavBackStack(PlayerRoute(page = 0)) as NavBackStack<MediaRoute>
 
-      UampWearApp(
-        backStack = backStack,
-        intent = intent,
-      )
+      UampWearApp(backStack = backStack, intent = intent)
 
       LaunchedEffect(backStack) {
         snapshotFlow {

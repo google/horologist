@@ -29,8 +29,5 @@ public data class CoilPaintable(public val model: Any?, private val placeholder:
 
   @Composable
   override fun rememberPainter(): Painter =
-    rememberAsyncImagePainter(
-      model = model,
-      placeholder = placeholder,
-    )
+    rememberAsyncImagePainter(model = model, placeholder = placeholder)
 }

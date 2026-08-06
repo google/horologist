@@ -42,10 +42,7 @@ import androidx.compose.ui.window.Dialog
 import com.google.android.horologist.datalayer.sample.R
 
 @Composable
-fun NodesActionSucceededDialog(
-  message: String,
-  onDismissRequest: () -> Unit,
-) {
+fun NodesActionSucceededDialog(message: String, onDismissRequest: () -> Unit) {
   NodesActionDialog(
     message = message,
     onDismissRequest = onDismissRequest,
@@ -54,10 +51,7 @@ fun NodesActionSucceededDialog(
 }
 
 @Composable
-fun NodesActionFailureDialog(
-  message: String,
-  onDismissRequest: () -> Unit,
-) {
+fun NodesActionFailureDialog(message: String, onDismissRequest: () -> Unit) {
   NodesActionDialog(
     message = message,
     onDismissRequest = onDismissRequest,
@@ -66,11 +60,7 @@ fun NodesActionFailureDialog(
 }
 
 @Composable
-fun NodesActionDialog(
-  message: String,
-  onDismissRequest: () -> Unit,
-  imageVector: ImageVector,
-) {
+fun NodesActionDialog(message: String, onDismissRequest: () -> Unit, imageVector: ImageVector) {
   Dialog(onDismissRequest = { onDismissRequest() }) {
     Card(
       modifier = Modifier.fillMaxWidth().height(225.dp).padding(16.dp),
@@ -86,14 +76,8 @@ fun NodesActionDialog(
           contentDescription = null,
           modifier = Modifier.padding(vertical = 8.dp),
         )
-        Text(
-          text = message,
-          modifier = Modifier.padding(10.dp),
-        )
-        Row(
-          modifier = Modifier.fillMaxWidth(),
-          horizontalArrangement = Arrangement.End,
-        ) {
+        Text(text = message, modifier = Modifier.padding(10.dp))
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.End) {
           TextButton(
             onClick = { onDismissRequest() },
             modifier = Modifier.padding(horizontal = 8.dp),
@@ -109,19 +93,13 @@ fun NodesActionDialog(
 @Preview(showBackground = true)
 @Composable
 fun NodesActionSucceededDialogPreview() {
-  NodesActionSucceededDialog(
-    message = "Success!",
-    onDismissRequest = {},
-  )
+  NodesActionSucceededDialog(message = "Success!", onDismissRequest = {})
 }
 
 @Preview(showBackground = true)
 @Composable
 fun NodesActionFailureDialogPreview() {
-  NodesActionFailureDialog(
-    message = "Failed: RESULT",
-    onDismissRequest = {},
-  )
+  NodesActionFailureDialog(message = "Failed: RESULT", onDismissRequest = {})
 }
 
 @Preview(showBackground = true)

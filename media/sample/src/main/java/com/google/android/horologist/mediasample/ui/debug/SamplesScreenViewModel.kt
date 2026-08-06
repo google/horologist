@@ -28,16 +28,7 @@ import kotlinx.coroutines.flow.StateFlow
 class SamplesScreenViewModel @Inject constructor(private val playerRepository: PlayerRepository) :
   ViewModel() {
   val uiState: StateFlow<UiState> =
-    MutableStateFlow(
-      UiState(
-        samples =
-          listOf(
-            fraunhoferGapless,
-            gapless,
-            gaplessStripped,
-          )
-      )
-    )
+    MutableStateFlow(UiState(samples = listOf(fraunhoferGapless, gapless, gaplessStripped)))
 
   fun playSamples(id: Int): Boolean {
     val mediaItems = uiState.value.samples.find { it.id == id }?.mediaItems
@@ -51,11 +42,7 @@ class SamplesScreenViewModel @Inject constructor(private val playerRepository: P
     return false
   }
 
-  data class Sample(
-    val id: Int,
-    val name: String,
-    val mediaItems: List<Media>,
-  )
+  data class Sample(val id: Int, val name: String, val mediaItems: List<Media>)
 
   data class UiState(val samples: List<Sample>)
 
@@ -89,12 +76,7 @@ class SamplesScreenViewModel @Inject constructor(private val playerRepository: P
             "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11.m4a",
           )
           .mapIndexed { i, it ->
-            Media(
-              id = i.toString(),
-              uri = it,
-              title = "Gapless $i",
-              artist = "unknown",
-            )
+            Media(id = i.toString(), uri = it, title = "Gapless $i", artist = "unknown")
           },
       )
 
@@ -108,12 +90,7 @@ class SamplesScreenViewModel @Inject constructor(private val playerRepository: P
             "https://storage.googleapis.com/exoplayer-test-media-internal-63834241aced7884c2544af1a3452e01/m4a/gapless-asot-11-stripped.m4a",
           )
           .mapIndexed { i, it ->
-            Media(
-              id = i.toString(),
-              uri = it,
-              title = "Gapless (stripped) $i",
-              artist = "unknown",
-            )
+            Media(id = i.toString(), uri = it, title = "Gapless (stripped) $i", artist = "unknown")
           },
       )
   }

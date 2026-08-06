@@ -52,11 +52,7 @@ class MediaPlayerStatesScreenTest(private val state: State) : WearLegacyScreenTe
         playing = state.connected,
         media =
           if (state.media) {
-            MediaUiModel.Ready(
-              id = "",
-              title = "Weather with You",
-              subtitle = "Crowded House",
-            )
+            MediaUiModel.Ready(id = "", title = "Weather with You", subtitle = "Crowded House")
           } else {
             null
           },
@@ -93,11 +89,7 @@ class MediaPlayerStatesScreenTest(private val state: State) : WearLegacyScreenTe
         playing = state.connected,
         media =
           if (state.media) {
-            MediaUiModel.Ready(
-              id = "",
-              title = "Weather with You",
-              subtitle = "Crowded House",
-            )
+            MediaUiModel.Ready(id = "", title = "Weather with You", subtitle = "Crowded House")
           } else {
             null
           },
@@ -117,11 +109,7 @@ class MediaPlayerStatesScreenTest(private val state: State) : WearLegacyScreenTe
     runTest { MediaPlayerTestCase(playerUiState = playerUiState, isAmbientModeEnabled = true) }
   }
 
-  data class State(
-    val connected: Boolean,
-    val media: Boolean,
-    val name: String,
-  )
+  data class State(val connected: Boolean, val media: Boolean, val name: String)
 
   companion object {
     @JvmStatic

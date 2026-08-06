@@ -69,11 +69,7 @@ public class AudioOffloadManager(private val errorReporter: ErrorReporter) {
           // accumulate playback time for previous state
           it.copy(
             sleepingForOffload = isSleepingForOffload,
-            offloadTimes =
-              it.offloadTimes.timesToNow(
-                it.sleepingForOffload,
-                it.isPlaying,
-              ),
+            offloadTimes = it.offloadTimes.timesToNow(it.sleepingForOffload, it.isPlaying),
           )
         }
 
@@ -96,10 +92,7 @@ public class AudioOffloadManager(private val errorReporter: ErrorReporter) {
         _offloadStatus.update { it.copy(format = format) }
       }
 
-      override fun onIsPlayingChanged(
-        eventTime: AnalyticsListener.EventTime,
-        isPlaying: Boolean,
-      ) {
+      override fun onIsPlayingChanged(eventTime: AnalyticsListener.EventTime, isPlaying: Boolean) {
         // accumulate playback time for previous state
         _offloadStatus.update {
           it.copy(

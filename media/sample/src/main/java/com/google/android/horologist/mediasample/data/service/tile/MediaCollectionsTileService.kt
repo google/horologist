@@ -89,10 +89,7 @@ class MediaCollectionsTileService : SuspendingTileService() {
   }
 
   private fun AndroidActivity.Builder.addStringExtra(key: String, value: String) {
-    addKeyToExtraMapping(
-      key,
-      ActionBuilders.AndroidStringExtra.Builder().setValue(value).build(),
-    )
+    addKeyToExtraMapping(key, ActionBuilders.AndroidStringExtra.Builder().setValue(value).build())
   }
 
   /**
@@ -125,10 +122,7 @@ class MediaCollectionsTileService : SuspendingTileService() {
     return renderer.produceRequestedResources(
       MediaCollectionsTileRenderer.ResourceState(
         com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
-        mapOf(
-          firstSong.id to songResource,
-          lastPlaylist.id to albumResource,
-        ),
+        mapOf(firstSong.id to songResource, lastPlaylist.id to albumResource),
       ),
       requestParams,
     )

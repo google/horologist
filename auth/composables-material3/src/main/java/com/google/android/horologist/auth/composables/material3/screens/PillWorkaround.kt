@@ -47,10 +47,7 @@ private fun Offset.rotateDegrees(angle: Float, center: Offset): Offset {
   val sin = sin(rad)
   val dx = x - center.x
   val dy = y - center.y
-  return Offset(
-    dx * cos - dy * sin + center.x,
-    dx * sin + dy * cos + center.y,
-  )
+  return Offset(dx * cos - dy * sin + center.x, dx * sin + dy * cos + center.y)
 }
 
 internal fun doRepeat(points: List<PointNRound>, reps: Int, center: Offset, mirroring: Boolean) =

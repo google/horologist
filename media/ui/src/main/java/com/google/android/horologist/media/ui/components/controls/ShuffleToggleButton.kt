@@ -59,9 +59,6 @@ public fun ShuffleToggleButton(
     checked = shuffleOn,
   ) {
     val icon = if (shuffleOn) Icons.Default.ShuffleOn else Icons.Default.Shuffle
-    Icon(
-      imageVector = icon,
-      contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-    )
+    Icon(imageVector = icon, contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION)
   }
 }

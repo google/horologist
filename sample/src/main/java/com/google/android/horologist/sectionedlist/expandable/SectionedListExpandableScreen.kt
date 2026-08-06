@@ -61,10 +61,7 @@ private val todayTasks =
   )
 
 private val tomorrowTasks =
-  listOf(
-    Pair("Book holidays", Color.Gray),
-    Pair("Water plants", Color.Green),
-  )
+  listOf(Pair("Book holidays", Color.Gray), Pair("Water plants", Color.Green))
 
 private val laterTasks =
   listOf(
@@ -86,16 +83,10 @@ fun SectionedListExpandableScreen(
   val tomorrowSectionState = getState(tomorrowSectionExpanded, tomorrowTasks)
   val laterSectionState = getState(laterSectionExpanded, laterTasks)
 
-  SectionedList(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  SectionedList(columnState = columnState, modifier = modifier) {
     section {
       loaded {
-        Title(
-          stringResource(R.string.sectionedlist_my_tasks),
-          Modifier.padding(vertical = 8.dp),
-        )
+        Title(stringResource(R.string.sectionedlist_my_tasks), Modifier.padding(vertical = 8.dp))
       }
     }
 
@@ -119,10 +110,7 @@ fun SectionedListExpandableScreen(
       expanded = laterSectionExpanded,
       onHeaderClick = { laterSectionExpanded = !laterSectionExpanded },
       footerContent = {
-        Chip(
-          label = stringResource(R.string.sectionedlist_more_tasks),
-          onClick = {},
-        )
+        Chip(label = stringResource(R.string.sectionedlist_more_tasks), onClick = {})
       },
     )
   }
@@ -144,11 +132,7 @@ private fun SectionedListScope.taskSection(
 ) {
   section(state = state) {
     header {
-      SectionHeader(
-        text = stringResource(titleId),
-        expanded = expanded,
-        onClick = onHeaderClick,
-      )
+      SectionHeader(text = stringResource(titleId), expanded = expanded, onClick = onHeaderClick)
     }
 
     loaded { (text, iconTint) ->
@@ -172,11 +156,7 @@ private fun SectionedListScope.taskSection(
 }
 
 @Composable
-private fun SectionHeader(
-  text: String,
-  expanded: Boolean,
-  onClick: () -> Unit,
-) {
+private fun SectionHeader(text: String, expanded: Boolean, onClick: () -> Unit) {
   Row(
     modifier = Modifier.height(48.dp).clickable { onClick() },
     verticalAlignment = Alignment.CenterVertically,

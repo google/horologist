@@ -93,10 +93,7 @@ public fun MarqueeTextMediaDisplay(
 
   CompositionLocalProvider(
     LocalDensity provides
-      Density(
-        density = density.density,
-        fontScale = density.fontScale.coerceAtMost(1f),
-      )
+      Density(density = density.density, fontScale = density.fontScale.coerceAtMost(1f))
   ) {
     Column(
       modifier = modifier.height(columnHeight),
@@ -116,10 +113,7 @@ public fun MarqueeTextMediaDisplay(
         ) {
           titleIcon?.let {
             Box(modifier = Modifier.size(MEDIA_TITLE_ICON_SIZE)) {
-              MediaTitleIcon(
-                paintableRes = it,
-                tint = colorScheme.primary,
-              )
+              MediaTitleIcon(paintableRes = it, tint = colorScheme.primary)
             }
           }
           MarqueeText(

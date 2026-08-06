@@ -59,12 +59,7 @@ class MediaPlayerDeviceScreenTest : WearLegacyScreenTest() {
         shuffleOn = false,
         playPauseEnabled = true,
         playing = true,
-        media =
-          MediaUiModel.Ready(
-            id = "",
-            title = "Weather with You",
-            subtitle = "Crowded House",
-          ),
+        media = MediaUiModel.Ready(id = "", title = "Weather with You", subtitle = "Crowded House"),
         trackPositionUiModel =
           TrackPositionUiModel.Actual(
             position = 30.seconds,
@@ -74,11 +69,6 @@ class MediaPlayerDeviceScreenTest : WearLegacyScreenTest() {
         connected = true,
       )
 
-    runTest {
-      MediaPlayerTestCase(
-        colors = UampColors,
-        playerUiState = playerUiState,
-      )
-    }
+    runTest { MediaPlayerTestCase(colors = UampColors, playerUiState = playerUiState) }
   }
 }

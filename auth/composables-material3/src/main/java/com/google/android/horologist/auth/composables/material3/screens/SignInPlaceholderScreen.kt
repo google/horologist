@@ -69,10 +69,7 @@ public fun SignInPlaceholderScreen(
       Box(
         modifier =
           Modifier.size(60.dp)
-            .background(
-              color = Color(AVATAR_BACKGROUND_COLOR),
-              shape = CircleShape,
-            )
+            .background(color = Color(AVATAR_BACKGROUND_COLOR), shape = CircleShape)
       )
 
       Text(

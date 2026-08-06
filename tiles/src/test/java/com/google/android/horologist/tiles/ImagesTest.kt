@@ -36,10 +36,7 @@ import org.robolectric.annotation.GraphicsMode
 
 @SmallTest
 @RunWith(RobolectricTestRunner::class)
-@Config(
-  sdk = [35],
-  qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-)
+@Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class ImagesTest {
   private lateinit var context: Context

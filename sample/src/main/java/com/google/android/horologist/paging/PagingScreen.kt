@@ -68,11 +68,7 @@ fun PagingScreen(
 
   val pager: Pager<Int, PagingItem> = remember {
     Pager(
-      PagingConfig(
-        pageSize = myBackend.dataBatchSize,
-        enablePlaceholders = true,
-        maxSize = 200,
-      )
+      PagingConfig(pageSize = myBackend.dataBatchSize, enablePlaceholders = true, maxSize = 200)
     ) {
       myBackend.getAllData()
     }
@@ -80,10 +76,7 @@ fun PagingScreen(
 
   val lazyPagingItems = pager.flow.collectAsLazyPagingItems()
 
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
     // TODO This should be folded into com.google.android.horologist.compose.paging.items
     if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
       items(10) { PagingItemCard(item = null) }

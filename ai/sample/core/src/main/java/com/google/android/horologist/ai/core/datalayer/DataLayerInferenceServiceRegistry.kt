@@ -40,10 +40,7 @@ class DataLayerInferenceServiceRegistry(
 
       val capabilities =
         dataLayerRegistry.capabilityClient
-          .getCapability(
-            CAPABILITY_INFERENCE_SERVICE,
-            CapabilityClient.FILTER_REACHABLE,
-          )
+          .getCapability(CAPABILITY_INFERENCE_SERVICE, CapabilityClient.FILTER_REACHABLE)
           .await()
 
       emit(

@@ -84,17 +84,14 @@ public class WearDataLayerRegistry(
     )
   }
 
-  fun <T> protoFlow(
-    targetNodeId: TargetNodeId,
-    serializer: Serializer<T>,
-    path: String,
-  ): Flow<T> = flow {
-    val nodeId = targetNodeId.evaluate(this@WearDataLayerRegistry)
+  fun <T> protoFlow(targetNodeId: TargetNodeId, serializer: Serializer<T>, path: String): Flow<T> =
+    flow {
+      val nodeId = targetNodeId.evaluate(this@WearDataLayerRegistry)
 
-    if (nodeId != null) {
-      emitAll(dataClient.dataItemFlow(nodeId, path, serializer))
+      if (nodeId != null) {
+        emitAll(dataClient.dataItemFlow(nodeId, path, serializer))
+      }
     }
-  }
 
   inline fun <reified T : Any> registerSerializer(serializer: Serializer<T>) {
     serializers.registerSerializer(serializer)
@@ -149,10 +146,7 @@ public class WearDataLayerRegistry(
 
   companion object {
     /** Create an instance looking up Wearable DataClient and NodeClient using the given context. */
-    fun fromContext(
-      application: Context,
-      coroutineScope: CoroutineScope,
-    ): WearDataLayerRegistry =
+    fun fromContext(application: Context, coroutineScope: CoroutineScope): WearDataLayerRegistry =
       WearDataLayerRegistry(
         dataClient = Wearable.getDataClient(application),
         nodeClient = Wearable.getNodeClient(application),

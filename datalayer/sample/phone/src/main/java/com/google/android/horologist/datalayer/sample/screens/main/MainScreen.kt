@@ -64,11 +64,7 @@ fun MainScreen(
       verticalArrangement = Arrangement.Center,
       horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-      NavHost(
-        navController = navController,
-        startDestination = Menu,
-        modifier = modifier,
-      ) {
+      NavHost(navController = navController, startDestination = Menu, modifier = modifier) {
         composable<Menu> { MenuScreen(navController = navController) }
         composable<AppHelperNodes> { NodesScreen() }
         composable<AppHelperNodesListener> { NodesListenerScreen() }

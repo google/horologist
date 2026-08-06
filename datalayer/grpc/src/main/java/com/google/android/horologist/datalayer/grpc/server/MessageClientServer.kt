@@ -29,10 +29,8 @@ import java.io.ByteArrayInputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
 
-public class MessageClientServer(
-  service: BindableService,
-  coroutineScope: CoroutineScope,
-) : BaseMessageClientServer(coroutineScope) {
+public class MessageClientServer(service: BindableService, coroutineScope: CoroutineScope) :
+  BaseMessageClientServer(coroutineScope) {
   private val boundService = service.bindService()
 
   override suspend fun execute(request: MessageRequest): GeneratedMessageLite<*, *> {

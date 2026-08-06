@@ -82,11 +82,7 @@ class TileScreenshotTest : WearScreenshotTest() {
       TileLayoutPreview(
         state = Unit,
         resourceState = Unit,
-        renderer =
-          TestImageTileRenderer(
-            context = context,
-            bitmap = bitmap,
-          ),
+        renderer = TestImageTileRenderer(context = context, bitmap = bitmap),
       )
     }
   }
@@ -104,11 +100,7 @@ class TileScreenshotTest : WearScreenshotTest() {
       TileLayoutPreview(
         state = Unit,
         resourceState = Unit,
-        renderer =
-          TestImageTileRenderer(
-            context = context,
-            bitmap = bitmap,
-          ),
+        renderer = TestImageTileRenderer(context = context, bitmap = bitmap),
       )
     }
   }
@@ -133,19 +125,13 @@ class TileScreenshotTest : WearScreenshotTest() {
       TileLayoutPreview(
         state = Unit,
         resourceState = Unit,
-        renderer =
-          TestImageTileRenderer(
-            context = context,
-            bitmap = bitmap.asAndroidBitmap(),
-          ),
+        renderer = TestImageTileRenderer(context = context, bitmap = bitmap.asAndroidBitmap()),
       )
     }
   }
 
-  class TestImageTileRenderer(
-    context: Context,
-    val bitmap: Bitmap,
-  ) : SingleTileLayoutRenderer<Unit, Unit>(context) {
+  class TestImageTileRenderer(context: Context, val bitmap: Bitmap) :
+    SingleTileLayoutRenderer<Unit, Unit>(context) {
     override fun renderTile(
       state: Unit,
       deviceParameters: DeviceParameters,

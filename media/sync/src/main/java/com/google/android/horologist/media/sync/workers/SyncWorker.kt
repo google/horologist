@@ -80,10 +80,7 @@ constructor(
     changeListVersionRepository.getChangeListVersion(model)
 
   override suspend fun updateChangeListVersions(model: String, version: Int): Unit =
-    changeListVersionRepository.updateChangeListVersion(
-      model = model,
-      newVersion = version,
-    )
+    changeListVersionRepository.updateChangeListVersion(model = model, newVersion = version)
 
   public companion object {
     /** Expedited one time work to sync data on app startup */

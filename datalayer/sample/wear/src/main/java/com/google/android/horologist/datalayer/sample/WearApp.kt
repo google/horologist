@@ -57,10 +57,7 @@ fun WearApp(
           rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
         ScreenScaffold(scrollState = columnState) {
-          MainScreen(
-            navigateToRoute = navController::navigate,
-            columnState = columnState,
-          )
+          MainScreen(navigateToRoute = navController::navigate, columnState = columnState)
         }
       }
       composable(route = Screen.CounterScreen.route) {

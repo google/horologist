@@ -99,10 +99,7 @@ fun ScrollAwayScreenColumn(scrollState: ScrollState) {
 
 @Composable
 private fun ExampleCard(modifier: Modifier, i: Int) {
-  Card(
-    modifier = modifier,
-    onClick = {},
-  ) {
+  Card(modifier = modifier, onClick = {}) {
     Box(
       modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.surface),
       contentAlignment = Alignment.Center,

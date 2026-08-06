@@ -41,37 +41,17 @@ fun MetricDisplayPreview() {
 @Preview
 @Composable
 fun MetricDisplayPreviewTextOnly() {
-  MetricDisplay(
-    metric =
-      MetricUiModel(
-        text = "18:52",
-        color = HR_LIGHT,
-      )
-  )
+  MetricDisplay(metric = MetricUiModel(text = "18:52", color = HR_LIGHT))
 }
 
 @Preview
 @Composable
 fun MetricDisplayPreviewTopRightText() {
-  MetricDisplay(
-    metric =
-      MetricUiModel(
-        text = "8'32\"",
-        topRightText = ":15",
-        color = HR_MODERATE,
-      )
-  )
+  MetricDisplay(metric = MetricUiModel(text = "8'32\"", topRightText = ":15", color = HR_MODERATE))
 }
 
 @Preview
 @Composable
 fun MetricDisplayPreviewBottomRightText() {
-  MetricDisplay(
-    metric =
-      MetricUiModel(
-        text = "2.1",
-        bottomRightText = "/3 mi",
-        color = HR_MAXIMUM,
-      )
-  )
+  MetricDisplay(metric = MetricUiModel(text = "2.1", bottomRightText = "/3 mi", color = HR_MAXIMUM))
 }

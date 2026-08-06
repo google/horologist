@@ -26,9 +26,5 @@ public object PlaylistUiModelMapper {
 
   /** Maps from [Playlist]. */
   public fun map(playlist: Playlist): PlaylistUiModel =
-    PlaylistUiModel(
-      id = playlist.id,
-      title = playlist.name,
-      artworkUri = playlist.artworkUri,
-    )
+    PlaylistUiModel(id = playlist.id, title = playlist.name, artworkUri = playlist.artworkUri)
 }

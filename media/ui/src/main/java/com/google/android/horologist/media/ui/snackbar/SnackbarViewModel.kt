@@ -37,10 +37,7 @@ public open class SnackbarViewModel(private val snackbarManager: SnackbarManager
     viewModelScope.launch {
       snackbarManager.messages.collect { currentMessages ->
         currentMessages.firstOrNull()?.let {
-          snackbarHostState.showSnackbar(
-            message = it.message,
-            duration = SnackbarDuration.Short,
-          )
+          snackbarHostState.showSnackbar(message = it.message, duration = SnackbarDuration.Short)
           snackbarManager.setMessageShown(it.id)
         }
       }

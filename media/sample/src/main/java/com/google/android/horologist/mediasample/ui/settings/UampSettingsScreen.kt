@@ -61,14 +61,8 @@ fun UampSettingsScreen(
   val transformationSpec = rememberTransformationSpec()
   val columnState = rememberTransformingLazyColumnState()
 
-  ScreenScaffold(
-    scrollState = columnState,
-    modifier = modifier,
-  ) { contentPadding ->
-    TransformingLazyColumn(
-      state = columnState,
-      contentPadding = contentPadding,
-    ) {
+  ScreenScaffold(scrollState = columnState, modifier = modifier) { contentPadding ->
+    TransformingLazyColumn(state = columnState, contentPadding = contentPadding) {
       item {
         ListHeader(
           modifier =

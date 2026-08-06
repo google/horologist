@@ -66,12 +66,7 @@ public fun canvasToImageResource(
   density: Density,
   onDraw: DrawScope.() -> Unit,
 ): ImageResource {
-  return Bitmap.createBitmap(
-      size.width.toInt(),
-      size.height.toInt(),
-      Bitmap.Config.RGB_565,
-      false,
-    )
+  return Bitmap.createBitmap(size.width.toInt(), size.height.toInt(), Bitmap.Config.RGB_565, false)
     .apply { drawToBitmap(bitmap = this, density = density, size = size, onDraw = onDraw) }
     .toImageResource()
 }

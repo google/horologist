@@ -44,10 +44,7 @@ fun AppScaffold(
 ) {
   val scaffoldState = LocalScaffoldState.current.apply { appTimeText.value = timeText }
 
-  Scaffold(
-    modifier = modifier,
-    timeText = scaffoldState.timeText,
-  ) {
+  Scaffold(modifier = modifier, timeText = scaffoldState.timeText) {
     Box(modifier = Modifier.fillMaxSize()) { content() }
   }
 }

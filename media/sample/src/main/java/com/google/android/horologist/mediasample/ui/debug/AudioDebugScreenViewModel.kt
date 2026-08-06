@@ -62,11 +62,10 @@ constructor(
     }
 
   val uiState: StateFlow<UiState?> =
-    combine(
-        audioOffloadFlow(),
-        playerRepository.currentMedia,
-        mediaControllerFlow,
-      ) { audioOffloadStatus, currentMedia, mediaController ->
+    combine(audioOffloadFlow(), playerRepository.currentMedia, mediaControllerFlow) {
+        audioOffloadStatus,
+        currentMedia,
+        mediaController ->
         UiState(
           currentTrack = currentMedia?.title,
           audioOffloadStatus = audioOffloadStatus,

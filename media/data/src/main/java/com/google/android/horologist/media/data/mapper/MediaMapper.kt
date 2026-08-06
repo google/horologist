@@ -32,10 +32,7 @@ public class MediaMapper(private val mediaExtrasMapper: MediaExtrasMapper) {
    * @param mediaItem [MediaItem] to be mapped.
    * @param defaultArtist value for [Media.artist] for when [MediaMetadata.artist] is null.
    */
-  public fun map(
-    mediaItem: MediaItem,
-    mediaMetadata: MediaMetadata,
-  ): Media =
+  public fun map(mediaItem: MediaItem, mediaMetadata: MediaMetadata): Media =
     Media(
       id = mediaItem.mediaId,
       uri = mediaItem.localConfiguration?.uri?.toString() ?: "",

@@ -255,12 +255,7 @@ private fun CircularProgressIndicatorFast(
   val progressSteps =
     with(LocalDensity.current) { (tapTargetSize.width.toPx() * Math.PI).roundToInt() }
   val truncatedProgress by remember {
-    derivedStateOf {
-      roundProgress(
-        progress = progress(),
-        progressSteps = progressSteps,
-      )
-    }
+    derivedStateOf { roundProgress(progress = progress(), progressSteps = progressSteps) }
   }
 
   val stroke =
@@ -270,20 +265,10 @@ private fun CircularProgressIndicatorFast(
     val backgroundSweep = 360f - ((startAngle - endAngle) % 360 + 360) % 360
     val progressSweep = backgroundSweep * truncatedProgress
     // Draw a background
-    drawCircularIndicator(
-      startAngle,
-      backgroundSweep,
-      trackColor,
-      stroke,
-    )
+    drawCircularIndicator(startAngle, backgroundSweep, trackColor, stroke)
 
     // Draw a progress
-    drawCircularIndicator(
-      startAngle,
-      progressSweep,
-      indicatorColor,
-      stroke,
-    )
+    drawCircularIndicator(startAngle, progressSweep, indicatorColor, stroke)
   }
 }
 

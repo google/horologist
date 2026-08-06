@@ -42,23 +42,14 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 /** A primary title heading to group and identify items. */
 @ExperimentalHorologistApi
 @Composable
-public fun Title(
-  @StringRes textId: Int,
-  modifier: Modifier = Modifier,
-) {
-  Title(
-    text = stringResource(id = textId),
-    modifier = modifier,
-  )
+public fun Title(@StringRes textId: Int, modifier: Modifier = Modifier) {
+  Title(text = stringResource(id = textId), modifier = modifier)
 }
 
 /** A primary title heading to group and identify items. */
 @ExperimentalHorologistApi
 @Composable
-public fun Title(
-  text: String,
-  modifier: Modifier = Modifier,
-) {
+public fun Title(text: String, modifier: Modifier = Modifier) {
   ResponsiveListHeader(modifier = modifier, contentPadding = firstItemPadding()) {
     Text(
       text = text,

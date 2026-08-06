@@ -27,31 +27,18 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
 @Composable
-public fun TestSnackbar(
-  data: SnackbarData,
-  modifier: Modifier = Modifier,
-) {
+public fun TestSnackbar(data: SnackbarData, modifier: Modifier = Modifier) {
   val duration = data.duration.toMillis(data.actionLabel != null, null)
-  Confirmation(
-    modifier = modifier,
-    onTimeout = { data.dismiss() },
-    durationMillis = duration,
-  ) {
+  Confirmation(modifier = modifier, onTimeout = { data.dismiss() }, durationMillis = duration) {
     Text(
       modifier = Modifier.align(CenterHorizontally),
       text = data.message,
       style = MaterialTheme.typography.display3,
     )
-    Button(
-      modifier = Modifier.align(CenterHorizontally),
-      onClick = { data.performAction() },
-    ) {
+    Button(modifier = Modifier.align(CenterHorizontally), onClick = { data.performAction() }) {
       Text(text = "press")
     }
-    Button(
-      modifier = Modifier.align(CenterHorizontally),
-      onClick = { data.dismiss() },
-    ) {
+    Button(modifier = Modifier.align(CenterHorizontally), onClick = { data.dismiss() }) {
       Text(text = "dismiss")
     }
   }

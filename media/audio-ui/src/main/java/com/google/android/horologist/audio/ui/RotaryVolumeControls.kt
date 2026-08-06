@@ -65,10 +65,7 @@ public fun lowResVolumeRotaryBehavior(
 
     if (change != 0f) {
       val targetVolume =
-        (volumeUiStateProvider().current + change.toInt()).coerceIn(
-          0,
-          volumeUiStateProvider().max,
-        )
+        (volumeUiStateProvider().current + change.toInt()).coerceIn(0, volumeUiStateProvider().max)
 
       Log.d(
         TAG,
@@ -131,10 +128,7 @@ public fun highResVolumeRotaryBehavior(
 @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
 internal fun convertPixelToVolume(change: Float, volumeUiStateProvider: () -> VolumeUiState): Int {
   val scale =
-    max(
-      volumeUiStateProvider().max * VOLUME_FRACTION_PER_PIXEL,
-      1 / VOLUME_PERCENT_CHANGE_PIXEL,
-    )
+    max(volumeUiStateProvider().max * VOLUME_FRACTION_PER_PIXEL, 1 / VOLUME_PERCENT_CHANGE_PIXEL)
 
   return (volumeUiStateProvider().current + (change * scale).roundToInt()).coerceIn(
     0,

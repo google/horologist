@@ -173,20 +173,14 @@ public class NetworkRepositoryImpl(
     if (priorityNetwork != null) {
       val priorityNetworkStatus = allNetworks.find { it.id == priorityNetwork.id }
       if (priorityNetworkStatus != null) {
-        return Networks(
-          activeNetwork = priorityNetworkStatus,
-          networks = allNetworks,
-        )
+        return Networks(activeNetwork = priorityNetworkStatus, networks = allNetworks)
       }
     }
 
     val connectedNetwork = connectivityManager.activeNetwork
     val activeNetwork = allNetworks.find { it.id == connectedNetwork?.id }
 
-    return Networks(
-      activeNetwork = activeNetwork,
-      networks = allNetworks,
-    )
+    return Networks(activeNetwork = activeNetwork, networks = allNetworks)
   }
 
   override fun networkByAddress(localAddress: InetAddress): NetworkStatus? {
@@ -211,10 +205,7 @@ public class NetworkRepositoryImpl(
     ): NetworkRepositoryImpl {
       val connectivityManager =
         application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-      return NetworkRepositoryImpl(
-        connectivityManager,
-        coroutineScope,
-      )
+      return NetworkRepositoryImpl(connectivityManager, coroutineScope)
     }
   }
 }

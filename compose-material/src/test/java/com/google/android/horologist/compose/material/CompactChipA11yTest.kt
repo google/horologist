@@ -26,11 +26,7 @@ class CompactChipA11yTest : WearLegacyA11yTest() {
   @Test
   fun withIcon() {
     runComponentTest {
-      CompactChip(
-        label = "Primary label",
-        onClick = {},
-        icon = Icons.Filled.Add.asPaintable(),
-      )
+      CompactChip(label = "Primary label", onClick = {}, icon = Icons.Filled.Add.asPaintable())
     }
   }
 

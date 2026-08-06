@@ -73,10 +73,7 @@ class PlayerScreenTest {
       .isNotEqualTo(PlayerState.Playing)
 
     composeTestRule.setContent {
-      PlayerScreen(
-        playerViewModel = playerViewModel,
-        volumeViewModel = volumeViewModel,
-      )
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
     // when
@@ -105,10 +102,7 @@ class PlayerScreenTest {
       .isEqualTo(PlayerState.Playing)
 
     composeTestRule.setContent {
-      PlayerScreen(
-        playerViewModel = playerViewModel,
-        volumeViewModel = volumeViewModel,
-      )
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
     // when
@@ -140,10 +134,7 @@ class PlayerScreenTest {
     assertThat(playerRepository.currentMedia.value).isEqualTo(media2)
 
     composeTestRule.setContent {
-      PlayerScreen(
-        playerViewModel = playerViewModel,
-        volumeViewModel = volumeViewModel,
-      )
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
     // when
@@ -171,10 +162,7 @@ class PlayerScreenTest {
     assertThat(playerRepository.currentMedia.value).isEqualTo(media1)
 
     composeTestRule.setContent {
-      PlayerScreen(
-        playerViewModel = playerViewModel,
-        volumeViewModel = volumeViewModel,
-      )
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
     // when
@@ -195,10 +183,7 @@ class PlayerScreenTest {
     val playerViewModel = PlayerViewModel(playerRepository)
 
     composeTestRule.setContent {
-      PlayerScreen(
-        playerViewModel = playerViewModel,
-        volumeViewModel = volumeViewModel,
-      )
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
     val button = composeTestRule.onNodeWithContentDescription("Pause")
@@ -220,10 +205,7 @@ class PlayerScreenTest {
     val playerViewModel = PlayerViewModel(playerRepository)
 
     composeTestRule.setContent {
-      PlayerScreen(
-        playerViewModel = playerViewModel,
-        volumeViewModel = volumeViewModel,
-      )
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
     val button = composeTestRule.onNodeWithContentDescription("Previous")
@@ -245,10 +227,7 @@ class PlayerScreenTest {
     val playerViewModel = PlayerViewModel(playerRepository)
 
     composeTestRule.setContent {
-      PlayerScreen(
-        playerViewModel = playerViewModel,
-        volumeViewModel = volumeViewModel,
-      )
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
     val button = composeTestRule.onNodeWithContentDescription("Next")
@@ -276,10 +255,7 @@ class PlayerScreenTest {
     val playerViewModel = PlayerViewModel(playerRepository)
 
     composeTestRule.setContent {
-      PlayerScreen(
-        playerViewModel = playerViewModel,
-        volumeViewModel = volumeViewModel,
-      )
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
     // then
@@ -372,10 +348,7 @@ class PlayerScreenTest {
 
     // when
     composeTestRule.setContent {
-      PlayerScreen(
-        playerViewModel = playerViewModel,
-        volumeViewModel = volumeViewModel,
-      )
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
     // then

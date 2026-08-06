@@ -24,33 +24,18 @@ class AccountChipTest : WearLegacyComponentTest() {
 
   @Test
   fun default() {
-    runComponentTest {
-      AccountChip(
-        email = "maggie@example.com",
-        onClick = {},
-      )
-    }
+    runComponentTest { AccountChip(email = "maggie@example.com", onClick = {}) }
   }
 
   @Test
   fun disabled() {
-    runComponentTest {
-      AccountChip(
-        email = "maggie@example.com",
-        onClick = {},
-        enabled = false,
-      )
-    }
+    runComponentTest { AccountChip(email = "maggie@example.com", onClick = {}, enabled = false) }
   }
 
   @Test
   fun withSmallAvatar() {
     runComponentTest {
-      AccountChip(
-        email = "maggie@example.com",
-        onClick = {},
-        largeAvatar = false,
-      )
+      AccountChip(email = "maggie@example.com", onClick = {}, largeAvatar = false)
     }
   }
 
@@ -68,20 +53,14 @@ class AccountChipTest : WearLegacyComponentTest() {
   @Test
   fun withLongEmailAddress() {
     runComponentTest {
-      AccountChip(
-        email = "thisisaverylongemailaddresssample@example.com",
-        onClick = {},
-      )
+      AccountChip(email = "thisisaverylongemailaddresssample@example.com", onClick = {})
     }
   }
 
   @Test
   fun withEmailAddressStartingWithSingleLetterAndDot() {
     runComponentTest {
-      AccountChip(
-        email = "p.thisisaverylongemailaddress@example.com",
-        onClick = {},
-      )
+      AccountChip(email = "p.thisisaverylongemailaddress@example.com", onClick = {})
     }
   }
 }

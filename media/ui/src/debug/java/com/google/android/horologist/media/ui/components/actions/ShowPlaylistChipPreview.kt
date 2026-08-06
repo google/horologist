@@ -42,25 +42,13 @@ fun ShowPlaylistChipPreview() {
   )
 }
 
-@Preview(
-  name = "No artwork",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "No artwork", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ShowPlaylistChipPreviewNoArtwork() {
-  ShowPlaylistChip(
-    artworkPaintable = null,
-    name = "Playlists",
-    onClick = {},
-  )
+  ShowPlaylistChip(artworkPaintable = null, name = "Playlists", onClick = {})
 }
 
-@Preview(
-  name = "No name",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "No name", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ShowPlaylistChipPreviewNoName() {
   ShowPlaylistChip(
@@ -77,11 +65,7 @@ fun ShowPlaylistChipPreviewNoName() {
   )
 }
 
-@Preview(
-  name = "Very long name",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "Very long name", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ShowPlaylistChipPreviewVeryLongName() {
   ShowPlaylistChip(

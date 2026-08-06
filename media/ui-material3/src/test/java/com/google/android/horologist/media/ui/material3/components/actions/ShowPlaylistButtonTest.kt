@@ -37,11 +37,7 @@ class ShowPlaylistButtonTest : WearLegacyComponentTest() {
   @Test
   fun givenNOArtwork_thenDoesNotDisplayArtwork() {
     runComponentTest {
-      ShowPlaylistButton(
-        artworkPaintable = null,
-        name = "Playlists",
-        onClick = {},
-      )
+      ShowPlaylistButton(artworkPaintable = null, name = "Playlists", onClick = {})
     }
   }
 

@@ -147,9 +147,7 @@ fun InstallAppCustomPromptDemoScreen(
         Text(
           stringResource(
             id = R.string.install_app_custom_prompt_demo_result_label,
-            stringResource(
-              id = R.string.install_app_custom_prompt_demo_prompt_install_result_label
-            ),
+            stringResource(id = R.string.install_app_custom_prompt_demo_prompt_install_result_label),
           )
         )
       }

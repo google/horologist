@@ -205,9 +205,9 @@ private val grayscale =
 internal fun Modifier.ambientGray(ambientState: AmbientState): Modifier =
   if (ambientState.isAmbient) {
     graphicsLayer {
-      scaleX = 0.9f
-      scaleY = 0.9f
-    }
+        scaleX = 0.9f
+        scaleY = 0.9f
+      }
       .drawWithContent {
         drawIntoCanvas { it.withSaveLayer(size.toRect(), grayscale) { drawContent() } }
       }

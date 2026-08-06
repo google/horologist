@@ -43,29 +43,30 @@ class InferenceService
 constructor(val registry: CombinedInferenceServiceRegistry, val coroutineScope: CoroutineScope) {
   val connectedModel = MutableStateFlow<ModelId?>(null)
 
-  val models = flow {
-    val models = registry.models().first()
-    emit(
-      coroutineScope {
-        // TODO subscribe and update models dynamically
-        models.map { remote ->
-          async {
-            try {
-              val serviceInfo = remote.serviceInfo(empty {})
-              Pair(serviceInfo, remote)
-            } catch (e: Exception) {
-              Log.w("InferenceService", "Failing for $remote", e)
-              // skip and rely on filterNotNull
-              null
+  val models =
+    flow {
+        val models = registry.models().first()
+        emit(
+          coroutineScope {
+              // TODO subscribe and update models dynamically
+              models.map { remote ->
+                async {
+                  try {
+                    val serviceInfo = remote.serviceInfo(empty {})
+                    Pair(serviceInfo, remote)
+                  } catch (e: Exception) {
+                    Log.w("InferenceService", "Failing for $remote", e)
+                    // skip and rely on filterNotNull
+                    null
+                  }
+                }
+              }
             }
-          }
-        }
+            .awaitAll()
+            .filterNotNull()
+        )
       }
-        .awaitAll()
-        .filterNotNull()
-    )
-  }
-    .stateIn(coroutineScope, SharingStarted.Eagerly, null)
+      .stateIn(coroutineScope, SharingStarted.Eagerly, null)
 
   val currentModelInfo: Flow<Pair<ModelInfo, ServiceInfo>?> =
     combine(connectedModel, models) { currentId, currentModels ->

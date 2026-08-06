@@ -146,9 +146,19 @@ allprojects {
 subprojects {
   apply(plugin = "com.ncorti.ktfmt.gradle")
 
+  configurations.configureEach {
+    resolutionStrategy.eachDependency {
+      if (requested.group == "com.facebook" && requested.name == "ktfmt") {
+        useVersion("0.62")
+      }
+    }
+  }
+
   configure<com.ncorti.ktfmt.gradle.KtfmtExtension> {
     googleStyle()
-    manageTrailingCommas = true
+    trailingCommaManagementStrategy.set(
+      com.ncorti.ktfmt.gradle.TrailingCommaManagementStrategy.COMPLETE
+    )
   }
 
   tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {

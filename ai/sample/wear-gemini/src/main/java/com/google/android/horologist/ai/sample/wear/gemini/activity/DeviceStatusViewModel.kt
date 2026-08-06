@@ -35,40 +35,41 @@ import kotlinx.coroutines.withContext
 class DeviceStatusViewModel
 @Inject
 constructor(client: Client, val contentConfig: GenerateContentConfig) : ViewModel() {
-  val uiState = flow {
-    val model: String = ExposedMethods.deviceModel()
-    val manufacturer: String = ExposedMethods.deviceManufacturer()
+  val uiState =
+    flow {
+        val model: String = ExposedMethods.deviceModel()
+        val manufacturer: String = ExposedMethods.deviceManufacturer()
 
-    val imageGen =
-      withContext(Dispatchers.IO) {
-        async {
-          val images =
-            client.models.generateImages(
-              GeminiModel.Imagen4.name,
-              "Generate an image for this android device $manufacturer $model",
-              GenerateImagesConfig.builder().numberOfImages(1).build(),
-            )
-          images.generatedImages().get().first().image().get().imageBytes().get()
-        }
+        val imageGen =
+          withContext(Dispatchers.IO) {
+            async {
+              val images =
+                client.models.generateImages(
+                  GeminiModel.Imagen4.name,
+                  "Generate an image for this android device $manufacturer $model",
+                  GenerateImagesConfig.builder().numberOfImages(1).build(),
+                )
+              images.generatedImages().get().first().image().get().imageBytes().get()
+            }
+          }
+
+        val descriptionGen =
+          withContext(Dispatchers.IO) {
+            async {
+              client.models
+                .generateContent(
+                  GeminiModel.Gemini2dot5Flash.name,
+                  "Make a poem about the device and its manufacturer",
+                  contentConfig,
+                )
+                .parts()
+                ?.get(0)
+                ?.text()
+                ?.get()
+            }
+          }
+
+        emit(Loaded(imageGen.await(), descriptionGen.await()))
       }
-
-    val descriptionGen =
-      withContext(Dispatchers.IO) {
-        async {
-          client.models
-            .generateContent(
-              GeminiModel.Gemini2dot5Flash.name,
-              "Make a poem about the device and its manufacturer",
-              contentConfig,
-            )
-            .parts()
-            ?.get(0)
-            ?.text()
-            ?.get()
-        }
-      }
-
-    emit(Loaded(imageGen.await(), descriptionGen.await()))
-  }
-    .stateIn(viewModelScope, SharingStarted.Lazily, Loading)
+      .stateIn(viewModelScope, SharingStarted.Lazily, Loading)
 }

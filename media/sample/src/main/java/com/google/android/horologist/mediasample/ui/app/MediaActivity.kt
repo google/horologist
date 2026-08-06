@@ -52,15 +52,15 @@ class MediaActivity : ComponentActivity() {
 
       LaunchedEffect(backStack) {
         snapshotFlow {
-          when (val last = backStack.lastOrNull()) {
-            is CustomRoute -> last.route
-            is PlayerRoute -> "player?page=${last.page}"
-            is CollectionRoute -> "collection?id=${last.id}"
-            is MediaItemRoute -> "mediaItem?id=${last.id}"
-            null -> ""
-            else -> last.javaClass.simpleName
+            when (val last = backStack.lastOrNull()) {
+              is CustomRoute -> last.route
+              is PlayerRoute -> "player?page=${last.page}"
+              is CollectionRoute -> "collection?id=${last.id}"
+              is MediaItemRoute -> "mediaItem?id=${last.id}"
+              null -> ""
+              else -> last.javaClass.simpleName
+            }
           }
-        }
           .collect { route -> jankPrinter.setRouteState(route = route) }
       }
     }

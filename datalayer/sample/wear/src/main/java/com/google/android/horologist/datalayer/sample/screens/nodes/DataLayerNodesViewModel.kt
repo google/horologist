@@ -45,11 +45,12 @@ import kotlinx.coroutines.tasks.await
 public class DataLayerNodesViewModel
 @Inject
 constructor(private val registry: WearDataLayerRegistry) : ViewModel() {
-  val nodes: SharedFlow<List<Node>> = flow {
-    val self = registry.nodeClient.localNode.await()
-    emit(registry.nodeClient.connectedNodes.await() + self)
-  }
-    .shareIn(viewModelScope, started = SharingStarted.Eagerly, replay = 1)
+  val nodes: SharedFlow<List<Node>> =
+    flow {
+        val self = registry.nodeClient.localNode.await()
+        emit(registry.nodeClient.connectedNodes.await() + self)
+      }
+      .shareIn(viewModelScope, started = SharingStarted.Eagerly, replay = 1)
 
   val protoState: Flow<Map<String, Data>> = flow {
     val ids = nodes.first().map { it.id }

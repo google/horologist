@@ -156,9 +156,7 @@ fun InstallTileCustomPromptDemoScreen(
         Text(
           stringResource(
             id = R.string.install_tile_custom_prompt_demo_result_label,
-            stringResource(
-              id = R.string.install_tile_custom_prompt_demo_prompt_cancel_result_label
-            ),
+            stringResource(id = R.string.install_tile_custom_prompt_demo_prompt_cancel_result_label),
           )
         )
       }

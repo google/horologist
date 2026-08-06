@@ -35,57 +35,58 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnStat
 
 @Composable
 fun PositionIndicatorAudit(route: AuditNavigation.PositionIndicator.Audit) {
-    val (initial, itemCount) = when (route.config) {
-        AuditNavigation.PositionIndicator.Config.TopLong -> {
-            Pair(0, 100)
-        }
+  val (initial, itemCount) =
+    when (route.config) {
+      AuditNavigation.PositionIndicator.Config.TopLong -> {
+        Pair(0, 100)
+      }
 
-        AuditNavigation.PositionIndicator.Config.TopShort -> {
-            Pair(0, 10)
-        }
+      AuditNavigation.PositionIndicator.Config.TopShort -> {
+        Pair(0, 10)
+      }
 
-        AuditNavigation.PositionIndicator.Config.BottomLong -> {
-            Pair(100, 100)
-        }
+      AuditNavigation.PositionIndicator.Config.BottomLong -> {
+        Pair(100, 100)
+      }
 
-        AuditNavigation.PositionIndicator.Config.BottomShort -> {
-            Pair(100, 10)
-        }
+      AuditNavigation.PositionIndicator.Config.BottomShort -> {
+        Pair(100, 10)
+      }
 
-        AuditNavigation.PositionIndicator.Config.MiddleShort -> {
-            Pair(5, 10)
-        }
+      AuditNavigation.PositionIndicator.Config.MiddleShort -> {
+        Pair(5, 10)
+      }
 
-        AuditNavigation.PositionIndicator.Config.MiddleLong -> {
-            Pair(50, 100)
-        }
+      AuditNavigation.PositionIndicator.Config.MiddleLong -> {
+        Pair(50, 100)
+      }
     }
 
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ScalingLazyColumnDefaults.ItemType.Chip,
-            last = ScalingLazyColumnDefaults.ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ScalingLazyColumnDefaults.ItemType.Chip,
+          last = ScalingLazyColumnDefaults.ItemType.Chip,
+        )
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(columnState) {
-            items(itemCount) {
-                Box(
-                    modifier = Modifier
-                        .height(20.dp)
-                        .fillMaxWidth()
-                        .clip(MaterialTheme.shapes.small)
-                        .background(
-                            Color.DarkGray.copy(alpha = 0.5f),
-                        ),
-                )
-            }
-        }
+  ScreenScaffold(scrollState = columnState) {
+    ScalingLazyColumn(columnState) {
+      items(itemCount) {
+        Box(
+          modifier =
+            Modifier.height(20.dp)
+              .fillMaxWidth()
+              .clip(MaterialTheme.shapes.small)
+              .background(Color.DarkGray.copy(alpha = 0.5f))
+        )
+      }
     }
+  }
 
-    LaunchedEffect(Unit) {
-        columnState.state.scrollToItem(initial + 1)
-        columnState.state.scrollToItem(initial)
-    }
+  LaunchedEffect(Unit) {
+    columnState.state.scrollToItem(initial + 1)
+    columnState.state.scrollToItem(initial)
+  }
 }

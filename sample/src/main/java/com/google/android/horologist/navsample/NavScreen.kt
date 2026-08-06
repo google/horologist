@@ -16,14 +16,18 @@
 
 package com.google.android.horologist.navsample
 
-sealed class NavScreen(
-    val route: String,
-) {
-    object Menu : NavScreen("menu")
-    object ScalingLazyColumn : NavScreen("scalinglazycolumn")
-    object Column : NavScreen("column")
-    object Volume : NavScreen("volume")
-    object Pager : NavScreen("pager")
-    object Snackbar : NavScreen("snackbar")
-    object Dialog : NavScreen("dialog")
+sealed class NavScreen(val route: String) {
+  object Menu : NavScreen("menu")
+
+  object ScalingLazyColumn : NavScreen("scalinglazycolumn")
+
+  object Column : NavScreen("column")
+
+  object Volume : NavScreen("volume")
+
+  object Pager : NavScreen("pager")
+
+  object Snackbar : NavScreen("snackbar")
+
+  object Dialog : NavScreen("dialog")
 }

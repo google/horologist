@@ -24,99 +24,99 @@ import org.junit.Test
 
 class CommandMapperTest {
 
-    @Test
-    fun `given COMMAND_PLAY_PAUSE then maps correctly`() {
-        // given
-        val command = Player.COMMAND_PLAY_PAUSE
+  @Test
+  fun `given COMMAND_PLAY_PAUSE then maps correctly`() {
+    // given
+    val command = Player.COMMAND_PLAY_PAUSE
 
-        // when
-        val result = CommandMapper.map(command)
+    // when
+    val result = CommandMapper.map(command)
 
-        // then
-        assertThat(result).isEqualTo(Command.PlayPause)
-    }
+    // then
+    assertThat(result).isEqualTo(Command.PlayPause)
+  }
 
-    @Test
-    fun `given COMMAND_SEEK_BACK then maps correctly`() {
-        // given
-        val command = Player.COMMAND_SEEK_BACK
+  @Test
+  fun `given COMMAND_SEEK_BACK then maps correctly`() {
+    // given
+    val command = Player.COMMAND_SEEK_BACK
 
-        // when
-        val result = CommandMapper.map(command)
+    // when
+    val result = CommandMapper.map(command)
 
-        // then
-        assertThat(result).isEqualTo(Command.SeekBack)
-    }
+    // then
+    assertThat(result).isEqualTo(Command.SeekBack)
+  }
 
-    @Test
-    fun `given COMMAND_SEEK_FORWARD then maps correctly`() {
-        // given
-        val command = Player.COMMAND_SEEK_FORWARD
+  @Test
+  fun `given COMMAND_SEEK_FORWARD then maps correctly`() {
+    // given
+    val command = Player.COMMAND_SEEK_FORWARD
 
-        // when
-        val result = CommandMapper.map(command)
+    // when
+    val result = CommandMapper.map(command)
 
-        // then
-        assertThat(result).isEqualTo(Command.SeekForward)
-    }
+    // then
+    assertThat(result).isEqualTo(Command.SeekForward)
+  }
 
-    @Test
-    fun `given COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM then maps correctly`() {
-        // given
-        val command = Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM
+  @Test
+  fun `given COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM then maps correctly`() {
+    // given
+    val command = Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM
 
-        // when
-        val result = CommandMapper.map(command)
+    // when
+    val result = CommandMapper.map(command)
 
-        // then
-        assertThat(result).isEqualTo(Command.SkipToPreviousMedia)
-    }
+    // then
+    assertThat(result).isEqualTo(Command.SkipToPreviousMedia)
+  }
 
-    @Test
-    fun `given COMMAND_SEEK_TO_NEXT_MEDIA_ITEM then maps correctly`() {
-        // given
-        val command = Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM
+  @Test
+  fun `given COMMAND_SEEK_TO_NEXT_MEDIA_ITEM then maps correctly`() {
+    // given
+    val command = Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM
 
-        // when
-        val result = CommandMapper.map(command)
+    // when
+    val result = CommandMapper.map(command)
 
-        // then
-        assertThat(result).isEqualTo(Command.SkipToNextMedia)
-    }
+    // then
+    assertThat(result).isEqualTo(Command.SkipToNextMedia)
+  }
 
-    @Test
-    fun `given COMMAND_SET_SHUFFLE_MODE then maps correctly`() {
-        // given
-        val command = Player.COMMAND_SET_SHUFFLE_MODE
+  @Test
+  fun `given COMMAND_SET_SHUFFLE_MODE then maps correctly`() {
+    // given
+    val command = Player.COMMAND_SET_SHUFFLE_MODE
 
-        // when
-        val result = CommandMapper.map(command)
+    // when
+    val result = CommandMapper.map(command)
 
-        // then
-        assertThat(result).isEqualTo(Command.SetShuffle)
-    }
+    // then
+    assertThat(result).isEqualTo(Command.SetShuffle)
+  }
 
-    @Test
-    fun `given an invalid command then exception is thrown`() {
-        // given
-        val command = Player.COMMAND_INVALID
+  @Test
+  fun `given an invalid command then exception is thrown`() {
+    // given
+    val command = Player.COMMAND_INVALID
 
-        // when
-        val whenBlock = { CommandMapper.map(command) }
+    // when
+    val whenBlock = { CommandMapper.map(command) }
 
-        // then
-        Assert.assertThrows(IllegalArgumentException::class.java) { whenBlock() }
-    }
+    // then
+    Assert.assertThrows(IllegalArgumentException::class.java) { whenBlock() }
+  }
 
-    @Test
-    fun `given an unmapped command then exception is thrown`() {
-        // given
-        val command = Player.COMMAND_ADJUST_DEVICE_VOLUME_WITH_FLAGS
+  @Test
+  fun `given an unmapped command then exception is thrown`() {
+    // given
+    val command = Player.COMMAND_ADJUST_DEVICE_VOLUME_WITH_FLAGS
 
-        // when
-        val whenBlock = { CommandMapper.map(command) }
+    // when
+    val whenBlock = { CommandMapper.map(command) }
 
-        // then
-        Assert.assertThrows(IllegalArgumentException::class.java) { whenBlock() }
-    }
+    // then
+    Assert.assertThrows(IllegalArgumentException::class.java) { whenBlock() }
+  }
 }

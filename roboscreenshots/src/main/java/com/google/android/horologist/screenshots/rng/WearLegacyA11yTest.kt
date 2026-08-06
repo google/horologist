@@ -69,176 +69,160 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
 @Config(
-    sdk = [35],
-    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
+  sdk = [35],
+  qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 public abstract class WearLegacyA11yTest {
-    @get:Rule
-    public val composeRule: ComposeContentTestRule = createComposeRule()
+  @get:Rule public val composeRule: ComposeContentTestRule = createComposeRule()
 
-    @get:Rule
-    public val testInfo: TestName = TestName()
+  @get:Rule public val testInfo: TestName = TestName()
 
-    // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
-    public open val tolerance: Float = 0.0f
+  // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
+  public open val tolerance: Float = 0.0f
 
-    public open val imageLoader: FakeImageLoaderEngine? = null
+  public open val imageLoader: FakeImageLoaderEngine? = null
 
-    public open val runAtf: Boolean
-        get() = true
+  public open val runAtf: Boolean
+    get() = true
 
-    public open val failureLevel: RoborazziATFAccessibilityChecker.CheckLevel
-        get() = RoborazziATFAccessibilityChecker.CheckLevel.Warning
+  public open val failureLevel: RoborazziATFAccessibilityChecker.CheckLevel
+    get() = RoborazziATFAccessibilityChecker.CheckLevel.Warning
 
-    public fun runScreenTest(
-        content: @Composable () -> Unit,
-    ) {
-        composeRule.setContent {
-            TestScaffold {
-                content()
+  public fun runScreenTest(content: @Composable () -> Unit) {
+    composeRule.setContent { TestScaffold { content() } }
+
+    if (runAtf) {
+      composeRule.onRoot().runAccessibilityChecks()
+    }
+
+    captureScreenshot()
+  }
+
+  public fun SemanticsNodeInteraction.runAccessibilityChecks() {
+    checkRoboAccessibility(roborazziATFAccessibilityCheckOptions = accessibilityCheckOptions())
+  }
+
+  public open fun accessibilityCheckOptions(): RoborazziATFAccessibilityCheckOptions {
+    return RoborazziATFAccessibilityCheckOptions(
+      checker =
+        RoborazziATFAccessibilityChecker(
+          preset = AccessibilityCheckPreset.LATEST,
+          suppressions = accessibilitySuppressions(),
+        ),
+      failureLevel = failureLevel,
+    )
+  }
+
+  public open fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> {
+    return Matchers.not(Matchers.anything())
+  }
+
+  public fun runComponentTest(
+    background: Color? = Color.Black.copy(alpha = 0.3f),
+    content: @Composable () -> Unit,
+  ) {
+    composeRule.setContent {
+      withImageLoader(imageLoader) {
+        Box(
+          modifier =
+            Modifier.run {
+              if (background != null) {
+                background(background)
+              } else {
+                this
+              }
             }
+        ) {
+          ComponentScaffold { content() }
         }
+      }
+    }
+    captureScreenshot()
+  }
 
-        if (runAtf) {
-            composeRule.onRoot().runAccessibilityChecks()
-        }
+  public fun captureScreenshot(suffix: String = "") {
+    captureScreenA11yRoboImage(
+      filePath = testName(suffix),
+      roborazziOptions =
+        RoborazziOptions(
+          recordOptions = RoborazziOptions.RecordOptions(applyDeviceCrop = true),
+          compareOptions =
+            RoborazziOptions.CompareOptions(resultValidator = ThresholdValidator(tolerance)),
+        ),
+    )
+  }
 
-        captureScreenshot()
+  public open fun testName(suffix: String): String =
+    "src/test/snapshots/images/" +
+      "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
+      "${testInfo.methodName}$suffix.png"
+
+  public fun captureScreenA11yRoboImage(
+    filePath: String,
+    roborazziOptions: RoborazziOptions,
+  ) {
+    Espresso.onIdle()
+    val screenImage = captureScreenImageToBitmap(roborazziOptions)
+    val annotatedImage = A11ySnapshotTransformer().transform(composeRule.onRoot(), screenImage)
+    annotatedImage.captureRoboImage(filePath, roborazziOptions)
+  }
+
+  @Suppress("INACCESSIBLE_TYPE")
+  private fun captureScreenImageToBitmap(roborazziOptions: RoborazziOptions): Bitmap {
+    val rootsOracle = RootsOracle_Factory { Looper.getMainLooper() }.get()
+    val listActiveRoots = rootsOracle.javaClass.getMethod("listActiveRoots")
+    listActiveRoots.isAccessible = true
+    @Suppress("UNCHECKED_CAST")
+    val roots: List<Root> = listActiveRoots.invoke(rootsOracle) as List<Root>
+
+    val rootComponent =
+      RoboComponent.Screen(
+        rootsOrderByDepth = roots.sortedBy { it.windowLayoutParams.get()?.type },
+        roborazziOptions = roborazziOptions,
+      )
+
+    val image = rootComponent.image!!
+    return image
+  }
+
+  @Composable
+  public open fun TestScaffold(content: @Composable () -> Unit) {
+    CorrectLayout {
+      AppScaffold(
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
+        timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
+      ) {
+        content()
+      }
+    }
+  }
+
+  @Composable
+  public open fun ComponentScaffold(content: @Composable () -> Unit) {
+    CorrectLayout {
+      Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize().background(Color.Black),
+      ) {
+        content()
+      }
+    }
+  }
+
+  public companion object {
+    public fun enableTouchExploration() {
+      val applicationContext = ApplicationProvider.getApplicationContext<Application>()
+      val a11yManager = applicationContext.getSystemService(AccessibilityManager::class.java)
+      val shadow = Shadows.shadowOf(a11yManager)
+
+      shadow.setEnabled(true)
+      shadow.setTouchExplorationEnabled(true)
     }
 
-    public fun SemanticsNodeInteraction.runAccessibilityChecks() {
-        checkRoboAccessibility(
-            roborazziATFAccessibilityCheckOptions = accessibilityCheckOptions(),
-        )
+    init {
+      useHardwareRenderer()
     }
-
-    public open fun accessibilityCheckOptions(): RoborazziATFAccessibilityCheckOptions {
-        return RoborazziATFAccessibilityCheckOptions(
-            checker = RoborazziATFAccessibilityChecker(
-                preset = AccessibilityCheckPreset.LATEST,
-                suppressions = accessibilitySuppressions(),
-            ),
-            failureLevel = failureLevel,
-        )
-    }
-
-    public open fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> {
-        return Matchers.not(Matchers.anything())
-    }
-
-    public fun runComponentTest(
-        background: Color? = Color.Black.copy(alpha = 0.3f),
-        content: @Composable () -> Unit,
-    ) {
-        composeRule.setContent {
-            withImageLoader(imageLoader) {
-                Box(
-                    modifier = Modifier.run {
-                        if (background != null) {
-                            background(background)
-                        } else {
-                            this
-                        }
-                    },
-                ) {
-                    ComponentScaffold {
-                        content()
-                    }
-                }
-            }
-        }
-        captureScreenshot()
-    }
-
-    public fun captureScreenshot(suffix: String = "") {
-        captureScreenA11yRoboImage(
-            filePath = testName(suffix),
-            roborazziOptions = RoborazziOptions(
-                recordOptions = RoborazziOptions.RecordOptions(
-                    applyDeviceCrop = true,
-                ),
-                compareOptions = RoborazziOptions.CompareOptions(
-                    resultValidator = ThresholdValidator(tolerance),
-                ),
-            ),
-        )
-    }
-
-    public open fun testName(suffix: String): String = "src/test/snapshots/images/" +
-        "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
-        "${testInfo.methodName}$suffix.png"
-
-    public fun captureScreenA11yRoboImage(
-        filePath: String,
-        roborazziOptions: RoborazziOptions,
-    ) {
-        Espresso.onIdle()
-        val screenImage = captureScreenImageToBitmap(roborazziOptions)
-        val annotatedImage =
-            A11ySnapshotTransformer().transform(composeRule.onRoot(), screenImage)
-        annotatedImage.captureRoboImage(filePath, roborazziOptions)
-    }
-
-    @Suppress("INACCESSIBLE_TYPE")
-    private fun captureScreenImageToBitmap(roborazziOptions: RoborazziOptions): Bitmap {
-        val rootsOracle = RootsOracle_Factory { Looper.getMainLooper() }.get()
-        val listActiveRoots = rootsOracle.javaClass.getMethod("listActiveRoots")
-        listActiveRoots.isAccessible = true
-        @Suppress("UNCHECKED_CAST")
-        val roots: List<Root> =
-            listActiveRoots.invoke(rootsOracle) as List<Root>
-
-        val rootComponent = RoboComponent.Screen(
-            rootsOrderByDepth = roots.sortedBy { it.windowLayoutParams.get()?.type },
-            roborazziOptions = roborazziOptions,
-        )
-
-        val image = rootComponent.image!!
-        return image
-    }
-
-    @Composable
-    public open fun TestScaffold(content: @Composable () -> Unit) {
-        CorrectLayout {
-            AppScaffold(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colors.background),
-                timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
-            ) {
-                content()
-            }
-        }
-    }
-
-    @Composable
-    public open fun ComponentScaffold(content: @Composable () -> Unit) {
-        CorrectLayout {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black),
-            ) {
-                content()
-            }
-        }
-    }
-
-    public companion object {
-        public fun enableTouchExploration() {
-            val applicationContext = ApplicationProvider.getApplicationContext<Application>()
-            val a11yManager = applicationContext.getSystemService(AccessibilityManager::class.java)
-            val shadow = Shadows.shadowOf(a11yManager)
-
-            shadow.setEnabled(true)
-            shadow.setTouchExplorationEnabled(true)
-        }
-
-        init {
-            useHardwareRenderer()
-        }
-    }
+  }
 }

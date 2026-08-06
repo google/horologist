@@ -68,178 +68,184 @@ private const val EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE = 0.092f
  */
 @Composable
 public fun SignedInConfirmationDialog(
-    onDismissOrTimeout: () -> Unit,
-    modifier: Modifier = Modifier,
-    name: String? = null,
-    email: String? = null,
-    avatar: Paintable? = null,
-    defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
-    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
+  onDismissOrTimeout: () -> Unit,
+  modifier: Modifier = Modifier,
+  name: String? = null,
+  email: String? = null,
+  avatar: Paintable? = null,
+  defaultAvatar: Paintable = Icons.Default.AccountCircle.asPaintable(),
+  durationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
 ) {
-    var showConfirmation by remember { mutableStateOf(true) }
+  var showConfirmation by remember { mutableStateOf(true) }
 
-    val a11yDurationMillis = LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
-        originalTimeoutMillis = durationMillis,
-        containsIcons = true,
-        containsText = true,
-        containsControls = false,
+  val a11yDurationMillis =
+    LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
+      originalTimeoutMillis = durationMillis,
+      containsIcons = true,
+      containsText = true,
+      containsControls = false,
     ) ?: durationMillis
-    LaunchedEffect(showConfirmation, a11yDurationMillis) {
-        if (showConfirmation) {
-            delay(a11yDurationMillis)
-            showConfirmation = false
-            onDismissOrTimeout()
-        }
+  LaunchedEffect(showConfirmation, a11yDurationMillis) {
+    if (showConfirmation) {
+      delay(a11yDurationMillis)
+      showConfirmation = false
+      onDismissOrTimeout()
     }
-    Dialog(
-        visible = showConfirmation,
-        onDismissRequest = {
-            showConfirmation = false
-            onDismissOrTimeout()
-        },
-        modifier = modifier,
-    ) {
-        SignedInConfirmationDialogContent(
-            modifier = modifier,
-            name = name,
-            email = email,
-            avatar = avatar,
-            defaultAvatar = defaultAvatar,
-        )
-    }
+  }
+  Dialog(
+    visible = showConfirmation,
+    onDismissRequest = {
+      showConfirmation = false
+      onDismissOrTimeout()
+    },
+    modifier = modifier,
+  ) {
+    SignedInConfirmationDialogContent(
+      modifier = modifier,
+      name = name,
+      email = email,
+      avatar = avatar,
+      defaultAvatar = defaultAvatar,
+    )
+  }
 }
 
 /**
  * A [SignedInConfirmationDialog] that can display the name, email and avatar image of an
  * [AccountUiModel].
  *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png" height="120" width="120"/>
+ * <img
+ * src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/signed_in_confirmation_dialog.png"
+ * height="120" width="120"/>
  */
 @Composable
 public fun SignedInConfirmationDialog(
-    onDismissOrTimeout: () -> Unit,
-    modifier: Modifier = Modifier,
-    accountUiModel: AccountUiModel,
-    durationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
+  onDismissOrTimeout: () -> Unit,
+  modifier: Modifier = Modifier,
+  accountUiModel: AccountUiModel,
+  durationMillis: Long = ConfirmationDialogDefaults.DurationMillis,
 ) {
-    SignedInConfirmationDialog(
-        onDismissOrTimeout = onDismissOrTimeout,
-        modifier = modifier,
-        name = accountUiModel.name,
-        email = accountUiModel.email,
-        avatar = accountUiModel.avatar,
-        durationMillis = durationMillis,
-    )
+  SignedInConfirmationDialog(
+    onDismissOrTimeout = onDismissOrTimeout,
+    modifier = modifier,
+    name = accountUiModel.name,
+    email = accountUiModel.email,
+    avatar = accountUiModel.avatar,
+    durationMillis = durationMillis,
+  )
 }
 
 @Composable
 internal fun SignedInConfirmationDialogContent(
-    modifier: Modifier = Modifier,
-    name: String? = null,
-    email: String? = null,
-    avatar: Paintable? = null,
-    defaultAvatar: Paintable = Icons.Outlined.AccountCircle.asPaintable(),
+  modifier: Modifier = Modifier,
+  name: String? = null,
+  email: String? = null,
+  avatar: Paintable? = null,
+  defaultAvatar: Paintable = Icons.Outlined.AccountCircle.asPaintable(),
 ) {
-    val configuration = LocalConfiguration.current
-    val topPadding = (configuration.screenHeightDp * TOP_PADDING_SCREEN_PERCENTAGE).dp
-    val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
-    val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
+  val configuration = LocalConfiguration.current
+  val topPadding = (configuration.screenHeightDp * TOP_PADDING_SCREEN_PERCENTAGE).dp
+  val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
+  val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
 
-    ScreenScaffold(timeText = {}) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(
-                    top = topPadding,
-                    start = horizontalPadding,
-                    end = horizontalPadding,
-                    bottom = bottomPadding,
-                ),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            val hasName = !name.isNullOrEmpty()
-            // TODO: Revert to MaterialShapes.Pill.toShape() once we can upgrade compose-material3 version.
-            // Using graphics-shapes directly as a workaround to avoid compileSdk 37.
-            val pillPolygon = remember { pill() }
-            val pillShape = pillPolygon.toShape()
-            Box(
-                modifier = Modifier
-                    .padding(4.dp)
-                    .size(96.dp)
-                    .clip(pillShape)
-                    .background(MaterialTheme.colorScheme.surfaceContainer),
-                contentAlignment = Alignment.Center,
-            ) {
-                if (avatar != null) {
-                    Image(
-                        modifier = Modifier.fillMaxSize(),
-                        painter = avatar.rememberPainter(),
-                        contentDescription = null,
-                        contentScale = ContentScale.FillBounds,
-                    )
-                } else {
-                    Icon(
-                        painter = defaultAvatar.rememberPainter(),
-                        tint = MaterialTheme.colorScheme.onSurface,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(32.dp),
-                    )
-                }
-            }
-
-            val style = MaterialTheme.typography.displayMedium
-            // Prevent font size from scaling:
-            val fontSize = style.fontSize / LocalDensity.current.fontScale
-            // Title text
-            Text(
-                text = if (hasName) {
-                    stringResource(
-                        id = R.string.horologist_signedin_confirmation_greeting,
-                        name,
-                    )
-                } else {
-                    stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)
-                },
-                modifier = Modifier
-                    .fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onBackground,
-                textAlign = TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                fontSize = fontSize,
-                maxLines = 1,
-                style = MaterialTheme.typography.displayMedium,
-            )
-
-            email?.let {
-                val emailHorizontalPadding =
-                    (configuration.screenWidthDp * EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE).dp
-                val emailTextStyle = MaterialTheme.typography.bodyMedium.copy(
-                    // linebreak specific to email strings
-                    lineBreak = LineBreak(
-                        strategy = LineBreak.Strategy.Balanced,
-                        strictness = LineBreak.Strictness.Normal,
-                        wordBreak = LineBreak.WordBreak.Default,
-                    ),
-                    textAlign = TextAlign.Center,
-                )
-                Text(
-                    text = email,
-                    modifier = Modifier
-                        .padding(
-                            top = 4.dp,
-                            start = emailHorizontalPadding,
-                            end = emailHorizontalPadding,
-                        )
-                        .fillMaxWidth(),
-                    color = MaterialTheme.colorScheme.onBackground,
-                    textAlign = TextAlign.Center,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 2,
-                    style = emailTextStyle,
-                )
-            }
+  ScreenScaffold(timeText = {}) {
+    Column(
+      modifier =
+        modifier
+          .fillMaxSize()
+          .padding(
+            top = topPadding,
+            start = horizontalPadding,
+            end = horizontalPadding,
+            bottom = bottomPadding,
+          ),
+      verticalArrangement = Arrangement.Center,
+      horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+      val hasName = !name.isNullOrEmpty()
+      // TODO: Revert to MaterialShapes.Pill.toShape() once we can upgrade compose-material3
+      // version.
+      // Using graphics-shapes directly as a workaround to avoid compileSdk 37.
+      val pillPolygon = remember { pill() }
+      val pillShape = pillPolygon.toShape()
+      Box(
+        modifier =
+          Modifier.padding(4.dp)
+            .size(96.dp)
+            .clip(pillShape)
+            .background(MaterialTheme.colorScheme.surfaceContainer),
+        contentAlignment = Alignment.Center,
+      ) {
+        if (avatar != null) {
+          Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = avatar.rememberPainter(),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds,
+          )
+        } else {
+          Icon(
+            painter = defaultAvatar.rememberPainter(),
+            tint = MaterialTheme.colorScheme.onSurface,
+            contentDescription = null,
+            modifier = Modifier.size(32.dp),
+          )
         }
+      }
+
+      val style = MaterialTheme.typography.displayMedium
+      // Prevent font size from scaling:
+      val fontSize = style.fontSize / LocalDensity.current.fontScale
+      // Title text
+      Text(
+        text =
+          if (hasName) {
+            stringResource(
+              id = R.string.horologist_signedin_confirmation_greeting,
+              name,
+            )
+          } else {
+            stringResource(id = R.string.horologist_signedin_confirmation_greeting_no_name)
+          },
+        modifier = Modifier.fillMaxWidth(),
+        color = MaterialTheme.colorScheme.onBackground,
+        textAlign = TextAlign.Center,
+        overflow = TextOverflow.Ellipsis,
+        fontSize = fontSize,
+        maxLines = 1,
+        style = MaterialTheme.typography.displayMedium,
+      )
+
+      email?.let {
+        val emailHorizontalPadding =
+          (configuration.screenWidthDp * EMAIL_PADDING_HORIZONTAL_SCREEN_PERCENTAGE).dp
+        val emailTextStyle =
+          MaterialTheme.typography.bodyMedium.copy(
+            // linebreak specific to email strings
+            lineBreak =
+              LineBreak(
+                strategy = LineBreak.Strategy.Balanced,
+                strictness = LineBreak.Strictness.Normal,
+                wordBreak = LineBreak.WordBreak.Default,
+              ),
+            textAlign = TextAlign.Center,
+          )
+        Text(
+          text = email,
+          modifier =
+            Modifier.padding(
+                top = 4.dp,
+                start = emailHorizontalPadding,
+                end = emailHorizontalPadding,
+              )
+              .fillMaxWidth(),
+          color = MaterialTheme.colorScheme.onBackground,
+          textAlign = TextAlign.Center,
+          overflow = TextOverflow.Ellipsis,
+          maxLines = 2,
+          style = emailTextStyle,
+        )
+      }
     }
+  }
 }

@@ -22,33 +22,31 @@ import androidx.wear.tiles.RequestBuilders.TileRequest
 import androidx.wear.tiles.TileBuilders.Tile
 import com.google.android.horologist.tiles.SuspendingTileService
 
-/**
- * A base class for a Preview only TileService using a TileLayoutRenderer.
- */
+/** A base class for a Preview only TileService using a TileLayoutRenderer. */
 public abstract class RendererPreviewTileService<T, R, S : TileLayoutRenderer<T, R>> :
-    SuspendingTileService() {
-    private lateinit var renderer: S
+  SuspendingTileService() {
+  private lateinit var renderer: S
 
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        renderer = createTileRenderer()
-    }
+    renderer = createTileRenderer()
+  }
 
-    public abstract fun createTileRenderer(): S
+  public abstract fun createTileRenderer(): S
 
-    public abstract suspend fun createTileState(): T
+  public abstract suspend fun createTileState(): T
 
-    public abstract suspend fun createResourcesInput(): R
+  public abstract suspend fun createResourcesInput(): R
 
-    override suspend fun tileRequest(requestParams: TileRequest): Tile {
-        return renderer.renderTimeline(createTileState(), requestParams)
-    }
+  override suspend fun tileRequest(requestParams: TileRequest): Tile {
+    return renderer.renderTimeline(createTileState(), requestParams)
+  }
 
-    override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
-        return renderer.produceRequestedResources(
-            createResourcesInput(),
-            requestParams,
-        )
-    }
+  override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
+    return renderer.produceRequestedResources(
+      createResourcesInput(),
+      requestParams,
+    )
+  }
 }

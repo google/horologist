@@ -37,6 +37,7 @@ import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.apphelper.SurfacesInfoSerializer
 import com.google.common.truth.Truth.assertThat
 import com.google.common.util.concurrent.ListenableFuture
+import java.util.concurrent.Executor
 import kotlinx.coroutines.cancelChildren
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
@@ -52,139 +53,143 @@ import org.robolectric.annotation.Implementation
 import org.robolectric.annotation.Implements
 import org.robolectric.annotation.internal.DoNotInstrument
 import org.robolectric.internal.bytecode.InstrumentationConfiguration
-import java.util.concurrent.Executor
 
 @RunWith(TilesTestingTestRunner::class)
 @DoNotInstrument
 @Config(shadows = [ShadowTileService::class])
 class WearDataLayerAppHelperRoboTest {
 
-    private val fakeTileService = FakeTileService()
-    private lateinit var clientUnderTest: TestTileClient<FakeTileService>
-    private lateinit var executor: InlineExecutorService
+  private val fakeTileService = FakeTileService()
+  private lateinit var clientUnderTest: TestTileClient<FakeTileService>
+  private lateinit var executor: InlineExecutorService
 
-    @Before
-    fun setUp() {
-        executor = InlineExecutorService()
-        clientUnderTest = TestTileClient(fakeTileService, executor)
-        ShadowTileService.activeTiles = emptyList()
-    }
+  @Before
+  fun setUp() {
+    executor = InlineExecutorService()
+    clientUnderTest = TestTileClient(fakeTileService, executor)
+    ShadowTileService.activeTiles = emptyList()
+  }
 
-    @Test
-    fun testTilesWithUpdate() = runTest {
-        val context = ApplicationProvider.getApplicationContext<Application>()
-        val registry = WearDataLayerRegistry.fromContext(context, this)
+  @Test
+  fun testTilesWithUpdate() = runTest {
+    val context = ApplicationProvider.getApplicationContext<Application>()
+    val registry = WearDataLayerRegistry.fromContext(context, this)
 
-        clientUnderTest.requestTile(RequestBuilders.TileRequest.Builder().build())
+    clientUnderTest.requestTile(RequestBuilders.TileRequest.Builder().build())
 
-        val testDataStore: DataStore<SurfacesInfo> =
-            DataStoreFactory.create(
-                scope = this,
-                produceFile = { context.dataStoreFile("testTiles") },
-                serializer = SurfacesInfoSerializer,
-            )
+    val testDataStore: DataStore<SurfacesInfo> =
+      DataStoreFactory.create(
+        scope = this,
+        produceFile = { context.dataStoreFile("testTiles") },
+        serializer = SurfacesInfoSerializer,
+      )
 
-        val helper = WearDataLayerAppHelper(
-            context = context,
-            registry = registry,
-            appStoreUri = null,
-            scope = this,
-            surfacesInfoDataStoreFn = { testDataStore },
-        )
-        val infoInitial = testDataStore.data.first()
-        assertThat(infoInitial.tilesList).isEmpty()
+    val helper =
+      WearDataLayerAppHelper(
+        context = context,
+        registry = registry,
+        appStoreUri = null,
+        scope = this,
+        surfacesInfoDataStoreFn = { testDataStore },
+      )
+    val infoInitial = testDataStore.data.first()
+    assertThat(infoInitial.tilesList).isEmpty()
 
-        clientUnderTest.sendOnTileAddedEvent()
-        // Manually update shadow state to reflect the added tile
-        ShadowTileService.activeTiles = listOf(
-            ActiveTileIdentifier(ComponentName(context, FakeTileService::class.java), 0),
-        )
-        helper.updateInstalledTiles()
+    clientUnderTest.sendOnTileAddedEvent()
+    // Manually update shadow state to reflect the added tile
+    ShadowTileService.activeTiles =
+      listOf(ActiveTileIdentifier(ComponentName(context, FakeTileService::class.java), 0))
+    helper.updateInstalledTiles()
 
-        val infoUpdated = testDataStore.data.first()
-        assertThat(infoUpdated.tilesList).hasSize(1)
-        assertThat(infoUpdated.tilesList.first().name).isEqualTo(
-            "com.google.android.horologist.datalayer.watch.FakeTileService",
-        )
+    val infoUpdated = testDataStore.data.first()
+    assertThat(infoUpdated.tilesList).hasSize(1)
+    assertThat(infoUpdated.tilesList.first().name)
+      .isEqualTo("com.google.android.horologist.datalayer.watch.FakeTileService")
 
-        clientUnderTest.sendOnTileRemovedEvent()
-        // Manually update shadow state to reflect the removed tile
-        ShadowTileService.activeTiles = emptyList()
-        shadowOf(Looper.getMainLooper()).idle()
-        helper.updateInstalledTiles()
+    clientUnderTest.sendOnTileRemovedEvent()
+    // Manually update shadow state to reflect the removed tile
+    ShadowTileService.activeTiles = emptyList()
+    shadowOf(Looper.getMainLooper()).idle()
+    helper.updateInstalledTiles()
 
-        val infoReverted = testDataStore.data.first()
-        assertThat(infoReverted.tilesList).isEmpty()
-        coroutineContext.cancelChildren()
-    }
+    val infoReverted = testDataStore.data.first()
+    assertThat(infoReverted.tilesList).isEmpty()
+    coroutineContext.cancelChildren()
+  }
 }
 
 @Implements(TileService::class)
 class ShadowTileService {
-    companion object {
-        var activeTiles: List<ActiveTileIdentifier> = emptyList()
+  companion object {
+    var activeTiles: List<ActiveTileIdentifier> = emptyList()
 
-        @JvmStatic
-        @Implementation
-        fun getActiveTilesAsync(context: Context, executor: Executor): ListenableFuture<List<ActiveTileIdentifier>> {
-            val future = ResolvableFuture.create<List<ActiveTileIdentifier>>()
-            future.set(activeTiles)
-            return future
-        }
+    @JvmStatic
+    @Implementation
+    fun getActiveTilesAsync(
+      context: Context,
+      executor: Executor,
+    ): ListenableFuture<List<ActiveTileIdentifier>> {
+      val future = ResolvableFuture.create<List<ActiveTileIdentifier>>()
+      future.set(activeTiles)
+      return future
     }
+  }
 }
 
 // This class is taken from
 // https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/tiles/tiles-testing/src/test/java/androidx/wear/tiles/testing/TestTileClientTest.kt
 private class FakeTileService : TileService() {
 
-    private var onTileAddFired = false
-    private var onTileRemoveFired = false
-    private var onTileEnterFired = false
-    private var onTileLeaveFired = false
-    override fun onTileRequest(requestParams: RequestBuilders.TileRequest): ListenableFuture<TileBuilders.Tile> {
-        val f = ResolvableFuture.create<TileBuilders.Tile>()
+  private var onTileAddFired = false
+  private var onTileRemoveFired = false
+  private var onTileEnterFired = false
+  private var onTileLeaveFired = false
 
-        f.set(TileBuilders.Tile.Builder().setResourcesVersion(RESOURCES_VERSION).build())
+  override fun onTileRequest(
+    requestParams: RequestBuilders.TileRequest
+  ): ListenableFuture<TileBuilders.Tile> {
+    val f = ResolvableFuture.create<TileBuilders.Tile>()
 
-        return f
-    }
+    f.set(TileBuilders.Tile.Builder().setResourcesVersion(RESOURCES_VERSION).build())
 
-    override fun onTileResourcesRequest(
-        requestParams: RequestBuilders.ResourcesRequest,
-    ): ListenableFuture<ResourceBuilders.Resources> {
-        val f = ResolvableFuture.create<ResourceBuilders.Resources>()
+    return f
+  }
 
-        f.set(ResourceBuilders.Resources.Builder().setVersion(RESOURCES_VERSION).build())
+  override fun onTileResourcesRequest(
+    requestParams: RequestBuilders.ResourcesRequest
+  ): ListenableFuture<ResourceBuilders.Resources> {
+    val f = ResolvableFuture.create<ResourceBuilders.Resources>()
 
-        return f
-    }
+    f.set(ResourceBuilders.Resources.Builder().setVersion(RESOURCES_VERSION).build())
 
-    override fun onTileAddEvent(requestParams: EventBuilders.TileAddEvent) {
-        onTileAddFired = true
-    }
+    return f
+  }
 
-    override fun onTileRemoveEvent(requestParams: EventBuilders.TileRemoveEvent) {
-        onTileRemoveFired = true
-    }
+  override fun onTileAddEvent(requestParams: EventBuilders.TileAddEvent) {
+    onTileAddFired = true
+  }
 
-    override fun onTileEnterEvent(requestParams: EventBuilders.TileEnterEvent) {
-        onTileEnterFired = true
-    }
+  override fun onTileRemoveEvent(requestParams: EventBuilders.TileRemoveEvent) {
+    onTileRemoveFired = true
+  }
 
-    override fun onTileLeaveEvent(requestParams: EventBuilders.TileLeaveEvent) {
-        onTileLeaveFired = true
-    }
+  override fun onTileEnterEvent(requestParams: EventBuilders.TileEnterEvent) {
+    onTileEnterFired = true
+  }
 
-    companion object {
-        private const val RESOURCES_VERSION = "10"
-    }
+  override fun onTileLeaveEvent(requestParams: EventBuilders.TileLeaveEvent) {
+    onTileLeaveFired = true
+  }
+
+  companion object {
+    private const val RESOURCES_VERSION = "10"
+  }
 }
 
 internal class TilesTestingTestRunner(testClass: Class<*>) : RobolectricTestRunner(testClass) {
-    override fun createClassLoaderConfig(method: FrameworkMethod): InstrumentationConfiguration =
-        InstrumentationConfiguration.Builder(super.createClassLoaderConfig(method))
-            .doNotInstrumentPackage("androidx.wear.tiles.connection")
-            .doNotInstrumentPackage("androidx.wear.tiles.testing")
-            .build()
+  override fun createClassLoaderConfig(method: FrameworkMethod): InstrumentationConfiguration =
+    InstrumentationConfiguration.Builder(super.createClassLoaderConfig(method))
+      .doNotInstrumentPackage("androidx.wear.tiles.connection")
+      .doNotInstrumentPackage("androidx.wear.tiles.testing")
+      .build()
 }

@@ -44,50 +44,50 @@ import com.google.android.horologist.media.ui.material3.util.TRACK_TITLE_PLACEHO
  */
 @Composable
 public fun LoadingMediaDisplay(
-    modifier: Modifier = Modifier,
-    placeholderState: PlaceholderState = rememberPlaceholderState(true),
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  modifier: Modifier = Modifier,
+  placeholderState: PlaceholderState = rememberPlaceholderState(true),
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+  Column(
+    modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center,
+  ) {
+    Box(
+      modifier = Modifier.fillMaxWidth().height(TRACK_TITLE_HEIGHT),
+      contentAlignment = Alignment.Center,
     ) {
-        Box(
-            modifier = Modifier.fillMaxWidth().height(TRACK_TITLE_HEIGHT),
-            contentAlignment = Alignment.Center,
-        ) {
-            Box(
-                modifier =
-                    Modifier.width(TRACK_TITLE_PLACEHOLDER_WIDTH)
-                        .height(TRACK_TITLE_PLACEHOLDER_HEIGHT)
-                        .placeholderShimmer(
-                            placeholderState = placeholderState,
-                            color = colorScheme.onBackground,
-                        )
-                        .placeholder(
-                            placeholderState = placeholderState,
-                            color = colorScheme.outlineVariant,
-                        ),
+      Box(
+        modifier =
+          Modifier.width(TRACK_TITLE_PLACEHOLDER_WIDTH)
+            .height(TRACK_TITLE_PLACEHOLDER_HEIGHT)
+            .placeholderShimmer(
+              placeholderState = placeholderState,
+              color = colorScheme.onBackground,
             )
-        }
-        Box(
-            modifier = Modifier.fillMaxWidth().height(TRACK_SUBTITLE_HEIGHT),
-            contentAlignment = Alignment.Center,
-        ) {
-            Box(
-                modifier =
-                    Modifier.width(TRACK_SUBTITLE_PLACEHOLDER_WIDTH)
-                        .height(TRACK_SUBTITLE_PLACEHOLDER_HEIGHT)
-                        .placeholderShimmer(
-                            placeholderState = placeholderState,
-                            color = colorScheme.onBackground,
-                        )
-                        .placeholder(
-                            placeholderState = placeholderState,
-                            color = colorScheme.outlineVariant,
-                        ),
+            .placeholder(
+              placeholderState = placeholderState,
+              color = colorScheme.outlineVariant,
             )
-        }
+      )
     }
+    Box(
+      modifier = Modifier.fillMaxWidth().height(TRACK_SUBTITLE_HEIGHT),
+      contentAlignment = Alignment.Center,
+    ) {
+      Box(
+        modifier =
+          Modifier.width(TRACK_SUBTITLE_PLACEHOLDER_WIDTH)
+            .height(TRACK_SUBTITLE_PLACEHOLDER_HEIGHT)
+            .placeholderShimmer(
+              placeholderState = placeholderState,
+              color = colorScheme.onBackground,
+            )
+            .placeholder(
+              placeholderState = placeholderState,
+              color = colorScheme.outlineVariant,
+            )
+      )
+    }
+  }
 }

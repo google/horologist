@@ -20,68 +20,68 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
-    name = "5 seconds increment - Enabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "5 seconds increment - Enabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SeekForwardButtonPreview5() {
-    SeekForwardButton(
-        onClick = {},
-        seekButtonIncrement = SeekButtonIncrement.Five,
-    )
+  SeekForwardButton(
+    onClick = {},
+    seekButtonIncrement = SeekButtonIncrement.Five,
+  )
 }
 
 @Preview(
-    name = "10 seconds increment - Disabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "10 seconds increment - Disabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SeekForwardButtonPreview10() {
-    SeekForwardButton(
-        onClick = {},
-        seekButtonIncrement = SeekButtonIncrement.Ten,
-        enabled = false,
-    )
+  SeekForwardButton(
+    onClick = {},
+    seekButtonIncrement = SeekButtonIncrement.Ten,
+    enabled = false,
+  )
 }
 
 @Preview(
-    name = "30 seconds increment - Enabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "30 seconds increment - Enabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SeekForwardButtonPreview30() {
-    SeekForwardButton(
-        onClick = {},
-        seekButtonIncrement = SeekButtonIncrement.Thirty,
-    )
+  SeekForwardButton(
+    onClick = {},
+    seekButtonIncrement = SeekButtonIncrement.Thirty,
+  )
 }
 
 @Preview(
-    name = "Other amount of seconds increment - Disabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Other amount of seconds increment - Disabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SeekForwardButtonPreviewOther() {
-    SeekForwardButton(
-        onClick = {},
-        seekButtonIncrement = SeekButtonIncrement.Known(15),
-        enabled = false,
-    )
+  SeekForwardButton(
+    onClick = {},
+    seekButtonIncrement = SeekButtonIncrement.Known(15),
+    enabled = false,
+  )
 }
 
 @Preview(
-    name = "Unknown amount of seconds increment - Enabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Unknown amount of seconds increment - Enabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SeekForwardButtonPreviewUnknown() {
-    SeekForwardButton(
-        onClick = {},
-        seekButtonIncrement = SeekButtonIncrement.Unknown,
-    )
+  SeekForwardButton(
+    onClick = {},
+    seekButtonIncrement = SeekButtonIncrement.Unknown,
+  )
 }

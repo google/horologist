@@ -27,65 +27,66 @@ import org.junit.Test
 
 class MediaChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun givenMediaWithArtwork_thenDisplaysArtwork() {
-        runComponentTest {
-            MediaChip(
-                title = "Red Hot Chilli Peppers",
-                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
-                onClick = {},
-            )
-        }
+  @Test
+  fun givenMediaWithArtwork_thenDisplaysArtwork() {
+    runComponentTest {
+      MediaChip(
+        title = "Red Hot Chilli Peppers",
+        artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun givenMediaWithNOArtwork_thenDoesNOTDisplayArtwork() {
-        runComponentTest {
-            MediaChip(
-                title = "Red Hot Chilli Peppers",
-                artworkPaintable = null,
-                onClick = {},
-            )
-        }
+  @Test
+  fun givenMediaWithNOArtwork_thenDoesNOTDisplayArtwork() {
+    runComponentTest {
+      MediaChip(
+        title = "Red Hot Chilli Peppers",
+        artworkPaintable = null,
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
-        runComponentTest {
-            MediaChip(
-                title = "Very very very very very very very very very very very long title",
-                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
-                onClick = {},
-            )
-        }
+  @Test
+  fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
+    runComponentTest {
+      MediaChip(
+        title = "Very very very very very very very very very very very long title",
+        artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun givenNOTitle_thenDisplaysDefaultTitle() {
-        runComponentTest {
-            MediaChip(
-                media = MediaUiModel.Ready(
-                    id = "id",
-                    title = "",
-                ),
-                onClick = {},
-                defaultTitle = "No title",
-            )
-        }
+  @Test
+  fun givenNOTitle_thenDisplaysDefaultTitle() {
+    runComponentTest {
+      MediaChip(
+        media =
+          MediaUiModel.Ready(
+            id = "id",
+            title = "",
+          ),
+        onClick = {},
+        defaultTitle = "No title",
+      )
     }
+  }
 
-    @Test
-    fun givenModifier_thenAppliesModifierCorrectly() {
-        runComponentTest {
-            MediaChip(
-                media = MediaUiModel.Ready(
-                    id = "id",
-                    title = "Red Hot Chilli Peppers",
-                ),
-                onClick = {},
-                modifier = Modifier
-                    .height(120.dp),
-            )
-        }
+  @Test
+  fun givenModifier_thenAppliesModifierCorrectly() {
+    runComponentTest {
+      MediaChip(
+        media =
+          MediaUiModel.Ready(
+            id = "id",
+            title = "Red Hot Chilli Peppers",
+          ),
+        onClick = {},
+        modifier = Modifier.height(120.dp),
+      )
     }
+  }
 }

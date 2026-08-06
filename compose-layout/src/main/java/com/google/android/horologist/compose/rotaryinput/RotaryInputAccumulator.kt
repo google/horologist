@@ -20,95 +20,93 @@ import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.wear.compose.foundation.rotary.RotaryScrollableBehavior
-import kotlinx.coroutines.CoroutineScope
 import kotlin.math.abs
+import kotlinx.coroutines.CoroutineScope
 
 /** Accumulator to trigger callbacks based on rotary input event. */
 internal class RotaryInputAccumulator(
-    private val eventAccumulationThresholdMs: Long,
-    private val minValueChangeDistancePx: Float,
-    private val rateLimitCoolDownMs: Long,
-    private val isLowRes: Boolean = false,
-    private val onValueChange: State<(change: Float) -> Unit>,
+  private val eventAccumulationThresholdMs: Long,
+  private val minValueChangeDistancePx: Float,
+  private val rateLimitCoolDownMs: Long,
+  private val isLowRes: Boolean = false,
+  private val onValueChange: State<(change: Float) -> Unit>,
 ) : RotaryScrollableBehavior {
-    constructor(
-        eventAccumulationThresholdMs: Long,
-        minValueChangeDistancePx: Float,
-        rateLimitCoolDownMs: Long,
-        isLowRes: Boolean,
-        onValueChange: (change: Float) -> Unit,
-    ) : this(
-        eventAccumulationThresholdMs,
-        minValueChangeDistancePx,
-        rateLimitCoolDownMs,
-        isLowRes,
-        mutableStateOf(onValueChange),
-    )
+  constructor(
+    eventAccumulationThresholdMs: Long,
+    minValueChangeDistancePx: Float,
+    rateLimitCoolDownMs: Long,
+    isLowRes: Boolean,
+    onValueChange: (change: Float) -> Unit,
+  ) : this(
+    eventAccumulationThresholdMs,
+    minValueChangeDistancePx,
+    rateLimitCoolDownMs,
+    isLowRes,
+    mutableStateOf(onValueChange),
+  )
 
-    private var accumulatedDistance = 0f
-    private var lastAccumulatedEventTimeMs: Long = 0
-    private var lastUpdateTimeMs: Long = 0
+  private var accumulatedDistance = 0f
+  private var lastAccumulatedEventTimeMs: Long = 0
+  private var lastUpdateTimeMs: Long = 0
 
-    override suspend fun CoroutineScope.performScroll(
-        timestampMillis: Long,
-        delta: Float,
-        inputDeviceId: Int,
-        orientation: Orientation,
-    ) {
-        onRotaryScroll(delta, timestampMillis)
+  override suspend fun CoroutineScope.performScroll(
+    timestampMillis: Long,
+    delta: Float,
+    inputDeviceId: Int,
+    orientation: Orientation,
+  ) {
+    onRotaryScroll(delta, timestampMillis)
+  }
+
+  /**
+   * Process a rotary input event.
+   *
+   * @param scrollPixels the amount of scrolled in pixels of the event
+   * @param eventTimeMillis the time in milliseconds at which this even occurred
+   */
+  public fun onRotaryScroll(scrollPixels: Float, eventTimeMillis: Long) {
+    val timeSinceLastAccumulatedMs = eventTimeMillis - lastAccumulatedEventTimeMs
+    lastAccumulatedEventTimeMs = eventTimeMillis
+
+    // If still within the eventAccumulationThresholdMs time range, accumulate the changes,
+    // otherwise restart accumulation.
+    accumulatedDistance =
+      if (timeSinceLastAccumulatedMs <= eventAccumulationThresholdMs) {
+        accumulatedDistance + changeByResolution(scrollPixels)
+      } else {
+        changeByResolution(scrollPixels)
+      }
+
+    onEventAccumulated(eventTimeMillis)
+  }
+
+  private fun onEventAccumulated(eventTimeMs: Long) {
+    if (shouldIgnoreAccumulatedInput(eventTimeMs)) return
+
+    onValueChange.value(accumulatedDistance)
+    lastUpdateTimeMs = eventTimeMs
+    accumulatedDistance = 0f
+  }
+
+  /**
+   * Converts a change by scrolled pixels to the actual accumulated values. For a low resolution
+   * rotary device, a positive scroll will be 1f and a negative scroll will be -1. For a high
+   * resolution rotary device, take the scrolled pixels as is.
+   */
+  private fun changeByResolution(scrollPixels: Float): Float {
+    return if (isLowRes && scrollPixels > 0f) { // For positive tick in low res devices
+      1f
+    } else if (isLowRes && scrollPixels < 0f) { // For negative tick in low res devices
+      -1f
+    } else if (isLowRes) { // && scrollPixels == 0f // For no tick in low res devices
+      0f
+    } else { // Take it as is for high res devices
+      scrollPixels
     }
+  }
 
-    /**
-     * Process a rotary input event.
-     *
-     * @param scrollPixels the amount of scrolled in pixels of the event
-     * @param eventTimeMillis the time in milliseconds at which this even occurred
-     */
-    public fun onRotaryScroll(scrollPixels: Float, eventTimeMillis: Long) {
-        val timeSinceLastAccumulatedMs = eventTimeMillis - lastAccumulatedEventTimeMs
-        lastAccumulatedEventTimeMs = eventTimeMillis
-
-        // If still within the eventAccumulationThresholdMs time range, accumulate the changes,
-        // otherwise restart accumulation.
-        accumulatedDistance = if (timeSinceLastAccumulatedMs <= eventAccumulationThresholdMs) {
-            accumulatedDistance + changeByResolution(scrollPixels)
-        } else {
-            changeByResolution(scrollPixels)
-        }
-
-        onEventAccumulated(eventTimeMillis)
-    }
-
-    private fun onEventAccumulated(eventTimeMs: Long) {
-        if (shouldIgnoreAccumulatedInput(eventTimeMs)) return
-
-        onValueChange.value(accumulatedDistance)
-        lastUpdateTimeMs = eventTimeMs
-        accumulatedDistance = 0f
-    }
-
-    /**
-     * Converts a change by scrolled pixels to the actual accumulated values. For a low resolution
-     * rotary device, a positive scroll will be 1f and a negative scroll will be -1. For a high
-     * resolution rotary device, take the scrolled pixels as is.
-     */
-    private fun changeByResolution(scrollPixels: Float): Float {
-        return if (isLowRes && scrollPixels > 0f) { // For positive tick in low res devices
-            1f
-        } else if (isLowRes && scrollPixels < 0f) { // For negative tick in low res devices
-            -1f
-        } else if (isLowRes) { // && scrollPixels == 0f // For no tick in low res devices
-            0f
-        } else { // Take it as is for high res devices
-            scrollPixels
-        }
-    }
-
-    private fun shouldIgnoreAccumulatedInput(eventTimeMs: Long): Boolean {
-        return (
-            !isLowRes &&
-                abs(accumulatedDistance) < minValueChangeDistancePx
-            ) ||
-            eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs
-    }
+  private fun shouldIgnoreAccumulatedInput(eventTimeMs: Long): Boolean {
+    return (!isLowRes && abs(accumulatedDistance) < minValueChangeDistancePx) ||
+      eventTimeMs - lastUpdateTimeMs < rateLimitCoolDownMs
+  }
 }

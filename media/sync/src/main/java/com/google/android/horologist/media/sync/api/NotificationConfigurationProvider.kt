@@ -20,12 +20,11 @@ import androidx.annotation.DrawableRes
 
 public interface NotificationConfigurationProvider {
 
-    public fun getNotificationTitle(): String
+  public fun getNotificationTitle(): String
 
-    @DrawableRes
-    public fun getNotificationIcon(): Int
+  @DrawableRes public fun getNotificationIcon(): Int
 
-    public fun getChannelName(): String
+  public fun getChannelName(): String
 
-    public fun getChannelDescription(): String
+  public fun getChannelDescription(): String
 }

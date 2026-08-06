@@ -38,6 +38,7 @@ import androidx.wear.compose.material.ToggleChipDefaults
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
+
 /**
  * This component is an alternative to [SplitToggleChip], providing the following:
  * - a convenient way of providing a label and a secondary label;
@@ -46,76 +47,76 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 @ExperimentalHorologistApi
 @Composable
 public fun SplitToggleChip(
-    checked: Boolean,
-    onCheckedChanged: (Boolean) -> Unit,
-    label: String,
-    onClick: () -> Unit,
-    toggleControl: ToggleChipToggleControl,
-    modifier: Modifier = Modifier,
-    secondaryLabel: String? = null,
-    colors: SplitToggleChipColors = ToggleChipDefaults.splitToggleChipColors(),
-    enabled: Boolean = true,
-    checkedInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    clickInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  checked: Boolean,
+  onCheckedChanged: (Boolean) -> Unit,
+  label: String,
+  onClick: () -> Unit,
+  toggleControl: ToggleChipToggleControl,
+  modifier: Modifier = Modifier,
+  secondaryLabel: String? = null,
+  colors: SplitToggleChipColors = ToggleChipDefaults.splitToggleChipColors(),
+  enabled: Boolean = true,
+  checkedInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  clickInteractionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) {
-    val hasSecondaryLabel = secondaryLabel != null
+  val hasSecondaryLabel = secondaryLabel != null
 
-    val labelParam: (@Composable RowScope.() -> Unit) =
-        {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = label,
-                textAlign = TextAlign.Start,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = if (hasSecondaryLabel) 1 else 2,
-                style = MaterialTheme.typography.button,
-            )
-        }
-
-    val secondaryLabelParam: (@Composable RowScope.() -> Unit)? =
-        secondaryLabel?.let {
-            {
-                Text(
-                    text = secondaryLabel,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.caption2,
-                )
-            }
-        }
-
-    val toggleControlParam: (@Composable BoxScope.() -> Unit) = {
-        val stateDescriptionSemantics = stringResource(
-            if (checked) {
-                R.string.horologist_split_toggle_chip_on_state_description
-            } else {
-                R.string.horologist_split_toggle_chip_off_state_description
-            },
-        )
-        Icon(
-            paintable = when (toggleControl) {
-                ToggleChipToggleControl.Switch -> ToggleChipDefaults.switchIcon(checked)
-                ToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
-                ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
-            }.asPaintable(),
-            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-            modifier = Modifier.semantics {
-                stateDescription = stateDescriptionSemantics
-            }.autoMirrored(LocalLayoutDirection.current == LayoutDirection.Rtl),
-        )
-    }
-
-    SplitToggleChip(
-        checked = checked,
-        onCheckedChange = onCheckedChanged,
-        label = labelParam,
-        onClick = onClick,
-        toggleControl = toggleControlParam,
-        modifier = modifier.fillMaxWidth(),
-        secondaryLabel = secondaryLabelParam,
-        colors = colors,
-        enabled = enabled,
-        checkedInteractionSource = checkedInteractionSource,
-        clickInteractionSource = clickInteractionSource,
+  val labelParam: (@Composable RowScope.() -> Unit) = {
+    Text(
+      modifier = Modifier.fillMaxWidth(),
+      text = label,
+      textAlign = TextAlign.Start,
+      overflow = TextOverflow.Ellipsis,
+      maxLines = if (hasSecondaryLabel) 1 else 2,
+      style = MaterialTheme.typography.button,
     )
+  }
+
+  val secondaryLabelParam: (@Composable RowScope.() -> Unit)? = secondaryLabel?.let {
+    {
+      Text(
+        text = secondaryLabel,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 1,
+        style = MaterialTheme.typography.caption2,
+      )
+    }
+  }
+
+  val toggleControlParam: (@Composable BoxScope.() -> Unit) = {
+    val stateDescriptionSemantics =
+      stringResource(
+        if (checked) {
+          R.string.horologist_split_toggle_chip_on_state_description
+        } else {
+          R.string.horologist_split_toggle_chip_off_state_description
+        }
+      )
+    Icon(
+      paintable =
+        when (toggleControl) {
+          ToggleChipToggleControl.Switch -> ToggleChipDefaults.switchIcon(checked)
+          ToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
+          ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
+        }.asPaintable(),
+      contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+      modifier =
+        Modifier.semantics { stateDescription = stateDescriptionSemantics }
+          .autoMirrored(LocalLayoutDirection.current == LayoutDirection.Rtl),
+    )
+  }
+
+  SplitToggleChip(
+    checked = checked,
+    onCheckedChange = onCheckedChanged,
+    label = labelParam,
+    onClick = onClick,
+    toggleControl = toggleControlParam,
+    modifier = modifier.fillMaxWidth(),
+    secondaryLabel = secondaryLabelParam,
+    colors = colors,
+    enabled = enabled,
+    checkedInteractionSource = checkedInteractionSource,
+    clickInteractionSource = clickInteractionSource,
+  )
 }

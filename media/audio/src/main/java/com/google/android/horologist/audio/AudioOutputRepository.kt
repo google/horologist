@@ -18,22 +18,14 @@ package com.google.android.horologist.audio
 
 import kotlinx.coroutines.flow.StateFlow
 
-/**
- * Audio Output Repository for identifying available audio devices in a simple manner.
- */
+/** Audio Output Repository for identifying available audio devices in a simple manner. */
 public interface AudioOutputRepository : AutoCloseable {
-    /**
-     * The current audio output.
-     */
-    public val audioOutput: StateFlow<AudioOutput>
+  /** The current audio output. */
+  public val audioOutput: StateFlow<AudioOutput>
 
-    /**
-     * The list of available audio output devices.
-     */
-    public val available: StateFlow<List<AudioOutput>>
+  /** The list of available audio output devices. */
+  public val available: StateFlow<List<AudioOutput>>
 
-    /**
-     * Action to launch output selection by the user.
-     */
-    public fun launchOutputSelection(closeOnConnect: Boolean, clientPackageName: String? = null)
+  /** Action to launch output selection by the user. */
+  public fun launchOutputSelection(closeOnConnect: Boolean, clientPackageName: String? = null)
 }

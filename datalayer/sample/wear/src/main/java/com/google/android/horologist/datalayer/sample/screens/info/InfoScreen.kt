@@ -34,52 +34,51 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun InfoScreen(
-    onDismissClick: () -> Unit,
-    columnState: ScalingLazyColumnState,
-    modifier: Modifier = Modifier,
-    infoScreenViewModel: InfoScreenViewModel = hiltViewModel(),
+  onDismissClick: () -> Unit,
+  columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  infoScreenViewModel: InfoScreenViewModel = hiltViewModel(),
 ) {
-    InfoScreen(
-        message = infoScreenViewModel.message,
-        onDismissClick = onDismissClick,
-        columnState = columnState,
-        modifier = modifier,
-    )
+  InfoScreen(
+    message = infoScreenViewModel.message,
+    onDismissClick = onDismissClick,
+    columnState = columnState,
+    modifier = modifier,
+  )
 }
 
 @Composable
 fun InfoScreen(
-    message: String,
-    onDismissClick: () -> Unit,
-    columnState: ScalingLazyColumnState,
-    modifier: Modifier = Modifier,
+  message: String,
+  onDismissClick: () -> Unit,
+  columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Text(text = message, modifier = Modifier.padding(top = 20.dp))
-        }
-        item {
-            Button(
-                imageVector = Icons.Default.Done,
-                contentDescription = stringResource(id = R.string.close_button_content_description),
-                onClick = onDismissClick,
-                modifier = Modifier.padding(top = 10.dp),
-            )
-        }
+  ScalingLazyColumn(
+    columnState = columnState,
+    modifier = modifier,
+  ) {
+    item { Text(text = message, modifier = Modifier.padding(top = 20.dp)) }
+    item {
+      Button(
+        imageVector = Icons.Default.Done,
+        contentDescription = stringResource(id = R.string.close_button_content_description),
+        onClick = onDismissClick,
+        modifier = Modifier.padding(top = 10.dp),
+      )
     }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun InfoScreenPreview() {
-    InfoScreen(
-        message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
-            "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud " +
-            "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        onDismissClick = { },
-        columnState = rememberResponsiveColumnState(),
-    )
+  InfoScreen(
+    message =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
+        "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud " +
+        "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    onDismissClick = {},
+    columnState = rememberResponsiveColumnState(),
+  )
 }

@@ -24,6 +24,8 @@ import com.google.android.horologist.networks.okhttp.highBandwidthConnectionLeas
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.requestType
 import com.google.android.horologist.networks.request.HighBandwidthRequest
+import java.io.IOException
+import kotlin.reflect.KClass
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.Call
@@ -33,116 +35,115 @@ import okhttp3.Request
 import okhttp3.Response
 import okio.AsyncTimeout
 import okio.Timeout
-import java.io.IOException
-import kotlin.reflect.KClass
 
 /**
- * A deferred call that needs to wait for [HighBandwidthConnectionLease.awaitGranted]
- * or timeout before continuing. This gives the ConnectivityManager
- * time to bring up a high bandwidth network in response to an
- * OkHttp call.
+ * A deferred call that needs to wait for [HighBandwidthConnectionLease.awaitGranted] or timeout
+ * before continuing. This gives the ConnectivityManager time to bring up a high bandwidth network
+ * in response to an OkHttp call.
  */
 @ExperimentalHorologistApi
 internal class HighBandwidthCall(
-    private val callFactory: NetworkSelectingCallFactory,
-    private val request: Request,
+  private val callFactory: NetworkSelectingCallFactory,
+  private val request: Request,
 ) : Call {
-    @GuardedBy("this")
-    private var cancelled = false
+  @GuardedBy("this") private var cancelled = false
 
-    @GuardedBy("this")
-    private var call: Call? = null
+  @GuardedBy("this") private var call: Call? = null
 
-    private val eventListeners = mutableListOf<EventListener>()
+  private val eventListeners = mutableListOf<EventListener>()
 
-    override fun addEventListener(eventListener: EventListener) {
-        synchronized(this) {
-            val currentCall = call
-            if (currentCall != null) {
-                currentCall.addEventListener(eventListener)
-            } else {
-                eventListeners.add(eventListener)
+  override fun addEventListener(eventListener: EventListener) {
+    synchronized(this) {
+      val currentCall = call
+      if (currentCall != null) {
+        currentCall.addEventListener(eventListener)
+      } else {
+        eventListeners.add(eventListener)
+      }
+    }
+  }
+
+  override fun cancel() {
+    synchronized(this) {
+      cancelled = true
+      call?.cancel()
+    }
+    request.highBandwidthConnectionLease?.close()
+  }
+
+  override fun clone(): Call {
+    // Remove network and lease from new request
+    val cleanRequest = request.newBuilder().requestType(request.requestType).build()
+    val newCall = callFactory.newCall(cleanRequest)
+    for (listener in eventListeners) {
+      newCall.addEventListener(listener)
+    }
+    return newCall
+  }
+
+  override fun enqueue(responseCallback: Callback) {
+    callFactory.coroutineScope.launch(Dispatchers.Default) {
+      val token = requestNetwork()
+
+      token.awaitGranted(callFactory.timeout)
+
+      synchronized(this@HighBandwidthCall) {
+        if (cancelled) {
+          request.highBandwidthConnectionLease?.close()
+        } else {
+          val directCall = callFactory.newDirectCall(request)
+          call = directCall
+          for (listener in eventListeners) {
+            directCall.addEventListener(listener)
+          }
+          directCall.enqueue(
+            object : Callback {
+              override fun onFailure(call: Call, e: IOException) {
+                responseCallback.onFailure(this@HighBandwidthCall, e)
+              }
+
+              override fun onResponse(call: Call, response: Response) {
+                responseCallback.onResponse(this@HighBandwidthCall, response)
+              }
             }
+          )
         }
+      }
     }
+  }
 
-    override fun cancel() {
-        synchronized(this) {
-            cancelled = true
-            call?.cancel()
-        }
-        request.highBandwidthConnectionLease?.close()
-    }
+  override fun execute(): Response {
+    throw IOException("High Bandwidth Requests are not supported with execute")
+  }
 
-    override fun clone(): Call {
-        // Remove network and lease from new request
-        val cleanRequest = request.newBuilder().requestType(request.requestType).build()
-        val newCall = callFactory.newCall(cleanRequest)
-        for (listener in eventListeners) {
-            newCall.addEventListener(listener)
-        }
-        return newCall
-    }
+  private fun requestNetwork(): HighBandwidthConnectionLease {
+    val requestType = request.requestType
+    val types =
+      HighBandwidthRequest.from(callFactory.networkingRulesEngine.supportedTypes(requestType))
+        .copy(url = request.url.toString())
 
-    override fun enqueue(responseCallback: Callback) {
-        callFactory.coroutineScope.launch(Dispatchers.Default) {
-            val token = requestNetwork()
+    val token =
+      callFactory.highBandwidthNetworkMediator.requestHighBandwidthNetwork(request = types)
+    request.highBandwidthConnectionLease = token
 
-            token.awaitGranted(callFactory.timeout)
+    return token
+  }
 
-            synchronized(this@HighBandwidthCall) {
-                if (cancelled) {
-                    request.highBandwidthConnectionLease?.close()
-                } else {
-                    val directCall = callFactory.newDirectCall(request)
-                    call = directCall
-                    for (listener in eventListeners) {
-                        directCall.addEventListener(listener)
-                    }
-                    directCall.enqueue(object : Callback {
-                        override fun onFailure(call: Call, e: IOException) {
-                            responseCallback.onFailure(this@HighBandwidthCall, e)
-                        }
+  override fun isCanceled(): Boolean = synchronized(this) { cancelled }
 
-                        override fun onResponse(call: Call, response: Response) {
-                            responseCallback.onResponse(this@HighBandwidthCall, response)
-                        }
-                    })
-                }
-            }
-        }
-    }
+  override fun isExecuted(): Boolean = synchronized(this) { call?.isExecuted() ?: false }
 
-    override fun execute(): Response {
-        throw IOException("High Bandwidth Requests are not supported with execute")
-    }
+  override fun request(): Request = request
 
-    private fun requestNetwork(): HighBandwidthConnectionLease {
-        val requestType = request.requestType
-        val types = HighBandwidthRequest.from(
-            callFactory.networkingRulesEngine.supportedTypes(requestType),
-        ).copy(url = request.url.toString())
+  override fun timeout(): Timeout = synchronized(this) { call?.timeout() ?: AsyncTimeout() }
 
-        val token =
-            callFactory.highBandwidthNetworkMediator.requestHighBandwidthNetwork(request = types)
-        request.highBandwidthConnectionLease = token
+  override fun <T : Any> tag(type: KClass<T>): T? = call?.tag(type)
 
-        return token
-    }
+  override fun <T> tag(type: Class<out T>): T? = call?.tag(type)
 
-    override fun isCanceled(): Boolean = synchronized(this) { cancelled }
+  override fun <T : Any> tag(type: KClass<T>, computeIfAbsent: () -> T): T =
+    call?.tag(type, computeIfAbsent) ?: computeIfAbsent()
 
-    override fun isExecuted(): Boolean = synchronized(this) { call?.isExecuted() ?: false }
-
-    override fun request(): Request = request
-
-    override fun timeout(): Timeout = synchronized(this) { call?.timeout() ?: AsyncTimeout() }
-
-    override fun <T : Any> tag(type: KClass<T>): T? = call?.tag(type)
-
-    override fun <T> tag(type: Class<out T>): T? = call?.tag(type)
-
-    override fun <T : Any> tag(type: KClass<T>, computeIfAbsent: () -> T): T = call?.tag(type, computeIfAbsent) ?: computeIfAbsent()
-
-    override fun <T : Any> tag(type: Class<T>, computeIfAbsent: () -> T): T = call?.tag(type, computeIfAbsent) ?: computeIfAbsent()
+  override fun <T : Any> tag(type: Class<T>, computeIfAbsent: () -> T): T =
+    call?.tag(type, computeIfAbsent) ?: computeIfAbsent()
 }

@@ -21,17 +21,18 @@ import kotlin.time.Duration
 
 @ExperimentalHorologistApi
 public sealed class SeekButtonIncrement {
-    public object Unknown : SeekButtonIncrement() {
-        override fun toString(): String = "SeekButtonIncrement(UNKNOWN)"
-    }
+  public object Unknown : SeekButtonIncrement() {
+    override fun toString(): String = "SeekButtonIncrement(UNKNOWN)"
+  }
 
-    public data class Known(public val seconds: Int) : SeekButtonIncrement()
+  public data class Known(public val seconds: Int) : SeekButtonIncrement()
 
-    public companion object {
-        public fun ofDuration(duration: Duration): SeekButtonIncrement = Known(duration.inWholeSeconds.toInt())
+  public companion object {
+    public fun ofDuration(duration: Duration): SeekButtonIncrement =
+      Known(duration.inWholeSeconds.toInt())
 
-        public val Five: SeekButtonIncrement = Known(5)
-        public val Ten: SeekButtonIncrement = Known(10)
-        public val Thirty: SeekButtonIncrement = Known(30)
-    }
+    public val Five: SeekButtonIncrement = Known(5)
+    public val Ten: SeekButtonIncrement = Known(10)
+    public val Thirty: SeekButtonIncrement = Known(30)
+  }
 }

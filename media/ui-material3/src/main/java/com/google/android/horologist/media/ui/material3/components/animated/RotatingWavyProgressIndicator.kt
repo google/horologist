@@ -66,262 +66,257 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
-/**
- * Progress indicator with rotating wavy progress.
- */
+/** Progress indicator with rotating wavy progress. */
 @Composable
 internal fun RotatingWavyProgressIndicator(
-    playing: Boolean,
-    progress: State<Float>,
-    shapeMorphProgress: State<Float>,
-    rotationProgress: State<Float>,
-    strokeWidth: Dp,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  playing: Boolean,
+  progress: State<Float>,
+  shapeMorphProgress: State<Float>,
+  rotationProgress: State<Float>,
+  strokeWidth: Dp,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
-    val coercedProgress by remember {
-        derivedStateOf { progress.value.coerceIn(0f, 1f) }
+  val coercedProgress by remember { derivedStateOf { progress.value.coerceIn(0f, 1f) } }
+
+  val indicatorColor by
+    remember(colorScheme) { derivedStateOf { colorScheme.onSecondaryContainer } }
+  val trackColor by remember(colorScheme) { derivedStateOf { colorScheme.surfaceContainerLow } }
+
+  // Map to store 4 polygons of morph
+  val morphState = remember { mutableStateMapOf<Pair<Boolean, Boolean>, Morph>() }
+
+  val density = LocalDensity.current
+  val configuration = LocalConfiguration.current
+
+  val scallopShapeSize =
+    remember(configuration) {
+      if (configuration.isLargeScreen) {
+        LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
+      } else {
+        SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
+      }
     }
 
-    val indicatorColor by remember(colorScheme) {
-        derivedStateOf { colorScheme.onSecondaryContainer }
-    }
-    val trackColor by remember(colorScheme) {
-        derivedStateOf { colorScheme.surfaceContainerLow }
+  val scallopHeight =
+    remember(density, scallopShapeSize, strokeWidth) {
+      with(density) { (scallopShapeSize - strokeWidth).toPx() }
     }
 
-    // Map to store 4 polygons of morph
-    val morphState = remember {
-        mutableStateMapOf<Pair<Boolean, Boolean>, Morph>()
+  val scallopPolygon =
+    remember(density, scallopShapeSize) {
+      PlayPauseButtonDefaults.outerScallopPolygon(density, scallopShapeSize)
+        .scaleToSize(scallopHeight)
     }
 
-    val density = LocalDensity.current
-    val configuration = LocalConfiguration.current
+  val expansionWidthPx =
+    remember(density) { with(density) { ButtonGroupLayoutDefaults.ExpansionWidth.toPx() } }
 
-    val scallopShapeSize = remember(configuration) {
-        if (configuration.isLargeScreen) {
-            LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-        } else {
-            SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
+  val circlePolygon =
+    remember(scallopHeight) { PlayPauseButtonDefaults.pillPolygon(scallopHeight, scallopHeight) }
+  val expandedPill =
+    remember(scallopHeight, expansionWidthPx) {
+      PlayPauseButtonDefaults.pillPolygon(scallopHeight + expansionWidthPx, scallopHeight)
+    }
+  val shrunkPill =
+    remember(scallopHeight, expansionWidthPx) {
+      PlayPauseButtonDefaults.pillPolygon(scallopHeight - expansionWidthPx, scallopHeight)
+    }
+
+  val indicatorPath = remember { Path() } // To draw the indicator
+  val trackPath = remember { Path() } // To draw the track
+  val postPath = remember {
+    Path()
+  } // To draw the part of indicator path at the end due its rotation
+  val preTrack = remember { Path() } // To draw the part of track path at the start due its rotation
+
+  Spacer(
+    modifier
+      .clearAndSetSemantics {}
+      .fillMaxSize()
+      .focusable()
+      .drawWithCache {
+        val isWidthGreater = size.width > size.height
+        val morph =
+          morphState.getOrPut(Pair(isWidthGreater, playing)) {
+            Morph(
+              if (isWidthGreater) expandedPill else shrunkPill,
+              if (playing) scallopPolygon else circlePolygon,
+            )
+          }
+        val path =
+          morph.toPath(shapeMorphProgress.value).asComposePath().apply {
+            translate(Offset(size.width / 2f, size.height / 2f))
+          }
+
+        val pathMeasurer = PathMeasure().also { it.setPath(path, true) }
+        val length = pathMeasurer.length
+
+        val strokePx = strokeWidth.toPx()
+        val gap = (length * 0.006f) + strokePx
+
+        indicatorPath.reset()
+        pathMeasurer.getSegment(
+          startDistance = (length * abs(rotationProgress.value)) + (gap / 2f),
+          stopDistance =
+            max(
+              (length * (coercedProgress - rotationProgress.value)) - (gap / 2f),
+              (length * abs(rotationProgress.value)) + (gap / 2f) + 0.1f,
+            ),
+          destination = indicatorPath,
+        )
+
+        trackPath.reset()
+        pathMeasurer.getSegment(
+          startDistance =
+            max(
+              (length * (coercedProgress - rotationProgress.value)) + (gap / 2f),
+              (length * abs(rotationProgress.value)) + (gap * 1.5f),
+            ),
+          stopDistance = min(length * (1f - rotationProgress.value) - (gap / 2f), length),
+          destination = trackPath,
+        )
+
+        postPath.reset()
+        pathMeasurer.getSegment(
+          startDistance = 0f,
+          stopDistance = (length * (coercedProgress - rotationProgress.value - 1)) - (gap / 2f),
+          destination = postPath,
+        )
+
+        preTrack.reset()
+        pathMeasurer.getSegment(
+          startDistance = 0f,
+          stopDistance = (length * abs(rotationProgress.value)) - (gap / 2f),
+          destination = preTrack,
+        )
+
+        onDrawBehind {
+          rotate(degrees = 360f * rotationProgress.value) {
+            drawPath(
+              path = preTrack,
+              color = trackColor,
+              style = Stroke(strokePx, cap = StrokeCap.Round),
+            )
+
+            drawPath(
+              path = trackPath,
+              color = trackColor,
+              style = Stroke(strokePx, cap = StrokeCap.Round),
+            )
+
+            drawPath(
+              path = indicatorPath,
+              color = indicatorColor,
+              style = Stroke(strokePx, cap = StrokeCap.Round),
+            )
+
+            drawPath(
+              path = postPath,
+              color = indicatorColor,
+              style = Stroke(strokePx, cap = StrokeCap.Round),
+            )
+          }
         }
-    }
-
-    val scallopHeight = remember(density, scallopShapeSize, strokeWidth) {
-        with(density) { (scallopShapeSize - strokeWidth).toPx() }
-    }
-
-    val scallopPolygon = remember(density, scallopShapeSize) {
-        PlayPauseButtonDefaults.outerScallopPolygon(density, scallopShapeSize)
-            .scaleToSize(scallopHeight)
-    }
-
-    val expansionWidthPx = remember(density) {
-        with(density) {
-            ButtonGroupLayoutDefaults.ExpansionWidth.toPx()
-        }
-    }
-
-    val circlePolygon = remember(scallopHeight) {
-        PlayPauseButtonDefaults.pillPolygon(scallopHeight, scallopHeight)
-    }
-    val expandedPill = remember(scallopHeight, expansionWidthPx) {
-        PlayPauseButtonDefaults.pillPolygon(scallopHeight + expansionWidthPx, scallopHeight)
-    }
-    val shrunkPill = remember(scallopHeight, expansionWidthPx) {
-        PlayPauseButtonDefaults.pillPolygon(scallopHeight - expansionWidthPx, scallopHeight)
-    }
-
-    val indicatorPath = remember { Path() } // To draw the indicator
-    val trackPath = remember { Path() } // To draw the track
-    val postPath = remember { Path() } // To draw the part of indicator path at the end due its rotation
-    val preTrack = remember { Path() } // To draw the part of track path at the start due its rotation
-
-    Spacer(
-        modifier
-            .clearAndSetSemantics {}
-            .fillMaxSize()
-            .focusable()
-            .drawWithCache {
-                val isWidthGreater = size.width > size.height
-                val morph = morphState.getOrPut(Pair(isWidthGreater, playing)) {
-                    Morph(
-                        if (isWidthGreater) expandedPill else shrunkPill,
-                        if (playing) scallopPolygon else circlePolygon,
-                    )
-                }
-                val path = morph
-                    .toPath(shapeMorphProgress.value)
-                    .asComposePath().apply {
-                        translate(Offset(size.width / 2f, size.height / 2f))
-                    }
-
-                val pathMeasurer = PathMeasure().also { it.setPath(path, true) }
-                val length = pathMeasurer.length
-
-                val strokePx = strokeWidth.toPx()
-                val gap = (length * 0.006f) + strokePx
-
-                indicatorPath.reset()
-                pathMeasurer.getSegment(
-                    startDistance = (length * abs(rotationProgress.value)) + (gap / 2f),
-                    stopDistance = max(
-                        (length * (coercedProgress - rotationProgress.value)) - (gap / 2f),
-                        (length * abs(rotationProgress.value)) + (gap / 2f) + 0.1f,
-                    ),
-                    destination = indicatorPath,
-                )
-
-                trackPath.reset()
-                pathMeasurer.getSegment(
-                    startDistance = max(
-                        (length * (coercedProgress - rotationProgress.value)) + (gap / 2f),
-                        (length * abs(rotationProgress.value)) + (gap * 1.5f),
-                    ),
-                    stopDistance = min(length * (1f - rotationProgress.value) - (gap / 2f), length),
-                    destination = trackPath,
-                )
-
-                postPath.reset()
-                pathMeasurer.getSegment(
-                    startDistance = 0f,
-                    stopDistance = (length * (coercedProgress - rotationProgress.value - 1)) - (gap / 2f),
-                    destination = postPath,
-                )
-
-                preTrack.reset()
-                pathMeasurer.getSegment(
-                    startDistance = 0f,
-                    stopDistance = (length * abs(rotationProgress.value)) - (gap / 2f),
-                    destination = preTrack,
-                )
-
-                onDrawBehind {
-                    rotate(degrees = 360f * rotationProgress.value) {
-                        drawPath(
-                            path = preTrack,
-                            color = trackColor,
-                            style = Stroke(strokePx, cap = StrokeCap.Round),
-                        )
-
-                        drawPath(
-                            path = trackPath,
-                            color = trackColor,
-                            style = Stroke(strokePx, cap = StrokeCap.Round),
-                        )
-
-                        drawPath(
-                            path = indicatorPath,
-                            color = indicatorColor,
-                            style = Stroke(strokePx, cap = StrokeCap.Round),
-                        )
-
-                        drawPath(
-                            path = postPath,
-                            color = indicatorColor,
-                            style = Stroke(strokePx, cap = StrokeCap.Round),
-                        )
-                    }
-                }
-            },
-    )
+      }
+  )
 }
 
 @Stable
 internal class RotatingMorphedScallopShape(
-    private val playing: Boolean,
-    private val isLargeScreen: Boolean,
-    private val morphProgress: State<Float>,
-    private val rotationProgress: State<Float>,
-    private val morphState: MutableMap<Pair<Boolean, Boolean>, Morph> =
-        mutableStateMapOf<Pair<Boolean, Boolean>, Morph>(),
-    private val useInnerPolygon: Boolean = true,
+  private val playing: Boolean,
+  private val isLargeScreen: Boolean,
+  private val morphProgress: State<Float>,
+  private val rotationProgress: State<Float>,
+  private val morphState: MutableMap<Pair<Boolean, Boolean>, Morph> =
+    mutableStateMapOf<Pair<Boolean, Boolean>, Morph>(),
+  private val useInnerPolygon: Boolean = true,
 ) : Shape {
 
-    private val matrix = Matrix()
-    private val path = android.graphics.Path()
+  private val matrix = Matrix()
+  private val path = android.graphics.Path()
 
-    private val scallopSize = if (isLargeScreen) {
-        LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
+  private val scallopSize =
+    if (isLargeScreen) {
+      LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
     } else {
-        SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
+      SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
     }
 
-    override fun createOutline(
-        size: Size,
-        layoutDirection: LayoutDirection,
-        density: Density,
-    ): Outline {
-        val isWidthGreater = size.width > size.height
-        val morph = morphState.getOrPut(Pair(isWidthGreater, playing)) {
-            val scallopHeight = with(density) {
-                (
-                    scallopSize - if (useInnerPolygon) {
-                        MIDDLE_BUTTON_PROGRESS_AND_BUTTON_GAP * 2
-                    } else {
-                        MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
-                    }
-                    ).toPx()
-            }
-            val scallopPolygon =
+  override fun createOutline(
+    size: Size,
+    layoutDirection: LayoutDirection,
+    density: Density,
+  ): Outline {
+    val isWidthGreater = size.width > size.height
+    val morph =
+      morphState.getOrPut(Pair(isWidthGreater, playing)) {
+        val scallopHeight =
+          with(density) {
+            (scallopSize -
                 if (useInnerPolygon) {
-                    PlayPauseButtonDefaults.innerScallopPolygon(density, scallopSize)
+                  MIDDLE_BUTTON_PROGRESS_AND_BUTTON_GAP * 2
                 } else {
-                    PlayPauseButtonDefaults.outerScallopPolygon(density, scallopSize)
-                }.scaleToSize(scallopHeight)
-
-            val expansionWidthPx = with(density) {
-                ButtonGroupLayoutDefaults.ExpansionWidth.toPx()
+                  MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
+                })
+              .toPx()
+          }
+        val scallopPolygon =
+          if (useInnerPolygon) {
+              PlayPauseButtonDefaults.innerScallopPolygon(density, scallopSize)
+            } else {
+              PlayPauseButtonDefaults.outerScallopPolygon(density, scallopSize)
             }
+            .scaleToSize(scallopHeight)
 
-            val circlePolygon = PlayPauseButtonDefaults
-                .pillPolygon(scallopHeight, scallopHeight)
-            val expandedPill = PlayPauseButtonDefaults
-                .pillPolygon(scallopHeight + expansionWidthPx, scallopHeight)
-            val shrunkPill = PlayPauseButtonDefaults
-                .pillPolygon(scallopHeight - expansionWidthPx, scallopHeight)
+        val expansionWidthPx = with(density) { ButtonGroupLayoutDefaults.ExpansionWidth.toPx() }
 
-            Morph(
-                if (isWidthGreater) expandedPill else shrunkPill,
-                if (playing) scallopPolygon else circlePolygon,
-            )
-        }
-        matrix.reset()
-        path.reset()
-        matrix.rotateZ(rotationProgress.value * 360f)
-        val morphPath = morph.toPath(morphProgress.value, path).asComposePath().apply {
-            transform(matrix)
-            translate(Offset(size.width / 2f, size.height / 2f))
-        }
+        val circlePolygon = PlayPauseButtonDefaults.pillPolygon(scallopHeight, scallopHeight)
+        val expandedPill =
+          PlayPauseButtonDefaults.pillPolygon(scallopHeight + expansionWidthPx, scallopHeight)
+        val shrunkPill =
+          PlayPauseButtonDefaults.pillPolygon(scallopHeight - expansionWidthPx, scallopHeight)
 
-        return Outline.Generic(morphPath)
-    }
+        Morph(
+          if (isWidthGreater) expandedPill else shrunkPill,
+          if (playing) scallopPolygon else circlePolygon,
+        )
+      }
+    matrix.reset()
+    path.reset()
+    matrix.rotateZ(rotationProgress.value * 360f)
+    val morphPath =
+      morph.toPath(morphProgress.value, path).asComposePath().apply {
+        transform(matrix)
+        translate(Offset(size.width / 2f, size.height / 2f))
+      }
+
+    return Outline.Generic(morphPath)
+  }
 }
 
 @Composable
 internal fun animatedScallopShapeProgress(
-    transition: Transition<Boolean>,
-    onPressAnimationSpec: FiniteAnimationSpec<Float> =
-        MaterialTheme.motionScheme.fastSpatialSpec<Float>().faster(100f),
-    onReleaseAnimationSpec: FiniteAnimationSpec<Float> =
-        MaterialTheme.motionScheme.slowSpatialSpec(),
+  transition: Transition<Boolean>,
+  onPressAnimationSpec: FiniteAnimationSpec<Float> =
+    MaterialTheme.motionScheme.fastSpatialSpec<Float>().faster(100f),
+  onReleaseAnimationSpec: FiniteAnimationSpec<Float> = MaterialTheme.motionScheme.slowSpatialSpec(),
 ): State<Float> =
-    transition.animateFloat(
-        label = "Scallop Shape Progress",
-        transitionSpec = {
-            when {
-                false isTransitioningTo true -> onPressAnimationSpec
-                else -> onReleaseAnimationSpec
-            }
-        },
-    ) { pressedTarget ->
-        if (pressedTarget) 0f else 1f
-    }
+  transition.animateFloat(
+    label = "Scallop Shape Progress",
+    transitionSpec = {
+      when {
+        false isTransitioningTo true -> onPressAnimationSpec
+        else -> onReleaseAnimationSpec
+      }
+    },
+  ) { pressedTarget ->
+    if (pressedTarget) 0f else 1f
+  }
 
 internal fun RoundedPolygon.scaleToSize(sizePx: Float): RoundedPolygon {
-    val scallopBounds = calculateMaxBounds()
-    val scallopHeight = scallopBounds[3] - scallopBounds[1]
-    val scaleFactor = sizePx / scallopHeight
-    return transformed { x, y ->
-        TransformResult(x * scaleFactor, y * scaleFactor)
-    }
+  val scallopBounds = calculateMaxBounds()
+  val scallopHeight = scallopBounds[3] - scallopBounds[1]
+  val scaleFactor = sizePx / scallopHeight
+  return transformed { x, y -> TransformResult(x * scaleFactor, y * scaleFactor) }
 }

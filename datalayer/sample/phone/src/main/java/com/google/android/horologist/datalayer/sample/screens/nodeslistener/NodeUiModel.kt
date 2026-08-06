@@ -17,7 +17,7 @@
 package com.google.android.horologist.datalayer.sample.screens.nodeslistener
 
 data class NodeUiModel(
-    val id: String,
-    val displayName: String,
-    val isNearby: Boolean,
+  val id: String,
+  val displayName: String,
+  val isNearby: Boolean,
 )

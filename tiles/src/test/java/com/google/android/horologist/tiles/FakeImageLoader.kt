@@ -35,48 +35,51 @@ import java.io.IOException
 
 // https://coil-kt.github.io/coil/image_loaders/#testing
 class FakeImageLoader(val imageFn: (ImageRequest) -> ImageResult) : ImageLoader {
-    override val defaults = DefaultRequestOptions()
-    override val components = ComponentRegistry()
-    override val memoryCache: MemoryCache? get() = null
-    override val diskCache: DiskCache? get() = null
+  override val defaults = DefaultRequestOptions()
+  override val components = ComponentRegistry()
+  override val memoryCache: MemoryCache?
+    get() = null
 
-    override fun enqueue(request: ImageRequest): Disposable = TODO()
+  override val diskCache: DiskCache?
+    get() = null
 
-    override suspend fun execute(request: ImageRequest): ImageResult {
-        return imageFn(request)
+  override fun enqueue(request: ImageRequest): Disposable = TODO()
+
+  override suspend fun execute(request: ImageRequest): ImageResult {
+    return imageFn(request)
+  }
+
+  override fun newBuilder(): ImageLoader.Builder = throw UnsupportedOperationException()
+
+  override fun shutdown() {}
+
+  companion object {
+    fun loadSuccessBitmap(
+      context: Context,
+      request: ImageRequest,
+      @DrawableRes id: Int,
+    ): ImageResult {
+      val bitmap = BitmapFactory.decodeResource(context.resources, id)
+      val result = BitmapDrawable(context.resources, bitmap)
+      return SuccessResult(
+        drawable = result,
+        request = request,
+        dataSource = DataSource.NETWORK,
+      )
     }
 
-    override fun newBuilder(): ImageLoader.Builder = throw UnsupportedOperationException()
-
-    override fun shutdown() {}
-
-    companion object {
-        fun loadSuccessBitmap(
-            context: Context,
-            request: ImageRequest,
-            @DrawableRes id: Int,
-        ): ImageResult {
-            val bitmap = BitmapFactory.decodeResource(context.resources, id)
-            val result = BitmapDrawable(context.resources, bitmap)
-            return SuccessResult(
-                drawable = result,
-                request = request,
-                dataSource = DataSource.NETWORK,
-            )
-        }
-
-        fun loadErrorBitmap(
-            context: Context,
-            request: ImageRequest,
-            @DrawableRes id: Int,
-        ): ImageResult {
-            val bitmap = BitmapFactory.decodeResource(context.resources, id)
-            val result = BitmapDrawable(context.resources, bitmap)
-            return ErrorResult(
-                drawable = result,
-                request = request,
-                throwable = IOException("request for "),
-            )
-        }
+    fun loadErrorBitmap(
+      context: Context,
+      request: ImageRequest,
+      @DrawableRes id: Int,
+    ): ImageResult {
+      val bitmap = BitmapFactory.decodeResource(context.resources, id)
+      val result = BitmapDrawable(context.resources, bitmap)
+      return ErrorResult(
+        drawable = result,
+        request = request,
+        throwable = IOException("request for "),
+      )
     }
+  }
 }

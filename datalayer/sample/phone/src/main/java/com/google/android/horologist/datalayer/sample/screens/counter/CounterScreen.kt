@@ -43,74 +43,63 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun CounterScreen(
-    modifier: Modifier = Modifier,
-    viewModel: CounterScreenViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: CounterScreenViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == CounterScreenUiState.Idle) {
-        SideEffect {
-            viewModel.initialize()
-        }
-    }
+  if (state == CounterScreenUiState.Idle) {
+    SideEffect { viewModel.initialize() }
+  }
 
-    CounterScreen(
-        state = state,
-        onPlusClick = { viewModel.updateCounter() },
-        modifier = modifier,
-    )
+  CounterScreen(
+    state = state,
+    onPlusClick = { viewModel.updateCounter() },
+    modifier = modifier,
+  )
 }
 
 @Composable
 fun CounterScreen(
-    state: CounterScreenUiState,
-    onPlusClick: () -> Unit,
-    modifier: Modifier = Modifier,
+  state: CounterScreenUiState,
+  onPlusClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        when (state) {
-            CounterScreenUiState.Idle,
-            CounterScreenUiState.CheckingApiAvailability,
-            CounterScreenUiState.Loading,
-            -> {
-                CircularProgressIndicator(
-                    modifier = Modifier.width(64.dp),
-                )
-            }
+  Row(verticalAlignment = Alignment.CenterVertically) {
+    when (state) {
+      CounterScreenUiState.Idle,
+      CounterScreenUiState.CheckingApiAvailability,
+      CounterScreenUiState.Loading -> {
+        CircularProgressIndicator(modifier = Modifier.width(64.dp))
+      }
 
-            is CounterScreenUiState.Loaded -> {
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(16.dp),
-                ) {
-                    Text(text = stringResource(R.string.app_helper_counter_increase_explanation))
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Center,
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .padding(16.dp),
-                            text = stringResource(R.string.app_helper_counter_message, state.counter),
-                        )
-                        Button(onClick = onPlusClick) {
-                            Icon(imageVector = Icons.Default.PlusOne, contentDescription = "Plus 1")
-                        }
-                    }
-                }
+      is CounterScreenUiState.Loaded -> {
+        Column(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+          Text(text = stringResource(R.string.app_helper_counter_increase_explanation))
+          Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center,
+          ) {
+            Text(
+              modifier = Modifier.padding(16.dp),
+              text = stringResource(R.string.app_helper_counter_message, state.counter),
+            )
+            Button(onClick = onPlusClick) {
+              Icon(imageVector = Icons.Default.PlusOne, contentDescription = "Plus 1")
             }
-
-            CounterScreenUiState.ApiNotAvailable -> {
-                Text(
-                    text = stringResource(R.string.wearable_message_api_unavailable),
-                    modifier.fillMaxWidth(),
-                    color = Color.Red,
-                    textAlign = TextAlign.Center,
-                )
-            }
+          }
         }
+      }
+
+      CounterScreenUiState.ApiNotAvailable -> {
+        Text(
+          text = stringResource(R.string.wearable_message_api_unavailable),
+          modifier.fillMaxWidth(),
+          color = Color.Red,
+          textAlign = TextAlign.Center,
+        )
+      }
     }
+  }
 }

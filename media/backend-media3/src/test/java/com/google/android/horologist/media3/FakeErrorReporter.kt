@@ -19,18 +19,18 @@ package com.google.android.horologist.media3
 import com.google.android.horologist.media3.logging.ErrorReporter
 
 open class FakeErrorReporter : ErrorReporter {
-    val messages = mutableListOf<Int>()
-    val logs = mutableListOf<String>()
+  val messages = mutableListOf<Int>()
+  val logs = mutableListOf<String>()
 
-    override fun showMessage(message: Int) {
-        messages.add(message)
-    }
+  override fun showMessage(message: Int) {
+    messages.add(message)
+  }
 
-    override fun logMessage(
-        message: String,
-        category: ErrorReporter.Category,
-        level: ErrorReporter.Level,
-    ) {
-        logs.add(message)
-    }
+  override fun logMessage(
+    message: String,
+    category: ErrorReporter.Category,
+    level: ErrorReporter.Level,
+  ) {
+    logs.add(message)
+  }
 }

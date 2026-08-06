@@ -30,22 +30,24 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 /**
  * An opinionated [Chip] to represent the "Other options to authentication" action.
  *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/other_options_chip.png" height="120" width="120" >
+ * <img
+ * src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/other_options_chip.png"
+ * height="120" width="120" >
  */
 @Composable
 public fun OtherOptionsChip(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    label: String = stringResource(id = R.string.horologist_other_options_chip_label),
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  label: String = stringResource(id = R.string.horologist_other_options_chip_label),
+  colors: ChipColors = ChipDefaults.primaryChipColors(),
+  enabled: Boolean = true,
 ) {
-    Chip(
-        label = label,
-        onClick = onClick,
-        modifier = modifier,
-        icon = Icons.AutoMirrored.Outlined.SendToMobile.asPaintable(),
-        colors = colors,
-        enabled = enabled,
-    )
+  Chip(
+    label = label,
+    onClick = onClick,
+    modifier = modifier,
+    icon = Icons.AutoMirrored.Outlined.SendToMobile.asPaintable(),
+    colors = colors,
+    enabled = enabled,
+  )
 }

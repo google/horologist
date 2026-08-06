@@ -35,33 +35,32 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
-/**
- * An implementation of [AuthUserRepository] for the Google Sign-In authentication method.
- */
+/** An implementation of [AuthUserRepository] for the Google Sign-In authentication method. */
 @ExperimentalHorologistApi
 public class GoogleSignInAuthUserRepository(
-    private val applicationContext: Context,
-    private val googleSignInClient: GoogleSignInClient,
+  private val applicationContext: Context,
+  private val googleSignInClient: GoogleSignInClient,
 ) : AuthUserRepository, GoogleSignInEventListener {
-    // simple way to trigger refreshes to the sync GoogleSignIn.getLastSignedInAccount
-    private val _authTrigger = MutableStateFlow(0)
+  // simple way to trigger refreshes to the sync GoogleSignIn.getLastSignedInAccount
+  private val _authTrigger = MutableStateFlow(0)
 
-    public val authState: Flow<AuthUser?> = _authTrigger.map { getAuthenticated() }
+  public val authState: Flow<AuthUser?> = _authTrigger.map { getAuthenticated() }
 
-    override suspend fun getAuthenticated(): AuthUser? = withContext(Dispatchers.IO) {
-        AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
+  override suspend fun getAuthenticated(): AuthUser? =
+    withContext(Dispatchers.IO) {
+      AuthUserMapper.map(GoogleSignIn.getLastSignedInAccount(applicationContext))
     }
 
-    override suspend fun onSignedIn(account: GoogleSignInAccount) {
-        _authTrigger.update { it + 1 }
-    }
+  override suspend fun onSignedIn(account: GoogleSignInAccount) {
+    _authTrigger.update { it + 1 }
+  }
 
-    public fun onSignedOut() {
-        _authTrigger.update { it + 1 }
-    }
+  public fun onSignedOut() {
+    _authTrigger.update { it + 1 }
+  }
 
-    public suspend fun signOut() {
-        googleSignInClient.signOut().await()
-        onSignedOut()
-    }
+  public suspend fun signOut() {
+    googleSignInClient.signOut().await()
+    onSignedOut()
+  }
 }

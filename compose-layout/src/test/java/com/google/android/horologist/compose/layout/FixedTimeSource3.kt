@@ -20,6 +20,5 @@ import androidx.compose.runtime.Composable
 import androidx.wear.compose.material3.TimeSource
 
 object FixedTimeSource3 : TimeSource {
-    @Composable
-    override fun currentTime(): String = "10:10"
+  @Composable override fun currentTime(): String = "10:10"
 }

@@ -24,33 +24,31 @@ import androidx.media3.exoplayer.offline.DownloadService
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.MediaDownload
 
-/**
- * Media3 data source of [MediaDownload].
- */
+/** Media3 data source of [MediaDownload]. */
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
 public class Media3DownloadDataSource(
-    private val context: Context,
-    private val downloadService: Class<out DownloadService>,
+  private val context: Context,
+  private val downloadService: Class<out DownloadService>,
 ) {
 
-    public fun download(id: String, uri: Uri) {
-        val downloadRequest = DownloadRequest.Builder(id, uri).build()
+  public fun download(id: String, uri: Uri) {
+    val downloadRequest = DownloadRequest.Builder(id, uri).build()
 
-        DownloadService.sendAddDownload(
-            context,
-            downloadService,
-            downloadRequest,
-            true,
-        )
-    }
+    DownloadService.sendAddDownload(
+      context,
+      downloadService,
+      downloadRequest,
+      true,
+    )
+  }
 
-    public fun removeDownload(id: String) {
-        DownloadService.sendRemoveDownload(
-            context,
-            downloadService,
-            id,
-            false,
-        )
-    }
+  public fun removeDownload(id: String) {
+    DownloadService.sendRemoveDownload(
+      context,
+      downloadService,
+      id,
+      false,
+    )
+  }
 }

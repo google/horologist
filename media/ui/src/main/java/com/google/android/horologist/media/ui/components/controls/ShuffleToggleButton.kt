@@ -37,34 +37,31 @@ import com.google.android.horologist.media.ui.model.R
 @ExperimentalHorologistApi
 @Composable
 public fun ShuffleToggleButton(
-    shuffleOn: Boolean,
-    onToggle: (Boolean) -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: ToggleButtonColors = toggleButtonColors(
-        checkedBackgroundColor = Color.Transparent,
-        checkedContentColor = MaterialTheme.colors.onSurface,
-        uncheckedBackgroundColor = Color.Transparent,
-        uncheckedContentColor = MaterialTheme.colors.onSurface,
+  shuffleOn: Boolean,
+  onToggle: (Boolean) -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  colors: ToggleButtonColors =
+    toggleButtonColors(
+      checkedBackgroundColor = Color.Transparent,
+      checkedContentColor = MaterialTheme.colors.onSurface,
+      uncheckedBackgroundColor = Color.Transparent,
+      uncheckedContentColor = MaterialTheme.colors.onSurface,
     ),
 ) {
-    val onLabel =
-        stringResource(id = R.string.horologist_shuffle_button_on_content_description)
-    val offLabel =
-        stringResource(id = R.string.horologist_shuffle_button_off_content_description)
-    ToggleButton(
-        modifier = modifier.semantics {
-            stateDescription = if (shuffleOn) onLabel else offLabel
-        },
-        onCheckedChange = onToggle,
-        enabled = enabled,
-        colors = colors,
-        checked = shuffleOn,
-    ) {
-        val icon = if (shuffleOn) Icons.Default.ShuffleOn else Icons.Default.Shuffle
-        Icon(
-            imageVector = icon,
-            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-        )
-    }
+  val onLabel = stringResource(id = R.string.horologist_shuffle_button_on_content_description)
+  val offLabel = stringResource(id = R.string.horologist_shuffle_button_off_content_description)
+  ToggleButton(
+    modifier = modifier.semantics { stateDescription = if (shuffleOn) onLabel else offLabel },
+    onCheckedChange = onToggle,
+    enabled = enabled,
+    colors = colors,
+    checked = shuffleOn,
+  ) {
+    val icon = if (shuffleOn) Icons.Default.ShuffleOn else Icons.Default.Shuffle
+    Icon(
+      imageVector = icon,
+      contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+    )
+  }
 }

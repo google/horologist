@@ -18,27 +18,26 @@ package com.google.android.horologist.media.ui.material3.screens.entity
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.ButtonDefaults
 import androidx.wear.compose.material3.FilledIconButton
 import androidx.wear.compose.material3.FilledTonalButton
 import androidx.wear.compose.material3.Icon
-import androidx.wear.compose.material3.IconButton
 import androidx.wear.compose.material3.Text
 import androidx.wear.compose.material3.rememberPlaceholderState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
@@ -49,96 +48,91 @@ import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 /**
- * An implementation of [EntityScreen] using [PlaylistUiModel] and [DownloadMediaUiModel] as
- * models.
+ * An implementation of [EntityScreen] using [PlaylistUiModel] and [DownloadMediaUiModel] as models.
  */
 @ExperimentalHorologistApi
 @Composable
 public fun PlaylistStreamingScreen(
-    playlistName: String,
-    playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
-    onShuffleButtonClick: () -> Unit,
-    onPlayButtonClick: () -> Unit,
-    onPlayItemClick: (DownloadMediaUiModel) -> Unit,
-    modifier: Modifier = Modifier,
-    defaultMediaTitle: String = "",
+  playlistName: String,
+  playlistDownloadScreenState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel>,
+  onShuffleButtonClick: () -> Unit,
+  onPlayButtonClick: () -> Unit,
+  onPlayItemClick: (DownloadMediaUiModel) -> Unit,
+  modifier: Modifier = Modifier,
+  defaultMediaTitle: String = "",
 ) {
-    val entityScreenState: EntityScreenState<DownloadMediaUiModel> =
-        when (playlistDownloadScreenState) {
-            PlaylistDownloadScreenState.Loading -> EntityScreenState.Loading
-            is PlaylistDownloadScreenState.Loaded -> EntityScreenState.Loaded(
-                playlistDownloadScreenState.mediaList,
-            )
+  val entityScreenState: EntityScreenState<DownloadMediaUiModel> =
+    when (playlistDownloadScreenState) {
+      PlaylistDownloadScreenState.Loading -> EntityScreenState.Loading
+      is PlaylistDownloadScreenState.Loaded ->
+        EntityScreenState.Loaded(playlistDownloadScreenState.mediaList)
 
-            PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed
+      PlaylistDownloadScreenState.Failed -> EntityScreenState.Failed
+    }
+
+  // TODO This should be folded into SectionedList
+  val placeholderState = rememberPlaceholderState(entityScreenState is EntityScreenState.Loading)
+
+  EntityScreen(
+    entityScreenState = entityScreenState,
+    headerContent = { DefaultEntityScreenHeader(title = playlistName) },
+    loadingContent = {
+      items(count = 2) {
+        PlaceholderButton(
+          colors = ButtonDefaults.filledTonalButtonColors(),
+          placeholderState = placeholderState,
+          secondaryLabel = false,
+          modifier = Modifier.fillMaxWidth(),
+        )
+      }
+    },
+    mediaContent = { mediaUiModel ->
+      val mediaTitle = mediaUiModel.title ?: defaultMediaTitle
+      FilledTonalButton(
+        label = { Text(text = mediaTitle, maxLines = 1, overflow = TextOverflow.Ellipsis) },
+        onClick = { onPlayItemClick(mediaUiModel) },
+        icon = {
+          Image(
+            painter = CoilPaintable(mediaUiModel.artworkUri).rememberPainter(),
+            contentDescription = null,
+            modifier = Modifier.size(ButtonDefaults.IconSize).clip(CircleShape),
+            contentScale = ContentScale.Crop,
+          )
+        },
+      )
+    },
+    modifier = modifier,
+    buttonsContent = {
+      Row(
+        modifier = Modifier.padding(bottom = 16.dp).height(52.dp),
+        verticalAlignment = Alignment.CenterVertically,
+      ) {
+        FilledIconButton(
+          onClick = { onShuffleButtonClick() },
+          modifier = Modifier.padding(start = 6.dp).weight(weight = 0.3F, fill = false),
+        ) {
+          Icon(
+            imageVector = Icons.Default.Shuffle,
+            contentDescription =
+              stringResource(
+                id = R.string.horologist_playlist_download_button_shuffle_content_description
+              ),
+          )
         }
 
-    // TODO This should be folded into SectionedList
-    val placeholderState =
-        rememberPlaceholderState(entityScreenState is EntityScreenState.Loading)
-
-    EntityScreen(
-        entityScreenState = entityScreenState,
-        headerContent = { DefaultEntityScreenHeader(title = playlistName) },
-        loadingContent = {
-            items(count = 2) {
-                PlaceholderButton(
-                    colors = ButtonDefaults.filledTonalButtonColors(),
-                    placeholderState = placeholderState,
-                    secondaryLabel = false,
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-        },
-        mediaContent = { mediaUiModel ->
-            val mediaTitle = mediaUiModel.title ?: defaultMediaTitle
-            FilledTonalButton(
-                label = { Text(text = mediaTitle, maxLines = 1, overflow = TextOverflow.Ellipsis) },
-                onClick = { onPlayItemClick(mediaUiModel) },
-                icon = {
-                    Image(
-                        painter = CoilPaintable(mediaUiModel.artworkUri).rememberPainter(),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(ButtonDefaults.IconSize)
-                            .clip(CircleShape),
-                        contentScale = ContentScale.Crop,
-                    )
-                },
-            )
-        },
-        modifier = modifier,
-        buttonsContent = {
-            Row(
-                modifier = Modifier
-                    .padding(bottom = 16.dp)
-                    .height(52.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                FilledIconButton(
-                    onClick = { onShuffleButtonClick() },
-                    modifier = Modifier
-                        .padding(start = 6.dp)
-                        .weight(weight = 0.3F, fill = false),
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Shuffle,
-                        contentDescription = stringResource(id = R.string.horologist_playlist_download_button_shuffle_content_description),
-                    )
-                }
-
-                FilledIconButton(
-                    onClick = { onPlayButtonClick() },
-                    modifier = Modifier
-                        .padding(start = 6.dp)
-                        .weight(weight = 0.3F, fill = false),
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.PlayArrow,
-                        contentDescription = stringResource(id = R.string.horologist_playlist_download_button_play_content_description),
-                    )
-                }
-            }
-        },
-    )
+        FilledIconButton(
+          onClick = { onPlayButtonClick() },
+          modifier = Modifier.padding(start = 6.dp).weight(weight = 0.3F, fill = false),
+        ) {
+          Icon(
+            imageVector = Icons.Filled.PlayArrow,
+            contentDescription =
+              stringResource(
+                id = R.string.horologist_playlist_download_button_play_content_description
+              ),
+          )
+        }
+      }
+    },
+  )
 }

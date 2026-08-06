@@ -29,26 +29,26 @@ import com.google.android.horologist.media.ui.model.R
 
 @Composable
 public fun AnimatedSeekToNextButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    onLongRepeatableClick: (() -> Unit)? = null,
-    onLongRepeatableClickEnd: (() -> Unit)? = null,
-    enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    iconSize: Dp = 32.dp,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  onLongRepeatableClick: (() -> Unit)? = null,
+  onLongRepeatableClickEnd: (() -> Unit)? = null,
+  enabled: Boolean = true,
+  colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+  iconSize: Dp = 32.dp,
 ) {
-    val compositionResult = rememberLottieComposition(
-        spec = LottieCompositionSpec.Asset("lottie/Next.json"),
-    )
-    AnimatedMediaButton(
-        modifier = modifier,
-        onClick = onClick,
-        contentDescription = stringResource(id = R.string.horologist_seek_to_next_button_content_description),
-        enabled = enabled,
-        colors = colors,
-        iconSize = iconSize,
-        compositionResult = compositionResult,
-        onLongRepeatableClick = onLongRepeatableClick,
-        onLongRepeatableClickEnd = onLongRepeatableClickEnd,
-    )
+  val compositionResult =
+    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/Next.json"))
+  AnimatedMediaButton(
+    modifier = modifier,
+    onClick = onClick,
+    contentDescription =
+      stringResource(id = R.string.horologist_seek_to_next_button_content_description),
+    enabled = enabled,
+    colors = colors,
+    iconSize = iconSize,
+    compositionResult = compositionResult,
+    onLongRepeatableClick = onLongRepeatableClick,
+    onLongRepeatableClickEnd = onLongRepeatableClickEnd,
+  )
 }

@@ -21,10 +21,10 @@ import com.google.android.horologist.auth.data.common.repository.AuthUserReposit
 
 class AuthUserRepositoryStub : AuthUserRepository {
 
-    var authUser: AuthUser? = null
-    var authUserList: List<AuthUser> = emptyList()
+  var authUser: AuthUser? = null
+  var authUserList: List<AuthUser> = emptyList()
 
-    override suspend fun getAuthenticated(): AuthUser? = authUser
+  override suspend fun getAuthenticated(): AuthUser? = authUser
 
-    override suspend fun getAvailable(): List<AuthUser> = authUserList
+  override suspend fun getAvailable(): List<AuthUser> = authUserList
 }

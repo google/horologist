@@ -30,58 +30,56 @@ import org.junit.Test
 
 class SetVolumeButtonTest : WearLegacyComponentTest() {
 
-    @Test
-    fun givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown() {
-        val currentVolume = 5
+  @Test
+  fun givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown() {
+    val currentVolume = 5
 
-        runComponentTest {
-            SetVolumeButton(
-                onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume, max = 10),
-            )
-        }
+    runComponentTest {
+      SetVolumeButton(
+        onVolumeClick = {},
+        volumeUiState = VolumeUiState(current = currentVolume, max = 10),
+      )
     }
+  }
 
-    @Test
-    fun givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
-        val currentVolume = 0
+  @Test
+  fun givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
+    val currentVolume = 0
 
-        runComponentTest {
-            SetVolumeButton(
-                onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume),
-            )
-        }
+    runComponentTest {
+      SetVolumeButton(
+        onVolumeClick = {},
+        volumeUiState = VolumeUiState(current = currentVolume),
+      )
     }
+  }
 
-    @Test
-    fun givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
-        val currentVolume = 1
+  @Test
+  fun givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
+    val currentVolume = 1
 
-        runComponentTest {
-            SetVolumeButton(
-                onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume),
-            )
-        }
+    runComponentTest {
+      SetVolumeButton(
+        onVolumeClick = {},
+        volumeUiState = VolumeUiState(current = currentVolume),
+      )
     }
+  }
 
-    @Test
-    fun givenNoVolumeUiState_thenIconIsVolumeUp() {
-        runComponentTest {
-            SetVolumeButton(onVolumeClick = {})
-        }
-    }
+  @Test
+  fun givenNoVolumeUiState_thenIconIsVolumeUp() {
+    runComponentTest { SetVolumeButton(onVolumeClick = {}) }
+  }
 
-    @Composable
-    override fun ComponentScaffold(content: @Composable () -> Unit) {
-        Box(
-            modifier = Modifier
-                .wrapContentSize()
-                .background(Color.Black.copy(alpha = 0.5f))
-                .border(1.dp, Color.White),
-        ) {
-            content()
-        }
+  @Composable
+  override fun ComponentScaffold(content: @Composable () -> Unit) {
+    Box(
+      modifier =
+        Modifier.wrapContentSize()
+          .background(Color.Black.copy(alpha = 0.5f))
+          .border(1.dp, Color.White)
+    ) {
+      content()
     }
+  }
 }

@@ -25,18 +25,18 @@ import java.net.Socket
 
 @ExperimentalHorologistApi
 public data class NetworkStatus(
-    public val id: String,
-    public val status: Status,
-    public val networkInfo: NetworkInfo,
-    public val addresses: List<InetAddress>,
-    public val capabilities: NetworkCapabilities?,
-    public val linkProperties: LinkProperties?,
-    public val bindSocket: (Socket) -> Unit,
+  public val id: String,
+  public val status: Status,
+  public val networkInfo: NetworkInfo,
+  public val addresses: List<InetAddress>,
+  public val capabilities: NetworkCapabilities?,
+  public val linkProperties: LinkProperties?,
+  public val bindSocket: (Socket) -> Unit,
 ) {
-    public val firstAddress: InetAddress?
-        get() = addresses.minByOrNull { it is Inet6Address }
+  public val firstAddress: InetAddress?
+    get() = addresses.minByOrNull { it is Inet6Address }
 
-    override fun toString(): String {
-        return "NetworkStatus(id=$id, status=$status, type=$networkInfo, addresses=$addresses)"
-    }
+  override fun toString(): String {
+    return "NetworkStatus(id=$id, status=$status, type=$networkInfo, addresses=$addresses)"
+  }
 }

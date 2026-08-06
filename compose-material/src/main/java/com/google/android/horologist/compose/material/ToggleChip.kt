@@ -57,95 +57,89 @@ import com.google.android.horologist.images.base.paintable.PaintableIcon
 @ExperimentalHorologistApi
 @Composable
 public fun ToggleChip(
-    checked: Boolean,
-    onCheckedChanged: (Boolean) -> Unit,
-    label: String,
-    toggleControl: ToggleChipToggleControl,
-    modifier: Modifier = Modifier,
-    icon: PaintableIcon? = null,
-    secondaryLabel: String? = null,
-    colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource? = null,
-    iconTint: Color = Color.Unspecified,
+  checked: Boolean,
+  onCheckedChanged: (Boolean) -> Unit,
+  label: String,
+  toggleControl: ToggleChipToggleControl,
+  modifier: Modifier = Modifier,
+  icon: PaintableIcon? = null,
+  secondaryLabel: String? = null,
+  colors: ToggleChipColors = ToggleChipDefaults.toggleChipColors(),
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource? = null,
+  iconTint: Color = Color.Unspecified,
 ) {
-    val hasSecondaryLabel = secondaryLabel != null
+  val hasSecondaryLabel = secondaryLabel != null
 
-    val labelParam: (@Composable RowScope.() -> Unit) =
-        {
-            Text(
-                text = label,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Start,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = if (hasSecondaryLabel) 1 else 2,
-                style = MaterialTheme.typography.button,
-            )
-        }
+  val labelParam: (@Composable RowScope.() -> Unit) = {
+    Text(
+      text = label,
+      modifier = Modifier.fillMaxWidth(),
+      textAlign = TextAlign.Start,
+      overflow = TextOverflow.Ellipsis,
+      maxLines = if (hasSecondaryLabel) 1 else 2,
+      style = MaterialTheme.typography.button,
+    )
+  }
 
-    val secondaryLabelParam: (@Composable RowScope.() -> Unit)? =
-        secondaryLabel?.let {
-            {
-                Text(
-                    text = secondaryLabel,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                    style = MaterialTheme.typography.caption2,
-                )
-            }
-        }
-
-    val toggleControlParam: (@Composable () -> Unit) = {
-        Icon(
-            paintable = when (toggleControl) {
-                ToggleChipToggleControl.Switch -> ToggleChipDefaults.switchIcon(checked)
-                ToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
-                ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
-            }.asPaintable(),
-            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-            modifier = Modifier.autoMirrored(LocalLayoutDirection.current == LayoutDirection.Rtl),
-        )
+  val secondaryLabelParam: (@Composable RowScope.() -> Unit)? = secondaryLabel?.let {
+    {
+      Text(
+        text = secondaryLabel,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 1,
+        style = MaterialTheme.typography.caption2,
+      )
     }
+  }
 
-    val iconParam: (@Composable BoxScope.() -> Unit)? =
-        icon?.let {
-            {
-                Row {
-                    Icon(
-                        paintable = it,
-                        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                        modifier = Modifier
-                            .size(ChipDefaults.IconSize)
-                            .clip(CircleShape),
-                        tint = iconTint.takeOrElse {
-                            LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
-                        },
-                    )
-                }
-            }
-        }
-
-    val stateDescriptionSemantics = stringResource(
-        if (checked) {
-            R.string.horologist_toggle_chip_on_state_description
-        } else {
-            R.string.horologist_toggle_chip_off_state_description
-        },
+  val toggleControlParam: (@Composable () -> Unit) = {
+    Icon(
+      paintable =
+        when (toggleControl) {
+          ToggleChipToggleControl.Switch -> ToggleChipDefaults.switchIcon(checked)
+          ToggleChipToggleControl.Radio -> ToggleChipDefaults.radioIcon(checked)
+          ToggleChipToggleControl.Checkbox -> ToggleChipDefaults.checkboxIcon(checked)
+        }.asPaintable(),
+      contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+      modifier = Modifier.autoMirrored(LocalLayoutDirection.current == LayoutDirection.Rtl),
     )
-    ToggleChip(
-        checked = checked,
-        onCheckedChange = onCheckedChanged,
-        label = labelParam,
-        toggleControl = toggleControlParam,
-        modifier = modifier
-            .fillMaxWidth()
-            .semantics {
-                stateDescription = stateDescriptionSemantics
+  }
+
+  val iconParam: (@Composable BoxScope.() -> Unit)? = icon?.let {
+    {
+      Row {
+        Icon(
+          paintable = it,
+          contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+          modifier = Modifier.size(ChipDefaults.IconSize).clip(CircleShape),
+          tint =
+            iconTint.takeOrElse {
+              LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
             },
-        appIcon = iconParam,
-        secondaryLabel = secondaryLabelParam,
-        colors = colors,
-        enabled = enabled,
-        interactionSource = interactionSource,
+        )
+      }
+    }
+  }
+
+  val stateDescriptionSemantics =
+    stringResource(
+      if (checked) {
+        R.string.horologist_toggle_chip_on_state_description
+      } else {
+        R.string.horologist_toggle_chip_off_state_description
+      }
     )
+  ToggleChip(
+    checked = checked,
+    onCheckedChange = onCheckedChanged,
+    label = labelParam,
+    toggleControl = toggleControlParam,
+    modifier = modifier.fillMaxWidth().semantics { stateDescription = stateDescriptionSemantics },
+    appIcon = iconParam,
+    secondaryLabel = secondaryLabelParam,
+    colors = colors,
+    enabled = enabled,
+    interactionSource = interactionSource,
+  )
 }

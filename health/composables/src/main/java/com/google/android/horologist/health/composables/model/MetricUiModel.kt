@@ -19,8 +19,8 @@ package com.google.android.horologist.health.composables.model
 import androidx.compose.ui.graphics.Color
 
 public data class MetricUiModel(
-    val text: String,
-    val topRightText: String? = null,
-    val bottomRightText: String? = null,
-    val color: Color = Color.Unspecified,
+  val text: String,
+  val topRightText: String? = null,
+  val bottomRightText: String? = null,
+  val color: Color = Color.Unspecified,
 )

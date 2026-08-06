@@ -28,26 +28,21 @@ import com.google.android.horologist.compose.tools.WearLocalePreview
 @WearLocalePreview
 @Composable
 fun VolumeScreenLocalePreview() {
-    val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
+  val volume = VolumeState(5, 10)
+  val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
 
-    Scaffold(
-        positionIndicator = {
-            VolumePositionIndicator(
-                volumeUiState = { volumeUiState },
-            )
-        },
-    ) {
-        VolumeScreen(
-            volume = { volumeUiState },
-            audioOutputUi = AudioOutput.WatchSpeaker(
-                id = "1",
-                name = LocalConfiguration.current.locales.get(0).displayName,
-            )
-                .toAudioOutputUi(),
-            increaseVolume = { },
-            decreaseVolume = { },
-            onAudioOutputClick = {},
-        )
-    }
+  Scaffold(positionIndicator = { VolumePositionIndicator(volumeUiState = { volumeUiState }) }) {
+    VolumeScreen(
+      volume = { volumeUiState },
+      audioOutputUi =
+        AudioOutput.WatchSpeaker(
+            id = "1",
+            name = LocalConfiguration.current.locales.get(0).displayName,
+          )
+          .toAudioOutputUi(),
+      increaseVolume = {},
+      decreaseVolume = {},
+      onAudioOutputClick = {},
+    )
+  }
 }

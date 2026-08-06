@@ -47,125 +47,124 @@ import com.google.android.horologist.networks.data.Status
 
 @ExperimentalHorologistApi
 public fun CurvedScope.curveDataUsage(
-    modifier: Modifier = Modifier,
-    networkStatus: Networks,
-    networkUsage: DataUsageReport?,
-    style: CurvedTextStyle,
-    context: Context,
-    pinnedNetworks: Set<NetworkType>,
+  modifier: Modifier = Modifier,
+  networkStatus: Networks,
+  networkUsage: DataUsageReport?,
+  style: CurvedTextStyle,
+  context: Context,
+  pinnedNetworks: Set<NetworkType>,
 ) {
-    val activeNetwork = networkStatus.activeNetwork
+  val activeNetwork = networkStatus.activeNetwork
 
-    val networks = networkStatus.networks
-    val types = networks.map { it.networkInfo.type }
-    for (it in networks) {
+  val networks = networkStatus.networks
+  val types = networks.map { it.networkInfo.type }
+  for (it in networks) {
+    curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
+      if (pinnedNetworks.contains(it.networkInfo.type)) {
+        Icon(
+          modifier = modifier.size(14.dp).alpha(0.6f),
+          imageVector = Icons.Outlined.Square,
+          contentDescription = null,
+          tint = Color.Yellow,
+        )
+      }
+      Icon(
+        modifier = modifier.size(12.dp),
+        imageVector = it.networkInfo.type.icon,
+        contentDescription = null,
+        tint = it.tint(active = activeNetwork?.id == it.id),
+      )
+    }
+    val usage = networkUsage?.dataByType?.get(it.networkInfo.type)
+    if (usage != null) {
+      curvedText(text = usage.toSize(context), style = style)
+    }
+  }
+  if (networkUsage?.dataByType != null) {
+    val keys = networkUsage.dataByType.keys
+    val missingTypes = keys - types.toSet()
+    for (it in missingTypes) {
+      val usage = networkUsage.dataByType[it]
+      if (usage != null && usage > 0) {
         curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
-            if (pinnedNetworks.contains(it.networkInfo.type)) {
-                Icon(
-                    modifier = modifier
-                        .size(14.dp)
-                        .alpha(0.6f),
-                    imageVector = Icons.Outlined.Square,
-                    contentDescription = null,
-                    tint = Color.Yellow,
-                )
-            }
-            Icon(
-                modifier = modifier
-                    .size(12.dp),
-                imageVector = it.networkInfo.type.icon,
-                contentDescription = null,
-                tint = it.tint(active = activeNetwork?.id == it.id),
-            )
+          Icon(
+            modifier = modifier.size(12.dp),
+            imageVector = it.icon,
+            contentDescription = null,
+            tint = Color.LightGray,
+          )
         }
-        val usage = networkUsage?.dataByType?.get(it.networkInfo.type)
-        if (usage != null) {
-            curvedText(text = usage.toSize(context), style = style)
-        }
+        curvedText(text = usage.toSize(context), style = style)
+      }
     }
-    if (networkUsage?.dataByType != null) {
-        val keys = networkUsage.dataByType.keys
-        val missingTypes = keys - types.toSet()
-        for (it in missingTypes) {
-            val usage = networkUsage.dataByType[it]
-            if (usage != null && usage > 0) {
-                curvedComposable(radialAlignment = CurvedAlignment.Radial.Outer) {
-                    Icon(
-                        modifier = modifier
-                            .size(12.dp),
-                        imageVector = it.icon,
-                        contentDescription = null,
-                        tint = Color.LightGray,
-                    )
-                }
-                curvedText(text = usage.toSize(context), style = style)
-            }
-        }
-    }
+  }
 }
 
 @ExperimentalHorologistApi
 @Composable
 public fun LinearDataUsage(
-    networkStatus: Networks,
-    networkUsage: DataUsageReport?,
-    style: TextStyle,
-    context: Context,
+  networkStatus: Networks,
+  networkUsage: DataUsageReport?,
+  style: TextStyle,
+  context: Context,
 ) {
-    val activeNetwork = networkStatus.activeNetwork
+  val activeNetwork = networkStatus.activeNetwork
 
-    networkStatus.networks.filterNot { it.id == activeNetwork?.id }.forEach {
-        Icon(
-            modifier = Modifier.size(12.dp),
-            imageVector = it.networkInfo.type.icon,
-            contentDescription = null,
-            tint = it.tint(active = false),
-        )
-        val usage = networkUsage?.dataByType?.get(it.networkInfo.type)
-        if (usage != null) {
-            Text(text = usage.toSize(context), style = style)
-        }
+  networkStatus.networks
+    .filterNot { it.id == activeNetwork?.id }
+    .forEach {
+      Icon(
+        modifier = Modifier.size(12.dp),
+        imageVector = it.networkInfo.type.icon,
+        contentDescription = null,
+        tint = it.tint(active = false),
+      )
+      val usage = networkUsage?.dataByType?.get(it.networkInfo.type)
+      if (usage != null) {
+        Text(text = usage.toSize(context), style = style)
+      }
     }
-    activeNetwork?.let {
-        Icon(
-            modifier = Modifier.size(16.dp),
-            imageVector = it.networkInfo.type.icon,
-            contentDescription = null,
-            tint = it.tint(active = true),
-        )
-        val usage = networkUsage?.dataByType?.get(activeNetwork.networkInfo.type)
-        if (usage != null) {
-            Text(
-                text = usage.toSize(context),
-                style = style,
-            )
-        }
+  activeNetwork?.let {
+    Icon(
+      modifier = Modifier.size(16.dp),
+      imageVector = it.networkInfo.type.icon,
+      contentDescription = null,
+      tint = it.tint(active = true),
+    )
+    val usage = networkUsage?.dataByType?.get(activeNetwork.networkInfo.type)
+    if (usage != null) {
+      Text(
+        text = usage.toSize(context),
+        style = style,
+      )
     }
+  }
 }
 
 internal fun Long.toSize(context: Context): String {
-    return Formatter.formatShortFileSize(context, this)
+  return Formatter.formatShortFileSize(context, this)
 }
 
 @ExperimentalHorologistApi
 private fun NetworkStatus.tint(active: Boolean): Color {
-    return if (!active && this.status == Status.Available) {
-        Color.Blue
-    } else {
-        when (this.status) {
-            is Status.Available -> Color.Green
-            is Status.Losing -> Color.Yellow
-            is Status.Lost -> Color.Gray
-            is Status.Unknown -> Color.LightGray
-        }
+  return if (!active && this.status == Status.Available) {
+    Color.Blue
+  } else {
+    when (this.status) {
+      is Status.Available -> Color.Green
+      is Status.Losing -> Color.Yellow
+      is Status.Lost -> Color.Gray
+      is Status.Unknown -> Color.LightGray
     }
+  }
 }
 
 @ExperimentalHorologistApi
 internal val NetworkType.icon
-    get() = when (this) {
-        NetworkType.Wifi -> Icons.Filled.Wifi
-        NetworkType.Cell -> Icons.Filled.SignalCellularAlt
-        NetworkType.BT -> Icons.Filled.Bluetooth
-        else -> Icons.AutoMirrored.Filled.HelpOutline
+  get() =
+    when (this) {
+      NetworkType.Wifi -> Icons.Filled.Wifi
+      NetworkType.Cell -> Icons.Filled.SignalCellularAlt
+      NetworkType.BT -> Icons.Filled.Bluetooth
+      else -> Icons.AutoMirrored.Filled.HelpOutline
     }

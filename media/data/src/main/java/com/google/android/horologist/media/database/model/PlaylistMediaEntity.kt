@@ -20,17 +20,13 @@ import androidx.room.Entity
 import androidx.room.Index
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * Cross-reference table that holds relationship between [PlaylistEntity] and [MediaEntity].
- */
+/** Cross-reference table that holds relationship between [PlaylistEntity] and [MediaEntity]. */
 @ExperimentalHorologistApi
 @Entity(
-    primaryKeys = ["playlistId", "mediaId"],
-    indices = [
-        Index(value = ["mediaId"]),
-    ],
+  primaryKeys = ["playlistId", "mediaId"],
+  indices = [Index(value = ["mediaId"])],
 )
 public data class PlaylistMediaEntity(
-    val playlistId: String,
-    val mediaId: String,
+  val playlistId: String,
+  val mediaId: String,
 )

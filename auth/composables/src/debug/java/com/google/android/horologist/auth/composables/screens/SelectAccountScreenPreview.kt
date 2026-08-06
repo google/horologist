@@ -25,24 +25,26 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
 @WearPreviewDevices
 @Composable
 fun SelectAccountScreenPreview() {
-    SelectAccountScreen(
-        accounts = listOf(
-            AccountUiModel(email = "maggie@example.com"),
-            AccountUiModel(email = "thisisaverylongemail@example.com"),
-        ),
-        onAccountClicked = { _, _ -> },
-    )
+  SelectAccountScreen(
+    accounts =
+      listOf(
+        AccountUiModel(email = "maggie@example.com"),
+        AccountUiModel(email = "thisisaverylongemail@example.com"),
+      ),
+    onAccountClicked = { _, _ -> },
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun SelectAccountScreenPreviewNoAvatar() {
-    SelectAccountScreen(
-        accounts = listOf(
-            AccountUiModel(email = "maggie@example.com"),
-            AccountUiModel(email = "thisisaverylongemailaccountsample@example.com"),
-        ),
-        onAccountClicked = { _, _ -> },
-        defaultAvatar = null,
-    )
+  SelectAccountScreen(
+    accounts =
+      listOf(
+        AccountUiModel(email = "maggie@example.com"),
+        AccountUiModel(email = "thisisaverylongemailaccountsample@example.com"),
+      ),
+    onAccountClicked = { _, _ -> },
+    defaultAvatar = null,
+  )
 }

@@ -21,25 +21,19 @@ import com.google.android.horologist.media.database.model.MediaDownloadEntity
 import com.google.android.horologist.media.database.model.PopulatedPlaylist
 import com.google.android.horologist.media.model.PlaylistDownload
 
-/**
- * Functions to map models from other layers and / or packages into a [PlaylistDownload].
- */
+/** Functions to map models from other layers and / or packages into a [PlaylistDownload]. */
 @ExperimentalHorologistApi
-public class PlaylistDownloadMapper(
-    private val playlistMapper: PlaylistMapper,
-) {
+public class PlaylistDownloadMapper(private val playlistMapper: PlaylistMapper) {
 
-    /**
-     * Maps from a [PopulatedPlaylist] and a list of [MediaDownloadEntity].
-     */
-    public fun map(
-        populatedPlaylist: PopulatedPlaylist,
-        mediaDownloadEntity: List<MediaDownloadEntity>,
-    ): PlaylistDownload {
-        val playlist = playlistMapper.map(populatedPlaylist)
-        return PlaylistDownload(
-            playlist = playlist,
-            mediaList = MediaDownloadMapper.map(playlist, mediaDownloadEntity),
-        )
-    }
+  /** Maps from a [PopulatedPlaylist] and a list of [MediaDownloadEntity]. */
+  public fun map(
+    populatedPlaylist: PopulatedPlaylist,
+    mediaDownloadEntity: List<MediaDownloadEntity>,
+  ): PlaylistDownload {
+    val playlist = playlistMapper.map(populatedPlaylist)
+    return PlaylistDownload(
+      playlist = playlist,
+      mediaList = MediaDownloadMapper.map(playlist, mediaDownloadEntity),
+    )
+  }
 }

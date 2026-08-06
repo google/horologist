@@ -27,38 +27,32 @@ import com.google.android.horologist.compose.snackbar.SnackbarHostState
 import kotlinx.coroutines.launch
 
 /**
- * A ViewModel the maintainer the SnackbarHostState, and a reference to the Manager
- * for both processes snackbars sequentially and also showing a message.
+ * A ViewModel the maintainer the SnackbarHostState, and a reference to the Manager for both
+ * processes snackbars sequentially and also showing a message.
  */
-public open class SnackbarViewModel(
-    private val snackbarManager: SnackbarManager,
-) : ViewModel() {
-    public val snackbarHostState: SnackbarHostState = SnackbarHostState()
+public open class SnackbarViewModel(private val snackbarManager: SnackbarManager) : ViewModel() {
+  public val snackbarHostState: SnackbarHostState = SnackbarHostState()
 
-    init {
-        viewModelScope.launch {
-            snackbarManager.messages.collect { currentMessages ->
-                currentMessages.firstOrNull()?.let {
-                    snackbarHostState.showSnackbar(
-                        message = it.message,
-                        duration = SnackbarDuration.Short,
-                    )
-                    snackbarManager.setMessageShown(it.id)
-                }
-            }
+  init {
+    viewModelScope.launch {
+      snackbarManager.messages.collect { currentMessages ->
+        currentMessages.firstOrNull()?.let {
+          snackbarHostState.showSnackbar(
+            message = it.message,
+            duration = SnackbarDuration.Short,
+          )
+          snackbarManager.setMessageShown(it.id)
         }
+      }
     }
+  }
 
-    public companion object {
-        public val SnackbarManagerKey: CreationExtras.Key<SnackbarManager> =
-            object : CreationExtras.Key<SnackbarManager> {}
+  public companion object {
+    public val SnackbarManagerKey: CreationExtras.Key<SnackbarManager> =
+      object : CreationExtras.Key<SnackbarManager> {}
 
-        public val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                SnackbarViewModel(
-                    snackbarManager = this[SnackbarManagerKey]!!,
-                )
-            }
-        }
+    public val Factory: ViewModelProvider.Factory = viewModelFactory {
+      initializer { SnackbarViewModel(snackbarManager = this[SnackbarManagerKey]!!) }
     }
+  }
 }

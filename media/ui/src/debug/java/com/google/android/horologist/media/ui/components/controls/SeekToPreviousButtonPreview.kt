@@ -20,21 +20,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
-    name = "Enabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Enabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SeekToPreviousButtonPreviewEnabled() {
-    SeekToPreviousButton(onClick = {})
+  SeekToPreviousButton(onClick = {})
 }
 
 @Preview(
-    name = "Disabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Disabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SeekToPreviousButtonPreviewDisabled() {
-    SeekToPreviousButton(onClick = {}, enabled = false)
+  SeekToPreviousButton(onClick = {}, enabled = false)
 }

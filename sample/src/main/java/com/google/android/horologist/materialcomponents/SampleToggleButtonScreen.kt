@@ -29,65 +29,65 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 
 @Composable
 internal fun SampleToggleButtonScreen(
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            ToggleButton(
-                text = "Monday",
-                onCheckedChanged = {},
-            )
-        }
-        item {
-            ToggleButton(
-                text = "Monday",
-                onCheckedChanged = {},
-                checked = false,
-            )
-        }
-        item {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                smallSize = true,
-            )
-        }
-        item {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                checked = false,
-                smallSize = true,
-            )
-        }
-        item {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true,
-            )
-        }
-        item {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                checked = false,
-                colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true,
-            )
-        }
+  ScalingLazyColumn(
+    columnState = columnState,
+    modifier = modifier,
+  ) {
+    item {
+      ToggleButton(
+        text = "Monday",
+        onCheckedChanged = {},
+      )
     }
+    item {
+      ToggleButton(
+        text = "Monday",
+        onCheckedChanged = {},
+        checked = false,
+      )
+    }
+    item {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        smallSize = true,
+      )
+    }
+    item {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        checked = false,
+        smallSize = true,
+      )
+    }
+    item {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        colors = ToggleButtonDefaults.iconOnlyColors(),
+        smallSize = true,
+      )
+    }
+    item {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        checked = false,
+        colors = ToggleButtonDefaults.iconOnlyColors(),
+        smallSize = true,
+      )
+    }
+  }
 }

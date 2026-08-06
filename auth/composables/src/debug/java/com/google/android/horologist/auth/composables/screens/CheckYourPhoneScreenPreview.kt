@@ -22,11 +22,11 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @WearPreviewDevices
 @Composable
 fun CheckYourPhoneScreenPreview() {
-    CheckYourPhoneScreen()
+  CheckYourPhoneScreen()
 }
 
 @WearPreviewDevices
 @Composable
 fun CheckYourPhoneScreenPreviewWithMessage() {
-    CheckYourPhoneScreen(message = "XXXX-YYYY")
+  CheckYourPhoneScreen(message = "XXXX-YYYY")
 }

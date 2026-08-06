@@ -30,29 +30,25 @@ import com.google.android.horologist.compose.nav.composable
 
 @Composable
 fun WearApp(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberSwipeDismissableNavController(),
+  modifier: Modifier = Modifier,
+  navController: NavHostController = rememberSwipeDismissableNavController(),
 ) {
-    AppScaffold(modifier = modifier) {
-        SwipeDismissableNavHost(
-            startDestination = Prompt,
-            navController = navController,
-        ) {
-            composable<Prompt> {
-                SamplePromptScreen(
-                    onSettingsClick = { navController.navigate(Settings) },
-                )
-            }
-            composable<Settings> {
-                SettingsScreen()
-            }
-        }
+  AppScaffold(modifier = modifier) {
+    SwipeDismissableNavHost(
+      startDestination = Prompt,
+      navController = navController,
+    ) {
+      composable<Prompt> {
+        SamplePromptScreen(onSettingsClick = { navController.navigate(Settings) })
+      }
+      composable<Settings> { SettingsScreen() }
     }
+  }
 }
 
 @WearPreviewSmallRound
 @WearPreviewLargeRound
 @Composable
 fun DefaultPreview() {
-    WearApp()
+  WearApp()
 }

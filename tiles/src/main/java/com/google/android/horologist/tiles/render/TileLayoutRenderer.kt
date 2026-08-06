@@ -31,31 +31,31 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  */
 @ExperimentalHorologistApi
 public interface TileLayoutRenderer<T, R> {
-    /**
-     * Produce a Timeline for the given tile request and the given state.
-     *
-     * The state may either represent a single tile or a timeline, in which case the renderer
-     * is responsible for determining how many tiles in the timeline.
-     *
-     * @param tileState the state of the tile, typically a data class
-     * @param requestParams the incoming request params.
-     */
-    public fun renderTimeline(
-        state: T,
-        requestParams: RequestBuilders.TileRequest,
-    ): Tile
+  /**
+   * Produce a Timeline for the given tile request and the given state.
+   *
+   * The state may either represent a single tile or a timeline, in which case the renderer is
+   * responsible for determining how many tiles in the timeline.
+   *
+   * @param tileState the state of the tile, typically a data class
+   * @param requestParams the incoming request params.
+   */
+  public fun renderTimeline(
+    state: T,
+    requestParams: RequestBuilders.TileRequest,
+  ): Tile
 
-    /**
-     * Produce resources for the given request. The implementation should read
-     * [androidx.wear.tiles.RequestBuilders.ResourcesRequest.getResourceIds] and if not empty
-     * only return the requested resources.
-     *
-     * @param resourceState the state of the resources, typically a data class containing loaded
-     * bitmaps.
-     * @param requestParams the incoming request params.
-     */
-    public fun produceRequestedResources(
-        resourceState: R,
-        requestParams: RequestBuilders.ResourcesRequest,
-    ): Resources
+  /**
+   * Produce resources for the given request. The implementation should read
+   * [androidx.wear.tiles.RequestBuilders.ResourcesRequest.getResourceIds] and if not empty only
+   * return the requested resources.
+   *
+   * @param resourceState the state of the resources, typically a data class containing loaded
+   *   bitmaps.
+   * @param requestParams the incoming request params.
+   */
+  public fun produceRequestedResources(
+    resourceState: R,
+    requestParams: RequestBuilders.ResourcesRequest,
+  ): Resources
 }

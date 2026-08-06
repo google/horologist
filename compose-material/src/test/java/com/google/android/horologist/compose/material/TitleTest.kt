@@ -26,87 +26,74 @@ import org.robolectric.annotation.Config
 
 class TitleTest : WearLegacyComponentTest() {
 
-    @Test
-    fun defaultPrimary() {
-        runComponentTest {
-            Title(
-                text = stringResource(id = R.string.title),
-            )
-        }
-    }
+  @Test
+  fun defaultPrimary() {
+    runComponentTest { Title(text = stringResource(id = R.string.title)) }
+  }
 
-    @Test
-    fun primaryWithVeryLongText() {
-        runComponentTest {
-            Title(
-                text = "Title with a very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very " +
-                    "very very very very very very long text",
-            )
-        }
+  @Test
+  fun primaryWithVeryLongText() {
+    runComponentTest {
+      Title(
+        text =
+          "Title with a very very very very very very very very very very very very " +
+            "very very very very very very very very very very very very very very very " +
+            "very very very very very very long text"
+      )
     }
+  }
 
-    @Test
-    fun defaultSecondary() {
-        runComponentTest {
-            SecondaryTitle(
-                text = stringResource(id = R.string.title),
-            )
-        }
-    }
+  @Test
+  fun defaultSecondary() {
+    runComponentTest { SecondaryTitle(text = stringResource(id = R.string.title)) }
+  }
 
-    @Test
-    fun secondaryWithVeryLongText() {
-        runComponentTest {
-            SecondaryTitle(
-                text = "Title with a very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very " +
-                    "very very very very very very long text",
-            )
-        }
+  @Test
+  fun secondaryWithVeryLongText() {
+    runComponentTest {
+      SecondaryTitle(
+        text =
+          "Title with a very very very very very very very very very very very very " +
+            "very very very very very very very very very very very very very very very " +
+            "very very very very very very long text"
+      )
     }
+  }
 
-    @Test
-    fun defaultSecondaryWithIcon() {
-        runComponentTest {
-            SecondaryTitle(
-                text = stringResource(id = R.string.title),
-                icon = Icons.Outlined.MusicNote,
-                iconTint = Color(0xFF946EB1),
-            )
-        }
+  @Test
+  fun defaultSecondaryWithIcon() {
+    runComponentTest {
+      SecondaryTitle(
+        text = stringResource(id = R.string.title),
+        icon = Icons.Outlined.MusicNote,
+        iconTint = Color(0xFF946EB1),
+      )
     }
+  }
 
-    @Test
-    fun secondaryWithIconAndVeryLongText() {
-        runComponentTest {
-            SecondaryTitle(
-                text = "Title with a very very very very very very very very very very very very " +
-                    "very very very very very very very very very very very very very very very " +
-                    "very very very very very very long text",
-                icon = Icons.Outlined.MusicNote,
-                iconTint = Color(0xFF946EB1),
-            )
-        }
+  @Test
+  fun secondaryWithIconAndVeryLongText() {
+    runComponentTest {
+      SecondaryTitle(
+        text =
+          "Title with a very very very very very very very very very very very very " +
+            "very very very very very very very very very very very very very very very " +
+            "very very very very very very long text",
+        icon = Icons.Outlined.MusicNote,
+        iconTint = Color(0xFF946EB1),
+      )
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun defaultPrimaryRtl() {
-        runComponentTest {
-            Title(
-                text = stringResource(id = R.string.title),
-            )
-        }
-    }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun defaultPrimaryRtl() {
+    runComponentTest { Title(text = stringResource(id = R.string.title)) }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun defaultSecondaryRtl() {
-        runComponentTest {
-            SecondaryTitle(
-                text = stringResource(id = R.string.title),
-            )
-        }
-    }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun defaultSecondaryRtl() {
+    runComponentTest { SecondaryTitle(text = stringResource(id = R.string.title)) }
+  }
 }

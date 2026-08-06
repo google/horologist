@@ -20,13 +20,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * A table to store playlist information.
- */
+/** A table to store playlist information. */
 @ExperimentalHorologistApi
 @Entity
 public data class PlaylistEntity(
-    @PrimaryKey val playlistId: String,
-    val name: String,
-    val artworkUri: String?,
+  @PrimaryKey val playlistId: String,
+  val name: String,
+  val artworkUri: String?,
 )

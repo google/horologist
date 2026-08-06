@@ -38,26 +38,26 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 @ExperimentalHorologistApi
 @Composable
 public fun PodcastControlButtons(
-    playerController: PlayerUiController,
-    playerUiState: PlayerUiState,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  playerController: PlayerUiController,
+  playerUiState: PlayerUiState,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
-    PodcastControlButtons(
-        onPlayButtonClick = playerController::play,
-        onPauseButtonClick = playerController::pause,
-        playPauseButtonEnabled = playerUiState.playPauseEnabled,
-        playing = playerUiState.playing,
-        onSeekBackButtonClick = playerController::seekBack,
-        seekBackButtonIncrement = playerUiState.seekBackButtonIncrement,
-        seekBackButtonEnabled = playerUiState.seekBackEnabled,
-        onSeekForwardButtonClick = playerController::seekForward,
-        seekForwardButtonIncrement = playerUiState.seekForwardButtonIncrement,
-        seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
-        trackPositionUiModel = playerUiState.trackPositionUiModel,
-        modifier = modifier,
-        colorScheme = colorScheme,
-    )
+  PodcastControlButtons(
+    onPlayButtonClick = playerController::play,
+    onPauseButtonClick = playerController::pause,
+    playPauseButtonEnabled = playerUiState.playPauseEnabled,
+    playing = playerUiState.playing,
+    onSeekBackButtonClick = playerController::seekBack,
+    seekBackButtonIncrement = playerUiState.seekBackButtonIncrement,
+    seekBackButtonEnabled = playerUiState.seekBackEnabled,
+    onSeekForwardButtonClick = playerController::seekForward,
+    seekForwardButtonIncrement = playerUiState.seekForwardButtonIncrement,
+    seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
+    trackPositionUiModel = playerUiState.trackPositionUiModel,
+    modifier = modifier,
+    colorScheme = colorScheme,
+  )
 }
 
 /**
@@ -67,92 +67,89 @@ public fun PodcastControlButtons(
 @ExperimentalHorologistApi
 @Composable
 public fun PodcastControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    onSeekBackButtonClick: () -> Unit,
-    seekBackButtonEnabled: Boolean,
-    onSeekForwardButtonClick: () -> Unit,
-    seekForwardButtonEnabled: Boolean,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  playPauseButtonEnabled: Boolean,
+  playing: Boolean,
+  onSeekBackButtonClick: () -> Unit,
+  seekBackButtonEnabled: Boolean,
+  onSeekForwardButtonClick: () -> Unit,
+  seekForwardButtonEnabled: Boolean,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+  seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
 ) {
-    PodcastControlButtons(
-        onPlayButtonClick = onPlayButtonClick,
-        onPauseButtonClick = onPauseButtonClick,
-        playPauseButtonEnabled = playPauseButtonEnabled,
-        playing = playing,
-        onSeekBackButtonClick = onSeekBackButtonClick,
-        seekBackButtonIncrement = seekBackButtonIncrement,
-        seekBackButtonEnabled = seekBackButtonEnabled,
-        onSeekForwardButtonClick = onSeekForwardButtonClick,
-        seekForwardButtonIncrement = seekForwardButtonIncrement,
-        seekForwardButtonEnabled = seekForwardButtonEnabled,
-        trackPositionUiModel = TrackPositionUiModel.Hidden,
-        modifier = modifier,
-        colorScheme = colorScheme,
-    )
+  PodcastControlButtons(
+    onPlayButtonClick = onPlayButtonClick,
+    onPauseButtonClick = onPauseButtonClick,
+    playPauseButtonEnabled = playPauseButtonEnabled,
+    playing = playing,
+    onSeekBackButtonClick = onSeekBackButtonClick,
+    seekBackButtonIncrement = seekBackButtonIncrement,
+    seekBackButtonEnabled = seekBackButtonEnabled,
+    onSeekForwardButtonClick = onSeekForwardButtonClick,
+    seekForwardButtonIncrement = seekForwardButtonIncrement,
+    seekForwardButtonEnabled = seekForwardButtonEnabled,
+    trackPositionUiModel = TrackPositionUiModel.Hidden,
+    modifier = modifier,
+    colorScheme = colorScheme,
+  )
 }
 
 /**
- * Standard Podcast control buttons showing [SeekBackButton], [PlayPauseProgressButton] and [SeekForwardButton].
+ * Standard Podcast control buttons showing [SeekBackButton], [PlayPauseProgressButton] and
+ * [SeekForwardButton].
  */
 @ExperimentalHorologistApi
 @Composable
 public fun PodcastControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    onSeekBackButtonClick: () -> Unit,
-    seekBackButtonEnabled: Boolean,
-    onSeekForwardButtonClick: () -> Unit,
-    seekForwardButtonEnabled: Boolean,
-    trackPositionUiModel: TrackPositionUiModel,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
-    seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  playPauseButtonEnabled: Boolean,
+  playing: Boolean,
+  onSeekBackButtonClick: () -> Unit,
+  seekBackButtonEnabled: Boolean,
+  onSeekForwardButtonClick: () -> Unit,
+  seekForwardButtonEnabled: Boolean,
+  trackPositionUiModel: TrackPositionUiModel,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  seekBackButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
+  seekForwardButtonIncrement: SeekButtonIncrement = SeekButtonIncrement.Unknown,
 ) {
-    val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
-    val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)
+  val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
+  val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)
 
-    AnimatedMediaControlButtons(
-        modifier = modifier,
-        onPlayButtonClick = onPlayButtonClick,
-        onPauseButtonClick = onPauseButtonClick,
-        playPauseButtonEnabled = playPauseButtonEnabled,
-        playing = playing,
+  AnimatedMediaControlButtons(
+    modifier = modifier,
+    onPlayButtonClick = onPlayButtonClick,
+    onPauseButtonClick = onPauseButtonClick,
+    playPauseButtonEnabled = playPauseButtonEnabled,
+    playing = playing,
+    colorScheme = colorScheme,
+    trackPositionUiModel = trackPositionUiModel,
+    leftButton = {
+      SeekBackButton(
+        modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
+        onClick = onSeekBackButtonClick,
+        interactionSource = it,
+        buttonPadding = leftButtonPadding,
+        seekButtonIncrement = seekBackButtonIncrement,
         colorScheme = colorScheme,
-        trackPositionUiModel = trackPositionUiModel,
-        leftButton = {
-            SeekBackButton(
-                modifier = Modifier.weight(1f)
-                    .animateWidth(it)
-                    .fillMaxSize(),
-                onClick = onSeekBackButtonClick,
-                interactionSource = it,
-                buttonPadding = leftButtonPadding,
-                seekButtonIncrement = seekBackButtonIncrement,
-                colorScheme = colorScheme,
-                enabled = seekBackButtonEnabled,
-            )
-        },
-        rightButton = {
-            SeekForwardButton(
-                modifier = Modifier.weight(1f)
-                    .animateWidth(it)
-                    .fillMaxSize(),
-                onClick = onSeekForwardButtonClick,
-                interactionSource = it,
-                buttonPadding = rightButtonPadding,
-                seekButtonIncrement = seekForwardButtonIncrement,
-                colorScheme = colorScheme,
-                enabled = seekForwardButtonEnabled,
-            )
-        },
-    )
+        enabled = seekBackButtonEnabled,
+      )
+    },
+    rightButton = {
+      SeekForwardButton(
+        modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
+        onClick = onSeekForwardButtonClick,
+        interactionSource = it,
+        buttonPadding = rightButtonPadding,
+        seekButtonIncrement = seekForwardButtonIncrement,
+        colorScheme = colorScheme,
+        enabled = seekForwardButtonEnabled,
+      )
+    },
+  )
 }

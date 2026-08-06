@@ -69,92 +69,93 @@ import kotlin.math.roundToInt
  */
 @Composable
 public fun MarqueeTextMediaDisplay(
-    modifier: Modifier = Modifier,
-    title: String? = null,
-    artist: String? = null,
-    titleIcon: Paintable? = null,
-    enterTransitionDelay: Int = 60,
-    subtextTransitionDelay: Int = 30,
-    @FloatRange(from = 0.0, to = 1.0) transitionLength: Float = 0.125f,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  modifier: Modifier = Modifier,
+  title: String? = null,
+  artist: String? = null,
+  titleIcon: Paintable? = null,
+  enterTransitionDelay: Int = 60,
+  subtextTransitionDelay: Int = 30,
+  @FloatRange(from = 0.0, to = 1.0) transitionLength: Float = 0.125f,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
-    val isLargeScreen = LocalConfiguration.current.isLargeScreen
-    val density = LocalDensity.current
-    val columnHeight = TRACK_TITLE_HEIGHT + TRACK_SUBTITLE_HEIGHT
+  val isLargeScreen = LocalConfiguration.current.isLargeScreen
+  val density = LocalDensity.current
+  val columnHeight = TRACK_TITLE_HEIGHT + TRACK_SUBTITLE_HEIGHT
 
-    fun getTransitionAnimation(delay: Int = 0): ContentTransform {
-        return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
-            (it * transitionLength).roundToInt()
-        } + fadeIn(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) togetherWith
-            slideOutHorizontally(animationSpec = tween(delayMillis = delay)) {
-                (-it * transitionLength).roundToInt()
-            } + fadeOut(animationSpec = tween(delayMillis = delay))
-    }
+  fun getTransitionAnimation(delay: Int = 0): ContentTransform {
+    return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
+      (it * transitionLength).roundToInt()
+    } + fadeIn(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) togetherWith
+      slideOutHorizontally(animationSpec = tween(delayMillis = delay)) {
+        (-it * transitionLength).roundToInt()
+      } + fadeOut(animationSpec = tween(delayMillis = delay))
+  }
 
-    CompositionLocalProvider(
-        LocalDensity provides Density(
-            density = density.density,
-            fontScale = density.fontScale.coerceAtMost(1f),
-        ),
+  CompositionLocalProvider(
+    LocalDensity provides
+      Density(
+        density = density.density,
+        fontScale = density.fontScale.coerceAtMost(1f),
+      )
+  ) {
+    Column(
+      modifier = modifier.height(columnHeight),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.Center,
     ) {
-        Column(
-            modifier = modifier.height(columnHeight),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
+      AnimatedContent(
+        targetState = title,
+        transitionSpec = { getTransitionAnimation() },
+        label = "AnimatedTitle",
+      ) { currentTitle ->
+        Row(
+          modifier =
+            Modifier.fillMaxWidth(titleIcon?.let { 0.648f } ?: 0.6672f).height(TRACK_TITLE_HEIGHT),
+          horizontalArrangement = Arrangement.Center,
+          verticalAlignment = Alignment.CenterVertically,
         ) {
-            AnimatedContent(
-                targetState = title,
-                transitionSpec = { getTransitionAnimation() },
-                label = "AnimatedTitle",
-            ) { currentTitle ->
-                Row(
-                    modifier = Modifier.fillMaxWidth(titleIcon?.let { 0.648f } ?: 0.6672f)
-                        .height(TRACK_TITLE_HEIGHT),
-                    horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically,
-                ) {
-                    titleIcon?. let {
-                        Box(modifier = Modifier.size(MEDIA_TITLE_ICON_SIZE)) {
-                            MediaTitleIcon(
-                                paintableRes = it,
-                                tint = colorScheme.primary,
-                            )
-                        }
-                    }
-                    MarqueeText(
-                        text = currentTitle.orEmpty(),
-                        edgeGradientWidth = MEDIA_TITLE_EDGE_GRADIENT_WIDTH,
-                        startGap = if (titleIcon != null) MEDIA_TITLE_EDGE_GRADIENT_WIDTH else 0.dp,
-                        color = colorScheme.onSurface,
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                }
+          titleIcon?.let {
+            Box(modifier = Modifier.size(MEDIA_TITLE_ICON_SIZE)) {
+              MediaTitleIcon(
+                paintableRes = it,
+                tint = colorScheme.primary,
+              )
             }
-
-            AnimatedContent(
-                targetState = artist,
-                transitionSpec = { getTransitionAnimation(subtextTransitionDelay) },
-                label = "AnimatedArtist",
-            ) { currentArtist ->
-                currentArtist?.let {
-                    Row(
-                        modifier = Modifier.fillMaxWidth(
-                            if (isLargeScreen) 0.71f else 0.75f,
-                        ).height(TRACK_SUBTITLE_HEIGHT),
-                        horizontalArrangement = Arrangement.Center,
-                        verticalAlignment = Alignment.CenterVertically,
-                    ) {
-                        Text(
-                            text = currentArtist,
-                            color = colorScheme.onSurface,
-                            textAlign = TextAlign.Center,
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 1,
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
-                    }
-                }
-            }
+          }
+          MarqueeText(
+            text = currentTitle.orEmpty(),
+            edgeGradientWidth = MEDIA_TITLE_EDGE_GRADIENT_WIDTH,
+            startGap = if (titleIcon != null) MEDIA_TITLE_EDGE_GRADIENT_WIDTH else 0.dp,
+            color = colorScheme.onSurface,
+            style = MaterialTheme.typography.titleMedium,
+          )
         }
+      }
+
+      AnimatedContent(
+        targetState = artist,
+        transitionSpec = { getTransitionAnimation(subtextTransitionDelay) },
+        label = "AnimatedArtist",
+      ) { currentArtist ->
+        currentArtist?.let {
+          Row(
+            modifier =
+              Modifier.fillMaxWidth(if (isLargeScreen) 0.71f else 0.75f)
+                .height(TRACK_SUBTITLE_HEIGHT),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+          ) {
+            Text(
+              text = currentArtist,
+              color = colorScheme.onSurface,
+              textAlign = TextAlign.Center,
+              overflow = TextOverflow.Ellipsis,
+              maxLines = 1,
+              style = MaterialTheme.typography.bodyMedium,
+            )
+          }
+        }
+      }
     }
+  }
 }

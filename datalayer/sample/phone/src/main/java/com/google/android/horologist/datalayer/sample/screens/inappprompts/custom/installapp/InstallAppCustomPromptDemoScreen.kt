@@ -41,149 +41,153 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun InstallAppCustomPromptDemoScreen(
-    modifier: Modifier = Modifier,
-    viewModel: InstallAppPromptDemoViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: InstallAppPromptDemoViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == InstallAppCustomPromptDemoScreenState.Idle) {
-        SideEffect {
-            viewModel.initialize()
-        }
-    }
+  if (state == InstallAppCustomPromptDemoScreenState.Idle) {
+    SideEffect { viewModel.initialize() }
+  }
 
-    val context = LocalContext.current
+  val context = LocalContext.current
 
-    InstallAppCustomPromptDemoScreen(
-        state = state,
-        onRunDemoClick = viewModel::onRunDemoClick,
-        onInstallPromptInstallClick = {
-            viewModel.installAppPrompt.performAction(
-                context = context,
-                appPackageName = context.packageName,
-            )
-            viewModel.onInstallPromptInstallClick()
-        },
-        onInstallPromptCancel = viewModel::onInstallPromptCancel,
-        modifier = modifier,
-    )
+  InstallAppCustomPromptDemoScreen(
+    state = state,
+    onRunDemoClick = viewModel::onRunDemoClick,
+    onInstallPromptInstallClick = {
+      viewModel.installAppPrompt.performAction(
+        context = context,
+        appPackageName = context.packageName,
+      )
+      viewModel.onInstallPromptInstallClick()
+    },
+    onInstallPromptCancel = viewModel::onInstallPromptCancel,
+    modifier = modifier,
+  )
 }
 
 @Composable
 fun InstallAppCustomPromptDemoScreen(
-    state: InstallAppCustomPromptDemoScreenState,
-    onRunDemoClick: () -> Unit,
-    onInstallPromptInstallClick: () -> Unit,
-    onInstallPromptCancel: () -> Unit,
-    modifier: Modifier = Modifier,
+  state: InstallAppCustomPromptDemoScreenState,
+  onRunDemoClick: () -> Unit,
+  onInstallPromptInstallClick: () -> Unit,
+  onInstallPromptCancel: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.padding(all = 10.dp),
+  Column(modifier = modifier.padding(all = 10.dp)) {
+    Text(text = stringResource(id = R.string.install_app_custom_prompt_api_call_demo_message))
+
+    Button(
+      onClick = onRunDemoClick,
+      modifier = Modifier.padding(top = 10.dp).align(Alignment.CenterHorizontally),
+      enabled = state != InstallAppCustomPromptDemoScreenState.ApiNotAvailable,
     ) {
-        Text(text = stringResource(id = R.string.install_app_custom_prompt_api_call_demo_message))
-
-        Button(
-            onClick = onRunDemoClick,
-            modifier = Modifier
-                .padding(top = 10.dp)
-                .align(Alignment.CenterHorizontally),
-            enabled = state != InstallAppCustomPromptDemoScreenState.ApiNotAvailable,
-        ) {
-            Text(text = stringResource(id = R.string.install_app_custom_prompt_run_demo_button_label))
-        }
-
-        when (state) {
-            InstallAppCustomPromptDemoScreenState.Idle,
-            InstallAppCustomPromptDemoScreenState.Loaded,
-            -> {
-                /* do nothing */
-            }
-
-            InstallAppCustomPromptDemoScreenState.Loading -> {
-                CircularProgressIndicator()
-            }
-
-            is InstallAppCustomPromptDemoScreenState.WatchFound -> {
-                AlertDialog(
-                    icon = {
-                        Icon(imageVector = Icons.Default.Watch, contentDescription = null)
-                    },
-                    title = {
-                        Text(text = stringResource(id = R.string.install_app_custom_prompt_demo_prompt_top_message))
-                    },
-                    text = {
-                        Text(text = stringResource(id = R.string.install_app_custom_prompt_demo_prompt_bottom_message))
-                    },
-                    onDismissRequest = onInstallPromptCancel,
-                    confirmButton = {
-                        TextButton(
-                            onClick = onInstallPromptInstallClick,
-                        ) {
-                            Text(text = stringResource(id = R.string.install_app_custom_prompt_demo_prompt_confirm_button_label))
-                        }
-                    },
-                    dismissButton = {
-                        TextButton(
-                            onClick = onInstallPromptCancel,
-                        ) {
-                            Text(text = stringResource(id = R.string.install_app_custom_prompt_demo_prompt_dismiss_button_label))
-                        }
-                    },
-                )
-            }
-
-            InstallAppCustomPromptDemoScreenState.WatchNotFound -> {
-                Text(
-                    stringResource(
-                        id = R.string.install_app_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.install_app_custom_prompt_demo_no_watches_found_label),
-                    ),
-                )
-            }
-
-            InstallAppCustomPromptDemoScreenState.InstallPromptInstallClicked -> {
-                Text(
-                    stringResource(
-                        id = R.string.install_app_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.install_app_custom_prompt_demo_prompt_install_result_label),
-                    ),
-                )
-            }
-
-            InstallAppCustomPromptDemoScreenState.InstallPromptInstallCancelled -> {
-                Text(
-                    stringResource(
-                        id = R.string.install_app_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.install_app_custom_prompt_demo_prompt_cancel_result_label),
-                    ),
-                )
-            }
-
-            InstallAppCustomPromptDemoScreenState.ApiNotAvailable -> {
-                Text(stringResource(id = R.string.wearable_message_api_unavailable))
-            }
-        }
+      Text(text = stringResource(id = R.string.install_app_custom_prompt_run_demo_button_label))
     }
+
+    when (state) {
+      InstallAppCustomPromptDemoScreenState.Idle,
+      InstallAppCustomPromptDemoScreenState.Loaded -> {
+        /* do nothing */
+      }
+
+      InstallAppCustomPromptDemoScreenState.Loading -> {
+        CircularProgressIndicator()
+      }
+
+      is InstallAppCustomPromptDemoScreenState.WatchFound -> {
+        AlertDialog(
+          icon = { Icon(imageVector = Icons.Default.Watch, contentDescription = null) },
+          title = {
+            Text(
+              text = stringResource(id = R.string.install_app_custom_prompt_demo_prompt_top_message)
+            )
+          },
+          text = {
+            Text(
+              text =
+                stringResource(id = R.string.install_app_custom_prompt_demo_prompt_bottom_message)
+            )
+          },
+          onDismissRequest = onInstallPromptCancel,
+          confirmButton = {
+            TextButton(onClick = onInstallPromptInstallClick) {
+              Text(
+                text =
+                  stringResource(
+                    id = R.string.install_app_custom_prompt_demo_prompt_confirm_button_label
+                  )
+              )
+            }
+          },
+          dismissButton = {
+            TextButton(onClick = onInstallPromptCancel) {
+              Text(
+                text =
+                  stringResource(
+                    id = R.string.install_app_custom_prompt_demo_prompt_dismiss_button_label
+                  )
+              )
+            }
+          },
+        )
+      }
+
+      InstallAppCustomPromptDemoScreenState.WatchNotFound -> {
+        Text(
+          stringResource(
+            id = R.string.install_app_custom_prompt_demo_result_label,
+            stringResource(id = R.string.install_app_custom_prompt_demo_no_watches_found_label),
+          )
+        )
+      }
+
+      InstallAppCustomPromptDemoScreenState.InstallPromptInstallClicked -> {
+        Text(
+          stringResource(
+            id = R.string.install_app_custom_prompt_demo_result_label,
+            stringResource(
+              id = R.string.install_app_custom_prompt_demo_prompt_install_result_label
+            ),
+          )
+        )
+      }
+
+      InstallAppCustomPromptDemoScreenState.InstallPromptInstallCancelled -> {
+        Text(
+          stringResource(
+            id = R.string.install_app_custom_prompt_demo_result_label,
+            stringResource(id = R.string.install_app_custom_prompt_demo_prompt_cancel_result_label),
+          )
+        )
+      }
+
+      InstallAppCustomPromptDemoScreenState.ApiNotAvailable -> {
+        Text(stringResource(id = R.string.wearable_message_api_unavailable))
+      }
+    }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun InstallAppCustomPromptDemoScreenPreview() {
-    InstallAppCustomPromptDemoScreen(
-        state = InstallAppCustomPromptDemoScreenState.Idle,
-        onRunDemoClick = { },
-        onInstallPromptInstallClick = { },
-        onInstallPromptCancel = { },
-    )
+  InstallAppCustomPromptDemoScreen(
+    state = InstallAppCustomPromptDemoScreenState.Idle,
+    onRunDemoClick = {},
+    onInstallPromptInstallClick = {},
+    onInstallPromptCancel = {},
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun InstallAppCustomPromptDemoScreenPreviewWithPrompt() {
-    InstallAppCustomPromptDemoScreen(
-        state = InstallAppCustomPromptDemoScreenState.WatchFound,
-        onRunDemoClick = { },
-        onInstallPromptInstallClick = { },
-        onInstallPromptCancel = { },
-    )
+  InstallAppCustomPromptDemoScreen(
+    state = InstallAppCustomPromptDemoScreenState.WatchFound,
+    onRunDemoClick = {},
+    onInstallPromptInstallClick = {},
+    onInstallPromptCancel = {},
+  )
 }

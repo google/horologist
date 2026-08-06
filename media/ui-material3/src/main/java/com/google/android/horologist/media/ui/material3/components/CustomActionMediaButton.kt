@@ -56,46 +56,45 @@ import com.google.android.horologist.media.ui.material3.composables.UnboundedRip
  */
 @Composable
 public fun CustomActionMediaButton(
-    onClick: () -> Unit,
-    icon: Paintable,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    shape: Shape = CircleShape,
-    colors: IconButtonColors = CustomActionMediaButtonDefaults.buttonColors(),
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    interactionSource: MutableInteractionSource? = null,
-    iconSize: Dp = IconButtonDefaults.SmallIconSize,
-    border: BorderStroke? = null,
+  onClick: () -> Unit,
+  icon: Paintable,
+  contentDescription: String?,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  shape: Shape = CircleShape,
+  colors: IconButtonColors = CustomActionMediaButtonDefaults.buttonColors(),
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  interactionSource: MutableInteractionSource? = null,
+  iconSize: Dp = IconButtonDefaults.SmallIconSize,
+  border: BorderStroke? = null,
 ) {
-    UnboundedRippleIconButton(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        colors = colors,
-        shape = shape,
-        buttonPadding = buttonPadding,
-        interactionSource = interactionSource,
-        rippleRadius = null,
-        border = border,
-    ) {
-        Icon(
-            painter = icon.rememberPainter(),
-            contentDescription = contentDescription,
-            modifier = Modifier.size(iconSize),
-        )
-    }
+  UnboundedRippleIconButton(
+    onClick = onClick,
+    modifier = modifier,
+    enabled = enabled,
+    colors = colors,
+    shape = shape,
+    buttonPadding = buttonPadding,
+    interactionSource = interactionSource,
+    rippleRadius = null,
+    border = border,
+  ) {
+    Icon(
+      painter = icon.rememberPainter(),
+      contentDescription = contentDescription,
+      modifier = Modifier.size(iconSize),
+    )
+  }
 }
 
 /** Default values for [CustomActionMediaButton]. */
 public object CustomActionMediaButtonDefaults {
-    @Composable
-    public fun buttonColors(
-        colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    ): IconButtonColors = IconButtonDefaults.filledIconButtonColors(
-        containerColor = colorScheme.secondary,
-        contentColor = colorScheme.onSecondary,
-        disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-        disabledContentColor = colorScheme.onSurface.toDisabledColor(),
+  @Composable
+  public fun buttonColors(colorScheme: ColorScheme = MaterialTheme.colorScheme): IconButtonColors =
+    IconButtonDefaults.filledIconButtonColors(
+      containerColor = colorScheme.secondary,
+      contentColor = colorScheme.onSecondary,
+      disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+      disabledContentColor = colorScheme.onSurface.toDisabledColor(),
     )
 }

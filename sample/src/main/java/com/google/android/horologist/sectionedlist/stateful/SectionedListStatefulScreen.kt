@@ -66,193 +66,171 @@ import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefu
 
 @Composable
 fun SectionedListStatefulScreen(
-    modifier: Modifier = Modifier,
-    viewModel: SectionedListStatefulScreenViewModel = viewModel(),
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  viewModel: SectionedListStatefulScreenViewModel = viewModel(),
+  columnState: ScalingLazyColumnState,
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        topMenuSection()
+  SectionedList(
+    columnState = columnState,
+    modifier = modifier,
+  ) {
+    topMenuSection()
 
-        recommendationsSection(state = state, viewModel = viewModel)
+    recommendationsSection(state = state, viewModel = viewModel)
 
-        trendingSection(state = state, viewModel = viewModel)
+    trendingSection(state = state, viewModel = viewModel)
 
-        bottomMenuSection()
-    }
+    bottomMenuSection()
+  }
 }
 
 private fun SectionedListScope.topMenuSection() {
-    section(
-        listOf(
-            Pair(R.string.sectionedlist_downloads_button, Icons.Default.DownloadDone),
-            Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic),
-        ),
-    ) {
-        loaded { (stringResId, icon) ->
-            Chip(
-                label = stringResource(stringResId),
-                onClick = { },
-                icon = icon.asPaintable(),
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  section(
+    listOf(
+      Pair(R.string.sectionedlist_downloads_button, Icons.Default.DownloadDone),
+      Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic),
+    )
+  ) {
+    loaded { (stringResId, icon) ->
+      Chip(
+        label = stringResource(stringResId),
+        onClick = {},
+        icon = icon.asPaintable(),
+        colors = ChipDefaults.secondaryChipColors(),
+      )
     }
+  }
 }
 
 private fun SectionedListScope.recommendationsSection(
-    state: SectionedListStatefulScreenViewModel.UiState,
-    viewModel: SectionedListStatefulScreenViewModel,
+  state: SectionedListStatefulScreenViewModel.UiState,
+  viewModel: SectionedListStatefulScreenViewModel,
 ) {
-    val recommendationsState: Section.State<Recommendation> =
-        when (val recommendationSectionState = state.recommendationSectionState) {
-            RecommendationSectionState.Loading -> Section.State.Loading
+  val recommendationsState: Section.State<Recommendation> =
+    when (val recommendationSectionState = state.recommendationSectionState) {
+      RecommendationSectionState.Loading -> Section.State.Loading
 
-            is RecommendationSectionState.Loaded -> Section.State.Loaded(
-                recommendationSectionState.list,
-            )
+      is RecommendationSectionState.Loaded -> Section.State.Loaded(recommendationSectionState.list)
 
-            RecommendationSectionState.Failed -> Section.State.Failed
-        }
-
-    section(recommendationsState) {
-        header {
-            Title(
-                stringResource(id = R.string.sectionedlist_recommendations_title),
-                Modifier.padding(vertical = 8.dp),
-            )
-        }
-
-        loaded { recommendation: Recommendation ->
-            Chip(
-                label = recommendation.playlistName,
-                onClick = { },
-                icon = recommendation.icon.asPaintable(),
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-
-        loading(count = 2) {
-            Column {
-                PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
-            }
-        }
-
-        failed {
-            FailedView(onClick = { viewModel.loadRecommendations() })
-        }
-
-        footer {
-            Chip(
-                label = stringResource(id = R.string.sectionedlist_see_more_button),
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+      RecommendationSectionState.Failed -> Section.State.Failed
     }
+
+  section(recommendationsState) {
+    header {
+      Title(
+        stringResource(id = R.string.sectionedlist_recommendations_title),
+        Modifier.padding(vertical = 8.dp),
+      )
+    }
+
+    loaded { recommendation: Recommendation ->
+      Chip(
+        label = recommendation.playlistName,
+        onClick = {},
+        icon = recommendation.icon.asPaintable(),
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+
+    loading(count = 2) { Column { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } }
+
+    failed { FailedView(onClick = { viewModel.loadRecommendations() }) }
+
+    footer {
+      Chip(
+        label = stringResource(id = R.string.sectionedlist_see_more_button),
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+  }
 }
 
 private fun SectionedListScope.trendingSection(
-    state: SectionedListStatefulScreenViewModel.UiState,
-    viewModel: SectionedListStatefulScreenViewModel,
+  state: SectionedListStatefulScreenViewModel.UiState,
+  viewModel: SectionedListStatefulScreenViewModel,
 ) {
-    val trendingState: Section.State<Trending> =
-        when (val recommendationSectionState = state.trendingSectionState) {
-            TrendingSectionState.Loading -> Section.State.Loading
+  val trendingState: Section.State<Trending> =
+    when (val recommendationSectionState = state.trendingSectionState) {
+      TrendingSectionState.Loading -> Section.State.Loading
 
-            is TrendingSectionState.Loaded -> Section.State.Loaded(
-                recommendationSectionState.list,
-            )
+      is TrendingSectionState.Loaded -> Section.State.Loaded(recommendationSectionState.list)
 
-            TrendingSectionState.Failed -> Section.State.Failed
-        }
-
-    section(trendingState) {
-        header {
-            Title(
-                text = stringResource(id = R.string.sectionedlist_trending_title),
-                modifier = Modifier.padding(vertical = 8.dp),
-            )
-        }
-
-        loaded { trending: Trending ->
-            Chip(
-                label = trending.name,
-                onClick = { },
-                secondaryLabel = trending.artist,
-                icon = Icons.Default.MusicNote.asPaintable(),
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-
-        loading(count = 2) {
-            Column {
-                PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
-            }
-        }
-
-        failed {
-            FailedView(onClick = { viewModel.loadTrending() })
-        }
-
-        footer {
-            Chip(
-                label = stringResource(
-                    id = R.string.sectionedlist_see_more_button,
-                ),
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+      TrendingSectionState.Failed -> Section.State.Failed
     }
+
+  section(trendingState) {
+    header {
+      Title(
+        text = stringResource(id = R.string.sectionedlist_trending_title),
+        modifier = Modifier.padding(vertical = 8.dp),
+      )
+    }
+
+    loaded { trending: Trending ->
+      Chip(
+        label = trending.name,
+        onClick = {},
+        secondaryLabel = trending.artist,
+        icon = Icons.Default.MusicNote.asPaintable(),
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+
+    loading(count = 2) { Column { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } }
+
+    failed { FailedView(onClick = { viewModel.loadTrending() }) }
+
+    footer {
+      Chip(
+        label = stringResource(id = R.string.sectionedlist_see_more_button),
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+  }
 }
 
 private fun SectionedListScope.bottomMenuSection() {
-    section {
-        loaded {
-            Chip(
-                label = stringResource(R.string.sectionedlist_settings_button),
-                onClick = { },
-                icon = Icons.Default.Settings.asPaintable(),
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  section {
+    loaded {
+      Chip(
+        label = stringResource(R.string.sectionedlist_settings_button),
+        onClick = {},
+        icon = Icons.Default.Settings.asPaintable(),
+        colors = ChipDefaults.secondaryChipColors(),
+      )
     }
+  }
 }
 
 @Composable
 private fun FailedView(onClick: () -> Unit) {
-    Column(
-        modifier = Modifier
-            .height(108.dp)
-            .clickable { onClick() },
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Icon(
-            imageVector = Icons.Default.CloudOff,
-            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-            modifier = Modifier
-                .size(ChipDefaults.LargeIconSize)
-                .clip(CircleShape),
-            tint = Color.Gray,
-        )
+  Column(
+    modifier = Modifier.height(108.dp).clickable { onClick() },
+    verticalArrangement = Arrangement.Center,
+    horizontalAlignment = Alignment.CenterHorizontally,
+  ) {
+    Icon(
+      imageVector = Icons.Default.CloudOff,
+      contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+      modifier = Modifier.size(ChipDefaults.LargeIconSize).clip(CircleShape),
+      tint = Color.Gray,
+    )
 
-        Text(
-            text = stringResource(R.string.sectionedlist_failed_to_load),
-            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.body2,
-        )
-    }
+    Text(
+      text = stringResource(R.string.sectionedlist_failed_to_load),
+      modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+      textAlign = TextAlign.Center,
+      style = MaterialTheme.typography.body2,
+    )
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun SectionedListStatefulScreenPreview() {
-    SectionedListStatefulScreen(columnState = rememberResponsiveColumnState())
+  SectionedListStatefulScreen(columnState = rememberResponsiveColumnState())
 }

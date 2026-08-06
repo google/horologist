@@ -34,93 +34,78 @@ import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
 
 /**
- * Base class for a Kotlin and Coroutines friendly TileService.
- * Also acts like a LifecycleService, allowing lifecycleScope,
- * and general lifecycle operations.
+ * Base class for a Kotlin and Coroutines friendly TileService. Also acts like a LifecycleService,
+ * allowing lifecycleScope, and general lifecycle operations.
  */
 @ExperimentalHorologistApi
 public abstract class SuspendingTileService : TileService(), LifecycleOwner {
-    // Code from LifecycleService
+  // Code from LifecycleService
 
-    @Suppress("LeakingThis")
-    private val mDispatcher = ServiceLifecycleDispatcher(this)
+  @Suppress("LeakingThis") private val mDispatcher = ServiceLifecycleDispatcher(this)
 
-    /**
-     * Override if a custom serviceScope, otherwise lifecycleScope will be used.
-     */
-    public open val serviceScope: CoroutineScope? = null
+  /** Override if a custom serviceScope, otherwise lifecycleScope will be used. */
+  public open val serviceScope: CoroutineScope? = null
 
-    final override fun onTileRequest(
-        requestParams: TileRequest,
-    ): ListenableFuture<Tile> = launch {
-        tileRequest(requestParams)
+  final override fun onTileRequest(requestParams: TileRequest): ListenableFuture<Tile> = launch {
+    tileRequest(requestParams)
+  }
+
+  private fun <T> launch(block: suspend CoroutineScope.() -> T): ListenableFuture<T> {
+    return SuspendToFutureAdapter.launchFuture((serviceScope ?: lifecycleScope).coroutineContext) {
+      block()
     }
+  }
 
-    private fun <T> launch(
-        block: suspend CoroutineScope.() -> T,
-    ): ListenableFuture<T> {
-        return SuspendToFutureAdapter.launchFuture(
-            (serviceScope ?: lifecycleScope).coroutineContext,
-        ) {
-            block()
-        }
-    }
+  /**
+   * See [onTileRequest] for most details.
+   *
+   * This runs a suspending function inside the lifecycleScope of the service on the Main thread.
+   */
+  public abstract suspend fun tileRequest(requestParams: TileRequest): Tile
 
-    /**
-     * See [onTileRequest] for most details.
-     *
-     * This runs a suspending function inside the lifecycleScope
-     * of the service on the Main thread.
-     */
-    public abstract suspend fun tileRequest(requestParams: TileRequest): Tile
+  final override fun onTileResourcesRequest(
+    requestParams: ResourcesRequest
+  ): ListenableFuture<Resources> = launch { resourcesRequest(requestParams) }
 
-    final override fun onTileResourcesRequest(
-        requestParams: ResourcesRequest,
-    ): ListenableFuture<Resources> = launch {
-        resourcesRequest(requestParams)
-    }
+  /**
+   * See [onResourcesRequest] for most details.
+   *
+   * This runs a suspending function inside the lifecycleScope of the service on the Main thread.
+   */
+  public abstract suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources
 
-    /**
-     * See [onResourcesRequest] for most details.
-     *
-     * This runs a suspending function inside the lifecycleScope
-     * of the service on the Main thread.
-     */
-    public abstract suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources
+  @CallSuper
+  override fun onCreate() {
+    mDispatcher.onServicePreSuperOnCreate()
+    super.onCreate()
+  }
 
-    @CallSuper
-    override fun onCreate() {
-        mDispatcher.onServicePreSuperOnCreate()
-        super.onCreate()
-    }
+  @CallSuper
+  override fun onBind(intent: Intent): IBinder? {
+    mDispatcher.onServicePreSuperOnBind()
+    return super.onBind(intent)
+  }
 
-    @CallSuper
-    override fun onBind(intent: Intent): IBinder? {
-        mDispatcher.onServicePreSuperOnBind()
-        return super.onBind(intent)
-    }
+  @Deprecated("Use onStartCommand")
+  final override fun onStart(intent: Intent?, startId: Int) {
+    mDispatcher.onServicePreSuperOnStart()
+    @Suppress("DEPRECATION") super.onStart(intent, startId)
+  }
 
-    @Deprecated("Use onStartCommand")
-    final override fun onStart(intent: Intent?, startId: Int) {
-        mDispatcher.onServicePreSuperOnStart()
-        @Suppress("DEPRECATION")
-        super.onStart(intent, startId)
-    }
+  // this method is added only to annotate it with @CallSuper.
+  // In usual service super.onStartCommand is no-op, but in LifecycleService
+  // it results in mDispatcher.onServicePreSuperOnStart() call, because
+  // super.onStartCommand calls onStart().
+  final override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+    return super.onStartCommand(intent, flags, startId)
+  }
 
-    // this method is added only to annotate it with @CallSuper.
-    // In usual service super.onStartCommand is no-op, but in LifecycleService
-    // it results in mDispatcher.onServicePreSuperOnStart() call, because
-    // super.onStartCommand calls onStart().
-    final override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return super.onStartCommand(intent, flags, startId)
-    }
+  @CallSuper
+  override fun onDestroy() {
+    mDispatcher.onServicePreSuperOnDestroy()
+    super.onDestroy()
+  }
 
-    @CallSuper
-    override fun onDestroy() {
-        mDispatcher.onServicePreSuperOnDestroy()
-        super.onDestroy()
-    }
-
-    override val lifecycle: Lifecycle
-        get() = mDispatcher.lifecycle
+  override val lifecycle: Lifecycle
+    get() = mDispatcher.lifecycle
 }

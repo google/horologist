@@ -31,21 +31,17 @@ import com.google.android.horologist.sample.R
 
 @SuppressLint("RestrictedApi")
 @Composable
-fun LottieScreen(
-    modifier: Modifier = Modifier,
-) {
-    val context = LocalContext.current
-    val animation = remember { Animation.load(R.raw.geometry, context) }
+fun LottieScreen(modifier: Modifier = Modifier) {
+  val context = LocalContext.current
+  val animation = remember { Animation.load(R.raw.geometry, context) }
 
-    val doc = rememberRemoteDocument {
-        AnimationDemo(animation, SlotMap(emptyMap())).Render()
-    }
-    doc.value?.let { document ->
-        RemoteDocumentPlayer(
-            document = document,
-            modifier = modifier.fillMaxSize(),
-            documentWidth = LocalWindowInfo.current.containerSize.width,
-            documentHeight = LocalWindowInfo.current.containerSize.height,
-        )
-    }
+  val doc = rememberRemoteDocument { AnimationDemo(animation, SlotMap(emptyMap())).Render() }
+  doc.value?.let { document ->
+    RemoteDocumentPlayer(
+      document = document,
+      modifier = modifier.fillMaxSize(),
+      documentWidth = LocalWindowInfo.current.containerSize.width,
+      documentHeight = LocalWindowInfo.current.containerSize.height,
+    )
+  }
 }

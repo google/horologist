@@ -37,33 +37,29 @@ import org.robolectric.Shadows.shadowOf
 import org.robolectric.shadows.ShadowLooper
 
 class RobolectricComposableBitmapRenderer() : ComposableBitmapRenderer {
-    override suspend fun renderComposableToBitmap(
-        canvasSize: DpSize,
-        config: ImageBitmapConfig?,
-        composableContent: @Composable () -> Unit,
-    ): ImageBitmap {
-        val scenario = ActivityScenario.launch(ComponentActivity::class.java)
+  override suspend fun renderComposableToBitmap(
+    canvasSize: DpSize,
+    config: ImageBitmapConfig?,
+    composableContent: @Composable () -> Unit,
+  ): ImageBitmap {
+    val scenario = ActivityScenario.launch(ComponentActivity::class.java)
 
-        scenario.use {
-            lateinit var content: View
-            scenario.onActivity({ activity ->
-                activity.setContent {
-                    Box(modifier = Modifier.size(canvasSize)) {
-                        composableContent()
-                    }
-                }
-                content = activity.findViewById(android.R.id.content)
-            })
+    scenario.use {
+      lateinit var content: View
+      scenario.onActivity({ activity ->
+        activity.setContent { Box(modifier = Modifier.size(canvasSize)) { composableContent() } }
+        content = activity.findViewById(android.R.id.content)
+      })
 
-            shadowOf(getMainLooper()).idle()
-            ShadowLooper.idleMainLooper()
+      shadowOf(getMainLooper()).idle()
+      ShadowLooper.idleMainLooper()
 
-            val rawBitmap = content.captureToBitmapAsync().await().asImageBitmap()
-            return if (config != null) {
-                rawBitmap.convert(config)
-            } else {
-                rawBitmap
-            }
-        }
+      val rawBitmap = content.captureToBitmapAsync().await().asImageBitmap()
+      return if (config != null) {
+        rawBitmap.convert(config)
+      } else {
+        rawBitmap
+      }
     }
+  }
 }

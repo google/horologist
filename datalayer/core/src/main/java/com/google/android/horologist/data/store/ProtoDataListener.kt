@@ -17,7 +17,7 @@
 package com.google.android.horologist.data.store
 
 interface ProtoDataListener<T> {
-    fun dataAdded(nodeId: String, path: String, value: T)
+  fun dataAdded(nodeId: String, path: String, value: T)
 
-    fun dataDeleted(nodeId: String, path: String)
+  fun dataDeleted(nodeId: String, path: String)
 }

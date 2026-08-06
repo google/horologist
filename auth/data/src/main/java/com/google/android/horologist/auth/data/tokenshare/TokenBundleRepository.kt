@@ -26,5 +26,5 @@ import kotlinx.coroutines.flow.Flow
  */
 public interface TokenBundleRepository<T> {
 
-    public val flow: Flow<T>
+  public val flow: Flow<T>
 }

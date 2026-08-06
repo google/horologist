@@ -26,26 +26,24 @@ import com.google.android.horologist.media.ui.components.display.LoadingMediaDis
 import com.google.android.horologist.media.ui.components.display.NothingPlayingDisplay
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
-/**
- * Animated [MediaDisplay] implementation for [PlayerScreen] including player status.
- */
+/** Animated [MediaDisplay] implementation for [PlayerScreen] including player status. */
 @ExperimentalHorologistApi
 @Composable
 public fun AnimatedMediaInfoDisplay(
-    media: MediaUiModel?,
-    loading: Boolean,
-    modifier: Modifier = Modifier,
+  media: MediaUiModel?,
+  loading: Boolean,
+  modifier: Modifier = Modifier,
 ) {
-    if (loading) {
-        LoadingMediaDisplay(modifier)
-    } else if (media is MediaUiModel.Ready) {
-        MarqueeTextMediaDisplay(
-            modifier = modifier,
-            title = media.title,
-            artist = media.subtitle,
-            titleIcon = media.titleIcon,
-        )
-    } else {
-        NothingPlayingDisplay(modifier)
-    }
+  if (loading) {
+    LoadingMediaDisplay(modifier)
+  } else if (media is MediaUiModel.Ready) {
+    MarqueeTextMediaDisplay(
+      modifier = modifier,
+      title = media.title,
+      artist = media.subtitle,
+      titleIcon = media.titleIcon,
+    )
+  } else {
+    NothingPlayingDisplay(modifier)
+  }
 }

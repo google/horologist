@@ -21,17 +21,13 @@ import org.junit.Test
 
 class CheckYourPhoneScreenTest : WearLegacyScreenTest() {
 
-    @Test
-    fun checkYourPhoneScreen() {
-        runTest {
-            CheckYourPhoneScreen()
-        }
-    }
+  @Test
+  fun checkYourPhoneScreen() {
+    runTest { CheckYourPhoneScreen() }
+  }
 
-    @Test
-    fun checkYourPhoneScreenWithMessage() {
-        runTest {
-            CheckYourPhoneScreen(message = "XXXX-YYYY")
-        }
-    }
+  @Test
+  fun checkYourPhoneScreenWithMessage() {
+    runTest { CheckYourPhoneScreen(message = "XXXX-YYYY") }
+  }
 }

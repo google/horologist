@@ -26,81 +26,79 @@ import com.google.android.horologist.media.database.model.MediaDownloadEntity
 import com.google.android.horologist.media.database.model.MediaDownloadEntityStatus
 import kotlinx.coroutines.flow.Flow
 
-/**
- * DAO for [com.google.android.horologist.media.database.model.MediaDownloadEntity].
- */
+/** DAO for [com.google.android.horologist.media.database.model.MediaDownloadEntity]. */
 @ExperimentalHorologistApi
 @Dao
 public interface MediaDownloadDao {
 
-    @Query(
-        value = """
+  @Query(
+    value =
+      """
         SELECT * FROM MediaDownloadEntity
         WHERE mediaId in (:mediaIds)
-    """,
-    )
-    public fun getList(mediaIds: List<String>): Flow<List<MediaDownloadEntity>>
+    """
+  )
+  public fun getList(mediaIds: List<String>): Flow<List<MediaDownloadEntity>>
 
-    @Query(
-        value = """
+  @Query(
+    value =
+      """
         SELECT * FROM MediaDownloadEntity
         WHERE status = :status
-    """,
-    )
-    public suspend fun getAllByStatus(
-        status: MediaDownloadEntityStatus,
-    ): List<MediaDownloadEntity>
+    """
+  )
+  public suspend fun getAllByStatus(status: MediaDownloadEntityStatus): List<MediaDownloadEntity>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    public suspend fun insert(mediaDownloadEntity: MediaDownloadEntity): Long
+  @Insert(onConflict = OnConflictStrategy.IGNORE)
+  public suspend fun insert(mediaDownloadEntity: MediaDownloadEntity): Long
 
-    @Query(
-        """
+  @Query(
+    """
         UPDATE MediaDownloadEntity
         SET status = :status
         WHERE mediaId = :mediaId
-    """,
-    )
-    public suspend fun updateStatus(mediaId: String, status: MediaDownloadEntityStatus)
+    """
+  )
+  public suspend fun updateStatus(mediaId: String, status: MediaDownloadEntityStatus)
 
-    @Query(
-        """
+  @Query(
+    """
         UPDATE MediaDownloadEntity
         SET progress = :progress,
         size = :size
         WHERE mediaId = :mediaId
-    """,
-    )
-    public suspend fun updateProgress(mediaId: String, progress: Float, size: Long)
+    """
+  )
+  public suspend fun updateProgress(mediaId: String, progress: Float, size: Long)
 
-    @Update(entity = MediaDownloadEntity::class)
-    public suspend fun updateStatusAndProgress(statusAndProgress: StatusAndProgress)
+  @Update(entity = MediaDownloadEntity::class)
+  public suspend fun updateStatusAndProgress(statusAndProgress: StatusAndProgress)
 
-    @Query(
-        """
+  @Query(
+    """
         DELETE FROM MediaDownloadEntity
         WHERE mediaId = :mediaId
-    """,
-    )
-    public suspend fun delete(mediaId: String)
+    """
+  )
+  public suspend fun delete(mediaId: String)
 
-    @Query(
-        """
+  @Query(
+    """
         DELETE FROM MediaDownloadEntity
         WHERE mediaId in (:mediaIds)
-    """,
-    )
-    public suspend fun delete(mediaIds: List<String>)
+    """
+  )
+  public suspend fun delete(mediaIds: List<String>)
 
-    public data class StatusAndProgress(
-        val mediaId: String,
-        val status: MediaDownloadEntityStatus,
-        val progress: Float,
-    )
+  public data class StatusAndProgress(
+    val mediaId: String,
+    val status: MediaDownloadEntityStatus,
+    val progress: Float,
+  )
 
-    public companion object {
-        public const val DOWNLOAD_PROGRESS_START: Float = 0f
-        public const val DOWNLOAD_PROGRESS_END: Float = 100f
-        public const val SIZE_UNKNOWN: Long = -1L
-    }
+  public companion object {
+    public const val DOWNLOAD_PROGRESS_START: Float = 0f
+    public const val DOWNLOAD_PROGRESS_END: Float = 100f
+    public const val SIZE_UNKNOWN: Long = -1L
+  }
 }

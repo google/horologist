@@ -26,23 +26,23 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 /** A simple text only display of [MediaUiModel] showing artist and title in two separated rows. */
 @Composable
 public fun TrackMediaDisplay(
-    media: MediaUiModel.Ready,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    titleOverflow: TextOverflow = TextOverflow.Ellipsis,
-    subtitleOverflow: TextOverflow = TextOverflow.Ellipsis,
-    titleSoftWrap: Boolean = true,
-    subtitleSoftWrap: Boolean = true,
+  media: MediaUiModel.Ready,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  titleOverflow: TextOverflow = TextOverflow.Ellipsis,
+  subtitleOverflow: TextOverflow = TextOverflow.Ellipsis,
+  titleSoftWrap: Boolean = true,
+  subtitleSoftWrap: Boolean = true,
 ) {
-    TextMediaDisplay(
-        title = media.title,
-        subtitle = media.subtitle,
-        titleIcon = media.titleIcon,
-        modifier = modifier,
-        colorScheme = colorScheme,
-        titleOverflow = titleOverflow,
-        subtitleOverflow = subtitleOverflow,
-        titleSoftWrap = titleSoftWrap,
-        subtitleSoftWrap = subtitleSoftWrap,
-    )
+  TextMediaDisplay(
+    title = media.title,
+    subtitle = media.subtitle,
+    titleIcon = media.titleIcon,
+    modifier = modifier,
+    colorScheme = colorScheme,
+    titleOverflow = titleOverflow,
+    subtitleOverflow = subtitleOverflow,
+    titleSoftWrap = titleSoftWrap,
+    subtitleSoftWrap = subtitleSoftWrap,
+  )
 }

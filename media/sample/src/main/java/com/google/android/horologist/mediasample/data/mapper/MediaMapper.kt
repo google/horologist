@@ -19,16 +19,15 @@ package com.google.android.horologist.mediasample.data.mapper
 import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.mediasample.data.api.model.MusicApiModel
 
-/**
- * Mappers for [Media].
- */
+/** Mappers for [Media]. */
 object MediaMapper {
 
-    fun map(musicApiModel: MusicApiModel): Media = Media(
-        id = musicApiModel.id,
-        uri = musicApiModel.source,
-        title = musicApiModel.title,
-        artist = musicApiModel.artist,
-        artworkUri = musicApiModel.image,
+  fun map(musicApiModel: MusicApiModel): Media =
+    Media(
+      id = musicApiModel.id,
+      uri = musicApiModel.source,
+      title = musicApiModel.title,
+      artist = musicApiModel.artist,
+      artworkUri = musicApiModel.image,
     )
 }

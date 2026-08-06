@@ -29,70 +29,62 @@ import com.google.android.horologist.mediasample.runner.FakeConfigModule
 import com.google.android.horologist.mediasample.ui.AppConfig
 import com.google.android.horologist.networks.rules.NetworkingRules
 import dagger.hilt.android.testing.HiltAndroidRule
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
 import java.io.File
 import java.util.UUID
 import javax.inject.Inject
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
 
 abstract class BaseContainerTest {
 
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
+  @get:Rule var hiltRule = HiltAndroidRule(this)
 
-    @Inject
-    lateinit var audioOffloadManager: AudioOffloadManager
+  @Inject lateinit var audioOffloadManager: AudioOffloadManager
 
-    @Inject
-    lateinit var audioOutputRepository: SystemAudioRepository
+  @Inject lateinit var audioOutputRepository: SystemAudioRepository
 
-    @Inject
-    lateinit var notificationManager: NotificationManager
+  @Inject lateinit var notificationManager: NotificationManager
 
-    @Inject
-    lateinit var downloadCache: Cache
+  @Inject lateinit var downloadCache: Cache
 
-    @Inject
-    lateinit var appConfig: AppConfig
+  @Inject lateinit var appConfig: AppConfig
 
-    protected lateinit var device: UiDevice
+  protected lateinit var device: UiDevice
 
-    private lateinit var cacheDir: File
+  private lateinit var cacheDir: File
 
-    internal lateinit var application: Application
+  internal lateinit var application: Application
 
-    @Before
-    @UiThreadTest
-    @CallSuper
-    open fun init() {
-        application =
-            InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as Application
+  @Before
+  @UiThreadTest
+  @CallSuper
+  open fun init() {
+    application =
+      InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as Application
 
-        cacheDir = File(application.cacheDir, UUID.randomUUID().toString()).also {
-            it.mkdirs()
-        }
+    cacheDir = File(application.cacheDir, UUID.randomUUID().toString()).also { it.mkdirs() }
 
-        FakeConfigModule.appConfigFn = { appConfig() }
+    FakeConfigModule.appConfigFn = { appConfig() }
 
-        hiltRule.inject()
-        device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-    }
+    hiltRule.inject()
+    device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
+  }
 
-    open fun appConfig(): AppConfig {
-        return AppConfig(
-            strictMode = false,
-            cacheDir = cacheDir,
-            offloadEnabled = false,
-            strictNetworking = NetworkingRules.Lenient,
-            cacheItems = false,
-        )
-    }
+  open fun appConfig(): AppConfig {
+    return AppConfig(
+      strictMode = false,
+      cacheDir = cacheDir,
+      offloadEnabled = false,
+      strictNetworking = NetworkingRules.Lenient,
+      cacheItems = false,
+    )
+  }
 
-    @After
-    @UiThreadTest
-    @CallSuper
-    open fun cleanup() {
-        cacheDir.deleteRecursively()
-    }
+  @After
+  @UiThreadTest
+  @CallSuper
+  open fun cleanup() {
+    cacheDir.deleteRecursively()
+  }
 }

@@ -18,9 +18,6 @@ package com.google.android.horologist.tiles.components
 
 import androidx.wear.protolayout.ModifiersBuilders
 
-/**
- * Simple NoOp clickable for preview use.
- */
-public val NoOpClickable: ModifiersBuilders.Clickable = ModifiersBuilders.Clickable.Builder()
-    .setId("noop")
-    .build()
+/** Simple NoOp clickable for preview use. */
+public val NoOpClickable: ModifiersBuilders.Clickable =
+  ModifiersBuilders.Clickable.Builder().setId("noop").build()

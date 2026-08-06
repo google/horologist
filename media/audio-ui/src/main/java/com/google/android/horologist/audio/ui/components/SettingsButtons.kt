@@ -33,50 +33,46 @@ import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.actions.AudioOutputButton
 import com.google.android.horologist.audio.ui.components.actions.SetVolumeButton
 
-/**
- * Settings buttons for a typical media app.
- * Set Volume and Select Audio Output.
- */
+/** Settings buttons for a typical media app. Set Volume and Select Audio Output. */
 @Composable
 public fun SettingsButtons(
-    volumeUiState: VolumeUiState,
-    onVolumeClick: () -> Unit,
-    onOutputClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    brandIcon: @Composable () -> Unit = {},
-    enabled: Boolean = true,
+  volumeUiState: VolumeUiState,
+  onVolumeClick: () -> Unit,
+  onOutputClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  brandIcon: @Composable () -> Unit = {},
+  enabled: Boolean = true,
 ) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center,
-    ) {
-        SetVolumeButton(
-            onVolumeClick = onVolumeClick,
-            volumeUiState = volumeUiState,
-            enabled = enabled,
-        )
-        brandIcon()
-        AudioOutputButton(
-            onOutputClick = onOutputClick,
-            enabled = enabled,
-        )
-    }
+  Row(
+    modifier = modifier,
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.Center,
+  ) {
+    SetVolumeButton(
+      onVolumeClick = onVolumeClick,
+      volumeUiState = volumeUiState,
+      enabled = enabled,
+    )
+    brandIcon()
+    AudioOutputButton(
+      onOutputClick = onOutputClick,
+      enabled = enabled,
+    )
+  }
 }
 
 public object SettingsButtonsDefaults {
-    @Composable
-    public fun BrandIcon(
-        @DrawableRes iconId: Int,
-        modifier: Modifier = Modifier,
-        enabled: Boolean = true,
-    ) {
-        Image(
-            modifier = modifier.size(18.dp).clip(CircleShape).let {
-                if (enabled) it else it.alpha(0.38f)
-            },
-            painter = painterResource(id = iconId),
-            contentDescription = null,
-        )
-    }
+  @Composable
+  public fun BrandIcon(
+    @DrawableRes iconId: Int,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+  ) {
+    Image(
+      modifier =
+        modifier.size(18.dp).clip(CircleShape).let { if (enabled) it else it.alpha(0.38f) },
+      painter = painterResource(id = iconId),
+      contentDescription = null,
+    )
+  }
 }

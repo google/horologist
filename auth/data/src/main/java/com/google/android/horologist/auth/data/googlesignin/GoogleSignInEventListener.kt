@@ -27,18 +27,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
  */
 public interface GoogleSignInEventListener {
 
-    /**
-     * Called when signed in.
-     *
-     * @param account account that signed in.
-     */
-    public suspend fun onSignedIn(account: GoogleSignInAccount): Unit
+  /**
+   * Called when signed in.
+   *
+   * @param account account that signed in.
+   */
+  public suspend fun onSignedIn(account: GoogleSignInAccount): Unit
 }
 
-/**
- * A no-op implementation of [GoogleSignInEventListener].
- */
+/** A no-op implementation of [GoogleSignInEventListener]. */
 public object GoogleSignInEventListenerNoOpImpl : GoogleSignInEventListener {
 
-    override suspend fun onSignedIn(account: GoogleSignInAccount): Unit = Unit
+  override suspend fun onSignedIn(account: GoogleSignInAccount): Unit = Unit
 }

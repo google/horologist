@@ -18,11 +18,9 @@ package com.google.android.horologist.media.ui.snackbar
 
 import java.util.UUID
 
-/**
- * A UI message, either an error or informational to display.
- */
+/** A UI message, either an error or informational to display. */
 public data class UiMessage(
-    public val message: String,
-    public val id: String = UUID.randomUUID().toString(),
-    public val error: Boolean = true,
+  public val message: String,
+  public val id: String = UUID.randomUUID().toString(),
+  public val error: Boolean = true,
 )

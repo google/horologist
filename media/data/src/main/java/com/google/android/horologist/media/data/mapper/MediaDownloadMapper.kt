@@ -23,39 +23,38 @@ import com.google.android.horologist.media.model.Media
 import com.google.android.horologist.media.model.MediaDownload
 import com.google.android.horologist.media.model.Playlist
 
-/**
- * Functions to map models from other layers and / or packages into a [MediaDownload].
- */
+/** Functions to map models from other layers and / or packages into a [MediaDownload]. */
 @ExperimentalHorologistApi
 public object MediaDownloadMapper {
 
-    /**
-     * Maps from [Media] and [MediaDownloadEntity].
-     */
-    public fun map(media: Media, mediaDownloadEntity: MediaDownloadEntity): MediaDownload = MediaDownload(
-        media = media,
-        status = MediaDownloadStatusMapper.map(mediaDownloadEntity),
-        size = if (mediaDownloadEntity.size == SIZE_UNKNOWN) {
-            MediaDownload.Size.Unknown
+  /** Maps from [Media] and [MediaDownloadEntity]. */
+  public fun map(media: Media, mediaDownloadEntity: MediaDownloadEntity): MediaDownload =
+    MediaDownload(
+      media = media,
+      status = MediaDownloadStatusMapper.map(mediaDownloadEntity),
+      size =
+        if (mediaDownloadEntity.size == SIZE_UNKNOWN) {
+          MediaDownload.Size.Unknown
         } else {
-            MediaDownload.Size.Known(mediaDownloadEntity.size)
+          MediaDownload.Size.Known(mediaDownloadEntity.size)
         },
     )
 
-    /**
-     * Maps from [Playlist] and a list of [MediaDownloadEntity].
-     */
-    public fun map(
-        playlist: Playlist,
-        mediaDownloadEntityList: List<MediaDownloadEntity>,
-    ): List<MediaDownload> =
-        playlist.mediaList.map { media ->
-            mediaDownloadEntityList.find { it.mediaId == media.id }?.let { mediaDownloadEntity ->
-                map(media = media, mediaDownloadEntity = mediaDownloadEntity)
-            } ?: MediaDownload(
-                media = media,
-                status = MediaDownload.Status.Idle,
-                size = MediaDownload.Size.Unknown,
-            )
+  /** Maps from [Playlist] and a list of [MediaDownloadEntity]. */
+  public fun map(
+    playlist: Playlist,
+    mediaDownloadEntityList: List<MediaDownloadEntity>,
+  ): List<MediaDownload> =
+    playlist.mediaList.map { media ->
+      mediaDownloadEntityList
+        .find { it.mediaId == media.id }
+        ?.let { mediaDownloadEntity ->
+          map(media = media, mediaDownloadEntity = mediaDownloadEntity)
         }
+        ?: MediaDownload(
+          media = media,
+          status = MediaDownload.Status.Idle,
+          size = MediaDownload.Size.Unknown,
+        )
+    }
 }

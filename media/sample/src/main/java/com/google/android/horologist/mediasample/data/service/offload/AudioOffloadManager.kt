@@ -39,148 +39,146 @@ import kotlinx.coroutines.flow.update
  */
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
-public class AudioOffloadManager(
-    private val errorReporter: ErrorReporter,
-) {
-    private val _offloadStatus = MutableStateFlow(
-        AudioOffloadStatus(
-            offloadSchedulingEnabled = false,
-            sleepingForOffload = false,
-            trackOffload = false,
-            format = null,
-            isPlaying = false,
-            errors = listOf(),
-            offloadTimes = OffloadTimes(),
-            audioOffloadPreferences = DEFAULT,
-        ),
+public class AudioOffloadManager(private val errorReporter: ErrorReporter) {
+  private val _offloadStatus =
+    MutableStateFlow(
+      AudioOffloadStatus(
+        offloadSchedulingEnabled = false,
+        sleepingForOffload = false,
+        trackOffload = false,
+        format = null,
+        isPlaying = false,
+        errors = listOf(),
+        offloadTimes = OffloadTimes(),
+        audioOffloadPreferences = DEFAULT,
+      )
     )
-    public val offloadStatus: StateFlow<AudioOffloadStatus> = _offloadStatus.asStateFlow()
+  public val offloadStatus: StateFlow<AudioOffloadStatus> = _offloadStatus.asStateFlow()
 
-    public val audioOffloadListener: ExoPlayer.AudioOffloadListener =
-        object : ExoPlayer.AudioOffloadListener {
+  public val audioOffloadListener: ExoPlayer.AudioOffloadListener =
+    object : ExoPlayer.AudioOffloadListener {
 
-            /**
-             * Logged when the app is able to sleep.
-             *
-             * This listener should only run for development builds, since this additional work
-             * negates the effect of offload.
-             */
-            override fun onSleepingForOffloadChanged(isSleepingForOffload: Boolean) {
-                _offloadStatus.update {
-                    // accumulate playback time for previous state
-                    it.copy(
-                        sleepingForOffload = isSleepingForOffload,
-                        offloadTimes = it.offloadTimes.timesToNow(
-                            it.sleepingForOffload,
-                            it.isPlaying,
-                        ),
-                    )
-                }
-
-                errorReporter.logMessage("sleeping for offload $isSleepingForOffload")
-            }
-
-            override fun onOffloadedPlayback(isOffloadedPlayback: Boolean) {
-                _offloadStatus.update {
-                    it.copy(trackOffload = isOffloadedPlayback)
-                }
-            }
-        }
-
-    @RequiresApi(Build.VERSION_CODES.Q)
-    private val analyticsListener: AnalyticsListener =
-        object : AnalyticsListener {
-            override fun onAudioInputFormatChanged(
-                eventTime: AnalyticsListener.EventTime,
-                format: Format,
-                decoderReuseEvaluation: DecoderReuseEvaluation?,
-            ) {
-                _offloadStatus.update {
-                    it.copy(format = format)
-                }
-            }
-
-            override fun onIsPlayingChanged(
-                eventTime: AnalyticsListener.EventTime,
-                isPlaying: Boolean,
-            ) {
-                // accumulate playback time for previous state
-                _offloadStatus.update {
-                    it.copy(
-                        isPlaying = isPlaying,
-                        offloadTimes = it.offloadTimes.timesToNow(
-                            sleepingForOffload = offloadStatus.value.sleepingForOffload,
-                            updatedIsPlaying = isPlaying,
-                        ),
-                    )
-                }
-            }
-
-            override fun onAudioUnderrun(
-                eventTime: AnalyticsListener.EventTime,
-                bufferSize: Int,
-                bufferSizeMs: Long,
-                elapsedSinceLastFeedMs: Long,
-            ) {
-                addError(eventTime, "Audio Underrun")
-            }
-
-            override fun onAudioSinkError(
-                eventTime: AnalyticsListener.EventTime,
-                audioSinkError: Exception,
-            ) {
-                addError(eventTime, "Audio Sink Error: " + audioSinkError.message)
-            }
-        }
-
-    private fun addError(eventTime: AnalyticsListener.EventTime?, message: String) {
+      /**
+       * Logged when the app is able to sleep.
+       *
+       * This listener should only run for development builds, since this additional work negates
+       * the effect of offload.
+       */
+      override fun onSleepingForOffloadChanged(isSleepingForOffload: Boolean) {
         _offloadStatus.update {
-            it.copy(errors = it.errors + AudioError(System.currentTimeMillis(), message, eventTime))
+          // accumulate playback time for previous state
+          it.copy(
+            sleepingForOffload = isSleepingForOffload,
+            offloadTimes =
+              it.offloadTimes.timesToNow(
+                it.sleepingForOffload,
+                it.isPlaying,
+              ),
+          )
         }
+
+        errorReporter.logMessage("sleeping for offload $isSleepingForOffload")
+      }
+
+      override fun onOffloadedPlayback(isOffloadedPlayback: Boolean) {
+        _offloadStatus.update { it.copy(trackOffload = isOffloadedPlayback) }
+      }
     }
 
-    /**
-     * Connect the AudioOffloadManager to the ExoPlayer instance for both listening to offload
-     * state and activating it based on App foreground state.
-     */
-    @RequiresApi(29)
-    public suspend fun connect(exoPlayer: ExoPlayer) {
-        _offloadStatus.value = AudioOffloadStatus(
-            offloadSchedulingEnabled = false,
-            sleepingForOffload = exoPlayer.isSleepingForOffload,
-            trackOffload = false,
-            format = exoPlayer.audioFormat,
-            isPlaying = exoPlayer.isPlaying,
-            errors = listOf(),
-            offloadTimes = OffloadTimes(),
-            audioOffloadPreferences = exoPlayer.trackSelectionParameters.audioOffloadPreferences,
-        )
+  @RequiresApi(Build.VERSION_CODES.Q)
+  private val analyticsListener: AnalyticsListener =
+    object : AnalyticsListener {
+      override fun onAudioInputFormatChanged(
+        eventTime: AnalyticsListener.EventTime,
+        format: Format,
+        decoderReuseEvaluation: DecoderReuseEvaluation?,
+      ) {
+        _offloadStatus.update { it.copy(format = format) }
+      }
 
-        exoPlayer.addAudioOffloadListener(audioOffloadListener)
-        exoPlayer.addAnalyticsListener(analyticsListener)
-    }
-
-    @RequiresApi(29)
-    public suspend fun printDebugLogsLoop() {
-        while (true) {
-            printDebugLogs()
-            delay(10000)
+      override fun onIsPlayingChanged(
+        eventTime: AnalyticsListener.EventTime,
+        isPlaying: Boolean,
+      ) {
+        // accumulate playback time for previous state
+        _offloadStatus.update {
+          it.copy(
+            isPlaying = isPlaying,
+            offloadTimes =
+              it.offloadTimes.timesToNow(
+                sleepingForOffload = offloadStatus.value.sleepingForOffload,
+                updatedIsPlaying = isPlaying,
+              ),
+          )
         }
+      }
+
+      override fun onAudioUnderrun(
+        eventTime: AnalyticsListener.EventTime,
+        bufferSize: Int,
+        bufferSizeMs: Long,
+        elapsedSinceLastFeedMs: Long,
+      ) {
+        addError(eventTime, "Audio Underrun")
+      }
+
+      override fun onAudioSinkError(
+        eventTime: AnalyticsListener.EventTime,
+        audioSinkError: Exception,
+      ) {
+        addError(eventTime, "Audio Sink Error: " + audioSinkError.message)
+      }
     }
 
-    @RequiresApi(Build.VERSION_CODES.Q)
-    internal fun printDebugLogs() {
-        val status = _offloadStatus.value
-        val times = status.updateToNow()
-
-        errorReporter.logMessage(
-            "Offload State: " +
-                "sleeping: ${status.sleepingForOffload} " +
-                "audioTrackOffload: ${status.trackOffloadDescription()} " +
-                "format: ${status.format?.shortDescription} " +
-                "times: ${times.shortDescription} " +
-                "audioOffloadPreferences: ${status.audioOffloadPreferences} ",
-            category = ErrorReporter.Category.Playback,
-        )
+  private fun addError(eventTime: AnalyticsListener.EventTime?, message: String) {
+    _offloadStatus.update {
+      it.copy(errors = it.errors + AudioError(System.currentTimeMillis(), message, eventTime))
     }
+  }
+
+  /**
+   * Connect the AudioOffloadManager to the ExoPlayer instance for both listening to offload state
+   * and activating it based on App foreground state.
+   */
+  @RequiresApi(29)
+  public suspend fun connect(exoPlayer: ExoPlayer) {
+    _offloadStatus.value =
+      AudioOffloadStatus(
+        offloadSchedulingEnabled = false,
+        sleepingForOffload = exoPlayer.isSleepingForOffload,
+        trackOffload = false,
+        format = exoPlayer.audioFormat,
+        isPlaying = exoPlayer.isPlaying,
+        errors = listOf(),
+        offloadTimes = OffloadTimes(),
+        audioOffloadPreferences = exoPlayer.trackSelectionParameters.audioOffloadPreferences,
+      )
+
+    exoPlayer.addAudioOffloadListener(audioOffloadListener)
+    exoPlayer.addAnalyticsListener(analyticsListener)
+  }
+
+  @RequiresApi(29)
+  public suspend fun printDebugLogsLoop() {
+    while (true) {
+      printDebugLogs()
+      delay(10000)
+    }
+  }
+
+  @RequiresApi(Build.VERSION_CODES.Q)
+  internal fun printDebugLogs() {
+    val status = _offloadStatus.value
+    val times = status.updateToNow()
+
+    errorReporter.logMessage(
+      "Offload State: " +
+        "sleeping: ${status.sleepingForOffload} " +
+        "audioTrackOffload: ${status.trackOffloadDescription()} " +
+        "format: ${status.format?.shortDescription} " +
+        "times: ${times.shortDescription} " +
+        "audioOffloadPreferences: ${status.audioOffloadPreferences} ",
+      category = ErrorReporter.Category.Playback,
+    )
+  }
 }

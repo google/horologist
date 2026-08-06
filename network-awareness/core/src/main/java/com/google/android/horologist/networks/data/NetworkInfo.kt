@@ -20,47 +20,47 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
 public sealed interface NetworkInfo {
-    public val name: String?
-    public val type: NetworkType
-    public val highBatteryUsage: Boolean?
-    public val metered: Boolean?
+  public val name: String?
+  public val type: NetworkType
+  public val highBatteryUsage: Boolean?
+  public val metered: Boolean?
 
-    @ExperimentalHorologistApi
-    public data class Wifi(
-        override val name: String,
-        public val ssid: String? = null,
-    ) : NetworkInfo {
-        override val type: NetworkType = NetworkType.Wifi
-        override val highBatteryUsage: Boolean = false
+  @ExperimentalHorologistApi
+  public data class Wifi(
+    override val name: String,
+    public val ssid: String? = null,
+  ) : NetworkInfo {
+    override val type: NetworkType = NetworkType.Wifi
+    override val highBatteryUsage: Boolean = false
 
-        // TODO should this be checked
-        override val metered: Boolean = false
-    }
+    // TODO should this be checked
+    override val metered: Boolean = false
+  }
 
-    @ExperimentalHorologistApi
-    public data class Cellular(
-        override val name: String,
-        override val metered: Boolean? = null,
-    ) : NetworkInfo {
-        override val type: NetworkType = NetworkType.Cell
-        override val highBatteryUsage: Boolean = true
-    }
+  @ExperimentalHorologistApi
+  public data class Cellular(
+    override val name: String,
+    override val metered: Boolean? = null,
+  ) : NetworkInfo {
+    override val type: NetworkType = NetworkType.Cell
+    override val highBatteryUsage: Boolean = true
+  }
 
-    @ExperimentalHorologistApi
-    public data class Bluetooth(override val name: String) : NetworkInfo {
-        override val type: NetworkType = NetworkType.BT
-        override val highBatteryUsage: Boolean = false
+  @ExperimentalHorologistApi
+  public data class Bluetooth(override val name: String) : NetworkInfo {
+    override val type: NetworkType = NetworkType.BT
+    override val highBatteryUsage: Boolean = false
 
-        // TODO should this be checked
-        override val metered: Boolean = false
-    }
+    // TODO should this be checked
+    override val metered: Boolean = false
+  }
 
-    @ExperimentalHorologistApi
-    public data class Unknown(
-        override val name: String? = "unknown",
-        override val metered: Boolean? = null,
-    ) : NetworkInfo {
-        override val type: NetworkType = NetworkType.Unknown
-        override val highBatteryUsage: Boolean? = null
-    }
+  @ExperimentalHorologistApi
+  public data class Unknown(
+    override val name: String? = "unknown",
+    override val metered: Boolean? = null,
+  ) : NetworkInfo {
+    override val type: NetworkType = NetworkType.Unknown
+    override val highBatteryUsage: Boolean? = null
+  }
 }

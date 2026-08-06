@@ -28,46 +28,46 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @ExperimentalHorologistApi
 @Composable
 public fun MediaArtwork(
-    media: MediaUiModel.Ready,
-    modifier: Modifier = Modifier,
-    placeholder: Painter? = null,
+  media: MediaUiModel.Ready,
+  modifier: Modifier = Modifier,
+  placeholder: Painter? = null,
 ) {
-    val painter = media.artwork?.rememberPainter() ?: placeholder
-    if (painter != null) {
-        MediaArtwork(
-            painter = painter,
-            contentDescription = media.title,
-            modifier = modifier,
-        )
-    }
+  val painter = media.artwork?.rememberPainter() ?: placeholder
+  if (painter != null) {
+    MediaArtwork(
+      painter = painter,
+      contentDescription = media.title,
+      modifier = modifier,
+    )
+  }
 }
 
 @ExperimentalHorologistApi
 @Composable
 public fun MediaArtwork(
-    artworkPaintable: Paintable,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
+  artworkPaintable: Paintable,
+  contentDescription: String?,
+  modifier: Modifier = Modifier,
 ) {
-    Image(
-        modifier = modifier,
-        painter = artworkPaintable.rememberPainter(),
-        contentDescription = contentDescription,
-        contentScale = ContentScale.Fit,
-    )
+  Image(
+    modifier = modifier,
+    painter = artworkPaintable.rememberPainter(),
+    contentDescription = contentDescription,
+    contentScale = ContentScale.Fit,
+  )
 }
 
 @ExperimentalHorologistApi
 @Composable
 public fun MediaArtwork(
-    painter: Painter,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
+  painter: Painter,
+  contentDescription: String?,
+  modifier: Modifier = Modifier,
 ) {
-    Image(
-        modifier = modifier,
-        painter = painter,
-        contentDescription = contentDescription,
-        contentScale = ContentScale.Fit,
-    )
+  Image(
+    modifier = modifier,
+    painter = painter,
+    contentDescription = contentDescription,
+    contentScale = ContentScale.Fit,
+  )
 }

@@ -22,8 +22,9 @@ import androidx.compose.ui.unit.dp
 import kotlin.math.ceil
 
 /** Whether the device is considered large screen for layout adjustment purposes. */
-internal val Configuration.isLargeScreen: Boolean get() = screenHeightDp > 224
+internal val Configuration.isLargeScreen: Boolean
+  get() = screenHeightDp > 224
 
 /** Get percentage of screen size in [Dp]. Rounds off the result to next integer. */
 internal fun Configuration.getScreenSizeInDpFromPercentage(percent: Float): Dp =
-    ceil(screenHeightDp * percent / 100f).dp
+  ceil(screenHeightDp * percent / 100f).dp

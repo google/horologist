@@ -32,111 +32,93 @@ import org.robolectric.annotation.Config
 @RunWith(ParameterizedRobolectricTestRunner::class)
 @Config(manifest = Config.NONE)
 class PlayerRepositoryImplCloseTest(
-    @Suppress("unused") // it's used by junit to display the test name
-    private val description: String,
-    private val whenBlock: (PlayerRepositoryImpl, Context) -> Unit,
+  @Suppress("unused") // it's used by junit to display the test name
+  private val description: String,
+  private val whenBlock: (PlayerRepositoryImpl, Context) -> Unit,
 ) {
 
-    private lateinit var sut: PlayerRepositoryImpl
+  private lateinit var sut: PlayerRepositoryImpl
 
-    private lateinit var context: Context
+  private lateinit var context: Context
 
-    @Before
-    fun setUp() {
-        // execute all tasks posted to main looper
-        shadowOf(getMainLooper()).idle()
+  @Before
+  fun setUp() {
+    // execute all tasks posted to main looper
+    shadowOf(getMainLooper()).idle()
 
-        context = ApplicationProvider.getApplicationContext()
-        sut = PlayerRepositoryImpl()
-    }
+    context = ApplicationProvider.getApplicationContext()
+    sut = PlayerRepositoryImpl()
+  }
 
-    @Test
-    fun `given is closed when block is called then exception is thrown`() {
-        // given
-        sut.close()
+  @Test
+  fun `given is closed when block is called then exception is thrown`() {
+    // given
+    sut.close()
 
-        // then
-        assertThrows(IllegalStateException::class.java) { whenBlock(sut, context) }
-    }
+    // then
+    assertThrows(IllegalStateException::class.java) { whenBlock(sut, context) }
+  }
 
-    companion object {
+  companion object {
 
-        @JvmStatic
-        @ParameterizedRobolectricTestRunner.Parameters(name = "{0}")
-        fun params() = listOf(
-            param("connect") { sut: PlayerRepositoryImpl, context: Context ->
-                sut.connect(TestExoPlayerBuilder(context).build()) {}
-            },
-            param("play") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.play()
-            },
-            param("seek to default position") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.seekToDefaultPosition(1)
-            },
-            param("pause") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.pause()
-            },
-            param("hasPreviousMedia") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.hasPreviousMedia()
-            },
-            param("skipToPreviousMedia") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.skipToPreviousMedia()
-            },
-            param("hasNextMedia") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.hasNextMedia()
-            },
-            param("skipToNextMedia") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.skipToNextMedia()
-            },
-            param("seekBack") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.seekBack()
-            },
-            param("seekForward") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.seekForward()
-            },
-            param("setShuffleModeEnabled") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.setShuffleModeEnabled(true)
-            },
-            param("setMedia") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.setMedia(getDummyMedia())
-            },
-            param("setMediaList") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.setMediaList(listOf(getDummyMedia()))
-            },
-            param("addMedia") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.addMedia(getDummyMedia())
-            },
-            param("addMedia with index") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.addMedia(1, getDummyMedia())
-            },
-            param("removeMedia") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.removeMedia(1)
-            },
-            param("clearMediaList") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.clearMediaList()
-            },
-            param("getMediaCount") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.getMediaCount()
-            },
-            param("getMediaAt") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.getMediaAt(1)
-            },
-            param("getCurrentMediaIndex") { sut: PlayerRepositoryImpl, _: Context ->
-                sut.getCurrentMediaIndex()
-            },
-        )
+    @JvmStatic
+    @ParameterizedRobolectricTestRunner.Parameters(name = "{0}")
+    fun params() =
+      listOf(
+        param("connect") { sut: PlayerRepositoryImpl, context: Context ->
+          sut.connect(TestExoPlayerBuilder(context).build()) {}
+        },
+        param("play") { sut: PlayerRepositoryImpl, _: Context -> sut.play() },
+        param("seek to default position") { sut: PlayerRepositoryImpl, _: Context ->
+          sut.seekToDefaultPosition(1)
+        },
+        param("pause") { sut: PlayerRepositoryImpl, _: Context -> sut.pause() },
+        param("hasPreviousMedia") { sut: PlayerRepositoryImpl, _: Context ->
+          sut.hasPreviousMedia()
+        },
+        param("skipToPreviousMedia") { sut: PlayerRepositoryImpl, _: Context ->
+          sut.skipToPreviousMedia()
+        },
+        param("hasNextMedia") { sut: PlayerRepositoryImpl, _: Context -> sut.hasNextMedia() },
+        param("skipToNextMedia") { sut: PlayerRepositoryImpl, _: Context -> sut.skipToNextMedia() },
+        param("seekBack") { sut: PlayerRepositoryImpl, _: Context -> sut.seekBack() },
+        param("seekForward") { sut: PlayerRepositoryImpl, _: Context -> sut.seekForward() },
+        param("setShuffleModeEnabled") { sut: PlayerRepositoryImpl, _: Context ->
+          sut.setShuffleModeEnabled(true)
+        },
+        param("setMedia") { sut: PlayerRepositoryImpl, _: Context ->
+          sut.setMedia(getDummyMedia())
+        },
+        param("setMediaList") { sut: PlayerRepositoryImpl, _: Context ->
+          sut.setMediaList(listOf(getDummyMedia()))
+        },
+        param("addMedia") { sut: PlayerRepositoryImpl, _: Context ->
+          sut.addMedia(getDummyMedia())
+        },
+        param("addMedia with index") { sut: PlayerRepositoryImpl, _: Context ->
+          sut.addMedia(1, getDummyMedia())
+        },
+        param("removeMedia") { sut: PlayerRepositoryImpl, _: Context -> sut.removeMedia(1) },
+        param("clearMediaList") { sut: PlayerRepositoryImpl, _: Context -> sut.clearMediaList() },
+        param("getMediaCount") { sut: PlayerRepositoryImpl, _: Context -> sut.getMediaCount() },
+        param("getMediaAt") { sut: PlayerRepositoryImpl, _: Context -> sut.getMediaAt(1) },
+        param("getCurrentMediaIndex") { sut: PlayerRepositoryImpl, _: Context ->
+          sut.getCurrentMediaIndex()
+        },
+      )
 
-        private fun param(
-            description: String,
-            whenBlock: (PlayerRepositoryImpl, Context) -> Unit,
-        ) = arrayOf(description, whenBlock)
+    private fun param(
+      description: String,
+      whenBlock: (PlayerRepositoryImpl, Context) -> Unit,
+    ) = arrayOf(description, whenBlock)
 
-        private fun getDummyMedia() = Media(
-            id = "id",
-            uri = "uri",
-            title = "title",
-            artist = "artist",
-            artworkUri = "artworkUri",
-        )
-    }
+    private fun getDummyMedia() =
+      Media(
+        id = "id",
+        uri = "uri",
+        title = "title",
+        artist = "artist",
+        artworkUri = "artworkUri",
+      )
+  }
 }

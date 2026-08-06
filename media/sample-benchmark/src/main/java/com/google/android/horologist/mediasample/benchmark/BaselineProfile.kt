@@ -33,5 +33,5 @@ import org.junit.runner.RunWith
 // rules that are specific to classes and methods in your own app and library code.
 @RunWith(AndroidJUnit4::class)
 class BaselineProfile : BaseMediaBaselineProfile() {
-    override val mediaApp: MediaApp = TestMedia.MediaSampleApp
+  override val mediaApp: MediaApp = TestMedia.MediaSampleApp
 }

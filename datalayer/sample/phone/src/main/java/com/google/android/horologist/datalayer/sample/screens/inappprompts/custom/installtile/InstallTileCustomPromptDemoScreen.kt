@@ -41,148 +41,153 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun InstallTileCustomPromptDemoScreen(
-    modifier: Modifier = Modifier,
-    viewModel: InstallTilePromptDemoViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: InstallTilePromptDemoViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == InstallTileCustomPromptDemoScreenState.Idle) {
-        SideEffect {
-            viewModel.initialize()
-        }
-    }
+  if (state == InstallTileCustomPromptDemoScreenState.Idle) {
+    SideEffect { viewModel.initialize() }
+  }
 
-    val context = LocalContext.current
+  val context = LocalContext.current
 
-    InstallTileCustomPromptDemoScreen(
-        state = state,
-        onRunDemoClick = viewModel::onRunDemoClick,
-        onInstallPromptInstallClick = {
-            viewModel.installTilePrompt.performAction(
-                context = context,
-            )
-            viewModel.onInstallPromptInstallClick()
-        },
-        onInstallPromptCancel = viewModel::onInstallPromptCancel,
-        modifier = modifier,
-    )
+  InstallTileCustomPromptDemoScreen(
+    state = state,
+    onRunDemoClick = viewModel::onRunDemoClick,
+    onInstallPromptInstallClick = {
+      viewModel.installTilePrompt.performAction(context = context)
+      viewModel.onInstallPromptInstallClick()
+    },
+    onInstallPromptCancel = viewModel::onInstallPromptCancel,
+    modifier = modifier,
+  )
 }
 
 @Composable
 fun InstallTileCustomPromptDemoScreen(
-    state: InstallTileCustomPromptDemoScreenState,
-    onRunDemoClick: () -> Unit,
-    onInstallPromptInstallClick: () -> Unit,
-    onInstallPromptCancel: () -> Unit,
-    modifier: Modifier = Modifier,
+  state: InstallTileCustomPromptDemoScreenState,
+  onRunDemoClick: () -> Unit,
+  onInstallPromptInstallClick: () -> Unit,
+  onInstallPromptCancel: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.padding(all = 10.dp),
+  Column(modifier = modifier.padding(all = 10.dp)) {
+    Text(text = stringResource(id = R.string.install_tile_custom_prompt_api_call_demo_message))
+
+    Button(
+      onClick = onRunDemoClick,
+      modifier = Modifier.padding(top = 10.dp).align(Alignment.CenterHorizontally),
+      enabled = state != InstallTileCustomPromptDemoScreenState.ApiNotAvailable,
     ) {
-        Text(text = stringResource(id = R.string.install_tile_custom_prompt_api_call_demo_message))
-
-        Button(
-            onClick = onRunDemoClick,
-            modifier = Modifier
-                .padding(top = 10.dp)
-                .align(Alignment.CenterHorizontally),
-            enabled = state != InstallTileCustomPromptDemoScreenState.ApiNotAvailable,
-        ) {
-            Text(text = stringResource(id = R.string.install_tile_custom_prompt_run_demo_button_label))
-        }
-
-        when (state) {
-            InstallTileCustomPromptDemoScreenState.Idle,
-            InstallTileCustomPromptDemoScreenState.Loaded,
-            -> {
-                /* do nothing */
-            }
-
-            InstallTileCustomPromptDemoScreenState.Loading -> {
-                CircularProgressIndicator()
-            }
-
-            is InstallTileCustomPromptDemoScreenState.WatchFound -> {
-                AlertDialog(
-                    icon = {
-                        Icon(imageVector = Icons.Default.Watch, contentDescription = null)
-                    },
-                    title = {
-                        Text(text = stringResource(id = R.string.install_tile_custom_prompt_demo_prompt_top_message))
-                    },
-                    text = {
-                        Text(text = stringResource(id = R.string.install_tile_custom_prompt_demo_prompt_bottom_message))
-                    },
-                    onDismissRequest = onInstallPromptCancel,
-                    confirmButton = {
-                        TextButton(
-                            onClick = onInstallPromptInstallClick,
-                        ) {
-                            Text(text = stringResource(id = R.string.install_tile_custom_prompt_demo_prompt_confirm_button_label))
-                        }
-                    },
-                    dismissButton = {
-                        TextButton(
-                            onClick = onInstallPromptCancel,
-                        ) {
-                            Text(text = stringResource(id = R.string.install_app_custom_prompt_demo_prompt_dismiss_button_label))
-                        }
-                    },
-                )
-            }
-
-            InstallTileCustomPromptDemoScreenState.WatchNotFound -> {
-                Text(
-                    stringResource(
-                        id = R.string.install_tile_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.install_tile_custom_prompt_demo_no_watches_found_label),
-                    ),
-                )
-            }
-
-            InstallTileCustomPromptDemoScreenState.InstallPromptInstallClicked -> {
-                Text(
-                    stringResource(
-                        id = R.string.install_tile_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.install_tile_custom_prompt_demo_prompt_install_result_label),
-                    ),
-                )
-            }
-
-            InstallTileCustomPromptDemoScreenState.InstallPromptInstallCancelled -> {
-                Text(
-                    stringResource(
-                        id = R.string.install_tile_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.install_tile_custom_prompt_demo_prompt_cancel_result_label),
-                    ),
-                )
-            }
-
-            InstallTileCustomPromptDemoScreenState.ApiNotAvailable -> {
-                Text(stringResource(id = R.string.wearable_message_api_unavailable))
-            }
-        }
+      Text(text = stringResource(id = R.string.install_tile_custom_prompt_run_demo_button_label))
     }
+
+    when (state) {
+      InstallTileCustomPromptDemoScreenState.Idle,
+      InstallTileCustomPromptDemoScreenState.Loaded -> {
+        /* do nothing */
+      }
+
+      InstallTileCustomPromptDemoScreenState.Loading -> {
+        CircularProgressIndicator()
+      }
+
+      is InstallTileCustomPromptDemoScreenState.WatchFound -> {
+        AlertDialog(
+          icon = { Icon(imageVector = Icons.Default.Watch, contentDescription = null) },
+          title = {
+            Text(
+              text =
+                stringResource(id = R.string.install_tile_custom_prompt_demo_prompt_top_message)
+            )
+          },
+          text = {
+            Text(
+              text =
+                stringResource(id = R.string.install_tile_custom_prompt_demo_prompt_bottom_message)
+            )
+          },
+          onDismissRequest = onInstallPromptCancel,
+          confirmButton = {
+            TextButton(onClick = onInstallPromptInstallClick) {
+              Text(
+                text =
+                  stringResource(
+                    id = R.string.install_tile_custom_prompt_demo_prompt_confirm_button_label
+                  )
+              )
+            }
+          },
+          dismissButton = {
+            TextButton(onClick = onInstallPromptCancel) {
+              Text(
+                text =
+                  stringResource(
+                    id = R.string.install_app_custom_prompt_demo_prompt_dismiss_button_label
+                  )
+              )
+            }
+          },
+        )
+      }
+
+      InstallTileCustomPromptDemoScreenState.WatchNotFound -> {
+        Text(
+          stringResource(
+            id = R.string.install_tile_custom_prompt_demo_result_label,
+            stringResource(id = R.string.install_tile_custom_prompt_demo_no_watches_found_label),
+          )
+        )
+      }
+
+      InstallTileCustomPromptDemoScreenState.InstallPromptInstallClicked -> {
+        Text(
+          stringResource(
+            id = R.string.install_tile_custom_prompt_demo_result_label,
+            stringResource(
+              id = R.string.install_tile_custom_prompt_demo_prompt_install_result_label
+            ),
+          )
+        )
+      }
+
+      InstallTileCustomPromptDemoScreenState.InstallPromptInstallCancelled -> {
+        Text(
+          stringResource(
+            id = R.string.install_tile_custom_prompt_demo_result_label,
+            stringResource(
+              id = R.string.install_tile_custom_prompt_demo_prompt_cancel_result_label
+            ),
+          )
+        )
+      }
+
+      InstallTileCustomPromptDemoScreenState.ApiNotAvailable -> {
+        Text(stringResource(id = R.string.wearable_message_api_unavailable))
+      }
+    }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun InstallTileCustomPromptDemoScreenPreview() {
-    InstallTileCustomPromptDemoScreen(
-        state = InstallTileCustomPromptDemoScreenState.Idle,
-        onRunDemoClick = { },
-        onInstallPromptInstallClick = { },
-        onInstallPromptCancel = { },
-    )
+  InstallTileCustomPromptDemoScreen(
+    state = InstallTileCustomPromptDemoScreenState.Idle,
+    onRunDemoClick = {},
+    onInstallPromptInstallClick = {},
+    onInstallPromptCancel = {},
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun InstallTileCustomPromptDemoScreenPreviewWithPrompt() {
-    InstallTileCustomPromptDemoScreen(
-        state = InstallTileCustomPromptDemoScreenState.WatchFound,
-        onRunDemoClick = { },
-        onInstallPromptInstallClick = { },
-        onInstallPromptCancel = { },
-    )
+  InstallTileCustomPromptDemoScreen(
+    state = InstallTileCustomPromptDemoScreenState.WatchFound,
+    onRunDemoClick = {},
+    onInstallPromptInstallClick = {},
+    onInstallPromptCancel = {},
+  )
 }

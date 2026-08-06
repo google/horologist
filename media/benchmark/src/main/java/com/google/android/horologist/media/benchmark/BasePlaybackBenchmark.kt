@@ -35,78 +35,78 @@ import androidx.test.rule.GrantPermissionRule
 import com.google.android.horologist.media.benchmark.MediaControllerHelper.startPlaying
 import com.google.android.horologist.media.benchmark.MediaControllerHelper.stopPlaying
 import com.google.common.util.concurrent.ListenableFuture
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.junit.Rule
 import org.junit.Test
-import kotlin.time.Duration.Companion.seconds
 
 @LargeTest
 public abstract class BasePlaybackBenchmark {
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    @get:Rule
-    public val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS)
+  @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+  @get:Rule
+  public val grantPermissionRule: GrantPermissionRule =
+    GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS)
 
-    @get:Rule
-    public val benchmarkRule: MacrobenchmarkRule = MacrobenchmarkRule()
+  @get:Rule public val benchmarkRule: MacrobenchmarkRule = MacrobenchmarkRule()
 
-    public lateinit var mediaControllerFuture: ListenableFuture<MediaBrowser>
+  public lateinit var mediaControllerFuture: ListenableFuture<MediaBrowser>
 
-    public abstract val mediaApp: MediaApp
+  public abstract val mediaApp: MediaApp
 
-    @Test
-    public fun startup(): Unit = benchmarkRule.measureRepeated(
-        packageName = mediaApp.packageName,
-        metrics = metrics(),
-        compilationMode = CompilationMode.Partial(),
-        iterations = 3,
-        startupMode = StartupMode.WARM,
-        setupBlock = {
-            mediaControllerFuture = MediaControllerHelper.lookupController(
-                mediaApp.playerComponentName,
-            )
+  @Test
+  public fun startup(): Unit =
+    benchmarkRule.measureRepeated(
+      packageName = mediaApp.packageName,
+      metrics = metrics(),
+      compilationMode = CompilationMode.Partial(),
+      iterations = 3,
+      startupMode = StartupMode.WARM,
+      setupBlock = {
+        mediaControllerFuture = MediaControllerHelper.lookupController(mediaApp.playerComponentName)
 
-            // Wait for service
-            mediaControllerFuture.get()
-        },
+        // Wait for service
+        mediaControllerFuture.get()
+      },
     ) {
-        onStartup()
+      onStartup()
 
-        val mediaController = mediaControllerFuture.get()
+      val mediaController = mediaControllerFuture.get()
 
-        runBlocking {
-            delay(5.seconds)
+      runBlocking {
+        delay(5.seconds)
 
-            mediaController.startPlaying(mediaApp.testMedia)
+        mediaController.startPlaying(mediaApp.testMedia)
 
-            delay(10.seconds)
+        delay(10.seconds)
 
-            checkPlayingState(mediaController)
+        checkPlayingState(mediaController)
 
-            delay(20.seconds)
+        delay(20.seconds)
 
-            mediaController.stopPlaying()
+        mediaController.stopPlaying()
 
-            delay(1.seconds)
-        }
+        delay(1.seconds)
+      }
     }
 
-    public open fun metrics(): List<Metric> = listOf(
-        FrameTimingMetric(),
-        PowerMetric(type = PowerMetric.Type.Battery()),
+  public open fun metrics(): List<Metric> =
+    listOf(
+      FrameTimingMetric(),
+      PowerMetric(type = PowerMetric.Type.Battery()),
     )
 
-    public open fun MacrobenchmarkScope.onStartup() {
-        startActivityAndWait()
-    }
+  public open fun MacrobenchmarkScope.onStartup() {
+    startActivityAndWait()
+  }
 
-    public open suspend fun checkPlayingState(mediaController: MediaBrowser) {
-        withContext(Dispatchers.Main) {
-            if (!mediaController.isPlaying) {
-                throw IllegalStateException("Not playing after 10 seconds")
-            }
-        }
+  public open suspend fun checkPlayingState(mediaController: MediaBrowser) {
+    withContext(Dispatchers.Main) {
+      if (!mediaController.isPlaying) {
+        throw IllegalStateException("Not playing after 10 seconds")
+      }
     }
+  }
 }

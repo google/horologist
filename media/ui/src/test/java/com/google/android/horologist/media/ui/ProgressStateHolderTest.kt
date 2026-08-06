@@ -36,62 +36,65 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 @Ignore("XXX")
 class ProgressStateHolderTest {
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Test
-    fun givenPredictiveProgress_usesTimestampForInitialValue() = runTest {
-        // given
-        val predictor = MediaPositionPredictor(
-            eventTimestamp = 500,
-            durationMs = 1000,
-            currentPositionMs = 100,
-            positionSpeed = 1f,
-        )
-        val trackPositionUiModel = TrackPositionUiModel.Predictive(predictor)
-        val timestamp = 600L
-        val progressStateHolder = setContentWithResult({ timestamp }) {
-            ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel = trackPositionUiModel)
-        }
+  @Test
+  fun givenPredictiveProgress_usesTimestampForInitialValue() = runTest {
+    // given
+    val predictor =
+      MediaPositionPredictor(
+        eventTimestamp = 500,
+        durationMs = 1000,
+        currentPositionMs = 100,
+        positionSpeed = 1f,
+      )
+    val trackPositionUiModel = TrackPositionUiModel.Predictive(predictor)
+    val timestamp = 600L
+    val progressStateHolder =
+      setContentWithResult({ timestamp }) {
+        ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel = trackPositionUiModel)
+      }
 
-        // then
-        assertThat(progressStateHolder.value).isEqualTo(0.2f)
+    // then
+    assertThat(progressStateHolder.value).isEqualTo(0.2f)
+  }
+
+  @Test
+  fun givenPredictiveProgress_predictsProgress() = runTest {
+    // given
+    val timestampProvider = TimestampProvider { composeTestRule.mainClock.currentTime }
+    val predictor =
+      MediaPositionPredictor(
+        eventTimestamp = timestampProvider.getTimestamp(),
+        durationMs = 1000,
+        currentPositionMs = 100,
+        positionSpeed = 1f,
+      )
+    val trackPositionUiModel = TrackPositionUiModel.Predictive(predictor)
+    composeTestRule.mainClock.autoAdvance = false
+    val progressStateHolder =
+      setContentWithResult(timestampProvider) {
+        ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel = trackPositionUiModel)
+      }
+
+    // then
+    assertThat(progressStateHolder.value).isEqualTo(0.1f)
+    composeTestRule.mainClock.advanceTimeBy(200, ignoreFrameDuration = false)
+    // check range because clock is not fully precise
+    assertThat(progressStateHolder.value).isGreaterThan(0.29f)
+    assertThat(progressStateHolder.value).isAtMost(0.3f)
+  }
+
+  private suspend fun <T> setContentWithResult(
+    timestampProvider: TimestampProvider,
+    block: @Composable () -> T,
+  ): T {
+    val result = CompletableDeferred<T>()
+    composeTestRule.setContent {
+      CompositionLocalProvider(LocalTimestampProvider provides timestampProvider) {
+        result.complete(block())
+      }
     }
-
-    @Test
-    fun givenPredictiveProgress_predictsProgress() = runTest {
-        // given
-        val timestampProvider = TimestampProvider { composeTestRule.mainClock.currentTime }
-        val predictor = MediaPositionPredictor(
-            eventTimestamp = timestampProvider.getTimestamp(),
-            durationMs = 1000,
-            currentPositionMs = 100,
-            positionSpeed = 1f,
-        )
-        val trackPositionUiModel = TrackPositionUiModel.Predictive(predictor)
-        composeTestRule.mainClock.autoAdvance = false
-        val progressStateHolder = setContentWithResult(timestampProvider) {
-            ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel = trackPositionUiModel)
-        }
-
-        // then
-        assertThat(progressStateHolder.value).isEqualTo(0.1f)
-        composeTestRule.mainClock.advanceTimeBy(200, ignoreFrameDuration = false)
-        // check range because clock is not fully precise
-        assertThat(progressStateHolder.value).isGreaterThan(0.29f)
-        assertThat(progressStateHolder.value).isAtMost(0.3f)
-    }
-
-    private suspend fun <T> setContentWithResult(
-        timestampProvider: TimestampProvider,
-        block: @Composable () -> T,
-    ): T {
-        val result = CompletableDeferred<T>()
-        composeTestRule.setContent {
-            CompositionLocalProvider(LocalTimestampProvider provides timestampProvider) {
-                result.complete(block())
-            }
-        }
-        return result.await()
-    }
+    return result.await()
+  }
 }

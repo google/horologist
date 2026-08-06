@@ -22,20 +22,21 @@ import android.speech.RecognizerIntent
 import androidx.activity.result.contract.ActivityResultContract
 
 class VoiceContract : ActivityResultContract<Intent, VoiceContract.Result>() {
-    override fun createIntent(context: Context, input: Intent): Intent = input
+  override fun createIntent(context: Context, input: Intent): Intent = input
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Result {
-        val res = intent?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-        val enteredPrompt = res?.get(0)
-        return if (!enteredPrompt.isNullOrBlank()) {
-            Result.EnteredPrompt(enteredPrompt)
-        } else {
-            Result.Empty
-        }
+  override fun parseResult(resultCode: Int, intent: Intent?): Result {
+    val res = intent?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+    val enteredPrompt = res?.get(0)
+    return if (!enteredPrompt.isNullOrBlank()) {
+      Result.EnteredPrompt(enteredPrompt)
+    } else {
+      Result.Empty
     }
+  }
 
-    sealed class Result {
-        data class EnteredPrompt(val prompt: String) : Result()
-        data object Empty : Result()
-    }
+  sealed class Result {
+    data class EnteredPrompt(val prompt: String) : Result()
+
+    data object Empty : Result()
+  }
 }

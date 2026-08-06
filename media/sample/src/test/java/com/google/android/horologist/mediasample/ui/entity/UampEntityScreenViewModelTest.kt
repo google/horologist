@@ -47,184 +47,189 @@ import org.robolectric.annotation.Config
 @Config(application = HiltTestApplication::class, sdk = [35])
 class UampEntityScreenViewModelTest {
 
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
-    private lateinit var sut: UampEntityScreenViewModel
-    private val dataStore: DataStore<Settings> = FakeDataStore()
+  @get:Rule val mainDispatcherRule = MainDispatcherRule()
+  private lateinit var sut: UampEntityScreenViewModel
+  private val dataStore: DataStore<Settings> = FakeDataStore()
 
-    private val playlistId = "playlistId"
-    private val playlistName = "playlistId"
-    private val playlistToTest = Playlist(
-        id = playlistId,
-        name = playlistName,
-        artworkUri = null,
-        mediaList = listOf(
-            Media(
-                id = "media1",
-                uri = "",
-                title = "media_name1",
-                artist = "",
-                artworkUri = null,
-                extras = emptyMap(),
-            ),
-            Media(
-                id = "media2",
-                uri = "",
-                title = "media_name2",
-                artist = "",
-                artworkUri = null,
-                extras = emptyMap(),
-            ),
+  private val playlistId = "playlistId"
+  private val playlistName = "playlistId"
+  private val playlistToTest =
+    Playlist(
+      id = playlistId,
+      name = playlistName,
+      artworkUri = null,
+      mediaList =
+        listOf(
+          Media(
+            id = "media1",
+            uri = "",
+            title = "media_name1",
+            artist = "",
+            artworkUri = null,
+            extras = emptyMap(),
+          ),
+          Media(
+            id = "media2",
+            uri = "",
+            title = "media_name2",
+            artist = "",
+            artworkUri = null,
+            extras = emptyMap(),
+          ),
         ),
     )
 
-    private val playlistUiModel = PlaylistUiModel(
-        id = playlistId,
-        title = playlistName,
+  private val playlistUiModel =
+    PlaylistUiModel(
+      id = playlistId,
+      title = playlistName,
     )
 
-    private val savedStateHandle = SavedStateHandle()
-    private val fakePlaylistDownloadDataSource = FakePlaylistDownloadDataSource(playlist = playlistToTest)
-    private val fakePlaylistDownloadRepository =
-        FakePlaylistDownloadRepository(fakePlaylistDownloadDataSource)
-    private val fakeMediaDownloadRepository = FakeMediaDownloadRepository(fakePlaylistDownloadDataSource)
-    private val fakePlayerRepository = FakePlayerRepository()
-    private val fakeSettingsRepository = SettingsRepository(dataStore)
+  private val savedStateHandle = SavedStateHandle()
+  private val fakePlaylistDownloadDataSource =
+    FakePlaylistDownloadDataSource(playlist = playlistToTest)
+  private val fakePlaylistDownloadRepository =
+    FakePlaylistDownloadRepository(fakePlaylistDownloadDataSource)
+  private val fakeMediaDownloadRepository =
+    FakeMediaDownloadRepository(fakePlaylistDownloadDataSource)
+  private val fakePlayerRepository = FakePlayerRepository()
+  private val fakeSettingsRepository = SettingsRepository(dataStore)
 
-    @Before
-    fun setup() {
-        savedStateHandle["id"] = playlistId
-        sut = UampEntityScreenViewModel(
-            savedStateHandle,
-            fakePlaylistDownloadRepository,
-            fakeMediaDownloadRepository,
-            fakePlayerRepository,
-            fakeSettingsRepository,
+  @Before
+  fun setup() {
+    savedStateHandle["id"] = playlistId
+    sut =
+      UampEntityScreenViewModel(
+        savedStateHandle,
+        fakePlaylistDownloadRepository,
+        fakeMediaDownloadRepository,
+        fakePlayerRepository,
+        fakeSettingsRepository,
+      )
+  }
+
+  @Test
+  fun loadWithoutPlaylist_returnsFailedUiState() = runTest {
+    val fakePlaylistDownloadDataSource2 = FakePlaylistDownloadDataSource(playlist = null)
+    val sut2 =
+      UampEntityScreenViewModel(
+        savedStateHandle,
+        FakePlaylistDownloadRepository(fakePlaylistDownloadDataSource2),
+        FakeMediaDownloadRepository(fakePlaylistDownloadDataSource2),
+        fakePlayerRepository,
+        fakeSettingsRepository,
+      )
+
+    sut2.uiState.test { assertThat(awaitItem()).isEqualTo(PlaylistDownloadScreenState.Failed) }
+  }
+
+  @Test
+  fun validInitLoad_returnsFullyNotDownloadedUiState() = runTest {
+    val expectedUiState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel> =
+      createPlaylistDownloadScreenStateLoaded(
+        playlistUiModel,
+        mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList),
+      )
+
+    sut.uiState.test { assertThat(awaitItem()).isEqualTo(expectedUiState) }
+  }
+
+  @Test
+  fun validInitLoad_DownloadFullList_returnsFullyDownloadedUiState() = runTest {
+    val expectedIdleUiState =
+      createPlaylistDownloadScreenStateLoaded(
+        playlistUiModel,
+        mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList),
+      )
+    val expectedDownloadedUiState =
+      createPlaylistDownloadScreenStateLoaded(
+        playlistUiModel,
+        mediaListToFullyDownloadedMediaUiModelList(playlistToTest.mediaList),
+      )
+
+    sut.uiState.test {
+      assertThat(awaitItem()).isEqualTo(expectedIdleUiState)
+      sut.download()
+      assertThat(awaitItem()).isEqualTo(expectedDownloadedUiState)
+    }
+  }
+
+  @Test
+  fun validInitLoadFullyDownloaded_removeFullList_returnsFullyNotDownloadedUiState() = runTest {
+    val expectedUiState =
+      createPlaylistDownloadScreenStateLoaded(
+        playlistUiModel,
+        mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList),
+      )
+
+    sut.uiState.test {
+      sut.download()
+      skipItems(2) // Fully Not Downloaded -> Fully Downloaded
+
+      sut.remove()
+      assertThat(awaitItem()).isEqualTo(expectedUiState)
+    }
+  }
+
+  @Test
+  fun validInitLoadFullyDownloaded_removeSingleItem_returnsFullyDownloadedExceptRemovedItemUiState() =
+    runTest {
+      val expectedPartialDownloadedUiState =
+        createPlaylistDownloadScreenStateLoaded(
+          playlistUiModel,
+          mediaListToFullyDownloadedMediaUiModelListExceptMediaId(
+            playlistToTest.mediaList,
+            "media1",
+          ),
         )
+
+      // Setup initial load to idle then fully downloaded
+      sut.uiState.test {
+        sut.download()
+        skipItems(2) // Fully Not Downloaded -> Fully Downloaded
+        sut.removeMediaItem("media1")
+        assertThat(awaitItem()).isEqualTo(expectedPartialDownloadedUiState)
+      }
     }
 
-    @Test
-    fun loadWithoutPlaylist_returnsFailedUiState() = runTest {
-        val fakePlaylistDownloadDataSource2 = FakePlaylistDownloadDataSource(playlist = null)
-        val sut2 = UampEntityScreenViewModel(
-            savedStateHandle,
-            FakePlaylistDownloadRepository(fakePlaylistDownloadDataSource2),
-            FakeMediaDownloadRepository(fakePlaylistDownloadDataSource2),
-            fakePlayerRepository,
-            fakeSettingsRepository,
-        )
-
-        sut2.uiState.test {
-            assertThat(awaitItem()).isEqualTo(PlaylistDownloadScreenState.Failed)
-        }
+  private fun mediaListToFullyNotDownloadedMediaUiModelList(mediaList: List<Media>) =
+    mediaList.map { media ->
+      DownloadMediaUiModel.NotDownloaded(
+        id = media.id,
+        title = media.title,
+        artist = media.artist,
+        artworkUri = null,
+      )
     }
 
-    @Test
-    fun validInitLoad_returnsFullyNotDownloadedUiState() = runTest {
-        val expectedUiState: PlaylistDownloadScreenState<PlaylistUiModel, DownloadMediaUiModel> =
-            createPlaylistDownloadScreenStateLoaded(
-                playlistUiModel,
-                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList),
-            )
-
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(expectedUiState)
-        }
+  private fun mediaListToFullyDownloadedMediaUiModelList(mediaList: List<Media>) =
+    mediaList.map { media ->
+      DownloadMediaUiModel.Downloaded(
+        id = media.id,
+        title = media.title,
+        artist = media.artist,
+        artworkUri = null,
+      )
     }
 
-    @Test
-    fun validInitLoad_DownloadFullList_returnsFullyDownloadedUiState() = runTest {
-        val expectedIdleUiState =
-            createPlaylistDownloadScreenStateLoaded(
-                playlistUiModel,
-                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList),
-            )
-        val expectedDownloadedUiState =
-            createPlaylistDownloadScreenStateLoaded(
-                playlistUiModel,
-                mediaListToFullyDownloadedMediaUiModelList(playlistToTest.mediaList),
-            )
-
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(expectedIdleUiState)
-            sut.download()
-            assertThat(awaitItem()).isEqualTo(expectedDownloadedUiState)
-        }
+  private fun mediaListToFullyDownloadedMediaUiModelListExceptMediaId(
+    mediaList: List<Media>,
+    mediaId: String,
+  ) = mediaList.map { media ->
+    if (media.id == mediaId) {
+      DownloadMediaUiModel.NotDownloaded(
+        id = media.id,
+        title = media.title,
+        artist = media.artist,
+        artworkUri = null,
+      )
+    } else {
+      DownloadMediaUiModel.Downloaded(
+        id = media.id,
+        title = media.title,
+        artist = media.artist,
+        artworkUri = null,
+      )
     }
-
-    @Test
-    fun validInitLoadFullyDownloaded_removeFullList_returnsFullyNotDownloadedUiState() = runTest {
-        val expectedUiState =
-            createPlaylistDownloadScreenStateLoaded(
-                playlistUiModel,
-                mediaListToFullyNotDownloadedMediaUiModelList(playlistToTest.mediaList),
-            )
-
-        sut.uiState.test {
-            sut.download()
-            skipItems(2) // Fully Not Downloaded -> Fully Downloaded
-
-            sut.remove()
-            assertThat(awaitItem()).isEqualTo(expectedUiState)
-        }
-    }
-
-    @Test
-    fun validInitLoadFullyDownloaded_removeSingleItem_returnsFullyDownloadedExceptRemovedItemUiState() = runTest {
-        val expectedPartialDownloadedUiState =
-            createPlaylistDownloadScreenStateLoaded(
-                playlistUiModel,
-                mediaListToFullyDownloadedMediaUiModelListExceptMediaId(playlistToTest.mediaList, "media1"),
-            )
-
-        // Setup initial load to idle then fully downloaded
-        sut.uiState.test {
-            sut.download()
-            skipItems(2) // Fully Not Downloaded -> Fully Downloaded
-            sut.removeMediaItem("media1")
-            assertThat(awaitItem()).isEqualTo(expectedPartialDownloadedUiState)
-        }
-    }
-
-    private fun mediaListToFullyNotDownloadedMediaUiModelList(mediaList: List<Media>) =
-        mediaList.map { media ->
-            DownloadMediaUiModel.NotDownloaded(
-                id = media.id,
-                title = media.title,
-                artist = media.artist,
-                artworkUri = null,
-            )
-        }
-
-    private fun mediaListToFullyDownloadedMediaUiModelList(mediaList: List<Media>) =
-        mediaList.map { media ->
-            DownloadMediaUiModel.Downloaded(
-                id = media.id,
-                title = media.title,
-                artist = media.artist,
-                artworkUri = null,
-            )
-        }
-
-    private fun mediaListToFullyDownloadedMediaUiModelListExceptMediaId(
-        mediaList: List<Media>,
-        mediaId: String,
-    ) =
-        mediaList.map { media ->
-            if (media.id == mediaId) {
-                DownloadMediaUiModel.NotDownloaded(
-                    id = media.id,
-                    title = media.title,
-                    artist = media.artist,
-                    artworkUri = null,
-                )
-            } else {
-                DownloadMediaUiModel.Downloaded(
-                    id = media.id,
-                    title = media.title,
-                    artist = media.artist,
-                    artworkUri = null,
-                )
-            }
-        }
+  }
 }

@@ -33,68 +33,70 @@ import com.google.android.horologist.datalayer.sample.Screen
 
 @Composable
 fun MainScreen(
-    navigateToRoute: (String) -> Unit,
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
+  navigateToRoute: (String) -> Unit,
+  modifier: Modifier = Modifier,
+  columnState: ScalingLazyColumnState,
 ) {
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        appHelpersSection(navigateToRoute)
+  SectionedList(
+    columnState = columnState,
+    modifier = modifier.fillMaxSize(),
+  ) {
+    appHelpersSection(navigateToRoute)
 
-        generalSection(navigateToRoute)
-    }
+    generalSection(navigateToRoute)
+  }
 }
 
 private fun SectionedListScope.appHelpersSection(navigateToRoute: (String) -> Unit) {
-    section(
-        listOf(
-            Pair(R.string.main_menu_apphelpers_tracking_item, Screen.AppHelperTrackingScreen.route),
-            Pair(R.string.main_menu_apphelpers_nodes_actions_item, Screen.AppHelperNodesActionsScreen.route),
-            Pair(R.string.main_menu_apphelpers_nodes_listener_item, Screen.AppHelperNodesListenerScreen.route),
-        ),
-    ) {
-        header {
-            Title(stringResource(id = R.string.main_menu_apphelpers_header))
-        }
+  section(
+    listOf(
+      Pair(R.string.main_menu_apphelpers_tracking_item, Screen.AppHelperTrackingScreen.route),
+      Pair(
+        R.string.main_menu_apphelpers_nodes_actions_item,
+        Screen.AppHelperNodesActionsScreen.route,
+      ),
+      Pair(
+        R.string.main_menu_apphelpers_nodes_listener_item,
+        Screen.AppHelperNodesListenerScreen.route,
+      ),
+    )
+  ) {
+    header { Title(stringResource(id = R.string.main_menu_apphelpers_header)) }
 
-        loaded { (textId, route) ->
-            Chip(
-                label = stringResource(id = textId),
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-            )
-        }
+    loaded { (textId, route) ->
+      Chip(
+        label = stringResource(id = textId),
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToRoute(route) },
+      )
     }
+  }
 }
 
 private fun SectionedListScope.generalSection(navigateToRoute: (String) -> Unit) {
-    section(
-        listOf(
-            Pair(R.string.main_menu_datalayer_counter_item, Screen.CounterScreen.route),
-            Pair(R.string.main_menu_datalayer_nodes_item, Screen.ListNodesScreen.route),
-        ),
-    ) {
-        header {
-            Title(stringResource(id = R.string.main_menu_datalayer_header))
-        }
+  section(
+    listOf(
+      Pair(R.string.main_menu_datalayer_counter_item, Screen.CounterScreen.route),
+      Pair(R.string.main_menu_datalayer_nodes_item, Screen.ListNodesScreen.route),
+    )
+  ) {
+    header { Title(stringResource(id = R.string.main_menu_datalayer_header)) }
 
-        loaded { (textId, route) ->
-            Chip(
-                label = stringResource(id = textId),
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-            )
-        }
+    loaded { (textId, route) ->
+      Chip(
+        label = stringResource(id = textId),
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToRoute(route) },
+      )
     }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun MainScreenPreview() {
-    MainScreen(
-        navigateToRoute = {},
-        columnState = rememberResponsiveColumnState(),
-    )
+  MainScreen(
+    navigateToRoute = {},
+    columnState = rememberResponsiveColumnState(),
+  )
 }

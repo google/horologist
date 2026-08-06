@@ -40,8 +40,8 @@ import com.google.android.horologist.media.ui.material3.components.controls.Medi
  * @param modifier Optional [Modifier] to be applied to the button.
  * @param enabled Controls the enabled state of the button. When `false`, the button is disabled.
  * @param colorScheme The [ColorScheme] used for the button.
- * @param icon Optional [ImageVector] to draw inside this button. If not provided, a default
- *   next icon will be displayed.
+ * @param icon Optional [ImageVector] to draw inside this button. If not provided, a default next
+ *   icon will be displayed.
  * @param iconSize The size of the icon to be displayed on the button. Defaults to
  *   [IconButtonDefaults.SmallIconSize].
  * @param buttonPadding the padding around the button.
@@ -52,27 +52,30 @@ import com.google.android.horologist.media.ui.material3.components.controls.Medi
  */
 @Composable
 public fun AmbientSeekToNextButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    icon: ImageVector = ImageVector.vectorResource(R.drawable.rounded_skip_next_24),
-    iconSize: Dp = IconButtonDefaults.SmallIconSize,
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(colorScheme),
-    border: BorderStroke? = MediaButtonDefaults
-        .ambientButtonBorder(enabled = enabled, colorScheme = colorScheme),
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  icon: ImageVector = ImageVector.vectorResource(R.drawable.rounded_skip_next_24),
+  iconSize: Dp = IconButtonDefaults.SmallIconSize,
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(colorScheme),
+  border: BorderStroke? =
+    MediaButtonDefaults.ambientButtonBorder(enabled = enabled, colorScheme = colorScheme),
 ) {
-    MediaButton(
-        onClick = onClick,
-        icon = icon,
-        contentDescription =
-            stringResource(com.google.android.horologist.media.ui.model.R.string.horologist_seek_to_next_button_content_description),
-        modifier = modifier,
-        buttonPadding = buttonPadding,
-        enabled = enabled,
-        iconSize = iconSize,
-        colors = colors,
-        border = border,
-    )
+  MediaButton(
+    onClick = onClick,
+    icon = icon,
+    contentDescription =
+      stringResource(
+        com.google.android.horologist.media.ui.model.R.string
+          .horologist_seek_to_next_button_content_description
+      ),
+    modifier = modifier,
+    buttonPadding = buttonPadding,
+    enabled = enabled,
+    iconSize = iconSize,
+    colors = colors,
+    border = border,
+  )
 }

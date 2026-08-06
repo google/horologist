@@ -43,38 +43,37 @@ import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CO
 
 @Composable
 fun StreamlineSignInSampleScreen(
-    navController: NavHostController,
-    modifier: Modifier = Modifier,
-    viewModel: StreamlineSignInDefaultViewModel = viewModel(factory = StreamlineSignInSampleViewModelFactory),
+  navController: NavHostController,
+  modifier: Modifier = Modifier,
+  viewModel: StreamlineSignInDefaultViewModel =
+    viewModel(factory = StreamlineSignInSampleViewModelFactory),
 ) {
-    var showNoAccountsAvailableDialog by rememberSaveable { mutableStateOf(false) }
+  var showNoAccountsAvailableDialog by rememberSaveable { mutableStateOf(false) }
 
-    StreamlineSignInDefaultScreen(
-        onSignedInConfirmationDialogDismissOrTimeout = { navController.popBackStack() },
-        onNoAccountsAvailable = { showNoAccountsAvailableDialog = true },
-        viewModel = viewModel,
+  StreamlineSignInDefaultScreen(
+    onSignedInConfirmationDialogDismissOrTimeout = { navController.popBackStack() },
+    onNoAccountsAvailable = { showNoAccountsAvailableDialog = true },
+    viewModel = viewModel,
+  ) {
+    Box(
+      modifier = modifier.fillMaxSize(),
+      contentAlignment = Alignment.Center,
     ) {
-        Box(
-            modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center,
-        ) {
-            Icon(
-                modifier = Modifier.size(48.dp),
-                imageVector = Icons.Default.Android,
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-            )
-        }
+      Icon(
+        modifier = Modifier.size(48.dp),
+        imageVector = Icons.Default.Android,
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+      )
     }
+  }
 
-    if (showNoAccountsAvailableDialog) {
-        Confirmation(
-            onTimeout = navController::popBackStack,
-        ) {
-            Text(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.common_screens_streamline_no_accounts_message),
-            )
-        }
+  if (showNoAccountsAvailableDialog) {
+    Confirmation(onTimeout = navController::popBackStack) {
+      Text(
+        modifier = Modifier.align(Alignment.CenterHorizontally),
+        textAlign = TextAlign.Center,
+        text = stringResource(id = R.string.common_screens_streamline_no_accounts_message),
+      )
     }
+  }
 }

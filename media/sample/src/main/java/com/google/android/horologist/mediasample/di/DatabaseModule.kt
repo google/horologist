@@ -34,44 +34,32 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
-    private const val MEDIA_DATABASE_NAME = "media-database"
+  private const val MEDIA_DATABASE_NAME = "media-database"
 
-    @Provides
-    @Singleton
-    fun mediaDatabase(
-        @ApplicationContext context: Context,
-    ): MediaDatabase {
-        return Room.databaseBuilder(
-            context,
-            MediaDatabase::class.java,
-            MEDIA_DATABASE_NAME,
-        )
-            // Until stable, don't require incrementing MediaDatabase version.
-            .fallbackToDestructiveMigration(dropAllTables = true)
-            .build()
-    }
+  @Provides
+  @Singleton
+  fun mediaDatabase(@ApplicationContext context: Context): MediaDatabase {
+    return Room.databaseBuilder(
+        context,
+        MediaDatabase::class.java,
+        MEDIA_DATABASE_NAME,
+      )
+      // Until stable, don't require incrementing MediaDatabase version.
+      .fallbackToDestructiveMigration(dropAllTables = true)
+      .build()
+  }
 
-    @Provides
-    @Singleton
-    fun mediaDownloadDao(
-        database: MediaDatabase,
-    ): MediaDownloadDao = database.mediaDownloadDao()
+  @Provides
+  @Singleton
+  fun mediaDownloadDao(database: MediaDatabase): MediaDownloadDao = database.mediaDownloadDao()
 
-    @Provides
-    @Singleton
-    fun playlistDao(
-        database: MediaDatabase,
-    ): PlaylistDao = database.playlistDao()
+  @Provides
+  @Singleton
+  fun playlistDao(database: MediaDatabase): PlaylistDao = database.playlistDao()
 
-    @Provides
-    @Singleton
-    fun playlistMediaDao(
-        database: MediaDatabase,
-    ): PlaylistMediaDao = database.playlistMediaDao()
+  @Provides
+  @Singleton
+  fun playlistMediaDao(database: MediaDatabase): PlaylistMediaDao = database.playlistMediaDao()
 
-    @Provides
-    @Singleton
-    fun mediaDao(
-        database: MediaDatabase,
-    ): MediaDao = database.mediaDao()
+  @Provides @Singleton fun mediaDao(database: MediaDatabase): MediaDao = database.mediaDao()
 }

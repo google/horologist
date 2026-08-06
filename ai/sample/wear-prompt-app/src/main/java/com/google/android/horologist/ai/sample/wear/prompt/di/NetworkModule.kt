@@ -31,14 +31,11 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Singleton
-    @Provides
-    fun imageLoader(
-        @ApplicationContext application: Context,
-    ): ImageLoader = ImageLoader.Builder(application)
-        .components {
-            add(SvgDecoder.Factory())
-        }
-        .memoryCachePolicy(CachePolicy.ENABLED)
-        .build()
+  @Singleton
+  @Provides
+  fun imageLoader(@ApplicationContext application: Context): ImageLoader =
+    ImageLoader.Builder(application)
+      .components { add(SvgDecoder.Factory()) }
+      .memoryCachePolicy(CachePolicy.ENABLED)
+      .build()
 }

@@ -20,20 +20,16 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import okhttp3.Interceptor
 import okhttp3.Response
 
-/**
- * Interceptor that forces all requests to the https url.
- */
+/** Interceptor that forces all requests to the https url. */
 @ExperimentalHorologistApi
 public object AlwaysHttpsInterceptor : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        var request = chain.request()
+  override fun intercept(chain: Interceptor.Chain): Response {
+    var request = chain.request()
 
-        if (request.url.scheme == "http") {
-            request = request.newBuilder().url(
-                request.url.newBuilder().scheme("https").build(),
-            ).build()
-        }
-
-        return chain.proceed(request)
+    if (request.url.scheme == "http") {
+      request = request.newBuilder().url(request.url.newBuilder().scheme("https").build()).build()
     }
+
+    return chain.proceed(request)
+  }
 }

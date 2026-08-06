@@ -19,20 +19,15 @@ package com.google.android.horologist.media3.audio
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.audio.AudioOutput
 
-/**
- * Strategy interface for different audio output switchers.
- */
+/** Strategy interface for different audio output switchers. */
 @ExperimentalHorologistApi
 public interface AudioOutputSelector {
-    /**
-     * Change from the current audio output, according to some sensible logic,
-     * and return when either the user has selected a new audio output or returning null
-     * if timed out.
-     */
-    public suspend fun selectNewOutput(currentAudioOutput: AudioOutput): AudioOutput?
+  /**
+   * Change from the current audio output, according to some sensible logic, and return when either
+   * the user has selected a new audio output or returning null if timed out.
+   */
+  public suspend fun selectNewOutput(currentAudioOutput: AudioOutput): AudioOutput?
 
-    /**
-     * Fire and forget option to show the output selector.
-     */
-    public fun launchSelector()
+  /** Fire and forget option to show the output selector. */
+  public fun launchSelector()
 }

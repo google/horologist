@@ -22,14 +22,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class InfoScreenViewModel
-    @Inject
-    constructor(
-        savedStateHandle: SavedStateHandle,
-    ) : ViewModel() {
+class InfoScreenViewModel @Inject constructor(savedStateHandle: SavedStateHandle) : ViewModel() {
 
-        private val infoScreenArgs: InfoScreenArgs = InfoScreenArgs(savedStateHandle)
+  private val infoScreenArgs: InfoScreenArgs = InfoScreenArgs(savedStateHandle)
 
-        val message: String
-            get() = infoScreenArgs.message
-    }
+  val message: String
+    get() = infoScreenArgs.message
+}

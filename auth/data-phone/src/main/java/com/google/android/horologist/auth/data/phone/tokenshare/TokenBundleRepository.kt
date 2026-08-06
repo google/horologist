@@ -23,10 +23,8 @@ package com.google.android.horologist.auth.data.phone.tokenshare
  */
 public interface TokenBundleRepository<T> {
 
-    public suspend fun update(tokenBundle: T)
+  public suspend fun update(tokenBundle: T)
 
-    /**
-     * Check if this repository is available to be used on this device.
-     */
-    public suspend fun isAvailable(): Boolean
+  /** Check if this repository is available to be used on this device. */
+  public suspend fun isAvailable(): Boolean
 }

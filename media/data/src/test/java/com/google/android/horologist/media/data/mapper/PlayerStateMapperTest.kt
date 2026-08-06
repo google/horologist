@@ -24,38 +24,36 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class PlayerStateMapperTest {
-    val fakeStatePlayer = FakeStatePlayer()
+  val fakeStatePlayer = FakeStatePlayer()
 
-    @Test
-    fun `check playback state while playing`() {
-        fakeStatePlayer.overrideState(
-            playbackState = Player.STATE_READY,
-            playWhenReady = true,
-        )
-        val state = PlayerStateMapper.map(fakeStatePlayer)
+  @Test
+  fun `check playback state while playing`() {
+    fakeStatePlayer.overrideState(
+      playbackState = Player.STATE_READY,
+      playWhenReady = true,
+    )
+    val state = PlayerStateMapper.map(fakeStatePlayer)
 
-        assertThat(state).isEqualTo(PlayerState.Playing)
-    }
+    assertThat(state).isEqualTo(PlayerState.Playing)
+  }
 
-    @Test
-    fun `check playback state while buffering`() {
-        fakeStatePlayer.overrideState(
-            playbackState = Player.STATE_BUFFERING,
-            playWhenReady = true,
-        )
-        val state = PlayerStateMapper.map(fakeStatePlayer)
+  @Test
+  fun `check playback state while buffering`() {
+    fakeStatePlayer.overrideState(
+      playbackState = Player.STATE_BUFFERING,
+      playWhenReady = true,
+    )
+    val state = PlayerStateMapper.map(fakeStatePlayer)
 
-        assertThat(state).isEqualTo(PlayerState.Loading)
-    }
+    assertThat(state).isEqualTo(PlayerState.Loading)
+  }
 
-    @Test
-    fun `check playback state while idle`() {
-        fakeStatePlayer.overrideState(
-            playbackState = Player.STATE_IDLE,
-        )
-        assertThat(PlayerStateMapper.map(fakeStatePlayer)).isEqualTo(PlayerState.Idle)
+  @Test
+  fun `check playback state while idle`() {
+    fakeStatePlayer.overrideState(playbackState = Player.STATE_IDLE)
+    assertThat(PlayerStateMapper.map(fakeStatePlayer)).isEqualTo(PlayerState.Idle)
 
-        fakeStatePlayer.overridePosition(currentMediaItem = MediaItem.EMPTY)
-        assertThat(PlayerStateMapper.map(fakeStatePlayer)).isEqualTo(PlayerState.Stopped)
-    }
+    fakeStatePlayer.overridePosition(currentMediaItem = MediaItem.EMPTY)
+    assertThat(PlayerStateMapper.map(fakeStatePlayer)).isEqualTo(PlayerState.Stopped)
+  }
 }

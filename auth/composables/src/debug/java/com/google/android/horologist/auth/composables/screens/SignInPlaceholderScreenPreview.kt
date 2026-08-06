@@ -22,5 +22,5 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @WearPreviewDevices
 @Composable
 fun SignInPlaceholderScreenPreview() {
-    SignInPlaceholderScreen()
+  SignInPlaceholderScreen()
 }

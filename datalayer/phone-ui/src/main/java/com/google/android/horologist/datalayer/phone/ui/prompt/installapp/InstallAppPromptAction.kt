@@ -20,7 +20,7 @@ import android.content.Context
 import com.google.android.horologist.datalayer.phone.ui.play.launchPlay
 
 internal object InstallAppPromptAction {
-    fun run(context: Context, appPackageName: String) {
-        context.launchPlay(appPackageName)
-    }
+  fun run(context: Context, appPackageName: String) {
+    context.launchPlay(appPackageName)
+  }
 }

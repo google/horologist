@@ -29,33 +29,32 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class TitleComposeTest {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Test
-    fun givenHeadingModifierIsNOTOverridden_thenHeadingModifierIsPresent() {
-        // given
-        composeTestRule.setContent {
-            Title(text = "text")
-        }
+  @Test
+  fun givenHeadingModifierIsNOTOverridden_thenHeadingModifierIsPresent() {
+    // given
+    composeTestRule.setContent { Title(text = "text") }
 
-        // then
-        composeTestRule.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
-            .assertExists()
+    // then
+    composeTestRule
+      .onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
+      .assertExists()
+  }
+
+  @Test
+  fun givenHeadingModifierIsOverridden_thenHeadingModifierIsNOTPresent() {
+    // given
+    composeTestRule.setContent {
+      Title(
+        text = "text",
+        modifier = Modifier.clearAndSetSemantics {},
+      )
     }
 
-    @Test
-    fun givenHeadingModifierIsOverridden_thenHeadingModifierIsNOTPresent() {
-        // given
-        composeTestRule.setContent {
-            Title(
-                text = "text",
-                modifier = Modifier.clearAndSetSemantics {},
-            )
-        }
-
-        // then
-        composeTestRule.onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
-            .assertDoesNotExist()
-    }
+    // then
+    composeTestRule
+      .onNode(SemanticsMatcher.keyIsDefined(SemanticsProperties.Heading))
+      .assertDoesNotExist()
+  }
 }

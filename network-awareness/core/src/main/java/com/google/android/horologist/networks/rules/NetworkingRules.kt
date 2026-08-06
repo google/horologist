@@ -28,131 +28,124 @@ import com.google.android.horologist.networks.data.RequestType.MediaRequest
 import com.google.android.horologist.networks.data.RequestType.MediaRequest.MediaRequestType.Download
 
 /**
- * Implementation of app rules for network usage.  A way to implement logic such as
+ * Implementation of app rules for network usage. A way to implement logic such as
  * - Don't download large media items over BLE.
  * - Only use LTE for downloads if user enabled.
  * - Don't use metered LTE for logs and metrics.
  */
 @ExperimentalHorologistApi
 public interface NetworkingRules {
-    /**
-     * Is this request considered high bandwidth and should activate LTE or Wifi.
-     */
-    public fun isHighBandwidthRequest(requestType: RequestType): Boolean
+  /** Is this request considered high bandwidth and should activate LTE or Wifi. */
+  public fun isHighBandwidthRequest(requestType: RequestType): Boolean
 
-    /**
-     * Checks whether this request is allowed on the current network type.
-     */
-    public fun checkValidRequest(
-        requestType: RequestType,
-        currentNetworkInfo: NetworkInfo,
-    ): RequestCheck
+  /** Checks whether this request is allowed on the current network type. */
+  public fun checkValidRequest(
+    requestType: RequestType,
+    currentNetworkInfo: NetworkInfo,
+  ): RequestCheck
 
-    /**
-     * Returns the preferred network for a request.
-     *
-     * Null means no suitable network.
-     */
-    public fun getPreferredNetwork(
-        networks: Networks,
-        requestType: RequestType,
-    ): NetworkStatus?
+  /**
+   * Returns the preferred network for a request.
+   *
+   * Null means no suitable network.
+   */
+  public fun getPreferredNetwork(
+    networks: Networks,
+    requestType: RequestType,
+  ): NetworkStatus?
 
-    /**
-     * Lenient rules that allow most request types on any network but prefer
-     * Wifi when available.
-     */
-    @ExperimentalHorologistApi
-    public object Lenient : NetworkingRules {
-        override fun isHighBandwidthRequest(requestType: RequestType): Boolean {
-            return requestType is MediaRequest
-        }
-
-        override fun checkValidRequest(
-            requestType: RequestType,
-            currentNetworkInfo: NetworkInfo,
-        ): RequestCheck {
-            return Allow
-        }
-
-        override fun getPreferredNetwork(
-            networks: Networks,
-            requestType: RequestType,
-        ): NetworkStatus? {
-            val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
-            return wifi ?: networks.networks.firstOrNull()
-        }
+  /** Lenient rules that allow most request types on any network but prefer Wifi when available. */
+  @ExperimentalHorologistApi
+  public object Lenient : NetworkingRules {
+    override fun isHighBandwidthRequest(requestType: RequestType): Boolean {
+      return requestType is MediaRequest
     }
 
-    /**
-     * Conservative rules that don't allow Streaming, and only allow Downloads
-     * over high bandwidth networks.
-     */
-    @ExperimentalHorologistApi
-    public object Conservative : NetworkingRules {
-        override fun isHighBandwidthRequest(requestType: RequestType): Boolean {
-            return requestType is MediaRequest
-        }
+    override fun checkValidRequest(
+      requestType: RequestType,
+      currentNetworkInfo: NetworkInfo,
+    ): RequestCheck {
+      return Allow
+    }
 
-        override fun checkValidRequest(
-            requestType: RequestType,
-            currentNetworkInfo: NetworkInfo,
-        ): RequestCheck {
-            if (requestType is MediaRequest) {
-                return when (requestType.type) {
-                    Download -> {
-                        // Only allow Downloads over Wifi
-                        // BT will hog the limited bandwidth
-                        // Cell may include charges and should be checked with user
-                        if (currentNetworkInfo is Wifi) {
-                            Allow
-                        } else {
-                            Fail("downloads only possible over Wifi")
-                        }
-                    }
-                    MediaRequest.MediaRequestType.Stream -> {
-                        // Only allow Stream over Wifi or BT
-                        // BT may hog the limited bandwidth, but hopefully is small stream.
-                        if (currentNetworkInfo is Wifi || currentNetworkInfo is Bluetooth) {
-                            Allow
-                        } else {
-                            Fail("streaming only possible over Wifi or BT")
-                        }
-                    }
-                    MediaRequest.MediaRequestType.Live -> {
-                        // Only allow Live (continuous) Stream over BT
-                        if (currentNetworkInfo is Bluetooth) {
-                            Allow
-                        } else {
-                            Fail("live streams only possible over BT")
-                        }
-                    }
-                }
-            }
+    override fun getPreferredNetwork(
+      networks: Networks,
+      requestType: RequestType,
+    ): NetworkStatus? {
+      val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
+      return wifi ?: networks.networks.firstOrNull()
+    }
+  }
 
-            return Allow
-        }
+  /**
+   * Conservative rules that don't allow Streaming, and only allow Downloads over high bandwidth
+   * networks.
+   */
+  @ExperimentalHorologistApi
+  public object Conservative : NetworkingRules {
+    override fun isHighBandwidthRequest(requestType: RequestType): Boolean {
+      return requestType is MediaRequest
+    }
 
-        override fun getPreferredNetwork(
-            networks: Networks,
-            requestType: RequestType,
-        ): NetworkStatus? {
-            val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
-
-            if (wifi != null) return wifi
-
-            val cell = networks.networks.firstOrNull { it.networkInfo is Cellular }
-            val ble = networks.networks.firstOrNull { it.networkInfo is Bluetooth }
-
-            return if (requestType is MediaRequest) {
-                if (requestType.type == Download) {
-                    null
-                } else {
-                    ble
-                }
+    override fun checkValidRequest(
+      requestType: RequestType,
+      currentNetworkInfo: NetworkInfo,
+    ): RequestCheck {
+      if (requestType is MediaRequest) {
+        return when (requestType.type) {
+          Download -> {
+            // Only allow Downloads over Wifi
+            // BT will hog the limited bandwidth
+            // Cell may include charges and should be checked with user
+            if (currentNetworkInfo is Wifi) {
+              Allow
             } else {
-                ble ?: cell
+              Fail("downloads only possible over Wifi")
             }
+          }
+          MediaRequest.MediaRequestType.Stream -> {
+            // Only allow Stream over Wifi or BT
+            // BT may hog the limited bandwidth, but hopefully is small stream.
+            if (currentNetworkInfo is Wifi || currentNetworkInfo is Bluetooth) {
+              Allow
+            } else {
+              Fail("streaming only possible over Wifi or BT")
+            }
+          }
+          MediaRequest.MediaRequestType.Live -> {
+            // Only allow Live (continuous) Stream over BT
+            if (currentNetworkInfo is Bluetooth) {
+              Allow
+            } else {
+              Fail("live streams only possible over BT")
+            }
+          }
         }
+      }
+
+      return Allow
     }
+
+    override fun getPreferredNetwork(
+      networks: Networks,
+      requestType: RequestType,
+    ): NetworkStatus? {
+      val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
+
+      if (wifi != null) return wifi
+
+      val cell = networks.networks.firstOrNull { it.networkInfo is Cellular }
+      val ble = networks.networks.firstOrNull { it.networkInfo is Bluetooth }
+
+      return if (requestType is MediaRequest) {
+        if (requestType.type == Download) {
+          null
+        } else {
+          ble
+        }
+      } else {
+        ble ?: cell
+      }
+    }
+  }
 }

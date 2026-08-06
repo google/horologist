@@ -21,65 +21,64 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.media.ui.uamp.UampColors
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
+import kotlin.time.Duration.Companion.seconds
 import org.junit.Test
 import org.robolectric.annotation.Config
-import kotlin.time.Duration.Companion.seconds
 
 class MediaPlayerDeviceScreenTest : WearLegacyScreenTest() {
 
-    @Test
-    fun mediaPlayerLargeRound() {
-        mediaPlayerScreen()
-    }
+  @Test
+  fun mediaPlayerLargeRound() {
+    mediaPlayerScreen()
+  }
 
-    @Config(
-        qualifiers = "+w192dp-h192dp",
-    )
-    @Test
-    fun mediaPlayerSmallRound() {
-        mediaPlayerScreen()
-    }
+  @Config(qualifiers = "+w192dp-h192dp")
+  @Test
+  fun mediaPlayerSmallRound() {
+    mediaPlayerScreen()
+  }
 
-    @Config(
-        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav",
-    )
-    @Test
-    fun mediaPlayerSquare() {
-        mediaPlayerScreen()
-    }
+  @Config(qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav")
+  @Test
+  fun mediaPlayerSquare() {
+    mediaPlayerScreen()
+  }
 
-    @Test
-    fun mediaPlayerScreen() {
-        val playerUiState = PlayerUiState(
-            playEnabled = true,
-            pauseEnabled = true,
-            seekBackEnabled = true,
-            seekForwardEnabled = true,
-            seekInCurrentMediaItemEnabled = true,
-            seekToPreviousEnabled = false,
-            seekToNextEnabled = true,
-            shuffleEnabled = false,
-            shuffleOn = false,
-            playPauseEnabled = true,
-            playing = true,
-            media = MediaUiModel.Ready(
-                id = "",
-                title = "Weather with You",
-                subtitle = "Crowded House",
-            ),
-            trackPositionUiModel = TrackPositionUiModel.Actual(
-                position = 30.seconds,
-                duration = 225.seconds,
-                percent = 0.133f,
-            ),
-            connected = true,
-        )
+  @Test
+  fun mediaPlayerScreen() {
+    val playerUiState =
+      PlayerUiState(
+        playEnabled = true,
+        pauseEnabled = true,
+        seekBackEnabled = true,
+        seekForwardEnabled = true,
+        seekInCurrentMediaItemEnabled = true,
+        seekToPreviousEnabled = false,
+        seekToNextEnabled = true,
+        shuffleEnabled = false,
+        shuffleOn = false,
+        playPauseEnabled = true,
+        playing = true,
+        media =
+          MediaUiModel.Ready(
+            id = "",
+            title = "Weather with You",
+            subtitle = "Crowded House",
+          ),
+        trackPositionUiModel =
+          TrackPositionUiModel.Actual(
+            position = 30.seconds,
+            duration = 225.seconds,
+            percent = 0.133f,
+          ),
+        connected = true,
+      )
 
-        runTest {
-            MediaPlayerTestCase(
-                colors = UampColors,
-                playerUiState = playerUiState,
-            )
-        }
+    runTest {
+      MediaPlayerTestCase(
+        colors = UampColors,
+        playerUiState = playerUiState,
+      )
     }
+  }
 }

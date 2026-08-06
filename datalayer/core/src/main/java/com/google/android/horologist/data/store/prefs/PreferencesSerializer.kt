@@ -44,83 +44,82 @@ import java.io.OutputStream
  * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:datastore/datastore-preferences-core/src/jvmMain/kotlin/androidx/datastore/preferences/core/PreferencesSerializer.kt;l=34?q=PreferencesSerializer&sq=
  */
 internal object PreferencesSerializer : Serializer<Preferences> {
-    override val defaultValue: Preferences
-        get() {
-            return emptyPreferences()
-        }
-
-    @Throws(IOException::class, CorruptionException::class)
-    override suspend fun readFrom(input: InputStream): Preferences {
-        val preferencesProto = try {
-            PreferenceMap.parseFrom(input)
-        } catch (ipbe: InvalidProtocolBufferException) {
-            throw CorruptionException("Unable to parse preferences proto.", ipbe)
-        }
-
-        val mutablePreferences = mutablePreferencesOf()
-
-        for ((name, value) in preferencesProto.preferencesMap) {
-            addProtoEntryToPreferences(name, value, mutablePreferences)
-        }
-
-        return mutablePreferences.toPreferences()
+  override val defaultValue: Preferences
+    get() {
+      return emptyPreferences()
     }
 
-    @Throws(IOException::class, CorruptionException::class)
-    override suspend fun writeTo(t: Preferences, output: OutputStream) {
-        val preferences = t.asMap()
-        val protoBuilder = PreferenceMap.newBuilder()
+  @Throws(IOException::class, CorruptionException::class)
+  override suspend fun readFrom(input: InputStream): Preferences {
+    val preferencesProto =
+      try {
+        PreferenceMap.parseFrom(input)
+      } catch (ipbe: InvalidProtocolBufferException) {
+        throw CorruptionException("Unable to parse preferences proto.", ipbe)
+      }
 
-        for ((key, value) in preferences) {
-            protoBuilder.putPreferences(key.name, getValueProto(value))
-        }
+    val mutablePreferences = mutablePreferencesOf()
 
-        protoBuilder.build().writeTo(output)
+    for ((name, value) in preferencesProto.preferencesMap) {
+      addProtoEntryToPreferences(name, value, mutablePreferences)
     }
 
-    private fun getValueProto(value: Any): Value {
-        @Suppress("UNCHECKED_CAST")
-        return when (value) {
-            is Boolean -> Value.newBuilder().setBoolean(value).build()
-            is Float -> Value.newBuilder().setFloat(value).build()
-            is Double -> Value.newBuilder().setDouble(value).build()
-            is Int -> Value.newBuilder().setInteger(value).build()
-            is Long -> Value.newBuilder().setLong(value).build()
-            is String -> Value.newBuilder().setString(value).build()
-            is Set<*> -> Value.newBuilder().setStringSet(
-                StringSet.newBuilder().addAllStrings(value as Set<String>),
-            ).build()
+    return mutablePreferences.toPreferences()
+  }
 
-            else -> throw IllegalStateException(
-                "PreferencesSerializer does not support type: ${value.javaClass.name}",
-            )
-        }
+  @Throws(IOException::class, CorruptionException::class)
+  override suspend fun writeTo(t: Preferences, output: OutputStream) {
+    val preferences = t.asMap()
+    val protoBuilder = PreferenceMap.newBuilder()
+
+    for ((key, value) in preferences) {
+      protoBuilder.putPreferences(key.name, getValueProto(value))
     }
 
-    private fun addProtoEntryToPreferences(
-        name: String,
-        value: Value,
-        mutablePreferences: MutablePreferences,
-    ) {
-        return when (value.valueCase) {
-            Value.ValueCase.BOOLEAN ->
-                mutablePreferences[booleanPreferencesKey(name)] =
-                    value.boolean
+    protoBuilder.build().writeTo(output)
+  }
 
-            Value.ValueCase.FLOAT -> mutablePreferences[floatPreferencesKey(name)] = value.float
-            Value.ValueCase.DOUBLE -> mutablePreferences[doublePreferencesKey(name)] = value.double
-            Value.ValueCase.INTEGER -> mutablePreferences[intPreferencesKey(name)] = value.integer
-            Value.ValueCase.LONG -> mutablePreferences[longPreferencesKey(name)] = value.long
-            Value.ValueCase.STRING -> mutablePreferences[stringPreferencesKey(name)] = value.string
-            Value.ValueCase.STRING_SET ->
-                mutablePreferences[stringSetPreferencesKey(name)] =
-                    value.stringSet.stringsList.toSet()
+  private fun getValueProto(value: Any): Value {
+    @Suppress("UNCHECKED_CAST")
+    return when (value) {
+      is Boolean -> Value.newBuilder().setBoolean(value).build()
+      is Float -> Value.newBuilder().setFloat(value).build()
+      is Double -> Value.newBuilder().setDouble(value).build()
+      is Int -> Value.newBuilder().setInteger(value).build()
+      is Long -> Value.newBuilder().setLong(value).build()
+      is String -> Value.newBuilder().setString(value).build()
+      is Set<*> ->
+        Value.newBuilder()
+          .setStringSet(StringSet.newBuilder().addAllStrings(value as Set<String>))
+          .build()
 
-            Value.ValueCase.VALUE_NOT_SET ->
-                throw CorruptionException("Value not set.")
-
-            null -> throw CorruptionException("Value case is null.")
-            else -> throw CorruptionException("Value case is not supported.")
-        }
+      else ->
+        throw IllegalStateException(
+          "PreferencesSerializer does not support type: ${value.javaClass.name}"
+        )
     }
+  }
+
+  private fun addProtoEntryToPreferences(
+    name: String,
+    value: Value,
+    mutablePreferences: MutablePreferences,
+  ) {
+    return when (value.valueCase) {
+      Value.ValueCase.BOOLEAN -> mutablePreferences[booleanPreferencesKey(name)] = value.boolean
+
+      Value.ValueCase.FLOAT -> mutablePreferences[floatPreferencesKey(name)] = value.float
+      Value.ValueCase.DOUBLE -> mutablePreferences[doublePreferencesKey(name)] = value.double
+      Value.ValueCase.INTEGER -> mutablePreferences[intPreferencesKey(name)] = value.integer
+      Value.ValueCase.LONG -> mutablePreferences[longPreferencesKey(name)] = value.long
+      Value.ValueCase.STRING -> mutablePreferences[stringPreferencesKey(name)] = value.string
+      Value.ValueCase.STRING_SET ->
+        mutablePreferences[stringSetPreferencesKey(name)] = value.stringSet.stringsList.toSet()
+
+      Value.ValueCase.VALUE_NOT_SET -> throw CorruptionException("Value not set.")
+
+      null -> throw CorruptionException("Value case is null.")
+      else -> throw CorruptionException("Value case is not supported.")
+    }
+  }
 }

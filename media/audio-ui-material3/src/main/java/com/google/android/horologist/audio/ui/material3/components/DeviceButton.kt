@@ -35,35 +35,34 @@ import com.google.android.horologist.audio.ui.model.R
 
 @Composable
 public fun DeviceButton(
-    volumeDescription: String,
-    deviceName: String,
-    icon: @Composable BoxScope.() -> Unit,
-    onAudioOutputClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    colors: ButtonColors = ButtonDefaults.buttonColors(),
+  volumeDescription: String,
+  deviceName: String,
+  icon: @Composable BoxScope.() -> Unit,
+  onAudioOutputClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  colors: ButtonColors = ButtonDefaults.buttonColors(),
 ) {
-    val onClickLabel = stringResource(id = R.string.horologist_volume_screen_change_audio_output)
+  val onClickLabel = stringResource(id = R.string.horologist_volume_screen_change_audio_output)
 
-    Button(
-        modifier = modifier
-            .width(intrinsicSize = IntrinsicSize.Max)
-            .semantics(mergeDescendants = true) {
-                stateDescription = volumeDescription
-                onClick(onClickLabel) {
-                    onAudioOutputClick()
-                    true
-                }
-            },
-        label = {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = deviceName,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-            )
-        },
-        icon = icon,
-        onClick = onAudioOutputClick,
-        colors = colors,
-    )
+  Button(
+    modifier =
+      modifier.width(intrinsicSize = IntrinsicSize.Max).semantics(mergeDescendants = true) {
+        stateDescription = volumeDescription
+        onClick(onClickLabel) {
+          onAudioOutputClick()
+          true
+        }
+      },
+    label = {
+      Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = deviceName,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+      )
+    },
+    icon = icon,
+    onClick = onAudioOutputClick,
+    colors = colors,
+  )
 }

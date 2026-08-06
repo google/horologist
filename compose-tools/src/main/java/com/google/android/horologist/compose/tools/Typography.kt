@@ -22,19 +22,20 @@ import androidx.compose.ui.text.TextStyle
 import androidx.wear.compose.material.Typography
 
 @Composable
-public fun Typography.copy(fn: TextStyle.() -> TextStyle): Typography = remember(this) {
+public fun Typography.copy(fn: TextStyle.() -> TextStyle): Typography =
+  remember(this) {
     this.copy(
-        display1 = fn(this.display1),
-        display2 = fn(this.display2),
-        display3 = fn(this.display3),
-        title1 = fn(this.title1),
-        title2 = fn(this.title2),
-        title3 = fn(this.title3),
-        body1 = fn(this.body1),
-        body2 = fn(this.body2),
-        button = fn(this.button),
-        caption1 = fn(this.caption1),
-        caption2 = fn(this.caption2),
-        caption3 = fn(this.caption3),
+      display1 = fn(this.display1),
+      display2 = fn(this.display2),
+      display3 = fn(this.display3),
+      title1 = fn(this.title1),
+      title2 = fn(this.title2),
+      title3 = fn(this.title3),
+      body1 = fn(this.body1),
+      body2 = fn(this.body2),
+      button = fn(this.button),
+      caption1 = fn(this.caption1),
+      caption2 = fn(this.caption2),
+      caption3 = fn(this.caption3),
     )
-}
+  }

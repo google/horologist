@@ -49,41 +49,40 @@ private const val HORIZONTAL_PADDING_SCREEN_PERCENTAGE = 0.094
  */
 @Composable
 public fun SignInPlaceholderScreen(
-    modifier: Modifier = Modifier,
-    message: String = stringResource(id = R.string.horologist_signin_placeholder_message),
+  modifier: Modifier = Modifier,
+  message: String = stringResource(id = R.string.horologist_signin_placeholder_message),
 ) {
-    val configuration = LocalConfiguration.current
-    val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
-    val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
+  val configuration = LocalConfiguration.current
+  val horizontalPadding = (configuration.screenWidthDp * HORIZONTAL_PADDING_SCREEN_PERCENTAGE).dp
+  val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
 
-    ScreenScaffold(timeText = {}) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(horizontal = horizontalPadding)
-                .padding(bottom = bottomPadding),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Box(
-                modifier = Modifier
-                    .size(60.dp)
-                    .background(
-                        color = Color(AVATAR_BACKGROUND_COLOR),
-                        shape = CircleShape,
-                    ),
+  ScreenScaffold(timeText = {}) {
+    Column(
+      modifier =
+        modifier
+          .fillMaxSize()
+          .padding(horizontal = horizontalPadding)
+          .padding(bottom = bottomPadding),
+      verticalArrangement = Arrangement.Center,
+      horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+      Box(
+        modifier =
+          Modifier.size(60.dp)
+            .background(
+              color = Color(AVATAR_BACKGROUND_COLOR),
+              shape = CircleShape,
             )
+      )
 
-            Text(
-                text = message,
-                modifier = Modifier
-                    .padding(top = 8.dp)
-                    .fillMaxWidth(),
-                textAlign = TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1,
-                style = MaterialTheme.typography.title3,
-            )
-        }
+      Text(
+        text = message,
+        modifier = Modifier.padding(top = 8.dp).fillMaxWidth(),
+        textAlign = TextAlign.Center,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 1,
+        style = MaterialTheme.typography.title3,
+      )
     }
+  }
 }

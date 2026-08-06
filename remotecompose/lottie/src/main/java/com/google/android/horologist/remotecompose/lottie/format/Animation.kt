@@ -39,9 +39,11 @@ data class Animation(
     public fun decodeFromString(json: String): Animation = LottieDecoder.decodeFromString(json)
 
     /** Decodes an [Animation] from an [InputStream] using [LottieDecoder]. */
-    public fun decodeFromStream(stream: InputStream): Animation = LottieDecoder.decodeFromStream(stream)
+    public fun decodeFromStream(stream: InputStream): Animation =
+      LottieDecoder.decodeFromStream(stream)
 
     /** Decodes an [Animation] from a raw resource ID using [LottieDecoder]. */
-    public fun load(@RawRes rawRes: Int, context: Context): Animation = LottieDecoder.load(rawRes, context)
+    public fun load(@RawRes rawRes: Int, context: Context): Animation =
+      LottieDecoder.load(rawRes, context)
   }
 }

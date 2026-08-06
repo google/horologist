@@ -42,129 +42,129 @@ import com.google.android.horologist.sample.R
 
 @Composable
 fun SectionedListStatelessScreen(
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  columnState: ScalingLazyColumnState,
 ) {
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        topMenuSection()
+  SectionedList(
+    columnState = columnState,
+    modifier = modifier,
+  ) {
+    topMenuSection()
 
-        recommendationsSection()
+    recommendationsSection()
 
-        trendingSection()
+    trendingSection()
 
-        bottomMenuSection()
-    }
+    bottomMenuSection()
+  }
 }
 
 private fun SectionedListScope.topMenuSection() {
-    // Section without header and without footer
-    section(
-        listOf(
-            Pair(R.string.sectionedlist_downloads_button, Icons.Default.DownloadDone),
-            Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic),
-        ),
-    ) {
-        loaded { (label, icon) ->
-            Chip(
-                label = stringResource(label),
-                onClick = { },
-                icon = icon.asPaintable(),
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  // Section without header and without footer
+  section(
+    listOf(
+      Pair(R.string.sectionedlist_downloads_button, Icons.Default.DownloadDone),
+      Pair(R.string.sectionedlist_your_library_button, Icons.Default.LibraryMusic),
+    )
+  ) {
+    loaded { (label, icon) ->
+      Chip(
+        label = stringResource(label),
+        onClick = {},
+        icon = icon.asPaintable(),
+        colors = ChipDefaults.secondaryChipColors(),
+      )
     }
+  }
 }
 
 private fun SectionedListScope.recommendationsSection() {
-    // Section with header and footer
-    section(
-        listOf(
-            Pair("Running playlist", Icons.AutoMirrored.Default.DirectionsRun),
-            Pair("Focus", Icons.Default.SelfImprovement),
-            Pair("Summer hits", Icons.Default.LightMode),
-        ),
-    ) {
-        header {
-            Title(
-                stringResource(id = R.string.sectionedlist_recommendations_title),
-                Modifier.padding(vertical = 8.dp),
-            )
-        }
-
-        loaded { (label, icon) ->
-            Chip(
-                label = label,
-                onClick = { },
-                icon = icon.asPaintable(),
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-
-        footer {
-            Chip(
-                label = stringResource(id = R.string.sectionedlist_see_more_button),
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  // Section with header and footer
+  section(
+    listOf(
+      Pair("Running playlist", Icons.AutoMirrored.Default.DirectionsRun),
+      Pair("Focus", Icons.Default.SelfImprovement),
+      Pair("Summer hits", Icons.Default.LightMode),
+    )
+  ) {
+    header {
+      Title(
+        stringResource(id = R.string.sectionedlist_recommendations_title),
+        Modifier.padding(vertical = 8.dp),
+      )
     }
+
+    loaded { (label, icon) ->
+      Chip(
+        label = label,
+        onClick = {},
+        icon = icon.asPaintable(),
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+
+    footer {
+      Chip(
+        label = stringResource(id = R.string.sectionedlist_see_more_button),
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+  }
 }
 
 private fun SectionedListScope.trendingSection() {
-    // Section with header and footer
-    section(
-        listOf(
-            Pair("Bad Habits", "Ed Sheeran"),
-            Pair("There'd Better Be A Mirrorball", "Arctic Monkeys"),
-            Pair("180 Hours", "Dudu Kanegae"),
-        ),
-    ) {
-        header {
-            Title(
-                text = stringResource(id = R.string.sectionedlist_trending_title),
-                modifier = Modifier.padding(vertical = 8.dp),
-            )
-        }
-
-        loaded { (title, artist) ->
-            Chip(
-                label = title,
-                onClick = { },
-                secondaryLabel = artist,
-                icon = Icons.Default.MusicNote.asPaintable(),
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-
-        footer {
-            Chip(
-                label = stringResource(id = R.string.sectionedlist_see_more_button),
-                onClick = { },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  // Section with header and footer
+  section(
+    listOf(
+      Pair("Bad Habits", "Ed Sheeran"),
+      Pair("There'd Better Be A Mirrorball", "Arctic Monkeys"),
+      Pair("180 Hours", "Dudu Kanegae"),
+    )
+  ) {
+    header {
+      Title(
+        text = stringResource(id = R.string.sectionedlist_trending_title),
+        modifier = Modifier.padding(vertical = 8.dp),
+      )
     }
+
+    loaded { (title, artist) ->
+      Chip(
+        label = title,
+        onClick = {},
+        secondaryLabel = artist,
+        icon = Icons.Default.MusicNote.asPaintable(),
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+
+    footer {
+      Chip(
+        label = stringResource(id = R.string.sectionedlist_see_more_button),
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+  }
 }
 
 private fun SectionedListScope.bottomMenuSection() {
-    // Section with single item
-    section {
-        loaded {
-            Chip(
-                label = stringResource(R.string.sectionedlist_settings_button),
-                onClick = { },
-                icon = Icons.Default.Settings.asPaintable(),
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  // Section with single item
+  section {
+    loaded {
+      Chip(
+        label = stringResource(R.string.sectionedlist_settings_button),
+        onClick = {},
+        icon = Icons.Default.Settings.asPaintable(),
+        colors = ChipDefaults.secondaryChipColors(),
+      )
     }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun SectionedListStatelessScreenPreview() {
-    SectionedListStatelessScreen(columnState = rememberResponsiveColumnState())
+  SectionedListStatelessScreen(columnState = rememberResponsiveColumnState())
 }

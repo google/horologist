@@ -26,19 +26,16 @@ import kotlinx.serialization.Serializable
 
 @Composable
 fun PhoneApp(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController(),
+  modifier: Modifier = Modifier,
+  navController: NavHostController = rememberNavController(),
 ) {
-    NavHost(
-        modifier = modifier,
-        startDestination = Home,
-        navController = navController,
-    ) {
-        composable<Home> {
-            StatusScreen()
-        }
-    }
+  NavHost(
+    modifier = modifier,
+    startDestination = Home,
+    navController = navController,
+  ) {
+    composable<Home> { StatusScreen() }
+  }
 }
 
-@Serializable
-object Home
+@Serializable object Home

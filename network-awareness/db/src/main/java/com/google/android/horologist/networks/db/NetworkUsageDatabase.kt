@@ -25,53 +25,54 @@ import androidx.room.TypeConverters
 import java.time.Instant
 
 @Database(
-    entities = [DataUsage::class],
-    version = 1,
-    exportSchema = false,
+  entities = [DataUsage::class],
+  version = 1,
+  exportSchema = false,
 )
 @TypeConverters(NetworkUsageDatabase.Converters::class)
 public abstract class NetworkUsageDatabase : RoomDatabase() {
-    public abstract fun networkUsageDao(): NetworkUsageDao
+  public abstract fun networkUsageDao(): NetworkUsageDao
 
-    public class Converters {
-        @TypeConverter
-        public fun fromTimestamp(value: Long?): Instant? {
-            return value?.let { Instant.ofEpochMilli(it) }
-        }
-
-        @TypeConverter
-        public fun dateToTimestamp(date: Instant?): Long? {
-            return date?.toEpochMilli()
-        }
+  public class Converters {
+    @TypeConverter
+    public fun fromTimestamp(value: Long?): Instant? {
+      return value?.let { Instant.ofEpochMilli(it) }
     }
 
-    public companion object {
-        private lateinit var INSTANCE: NetworkUsageDatabase
+    @TypeConverter
+    public fun dateToTimestamp(date: Instant?): Long? {
+      return date?.toEpochMilli()
+    }
+  }
 
-        public fun getDatabase(context: Context, multiprocess: Boolean = false): NetworkUsageDatabase {
-            return synchronized(this) {
-                if (!Companion::INSTANCE.isInitialized) {
-                    val instance = Room.databaseBuilder(
-                        context,
-                        NetworkUsageDatabase::class.java,
-                        "networkUsage",
-                    )
-                        // TODO support migrations
-                        .fallbackToDestructiveMigration(dropAllTables = true)
-                        .apply {
-                            if (multiprocess) {
-                                // enabled to support Flow updates between processes
-                                enableMultiInstanceInvalidation()
-                            }
-                        }
-                        // enabled to support Flow updates between processes
-                        .enableMultiInstanceInvalidation()
-                        .build()
-                    INSTANCE = instance
+  public companion object {
+    private lateinit var INSTANCE: NetworkUsageDatabase
+
+    public fun getDatabase(context: Context, multiprocess: Boolean = false): NetworkUsageDatabase {
+      return synchronized(this) {
+        if (!Companion::INSTANCE.isInitialized) {
+          val instance =
+            Room.databaseBuilder(
+                context,
+                NetworkUsageDatabase::class.java,
+                "networkUsage",
+              )
+              // TODO support migrations
+              .fallbackToDestructiveMigration(dropAllTables = true)
+              .apply {
+                if (multiprocess) {
+                  // enabled to support Flow updates between processes
+                  enableMultiInstanceInvalidation()
                 }
-
-                INSTANCE
-            }
+              }
+              // enabled to support Flow updates between processes
+              .enableMultiInstanceInvalidation()
+              .build()
+          INSTANCE = instance
         }
+
+        INSTANCE
+      }
     }
+  }
 }

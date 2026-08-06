@@ -47,195 +47,190 @@ import org.robolectric.Shadows.shadowOf
 @OptIn(ExperimentalTestApi::class)
 @RunWith(AndroidJUnit4::class)
 class RotaryVolumeControlsTest {
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    lateinit var view: View
-    private var volumeState: VolumeState = VolumeState(5, 25)
-    private val volumeRepository = FakeVolumeRepository(volumeState)
+  lateinit var view: View
+  private var volumeState: VolumeState = VolumeState(5, 25)
+  private val volumeRepository = FakeVolumeRepository(volumeState)
 
-    @Test
-    fun rotatePositivelyRotaryInVolumeRange_triggerKeyboardPressHapticFeedback() {
-        volumeState = VolumeState(current = 2, max = MAX_VOLUME)
-        setUpViewWithRotaryVolumeModifier(volumeState = volumeState, isLowRes = false)
+  @Test
+  fun rotatePositivelyRotaryInVolumeRange_triggerKeyboardPressHapticFeedback() {
+    volumeState = VolumeState(current = 2, max = MAX_VOLUME)
+    setUpViewWithRotaryVolumeModifier(volumeState = volumeState, isLowRes = false)
 
-        composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
-            rotateToScrollVertically(50.0f)
-        }
-
-        assertThat(shadowOf(view).lastHapticFeedbackPerformed())
-            .isEqualTo(HapticFeedbackConstants.KEYBOARD_TAP)
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(3)
+    composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
+      rotateToScrollVertically(50.0f)
     }
 
-    @Test
-    fun rotateNegativelyRotaryAtMinVolume_doesNotTriggerHapticFeedback() {
-        volumeState = VolumeState(current = 0, max = MAX_VOLUME)
-        setUpViewWithRotaryVolumeModifier(volumeState = volumeState, isLowRes = false)
-        composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
-            rotateToScrollVertically(-50.0f)
-        }
+    assertThat(shadowOf(view).lastHapticFeedbackPerformed())
+      .isEqualTo(HapticFeedbackConstants.KEYBOARD_TAP)
+    assertThat(volumeRepository.volumeState.value.current).isEqualTo(3)
+  }
 
-        assertThat(shadowOf(view).lastHapticFeedbackPerformed()).isEqualTo(-1)
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(0)
+  @Test
+  fun rotateNegativelyRotaryAtMinVolume_doesNotTriggerHapticFeedback() {
+    volumeState = VolumeState(current = 0, max = MAX_VOLUME)
+    setUpViewWithRotaryVolumeModifier(volumeState = volumeState, isLowRes = false)
+    composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
+      rotateToScrollVertically(-50.0f)
     }
 
-    @Test
-    fun rotatePositivelyRotaryAtMaxVolume_doesNotTriggerHapticFeedback() {
-        volumeState = VolumeState(current = MAX_VOLUME, max = MAX_VOLUME)
-        setUpViewWithRotaryVolumeModifier(volumeState, isLowRes = false)
-        composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
-            rotateToScrollVertically(50.0f)
-        }
+    assertThat(shadowOf(view).lastHapticFeedbackPerformed()).isEqualTo(-1)
+    assertThat(volumeRepository.volumeState.value.current).isEqualTo(0)
+  }
 
-        assertThat(shadowOf(view).lastHapticFeedbackPerformed()).isEqualTo(-1)
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(MAX_VOLUME)
+  @Test
+  fun rotatePositivelyRotaryAtMaxVolume_doesNotTriggerHapticFeedback() {
+    volumeState = VolumeState(current = MAX_VOLUME, max = MAX_VOLUME)
+    setUpViewWithRotaryVolumeModifier(volumeState, isLowRes = false)
+    composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
+      rotateToScrollVertically(50.0f)
     }
 
-    @Test
-    fun rotatePositivelyRotaryTowardsMaxVolume_triggerLongPressHapticFeedback() {
-        volumeState = VolumeState(current = MAX_VOLUME - 1, max = MAX_VOLUME)
-        setUpViewWithRotaryVolumeModifier(volumeState, isLowRes = false)
-        composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
-            rotateToScrollVertically(50.0f)
-        }
+    assertThat(shadowOf(view).lastHapticFeedbackPerformed()).isEqualTo(-1)
+    assertThat(volumeRepository.volumeState.value.current).isEqualTo(MAX_VOLUME)
+  }
 
-        assertThat(shadowOf(view).lastHapticFeedbackPerformed())
-            .isEqualTo(HapticFeedbackConstants.LONG_PRESS)
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(MAX_VOLUME)
+  @Test
+  fun rotatePositivelyRotaryTowardsMaxVolume_triggerLongPressHapticFeedback() {
+    volumeState = VolumeState(current = MAX_VOLUME - 1, max = MAX_VOLUME)
+    setUpViewWithRotaryVolumeModifier(volumeState, isLowRes = false)
+    composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
+      rotateToScrollVertically(50.0f)
     }
 
-    @Test
-    fun rotateNegativelyRotaryTowardsMinVolume_triggerLongPressHapticFeedback() {
-        volumeState = VolumeState(current = 1, max = MAX_VOLUME)
-        setUpViewWithRotaryVolumeModifier(volumeState, isLowRes = false)
-        composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
-            rotateToScrollVertically(-50.0f)
-        }
+    assertThat(shadowOf(view).lastHapticFeedbackPerformed())
+      .isEqualTo(HapticFeedbackConstants.LONG_PRESS)
+    assertThat(volumeRepository.volumeState.value.current).isEqualTo(MAX_VOLUME)
+  }
 
-        assertThat(shadowOf(view).lastHapticFeedbackPerformed())
-            .isEqualTo(HapticFeedbackConstants.LONG_PRESS)
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(0)
+  @Test
+  fun rotateNegativelyRotaryTowardsMinVolume_triggerLongPressHapticFeedback() {
+    volumeState = VolumeState(current = 1, max = MAX_VOLUME)
+    setUpViewWithRotaryVolumeModifier(volumeState, isLowRes = false)
+    composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
+      rotateToScrollVertically(-50.0f)
     }
 
-    @Test
-    fun lowResRotary_converts2fChangesToVolume_coercedToMax() {
-        volumeState = VolumeState(current = 24, max = MAX_VOLUME)
-        setUpViewWithRotaryVolumeModifier(volumeState, isLowRes = true)
-        composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
-            rotateToScrollVertically(2f)
-        }
+    assertThat(shadowOf(view).lastHapticFeedbackPerformed())
+      .isEqualTo(HapticFeedbackConstants.LONG_PRESS)
+    assertThat(volumeRepository.volumeState.value.current).isEqualTo(0)
+  }
 
-        assertThat(shadowOf(view).lastHapticFeedbackPerformed())
-            .isEqualTo(HapticFeedbackConstants.LONG_PRESS)
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(MAX_VOLUME)
+  @Test
+  fun lowResRotary_converts2fChangesToVolume_coercedToMax() {
+    volumeState = VolumeState(current = 24, max = MAX_VOLUME)
+    setUpViewWithRotaryVolumeModifier(volumeState, isLowRes = true)
+    composeTestRule.onNodeWithTag(ROTARY_TEST_TAG).performRotaryScrollInput {
+      rotateToScrollVertically(2f)
     }
 
-    @Test
-    fun highResRotary_with15Max_converts30Pixels_getsOneVolumeIncrease() {
-        val actual =
-            convertPixelToVolume(
-                change = 30f,
-                volumeUiStateProvider = { VolumeUiState(current = 2, max = 15) },
+    assertThat(shadowOf(view).lastHapticFeedbackPerformed())
+      .isEqualTo(HapticFeedbackConstants.LONG_PRESS)
+    assertThat(volumeRepository.volumeState.value.current).isEqualTo(MAX_VOLUME)
+  }
+
+  @Test
+  fun highResRotary_with15Max_converts30Pixels_getsOneVolumeIncrease() {
+    val actual =
+      convertPixelToVolume(
+        change = 30f,
+        volumeUiStateProvider = { VolumeUiState(current = 2, max = 15) },
+      )
+
+    assertThat(actual).isEqualTo(3)
+  }
+
+  @Test
+  fun highResRotary_with15Max_convertsNegative30Pixels_getsOneVolumeDecrease() {
+    val actual =
+      convertPixelToVolume(
+        change = -30f,
+        volumeUiStateProvider = { VolumeUiState(current = 2, max = 15) },
+      )
+
+    assertThat(actual).isEqualTo(1)
+  }
+
+  @Test
+  fun highResRotary_increasesBeyondMax_getsMax() {
+    val actual =
+      convertPixelToVolume(
+        change = 100f,
+        volumeUiStateProvider = { VolumeUiState(current = 25, max = 25) },
+      )
+
+    assertThat(actual).isEqualTo(25)
+  }
+
+  @Test
+  fun highResRotary_decreasesBeyondMin_getsMin() {
+    val actual =
+      convertPixelToVolume(
+        change = -100f,
+        volumeUiStateProvider = { VolumeUiState(current = 0, max = 25, min = 0) },
+      )
+
+    assertThat(actual).isEqualTo(0)
+  }
+
+  @Test
+  fun highResRotary_converts48Pixels_withSmallMax_getsNewVolumeCorrectly() {
+    val actual =
+      convertPixelToVolume(
+        change = 48f,
+        volumeUiStateProvider = { VolumeUiState(current = 0, max = 5, min = 0) },
+      )
+
+    assertThat(actual).isEqualTo(1)
+  }
+
+  @Test
+  fun highResRotary_converts23Pixels_withSmallMax_getsNoChange() {
+    // 23/48 = 0.47916 which would round to 0
+    val actual =
+      convertPixelToVolume(
+        change = 23f,
+        volumeUiStateProvider = { VolumeUiState(current = 0, max = 5, min = 0) },
+      )
+
+    assertThat(actual).isEqualTo(0)
+  }
+
+  private fun setUpViewWithRotaryVolumeModifier(
+    volumeState: VolumeState,
+    isLowRes: Boolean,
+  ) {
+    val context = ApplicationProvider.getApplicationContext<Context>()
+    val packageManager = context.packageManager
+
+    shadowOf(packageManager).setSystemFeature("android.hardware.rotaryencoder.lowres", isLowRes)
+
+    this.volumeState = volumeState
+    composeTestRule.setContent {
+      val focusRequester = remember { FocusRequester() }
+      view = LocalView.current
+
+      ScreenScaffold(
+        modifier =
+          Modifier.requestFocusOnHierarchyActive()
+            .rotaryScrollable(
+              behavior =
+                volumeRotaryBehavior(
+                  volumeUiStateProvider = { VolumeUiStateMapper.map(volumeState) },
+                  onRotaryVolumeInput = { newVolume -> volumeRepository.setVolume(newVolume) },
+                ),
+              focusRequester = focusRequester,
             )
-
-        assertThat(actual).isEqualTo(3)
+            .testTag(ROTARY_TEST_TAG)
+      ) {
+        Box(modifier = Modifier.fillMaxSize()) {}
+      }
     }
+  }
 
-    @Test
-    fun highResRotary_with15Max_convertsNegative30Pixels_getsOneVolumeDecrease() {
-        val actual =
-            convertPixelToVolume(
-                change = -30f,
-                volumeUiStateProvider = { VolumeUiState(current = 2, max = 15) },
-            )
-
-        assertThat(actual).isEqualTo(1)
-    }
-
-    @Test
-    fun highResRotary_increasesBeyondMax_getsMax() {
-        val actual =
-            convertPixelToVolume(
-                change = 100f,
-                volumeUiStateProvider = { VolumeUiState(current = 25, max = 25) },
-            )
-
-        assertThat(actual).isEqualTo(25)
-    }
-
-    @Test
-    fun highResRotary_decreasesBeyondMin_getsMin() {
-        val actual =
-            convertPixelToVolume(
-                change = -100f,
-                volumeUiStateProvider = { VolumeUiState(current = 0, max = 25, min = 0) },
-            )
-
-        assertThat(actual).isEqualTo(0)
-    }
-
-    @Test
-    fun highResRotary_converts48Pixels_withSmallMax_getsNewVolumeCorrectly() {
-        val actual =
-            convertPixelToVolume(
-                change = 48f,
-                volumeUiStateProvider = { VolumeUiState(current = 0, max = 5, min = 0) },
-            )
-
-        assertThat(actual).isEqualTo(1)
-    }
-
-    @Test
-    fun highResRotary_converts23Pixels_withSmallMax_getsNoChange() {
-        // 23/48 = 0.47916 which would round to 0
-        val actual =
-            convertPixelToVolume(
-                change = 23f,
-                volumeUiStateProvider = { VolumeUiState(current = 0, max = 5, min = 0) },
-            )
-
-        assertThat(actual).isEqualTo(0)
-    }
-
-    private fun setUpViewWithRotaryVolumeModifier(
-        volumeState: VolumeState,
-        isLowRes: Boolean,
-    ) {
-        val context = ApplicationProvider.getApplicationContext<Context>()
-        val packageManager = context.packageManager
-
-        shadowOf(packageManager).setSystemFeature("android.hardware.rotaryencoder.lowres", isLowRes)
-
-        this.volumeState = volumeState
-        composeTestRule.setContent {
-            val focusRequester = remember { FocusRequester() }
-            view = LocalView.current
-
-            ScreenScaffold(
-                modifier =
-                    Modifier
-                        .requestFocusOnHierarchyActive()
-                        .rotaryScrollable(
-                            behavior = volumeRotaryBehavior(
-                                volumeUiStateProvider = { VolumeUiStateMapper.map(volumeState) },
-                                onRotaryVolumeInput = { newVolume ->
-                                    volumeRepository.setVolume(
-                                        newVolume,
-                                    )
-                                },
-                            ),
-                            focusRequester = focusRequester,
-                        )
-                        .testTag(ROTARY_TEST_TAG),
-            ) {
-                Box(modifier = Modifier.fillMaxSize()) {}
-            }
-        }
-    }
-
-    companion object {
-        private const val ROTARY_TEST_TAG = "TestScreenForVolumeRotary"
-        private const val MAX_VOLUME = 25
-    }
+  companion object {
+    private const val ROTARY_TEST_TAG = "TestScreenForVolumeRotary"
+    private const val MAX_VOLUME = 25
+  }
 }

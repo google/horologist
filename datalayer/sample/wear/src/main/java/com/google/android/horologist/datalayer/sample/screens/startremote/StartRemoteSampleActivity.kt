@@ -32,22 +32,18 @@ import com.google.android.horologist.datalayer.sample.R
 
 class StartRemoteSampleActivity : ComponentActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        setContent {
-            val scrollState = rememberScrollState()
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(state = scrollState),
-            ) {
-                Text(
-                    text = stringResource(id = R.string.app_helper_start_remote_activity_message),
-                    modifier = Modifier.align(Alignment.Center),
-                    textAlign = TextAlign.Center,
-                )
-            }
-        }
+    setContent {
+      val scrollState = rememberScrollState()
+      Box(modifier = Modifier.fillMaxSize().verticalScroll(state = scrollState)) {
+        Text(
+          text = stringResource(id = R.string.app_helper_start_remote_activity_message),
+          modifier = Modifier.align(Alignment.Center),
+          textAlign = TextAlign.Center,
+        )
+      }
     }
+  }
 }

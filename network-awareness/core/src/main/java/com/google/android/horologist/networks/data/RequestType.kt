@@ -19,66 +19,60 @@ package com.google.android.horologist.networks.data
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
- * An open domain model for RequestTypes in a typical Wear application.
- * Allows decisions such as suitable networks to be made based on the traffic.
+ * An open domain model for RequestTypes in a typical Wear application. Allows decisions such as
+ * suitable networks to be made based on the traffic.
  */
 @ExperimentalHorologistApi
 public interface RequestType {
-    /**
-     * A request for image, say via Coil.
-     */
-    @ExperimentalHorologistApi
-    public object ImageRequest : RequestType {
-        override fun toString(): String {
-            return "image"
-        }
+  /** A request for image, say via Coil. */
+  @ExperimentalHorologistApi
+  public object ImageRequest : RequestType {
+    override fun toString(): String {
+      return "image"
+    }
+  }
+
+  /** A request for media, likely via Media3. */
+  @ExperimentalHorologistApi
+  public data class MediaRequest(public val type: MediaRequestType) : RequestType {
+    public val name: String = "media-${type.toString().lowercase()}"
+
+    public enum class MediaRequestType {
+      Stream,
+      Download,
+      Live,
     }
 
-    /**
-     * A request for media, likely via Media3.
-     */
-    @ExperimentalHorologistApi
-    public data class MediaRequest(public val type: MediaRequestType) : RequestType {
-        public val name: String = "media-${type.toString().lowercase()}"
-        public enum class MediaRequestType {
-            Stream, Download, Live
-        }
-        override fun toString(): String = name
+    override fun toString(): String = name
 
-        public companion object {
-            public val DownloadRequest: MediaRequest = MediaRequest(MediaRequestType.Download)
-            public val StreamRequest: MediaRequest = MediaRequest(MediaRequestType.Stream)
-            public val LiveRequest: MediaRequest = MediaRequest(MediaRequestType.Download)
-        }
+    public companion object {
+      public val DownloadRequest: MediaRequest = MediaRequest(MediaRequestType.Download)
+      public val StreamRequest: MediaRequest = MediaRequest(MediaRequestType.Stream)
+      public val LiveRequest: MediaRequest = MediaRequest(MediaRequestType.Download)
     }
+  }
 
-    /**
-     * An API request such as fetching playslists or login.
-     */
-    @ExperimentalHorologistApi
-    public object ApiRequest : RequestType {
-        override fun toString(): String {
-            return "api"
-        }
+  /** An API request such as fetching playslists or login. */
+  @ExperimentalHorologistApi
+  public object ApiRequest : RequestType {
+    override fun toString(): String {
+      return "api"
     }
+  }
 
-    /**
-     * A request to ship app logs to the server.
-     */
-    @ExperimentalHorologistApi
-    public object LogsRequest : RequestType {
-        override fun toString(): String {
-            return "logs"
-        }
+  /** A request to ship app logs to the server. */
+  @ExperimentalHorologistApi
+  public object LogsRequest : RequestType {
+    override fun toString(): String {
+      return "logs"
     }
+  }
 
-    /**
-     * A request not tagged by the caller.
-     */
-    @ExperimentalHorologistApi
-    public object UnknownRequest : RequestType {
-        override fun toString(): String {
-            return "unknown"
-        }
+  /** A request not tagged by the caller. */
+  @ExperimentalHorologistApi
+  public object UnknownRequest : RequestType {
+    override fun toString(): String {
+      return "unknown"
     }
+  }
 }

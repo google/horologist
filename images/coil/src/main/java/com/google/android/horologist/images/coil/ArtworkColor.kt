@@ -33,34 +33,30 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 @Composable
 @ExperimentalHorologistApi
 public fun rememberArtworkColor(
-    model: Any?,
-    defaultColor: Color = MaterialTheme.colors.primary,
+  model: Any?,
+  defaultColor: Color = MaterialTheme.colors.primary,
 ): State<Color> {
-    val context = LocalContext.current
-    val imageLoader = context.imageLoader
+  val context = LocalContext.current
+  val imageLoader = context.imageLoader
 
-    val artworkColor = remember { mutableStateOf(defaultColor) }
+  val artworkColor = remember { mutableStateOf(defaultColor) }
 
-    LaunchedEffect(model) {
-        artworkColor.value = if (model != null) {
-            val request =
-                ImageRequest.Builder(context)
-                    .data(model)
-                    .allowHardware(false)
-                    .build()
-            val result = imageLoader.execute(request)
-            val palette = result.drawable?.let { Palette.Builder(it.toBitmap()).generate() }
-            centerColor(palette)
-        } else {
-            defaultColor
-        }
-    }
-    return artworkColor
+  LaunchedEffect(model) {
+    artworkColor.value =
+      if (model != null) {
+        val request = ImageRequest.Builder(context).data(model).allowHardware(false).build()
+        val result = imageLoader.execute(request)
+        val palette = result.drawable?.let { Palette.Builder(it.toBitmap()).generate() }
+        centerColor(palette)
+      } else {
+        defaultColor
+      }
+  }
+  return artworkColor
 }
 
 private fun centerColor(palette: Palette?) =
-    palette?.lightVibrantSwatch?.rgb?.color
-        ?: palette?.lightMutedSwatch?.rgb?.color ?: Color.Black
+  palette?.lightVibrantSwatch?.rgb?.color ?: palette?.lightMutedSwatch?.rgb?.color ?: Color.Black
 
 private val Int.color: Color
-    get() = Color(this)
+  get() = Color(this)

@@ -28,118 +28,118 @@ import androidx.test.filters.FlakyTest
 import com.google.android.horologist.media.model.MediaPositionPredictor
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.test.toolbox.testdoubles.hasProgressBar
+import kotlin.time.Duration.Companion.seconds
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import kotlin.time.Duration.Companion.seconds
 
 @FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 @RunWith(RobolectricTestRunner::class)
 class PlayPauseProgressButtonTest {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Test
-    fun givenIsPlaying_thenPauseButtonIsDisplayed() {
-        // given
-        var clicked = false
-        composeTestRule.setContent {
-            PlayPauseProgressButton(
-                onPlayClick = {},
-                onPauseClick = { clicked = true },
-                enabled = true,
-                playing = true,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds),
-            )
-        }
-
-        // then
-        composeTestRule.onNode(hasProgressBar())
-            .assertExists()
-
-        composeTestRule.onNode(hasAnyChild(hasContentDescription("Pause")))
-            .assertIsDisplayed()
-            .performClick()
-
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
-
-        composeTestRule.onNode(hasAnyChild(hasContentDescription("Play")))
-            .assertDoesNotExist()
+  @Test
+  fun givenIsPlaying_thenPauseButtonIsDisplayed() {
+    // given
+    var clicked = false
+    composeTestRule.setContent {
+      PlayPauseProgressButton(
+        onPlayClick = {},
+        onPauseClick = { clicked = true },
+        enabled = true,
+        playing = true,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds),
+      )
     }
 
-    @Test
-    fun givenIsNOTPlaying_thenPlayButtonIsDisplayed() {
-        // given
-        var clicked = false
-        composeTestRule.setContent {
-            PlayPauseProgressButton(
-                onPlayClick = { clicked = true },
-                onPauseClick = {},
-                enabled = true,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds),
-            )
-        }
+    // then
+    composeTestRule.onNode(hasProgressBar()).assertExists()
 
-        // then
-        composeTestRule.onNode(hasProgressBar())
-            .assertExists()
+    composeTestRule
+      .onNode(hasAnyChild(hasContentDescription("Pause")))
+      .assertIsDisplayed()
+      .performClick()
 
-        composeTestRule.onNode(hasAnyChild(hasContentDescription("Play")))
-            .assertIsDisplayed()
-            .performClick()
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
 
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+    composeTestRule.onNode(hasAnyChild(hasContentDescription("Play"))).assertDoesNotExist()
+  }
 
-        composeTestRule.onNode(hasAnyChild(hasContentDescription("Pause")))
-            .assertDoesNotExist()
+  @Test
+  fun givenIsNOTPlaying_thenPlayButtonIsDisplayed() {
+    // given
+    var clicked = false
+    composeTestRule.setContent {
+      PlayPauseProgressButton(
+        onPlayClick = { clicked = true },
+        onPauseClick = {},
+        enabled = true,
+        playing = false,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0f, 100.seconds, 0.seconds),
+      )
     }
 
-    @Test
-    fun givenMediaProgress_thenProgressIsCorrect() {
-        // given
-        composeTestRule.setContent {
-            PlayPauseProgressButton(
-                onPlayClick = {},
-                onPauseClick = {},
-                enabled = true,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds),
-            )
-        }
+    // then
+    composeTestRule.onNode(hasProgressBar()).assertExists()
 
-        // then
-        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0.5f, 0.0f..1.0f)))
-            .assertIsDisplayed()
+    composeTestRule
+      .onNode(hasAnyChild(hasContentDescription("Play")))
+      .assertIsDisplayed()
+      .performClick()
+
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+
+    composeTestRule.onNode(hasAnyChild(hasContentDescription("Pause"))).assertDoesNotExist()
+  }
+
+  @Test
+  fun givenMediaProgress_thenProgressIsCorrect() {
+    // given
+    composeTestRule.setContent {
+      PlayPauseProgressButton(
+        onPlayClick = {},
+        onPauseClick = {},
+        enabled = true,
+        playing = false,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds),
+      )
     }
 
-    @Test
-    fun givenPredictiveMediaProgress_thenProgressIsChanging() {
-        // given
-        composeTestRule.mainClock.autoAdvance = false
-        val predictor = MediaPositionPredictor(
-            eventTimestamp = SystemClock.elapsedRealtime(),
-            currentPositionMs = 0,
-            durationMs = 5_000,
-            positionSpeed = 1f,
-        )
-        composeTestRule.setContent {
-            PlayPauseProgressButton(
-                onPlayClick = {},
-                onPauseClick = {},
-                enabled = true,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Predictive(predictor),
-            )
-        }
+    // then
+    composeTestRule
+      .onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(0.5f, 0.0f..1.0f)))
+      .assertIsDisplayed()
+  }
 
-        // then
-        composeTestRule.mainClock.advanceTimeBy(10_000)
-        composeTestRule.onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(1f, 0.0f..1.0f)))
-            .assertIsDisplayed()
+  @Test
+  fun givenPredictiveMediaProgress_thenProgressIsChanging() {
+    // given
+    composeTestRule.mainClock.autoAdvance = false
+    val predictor =
+      MediaPositionPredictor(
+        eventTimestamp = SystemClock.elapsedRealtime(),
+        currentPositionMs = 0,
+        durationMs = 5_000,
+        positionSpeed = 1f,
+      )
+    composeTestRule.setContent {
+      PlayPauseProgressButton(
+        onPlayClick = {},
+        onPauseClick = {},
+        enabled = true,
+        playing = false,
+        trackPositionUiModel = TrackPositionUiModel.Predictive(predictor),
+      )
     }
+
+    // then
+    composeTestRule.mainClock.advanceTimeBy(10_000)
+    composeTestRule
+      .onNode(hasProgressBarRangeInfo(ProgressBarRangeInfo(1f, 0.0f..1.0f)))
+      .assertIsDisplayed()
+  }
 }

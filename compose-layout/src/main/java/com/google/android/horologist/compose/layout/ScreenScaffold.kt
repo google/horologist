@@ -47,48 +47,49 @@ import androidx.wear.compose.material.Scaffold
  */
 @Composable
 fun ScreenScaffold(
-    modifier: Modifier = Modifier,
-    timeText: (@Composable () -> Unit)? = null,
-    scrollState: ScrollableState? = null,
-    positionIndicator: (@Composable () -> Unit)? = null,
-    content: @Composable BoxScope.() -> Unit,
+  modifier: Modifier = Modifier,
+  timeText: (@Composable () -> Unit)? = null,
+  scrollState: ScrollableState? = null,
+  positionIndicator: (@Composable () -> Unit)? = null,
+  content: @Composable BoxScope.() -> Unit,
 ) {
-    val scaffoldState = LocalScaffoldState.current
+  val scaffoldState = LocalScaffoldState.current
 
-    val key = remember { Any() }
+  val key = remember { Any() }
 
-    // Update the timeText & scrollInfoProvider if there is a change and the screen is already
-    // present
-    scaffoldState.updateIfNeeded(key, timeText, scrollState)
+  // Update the timeText & scrollInfoProvider if there is a change and the screen is already
+  // present
+  scaffoldState.updateIfNeeded(key, timeText, scrollState)
 
-    val screenIsActive = LocalScreenIsActive.current
-    LaunchedEffect(screenIsActive) {
-        if (screenIsActive) {
-            scaffoldState.addScreen(key, timeText, scrollState)
-        } else {
-            scaffoldState.removeScreen(key)
-        }
+  val screenIsActive = LocalScreenIsActive.current
+  LaunchedEffect(screenIsActive) {
+    if (screenIsActive) {
+      scaffoldState.addScreen(key, timeText, scrollState)
+    } else {
+      scaffoldState.removeScreen(key)
     }
+  }
 
-    DisposableEffect(key) { onDispose { scaffoldState.removeScreen(key) } }
+  DisposableEffect(key) { onDispose { scaffoldState.removeScreen(key) } }
 
-    Scaffold(
-        modifier = modifier,
-        positionIndicator = remember(scrollState, positionIndicator) {
-            {
-                if (positionIndicator != null) {
-                    positionIndicator()
-                } else if (scrollState is ScalingLazyColumnState) {
-                    PositionIndicator(scalingLazyListState = scrollState.state)
-                } else if (scrollState is ScalingLazyListState) {
-                    PositionIndicator(scalingLazyListState = scrollState)
-                } else if (scrollState is LazyListState) {
-                    PositionIndicator(scrollState)
-                } else if (scrollState is ScrollState) {
-                    PositionIndicator(scrollState)
-                }
-            }
-        },
-        content = { Box { content() } },
-    )
+  Scaffold(
+    modifier = modifier,
+    positionIndicator =
+      remember(scrollState, positionIndicator) {
+        {
+          if (positionIndicator != null) {
+            positionIndicator()
+          } else if (scrollState is ScalingLazyColumnState) {
+            PositionIndicator(scalingLazyListState = scrollState.state)
+          } else if (scrollState is ScalingLazyListState) {
+            PositionIndicator(scalingLazyListState = scrollState)
+          } else if (scrollState is LazyListState) {
+            PositionIndicator(scrollState)
+          } else if (scrollState is ScrollState) {
+            PositionIndicator(scrollState)
+          }
+        }
+      },
+    content = { Box { content() } },
+  )
 }

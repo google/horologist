@@ -33,21 +33,22 @@ import com.google.android.horologist.images.base.paintable.PaintableIcon
 @ExperimentalHorologistApi
 @Composable
 public fun Icon(
-    paintable: PaintableIcon,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    tint: Color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current),
+  paintable: PaintableIcon,
+  contentDescription: String?,
+  modifier: Modifier = Modifier,
+  tint: Color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current),
 ) {
-    Icon(
-        painter = paintable.rememberPainter(),
-        contentDescription = contentDescription,
-        tint = tint,
-        modifier = modifier,
-    )
+  Icon(
+    painter = paintable.rememberPainter(),
+    contentDescription = contentDescription,
+    tint = tint,
+    modifier = modifier,
+  )
 }
 
 @Composable
-internal fun Modifier.autoMirrored(autoMirror: Boolean): Modifier = scale(
+internal fun Modifier.autoMirrored(autoMirror: Boolean): Modifier =
+  scale(
     scaleX = if (autoMirror) -1f else 1f,
     scaleY = 1f,
-)
+  )

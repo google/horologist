@@ -23,59 +23,59 @@ import org.junit.Test
 
 class PlaylistMapperTest {
 
-    @Test
-    fun map() {
-        // given
-        val catalog = getCatalog()
+  @Test
+  fun map() {
+    // given
+    val catalog = getCatalog()
 
-        // when
-        val result = PlaylistMapper.map(catalog)
+    // when
+    val result = PlaylistMapper.map(catalog)
 
-        // then
-        assertThat(result).hasSize(3)
-        assertThat(result[0].mediaList).hasSize(1)
-        assertThat(result[0].name).isEqualTo("genre1")
-        assertThat(result[0].artworkUri).isEqualTo("image1_1")
-        assertThat(result[0].mediaList[0].id).isEqualTo("id1_1")
+    // then
+    assertThat(result).hasSize(3)
+    assertThat(result[0].mediaList).hasSize(1)
+    assertThat(result[0].name).isEqualTo("genre1")
+    assertThat(result[0].artworkUri).isEqualTo("image1_1")
+    assertThat(result[0].mediaList[0].id).isEqualTo("id1_1")
 
-        assertThat(result[1].mediaList).hasSize(2)
-        assertThat(result[1].name).isEqualTo("genre2")
-        assertThat(result[1].artworkUri).isEqualTo("image2_1")
-        assertThat(result[1].mediaList[0].id).isEqualTo("id2_1")
-        assertThat(result[1].mediaList[1].id).isEqualTo("id2_2")
+    assertThat(result[1].mediaList).hasSize(2)
+    assertThat(result[1].name).isEqualTo("genre2")
+    assertThat(result[1].artworkUri).isEqualTo("image2_1")
+    assertThat(result[1].mediaList[0].id).isEqualTo("id2_1")
+    assertThat(result[1].mediaList[1].id).isEqualTo("id2_2")
 
-        assertThat(result[2].mediaList).hasSize(3)
-        assertThat(result[2].name).isEqualTo("genre3")
-        assertThat(result[2].artworkUri).isEqualTo("image3_1")
-        assertThat(result[2].mediaList[0].id).isEqualTo("id3_1")
-        assertThat(result[2].mediaList[1].id).isEqualTo("id3_2")
-        assertThat(result[2].mediaList[2].id).isEqualTo("id3_3")
+    assertThat(result[2].mediaList).hasSize(3)
+    assertThat(result[2].name).isEqualTo("genre3")
+    assertThat(result[2].artworkUri).isEqualTo("image3_1")
+    assertThat(result[2].mediaList[0].id).isEqualTo("id3_1")
+    assertThat(result[2].mediaList[1].id).isEqualTo("id3_2")
+    assertThat(result[2].mediaList[2].id).isEqualTo("id3_3")
+  }
+
+  private fun getCatalog(): CatalogApiModel {
+    val list = mutableListOf<MusicApiModel>()
+
+    for (genreIdx in 1..3) {
+      for (musicIdx in 1..genreIdx) {
+        val suffix = "${genreIdx}_$musicIdx"
+        list.add(
+          MusicApiModel(
+            album = "album$suffix",
+            artist = "artist$suffix",
+            duration = musicIdx,
+            genre = "genre$genreIdx",
+            id = "id$suffix",
+            image = "image$suffix",
+            site = "site$suffix",
+            source = "source$suffix",
+            title = "title$suffix",
+            totalTrackCount = genreIdx,
+            trackNumber = musicIdx,
+          )
+        )
+      }
     }
 
-    private fun getCatalog(): CatalogApiModel {
-        val list = mutableListOf<MusicApiModel>()
-
-        for (genreIdx in 1..3) {
-            for (musicIdx in 1..genreIdx) {
-                val suffix = "${genreIdx}_$musicIdx"
-                list.add(
-                    MusicApiModel(
-                        album = "album$suffix",
-                        artist = "artist$suffix",
-                        duration = musicIdx,
-                        genre = "genre$genreIdx",
-                        id = "id$suffix",
-                        image = "image$suffix",
-                        site = "site$suffix",
-                        source = "source$suffix",
-                        title = "title$suffix",
-                        totalTrackCount = genreIdx,
-                        trackNumber = musicIdx,
-                    ),
-                )
-            }
-        }
-
-        return CatalogApiModel(list)
-    }
+    return CatalogApiModel(list)
+  }
 }

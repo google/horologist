@@ -23,137 +23,137 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
 @Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ToggleChipSwitchPreview() {
-    ToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        toggleControl = ToggleChipToggleControl.Switch,
-    )
+  ToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    toggleControl = ToggleChipToggleControl.Switch,
+  )
 }
 
 @Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ToggleChipRadioPreview() {
-    ToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        toggleControl = ToggleChipToggleControl.Radio,
-    )
+  ToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    toggleControl = ToggleChipToggleControl.Radio,
+  )
 }
 
 @Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ToggleChipCheckboxPreview() {
-    ToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        toggleControl = ToggleChipToggleControl.Checkbox,
-    )
+  ToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    toggleControl = ToggleChipToggleControl.Checkbox,
+  )
 }
 
 @Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ToggleChipUncheckedPreview() {
-    ToggleChip(
-        checked = false,
-        onCheckedChanged = { },
-        label = "Primary label",
-        toggleControl = ToggleChipToggleControl.Switch,
-    )
+  ToggleChip(
+    checked = false,
+    onCheckedChanged = {},
+    label = "Primary label",
+    toggleControl = ToggleChipToggleControl.Switch,
+  )
 }
 
 @Preview(
-    name = "With secondary label",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With secondary label",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ToggleChipWithSecondaryLabel() {
-    ToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        toggleControl = ToggleChipToggleControl.Switch,
-        secondaryLabel = "Secondary label",
-    )
+  ToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    toggleControl = ToggleChipToggleControl.Switch,
+    secondaryLabel = "Secondary label",
+  )
 }
 
 @Preview(
-    name = "With icon",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With icon",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ToggleChipPreviewWithIcon() {
-    ToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        toggleControl = ToggleChipToggleControl.Switch,
-        icon = Icons.Default.Image.asPaintable(),
-    )
+  ToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    toggleControl = ToggleChipToggleControl.Switch,
+    icon = Icons.Default.Image.asPaintable(),
+  )
 }
 
 @Preview(
-    name = "With secondary label and icon",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With secondary label and icon",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ToggleChipPreviewWithSecondaryLabelAndIcon() {
-    ToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        toggleControl = ToggleChipToggleControl.Switch,
-        icon = Icons.Default.Image.asPaintable(),
-        secondaryLabel = "Secondary label",
-    )
+  ToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    toggleControl = ToggleChipToggleControl.Switch,
+    icon = Icons.Default.Image.asPaintable(),
+    secondaryLabel = "Secondary label",
+  )
 }
 
 @Preview(
-    name = "Disabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Disabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ToggleChipPreviewDisabled() {
-    ToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        toggleControl = ToggleChipToggleControl.Switch,
-        enabled = false,
-    )
+  ToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    toggleControl = ToggleChipToggleControl.Switch,
+    enabled = false,
+  )
 }
 
 @Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun ToggleChipUncheckedAndDisabledPreview() {
-    ToggleChip(
-        checked = false,
-        onCheckedChanged = { },
-        label = "Primary label",
-        toggleControl = ToggleChipToggleControl.Switch,
-        enabled = false,
-    )
+  ToggleChip(
+    checked = false,
+    onCheckedChanged = {},
+    label = "Primary label",
+    toggleControl = ToggleChipToggleControl.Switch,
+    enabled = false,
+  )
 }

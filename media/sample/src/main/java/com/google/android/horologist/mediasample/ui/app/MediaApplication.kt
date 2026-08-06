@@ -27,31 +27,29 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class MediaApplication : Application(), ImageLoaderFactory {
-    @Inject
-    lateinit var imageLoader: ImageLoader
+  @Inject lateinit var imageLoader: ImageLoader
 
-    @Inject
-    lateinit var appConfig: AppConfig
+  @Inject lateinit var appConfig: AppConfig
 
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        setStrictMode()
+    setStrictMode()
 
-        // Initialize Sync; the system responsible for keeping data in the app up to date.
-        Sync.initialize(context = this)
-    }
+    // Initialize Sync; the system responsible for keeping data in the app up to date.
+    Sync.initialize(context = this)
+  }
 
-    fun setStrictMode() {
-        StrictMode.setThreadPolicy(
-            StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads()
-                .detectDiskWrites()
-                .detectNetwork()
-                .penaltyLog()
-                .build(),
-        )
-    }
+  fun setStrictMode() {
+    StrictMode.setThreadPolicy(
+      StrictMode.ThreadPolicy.Builder()
+        .detectDiskReads()
+        .detectDiskWrites()
+        .detectNetwork()
+        .penaltyLog()
+        .build()
+    )
+  }
 
-    override fun newImageLoader(): ImageLoader = imageLoader
+  override fun newImageLoader(): ImageLoader = imageLoader
 }

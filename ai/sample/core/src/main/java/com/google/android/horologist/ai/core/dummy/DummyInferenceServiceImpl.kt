@@ -35,56 +35,50 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 
 class DummyInferenceServiceImpl(val thisId: String) :
-    InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
-        override suspend fun answerPrompt(request: PromptRequest): ResponseBundle {
-            if (request.modelId.id != thisId) {
-                return responseBundle {
-                    responses += response {
-                        failure = failure {
-                            message = "Unknown model ${request.modelId.id}"
-                        }
-                    }
-                }
-            } else if (request.prompt.hasTextPrompt()) {
-                val query = request.prompt.textPrompt.text
-                return responseBundle {
-                    responses += response {
-                        textResponse = textResponse {
-                            text = """ 
+  InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
+  override suspend fun answerPrompt(request: PromptRequest): ResponseBundle {
+    if (request.modelId.id != thisId) {
+      return responseBundle {
+        responses += response {
+          failure = failure { message = "Unknown model ${request.modelId.id}" }
+        }
+      }
+    } else if (request.prompt.hasTextPrompt()) {
+      val query = request.prompt.textPrompt.text
+      return responseBundle {
+        responses += response {
+          textResponse = textResponse {
+            text =
+              """ 
                         I didn't understand.
                         
                         > $query.
                         
                         Please try again with a different question.
                         From *$thisId*   
-                            """.trimIndent()
-                        }
-                    }
-                }
-            } else {
-                return responseBundle {
-                    responses += response {
-                        failure = failure {
-                            message = "Unhandled request type $request"
-                        }
-                    }
-                }
-            }
+                            """
+                .trimIndent()
+          }
         }
-
-        override fun answerPromptWithStream(request: PromptRequest): Flow<Response> {
-            return flow {
-                emitAll(answerPrompt(request).responsesList.asFlow())
-            }
-        }
-
-        override suspend fun serviceInfo(request: Empty): ServiceInfo {
-            return serviceInfo {
-                name = "Dummy $thisId"
-                models += modelInfo {
-                    modelId = modelId { id = thisId }
-                    name = "Dummy $thisId"
-                }
-            }
-        }
+      }
+    } else {
+      return responseBundle {
+        responses += response { failure = failure { message = "Unhandled request type $request" } }
+      }
     }
+  }
+
+  override fun answerPromptWithStream(request: PromptRequest): Flow<Response> {
+    return flow { emitAll(answerPrompt(request).responsesList.asFlow()) }
+  }
+
+  override suspend fun serviceInfo(request: Empty): ServiceInfo {
+    return serviceInfo {
+      name = "Dummy $thisId"
+      models += modelInfo {
+        modelId = modelId { id = thisId }
+        name = "Dummy $thisId"
+      }
+    }
+  }
+}

@@ -25,28 +25,26 @@ import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.Icon
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * A standard visual design for a button on the Entity screen.
- */
+/** A standard visual design for a button on the Entity screen. */
 @ExperimentalHorologistApi
 @Composable
 public fun EntityButton(
-    onClick: () -> Unit,
-    icon: ImageVector,
-    contentDescription: String,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
+  onClick: () -> Unit,
+  icon: ImageVector,
+  contentDescription: String,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
 ) {
-    Button(
-        modifier = modifier,
-        colors = ButtonDefaults.secondaryButtonColors(),
-        onClick = onClick,
-        enabled = enabled,
-    ) {
-        Icon(
-            modifier = Modifier.size(ButtonDefaults.SmallButtonSize),
-            imageVector = icon,
-            contentDescription = contentDescription,
-        )
-    }
+  Button(
+    modifier = modifier,
+    colors = ButtonDefaults.secondaryButtonColors(),
+    onClick = onClick,
+    enabled = enabled,
+  ) {
+    Icon(
+      modifier = Modifier.size(ButtonDefaults.SmallButtonSize),
+      imageVector = icon,
+      contentDescription = contentDescription,
+    )
+  }
 }

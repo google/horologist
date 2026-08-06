@@ -22,38 +22,39 @@ import org.junit.Test
 
 class MediaMapperTest {
 
-    @Test
-    fun givenMusicApiModel_thenMapsCorrectly() {
-        // given
-        val id = "id"
-        val title = "title"
-        val uri = "uri"
-        val artist = "artist"
-        val artworkUri = "artworkUri"
+  @Test
+  fun givenMusicApiModel_thenMapsCorrectly() {
+    // given
+    val id = "id"
+    val title = "title"
+    val uri = "uri"
+    val artist = "artist"
+    val artworkUri = "artworkUri"
 
-        val musicApiModel = MusicApiModel(
-            album = "album",
-            artist = artist,
-            duration = 1,
-            genre = "genre",
-            id = id,
-            image = artworkUri,
-            site = "site",
-            source = uri,
-            title = title,
-            totalTrackCount = 1,
-            trackNumber = 1,
-        )
+    val musicApiModel =
+      MusicApiModel(
+        album = "album",
+        artist = artist,
+        duration = 1,
+        genre = "genre",
+        id = id,
+        image = artworkUri,
+        site = "site",
+        source = uri,
+        title = title,
+        totalTrackCount = 1,
+        trackNumber = 1,
+      )
 
-        // when
-        val result = MediaMapper.map(musicApiModel)
+    // when
+    val result = MediaMapper.map(musicApiModel)
 
-        // then
-        assertThat(result.id).isEqualTo(id)
-        assertThat(result.uri).isEqualTo(uri)
-        assertThat(result.title).isEqualTo(title)
-        assertThat(result.artist).isEqualTo(artist)
-        assertThat(result.artworkUri).isEqualTo(artworkUri)
-        assertThat(result.extras).isEmpty()
-    }
+    // then
+    assertThat(result.id).isEqualTo(id)
+    assertThat(result.uri).isEqualTo(uri)
+    assertThat(result.title).isEqualTo(title)
+    assertThat(result.artist).isEqualTo(artist)
+    assertThat(result.artworkUri).isEqualTo(artworkUri)
+    assertThat(result.extras).isEmpty()
+  }
 }

@@ -23,30 +23,30 @@ import androidx.wear.watchface.complications.datasource.SuspendingComplicationDa
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 /**
- * A complication service based on a [ComplicationTemplate].
- * The implementation is effectively two parts, first creating some simple data model
- * using a suspending [data] function. Then a render phase.
+ * A complication service based on a [ComplicationTemplate]. The implementation is effectively two
+ * parts, first creating some simple data model using a suspending [data] function. Then a render
+ * phase.
  */
 @ExperimentalHorologistApi
 public abstract class DataComplicationService<D, R : ComplicationTemplate<D>> :
-    SuspendingComplicationDataSourceService() {
-    public abstract val renderer: R
+  SuspendingComplicationDataSourceService() {
+  public abstract val renderer: R
 
-    public abstract suspend fun data(request: ComplicationRequest): D
+  public abstract suspend fun data(request: ComplicationRequest): D
 
-    public abstract fun previewData(type: ComplicationType): D
+  public abstract fun previewData(type: ComplicationType): D
 
-    override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData {
-        val data: D = data(request)
-        return render(request.complicationType, data)
-    }
+  override suspend fun onComplicationRequest(request: ComplicationRequest): ComplicationData {
+    val data: D = data(request)
+    return render(request.complicationType, data)
+  }
 
-    override fun getPreviewData(type: ComplicationType): ComplicationData? {
-        val data: D = previewData(type)
-        return render(type, data)
-    }
+  override fun getPreviewData(type: ComplicationType): ComplicationData? {
+    val data: D = previewData(type)
+    return render(type, data)
+  }
 
-    public fun render(type: ComplicationType, data: D): ComplicationData {
-        return renderer.render(type, data)
-    }
+  public fun render(type: ComplicationType, data: D): ComplicationData {
+    return renderer.render(type, data)
+  }
 }

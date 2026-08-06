@@ -24,14 +24,14 @@ import okhttp3.ResponseBody.Companion.toResponseBody
 
 @ExperimentalHorologistApi
 object DeadEndInterceptor : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        val request = chain.request()
-        return Response.Builder()
-            .request(request)
-            .code(200)
-            .message("OK")
-            .protocol(Protocol.HTTP_1_1)
-            .body("".toResponseBody())
-            .build()
-    }
+  override fun intercept(chain: Interceptor.Chain): Response {
+    val request = chain.request()
+    return Response.Builder()
+      .request(request)
+      .code(200)
+      .message("OK")
+      .protocol(Protocol.HTTP_1_1)
+      .body("".toResponseBody())
+      .build()
+  }
 }

@@ -31,29 +31,21 @@ import dagger.hilt.android.scopes.ServiceScoped
 @Module
 @InstallIn(ServiceComponent::class)
 object ServiceModule {
-    @ServiceScoped
-    @Provides
-    fun client() = Client.builder()
-        .apiKey(GEMINI_API_KEY)
-        .clientOptions(
-            ClientOptions.builder()
-                .build(),
-        )
-        .httpOptions(
-            HttpOptions.builder()
-                .build(),
-        )
-        .build()
+  @ServiceScoped
+  @Provides
+  fun client() =
+    Client.builder()
+      .apiKey(GEMINI_API_KEY)
+      .clientOptions(ClientOptions.builder().build())
+      .httpOptions(HttpOptions.builder().build())
+      .build()
 
-    @ServiceScoped
-    @Provides
-    fun geminiSDKService(
-        client: Client,
-    ) = GeminiSDKInferenceServiceImpl(
-        client,
-        serviceName = "Phone",
-        configuredModels = listOf(
-            GeminiModel.Veo2,
-        ),
+  @ServiceScoped
+  @Provides
+  fun geminiSDKService(client: Client) =
+    GeminiSDKInferenceServiceImpl(
+      client,
+      serviceName = "Phone",
+      configuredModels = listOf(GeminiModel.Veo2),
     )
 }

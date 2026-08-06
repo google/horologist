@@ -32,112 +32,119 @@ import org.robolectric.annotation.Config
 @Config(manifest = Config.NONE)
 class MediaItemMapperTest {
 
-    private lateinit var sut: MediaItemMapper
+  private lateinit var sut: MediaItemMapper
 
-    @Before
-    fun setUp() {
-        sut = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
-    }
+  @Before
+  fun setUp() {
+    sut = MediaItemMapper(MediaItemExtrasMapperNoopImpl)
+  }
 
-    @Test
-    fun `given MediaItem then maps correctly`() {
-        // given
-        val id = "id"
-        val uri = "uri"
-        val title = "title"
-        val artist = "artist"
-        val artworkUri = "artworkUri"
+  @Test
+  fun `given MediaItem then maps correctly`() {
+    // given
+    val id = "id"
+    val uri = "uri"
+    val title = "title"
+    val artist = "artist"
+    val artworkUri = "artworkUri"
 
-        val mediaItem = Media(
-            id = id,
-            uri = uri,
-            title = title,
-            artist = artist,
-            artworkUri = artworkUri,
-        )
+    val mediaItem =
+      Media(
+        id = id,
+        uri = uri,
+        title = title,
+        artist = artist,
+        artworkUri = artworkUri,
+      )
 
-        // when
-        val result = sut.map(mediaItem)
+    // when
+    val result = sut.map(mediaItem)
 
-        // then
-        assertThat(result.mediaId).isEqualTo(id)
-        assertThat(result.localConfiguration!!.uri).isEqualTo((Uri.parse(uri)))
-        assertThat(result.requestMetadata.mediaUri).isNull()
-        assertThat(result.mediaMetadata.displayTitle).isEqualTo(title)
-        assertThat(result.mediaMetadata.title).isEqualTo(title)
-        assertThat(result.mediaMetadata.artist).isEqualTo(artist)
-        assertThat(result.mediaMetadata.artworkUri).isEqualTo(Uri.parse(artworkUri))
-    }
+    // then
+    assertThat(result.mediaId).isEqualTo(id)
+    assertThat(result.localConfiguration!!.uri).isEqualTo((Uri.parse(uri)))
+    assertThat(result.requestMetadata.mediaUri).isNull()
+    assertThat(result.mediaMetadata.displayTitle).isEqualTo(title)
+    assertThat(result.mediaMetadata.title).isEqualTo(title)
+    assertThat(result.mediaMetadata.artist).isEqualTo(artist)
+    assertThat(result.mediaMetadata.artworkUri).isEqualTo(Uri.parse(artworkUri))
+  }
 
-    @Test
-    fun `given MediaItem with null values then maps correctly`() {
-        // given
-        val id = "id"
-        val uri = "uri"
-        val artist = "artist"
-        val title = "title"
+  @Test
+  fun `given MediaItem with null values then maps correctly`() {
+    // given
+    val id = "id"
+    val uri = "uri"
+    val artist = "artist"
+    val title = "title"
 
-        val mediaItem = Media(
-            id = id,
-            uri = uri,
-            artist = artist,
-            title = title,
-        )
+    val mediaItem =
+      Media(
+        id = id,
+        uri = uri,
+        artist = artist,
+        title = title,
+      )
 
-        // when
-        val result = sut.map(mediaItem)
+    // when
+    val result = sut.map(mediaItem)
 
-        // then
-        assertThat(result.mediaId).isEqualTo(id)
-        assertThat(result.localConfiguration!!.uri).isEqualTo((Uri.parse(uri)))
-        assertThat(result.requestMetadata.mediaUri).isNull()
-        assertThat(result.mediaMetadata.displayTitle).isEqualTo(title)
-        assertThat(result.mediaMetadata.title).isEqualTo(title)
-        assertThat(result.mediaMetadata.artist).isEqualTo(artist)
-        assertThat(result.mediaMetadata.artworkUri).isNull()
-    }
+    // then
+    assertThat(result.mediaId).isEqualTo(id)
+    assertThat(result.localConfiguration!!.uri).isEqualTo((Uri.parse(uri)))
+    assertThat(result.requestMetadata.mediaUri).isNull()
+    assertThat(result.mediaMetadata.displayTitle).isEqualTo(title)
+    assertThat(result.mediaMetadata.title).isEqualTo(title)
+    assertThat(result.mediaMetadata.artist).isEqualTo(artist)
+    assertThat(result.mediaMetadata.artworkUri).isNull()
+  }
 
-    @Test
-    fun `given custom extras mapper implementation then implementation is executed`() {
-        // given
-        val customId = "customId"
-        val customIdValue = "customIdValue"
-        val customArtist = "customArtist"
-        val customArtistValue = "customArtistValue"
-        val customUri = "customUri"
-        val customUriValue = "customUriValue"
+  @Test
+  fun `given custom extras mapper implementation then implementation is executed`() {
+    // given
+    val customId = "customId"
+    val customIdValue = "customIdValue"
+    val customArtist = "customArtist"
+    val customArtistValue = "customArtistValue"
+    val customUri = "customUri"
+    val customUriValue = "customUriValue"
 
-        val mediaItem = Media(
-            id = "id",
-            uri = "uri",
-            artist = "artist",
-            title = "title",
-            extras = mapOf(
-                customId to customIdValue,
-                customArtist to customArtistValue,
-                customUri to customUriValue,
-            ),
-        )
+    val mediaItem =
+      Media(
+        id = "id",
+        uri = "uri",
+        artist = "artist",
+        title = "title",
+        extras =
+          mapOf(
+            customId to customIdValue,
+            customArtist to customArtistValue,
+            customUri to customUriValue,
+          ),
+      )
 
-        val sut = MediaItemMapper(object : MediaItemExtrasMapper {
-            override fun map(
-                media: Media,
-                mediaItemBuilder: MediaItem.Builder,
-                mediaMetadataBuilder: MediaMetadata.Builder,
-                requestMetadataBuilder: RequestMetadata.Builder,
-            ) {
-                mediaItemBuilder.setMediaId(media.extras[customId].toString())
-                mediaMetadataBuilder.setArtist(media.extras[customArtist].toString())
-                requestMetadataBuilder.setMediaUri(Uri.parse(media.extras[customUri].toString()))
-            }
-        })
+    val sut =
+      MediaItemMapper(
+        object : MediaItemExtrasMapper {
+          override fun map(
+            media: Media,
+            mediaItemBuilder: MediaItem.Builder,
+            mediaMetadataBuilder: MediaMetadata.Builder,
+            requestMetadataBuilder: RequestMetadata.Builder,
+          ) {
+            mediaItemBuilder.setMediaId(media.extras[customId].toString())
+            mediaMetadataBuilder.setArtist(media.extras[customArtist].toString())
+            requestMetadataBuilder.setMediaUri(Uri.parse(media.extras[customUri].toString()))
+          }
+        }
+      )
 
-        // when
-        val result = sut.map(mediaItem)
+    // when
+    val result = sut.map(mediaItem)
 
-        // then
-        assertThat(result.mediaId).isEqualTo(customIdValue)
-        assertThat(result.mediaMetadata.artist).isEqualTo(customArtistValue)
-        assertThat(result.requestMetadata.mediaUri).isEqualTo(Uri.parse(customUriValue))
-    }
+    // then
+    assertThat(result.mediaId).isEqualTo(customIdValue)
+    assertThat(result.mediaMetadata.artist).isEqualTo(customArtistValue)
+    assertThat(result.requestMetadata.mediaUri).isEqualTo(Uri.parse(customUriValue))
+  }
 }

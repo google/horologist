@@ -32,64 +32,60 @@ import kotlinx.coroutines.launch
  * It checks if there is a user already signed in, and emits the appropriate
  * [states][StreamlineSignInScreenState] through the [uiState] property.
  */
-public open class StreamlineSignInViewModel(
-    private val authUserRepository: AuthUserRepository,
-) : ViewModel() {
+public open class StreamlineSignInViewModel(private val authUserRepository: AuthUserRepository) :
+  ViewModel() {
 
-    private val _uiState =
-        MutableStateFlow<StreamlineSignInScreenState>(StreamlineSignInScreenState.Idle)
-    public val uiState: StateFlow<StreamlineSignInScreenState> = _uiState
+  private val _uiState =
+    MutableStateFlow<StreamlineSignInScreenState>(StreamlineSignInScreenState.Idle)
+  public val uiState: StateFlow<StreamlineSignInScreenState> = _uiState
 
-    /**
-     * Indicate that the screen has observed the [idle][StreamlineSignInScreenState.Idle] state and
-     * that the view model can start its work.
-     */
-    public fun onIdleStateObserved() {
-        _uiState.compareAndSet(
-            expect = StreamlineSignInScreenState.Idle,
-            update = StreamlineSignInScreenState.Loading,
-        ) {
-            viewModelScope.launch {
-                val authUsers = authUserRepository.getAvailable()
+  /**
+   * Indicate that the screen has observed the [idle][StreamlineSignInScreenState.Idle] state and
+   * that the view model can start its work.
+   */
+  public fun onIdleStateObserved() {
+    _uiState.compareAndSet(
+      expect = StreamlineSignInScreenState.Idle,
+      update = StreamlineSignInScreenState.Loading,
+    ) {
+      viewModelScope.launch {
+        val authUsers = authUserRepository.getAvailable()
 
-                _uiState.value = when {
-                    authUsers.isEmpty() -> {
-                        StreamlineSignInScreenState.NoAccountsAvailable
-                    }
-
-                    authUsers.size == 1 -> {
-                        StreamlineSignInScreenState.SingleAccountAvailable(
-                            AccountUiModelMapper.map(authUsers.first()),
-                        )
-                    }
-
-                    else -> {
-                        StreamlineSignInScreenState.MultipleAccountsAvailable(
-                            authUsers.map(AccountUiModelMapper::map),
-                        )
-                    }
-                }
+        _uiState.value =
+          when {
+            authUsers.isEmpty() -> {
+              StreamlineSignInScreenState.NoAccountsAvailable
             }
-        }
+
+            authUsers.size == 1 -> {
+              StreamlineSignInScreenState.SingleAccountAvailable(
+                AccountUiModelMapper.map(authUsers.first())
+              )
+            }
+
+            else -> {
+              StreamlineSignInScreenState.MultipleAccountsAvailable(
+                authUsers.map(AccountUiModelMapper::map)
+              )
+            }
+          }
+      }
     }
+  }
 }
 
-/**
- * The states for a streamline sign-in screen.
- */
+/** The states for a streamline sign-in screen. */
 public sealed class StreamlineSignInScreenState {
 
-    public object Idle : StreamlineSignInScreenState()
+  public object Idle : StreamlineSignInScreenState()
 
-    public object Loading : StreamlineSignInScreenState()
+  public object Loading : StreamlineSignInScreenState()
 
-    public data class SingleAccountAvailable(
-        val account: AccountUiModel,
-    ) : StreamlineSignInScreenState()
+  public data class SingleAccountAvailable(val account: AccountUiModel) :
+    StreamlineSignInScreenState()
 
-    public data class MultipleAccountsAvailable(
-        val accounts: List<AccountUiModel>,
-    ) : StreamlineSignInScreenState()
+  public data class MultipleAccountsAvailable(val accounts: List<AccountUiModel>) :
+    StreamlineSignInScreenState()
 
-    public object NoAccountsAvailable : StreamlineSignInScreenState()
+  public object NoAccountsAvailable : StreamlineSignInScreenState()
 }

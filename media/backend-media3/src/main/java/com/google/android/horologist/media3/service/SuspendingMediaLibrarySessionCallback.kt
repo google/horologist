@@ -37,116 +37,113 @@ import kotlinx.coroutines.guava.future
  */
 @ExperimentalHorologistApi
 public abstract class SuspendingMediaLibrarySessionCallback(
-    private val serviceScope: CoroutineScope,
-    private val appEventLogger: ErrorReporter,
-) :
-    MediaLibrarySession.Callback {
-        @SuppressLint("UnsafeOptInUsageError")
-        override fun onGetLibraryRoot(
-            session: MediaLibrarySession,
-            browser: MediaSession.ControllerInfo,
-            params: MediaLibraryService.LibraryParams?,
-        ): ListenableFuture<LibraryResult<MediaItem>> {
-            return serviceScope.future {
-                try {
-                    onGetLibraryRootInternal(session, browser, params)
-                } catch (e: Exception) {
-                    appEventLogger.logMessage(
-                        "onGetLibraryRoot: $e",
-                        ErrorReporter.Category.App,
-                        ErrorReporter.Level.Error,
-                    )
-                    LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
-                }
-            }
-        }
-
-        protected abstract suspend fun onGetLibraryRootInternal(
-            session: MediaLibrarySession,
-            browser: MediaSession.ControllerInfo,
-            params: MediaLibraryService.LibraryParams?,
-        ): LibraryResult<MediaItem>
-
-        @SuppressLint("UnsafeOptInUsageError")
-        override fun onGetItem(
-            session: MediaLibrarySession,
-            browser: MediaSession.ControllerInfo,
-            mediaId: String,
-        ): ListenableFuture<LibraryResult<MediaItem>> {
-            return serviceScope.future {
-                try {
-                    onGetItemInternal(session, browser, mediaId)
-                } catch (e: Exception) {
-                    appEventLogger.logMessage(
-                        "onGetItem: $e",
-                        ErrorReporter.Category.App,
-                        ErrorReporter.Level.Error,
-                    )
-                    LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
-                }
-            }
-        }
-
-        protected abstract suspend fun onGetItemInternal(
-            session: MediaLibrarySession,
-            browser: MediaSession.ControllerInfo,
-            mediaId: String,
-        ): LibraryResult<MediaItem>
-
-        override fun onAddMediaItems(
-            mediaSession: MediaSession,
-            controller: MediaSession.ControllerInfo,
-            mediaItems: MutableList<MediaItem>,
-        ): ListenableFuture<MutableList<MediaItem>> {
-            return serviceScope.future {
-                onAddMediaItemsInternal(mediaSession, controller, mediaItems)
-            }
-        }
-
-        /**
-         * Subclasses MUST override this to resolve [MediaItem.mediaId] against their own
-         * catalog. Controller-supplied URIs (e.g. [MediaItem.RequestMetadata.mediaUri]) come
-         * from an untrusted process and MUST NOT be used as the playable URI without
-         * validation. The default implementation rejects all items.
-         */
-        protected open suspend fun onAddMediaItemsInternal(
-            mediaSession: MediaSession,
-            controller: MediaSession.ControllerInfo,
-            mediaItems: MutableList<MediaItem>,
-        ): MutableList<MediaItem> {
-            // Secure default: do not trust controller URIs. Subclasses must resolve mediaId.
-            return mediaItems
-        }
-
-        @SuppressLint("UnsafeOptInUsageError")
-        override fun onGetChildren(
-            session: MediaLibrarySession,
-            browser: MediaSession.ControllerInfo,
-            parentId: String,
-            page: Int,
-            pageSize: Int,
-            params: MediaLibraryService.LibraryParams?,
-        ): ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> {
-            return serviceScope.future {
-                try {
-                    onGetChildrenInternal(session, browser, parentId, page, pageSize, params)
-                } catch (e: Exception) {
-                    appEventLogger.logMessage(
-                        "onGetChildren: $e",
-                        ErrorReporter.Category.App,
-                        ErrorReporter.Level.Error,
-                    )
-                    LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
-                }
-            }
-        }
-
-        protected abstract suspend fun onGetChildrenInternal(
-            session: MediaLibrarySession,
-            browser: MediaSession.ControllerInfo,
-            parentId: String,
-            page: Int,
-            pageSize: Int,
-            params: MediaLibraryService.LibraryParams?,
-        ): LibraryResult<ImmutableList<MediaItem>>
+  private val serviceScope: CoroutineScope,
+  private val appEventLogger: ErrorReporter,
+) : MediaLibrarySession.Callback {
+  @SuppressLint("UnsafeOptInUsageError")
+  override fun onGetLibraryRoot(
+    session: MediaLibrarySession,
+    browser: MediaSession.ControllerInfo,
+    params: MediaLibraryService.LibraryParams?,
+  ): ListenableFuture<LibraryResult<MediaItem>> {
+    return serviceScope.future {
+      try {
+        onGetLibraryRootInternal(session, browser, params)
+      } catch (e: Exception) {
+        appEventLogger.logMessage(
+          "onGetLibraryRoot: $e",
+          ErrorReporter.Category.App,
+          ErrorReporter.Level.Error,
+        )
+        LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
+      }
     }
+  }
+
+  protected abstract suspend fun onGetLibraryRootInternal(
+    session: MediaLibrarySession,
+    browser: MediaSession.ControllerInfo,
+    params: MediaLibraryService.LibraryParams?,
+  ): LibraryResult<MediaItem>
+
+  @SuppressLint("UnsafeOptInUsageError")
+  override fun onGetItem(
+    session: MediaLibrarySession,
+    browser: MediaSession.ControllerInfo,
+    mediaId: String,
+  ): ListenableFuture<LibraryResult<MediaItem>> {
+    return serviceScope.future {
+      try {
+        onGetItemInternal(session, browser, mediaId)
+      } catch (e: Exception) {
+        appEventLogger.logMessage(
+          "onGetItem: $e",
+          ErrorReporter.Category.App,
+          ErrorReporter.Level.Error,
+        )
+        LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
+      }
+    }
+  }
+
+  protected abstract suspend fun onGetItemInternal(
+    session: MediaLibrarySession,
+    browser: MediaSession.ControllerInfo,
+    mediaId: String,
+  ): LibraryResult<MediaItem>
+
+  override fun onAddMediaItems(
+    mediaSession: MediaSession,
+    controller: MediaSession.ControllerInfo,
+    mediaItems: MutableList<MediaItem>,
+  ): ListenableFuture<MutableList<MediaItem>> {
+    return serviceScope.future { onAddMediaItemsInternal(mediaSession, controller, mediaItems) }
+  }
+
+  /**
+   * Subclasses MUST override this to resolve [MediaItem.mediaId] against their own catalog.
+   * Controller-supplied URIs (e.g. [MediaItem.RequestMetadata.mediaUri]) come from an untrusted
+   * process and MUST NOT be used as the playable URI without validation. The default implementation
+   * rejects all items.
+   */
+  protected open suspend fun onAddMediaItemsInternal(
+    mediaSession: MediaSession,
+    controller: MediaSession.ControllerInfo,
+    mediaItems: MutableList<MediaItem>,
+  ): MutableList<MediaItem> {
+    // Secure default: do not trust controller URIs. Subclasses must resolve mediaId.
+    return mediaItems
+  }
+
+  @SuppressLint("UnsafeOptInUsageError")
+  override fun onGetChildren(
+    session: MediaLibrarySession,
+    browser: MediaSession.ControllerInfo,
+    parentId: String,
+    page: Int,
+    pageSize: Int,
+    params: MediaLibraryService.LibraryParams?,
+  ): ListenableFuture<LibraryResult<ImmutableList<MediaItem>>> {
+    return serviceScope.future {
+      try {
+        onGetChildrenInternal(session, browser, parentId, page, pageSize, params)
+      } catch (e: Exception) {
+        appEventLogger.logMessage(
+          "onGetChildren: $e",
+          ErrorReporter.Category.App,
+          ErrorReporter.Level.Error,
+        )
+        LibraryResult.ofError(SessionError.ERROR_BAD_VALUE)
+      }
+    }
+  }
+
+  protected abstract suspend fun onGetChildrenInternal(
+    session: MediaLibrarySession,
+    browser: MediaSession.ControllerInfo,
+    parentId: String,
+    page: Int,
+    pageSize: Int,
+    params: MediaLibraryService.LibraryParams?,
+  ): LibraryResult<ImmutableList<MediaItem>>
+}

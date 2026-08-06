@@ -62,184 +62,193 @@ import com.google.android.horologist.compose.nav.composable
 import kotlinx.serialization.Serializable
 
 class AmbientAwareActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        setContent {
-            AmbientAwareWearApp()
-        }
-    }
+    setContent { AmbientAwareWearApp() }
+  }
 }
 
 @Composable
 fun AmbientAwareWearApp() {
-    val navController = rememberSwipeDismissableNavController()
+  val navController = rememberSwipeDismissableNavController()
 
-    AppScaffold {
-        Box(modifier = Modifier.fillMaxSize()) {
-            SwipeDismissableNavHost(navController, Home) {
-                composable<Home> {
-                    HomeScreen(onRun = { navController.navigate(Preparing) }, onSettings = { navController.navigate(Settings) })
-                }
-                composable<Preparing> {
-                    PreparingScreen(onStart = { navController.navigate(Exercise) }, onSettings = { navController.navigate(Settings) })
-                }
-                composable<Exercise> {
-                    ExerciseScreen(onStop = { navController.navigate(Home) }, onSettings = { navController.navigate(Settings) })
-                }
-                composable<Settings> {
-                    SettingsScreen()
-                }
-            }
+  AppScaffold {
+    Box(modifier = Modifier.fillMaxSize()) {
+      SwipeDismissableNavHost(navController, Home) {
+        composable<Home> {
+          HomeScreen(
+            onRun = { navController.navigate(Preparing) },
+            onSettings = { navController.navigate(Settings) },
+          )
         }
+        composable<Preparing> {
+          PreparingScreen(
+            onStart = { navController.navigate(Exercise) },
+            onSettings = { navController.navigate(Settings) },
+          )
+        }
+        composable<Exercise> {
+          ExerciseScreen(
+            onStop = { navController.navigate(Home) },
+            onSettings = { navController.navigate(Settings) },
+          )
+        }
+        composable<Settings> { SettingsScreen() }
+      }
     }
+  }
 }
 
 @Composable
 fun HomeScreen(modifier: Modifier = Modifier, onRun: () -> Unit, onSettings: () -> Unit) {
-    val columnState = rememberResponsiveColumnState()
-    ScreenScaffold(modifier = modifier, scrollState = columnState) {
-        ScalingLazyColumn(columnState = columnState) {
-            item {
-                Title("Home")
-            }
-            item {
-                Chip(
-                    label = "Run",
-                    onClick = onRun,
-                )
-            }
-            item {
-                Chip(
-                    label = "Settings",
-                    onClick = onSettings,
-                )
-            }
-        }
+  val columnState = rememberResponsiveColumnState()
+  ScreenScaffold(modifier = modifier, scrollState = columnState) {
+    ScalingLazyColumn(columnState = columnState) {
+      item { Title("Home") }
+      item {
+        Chip(
+          label = "Run",
+          onClick = onRun,
+        )
+      }
+      item {
+        Chip(
+          label = "Settings",
+          onClick = onSettings,
+        )
+      }
     }
+  }
 }
 
 @Composable
 fun ExerciseScreen(modifier: Modifier = Modifier, onStop: () -> Unit, onSettings: () -> Unit) {
-    AmbientAware { ambientState ->
-        if (ambientState.isInteractive) {
-            ScreenScaffold(modifier = modifier, timeText = {
-                if (ambientState.isInteractive) {
-                    AmbientAwareTimeText(ambientState)
-                }
-            }) {
-                Box(modifier = modifier.fillMaxSize()) {
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        Text(
-                            "Exercise",
-                            color = Color.Green,
-                        )
-                        Button(onClick = onStop, imageVector = Icons.Rounded.Cancel, contentDescription = "Cancel")
-                        Button(onClick = onSettings, imageVector = Icons.Rounded.Settings, contentDescription = "Settings")
-                    }
-                }
-            }
+  AmbientAware { ambientState ->
+    if (ambientState.isInteractive) {
+      ScreenScaffold(
+        modifier = modifier,
+        timeText = {
+          if (ambientState.isInteractive) {
+            AmbientAwareTimeText(ambientState)
+          }
+        },
+      ) {
+        Box(modifier = modifier.fillMaxSize()) {
+          Column(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+          ) {
+            Text(
+              "Exercise",
+              color = Color.Green,
+            )
+            Button(
+              onClick = onStop,
+              imageVector = Icons.Rounded.Cancel,
+              contentDescription = "Cancel",
+            )
+            Button(
+              onClick = onSettings,
+              imageVector = Icons.Rounded.Settings,
+              contentDescription = "Settings",
+            )
+          }
         }
+      }
     }
+  }
 }
 
 @Composable
 fun PreparingScreen(modifier: Modifier = Modifier, onStart: () -> Unit, onSettings: () -> Unit) {
-    AmbientAware { ambientState ->
-        ScreenScaffold(modifier = modifier.ambientGray(ambientState), timeText = {
-            AmbientAwareTimeText(ambientState)
-        }) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text(
-                    "Preparing",
-                    color = Color.Blue,
-                )
-                Text(
-                    ambientState.displayName,
-                    color = Color.Blue,
-                )
-                Button(onClick = onStart, imageVector = Icons.Rounded.PlayArrow, contentDescription = "Start")
-                Button(onClick = onSettings, imageVector = Icons.Rounded.Settings, contentDescription = "Settings")
-            }
-        }
+  AmbientAware { ambientState ->
+    ScreenScaffold(
+      modifier = modifier.ambientGray(ambientState),
+      timeText = { AmbientAwareTimeText(ambientState) },
+    ) {
+      Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+      ) {
+        Text(
+          "Preparing",
+          color = Color.Blue,
+        )
+        Text(
+          ambientState.displayName,
+          color = Color.Blue,
+        )
+        Button(
+          onClick = onStart,
+          imageVector = Icons.Rounded.PlayArrow,
+          contentDescription = "Start",
+        )
+        Button(
+          onClick = onSettings,
+          imageVector = Icons.Rounded.Settings,
+          contentDescription = "Settings",
+        )
+      }
     }
+  }
 }
 
 @Composable
 fun SettingsScreen(modifier: Modifier = Modifier) {
-    val columnState = rememberResponsiveColumnState()
-    ScreenScaffold(modifier = modifier, scrollState = columnState) {
-        ScalingLazyColumn(columnState = columnState) {
-            item {
-                Title("Settings")
-            }
-            items(5) {
-                val toggled = remember { mutableStateOf(false) }
-                ToggleChip(
-                    checked = false,
-                    label = "Item $it",
-                    onCheckedChanged = { toggled.value = !toggled.value },
-                    toggleControl = ToggleChipToggleControl.Switch,
-                )
-            }
-        }
+  val columnState = rememberResponsiveColumnState()
+  ScreenScaffold(modifier = modifier, scrollState = columnState) {
+    ScalingLazyColumn(columnState = columnState) {
+      item { Title("Settings") }
+      items(5) {
+        val toggled = remember { mutableStateOf(false) }
+        ToggleChip(
+          checked = false,
+          label = "Item $it",
+          onCheckedChanged = { toggled.value = !toggled.value },
+          toggleControl = ToggleChipToggleControl.Switch,
+        )
+      }
     }
+  }
 }
 
-private val grayscale = Paint().apply {
-    colorFilter = ColorFilter.colorMatrix(
-        ColorMatrix().apply {
-            setToSaturation(0f)
-        },
-    )
+private val grayscale =
+  Paint().apply {
+    colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
     isAntiAlias = false
-}
+  }
 
 internal fun Modifier.ambientGray(ambientState: AmbientState): Modifier =
-    if (ambientState.isAmbient) {
-        graphicsLayer {
-            scaleX = 0.9f
-            scaleY = 0.9f
-        }.drawWithContent {
-            drawIntoCanvas {
-                it.withSaveLayer(size.toRect(), grayscale) {
-                    drawContent()
-                }
-            }
-        }
-    } else {
-        this
+  if (ambientState.isAmbient) {
+    graphicsLayer {
+      scaleX = 0.9f
+      scaleY = 0.9f
     }
+      .drawWithContent {
+        drawIntoCanvas { it.withSaveLayer(size.toRect(), grayscale) { drawContent() } }
+      }
+  } else {
+    this
+  }
 
 @Composable
 fun AmbientAwareTimeText(ambientState: AmbientState) {
-    TimeText(endCurvedContent = {
-        curvedText(ambientState.displayName, color = Color.LightGray)
-    })
+  TimeText(endCurvedContent = { curvedText(ambientState.displayName, color = Color.LightGray) })
 }
 
-@Serializable
-object Home
+@Serializable object Home
 
-@Serializable
-object Preparing
+@Serializable object Preparing
 
-@Serializable
-object Exercise
+@Serializable object Exercise
 
-@Serializable
-object Settings
+@Serializable object Settings
 
 @WearPreviewLargeRound
 @Composable
 fun WearAppPreview() {
-    AmbientAwareWearApp()
+  AmbientAwareWearApp()
 }

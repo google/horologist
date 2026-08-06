@@ -24,70 +24,55 @@ import com.google.android.horologist.screenshots.rng.WearScreenshotTest
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
+
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class ScalingLazyColumnStateTest(override val device: WearDevice) : WearScreenshotTest() {
 
-    public override val tolerance: Float = 0.1f
+  public override val tolerance: Float = 0.1f
 
-    override fun testName(suffix: String): String =
-        "src/test/snapshots/" +
-            "${javaClass.simpleName}_" +
-            "${testInfo.methodName}_" +
-            "${super.device?.id ?: WearDevice.GenericLargeRound.id}" +
-            "$suffix.png"
+  override fun testName(suffix: String): String =
+    "src/test/snapshots/" +
+      "${javaClass.simpleName}_" +
+      "${testInfo.methodName}_" +
+      "${super.device?.id ?: WearDevice.GenericLargeRound.id}" +
+      "$suffix.png"
 
-    @Test
-    fun testRememberResponsiveColumnState() =
-        runTest {
-            AppScaffold(
-                timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
-            ) {
-                val columnState = rememberResponsiveColumnState(
-                    contentPadding = ScalingLazyColumnDefaults.padding(
-                        first = ItemType.Text,
-                        last = ItemType.Text,
-                    ),
-                )
-                ScreenScaffold(scrollState = columnState) {
-                    ScalingLazyColumn(
-                        columnState = columnState,
-                    ) {
-                        items(100) {
-                            Text("Item $it")
-                        }
-                    }
-                }
-            }
-        }
-
-    @Test
-    fun testSetInitialRememberResponsiveColumnState() =
-        runTest {
-            AppScaffold(
-                timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
-            ) {
-                val columnState = rememberResponsiveColumnState(
-                    contentPadding = ScalingLazyColumnDefaults.padding(
-                        first = ItemType.Text,
-                        last = ItemType.Text,
-                    ),
-                    initialItemIndex = 4,
-                )
-                ScreenScaffold(scrollState = columnState) {
-                    ScalingLazyColumn(
-                        columnState = columnState,
-                    ) {
-                        items(100) {
-                            Text("Item $it")
-                        }
-                    }
-                }
-            }
-        }
-
-    companion object {
-        @JvmStatic
-        @ParameterizedRobolectricTestRunner.Parameters
-        fun devices() = WearDevice.entries
+  @Test
+  fun testRememberResponsiveColumnState() = runTest {
+    AppScaffold(timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) }) {
+      val columnState =
+        rememberResponsiveColumnState(
+          contentPadding =
+            ScalingLazyColumnDefaults.padding(
+              first = ItemType.Text,
+              last = ItemType.Text,
+            )
+        )
+      ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(columnState = columnState) { items(100) { Text("Item $it") } }
+      }
     }
+  }
+
+  @Test
+  fun testSetInitialRememberResponsiveColumnState() = runTest {
+    AppScaffold(timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) }) {
+      val columnState =
+        rememberResponsiveColumnState(
+          contentPadding =
+            ScalingLazyColumnDefaults.padding(
+              first = ItemType.Text,
+              last = ItemType.Text,
+            ),
+          initialItemIndex = 4,
+        )
+      ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(columnState = columnState) { items(100) { Text("Item $it") } }
+      }
+    }
+  }
+
+  companion object {
+    @JvmStatic @ParameterizedRobolectricTestRunner.Parameters fun devices() = WearDevice.entries
+  }
 }

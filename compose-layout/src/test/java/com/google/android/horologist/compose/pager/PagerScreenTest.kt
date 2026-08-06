@@ -15,9 +15,9 @@
  */
 
 @file:OptIn(
-    ExperimentalCoroutinesApi::class,
-    ExperimentalFoundationApi::class,
-    ExperimentalWearFoundationApi::class,
+  ExperimentalCoroutinesApi::class,
+  ExperimentalFoundationApi::class,
+  ExperimentalWearFoundationApi::class,
 )
 
 package com.google.android.horologist.compose.pager
@@ -62,69 +62,64 @@ import org.robolectric.annotation.Config
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
 @Config(
-    sdk = [35],
-    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
+  sdk = [35],
+  qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 @Ignore("Failing with robolectric")
 class PagerScreenTest {
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Test
-    fun testNavScaffoldNavigation() = runTest {
-        lateinit var pagerState: PagerState
+  @Test
+  fun testNavScaffoldNavigation() = runTest {
+    lateinit var pagerState: PagerState
 
-        composeTestRule.setContent {
-            pagerState = rememberPagerState {
-                5
-            }
-            PagerScreen(modifier = Modifier.fillMaxSize(), state = pagerState) { i ->
-                val scrollState = rememberScrollState()
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .requestFocusOnHierarchyActive()
-                        .rotaryScrollable(
-                            behavior = behavior(scrollableState = scrollState),
-                            focusRequester = remember { FocusRequester() },
-                        )
-                        .verticalScroll(scrollState),
-                    verticalArrangement = Arrangement.Center,
-                ) {
-                    Text(modifier = Modifier.testTag("text$i"), text = "Text $i")
-                }
-            }
+    composeTestRule.setContent {
+      pagerState = rememberPagerState { 5 }
+      PagerScreen(modifier = Modifier.fillMaxSize(), state = pagerState) { i ->
+        val scrollState = rememberScrollState()
+        Column(
+          modifier =
+            Modifier.fillMaxSize()
+              .requestFocusOnHierarchyActive()
+              .rotaryScrollable(
+                behavior = behavior(scrollableState = scrollState),
+                focusRequester = remember { FocusRequester() },
+              )
+              .verticalScroll(scrollState),
+          verticalArrangement = Arrangement.Center,
+        ) {
+          Text(modifier = Modifier.testTag("text$i"), text = "Text $i")
         }
-
-        assertThat(pagerState.currentPage).isEqualTo(0)
-//        assertThat(state.pageCount).isEqualTo(5)
-
-        val text0 = composeTestRule.onNodeWithTag("text0")
-//        val text1 = composeTestRule.onNodeWithTag("text1")
-        val text2 = composeTestRule.onNodeWithTag("text2")
-        val text3 = composeTestRule.onNodeWithTag("text3")
-        val text4 = composeTestRule.onNodeWithTag("text4")
-
-        text0.onParent().assertIsFocused()
-        text0.assertIsDisplayed()
-        // No longer optimistically created in compose 1.4?
-//        text1.onParent().assertIsNotFocused()
-//        text1.assertIsNotDisplayed()
-        text2.assertDoesNotExist()
-        text3.assertDoesNotExist()
-        text4.assertDoesNotExist()
-
-        withContext(Dispatchers.Main) {
-            pagerState.scrollToPage(page = 1)
-        }
-        composeTestRule.awaitIdle()
-        assertThat(pagerState.currentPage).isEqualTo(1)
-
-        text0.assertIsNotDisplayed()
-        // No longer optimistically created in compose 1.4?
-//        text1.assertIsDisplayed()
-//        text2.assertIsNotDisplayed()
-        text3.assertDoesNotExist()
-        text4.assertDoesNotExist()
+      }
     }
+
+    assertThat(pagerState.currentPage).isEqualTo(0)
+    //        assertThat(state.pageCount).isEqualTo(5)
+
+    val text0 = composeTestRule.onNodeWithTag("text0")
+    //        val text1 = composeTestRule.onNodeWithTag("text1")
+    val text2 = composeTestRule.onNodeWithTag("text2")
+    val text3 = composeTestRule.onNodeWithTag("text3")
+    val text4 = composeTestRule.onNodeWithTag("text4")
+
+    text0.onParent().assertIsFocused()
+    text0.assertIsDisplayed()
+    // No longer optimistically created in compose 1.4?
+    //        text1.onParent().assertIsNotFocused()
+    //        text1.assertIsNotDisplayed()
+    text2.assertDoesNotExist()
+    text3.assertDoesNotExist()
+    text4.assertDoesNotExist()
+
+    withContext(Dispatchers.Main) { pagerState.scrollToPage(page = 1) }
+    composeTestRule.awaitIdle()
+    assertThat(pagerState.currentPage).isEqualTo(1)
+
+    text0.assertIsNotDisplayed()
+    // No longer optimistically created in compose 1.4?
+    //        text1.assertIsDisplayed()
+    //        text2.assertIsNotDisplayed()
+    text3.assertDoesNotExist()
+    text4.assertDoesNotExist()
+  }
 }

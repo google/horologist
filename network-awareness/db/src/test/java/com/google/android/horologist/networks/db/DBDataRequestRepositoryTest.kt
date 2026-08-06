@@ -33,54 +33,56 @@ import org.robolectric.annotation.SQLiteMode
 @RunWith(RobolectricTestRunner::class)
 @SQLiteMode(SQLiteMode.Mode.NATIVE)
 class DBDataRequestRepositoryTest {
-    @Test
-    fun testInsertAndRead(): Unit = runBlocking {
-        val db = NetworkUsageDatabase.getDatabase(RuntimeEnvironment.getApplication())
-        val dao = db.networkUsageDao()
-        val repository = DBDataRequestRepository(dao, this)
+  @Test
+  fun testInsertAndRead(): Unit = runBlocking {
+    val db = NetworkUsageDatabase.getDatabase(RuntimeEnvironment.getApplication())
+    val dao = db.networkUsageDao()
+    val repository = DBDataRequestRepository(dao, this)
 
-        assertThat(repository.currentPeriodUsage().first().dataByType).containsExactlyEntriesIn(
-            mapOf(
-                NetworkType.Wifi to 0L,
-                NetworkType.BT to 0L,
-                NetworkType.Cell to 0L,
-                NetworkType.Unknown to 0L,
-            ),
+    assertThat(repository.currentPeriodUsage().first().dataByType)
+      .containsExactlyEntriesIn(
+        mapOf(
+          NetworkType.Wifi to 0L,
+          NetworkType.BT to 0L,
+          NetworkType.Cell to 0L,
+          NetworkType.Unknown to 0L,
         )
+      )
 
-        val wifiInfo = NetworkInfo.Wifi("wlan1", "Pretty Fly For a Wifi")
-        val btInfo = NetworkInfo.Bluetooth("bt1")
-        repository.storeRequest(
-            DataRequest(
-                requestType = RequestType.ImageRequest,
-                wifiInfo,
-                1L,
-            ),
-        )
-        repository.storeRequest(
-            DataRequest(
-                requestType = RequestType.LogsRequest,
-                wifiInfo,
-                100L,
-            ),
-        )
-        repository.storeRequest(
-            DataRequest(
-                requestType = RequestType.ApiRequest,
-                btInfo,
-                10L,
-            ),
-        )
+    val wifiInfo = NetworkInfo.Wifi("wlan1", "Pretty Fly For a Wifi")
+    val btInfo = NetworkInfo.Bluetooth("bt1")
+    repository.storeRequest(
+      DataRequest(
+        requestType = RequestType.ImageRequest,
+        wifiInfo,
+        1L,
+      )
+    )
+    repository.storeRequest(
+      DataRequest(
+        requestType = RequestType.LogsRequest,
+        wifiInfo,
+        100L,
+      )
+    )
+    repository.storeRequest(
+      DataRequest(
+        requestType = RequestType.ApiRequest,
+        btInfo,
+        10L,
+      )
+    )
 
-        delay(1000)
+    delay(1000)
 
-        assertThat(repository.currentPeriodUsage().first().dataByType).containsExactlyEntriesIn(
-            mapOf(
-                NetworkType.Wifi to 101L,
-                NetworkType.BT to 10L,
-                NetworkType.Cell to 0L,
-                NetworkType.Unknown to 0L,
-            ),
+    assertThat(repository.currentPeriodUsage().first().dataByType)
+      .containsExactlyEntriesIn(
+        mapOf(
+          NetworkType.Wifi to 101L,
+          NetworkType.BT to 10L,
+          NetworkType.Cell to 0L,
+          NetworkType.Unknown to 0L,
         )
-    }
+      )
+  }
 }

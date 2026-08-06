@@ -45,241 +45,245 @@ import com.google.android.horologist.compose.material.Chip
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewLoadingSection() {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ItemType.Text,
+          last = ItemType.Chip,
+        )
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        SectionedList(columnState = columnState) {
-            downloadsSection(state = Section.State.Loading)
+  ScreenScaffold(scrollState = columnState) {
+    SectionedList(columnState = columnState) {
+      downloadsSection(state = Section.State.Loading)
 
-            favouritesSection(state = Section.State.Empty)
-        }
+      favouritesSection(state = Section.State.Empty)
     }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewLoadedSection() {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ItemType.Text,
+          last = ItemType.Chip,
+        )
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        SectionedList(columnState = columnState) {
-            downloadsSection(state = Section.State.Loaded(downloads))
+  ScreenScaffold(scrollState = columnState) {
+    SectionedList(columnState = columnState) {
+      downloadsSection(state = Section.State.Loaded(downloads))
 
-            favouritesSection(state = Section.State.Failed)
-        }
+      favouritesSection(state = Section.State.Failed)
     }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewFailedSection() {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ItemType.Text,
+          last = ItemType.Chip,
+        )
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        SectionedList(columnState = columnState) {
-            downloadsSection(state = Section.State.Failed)
+  ScreenScaffold(scrollState = columnState) {
+    SectionedList(columnState = columnState) {
+      downloadsSection(state = Section.State.Failed)
 
-            favouritesSection(state = Section.State.Loaded(favourites))
-        }
+      favouritesSection(state = Section.State.Loaded(favourites))
     }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun SectionedListPreviewEmptySection() {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ItemType.Text,
+          last = ItemType.Chip,
+        )
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        SectionedList(columnState = columnState) {
-            downloadsSection(state = Section.State.Empty)
+  ScreenScaffold(scrollState = columnState) {
+    SectionedList(columnState = columnState) {
+      downloadsSection(state = Section.State.Empty)
 
-            favouritesSection(state = Section.State.Loading)
-        }
+      favouritesSection(state = Section.State.Loading)
     }
+  }
 }
 
 private val downloads = listOf("Nu Metal Essentials", "00s Rock")
 
 private fun SectionedListScope.downloadsSection(state: Section.State<String>) {
-    section(state = state) {
-        header { DownloadsHeader() }
+  section(state = state) {
+    header { DownloadsHeader() }
 
-        loading { DownloadsLoading() }
+    loading { DownloadsLoading() }
 
-        loaded { DownloadsLoaded(it) }
+    loaded { DownloadsLoaded(it) }
 
-        failed { DownloadsFailed() }
+    failed { DownloadsFailed() }
 
-        empty { DownloadsEmpty() }
+    empty { DownloadsEmpty() }
 
-        footer { DownloadsFooter() }
-    }
+    footer { DownloadsFooter() }
+  }
 }
 
 @Composable
 private fun DownloadsHeader() {
-    Text(
-        text = "Downloads",
-        modifier = Modifier.padding(bottom = 12.dp),
-        overflow = TextOverflow.Ellipsis,
-        maxLines = 3,
-        style = MaterialTheme.typography.title3,
-    )
+  Text(
+    text = "Downloads",
+    modifier = Modifier.padding(bottom = 12.dp),
+    overflow = TextOverflow.Ellipsis,
+    maxLines = 3,
+    style = MaterialTheme.typography.title3,
+  )
 }
 
 @Composable
 private fun DownloadsLoading() {
-    PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+  PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
 }
 
 @Composable
 private fun DownloadsLoaded(text: String) {
-    Chip(
-        label = text,
-        onClick = { },
-        icon = {
-            Icon(
-                imageVector = Icons.AutoMirrored.Default.FeaturedPlayList,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(ChipDefaults.LargeIconSize)
-                    .clip(CircleShape),
-                tint = Color.Green,
-            )
-        },
-        largeIcon = true,
-        colors = ChipDefaults.secondaryChipColors(),
-    )
+  Chip(
+    label = text,
+    onClick = {},
+    icon = {
+      Icon(
+        imageVector = Icons.AutoMirrored.Default.FeaturedPlayList,
+        contentDescription = null,
+        modifier = Modifier.size(ChipDefaults.LargeIconSize).clip(CircleShape),
+        tint = Color.Green,
+      )
+    },
+    largeIcon = true,
+    colors = ChipDefaults.secondaryChipColors(),
+  )
 }
 
 @Composable
 private fun DownloadsFailed() {
-    Text(
-        text = "Failed to load downloads. Please try again later.",
-        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
-        textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.body2,
-    )
+  Text(
+    text = "Failed to load downloads. Please try again later.",
+    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+    textAlign = TextAlign.Center,
+    style = MaterialTheme.typography.body2,
+  )
 }
 
 @Composable
 private fun DownloadsEmpty() {
-    Text(
-        text = "Download music to start listening.",
-        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
-        textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.body2,
-    )
+  Text(
+    text = "Download music to start listening.",
+    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+    textAlign = TextAlign.Center,
+    style = MaterialTheme.typography.body2,
+  )
 }
 
 @Composable
 private fun DownloadsFooter() {
-    Chip(
-        label = "More downloads..",
-        onClick = { },
-        colors = ChipDefaults.secondaryChipColors(),
-    )
+  Chip(
+    label = "More downloads..",
+    onClick = {},
+    colors = ChipDefaults.secondaryChipColors(),
+  )
 }
 
 private val favourites = listOf("Dance Anthems", "Indie Jukebox")
 
 private fun SectionedListScope.favouritesSection(state: Section.State<String>) {
-    section(state = state) {
-        header { FavouritesHeader() }
+  section(state = state) {
+    header { FavouritesHeader() }
 
-        loading { FavouritesLoading() }
+    loading { FavouritesLoading() }
 
-        loaded { FavouritesLoaded(it) }
+    loaded { FavouritesLoaded(it) }
 
-        failed { FavouritesFailed() }
+    failed { FavouritesFailed() }
 
-        empty { FavouritesEmpty() }
+    empty { FavouritesEmpty() }
 
-        footer { FavouritesFooter() }
-    }
+    footer { FavouritesFooter() }
+  }
 }
 
 @Composable
 private fun FavouritesHeader() {
-    Text(
-        text = "Favourites",
-        modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
-        overflow = TextOverflow.Ellipsis,
-        maxLines = 3,
-        style = MaterialTheme.typography.title3,
-    )
+  Text(
+    text = "Favourites",
+    modifier = Modifier.padding(top = 12.dp, bottom = 12.dp),
+    overflow = TextOverflow.Ellipsis,
+    maxLines = 3,
+    style = MaterialTheme.typography.title3,
+  )
 }
 
 @Composable
 private fun FavouritesLoading() {
-    PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+  PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
 }
 
 @Composable
 private fun FavouritesLoaded(text: String) {
-    Chip(
-        label = text,
-        onClick = { },
-        icon = {
-            Icon(
-                imageVector = Icons.AutoMirrored.Default.FeaturedPlayList,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(ChipDefaults.LargeIconSize)
-                    .clip(CircleShape),
-                tint = Color.Green,
-            )
-        },
-        largeIcon = true,
-        colors = ChipDefaults.secondaryChipColors(),
-    )
+  Chip(
+    label = text,
+    onClick = {},
+    icon = {
+      Icon(
+        imageVector = Icons.AutoMirrored.Default.FeaturedPlayList,
+        contentDescription = null,
+        modifier = Modifier.size(ChipDefaults.LargeIconSize).clip(CircleShape),
+        tint = Color.Green,
+      )
+    },
+    largeIcon = true,
+    colors = ChipDefaults.secondaryChipColors(),
+  )
 }
 
 @Composable
 private fun FavouritesFailed() {
-    Text(
-        text = "Failed to load favourites. Please try again later.",
-        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
-        textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.body2,
-    )
+  Text(
+    text = "Failed to load favourites. Please try again later.",
+    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+    textAlign = TextAlign.Center,
+    style = MaterialTheme.typography.body2,
+  )
 }
 
 @Composable
 private fun FavouritesEmpty() {
-    Text(
-        text = "Mark songs or albums as favourites to see them here.",
-        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
-        textAlign = TextAlign.Center,
-        style = MaterialTheme.typography.body2,
-    )
+  Text(
+    text = "Mark songs or albums as favourites to see them here.",
+    modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+    textAlign = TextAlign.Center,
+    style = MaterialTheme.typography.body2,
+  )
 }
 
 @Composable
 fun FavouritesFooter() {
-    Chip(
-        label = "More favourites..",
-        onClick = { },
-        colors = ChipDefaults.secondaryChipColors(),
-    )
+  Chip(
+    label = "More favourites..",
+    onClick = {},
+    colors = ChipDefaults.secondaryChipColors(),
+  )
 }

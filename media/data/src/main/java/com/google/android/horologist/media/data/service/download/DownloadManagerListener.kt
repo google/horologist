@@ -39,56 +39,52 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
 public class DownloadManagerListener(
-    private val coroutineScope: CoroutineScope,
-    private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
-    private val downloadProgressMonitor: DownloadProgressMonitor,
+  private val coroutineScope: CoroutineScope,
+  private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
+  private val downloadProgressMonitor: DownloadProgressMonitor,
 ) : DownloadManager.Listener {
 
-    override fun onInitialized(downloadManager: DownloadManager) {
-        downloadProgressMonitor.start(downloadManager)
+  override fun onInitialized(downloadManager: DownloadManager) {
+    downloadProgressMonitor.start(downloadManager)
+  }
+
+  override fun onIdle(downloadManager: DownloadManager) {
+    downloadProgressMonitor.stop()
+  }
+
+  override fun onDownloadChanged(
+    downloadManager: DownloadManager,
+    download: Download,
+    finalException: Exception?,
+  ) {
+    coroutineScope.launch {
+      val mediaId = download.request.id
+      val status = MediaDownloadEntityStatusMapper.map(download.state)
+
+      if (status == MediaDownloadEntityStatus.Downloaded) {
+        mediaDownloadLocalDataSource.setDownloaded(mediaId)
+      } else {
+        mediaDownloadLocalDataSource.updateStatus(mediaId, status)
+      }
     }
 
-    override fun onIdle(downloadManager: DownloadManager) {
-        downloadProgressMonitor.stop()
+    downloadProgressMonitor.start(downloadManager)
+  }
+
+  override fun onDownloadRemoved(downloadManager: DownloadManager, download: Download) {
+    coroutineScope.launch {
+      val mediaId = download.request.id
+      mediaDownloadLocalDataSource.delete(mediaId)
     }
+  }
 
-    override fun onDownloadChanged(
-        downloadManager: DownloadManager,
-        download: Download,
-        finalException: Exception?,
-    ) {
-        coroutineScope.launch {
-            val mediaId = download.request.id
-            val status = MediaDownloadEntityStatusMapper.map(download.state)
+  /** Starts [DownloadProgressMonitor] when [DownloadService] is created. */
+  internal fun onDownloadServiceCreated(downloadManager: DownloadManager) {
+    downloadProgressMonitor.start(downloadManager)
+  }
 
-            if (status == MediaDownloadEntityStatus.Downloaded) {
-                mediaDownloadLocalDataSource.setDownloaded(mediaId)
-            } else {
-                mediaDownloadLocalDataSource.updateStatus(mediaId, status)
-            }
-        }
-
-        downloadProgressMonitor.start(downloadManager)
-    }
-
-    override fun onDownloadRemoved(downloadManager: DownloadManager, download: Download) {
-        coroutineScope.launch {
-            val mediaId = download.request.id
-            mediaDownloadLocalDataSource.delete(mediaId)
-        }
-    }
-
-    /**
-     * Starts [DownloadProgressMonitor] when [DownloadService] is created.
-     */
-    internal fun onDownloadServiceCreated(downloadManager: DownloadManager) {
-        downloadProgressMonitor.start(downloadManager)
-    }
-
-    /**
-     * Stops [DownloadProgressMonitor] when [DownloadService] is destroyed.
-     */
-    internal fun onDownloadServiceDestroyed() {
-        downloadProgressMonitor.stop()
-    }
+  /** Stops [DownloadProgressMonitor] when [DownloadService] is destroyed. */
+  internal fun onDownloadServiceDestroyed() {
+    downloadProgressMonitor.stop()
+  }
 }

@@ -26,46 +26,42 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 /**
  * Simple implementation of TransferListener and EventListener for networking activity.
  *
- * Default implementation is a noop currently, but can be edited to allow logging when
- * investigating a playback issue.
+ * Default implementation is a noop currently, but can be edited to allow logging when investigating
+ * a playback issue.
  */
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
-public class TransferListener(
-    private val appEventLogger: ErrorReporter,
-) : CacheDataSource.EventListener,
-    TransferListener {
-        override fun onCachedBytesRead(cacheSizeBytes: Long, cachedBytesRead: Long) {
-        }
+public class TransferListener(private val appEventLogger: ErrorReporter) :
+  CacheDataSource.EventListener, TransferListener {
+  override fun onCachedBytesRead(cacheSizeBytes: Long, cachedBytesRead: Long) {}
 
-        override fun onCacheIgnored(reason: Int) {
-            appEventLogger.logMessage(
-                "cache ignored $reason",
-                category = ErrorReporter.Category.Network,
-            )
-        }
+  override fun onCacheIgnored(reason: Int) {
+    appEventLogger.logMessage(
+      "cache ignored $reason",
+      category = ErrorReporter.Category.Network,
+    )
+  }
 
-        override fun onTransferInitializing(
-            source: DataSource,
-            dataSpec: DataSpec,
-            isNetwork: Boolean,
-        ) {
-            appEventLogger.logMessage("init $isNetwork", category = ErrorReporter.Category.Network)
-        }
+  override fun onTransferInitializing(
+    source: DataSource,
+    dataSpec: DataSpec,
+    isNetwork: Boolean,
+  ) {
+    appEventLogger.logMessage("init $isNetwork", category = ErrorReporter.Category.Network)
+  }
 
-        override fun onTransferStart(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {
-            appEventLogger.logMessage("start $isNetwork", category = ErrorReporter.Category.Network)
-        }
+  override fun onTransferStart(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {
+    appEventLogger.logMessage("start $isNetwork", category = ErrorReporter.Category.Network)
+  }
 
-        override fun onBytesTransferred(
-            source: DataSource,
-            dataSpec: DataSpec,
-            isNetwork: Boolean,
-            bytesTransferred: Int,
-        ) {
-        }
+  override fun onBytesTransferred(
+    source: DataSource,
+    dataSpec: DataSpec,
+    isNetwork: Boolean,
+    bytesTransferred: Int,
+  ) {}
 
-        override fun onTransferEnd(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {
-            appEventLogger.logMessage("end $isNetwork", category = ErrorReporter.Category.Network)
-        }
-    }
+  override fun onTransferEnd(source: DataSource, dataSpec: DataSpec, isNetwork: Boolean) {
+    appEventLogger.logMessage("end $isNetwork", category = ErrorReporter.Category.Network)
+  }
+}

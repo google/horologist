@@ -21,16 +21,14 @@ import androidx.wear.watchface.complications.data.ComplicationData
 import androidx.wear.watchface.complications.data.ComplicationType
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * A complication renderer from Data to any of the supported types.
- */
+/** A complication renderer from Data to any of the supported types. */
 @ExperimentalHorologistApi
 public interface ComplicationTemplate<D> {
-    public val context: Context
+  public val context: Context
 
-    public fun render(type: ComplicationType, data: D): ComplicationData
+  public fun render(type: ComplicationType, data: D): ComplicationData
 
-    public fun supportedTypes(): List<ComplicationType>
+  public fun supportedTypes(): List<ComplicationType>
 
-    public fun previewData(): D
+  public fun previewData(): D
 }

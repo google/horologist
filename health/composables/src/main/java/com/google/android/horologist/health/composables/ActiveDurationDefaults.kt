@@ -16,12 +16,12 @@
 
 package com.google.android.horologist.health.composables
 public class ActiveDurationDefaults {
-    public companion object {
-        public const val HH_MM_SS: String = "%1\$02d:%2\$02d:%3\$02d"
-        public const val H_MM_SS: String = "%1\$01d:%2\$02d:%3\$02d"
-        public const val MM_SS: String = "%2\$02d:%3\$02d"
-        public const val M_SS: String = "%2\$01d:%3\$02d"
-        public const val HH_MM: String = "%1\$02d:%2\$02d"
-        public const val H_MM: String = "%1\$01d:%2\$02d"
-    }
+  public companion object {
+    public const val HH_MM_SS: String = "%1\$02d:%2\$02d:%3\$02d"
+    public const val H_MM_SS: String = "%1\$01d:%2\$02d:%3\$02d"
+    public const val MM_SS: String = "%2\$02d:%3\$02d"
+    public const val M_SS: String = "%2\$01d:%3\$02d"
+    public const val HH_MM: String = "%1\$02d:%2\$02d"
+    public const val H_MM: String = "%1\$01d:%2\$02d"
+  }
 }

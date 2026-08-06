@@ -39,53 +39,49 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun DataLayerScreen(
-    columnState: ScalingLazyColumnState,
-    modifier: Modifier = Modifier,
-    viewModel: DataLayerViewModel = hiltViewModel(),
+  columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  viewModel: DataLayerViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier.fillMaxSize(),
-    ) {
-        item {
-            Title(R.string.data_layer_title, Modifier)
-        }
-        item {
-            Text(
-                text = stringResource(id = R.string.server_counter_message),
-                modifier = Modifier.padding(horizontal = 8.dp),
-                textAlign = TextAlign.Center,
-            )
-        }
-        val error = state.error
-        if (error != null) {
-            item {
-                Text(
-                    text = stringResource(R.string.data_layer_error_message, error),
-                    color = MaterialTheme.colors.error,
-                )
-            }
-        }
-        val counterValue = state.counterValue
-        item {
-            if (counterValue != null) {
-                Text(text = stringResource(R.string.data_layer_value_message, counterValue.value))
-            } else {
-                Text(text = stringResource(R.string.data_layer_missing_message))
-            }
-        }
-        item {
-            Row {
-                Button(
-                    imageVector = Icons.Default.PlusOne,
-                    contentDescription = "Plus One",
-                    onClick = {
-                        viewModel.addDelta(1)
-                    },
-                )
-            }
-        }
+  ScalingLazyColumn(
+    columnState = columnState,
+    modifier = modifier.fillMaxSize(),
+  ) {
+    item { Title(R.string.data_layer_title, Modifier) }
+    item {
+      Text(
+        text = stringResource(id = R.string.server_counter_message),
+        modifier = Modifier.padding(horizontal = 8.dp),
+        textAlign = TextAlign.Center,
+      )
     }
+    val error = state.error
+    if (error != null) {
+      item {
+        Text(
+          text = stringResource(R.string.data_layer_error_message, error),
+          color = MaterialTheme.colors.error,
+        )
+      }
+    }
+    val counterValue = state.counterValue
+    item {
+      if (counterValue != null) {
+        Text(text = stringResource(R.string.data_layer_value_message, counterValue.value))
+      } else {
+        Text(text = stringResource(R.string.data_layer_missing_message))
+      }
+    }
+    item {
+      Row {
+        Button(
+          imageVector = Icons.Default.PlusOne,
+          contentDescription = "Plus One",
+          onClick = { viewModel.addDelta(1) },
+        )
+      }
+    }
+  }
 }

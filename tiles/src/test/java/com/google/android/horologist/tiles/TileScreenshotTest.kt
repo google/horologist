@@ -59,142 +59,139 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
 class TileScreenshotTest : WearScreenshotTest() {
-    override fun testName(suffix: String): String =
-        "src/test/screenshots/" +
-            "${javaClass.simpleName}_" +
-            "${testInfo.methodName}_" +
-            (super.device?.id ?: WearDevice.GenericLargeRound.id) +
-            "$suffix.png"
+  override fun testName(suffix: String): String =
+    "src/test/screenshots/" +
+      "${javaClass.simpleName}_" +
+      "${testInfo.methodName}_" +
+      (super.device?.id ?: WearDevice.GenericLargeRound.id) +
+      "$suffix.png"
 
-    @Composable
-    override fun TestScaffold(content: @Composable () -> Unit) {
-        content()
+  @Composable
+  override fun TestScaffold(content: @Composable () -> Unit) {
+    content()
+  }
+
+  @Test
+  fun imageArgb8888() {
+    // https://en.wikipedia.org/wiki/File:PNG_transparency_demonstration_1.png
+    val bitmap = BitmapFactory.decodeFile("src/test/resources/PNG_transparency_demonstration_1.png")
+
+    runTest {
+      val context = LocalContext.current
+
+      TileLayoutPreview(
+        state = Unit,
+        resourceState = Unit,
+        renderer =
+          TestImageTileRenderer(
+            context = context,
+            bitmap = bitmap,
+          ),
+      )
+    }
+  }
+
+  @Test
+  fun imageRgb565() {
+    // https://en.wikipedia.org/wiki/File:PNG_transparency_demonstration_1.png
+    val bitmap =
+      BitmapFactory.decodeFile("src/test/resources/PNG_transparency_demonstration_1.png")
+        .copy(Bitmap.Config.RGB_565, false)
+
+    runTest {
+      val context = LocalContext.current
+
+      TileLayoutPreview(
+        state = Unit,
+        resourceState = Unit,
+        renderer =
+          TestImageTileRenderer(
+            context = context,
+            bitmap = bitmap,
+          ),
+      )
+    }
+  }
+
+  @Test
+  fun composable() {
+    val capture = RobolectricComposableBitmapRenderer()
+    val bitmap = runBlocking {
+      capture.renderComposableToBitmap(DpSize(400.dp, 300.dp)) {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+          Canvas(modifier = Modifier.fillMaxSize()) {
+            drawCircle(androidx.compose.ui.graphics.Color.DarkGray)
+          }
+          FilledIconButton(onClick = {}) { Text("\uD83D\uDC6A") }
+        }
+      }
     }
 
-    @Test
-    fun imageArgb8888() {
-        // https://en.wikipedia.org/wiki/File:PNG_transparency_demonstration_1.png
-        val bitmap =
-            BitmapFactory.decodeFile("src/test/resources/PNG_transparency_demonstration_1.png")
+    runTest {
+      val context = LocalContext.current
 
-        runTest {
-            val context = LocalContext.current
-
-            TileLayoutPreview(
-                state = Unit,
-                resourceState = Unit,
-                renderer = TestImageTileRenderer(
-                    context = context,
-                    bitmap = bitmap,
-                ),
-            )
-        }
+      TileLayoutPreview(
+        state = Unit,
+        resourceState = Unit,
+        renderer =
+          TestImageTileRenderer(
+            context = context,
+            bitmap = bitmap.asAndroidBitmap(),
+          ),
+      )
     }
+  }
 
-    @Test
-    fun imageRgb565() {
-        // https://en.wikipedia.org/wiki/File:PNG_transparency_demonstration_1.png
-        val bitmap =
-            BitmapFactory.decodeFile("src/test/resources/PNG_transparency_demonstration_1.png")
-                .copy(Bitmap.Config.RGB_565, false)
-
-        runTest {
-            val context = LocalContext.current
-
-            TileLayoutPreview(
-                state = Unit,
-                resourceState = Unit,
-                renderer = TestImageTileRenderer(
-                    context = context,
-                    bitmap = bitmap,
-                ),
-            )
-        }
-    }
-
-    @Test
-    fun composable() {
-        val capture = RobolectricComposableBitmapRenderer()
-        val bitmap = runBlocking {
-            capture.renderComposableToBitmap(DpSize(400.dp, 300.dp)) {
-                Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    Canvas(modifier = Modifier.fillMaxSize()) {
-                        drawCircle(androidx.compose.ui.graphics.Color.DarkGray)
-                    }
-                    FilledIconButton(onClick = {}) {
-                        Text("\uD83D\uDC6A")
-                    }
-                }
-            }
-        }
-
-        runTest {
-            val context = LocalContext.current
-
-            TileLayoutPreview(
-                state = Unit,
-                resourceState = Unit,
-                renderer = TestImageTileRenderer(
-                    context = context,
-                    bitmap = bitmap.asAndroidBitmap(),
-                ),
-            )
-        }
-    }
-
-    class TestImageTileRenderer(
-        context: Context,
-        val bitmap: Bitmap,
-    ) : SingleTileLayoutRenderer<Unit, Unit>(context) {
-        override fun renderTile(
-            state: Unit,
-            deviceParameters: DeviceParameters,
-        ): LayoutElementBuilders.LayoutElement {
-            return Box.Builder()
-                .setHeight(expand())
+  class TestImageTileRenderer(
+    context: Context,
+    val bitmap: Bitmap,
+  ) : SingleTileLayoutRenderer<Unit, Unit>(context) {
+    override fun renderTile(
+      state: Unit,
+      deviceParameters: DeviceParameters,
+    ): LayoutElementBuilders.LayoutElement {
+      return Box.Builder()
+        .setHeight(expand())
+        .setWidth(expand())
+        .setModifiers(
+          Modifiers.Builder()
+            .setBackground(Background.Builder().setColor(argb(Color.DKGRAY)).build())
+            .build()
+        )
+        .addContent(
+          PrimaryLayout.Builder(deviceParameters)
+            .setContent(
+              Image.Builder()
+                .setContentScaleMode(CONTENT_SCALE_MODE_FIT)
+                .setResourceId("dice")
                 .setWidth(expand())
-                .setModifiers(
-                    Modifiers.Builder()
-                        .setBackground(
-                            Background.Builder()
-                                .setColor(argb(Color.DKGRAY))
-                                .build(),
-                        )
-                        .build(),
-                )
-                .addContent(
-                    PrimaryLayout.Builder(deviceParameters)
-                        .setContent(
-                            Image.Builder()
-                                .setContentScaleMode(CONTENT_SCALE_MODE_FIT)
-                                .setResourceId("dice")
-                                .setWidth(expand())
-                                .setHeight(dp(130f))
-                                .build(),
-                        )
-                        .setPrimaryLabelTextContent(
-                            Text.Builder(
-                                context,
-                                when (bitmap.config) {
-                                    Bitmap.Config.ARGB_8888 -> "ARGB_8888"
-                                    Bitmap.Config.RGB_565 -> "RGB_565"
-                                    else -> "UNDEFINED"
-                                },
-                            )
-                                .setColor(argb(Color.WHITE))
-                                .setTypography(Typography.TYPOGRAPHY_BODY2)
-                                .build(),
-                        ).build(),
-                )
+                .setHeight(dp(130f))
                 .build()
-        }
-
-        override fun ResourceBuilders.Resources.Builder.produceRequestedResources(
-            resourceState: Unit,
-            deviceParameters: DeviceParameters,
-            resourceIds: List<String>,
-        ) {
-            addIdToImageMapping("dice", bitmap.toImageResource())
-        }
+            )
+            .setPrimaryLabelTextContent(
+              Text.Builder(
+                  context,
+                  when (bitmap.config) {
+                    Bitmap.Config.ARGB_8888 -> "ARGB_8888"
+                    Bitmap.Config.RGB_565 -> "RGB_565"
+                    else -> "UNDEFINED"
+                  },
+                )
+                .setColor(argb(Color.WHITE))
+                .setTypography(Typography.TYPOGRAPHY_BODY2)
+                .build()
+            )
+            .build()
+        )
+        .build()
     }
+
+    override fun ResourceBuilders.Resources.Builder.produceRequestedResources(
+      resourceState: Unit,
+      deviceParameters: DeviceParameters,
+      resourceIds: List<String>,
+    ) {
+      addIdToImageMapping("dice", bitmap.toImageResource())
+    }
+  }
 }

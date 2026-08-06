@@ -26,35 +26,30 @@ import org.junit.Test
 
 @LargeTest
 class NavActivityTest {
-    @get:Rule
-    var rule = createAndroidComposeRule<NavActivity>()
+  @get:Rule var rule = createAndroidComposeRule<NavActivity>()
 
-    @Test
-    fun testEvent() {
-        val scenario = rule.activityRule.scenario
+  @Test
+  fun testEvent() {
+    val scenario = rule.activityRule.scenario
 
-        rule.waitForIdle()
+    rule.waitForIdle()
 
-        toListAndBack()
+    toListAndBack()
 
-        scenario.moveToState(Lifecycle.State.STARTED)
+    scenario.moveToState(Lifecycle.State.STARTED)
 
-        scenario.moveToState(Lifecycle.State.RESUMED)
+    scenario.moveToState(Lifecycle.State.RESUMED)
 
-        toListAndBack()
+    toListAndBack()
+  }
+
+  private fun toListAndBack() {
+    rule.runOnUiThread { rule.activity.navController.navigate(NavScreen.ScalingLazyColumn.route) }
+    rule.waitForIdle()
+
+    rule.runOnUiThread {
+      rule.activity.navController.navigate(NavScreen.Menu.route) { popUpTo(NavScreen.Menu.route) }
     }
-
-    private fun toListAndBack() {
-        rule.runOnUiThread {
-            rule.activity.navController.navigate(NavScreen.ScalingLazyColumn.route)
-        }
-        rule.waitForIdle()
-
-        rule.runOnUiThread {
-            rule.activity.navController.navigate(NavScreen.Menu.route) {
-                popUpTo(NavScreen.Menu.route)
-            }
-        }
-        rule.waitForIdle()
-    }
+    rule.waitForIdle()
+  }
 }

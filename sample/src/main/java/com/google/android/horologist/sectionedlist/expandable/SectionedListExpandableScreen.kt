@@ -53,153 +53,150 @@ import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.sample.R
 
-private val todayTasks = listOf(
+private val todayTasks =
+  listOf(
     Pair("Meet with Sarah", Color.Red),
     Pair("Pay internet bill", Color.Gray),
     Pair("Piano lessons", Color.Gray),
-)
+  )
 
-private val tomorrowTasks = listOf(
+private val tomorrowTasks =
+  listOf(
     Pair("Book holidays", Color.Gray),
     Pair("Water plants", Color.Green),
-)
+  )
 
-private val laterTasks = listOf(
+private val laterTasks =
+  listOf(
     Pair("Hang paintings", Color.Gray),
     Pair("Call mom", Color.Blue),
     Pair("Buy new runners", Color.Blue),
-)
+  )
 
 @Composable
 fun SectionedListExpandableScreen(
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  columnState: ScalingLazyColumnState,
 ) {
-    var todaySectionExpanded by rememberSaveable { mutableStateOf(true) }
-    var tomorrowSectionExpanded by rememberSaveable { mutableStateOf(true) }
-    var laterSectionExpanded by rememberSaveable { mutableStateOf(false) }
+  var todaySectionExpanded by rememberSaveable { mutableStateOf(true) }
+  var tomorrowSectionExpanded by rememberSaveable { mutableStateOf(true) }
+  var laterSectionExpanded by rememberSaveable { mutableStateOf(false) }
 
-    val todaySectionState = getState(todaySectionExpanded, todayTasks)
-    val tomorrowSectionState = getState(tomorrowSectionExpanded, tomorrowTasks)
-    val laterSectionState = getState(laterSectionExpanded, laterTasks)
+  val todaySectionState = getState(todaySectionExpanded, todayTasks)
+  val tomorrowSectionState = getState(tomorrowSectionExpanded, tomorrowTasks)
+  val laterSectionState = getState(laterSectionExpanded, laterTasks)
 
-    SectionedList(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        section {
-            loaded {
-                Title(
-                    stringResource(R.string.sectionedlist_my_tasks),
-                    Modifier.padding(vertical = 8.dp),
-                )
-            }
-        }
-
-        taskSection(
-            titleId = R.string.sectionedlist_today,
-            state = todaySectionState,
-            expanded = todaySectionExpanded,
-            onHeaderClick = { todaySectionExpanded = !todaySectionExpanded },
+  SectionedList(
+    columnState = columnState,
+    modifier = modifier,
+  ) {
+    section {
+      loaded {
+        Title(
+          stringResource(R.string.sectionedlist_my_tasks),
+          Modifier.padding(vertical = 8.dp),
         )
-
-        taskSection(
-            titleId = R.string.sectionedlist_tomorrow,
-            state = tomorrowSectionState,
-            expanded = tomorrowSectionExpanded,
-            onHeaderClick = { tomorrowSectionExpanded = !tomorrowSectionExpanded },
-        )
-
-        taskSection(
-            titleId = R.string.sectionedlist_later_week,
-            state = laterSectionState,
-            expanded = laterSectionExpanded,
-            onHeaderClick = { laterSectionExpanded = !laterSectionExpanded },
-            footerContent = {
-                Chip(
-                    label = stringResource(R.string.sectionedlist_more_tasks),
-                    onClick = { },
-                )
-            },
-        )
+      }
     }
+
+    taskSection(
+      titleId = R.string.sectionedlist_today,
+      state = todaySectionState,
+      expanded = todaySectionExpanded,
+      onHeaderClick = { todaySectionExpanded = !todaySectionExpanded },
+    )
+
+    taskSection(
+      titleId = R.string.sectionedlist_tomorrow,
+      state = tomorrowSectionState,
+      expanded = tomorrowSectionExpanded,
+      onHeaderClick = { tomorrowSectionExpanded = !tomorrowSectionExpanded },
+    )
+
+    taskSection(
+      titleId = R.string.sectionedlist_later_week,
+      state = laterSectionState,
+      expanded = laterSectionExpanded,
+      onHeaderClick = { laterSectionExpanded = !laterSectionExpanded },
+      footerContent = {
+        Chip(
+          label = stringResource(R.string.sectionedlist_more_tasks),
+          onClick = {},
+        )
+      },
+    )
+  }
 }
 
-private fun getState(expanded: Boolean, list: List<Pair<String, Color>>) = if (expanded) {
+private fun getState(expanded: Boolean, list: List<Pair<String, Color>>) =
+  if (expanded) {
     Section.State.Loaded(list)
-} else {
+  } else {
     Section.State.Loaded(emptyList())
-}
+  }
 
 private fun SectionedListScope.taskSection(
-    @StringRes titleId: Int,
-    state: Section.State<Pair<String, Color>>,
-    expanded: Boolean,
-    onHeaderClick: () -> Unit,
-    footerContent: @Composable (SectionContentScope.() -> Unit)? = null,
+  @StringRes titleId: Int,
+  state: Section.State<Pair<String, Color>>,
+  expanded: Boolean,
+  onHeaderClick: () -> Unit,
+  footerContent: @Composable (SectionContentScope.() -> Unit)? = null,
 ) {
-    section(state = state) {
-        header {
-            SectionHeader(
-                text = stringResource(titleId),
-                expanded = expanded,
-                onClick = onHeaderClick,
-            )
-        }
-
-        loaded { (text, iconTint) ->
-            Chip(
-                label = text,
-                onClick = { },
-                icon = {
-                    Icon(
-                        imageVector = Icons.Outlined.Circle,
-                        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                        modifier = Modifier
-                            .size(ChipDefaults.LargeIconSize)
-                            .clip(CircleShape),
-                        tint = iconTint,
-                    )
-                },
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-
-        footerContent?.let {
-            footer {
-                footerContent()
-            }
-        }
+  section(state = state) {
+    header {
+      SectionHeader(
+        text = stringResource(titleId),
+        expanded = expanded,
+        onClick = onHeaderClick,
+      )
     }
+
+    loaded { (text, iconTint) ->
+      Chip(
+        label = text,
+        onClick = {},
+        icon = {
+          Icon(
+            imageVector = Icons.Outlined.Circle,
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+            modifier = Modifier.size(ChipDefaults.LargeIconSize).clip(CircleShape),
+            tint = iconTint,
+          )
+        },
+        colors = ChipDefaults.secondaryChipColors(),
+      )
+    }
+
+    footerContent?.let { footer { footerContent() } }
+  }
 }
 
 @Composable
 private fun SectionHeader(
-    text: String,
-    expanded: Boolean,
-    onClick: () -> Unit,
+  text: String,
+  expanded: Boolean,
+  onClick: () -> Unit,
 ) {
-    Row(
-        modifier = Modifier
-            .height(48.dp)
-            .clickable { onClick() },
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Icon(
-            imageVector = if (expanded) {
-                Icons.Default.ExpandLess
-            } else {
-                Icons.Default.ExpandMore
-            },
-            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-        )
+  Row(
+    modifier = Modifier.height(48.dp).clickable { onClick() },
+    verticalAlignment = Alignment.CenterVertically,
+  ) {
+    Icon(
+      imageVector =
+        if (expanded) {
+          Icons.Default.ExpandLess
+        } else {
+          Icons.Default.ExpandMore
+        },
+      contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+    )
 
-        Text(text = text)
-    }
+    Text(text = text)
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun SectionedListExpandableScreenPreview() {
-    SectionedListExpandableScreen(columnState = rememberResponsiveColumnState())
+  SectionedListExpandableScreen(columnState = rememberResponsiveColumnState())
 }

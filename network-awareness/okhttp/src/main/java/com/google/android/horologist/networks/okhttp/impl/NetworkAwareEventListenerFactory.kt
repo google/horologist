@@ -21,42 +21,39 @@ import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.logging.NetworkStatusLogger
 import com.google.android.horologist.networks.okhttp.highBandwidthConnectionLease
 import com.google.android.horologist.networks.status.NetworkRepository
+import java.io.IOException
 import okhttp3.Call
 import okhttp3.EventListener
-import java.io.IOException
 
-/**
- * Internal [EventListener] that logs requests as well as closing High Bandwidth Requests.
- */
+/** Internal [EventListener] that logs requests as well as closing High Bandwidth Requests. */
 @ExperimentalHorologistApi
 public class NetworkAwareEventListenerFactory(
-    networkRepository: NetworkRepository,
-    private val delegateEventListenerFactory: EventListener.Factory,
-    dataRequestRepository: DataRequestRepository? = null,
-    logger: NetworkStatusLogger,
-) : NetworkLoggingEventListenerFactory(
+  networkRepository: NetworkRepository,
+  private val delegateEventListenerFactory: EventListener.Factory,
+  dataRequestRepository: DataRequestRepository? = null,
+  logger: NetworkStatusLogger,
+) :
+  NetworkLoggingEventListenerFactory(
     logger,
     networkRepository,
     delegateEventListenerFactory,
     dataRequestRepository,
-) {
-    override fun create(call: Call): EventListener = Listener(
-        delegateEventListenerFactory.create(call),
-    )
+  ) {
+  override fun create(call: Call): EventListener =
+    Listener(delegateEventListenerFactory.create(call))
 
-    private inner class Listener(
-        delegate: EventListener,
-    ) : NetworkLoggingEventListenerFactory.Listener(delegate) {
-        override fun callEnd(call: Call) {
-            super.callEnd(call)
+  private inner class Listener(delegate: EventListener) :
+    NetworkLoggingEventListenerFactory.Listener(delegate) {
+    override fun callEnd(call: Call) {
+      super.callEnd(call)
 
-            call.request().highBandwidthConnectionLease?.close()
-        }
-
-        override fun callFailed(call: Call, ioe: IOException) {
-            super.callFailed(call, ioe)
-
-            call.request().highBandwidthConnectionLease?.close()
-        }
+      call.request().highBandwidthConnectionLease?.close()
     }
+
+    override fun callFailed(call: Call, ioe: IOException) {
+      super.callFailed(call, ioe)
+
+      call.request().highBandwidthConnectionLease?.close()
+    }
+  }
 }

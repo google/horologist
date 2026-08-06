@@ -25,33 +25,35 @@ import org.junit.Test
 
 class SelectAccountScreenTest : WearLegacyScreenTest() {
 
-    @Test
-    fun selectAccountScreen() {
-        runTest {
-            SelectAccountScreen(
-                accounts = listOf(
-                    AccountUiModel(
-                        email = "maggie@example.com",
-                        avatar = Icons.Default.Face.asPaintable(),
-                    ),
-                    AccountUiModel(email = "thisisaverylongemail@example.com"),
-                ),
-                onAccountClicked = { _, _ -> },
-            )
-        }
+  @Test
+  fun selectAccountScreen() {
+    runTest {
+      SelectAccountScreen(
+        accounts =
+          listOf(
+            AccountUiModel(
+              email = "maggie@example.com",
+              avatar = Icons.Default.Face.asPaintable(),
+            ),
+            AccountUiModel(email = "thisisaverylongemail@example.com"),
+          ),
+        onAccountClicked = { _, _ -> },
+      )
     }
+  }
 
-    @Test
-    fun selectAccountScreenNoAvatar() {
-        runTest {
-            SelectAccountScreen(
-                accounts = listOf(
-                    AccountUiModel(email = "maggie@example.com"),
-                    AccountUiModel(email = "thisisaverylongemailaccountsample@example.com"),
-                ),
-                onAccountClicked = { _, _ -> },
-                defaultAvatar = null,
-            )
-        }
+  @Test
+  fun selectAccountScreenNoAvatar() {
+    runTest {
+      SelectAccountScreen(
+        accounts =
+          listOf(
+            AccountUiModel(email = "maggie@example.com"),
+            AccountUiModel(email = "thisisaverylongemailaccountsample@example.com"),
+          ),
+        onAccountClicked = { _, _ -> },
+        defaultAvatar = null,
+      )
     }
+  }
 }

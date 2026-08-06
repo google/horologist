@@ -22,22 +22,23 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 /**
- * Snackbar Manager that coordinates between backend components producing messages for the user
- * and the SnackbarHost in the app Scaffold.
+ * Snackbar Manager that coordinates between backend components producing messages for the user and
+ * the SnackbarHost in the app Scaffold.
  */
 public class SnackbarManager {
-    private val _messages: MutableStateFlow<List<UiMessage>> = MutableStateFlow(emptyList())
-    public val messages: StateFlow<List<UiMessage>> get() = _messages.asStateFlow()
+  private val _messages: MutableStateFlow<List<UiMessage>> = MutableStateFlow(emptyList())
+  public val messages: StateFlow<List<UiMessage>>
+    get() = _messages.asStateFlow()
 
-    public fun showMessage(message: UiMessage) {
-        _messages.update { currentMessages -> currentMessages + message }
-    }
+  public fun showMessage(message: UiMessage) {
+    _messages.update { currentMessages -> currentMessages + message }
+  }
 
-    public fun setMessageShown(messageId: String) {
-        _messages.update { currentMessages -> currentMessages.filterNot { it.id == messageId } }
-    }
+  public fun setMessageShown(messageId: String) {
+    _messages.update { currentMessages -> currentMessages.filterNot { it.id == messageId } }
+  }
 
-    public fun showMessage(message: String) {
-        showMessage(UiMessage(message = message))
-    }
+  public fun showMessage(message: String) {
+    showMessage(UiMessage(message = message))
+  }
 }

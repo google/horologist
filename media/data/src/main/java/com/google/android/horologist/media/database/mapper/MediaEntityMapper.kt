@@ -21,19 +21,19 @@ import com.google.android.horologist.media.database.model.MediaEntity
 import com.google.android.horologist.media.model.Media
 
 /**
- * Functions to map models from other layers and / or packages into a [com.google.android.horologist.media.database.model.MediaEntity].
+ * Functions to map models from other layers and / or packages into a
+ * [com.google.android.horologist.media.database.model.MediaEntity].
  */
 @ExperimentalHorologistApi
 public object MediaEntityMapper {
 
-    /**
-     * Maps from a [Media].
-     */
-    public fun map(media: Media): MediaEntity = MediaEntity(
-        mediaId = media.id,
-        mediaUrl = media.uri,
-        artworkUrl = media.artworkUri ?: "",
-        title = media.title,
-        artist = media.artist,
+  /** Maps from a [Media]. */
+  public fun map(media: Media): MediaEntity =
+    MediaEntity(
+      mediaId = media.id,
+      mediaUrl = media.uri,
+      artworkUrl = media.artworkUri ?: "",
+      title = media.title,
+      artist = media.artist,
     )
 }

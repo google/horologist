@@ -34,8 +34,8 @@ import androidx.wear.compose.material.TimeText
 import com.google.android.horologist.compose.pager.PageScreenIndicatorState
 
 /**
- * Pager Scaffold to place *above* a HorizontalPager.
- * The [TimeText] if set will override the AppScaffold timeText.
+ * Pager Scaffold to place *above* a HorizontalPager. The [TimeText] if set will override the
+ * AppScaffold timeText.
  *
  * @param modifier the Scaffold modifier.
  * @param timeText specific time text for the pages on this pager screen.
@@ -44,43 +44,43 @@ import com.google.android.horologist.compose.pager.PageScreenIndicatorState
  */
 @Composable
 fun PagerScaffold(
-    modifier: Modifier = Modifier,
-    timeText: (@Composable () -> Unit)? = null,
-    pagerState: PagerState? = null,
-    content: @Composable BoxScope.() -> Unit,
+  modifier: Modifier = Modifier,
+  timeText: (@Composable () -> Unit)? = null,
+  pagerState: PagerState? = null,
+  content: @Composable BoxScope.() -> Unit,
 ) {
-    val scaffoldState = LocalScaffoldState.current
+  val scaffoldState = LocalScaffoldState.current
 
-    val key = remember { Any() }
+  val key = remember { Any() }
 
-    // Update the timeText & scrollInfoProvider if there is a change and the screen is already
-    // present
-    scaffoldState.updateIfNeeded(key, timeText = timeText, null)
+  // Update the timeText & scrollInfoProvider if there is a change and the screen is already
+  // present
+  scaffoldState.updateIfNeeded(key, timeText = timeText, null)
 
-    val screenIsActive = LocalScreenIsActive.current
-    LaunchedEffect(screenIsActive) {
-        if (screenIsActive) {
-            scaffoldState.addScreen(key, timeText, null)
-        } else {
-            scaffoldState.removeScreen(key)
-        }
+  val screenIsActive = LocalScreenIsActive.current
+  LaunchedEffect(screenIsActive) {
+    if (screenIsActive) {
+      scaffoldState.addScreen(key, timeText, null)
+    } else {
+      scaffoldState.removeScreen(key)
     }
+  }
 
-    DisposableEffect(key) { onDispose { scaffoldState.removeScreen(key) } }
+  DisposableEffect(key) { onDispose { scaffoldState.removeScreen(key) } }
 
-    Scaffold(
-        modifier = modifier.fillMaxSize(),
-        timeText = timeText,
-        pageIndicator = {
-            if (pagerState != null) {
-                val pageIndicatorState = remember(pagerState) { PageScreenIndicatorState(pagerState) }
+  Scaffold(
+    modifier = modifier.fillMaxSize(),
+    timeText = timeText,
+    pageIndicator = {
+      if (pagerState != null) {
+        val pageIndicatorState = remember(pagerState) { PageScreenIndicatorState(pagerState) }
 
-                HorizontalPageIndicator(
-                    modifier = Modifier.padding(6.dp),
-                    pageIndicatorState = pageIndicatorState,
-                )
-            }
-        },
-        content = { Box { content() } },
-    )
+        HorizontalPageIndicator(
+          modifier = Modifier.padding(6.dp),
+          pageIndicatorState = pageIndicatorState,
+        )
+      }
+    },
+    content = { Box { content() } },
+  )
 }

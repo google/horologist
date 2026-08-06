@@ -46,105 +46,93 @@ import kotlin.time.Duration.Companion.seconds
 @WearPreview
 @Composable
 fun MarqueeTextTypicalPreview() {
-    MarqueeText(
-        text = "A very long text strings",
-        modifier = Modifier
-            .background(Color.DarkGray)
-            .width(100.dp),
-        textAlign = TextAlign.Center,
-    )
+  MarqueeText(
+    text = "A very long text strings",
+    modifier = Modifier.background(Color.DarkGray).width(100.dp),
+    textAlign = TextAlign.Center,
+  )
 }
 
 @WearPreview
 @Composable
 fun MarqueeTextStyledPreview() {
-    MarqueeText(
-        text = buildAnnotatedString {
-            append("A very long ")
-            withStyle(style = SpanStyle(fontStyle = FontStyle.Italic)) {
-                append("italic")
-            }
-            append(" text")
-        },
-        modifier = Modifier
-            .background(Color.DarkGray)
-            .width(100.dp),
-        textAlign = TextAlign.Center,
-    )
+  MarqueeText(
+    text =
+      buildAnnotatedString {
+        append("A very long ")
+        withStyle(style = SpanStyle(fontStyle = FontStyle.Italic)) { append("italic") }
+        append(" text")
+      },
+    modifier = Modifier.background(Color.DarkGray).width(100.dp),
+    textAlign = TextAlign.Center,
+  )
 }
 
 @WearPreview
 @Composable
 fun MarqueeTextShortTextCenterPreview() {
-    MarqueeText(
-        text = "A",
-        modifier = Modifier
-            .background(Color.DarkGray)
-            .width(100.dp),
-        textAlign = TextAlign.Center,
-    )
+  MarqueeText(
+    text = "A",
+    modifier = Modifier.background(Color.DarkGray).width(100.dp),
+    textAlign = TextAlign.Center,
+  )
 }
 
 @WearPreview
 @Composable
 fun MarqueeTextShortTextRightPreview() {
-    MarqueeText(
-        text = "A",
-        modifier = Modifier
-            .background(Color.DarkGray)
-            .width(100.dp),
-        textAlign = TextAlign.Right,
-    )
+  MarqueeText(
+    text = "A",
+    modifier = Modifier.background(Color.DarkGray).width(100.dp),
+    textAlign = TextAlign.Right,
+  )
 }
 
 @WearPreview
 @Composable
 fun MarqueeTextShortTextRtlPreview() {
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-        MarqueeText(
-            text = "A",
-            modifier = Modifier
-                .background(Color.DarkGray)
-                .width(100.dp),
-        )
-    }
+  CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+    MarqueeText(
+      text = "A",
+      modifier = Modifier.background(Color.DarkGray).width(100.dp),
+    )
+  }
 }
 
 @WearPreview
 @Composable
 fun MarqueeTextConstantScrollingPreview() {
-    MarqueeText(
-        text = "A very long text strings",
-        modifier = Modifier
-            .background(Color.DarkGray)
-            .width(100.dp),
-        textAlign = TextAlign.Center,
-        pauseTime = 0.seconds,
-    )
+  MarqueeText(
+    text = "A very long text strings",
+    modifier = Modifier.background(Color.DarkGray).width(100.dp),
+    textAlign = TextAlign.Center,
+    pauseTime = 0.seconds,
+  )
 }
 
 @WearPreview
 @Composable
 fun MarqueeTextConstantWithIconScrollingPreview() {
-    MarqueeText(
-        text = buildAnnotatedString {
-            appendInlineContent("firetruck")
-            append("A long string next to an icon")
-        },
-        inlineContent = mapOf(
-            "firetruck" to InlineTextContent(Placeholder(20.sp, 20.sp, PlaceholderVerticalAlign.Center)) {
-                Image(
-                    imageVector = Icons.Default.FireTruck,
-                    contentDescription = null,
-                    colorFilter = ColorFilter.tint(Color.White),
-                    contentScale = ContentScale.FillHeight,
-                )
-            },
-        ),
-        modifier = Modifier
-            .background(Color.DarkGray)
-            .width(100.dp),
-        textAlign = TextAlign.Center,
-        pauseTime = 0.seconds,
-    )
+  MarqueeText(
+    text =
+      buildAnnotatedString {
+        appendInlineContent("firetruck")
+        append("A long string next to an icon")
+      },
+    inlineContent =
+      mapOf(
+        "firetruck" to
+          InlineTextContent(Placeholder(20.sp, 20.sp, PlaceholderVerticalAlign.Center)) {
+            Image(
+              imageVector = Icons.Default.FireTruck,
+              contentDescription = null,
+              colorFilter = ColorFilter.tint(Color.White),
+              contentScale = ContentScale.FillHeight,
+            )
+          }
+      ),
+    modifier = Modifier.background(Color.DarkGray).width(100.dp),
+    textAlign = TextAlign.Center,
+    pauseTime = 0.seconds,
+  )
 }

@@ -20,24 +20,24 @@ import androidx.datastore.core.Serializer
 import kotlin.reflect.KClass
 
 /**
- * Registry of known serializers for an instance of the WearDataLayerRegistry.
- * All types used for data stores must be registered here before use.
+ * Registry of known serializers for an instance of the WearDataLayerRegistry. All types used for
+ * data stores must be registered here before use.
  */
 class SerializerRegistry {
-    private val serializers: MutableMap<KClass<*>, Serializer<*>> = mutableMapOf()
+  private val serializers: MutableMap<KClass<*>, Serializer<*>> = mutableMapOf()
 
-    public inline fun <reified T : Any> serializerForType() = serializerForType(T::class)
+  public inline fun <reified T : Any> serializerForType() = serializerForType(T::class)
 
-    @Suppress("UNCHECKED_CAST")
-    public fun <T : Any> serializerForType(type: KClass<T>): Serializer<T> =
-        serializers[type] as Serializer<T>?
-            ?: throw IllegalStateException("Serializer for $type not registered")
+  @Suppress("UNCHECKED_CAST")
+  public fun <T : Any> serializerForType(type: KClass<T>): Serializer<T> =
+    serializers[type] as Serializer<T>?
+      ?: throw IllegalStateException("Serializer for $type not registered")
 
-    public inline fun <reified T : Any> registerSerializer(serializer: Serializer<T>) {
-        registerSerializer(T::class, serializer)
-    }
+  public inline fun <reified T : Any> registerSerializer(serializer: Serializer<T>) {
+    registerSerializer(T::class, serializer)
+  }
 
-    public fun <T : Any> registerSerializer(type: KClass<T>, serializer: Serializer<T>) {
-        serializers[type] = serializer
-    }
+  public fun <T : Any> registerSerializer(type: KClass<T>, serializer: Serializer<T>) {
+    serializers[type] = serializer
+  }
 }

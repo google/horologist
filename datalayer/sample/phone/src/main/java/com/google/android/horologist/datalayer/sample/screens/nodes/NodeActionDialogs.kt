@@ -43,97 +43,93 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun NodesActionSucceededDialog(
-    message: String,
-    onDismissRequest: () -> Unit,
+  message: String,
+  onDismissRequest: () -> Unit,
 ) {
-    NodesActionDialog(
-        message = message,
-        onDismissRequest = onDismissRequest,
-        imageVector = Icons.Default.Done,
-    )
+  NodesActionDialog(
+    message = message,
+    onDismissRequest = onDismissRequest,
+    imageVector = Icons.Default.Done,
+  )
 }
 
 @Composable
 fun NodesActionFailureDialog(
-    message: String,
-    onDismissRequest: () -> Unit,
+  message: String,
+  onDismissRequest: () -> Unit,
 ) {
-    NodesActionDialog(
-        message = message,
-        onDismissRequest = onDismissRequest,
-        imageVector = Icons.Default.Close,
-    )
+  NodesActionDialog(
+    message = message,
+    onDismissRequest = onDismissRequest,
+    imageVector = Icons.Default.Close,
+  )
 }
 
 @Composable
 fun NodesActionDialog(
-    message: String,
-    onDismissRequest: () -> Unit,
-    imageVector: ImageVector,
+  message: String,
+  onDismissRequest: () -> Unit,
+  imageVector: ImageVector,
 ) {
-    Dialog(onDismissRequest = { onDismissRequest() }) {
-        Card(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(225.dp)
-                .padding(16.dp),
-            shape = RoundedCornerShape(16.dp),
+  Dialog(onDismissRequest = { onDismissRequest() }) {
+    Card(
+      modifier = Modifier.fillMaxWidth().height(225.dp).padding(16.dp),
+      shape = RoundedCornerShape(16.dp),
+    ) {
+      Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+      ) {
+        Icon(
+          imageVector = imageVector,
+          contentDescription = null,
+          modifier = Modifier.padding(vertical = 8.dp),
+        )
+        Text(
+          text = message,
+          modifier = Modifier.padding(10.dp),
+        )
+        Row(
+          modifier = Modifier.fillMaxWidth(),
+          horizontalArrangement = Arrangement.End,
         ) {
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Icon(
-                    imageVector = imageVector,
-                    contentDescription = null,
-                    modifier = Modifier.padding(vertical = 8.dp),
-                )
-                Text(
-                    text = message,
-                    modifier = Modifier.padding(10.dp),
-                )
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End,
-                ) {
-                    TextButton(
-                        onClick = { onDismissRequest() },
-                        modifier = Modifier.padding(horizontal = 8.dp),
-                    ) {
-                        Text(stringResource(id = R.string.node_screen_action_dialog_dismiss_button_label))
-                    }
-                }
-            }
+          TextButton(
+            onClick = { onDismissRequest() },
+            modifier = Modifier.padding(horizontal = 8.dp),
+          ) {
+            Text(stringResource(id = R.string.node_screen_action_dialog_dismiss_button_label))
+          }
         }
+      }
     }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun NodesActionSucceededDialogPreview() {
-    NodesActionSucceededDialog(
-        message = "Success!",
-        onDismissRequest = { },
-    )
+  NodesActionSucceededDialog(
+    message = "Success!",
+    onDismissRequest = {},
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun NodesActionFailureDialogPreview() {
-    NodesActionFailureDialog(
-        message = "Failed: RESULT",
-        onDismissRequest = { },
-    )
+  NodesActionFailureDialog(
+    message = "Failed: RESULT",
+    onDismissRequest = {},
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun NodesActionDialogPreview() {
-    NodesActionDialog(
-        message = "This is a dialog with a button and an icon.",
-        onDismissRequest = { },
-        imageVector = Icons.Default.Done,
-    )
+  NodesActionDialog(
+    message = "This is a dialog with a button and an icon.",
+    onDismissRequest = {},
+    imageVector = Icons.Default.Done,
+  )
 }

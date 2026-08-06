@@ -19,29 +19,27 @@ package com.google.android.horologist.data.apphelper
 import com.google.android.horologist.data.SurfacesInfo
 
 /**
- * Represents a node on the network, and the installation status of the app. The node can be a
- * watch or different device like a phone.
+ * Represents a node on the network, and the installation status of the app. The node can be a watch
+ * or different device like a phone.
  */
 public data class AppHelperNodeStatus(
-    val id: String,
-    val displayName: String,
-    val isNearby: Boolean,
-    val appInstallationStatus: AppInstallationStatus,
-    val surfacesInfo: SurfacesInfo = SurfacesInfo.getDefaultInstance(),
+  val id: String,
+  val displayName: String,
+  val isNearby: Boolean,
+  val appInstallationStatus: AppInstallationStatus,
+  val surfacesInfo: SurfacesInfo = SurfacesInfo.getDefaultInstance(),
 )
 
 public sealed class AppInstallationStatus {
-    data object NotInstalled : AppInstallationStatus()
+  data object NotInstalled : AppInstallationStatus()
 
-    data class Installed(
-        val nodeType: AppInstallationStatusNodeType,
-    ) : AppInstallationStatus()
+  data class Installed(val nodeType: AppInstallationStatusNodeType) : AppInstallationStatus()
 }
 
 public enum class AppInstallationStatusNodeType {
-    WATCH,
-    PHONE,
+  WATCH,
+  PHONE,
 }
 
 public val AppHelperNodeStatus.appInstalled: Boolean
-    get() = this.appInstallationStatus is AppInstallationStatus.Installed
+  get() = this.appInstallationStatus is AppInstallationStatus.Installed

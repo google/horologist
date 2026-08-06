@@ -30,22 +30,18 @@ import com.google.android.horologist.audio.ui.VolumeUiState
 @WearPreviewSmallRound
 @Composable
 fun AnimatedSetVolumeButtonPreview() {
-    var volumeUiState by remember { mutableStateOf(VolumeUiState(3, 5)) }
+  var volumeUiState by remember { mutableStateOf(VolumeUiState(3, 5)) }
 
-    InteractivePreviewAware {
-        Stepper(
-            value = volumeUiState.current.toFloat(),
-            onValueChange = { volumeUiState = volumeUiState.copy(current = it.toInt()) },
-            steps = volumeUiState.max - 1,
-            valueRange = (0f..volumeUiState.max.toFloat()),
-            increaseIcon = {
-                IncreaseIcon()
-            },
-            decreaseIcon = {
-                DecreaseIcon()
-            },
-        ) {
-            AnimatedSetVolumeButton(onVolumeClick = { }, volumeUiState = volumeUiState)
-        }
+  InteractivePreviewAware {
+    Stepper(
+      value = volumeUiState.current.toFloat(),
+      onValueChange = { volumeUiState = volumeUiState.copy(current = it.toInt()) },
+      steps = volumeUiState.max - 1,
+      valueRange = (0f..volumeUiState.max.toFloat()),
+      increaseIcon = { IncreaseIcon() },
+      decreaseIcon = { DecreaseIcon() },
+    ) {
+      AnimatedSetVolumeButton(onVolumeClick = {}, volumeUiState = volumeUiState)
     }
+  }
 }

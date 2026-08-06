@@ -25,134 +25,93 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnStat
 // @WearCustomPreviews
 @Composable
 fun Bottom1Button() {
-    SampleMenu(
-        columnState = rememberResponsiveColumnState(
-            contentPadding = padding(
-                last = ItemType.SingleButton,
-            ),
-        ),
-        borders = {
-            bottom(ItemType.SingleButton.bottomPaddingPct)
-        },
-        after = {
-            AddCircleButton()
-        },
-    )
+  SampleMenu(
+    columnState =
+      rememberResponsiveColumnState(contentPadding = padding(last = ItemType.SingleButton)),
+    borders = { bottom(ItemType.SingleButton.bottomPaddingPct) },
+    after = { AddCircleButton() },
+  )
 }
 
 // @WearCustomPreviews
 @Composable
 fun Bottom2Buttons() {
-    SampleMenu(
-        columnState = rememberResponsiveColumnState(
-            contentPadding = padding(
-                // TODO should this be renamed?
-                last = ItemType.MultiButton,
-            ),
-        ),
-        after = {
-            Row {
-                AddCircleButton()
-                LocationOnButton()
-            }
-        },
-        borders = {
-            bottom(ItemType.MultiButton.bottomPaddingPct)
-        },
-    )
+  SampleMenu(
+    columnState =
+      rememberResponsiveColumnState(
+        contentPadding =
+          padding(
+            // TODO should this be renamed?
+            last = ItemType.MultiButton
+          )
+      ),
+    after = {
+      Row {
+        AddCircleButton()
+        LocationOnButton()
+      }
+    },
+    borders = { bottom(ItemType.MultiButton.bottomPaddingPct) },
+  )
 }
 
 // @WearCustomPreviews
 @Composable
 fun Bottom3Buttons() {
-    SampleMenu(
-        columnState = rememberResponsiveColumnState(
-            contentPadding = padding(
-                last = ItemType.MultiButton,
-            ),
-        ),
-        after = {
-            Row {
-                AddCircleButton()
-                LocationOnButton()
-                AddCircleButton()
-            }
-        },
-        borders = {
-            bottom(ItemType.MultiButton.bottomPaddingPct)
-        },
-    )
+  SampleMenu(
+    columnState =
+      rememberResponsiveColumnState(contentPadding = padding(last = ItemType.MultiButton)),
+    after = {
+      Row {
+        AddCircleButton()
+        LocationOnButton()
+        AddCircleButton()
+      }
+    },
+    borders = { bottom(ItemType.MultiButton.bottomPaddingPct) },
+  )
 }
 
 // @WearCustomPreviews
 @Composable
 fun BottomOtherChips() {
-    SampleMenu(
-        columnState = rememberResponsiveColumnState(
-            contentPadding = padding(
-                last = ItemType.Chip,
-            ),
-        ),
-        borders = {
-            bottom(ItemType.Chip.bottomPaddingPct)
-        },
-    )
+  SampleMenu(
+    columnState = rememberResponsiveColumnState(contentPadding = padding(last = ItemType.Chip)),
+    borders = { bottom(ItemType.Chip.bottomPaddingPct) },
+  )
 }
 
 // @WearCustomPreviews
 @Composable
 fun BottomOtherCards() {
-    SampleMenu(
-        columnState = rememberResponsiveColumnState(
-            contentPadding = padding(
-                last = ItemType.Card,
-            ),
-        ),
-        borders = {
-            bottom(ItemType.Card.bottomPaddingPct)
-        },
-    ) {
-        item {
-            MessagesCard()
-        }
-        item {
-            BofACard()
-        }
-    }
+  SampleMenu(
+    columnState = rememberResponsiveColumnState(contentPadding = padding(last = ItemType.Card)),
+    borders = { bottom(ItemType.Card.bottomPaddingPct) },
+  ) {
+    item { MessagesCard() }
+    item { BofACard() }
+  }
 }
 
 @Composable
 fun BottomUnspecified() {
-    SampleMenu(
-        columnState = rememberResponsiveColumnState(
-            contentPadding = padding(
-                last = ItemType.Unspecified,
-            ),
-        ),
-        borders = null,
-    ) {
-        item {
-            MessagesCard()
-        }
-        item {
-            BofACard()
-        }
-    }
+  SampleMenu(
+    columnState =
+      rememberResponsiveColumnState(contentPadding = padding(last = ItemType.Unspecified)),
+    borders = null,
+  ) {
+    item { MessagesCard() }
+    item { BofACard() }
+  }
 }
 
 // @WearCustomPreviews
 @Composable
 fun BottomOtherText() {
-    SampleMenu(
-        columnState = rememberResponsiveColumnState(
-            contentPadding = padding(
-                last = ItemType.Text,
-            ),
-        ),
-        borders = {
-            bottom(ItemType.Text.bottomPaddingPct)
-        },
-    ) {
-        warningTextItems()
-    }
+  SampleMenu(
+    columnState = rememberResponsiveColumnState(contentPadding = padding(last = ItemType.Text)),
+    borders = { bottom(ItemType.Text.bottomPaddingPct) },
+  ) {
+    warningTextItems()
+  }
 }

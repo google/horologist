@@ -23,65 +23,69 @@ import org.junit.Test
 
 class MediaEntityMapperTest {
 
-    @Test
-    fun mapsCorrectly() {
-        // given
-        val id = "id"
-        val uri = "uri"
-        val title = "title"
-        val artist = "artist"
-        val artworkUri = "artworkUri"
-        val media = Media(
-            id = id,
-            uri = uri,
-            title = title,
-            artist = artist,
-            artworkUri = artworkUri,
+  @Test
+  fun mapsCorrectly() {
+    // given
+    val id = "id"
+    val uri = "uri"
+    val title = "title"
+    val artist = "artist"
+    val artworkUri = "artworkUri"
+    val media =
+      Media(
+        id = id,
+        uri = uri,
+        title = title,
+        artist = artist,
+        artworkUri = artworkUri,
+      )
+
+    // when
+    val result = MediaEntityMapper.map(media)
+
+    // then
+    assertThat(result)
+      .isEqualTo(
+        MediaEntity(
+          mediaId = id,
+          mediaUrl = uri,
+          artworkUrl = artworkUri,
+          title = title,
+          artist = artist,
         )
+      )
+  }
 
-        // when
-        val result = MediaEntityMapper.map(media)
+  @Test
+  fun givenNullValues_thenMapsCorrectly() {
+    // given
+    val id = "id"
+    val uri = "uri"
+    val title = "title"
+    val artist = "artist"
+    val artworkUri = null
+    val media =
+      Media(
+        id = id,
+        uri = uri,
+        title = title,
+        artist = artist,
+        artworkUri = artworkUri,
+      )
 
-        // then
-        assertThat(result).isEqualTo(
-            MediaEntity(
-                mediaId = id,
-                mediaUrl = uri,
-                artworkUrl = artworkUri,
-                title = title,
-                artist = artist,
-            ),
+    // when
+    val result = MediaEntityMapper.map(media)
+
+    // then
+    assertThat(result)
+      .isEqualTo(
+        MediaEntity(
+          mediaId = id,
+          mediaUrl = uri,
+          artworkUrl = "",
+          title = title,
+          artist = artist,
         )
-    }
-
-    @Test
-    fun givenNullValues_thenMapsCorrectly() {
-        // given
-        val id = "id"
-        val uri = "uri"
-        val title = "title"
-        val artist = "artist"
-        val artworkUri = null
-        val media = Media(
-            id = id,
-            uri = uri,
-            title = title,
-            artist = artist,
-            artworkUri = artworkUri,
-        )
-
-        // when
-        val result = MediaEntityMapper.map(media)
-
-        // then
-        assertThat(result).isEqualTo(
-            MediaEntity(
-                mediaId = id,
-                mediaUrl = uri,
-                artworkUrl = "",
-                title = title,
-                artist = artist,
-            ),
-        )
-    }
+      )
+  }
 }

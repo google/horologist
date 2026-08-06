@@ -37,71 +37,70 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
  * A rounded chip to show a single [MediaUiModel].
  *
  * @param media The [MediaUiModel] that the [title][MediaUiModel.title] and
- * [artwork][MediaUiModel.artwork] will be used to display on the chip.
+ *   [artwork][MediaUiModel.artwork] will be used to display on the chip.
  * @param onClick Will be called when the user clicks the chip.
  * @param modifier The Modifier to be applied to the chip.
  * @param defaultTitle A text to be used when [MediaUiModel.title] is null.
- * @param placeholder A placeholder image to be displayed while
- * [artwork][MediaUiModel.artwork] is being loaded.
+ * @param placeholder A placeholder image to be displayed while [artwork][MediaUiModel.artwork] is
+ *   being loaded.
  */
 @ExperimentalHorologistApi
 @Composable
 public fun MediaChip(
-    media: MediaUiModel.Ready,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    defaultTitle: String = "",
-    placeholder: Painter? = null,
+  media: MediaUiModel.Ready,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  defaultTitle: String = "",
+  placeholder: Painter? = null,
 ) {
-    val artworkUri = media.artwork
-    val title = media.title
+  val artworkUri = media.artwork
+  val title = media.title
 
-    MediaChip(
-        title = title.takeIf { it.isNotEmpty() } ?: defaultTitle,
-        artworkPaintable = CoilPaintable(artworkUri, placeholder),
-        onClick = onClick,
-        modifier = modifier,
-    )
+  MediaChip(
+    title = title.takeIf { it.isNotEmpty() } ?: defaultTitle,
+    artworkPaintable = CoilPaintable(artworkUri, placeholder),
+    onClick = onClick,
+    modifier = modifier,
+  )
 }
 
-/**
- * A rounded chip to show a single media title and its artwork.
- */
+/** A rounded chip to show a single media title and its artwork. */
 @ExperimentalHorologistApi
 @Composable
 public fun MediaChip(
-    title: String,
-    artworkPaintable: Paintable?,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+  title: String,
+  artworkPaintable: Paintable?,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val appIcon: (@Composable BoxScope.() -> Unit)? = artworkPaintable?.let {
-        {
-            MediaArtwork(
-                modifier = Modifier.size(ChipDefaults.LargeIconSize),
-                contentDescription = title,
-                artworkPaintable = it,
-            )
-        }
+  val appIcon: (@Composable BoxScope.() -> Unit)? = artworkPaintable?.let {
+    {
+      MediaArtwork(
+        modifier = Modifier.size(ChipDefaults.LargeIconSize),
+        contentDescription = title,
+        artworkPaintable = it,
+      )
     }
+  }
 
-    Chip(
-        modifier = modifier.fillMaxWidth(),
-        onClick = onClick,
-        colors = ChipDefaults.secondaryChipColors(),
-        contentPadding = PaddingValues(
-            start = 12.dp,
-            top = 6.dp,
-            end = 0.dp,
-            bottom = 6.dp,
-        ),
-        icon = appIcon,
-        label = {
-            Text(
-                text = title,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-            )
-        },
-    )
+  Chip(
+    modifier = modifier.fillMaxWidth(),
+    onClick = onClick,
+    colors = ChipDefaults.secondaryChipColors(),
+    contentPadding =
+      PaddingValues(
+        start = 12.dp,
+        top = 6.dp,
+        end = 0.dp,
+        bottom = 6.dp,
+      ),
+    icon = appIcon,
+    label = {
+      Text(
+        text = title,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+      )
+    },
+  )
 }

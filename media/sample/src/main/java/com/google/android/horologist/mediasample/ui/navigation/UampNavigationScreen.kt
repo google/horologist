@@ -20,17 +20,17 @@ import com.google.android.horologist.media.ui.material3.navigation.NavigationScr
 
 object UampNavigationScreen {
 
-    public data object AudioDebug : NavigationScreens("audioDebug")
+  public data object AudioDebug : NavigationScreens("audioDebug")
 
-    public data object Samples : NavigationScreens("samples")
+  public data object Samples : NavigationScreens("samples")
 
-    public data object GoogleSignInPromptScreen : NavigationScreens("googleSignInPromptScreen")
+  public data object GoogleSignInPromptScreen : NavigationScreens("googleSignInPromptScreen")
 
-    public data object GoogleSignInScreen : NavigationScreens("googleSignInScreen")
+  public data object GoogleSignInScreen : NavigationScreens("googleSignInScreen")
 
-    public data object GoogleSignOutScreen : NavigationScreens("googleSignOutScreen")
+  public data object GoogleSignOutScreen : NavigationScreens("googleSignOutScreen")
 
-    public data object DeveloperOptions : NavigationScreens("developerOptions")
+  public data object DeveloperOptions : NavigationScreens("developerOptions")
 
-    public data object NewHotness : NavigationScreens("newHotness")
+  public data object NewHotness : NavigationScreens("newHotness")
 }

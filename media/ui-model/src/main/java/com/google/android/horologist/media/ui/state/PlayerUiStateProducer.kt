@@ -19,9 +19,9 @@ package com.google.android.horologist.media.ui.state
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.repository.PlayerRepository
 import com.google.android.horologist.media.ui.state.mapper.PlayerUiStateMapper
+import kotlin.time.Duration
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlin.time.Duration
 
 /**
  * Produces a flow of [PlayerUiState] based on events produced by a [PlayerRepository].
@@ -30,45 +30,45 @@ import kotlin.time.Duration
  * lifecycle that survives configuration changes.
  */
 @ExperimentalHorologistApi
-public class PlayerUiStateProducer(
-    playerRepository: PlayerRepository,
-) {
-    private data class StaticState(
-        val connected: Boolean,
-        val shuffleModeEnabled: Boolean,
-        val seekBackButtonIncrement: Duration?,
-        val seekForwardButtonIncrement: Duration?,
-    )
+public class PlayerUiStateProducer(playerRepository: PlayerRepository) {
+  private data class StaticState(
+    val connected: Boolean,
+    val shuffleModeEnabled: Boolean,
+    val seekBackButtonIncrement: Duration?,
+    val seekForwardButtonIncrement: Duration?,
+  )
 
-    private val staticFlow = combine(
-        playerRepository.connected,
-        playerRepository.shuffleModeEnabled,
-        playerRepository.seekBackIncrement,
-        playerRepository.seekForwardIncrement,
+  private val staticFlow =
+    combine(
+      playerRepository.connected,
+      playerRepository.shuffleModeEnabled,
+      playerRepository.seekBackIncrement,
+      playerRepository.seekForwardIncrement,
     ) { connected, shuffleModeEnabled, seekBackIncrement, seekForwardIncrement ->
-        StaticState(
-            connected = connected,
-            shuffleModeEnabled = shuffleModeEnabled,
-            seekBackButtonIncrement = seekBackIncrement,
-            seekForwardButtonIncrement = seekForwardIncrement,
-        )
+      StaticState(
+        connected = connected,
+        shuffleModeEnabled = shuffleModeEnabled,
+        seekBackButtonIncrement = seekBackIncrement,
+        seekForwardButtonIncrement = seekForwardIncrement,
+      )
     }
 
-    public val playerUiStateFlow: Flow<PlayerUiState> = combine(
-        playerRepository.availableCommands,
-        playerRepository.currentMedia,
-        playerRepository.latestPlaybackState,
-        staticFlow,
+  public val playerUiStateFlow: Flow<PlayerUiState> =
+    combine(
+      playerRepository.availableCommands,
+      playerRepository.currentMedia,
+      playerRepository.latestPlaybackState,
+      staticFlow,
     ) { availableCommands, media, lastPlaybackStateEvent, staticData ->
-        PlayerUiStateMapper.map(
-            currentState = lastPlaybackStateEvent.playbackState.playerState,
-            availableCommands = availableCommands,
-            media = media,
-            playbackStateEvent = lastPlaybackStateEvent,
-            shuffleModeEnabled = staticData.shuffleModeEnabled,
-            connected = staticData.connected,
-            seekBackIncrement = staticData.seekBackButtonIncrement,
-            seekForwardIncrement = staticData.seekForwardButtonIncrement,
-        )
+      PlayerUiStateMapper.map(
+        currentState = lastPlaybackStateEvent.playbackState.playerState,
+        availableCommands = availableCommands,
+        media = media,
+        playbackStateEvent = lastPlaybackStateEvent,
+        shuffleModeEnabled = staticData.shuffleModeEnabled,
+        connected = staticData.connected,
+        seekBackIncrement = staticData.seekBackButtonIncrement,
+        seekForwardIncrement = staticData.seekForwardButtonIncrement,
+      )
     }
 }

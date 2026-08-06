@@ -26,430 +26,452 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.common.truth.Truth.assertThat
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 import org.junit.Assert.assertNotNull
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
-import kotlin.time.Duration.Companion.seconds
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
 
 @RunWith(AndroidJUnit4::class)
 @Config(manifest = Config.NONE)
 class PlayerUiStateMapperTest {
 
-    @Test
-    fun givenNoCommandsAreAvailable_thenAllIsDisabled() {
-        // given
-        val commands = setOf<Command>()
+  @Test
+  fun givenNoCommandsAreAvailable_thenAllIsDisabled() {
+    // given
+    val commands = setOf<Command>()
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = commands,
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = false,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = commands,
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = false,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.playEnabled).isFalse()
-        assertThat(result.pauseEnabled).isFalse()
-        assertThat(result.seekBackEnabled).isFalse()
-        assertThat(result.seekForwardEnabled).isFalse()
-        assertThat(result.seekInCurrentMediaItemEnabled).isFalse()
-        assertThat(result.seekToPreviousEnabled).isFalse()
-        assertThat(result.seekToNextEnabled).isFalse()
-        assertThat(result.shuffleEnabled).isFalse()
-        assertThat(result.playPauseEnabled).isFalse()
-    }
+    // then
+    assertThat(result.playEnabled).isFalse()
+    assertThat(result.pauseEnabled).isFalse()
+    assertThat(result.seekBackEnabled).isFalse()
+    assertThat(result.seekForwardEnabled).isFalse()
+    assertThat(result.seekInCurrentMediaItemEnabled).isFalse()
+    assertThat(result.seekToPreviousEnabled).isFalse()
+    assertThat(result.seekToNextEnabled).isFalse()
+    assertThat(result.shuffleEnabled).isFalse()
+    assertThat(result.playPauseEnabled).isFalse()
+  }
 
-    @Test
-    fun givenPlayPauseCommandIsAvailable_thenPlayIsEnabled() {
-        // given
-        val commands = setOf(Command.PlayPause)
+  @Test
+  fun givenPlayPauseCommandIsAvailable_thenPlayIsEnabled() {
+    // given
+    val commands = setOf(Command.PlayPause)
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = commands,
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = commands,
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.playEnabled).isTrue()
-    }
+    // then
+    assertThat(result.playEnabled).isTrue()
+  }
 
-    @Test
-    fun givenPlayPauseCommandIsAvailable_thenPauseIsEnabled() {
-        // given
-        val commands = setOf(Command.PlayPause)
+  @Test
+  fun givenPlayPauseCommandIsAvailable_thenPauseIsEnabled() {
+    // given
+    val commands = setOf(Command.PlayPause)
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = commands,
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = commands,
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.pauseEnabled).isTrue()
-    }
+    // then
+    assertThat(result.pauseEnabled).isTrue()
+  }
 
-    @Test
-    fun givenSeekBackCommandIsAvailable_thenSeekBackIsEnabled() {
-        // given
-        val commands = setOf(Command.SeekBack)
+  @Test
+  fun givenSeekBackCommandIsAvailable_thenSeekBackIsEnabled() {
+    // given
+    val commands = setOf(Command.SeekBack)
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = commands,
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = commands,
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.seekBackEnabled).isTrue()
-    }
+    // then
+    assertThat(result.seekBackEnabled).isTrue()
+  }
 
-    @Test
-    fun givenSeekForwardCommandIsAvailable_thenSeekForwardIsEnabled() {
-        // given
-        val commands = setOf(Command.SeekForward)
+  @Test
+  fun givenSeekForwardCommandIsAvailable_thenSeekForwardIsEnabled() {
+    // given
+    val commands = setOf(Command.SeekForward)
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = commands,
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = commands,
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.seekForwardEnabled).isTrue()
-    }
+    // then
+    assertThat(result.seekForwardEnabled).isTrue()
+  }
 
-    @Test
-    fun givenSeekInCurrentMediaItemCommandIsAvailable_thenSeekInCurrentMediaItemIsEnabled() {
-        // given
-        val commands = setOf(Command.SeekInCurrentMediaItem)
+  @Test
+  fun givenSeekInCurrentMediaItemCommandIsAvailable_thenSeekInCurrentMediaItemIsEnabled() {
+    // given
+    val commands = setOf(Command.SeekInCurrentMediaItem)
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = commands,
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = commands,
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.seekInCurrentMediaItemEnabled).isTrue()
-    }
+    // then
+    assertThat(result.seekInCurrentMediaItemEnabled).isTrue()
+  }
 
-    @Test
-    fun givenSkipToPreviousMediaCommandIsAvailable_thenSeekToPreviousIsEnabled() {
-        // given
-        val commands = setOf(Command.SkipToPreviousMedia)
+  @Test
+  fun givenSkipToPreviousMediaCommandIsAvailable_thenSeekToPreviousIsEnabled() {
+    // given
+    val commands = setOf(Command.SkipToPreviousMedia)
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = commands,
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = commands,
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.seekToPreviousEnabled).isTrue()
-    }
+    // then
+    assertThat(result.seekToPreviousEnabled).isTrue()
+  }
 
-    @Test
-    fun givenSkipToNextMediaCommandIsAvailable_thenSeekToNextIsEnabled() {
-        // given
-        val commands = setOf(Command.SkipToNextMedia)
+  @Test
+  fun givenSkipToNextMediaCommandIsAvailable_thenSeekToNextIsEnabled() {
+    // given
+    val commands = setOf(Command.SkipToNextMedia)
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = commands,
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = commands,
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.seekToNextEnabled).isTrue()
-    }
+    // then
+    assertThat(result.seekToNextEnabled).isTrue()
+  }
 
-    @Test
-    fun givenSetShuffleModeCommandIsAvailable_thenShuffleIsEnabled() {
-        // given
-        val commands = setOf(Command.SetShuffle)
+  @Test
+  fun givenSetShuffleModeCommandIsAvailable_thenShuffleIsEnabled() {
+    // given
+    val commands = setOf(Command.SetShuffle)
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = commands,
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = commands,
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.shuffleEnabled).isTrue()
-    }
+    // then
+    assertThat(result.shuffleEnabled).isTrue()
+  }
 
-    @Test
-    fun givenShuffleDisabled_thenShuffleOnIsFalse() {
-        // given
-        val shuffleEnabled = false
+  @Test
+  fun givenShuffleDisabled_thenShuffleOnIsFalse() {
+    // given
+    val shuffleEnabled = false
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = emptySet(),
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = shuffleEnabled,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = emptySet(),
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = shuffleEnabled,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.shuffleOn).isEqualTo(shuffleEnabled)
-    }
+    // then
+    assertThat(result.shuffleOn).isEqualTo(shuffleEnabled)
+  }
 
-    @Test
-    fun givenShuffleEnabled_thenShuffleOnIsTrue() {
-        // given
-        val shuffleEnabled = true
+  @Test
+  fun givenShuffleEnabled_thenShuffleOnIsTrue() {
+    // given
+    val shuffleEnabled = true
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = emptySet(),
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = shuffleEnabled,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = emptySet(),
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = shuffleEnabled,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.shuffleOn).isEqualTo(shuffleEnabled)
-    }
+    // then
+    assertThat(result.shuffleOn).isEqualTo(shuffleEnabled)
+  }
 
-    @Test
-    fun givenPlayPauseCommandIsAvailable_thenPlayPauseIsEnabled() {
-        // given
-        val commands = setOf(Command.PlayPause)
+  @Test
+  fun givenPlayPauseCommandIsAvailable_thenPlayPauseIsEnabled() {
+    // given
+    val commands = setOf(Command.PlayPause)
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = commands,
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = commands,
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.playPauseEnabled).isTrue()
-    }
+    // then
+    assertThat(result.playPauseEnabled).isTrue()
+  }
 
-    @Test
-    fun givenIsNOTPlaying_thenPlayingIsFalse() {
-        // given
-        val state = PlayerState.Stopped
+  @Test
+  fun givenIsNOTPlaying_thenPlayingIsFalse() {
+    // given
+    val state = PlayerState.Stopped
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = state,
-            availableCommands = emptySet(),
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = state,
+        availableCommands = emptySet(),
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.playing).isFalse()
-    }
+    // then
+    assertThat(result.playing).isFalse()
+  }
 
-    @Test
-    fun givenIsPlaying_thenPlayingIsTrue() {
-        // given
-        val state = PlayerState.Playing
+  @Test
+  fun givenIsPlaying_thenPlayingIsTrue() {
+    // given
+    val state = PlayerState.Playing
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = state,
-            availableCommands = emptySet(),
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = state,
+        availableCommands = emptySet(),
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.playing).isTrue()
-    }
+    // then
+    assertThat(result.playing).isTrue()
+  }
 
-    @Test
-    fun givenMedia_thenMediaItemIsMappedCorrectly() {
-        // given
-        val id = "id"
-        val title = "title"
-        val artist = "artist"
-        val media = Media(
-            id = id,
-            uri = "http://www.example.com",
-            title = title,
-            artist = artist,
-        )
+  @Test
+  fun givenMedia_thenMediaItemIsMappedCorrectly() {
+    // given
+    val id = "id"
+    val title = "title"
+    val artist = "artist"
+    val media =
+      Media(
+        id = id,
+        uri = "http://www.example.com",
+        title = title,
+        artist = artist,
+      )
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = emptySet(),
-            media = media,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = emptySet(),
+        media = media,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertNotNull(result.media)
-        val expectedMediaItem = result.media!! as MediaUiModel.Ready
-        assertThat(expectedMediaItem.id).isEqualTo(id)
-        assertThat(expectedMediaItem.title).isEqualTo(title)
-        assertThat(expectedMediaItem.subtitle).isEqualTo(artist)
-    }
+    // then
+    assertNotNull(result.media)
+    val expectedMediaItem = result.media!! as MediaUiModel.Ready
+    assertThat(expectedMediaItem.id).isEqualTo(id)
+    assertThat(expectedMediaItem.title).isEqualTo(title)
+    assertThat(expectedMediaItem.subtitle).isEqualTo(artist)
+  }
 
-    @Test
-    fun givenMediaPosition_thenTrackPositionIsMappedCorrectly() {
-        // given
-        val current = 1.seconds
-        val duration = 2.seconds
-        val playbackState = PlaybackState(
-            playerState = PlayerState.Playing,
-            isLive = false,
-            currentPosition = current,
-            duration = duration,
-            playbackSpeed = 1f,
-        )
+  @Test
+  fun givenMediaPosition_thenTrackPositionIsMappedCorrectly() {
+    // given
+    val current = 1.seconds
+    val duration = 2.seconds
+    val playbackState =
+      PlaybackState(
+        playerState = PlayerState.Playing,
+        isLive = false,
+        currentPosition = current,
+        duration = duration,
+        playbackSpeed = 1f,
+      )
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = emptySet(),
-            media = null,
-            playbackStateEvent = PlaybackStateEvent(
-                playbackState,
-                PlaybackStateEvent.Cause.PositionDiscontinuity,
-                0.toDuration(DurationUnit.SECONDS),
-            ),
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = emptySet(),
+        media = null,
+        playbackStateEvent =
+          PlaybackStateEvent(
+            playbackState,
+            PlaybackStateEvent.Cause.PositionDiscontinuity,
+            0.toDuration(DurationUnit.SECONDS),
+          ),
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertNotNull(result.trackPositionUiModel)
-        val expectedTrackPosition = result.trackPositionUiModel
-        assertThat(expectedTrackPosition).isInstanceOf(TrackPositionUiModel.Predictive::class.java)
-        expectedTrackPosition as TrackPositionUiModel.Predictive
-        assertThat(expectedTrackPosition.predictor.predictPercent(0)).isEqualTo(0.5f)
-        assertThat(expectedTrackPosition.predictor.predictPercent(duration.inWholeMilliseconds)).isEqualTo(1f)
-    }
+    // then
+    assertNotNull(result.trackPositionUiModel)
+    val expectedTrackPosition = result.trackPositionUiModel
+    assertThat(expectedTrackPosition).isInstanceOf(TrackPositionUiModel.Predictive::class.java)
+    expectedTrackPosition as TrackPositionUiModel.Predictive
+    assertThat(expectedTrackPosition.predictor.predictPercent(0)).isEqualTo(0.5f)
+    assertThat(expectedTrackPosition.predictor.predictPercent(duration.inWholeMilliseconds))
+      .isEqualTo(1f)
+  }
 
-    @Test
-    fun givenIncrements_thenIncrementsAreMappedCorrectly() {
-        // given
-        val forward = 12.seconds
-        val back = 23.seconds
+  @Test
+  fun givenIncrements_thenIncrementsAreMappedCorrectly() {
+    // given
+    val forward = 12.seconds
+    val back = 23.seconds
 
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = emptySet(),
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = back,
-            seekForwardIncrement = forward,
-        )
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = emptySet(),
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = back,
+        seekForwardIncrement = forward,
+      )
 
-        // then
-        assertThat(result.seekBackButtonIncrement).isEqualTo(SeekButtonIncrement.Known(23))
-        assertThat(result.seekForwardButtonIncrement).isEqualTo(SeekButtonIncrement.Known(12))
-    }
+    // then
+    assertThat(result.seekBackButtonIncrement).isEqualTo(SeekButtonIncrement.Known(23))
+    assertThat(result.seekForwardButtonIncrement).isEqualTo(SeekButtonIncrement.Known(12))
+  }
 
-    @Test
-    fun givenNullIncrements_thenIncrementsAreUnknown() {
-        // when
-        val result = PlayerUiStateMapper.map(
-            currentState = PlayerState.Stopped,
-            availableCommands = emptySet(),
-            media = null,
-            playbackStateEvent = PlaybackStateEvent.INITIAL,
-            shuffleModeEnabled = false,
-            connected = true,
-            seekBackIncrement = null,
-            seekForwardIncrement = null,
-        )
+  @Test
+  fun givenNullIncrements_thenIncrementsAreUnknown() {
+    // when
+    val result =
+      PlayerUiStateMapper.map(
+        currentState = PlayerState.Stopped,
+        availableCommands = emptySet(),
+        media = null,
+        playbackStateEvent = PlaybackStateEvent.INITIAL,
+        shuffleModeEnabled = false,
+        connected = true,
+        seekBackIncrement = null,
+        seekForwardIncrement = null,
+      )
 
-        // then
-        assertThat(result.seekBackButtonIncrement).isEqualTo(SeekButtonIncrement.Unknown)
-        assertThat(result.seekForwardButtonIncrement).isEqualTo(SeekButtonIncrement.Unknown)
-    }
+    // then
+    assertThat(result.seekBackButtonIncrement).isEqualTo(SeekButtonIncrement.Unknown)
+    assertThat(result.seekForwardButtonIncrement).isEqualTo(SeekButtonIncrement.Unknown)
+  }
 }

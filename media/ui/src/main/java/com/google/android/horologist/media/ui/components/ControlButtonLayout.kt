@@ -31,27 +31,21 @@ import com.google.android.horologist.media.ui.util.isLargeScreen
 
 @Composable
 public fun ControlButtonLayout(
-    leftButton: @Composable () -> Unit,
-    middleButton: @Composable () -> Unit,
-    rightButton: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
+  leftButton: @Composable () -> Unit,
+  middleButton: @Composable () -> Unit,
+  rightButton: @Composable () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val middleSize = if (LocalConfiguration.current.isLargeScreen) 72.dp else 60.dp
-    Row(
-        modifier = modifier.height(middleSize),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Absolute.Center,
-    ) {
-        Box(modifier = Modifier.fillMaxHeight().weight(1.0f)) {
-            leftButton()
-        }
+  val middleSize = if (LocalConfiguration.current.isLargeScreen) 72.dp else 60.dp
+  Row(
+    modifier = modifier.height(middleSize),
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.Absolute.Center,
+  ) {
+    Box(modifier = Modifier.fillMaxHeight().weight(1.0f)) { leftButton() }
 
-        Box(modifier = Modifier.size(middleSize)) {
-            middleButton()
-        }
+    Box(modifier = Modifier.size(middleSize)) { middleButton() }
 
-        Box(modifier = Modifier.fillMaxHeight().weight(1.0f)) {
-            rightButton()
-        }
-    }
+    Box(modifier = Modifier.fillMaxHeight().weight(1.0f)) { rightButton() }
+  }
 }

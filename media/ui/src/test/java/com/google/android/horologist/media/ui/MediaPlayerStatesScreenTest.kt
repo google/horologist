@@ -20,75 +20,75 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
+import kotlin.time.Duration.Companion.seconds
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
-import kotlin.time.Duration.Companion.seconds
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class MediaPlayerStatesScreenTest(
-    private val state: State,
-) : WearLegacyScreenTest() {
+class MediaPlayerStatesScreenTest(private val state: State) : WearLegacyScreenTest() {
 
-    override fun testName(suffix: String): String {
-        return "src/test/snapshots/images/" +
-            "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
-            "${state.name.lowercase()}.png"
-    }
+  override fun testName(suffix: String): String {
+    return "src/test/snapshots/images/" +
+      "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
+      "${state.name.lowercase()}.png"
+  }
 
-    @Test
-    fun mediaPlayerScreen() {
-        val playerUiState = PlayerUiState(
-            playEnabled = state.connected,
-            pauseEnabled = state.connected,
-            seekBackEnabled = state.connected,
-            seekForwardEnabled = state.connected,
-            seekInCurrentMediaItemEnabled = state.connected,
-            seekToPreviousEnabled = false,
-            seekToNextEnabled = state.connected,
-            shuffleEnabled = false,
-            shuffleOn = false,
-            playPauseEnabled = state.connected,
-            playing = state.connected,
-            media = if (state.media) {
-                MediaUiModel.Ready(
-                    id = "",
-                    title = "Weather with You",
-                    subtitle = "Crowded House",
-                )
-            } else {
-                null
-            },
-            trackPositionUiModel = if (state.media) {
-                TrackPositionUiModel.Actual(
-                    percent = 0.133f,
-                    position = 30.seconds,
-                    duration = 225.seconds,
-                )
-            } else {
-                TrackPositionUiModel.Actual.ZERO
-            },
-            connected = state.connected,
-        )
+  @Test
+  fun mediaPlayerScreen() {
+    val playerUiState =
+      PlayerUiState(
+        playEnabled = state.connected,
+        pauseEnabled = state.connected,
+        seekBackEnabled = state.connected,
+        seekForwardEnabled = state.connected,
+        seekInCurrentMediaItemEnabled = state.connected,
+        seekToPreviousEnabled = false,
+        seekToNextEnabled = state.connected,
+        shuffleEnabled = false,
+        shuffleOn = false,
+        playPauseEnabled = state.connected,
+        playing = state.connected,
+        media =
+          if (state.media) {
+            MediaUiModel.Ready(
+              id = "",
+              title = "Weather with You",
+              subtitle = "Crowded House",
+            )
+          } else {
+            null
+          },
+        trackPositionUiModel =
+          if (state.media) {
+            TrackPositionUiModel.Actual(
+              percent = 0.133f,
+              position = 30.seconds,
+              duration = 225.seconds,
+            )
+          } else {
+            TrackPositionUiModel.Actual.ZERO
+          },
+        connected = state.connected,
+      )
 
-        runTest {
-            MediaPlayerTestCase(playerUiState = playerUiState)
-        }
-    }
+    runTest { MediaPlayerTestCase(playerUiState = playerUiState) }
+  }
 
-    data class State(
-        val connected: Boolean,
-        val media: Boolean,
-        val name: String,
-    )
+  data class State(
+    val connected: Boolean,
+    val media: Boolean,
+    val name: String,
+  )
 
-    companion object {
-        @JvmStatic
-        @Parameters
-        fun states() = listOf(
-            State(connected = true, media = false, name = "NoMedia"),
-            State(connected = false, media = false, name = "NotConnected"),
-        )
-    }
+  companion object {
+    @JvmStatic
+    @Parameters
+    fun states() =
+      listOf(
+        State(connected = true, media = false, name = "NoMedia"),
+        State(connected = false, media = false, name = "NotConnected"),
+      )
+  }
 }

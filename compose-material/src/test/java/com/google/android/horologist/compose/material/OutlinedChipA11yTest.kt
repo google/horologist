@@ -24,28 +24,28 @@ import org.junit.Test
 
 class OutlinedChipA11yTest : WearLegacyA11yTest() {
 
-    @Test
-    fun withSecondaryLabelAndIcon() {
-        runComponentTest {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
+  @Test
+  fun withSecondaryLabelAndIcon() {
+    runComponentTest {
+      OutlinedChip(
+        label = "Primary label",
+        onClick = {},
+        secondaryLabel = "Secondary label",
+        icon = Icons.Default.Image.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      OutlinedChip(
+        label = "Primary label",
+        onClick = {},
+        secondaryLabel = "Secondary label",
+        icon = Icons.Default.Image.asPaintable(),
+        enabled = false,
+      )
     }
+  }
 }

@@ -36,13 +36,14 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
+
 private val indicatorPadding = 8.dp
 private val progressBarStrokeWidth = 2.dp
 
 /**
- * A default icon implementation to be used with a [Chip] that accepts an icon as slot.
- * This implementation displays an icon with a circular progress indicator around it.
- * The progress indicator is in an indeterminate state and spins indefinitely.
+ * A default icon implementation to be used with a [Chip] that accepts an icon as slot. This
+ * implementation displays an icon with a circular progress indicator around it. The progress
+ * indicator is in an indeterminate state and spins indefinitely.
  *
  * @param modifier [Modifier] to apply to this layout node.
  * @param icon Image or icon to be displayed in the center of this view.
@@ -54,29 +55,30 @@ private val progressBarStrokeWidth = 2.dp
 @ExperimentalHorologistApi
 @Composable
 public fun ChipIconWithProgress(
-    modifier: Modifier = Modifier,
-    icon: Paintable? = null,
-    largeIcon: Boolean = false,
-    progressIndicatorColor: Color = MaterialTheme.colors.primary,
-    progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
+  modifier: Modifier = Modifier,
+  icon: Paintable? = null,
+  largeIcon: Boolean = false,
+  progressIndicatorColor: Color = MaterialTheme.colors.primary,
+  progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
 ) {
-    ChipIconWithProgressInternal(
-        progress = null,
-        icon = icon,
-        largeIcon = largeIcon,
-        progressIndicatorColor = progressIndicatorColor,
-        progressTrackColor = progressTrackColor,
-        modifier = modifier,
-    )
+  ChipIconWithProgressInternal(
+    progress = null,
+    icon = icon,
+    largeIcon = largeIcon,
+    progressIndicatorColor = progressIndicatorColor,
+    progressTrackColor = progressTrackColor,
+    modifier = modifier,
+  )
 }
 
 /**
- * A default icon implementation to be used with a [Chip] that accepts an icon as slot.
- * This implementation displays an icon with a circular progress indicator around it.
- * The progress indicator express the proportion of completion of an ongoing task.
+ * A default icon implementation to be used with a [Chip] that accepts an icon as slot. This
+ * implementation displays an icon with a circular progress indicator around it. The progress
+ * indicator express the proportion of completion of an ongoing task.
  *
- * @param progress The progress of this progress indicator as a percentage where 0.0 represents no progress and 100.0
- * represents completion. Values outside of this range are coerced into the range 0..100F.
+ * @param progress The progress of this progress indicator as a percentage where 0.0 represents no
+ *   progress and 100.0 represents completion. Values outside of this range are coerced into the
+ *   range 0..100F.
  * @param modifier [Modifier] to apply to this layout node.
  * @param icon Image or icon to be displayed in the center of this view.
  * @param largeIcon True if it should display the icon with in a large size.
@@ -87,83 +89,74 @@ public fun ChipIconWithProgress(
 @ExperimentalHorologistApi
 @Composable
 public fun ChipIconWithProgress(
-    progress: Float,
-    modifier: Modifier = Modifier,
-    icon: Paintable? = null,
-    largeIcon: Boolean = false,
-    progressIndicatorColor: Color = MaterialTheme.colors.primary,
-    progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
+  progress: Float,
+  modifier: Modifier = Modifier,
+  icon: Paintable? = null,
+  largeIcon: Boolean = false,
+  progressIndicatorColor: Color = MaterialTheme.colors.primary,
+  progressTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
 ) {
-    ChipIconWithProgressInternal(
-        progress = progress,
-        icon = icon,
-        largeIcon = largeIcon,
-        progressIndicatorColor = progressIndicatorColor,
-        progressTrackColor = progressTrackColor,
-        modifier = modifier,
-    )
+  ChipIconWithProgressInternal(
+    progress = progress,
+    icon = icon,
+    largeIcon = largeIcon,
+    progressIndicatorColor = progressIndicatorColor,
+    progressTrackColor = progressTrackColor,
+    modifier = modifier,
+  )
 }
 
 @Composable
 private fun ChipIconWithProgressInternal(
-    progress: Float?,
-    icon: Paintable?,
-    largeIcon: Boolean,
-    progressIndicatorColor: Color,
-    progressTrackColor: Color,
-    modifier: Modifier = Modifier,
+  progress: Float?,
+  icon: Paintable?,
+  largeIcon: Boolean,
+  progressIndicatorColor: Color,
+  progressTrackColor: Color,
+  modifier: Modifier = Modifier,
 ) {
-    val iconSize = if (largeIcon) {
-        ChipDefaults.LargeIconSize
+  val iconSize =
+    if (largeIcon) {
+      ChipDefaults.LargeIconSize
     } else {
-        ChipDefaults.IconSize
+      ChipDefaults.IconSize
     }
 
-    Box(
-        modifier = modifier
-            .size(iconSize)
-            .clip(CircleShape),
-    ) {
-        if (progress != null) {
-            CircularProgressIndicator(
-                modifier = modifier
-                    .size(iconSize - progressBarStrokeWidth + indicatorPadding),
-                indicatorColor = progressIndicatorColor,
-                trackColor = progressTrackColor,
-                progress = progress / 100,
-                strokeWidth = progressBarStrokeWidth,
-            )
-        } else {
-            CircularProgressIndicator(
-                modifier = modifier
-                    .size(iconSize - progressBarStrokeWidth + indicatorPadding),
-                indicatorColor = progressIndicatorColor,
-                trackColor = progressTrackColor,
-                strokeWidth = progressBarStrokeWidth,
-            )
-        }
-
-        icon ?: return
-        if (icon is PaintableIcon) {
-            Icon(
-                paintable = icon,
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(iconSize - indicatorPadding)
-                    .clip(CircleShape),
-            )
-        } else {
-            Image(
-                painter = icon.rememberPainter(),
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                modifier = Modifier
-                    .align(Alignment.Center)
-                    .size(iconSize - indicatorPadding)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop,
-                alpha = LocalContentAlpha.current,
-            )
-        }
+  Box(modifier = modifier.size(iconSize).clip(CircleShape)) {
+    if (progress != null) {
+      CircularProgressIndicator(
+        modifier = modifier.size(iconSize - progressBarStrokeWidth + indicatorPadding),
+        indicatorColor = progressIndicatorColor,
+        trackColor = progressTrackColor,
+        progress = progress / 100,
+        strokeWidth = progressBarStrokeWidth,
+      )
+    } else {
+      CircularProgressIndicator(
+        modifier = modifier.size(iconSize - progressBarStrokeWidth + indicatorPadding),
+        indicatorColor = progressIndicatorColor,
+        trackColor = progressTrackColor,
+        strokeWidth = progressBarStrokeWidth,
+      )
     }
+
+    icon ?: return
+    if (icon is PaintableIcon) {
+      Icon(
+        paintable = icon,
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+        modifier =
+          Modifier.align(Alignment.Center).size(iconSize - indicatorPadding).clip(CircleShape),
+      )
+    } else {
+      Image(
+        painter = icon.rememberPainter(),
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+        modifier =
+          Modifier.align(Alignment.Center).size(iconSize - indicatorPadding).clip(CircleShape),
+        contentScale = ContentScale.Crop,
+        alpha = LocalContentAlpha.current,
+      )
+    }
+  }
 }

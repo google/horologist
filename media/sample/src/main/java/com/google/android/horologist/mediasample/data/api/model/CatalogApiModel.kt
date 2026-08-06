@@ -18,7 +18,4 @@ package com.google.android.horologist.mediasample.data.api.model
 
 import com.squareup.moshi.JsonClass
 
-@JsonClass(generateAdapter = true)
-data class CatalogApiModel(
-    val music: List<MusicApiModel>,
-)
+@JsonClass(generateAdapter = true) data class CatalogApiModel(val music: List<MusicApiModel>)

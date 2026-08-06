@@ -54,10 +54,7 @@ internal constructor(
   private val clock: SettableRemoteClock,
   private val captureCallback: (suffix: String, progress: Float) -> Unit,
 ) {
-  public fun capture(
-    suffix: String = "",
-    progress: Float = 0f,
-  ) {
+  public fun capture(suffix: String = "", progress: Float = 0f) {
     captureCallback(suffix, progress)
   }
 
@@ -110,10 +107,7 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
       ) {
-        LottieAndroidPreview(
-          animationResId = animationResId,
-          progress = currentProgress,
-        )
+        LottieAndroidPreview(animationResId = animationResId, progress = currentProgress)
 
         LottieRcPreview(
           animationResId = animationResId,
@@ -182,10 +176,7 @@ public fun LottieAndroidPreview(
     verticalArrangement = Arrangement.spacedBy(4.dp),
     modifier = modifier,
   ) {
-    BasicText(
-      text = "lottie-android",
-      style = TextStyle(color = Color.LightGray, fontSize = 10.sp),
-    )
+    BasicText(text = "lottie-android", style = TextStyle(color = Color.LightGray, fontSize = 10.sp))
     Box(
       modifier = Modifier.size(boxSize).background(Color(0xFF2D2D2D)).padding(4.dp),
       contentAlignment = Alignment.Center,
@@ -219,10 +210,7 @@ public fun LottieRcPreview(
     verticalArrangement = Arrangement.spacedBy(4.dp),
     modifier = modifier,
   ) {
-    BasicText(
-      text = "LottiePreview",
-      style = TextStyle(color = Color.LightGray, fontSize = 10.sp),
-    )
+    BasicText(text = "LottiePreview", style = TextStyle(color = Color.LightGray, fontSize = 10.sp))
     Box(
       modifier = Modifier.size(boxSize).background(Color(0xFF2D2D2D)).padding(4.dp),
       contentAlignment = Alignment.Center,
@@ -233,21 +221,13 @@ public fun LottieRcPreview(
           ?: remember(animationResId) { runCatching { Animation.load(animationResId, context) } }
       val animation = result.getOrNull()
       if (animation != null) {
-        LottiePreview(
-          animation = animation,
-          progress = progress,
-          modifier = Modifier.fillMaxSize(),
-        )
+        LottiePreview(animation = animation, progress = progress, modifier = Modifier.fillMaxSize())
       } else {
         val errorMessage = LottieDiffScreenshotTest.sanitizeErrorMessage(result.exceptionOrNull())
         BasicText(
           text = errorMessage,
           style =
-            TextStyle(
-              color = Color(0xFFFF6B6B),
-              fontSize = 8.sp,
-              textAlign = TextAlign.Center,
-            ),
+            TextStyle(color = Color(0xFFFF6B6B), fontSize = 8.sp, textAlign = TextAlign.Center),
         )
       }
     }

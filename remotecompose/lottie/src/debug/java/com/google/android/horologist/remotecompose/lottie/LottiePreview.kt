@@ -84,6 +84,7 @@ fun LottiePreview(
  * @param slotMap Optional mapping of slot IDs to values for dynamic theming.
  * @param clock The clock driving the animation.
  */
+@SuppressLint("RestrictedApi")
 @Composable
 fun LottiePreview(
   @RawRes animationResId: Int,

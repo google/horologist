@@ -67,18 +67,16 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
 
     composeRule.setContent {
       val lottieContext = LocalContext.current
-      val composition = remember(animationResId) {
-        LottieCompositionFactory.fromRawResSync(lottieContext, animationResId).value
-      }
+      val composition =
+        remember(animationResId) {
+          LottieCompositionFactory.fromRawResSync(lottieContext, animationResId).value
+        }
 
       // Scale to fit two side-by-side preview boxes within the Wear OS display width (211dp)
       val boxSize = 84.dp
 
       Row(
-        modifier = Modifier
-          .background(Color(0xFF1E1E1E))
-          .padding(8.dp)
-          .testTag("LottieDiff"),
+        modifier = Modifier.background(Color(0xFF1E1E1E)).padding(8.dp).testTag("LottieDiff"),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
       ) {
@@ -92,10 +90,7 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
             style = TextStyle(color = Color.LightGray, fontSize = 10.sp),
           )
           Box(
-            modifier = Modifier
-              .size(boxSize)
-              .background(Color(0xFF2D2D2D))
-              .padding(4.dp),
+            modifier = Modifier.size(boxSize).background(Color(0xFF2D2D2D)).padding(4.dp),
             contentAlignment = Alignment.Center,
           ) {
             LottieAnimation(
@@ -116,10 +111,7 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
             style = TextStyle(color = Color.LightGray, fontSize = 10.sp),
           )
           Box(
-            modifier = Modifier
-              .size(boxSize)
-              .background(Color(0xFF2D2D2D))
-              .padding(4.dp),
+            modifier = Modifier.size(boxSize).background(Color(0xFF2D2D2D)).padding(4.dp),
             contentAlignment = Alignment.Center,
           ) {
             val animation = animationResult.getOrNull()
@@ -133,11 +125,12 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
               val errorMessage = sanitizeErrorMessage(animationResult.exceptionOrNull())
               BasicText(
                 text = errorMessage,
-                style = TextStyle(
-                  color = Color(0xFFFF6B6B),
-                  fontSize = 8.sp,
-                  textAlign = TextAlign.Center,
-                ),
+                style =
+                  TextStyle(
+                    color = Color(0xFFFF6B6B),
+                    fontSize = 8.sp,
+                    textAlign = TextAlign.Center,
+                  ),
               )
             }
           }
@@ -155,16 +148,18 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
     public fun sanitizeErrorMessage(throwable: Throwable?): String {
       if (throwable == null) return "Unknown error"
       val simpleName = throwable::class.java.simpleName
-      val msg = throwable.message.orEmpty()
-        .replace(Regex("@[0-9a-fA-F]+"), "@...")
-        .replace(Regex("0x[0-9a-fA-F]+"), "0x...")
-        .replace("com.google.android.horologist.remotecompose.lottie.format.", "")
-        .replace("kotlinx.serialization.json.", "")
-        .replace("kotlinx.serialization.", "")
-        .lines()
-        .firstOrNull { it.isNotBlank() }
-        ?.trim()
-        .orEmpty()
+      val msg =
+        throwable.message
+          .orEmpty()
+          .replace(Regex("@[0-9a-fA-F]+"), "@...")
+          .replace(Regex("0x[0-9a-fA-F]+"), "0x...")
+          .replace("com.google.android.horologist.remotecompose.lottie.format.", "")
+          .replace("kotlinx.serialization.json.", "")
+          .replace("kotlinx.serialization.", "")
+          .lines()
+          .firstOrNull { it.isNotBlank() }
+          ?.trim()
+          .orEmpty()
 
       return if (msg.isNotBlank()) {
         "$simpleName:\n$msg"

@@ -27,12 +27,12 @@ class MediaLottieDiffScreenshotTest : LottieDiffScreenshotTest() {
 
   @Test
   fun playPause() {
-    runLottieDiffTest(R.raw.play_pause, expectedFailure = true)
+    runLottieDiffTest(R.raw.play_pause)
   }
 
   @Test
   fun next() {
-    runLottieDiffTest(R.raw.next, expectedFailure = true)
+    runLottieDiffTest(R.raw.next)
   }
 
   @Test

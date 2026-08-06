@@ -32,21 +32,19 @@ internal fun transform(
   canvas: RemoteCanvas,
 ) {
   val rotation = transform.rotation.value.rf
-  val (translateX, translateY) =
-    Pair(transform.positionTranslation.value[0].rf, transform.positionTranslation.value[1].rf)
+  val translation = animatePosition(transform.positionTranslation, animationSettings)
   val opacity = transform.opacity.value
-  val (anchorPointX, anchorPointY) =
-    Pair(transform.anchorPoint.value[0].rf, transform.anchorPoint.value[1].rf)
+  val anchorPoint = animatePosition(transform.anchorPoint, animationSettings)
 
   val scale = animateVector(transform.scale, animationSettings)
 
   val scaleX = scale[0] / 100f
   val scaleY = scale[1] / 100f
 
-  canvas.translate(translateX, translateY)
+  canvas.translate(translation.x, translation.y)
   canvas.rotate(rotation)
   canvas.scale(scaleX, scaleY)
-  canvas.translate(-anchorPointX, -anchorPointY)
+  canvas.translate(-anchorPoint.x, -anchorPoint.y)
 
   paint.color = paint.color.copy(alpha = (opacity / 100f).rf)
 }

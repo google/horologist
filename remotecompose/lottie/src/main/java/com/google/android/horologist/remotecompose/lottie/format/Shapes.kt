@@ -64,9 +64,10 @@ sealed class GraphicElement {
     @SerialName("nm") override val name: String? = "",
     @SerialName("hd") override val hidden: Boolean? = false,
     @SerialName("ty") override val type: ShapeType = ShapeType.Transform,
-    @SerialName("a") val anchorPoint: StaticPositionProperty,
+    @SerialName("a")
+    val anchorPoint: BasePositionProperty = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
     @SerialName("p")
-    val positionTranslation: StaticPositionProperty =
+    val positionTranslation: BasePositionProperty =
       StaticPositionProperty(value = floatArrayOf(0f, 0f)),
     @SerialName("r") val rotation: StaticScalarProperty = StaticScalarProperty(value = 0f),
     @SerialName("s")

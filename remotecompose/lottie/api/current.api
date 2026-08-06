@@ -2,7 +2,7 @@
 package com.google.android.horologist.remotecompose.lottie {
 
   public final class LottieAnimationKt {
-    method @KotlinOnly @androidx.compose.remote.creation.compose.layout.RemoteComposable @androidx.compose.runtime.Composable public static void LottieAnimation(com.google.android.horologist.remotecompose.lottie.format.Animation animation, optional androidx.compose.remote.creation.compose.modifier.RemoteModifier modifier, optional com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform, optional com.google.android.horologist.remotecompose.lottie.renderer.SlotMap slotMap);
+    method @KotlinOnly @androidx.compose.remote.creation.compose.layout.RemoteComposable @androidx.compose.runtime.Composable public static void LottieAnimation(com.google.android.horologist.remotecompose.lottie.format.Animation animation, optional androidx.compose.remote.creation.compose.modifier.RemoteModifier modifier, optional com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform? transform, optional com.google.android.horologist.remotecompose.lottie.renderer.SlotMap slotMap, optional androidx.compose.remote.creation.compose.state.RemoteFloat? progress);
     method @InaccessibleFromKotlin public static androidx.compose.runtime.ProvidableCompositionLocal<com.google.android.horologist.remotecompose.lottie.LottieSettings> getLocalAnimationSettings();
     property public static androidx.compose.runtime.ProvidableCompositionLocal<com.google.android.horologist.remotecompose.lottie.LottieSettings> LocalAnimationSettings;
   }
@@ -36,6 +36,19 @@ package com.google.android.horologist.remotecompose.lottie.format {
     method @InaccessibleFromKotlin public java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe> getKeyframes();
     property public boolean animated;
     property @kotlinx.serialization.SerialName("k") public java.util.List<com.google.android.horologist.remotecompose.lottie.format.BezierKeyframe> keyframes;
+  }
+
+  @kotlinx.serialization.Serializable public final class AnimatedPositionProperty extends com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty {
+    ctor public AnimatedPositionProperty(optional String? slotId, java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> keyframes);
+    method public String? component1();
+    method public java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> component2();
+    method public com.google.android.horologist.remotecompose.lottie.format.AnimatedPositionProperty copy(optional String? slotId, optional java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> keyframes);
+    method @InaccessibleFromKotlin public boolean getAnimated();
+    method @InaccessibleFromKotlin public java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> getKeyframes();
+    method @InaccessibleFromKotlin public String? getSlotId();
+    property public boolean animated;
+    property @kotlinx.serialization.SerialName("k") public java.util.List<com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe> keyframes;
+    property @kotlinx.serialization.SerialName("s") public String? slotId;
   }
 
   @kotlinx.serialization.Serializable public final class AnimatedVectorProperty extends com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty {
@@ -95,6 +108,15 @@ package com.google.android.horologist.remotecompose.lottie.format {
   public final class BaseBezierPropertySerializer extends kotlinx.serialization.json.JsonContentPolymorphicSerializer<com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty> {
     method protected kotlinx.serialization.DeserializationStrategy<com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty> selectDeserializer(kotlinx.serialization.json.JsonElement element);
     field public static final com.google.android.horologist.remotecompose.lottie.format.BaseBezierPropertySerializer INSTANCE;
+  }
+
+  @kotlinx.serialization.Serializable(with=BasePositionPropertySerializer::class) public abstract sealed exhaustive class BasePositionProperty extends com.google.android.horologist.remotecompose.lottie.format.AnimatableProperty {
+    property public abstract boolean animated;
+  }
+
+  public final class BasePositionPropertySerializer extends kotlinx.serialization.json.JsonContentPolymorphicSerializer<com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty> {
+    method protected kotlinx.serialization.DeserializationStrategy<com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty> selectDeserializer(kotlinx.serialization.json.JsonElement element);
+    field public static final com.google.android.horologist.remotecompose.lottie.format.BasePositionPropertySerializer INSTANCE;
   }
 
   @kotlinx.serialization.Serializable(with=BaseVectorPropertySerializer::class) public abstract sealed exhaustive class BaseVectorProperty extends com.google.android.horologist.remotecompose.lottie.format.AnimatableProperty {
@@ -210,29 +232,30 @@ package com.google.android.horologist.remotecompose.lottie.format {
   }
 
   @kotlinx.serialization.Serializable public static final class GraphicElement.Transform extends com.google.android.horologist.remotecompose.lottie.format.GraphicElement {
-    ctor public GraphicElement.Transform(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty anchorPoint, optional com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty positionTranslation, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty rotation, optional com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty scale, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity);
+    ctor public GraphicElement.Transform();
+    ctor public GraphicElement.Transform(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty anchorPoint, optional com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty positionTranslation, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty rotation, optional com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty scale, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity);
     method public String? component1();
     method public Boolean? component2();
     method public com.google.android.horologist.remotecompose.lottie.format.ShapeType component3();
-    method public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty component4();
-    method public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty component5();
+    method public com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty component4();
+    method public com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty component5();
     method public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty component6();
     method public com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty component7();
     method public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty component8();
-    method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform copy(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty anchorPoint, optional com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty positionTranslation, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty rotation, optional com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty scale, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity);
-    method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty getAnchorPoint();
+    method public com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform copy(optional String? name, optional Boolean? hidden, optional com.google.android.horologist.remotecompose.lottie.format.ShapeType type, optional com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty anchorPoint, optional com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty positionTranslation, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty rotation, optional com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty scale, optional com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity);
+    method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty getAnchorPoint();
     method @InaccessibleFromKotlin public Boolean? getHidden();
     method @InaccessibleFromKotlin public String? getName();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty getOpacity();
-    method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty getPositionTranslation();
+    method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty getPositionTranslation();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty getRotation();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty getScale();
     method @InaccessibleFromKotlin public com.google.android.horologist.remotecompose.lottie.format.ShapeType getType();
-    property @kotlinx.serialization.SerialName("a") public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty anchorPoint;
+    property @kotlinx.serialization.SerialName("a") public com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty anchorPoint;
     property @kotlinx.serialization.SerialName("hd") public Boolean? hidden;
     property @kotlinx.serialization.SerialName("nm") public String? name;
     property @kotlinx.serialization.SerialName("o") public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty opacity;
-    property @kotlinx.serialization.SerialName("p") public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty positionTranslation;
+    property @kotlinx.serialization.SerialName("p") public com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty positionTranslation;
     property @kotlinx.serialization.SerialName("r") public com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty rotation;
     property @kotlinx.serialization.SerialName("s") public com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty scale;
     property @kotlinx.serialization.SerialName("ty") public com.google.android.horologist.remotecompose.lottie.format.ShapeType type;
@@ -435,12 +458,11 @@ package com.google.android.horologist.remotecompose.lottie.format {
     field public static final com.google.android.horologist.remotecompose.lottie.format.StaticColorPropertySerializer INSTANCE;
   }
 
-  @kotlinx.serialization.Serializable public final class StaticPositionProperty {
-    ctor public StaticPositionProperty(optional String? slotId, optional boolean animated, float[] value);
+  @kotlinx.serialization.Serializable public final class StaticPositionProperty extends com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty {
+    ctor public StaticPositionProperty(optional String? slotId, float[] value);
     method public String? component1();
-    method public boolean component2();
-    method public float[] component3();
-    method public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty copy(optional String? slotId, optional boolean animated, optional float[] value);
+    method public float[] component2();
+    method public com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty copy(optional String? slotId, optional float[] value);
     method @InaccessibleFromKotlin public boolean getAnimated();
     method @InaccessibleFromKotlin public String? getSlotId();
     method @InaccessibleFromKotlin public float[] getValue();
@@ -502,11 +524,23 @@ package com.google.android.horologist.remotecompose.lottie.format {
 package com.google.android.horologist.remotecompose.lottie.renderer {
 
   public final class AnimationKt {
+    method public static com.google.android.horologist.remotecompose.lottie.renderer.Point animatePosition(com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty position, com.google.android.horologist.remotecompose.lottie.LottieSettings animationSettings);
     method public static java.util.List<androidx.compose.remote.creation.compose.state.RemoteFloat> animateVector(com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty vector, com.google.android.horologist.remotecompose.lottie.LottieSettings animationSettings);
     method @InaccessibleFromKotlin public static com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing getScalarLinearEasingIn();
     method @InaccessibleFromKotlin public static com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing getScalarLinearEasingOut();
     property public static com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing scalarLinearEasingIn;
     property public static com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing scalarLinearEasingOut;
+  }
+
+  public final class Point {
+    ctor public Point(androidx.compose.remote.creation.compose.state.RemoteFloat x, androidx.compose.remote.creation.compose.state.RemoteFloat y);
+    method public androidx.compose.remote.creation.compose.state.RemoteFloat component1();
+    method public androidx.compose.remote.creation.compose.state.RemoteFloat component2();
+    method public com.google.android.horologist.remotecompose.lottie.renderer.Point copy(optional androidx.compose.remote.creation.compose.state.RemoteFloat x, optional androidx.compose.remote.creation.compose.state.RemoteFloat y);
+    method @InaccessibleFromKotlin public androidx.compose.remote.creation.compose.state.RemoteFloat getX();
+    method @InaccessibleFromKotlin public androidx.compose.remote.creation.compose.state.RemoteFloat getY();
+    property public androidx.compose.remote.creation.compose.state.RemoteFloat x;
+    property public androidx.compose.remote.creation.compose.state.RemoteFloat y;
   }
 
   public final class SlotMap {

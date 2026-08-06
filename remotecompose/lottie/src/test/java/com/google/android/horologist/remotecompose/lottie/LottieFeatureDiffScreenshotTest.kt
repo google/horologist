@@ -16,26 +16,22 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.onNodeWithTag
-import com.github.takahirom.roborazzi.captureRoboImage
-import com.google.android.horologist.screenshots.rng.WearScreenshotTest
 import org.junit.Test
 
-class LottieBasicScreenshotTest : WearScreenshotTest() {
+class LottieFeatureDiffScreenshotTest : LottieDiffScreenshotTest() {
 
   @Test
-  fun geometry() {
-    composeRule.setContent {
-      Box(modifier = Modifier.background(Color.Black).testTag("Box")) {
-        LottiePreview(R.raw.geometry, clock = SettableRemoteClock())
-      }
-    }
+  fun positionStatic() {
+    runLottieDiffTest(R.raw.position_static)
+  }
 
-    composeRule.onNodeWithTag("Box").captureRoboImage(testName(""))
+  @Test
+  fun positionAnimated() {
+    runLottieDiffTest(R.raw.position_animated) {
+      captureFrame(frame = 0f)
+      captureFrame(frame = 20f)
+      captureFrame(frame = 40f)
+      captureFrame(frame = 60f)
+    }
   }
 }

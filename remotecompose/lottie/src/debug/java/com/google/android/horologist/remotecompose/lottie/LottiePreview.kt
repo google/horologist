@@ -26,6 +26,8 @@ import androidx.compose.remote.creation.compose.layout.RemoteColumn
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.remote.creation.compose.modifier.height
 import androidx.compose.remote.creation.compose.modifier.width
+import androidx.compose.remote.creation.compose.state.rememberNamedRemoteFloat
+import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.remote.player.compose.RemoteDocumentPlayer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -42,6 +44,7 @@ import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
  * @param slotMap Optional mapping of slot IDs to values for dynamic theming.
  * @param clock The clock driving the animation. The document carries this clock through to the
  *   player.
+ * @param progress Optional progress value to drive animation frame instead of clock time.
  */
 @SuppressLint("RestrictedApi")
 @Composable
@@ -50,9 +53,19 @@ fun LottiePreview(
   modifier: Modifier = Modifier,
   slotMap: SlotMap = SlotMap(emptyMap()),
   clock: RemoteClock = RemoteClock.SYSTEM,
+  progress: Float? = null,
 ) {
   val doc =
     rememberRemoteDocument(clock = clock) {
+      // When progress is specified, bind the animation to a named RemoteFloat ("progress").
+      // This allows updating progress dynamically via player.setUserLocalFloat("progress", value)
+      // on the single compiled RemoteDocument, avoiding document regeneration on frame changes.
+      val progressVar =
+        if (progress != null) {
+          rememberNamedRemoteFloat("progress") { 0f.rf }
+        } else {
+          null
+        }
       RemoteColumn(
         horizontalAlignment = RemoteAlignment.CenterHorizontally,
         verticalArrangement = RemoteArrangement.Center,
@@ -60,6 +73,7 @@ fun LottiePreview(
         LottieAnimation(
           animation,
           slotMap = slotMap,
+          progress = progressVar,
           modifier = RemoteModifier.width(animation.width).height(animation.height),
         )
       }
@@ -70,6 +84,11 @@ fun LottiePreview(
       modifier = modifier,
       documentWidth = animation.width,
       documentHeight = animation.height,
+      update = { player ->
+        if (progress != null) {
+          player.setUserLocalFloat("progress", progress)
+        }
+      },
     )
   }
 }
@@ -81,6 +100,7 @@ fun LottiePreview(
  * @param modifier The modifier to apply to the host layout.
  * @param slotMap Optional mapping of slot IDs to values for dynamic theming.
  * @param clock The clock driving the animation.
+ * @param progress Optional progress value to drive animation frame instead of clock time.
  */
 @SuppressLint("RestrictedApi")
 @Composable
@@ -89,8 +109,9 @@ fun LottiePreview(
   modifier: Modifier = Modifier,
   slotMap: SlotMap = SlotMap(emptyMap()),
   clock: RemoteClock = RemoteClock.SYSTEM,
+  progress: Float? = null,
 ) {
   val context = LocalContext.current
   val animation = remember(animationResId) { Animation.load(animationResId, context) }
-  LottiePreview(animation, modifier, slotMap, clock)
+  LottiePreview(animation, modifier, slotMap, clock, progress)
 }

@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
+import android.content.Context
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.AnimatedBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.AnimatedVectorProperty
@@ -32,9 +34,8 @@ import org.junit.runner.RunWith
 class ParsingTest {
 
   private fun loadGeometry(): Animation {
-    return ParsingTest::class.java.classLoader!!.getResourceAsStream("geometry.json")!!.use {
-      Animation.decodeFromStream(it)
-    }
+    val context = ApplicationProvider.getApplicationContext<Context>()
+    return Animation.load(R.raw.geometry, context)
   }
 
   @Test

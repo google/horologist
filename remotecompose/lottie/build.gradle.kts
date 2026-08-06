@@ -19,6 +19,7 @@ plugins {
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.metalavaGradle)
   alias(libs.plugins.kotlinx.serialization)
+  alias(libs.plugins.roborazzi)
 }
 
 android {
@@ -41,15 +42,23 @@ android {
 metalava { filename.set("api/current.api") }
 
 dependencies {
+  implementation(platform(libs.compose.bom))
   implementation(libs.compose.animation.core)
+  debugImplementation(libs.compose.foundation.foundation)
+  debugImplementation(libs.compose.foundation.foundation.layout)
   api(libs.compose.remote.creation)
   api(libs.compose.remote.creation.compose)
   implementation(libs.kotlinx.serialization.json)
   implementation(libs.compose.runtime)
   implementation(libs.compose.ui)
 
+  debugImplementation(libs.androidx.compose.remote.player.core)
+  debugImplementation(libs.androidx.compose.remote.player.compose)
+
   testImplementation(libs.junit)
   testImplementation(libs.truth)
   testImplementation(libs.robolectric)
   testImplementation(libs.androidx.test.ext.ktx)
+  testImplementation(libs.compose.ui.test.junit4)
+  testImplementation(projects.roboscreenshots)
 }

@@ -59,10 +59,7 @@ fun NavGraphBuilder.infoScreen(onDismissClick: () -> Unit) {
       rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
     ScreenScaffold(scrollState = columnState) {
-      InfoScreen(
-        onDismissClick = onDismissClick,
-        columnState = columnState,
-      )
+      InfoScreen(onDismissClick = onDismissClick, columnState = columnState)
     }
   }
 }

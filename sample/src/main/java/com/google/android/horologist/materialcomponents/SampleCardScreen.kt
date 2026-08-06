@@ -40,14 +40,8 @@ fun SampleCardScreenPreview() {
 }
 
 @Composable
-internal fun SampleCardScreen(
-  modifier: Modifier = Modifier,
-  columnState: ScalingLazyColumnState,
-) {
-  ScalingLazyColumn(
-    modifier = modifier,
-    columnState = columnState,
-  ) {
+internal fun SampleCardScreen(modifier: Modifier = Modifier, columnState: ScalingLazyColumnState) {
+  ScalingLazyColumn(modifier = modifier, columnState = columnState) {
     item {
       Card(
         onClick = { println("Click") },

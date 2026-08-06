@@ -65,11 +65,6 @@ class MediaPlayerFontScaleTest(device: WearDevice) : WearDeviceScreenshotTest(de
         connected = true,
       )
 
-    runTest {
-      MediaPlayerTestCase(
-        colors = UampColors,
-        playerUiState = playerUiState,
-      )
-    }
+    runTest { MediaPlayerTestCase(colors = UampColors, playerUiState = playerUiState) }
   }
 }

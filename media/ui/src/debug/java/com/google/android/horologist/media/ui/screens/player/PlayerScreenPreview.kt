@@ -62,24 +62,14 @@ fun PlayerScreenPreview() {
   ) {
     PagerScreen(state = rememberPagerState { 2 }) {
       PlayerScreen(
-        mediaDisplay = {
-          TextMediaDisplay(
-            title = "Don't Stop Believin'",
-            subtitle = "Journey",
-          )
-        },
+        mediaDisplay = { TextMediaDisplay(title = "Don't Stop Believin'", subtitle = "Journey") },
         controlButtons = {
           MediaControlButtons(
             onPlayButtonClick = {},
             onPauseButtonClick = {},
             playPauseButtonEnabled = true,
             playing = true,
-            trackPositionUiModel =
-              TrackPositionUiModel.Actual(
-                0.25f,
-                25.seconds,
-                100.seconds,
-              ),
+            trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
             onSeekToNextButtonClick = {},
             seekToNextButtonEnabled = true,
             onSeekToPreviousButtonClick = {},
@@ -92,10 +82,7 @@ fun PlayerScreenPreview() {
             onVolumeClick = {},
             onOutputClick = {},
             brandIcon = {
-              SettingsButtonsDefaults.BrandIcon(
-                R.drawable.ic_stat_horologist,
-                enabled = true,
-              )
+              SettingsButtonsDefaults.BrandIcon(R.drawable.ic_stat_horologist, enabled = true)
             },
           )
         },
@@ -126,12 +113,7 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
             onPauseButtonClick = {},
             playPauseButtonEnabled = true,
             playing = true,
-            trackPositionUiModel =
-              TrackPositionUiModel.Actual(
-                0.75f,
-                75.seconds,
-                100.seconds,
-              ),
+            trackPositionUiModel = TrackPositionUiModel.Actual(0.75f, 75.seconds, 100.seconds),
             onSeekToNextButtonClick = {},
             seekToNextButtonEnabled = true,
             onSeekToPreviousButtonClick = {},
@@ -144,10 +126,7 @@ fun PlayerScreenPreviewCustomMediaDisplay() {
             onVolumeClick = {},
             onOutputClick = {},
             brandIcon = {
-              SettingsButtonsDefaults.BrandIcon(
-                R.drawable.ic_stat_horologist,
-                enabled = true,
-              )
+              SettingsButtonsDefaults.BrandIcon(R.drawable.ic_stat_horologist, enabled = true)
             },
           )
         },
@@ -165,12 +144,7 @@ fun PlayerScreenPreviewCustomBackground() {
   ) {
     PagerScreen(state = rememberPagerState { 2 }) {
       PlayerScreen(
-        mediaDisplay = {
-          TextMediaDisplay(
-            title = "Da Da Da",
-            subtitle = "Casaca",
-          )
-        },
+        mediaDisplay = { TextMediaDisplay(title = "Da Da Da", subtitle = "Casaca") },
         controlButtons = {
           MediaControlButtons(
             onPlayButtonClick = {},
@@ -189,10 +163,7 @@ fun PlayerScreenPreviewCustomBackground() {
             onVolumeClick = {},
             onOutputClick = {},
             brandIcon = {
-              SettingsButtonsDefaults.BrandIcon(
-                R.drawable.ic_stat_horologist,
-                enabled = true,
-              )
+              SettingsButtonsDefaults.BrandIcon(R.drawable.ic_stat_horologist, enabled = true)
             },
           )
         },
@@ -235,10 +206,7 @@ fun VolumeScreenTheme(@PreviewParameter(WearPreviewThemes::class) themeValues: T
 
 @Composable
 fun DefaultMediaPreview() {
-  Scaffold(
-    modifier = Modifier.fillMaxSize(),
-    timeText = { ResponsiveTimeText() },
-  ) {
+  Scaffold(modifier = Modifier.fillMaxSize(), timeText = { ResponsiveTimeText() }) {
     PagerScreen(state = rememberPagerState { 2 }) {
       PlayerScreen(
         modifier =
@@ -256,24 +224,14 @@ fun DefaultMediaPreview() {
               drawRect(background, blendMode = BlendMode.DstOver)
             }
           },
-        mediaDisplay = {
-          TextMediaDisplay(
-            title = "Don't Stop Believin'",
-            subtitle = "Journey",
-          )
-        },
+        mediaDisplay = { TextMediaDisplay(title = "Don't Stop Believin'", subtitle = "Journey") },
         controlButtons = {
           MediaControlButtons(
             onPlayButtonClick = {},
             onPauseButtonClick = {},
             playPauseButtonEnabled = true,
             playing = true,
-            trackPositionUiModel =
-              TrackPositionUiModel.Actual(
-                0.25f,
-                25.seconds,
-                100.seconds,
-              ),
+            trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
             onSeekToNextButtonClick = {},
             seekToNextButtonEnabled = true,
             onSeekToPreviousButtonClick = {},
@@ -286,10 +244,7 @@ fun DefaultMediaPreview() {
             onVolumeClick = {},
             onOutputClick = {},
             brandIcon = {
-              SettingsButtonsDefaults.BrandIcon(
-                R.drawable.ic_stat_horologist,
-                enabled = true,
-              )
+              SettingsButtonsDefaults.BrandIcon(R.drawable.ic_stat_horologist, enabled = true)
             },
           )
         },
@@ -326,10 +281,7 @@ fun PlayerScreenPreviewNotingPlayingDisplay() {
             onVolumeClick = {},
             onOutputClick = {},
             brandIcon = {
-              SettingsButtonsDefaults.BrandIcon(
-                R.drawable.ic_stat_horologist,
-                enabled = true,
-              )
+              SettingsButtonsDefaults.BrandIcon(R.drawable.ic_stat_horologist, enabled = true)
             },
             enabled = false,
           )

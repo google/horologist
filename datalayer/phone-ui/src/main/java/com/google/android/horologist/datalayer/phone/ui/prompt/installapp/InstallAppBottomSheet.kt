@@ -142,10 +142,7 @@ internal fun InstallAppBottomSheetPortraitContent(
       modifier = Modifier.padding(horizontal = PADDING_PINK).fillMaxWidth(),
       horizontalArrangement = Arrangement.End,
     ) {
-      TextButton(
-        onClick = onDismissRequest,
-        modifier = Modifier.padding(end = PADDING_GREEN),
-      ) {
+      TextButton(onClick = onDismissRequest, modifier = Modifier.padding(end = PADDING_GREEN)) {
         Text(stringResource(id = R.string.horologist_install_app_prompt_cancel_btn_label))
       }
 
@@ -204,10 +201,7 @@ internal fun InstallAppBottomSheetLandscapeContent(
       modifier = Modifier.padding(top = PADDING_BLUE, bottom = PADDING_PINK).fillMaxWidth(),
       horizontalArrangement = Arrangement.End,
     ) {
-      TextButton(
-        onClick = onDismissRequest,
-        modifier = Modifier.padding(end = PADDING_GREEN),
-      ) {
+      TextButton(onClick = onDismissRequest, modifier = Modifier.padding(end = PADDING_GREEN)) {
         Text(stringResource(id = R.string.horologist_install_app_prompt_cancel_btn_label))
       }
 

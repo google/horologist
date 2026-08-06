@@ -255,10 +255,7 @@ class SectionedListTest : WearLegacyScreenTest() {
 
     @Composable
     fun DownloadsFooter() {
-      FilledTonalButton(
-        label = { Text("More downloads..") },
-        onClick = {},
-      )
+      FilledTonalButton(label = { Text("More downloads..") }, onClick = {})
     }
 
     val favourites = listOf("Dance Anthems", "Indie Jukebox")
@@ -337,10 +334,7 @@ class SectionedListTest : WearLegacyScreenTest() {
 
     @Composable
     fun FavouritesFooter() {
-      FilledTonalButton(
-        label = { Text("More favourites..") },
-        onClick = {},
-      )
+      FilledTonalButton(label = { Text("More favourites..") }, onClick = {})
     }
   }
 }

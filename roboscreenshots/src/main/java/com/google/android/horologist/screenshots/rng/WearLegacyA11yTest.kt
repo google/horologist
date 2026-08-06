@@ -68,10 +68,7 @@ import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
-@Config(
-  sdk = [35],
-  qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-)
+@Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 public abstract class WearLegacyA11yTest {
@@ -159,10 +156,7 @@ public abstract class WearLegacyA11yTest {
       "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
       "${testInfo.methodName}$suffix.png"
 
-  public fun captureScreenA11yRoboImage(
-    filePath: String,
-    roborazziOptions: RoborazziOptions,
-  ) {
+  public fun captureScreenA11yRoboImage(filePath: String, roborazziOptions: RoborazziOptions) {
     Espresso.onIdle()
     val screenImage = captureScreenImageToBitmap(roborazziOptions)
     val annotatedImage = A11ySnapshotTransformer().transform(composeRule.onRoot(), screenImage)

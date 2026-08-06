@@ -39,12 +39,7 @@ import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
 internal fun SampleConfirmationScreen(modifier: Modifier = Modifier) {
-  Confirmation(
-    modifier = modifier.fillMaxSize(),
-    onTimeout = {},
-  ) {
-    ConfirmationContent()
-  }
+  Confirmation(modifier = modifier.fillMaxSize(), onTimeout = {}) { ConfirmationContent() }
 }
 
 @Composable
@@ -65,11 +60,7 @@ internal fun SampleConfirmationLauncher() {
     showDialog = showDialog,
     onTimeout = { showDialog = false },
     icon = {
-      Icon(
-        imageVector = Icons.Filled.Check,
-        contentDescription = "Completed",
-        tint = Color.Green,
-      )
+      Icon(imageVector = Icons.Filled.Check, contentDescription = "Completed", tint = Color.Green)
     },
     title = "Alarm in 23 hr 59 min",
   )

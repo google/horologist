@@ -29,32 +29,18 @@ class SignInChipTest : WearLegacyComponentTest() {
 
   @Test
   fun disabled() {
-    runComponentTest {
-      SignInChip(
-        onClick = {},
-        enabled = false,
-      )
-    }
+    runComponentTest { SignInChip(onClick = {}, enabled = false) }
   }
 
   @Test
   fun withSecondaryChipType() {
-    runComponentTest {
-      SignInChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
-    }
+    runComponentTest { SignInChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
   }
 
   @Test
   fun withSecondaryChipTypeDisabled() {
     runComponentTest {
-      SignInChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-        enabled = false,
-      )
+      SignInChip(onClick = {}, colors = ChipDefaults.secondaryChipColors(), enabled = false)
     }
   }
 }

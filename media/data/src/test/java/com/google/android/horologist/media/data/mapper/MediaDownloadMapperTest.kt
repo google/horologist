@@ -111,12 +111,7 @@ class MediaDownloadMapperTest {
       )
 
     val playlist =
-      Playlist(
-        id = id,
-        name = name,
-        artworkUri = artworkUri,
-        mediaList = listOf(media),
-      )
+      Playlist(id = id, name = name, artworkUri = artworkUri, mediaList = listOf(media))
 
     val size = 12345L
     val mediaDownloadEntity =

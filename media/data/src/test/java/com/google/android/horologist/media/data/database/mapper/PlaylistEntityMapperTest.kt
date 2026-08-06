@@ -29,25 +29,13 @@ class PlaylistEntityMapperTest {
     val id = "id"
     val name = "name"
     val artworkUri = "artworkUri"
-    val playlist =
-      Playlist(
-        id = id,
-        name = name,
-        artworkUri = artworkUri,
-        mediaList = listOf(),
-      )
+    val playlist = Playlist(id = id, name = name, artworkUri = artworkUri, mediaList = listOf())
 
     // when
     val result = PlaylistEntityMapper.map(playlist)
 
     // then
     assertThat(result)
-      .isEqualTo(
-        PlaylistEntity(
-          playlistId = id,
-          name = name,
-          artworkUri = artworkUri,
-        )
-      )
+      .isEqualTo(PlaylistEntity(playlistId = id, name = name, artworkUri = artworkUri))
   }
 }

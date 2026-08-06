@@ -42,10 +42,7 @@ import kotlinx.coroutines.launch
  * animating progress.
  */
 @ExperimentalHorologistApi
-public class ProgressStateHolder(
-  initial: Float,
-  private val timestampProvider: TimestampProvider,
-) {
+public class ProgressStateHolder(initial: Float, private val timestampProvider: TimestampProvider) {
   private val actual = mutableFloatStateOf(initial)
   private val animatable = Animatable(0f)
   private val state = derivedStateOf {

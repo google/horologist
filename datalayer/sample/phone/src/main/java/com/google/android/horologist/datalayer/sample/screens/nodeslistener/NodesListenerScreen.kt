@@ -50,17 +50,11 @@ fun NodesListenerScreen(
     SideEffect { viewModel.initialize() }
   }
 
-  NodesListenerScreen(
-    state = state,
-    modifier = modifier,
-  )
+  NodesListenerScreen(state = state, modifier = modifier)
 }
 
 @Composable
-fun NodesListenerScreen(
-  state: NodesListenerScreenState,
-  modifier: Modifier = Modifier,
-) {
+fun NodesListenerScreen(state: NodesListenerScreenState, modifier: Modifier = Modifier) {
   LazyColumn(
     modifier = modifier.fillMaxSize(),
     horizontalAlignment = Alignment.CenterHorizontally,
@@ -99,18 +93,11 @@ fun NodesListenerScreen(
               Card {
                 Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
                   Text(
-                    stringResource(
-                      R.string.nodes_listener_screen_node_name_label,
-                      node.displayName,
-                    )
+                    stringResource(R.string.nodes_listener_screen_node_name_label, node.displayName)
                   )
                   Text(
                     style = MaterialTheme.typography.labelMedium,
-                    text =
-                      stringResource(
-                        R.string.nodes_listener_screen_node_id_label,
-                        node.id,
-                      ),
+                    text = stringResource(R.string.nodes_listener_screen_node_id_label, node.id),
                   )
                   Text(
                     style = MaterialTheme.typography.labelMedium,
@@ -144,16 +131,8 @@ fun NodesListenerScreenPreview() {
       NodesListenerScreenState.Loaded(
         nodeList =
           setOf(
-            NodeUiModel(
-              id = "903b8371",
-              displayName = "Google Pixel Watch",
-              isNearby = true,
-            ),
-            NodeUiModel(
-              id = "813d1812",
-              displayName = "Galaxy Watch4 Classic",
-              isNearby = false,
-            ),
+            NodeUiModel(id = "903b8371", displayName = "Google Pixel Watch", isNearby = true),
+            NodeUiModel(id = "813d1812", displayName = "Galaxy Watch4 Classic", isNearby = false),
           )
       )
   )

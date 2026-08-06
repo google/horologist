@@ -76,10 +76,7 @@ private fun ProgressCircle(modifier: Modifier) {
  * height="120" width="120"/>
  */
 @Composable
-public fun CheckYourPhoneScreen(
-  modifier: Modifier = Modifier,
-  message: String? = null,
-) {
+public fun CheckYourPhoneScreen(modifier: Modifier = Modifier, message: String? = null) {
   val configuration = LocalConfiguration.current
 
   val isLarge = configuration.isLargeScreen
@@ -95,12 +92,7 @@ public fun CheckYourPhoneScreen(
       modifier =
         modifier
           .fillMaxSize()
-          .padding(
-            top = topPadding,
-            bottom = bottomPadding,
-            start = sidePadding,
-            end = sidePadding,
-          )
+          .padding(top = topPadding, bottom = bottomPadding, start = sidePadding, end = sidePadding)
     ) {
       Column(
         modifier = Modifier.fillMaxWidth().weight(1f).padding(horizontal = textPadding),

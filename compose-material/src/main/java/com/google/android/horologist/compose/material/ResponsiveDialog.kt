@@ -133,11 +133,7 @@ public fun ResponsiveDialogContent(
               responsiveButtonWidth(if (onOk != null && onCancel != null) 2 else 1)
             Row(
               Modifier.fillMaxWidth().padding(top = if (content != null) 12.dp else 0.dp),
-              horizontalArrangement =
-                spacedBy(
-                  buttonSpacedBy,
-                  Alignment.CenterHorizontally,
-                ),
+              horizontalArrangement = spacedBy(buttonSpacedBy, Alignment.CenterHorizontally),
               verticalAlignment = Alignment.CenterVertically,
             ) {
               onCancel?.let {

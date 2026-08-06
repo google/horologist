@@ -31,12 +31,7 @@ class StepperTest : WearLegacyScreenTest() {
   fun float() {
     runTest {
       var value by remember { mutableFloatStateOf(0f) }
-      Stepper(
-        value = value,
-        onValueChange = { value = it },
-        valueRange = 0f..100f,
-        steps = 9,
-      ) {
+      Stepper(value = value, onValueChange = { value = it }, valueRange = 0f..100f, steps = 9) {
         Text("Value: $value")
       }
     }

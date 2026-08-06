@@ -36,10 +36,7 @@ fun DataLayerNodesScreen(
 ) {
   val state by viewModel.state.collectAsStateWithLifecycle()
 
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
     item { ListHeader { Text("Nodes") } }
     items(state.nodes) {
       Chip(

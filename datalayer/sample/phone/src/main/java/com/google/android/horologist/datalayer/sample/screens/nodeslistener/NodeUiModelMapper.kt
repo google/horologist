@@ -19,8 +19,4 @@ package com.google.android.horologist.datalayer.sample.screens.nodeslistener
 import com.google.android.gms.wearable.Node
 
 fun Node.toNodesUIMapper(): NodeUiModel =
-  NodeUiModel(
-    id = this.id,
-    displayName = this.displayName,
-    isNearby = isNearby,
-  )
+  NodeUiModel(id = this.id, displayName = this.displayName, isNearby = isNearby)

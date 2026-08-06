@@ -56,10 +56,7 @@ fun UampMediaPlayerScreen(
     background = {
       val artworkColor = (it.media as? MediaUiModel.Ready)?.artworkColor
       if (artworkColor != null) {
-        ColorBackground(
-          color = artworkColor,
-          modifier = Modifier.fillMaxSize(),
-        )
+        ColorBackground(color = artworkColor, modifier = Modifier.fillMaxSize())
       } else {
         ArtworkImageBackground(
           artwork = (it.media as? MediaUiModel.Ready)?.artwork as? CoilPaintable,

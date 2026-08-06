@@ -32,10 +32,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 /** A simple text-only display showing status information or a message. */
 @ExperimentalHorologistApi
 @Composable
-public fun MessageMediaDisplay(
-  modifier: Modifier = Modifier,
-  message: String,
-) {
+public fun MessageMediaDisplay(modifier: Modifier = Modifier, message: String) {
   Box(modifier = modifier, contentAlignment = Alignment.Center) {
     val style = MaterialTheme.typography.body2
     Text(

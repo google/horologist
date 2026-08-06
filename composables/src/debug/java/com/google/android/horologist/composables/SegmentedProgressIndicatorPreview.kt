@@ -106,10 +106,7 @@ private fun SegmentedProgressIndicatorBrushColorCombinedPreview() {
         1f,
         Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
       ),
-      ProgressIndicatorSegment(
-        weight = 1f,
-        indicatorColor = Color.Cyan,
-      ),
+      ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Cyan),
       ProgressIndicatorSegment(
         weight = 1f,
         indicatorBrush = Brush.horizontalGradient(listOf(Color.Yellow, Color.Magenta, Color.Cyan)),

@@ -55,10 +55,7 @@ val text =
 
 @Composable
 fun WarningText() {
-  Text(
-    text,
-    modifier = Modifier.listTextPadding(),
-  )
+  Text(text, modifier = Modifier.listTextPadding())
 }
 
 fun ScalingLazyListScope.warningTextItems() {
@@ -96,20 +93,12 @@ fun BofACard() {
 
 @Composable
 fun LocationOnButton() {
-  Button(
-    imageVector = Icons.Filled.LocationOn,
-    contentDescription = "",
-    onClick = {},
-  )
+  Button(imageVector = Icons.Filled.LocationOn, contentDescription = "", onClick = {})
 }
 
 @Composable
 fun AddCircleButton() {
-  Button(
-    imageVector = Icons.Filled.AddCircle,
-    contentDescription = "",
-    onClick = {},
-  )
+  Button(imageVector = Icons.Filled.AddCircle, contentDescription = "", onClick = {})
 }
 
 @Composable
@@ -123,47 +112,27 @@ fun DoneCompactChip() {
 
 @Composable
 fun SystemChip() {
-  Chip(
-    label = "System",
-    onClick = {},
-    icon = Icons.Default.Schedule.asPaintable(),
-  )
+  Chip(label = "System", onClick = {}, icon = Icons.Default.Schedule.asPaintable())
 }
 
 @Composable
 fun AccountsChip() {
-  Chip(
-    label = "Accounts & Security",
-    onClick = {},
-    icon = Icons.Outlined.Badge.asPaintable(),
-  )
+  Chip(label = "Accounts & Security", onClick = {}, icon = Icons.Outlined.Badge.asPaintable())
 }
 
 @Composable
 fun SoundChip() {
-  Chip(
-    label = "Sound & vibration",
-    onClick = {},
-    icon = Icons.Default.Apps.asPaintable(),
-  )
+  Chip(label = "Sound & vibration", onClick = {}, icon = Icons.Default.Apps.asPaintable())
 }
 
 @Composable
 fun AppsChip() {
-  Chip(
-    label = "Apps & notifications",
-    onClick = {},
-    icon = Icons.Default.Apps.asPaintable(),
-  )
+  Chip(label = "Apps & notifications", onClick = {}, icon = Icons.Default.Apps.asPaintable())
 }
 
 @Composable
 fun ConnectivityChip() {
-  Chip(
-    label = "Connectivity",
-    onClick = {},
-    icon = Icons.Outlined.Cloud.asPaintable(),
-  )
+  Chip(label = "Connectivity", onClick = {}, icon = Icons.Outlined.Cloud.asPaintable())
 }
 
 @Composable

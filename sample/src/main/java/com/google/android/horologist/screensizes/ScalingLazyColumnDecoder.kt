@@ -85,23 +85,11 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
     val topPadding = with(density) { columnState.contentPadding.calculateTopPadding().toPx() }
     val scalingParams = columnState.scalingParams
     Canvas(modifier = Modifier.fillMaxSize()) {
-      drawLine(
-        Color.LightGray,
-        Offset(0f, size.height / 2f),
-        Offset(size.width, size.height / 2f),
-      )
+      drawLine(Color.LightGray, Offset(0f, size.height / 2f), Offset(size.width, size.height / 2f))
       val minTransition = scalingParams.minTransitionArea * size.height
       val maxTransition = scalingParams.maxTransitionArea * size.height
-      drawLine(
-        Color.Green,
-        Offset(0f, minTransition),
-        Offset(size.width, minTransition),
-      )
-      drawLine(
-        Color.Green,
-        Offset(0f, maxTransition),
-        Offset(size.width, maxTransition),
-      )
+      drawLine(Color.Green, Offset(0f, minTransition), Offset(size.width, minTransition))
+      drawLine(Color.Green, Offset(0f, maxTransition), Offset(size.width, maxTransition))
       drawLine(
         Color.Red,
         Offset(0f, size.height - minTransition),
@@ -112,16 +100,8 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
         Offset(0f, size.height - maxTransition),
         Offset(size.width, size.height - maxTransition),
       )
-      drawLine(
-        Color.Green,
-        Offset(leftPadding, 0f),
-        Offset(leftPadding, size.height),
-      )
-      drawLine(
-        Color.Green,
-        Offset(rightPadding, 0f),
-        Offset(rightPadding, size.height),
-      )
+      drawLine(Color.Green, Offset(leftPadding, 0f), Offset(leftPadding, size.height))
+      drawLine(Color.Green, Offset(rightPadding, 0f), Offset(rightPadding, size.height))
       drawIntoCanvas {
         it.nativeCanvas.drawText(
           "Min Height ${scalingParams.minElementHeight}",
@@ -158,11 +138,7 @@ fun ScalingLazyColumnDecoder(factory: ScalingLazyColumnState.Factory) {
           paint,
         )
         if (topPadding > 0f) {
-          drawLine(
-            Color.Yellow,
-            Offset(0f, topPadding),
-            Offset(size.width, topPadding),
-          )
+          drawLine(Color.Yellow, Offset(0f, topPadding), Offset(size.width, topPadding))
         }
       }
     }

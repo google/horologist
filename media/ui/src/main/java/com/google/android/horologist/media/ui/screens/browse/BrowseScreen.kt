@@ -61,11 +61,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
 public fun BrowseScreen(modifier: Modifier = Modifier, content: BrowseScreenScope.() -> Unit) {
   val columnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Text,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
   ScreenScaffold(scrollState = columnState) {

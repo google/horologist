@@ -22,10 +22,7 @@ import java.net.InetAddress
 
 /** A data class for the full current state of the interesting parts of [ConnectivityManager]. */
 @ExperimentalHorologistApi
-public data class Networks(
-  val activeNetwork: NetworkStatus?,
-  val networks: List<NetworkStatus>,
-) {
+public data class Networks(val activeNetwork: NetworkStatus?, val networks: List<NetworkStatus>) {
   public fun findNetworkByAddress(localSocketAddress: InetAddress): NetworkStatus? {
     return networks.find { networkStatus ->
       networkStatus.addresses.find { it == localSocketAddress } != null

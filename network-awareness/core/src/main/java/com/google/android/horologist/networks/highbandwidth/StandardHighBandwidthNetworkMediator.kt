@@ -69,10 +69,7 @@ public class StandardHighBandwidthNetworkMediator(
     }
   }
 
-  private data class CountAndLease(
-    val count: Int = 0,
-    val lease: NetworkLease? = null,
-  ) {
+  private data class CountAndLease(val count: Int = 0, val lease: NetworkLease? = null) {
     init {
       if (count > 0) {
         check(lease != null)
@@ -80,10 +77,7 @@ public class StandardHighBandwidthNetworkMediator(
     }
 
     fun updateCount(newLease: NetworkLease? = lease, delta: Int) =
-      copy(
-        count = count + delta,
-        lease = newLease,
-      )
+      copy(count = count + delta, lease = newLease)
   }
 
   private data class Requests(
@@ -94,10 +88,7 @@ public class StandardHighBandwidthNetworkMediator(
         HighBandwidthRequest.Type.WifiOnly to CountAndLease(),
       )
   ) {
-    fun update(
-      type: HighBandwidthRequest.Type,
-      fn: (CountAndLease) -> CountAndLease,
-    ): Requests {
+    fun update(type: HighBandwidthRequest.Type, fn: (CountAndLease) -> CountAndLease): Requests {
       val currentCountAndLease = types[type]!!
 
       val newCountAndLease = fn(currentCountAndLease)
@@ -117,10 +108,7 @@ public class StandardHighBandwidthNetworkMediator(
   }
 
   // Guarded by [requests.update]
-  private fun processRequest(
-    requests: Requests,
-    request: HighBandwidthRequest,
-  ): Requests =
+  private fun processRequest(requests: Requests, request: HighBandwidthRequest): Requests =
     requests.update(request.type) { countAndLease ->
       pendingCancel?.let {
         it.cancel()
@@ -142,10 +130,7 @@ public class StandardHighBandwidthNetworkMediator(
   }
 
   // Guarded by [requests.update]
-  private fun processRelease(
-    requests: Requests,
-    request: HighBandwidthRequest,
-  ): Requests =
+  private fun processRelease(requests: Requests, request: HighBandwidthRequest): Requests =
     requests.update(request.type) { countAndLease ->
       val shouldCancelLease = countAndLease.count == 1
       if (shouldCancelLease) {
@@ -163,10 +148,7 @@ public class StandardHighBandwidthNetworkMediator(
   }
 
   // Guarded by [requests.update]
-  private fun actuallyRelease(
-    requests: Requests,
-    request: HighBandwidthRequest,
-  ): Requests =
+  private fun actuallyRelease(requests: Requests, request: HighBandwidthRequest): Requests =
     requests.update(request.type) { countAndLease ->
       // Should only be here if count hasn't changed since scheduled
       check(countAndLease.count == 0) { "actuallyRelease called with count ${countAndLease.count}" }

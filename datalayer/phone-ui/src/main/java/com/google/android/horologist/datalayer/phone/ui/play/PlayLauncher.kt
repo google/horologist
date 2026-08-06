@@ -29,19 +29,13 @@ private const val PLAY_STORE_WEB_URL_PREFIX = "https://play.google.com/store/app
 public fun Context.launchPlay(packageName: String) {
   try {
     startActivity(
-      Intent(
-        Intent.ACTION_VIEW,
-        (PLAY_STORE_APP_URI_PREFIX + packageName).toUri(),
-      ),
+      Intent(Intent.ACTION_VIEW, (PLAY_STORE_APP_URI_PREFIX + packageName).toUri()),
       Bundle(),
     )
   } catch (anfe: ActivityNotFoundException) {
     // Handle scenario where Google Play app is not installed
     startActivity(
-      Intent(
-        Intent.ACTION_VIEW,
-        (PLAY_STORE_WEB_URL_PREFIX + packageName).toUri(),
-      ),
+      Intent(Intent.ACTION_VIEW, (PLAY_STORE_WEB_URL_PREFIX + packageName).toUri()),
       Bundle(),
     )
   }

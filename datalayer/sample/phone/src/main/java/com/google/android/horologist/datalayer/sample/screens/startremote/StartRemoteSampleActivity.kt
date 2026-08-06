@@ -38,10 +38,7 @@ class StartRemoteSampleActivity : ComponentActivity() {
 
     setContent {
       HorologistTheme {
-        Surface(
-          modifier = Modifier.fillMaxSize(),
-          color = MaterialTheme.colorScheme.background,
-        ) {
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
           Box(modifier = Modifier.fillMaxSize()) {
             Text(
               text = stringResource(id = R.string.app_helper_start_remote_activity_message),

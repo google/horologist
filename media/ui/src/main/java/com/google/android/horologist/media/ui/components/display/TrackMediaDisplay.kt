@@ -24,10 +24,7 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 /** A simple text only display of [MediaUiModel] showing artist and title in two separated rows. */
 @ExperimentalHorologistApi
 @Composable
-public fun TrackMediaDisplay(
-  media: MediaUiModel.Ready,
-  modifier: Modifier = Modifier,
-) {
+public fun TrackMediaDisplay(media: MediaUiModel.Ready, modifier: Modifier = Modifier) {
   TextMediaDisplay(
     title = media.title,
     subtitle = media.subtitle,

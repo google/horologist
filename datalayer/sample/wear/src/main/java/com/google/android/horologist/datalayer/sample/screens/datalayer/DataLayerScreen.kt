@@ -45,10 +45,7 @@ fun DataLayerScreen(
 ) {
   val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier.fillMaxSize(),
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier.fillMaxSize()) {
     item { Title(R.string.data_layer_title, Modifier) }
     item {
       Text(

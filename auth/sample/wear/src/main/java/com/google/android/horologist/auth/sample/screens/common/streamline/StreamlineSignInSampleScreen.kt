@@ -55,10 +55,7 @@ fun StreamlineSignInSampleScreen(
     onNoAccountsAvailable = { showNoAccountsAvailableDialog = true },
     viewModel = viewModel,
   ) {
-    Box(
-      modifier = modifier.fillMaxSize(),
-      contentAlignment = Alignment.Center,
-    ) {
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
       Icon(
         modifier = Modifier.size(48.dp),
         imageVector = Icons.Default.Android,

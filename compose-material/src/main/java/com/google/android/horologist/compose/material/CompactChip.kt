@@ -147,11 +147,7 @@ internal fun CompactChip(
       Row {
         val iconModifier = Modifier.size(ChipDefaults.SmallIconSize)
         if (it is PaintableIcon) {
-          Icon(
-            paintable = it,
-            contentDescription = contentDescription,
-            modifier = iconModifier,
-          )
+          Icon(paintable = it, contentDescription = contentDescription, modifier = iconModifier)
         } else {
           Image(
             painter = it.rememberPainter(),

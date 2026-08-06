@@ -46,10 +46,7 @@ class ConfigurableNetworkingRules : NetworkingRules {
     return requestCheck
   }
 
-  override fun getPreferredNetwork(
-    networks: Networks,
-    requestType: RequestType,
-  ): NetworkStatus? {
+  override fun getPreferredNetwork(networks: Networks, requestType: RequestType): NetworkStatus? {
     val preferredNetwork = preferredNetworks[requestType]
     return if (preferredNetwork != null) {
       val found = networks.networks.find { it.networkInfo.type == preferredNetwork }

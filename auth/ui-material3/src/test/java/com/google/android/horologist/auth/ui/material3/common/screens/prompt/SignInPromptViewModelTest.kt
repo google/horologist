@@ -99,11 +99,7 @@ class SignInPromptViewModelTest {
     // given
     val email = "user@example.com"
     val name = "Name"
-    fakeAuthUserRepository.authUser =
-      AuthUser(
-        email = email,
-        displayName = name,
-      )
+    fakeAuthUserRepository.authUser = AuthUser(email = email, displayName = name)
 
     // when
     sut.onIdleStateObserved()
@@ -111,14 +107,7 @@ class SignInPromptViewModelTest {
     // then
     sut.uiState.test {
       assertThat(awaitItem())
-        .isEqualTo(
-          SignInPromptScreenState.SignedIn(
-            AccountUiModel(
-              email = email,
-              name = name,
-            )
-          )
-        )
+        .isEqualTo(SignInPromptScreenState.SignedIn(AccountUiModel(email = email, name = name)))
     }
   }
 }

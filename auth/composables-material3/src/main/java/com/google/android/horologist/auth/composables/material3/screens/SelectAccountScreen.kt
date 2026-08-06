@@ -68,11 +68,7 @@ public fun SelectAccountScreen(
         )
     )
 
-  TransformingLazyColumn(
-    state = state,
-    contentPadding = contentPadding,
-    modifier = modifier,
-  ) {
+  TransformingLazyColumn(state = state, contentPadding = contentPadding, modifier = modifier) {
     item {
       ListHeader { Text(text = title, style = MaterialTheme.typography.titleLarge, maxLines = 2) }
     }

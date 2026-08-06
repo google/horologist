@@ -30,10 +30,7 @@ public abstract class BaseMessageClientServer(private val coroutineScope: Corout
 
     return coroutineScope.async {
       val result = execute(request)
-      messageResponse {
-        response = any { value = result.toByteString() }
-      }
-        .toByteArray()
+      messageResponse { response = any { value = result.toByteString() } }.toByteArray()
     }
   }
 

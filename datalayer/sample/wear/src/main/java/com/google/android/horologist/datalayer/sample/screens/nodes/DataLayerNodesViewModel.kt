@@ -49,11 +49,7 @@ constructor(private val registry: WearDataLayerRegistry) : ViewModel() {
     val self = registry.nodeClient.localNode.await()
     emit(registry.nodeClient.connectedNodes.await() + self)
   }
-    .shareIn(
-      viewModelScope,
-      started = SharingStarted.Eagerly,
-      replay = 1,
-    )
+    .shareIn(viewModelScope, started = SharingStarted.Eagerly, replay = 1)
 
   val protoState: Flow<Map<String, Data>> = flow {
     val ids = nodes.first().map { it.id }
@@ -69,11 +65,7 @@ constructor(private val registry: WearDataLayerRegistry) : ViewModel() {
   val thisDataStore: DataStore<Data> = registry.protoDataStore(viewModelScope)
 
   val state =
-    combine(
-        nodes,
-        protoState,
-        thisDataStore.data,
-      ) { nodes, protoMap, thisData ->
+    combine(nodes, protoState, thisDataStore.data) { nodes, protoMap, thisData ->
         UIState(nodes, protoMap, thisData)
       }
       .stateIn(

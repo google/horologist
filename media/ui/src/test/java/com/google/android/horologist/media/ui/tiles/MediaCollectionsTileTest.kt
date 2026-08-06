@@ -94,11 +94,6 @@ class MediaCollectionsTileTest : WearLegacyScreenTest() {
       )
     }
 
-    @Suppress("DEPRECATION")
-    (TileLayoutPreview(
-      tileState,
-      resourceState,
-      renderer,
-    ))
+    @Suppress("DEPRECATION") (TileLayoutPreview(tileState, resourceState, renderer))
   }
 }

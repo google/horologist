@@ -29,31 +29,18 @@ class CreateAccountChipTest : WearLegacyComponentTest() {
 
   @Test
   fun disabled() {
-    runComponentTest {
-      CreateAccountChip(
-        onClick = {},
-        enabled = false,
-      )
-    }
+    runComponentTest { CreateAccountChip(onClick = {}, enabled = false) }
   }
 
   @Test
   fun withLargeIconSpace() {
-    runComponentTest {
-      CreateAccountChip(
-        onClick = {},
-        largeIconSpace = true,
-      )
-    }
+    runComponentTest { CreateAccountChip(onClick = {}, largeIconSpace = true) }
   }
 
   @Test
   fun withSecondaryChipType() {
     runComponentTest {
-      CreateAccountChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
+      CreateAccountChip(onClick = {}, colors = ChipDefaults.secondaryChipColors())
     }
   }
 }

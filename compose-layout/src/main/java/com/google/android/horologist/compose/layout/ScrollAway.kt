@@ -99,11 +99,7 @@ public fun Modifier.scrollAway(scrollableState: () -> ScrollableState?): Modifie
 
     else -> {
       // Hide by display as offscreen
-      ScrollParams(
-        true,
-        false,
-        10000f,
-      )
+      ScrollParams(true, false, 10000f)
     }
   }
 }

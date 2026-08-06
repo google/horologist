@@ -26,53 +26,32 @@ class TimePicker12hTest : WearLegacyScreenTest() {
 
   @Test
   fun initial() {
-    runTest {
-      TimePickerWith12HourClock(
-        time = LocalTime.of(10, 10, 0),
-        onTimeConfirm = {},
-      )
-    }
+    runTest { TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {}) }
   }
 
   @Test
   fun midnight() {
-    runTest {
-      TimePickerWith12HourClock(
-        time = LocalTime.of(0, 0, 0),
-        onTimeConfirm = {},
-      )
-    }
+    runTest { TimePickerWith12HourClock(time = LocalTime.of(0, 0, 0), onTimeConfirm = {}) }
   }
 
   @Test
   @Config(fontScale = 1.24f)
   fun largestFontScaling() {
     runTest(applyDeviceConfig = false) {
-      TimePickerWith12HourClock(
-        time = LocalTime.of(10, 10, 0),
-        onTimeConfirm = {},
-      )
+      TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
     }
   }
 
   @Test
   fun smallDeviceLargeFontBold() {
     runTest(device = WearDevice.GooglePixelWatchLargeFont) {
-      TimePickerWith12HourClock(
-        time = LocalTime.of(10, 10, 0),
-        onTimeConfirm = {},
-      )
+      TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
     }
   }
 
   @Test
   @Config(qualifiers = "+en-rGB")
   fun localeEnGb() {
-    runTest {
-      TimePickerWith12HourClock(
-        time = LocalTime.of(10, 10, 0),
-        onTimeConfirm = {},
-      )
-    }
+    runTest { TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {}) }
   }
 }

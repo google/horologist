@@ -57,15 +57,9 @@ public fun AnimatedSetVolumeButton(
     val lastVolumeBefore = lastVolume
     lastVolume = volumeUiState.current
     if (volumeUiState.current > lastVolumeBefore) {
-      lottieAnimatable.animate(
-        iterations = 1,
-        composition = volumeUp,
-      )
+      lottieAnimatable.animate(iterations = 1, composition = volumeUp)
     } else {
-      lottieAnimatable.animate(
-        iterations = 1,
-        composition = volumeDown,
-      )
+      lottieAnimatable.animate(iterations = 1, composition = volumeDown)
     }
   }
 

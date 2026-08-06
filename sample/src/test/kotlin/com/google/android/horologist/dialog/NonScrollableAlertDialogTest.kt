@@ -35,20 +35,12 @@ class NonScrollableAlertDialogTest(device: WearDevice) : WearDeviceScreenshotTes
 
   @Test
   fun turnOnBluetoothScrollable() = runTest {
-    AlertContent(
-      title = "Turn on Bluetooth?",
-      onOk = {},
-      onCancel = {},
-    )
+    AlertContent(title = "Turn on Bluetooth?", onOk = {}, onCancel = {})
   }
 
   @Test
   fun turnOnBluetooth() = runTest {
-    NonScrollableAlertContent(
-      title = "Turn on Bluetooth?",
-      onOk = {},
-      onCancel = {},
-    )
+    NonScrollableAlertContent(title = "Turn on Bluetooth?", onOk = {}, onCancel = {})
   }
 
   @Test

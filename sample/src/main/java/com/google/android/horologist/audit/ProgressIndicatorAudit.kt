@@ -48,10 +48,7 @@ fun ProgressIndicatorAudit(route: AuditNavigation.ProgressIndicator.Audit) {
     }
 
     AuditNavigation.ProgressIndicator.Config.WithoutGap -> {
-      CircularProgressIndicator(
-        0.40f,
-        modifier = Modifier.fillMaxSize().padding(1.dp),
-      )
+      CircularProgressIndicator(0.40f, modifier = Modifier.fillMaxSize().padding(1.dp))
     }
 
     AuditNavigation.ProgressIndicator.Config.Indeterminate -> {

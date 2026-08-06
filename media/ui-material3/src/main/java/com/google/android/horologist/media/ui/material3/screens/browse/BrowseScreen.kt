@@ -54,10 +54,7 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
  */
 @ExperimentalHorologistApi
 @Composable
-public fun BrowseScreen(
-  modifier: Modifier = Modifier,
-  content: BrowseScreenScope.() -> Unit,
-) {
+public fun BrowseScreen(modifier: Modifier = Modifier, content: BrowseScreenScope.() -> Unit) {
   val scrollState = rememberScalingLazyListState()
   ScreenScaffold(scrollState = scrollState) {
     SectionedList(
@@ -162,12 +159,7 @@ public class BrowseScreenScope {
           FilledTonalButton(
             onClick = item.onClick,
             label = { Text(stringResource(item.textId)) },
-            icon = {
-              Icon(
-                imageVector = item.icon,
-                contentDescription = null,
-              )
-            },
+            icon = { Icon(imageVector = item.icon, contentDescription = null) },
             modifier = Modifier.fillMaxWidth(),
           )
         },
@@ -184,12 +176,7 @@ public class BrowseScreenScope {
           FilledTonalButton(
             onClick = item.onClick,
             label = { Text(stringResource(item.textId)) },
-            icon = {
-              Icon(
-                imageVector = item.icon,
-                contentDescription = null,
-              )
-            },
+            icon = { Icon(imageVector = item.icon, contentDescription = null) },
             modifier = Modifier.fillMaxWidth(),
           )
         },

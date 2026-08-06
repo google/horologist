@@ -31,10 +31,7 @@ internal fun SampleToggleChipScreen(
   modifier: Modifier = Modifier,
   columnState: ScalingLazyColumnState,
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
     item {
       ToggleChip(
         checked = true,

@@ -144,10 +144,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
           ) {
             item {
               IconButton(onClick = {}) {
-                Icon(
-                  imageVector = Icons.Rounded.ArrowUpward,
-                  contentDescription = null,
-                )
+                Icon(imageVector = Icons.Rounded.ArrowUpward, contentDescription = null)
               }
             }
             items(3) {
@@ -201,10 +198,7 @@ class TransformingLazyColumnDefaultsTest(override val device: WearDevice) : Wear
           ) {
             item {
               OutlinedIconButton(onClick = {}) {
-                Icon(
-                  imageVector = Icons.Rounded.ArrowUpward,
-                  contentDescription = null,
-                )
+                Icon(imageVector = Icons.Rounded.ArrowUpward, contentDescription = null)
               }
             }
             items(3) {

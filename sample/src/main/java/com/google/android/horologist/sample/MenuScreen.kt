@@ -32,10 +32,7 @@ import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.SecondaryTitle
 
 @Composable
-fun MenuScreen(
-  modifier: Modifier = Modifier,
-  navigateToRoute: (String) -> Unit,
-) {
+fun MenuScreen(modifier: Modifier = Modifier, navigateToRoute: (String) -> Unit) {
   val columnState =
     rememberResponsiveColumnState(
       contentPadding =
@@ -46,71 +43,32 @@ fun MenuScreen(
     )
 
   ScreenScaffold(scrollState = columnState) {
-    ScalingLazyColumn(
-      columnState = columnState,
-      modifier = modifier,
-    ) {
+    ScalingLazyColumn(columnState = columnState, modifier = modifier) {
       item { ListHeader { Text(text = "Samples") } }
-      item {
-        Chip(
-          label = "Material3",
-          onClick = { navigateToRoute(Screen.Material3.route) },
-        )
-      }
+      item { Chip(label = "Material3", onClick = { navigateToRoute(Screen.Material3.route) }) }
       item {
         Chip(
           label = "Fast Scrolling TLC",
           onClick = { navigateToRoute(Screen.FastScrollingTLC.route) },
         )
       }
-      item {
-        Chip(
-          label = "Lottie Animation",
-          onClick = { navigateToRoute(Screen.Lottie.route) },
-        )
-      }
-      item {
-        Chip(
-          label = "Networks",
-          onClick = { navigateToRoute(Screen.Network.route) },
-        )
-      }
+      item { Chip(label = "Lottie Animation", onClick = { navigateToRoute(Screen.Lottie.route) }) }
+      item { Chip(label = "Networks", onClick = { navigateToRoute(Screen.Network.route) }) }
       item {
         Chip(
           label = "Fill Max Rectangle",
           onClick = { navigateToRoute(Screen.FillMaxRectangle.route) },
         )
       }
-      item {
-        Chip(
-          label = "Volume Screen",
-          onClick = { navigateToRoute(Screen.Volume.route) },
-        )
-      }
+      item { Chip(label = "Volume Screen", onClick = { navigateToRoute(Screen.Volume.route) }) }
       item { SecondaryTitle("Composables") }
+      item { Chip(label = "Time Picker", onClick = { navigateToRoute(Screen.TimePicker.route) }) }
+      item { Chip(label = "Date Picker", onClick = { navigateToRoute(Screen.DatePicker.route) }) }
       item {
-        Chip(
-          label = "Time Picker",
-          onClick = { navigateToRoute(Screen.TimePicker.route) },
-        )
+        Chip(label = "From Date Picker", onClick = { navigateToRoute(Screen.FromDatePicker.route) })
       }
       item {
-        Chip(
-          label = "Date Picker",
-          onClick = { navigateToRoute(Screen.DatePicker.route) },
-        )
-      }
-      item {
-        Chip(
-          label = "From Date Picker",
-          onClick = { navigateToRoute(Screen.FromDatePicker.route) },
-        )
-      }
-      item {
-        Chip(
-          label = "To Date Picker",
-          onClick = { navigateToRoute(Screen.ToDatePicker.route) },
-        )
+        Chip(label = "To Date Picker", onClick = { navigateToRoute(Screen.ToDatePicker.route) })
       }
       item {
         Chip(
@@ -261,8 +219,5 @@ fun MenuScreen(
 @WearPreviewDevices
 @Composable
 fun MenuScreenPreview() {
-  MenuScreen(
-    modifier = Modifier.fillMaxSize(),
-    navigateToRoute = {},
-  )
+  MenuScreen(modifier = Modifier.fillMaxSize(), navigateToRoute = {})
 }

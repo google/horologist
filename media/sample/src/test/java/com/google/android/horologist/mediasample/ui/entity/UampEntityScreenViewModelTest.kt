@@ -79,11 +79,7 @@ class UampEntityScreenViewModelTest {
         ),
     )
 
-  private val playlistUiModel =
-    PlaylistUiModel(
-      id = playlistId,
-      title = playlistName,
-    )
+  private val playlistUiModel = PlaylistUiModel(id = playlistId, title = playlistName)
 
   private val savedStateHandle = SavedStateHandle()
   private val fakePlaylistDownloadDataSource =

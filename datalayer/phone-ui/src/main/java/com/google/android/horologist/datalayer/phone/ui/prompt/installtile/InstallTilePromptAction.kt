@@ -26,11 +26,6 @@ internal object InstallTilePromptAction {
     "https://madeby.google.com/wear-companion/navigation?dest=tile_management_add"
 
   fun run(context: Context) {
-    context.startActivity(
-      Intent(
-        Intent.ACTION_VIEW,
-        Uri.parse(TILE_EDITOR_URL),
-      )
-    )
+    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(TILE_EDITOR_URL)))
   }
 }

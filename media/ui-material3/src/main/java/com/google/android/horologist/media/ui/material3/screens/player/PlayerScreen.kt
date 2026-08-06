@@ -186,18 +186,12 @@ public fun PlayerScreen(
   Box(modifier = modifier.fillMaxSize()) {
     background()
 
-    Column(
-      modifier = Modifier.fillMaxSize(),
-      verticalArrangement = Arrangement.SpaceBetween,
-    ) {
+    Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween) {
       Box(
         modifier =
           Modifier.fillMaxWidth()
             .requiredHeight(topSectionHeight)
-            .padding(
-              top = topSectionTopPadding,
-              bottom = topSectionBottomPadding,
-            ),
+            .padding(top = topSectionTopPadding, bottom = topSectionBottomPadding),
         contentAlignment = Alignment.BottomCenter,
       ) {
         mediaDisplay()
@@ -208,10 +202,7 @@ public fun PlayerScreen(
       ) {
         controlButtons()
       }
-      Box(
-        modifier = Modifier.weight(1f).fillMaxWidth(),
-        contentAlignment = Alignment.Center,
-      ) {
+      Box(modifier = Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
         buttons()
       }
     }

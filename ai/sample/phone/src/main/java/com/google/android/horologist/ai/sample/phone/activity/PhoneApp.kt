@@ -29,11 +29,7 @@ fun PhoneApp(
   modifier: Modifier = Modifier,
   navController: NavHostController = rememberNavController(),
 ) {
-  NavHost(
-    modifier = modifier,
-    startDestination = Home,
-    navController = navController,
-  ) {
+  NavHost(modifier = modifier, startDestination = Home, navController = navController) {
     composable<Home> { StatusScreen() }
   }
 }

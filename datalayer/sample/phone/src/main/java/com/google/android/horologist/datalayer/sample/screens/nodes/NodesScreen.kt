@@ -52,10 +52,7 @@ import com.google.android.horologist.datalayer.sample.R
 import com.google.android.horologist.datalayer.sample.util.toProtoTimestamp
 
 @Composable
-fun NodesScreen(
-  modifier: Modifier = Modifier,
-  viewModel: NodesViewModel = hiltViewModel(),
-) {
+fun NodesScreen(modifier: Modifier = Modifier, viewModel: NodesViewModel = hiltViewModel()) {
   val state by viewModel.uiState.collectAsStateWithLifecycle()
 
   if (state == NodesScreenState.Idle) {

@@ -76,31 +76,19 @@ fun SamplePromptScreen(
 
   val voiceIntent: Intent =
     Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
-      putExtra(
-        RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM,
-      )
+      putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
 
-      putExtra(
-        RecognizerIntent.EXTRA_PROMPT,
-        stringResource(R.string.prompt_input),
-      )
+      putExtra(RecognizerIntent.EXTRA_PROMPT, stringResource(R.string.prompt_input))
     }
 
-  SamplePromptScreen(
-    uiState = uiState,
-    modifier = modifier,
-    onSettingsClick = onSettingsClick,
-  ) { pending ->
+  SamplePromptScreen(uiState = uiState, modifier = modifier, onSettingsClick = onSettingsClick) {
+    pending ->
     EdgeButton(
       onClick = { voiceLauncher.launch(voiceIntent) },
       buttonSize = EdgeButtonSize.ExtraSmall,
       enabled = !pending,
     ) {
-      Icon(
-        Icons.Default.Mic,
-        contentDescription = stringResource(R.string.prompt_input),
-      )
+      Icon(Icons.Default.Mic, contentDescription = stringResource(R.string.prompt_input))
     }
   }
 }
@@ -133,11 +121,7 @@ private fun ModelDisplay(
   transformation: SurfaceTransformation? = null,
 ) {
   if (model is TextResponseUiModel) {
-    SampleTextResponseCard(
-      model,
-      modifier = modifier,
-      transformation = transformation,
-    )
+    SampleTextResponseCard(model, modifier = modifier, transformation = transformation)
   } else {
     PromptOrResponseDisplay(
       promptResponse = model,
@@ -160,11 +144,7 @@ public fun SampleTextResponseCard(
     colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surfaceContainer),
     transformation = transformation,
   ) {
-    Markdown(
-      textResponseUiModel.text,
-      colors = sampleColors(),
-      typography = sampleTypography(),
-    )
+    Markdown(textResponseUiModel.text, colors = sampleColors(), typography = sampleTypography())
   }
 }
 
@@ -175,10 +155,7 @@ fun SamplePromptScreenPreviewEmpty() {
   SamplePromptScreen(
     uiState = PromptUiState(),
     promptEntry = {
-      EdgeButton(
-        onClick = {},
-        buttonSize = EdgeButtonSize.ExtraSmall,
-      ) {
+      EdgeButton(onClick = {}, buttonSize = EdgeButtonSize.ExtraSmall) {
         Icon(
           imageVector = Icons.Default.QuestionAnswer,
           contentDescription = stringResource(R.string.ask_again),
@@ -212,10 +189,7 @@ fun SamplePromptScreenPreviewMany() {
         ),
       ),
     promptEntry = {
-      EdgeButton(
-        onClick = {},
-        buttonSize = EdgeButtonSize.ExtraSmall,
-      ) {
+      EdgeButton(onClick = {}, buttonSize = EdgeButtonSize.ExtraSmall) {
         Icon(
           imageVector = Icons.Default.QuestionAnswer,
           contentDescription = stringResource(R.string.ask_again),
@@ -240,10 +214,7 @@ fun SamplePromptScreenPreviewQuestion() {
         true,
       ),
     promptEntry = {
-      EdgeButton(
-        onClick = {},
-        buttonSize = EdgeButtonSize.ExtraSmall,
-      ) {
+      EdgeButton(onClick = {}, buttonSize = EdgeButtonSize.ExtraSmall) {
         Icon(
           imageVector = Icons.Default.QuestionAnswer,
           contentDescription = stringResource(R.string.ask_again),
@@ -266,10 +237,7 @@ fun SamplePromptScreenPreviewMarkdown() {
         ),
       ),
     promptEntry = {
-      EdgeButton(
-        onClick = {},
-        buttonSize = EdgeButtonSize.ExtraSmall,
-      ) {
+      EdgeButton(onClick = {}, buttonSize = EdgeButtonSize.ExtraSmall) {
         Icon(
           imageVector = Icons.Default.QuestionAnswer,
           contentDescription = stringResource(R.string.ask_again),

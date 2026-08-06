@@ -30,13 +30,7 @@ class PlaylistDownloadUiModelMapperTest {
     val id = "id"
     val name = "name"
     val artworkUri = "artworkUri"
-    val playlist =
-      Playlist(
-        id = id,
-        name = name,
-        artworkUri = artworkUri,
-        mediaList = emptyList(),
-      )
+    val playlist = Playlist(id = id, name = name, artworkUri = artworkUri, mediaList = emptyList())
 
     // when
     val result = PlaylistDownloadUiModelMapper.map(playlist)
@@ -45,11 +39,7 @@ class PlaylistDownloadUiModelMapperTest {
     assertThat(result)
       .isEqualTo(
         PlaylistDownloadUiModel.Completed(
-          PlaylistUiModel(
-            id = id,
-            title = name,
-            artworkUri = artworkUri,
-          )
+          PlaylistUiModel(id = id, title = name, artworkUri = artworkUri)
         )
       )
   }

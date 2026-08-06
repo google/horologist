@@ -43,34 +43,13 @@ class MediaDownloadEntityStatusMapperTest(
     @Parameterized.Parameters(name = "{0} -> {1}")
     fun params() =
       listOf(
-        arrayOf<Any>(
-          Download.STATE_QUEUED,
-          MediaDownloadEntityStatus.Downloading,
-        ),
-        arrayOf<Any>(
-          Download.STATE_STOPPED,
-          MediaDownloadEntityStatus.NotDownloaded,
-        ),
-        arrayOf<Any>(
-          Download.STATE_DOWNLOADING,
-          MediaDownloadEntityStatus.Downloading,
-        ),
-        arrayOf<Any>(
-          Download.STATE_COMPLETED,
-          MediaDownloadEntityStatus.Downloaded,
-        ),
-        arrayOf<Any>(
-          Download.STATE_FAILED,
-          MediaDownloadEntityStatus.Failed,
-        ),
-        arrayOf<Any>(
-          Download.STATE_REMOVING,
-          MediaDownloadEntityStatus.NotDownloaded,
-        ),
-        arrayOf<Any>(
-          Download.STATE_RESTARTING,
-          MediaDownloadEntityStatus.Downloading,
-        ),
+        arrayOf<Any>(Download.STATE_QUEUED, MediaDownloadEntityStatus.Downloading),
+        arrayOf<Any>(Download.STATE_STOPPED, MediaDownloadEntityStatus.NotDownloaded),
+        arrayOf<Any>(Download.STATE_DOWNLOADING, MediaDownloadEntityStatus.Downloading),
+        arrayOf<Any>(Download.STATE_COMPLETED, MediaDownloadEntityStatus.Downloaded),
+        arrayOf<Any>(Download.STATE_FAILED, MediaDownloadEntityStatus.Failed),
+        arrayOf<Any>(Download.STATE_REMOVING, MediaDownloadEntityStatus.NotDownloaded),
+        arrayOf<Any>(Download.STATE_RESTARTING, MediaDownloadEntityStatus.Downloading),
       )
   }
 }

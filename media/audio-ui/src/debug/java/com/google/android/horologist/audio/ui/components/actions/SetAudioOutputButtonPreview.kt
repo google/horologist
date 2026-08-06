@@ -23,12 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 
-@Preview(
-  name = "Other volume",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-  widthDp = 60,
-)
+@Preview(name = "Other volume", backgroundColor = 0xff000000, showBackground = true, widthDp = 60)
 @Composable
 fun SetAudioOutputButtonPreview() {
   SetAudioOutputButton(
@@ -39,12 +34,7 @@ fun SetAudioOutputButtonPreview() {
   )
 }
 
-@Preview(
-  name = "Min volume",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-  widthDp = 60,
-)
+@Preview(name = "Min volume", backgroundColor = 0xff000000, showBackground = true, widthDp = 60)
 @Composable
 fun SetAudioOutputButtonPreviewMinVolume() {
   SetAudioOutputButton(
@@ -55,12 +45,7 @@ fun SetAudioOutputButtonPreviewMinVolume() {
   )
 }
 
-@Preview(
-  name = "Max volume",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-  widthDp = 60,
-)
+@Preview(name = "Max volume", backgroundColor = 0xff000000, showBackground = true, widthDp = 60)
 @Composable
 fun SetAudioOutputButtonPreviewMaxVolume() {
   SetAudioOutputButton(
@@ -71,12 +56,7 @@ fun SetAudioOutputButtonPreviewMaxVolume() {
   )
 }
 
-@Preview(
-  name = "NoAudioOutput",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-  widthDp = 60,
-)
+@Preview(name = "NoAudioOutput", backgroundColor = 0xff000000, showBackground = true, widthDp = 60)
 @Composable
 fun SetAudioOutputButtonPreviewNoOutput() {
   SetAudioOutputButton(

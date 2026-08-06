@@ -66,10 +66,7 @@ import com.google.android.horologist.mediasample.ui.settings.UampSettingsScreen
 
 @Suppress("UNCHECKED_CAST")
 @Composable
-fun UampWearApp(
-  backStack: NavBackStack<MediaRoute>,
-  intent: Intent,
-) {
+fun UampWearApp(backStack: NavBackStack<MediaRoute>, intent: Intent) {
   val appViewModel: MediaPlayerAppViewModel = hiltViewModel()
   val volumeViewModel: VolumeViewModel = hiltViewModel()
   val mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel = hiltViewModel()
@@ -168,12 +165,7 @@ fun UampWearApp(
           onErrorDialogCancelClick = { backStack.removeLastOrNull() },
         )
       },
-      settingsScreen = {
-        UampSettingsScreen(
-          viewModel = hiltViewModel(),
-          backStack = backStack,
-        )
-      },
+      settingsScreen = { UampSettingsScreen(viewModel = hiltViewModel(), backStack = backStack) },
       volumeViewModel = volumeViewModel,
       timeText = { MediaInfoTimeText(mediaInfoTimeTextViewModel = mediaInfoTimeTextViewModel) },
       deepLinkPrefix = appViewModel.deepLinkPrefix,

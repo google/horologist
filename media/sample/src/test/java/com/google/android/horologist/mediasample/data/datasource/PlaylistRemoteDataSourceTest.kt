@@ -34,11 +34,7 @@ class PlaylistRemoteDataSourceTest {
 
   @Before
   fun setUp() {
-    sut =
-      PlaylistRemoteDataSource(
-        ioDispatcher = testDispatcher,
-        uampService = uampService,
-      )
+    sut = PlaylistRemoteDataSource(ioDispatcher = testDispatcher, uampService = uampService)
   }
 
   @Test

@@ -37,10 +37,7 @@ constructor(
   private val authUserRepository: GoogleSignInAuthUserRepository,
 ) : ViewModel() {
   val screenState =
-    combine(
-        settingsRepository.settingsFlow,
-        authUserRepository.authState,
-      ) { settings, authState ->
+    combine(settingsRepository.settingsFlow, authUserRepository.authState) { settings, authState ->
         SettingsScreenState(
           authUser = authState,
           guestMode = settings.guestMode,

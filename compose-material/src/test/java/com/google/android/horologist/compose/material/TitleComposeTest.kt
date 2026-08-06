@@ -45,12 +45,7 @@ class TitleComposeTest {
   @Test
   fun givenHeadingModifierIsOverridden_thenHeadingModifierIsNOTPresent() {
     // given
-    composeTestRule.setContent {
-      Title(
-        text = "text",
-        modifier = Modifier.clearAndSetSemantics {},
-      )
-    }
+    composeTestRule.setContent { Title(text = "text", modifier = Modifier.clearAndSetSemantics {}) }
 
     // then
     composeTestRule

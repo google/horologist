@@ -91,10 +91,7 @@ class DownloadBenchmark {
       }
     }
 
-  private fun MacrobenchmarkScope.sendTestBroadcast(
-    command: String,
-    argument: String,
-  ) {
+  private fun MacrobenchmarkScope.sendTestBroadcast(command: String, argument: String) {
     println("sending")
     val result =
       device.executeShellCommand(

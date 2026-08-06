@@ -40,10 +40,7 @@ class CompactChipTest : WearLegacyComponentTest() {
             CoilPaintable(
               "iconUri",
               placeholder =
-                rememberVectorPainter(
-                  image = Icons.Filled.Image,
-                  tintColor = Color.Black,
-                ),
+                rememberVectorPainter(image = Icons.Filled.Image, tintColor = Color.Black),
             ),
         )
       }

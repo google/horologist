@@ -54,10 +54,7 @@ fun InfoScreen(
   columnState: ScalingLazyColumnState,
   modifier: Modifier = Modifier,
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
     item { Text(text = message, modifier = Modifier.padding(top = 20.dp)) }
     item {
       Button(

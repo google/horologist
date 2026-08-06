@@ -33,16 +33,9 @@ internal fun SampleOutlinedChipScreen(
   modifier: Modifier = Modifier,
   columnState: ScalingLazyColumnState,
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
     item {
-      OutlinedChip(
-        label = "Primary label",
-        onClick = {},
-        icon = Icons.Default.Image.asPaintable(),
-      )
+      OutlinedChip(label = "Primary label", onClick = {}, icon = Icons.Default.Image.asPaintable())
     }
     item {
       OutlinedChip(

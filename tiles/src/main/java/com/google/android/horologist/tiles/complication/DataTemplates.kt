@@ -49,13 +49,7 @@ public object DataTemplates {
       )
       .apply {
         if (icon != null) {
-          setSmallImage(
-            SmallImage.Builder(
-                image = icon,
-                type = type,
-              )
-              .build()
-          )
+          setSmallImage(SmallImage.Builder(image = icon, type = type).build())
         }
         if (title != null) {
           setTitle(PlainComplicationText.Builder(text = title).build())
@@ -72,12 +66,7 @@ public object DataTemplates {
     contentDescription: ComplicationText? = null,
   ): SmallImageComplicationData =
     SmallImageComplicationData.Builder(
-        smallImage =
-          SmallImage.Builder(
-              image = icon,
-              type = type,
-            )
-            .build(),
+        smallImage = SmallImage.Builder(image = icon, type = type).build(),
         contentDescription =
           contentDescription ?: PlainComplicationText.Builder(text = name).build(),
       )
@@ -143,10 +132,7 @@ public object DataTemplates {
       .build()
 
   public fun ComplicationTemplate<*>.icon(@DrawableRes id: Int): Icon =
-    Icon.createWithResource(
-      context,
-      id,
-    )
+    Icon.createWithResource(context, id)
 
   public fun ComplicationTemplate<*>.text(@StringRes id: Int): String =
     context.getText(id).toString()

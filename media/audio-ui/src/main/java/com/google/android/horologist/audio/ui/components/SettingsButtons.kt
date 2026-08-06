@@ -48,16 +48,9 @@ public fun SettingsButtons(
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.Center,
   ) {
-    SetVolumeButton(
-      onVolumeClick = onVolumeClick,
-      volumeUiState = volumeUiState,
-      enabled = enabled,
-    )
+    SetVolumeButton(onVolumeClick = onVolumeClick, volumeUiState = volumeUiState, enabled = enabled)
     brandIcon()
-    AudioOutputButton(
-      onOutputClick = onOutputClick,
-      enabled = enabled,
-    )
+    AudioOutputButton(onOutputClick = onOutputClick, enabled = enabled)
   }
 }
 

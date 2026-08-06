@@ -41,11 +41,7 @@ class MediaButtonTest : WearLegacyComponentTest() {
   @Test
   fun givenMediaWithNoArtwork_thenDoesNotDisplayArtwork() {
     runComponentTest {
-      MediaDetailsButton(
-        title = "Red Hot Chilli Peppers",
-        artworkPaintable = null,
-        onClick = {},
-      )
+      MediaDetailsButton(title = "Red Hot Chilli Peppers", artworkPaintable = null, onClick = {})
     }
   }
 
@@ -64,11 +60,7 @@ class MediaButtonTest : WearLegacyComponentTest() {
   fun givenNoTitle_thenDisplaysDefaultTitle() {
     runComponentTest {
       MediaDetailsButton(
-        media =
-          MediaUiModel.Ready(
-            id = "id",
-            title = "",
-          ),
+        media = MediaUiModel.Ready(id = "id", title = ""),
         onClick = {},
         defaultTitle = "No title",
       )
@@ -79,11 +71,7 @@ class MediaButtonTest : WearLegacyComponentTest() {
   fun givenModifier_thenAppliesModifierCorrectly() {
     runComponentTest {
       MediaDetailsButton(
-        media =
-          MediaUiModel.Ready(
-            id = "id",
-            title = "Red Hot Chilli Peppers",
-          ),
+        media = MediaUiModel.Ready(id = "id", title = "Red Hot Chilli Peppers"),
         onClick = {},
         modifier = Modifier.height(120.dp),
       )

@@ -76,10 +76,7 @@ object PlaybackServiceModule {
   @Provides
   fun loadControl(): LoadControl =
     DefaultLoadControl.Builder()
-      .setBackBuffer(
-        /* backBufferDurationMs = */ 30_000,
-        /* retainBackBufferFromKeyframe = */ false,
-      )
+      .setBackBuffer(/* backBufferDurationMs= */ 30_000, /* retainBackBufferFromKeyframe= */ false)
       .build()
 
   @ServiceScoped
@@ -93,11 +90,7 @@ object PlaybackServiceModule {
     wearMedia3Factory: WearMedia3Factory,
     audioSink: DefaultAudioSink,
     mediaCodecSelector: MediaCodecSelector,
-  ) =
-    wearMedia3Factory.audioOnlyRenderersFactory(
-      audioSink,
-      mediaCodecSelector,
-    )
+  ) = wearMedia3Factory.audioOnlyRenderersFactory(audioSink, mediaCodecSelector)
 
   @ServiceScoped
   @Provides
@@ -115,10 +108,7 @@ object PlaybackServiceModule {
     transferListener: TransferListener,
   ): OkHttpDataSource.Factory =
     OkHttpDataSource.Factory(
-        NetworkAwareCallFactory(
-          callFactory,
-          defaultRequestType = StreamRequest,
-        )
+        NetworkAwareCallFactory(callFactory, defaultRequestType = StreamRequest)
       )
       .setCacheControl(CacheControl.Builder().noCache().noStore().build())
       .setTransferListener(transferListener)
@@ -226,11 +216,7 @@ object PlaybackServiceModule {
     librarySessionCallback: MediaLibrarySession.Callback,
     intentBuilder: IntentBuilder,
   ): MediaLibrarySession =
-    MediaLibrarySession.Builder(
-        service as MediaLibraryService,
-        player,
-        librarySessionCallback,
-      )
+    MediaLibrarySession.Builder(service as MediaLibraryService, player, librarySessionCallback)
       .setSessionActivity(intentBuilder.buildPlayerIntent())
       .build()
       .also {

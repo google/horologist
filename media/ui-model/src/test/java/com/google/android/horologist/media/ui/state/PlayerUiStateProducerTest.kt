@@ -43,12 +43,7 @@ class PlayerUiStateProducerTest {
           connectedValue = true,
           availableCommandsValue = setOf(Command.PlayPause, Command.SeekBack),
           currentMediaValue =
-            Media(
-              id = "id",
-              uri = "http://uri",
-              title = "title",
-              artist = "artist",
-            ),
+            Media(id = "id", uri = "http://uri", title = "title", artist = "artist"),
           playbackStateEvent =
             PlaybackStateEvent(
               PlaybackState(

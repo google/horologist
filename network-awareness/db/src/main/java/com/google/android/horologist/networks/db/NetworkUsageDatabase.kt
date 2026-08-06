@@ -24,11 +24,7 @@ import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import java.time.Instant
 
-@Database(
-  entities = [DataUsage::class],
-  version = 1,
-  exportSchema = false,
-)
+@Database(entities = [DataUsage::class], version = 1, exportSchema = false)
 @TypeConverters(NetworkUsageDatabase.Converters::class)
 public abstract class NetworkUsageDatabase : RoomDatabase() {
   public abstract fun networkUsageDao(): NetworkUsageDao
@@ -52,11 +48,7 @@ public abstract class NetworkUsageDatabase : RoomDatabase() {
       return synchronized(this) {
         if (!Companion::INSTANCE.isInitialized) {
           val instance =
-            Room.databaseBuilder(
-                context,
-                NetworkUsageDatabase::class.java,
-                "networkUsage",
-              )
+            Room.databaseBuilder(context, NetworkUsageDatabase::class.java, "networkUsage")
               // TODO support migrations
               .fallbackToDestructiveMigration(dropAllTables = true)
               .apply {

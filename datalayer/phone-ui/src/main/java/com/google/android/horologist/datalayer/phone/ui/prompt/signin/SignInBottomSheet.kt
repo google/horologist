@@ -158,10 +158,7 @@ internal fun SignInBottomSheetPortraitContent(
       modifier = Modifier.padding(horizontal = PADDING_PINK).fillMaxWidth(),
       horizontalArrangement = Arrangement.End,
     ) {
-      TextButton(
-        onClick = onDismissRequest,
-        modifier = Modifier.padding(end = PADDING_GREEN),
-      ) {
+      TextButton(onClick = onDismissRequest, modifier = Modifier.padding(end = PADDING_GREEN)) {
         Text(text = negativeButtonLabel)
       }
 
@@ -220,10 +217,7 @@ internal fun SignInBottomSheetLandscapeContent(
       modifier = Modifier.padding(top = PADDING_BLUE, bottom = PADDING_PINK).fillMaxWidth(),
       horizontalArrangement = Arrangement.End,
     ) {
-      TextButton(
-        onClick = onDismissRequest,
-        modifier = Modifier.padding(end = PADDING_GREEN),
-      ) {
+      TextButton(onClick = onDismissRequest, modifier = Modifier.padding(end = PADDING_GREEN)) {
         Text(text = negativeButtonLabel)
       }
 

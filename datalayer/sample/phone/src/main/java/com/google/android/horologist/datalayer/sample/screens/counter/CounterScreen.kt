@@ -52,11 +52,7 @@ fun CounterScreen(
     SideEffect { viewModel.initialize() }
   }
 
-  CounterScreen(
-    state = state,
-    onPlusClick = { viewModel.updateCounter() },
-    modifier = modifier,
-  )
+  CounterScreen(state = state, onPlusClick = { viewModel.updateCounter() }, modifier = modifier)
 }
 
 @Composable

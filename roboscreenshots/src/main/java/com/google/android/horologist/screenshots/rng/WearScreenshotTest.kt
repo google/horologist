@@ -52,10 +52,7 @@ import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
-@Config(
-  sdk = [35],
-  qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-)
+@Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Category(ScreenshotTest::class)
@@ -100,10 +97,7 @@ public abstract class WearScreenshotTest {
   }
 
   public fun captureScreenshot(suffix: String = "") {
-    captureScreenRoboImage(
-      filePath = testName(suffix),
-      roborazziOptions = roborazziOptions(),
-    )
+    captureScreenRoboImage(filePath = testName(suffix), roborazziOptions = roborazziOptions())
   }
 
   @Composable

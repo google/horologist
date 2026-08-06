@@ -26,11 +26,7 @@ import com.google.android.horologist.logo.R
 @WearPreview
 @Composable
 fun SettingsButtonsPreview() {
-  SettingsButtons(
-    volumeUiState = VolumeUiState(4, 10),
-    onVolumeClick = {},
-    onOutputClick = {},
-  )
+  SettingsButtons(volumeUiState = VolumeUiState(4, 10), onVolumeClick = {}, onOutputClick = {})
 }
 
 @WearPreview

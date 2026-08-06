@@ -28,11 +28,6 @@ class DatePickerTest(device: WearDevice) : WearTriadScreenshotTest(device) {
 
   @Test
   fun datePicker() {
-    runTest {
-      DatePicker(
-        onDateConfirm = {},
-        date = LocalDate.of(2022, 4, 25),
-      )
-    }
+    runTest { DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 4, 25)) }
   }
 }

@@ -56,12 +56,7 @@ class OutlinedCompactChipTest : WearLegacyComponentTest() {
 
   @Test
   fun iconOnly() {
-    runComponentTest {
-      OutlinedCompactChip(
-        onClick = {},
-        icon = Icons.Filled.Add.asPaintable(),
-      )
-    }
+    runComponentTest { OutlinedCompactChip(onClick = {}, icon = Icons.Filled.Add.asPaintable()) }
   }
 
   @Test

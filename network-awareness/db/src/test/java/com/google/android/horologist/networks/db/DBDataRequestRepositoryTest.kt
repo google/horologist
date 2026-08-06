@@ -51,27 +51,9 @@ class DBDataRequestRepositoryTest {
 
     val wifiInfo = NetworkInfo.Wifi("wlan1", "Pretty Fly For a Wifi")
     val btInfo = NetworkInfo.Bluetooth("bt1")
-    repository.storeRequest(
-      DataRequest(
-        requestType = RequestType.ImageRequest,
-        wifiInfo,
-        1L,
-      )
-    )
-    repository.storeRequest(
-      DataRequest(
-        requestType = RequestType.LogsRequest,
-        wifiInfo,
-        100L,
-      )
-    )
-    repository.storeRequest(
-      DataRequest(
-        requestType = RequestType.ApiRequest,
-        btInfo,
-        10L,
-      )
-    )
+    repository.storeRequest(DataRequest(requestType = RequestType.ImageRequest, wifiInfo, 1L))
+    repository.storeRequest(DataRequest(requestType = RequestType.LogsRequest, wifiInfo, 100L))
+    repository.storeRequest(DataRequest(requestType = RequestType.ApiRequest, btInfo, 10L))
 
     delay(1000)
 

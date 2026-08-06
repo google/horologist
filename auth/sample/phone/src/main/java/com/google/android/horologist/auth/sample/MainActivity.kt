@@ -84,19 +84,12 @@ class MainActivity : ComponentActivity() {
         key = TOKEN_BUNDLE_CUSTOM_KEY,
       )
 
-    phoneDataLayerAppHelper =
-      PhoneDataLayerAppHelper(
-        context = this,
-        registry = registry,
-      )
+    phoneDataLayerAppHelper = PhoneDataLayerAppHelper(context = this, registry = registry)
 
     setContent {
       HorologistTheme {
         // A surface container using the 'background' color from the theme
-        Surface(
-          modifier = Modifier.fillMaxSize(),
-          color = MaterialTheme.colorScheme.background,
-        ) {
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
           val coroutineScope = rememberCoroutineScope()
           var apiAvailable by remember { mutableStateOf(false) }
           LaunchedEffect(Unit) {
@@ -173,10 +166,6 @@ fun MainScreen(
 @Composable
 fun MainPreview() {
   HorologistTheme {
-    MainScreen(
-      apiAvailable = true,
-      onUpdateTokenDefault = {},
-      onUpdateTokenCustom = {},
-    )
+    MainScreen(apiAvailable = true, onUpdateTokenDefault = {}, onUpdateTokenCustom = {})
   }
 }

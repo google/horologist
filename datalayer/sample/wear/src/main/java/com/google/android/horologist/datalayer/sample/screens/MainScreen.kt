@@ -37,10 +37,7 @@ fun MainScreen(
   modifier: Modifier = Modifier,
   columnState: ScalingLazyColumnState,
 ) {
-  SectionedList(
-    columnState = columnState,
-    modifier = modifier.fillMaxSize(),
-  ) {
+  SectionedList(columnState = columnState, modifier = modifier.fillMaxSize()) {
     appHelpersSection(navigateToRoute)
 
     generalSection(navigateToRoute)
@@ -95,8 +92,5 @@ private fun SectionedListScope.generalSection(navigateToRoute: (String) -> Unit)
 @WearPreviewDevices
 @Composable
 fun MainScreenPreview() {
-  MainScreen(
-    navigateToRoute = {},
-    columnState = rememberResponsiveColumnState(),
-  )
+  MainScreen(navigateToRoute = {}, columnState = rememberResponsiveColumnState())
 }

@@ -57,10 +57,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
     onShuffleButtonClick = {},
     onPlayButtonClick = {},
     downloadItemArtworkPlaceholder =
-      rememberVectorPainter(
-        image = Icons.Default.MusicNote,
-        tintColor = Color.Blue,
-      ),
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
   )
 }
 
@@ -81,10 +78,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
     onShuffleButtonClick = {},
     onPlayButtonClick = {},
     downloadItemArtworkPlaceholder =
-      rememberVectorPainter(
-        image = Icons.Default.MusicNote,
-        tintColor = Color.Blue,
-      ),
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
   )
 }
 
@@ -105,10 +99,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
     onShuffleButtonClick = {},
     onPlayButtonClick = {},
     downloadItemArtworkPlaceholder =
-      rememberVectorPainter(
-        image = Icons.Default.MusicNote,
-        tintColor = Color.Blue,
-      ),
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
   )
 }
 
@@ -129,10 +120,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize
     onShuffleButtonClick = {},
     onPlayButtonClick = {},
     downloadItemArtworkPlaceholder =
-      rememberVectorPainter(
-        image = Icons.Default.MusicNote,
-        tintColor = Color.Blue,
-      ),
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
   )
 }
 
@@ -153,10 +141,7 @@ fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
     onShuffleButtonClick = {},
     onPlayButtonClick = {},
     downloadItemArtworkPlaceholder =
-      rememberVectorPainter(
-        image = Icons.Default.MusicNote,
-        tintColor = Color.Blue,
-      ),
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
   )
 }
 
@@ -177,10 +162,7 @@ fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
     onShuffleButtonClick = {},
     onPlayButtonClick = {},
     downloadItemArtworkPlaceholder =
-      rememberVectorPainter(
-        image = Icons.Default.MusicNote,
-        tintColor = Color.Blue,
-      ),
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
   )
 }
 
@@ -199,11 +181,7 @@ fun PlaylistDownloadScreenPreviewFailed() {
   )
 }
 
-private val playlistUiModel =
-  PlaylistUiModel(
-    id = "id",
-    title = "Playlist name",
-  )
+private val playlistUiModel = PlaylistUiModel(id = "id", title = "Playlist name")
 
 private val notDownloaded =
   listOf(

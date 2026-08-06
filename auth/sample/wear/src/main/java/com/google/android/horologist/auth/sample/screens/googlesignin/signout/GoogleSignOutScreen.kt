@@ -69,10 +69,7 @@ fun GoogleSignOutScreen(
 
 @Composable
 private fun LoadingView() {
-  Box(
-    modifier = Modifier.fillMaxSize(),
-    contentAlignment = Alignment.Center,
-  ) {
+  Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
     CircularProgressIndicator()
   }
 }

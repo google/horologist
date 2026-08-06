@@ -60,5 +60,6 @@ dependencies {
   testImplementation(libs.robolectric)
   testImplementation(libs.androidx.test.ext.ktx)
   testImplementation(libs.compose.ui.test.junit4)
+  testImplementation(libs.lottie.compose)
   testImplementation(projects.roboscreenshots)
 }

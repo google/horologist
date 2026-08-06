@@ -24,14 +24,12 @@ import androidx.compose.remote.creation.compose.layout.RemoteAlignment
 import androidx.compose.remote.creation.compose.layout.RemoteArrangement
 import androidx.compose.remote.creation.compose.layout.RemoteColumn
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
-import androidx.compose.remote.creation.compose.modifier.background
 import androidx.compose.remote.creation.compose.modifier.height
 import androidx.compose.remote.creation.compose.modifier.width
 import androidx.compose.remote.player.compose.RemoteDocumentPlayer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.horologist.remotecompose.lottie.format.Animation
 import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
@@ -55,7 +53,6 @@ fun LottiePreview(
 ) {
   val doc = rememberRemoteDocument(clock = clock) {
     RemoteColumn(
-      modifier = RemoteModifier.background(Color.Black),
       horizontalAlignment = RemoteAlignment.CenterHorizontally,
       verticalArrangement = RemoteArrangement.Center,
     ) {

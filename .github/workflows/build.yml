@@ -72,7 +72,7 @@ jobs:
         uses: gradle/gradle-build-action@v3
         id: screenshotsverify
         with:
-          arguments: --no-daemon verifyRoborazziDebug -x composables:verifyRoborazziDebug -x sample:verifyRoborazziDebug
+          arguments: verifyRoborazziDebug -x composables:verifyRoborazziDebug -x sample:verifyRoborazziDebug
 
       - name: screenshot-test-results-1
         if: always()
@@ -110,7 +110,7 @@ jobs:
         uses: gradle/gradle-build-action@v3
         id: screenshotsverify2
         with:
-          arguments: --no-daemon composables:verifyRoborazziDebug sample:verifyRoborazziDebug
+          arguments: composables:verifyRoborazziDebug sample:verifyRoborazziDebug
 
       - name: screenshot-test-results-2
         if: always()
@@ -152,7 +152,63 @@ jobs:
         with:
           arguments: -Pstrict.build=true compileDebugAndroidTestSources
 
-  verify:
+  format:
+    # Skip build if head commit contains 'skip ci'
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: 'true'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: 21
+
+      - name: Check GIT lfs images
+        run: |
+          ./scripts/git-lfs-check.sh
+
+      - name: Code format check
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: --stacktrace ktfmtCheck
+
+  api-check:
+    # Skip build if head commit contains 'skip ci'
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: 'true'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'zulu'
+          java-version: 21
+
+      - name: Metalava compatibility check
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: --stacktrace metalavaCheckCompatibility metalavaCheckCompatibilityRelease
+
+  lint:
     # Skip build if head commit contains 'skip ci'
     if: "!contains(github.event.head_commit.message, 'skip ci')"
 
@@ -173,29 +229,15 @@ jobs:
           distribution: 'zulu'
           java-version: 21
 
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3
-
-      - name: Check GIT lfs images
-        run: |
-          ./scripts/git-lfs-check.sh
-
-      - name: Metalava compatibility check
+      - name: Lint analysis
         uses: gradle/gradle-build-action@v3
         with:
-          arguments: --stacktrace
-            metalavaCheckCompatibility metalavaCheckCompatibilityRelease
+          arguments: --stacktrace lintDebug
 
-      - name: Code analysis
-        uses: gradle/gradle-build-action@v3
+      - name: lint-results
+        if: always()
+        uses: actions/upload-artifact@v7
         with:
-          arguments: --stacktrace
-            ktfmtCheck
-            lintDebug
-
-      - name: Dependencies analysis
-        uses: gradle/gradle-build-action@v3
-        if: ${{ false }} # Disabled until -android supported https://github.com/google/horologist/issues/1314
-        with:
-          arguments: --stacktrace
-            projectHealth
+          name: lint-results
+          path: |
+            **/build/reports/lint-results*

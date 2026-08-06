@@ -17,12 +17,10 @@
 package com.google.android.horologist.lottie
 
 import android.annotation.SuppressLint
-import androidx.compose.remote.creation.compose.modifier.RemoteModifier
-import androidx.compose.remote.creation.compose.modifier.height
-import androidx.compose.remote.creation.compose.modifier.width
-import androidx.compose.remote.creation.compose.state.RemoteColor
-import androidx.compose.remote.tooling.preview.RemoteContentPreview
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.remotecompose.lottie.LottiePreview
 import com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty
@@ -32,20 +30,16 @@ import com.google.android.horologist.sample.R
 @WearPreviewDevices
 @Composable
 fun GeometryPreview() {
-  RemoteContentPreview {
-    LottiePreview(animationResId = R.raw.geometry)
-  }
+  LottiePreview(animationResId = R.raw.geometry)
 }
 
 @SuppressLint("RestrictedApi")
 @WearPreviewDevices
 @Composable
 fun TintGeometryPreview() {
-  RemoteContentPreview {
-    LottiePreview(
-      animationResId = R.raw.geometry,
-      modifier = RemoteModifier.width(100).height(100),
-      slotMap = SlotMap(mapOf("color.primary" to StaticColorProperty.fromColor(0xFF00FF00.toInt()))),
-    )
-  }
+  LottiePreview(
+    animationResId = R.raw.geometry,
+    modifier = Modifier.size(100.dp),
+    slotMap = SlotMap(mapOf("color.primary" to StaticColorProperty.fromColor(0xFF00FF00.toInt()))),
+  )
 }

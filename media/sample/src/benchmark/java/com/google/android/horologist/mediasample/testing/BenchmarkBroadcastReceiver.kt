@@ -29,43 +29,42 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 
 @androidx.annotation.OptIn(UnstableApi::class)
 class BenchmarkBroadcastReceiver : SuspendingBroadcastReceiver() {
-    override val action: String = ACTION
+  override val action: String = ACTION
 
-    override suspend fun execute(context: Context, intentExtras: Bundle): BroadcastResult {
-        if (intentExtras.containsKey("delete")) {
-            return deleteAll(context, intentExtras)
-        }
-
-        if (intentExtras.containsKey("download")) {
-            return downloadItem(context, intentExtras)
-        }
-
-        throw IllegalArgumentException("Unknown command")
+  override suspend fun execute(context: Context, intentExtras: Bundle): BroadcastResult {
+    if (intentExtras.containsKey("delete")) {
+      return deleteAll(context, intentExtras)
     }
 
-    suspend fun deleteAll(context: Context, intentExtras: Bundle): BroadcastResult {
-        val delete = intentExtras.getString("delete")
-        println("deletePlaylist($delete)")
-
-        DownloadService.sendRemoveAllDownloads(context, MediaDownloadServiceImpl::class.java, false)
-
-        return BroadcastResult(data = "deleting $delete")
+    if (intentExtras.containsKey("download")) {
+      return downloadItem(context, intentExtras)
     }
 
-    suspend fun downloadItem(context: Context, intentExtras: Bundle): BroadcastResult {
-        val download = intentExtras.getString("download")!!
-        println("downloadPlaylist($download)")
+    throw IllegalArgumentException("Unknown command")
+  }
 
-        val (id, url) = download.split(":")
+  suspend fun deleteAll(context: Context, intentExtras: Bundle): BroadcastResult {
+    val delete = intentExtras.getString("delete")
+    println("deletePlaylist($delete)")
 
-        val request = DownloadRequest.Builder(id, Uri.parse(url))
-            .build()
-        DownloadService.sendAddDownload(context, MediaDownloadServiceImpl::class.java, request, false)
+    DownloadService.sendRemoveAllDownloads(context, MediaDownloadServiceImpl::class.java, false)
 
-        return BroadcastResult(data = "downloading $download")
-    }
+    return BroadcastResult(data = "deleting $delete")
+  }
 
-    companion object {
-        val ACTION = "com.google.android.horologist.mediasample.testing.TEST"
-    }
+  suspend fun downloadItem(context: Context, intentExtras: Bundle): BroadcastResult {
+    val download = intentExtras.getString("download")!!
+    println("downloadPlaylist($download)")
+
+    val (id, url) = download.split(":")
+
+    val request = DownloadRequest.Builder(id, Uri.parse(url)).build()
+    DownloadService.sendAddDownload(context, MediaDownloadServiceImpl::class.java, request, false)
+
+    return BroadcastResult(data = "downloading $download")
+  }
+
+  companion object {
+    val ACTION = "com.google.android.horologist.mediasample.testing.TEST"
+  }
 }

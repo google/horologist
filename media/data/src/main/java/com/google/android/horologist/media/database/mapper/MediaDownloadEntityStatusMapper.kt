@@ -22,24 +22,21 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.database.model.MediaDownloadEntityStatus
 
 /**
- * Functions to map models from other layers and / or packages into a [com.google.android.horologist.media.database.model.MediaDownloadEntityStatus].
+ * Functions to map models from other layers and / or packages into a
+ * [com.google.android.horologist.media.database.model.MediaDownloadEntityStatus].
  */
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
 public object MediaDownloadEntityStatusMapper {
 
-    /**
-     * Maps from a [Download.State].
-     */
-    public fun map(
-        @Download.State state: Int,
-    ): MediaDownloadEntityStatus = when (state) {
-        Download.STATE_QUEUED,
-        Download.STATE_DOWNLOADING,
-        Download.STATE_RESTARTING,
-        -> MediaDownloadEntityStatus.Downloading
-        Download.STATE_COMPLETED -> MediaDownloadEntityStatus.Downloaded
-        Download.STATE_FAILED -> MediaDownloadEntityStatus.Failed
-        else -> MediaDownloadEntityStatus.NotDownloaded
+  /** Maps from a [Download.State]. */
+  public fun map(@Download.State state: Int): MediaDownloadEntityStatus =
+    when (state) {
+      Download.STATE_QUEUED,
+      Download.STATE_DOWNLOADING,
+      Download.STATE_RESTARTING -> MediaDownloadEntityStatus.Downloading
+      Download.STATE_COMPLETED -> MediaDownloadEntityStatus.Downloaded
+      Download.STATE_FAILED -> MediaDownloadEntityStatus.Failed
+      else -> MediaDownloadEntityStatus.NotDownloaded
     }
 }

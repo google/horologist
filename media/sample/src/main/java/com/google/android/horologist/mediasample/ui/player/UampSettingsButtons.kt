@@ -33,49 +33,38 @@ import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 import com.google.android.horologist.audio.ui.material3.components.actions.VolumeButtonWithBadge
 import com.google.android.horologist.audio.ui.material3.components.toAudioOutputUi
-import kotlin.math.ceil
 
-/**
- * Settings buttons for the UAMP media app.
- * Favorite item and Set Volume.
- */
+/** Settings buttons for the UAMP media app. Favorite item and Set Volume. */
 @Composable
 public fun UampSettingsButtons(
-    volumeUiState: VolumeUiState,
-    audioOutputUi: AudioOutputUi,
-    onVolumeClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
+  volumeUiState: VolumeUiState,
+  audioOutputUi: AudioOutputUi,
+  onVolumeClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
 ) {
-    val configuration = LocalConfiguration.current
-    val windowInfo = LocalWindowInfo.current
+  val configuration = LocalConfiguration.current
+  val windowInfo = LocalWindowInfo.current
 
-    val horizontalPadding = remember(windowInfo.containerSize) {
-      (windowInfo.containerSize.width / 10f).dp
-    }
-    val bottomPadding = remember(windowInfo.containerSize) {
-      (windowInfo.containerSize.height / 100f).dp
+  val horizontalPadding =
+    remember(windowInfo.containerSize) { (windowInfo.containerSize.width / 10f).dp }
+  val bottomPadding =
+    remember(windowInfo.containerSize) { (windowInfo.containerSize.height / 100f).dp }
+
+  Row(
+    modifier = modifier.padding(horizontal = horizontalPadding).padding(bottom = bottomPadding),
+    verticalAlignment = Alignment.CenterVertically,
+    horizontalArrangement = Arrangement.SpaceEvenly,
+  ) {
+    Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+      VolumeButtonWithBadge(
+        onOutputClick = onVolumeClick,
+        audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name").toAudioOutputUi(),
+        volumeUiState = volumeUiState,
+        enabled = enabled,
+      )
     }
 
-    Row(
-        modifier = modifier
-            .padding(horizontal = horizontalPadding)
-            .padding(bottom = bottomPadding),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceEvenly,
-    ) {
-        Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
-            VolumeButtonWithBadge(
-                onOutputClick = onVolumeClick,
-                audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name")
-                    .toAudioOutputUi(),
-                volumeUiState = volumeUiState,
-                enabled = enabled,
-            )
-        }
-
-        Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
-            FavoriteButton()
-        }
-    }
+    Box(modifier = Modifier.weight(1f).fillMaxHeight()) { FavoriteButton() }
+  }
 }

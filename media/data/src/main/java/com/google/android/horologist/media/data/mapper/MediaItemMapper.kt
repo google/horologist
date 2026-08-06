@@ -23,43 +23,37 @@ import androidx.media3.common.MediaMetadata
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Media
 
-/**
- * Maps a [Media] into a [MediaItem].
- */
+/** Maps a [Media] into a [MediaItem]. */
 @ExperimentalHorologistApi
-public class MediaItemMapper(
-    private val mediaItemExtrasMapper: MediaItemExtrasMapper,
-) {
+public class MediaItemMapper(private val mediaItemExtrasMapper: MediaItemExtrasMapper) {
 
-    public fun map(mediaItem: Media): MediaItem {
-        val parsedUri = Uri.parse(mediaItem.uri)
-        val artworkUri = mediaItem.artworkUri?.let(Uri::parse)
+  public fun map(mediaItem: Media): MediaItem {
+    val parsedUri = Uri.parse(mediaItem.uri)
+    val artworkUri = mediaItem.artworkUri?.let(Uri::parse)
 
-        val mediaItemBuilder = MediaItem.Builder()
-        val mediaMetadataBuilder = MediaMetadata.Builder()
-        val requestMetadataBuilder = RequestMetadata.Builder()
+    val mediaItemBuilder = MediaItem.Builder()
+    val mediaMetadataBuilder = MediaMetadata.Builder()
+    val requestMetadataBuilder = RequestMetadata.Builder()
 
-        mediaItemBuilder
-            .setMediaId(mediaItem.id)
-            .setUri(parsedUri)
+    mediaItemBuilder.setMediaId(mediaItem.id).setUri(parsedUri)
 
-        mediaMetadataBuilder
-            .setTitle(mediaItem.title)
-            .setDisplayTitle(mediaItem.title)
-            .setArtist(mediaItem.artist)
-            .setArtworkUri(artworkUri)
+    mediaMetadataBuilder
+      .setTitle(mediaItem.title)
+      .setDisplayTitle(mediaItem.title)
+      .setArtist(mediaItem.artist)
+      .setArtworkUri(artworkUri)
 
-        mediaItemExtrasMapper.map(
-            mediaItem,
-            mediaItemBuilder,
-            mediaMetadataBuilder,
-            requestMetadataBuilder,
-        )
+    mediaItemExtrasMapper.map(
+      mediaItem,
+      mediaItemBuilder,
+      mediaMetadataBuilder,
+      requestMetadataBuilder,
+    )
 
-        mediaItemBuilder
-            .setMediaMetadata(mediaMetadataBuilder.build())
-            .setRequestMetadata(requestMetadataBuilder.build())
+    mediaItemBuilder
+      .setMediaMetadata(mediaMetadataBuilder.build())
+      .setRequestMetadata(requestMetadataBuilder.build())
 
-        return mediaItemBuilder.build()
-    }
+    return mediaItemBuilder.build()
+  }
 }

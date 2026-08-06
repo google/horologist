@@ -21,23 +21,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @Inject
-    lateinit var tileSync: TileSync
+  @Inject lateinit var tileSync: TileSync
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        lifecycleScope.launch {
-            tileSync.trackInstalledTiles()
-        }
+    lifecycleScope.launch { tileSync.trackInstalledTiles() }
 
-        setContent {
-            WearApp()
-        }
-    }
+    setContent { WearApp() }
+  }
 }

@@ -40,135 +40,127 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun InstallTilePromptDemoScreen(
-    modifier: Modifier = Modifier,
-    viewModel: InstallTilePromptDemoViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: InstallTilePromptDemoViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == InstallTilePromptDemoScreenState.Idle) {
-        SideEffect {
-            viewModel.initialize()
-        }
-    }
+  if (state == InstallTilePromptDemoScreenState.Idle) {
+    SideEffect { viewModel.initialize() }
+  }
 
-    val context = LocalContext.current
-    val topMessage = stringResource(R.string.install_tile_prompt_demo_prompt_top_message)
-    val bottomMessage = stringResource(R.string.install_tile_prompt_demo_prompt_bottom_message)
+  val context = LocalContext.current
+  val topMessage = stringResource(R.string.install_tile_prompt_demo_prompt_top_message)
+  val bottomMessage = stringResource(R.string.install_tile_prompt_demo_prompt_bottom_message)
 
-    InstallTilePromptDemoScreen(
-        state = state,
-        onRunDemoClick = viewModel::onRunDemoClick,
-        getInstallTilePromptIntent = {
-            viewModel.installTilePrompt.getIntent(
-                context = context,
-                appPackageName = context.packageName,
-                image = R.drawable.watch_app_screenshot,
-                topMessage = topMessage,
-                bottomMessage = bottomMessage,
-            )
-        },
-        onPromptLaunched = viewModel::onPromptLaunched,
-        onPromptPositiveButtonClick = viewModel::onPromptPositiveButtonClick,
-        onPromptDismiss = viewModel::onPromptDismiss,
-        modifier = modifier,
-    )
+  InstallTilePromptDemoScreen(
+    state = state,
+    onRunDemoClick = viewModel::onRunDemoClick,
+    getInstallTilePromptIntent = {
+      viewModel.installTilePrompt.getIntent(
+        context = context,
+        appPackageName = context.packageName,
+        image = R.drawable.watch_app_screenshot,
+        topMessage = topMessage,
+        bottomMessage = bottomMessage,
+      )
+    },
+    onPromptLaunched = viewModel::onPromptLaunched,
+    onPromptPositiveButtonClick = viewModel::onPromptPositiveButtonClick,
+    onPromptDismiss = viewModel::onPromptDismiss,
+    modifier = modifier,
+  )
 }
 
 @Composable
 fun InstallTilePromptDemoScreen(
-    state: InstallTilePromptDemoScreenState,
-    onRunDemoClick: () -> Unit,
-    getInstallTilePromptIntent: (nodeId: String) -> Intent,
-    onPromptLaunched: () -> Unit,
-    onPromptPositiveButtonClick: () -> Unit,
-    onPromptDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
+  state: InstallTilePromptDemoScreenState,
+  onRunDemoClick: () -> Unit,
+  getInstallTilePromptIntent: (nodeId: String) -> Intent,
+  onPromptLaunched: () -> Unit,
+  onPromptPositiveButtonClick: () -> Unit,
+  onPromptDismiss: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val launcher = rememberLauncherForActivityResult(
-        ActivityResultContracts.StartActivityForResult(),
-    ) { result ->
-        if (result.resultCode == RESULT_OK) {
-            onPromptPositiveButtonClick()
-        } else {
-            onPromptDismiss()
-        }
+  val launcher =
+    rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      if (result.resultCode == RESULT_OK) {
+        onPromptPositiveButtonClick()
+      } else {
+        onPromptDismiss()
+      }
     }
 
-    Column(
-        modifier = modifier.padding(all = 10.dp),
+  Column(modifier = modifier.padding(all = 10.dp)) {
+    Text(text = stringResource(id = R.string.install_tile_prompt_api_call_demo_message))
+
+    Button(
+      onClick = onRunDemoClick,
+      modifier = Modifier.padding(top = 10.dp).align(Alignment.CenterHorizontally),
+      enabled = state != InstallTilePromptDemoScreenState.ApiNotAvailable,
     ) {
-        Text(text = stringResource(id = R.string.install_tile_prompt_api_call_demo_message))
-
-        Button(
-            onClick = onRunDemoClick,
-            modifier = Modifier
-                .padding(top = 10.dp)
-                .align(Alignment.CenterHorizontally),
-            enabled = state != InstallTilePromptDemoScreenState.ApiNotAvailable,
-        ) {
-            Text(text = stringResource(id = R.string.install_tile_prompt_run_demo_button_label))
-        }
-
-        when (state) {
-            InstallTilePromptDemoScreenState.Idle,
-            InstallTilePromptDemoScreenState.Loaded,
-            -> {
-                /* do nothing */
-            }
-
-            InstallTilePromptDemoScreenState.Loading -> {
-                CircularProgressIndicator()
-            }
-
-            is InstallTilePromptDemoScreenState.WatchFound -> {
-                SideEffect { launcher.launch(getInstallTilePromptIntent(state.nodeId)) }
-
-                onPromptLaunched()
-            }
-
-            InstallTilePromptDemoScreenState.WatchNotFound -> {
-                Text(
-                    stringResource(
-                        id = R.string.reengage_prompt_demo_result_label,
-                        stringResource(id = R.string.install_tile_prompt_demo_no_watches_found_label),
-                    ),
-                )
-            }
-
-            InstallTilePromptDemoScreenState.PromptPositiveButtonClicked -> {
-                Text(
-                    stringResource(
-                        id = R.string.reengage_prompt_demo_result_label,
-                        stringResource(id = R.string.install_tile_prompt_demo_prompt_positive_result_label),
-                    ),
-                )
-            }
-
-            InstallTilePromptDemoScreenState.PromptDismissed -> {
-                Text(
-                    stringResource(
-                        id = R.string.reengage_prompt_demo_result_label,
-                        stringResource(id = R.string.install_tile_prompt_demo_prompt_dismiss_result_label),
-                    ),
-                )
-            }
-
-            InstallTilePromptDemoScreenState.ApiNotAvailable -> {
-                Text(stringResource(id = R.string.wearable_message_api_unavailable))
-            }
-        }
+      Text(text = stringResource(id = R.string.install_tile_prompt_run_demo_button_label))
     }
+
+    when (state) {
+      InstallTilePromptDemoScreenState.Idle,
+      InstallTilePromptDemoScreenState.Loaded -> {
+        /* do nothing */
+      }
+
+      InstallTilePromptDemoScreenState.Loading -> {
+        CircularProgressIndicator()
+      }
+
+      is InstallTilePromptDemoScreenState.WatchFound -> {
+        SideEffect { launcher.launch(getInstallTilePromptIntent(state.nodeId)) }
+
+        onPromptLaunched()
+      }
+
+      InstallTilePromptDemoScreenState.WatchNotFound -> {
+        Text(
+          stringResource(
+            id = R.string.reengage_prompt_demo_result_label,
+            stringResource(id = R.string.install_tile_prompt_demo_no_watches_found_label),
+          )
+        )
+      }
+
+      InstallTilePromptDemoScreenState.PromptPositiveButtonClicked -> {
+        Text(
+          stringResource(
+            id = R.string.reengage_prompt_demo_result_label,
+            stringResource(id = R.string.install_tile_prompt_demo_prompt_positive_result_label),
+          )
+        )
+      }
+
+      InstallTilePromptDemoScreenState.PromptDismissed -> {
+        Text(
+          stringResource(
+            id = R.string.reengage_prompt_demo_result_label,
+            stringResource(id = R.string.install_tile_prompt_demo_prompt_dismiss_result_label),
+          )
+        )
+      }
+
+      InstallTilePromptDemoScreenState.ApiNotAvailable -> {
+        Text(stringResource(id = R.string.wearable_message_api_unavailable))
+      }
+    }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun InstallTilePromptDemoScreenPreview() {
-    InstallTilePromptDemoScreen(
-        state = InstallTilePromptDemoScreenState.Idle,
-        onRunDemoClick = { },
-        getInstallTilePromptIntent = { Intent() },
-        onPromptLaunched = { },
-        onPromptPositiveButtonClick = { },
-        onPromptDismiss = { },
-    )
+  InstallTilePromptDemoScreen(
+    state = InstallTilePromptDemoScreenState.Idle,
+    onRunDemoClick = {},
+    getInstallTilePromptIntent = { Intent() },
+    onPromptLaunched = {},
+    onPromptPositiveButtonClick = {},
+    onPromptDismiss = {},
+  )
 }

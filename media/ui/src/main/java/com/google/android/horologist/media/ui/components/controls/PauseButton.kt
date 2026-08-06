@@ -31,19 +31,19 @@ import com.google.android.horologist.media.ui.model.R
 @ExperimentalHorologistApi
 @Composable
 public fun PauseButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    iconSize: Dp = 32.dp,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+  iconSize: Dp = 32.dp,
 ) {
-    MediaButton(
-        onClick = onClick,
-        icon = Icons.Default.Pause,
-        contentDescription = stringResource(id = R.string.horologist_pause_button_content_description),
-        modifier = modifier,
-        enabled = enabled,
-        colors = colors,
-        iconSize = iconSize,
-    )
+  MediaButton(
+    onClick = onClick,
+    icon = Icons.Default.Pause,
+    contentDescription = stringResource(id = R.string.horologist_pause_button_content_description),
+    modifier = modifier,
+    enabled = enabled,
+    colors = colors,
+    iconSize = iconSize,
+  )
 }

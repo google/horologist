@@ -39,37 +39,39 @@ import com.google.android.horologist.mediasample.ui.settings.ActionSetting
 
 @Composable
 fun SamplesScreen(
-    samplesScreenViewModel: SamplesScreenViewModel,
-    backStack: NavBackStack<CustomRoute>,
-    modifier: Modifier = Modifier,
+  samplesScreenViewModel: SamplesScreenViewModel,
+  backStack: NavBackStack<CustomRoute>,
+  modifier: Modifier = Modifier,
 ) {
-    val uiState by samplesScreenViewModel.uiState.collectAsStateWithLifecycle()
+  val uiState by samplesScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ItemType.Text,
+          last = ItemType.Chip,
+        )
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(
-            columnState = columnState,
-            modifier = modifier,
-        ) {
-            item {
-                Text(
-                    text = stringResource(id = R.string.sample_samples),
-                    modifier = Modifier.padding(bottom = 12.dp),
-                    style = MaterialTheme.typography.title3,
-                )
-            }
-            items(uiState.samples) {
-                ActionSetting(text = it.name) {
-                    samplesScreenViewModel.playSamples(it.id)
-                    backStack.navigateToPlayer()
-                }
-            }
+  ScreenScaffold(scrollState = columnState) {
+    ScalingLazyColumn(
+      columnState = columnState,
+      modifier = modifier,
+    ) {
+      item {
+        Text(
+          text = stringResource(id = R.string.sample_samples),
+          modifier = Modifier.padding(bottom = 12.dp),
+          style = MaterialTheme.typography.title3,
+        )
+      }
+      items(uiState.samples) {
+        ActionSetting(text = it.name) {
+          samplesScreenViewModel.playSamples(it.id)
+          backStack.navigateToPlayer()
         }
+      }
     }
+  }
 }

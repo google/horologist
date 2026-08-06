@@ -34,30 +34,27 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 
 class DataLayerInferenceService(
-    dataLayerRegistry: WearDataLayerRegistry,
-    val node: Node,
-    coroutineScope: CoroutineScope,
+  dataLayerRegistry: WearDataLayerRegistry,
+  val node: Node,
+  coroutineScope: CoroutineScope,
 ) : InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase() {
-    val proxy = dataLayerRegistry.grpcClient(
-        TargetNodeId.SpecificNodeId(node.id),
-        coroutineScope = coroutineScope,
+  val proxy =
+    dataLayerRegistry.grpcClient(
+      TargetNodeId.SpecificNodeId(node.id),
+      coroutineScope = coroutineScope,
     ) {
-        InferenceServiceGrpcKt.InferenceServiceCoroutineStub(it)
+      InferenceServiceGrpcKt.InferenceServiceCoroutineStub(it)
     }
 
-    override suspend fun serviceInfo(request: Empty): ServiceInfo {
-        return proxy.serviceInfo(request).copy {
-            name = "$name@${node.displayName}"
-        }
-    }
+  override suspend fun serviceInfo(request: Empty): ServiceInfo {
+    return proxy.serviceInfo(request).copy { name = "$name@${node.displayName}" }
+  }
 
-    override suspend fun answerPrompt(request: PromptRequest): ResponseBundle {
-        return proxy.answerPrompt(request)
-    }
+  override suspend fun answerPrompt(request: PromptRequest): ResponseBundle {
+    return proxy.answerPrompt(request)
+  }
 
-    override fun answerPromptWithStream(request: PromptRequest): Flow<Response> {
-        return flow {
-            emitAll(answerPrompt(request).responsesList.asFlow())
-        }
-    }
+  override fun answerPromptWithStream(request: PromptRequest): Flow<Response> {
+    return flow { emitAll(answerPrompt(request).responsesList.asFlow()) }
+  }
 }

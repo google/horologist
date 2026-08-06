@@ -23,13 +23,7 @@ import com.google.android.horologist.compose.pager.VerticalPagerScreen
 
 @Composable
 fun SampleVerticalPagerScreen() {
-    ScreenScaffold(timeText = {}) {
-        VerticalPagerScreen(
-            state = rememberPagerState {
-                10
-            },
-        ) {
-            PagerItemScreen(item = "item $it")
-        }
-    }
+  ScreenScaffold(timeText = {}) {
+    VerticalPagerScreen(state = rememberPagerState { 10 }) { PagerItemScreen(item = "item $it") }
+  }
 }

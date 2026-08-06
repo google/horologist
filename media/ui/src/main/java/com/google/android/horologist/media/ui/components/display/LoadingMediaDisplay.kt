@@ -47,37 +47,33 @@ import com.google.android.horologist.media.ui.util.isLargeScreen
 @ExperimentalHorologistApi
 @Composable
 public fun LoadingMediaDisplay(
-    modifier: Modifier = Modifier,
-    placeholderState: PlaceholderState = rememberActivePlaceholderState { false },
+  modifier: Modifier = Modifier,
+  placeholderState: PlaceholderState = rememberActivePlaceholderState { false },
 ) {
-    val isLargeScreen = LocalConfiguration.current.isLargeScreen
+  val isLargeScreen = LocalConfiguration.current.isLargeScreen
 
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
-        if (!isLargeScreen) {
-            Spacer(modifier = Modifier.height(1.dp))
-        }
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(6.dp))
-                .background(MaterialTheme.colors.surface)
-                .placeholderShimmer(placeholderState)
-                .placeholder(placeholderState)
-                .width(120.dp)
-                .height(12.dp),
-        )
-        Spacer(
-            modifier = Modifier.height(
-                if (isLargeScreen) 9.dp else 8.dp,
-            ),
-        )
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(6.dp))
-                .background(MaterialTheme.colors.surface)
-                .placeholderShimmer(placeholderState)
-                .placeholder(placeholderState)
-                .width(80.dp)
-                .height(12.dp),
-        )
+  Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+    if (!isLargeScreen) {
+      Spacer(modifier = Modifier.height(1.dp))
     }
+    Box(
+      modifier =
+        Modifier.clip(RoundedCornerShape(6.dp))
+          .background(MaterialTheme.colors.surface)
+          .placeholderShimmer(placeholderState)
+          .placeholder(placeholderState)
+          .width(120.dp)
+          .height(12.dp)
+    )
+    Spacer(modifier = Modifier.height(if (isLargeScreen) 9.dp else 8.dp))
+    Box(
+      modifier =
+        Modifier.clip(RoundedCornerShape(6.dp))
+          .background(MaterialTheme.colors.surface)
+          .placeholderShimmer(placeholderState)
+          .placeholder(placeholderState)
+          .width(80.dp)
+          .height(12.dp)
+    )
+  }
 }

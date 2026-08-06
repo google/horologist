@@ -50,31 +50,35 @@ import androidx.wear.tiles.renderer.TileRenderer
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.tiles.render.TileLayoutRenderer
 import com.google.common.util.concurrent.ListenableFuture
+import kotlin.math.roundToInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.asExecutor
-import kotlin.math.roundToInt
 
 /**
- * Preview a [TileLayoutRenderer] by providing the complete state for tile and resources.
- * Any bitmaps should be preloaded from test resources and passed in via [resourceState] as
- * Bitmap or ImageResource.
+ * Preview a [TileLayoutRenderer] by providing the complete state for tile and resources. Any
+ * bitmaps should be preloaded from test resources and passed in via [resourceState] as Bitmap or
+ * ImageResource.
  */
 @Composable
-public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLayoutRenderer<T, R>) {
-    val context = LocalContext.current
-    val resources = context.resources
+public fun <T, R> TileLayoutPreview(
+  state: T,
+  resourceState: R,
+  renderer: TileLayoutRenderer<T, R>,
+) {
+  val context = LocalContext.current
+  val resources = context.resources
 
-    val requestParams = remember { requestParams(resources) }
+  val requestParams = remember { requestParams(resources) }
 
-    val tile = remember(state) { renderer.renderTimeline(state, requestParams) }
-    val resourceParams =
-        remember(tile.resourcesVersion) { resourceParams(resources, tile.resourcesVersion) }
-    val tileResources =
-        remember(state) { renderer.produceRequestedResources(resourceState, resourceParams) }
+  val tile = remember(state) { renderer.renderTimeline(state, requestParams) }
+  val resourceParams =
+    remember(tile.resourcesVersion) { resourceParams(resources, tile.resourcesVersion) }
+  val tileResources =
+    remember(state) { renderer.produceRequestedResources(resourceState, resourceParams) }
 
-    TilePreview(tile, tileResources) { newTileState ->
-        renderer.renderTimeline(state, requestParams(resources, newTileState))
-    }
+  TilePreview(tile, tileResources) { newTileState ->
+    renderer.renderTimeline(state, requestParams(resources, newTileState))
+  }
 }
 
 /**
@@ -83,124 +87,118 @@ public fun <T, R> TileLayoutPreview(state: T, resourceState: R, renderer: TileLa
  */
 @Composable
 public fun TilePreview(
-    tile: TileBuilders.Tile,
-    tileResources: ResourceBuilders.Resources,
-    onLoadAction: ((State) -> TileBuilders.Tile)? = null,
+  tile: TileBuilders.Tile,
+  tileResources: ResourceBuilders.Resources,
+  onLoadAction: ((State) -> TileBuilders.Tile)? = null,
 ) {
-    AndroidView(
-        modifier = Modifier.fillMaxSize(),
-        factory = {
-            FrameLayout(it).apply {
-                this.setBackgroundColor(Color.BLACK)
-            }
-        },
-        update = { parent ->
-            lateinit var tileRenderer: TileRenderer
-            tileRenderer = TileRenderer(
-                /* uiContext = */
-                parent.context,
-                /* loadActionExecutor = */
-                Dispatchers.Main.asExecutor(),
-            ) { newState ->
-                onLoadAction?.invoke(newState)?.let { newTile ->
-                    tileRenderer.preview(newTile, tileResources, parent)
-                }
-            }
-            tileRenderer.preview(tile, tileResources, parent)
-        },
-    )
+  AndroidView(
+    modifier = Modifier.fillMaxSize(),
+    factory = { FrameLayout(it).apply { this.setBackgroundColor(Color.BLACK) } },
+    update = { parent ->
+      lateinit var tileRenderer: TileRenderer
+      tileRenderer =
+        TileRenderer(
+          /* uiContext = */ parent.context,
+          /* loadActionExecutor = */ Dispatchers.Main.asExecutor(),
+        ) { newState ->
+          onLoadAction?.invoke(newState)?.let { newTile ->
+            tileRenderer.preview(newTile, tileResources, parent)
+          }
+        }
+      tileRenderer.preview(tile, tileResources, parent)
+    },
+  )
 }
 
 private fun TileRenderer.preview(
-    tile: TileBuilders.Tile,
-    tileResources: ResourceBuilders.Resources,
-    parent: ViewGroup,
+  tile: TileBuilders.Tile,
+  tileResources: ResourceBuilders.Resources,
+  parent: ViewGroup,
 ): ListenableFuture<View> {
-    tile.state?.let { state ->
-        setState(state.keyToValueMapping)
-    }
+  tile.state?.let { state -> setState(state.keyToValueMapping) }
 
-    // Returning a future
-    return inflateAsync(
-        tile.tileTimeline?.timelineEntries?.first()?.layout!!,
-        tileResources,
-        parent,
-    )
+  // Returning a future
+  return inflateAsync(
+    tile.tileTimeline?.timelineEntries?.first()?.layout!!,
+    tileResources,
+    parent,
+  )
 }
 
-/**
- * Preview a smaller tile component such as a Button, that is not full screen.
- */
+/** Preview a smaller tile component such as a Button, that is not full screen. */
 @ExperimentalHorologistApi
 @Composable
 public fun LayoutElementPreview(
-    element: LayoutElement,
-    @ColorInt windowBackgroundColor: Int = Color.DKGRAY,
-    tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {},
+  element: LayoutElement,
+  @ColorInt windowBackgroundColor: Int = Color.DKGRAY,
+  tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {},
 ) {
-    val root = Box.Builder()
-        .setModifiers(
-            Modifiers.Builder().setBackground(
-                Background.Builder()
-                    .setColor(argb(windowBackgroundColor))
-                    .build(),
-            ).build(),
-        )
-        .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
-        .setVerticalAlignment(VERTICAL_ALIGN_CENTER)
-        .setHeight(ExpandedDimensionProp.Builder().build())
-        .setWidth(ExpandedDimensionProp.Builder().build())
-        .addContent(element)
-        .build()
+  val root =
+    Box.Builder()
+      .setModifiers(
+        Modifiers.Builder()
+          .setBackground(Background.Builder().setColor(argb(windowBackgroundColor)).build())
+          .build()
+      )
+      .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
+      .setVerticalAlignment(VERTICAL_ALIGN_CENTER)
+      .setHeight(ExpandedDimensionProp.Builder().build())
+      .setWidth(ExpandedDimensionProp.Builder().build())
+      .addContent(element)
+      .build()
 
-    LayoutRootPreview(root, tileResourcesFn)
+  LayoutRootPreview(root, tileResourcesFn)
 }
 
-/**
- * Preview a root layout component such as a PrimaryLayout, that is full screen.
- */
+/** Preview a root layout component such as a PrimaryLayout, that is full screen. */
 @Composable
 public fun LayoutRootPreview(
-    root: LayoutElement,
-    tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {},
+  root: LayoutElement,
+  tileResourcesFn: ResourceBuilders.Resources.Builder.() -> Unit = {},
 ) {
-    val tile = remember {
-        TileBuilders.Tile.Builder()
-            .setResourcesVersion(PERMANENT_RESOURCES_VERSION)
-            .setTileTimeline(
-                TimelineBuilders.Timeline.Builder().addTimelineEntry(
-                    TimelineEntry.fromLayoutElement(root),
-                ).build(),
-            ).build()
-    }
+  val tile = remember {
+    TileBuilders.Tile.Builder()
+      .setResourcesVersion(PERMANENT_RESOURCES_VERSION)
+      .setTileTimeline(
+        TimelineBuilders.Timeline.Builder()
+          .addTimelineEntry(TimelineEntry.fromLayoutElement(root))
+          .build()
+      )
+      .build()
+  }
 
-    val tileResources = ResourceBuilders.Resources.Builder()
-        .apply(tileResourcesFn)
-        .build()
-    TilePreview(tile, tileResources)
+  val tileResources = ResourceBuilders.Resources.Builder().apply(tileResourcesFn).build()
+  TilePreview(tile, tileResources)
 }
 
 internal const val PERMANENT_RESOURCES_VERSION = "0"
 
 private fun requestParams(resources: Resources, state: State = State.Builder().build()) =
-    RequestBuilders.TileRequest.Builder().setDeviceConfiguration(buildDeviceParameters(resources))
-        .setCurrentState(state).build()
+  RequestBuilders.TileRequest.Builder()
+    .setDeviceConfiguration(buildDeviceParameters(resources))
+    .setCurrentState(state)
+    .build()
 
 private fun resourceParams(resources: Resources, version: String) =
-    RequestBuilders.ResourcesRequest.Builder().setDeviceConfiguration(buildDeviceParameters(resources))
-        .setVersion(version).build()
+  RequestBuilders.ResourcesRequest.Builder()
+    .setDeviceConfiguration(buildDeviceParameters(resources))
+    .setVersion(version)
+    .build()
 
 public fun buildDeviceParameters(resources: Resources): DeviceParametersBuilders.DeviceParameters {
-    val displayMetrics: DisplayMetrics = resources.displayMetrics
-    val isScreenRound: Boolean = resources.configuration.isScreenRound
-    return DeviceParametersBuilders.DeviceParameters.Builder()
-        .setScreenWidthDp((displayMetrics.widthPixels / displayMetrics.density).roundToInt())
-        .setScreenHeightDp((displayMetrics.heightPixels / displayMetrics.density).roundToInt())
-        .setScreenDensity(displayMetrics.density).setScreenShape(
-            if (isScreenRound) {
-                DeviceParametersBuilders.SCREEN_SHAPE_ROUND
-            } else {
-                DeviceParametersBuilders.SCREEN_SHAPE_RECT
-            },
-        ).setDevicePlatform(DeviceParametersBuilders.DEVICE_PLATFORM_WEAR_OS).build()
+  val displayMetrics: DisplayMetrics = resources.displayMetrics
+  val isScreenRound: Boolean = resources.configuration.isScreenRound
+  return DeviceParametersBuilders.DeviceParameters.Builder()
+    .setScreenWidthDp((displayMetrics.widthPixels / displayMetrics.density).roundToInt())
+    .setScreenHeightDp((displayMetrics.heightPixels / displayMetrics.density).roundToInt())
+    .setScreenDensity(displayMetrics.density)
+    .setScreenShape(
+      if (isScreenRound) {
+        DeviceParametersBuilders.SCREEN_SHAPE_ROUND
+      } else {
+        DeviceParametersBuilders.SCREEN_SHAPE_RECT
+      }
+    )
+    .setDevicePlatform(DeviceParametersBuilders.DEVICE_PLATFORM_WEAR_OS)
+    .build()
 }

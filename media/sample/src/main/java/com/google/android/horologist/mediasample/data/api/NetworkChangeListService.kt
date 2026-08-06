@@ -31,60 +31,60 @@ import com.google.android.horologist.mediasample.di.SyncModule
  */
 class NetworkChangeListService {
 
-    fun getForPlaylist(
-        localPlaylists: List<Playlist>,
-        remotePlaylists: List<Playlist>,
-    ): List<NetworkChangeList> = buildList {
-        val remotePlaylistsSet = remotePlaylists.toSet()
+  fun getForPlaylist(
+    localPlaylists: List<Playlist>,
+    remotePlaylists: List<Playlist>,
+  ): List<NetworkChangeList> = buildList {
+    val remotePlaylistsSet = remotePlaylists.toSet()
 
-        (localPlaylists subtract remotePlaylistsSet).forEach { playlist ->
-            add(
-                NetworkChangeList(
-                    id = playlist.id,
-                    changeListVersion = getChangeListVersion(),
-                    isDelete = true,
-                ),
-            )
-        }
-
-        for (playlist in remotePlaylistsSet) {
-            add(
-                NetworkChangeList(
-                    id = playlist.id,
-                    changeListVersion = getChangeListVersion(),
-                    isDelete = false,
-                ),
-            )
-        }
+    (localPlaylists subtract remotePlaylistsSet).forEach { playlist ->
+      add(
+        NetworkChangeList(
+          id = playlist.id,
+          changeListVersion = getChangeListVersion(),
+          isDelete = true,
+        )
+      )
     }
 
-    fun getForMedia(
-        localPlaylists: List<Playlist>,
-        remotePlaylists: List<Playlist>,
-    ): List<NetworkChangeList> = buildList {
-        val localMediaList = localPlaylists.flatMap(Playlist::mediaList)
-        val remoteMediaSet = remotePlaylists.flatMap(Playlist::mediaList).toSet()
+    for (playlist in remotePlaylistsSet) {
+      add(
+        NetworkChangeList(
+          id = playlist.id,
+          changeListVersion = getChangeListVersion(),
+          isDelete = false,
+        )
+      )
+    }
+  }
 
-        (localMediaList subtract remoteMediaSet).forEach { playlist ->
-            add(
-                NetworkChangeList(
-                    id = playlist.id,
-                    changeListVersion = getChangeListVersion(),
-                    isDelete = true,
-                ),
-            )
-        }
+  fun getForMedia(
+    localPlaylists: List<Playlist>,
+    remotePlaylists: List<Playlist>,
+  ): List<NetworkChangeList> = buildList {
+    val localMediaList = localPlaylists.flatMap(Playlist::mediaList)
+    val remoteMediaSet = remotePlaylists.flatMap(Playlist::mediaList).toSet()
 
-        for (playlist in remoteMediaSet) {
-            add(
-                NetworkChangeList(
-                    id = playlist.id,
-                    changeListVersion = getChangeListVersion(),
-                    isDelete = false,
-                ),
-            )
-        }
+    (localMediaList subtract remoteMediaSet).forEach { playlist ->
+      add(
+        NetworkChangeList(
+          id = playlist.id,
+          changeListVersion = getChangeListVersion(),
+          isDelete = true,
+        )
+      )
     }
 
-    private fun getChangeListVersion() = SyncModule.CHANGE_LIST_VERSION + 1
+    for (playlist in remoteMediaSet) {
+      add(
+        NetworkChangeList(
+          id = playlist.id,
+          changeListVersion = getChangeListVersion(),
+          isDelete = false,
+        )
+      )
+    }
+  }
+
+  private fun getChangeListVersion() = SyncModule.CHANGE_LIST_VERSION + 1
 }

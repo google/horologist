@@ -26,38 +26,42 @@ import org.robolectric.annotation.Config
 
 class MetricsScreenA11yTest : WearLegacyA11yTest() {
 
-    @Test
-    fun metricsScreenTwoMetrics() {
-        runScreenTest {
-            MetricsScreen(
-                firstMetric = MetricUiModel(
-                    text = "198",
-                    bottomRightText = stringResource(R.string.horologist_peak),
-                    color = HR_MAXIMUM,
-                ),
-                secondMetric = MetricUiModel(
-                    text = "2.7",
-                    bottomRightText = stringResource(R.string.horologist_miles),
-                ),
-            )
-        }
+  @Test
+  fun metricsScreenTwoMetrics() {
+    runScreenTest {
+      MetricsScreen(
+        firstMetric =
+          MetricUiModel(
+            text = "198",
+            bottomRightText = stringResource(R.string.horologist_peak),
+            color = HR_MAXIMUM,
+          ),
+        secondMetric =
+          MetricUiModel(
+            text = "2.7",
+            bottomRightText = stringResource(R.string.horologist_miles),
+          ),
+      )
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun metricsScreenTwoMetrics_rtl() {
-        runScreenTest {
-            MetricsScreen(
-                firstMetric = MetricUiModel(
-                    text = "198",
-                    bottomRightText = stringResource(R.string.horologist_peak),
-                    color = HR_MAXIMUM,
-                ),
-                secondMetric = MetricUiModel(
-                    text = "2.7",
-                    bottomRightText = stringResource(R.string.horologist_miles),
-                ),
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun metricsScreenTwoMetrics_rtl() {
+    runScreenTest {
+      MetricsScreen(
+        firstMetric =
+          MetricUiModel(
+            text = "198",
+            bottomRightText = stringResource(R.string.horologist_peak),
+            color = HR_MAXIMUM,
+          ),
+        secondMetric =
+          MetricUiModel(
+            text = "2.7",
+            bottomRightText = stringResource(R.string.horologist_miles),
+          ),
+      )
     }
+  }
 }

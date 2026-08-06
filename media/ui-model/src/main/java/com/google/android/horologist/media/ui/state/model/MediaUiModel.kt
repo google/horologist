@@ -25,31 +25,32 @@ import com.google.android.horologist.images.base.paintable.Paintable
 /** A sealed class representing the UI state of a media item. */
 public sealed class MediaUiModel {
 
-    /**
-     * Represents the UI state when media data is available.
-     *
-     * @param id The unique identifier of the media item.
-     * @param title The title of the media item.
-     * @param subtitle The subtitle of the media item (optional).
-     * @param artwork The artwork to display for the media item (optional).
-     * @param artworkColor The primary color to use for the artwork background (optional).
-     * @param artworkColorSeed The seed color to use for generating the artwork color palette
-     *   (optional).
-     * @param titleIcon An icon to display next to the title (optional).
-     * @param appLabel The name of the app that is playing media.
-     * @param selectedAudioOutput The audio output on which the media is currently playing (optional).
-     */
-    public data class Ready(
-        val id: String,
-        val title: String,
-        val subtitle: String = "",
-        val clientPackageName: String? = null,
-        val artwork: Paintable? = null,
-        val artworkColor: Color? = null,
-        val artworkColorSeed: Color? = null,
-        val titleIcon: Paintable? = null,
-        val appLabel: String? = null,
-        val selectedAudioOutput: AudioOutput? = null,
-    ) : MediaUiModel()
-    public object Loading : MediaUiModel()
+  /**
+   * Represents the UI state when media data is available.
+   *
+   * @param id The unique identifier of the media item.
+   * @param title The title of the media item.
+   * @param subtitle The subtitle of the media item (optional).
+   * @param artwork The artwork to display for the media item (optional).
+   * @param artworkColor The primary color to use for the artwork background (optional).
+   * @param artworkColorSeed The seed color to use for generating the artwork color palette
+   *   (optional).
+   * @param titleIcon An icon to display next to the title (optional).
+   * @param appLabel The name of the app that is playing media.
+   * @param selectedAudioOutput The audio output on which the media is currently playing (optional).
+   */
+  public data class Ready(
+    val id: String,
+    val title: String,
+    val subtitle: String = "",
+    val clientPackageName: String? = null,
+    val artwork: Paintable? = null,
+    val artworkColor: Color? = null,
+    val artworkColorSeed: Color? = null,
+    val titleIcon: Paintable? = null,
+    val appLabel: String? = null,
+    val selectedAudioOutput: AudioOutput? = null,
+  ) : MediaUiModel()
+
+  public object Loading : MediaUiModel()
 }

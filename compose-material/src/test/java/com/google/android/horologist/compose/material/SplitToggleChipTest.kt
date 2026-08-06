@@ -25,174 +25,176 @@ import org.robolectric.annotation.Config
 
 class SplitToggleChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun switch() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-            )
-        }
+  @Test
+  fun switch() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+      )
     }
+  }
 
-    @Test
-    fun radio() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Radio,
-            )
-        }
+  @Test
+  fun radio() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Radio,
+      )
     }
+  }
 
-    @Test
-    fun checkbox() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Checkbox,
-            )
-        }
+  @Test
+  fun checkbox() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Checkbox,
+      )
     }
+  }
 
-    @Test
-    fun unchecked() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-            )
-        }
+  @Test
+  fun unchecked() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = false,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryLabel() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
-            )
-        }
+  @Test
+  fun withSecondaryLabel() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+        secondaryLabel = "Secondary label",
+      )
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun uncheckedAndDisabled() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                enabled = false,
-            )
-        }
+  @Test
+  fun uncheckedAndDisabled() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = false,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun withLongText() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-            )
-        }
+  @Test
+  fun withLongText() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label =
+          "Primary label very very very very very very very very very very very very very very very very very long text",
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+      )
     }
+  }
 
-    @Test
-    fun withLongTextAndLargestFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-                SplitToggleChip(
-                    checked = true,
-                    onCheckedChanged = { },
-                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    onClick = { },
-                    toggleControl = ToggleChipToggleControl.Switch,
-                )
-            }
-        }
+  @Test
+  fun withLongTextAndLargestFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
+        SplitToggleChip(
+          checked = true,
+          onCheckedChanged = {},
+          label =
+            "Primary label very very very very very very very very very very very very very very very very very long text",
+          onClick = {},
+          toggleControl = ToggleChipToggleControl.Switch,
+        )
+      }
     }
+  }
 
-    @Test
-    fun withSecondaryLabelAndLongText() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label very very very very very very very very long text",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label very very very very very very very very very long text",
-            )
-        }
+  @Test
+  fun withSecondaryLabelAndLongText() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = "Primary label very very very very very very very very long text",
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+        secondaryLabel = "Secondary label very very very very very very very very very long text",
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryLabelAndLongTextAndLargestFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-                SplitToggleChip(
-                    checked = true,
-                    onCheckedChanged = { },
-                    label = "Primary label very very very very very very very very long text",
-                    onClick = { },
-                    toggleControl = ToggleChipToggleControl.Switch,
-                    secondaryLabel = "Secondary label very very very very very very very very very long text",
-                )
-            }
-        }
+  @Test
+  fun withSecondaryLabelAndLongTextAndLargestFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
+        SplitToggleChip(
+          checked = true,
+          onCheckedChanged = {},
+          label = "Primary label very very very very very very very very long text",
+          onClick = {},
+          toggleControl = ToggleChipToggleControl.Switch,
+          secondaryLabel = "Secondary label very very very very very very very very very long text",
+        )
+      }
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun rtl() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = stringResource(R.string.primary_label),
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun rtl() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = stringResource(R.string.primary_label),
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+        secondaryLabel = "Secondary label",
+      )
     }
+  }
 
-    companion object {
-        private const val largestFontScale = 1.18f
-    }
+  companion object {
+    private const val largestFontScale = 1.18f
+  }
 }

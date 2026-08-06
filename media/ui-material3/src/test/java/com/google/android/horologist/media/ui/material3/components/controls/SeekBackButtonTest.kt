@@ -22,53 +22,53 @@ import org.junit.Test
 
 public class SeekBackButtonTest : WearLegacyComponentTest() {
 
-    @Test
-    fun givenIncrementIsFive_thenIconIsFive() {
-        runComponentTest {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Five,
-            )
-        }
+  @Test
+  fun givenIncrementIsFive_thenIconIsFive() {
+    runComponentTest {
+      SeekBackButton(
+        onClick = {},
+        seekButtonIncrement = SeekButtonIncrement.Five,
+      )
     }
+  }
 
-    @Test
-    fun givenIncrementIsTen_thenIconIsTen() {
-        runComponentTest {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Ten,
-            )
-        }
+  @Test
+  fun givenIncrementIsTen_thenIconIsTen() {
+    runComponentTest {
+      SeekBackButton(
+        onClick = {},
+        seekButtonIncrement = SeekButtonIncrement.Ten,
+      )
     }
+  }
 
-    @Test
-    fun givenIncrementIsThirty_thenIconIsThirty() {
-        runComponentTest {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Thirty,
-            )
-        }
+  @Test
+  fun givenIncrementIsThirty_thenIconIsThirty() {
+    runComponentTest {
+      SeekBackButton(
+        onClick = {},
+        seekButtonIncrement = SeekButtonIncrement.Thirty,
+      )
     }
+  }
 
-    @Test
-    fun givenIncrementIsOtherValue_thenIconIsDefault() {
-        runComponentTest {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Known(15),
-            )
-        }
+  @Test
+  fun givenIncrementIsOtherValue_thenIconIsDefault() {
+    runComponentTest {
+      SeekBackButton(
+        onClick = {},
+        seekButtonIncrement = SeekButtonIncrement.Known(15),
+      )
     }
+  }
 
-    @Test
-    fun givenIncrementIsUnknown_thenIconIsDefault() {
-        runComponentTest {
-            SeekBackButton(
-                onClick = {},
-                seekButtonIncrement = SeekButtonIncrement.Unknown,
-            )
-        }
+  @Test
+  fun givenIncrementIsUnknown_thenIconIsDefault() {
+    runComponentTest {
+      SeekBackButton(
+        onClick = {},
+        seekButtonIncrement = SeekButtonIncrement.Unknown,
+      )
     }
+  }
 }

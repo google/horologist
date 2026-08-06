@@ -32,30 +32,30 @@ import com.google.android.horologist.media.ui.model.R
 
 @Composable
 public fun AnimatedSeekToNextButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    onRepeatableClick: (() -> Unit)? = null,
-    onRepeatableClickEnd: (() -> Unit)? = null,
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource? = null,
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(),
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  onRepeatableClick: (() -> Unit)? = null,
+  onRepeatableClickEnd: (() -> Unit)? = null,
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource? = null,
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(),
+  iconSize: Dp = IconButtonDefaults.LargeIconSize,
 ) {
-    val compositionResult = rememberLottieComposition(
-        spec = LottieCompositionSpec.Asset("lottie/M3Next.json"),
-    )
-    AnimatedMediaButton(
-        modifier = modifier,
-        onClick = onClick,
-        contentDescription = stringResource(id = R.string.horologist_seek_to_next_button_content_description),
-        enabled = enabled,
-        colors = colors,
-        iconSize = iconSize,
-        buttonPadding = buttonPadding,
-        compositionResult = compositionResult,
-        onRepeatableClick = onRepeatableClick,
-        onRepeatableClickEnd = onRepeatableClickEnd,
-        interactionSource = interactionSource,
-    )
+  val compositionResult =
+    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/M3Next.json"))
+  AnimatedMediaButton(
+    modifier = modifier,
+    onClick = onClick,
+    contentDescription =
+      stringResource(id = R.string.horologist_seek_to_next_button_content_description),
+    enabled = enabled,
+    colors = colors,
+    iconSize = iconSize,
+    buttonPadding = buttonPadding,
+    compositionResult = compositionResult,
+    onRepeatableClick = onRepeatableClick,
+    onRepeatableClickEnd = onRepeatableClickEnd,
+    interactionSource = interactionSource,
+  )
 }

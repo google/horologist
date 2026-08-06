@@ -27,44 +27,48 @@ import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
 class OutlinedCompactChipTest : WearLegacyComponentTest() {
-    @Test
-    fun withPlaceholderIcon() {
-        runComponentTest {
-            // In inspection mode will jump to placeholder
-            CompositionLocalProvider(LocalInspectionMode.provides(true)) {
-                OutlinedCompactChip(
-                    onClick = { },
-                    label = "Primary label",
-                    icon = CoilPaintable(
-                        "iconUri",
-                        placeholder = rememberVectorPainter(
-                            image = Icons.Default.Image,
-                            tintColor = MaterialTheme.colors.primary,
-                        ),
-                    ),
-                )
-            }
-        }
+  @Test
+  fun withPlaceholderIcon() {
+    runComponentTest {
+      // In inspection mode will jump to placeholder
+      CompositionLocalProvider(LocalInspectionMode.provides(true)) {
+        OutlinedCompactChip(
+          onClick = {},
+          label = "Primary label",
+          icon =
+            CoilPaintable(
+              "iconUri",
+              placeholder =
+                rememberVectorPainter(
+                  image = Icons.Default.Image,
+                  tintColor = MaterialTheme.colors.primary,
+                ),
+            ),
+        )
+      }
     }
+  }
 
-    @Test
-    fun disabledWithIconPlaceholder() {
-        runComponentTest {
-            // In inspection mode will jump to placeholder
-            CompositionLocalProvider(LocalInspectionMode.provides(true)) {
-                OutlinedCompactChip(
-                    onClick = { },
-                    label = "Primary label",
-                    icon = CoilPaintable(
-                        "iconUri",
-                        placeholder = rememberVectorPainter(
-                            image = Icons.Default.Image,
-                            tintColor = MaterialTheme.colors.primary,
-                        ),
-                    ),
-                    enabled = false,
-                )
-            }
-        }
+  @Test
+  fun disabledWithIconPlaceholder() {
+    runComponentTest {
+      // In inspection mode will jump to placeholder
+      CompositionLocalProvider(LocalInspectionMode.provides(true)) {
+        OutlinedCompactChip(
+          onClick = {},
+          label = "Primary label",
+          icon =
+            CoilPaintable(
+              "iconUri",
+              placeholder =
+                rememberVectorPainter(
+                  image = Icons.Default.Image,
+                  tintColor = MaterialTheme.colors.primary,
+                ),
+            ),
+          enabled = false,
+        )
+      }
     }
+  }
 }

@@ -29,7 +29,8 @@ import androidx.compose.animation.core.VectorizedFiniteAnimationSpec
 import androidx.compose.runtime.withFrameMillis
 
 /**
- * Code modified from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material3/src/main/java/androidx/wear/compose/material3/AnimationSpecUtils.kt.
+ * Code modified from
+ * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material3/src/main/java/androidx/wear/compose/material3/AnimationSpecUtils.kt.
  *
  * Returns a new [FiniteAnimationSpec] that is a faster version of this one.
  *
@@ -37,10 +38,10 @@ import androidx.compose.runtime.withFrameMillis
  *   being no change, 100f being double, speed and so on.
  */
 internal fun <T> FiniteAnimationSpec<T>.faster(
-    @FloatRange(from = 0.0) speedupPct: Float,
+  @FloatRange(from = 0.0) speedupPct: Float
 ): FiniteAnimationSpec<T> {
-    require(speedupPct >= 0f) { "speedupPct has to be positive. Was: $speedupPct" }
-    return speedFactor(1 + speedupPct / 100)
+  require(speedupPct >= 0f) { "speedupPct has to be positive. Was: $speedupPct" }
+  return speedFactor(1 + speedupPct / 100)
 }
 
 /**
@@ -50,12 +51,12 @@ internal fun <T> FiniteAnimationSpec<T>.faster(
  *   being no change, 50f being half the speed.
  */
 internal fun <T> FiniteAnimationSpec<T>.slower(
-    @FloatRange(from = 0.0, to = 100.0, toInclusive = false) slowdownPct: Float,
+  @FloatRange(from = 0.0, to = 100.0, toInclusive = false) slowdownPct: Float
 ): FiniteAnimationSpec<T> {
-    require(slowdownPct >= 0f && slowdownPct < 100f) {
-        "slowdownPct has to be between 0 and 100. Was: $slowdownPct"
-    }
-    return speedFactor(1 - slowdownPct / 100)
+  require(slowdownPct >= 0f && slowdownPct < 100f) {
+    "slowdownPct has to be between 0 and 100. Was: $slowdownPct"
+  }
+  return speedFactor(1 - slowdownPct / 100)
 }
 
 /**
@@ -65,80 +66,82 @@ internal fun <T> FiniteAnimationSpec<T>.slower(
  *   allowed) 0.5f -> half speed 1f -> current speed 2f -> double speed
  */
 internal fun <T> FiniteAnimationSpec<T>.speedFactor(
-    @FloatRange(from = 0.0, fromInclusive = false) factor: Float,
+  @FloatRange(from = 0.0, fromInclusive = false) factor: Float
 ): FiniteAnimationSpec<T> {
-    require(factor > 0f) { "factor has to be positive. Was: $factor" }
-    return when (this) {
-        is SpringSpec -> SpringSpec(dampingRatio, stiffness * factor * factor, visibilityThreshold)
-        else -> WrappedAnimationSpec(this, factor)
-    }
+  require(factor > 0f) { "factor has to be positive. Was: $factor" }
+  return when (this) {
+    is SpringSpec -> SpringSpec(dampingRatio, stiffness * factor * factor, visibilityThreshold)
+    else -> WrappedAnimationSpec(this, factor)
+  }
 }
 
 private class WrappedAnimationSpec<T>(
-    val wrapped: FiniteAnimationSpec<T>,
-    val speedupFactor: Float,
+  val wrapped: FiniteAnimationSpec<T>,
+  val speedupFactor: Float,
 ) : FiniteAnimationSpec<T> {
-    override fun <V : AnimationVector> vectorize(
-        converter: TwoWayConverter<T, V>,
-    ): VectorizedFiniteAnimationSpec<V> =
-        WrappedVectorizedAnimationSpec(wrapped.vectorize(converter), speedupFactor)
+  override fun <V : AnimationVector> vectorize(
+    converter: TwoWayConverter<T, V>
+  ): VectorizedFiniteAnimationSpec<V> =
+    WrappedVectorizedAnimationSpec(wrapped.vectorize(converter), speedupFactor)
 }
 
 private class WrappedVectorizedAnimationSpec<V : AnimationVector>(
-    val wrapped: VectorizedFiniteAnimationSpec<V>,
-    val speedupFactor: Float,
+  val wrapped: VectorizedFiniteAnimationSpec<V>,
+  val speedupFactor: Float,
 ) : VectorizedFiniteAnimationSpec<V> {
-    override val isInfinite: Boolean
-        get() = wrapped.isInfinite
+  override val isInfinite: Boolean
+    get() = wrapped.isInfinite
 
-    override fun getValueFromNanos(
-        playTimeNanos: Long,
-        initialValue: V,
-        targetValue: V,
-        initialVelocity: V,
-    ): V = wrapped.getValueFromNanos(
-        (playTimeNanos * speedupFactor).toLong(),
-        initialValue,
-        targetValue,
-        initialVelocity,
+  override fun getValueFromNanos(
+    playTimeNanos: Long,
+    initialValue: V,
+    targetValue: V,
+    initialVelocity: V,
+  ): V =
+    wrapped.getValueFromNanos(
+      (playTimeNanos * speedupFactor).toLong(),
+      initialValue,
+      targetValue,
+      initialVelocity,
     )
 
-    override fun getVelocityFromNanos(
-        playTimeNanos: Long,
-        initialValue: V,
-        targetValue: V,
-        initialVelocity: V,
-    ): V = wrapped.getVelocityFromNanos(
-        (playTimeNanos * speedupFactor).toLong(),
-        initialValue,
-        targetValue,
-        initialVelocity,
+  override fun getVelocityFromNanos(
+    playTimeNanos: Long,
+    initialValue: V,
+    targetValue: V,
+    initialVelocity: V,
+  ): V =
+    wrapped.getVelocityFromNanos(
+      (playTimeNanos * speedupFactor).toLong(),
+      initialValue,
+      targetValue,
+      initialVelocity,
     ) * speedupFactor
 
-    @Suppress("MethodNameUnits")
-    override fun getDurationNanos(initialValue: V, targetValue: V, initialVelocity: V): Long =
-        (wrapped.getDurationNanos(initialValue, targetValue, initialVelocity) / speedupFactor)
-            .toLong()
+  @Suppress("MethodNameUnits")
+  override fun getDurationNanos(initialValue: V, targetValue: V, initialVelocity: V): Long =
+    (wrapped.getDurationNanos(initialValue, targetValue, initialVelocity) / speedupFactor).toLong()
 }
 
 @Suppress("UNCHECKED_CAST")
 internal operator fun <T : AnimationVector> T.times(k: Float): T {
-    val t = this as AnimationVector
-    return when (t) {
-        is AnimationVector1D -> AnimationVector1D(t.value * k)
-        is AnimationVector2D -> AnimationVector2D(t.v1 * k, t.v2 * k)
-        is AnimationVector3D -> AnimationVector3D(t.v1 * k, t.v2 * k, t.v3 * k)
-        is AnimationVector4D -> AnimationVector4D(t.v1 * k, t.v2 * k, t.v3 * k, t.v4 * k)
-    } as T
+  val t = this as AnimationVector
+  return when (t) {
+    is AnimationVector1D -> AnimationVector1D(t.value * k)
+    is AnimationVector2D -> AnimationVector2D(t.v1 * k, t.v2 * k)
+    is AnimationVector3D -> AnimationVector3D(t.v1 * k, t.v2 * k, t.v3 * k)
+    is AnimationVector4D -> AnimationVector4D(t.v1 * k, t.v2 * k, t.v3 * k, t.v4 * k)
+  }
+    as T
 }
 
 internal suspend fun waitUntil(condition: () -> Boolean) {
-    val initialTimeMillis = withFrameMillis { it }
-    while (!condition()) {
-        val timeMillis = withFrameMillis { it }
-        if (timeMillis - initialTimeMillis > MAX_WAIT_TIME_MILLIS) return
-    }
-    return
+  val initialTimeMillis = withFrameMillis { it }
+  while (!condition()) {
+    val timeMillis = withFrameMillis { it }
+    if (timeMillis - initialTimeMillis > MAX_WAIT_TIME_MILLIS) return
+  }
+  return
 }
 
 private const val MAX_WAIT_TIME_MILLIS = 1_000L

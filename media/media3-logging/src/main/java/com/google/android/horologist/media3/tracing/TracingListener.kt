@@ -20,30 +20,30 @@ import androidx.media3.common.Player
 import androidx.tracing.Trace
 
 public class TracingListener : Player.Listener {
-    private var isPlaying: Boolean = false
-    private var isLoading: Boolean = false
+  private var isPlaying: Boolean = false
+  private var isLoading: Boolean = false
 
-    override fun onIsPlayingChanged(newIsPlaying: Boolean) {
-        if (newIsPlaying != isPlaying) {
-            if (newIsPlaying) {
-                Trace.beginAsyncSection("Player.isPlaying", 0)
-            } else {
-                Trace.endAsyncSection("Player.isPlaying", 0)
-            }
-        }
-
-        this.isPlaying = newIsPlaying
+  override fun onIsPlayingChanged(newIsPlaying: Boolean) {
+    if (newIsPlaying != isPlaying) {
+      if (newIsPlaying) {
+        Trace.beginAsyncSection("Player.isPlaying", 0)
+      } else {
+        Trace.endAsyncSection("Player.isPlaying", 0)
+      }
     }
 
-    override fun onIsLoadingChanged(newIsLoading: Boolean) {
-        if (newIsLoading != isLoading) {
-            if (newIsLoading) {
-                Trace.beginAsyncSection("Player.isLoading", 0)
-            } else {
-                Trace.endAsyncSection("Player.isLoading", 0)
-            }
-        }
+    this.isPlaying = newIsPlaying
+  }
 
-        this.isLoading = newIsLoading
+  override fun onIsLoadingChanged(newIsLoading: Boolean) {
+    if (newIsLoading != isLoading) {
+      if (newIsLoading) {
+        Trace.beginAsyncSection("Player.isLoading", 0)
+      } else {
+        Trace.endAsyncSection("Player.isLoading", 0)
+      }
     }
+
+    this.isLoading = newIsLoading
+  }
 }

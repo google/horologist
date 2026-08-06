@@ -23,30 +23,30 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
-    name = "Play - Enabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Play - Enabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun MediaButtonPreviewPlayEnabled() {
-    MediaButton(
-        onClick = {},
-        icon = Icons.Default.PlayArrow,
-        "Play",
-    )
+  MediaButton(
+    onClick = {},
+    icon = Icons.Default.PlayArrow,
+    "Play",
+  )
 }
 
 @Preview(
-    "Pause - Disabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  "Pause - Disabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun MediaButtonPreviewPauseDisabled() {
-    MediaButton(
-        onClick = {},
-        icon = Icons.Default.Pause,
-        "Pause",
-        enabled = false,
-    )
+  MediaButton(
+    onClick = {},
+    icon = Icons.Default.Pause,
+    "Pause",
+    enabled = false,
+  )
 }

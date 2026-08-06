@@ -26,11 +26,11 @@ import com.google.android.horologist.compose.tools.WearPreview
 @WearPreview
 @Composable
 fun PlaceholderChipPreview() {
-    PlaceholderChip()
+  PlaceholderChip()
 }
 
 @WearPreview
 @Composable
 fun PlaceholderChipPreviewWithSecondaryColors() {
-    PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
+  PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
 }

@@ -24,27 +24,29 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @WearPreview
 @Composable
 fun TrackMediaDisplayPreview() {
-    TrackMediaDisplay(
-        media = MediaUiModel.Ready(
-            id = "id",
-            title = "Song title",
-            subtitle = "Artist name",
-        ),
-    )
+  TrackMediaDisplay(
+    media =
+      MediaUiModel.Ready(
+        id = "id",
+        title = "Song title",
+        subtitle = "Artist name",
+      )
+  )
 }
 
 @Preview(
-    "With long text",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  "With long text",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun TrackMediaDisplayPreviewLongText() {
-    TrackMediaDisplay(
-        media = MediaUiModel.Ready(
-            id = "id",
-            title = "I Predict That You Look Good In A Riot",
-            subtitle = "Arctic Monkeys feat Kaiser Chiefs",
-        ),
-    )
+  TrackMediaDisplay(
+    media =
+      MediaUiModel.Ready(
+        id = "id",
+        title = "I Predict That You Look Good In A Riot",
+        subtitle = "Arctic Monkeys feat Kaiser Chiefs",
+      )
+  )
 }

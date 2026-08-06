@@ -29,66 +29,67 @@ import org.junit.Test
 
 class VolumeScreenA11yScreenshotTest : WearLegacyA11yTest() {
 
-    @Test
-    fun volumeScreenAtMinimum() {
-        val volumeState = VolumeState(
-            current = 0,
-            max = 100,
-        )
-        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
+  @Test
+  fun volumeScreenAtMinimum() {
+    val volumeState =
+      VolumeState(
+        current = 0,
+        max = 100,
+      )
+    val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        runScreenTest {
-            VolumeScreenTest.TestVolumeScreen(
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
+    runScreenTest {
+      VolumeScreenTest.TestVolumeScreen(
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 
-    @Test
-    fun volumeScreenNotConnected() {
-        val volumeState = VolumeState(
-            current = 0,
-            max = 100,
-        )
-        // Media Router returns "Phone"
-        val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
+  @Test
+  fun volumeScreenNotConnected() {
+    val volumeState =
+      VolumeState(
+        current = 0,
+        max = 100,
+      )
+    // Media Router returns "Phone"
+    val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
 
-        runScreenTest {
-            VolumeScreenTest.TestVolumeScreen(
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
+    runScreenTest {
+      VolumeScreenTest.TestVolumeScreen(
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 
-    @Test
-    fun volumeScreenWatchSpeakerConnected() {
-        val volumeState = VolumeState(
-            current = 0,
-            max = 100,
-        )
+  @Test
+  fun volumeScreenWatchSpeakerConnected() {
+    val volumeState =
+      VolumeState(
+        current = 0,
+        max = 100,
+      )
 
-        // Media Router returns "Phone"
-        val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", true)
+    // Media Router returns "Phone"
+    val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", true)
 
-        runScreenTest {
-            VolumeScreenTest.TestVolumeScreen(
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
+    runScreenTest {
+      VolumeScreenTest.TestVolumeScreen(
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 
-    @Composable
-    override fun TestScaffold(content: @Composable () -> Unit) {
-        ScreenScaffold(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.background),
-            timeText = {},
-        ) {
-            content()
-        }
+  @Composable
+  override fun TestScaffold(content: @Composable () -> Unit) {
+    ScreenScaffold(
+      modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background),
+      timeText = {},
+    ) {
+      content()
     }
+  }
 }

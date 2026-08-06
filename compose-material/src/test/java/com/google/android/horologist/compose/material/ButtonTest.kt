@@ -25,124 +25,125 @@ import org.robolectric.annotation.Config
 
 internal class ButtonTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-            )
-        }
+  @Test
+  fun default() {
+    runComponentTest {
+      Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = {},
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun large() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                buttonSize = ButtonSize.Large,
-            )
-        }
+  @Test
+  fun large() {
+    runComponentTest {
+      Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = {},
+        buttonSize = ButtonSize.Large,
+      )
     }
+  }
 
-    @Test
-    fun small() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                buttonSize = ButtonSize.Small,
-            )
-        }
+  @Test
+  fun small() {
+    runComponentTest {
+      Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = {},
+        buttonSize = ButtonSize.Small,
+      )
     }
+  }
 
-    @Test
-    fun customSize() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                buttonSize = ButtonSize.Custom(
-                    customIconSize = ButtonDefaults.SmallIconSize,
-                    customTapTargetSize = ButtonDefaults.LargeButtonSize,
-                ),
-            )
-        }
+  @Test
+  fun customSize() {
+    runComponentTest {
+      Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = {},
+        buttonSize =
+          ButtonSize.Custom(
+            customIconSize = ButtonDefaults.SmallIconSize,
+            customTapTargetSize = ButtonDefaults.LargeButtonSize,
+          ),
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryButtonColors() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                colors = ButtonDefaults.secondaryButtonColors(),
-            )
-        }
+  @Test
+  fun withSecondaryButtonColors() {
+    runComponentTest {
+      Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = {},
+        colors = ButtonDefaults.secondaryButtonColors(),
+      )
     }
+  }
 
-    @Test
-    fun withIconButtonColors() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                colors = ButtonDefaults.iconButtonColors(),
-            )
-        }
+  @Test
+  fun withIconButtonColors() {
+    runComponentTest {
+      Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = {},
+        colors = ButtonDefaults.iconButtonColors(),
+      )
     }
+  }
 
-    @Test
-    fun usingDrawableResAsIcon() {
-        runComponentTest {
-            Button(
-                id = android.R.drawable.ic_media_play,
-                contentDescription = "contentDescription",
-                onClick = { },
-            )
-        }
+  @Test
+  fun usingDrawableResAsIcon() {
+    runComponentTest {
+      Button(
+        id = android.R.drawable.ic_media_play,
+        contentDescription = "contentDescription",
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun usingDrawableResAsIconRtl() {
-        runComponentTest {
-            Button(
-                id = android.R.drawable.ic_media_play,
-                contentDescription = "contentDescription",
-                onClick = { },
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun usingDrawableResAsIconRtl() {
+    runComponentTest {
+      Button(
+        id = android.R.drawable.ic_media_play,
+        contentDescription = "contentDescription",
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun defaultRtl() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun defaultRtl() {
+    runComponentTest {
+      Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = {},
+      )
     }
+  }
 }

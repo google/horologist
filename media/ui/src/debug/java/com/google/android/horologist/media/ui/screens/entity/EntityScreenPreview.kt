@@ -54,145 +54,131 @@ import com.google.android.horologist.compose.material.Chip
 @WearPreviewDevices
 @Composable
 fun EntityScreenPreview() {
-    EntityScreen(
-        headerContent = {
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-                    .background(
-                        Brush.radialGradient(
-                            listOf(
-                                (Color.Green).copy(alpha = 0.3f),
-                                Color.Transparent,
-                            ),
-                        ),
-                    ),
-                contentAlignment = Alignment.Center,
-            ) {
-                Text("Playlist name")
-            }
-        },
-        buttonsContent = {
-            Row(
-                modifier = Modifier
-                    .padding(bottom = 16.dp)
-                    .height(52.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                Button(
-                    imageVector = Icons.Default.Favorite,
-                    contentDescription = "Favorite",
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(start = 6.dp)
-                        .weight(weight = 0.3F, fill = false),
+  EntityScreen(
+    headerContent = {
+      Box(
+        modifier =
+          Modifier.fillMaxWidth()
+            .height(100.dp)
+            .background(
+              Brush.radialGradient(
+                listOf(
+                  (Color.Green).copy(alpha = 0.3f),
+                  Color.Transparent,
                 )
+              )
+            ),
+        contentAlignment = Alignment.Center,
+      ) {
+        Text("Playlist name")
+      }
+    },
+    buttonsContent = {
+      Row(
+        modifier = Modifier.padding(bottom = 16.dp).height(52.dp),
+        verticalAlignment = Alignment.CenterVertically,
+      ) {
+        Button(
+          imageVector = Icons.Default.Favorite,
+          contentDescription = "Favorite",
+          onClick = {},
+          modifier = Modifier.padding(start = 6.dp).weight(weight = 0.3F, fill = false),
+        )
 
-                Button(
-                    imageVector = Icons.AutoMirrored.Default.PlaylistPlay,
-                    contentDescription = "Play",
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(start = 6.dp)
-                        .weight(weight = 0.3F, fill = false),
-                )
-            }
-        },
-        content = {
-            item { Chip(label = "Song 1", onClick = { }) }
-            item { Chip(label = "Song 2", onClick = { }) }
-        },
-    )
+        Button(
+          imageVector = Icons.AutoMirrored.Default.PlaylistPlay,
+          contentDescription = "Play",
+          onClick = {},
+          modifier = Modifier.padding(start = 6.dp).weight(weight = 0.3F, fill = false),
+        )
+      }
+    },
+    content = {
+      item { Chip(label = "Song 1", onClick = {}) }
+      item { Chip(label = "Song 2", onClick = {}) }
+    },
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun EntityScreenPreviewLoadedState() {
-    EntityScreen(
-        entityScreenState = EntityScreenState.Loaded(listOf("Song 1", "Song 2")),
-        headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
-        loadingContent = { },
-        mediaContent = { song -> Chip(label = song, onClick = { }) },
-        buttonsContent = { ButtonContentForStatePreview() },
-    )
+  EntityScreen(
+    entityScreenState = EntityScreenState.Loaded(listOf("Song 1", "Song 2")),
+    headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
+    loadingContent = {},
+    mediaContent = { song -> Chip(label = song, onClick = {}) },
+    buttonsContent = { ButtonContentForStatePreview() },
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun EntityScreenPreviewLoadingState() {
-    EntityScreen(
-        entityScreenState = EntityScreenState.Loading,
-        headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
-        loadingContent = { items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) } },
-        mediaContent = { },
-        buttonsContent = { ButtonContentForStatePreview() },
-    )
+  EntityScreen(
+    entityScreenState = EntityScreenState.Loading,
+    headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
+    loadingContent = {
+      items(count = 2) { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) }
+    },
+    mediaContent = {},
+    buttonsContent = { ButtonContentForStatePreview() },
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun EntityScreenPreviewFailedState() {
-    EntityScreen(
-        entityScreenState = EntityScreenState.Failed,
-        headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
-        loadingContent = { },
-        mediaContent = { },
-        buttonsContent = { ButtonContentForStatePreview() },
-        failedContent = {
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Icon(
-                    imageVector = Icons.Default.CloudOff,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(24.dp)
-                        .wrapContentSize(align = Alignment.Center),
-                )
-                Text(
-                    text = "Could not retrieve the playlist.",
-                    textAlign = TextAlign.Center,
-                )
-            }
-        },
-    )
+  EntityScreen(
+    entityScreenState = EntityScreenState.Failed,
+    headerContent = { DefaultEntityScreenHeader(title = "Playlist name") },
+    loadingContent = {},
+    mediaContent = {},
+    buttonsContent = { ButtonContentForStatePreview() },
+    failedContent = {
+      Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+      ) {
+        Icon(
+          imageVector = Icons.Default.CloudOff,
+          contentDescription = null,
+          modifier = Modifier.size(24.dp).wrapContentSize(align = Alignment.Center),
+        )
+        Text(
+          text = "Could not retrieve the playlist.",
+          textAlign = TextAlign.Center,
+        )
+      }
+    },
+  )
 }
 
 @Composable
 private fun ButtonContentForStatePreview() {
-    Row(
-        modifier = Modifier
-            .padding(bottom = 16.dp)
-            .height(52.dp),
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Button(
-            imageVector = Icons.Default.Download,
-            contentDescription = "Download",
-            onClick = { },
-            modifier = Modifier
-                .padding(start = 6.dp)
-                .weight(weight = 0.3F, fill = false),
-        )
+  Row(
+    modifier = Modifier.padding(bottom = 16.dp).height(52.dp),
+    verticalAlignment = Alignment.CenterVertically,
+  ) {
+    Button(
+      imageVector = Icons.Default.Download,
+      contentDescription = "Download",
+      onClick = {},
+      modifier = Modifier.padding(start = 6.dp).weight(weight = 0.3F, fill = false),
+    )
 
-        Button(
-            imageVector = Icons.Default.Shuffle,
-            contentDescription = "Shuffle",
-            onClick = { },
-            modifier = Modifier
-                .padding(start = 6.dp)
-                .weight(weight = 0.3F, fill = false),
-        )
+    Button(
+      imageVector = Icons.Default.Shuffle,
+      contentDescription = "Shuffle",
+      onClick = {},
+      modifier = Modifier.padding(start = 6.dp).weight(weight = 0.3F, fill = false),
+    )
 
-        Button(
-            imageVector = Icons.Default.PlayArrow,
-            contentDescription = "Play",
-            onClick = { },
-            modifier = Modifier
-                .padding(start = 6.dp)
-                .weight(weight = 0.3F, fill = false),
-        )
-    }
+    Button(
+      imageVector = Icons.Default.PlayArrow,
+      contentDescription = "Play",
+      onClick = {},
+      modifier = Modifier.padding(start = 6.dp).weight(weight = 0.3F, fill = false),
+    )
+  }
 }

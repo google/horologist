@@ -23,47 +23,43 @@ import org.junit.Test
 
 class GuestModeButtonTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            HorologistMaterialTheme {
-                GuestModeButton(onClick = {})
-            }
-        }
-    }
+  @Test
+  fun default() {
+    runComponentTest { HorologistMaterialTheme { GuestModeButton(onClick = {}) } }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            HorologistMaterialTheme {
-                GuestModeButton(
-                    onClick = {},
-                    enabled = false,
-                )
-            }
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      HorologistMaterialTheme {
+        GuestModeButton(
+          onClick = {},
+          enabled = false,
+        )
+      }
     }
+  }
 
-    @Test
-    fun withVariantButtonStyle() {
-        runComponentTest {
-            GuestModeButton(
-                onClick = {},
-                colors = ButtonDefaults.filledVariantButtonColors(),
-            )
-        }
+  @Test
+  fun withVariantButtonStyle() {
+    runComponentTest {
+      GuestModeButton(
+        onClick = {},
+        colors = ButtonDefaults.filledVariantButtonColors(),
+      )
     }
+  }
 
-    @Test
-    fun withVariantButtonStyleDisabled() {
-        runComponentTest {
-            HorologistMaterialTheme {
-                GuestModeButton(
-                    onClick = {},
-                    colors = ButtonDefaults.filledVariantButtonColors(),
-                    enabled = false,
-                )
-            }
-        }
+  @Test
+  fun withVariantButtonStyleDisabled() {
+    runComponentTest {
+      HorologistMaterialTheme {
+        GuestModeButton(
+          onClick = {},
+          colors = ButtonDefaults.filledVariantButtonColors(),
+          enabled = false,
+        )
+      }
     }
+  }
 }

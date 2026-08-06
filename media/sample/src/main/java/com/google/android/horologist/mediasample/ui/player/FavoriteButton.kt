@@ -35,14 +35,12 @@ import com.google.android.horologist.mediasample.R
  * TODO Currently not persisted anywhere.
  */
 @Composable
-public fun FavoriteButton(
-    modifier: Modifier = Modifier,
-) {
-    var faved by remember { mutableStateOf(false) }
-    SettingsButton(
-        modifier = modifier,
-        onClick = { faved = !faved },
-        imageVector = if (faved) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-        contentDescription = stringResource(R.string.favorite_content_description),
-    )
+public fun FavoriteButton(modifier: Modifier = Modifier) {
+  var faved by remember { mutableStateOf(false) }
+  SettingsButton(
+    modifier = modifier,
+    onClick = { faved = !faved },
+    imageVector = if (faved) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+    contentDescription = stringResource(R.string.favorite_content_description),
+  )
 }

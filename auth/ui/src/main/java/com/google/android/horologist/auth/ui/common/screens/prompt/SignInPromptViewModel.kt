@@ -34,44 +34,38 @@ import kotlinx.coroutines.launch
  *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
  */
-public open class SignInPromptViewModel(
-    private val authUserRepository: AuthUserRepository,
-) : ViewModel() {
+public open class SignInPromptViewModel(private val authUserRepository: AuthUserRepository) :
+  ViewModel() {
 
-    private val _uiState = MutableStateFlow<SignInPromptScreenState>(SignInPromptScreenState.Idle)
-    public val uiState: StateFlow<SignInPromptScreenState> = _uiState
+  private val _uiState = MutableStateFlow<SignInPromptScreenState>(SignInPromptScreenState.Idle)
+  public val uiState: StateFlow<SignInPromptScreenState> = _uiState
 
-    /**
-     * Indicate that the screen has observed the [idle][SignInPromptScreenState.Idle] state and that
-     * the view model can start its work.
-     */
-    public fun onIdleStateObserved() {
-        _uiState.compareAndSet(
-            expect = SignInPromptScreenState.Idle,
-            update = SignInPromptScreenState.Loading,
-        ) {
-            viewModelScope.launch {
-                authUserRepository.getAuthenticated()?.let { authUser ->
-                    _uiState.value =
-                        SignInPromptScreenState.SignedIn(AccountUiModelMapper.map(authUser))
-                } ?: run {
-                    _uiState.value = SignInPromptScreenState.SignedOut
-                }
-            }
-        }
+  /**
+   * Indicate that the screen has observed the [idle][SignInPromptScreenState.Idle] state and that
+   * the view model can start its work.
+   */
+  public fun onIdleStateObserved() {
+    _uiState.compareAndSet(
+      expect = SignInPromptScreenState.Idle,
+      update = SignInPromptScreenState.Loading,
+    ) {
+      viewModelScope.launch {
+        authUserRepository.getAuthenticated()?.let { authUser ->
+          _uiState.value = SignInPromptScreenState.SignedIn(AccountUiModelMapper.map(authUser))
+        } ?: run { _uiState.value = SignInPromptScreenState.SignedOut }
+      }
     }
+  }
 }
 
-/**
- * The states for a sign-in prompt screen.
- */
+/** The states for a sign-in prompt screen. */
 public sealed class SignInPromptScreenState {
 
-    public object Idle : SignInPromptScreenState()
+  public object Idle : SignInPromptScreenState()
 
-    public object Loading : SignInPromptScreenState()
+  public object Loading : SignInPromptScreenState()
 
-    public data class SignedIn(val account: AccountUiModel) : SignInPromptScreenState()
+  public data class SignedIn(val account: AccountUiModel) : SignInPromptScreenState()
 
-    public object SignedOut : SignInPromptScreenState()
+  public object SignedOut : SignInPromptScreenState()
 }

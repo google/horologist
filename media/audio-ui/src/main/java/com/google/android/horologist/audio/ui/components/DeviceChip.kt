@@ -34,35 +34,34 @@ import com.google.android.horologist.audio.ui.model.R
 
 @Composable
 public fun DeviceChip(
-    volumeDescription: String,
-    deviceName: String,
-    icon: @Composable BoxScope.() -> Unit,
-    onAudioOutputClick: () -> Unit,
-    modifier: Modifier = Modifier,
+  volumeDescription: String,
+  deviceName: String,
+  icon: @Composable BoxScope.() -> Unit,
+  onAudioOutputClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val onClickLabel = stringResource(id = R.string.horologist_volume_screen_change_audio_output)
+  val onClickLabel = stringResource(id = R.string.horologist_volume_screen_change_audio_output)
 
-    Chip(
-        modifier = modifier
-            .width(intrinsicSize = IntrinsicSize.Max)
-            .semantics(mergeDescendants = true) {
-                stateDescription = volumeDescription
-                onClick(onClickLabel) {
-                    onAudioOutputClick()
-                    true
-                }
-            },
-        label = {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = deviceName,
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-            )
-        },
-        icon = icon,
-        onClick = onAudioOutputClick,
-        // Device chip uses secondary colors (surface/onSurface)
-        colors = ChipDefaults.secondaryChipColors(),
-    )
+  Chip(
+    modifier =
+      modifier.width(intrinsicSize = IntrinsicSize.Max).semantics(mergeDescendants = true) {
+        stateDescription = volumeDescription
+        onClick(onClickLabel) {
+          onAudioOutputClick()
+          true
+        }
+      },
+    label = {
+      Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = deviceName,
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis,
+      )
+    },
+    icon = icon,
+    onClick = onAudioOutputClick,
+    // Device chip uses secondary colors (surface/onSurface)
+    colors = ChipDefaults.secondaryChipColors(),
+  )
 }

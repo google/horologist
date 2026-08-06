@@ -48,25 +48,26 @@ import com.google.android.horologist.audio.ui.model.R as ModelR
  */
 @Composable
 public fun VolumeButton(
-    onVolumeClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    imageVector: ImageVector = Icons.Rounded.Radio,
-    enabled: Boolean = true,
-    alignment: Alignment = Alignment.Center,
-    buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
-    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
-    border: BorderStroke? = null,
+  onVolumeClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  imageVector: ImageVector = Icons.Rounded.Radio,
+  enabled: Boolean = true,
+  alignment: Alignment = Alignment.Center,
+  buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
+  contentDescription: String =
+    stringResource(ModelR.string.horologist_set_volume_content_description),
+  border: BorderStroke? = null,
 ) {
-    SettingsButton(
-        modifier = modifier,
-        onClick = onVolumeClick,
-        enabled = enabled,
-        imageVector = imageVector,
-        alignment = alignment,
-        contentDescription = contentDescription,
-        buttonColors = buttonColors,
-        border = border,
-    )
+  SettingsButton(
+    modifier = modifier,
+    onClick = onVolumeClick,
+    enabled = enabled,
+    imageVector = imageVector,
+    alignment = alignment,
+    contentDescription = contentDescription,
+    buttonColors = buttonColors,
+    border = border,
+  )
 }
 
 /**
@@ -89,25 +90,26 @@ public fun VolumeButton(
  */
 @Composable
 public fun VolumeButton(
-    onVolumeClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    volumeUiState: VolumeUiState?,
-    enabled: Boolean = true,
-    alignment: Alignment = Alignment.Center,
-    buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
-    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
-    border: BorderStroke? = null,
+  onVolumeClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  volumeUiState: VolumeUiState?,
+  enabled: Boolean = true,
+  alignment: Alignment = Alignment.Center,
+  buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
+  contentDescription: String =
+    stringResource(ModelR.string.horologist_set_volume_content_description),
+  border: BorderStroke? = null,
 ) {
-    VolumeButton(
-        onVolumeClick = onVolumeClick,
-        modifier = modifier,
-        imageVector = volumeUiState.getVolumeIndicatorIcon(),
-        enabled = enabled,
-        alignment = alignment,
-        buttonColors = buttonColors,
-        contentDescription = contentDescription,
-        border = border,
-    )
+  VolumeButton(
+    onVolumeClick = onVolumeClick,
+    modifier = modifier,
+    imageVector = volumeUiState.getVolumeIndicatorIcon(),
+    enabled = enabled,
+    alignment = alignment,
+    buttonColors = buttonColors,
+    contentDescription = contentDescription,
+    border = border,
+  )
 }
 
 /**
@@ -124,29 +126,30 @@ public fun VolumeButton(
  */
 @Composable
 public fun VolumeButtonWithBadge(
-    onOutputClick: () -> Unit,
-    imageVector: ImageVector,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    alignment: Alignment = Alignment.Center,
-    buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
-    badgeVector: ImageVector? = null,
-    badgeColors: IconButtonColors = SettingsButtonDefaults.badgeColors(),
-    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
-    border: BorderStroke? = null,
+  onOutputClick: () -> Unit,
+  imageVector: ImageVector,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  alignment: Alignment = Alignment.Center,
+  buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
+  badgeVector: ImageVector? = null,
+  badgeColors: IconButtonColors = SettingsButtonDefaults.badgeColors(),
+  contentDescription: String =
+    stringResource(ModelR.string.horologist_set_volume_content_description),
+  border: BorderStroke? = null,
 ) {
-    SettingsButton(
-        modifier = modifier,
-        onClick = onOutputClick,
-        enabled = enabled,
-        alignment = alignment,
-        buttonColors = buttonColors,
-        imageVector = imageVector,
-        badgeVector = badgeVector,
-        badgeColors = badgeColors,
-        contentDescription = contentDescription,
-        border = border,
-    )
+  SettingsButton(
+    modifier = modifier,
+    onClick = onOutputClick,
+    enabled = enabled,
+    alignment = alignment,
+    buttonColors = buttonColors,
+    imageVector = imageVector,
+    badgeVector = badgeVector,
+    badgeColors = badgeColors,
+    contentDescription = contentDescription,
+    border = border,
+  )
 }
 
 /**
@@ -176,46 +179,48 @@ public fun VolumeButtonWithBadge(
  */
 @Composable
 public fun VolumeButtonWithBadge(
-    onOutputClick: () -> Unit,
-    audioOutputUi: AudioOutputUi,
-    volumeUiState: VolumeUiState?,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    alignment: Alignment = Alignment.Center,
-    buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
-    badgeColors: IconButtonColors = SettingsButtonDefaults.badgeColors(),
-    contentDescription: String = stringResource(ModelR.string.horologist_set_volume_content_description),
-    border: BorderStroke? = null,
+  onOutputClick: () -> Unit,
+  audioOutputUi: AudioOutputUi,
+  volumeUiState: VolumeUiState?,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  alignment: Alignment = Alignment.Center,
+  buttonColors: IconButtonColors = SettingsButtonDefaults.buttonColors(),
+  badgeColors: IconButtonColors = SettingsButtonDefaults.badgeColors(),
+  contentDescription: String =
+    stringResource(ModelR.string.horologist_set_volume_content_description),
+  border: BorderStroke? = null,
 ) {
-    VolumeButtonWithBadge(
-        onOutputClick = onOutputClick,
-        imageVector = audioOutputUi.getAudioOutputConnectionIcon(),
-        modifier = modifier,
-        enabled = enabled,
-        alignment = alignment,
-        badgeVector = if (audioOutputUi.isConnected) {
-            volumeUiState.getVolumeIndicatorIcon()
-        } else {
-            null
-        },
-        buttonColors = buttonColors,
-        badgeColors = badgeColors,
-        contentDescription = contentDescription,
-        border = border,
-    )
+  VolumeButtonWithBadge(
+    onOutputClick = onOutputClick,
+    imageVector = audioOutputUi.getAudioOutputConnectionIcon(),
+    modifier = modifier,
+    enabled = enabled,
+    alignment = alignment,
+    badgeVector =
+      if (audioOutputUi.isConnected) {
+        volumeUiState.getVolumeIndicatorIcon()
+      } else {
+        null
+      },
+    buttonColors = buttonColors,
+    badgeColors = badgeColors,
+    contentDescription = contentDescription,
+    border = border,
+  )
 }
 
 @Composable
 private fun AudioOutputUi.getAudioOutputConnectionIcon(): ImageVector =
-    when {
-        this.isConnected -> this.imageVector
-        else -> ImageVector.vectorResource(R.drawable.rounded_media_output_off_24)
-    }
+  when {
+    this.isConnected -> this.imageVector
+    else -> ImageVector.vectorResource(R.drawable.rounded_media_output_off_24)
+  }
 
 private fun VolumeUiState?.getVolumeIndicatorIcon(): ImageVector =
-    when {
-        this?.isMin == true -> Icons.AutoMirrored.Rounded.VolumeMute
-        this?.isMax == false -> Icons.AutoMirrored.Rounded.VolumeDown
-        else ->
-            Icons.AutoMirrored.Rounded.VolumeUp // volumeUiState == null || volumeUiState.isMax == true
-    }
+  when {
+    this?.isMin == true -> Icons.AutoMirrored.Rounded.VolumeMute
+    this?.isMax == false -> Icons.AutoMirrored.Rounded.VolumeDown
+    else ->
+      Icons.AutoMirrored.Rounded.VolumeUp // volumeUiState == null || volumeUiState.isMax == true
+  }

@@ -21,10 +21,9 @@ import retrofit2.http.GET
 
 interface UampService {
 
-    @GET("catalog.json")
-    suspend fun catalog(): CatalogApiModel
+  @GET("catalog.json") suspend fun catalog(): CatalogApiModel
 
-    companion object {
-        const val BASE_URL = "https://storage.googleapis.com/androiddevelopers/samples_assets/uamp/"
-    }
+  companion object {
+    const val BASE_URL = "https://storage.googleapis.com/androiddevelopers/samples_assets/uamp/"
+  }
 }

@@ -32,47 +32,53 @@ import org.junit.Test
 
 class ChipThemeTest : WearLegacyComponentTest() {
 
-    @Test
-    fun withCustomTheme() {
-        runComponentTest {
-            MaterialTheme(
-                colors = CustomColors,
-                typography = CustomTypography,
-                shapes = CustomShapes,
-            ) {
-                Chip(
-                    label = "Primary label",
-                    onClick = { },
-                    secondaryLabel = "Secondary label",
-                )
-            }
-        }
+  @Test
+  fun withCustomTheme() {
+    runComponentTest {
+      MaterialTheme(
+        colors = CustomColors,
+        typography = CustomTypography,
+        shapes = CustomShapes,
+      ) {
+        Chip(
+          label = "Primary label",
+          onClick = {},
+          secondaryLabel = "Secondary label",
+        )
+      }
     }
+  }
 
-    companion object {
-        private val CustomColors = Colors(
-            primary = Color.Blue,
-            onPrimary = Color.Magenta,
-        )
+  companion object {
+    private val CustomColors =
+      Colors(
+        primary = Color.Blue,
+        onPrimary = Color.Magenta,
+      )
 
-        private val CustomTypography = Typography(
-            button = TextStyle(
-                fontFamily = FontFamily.Monospace,
-                fontSize = 20.sp,
-            ),
-            caption2 = TextStyle(
-                fontSize = 10.sp,
-                fontWeight = FontWeight.Bold,
-            ),
-        )
+    private val CustomTypography =
+      Typography(
+        button =
+          TextStyle(
+            fontFamily = FontFamily.Monospace,
+            fontSize = 20.sp,
+          ),
+        caption2 =
+          TextStyle(
+            fontSize = 10.sp,
+            fontWeight = FontWeight.Bold,
+          ),
+      )
 
-        private val CustomShapes = Shapes(
-            large = CutCornerShape(
-                topStart = 10.dp,
-                topEnd = 20.dp,
-                bottomStart = 10.dp,
-                bottomEnd = 20.dp,
-            ),
-        )
-    }
+    private val CustomShapes =
+      Shapes(
+        large =
+          CutCornerShape(
+            topStart = 10.dp,
+            topEnd = 20.dp,
+            bottomStart = 10.dp,
+            bottomEnd = 20.dp,
+          )
+      )
+  }
 }

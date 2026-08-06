@@ -17,14 +17,14 @@
 package com.google.android.horologist.datalayer.sample.screens.nodesactions
 
 data class NodeUiModel(
-    val id: String,
-    val name: String,
-    val appInstalled: Boolean,
-    val type: NodeTypeUiModel,
+  val id: String,
+  val name: String,
+  val appInstalled: Boolean,
+  val type: NodeTypeUiModel,
 )
 
 enum class NodeTypeUiModel {
-    WATCH,
-    PHONE,
-    UNKNOWN,
+  WATCH,
+  PHONE,
+  UNKNOWN,
 }

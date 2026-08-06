@@ -26,6 +26,7 @@ import androidx.test.rule.GrantPermissionRule
 import androidx.test.uiautomator.UiDevice
 import com.google.android.horologist.media.benchmark.MediaControllerHelper.startPlaying
 import com.google.android.horologist.media.benchmark.MediaControllerHelper.stopPlaying
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -34,7 +35,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import kotlin.time.Duration.Companion.seconds
 
 // This test generates a baseline profile rules file that can be added to the app to configure
 // the classes and methods that are pre-compiled at installation time, rather than JIT'd at runtime.
@@ -48,61 +48,60 @@ import kotlin.time.Duration.Companion.seconds
 // rules that are specific to classes and methods in your own app and library code.
 @RunWith(AndroidJUnit4::class)
 public abstract class BaseMediaBaselineProfile {
-    @get:Rule
-    public val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS)
+  @get:Rule
+  public val grantPermissionRule: GrantPermissionRule =
+    GrantPermissionRule.grant(Manifest.permission.POST_NOTIFICATIONS)
 
-    @get:Rule
-    public val baselineRule: BaselineProfileRule = BaselineProfileRule()
+  @get:Rule public val baselineRule: BaselineProfileRule = BaselineProfileRule()
 
-    private lateinit var device: UiDevice
+  private lateinit var device: UiDevice
 
-    public abstract val mediaApp: MediaApp
+  public abstract val mediaApp: MediaApp
 
-    public open fun MacrobenchmarkScope.onStartup() {
-        startActivityAndWait()
+  public open fun MacrobenchmarkScope.onStartup() {
+    startActivityAndWait()
+  }
+
+  public open suspend fun checkPlayingState(mediaController: MediaBrowser) {
+    withContext(Dispatchers.Main) {
+      if (!mediaController.isPlaying) {
+        throw IllegalStateException("Not playing after 10 seconds")
+      }
     }
+  }
 
-    public open suspend fun checkPlayingState(mediaController: MediaBrowser) {
-        withContext(Dispatchers.Main) {
-            if (!mediaController.isPlaying) {
-                throw IllegalStateException("Not playing after 10 seconds")
-            }
+  @Before
+  public fun setUp() {
+    val instrumentation = InstrumentationRegistry.getInstrumentation()
+    device = UiDevice.getInstance(instrumentation)
+  }
+
+  @Test
+  public fun profile() {
+    baselineRule.collect(
+      packageName = mediaApp.packageName,
+      profileBlock = {
+        onStartup()
+
+        val mediaController =
+          MediaControllerHelper.lookupController(mediaApp.playerComponentName).get()
+
+        runBlocking(Dispatchers.Main) {
+          mediaController.startPlaying(mediaApp.testMedia)
+
+          delay(15.seconds)
+
+          checkPlayingState(mediaController)
+
+          mediaController.seekToNextMediaItem()
+          delay(2.seconds)
+
+          mediaController.seekToPreviousMediaItem()
+          delay(2.seconds)
+
+          mediaController.stopPlaying()
         }
-    }
-
-    @Before
-    public fun setUp() {
-        val instrumentation = InstrumentationRegistry.getInstrumentation()
-        device = UiDevice.getInstance(instrumentation)
-    }
-
-    @Test
-    public fun profile() {
-        baselineRule.collect(
-            packageName = mediaApp.packageName,
-            profileBlock = {
-                onStartup()
-
-                val mediaController = MediaControllerHelper.lookupController(
-                    mediaApp.playerComponentName,
-                ).get()
-
-                runBlocking(Dispatchers.Main) {
-                    mediaController.startPlaying(mediaApp.testMedia)
-
-                    delay(15.seconds)
-
-                    checkPlayingState(mediaController)
-
-                    mediaController.seekToNextMediaItem()
-                    delay(2.seconds)
-
-                    mediaController.seekToPreviousMediaItem()
-                    delay(2.seconds)
-
-                    mediaController.stopPlaying()
-                }
-            },
-        )
-    }
+      },
+    )
+  }
 }

@@ -30,29 +30,31 @@ import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
 class PromptScreenTest : WearLegacyScreenTest() {
-    @Test
-    fun empty() {
-        runTest {
-            PromptScreen(
-                uiState = PromptUiState(
-                    modelInfo = ModelInstanceUiModel("simple", "Simple Model"),
-                    messages = listOf(
-                        TextPromptUiModel("Why did the chicken cross the road?"),
-                        TextResponseUiModel("To get to the other side!"),
-                    ),
-                ),
-                promptEntry = {
-                    EdgeButton(
-                        onClick = { /*TODO*/ },
-                        buttonSize = EdgeButtonSize.ExtraSmall,
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.KeyboardVoice,
-                            contentDescription = "Voice Prompt",
-                        )
-                    }
-                },
+  @Test
+  fun empty() {
+    runTest {
+      PromptScreen(
+        uiState =
+          PromptUiState(
+            modelInfo = ModelInstanceUiModel("simple", "Simple Model"),
+            messages =
+              listOf(
+                TextPromptUiModel("Why did the chicken cross the road?"),
+                TextResponseUiModel("To get to the other side!"),
+              ),
+          ),
+        promptEntry = {
+          EdgeButton(
+            onClick = { /*TODO*/ },
+            buttonSize = EdgeButtonSize.ExtraSmall,
+          ) {
+            Icon(
+              imageVector = Icons.Default.KeyboardVoice,
+              contentDescription = "Voice Prompt",
             )
-        }
+          }
+        },
+      )
     }
+  }
 }

@@ -42,75 +42,80 @@ import org.robolectric.Shadows
 @RunWith(AndroidJUnit4::class)
 class WearDataLayerAppHelperTest {
 
-    @Test
-    fun testAvailable() = runTest {
-        val context = ApplicationProvider.getApplicationContext<Application>()
-        val capabilityClient = Wearable.getCapabilityClient(context)
+  @Test
+  fun testAvailable() = runTest {
+    val context = ApplicationProvider.getApplicationContext<Application>()
+    val capabilityClient = Wearable.getCapabilityClient(context)
 
-        val checkApiAvailability = async { WearableApiAvailability.isAvailable(capabilityClient) }
+    val checkApiAvailability = async { WearableApiAvailability.isAvailable(capabilityClient) }
 
-        while (!checkApiAvailability.isCompleted) {
-            delay(1000)
-            Shadows.shadowOf(Looper.getMainLooper()).idle()
-        }
-
-        assertThat(checkApiAvailability.await()).isFalse()
-
-        coroutineContext.cancelChildren()
+    while (!checkApiAvailability.isCompleted) {
+      delay(1000)
+      Shadows.shadowOf(Looper.getMainLooper()).idle()
     }
 
-    @Test
-    fun testCreate() = runTest {
-        val context = ApplicationProvider.getApplicationContext<Application>()
-        val registry = WearDataLayerRegistry.fromContext(context, this)
-        val helper = WearDataLayerAppHelper(context, registry, this)
+    assertThat(checkApiAvailability.await()).isFalse()
 
-        val checkApiAvailability = async { helper.isAvailable() }
+    coroutineContext.cancelChildren()
+  }
 
-        while (!checkApiAvailability.isCompleted) {
-            delay(1000)
-            Shadows.shadowOf(Looper.getMainLooper()).idle()
-        }
+  @Test
+  fun testCreate() = runTest {
+    val context = ApplicationProvider.getApplicationContext<Application>()
+    val registry = WearDataLayerRegistry.fromContext(context, this)
+    val helper = WearDataLayerAppHelper(context, registry, this)
 
-        assertThat(checkApiAvailability.await()).isFalse()
+    val checkApiAvailability = async { helper.isAvailable() }
 
-        coroutineContext.cancelChildren()
+    while (!checkApiAvailability.isCompleted) {
+      delay(1000)
+      Shadows.shadowOf(Looper.getMainLooper()).idle()
     }
 
-    @Test
-    fun testComplications() = runTest {
-        val context = ApplicationProvider.getApplicationContext<Application>()
-        val registry = WearDataLayerRegistry.fromContext(context, this)
+    assertThat(checkApiAvailability.await()).isFalse()
 
-        val testDataStore: DataStore<SurfacesInfo> =
-            DataStoreFactory.create(
-                scope = this,
-                produceFile = { context.dataStoreFile("testComplications") },
-                serializer = SurfacesInfoSerializer,
-            )
+    coroutineContext.cancelChildren()
+  }
 
-        val helper = WearDataLayerAppHelper(
-            context = context,
-            registry = registry,
-            appStoreUri = null,
-            scope = this,
-            surfacesInfoDataStoreFn = { testDataStore },
-        )
+  @Test
+  fun testComplications() = runTest {
+    val context = ApplicationProvider.getApplicationContext<Application>()
+    val registry = WearDataLayerRegistry.fromContext(context, this)
 
-        val infoInitial = testDataStore.data.first()
-        assertThat(infoInitial.complicationsList).isEmpty()
+    val testDataStore: DataStore<SurfacesInfo> =
+      DataStoreFactory.create(
+        scope = this,
+        produceFile = { context.dataStoreFile("testComplications") },
+        serializer = SurfacesInfoSerializer,
+      )
 
-        helper.markComplicationAsActivated("my.SampleComplicationService", 1, ComplicationType.SHORT_TEXT)
+    val helper =
+      WearDataLayerAppHelper(
+        context = context,
+        registry = registry,
+        appStoreUri = null,
+        scope = this,
+        surfacesInfoDataStoreFn = { testDataStore },
+      )
 
-        val infoUpdated = testDataStore.data.first()
-        assertThat(infoUpdated.complicationsList).hasSize(1)
-        assertThat(infoUpdated.complicationsList.first().name).isEqualTo("my.SampleComplicationService")
+    val infoInitial = testDataStore.data.first()
+    assertThat(infoInitial.complicationsList).isEmpty()
 
-        helper.markComplicationAsDeactivated(1)
+    helper.markComplicationAsActivated(
+      "my.SampleComplicationService",
+      1,
+      ComplicationType.SHORT_TEXT,
+    )
 
-        val infoReverted = testDataStore.data.first()
-        assertThat(infoReverted.complicationsList).isEmpty()
+    val infoUpdated = testDataStore.data.first()
+    assertThat(infoUpdated.complicationsList).hasSize(1)
+    assertThat(infoUpdated.complicationsList.first().name).isEqualTo("my.SampleComplicationService")
 
-        coroutineContext.cancelChildren()
-    }
+    helper.markComplicationAsDeactivated(1)
+
+    val infoReverted = testDataStore.data.first()
+    assertThat(infoReverted.complicationsList).isEmpty()
+
+    coroutineContext.cancelChildren()
+  }
 }

@@ -20,34 +20,36 @@ import androidx.media3.common.Player
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.PlayerState
 
-/**
- * Maps a [Media3 player][Player] into a [PlayerState].
- */
+/** Maps a [Media3 player][Player] into a [PlayerState]. */
 @ExperimentalHorologistApi
 public object PlayerStateMapper {
-    public fun map(player: Player): PlayerState = when (player.playbackState) {
-        Player.STATE_IDLE -> idleOrEnded(player)
-        Player.STATE_ENDED -> idleOrEnded(player)
-        Player.STATE_BUFFERING -> buffering(player)
-        Player.STATE_READY -> ready(player)
-        else -> throw IllegalArgumentException("Invalid media3 player state: ${player.playbackState}")
+  public fun map(player: Player): PlayerState =
+    when (player.playbackState) {
+      Player.STATE_IDLE -> idleOrEnded(player)
+      Player.STATE_ENDED -> idleOrEnded(player)
+      Player.STATE_BUFFERING -> buffering(player)
+      Player.STATE_READY -> ready(player)
+      else -> throw IllegalArgumentException("Invalid media3 player state: ${player.playbackState}")
     }
 
-    private fun idleOrEnded(player: Player) = if (player.currentTimeline.isEmpty) {
-        PlayerState.Idle
+  private fun idleOrEnded(player: Player) =
+    if (player.currentTimeline.isEmpty) {
+      PlayerState.Idle
     } else {
-        PlayerState.Stopped
+      PlayerState.Stopped
     }
 
-    private fun buffering(player: Player) = if (player.playWhenReady) {
-        PlayerState.Loading
+  private fun buffering(player: Player) =
+    if (player.playWhenReady) {
+      PlayerState.Loading
     } else {
-        PlayerState.Stopped
+      PlayerState.Stopped
     }
 
-    private fun ready(player: Player) = if (player.isPlaying) {
-        PlayerState.Playing
+  private fun ready(player: Player) =
+    if (player.isPlaying) {
+      PlayerState.Playing
     } else {
-        buffering(player)
+      buffering(player)
     }
 }

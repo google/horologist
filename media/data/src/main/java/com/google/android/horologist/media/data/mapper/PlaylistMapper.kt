@@ -20,22 +20,16 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.database.model.PopulatedPlaylist
 import com.google.android.horologist.media.model.Playlist
 
-/**
- * Functions to map models from other layers and / or packages into a [Playlist].
- */
+/** Functions to map models from other layers and / or packages into a [Playlist]. */
 @ExperimentalHorologistApi
-public class PlaylistMapper(
-    private val mediaMapper: MediaMapper,
-) {
+public class PlaylistMapper(private val mediaMapper: MediaMapper) {
 
-    /**
-     * Maps from a [PopulatedPlaylist].
-     */
-    public fun map(populatedPlaylist: PopulatedPlaylist): Playlist =
-        Playlist(
-            id = populatedPlaylist.playlist.playlistId,
-            name = populatedPlaylist.playlist.name,
-            artworkUri = populatedPlaylist.playlist.artworkUri,
-            mediaList = populatedPlaylist.mediaList.map(mediaMapper::map),
-        )
+  /** Maps from a [PopulatedPlaylist]. */
+  public fun map(populatedPlaylist: PopulatedPlaylist): Playlist =
+    Playlist(
+      id = populatedPlaylist.playlist.playlistId,
+      name = populatedPlaylist.playlist.name,
+      artworkUri = populatedPlaylist.playlist.artworkUri,
+      mediaList = populatedPlaylist.mediaList.map(mediaMapper::map),
+    )
 }

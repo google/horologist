@@ -26,25 +26,24 @@ import androidx.wear.compose.material3.SurfaceTransformation
 import androidx.wear.compose.material3.Text
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 
-/**
- * A component to display a Prompt.
- */
+/** A component to display a Prompt. */
 @Composable
 public fun TextPromptDisplay(
-    prompt: TextPromptUiModel,
-    modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null,
-    transformation: SurfaceTransformation? = null,
+  prompt: TextPromptUiModel,
+  modifier: Modifier = Modifier,
+  onClick: (() -> Unit)? = null,
+  transformation: SurfaceTransformation? = null,
 ) {
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        onClick = onClick ?: {},
-        colors = CardDefaults.cardColors(
-            contentColor = MaterialTheme.colorScheme.secondary,
-            containerColor = MaterialTheme.colorScheme.secondaryContainer,
-        ),
-        transformation = transformation,
-    ) {
-        Text(text = prompt.prompt)
-    }
+  Card(
+    modifier = modifier.fillMaxWidth(),
+    onClick = onClick ?: {},
+    colors =
+      CardDefaults.cardColors(
+        contentColor = MaterialTheme.colorScheme.secondary,
+        containerColor = MaterialTheme.colorScheme.secondaryContainer,
+      ),
+    transformation = transformation,
+  ) {
+    Text(text = prompt.prompt)
+  }
 }

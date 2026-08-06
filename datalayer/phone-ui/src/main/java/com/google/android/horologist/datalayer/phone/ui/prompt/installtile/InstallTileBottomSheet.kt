@@ -57,214 +57,187 @@ private val PADDING_BLUE = 32.dp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 public fun InstallTileBottomSheet(
-    image: @Composable (() -> Unit)?,
-    topMessage: String,
-    bottomMessage: String,
-    onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
-    modifier: Modifier = Modifier,
-    sheetState: SheetState = rememberModalBottomSheetState(),
+  image: @Composable (() -> Unit)?,
+  topMessage: String,
+  bottomMessage: String,
+  onDismissRequest: () -> Unit,
+  onConfirmation: () -> Unit,
+  modifier: Modifier = Modifier,
+  sheetState: SheetState = rememberModalBottomSheetState(),
 ) {
-    ModalBottomSheet(
-        onDismissRequest = onDismissRequest,
-        modifier = modifier,
-        sheetState = sheetState,
-        dragHandle = null,
-    ) {
-        val configuration = LocalConfiguration.current
-        when (configuration.orientation) {
-            Configuration.ORIENTATION_PORTRAIT -> {
-                InstallTileBottomSheetPortraitContent(
-                    image = image,
-                    topMessage = topMessage,
-                    bottomMessage = bottomMessage,
-                    onDismissRequest = onDismissRequest,
-                    onConfirmation = onConfirmation,
-                )
-            }
+  ModalBottomSheet(
+    onDismissRequest = onDismissRequest,
+    modifier = modifier,
+    sheetState = sheetState,
+    dragHandle = null,
+  ) {
+    val configuration = LocalConfiguration.current
+    when (configuration.orientation) {
+      Configuration.ORIENTATION_PORTRAIT -> {
+        InstallTileBottomSheetPortraitContent(
+          image = image,
+          topMessage = topMessage,
+          bottomMessage = bottomMessage,
+          onDismissRequest = onDismissRequest,
+          onConfirmation = onConfirmation,
+        )
+      }
 
-            else -> {
-                InstallTileBottomSheetLandscapeContent(
-                    image = image,
-                    topMessage = topMessage,
-                    bottomMessage = bottomMessage,
-                    onDismissRequest = onDismissRequest,
-                    onConfirmation = onConfirmation,
-                )
-            }
-        }
+      else -> {
+        InstallTileBottomSheetLandscapeContent(
+          image = image,
+          topMessage = topMessage,
+          bottomMessage = bottomMessage,
+          onDismissRequest = onDismissRequest,
+          onConfirmation = onConfirmation,
+        )
+      }
     }
+  }
 }
 
 @Composable
 internal fun InstallTileBottomSheetPortraitContent(
-    image: @Composable (() -> Unit)?,
-    topMessage: String,
-    bottomMessage: String,
-    onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
-    modifier: Modifier = Modifier,
+  image: @Composable (() -> Unit)?,
+  topMessage: String,
+  bottomMessage: String,
+  onDismissRequest: () -> Unit,
+  onConfirmation: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-            .padding(PADDING_PINK)
-            .fillMaxWidth()
-            .verticalScroll(rememberScrollState()),
-    ) {
-        image?.let {
-            Box(
-                modifier = Modifier
-                    .padding(top = PADDING_PURPLE)
-                    .align(Alignment.CenterHorizontally),
-            ) {
-                image()
-            }
-        }
-
-        if (topMessage.isNotBlank()) {
-            Text(
-                text = topMessage,
-                modifier = Modifier
-                    .padding(top = PADDING_PURPLE)
-                    .fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onSurface,
-                textAlign = TextAlign.Center,
-                maxLines = 3,
-                style = MaterialTheme.typography.titleLarge,
-            )
-        }
-
-        if (bottomMessage.isNotBlank()) {
-            Text(
-                text = bottomMessage,
-                modifier = Modifier
-                    .padding(top = PADDING_PINK)
-                    .fillMaxWidth(),
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                textAlign = TextAlign.Center,
-                maxLines = 3,
-                style = MaterialTheme.typography.bodyLarge,
-            )
-        }
-
-        Spacer(modifier = Modifier.height(PADDING_PURPLE))
-
-        Row(
-            modifier = Modifier
-                .padding(horizontal = PADDING_PINK)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-        ) {
-            TextButton(
-                onClick = onDismissRequest,
-                modifier = Modifier
-                    .padding(end = PADDING_GREEN),
-            ) {
-                Text(stringResource(id = R.string.horologist_install_tile_prompt_cancel_btn_label))
-            }
-
-            Button(
-                onClick = onConfirmation,
-            ) {
-                Text(stringResource(id = R.string.horologist_install_tile_prompt_ok_btn_label))
-            }
-        }
+  Column(
+    modifier = modifier.padding(PADDING_PINK).fillMaxWidth().verticalScroll(rememberScrollState())
+  ) {
+    image?.let {
+      Box(modifier = Modifier.padding(top = PADDING_PURPLE).align(Alignment.CenterHorizontally)) {
+        image()
+      }
     }
+
+    if (topMessage.isNotBlank()) {
+      Text(
+        text = topMessage,
+        modifier = Modifier.padding(top = PADDING_PURPLE).fillMaxWidth(),
+        color = MaterialTheme.colorScheme.onSurface,
+        textAlign = TextAlign.Center,
+        maxLines = 3,
+        style = MaterialTheme.typography.titleLarge,
+      )
+    }
+
+    if (bottomMessage.isNotBlank()) {
+      Text(
+        text = bottomMessage,
+        modifier = Modifier.padding(top = PADDING_PINK).fillMaxWidth(),
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        textAlign = TextAlign.Center,
+        maxLines = 3,
+        style = MaterialTheme.typography.bodyLarge,
+      )
+    }
+
+    Spacer(modifier = Modifier.height(PADDING_PURPLE))
+
+    Row(
+      modifier = Modifier.padding(horizontal = PADDING_PINK).fillMaxWidth(),
+      horizontalArrangement = Arrangement.End,
+    ) {
+      TextButton(
+        onClick = onDismissRequest,
+        modifier = Modifier.padding(end = PADDING_GREEN),
+      ) {
+        Text(stringResource(id = R.string.horologist_install_tile_prompt_cancel_btn_label))
+      }
+
+      Button(onClick = onConfirmation) {
+        Text(stringResource(id = R.string.horologist_install_tile_prompt_ok_btn_label))
+      }
+    }
+  }
 }
 
 @Composable
 internal fun InstallTileBottomSheetLandscapeContent(
-    image: @Composable (() -> Unit)?,
-    topMessage: String,
-    bottomMessage: String,
-    onDismissRequest: () -> Unit,
-    onConfirmation: () -> Unit,
-    modifier: Modifier = Modifier,
+  image: @Composable (() -> Unit)?,
+  topMessage: String,
+  bottomMessage: String,
+  onDismissRequest: () -> Unit,
+  onConfirmation: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier
-            .padding(horizontal = PADDING_PURPLE)
-            .padding(top = PADDING_BLUE)
-            .verticalScroll(rememberScrollState()),
-    ) {
-        Row {
-            image?.let {
-                Box(modifier = Modifier.padding(end = PADDING_PURPLE)) {
-                    image()
-                }
-            }
+  Column(
+    modifier =
+      modifier
+        .padding(horizontal = PADDING_PURPLE)
+        .padding(top = PADDING_BLUE)
+        .verticalScroll(rememberScrollState())
+  ) {
+    Row {
+      image?.let { Box(modifier = Modifier.padding(end = PADDING_PURPLE)) { image() } }
 
-            Column {
-                if (topMessage.isNotBlank()) {
-                    Text(
-                        text = topMessage,
-                        modifier = Modifier
-                            .fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.onSurface,
-                        textAlign = TextAlign.Start,
-                        maxLines = 3,
-                        style = MaterialTheme.typography.titleLarge,
-                    )
-                }
-
-                if (bottomMessage.isNotBlank()) {
-                    Text(
-                        text = bottomMessage,
-                        modifier = Modifier
-                            .padding(top = PADDING_PINK)
-                            .fillMaxWidth(),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        textAlign = TextAlign.Start,
-                        maxLines = 3,
-                        style = MaterialTheme.typography.bodyLarge,
-                    )
-                }
-            }
+      Column {
+        if (topMessage.isNotBlank()) {
+          Text(
+            text = topMessage,
+            modifier = Modifier.fillMaxWidth(),
+            color = MaterialTheme.colorScheme.onSurface,
+            textAlign = TextAlign.Start,
+            maxLines = 3,
+            style = MaterialTheme.typography.titleLarge,
+          )
         }
 
-        Row(
-            modifier = Modifier
-                .padding(top = PADDING_BLUE, bottom = PADDING_PINK)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.End,
-        ) {
-            TextButton(
-                onClick = onDismissRequest,
-                modifier = Modifier
-                    .padding(end = PADDING_GREEN),
-            ) {
-                Text(stringResource(id = R.string.horologist_install_app_prompt_cancel_btn_label))
-            }
-
-            Button(
-                onClick = onConfirmation,
-            ) {
-                Text(stringResource(id = R.string.horologist_install_tile_prompt_ok_btn_label))
-            }
+        if (bottomMessage.isNotBlank()) {
+          Text(
+            text = bottomMessage,
+            modifier = Modifier.padding(top = PADDING_PINK).fillMaxWidth(),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Start,
+            maxLines = 3,
+            style = MaterialTheme.typography.bodyLarge,
+          )
         }
+      }
     }
+
+    Row(
+      modifier = Modifier.padding(top = PADDING_BLUE, bottom = PADDING_PINK).fillMaxWidth(),
+      horizontalArrangement = Arrangement.End,
+    ) {
+      TextButton(
+        onClick = onDismissRequest,
+        modifier = Modifier.padding(end = PADDING_GREEN),
+      ) {
+        Text(stringResource(id = R.string.horologist_install_app_prompt_cancel_btn_label))
+      }
+
+      Button(onClick = onConfirmation) {
+        Text(stringResource(id = R.string.horologist_install_tile_prompt_ok_btn_label))
+      }
+    }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun InstallTileBottomSheetContentPreview() {
-    InstallTileBottomSheetPortraitContent(
-        image = { Icon(Icons.Default.Email, contentDescription = null) },
-        topMessage = "Find useful content from your app with a glance.",
-        bottomMessage = "Add the Tile to your Wear OS app for accessing data with a glance.",
-        onDismissRequest = { },
-        onConfirmation = { },
-    )
+  InstallTileBottomSheetPortraitContent(
+    image = { Icon(Icons.Default.Email, contentDescription = null) },
+    topMessage = "Find useful content from your app with a glance.",
+    bottomMessage = "Add the Tile to your Wear OS app for accessing data with a glance.",
+    onDismissRequest = {},
+    onConfirmation = {},
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun InstallTileBottomSheetContentPreviewNoIcon() {
-    InstallTileBottomSheetPortraitContent(
-        image = null,
-        topMessage = "Find useful content from your app with a glance.",
-        bottomMessage = "Add the Tile to your Wear OS app for accessing data with a glance.",
-        onDismissRequest = { },
-        onConfirmation = { },
-    )
+  InstallTileBottomSheetPortraitContent(
+    image = null,
+    topMessage = "Find useful content from your app with a glance.",
+    bottomMessage = "Add the Tile to your Wear OS app for accessing data with a glance.",
+    onDismissRequest = {},
+    onConfirmation = {},
+  )
 }

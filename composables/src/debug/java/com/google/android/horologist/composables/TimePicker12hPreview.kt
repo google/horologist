@@ -30,42 +30,44 @@ import java.time.LocalTime
 @WearPreviewFontScales
 @Composable
 fun TimePicker12hPreview() {
-    TimePickerWith12HourClock(
-        time = LocalTime.of(10, 10, 0),
-        onTimeConfirm = {},
-    )
+  TimePickerWith12HourClock(
+    time = LocalTime.of(10, 10, 0),
+    onTimeConfirm = {},
+  )
 }
 
 @Composable
 @Preview(
-    device = WearDevices.SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Fonts - Largest",
-    fontScale = 1.24f,
+  device = WearDevices.SMALL_ROUND,
+  showSystemUi = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
+  group = "Fonts - Largest",
+  fontScale = 1.24f,
 )
 fun TimePicker12hPreviewSmallDeviceWithLargeFontBold() {
-    MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
-        TimePickerWith12HourClock(
-            time = LocalTime.of(10, 0, 0),
-            onTimeConfirm = {},
-        )
-    }
+  MaterialTheme(
+    typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }
+  ) {
+    TimePickerWith12HourClock(
+      time = LocalTime.of(10, 0, 0),
+      onTimeConfirm = {},
+    )
+  }
 }
 
 @Composable
 @Preview(
-    device = WearDevices.LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Fonts - Small",
-    fontScale = 0.94f,
+  device = WearDevices.LARGE_ROUND,
+  showSystemUi = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
+  group = "Fonts - Small",
+  fontScale = 0.94f,
 )
 fun TimePicker12hPreviewLargeDeviceSmallFont() {
-    TimePickerWith12HourClock(
-        time = LocalTime.of(10, 0, 0),
-        onTimeConfirm = {},
-    )
+  TimePickerWith12HourClock(
+    time = LocalTime.of(10, 0, 0),
+    onTimeConfirm = {},
+  )
 }

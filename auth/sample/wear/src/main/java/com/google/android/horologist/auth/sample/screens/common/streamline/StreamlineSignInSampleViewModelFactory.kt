@@ -22,7 +22,5 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.google.android.horologist.auth.ui.material3.common.screens.streamline.StreamlineSignInDefaultViewModel
 
 public val StreamlineSignInSampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
-    initializer {
-        StreamlineSignInDefaultViewModel(AuthUserRepositoryStreamlineImpl)
-    }
+  initializer { StreamlineSignInDefaultViewModel(AuthUserRepositoryStreamlineImpl) }
 }

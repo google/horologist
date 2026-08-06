@@ -38,55 +38,53 @@ import org.robolectric.RobolectricTestRunner
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
 class VolumePositionIndicatorTest {
-    @get:Rule
-    val composeTestRule = createComposeRule().apply {
-        mainClock.autoAdvance = false
-    }
+  @get:Rule val composeTestRule = createComposeRule().apply { mainClock.autoAdvance = false }
 
-    private var volumeState by mutableStateOf(
-        VolumeState(
-            current = 50,
-            max = 100,
-        ),
+  private var volumeState by
+    mutableStateOf(
+      VolumeState(
+        current = 50,
+        max = 100,
+      )
     )
 
-    @Test
-    fun testNoAutoHide() {
-        composeTestRule.setContent {
-            VolumePositionIndicator(
-                modifier = Modifier.testTag(TEST_TAG),
-                volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
-            )
-        }
-
-        val positionIndicator = composeTestRule.onNodeWithTag(TEST_TAG)
-
-        positionIndicator.assertIsDisplayed()
+  @Test
+  fun testNoAutoHide() {
+    composeTestRule.setContent {
+      VolumePositionIndicator(
+        modifier = Modifier.testTag(TEST_TAG),
+        volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
+      )
     }
 
-    @Test
-    fun testAutoHide() {
-        composeTestRule.setContent {
-            VolumePositionIndicator(
-                modifier = Modifier.testTag(TEST_TAG),
-                volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
-                displayIndicatorEvents = flowOf(Unit),
-            )
-        }
+    val positionIndicator = composeTestRule.onNodeWithTag(TEST_TAG)
 
-        val positionIndicator = composeTestRule.onNodeWithTag(TEST_TAG)
+    positionIndicator.assertIsDisplayed()
+  }
 
-        positionIndicator.assertDoesNotExist()
-
-        volumeState = volumeState.copy(current = 51)
-
-        composeTestRule.mainClock.advanceTimeByFrame()
-        composeTestRule.mainClock.advanceTimeBy(500L)
-
-        composeTestRule.onRoot(useUnmergedTree = true).printToLog("testAutoHide")
-
-        positionIndicator.assertIsDisplayed()
+  @Test
+  fun testAutoHide() {
+    composeTestRule.setContent {
+      VolumePositionIndicator(
+        modifier = Modifier.testTag(TEST_TAG),
+        volumeUiState = { VolumeUiStateMapper.map(volumeState = volumeState) },
+        displayIndicatorEvents = flowOf(Unit),
+      )
     }
+
+    val positionIndicator = composeTestRule.onNodeWithTag(TEST_TAG)
+
+    positionIndicator.assertDoesNotExist()
+
+    volumeState = volumeState.copy(current = 51)
+
+    composeTestRule.mainClock.advanceTimeByFrame()
+    composeTestRule.mainClock.advanceTimeBy(500L)
+
+    composeTestRule.onRoot(useUnmergedTree = true).printToLog("testAutoHide")
+
+    positionIndicator.assertIsDisplayed()
+  }
 }
 
 const val TEST_TAG = "test-item"

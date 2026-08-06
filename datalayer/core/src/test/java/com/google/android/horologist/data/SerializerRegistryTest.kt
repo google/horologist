@@ -23,16 +23,16 @@ import org.junit.Assert.assertThrows
 import org.junit.Test
 
 class SerializerRegistryTest {
-    val registry = SerializerRegistry()
+  val registry = SerializerRegistry()
 
-    @Test
-    public fun failsIfNotFound() {
-        assertThrows(IllegalStateException::class.java) { registry.serializerForType<Preferences>() }
-    }
+  @Test
+  public fun failsIfNotFound() {
+    assertThrows(IllegalStateException::class.java) { registry.serializerForType<Preferences>() }
+  }
 
-    @Test
-    public fun findsAfterRegistered() {
-        registry.registerSerializer(PreferencesSerializer)
-        assertThat(registry.serializerForType<Preferences>()).isEqualTo(PreferencesSerializer)
-    }
+  @Test
+  public fun findsAfterRegistered() {
+    registry.registerSerializer(PreferencesSerializer)
+    assertThat(registry.serializerForType<Preferences>()).isEqualTo(PreferencesSerializer)
+  }
 }

@@ -26,36 +26,37 @@ import org.junit.Test
 
 class PlayerViewModelTest {
 
-    private lateinit var sut: PlayerViewModel
+  private lateinit var sut: PlayerViewModel
 
-    @Before
-    fun setUp() {
-        sut = PlayerViewModel(MockPlayerRepository())
-    }
+  @Before
+  fun setUp() {
+    sut = PlayerViewModel(MockPlayerRepository())
+  }
 
-    @Test
-    fun givenANonConnectedPlayerRepository_thenPlayerUiStateHasPlayAndPauseDisabled() = runTest {
-        // when
-        val result = sut.playerUiState.first()
+  @Test
+  fun givenANonConnectedPlayerRepository_thenPlayerUiStateHasPlayAndPauseDisabled() = runTest {
+    // when
+    val result = sut.playerUiState.first()
 
-        // then
-        assertThat(result).isEqualTo(
-            PlayerUiState(
-                playEnabled = false,
-                pauseEnabled = false,
-                seekBackEnabled = false,
-                seekForwardEnabled = false,
-                seekToPreviousEnabled = false,
-                seekInCurrentMediaItemEnabled = false,
-                seekToNextEnabled = false,
-                shuffleEnabled = false,
-                shuffleOn = false,
-                playPauseEnabled = false,
-                playing = false,
-                media = null,
-                trackPositionUiModel = TrackPositionUiModel.Hidden,
-                connected = false,
-            ),
+    // then
+    assertThat(result)
+      .isEqualTo(
+        PlayerUiState(
+          playEnabled = false,
+          pauseEnabled = false,
+          seekBackEnabled = false,
+          seekForwardEnabled = false,
+          seekToPreviousEnabled = false,
+          seekInCurrentMediaItemEnabled = false,
+          seekToNextEnabled = false,
+          shuffleEnabled = false,
+          shuffleOn = false,
+          playPauseEnabled = false,
+          playing = false,
+          media = null,
+          trackPositionUiModel = TrackPositionUiModel.Hidden,
+          connected = false,
         )
-    }
+      )
+  }
 }

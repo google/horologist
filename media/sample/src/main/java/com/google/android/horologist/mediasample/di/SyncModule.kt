@@ -35,80 +35,77 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineDispatcher
 
 @Module
 @InstallIn(SingletonComponent::class)
 object SyncModule {
 
-    const val CHANGE_LIST_VERSION = 1
+  const val CHANGE_LIST_VERSION = 1
 
-    @Singleton
-    @Provides
-    fun coroutineDispatcherProvider(
-        @Dispatcher(IO) ioDispatcher: CoroutineDispatcher,
-    ): CoroutineDispatcherProvider =
-        object : CoroutineDispatcherProvider {
-            override fun getIODispatcher(): CoroutineDispatcher = ioDispatcher
-        }
+  @Singleton
+  @Provides
+  fun coroutineDispatcherProvider(
+    @Dispatcher(IO) ioDispatcher: CoroutineDispatcher
+  ): CoroutineDispatcherProvider =
+    object : CoroutineDispatcherProvider {
+      override fun getIODispatcher(): CoroutineDispatcher = ioDispatcher
+    }
 
-    @Singleton
-    @Provides
-    fun notificationConfigurationProvider(
-        @ApplicationContext application: Context,
-    ): NotificationConfigurationProvider =
-        object : NotificationConfigurationProvider {
+  @Singleton
+  @Provides
+  fun notificationConfigurationProvider(
+    @ApplicationContext application: Context
+  ): NotificationConfigurationProvider =
+    object : NotificationConfigurationProvider {
 
-            override fun getNotificationTitle(): String =
-                application.getString(R.string.sync_notification_title)
+      override fun getNotificationTitle(): String =
+        application.getString(R.string.sync_notification_title)
 
-            override fun getNotificationIcon(): Int = R.drawable.ic_uamp_headset
+      override fun getNotificationIcon(): Int = R.drawable.ic_uamp_headset
 
-            override fun getChannelName(): String =
-                application.getString(R.string.sync_notification_channel_name)
+      override fun getChannelName(): String =
+        application.getString(R.string.sync_notification_channel_name)
 
-            override fun getChannelDescription(): String =
-                application.getString(R.string.sync_notification_channel_description)
-        }
+      override fun getChannelDescription(): String =
+        application.getString(R.string.sync_notification_channel_description)
+    }
 
-    @Singleton
-    @Provides
-    fun changeListVersionRepository(): ChangeListVersionRepository =
-        object : ChangeListVersionRepository {
+  @Singleton
+  @Provides
+  fun changeListVersionRepository(): ChangeListVersionRepository =
+    object : ChangeListVersionRepository {
 
-            override suspend fun getChangeListVersion(model: String): Int {
-                // always return the same value for now, given change list endpoint is not available
-                // in the API
-                return CHANGE_LIST_VERSION
-            }
+      override suspend fun getChangeListVersion(model: String): Int {
+        // always return the same value for now, given change list endpoint is not available
+        // in the API
+        return CHANGE_LIST_VERSION
+      }
 
-            override suspend fun updateChangeListVersion(model: String, newVersion: Int) {
-                // do nothing for now
-            }
-        }
+      override suspend fun updateChangeListVersion(model: String, newVersion: Int) {
+        // do nothing for now
+      }
+    }
 
-    @Singleton
-    @Provides
-    fun syncables(
-        playlistRepositorySyncable: PlaylistRepositorySyncable,
-    ): Array<Syncable> = arrayOf(
-        playlistRepositorySyncable,
+  @Singleton
+  @Provides
+  fun syncables(playlistRepositorySyncable: PlaylistRepositorySyncable): Array<Syncable> =
+    arrayOf(playlistRepositorySyncable)
+
+  @Provides
+  fun playlistRepositorySyncable(
+    playlistLocalDataSource: PlaylistLocalDataSource,
+    playlistRemoteDataSource: PlaylistRemoteDataSource,
+    networkChangeListService: NetworkChangeListService,
+    mediaLocalDataSource: MediaLocalDataSource,
+    playlistMapper: PlaylistMapper,
+  ): PlaylistRepositorySyncable =
+    PlaylistRepositorySyncable(
+      playlistLocalDataSource,
+      playlistRemoteDataSource,
+      networkChangeListService,
+      mediaLocalDataSource,
+      playlistMapper,
     )
-
-    @Provides
-    fun playlistRepositorySyncable(
-        playlistLocalDataSource: PlaylistLocalDataSource,
-        playlistRemoteDataSource: PlaylistRemoteDataSource,
-        networkChangeListService: NetworkChangeListService,
-        mediaLocalDataSource: MediaLocalDataSource,
-        playlistMapper: PlaylistMapper,
-    ): PlaylistRepositorySyncable =
-        PlaylistRepositorySyncable(
-            playlistLocalDataSource,
-            playlistRemoteDataSource,
-            networkChangeListService,
-            mediaLocalDataSource,
-            playlistMapper,
-        )
 }

@@ -33,46 +33,40 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class NavigationTest {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    private lateinit var navController: TestNavHostController
+  private lateinit var navController: TestNavHostController
 
-    @Before
-    fun setUp() {
-        composeTestRule.setContent {
-            navController = TestNavHostController(LocalContext.current)
-            navController.navigatorProvider.addNavigator(WearNavigator())
-            WearApp(navController = navController)
-        }
+  @Before
+  fun setUp() {
+    composeTestRule.setContent {
+      navController = TestNavHostController(LocalContext.current)
+      navController.navigatorProvider.addNavigator(WearNavigator())
+      WearApp(navController = navController)
     }
+  }
 
-    @Test
-    fun checkBackNavigation() {
-        assertThat(navController.currentBackStackEntry?.destination?.route)
-            .isEqualTo("mainScreen")
+  @Test
+  fun checkBackNavigation() {
+    assertThat(navController.currentBackStackEntry?.destination?.route).isEqualTo("mainScreen")
 
-        composeTestRule.onAllNodesWithText("Sign-in Prompt")
-            .onFirst()
-            .performClick()
+    composeTestRule.onAllNodesWithText("Sign-in Prompt").onFirst().performClick()
 
-        assertThat(navController.currentBackStackEntry?.destination?.route)
-            .isEqualTo("googleSignInPromptSampleScreen")
+    assertThat(navController.currentBackStackEntry?.destination?.route)
+      .isEqualTo("googleSignInPromptSampleScreen")
 
-        navigateBack()
+    navigateBack()
 
-        assertThat(navController.currentBackStackEntry?.destination?.route)
-            .isEqualTo("mainScreen")
+    assertThat(navController.currentBackStackEntry?.destination?.route).isEqualTo("mainScreen")
 
-        navigateBack()
+    navigateBack()
 
-        assertThat(navController.currentBackStackEntry)
-            .isNull()
-    }
+    assertThat(navController.currentBackStackEntry).isNull()
+  }
 
-    private fun navigateBack() {
-        // It should ideally use Espresso.pressBack() but needs further investigation why is not
-        // working. Also tried composeTestRule.activity.onBackPressedDispatcher.onBackPressed().
-        navController.popBackStack()
-    }
+  private fun navigateBack() {
+    // It should ideally use Espresso.pressBack() but needs further investigation why is not
+    // working. Also tried composeTestRule.activity.onBackPressedDispatcher.onBackPressed().
+    navController.popBackStack()
+  }
 }

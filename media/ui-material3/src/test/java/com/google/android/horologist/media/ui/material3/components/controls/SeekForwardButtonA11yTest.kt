@@ -28,63 +28,63 @@ import org.junit.Test
 
 public class SeekForwardButtonA11yTest : WearLegacyA11yTest() {
 
-    @Test
-    fun incrementIsFive() {
-        runComponentTest {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Five,
-                )
-            }
-        }
+  @Test
+  fun incrementIsFive() {
+    runComponentTest {
+      Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        SeekForwardButton(
+          onClick = {},
+          seekButtonIncrement = SeekButtonIncrement.Five,
+        )
+      }
     }
+  }
 
-    @Test
-    fun incrementIsTen() {
-        runComponentTest {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Ten,
-                )
-            }
-        }
+  @Test
+  fun incrementIsTen() {
+    runComponentTest {
+      Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        SeekForwardButton(
+          onClick = {},
+          seekButtonIncrement = SeekButtonIncrement.Ten,
+        )
+      }
     }
+  }
 
-    @Test
-    fun incrementIsThirty() {
-        runComponentTest {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Thirty,
-                )
-            }
-        }
+  @Test
+  fun incrementIsThirty() {
+    runComponentTest {
+      Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        SeekForwardButton(
+          onClick = {},
+          seekButtonIncrement = SeekButtonIncrement.Thirty,
+        )
+      }
     }
+  }
 
-    @Test
-    fun incrementIsOther() {
-        runComponentTest {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Known(15),
-                )
-            }
-        }
+  @Test
+  fun incrementIsOther() {
+    runComponentTest {
+      Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        SeekForwardButton(
+          onClick = {},
+          seekButtonIncrement = SeekButtonIncrement.Known(15),
+        )
+      }
     }
+  }
 
-    @Test
-    fun incrementIsUnknown() {
-        runComponentTest {
-            Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-                SeekForwardButton(
-                    onClick = {},
-                    seekButtonIncrement = SeekButtonIncrement.Unknown,
-                )
-            }
-        }
+  @Test
+  fun incrementIsUnknown() {
+    runComponentTest {
+      Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+        SeekForwardButton(
+          onClick = {},
+          seekButtonIncrement = SeekButtonIncrement.Unknown,
+        )
+      }
     }
+  }
 }

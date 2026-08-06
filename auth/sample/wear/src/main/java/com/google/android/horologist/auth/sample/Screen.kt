@@ -16,18 +16,20 @@
 
 package com.google.android.horologist.auth.sample
 
-sealed class Screen(
-    val route: String,
-) {
-    object MainScreen : Screen("mainScreen")
+sealed class Screen(val route: String) {
+  object MainScreen : Screen("mainScreen")
 
-    object GoogleSignInPromptSampleScreen : Screen("googleSignInPromptSampleScreen")
-    object GoogleSignInScreen : Screen("googleSignInScreen")
-    object GoogleSignOutScreen : Screen("googleSignOutScreen")
+  object GoogleSignInPromptSampleScreen : Screen("googleSignInPromptSampleScreen")
 
-    object TokenShareDefaultKeyScreen : Screen("tokenShareDefaultKeyScreen")
-    object TokenShareCustomKeyScreen : Screen("tokenShareCustomKeyScreen")
+  object GoogleSignInScreen : Screen("googleSignInScreen")
 
-    object StreamlineSignInMenuScreen : Screen("streamlineSignInMenuScreen")
-    object StreamlineSignInSampleScreen : Screen("streamlineSignInSampleScreen")
+  object GoogleSignOutScreen : Screen("googleSignOutScreen")
+
+  object TokenShareDefaultKeyScreen : Screen("tokenShareDefaultKeyScreen")
+
+  object TokenShareCustomKeyScreen : Screen("tokenShareCustomKeyScreen")
+
+  object StreamlineSignInMenuScreen : Screen("streamlineSignInMenuScreen")
+
+  object StreamlineSignInSampleScreen : Screen("streamlineSignInSampleScreen")
 }

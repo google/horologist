@@ -19,6 +19,6 @@ package com.google.android.horologist.compose.tools
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 
 public class WearPreviewThemes : PreviewParameterProvider<ThemeValues> {
-    public override val values: Sequence<ThemeValues>
-        get() = themeValues.asSequence()
+  public override val values: Sequence<ThemeValues>
+    get() = themeValues.asSequence()
 }

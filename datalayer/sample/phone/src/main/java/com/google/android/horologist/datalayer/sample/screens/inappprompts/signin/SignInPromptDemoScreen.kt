@@ -40,135 +40,127 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun SignInPromptDemoScreen(
-    modifier: Modifier = Modifier,
-    viewModel: SignInPromptDemoViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: SignInPromptDemoViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == SignInPromptDemoScreenState.Idle) {
-        SideEffect {
-            viewModel.initialize()
-        }
-    }
+  if (state == SignInPromptDemoScreenState.Idle) {
+    SideEffect { viewModel.initialize() }
+  }
 
-    val context = LocalContext.current
-    val topMessage = stringResource(R.string.signin_prompt_demo_prompt_top_message)
-    val bottomMessage = stringResource(R.string.signin_prompt_demo_prompt_bottom_message)
+  val context = LocalContext.current
+  val topMessage = stringResource(R.string.signin_prompt_demo_prompt_top_message)
+  val bottomMessage = stringResource(R.string.signin_prompt_demo_prompt_bottom_message)
 
-    SignInPromptDemoScreen(
-        state = state,
-        onRunDemoClick = viewModel::onRunDemoClick,
-        getSignInPromptIntent = { nodeId ->
-            viewModel.signInPrompt.getIntent(
-                context = context,
-                nodeId = nodeId,
-                image = R.drawable.watch_app_screenshot,
-                topMessage = topMessage,
-                bottomMessage = bottomMessage,
-            )
-        },
-        onPromptLaunched = viewModel::onPromptLaunched,
-        onPromptSignInClick = viewModel::onPromptSignInClick,
-        onPromptDismiss = viewModel::onPromptDismiss,
-        modifier = modifier,
-    )
+  SignInPromptDemoScreen(
+    state = state,
+    onRunDemoClick = viewModel::onRunDemoClick,
+    getSignInPromptIntent = { nodeId ->
+      viewModel.signInPrompt.getIntent(
+        context = context,
+        nodeId = nodeId,
+        image = R.drawable.watch_app_screenshot,
+        topMessage = topMessage,
+        bottomMessage = bottomMessage,
+      )
+    },
+    onPromptLaunched = viewModel::onPromptLaunched,
+    onPromptSignInClick = viewModel::onPromptSignInClick,
+    onPromptDismiss = viewModel::onPromptDismiss,
+    modifier = modifier,
+  )
 }
 
 @Composable
 fun SignInPromptDemoScreen(
-    state: SignInPromptDemoScreenState,
-    onRunDemoClick: () -> Unit,
-    getSignInPromptIntent: (nodeId: String) -> Intent,
-    onPromptLaunched: () -> Unit,
-    onPromptSignInClick: () -> Unit,
-    onPromptDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
+  state: SignInPromptDemoScreenState,
+  onRunDemoClick: () -> Unit,
+  getSignInPromptIntent: (nodeId: String) -> Intent,
+  onPromptLaunched: () -> Unit,
+  onPromptSignInClick: () -> Unit,
+  onPromptDismiss: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val launcher = rememberLauncherForActivityResult(
-        ActivityResultContracts.StartActivityForResult(),
-    ) { result ->
-        if (result.resultCode == RESULT_OK) {
-            onPromptSignInClick()
-        } else {
-            onPromptDismiss()
-        }
+  val launcher =
+    rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+      if (result.resultCode == RESULT_OK) {
+        onPromptSignInClick()
+      } else {
+        onPromptDismiss()
+      }
     }
 
-    Column(
-        modifier = modifier.padding(all = 10.dp),
+  Column(modifier = modifier.padding(all = 10.dp)) {
+    Text(text = stringResource(id = R.string.signin_prompt_api_call_demo_message))
+
+    Button(
+      onClick = onRunDemoClick,
+      modifier = Modifier.padding(top = 10.dp).align(Alignment.CenterHorizontally),
+      enabled = state != SignInPromptDemoScreenState.ApiNotAvailable,
     ) {
-        Text(text = stringResource(id = R.string.signin_prompt_api_call_demo_message))
-
-        Button(
-            onClick = onRunDemoClick,
-            modifier = Modifier
-                .padding(top = 10.dp)
-                .align(Alignment.CenterHorizontally),
-            enabled = state != SignInPromptDemoScreenState.ApiNotAvailable,
-        ) {
-            Text(text = stringResource(id = R.string.signin_prompt_run_demo_button_label))
-        }
-
-        when (state) {
-            SignInPromptDemoScreenState.Idle,
-            SignInPromptDemoScreenState.Loaded,
-            -> {
-                /* do nothing */
-            }
-
-            SignInPromptDemoScreenState.Loading -> {
-                CircularProgressIndicator()
-            }
-
-            is SignInPromptDemoScreenState.WatchFound -> {
-                SideEffect { launcher.launch(getSignInPromptIntent(state.nodeId)) }
-
-                onPromptLaunched()
-            }
-
-            SignInPromptDemoScreenState.WatchNotFound -> {
-                Text(
-                    stringResource(
-                        id = R.string.signin_prompt_demo_result_label,
-                        stringResource(id = R.string.signin_prompt_demo_no_watches_found_label),
-                    ),
-                )
-            }
-
-            SignInPromptDemoScreenState.PromptSignInClicked -> {
-                Text(
-                    stringResource(
-                        id = R.string.signin_prompt_demo_result_label,
-                        stringResource(id = R.string.signin_prompt_demo_prompt_positive_result_label),
-                    ),
-                )
-            }
-
-            SignInPromptDemoScreenState.PromptDismissed -> {
-                Text(
-                    stringResource(
-                        id = R.string.signin_prompt_demo_result_label,
-                        stringResource(id = R.string.signin_prompt_demo_prompt_dismiss_result_label),
-                    ),
-                )
-            }
-
-            SignInPromptDemoScreenState.ApiNotAvailable -> {
-                Text(stringResource(id = R.string.wearable_message_api_unavailable))
-            }
-        }
+      Text(text = stringResource(id = R.string.signin_prompt_run_demo_button_label))
     }
+
+    when (state) {
+      SignInPromptDemoScreenState.Idle,
+      SignInPromptDemoScreenState.Loaded -> {
+        /* do nothing */
+      }
+
+      SignInPromptDemoScreenState.Loading -> {
+        CircularProgressIndicator()
+      }
+
+      is SignInPromptDemoScreenState.WatchFound -> {
+        SideEffect { launcher.launch(getSignInPromptIntent(state.nodeId)) }
+
+        onPromptLaunched()
+      }
+
+      SignInPromptDemoScreenState.WatchNotFound -> {
+        Text(
+          stringResource(
+            id = R.string.signin_prompt_demo_result_label,
+            stringResource(id = R.string.signin_prompt_demo_no_watches_found_label),
+          )
+        )
+      }
+
+      SignInPromptDemoScreenState.PromptSignInClicked -> {
+        Text(
+          stringResource(
+            id = R.string.signin_prompt_demo_result_label,
+            stringResource(id = R.string.signin_prompt_demo_prompt_positive_result_label),
+          )
+        )
+      }
+
+      SignInPromptDemoScreenState.PromptDismissed -> {
+        Text(
+          stringResource(
+            id = R.string.signin_prompt_demo_result_label,
+            stringResource(id = R.string.signin_prompt_demo_prompt_dismiss_result_label),
+          )
+        )
+      }
+
+      SignInPromptDemoScreenState.ApiNotAvailable -> {
+        Text(stringResource(id = R.string.wearable_message_api_unavailable))
+      }
+    }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun SignInPromptDemoScreenPreview() {
-    SignInPromptDemoScreen(
-        state = SignInPromptDemoScreenState.Idle,
-        onRunDemoClick = { },
-        getSignInPromptIntent = { Intent() },
-        onPromptLaunched = { },
-        onPromptSignInClick = { },
-        onPromptDismiss = { },
-    )
+  SignInPromptDemoScreen(
+    state = SignInPromptDemoScreenState.Idle,
+    onRunDemoClick = {},
+    getSignInPromptIntent = { Intent() },
+    onPromptLaunched = {},
+    onPromptSignInClick = {},
+    onPromptDismiss = {},
+  )
 }

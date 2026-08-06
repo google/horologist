@@ -32,32 +32,32 @@ import com.google.android.horologist.auth.composables.material3.R
 /**
  * An opinionated [Button] to represent the "Sign in" action.
  *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables-material3/sign_in_button.png" height="120" width="120" >
+ * <img
+ * src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables-material3/sign_in_button.png"
+ * height="120" width="120" >
  *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
  */
 @Composable
 public fun SignInButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    label: String = stringResource(id = R.string.horologist_sign_in_chip_label),
-    colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
-    enabled: Boolean = true,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  label: String = stringResource(id = R.string.horologist_sign_in_chip_label),
+  colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
+  enabled: Boolean = true,
 ) {
-    Button(
-        onClick = onClick,
-        enabled = enabled,
-        label = {
-            Text(text = label)
-        },
-        icon = {
-            Icon(
-                imageVector = Icons.Outlined.AccountCircle,
-                contentDescription = null,
-                modifier = Modifier.size(ButtonDefaults.IconSize),
-            )
-        },
-        colors = colors,
-        modifier = modifier,
-    )
+  Button(
+    onClick = onClick,
+    enabled = enabled,
+    label = { Text(text = label) },
+    icon = {
+      Icon(
+        imageVector = Icons.Outlined.AccountCircle,
+        contentDescription = null,
+        modifier = Modifier.size(ButtonDefaults.IconSize),
+      )
+    },
+    colors = colors,
+    modifier = modifier,
+  )
 }

@@ -57,42 +57,42 @@ import kotlin.math.min
  */
 @Composable
 public fun PlayPauseButton(
-    onPlayClick: () -> Unit,
-    onPauseClick: () -> Unit,
-    playing: Boolean,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    enabled: Boolean = true,
-    colors: IconButtonColors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
-    progress: @Composable () -> Unit = {},
+  onPlayClick: () -> Unit,
+  onPauseClick: () -> Unit,
+  playing: Boolean,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  enabled: Boolean = true,
+  colors: IconButtonColors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
+  iconSize: Dp = IconButtonDefaults.LargeIconSize,
+  progress: @Composable () -> Unit = {},
 ) {
-    Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center,
-    ) {
-        progress()
+  Box(
+    modifier = modifier,
+    contentAlignment = Alignment.Center,
+  ) {
+    progress()
 
-        if (playing) {
-            PauseButton(
-                onClick = onPauseClick,
-                enabled = enabled,
-                modifier = modifier,
-                colorScheme = colorScheme,
-                iconSize = iconSize,
-                colors = colors,
-            )
-        } else {
-            PlayButton(
-                onClick = onPlayClick,
-                enabled = enabled,
-                modifier = modifier,
-                colorScheme = colorScheme,
-                iconSize = iconSize,
-                colors = colors,
-            )
-        }
+    if (playing) {
+      PauseButton(
+        onClick = onPauseClick,
+        enabled = enabled,
+        modifier = modifier,
+        colorScheme = colorScheme,
+        iconSize = iconSize,
+        colors = colors,
+      )
+    } else {
+      PlayButton(
+        onClick = onPlayClick,
+        enabled = enabled,
+        modifier = modifier,
+        colorScheme = colorScheme,
+        iconSize = iconSize,
+        colors = colors,
+      )
     }
+  }
 }
 
 /**
@@ -113,106 +113,116 @@ public fun PlayPauseButton(
  */
 @Composable
 public fun PlayPauseProgressButton(
-    onPlayClick: () -> Unit,
-    onPauseClick: () -> Unit,
-    playing: Boolean,
-    trackPositionUiModel: TrackPositionUiModel,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    enabled: Boolean = true,
-    colors: IconButtonColors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
-    progressStrokeWidth: Dp = 4.dp,
-    indicatorColor: Color = colorScheme.secondaryDim,
-    trackColor: Color = colorScheme.secondary.copy(alpha = 0.3f),
+  onPlayClick: () -> Unit,
+  onPauseClick: () -> Unit,
+  playing: Boolean,
+  trackPositionUiModel: TrackPositionUiModel,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  enabled: Boolean = true,
+  colors: IconButtonColors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
+  iconSize: Dp = IconButtonDefaults.LargeIconSize,
+  progressStrokeWidth: Dp = 4.dp,
+  indicatorColor: Color = colorScheme.secondaryDim,
+  trackColor: Color = colorScheme.secondary.copy(alpha = 0.3f),
 ) {
-    PlayPauseButton(
-        onPlayClick = onPlayClick,
-        onPauseClick = onPauseClick,
-        enabled = enabled,
-        playing = playing,
-        modifier = modifier,
-        colorScheme = colorScheme,
-        iconSize = iconSize,
-        colors = colors,
-    ) {
-        val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
-        if (trackPositionUiModel.isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize(),
-                colors = ProgressIndicatorDefaults.colors(
-                    indicatorColor = indicatorColor,
-                    trackColor = trackColor,
-                ),
-                strokeWidth = progressStrokeWidth,
-            )
-        } else if (trackPositionUiModel.showProgress) {
-            CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize(),
-                progress = { progress },
-                colors = ProgressIndicatorDefaults.colors(
-                    indicatorColor = indicatorColor,
-                    trackColor = trackColor,
-                ),
-                strokeWidth = progressStrokeWidth,
-            )
-        }
+  PlayPauseButton(
+    onPlayClick = onPlayClick,
+    onPauseClick = onPauseClick,
+    enabled = enabled,
+    playing = playing,
+    modifier = modifier,
+    colorScheme = colorScheme,
+    iconSize = iconSize,
+    colors = colors,
+  ) {
+    val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
+    if (trackPositionUiModel.isLoading) {
+      CircularProgressIndicator(
+        modifier = Modifier.fillMaxSize(),
+        colors =
+          ProgressIndicatorDefaults.colors(
+            indicatorColor = indicatorColor,
+            trackColor = trackColor,
+          ),
+        strokeWidth = progressStrokeWidth,
+      )
+    } else if (trackPositionUiModel.showProgress) {
+      CircularProgressIndicator(
+        modifier = Modifier.fillMaxSize(),
+        progress = { progress },
+        colors =
+          ProgressIndicatorDefaults.colors(
+            indicatorColor = indicatorColor,
+            trackColor = trackColor,
+          ),
+        strokeWidth = progressStrokeWidth,
+      )
     }
+  }
 }
 
-/**
- * Defaults object for [PlayPauseButton].
- */
+/** Defaults object for [PlayPauseButton]. */
 internal object PlayPauseButtonDefaults {
 
-    /** Creates a RoundedRectangle with given width and height. */
-    fun pillPolygon(width: Float, height: Float) = RoundedPolygon(
-        vertices = floatArrayOf(
-            0f, -height / 2f,
-            width / 2f, -height / 2f,
-            width / 2f, 0f,
-            width / 2f, height / 2f,
-            0f, height / 2f,
-            -width / 2f, height / 2f,
-            -width / 2f, 0f,
-            -width / 2f, -height / 2f,
+  /** Creates a RoundedRectangle with given width and height. */
+  fun pillPolygon(width: Float, height: Float) =
+    RoundedPolygon(
+      vertices =
+        floatArrayOf(
+          0f,
+          -height / 2f,
+          width / 2f,
+          -height / 2f,
+          width / 2f,
+          0f,
+          width / 2f,
+          height / 2f,
+          0f,
+          height / 2f,
+          -width / 2f,
+          height / 2f,
+          -width / 2f,
+          0f,
+          -width / 2f,
+          -height / 2f,
         ),
-        rounding = CornerRounding(min(width / 2f, height / 2f)),
-        centerX = 0f,
-        centerY = 0f,
+      rounding = CornerRounding(min(width / 2f, height / 2f)),
+      centerX = 0f,
+      centerY = 0f,
     )
 
-    /**
-     * Creates a 10-vertex star shape (scallop) having rounded corners with given size. This will be
-     * used for the outer shape in [AnimatedPlayPauseProgressButton].
-     */
-    fun outerScallopPolygon(density: Density, size: Dp): RoundedPolygon {
-        with(density) {
-            val cornerRadius = 12.dp.toPx()
-            return RoundedPolygon.pillStar(
-                numVerticesPerRadius = 10,
-                width = size.toPx() / 2f,
-                height = size.toPx() / 2f,
-                innerRadiusRatio = 0.8f,
-                rounding = CornerRounding(cornerRadius),
-            )
-        }
+  /**
+   * Creates a 10-vertex star shape (scallop) having rounded corners with given size. This will be
+   * used for the outer shape in [AnimatedPlayPauseProgressButton].
+   */
+  fun outerScallopPolygon(density: Density, size: Dp): RoundedPolygon {
+    with(density) {
+      val cornerRadius = 12.dp.toPx()
+      return RoundedPolygon.pillStar(
+        numVerticesPerRadius = 10,
+        width = size.toPx() / 2f,
+        height = size.toPx() / 2f,
+        innerRadiusRatio = 0.8f,
+        rounding = CornerRounding(cornerRadius),
+      )
     }
+  }
 
-    /**
-     * Creates a 10-vertex star shape (scallop) having rounded corners with given size. This will be
-     * used for the inner shape in [AnimatedPlayPauseProgressButton].
-     */
-    fun innerScallopPolygon(density: Density, size: Dp): RoundedPolygon {
-        with(density) {
-            val cornerRadius = 8.dp.toPx()
-            return RoundedPolygon.pillStar(
-                numVerticesPerRadius = 10,
-                width = size.toPx() / 2f,
-                height = size.toPx() / 2f,
-                innerRadiusRatio = 0.82f,
-                rounding = CornerRounding(cornerRadius),
-            )
-        }
+  /**
+   * Creates a 10-vertex star shape (scallop) having rounded corners with given size. This will be
+   * used for the inner shape in [AnimatedPlayPauseProgressButton].
+   */
+  fun innerScallopPolygon(density: Density, size: Dp): RoundedPolygon {
+    with(density) {
+      val cornerRadius = 8.dp.toPx()
+      return RoundedPolygon.pillStar(
+        numVerticesPerRadius = 10,
+        width = size.toPx() / 2f,
+        height = size.toPx() / 2f,
+        innerRadiusRatio = 0.82f,
+        rounding = CornerRounding(cornerRadius),
+      )
     }
+  }
 }

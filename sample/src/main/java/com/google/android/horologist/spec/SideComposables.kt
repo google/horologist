@@ -27,85 +27,72 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnStat
 // @WearCustomPreviews
 @Composable
 fun SideMixed() {
-    SampleMenu(
-        columnState = rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(
-                first = ItemType.Chip,
-                last = ItemType.Text,
-            ),
-        ),
-        borders = {
-            side(0.052f)
-        },
-    ) {
-        item {
-            SoundToggleChip()
-        }
-        item {
-            ListHeader {
-                Text("Media volume")
-            }
-        }
-        item {
-            VolumeSlider()
-        }
-    }
+  SampleMenu(
+    columnState =
+      rememberResponsiveColumnState(
+        contentPadding =
+          ScalingLazyColumnDefaults.padding(
+            first = ItemType.Chip,
+            last = ItemType.Text,
+          )
+      ),
+    borders = { side(0.052f) },
+  ) {
+    item { SoundToggleChip() }
+    item { ListHeader { Text("Media volume") } }
+    item { VolumeSlider() }
+  }
 }
 
 // @WearCustomPreviews
 @Composable
 fun SideChips() {
-    SampleMenu(
-        rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(
-                first = ItemType.Chip,
-                last = ItemType.Chip,
-            ),
-        ),
-        borders = {
-            side(0.052f)
-        },
-    )
+  SampleMenu(
+    rememberResponsiveColumnState(
+      contentPadding =
+        ScalingLazyColumnDefaults.padding(
+          first = ItemType.Chip,
+          last = ItemType.Chip,
+        )
+    ),
+    borders = { side(0.052f) },
+  )
 }
 
 // @WearCustomPreviews
 @Composable
 fun SideCards() {
-    SampleMenu(
-        rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(
-                first = ItemType.Card,
-                last = ItemType.Card,
-            ),
-        ),
-        borders = {
-            side(0.052f)
-        },
-    ) {
-        item {
-            MessagesCard()
-        }
-        item {
-            BofACard()
-        }
-    }
+  SampleMenu(
+    rememberResponsiveColumnState(
+      contentPadding =
+        ScalingLazyColumnDefaults.padding(
+          first = ItemType.Card,
+          last = ItemType.Card,
+        )
+    ),
+    borders = { side(0.052f) },
+  ) {
+    item { MessagesCard() }
+    item { BofACard() }
+  }
 }
 
 // @WearCustomPreviews
 @Composable
 fun SideText() {
-    SampleMenu(
-        rememberResponsiveColumnState(
-            contentPadding = ScalingLazyColumnDefaults.padding(
-                first = ItemType.Text,
-                last = ItemType.Text,
-            ),
-        ),
-        borders = {
-            side(0.052f)
-            side(0.052f, 0.052f, Color.Yellow)
-        },
-    ) {
-        warningTextItems()
-    }
+  SampleMenu(
+    rememberResponsiveColumnState(
+      contentPadding =
+        ScalingLazyColumnDefaults.padding(
+          first = ItemType.Text,
+          last = ItemType.Text,
+        )
+    ),
+    borders = {
+      side(0.052f)
+      side(0.052f, 0.052f, Color.Yellow)
+    },
+  ) {
+    warningTextItems()
+  }
 }

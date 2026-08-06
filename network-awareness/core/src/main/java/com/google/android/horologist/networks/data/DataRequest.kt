@@ -21,8 +21,8 @@ import java.time.Instant
 
 @ExperimentalHorologistApi
 public data class DataRequest(
-    public val requestType: RequestType,
-    public val networkInfo: NetworkInfo,
-    public val dataBytes: Long,
-    public val time: Instant = Instant.now(),
+  public val requestType: RequestType,
+  public val networkInfo: NetworkInfo,
+  public val dataBytes: Long,
+  public val time: Instant = Instant.now(),
 )

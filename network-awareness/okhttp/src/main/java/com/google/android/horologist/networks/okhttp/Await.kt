@@ -16,36 +16,36 @@
 
 package com.google.android.horologist.networks.okhttp
 
+import java.io.IOException
+import kotlin.coroutines.resumeWithException
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
-import java.io.IOException
-import kotlin.coroutines.resumeWithException
 
 /**
- * Suspending version of [Call.execute] built on top of
- * [Call.enqueue] and [suspendCancellableCoroutine].
+ * Suspending version of [Call.execute] built on top of [Call.enqueue] and
+ * [suspendCancellableCoroutine].
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 public suspend fun Call.await(): Response {
-    return suspendCancellableCoroutine { cont ->
-        cont.invokeOnCancellation {
-            cancel()
+  return suspendCancellableCoroutine { cont ->
+    cont.invokeOnCancellation { cancel() }
+    enqueue(
+      object : Callback {
+        override fun onFailure(call: Call, e: IOException) {
+          if (!cont.isCompleted) {
+            cont.resumeWithException(e)
+          }
         }
-        enqueue(object : Callback {
-            override fun onFailure(call: Call, e: IOException) {
-                if (!cont.isCompleted) {
-                    cont.resumeWithException(e)
-                }
-            }
 
-            override fun onResponse(call: Call, response: Response) {
-                if (!cont.isCompleted) {
-                    cont.resume(response, onCancellation = { cause, _, _ -> response.close() })
-                }
-            }
-        })
-    }
+        override fun onResponse(call: Call, response: Response) {
+          if (!cont.isCompleted) {
+            cont.resume(response, onCancellation = { cause, _, _ -> response.close() })
+          }
+        }
+      }
+    )
+  }
 }

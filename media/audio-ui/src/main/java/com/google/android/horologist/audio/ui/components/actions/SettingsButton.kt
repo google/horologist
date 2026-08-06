@@ -36,52 +36,52 @@ import com.google.android.horologist.composables.UnboundedRippleButton
 import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
-/**
- * An icon button to launch a screen to control the system.
- */
+/** An icon button to launch a screen to control the system. */
 @Composable
 public fun SettingsButton(
-    onClick: () -> Unit,
-    imageVector: ImageVector,
-    contentDescription: String,
-    modifier: Modifier = Modifier,
-    badgeVector: ImageVector? = null,
-    badgeColor: Color = MaterialTheme.colors.primary,
-    enabled: Boolean = true,
-    iconSize: Dp = 26.dp,
-    badgeSize: Dp = 16.dp,
-    iconAlignment: Alignment = Alignment.Center,
-    iconPadding: PaddingValues? = null,
-    tapTargetSize: Dp = 52.dp,
+  onClick: () -> Unit,
+  imageVector: ImageVector,
+  contentDescription: String,
+  modifier: Modifier = Modifier,
+  badgeVector: ImageVector? = null,
+  badgeColor: Color = MaterialTheme.colors.primary,
+  enabled: Boolean = true,
+  iconSize: Dp = 26.dp,
+  badgeSize: Dp = 16.dp,
+  iconAlignment: Alignment = Alignment.Center,
+  iconPadding: PaddingValues? = null,
+  tapTargetSize: Dp = 52.dp,
 ) {
-    UnboundedRippleButton(
-        modifier = modifier.size(tapTargetSize),
-        onClick = onClick,
-        colors = buttonColors(
-            backgroundColor = Color.Transparent,
-            disabledBackgroundColor = Color.Transparent,
-            contentColor = MaterialTheme.colors.onSurface,
-        ),
-        enabled = enabled,
-        rippleRadius = tapTargetSize / 2,
-    ) {
-        val boxModifier = if (iconPadding != null) Modifier.padding(iconPadding) else Modifier
-        Box(modifier = boxModifier.align(iconAlignment)) {
-            Icon(
-                paintable = imageVector.asPaintable(),
-                contentDescription = contentDescription,
-                modifier = Modifier.size(iconSize),
-            )
-            if (badgeVector != null) {
-                Icon(
-                    paintable = badgeVector.asPaintable(),
-                    contentDescription = contentDescription,
-                    modifier = Modifier.size(badgeSize)
-                        .align(Alignment.CenterEnd)
-                        .offset(badgeSize - 2.dp)
-                        .background(color = badgeColor, shape = CircleShape),
-                )
-            }
-        }
+  UnboundedRippleButton(
+    modifier = modifier.size(tapTargetSize),
+    onClick = onClick,
+    colors =
+      buttonColors(
+        backgroundColor = Color.Transparent,
+        disabledBackgroundColor = Color.Transparent,
+        contentColor = MaterialTheme.colors.onSurface,
+      ),
+    enabled = enabled,
+    rippleRadius = tapTargetSize / 2,
+  ) {
+    val boxModifier = if (iconPadding != null) Modifier.padding(iconPadding) else Modifier
+    Box(modifier = boxModifier.align(iconAlignment)) {
+      Icon(
+        paintable = imageVector.asPaintable(),
+        contentDescription = contentDescription,
+        modifier = Modifier.size(iconSize),
+      )
+      if (badgeVector != null) {
+        Icon(
+          paintable = badgeVector.asPaintable(),
+          contentDescription = contentDescription,
+          modifier =
+            Modifier.size(badgeSize)
+              .align(Alignment.CenterEnd)
+              .offset(badgeSize - 2.dp)
+              .background(color = badgeColor, shape = CircleShape),
+        )
+      }
     }
+  }
 }

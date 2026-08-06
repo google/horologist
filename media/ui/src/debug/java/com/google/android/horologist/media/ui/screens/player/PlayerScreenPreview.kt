@@ -56,315 +56,287 @@ import kotlin.time.Duration.Companion.seconds
 @WearPreviewDevices
 @Composable
 fun PlayerScreenPreview() {
-    Scaffold(
-        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
-        timeText = { ResponsiveTimeText() },
-    ) {
-        PagerScreen(
-            state = rememberPagerState {
-                2
+  Scaffold(
+    modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
+    timeText = { ResponsiveTimeText() },
+  ) {
+    PagerScreen(state = rememberPagerState { 2 }) {
+      PlayerScreen(
+        mediaDisplay = {
+          TextMediaDisplay(
+            title = "Don't Stop Believin'",
+            subtitle = "Journey",
+          )
+        },
+        controlButtons = {
+          MediaControlButtons(
+            onPlayButtonClick = {},
+            onPauseButtonClick = {},
+            playPauseButtonEnabled = true,
+            playing = true,
+            trackPositionUiModel =
+              TrackPositionUiModel.Actual(
+                0.25f,
+                25.seconds,
+                100.seconds,
+              ),
+            onSeekToNextButtonClick = {},
+            seekToNextButtonEnabled = true,
+            onSeekToPreviousButtonClick = {},
+            seekToPreviousButtonEnabled = true,
+          )
+        },
+        buttons = {
+          SettingsButtons(
+            volumeUiState = VolumeUiState(5, 10),
+            onVolumeClick = {},
+            onOutputClick = {},
+            brandIcon = {
+              SettingsButtonsDefaults.BrandIcon(
+                R.drawable.ic_stat_horologist,
+                enabled = true,
+              )
             },
-        ) {
-            PlayerScreen(
-                mediaDisplay = {
-                    TextMediaDisplay(
-                        title = "Don't Stop Believin'",
-                        subtitle = "Journey",
-                    )
-                },
-                controlButtons = {
-                    MediaControlButtons(
-                        onPlayButtonClick = {},
-                        onPauseButtonClick = {},
-                        playPauseButtonEnabled = true,
-                        playing = true,
-                        trackPositionUiModel = TrackPositionUiModel.Actual(
-                            0.25f,
-                            25.seconds,
-                            100.seconds,
-                        ),
-                        onSeekToNextButtonClick = {},
-                        seekToNextButtonEnabled = true,
-                        onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true,
-                    )
-                },
-                buttons = {
-                    SettingsButtons(
-                        volumeUiState = VolumeUiState(5, 10),
-                        onVolumeClick = { },
-                        onOutputClick = { },
-                        brandIcon = {
-                            SettingsButtonsDefaults.BrandIcon(
-                                R.drawable.ic_stat_horologist,
-                                enabled = true,
-                            )
-                        },
-                    )
-                },
-            )
-        }
+          )
+        },
+      )
     }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun PlayerScreenPreviewCustomMediaDisplay() {
-    Scaffold(
-        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
-        timeText = { ResponsiveTimeText() },
-    ) {
-        PagerScreen(
-            state = rememberPagerState {
-                2
+  Scaffold(
+    modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
+    timeText = { ResponsiveTimeText() },
+  ) {
+    PagerScreen(state = rememberPagerState { 2 }) {
+      PlayerScreen(
+        mediaDisplay = {
+          Text(
+            "RTÉ Lyric FM\nRTÉ",
+            style = MaterialTheme.typography.title2.copy(color = Color.Red),
+            textAlign = TextAlign.Center,
+          )
+        },
+        controlButtons = {
+          MediaControlButtons(
+            onPlayButtonClick = {},
+            onPauseButtonClick = {},
+            playPauseButtonEnabled = true,
+            playing = true,
+            trackPositionUiModel =
+              TrackPositionUiModel.Actual(
+                0.75f,
+                75.seconds,
+                100.seconds,
+              ),
+            onSeekToNextButtonClick = {},
+            seekToNextButtonEnabled = true,
+            onSeekToPreviousButtonClick = {},
+            seekToPreviousButtonEnabled = true,
+          )
+        },
+        buttons = {
+          SettingsButtons(
+            volumeUiState = VolumeUiState(5, 10),
+            onVolumeClick = {},
+            onOutputClick = {},
+            brandIcon = {
+              SettingsButtonsDefaults.BrandIcon(
+                R.drawable.ic_stat_horologist,
+                enabled = true,
+              )
             },
-        ) {
-            PlayerScreen(
-                mediaDisplay = {
-                    Text(
-                        "RTÉ Lyric FM\nRTÉ",
-                        style = MaterialTheme.typography.title2.copy(color = Color.Red),
-                        textAlign = TextAlign.Center,
-                    )
-                },
-                controlButtons = {
-                    MediaControlButtons(
-                        onPlayButtonClick = {},
-                        onPauseButtonClick = {},
-                        playPauseButtonEnabled = true,
-                        playing = true,
-                        trackPositionUiModel = TrackPositionUiModel.Actual(
-                            0.75f,
-                            75.seconds,
-                            100.seconds,
-                        ),
-                        onSeekToNextButtonClick = {},
-                        seekToNextButtonEnabled = true,
-                        onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true,
-                    )
-                },
-                buttons = {
-                    SettingsButtons(
-                        volumeUiState = VolumeUiState(5, 10),
-                        onVolumeClick = { },
-                        onOutputClick = { },
-                        brandIcon = {
-                            SettingsButtonsDefaults.BrandIcon(
-                                R.drawable.ic_stat_horologist,
-                                enabled = true,
-                            )
-                        },
-                    )
-                },
-            )
-        }
+          )
+        },
+      )
     }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun PlayerScreenPreviewCustomBackground() {
-    Scaffold(
-        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
-        timeText = { ResponsiveTimeText() },
-    ) {
-        PagerScreen(
-            state = rememberPagerState {
-                2
+  Scaffold(
+    modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
+    timeText = { ResponsiveTimeText() },
+  ) {
+    PagerScreen(state = rememberPagerState { 2 }) {
+      PlayerScreen(
+        mediaDisplay = {
+          TextMediaDisplay(
+            title = "Da Da Da",
+            subtitle = "Casaca",
+          )
+        },
+        controlButtons = {
+          MediaControlButtons(
+            onPlayButtonClick = {},
+            onPauseButtonClick = {},
+            playPauseButtonEnabled = true,
+            playing = true,
+            onSeekToNextButtonClick = {},
+            seekToNextButtonEnabled = true,
+            onSeekToPreviousButtonClick = {},
+            seekToPreviousButtonEnabled = true,
+          )
+        },
+        buttons = {
+          SettingsButtons(
+            volumeUiState = VolumeUiState(5, 10),
+            onVolumeClick = {},
+            onOutputClick = {},
+            brandIcon = {
+              SettingsButtonsDefaults.BrandIcon(
+                R.drawable.ic_stat_horologist,
+                enabled = true,
+              )
             },
-        ) {
-            PlayerScreen(
-                mediaDisplay = {
-                    TextMediaDisplay(
-                        title = "Da Da Da",
-                        subtitle = "Casaca",
-                    )
-                },
-                controlButtons = {
-                    MediaControlButtons(
-                        onPlayButtonClick = {},
-                        onPauseButtonClick = {},
-                        playPauseButtonEnabled = true,
-                        playing = true,
-                        onSeekToNextButtonClick = {},
-                        seekToNextButtonEnabled = true,
-                        onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true,
-                    )
-                },
-                buttons = {
-                    SettingsButtons(
-                        volumeUiState = VolumeUiState(5, 10),
-                        onVolumeClick = { },
-                        onOutputClick = { },
-                        brandIcon = {
-                            SettingsButtonsDefaults.BrandIcon(
-                                R.drawable.ic_stat_horologist,
-                                enabled = true,
-                            )
-                        },
-                    )
-                },
-                background = {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .size(124.dp),
-                            progress = 0.75f,
-                            indicatorColor = Color.Magenta,
-                        )
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .size(132.dp),
-                            progress = 0.75f,
-                            indicatorColor = Color.White,
-                        )
-                        CircularProgressIndicator(
-                            modifier = Modifier
-                                .align(Alignment.Center)
-                                .size(140.dp),
-                            progress = 0.75f,
-                            indicatorColor = Color.Blue,
-                        )
-                    }
-                },
+          )
+        },
+        background = {
+          Box(modifier = Modifier.fillMaxSize()) {
+            CircularProgressIndicator(
+              modifier = Modifier.align(Alignment.Center).size(124.dp),
+              progress = 0.75f,
+              indicatorColor = Color.Magenta,
             )
-        }
+            CircularProgressIndicator(
+              modifier = Modifier.align(Alignment.Center).size(132.dp),
+              progress = 0.75f,
+              indicatorColor = Color.White,
+            )
+            CircularProgressIndicator(
+              modifier = Modifier.align(Alignment.Center).size(140.dp),
+              progress = 0.75f,
+              indicatorColor = Color.Blue,
+            )
+          }
+        },
+      )
     }
+  }
 }
 
 @WearPreviewDevices
 @WearPreviewFontScales
 @Composable
 fun PlayerScreenPreviewDevices() {
-    UampTheme {
-        DefaultMediaPreview()
-    }
+  UampTheme { DefaultMediaPreview() }
 }
 
 @WearPreviewLargeRound
 @Composable
-fun VolumeScreenTheme(
-    @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues,
-) {
-    MaterialTheme(themeValues.colors) {
-        DefaultMediaPreview()
-    }
+fun VolumeScreenTheme(@PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues) {
+  MaterialTheme(themeValues.colors) { DefaultMediaPreview() }
 }
 
 @Composable
 fun DefaultMediaPreview() {
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        timeText = { ResponsiveTimeText() },
-    ) {
-        PagerScreen(
-            state = rememberPagerState {
-                2
+  Scaffold(
+    modifier = Modifier.fillMaxSize(),
+    timeText = { ResponsiveTimeText() },
+  ) {
+    PagerScreen(state = rememberPagerState { 2 }) {
+      PlayerScreen(
+        modifier =
+          Modifier.drawWithCache {
+            val background = radialBackgroundBrush(Color.Yellow, Color.Black)
+            onDrawWithContent {
+              // Clear the circular region so we have transparent pixels to blend against
+              // This enables us to reuse the underlying buffer we are drawing into without
+              // having to consume additional overhead of an offscreen compositing layer
+              drawRect(color = Color.Black, blendMode = BlendMode.Clear)
+
+              drawContent()
+
+              // Components on media player may use transparency, so draw in the gaps
+              drawRect(background, blendMode = BlendMode.DstOver)
+            }
+          },
+        mediaDisplay = {
+          TextMediaDisplay(
+            title = "Don't Stop Believin'",
+            subtitle = "Journey",
+          )
+        },
+        controlButtons = {
+          MediaControlButtons(
+            onPlayButtonClick = {},
+            onPauseButtonClick = {},
+            playPauseButtonEnabled = true,
+            playing = true,
+            trackPositionUiModel =
+              TrackPositionUiModel.Actual(
+                0.25f,
+                25.seconds,
+                100.seconds,
+              ),
+            onSeekToNextButtonClick = {},
+            seekToNextButtonEnabled = true,
+            onSeekToPreviousButtonClick = {},
+            seekToPreviousButtonEnabled = true,
+          )
+        },
+        buttons = {
+          SettingsButtons(
+            volumeUiState = VolumeUiState(5, 10),
+            onVolumeClick = {},
+            onOutputClick = {},
+            brandIcon = {
+              SettingsButtonsDefaults.BrandIcon(
+                R.drawable.ic_stat_horologist,
+                enabled = true,
+              )
             },
-        ) {
-            PlayerScreen(
-                modifier = Modifier.drawWithCache {
-                    val background = radialBackgroundBrush(Color.Yellow, Color.Black)
-                    onDrawWithContent {
-                        // Clear the circular region so we have transparent pixels to blend against
-                        // This enables us to reuse the underlying buffer we are drawing into without
-                        // having to consume additional overhead of an offscreen compositing layer
-                        drawRect(color = Color.Black, blendMode = BlendMode.Clear)
-
-                        drawContent()
-
-                        // Components on media player may use transparency, so draw in the gaps
-                        drawRect(background, blendMode = BlendMode.DstOver)
-                    }
-                },
-                mediaDisplay = {
-                    TextMediaDisplay(
-                        title = "Don't Stop Believin'",
-                        subtitle = "Journey",
-                    )
-                },
-                controlButtons = {
-                    MediaControlButtons(
-                        onPlayButtonClick = {},
-                        onPauseButtonClick = {},
-                        playPauseButtonEnabled = true,
-                        playing = true,
-                        trackPositionUiModel = TrackPositionUiModel.Actual(
-                            0.25f,
-                            25.seconds,
-                            100.seconds,
-                        ),
-                        onSeekToNextButtonClick = {},
-                        seekToNextButtonEnabled = true,
-                        onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = true,
-                    )
-                },
-                buttons = {
-                    SettingsButtons(
-                        volumeUiState = VolumeUiState(5, 10),
-                        onVolumeClick = { },
-                        onOutputClick = { },
-                        brandIcon = {
-                            SettingsButtonsDefaults.BrandIcon(
-                                R.drawable.ic_stat_horologist,
-                                enabled = true,
-                            )
-                        },
-                    )
-                },
-            )
-        }
+          )
+        },
+      )
     }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun PlayerScreenPreviewNotingPlayingDisplay() {
-    Scaffold(
-        modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
-        timeText = { ResponsiveTimeText() },
-    ) {
-        PagerScreen(
-            state = rememberPagerState {
-                2
+  Scaffold(
+    modifier = Modifier.fillMaxSize().background(BACKGROUND_COLOR),
+    timeText = { ResponsiveTimeText() },
+  ) {
+    PagerScreen(state = rememberPagerState { 2 }) {
+      PlayerScreen(
+        mediaDisplay = { NothingPlayingDisplay(Modifier) },
+        controlButtons = {
+          MediaControlButtons(
+            onPlayButtonClick = {},
+            onPauseButtonClick = {},
+            playPauseButtonEnabled = false,
+            playing = false,
+            onSeekToPreviousButtonClick = {},
+            seekToPreviousButtonEnabled = false,
+            onSeekToNextButtonClick = {},
+            seekToNextButtonEnabled = false,
+          )
+        },
+        buttons = {
+          SettingsButtons(
+            volumeUiState = VolumeUiState(5, 10),
+            onVolumeClick = {},
+            onOutputClick = {},
+            brandIcon = {
+              SettingsButtonsDefaults.BrandIcon(
+                R.drawable.ic_stat_horologist,
+                enabled = true,
+              )
             },
-        ) {
-            PlayerScreen(
-                mediaDisplay = { NothingPlayingDisplay(Modifier) },
-                controlButtons = {
-                    MediaControlButtons(
-                        onPlayButtonClick = {},
-                        onPauseButtonClick = {},
-                        playPauseButtonEnabled = false,
-                        playing = false,
-                        onSeekToPreviousButtonClick = {},
-                        seekToPreviousButtonEnabled = false,
-                        onSeekToNextButtonClick = {},
-                        seekToNextButtonEnabled = false,
-                    )
-                },
-                buttons = {
-                    SettingsButtons(
-                        volumeUiState = VolumeUiState(5, 10),
-                        onVolumeClick = { },
-                        onOutputClick = { },
-                        brandIcon = {
-                            SettingsButtonsDefaults.BrandIcon(
-                                R.drawable.ic_stat_horologist,
-                                enabled = true,
-                            )
-                        },
-                        enabled = false,
-                    )
-                },
-            )
-        }
+            enabled = false,
+          )
+        },
+      )
     }
+  }
 }
 
 private val BACKGROUND_COLOR = Color(0xFF313234)

@@ -43,68 +43,71 @@ import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.annotation.Config
 
 @Config(
-    sdk = [35],
-    qualifiers = RobolectricDeviceQualifiers.LargeDesktop,
+  sdk = [35],
+  qualifiers = RobolectricDeviceQualifiers.LargeDesktop,
 )
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class FontScaleIndependentTest(val fontSize: Size) : WearScreenshotTest() {
 
-    public override fun testName(suffix: String): String =
-        "src/test/snapshots/images/" +
-            "${this.javaClass.simpleName}_${fontSize.size}.png"
+  public override fun testName(suffix: String): String =
+    "src/test/snapshots/images/" + "${this.javaClass.simpleName}_${fontSize.size}.png"
 
-    @Test
-    fun testSizes() {
-        val sizes = listOf(0.94f, 1f, 1.06f, 1.12f, 1.18f, 1.24f)
-        composeRule.setContent {
-            val density = LocalDensity.current
-            Column(modifier = Modifier.background(Color.Black).testTag("Column")) {
-                sizes.forEach { fontScale ->
-                    CompositionLocalProvider(
-                        LocalDensity provides Density(
-                            density.density,
-                            fontScale,
-                        ),
-                    ) {
-                        Row {
-                            Box(
-                                modifier = Modifier.wrapContentSize(),
-                                contentAlignment = Alignment.BottomStart,
-                            ) {
-                                FontScaleIndependent {
-                                    Text(
-                                        text = "Independent 1.0 |",
-                                        fontSize = fontSize.size,
-                                    )
-                                }
-                            }
-                            Box(
-                                modifier = Modifier.wrapContentSize(),
-                                contentAlignment = Alignment.BottomStart,
-                            ) {
-                                val tm = rememberTextMeasurer()
-                                val height = tm.measure("|", style = TextStyle.Default.copy(fontSize = fontSize.size)).size.height
-                                Text(
-                                    text = "| $fontScale Scale (${height}px)",
-                                    fontSize = fontSize.size,
-                                )
-                            }
-                        }
-                    }
+  @Test
+  fun testSizes() {
+    val sizes = listOf(0.94f, 1f, 1.06f, 1.12f, 1.18f, 1.24f)
+    composeRule.setContent {
+      val density = LocalDensity.current
+      Column(modifier = Modifier.background(Color.Black).testTag("Column")) {
+        sizes.forEach { fontScale ->
+          CompositionLocalProvider(
+            LocalDensity provides
+              Density(
+                density.density,
+                fontScale,
+              )
+          ) {
+            Row {
+              Box(
+                modifier = Modifier.wrapContentSize(),
+                contentAlignment = Alignment.BottomStart,
+              ) {
+                FontScaleIndependent {
+                  Text(
+                    text = "Independent 1.0 |",
+                    fontSize = fontSize.size,
+                  )
                 }
+              }
+              Box(
+                modifier = Modifier.wrapContentSize(),
+                contentAlignment = Alignment.BottomStart,
+              ) {
+                val tm = rememberTextMeasurer()
+                val height =
+                  tm
+                    .measure("|", style = TextStyle.Default.copy(fontSize = fontSize.size))
+                    .size
+                    .height
+                Text(
+                  text = "| $fontScale Scale (${height}px)",
+                  fontSize = fontSize.size,
+                )
+              }
             }
+          }
         }
-
-        composeRule.onNodeWithTag("Column").captureRoboImage(testName(""))
+      }
     }
 
-    public companion object {
-        @JvmStatic
-        @ParameterizedRobolectricTestRunner.Parameters
-        public fun fontSizes(): List<Size> = listOf(10.sp, 12.sp, 14.sp, 15.sp, 16.sp, 20.sp, 24.sp, 30.sp, 34.sp, 40.sp).map {
-            Size(it)
-        }
-    }
+    composeRule.onNodeWithTag("Column").captureRoboImage(testName(""))
+  }
+
+  public companion object {
+    @JvmStatic
+    @ParameterizedRobolectricTestRunner.Parameters
+    public fun fontSizes(): List<Size> =
+      listOf(10.sp, 12.sp, 14.sp, 15.sp, 16.sp, 20.sp, 24.sp, 30.sp, 34.sp, 40.sp).map { Size(it) }
+  }
 }
 
 data class Size(val size: TextUnit)

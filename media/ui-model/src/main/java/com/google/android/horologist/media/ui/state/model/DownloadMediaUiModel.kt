@@ -20,53 +20,56 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
 public sealed class DownloadMediaUiModel(
-    public open val id: String,
-    public open val title: String? = null,
-    public open val artworkUri: String? = null,
+  public open val id: String,
+  public open val title: String? = null,
+  public open val artworkUri: String? = null,
 ) {
-    public data class Downloaded(
-        override val id: String,
-        override val title: String? = null,
-        val artist: String? = null,
-        override val artworkUri: String? = null,
-    ) : DownloadMediaUiModel(
-        id = id,
-        title = title,
-        artworkUri = artworkUri,
+  public data class Downloaded(
+    override val id: String,
+    override val title: String? = null,
+    val artist: String? = null,
+    override val artworkUri: String? = null,
+  ) :
+    DownloadMediaUiModel(
+      id = id,
+      title = title,
+      artworkUri = artworkUri,
     )
 
-    public data class Downloading(
-        override val id: String,
-        override val title: String? = null,
-        val progress: Progress,
-        val size: Size,
-        override val artworkUri: String? = null,
-    ) : DownloadMediaUiModel(
-        id = id,
-        title = title,
-        artworkUri = artworkUri,
+  public data class Downloading(
+    override val id: String,
+    override val title: String? = null,
+    val progress: Progress,
+    val size: Size,
+    override val artworkUri: String? = null,
+  ) :
+    DownloadMediaUiModel(
+      id = id,
+      title = title,
+      artworkUri = artworkUri,
     )
 
-    public data class NotDownloaded(
-        override val id: String,
-        override val title: String? = null,
-        val artist: String? = null,
-        override val artworkUri: String? = null,
-    ) : DownloadMediaUiModel(
-        id = id,
-        title = title,
-        artworkUri = artworkUri,
+  public data class NotDownloaded(
+    override val id: String,
+    override val title: String? = null,
+    val artist: String? = null,
+    override val artworkUri: String? = null,
+  ) :
+    DownloadMediaUiModel(
+      id = id,
+      title = title,
+      artworkUri = artworkUri,
     )
 
-    public sealed class Progress {
-        public object Waiting : Progress()
+  public sealed class Progress {
+    public object Waiting : Progress()
 
-        public data class InProgress(val progress: Float) : Progress()
-    }
+    public data class InProgress(val progress: Float) : Progress()
+  }
 
-    public sealed class Size {
-        public object Unknown : Size()
+  public sealed class Size {
+    public object Unknown : Size()
 
-        public data class Known(val sizeInBytes: Long) : Size()
-    }
+    public data class Known(val sizeInBytes: Long) : Size()
+  }
 }

@@ -50,91 +50,96 @@ import com.google.android.horologist.media.ui.components.controls.MediaTitleIcon
 import com.google.android.horologist.media.ui.util.isLargeScreen
 import kotlin.math.roundToInt
 
-/**
- * An animated text only display showing scrolling title and still artist in two separated rows.
- */
+/** An animated text only display showing scrolling title and still artist in two separated rows. */
 @ExperimentalHorologistApi
 @Composable
 public fun MarqueeTextMediaDisplay(
-    modifier: Modifier = Modifier,
-    title: String? = null,
-    artist: String? = null,
-    titleIcon: Paintable? = null,
-    enterTransitionDelay: Int = 60,
-    subtextTransitionDelay: Int = 30,
-    @FloatRange(from = 0.0, to = 1.0) transitionLength: Float = 0.125f,
+  modifier: Modifier = Modifier,
+  title: String? = null,
+  artist: String? = null,
+  titleIcon: Paintable? = null,
+  enterTransitionDelay: Int = 60,
+  subtextTransitionDelay: Int = 30,
+  @FloatRange(from = 0.0, to = 1.0) transitionLength: Float = 0.125f,
 ) {
-    val isLargeScreen = LocalConfiguration.current.isLargeScreen
-    val titleSidePadding = (0.063f * LocalConfiguration.current.screenWidthDp).dp
+  val isLargeScreen = LocalConfiguration.current.isLargeScreen
+  val titleSidePadding = (0.063f * LocalConfiguration.current.screenWidthDp).dp
 
-    fun getTransitionAnimation(delay: Int = 0): ContentTransform {
-        return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
-            (it * transitionLength).roundToInt()
-        } + fadeIn(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) togetherWith
-            slideOutHorizontally(animationSpec = tween(delayMillis = delay)) {
-                (-it * transitionLength).roundToInt()
-            } + fadeOut(animationSpec = tween(delayMillis = delay))
-    }
+  fun getTransitionAnimation(delay: Int = 0): ContentTransform {
+    return slideInHorizontally(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) {
+      (it * transitionLength).roundToInt()
+    } + fadeIn(animationSpec = tween(delayMillis = delay + enterTransitionDelay)) togetherWith
+      slideOutHorizontally(animationSpec = tween(delayMillis = delay)) {
+        (-it * transitionLength).roundToInt()
+      } + fadeOut(animationSpec = tween(delayMillis = delay))
+  }
 
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        AnimatedContent(
-            targetState = title,
-            transitionSpec = { getTransitionAnimation() },
-            label = "AnimatedTitle",
-        ) {
-                currentTitle ->
-            val textStyle = MaterialTheme.typography.button
-            val text = buildAnnotatedString {
-                if (titleIcon != null) {
-                    appendInlineContent(id = "iconSlot")
-                    append(" ")
-                }
-                append(currentTitle.orEmpty())
-            }
-            val inlineContent = if (titleIcon != null) {
-                mapOf(
-                    "iconSlot" to InlineTextContent(
-                        Placeholder(textStyle.fontSize, textStyle.fontSize, PlaceholderVerticalAlign.TextCenter),
-                    ) {
-                        MediaTitleIcon(titleIcon)
-                    },
+  Column(
+    modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center,
+  ) {
+    AnimatedContent(
+      targetState = title,
+      transitionSpec = { getTransitionAnimation() },
+      label = "AnimatedTitle",
+    ) { currentTitle ->
+      val textStyle = MaterialTheme.typography.button
+      val text = buildAnnotatedString {
+        if (titleIcon != null) {
+          appendInlineContent(id = "iconSlot")
+          append(" ")
+        }
+        append(currentTitle.orEmpty())
+      }
+      val inlineContent =
+        if (titleIcon != null) {
+          mapOf(
+            "iconSlot" to
+              InlineTextContent(
+                Placeholder(
+                  textStyle.fontSize,
+                  textStyle.fontSize,
+                  PlaceholderVerticalAlign.TextCenter,
                 )
-            } else {
-                emptyMap()
-            }
-            MarqueeText(
-                text = text,
-                inlineContent = inlineContent,
-                edgeGradientWidth = 8.dp,
-                modifier = Modifier
-                    .padding(
-                        top = if (isLargeScreen) 0.dp else 2.dp,
-                        bottom = if (isLargeScreen) 3.dp else 1.dp,
-                        start = titleSidePadding,
-                        end = titleSidePadding,
-                    ),
-                color = MaterialTheme.colors.onBackground,
-                style = textStyle,
-                textAlign = TextAlign.Center,
-            )
+              ) {
+                MediaTitleIcon(titleIcon)
+              }
+          )
+        } else {
+          emptyMap()
         }
-
-        AnimatedContent(
-            targetState = artist,
-            transitionSpec = { getTransitionAnimation(subtextTransitionDelay) },
-            label = "AnimatedArtist",
-        ) { currentArtist ->
-            Text(
-                text = currentArtist.orEmpty(),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 1.dp, bottom = 0.6.dp),
-                color = MaterialTheme.colors.onBackground,
-                textAlign = TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1,
-                style = MaterialTheme.typography.body2,
-            )
-        }
+      MarqueeText(
+        text = text,
+        inlineContent = inlineContent,
+        edgeGradientWidth = 8.dp,
+        modifier =
+          Modifier.padding(
+            top = if (isLargeScreen) 0.dp else 2.dp,
+            bottom = if (isLargeScreen) 3.dp else 1.dp,
+            start = titleSidePadding,
+            end = titleSidePadding,
+          ),
+        color = MaterialTheme.colors.onBackground,
+        style = textStyle,
+        textAlign = TextAlign.Center,
+      )
     }
+
+    AnimatedContent(
+      targetState = artist,
+      transitionSpec = { getTransitionAnimation(subtextTransitionDelay) },
+      label = "AnimatedArtist",
+    ) { currentArtist ->
+      Text(
+        text = currentArtist.orEmpty(),
+        modifier = Modifier.fillMaxWidth().padding(top = 1.dp, bottom = 0.6.dp),
+        color = MaterialTheme.colors.onBackground,
+        textAlign = TextAlign.Center,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 1,
+        style = MaterialTheme.typography.body2,
+      )
+    }
+  }
 }

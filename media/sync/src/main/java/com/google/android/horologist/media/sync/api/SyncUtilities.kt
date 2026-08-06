@@ -20,18 +20,16 @@ import android.util.Log
 import kotlin.coroutines.cancellation.CancellationException
 
 /**
- * Interface marker for a class that manages synchronization between local data and a remote
- * source for a [Syncable].
+ * Interface marker for a class that manages synchronization between local data and a remote source
+ * for a [Syncable].
  */
 public interface Synchronizer {
-    public suspend fun getChangeListVersions(model: String): Int
+  public suspend fun getChangeListVersions(model: String): Int
 
-    public suspend fun updateChangeListVersions(model: String, version: Int): Unit
+  public suspend fun updateChangeListVersions(model: String, version: Int): Unit
 
-    /**
-     * Syntactic sugar to call [Syncable.syncWith] while omitting the synchronizer argument
-     */
-    public suspend fun Syncable.sync(): Boolean = this@sync.syncWith(this@Synchronizer)
+  /** Syntactic sugar to call [Syncable.syncWith] while omitting the synchronizer argument */
+  public suspend fun Syncable.sync(): Boolean = this@sync.syncWith(this@Synchronizer)
 }
 
 /**
@@ -39,84 +37,85 @@ public interface Synchronizer {
  * performed concurrently and it is the [Synchronizer]'s responsibility to ensure this.
  */
 public interface Syncable {
-    /**
-     * Synchronizes the local database backing the repository with the network.
-     * Returns if the sync was successful or not.
-     */
-    public suspend fun syncWith(synchronizer: Synchronizer): Boolean
+  /**
+   * Synchronizes the local database backing the repository with the network. Returns if the sync
+   * was successful or not.
+   */
+  public suspend fun syncWith(synchronizer: Synchronizer): Boolean
 }
 
 /**
  * Attempts [block], returning a successful [Result] if it succeeds, otherwise a [Result.Failure]
  * taking care not to break structured concurrency
  */
-private suspend fun <T> suspendRunCatching(block: suspend () -> T): Result<T> = try {
+private suspend fun <T> suspendRunCatching(block: suspend () -> T): Result<T> =
+  try {
     Result.success(block())
-} catch (cancellationException: CancellationException) {
+  } catch (cancellationException: CancellationException) {
     throw cancellationException
-} catch (exception: Exception) {
+  } catch (exception: Exception) {
     Log.i(
-        "suspendRunCatching",
-        "Failed to evaluate a suspendRunCatchingBlock. Returning failure Result",
-        exception,
+      "suspendRunCatching",
+      "Failed to evaluate a suspendRunCatchingBlock. Returning failure Result",
+      exception,
     )
     Result.failure(exception)
-}
+  }
 
 /**
- * Utility function for syncing a repository with the network.
- * [model] Model that needs to be synced
- * [changeListFetcher] Fetches the change list for the model
- * [modelDeleter] Deletes models by consuming the ids of the models that have been deleted.
- * [modelUpdater] Updates models by consuming the ids of the models that have changed.
+ * Utility function for syncing a repository with the network. [model] Model that needs to be synced
+ * [changeListFetcher] Fetches the change list for the model [modelDeleter] Deletes models by
+ * consuming the ids of the models that have been deleted. [modelUpdater] Updates models by
+ * consuming the ids of the models that have changed.
  *
  * Note that the blocks defined above are never run concurrently, and the [Synchronizer]
  * implementation must guarantee this.
  */
 public suspend fun Synchronizer.changeListSync(
-    model: String,
-    changeListFetcher: suspend (currentVersion: Int) -> List<NetworkChangeList>,
-    modelDeleter: suspend (ids: List<String>) -> Unit,
-    modelUpdater: suspend (ids: List<String>) -> Unit,
-): Boolean = changeListSync(
+  model: String,
+  changeListFetcher: suspend (currentVersion: Int) -> List<NetworkChangeList>,
+  modelDeleter: suspend (ids: List<String>) -> Unit,
+  modelUpdater: suspend (ids: List<String>) -> Unit,
+): Boolean =
+  changeListSync(
     models = listOf(model),
     changeListFetcher = { _: String, currentVersion: Int -> changeListFetcher(currentVersion) },
     modelDeleter = { _: String, ids: List<String> -> modelDeleter(ids) },
     modelUpdater = { _: String, ids: List<String> -> modelUpdater(ids) },
-)
+  )
 
 /**
- * Utility function for syncing a repository with the network.
- * [models] List of models that needs to be synced
- * [changeListFetcher] Fetches the change list for the model
- * [modelDeleter] Deletes models by consuming the ids of the models that have been deleted.
- * [modelUpdater] Updates models by consuming the ids of the models that have changed.
+ * Utility function for syncing a repository with the network. [models] List of models that needs to
+ * be synced [changeListFetcher] Fetches the change list for the model [modelDeleter] Deletes models
+ * by consuming the ids of the models that have been deleted. [modelUpdater] Updates models by
+ * consuming the ids of the models that have changed.
  *
  * Note that the blocks defined above are never run concurrently, and the [Synchronizer]
  * implementation must guarantee this.
  */
 public suspend fun Synchronizer.changeListSync(
-    models: List<String>,
-    changeListFetcher: suspend (model: String, currentVersion: Int) -> List<NetworkChangeList>,
-    modelDeleter: suspend (model: String, ids: List<String>) -> Unit,
-    modelUpdater: suspend (model: String, ids: List<String>) -> Unit,
+  models: List<String>,
+  changeListFetcher: suspend (model: String, currentVersion: Int) -> List<NetworkChangeList>,
+  modelDeleter: suspend (model: String, ids: List<String>) -> Unit,
+  modelUpdater: suspend (model: String, ids: List<String>) -> Unit,
 ): Boolean = suspendRunCatching {
-    for (model in models) {
-        // Fetch the change list since last sync (akin to a git fetch)
-        val currentVersion = getChangeListVersions(model)
-        val changeList = changeListFetcher(model, currentVersion)
-        if (changeList.isEmpty()) return@suspendRunCatching true
+  for (model in models) {
+    // Fetch the change list since last sync (akin to a git fetch)
+    val currentVersion = getChangeListVersions(model)
+    val changeList = changeListFetcher(model, currentVersion)
+    if (changeList.isEmpty()) return@suspendRunCatching true
 
-        val (deleted, updated) = changeList.partition(NetworkChangeList::isDelete)
+    val (deleted, updated) = changeList.partition(NetworkChangeList::isDelete)
 
-        // Delete models that have been deleted server-side
-        modelDeleter(model, deleted.map(NetworkChangeList::id))
+    // Delete models that have been deleted server-side
+    modelDeleter(model, deleted.map(NetworkChangeList::id))
 
-        // Using the change list, pull down and save the changes (akin to a git pull)
-        modelUpdater(model, updated.map(NetworkChangeList::id))
+    // Using the change list, pull down and save the changes (akin to a git pull)
+    modelUpdater(model, updated.map(NetworkChangeList::id))
 
-        // Update the last synced version (akin to updating local git HEAD)
-        val latestVersion = changeList.last().changeListVersion
-        updateChangeListVersions(model, latestVersion)
-    }
-}.isSuccess
+    // Update the last synced version (akin to updating local git HEAD)
+    val latestVersion = changeList.last().changeListVersion
+    updateChangeListVersions(model, latestVersion)
+  }
+}
+  .isSuccess

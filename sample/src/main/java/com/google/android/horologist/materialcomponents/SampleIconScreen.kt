@@ -27,18 +27,18 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 
 @Composable
 internal fun SampleIconScreen(
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Icon(
-                paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
-                contentDescription = "contentDescription",
-            )
-        }
+  ScalingLazyColumn(
+    columnState = columnState,
+    modifier = modifier,
+  ) {
+    item {
+      Icon(
+        paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
+        contentDescription = "contentDescription",
+      )
     }
+  }
 }

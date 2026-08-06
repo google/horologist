@@ -31,58 +31,57 @@ private const val SyncNotificationChannelID = "SyncNotificationChannel"
 
 // All sync work needs an internet connectionS
 internal val SyncConstraints
-    get() = Constraints.Builder()
-        .setRequiredNetworkType(NetworkType.CONNECTED)
-        .build()
+  get() = Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
 
 /**
- * Foreground information for sync on lower API levels when sync workers are being
- * run with a foreground service
+ * Foreground information for sync on lower API levels when sync workers are being run with a
+ * foreground service
  */
 internal fun Context.syncForegroundInfo(
-    notificationTitle: String,
-    @DrawableRes notificationIcon: Int,
-    channelName: String,
-    channelDescription: String,
-) = ForegroundInfo(
+  notificationTitle: String,
+  @DrawableRes notificationIcon: Int,
+  channelName: String,
+  channelDescription: String,
+) =
+  ForegroundInfo(
     SyncNotificationId,
     syncWorkNotification(
-        notificationTitle = notificationTitle,
-        notificationIcon = notificationIcon,
-        channelName = channelName,
-        channelDescription = channelDescription,
+      notificationTitle = notificationTitle,
+      notificationIcon = notificationIcon,
+      channelName = channelName,
+      channelDescription = channelDescription,
     ),
-)
+  )
 
 /**
- * Notification displayed on lower API levels when sync workers are being
- * run with a foreground service
+ * Notification displayed on lower API levels when sync workers are being run with a foreground
+ * service
  */
 private fun Context.syncWorkNotification(
-    notificationTitle: String,
-    @DrawableRes notificationIcon: Int,
-    channelName: String,
-    channelDescription: String,
+  notificationTitle: String,
+  @DrawableRes notificationIcon: Int,
+  channelName: String,
+  channelDescription: String,
 ): Notification {
-    val channel = NotificationChannel(
+  val channel =
+    NotificationChannel(
         SyncNotificationChannelID,
         channelName,
         NotificationManager.IMPORTANCE_DEFAULT,
-    ).apply {
-        description = channelDescription
-    }
-    // Register the channel with the system
-    val notificationManager: NotificationManager? =
-        getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
+      )
+      .apply { description = channelDescription }
+  // Register the channel with the system
+  val notificationManager: NotificationManager? =
+    getSystemService(Context.NOTIFICATION_SERVICE) as? NotificationManager
 
-    notificationManager?.createNotificationChannel(channel)
+  notificationManager?.createNotificationChannel(channel)
 
-    return NotificationCompat.Builder(
-        this,
-        SyncNotificationChannelID,
+  return NotificationCompat.Builder(
+      this,
+      SyncNotificationChannelID,
     )
-        .setSmallIcon(notificationIcon)
-        .setContentTitle(notificationTitle)
-        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-        .build()
+    .setSmallIcon(notificationIcon)
+    .setContentTitle(notificationTitle)
+    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+    .build()
 }

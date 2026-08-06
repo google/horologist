@@ -24,17 +24,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @Preview(
-    backgroundColor = 0x00000000,
-    showBackground = true,
+  backgroundColor = 0x00000000,
+  showBackground = true,
 )
 @Composable
 fun MediaArtworkPreview() {
-    MediaArtwork(
-        media = MediaUiModel.Ready(
-            id = "id",
-            title = "title",
-            artwork = null,
-        ),
-        placeholder = rememberVectorPainter(image = Icons.Default.Album),
-    )
+  MediaArtwork(
+    media =
+      MediaUiModel.Ready(
+        id = "id",
+        title = "title",
+        artwork = null,
+      ),
+    placeholder = rememberVectorPainter(image = Icons.Default.Album),
+  )
 }

@@ -40,27 +40,25 @@ import com.google.android.horologist.images.base.paintable.PaintableIcon
  */
 @Composable
 internal fun MediaTitleIcon(
-    paintableRes: Paintable,
-    tint: Color = MaterialTheme.colorScheme.primary,
+  paintableRes: Paintable,
+  tint: Color = MaterialTheme.colorScheme.primary,
 ) {
-    val animatedTint = remember { Animatable(tint) }
-    val animationSpec = MaterialTheme.motionScheme.slowEffectsSpec<Color>()
-    LaunchedEffect(tint) {
-        animatedTint.animateTo(tint, animationSpec)
-    }
-    if (paintableRes is PaintableIcon) {
-        Icon(
-            modifier = Modifier.fillMaxSize(),
-            painter = paintableRes.rememberPainter(),
-            contentDescription = null,
-            tint = animatedTint.value,
-        )
-    } else {
-        Image(
-            modifier = Modifier.fillMaxSize().clip(CircleShape),
-            painter = paintableRes.rememberPainter(),
-            contentDescription = null,
-            contentScale = ContentScale.FillHeight,
-        )
-    }
+  val animatedTint = remember { Animatable(tint) }
+  val animationSpec = MaterialTheme.motionScheme.slowEffectsSpec<Color>()
+  LaunchedEffect(tint) { animatedTint.animateTo(tint, animationSpec) }
+  if (paintableRes is PaintableIcon) {
+    Icon(
+      modifier = Modifier.fillMaxSize(),
+      painter = paintableRes.rememberPainter(),
+      contentDescription = null,
+      tint = animatedTint.value,
+    )
+  } else {
+    Image(
+      modifier = Modifier.fillMaxSize().clip(CircleShape),
+      painter = paintableRes.rememberPainter(),
+      contentDescription = null,
+      contentScale = ContentScale.FillHeight,
+    )
+  }
 }

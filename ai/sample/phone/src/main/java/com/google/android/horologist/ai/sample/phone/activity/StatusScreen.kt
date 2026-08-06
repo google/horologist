@@ -30,20 +30,18 @@ import com.google.android.horologist.ai.sample.R
 
 @Composable
 fun StatusScreen(
-    modifier: Modifier = Modifier,
-    viewModel: StatusViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: StatusViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        val serviceName = uiState.serviceName
-        if (serviceName != null) {
-            Text(stringResource(R.string.hosting_label, serviceName))
-        } else {
-            Text(stringResource(R.string.connecting_label))
-        }
+  val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+  Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    val serviceName = uiState.serviceName
+    if (serviceName != null) {
+      Text(stringResource(R.string.hosting_label, serviceName))
+    } else {
+      Text(stringResource(R.string.connecting_label))
     }
+  }
 }
 
-data class StatusUiState(
-    val serviceName: String? = null,
-)
+data class StatusUiState(val serviceName: String? = null)

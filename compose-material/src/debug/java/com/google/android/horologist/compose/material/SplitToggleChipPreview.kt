@@ -20,111 +20,111 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SplitToggleChipSwitchPreview() {
-    SplitToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        onClick = { },
-        toggleControl = ToggleChipToggleControl.Switch,
-    )
+  SplitToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    onClick = {},
+    toggleControl = ToggleChipToggleControl.Switch,
+  )
 }
 
 @Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SplitToggleChipRadioPreview() {
-    SplitToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        onClick = { },
-        toggleControl = ToggleChipToggleControl.Radio,
-    )
+  SplitToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    onClick = {},
+    toggleControl = ToggleChipToggleControl.Radio,
+  )
 }
 
 @Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SplitToggleChipCheckboxPreview() {
-    SplitToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        onClick = { },
-        toggleControl = ToggleChipToggleControl.Checkbox,
-    )
+  SplitToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    onClick = {},
+    toggleControl = ToggleChipToggleControl.Checkbox,
+  )
 }
 
 @Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SplitToggleChipUncheckedPreview() {
-    SplitToggleChip(
-        checked = false,
-        onCheckedChanged = { },
-        label = "Primary label",
-        onClick = { },
-        toggleControl = ToggleChipToggleControl.Switch,
-    )
+  SplitToggleChip(
+    checked = false,
+    onCheckedChanged = {},
+    label = "Primary label",
+    onClick = {},
+    toggleControl = ToggleChipToggleControl.Switch,
+  )
 }
 
 @Preview(
-    name = "With secondary label",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With secondary label",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SplitToggleChipWithSecondaryLabel() {
-    SplitToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        onClick = { },
-        toggleControl = ToggleChipToggleControl.Switch,
-        secondaryLabel = "Secondary label",
-    )
+  SplitToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    onClick = {},
+    toggleControl = ToggleChipToggleControl.Switch,
+    secondaryLabel = "Secondary label",
+  )
 }
 
 @Preview(
-    name = "Disabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "Disabled",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SplitToggleChipPreviewDisabled() {
-    SplitToggleChip(
-        checked = true,
-        onCheckedChanged = { },
-        label = "Primary label",
-        onClick = { },
-        toggleControl = ToggleChipToggleControl.Switch,
-        enabled = false,
-    )
+  SplitToggleChip(
+    checked = true,
+    onCheckedChanged = {},
+    label = "Primary label",
+    onClick = {},
+    toggleControl = ToggleChipToggleControl.Switch,
+    enabled = false,
+  )
 }
 
 @Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun SplitToggleChipUncheckedAndDisabledPreview() {
-    SplitToggleChip(
-        checked = false,
-        onCheckedChanged = { },
-        label = "Primary label",
-        onClick = { },
-        toggleControl = ToggleChipToggleControl.Switch,
-        enabled = false,
-    )
+  SplitToggleChip(
+    checked = false,
+    onCheckedChanged = {},
+    label = "Primary label",
+    onClick = {},
+    toggleControl = ToggleChipToggleControl.Switch,
+    enabled = false,
+  )
 }

@@ -23,16 +23,14 @@ import com.google.android.horologist.media.ui.material3.components.display.Nothi
 import com.google.android.horologist.media.ui.material3.components.display.TrackMediaDisplay
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
-/**
- * A display implementation that shows the track information, loading or nothing playing.
- */
+/** A display implementation that shows the track information, loading or nothing playing. */
 @Composable
 public fun MediaInfoDisplay(media: MediaUiModel?, loading: Boolean, modifier: Modifier = Modifier) {
-    if (loading) {
-        LoadingMediaDisplay(modifier)
-    } else if (media is MediaUiModel.Ready) {
-        TrackMediaDisplay(media = media, modifier = modifier)
-    } else {
-        NothingPlayingDisplay(modifier)
-    }
+  if (loading) {
+    LoadingMediaDisplay(modifier)
+  } else if (media is MediaUiModel.Ready) {
+    TrackMediaDisplay(media = media, modifier = modifier)
+  } else {
+    NothingPlayingDisplay(modifier)
+  }
 }

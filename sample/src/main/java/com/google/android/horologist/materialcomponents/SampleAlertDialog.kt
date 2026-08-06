@@ -41,147 +41,146 @@ import com.google.android.horologist.compose.material.ToggleChipToggleControl
 import com.google.android.horologist.compose.material.centeredDialogColumnState
 
 @Composable
-internal fun SampleAlertDialog(
-    modifier: Modifier = Modifier,
-) {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ScalingLazyColumnDefaults.ItemType.Text,
-            last = ScalingLazyColumnDefaults.ItemType.Chip,
-        ),
+internal fun SampleAlertDialog(modifier: Modifier = Modifier) {
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ScalingLazyColumnDefaults.ItemType.Text,
+          last = ScalingLazyColumnDefaults.ItemType.Chip,
+        )
     )
 
-    var showSimpleDialog by remember { mutableStateOf(false) }
-    var showBedtimeModeDialog by remember { mutableStateOf(false) }
-    var showAllowDebuggingDialog by remember { mutableStateOf(false) }
-    var showCenteredDialog by remember { mutableStateOf(false) }
+  var showSimpleDialog by remember { mutableStateOf(false) }
+  var showBedtimeModeDialog by remember { mutableStateOf(false) }
+  var showAllowDebuggingDialog by remember { mutableStateOf(false) }
+  var showCenteredDialog by remember { mutableStateOf(false) }
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(
-            columnState = columnState,
-            modifier = modifier,
-        ) {
-            item {
-                Title("AlertDialog samples")
-            }
-            item {
-                Chip(
-                    onClick = { showSimpleDialog = true },
-                    label = { Text("Simple alert") },
-                    colors = ChipDefaults.secondaryChipColors(),
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-            item {
-                Chip(
-                    onClick = { showCenteredDialog = true },
-                    label = { Text("Centered alert") },
-                    colors = ChipDefaults.secondaryChipColors(),
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-            item {
-                Chip(
-                    onClick = { showBedtimeModeDialog = true },
-                    label = { Text("Bedtime Mode") },
-                    colors = ChipDefaults.secondaryChipColors(),
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-            item {
-                Chip(
-                    onClick = { showAllowDebuggingDialog = true },
-                    label = { Text("Allow debugging") },
-                    colors = ChipDefaults.secondaryChipColors(),
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-        }
+  ScreenScaffold(scrollState = columnState) {
+    ScalingLazyColumn(
+      columnState = columnState,
+      modifier = modifier,
+    ) {
+      item { Title("AlertDialog samples") }
+      item {
+        Chip(
+          onClick = { showSimpleDialog = true },
+          label = { Text("Simple alert") },
+          colors = ChipDefaults.secondaryChipColors(),
+          modifier = Modifier.fillMaxWidth(),
+        )
+      }
+      item {
+        Chip(
+          onClick = { showCenteredDialog = true },
+          label = { Text("Centered alert") },
+          colors = ChipDefaults.secondaryChipColors(),
+          modifier = Modifier.fillMaxWidth(),
+        )
+      }
+      item {
+        Chip(
+          onClick = { showBedtimeModeDialog = true },
+          label = { Text("Bedtime Mode") },
+          colors = ChipDefaults.secondaryChipColors(),
+          modifier = Modifier.fillMaxWidth(),
+        )
+      }
+      item {
+        Chip(
+          onClick = { showAllowDebuggingDialog = true },
+          label = { Text("Allow debugging") },
+          colors = ChipDefaults.secondaryChipColors(),
+          modifier = Modifier.fillMaxWidth(),
+        )
+      }
     }
+  }
 
-    // Simple AlertDialog sample with icon, title, message and Ok/Cancel buttons.
-    AlertDialog(
-        showDialog = showSimpleDialog,
-        onCancel = { showSimpleDialog = false },
-        onOk = { showSimpleDialog = false },
-        icon = {
-            Icon(
-                imageVector = Icons.AutoMirrored.Outlined.Help,
-                contentDescription = "Question",
-            )
-        },
-        title = "A Simple Dialog",
-        message = "Icon and Text dialog use up to 2 lines.",
-    )
+  // Simple AlertDialog sample with icon, title, message and Ok/Cancel buttons.
+  AlertDialog(
+    showDialog = showSimpleDialog,
+    onCancel = { showSimpleDialog = false },
+    onOk = { showSimpleDialog = false },
+    icon = {
+      Icon(
+        imageVector = Icons.AutoMirrored.Outlined.Help,
+        contentDescription = "Question",
+      )
+    },
+    title = "A Simple Dialog",
+    message = "Icon and Text dialog use up to 2 lines.",
+  )
 
-    // Centered AlertDialog sample with title and Ok/Cancel buttons.
-    AlertDialog(
-        showDialog = showCenteredDialog,
-        onCancel = { showCenteredDialog = false },
-        onOk = { showCenteredDialog = false },
-        title = "A Centered Dialog",
-        state = centeredDialogColumnState(),
-    )
+  // Centered AlertDialog sample with title and Ok/Cancel buttons.
+  AlertDialog(
+    showDialog = showCenteredDialog,
+    onCancel = { showCenteredDialog = false },
+    onOk = { showCenteredDialog = false },
+    title = "A Centered Dialog",
+    state = centeredDialogColumnState(),
+  )
 
-    // "Bedtime mode" AlertDialog sample, with Ok/Cancel buttons and extra content.
-    var bedtimeMode by remember { mutableStateOf(false) }
-    AlertDialog(
-        onCancel = { showBedtimeModeDialog = false },
-        onOk = { showBedtimeModeDialog = false },
-        showDialog = showBedtimeModeDialog,
-        title = "Turn on Bedtime mode?",
-        message = "Watch screen, tilt-to-wake, and touch are turned off. " +
-            "Only calls from starred contacts, repeat callers, " +
-            "and alarms will notify you.",
-        content = {
-            item {
-                ToggleChip(
-                    checked = bedtimeMode,
-                    onCheckedChanged = { bedtimeMode = !bedtimeMode },
-                    label = "Don't show again",
-                    toggleControl = ToggleChipToggleControl.Checkbox,
-                )
-            }
-        },
-    )
+  // "Bedtime mode" AlertDialog sample, with Ok/Cancel buttons and extra content.
+  var bedtimeMode by remember { mutableStateOf(false) }
+  AlertDialog(
+    onCancel = { showBedtimeModeDialog = false },
+    onOk = { showBedtimeModeDialog = false },
+    showDialog = showBedtimeModeDialog,
+    title = "Turn on Bedtime mode?",
+    message =
+      "Watch screen, tilt-to-wake, and touch are turned off. " +
+        "Only calls from starred contacts, repeat callers, " +
+        "and alarms will notify you.",
+    content = {
+      item {
+        ToggleChip(
+          checked = bedtimeMode,
+          onCheckedChanged = { bedtimeMode = !bedtimeMode },
+          label = "Don't show again",
+          toggleControl = ToggleChipToggleControl.Checkbox,
+        )
+      }
+    },
+  )
 
-    // "Allow debugging?" AlertDialog sample, with a vertical stack of Chip choices.
-    AlertDialog(
-        showDialog = showAllowDebuggingDialog,
-        onDismiss = { showAllowDebuggingDialog = false },
-        icon = {
-            Icon(
-                imageVector = Icons.AutoMirrored.Outlined.Help,
-                contentDescription = "Question",
-            )
-        },
-        title = "Allow debugging?",
-        content = {
-            item {
-                Chip(
-                    onClick = { showAllowDebuggingDialog = false },
-                    label = { Text("Cancel") },
-                    colors = ChipDefaults.secondaryChipColors(),
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-            item {
-                Chip(
-                    onClick = { showAllowDebuggingDialog = false },
-                    label = { Text("OK") },
-                    colors = ChipDefaults.secondaryChipColors(),
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-            item {
-                Chip(
-                    onClick = { showAllowDebuggingDialog = false },
-                    label = { Text("Always allow") },
-                    secondaryLabel = { Text("from this computer") },
-                    colors = ChipDefaults.secondaryChipColors(),
-                    modifier = Modifier.fillMaxWidth(),
-                )
-            }
-        },
-    )
+  // "Allow debugging?" AlertDialog sample, with a vertical stack of Chip choices.
+  AlertDialog(
+    showDialog = showAllowDebuggingDialog,
+    onDismiss = { showAllowDebuggingDialog = false },
+    icon = {
+      Icon(
+        imageVector = Icons.AutoMirrored.Outlined.Help,
+        contentDescription = "Question",
+      )
+    },
+    title = "Allow debugging?",
+    content = {
+      item {
+        Chip(
+          onClick = { showAllowDebuggingDialog = false },
+          label = { Text("Cancel") },
+          colors = ChipDefaults.secondaryChipColors(),
+          modifier = Modifier.fillMaxWidth(),
+        )
+      }
+      item {
+        Chip(
+          onClick = { showAllowDebuggingDialog = false },
+          label = { Text("OK") },
+          colors = ChipDefaults.secondaryChipColors(),
+          modifier = Modifier.fillMaxWidth(),
+        )
+      }
+      item {
+        Chip(
+          onClick = { showAllowDebuggingDialog = false },
+          label = { Text("Always allow") },
+          secondaryLabel = { Text("from this computer") },
+          colors = ChipDefaults.secondaryChipColors(),
+          modifier = Modifier.fillMaxWidth(),
+        )
+      }
+    },
+  )
 }

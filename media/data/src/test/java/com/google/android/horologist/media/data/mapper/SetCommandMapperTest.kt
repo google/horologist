@@ -28,70 +28,71 @@ import org.robolectric.annotation.Config
 @Config(manifest = Config.NONE)
 class SetCommandMapperTest {
 
-    @Test
-    fun `given empty commands then return empty`() {
-        // given
-        val commands = Player.Commands.EMPTY
+  @Test
+  fun `given empty commands then return empty`() {
+    // given
+    val commands = Player.Commands.EMPTY
 
-        // when
-        val result = SetCommandMapper.map(commands)
+    // when
+    val result = SetCommandMapper.map(commands)
 
-        // then
-        assertThat(result).isEmpty()
-    }
+    // then
+    assertThat(result).isEmpty()
+  }
 
-    @Test
-    fun `given valid commands then maps correctly`() {
-        // given
-        val commands = Player.Commands.Builder()
-            .addAll(
-                Player.COMMAND_PLAY_PAUSE,
-                Player.COMMAND_SEEK_BACK,
-                Player.COMMAND_SEEK_FORWARD,
-                Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM,
-                Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM,
-                Player.COMMAND_SET_SHUFFLE_MODE,
-            )
-            .build()
-
-        // when
-        val result = SetCommandMapper.map(commands)
-
-        // then
-        assertThat(result).hasSize(6)
-        assertThat(result).containsExactlyElementsIn(
-            arrayOf(
-                Command.PlayPause,
-                Command.SeekBack,
-                Command.SeekForward,
-                Command.SkipToPreviousMedia,
-                Command.SkipToNextMedia,
-                Command.SetShuffle,
-            ),
+  @Test
+  fun `given valid commands then maps correctly`() {
+    // given
+    val commands =
+      Player.Commands.Builder()
+        .addAll(
+          Player.COMMAND_PLAY_PAUSE,
+          Player.COMMAND_SEEK_BACK,
+          Player.COMMAND_SEEK_FORWARD,
+          Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM,
+          Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM,
+          Player.COMMAND_SET_SHUFFLE_MODE,
         )
-    }
+        .build()
 
-    @Test
-    fun `given all commands including invalid ones then maps correctly`() {
-        // given
-        val commands = Player.Commands.Builder()
-            .addAllCommands()
-            .build()
+    // when
+    val result = SetCommandMapper.map(commands)
 
-        // when
-        val result = SetCommandMapper.map(commands)
-
-        // then
-        assertThat(result).hasSize(6)
-        assertThat(result).containsExactlyElementsIn(
-            arrayOf(
-                Command.PlayPause,
-                Command.SeekBack,
-                Command.SeekForward,
-                Command.SkipToPreviousMedia,
-                Command.SkipToNextMedia,
-                Command.SetShuffle,
-            ),
+    // then
+    assertThat(result).hasSize(6)
+    assertThat(result)
+      .containsExactlyElementsIn(
+        arrayOf(
+          Command.PlayPause,
+          Command.SeekBack,
+          Command.SeekForward,
+          Command.SkipToPreviousMedia,
+          Command.SkipToNextMedia,
+          Command.SetShuffle,
         )
-    }
+      )
+  }
+
+  @Test
+  fun `given all commands including invalid ones then maps correctly`() {
+    // given
+    val commands = Player.Commands.Builder().addAllCommands().build()
+
+    // when
+    val result = SetCommandMapper.map(commands)
+
+    // then
+    assertThat(result).hasSize(6)
+    assertThat(result)
+      .containsExactlyElementsIn(
+        arrayOf(
+          Command.PlayPause,
+          Command.SeekBack,
+          Command.SeekForward,
+          Command.SkipToPreviousMedia,
+          Command.SkipToNextMedia,
+          Command.SetShuffle,
+        )
+      )
+  }
 }

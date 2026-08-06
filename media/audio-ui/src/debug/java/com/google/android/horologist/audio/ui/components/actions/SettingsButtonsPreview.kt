@@ -26,36 +26,32 @@ import com.google.android.horologist.logo.R
 @WearPreview
 @Composable
 fun SettingsButtonsPreview() {
-    SettingsButtons(
-        volumeUiState = VolumeUiState(4, 10),
-        onVolumeClick = {},
-        onOutputClick = {},
-    )
+  SettingsButtons(
+    volumeUiState = VolumeUiState(4, 10),
+    onVolumeClick = {},
+    onOutputClick = {},
+  )
 }
 
 @WearPreview
 @Composable
 fun SettingsButtonsWithBrandIconPreview() {
-    SettingsButtons(
-        volumeUiState = VolumeUiState(5, 10),
-        onVolumeClick = {},
-        onOutputClick = {},
-        brandIcon = {
-            BrandIcon(R.drawable.ic_stat_horologist, enabled = true)
-        },
-    )
+  SettingsButtons(
+    volumeUiState = VolumeUiState(5, 10),
+    onVolumeClick = {},
+    onOutputClick = {},
+    brandIcon = { BrandIcon(R.drawable.ic_stat_horologist, enabled = true) },
+  )
 }
 
 @WearPreview
 @Composable
 fun SettingsButtonsDisabledPreview() {
-    SettingsButtons(
-        volumeUiState = VolumeUiState(5, 10),
-        onVolumeClick = {},
-        onOutputClick = {},
-        enabled = false,
-        brandIcon = {
-            BrandIcon(R.drawable.ic_stat_horologist, enabled = false)
-        },
-    )
+  SettingsButtons(
+    volumeUiState = VolumeUiState(5, 10),
+    onVolumeClick = {},
+    onOutputClick = {},
+    enabled = false,
+    brandIcon = { BrandIcon(R.drawable.ic_stat_horologist, enabled = false) },
+  )
 }

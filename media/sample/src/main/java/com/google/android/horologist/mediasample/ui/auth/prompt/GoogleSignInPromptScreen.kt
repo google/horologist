@@ -43,57 +43,53 @@ import com.google.android.horologist.mediasample.ui.navigation.UampNavigationScr
 
 @Composable
 fun GoogleSignInPromptScreen(
-    backStack: NavBackStack<CustomRoute>,
-    modifier: Modifier = Modifier,
-    viewModel: UampSignInPromptViewModel,
+  backStack: NavBackStack<CustomRoute>,
+  modifier: Modifier = Modifier,
+  viewModel: UampSignInPromptViewModel,
 ) {
-    var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
+  var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
 
-    SignInPromptScreen(
-        message = stringResource(id = R.string.google_sign_in_prompt_message),
-        onAlreadySignedIn = {
-            showAlreadySignedInDialog = true
-        },
-        modifier = modifier,
-        viewModel = viewModel,
-    ) {
-        item {
-            SignInButton(
-                onClick = {
-                    backStack.add(CustomRoute(UampNavigationScreen.GoogleSignInScreen.navRoute))
-                },
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        item {
-            GuestModeButton(
-                onClick = {
-                    viewModel.selectGuestMode()
-                    backStack.removeLastOrNull()
-                },
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
+  SignInPromptScreen(
+    message = stringResource(id = R.string.google_sign_in_prompt_message),
+    onAlreadySignedIn = { showAlreadySignedInDialog = true },
+    modifier = modifier,
+    viewModel = viewModel,
+  ) {
+    item {
+      SignInButton(
+        onClick = { backStack.add(CustomRoute(UampNavigationScreen.GoogleSignInScreen.navRoute)) },
+        modifier = Modifier.fillMaxWidth(),
+      )
     }
+    item {
+      GuestModeButton(
+        onClick = {
+          viewModel.selectGuestMode()
+          backStack.removeLastOrNull()
+        },
+        modifier = Modifier.fillMaxWidth(),
+      )
+    }
+  }
 
-    ConfirmationDialog(
-        visible = showAlreadySignedInDialog,
-        onDismissRequest = {
-            showAlreadySignedInDialog = false
-            backStack.removeLastOrNull()
-        },
-        text = {
-            Text(
-                textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.google_sign_in_prompt_already_signed_in_message),
-            )
-        },
-    ) {
-        Icon(
-            imageVector = Icons.Default.Check,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.size(48.dp),
-        )
-    }
+  ConfirmationDialog(
+    visible = showAlreadySignedInDialog,
+    onDismissRequest = {
+      showAlreadySignedInDialog = false
+      backStack.removeLastOrNull()
+    },
+    text = {
+      Text(
+        textAlign = TextAlign.Center,
+        text = stringResource(id = R.string.google_sign_in_prompt_already_signed_in_message),
+      )
+    },
+  ) {
+    Icon(
+      imageVector = Icons.Default.Check,
+      contentDescription = null,
+      tint = MaterialTheme.colorScheme.primary,
+      modifier = Modifier.size(48.dp),
+    )
+  }
 }

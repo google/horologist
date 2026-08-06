@@ -25,28 +25,28 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 
 @Composable
 fun UampStreamingPlaylistScreen(
-    playlistName: String,
-    viewModel: UampStreamingPlaylistScreenViewModel,
-    onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
-    onShuffleClick: (PlaylistUiModel?) -> Unit,
-    onPlayClick: (PlaylistUiModel?) -> Unit,
+  playlistName: String,
+  viewModel: UampStreamingPlaylistScreenViewModel,
+  onDownloadItemClick: (DownloadMediaUiModel) -> Unit,
+  onShuffleClick: (PlaylistUiModel?) -> Unit,
+  onPlayClick: (PlaylistUiModel?) -> Unit,
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+  val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    PlaylistStreamingScreen(
-        playlistName = playlistName,
-        playlistDownloadScreenState = uiState,
-        onShuffleButtonClick = {
-            viewModel.shufflePlay()
-            onShuffleClick(null)
-        },
-        onPlayButtonClick = {
-            viewModel.play()
-            onPlayClick(null)
-        },
-        onPlayItemClick = {
-            viewModel.play(it.id)
-            onDownloadItemClick(it)
-        },
-    )
+  PlaylistStreamingScreen(
+    playlistName = playlistName,
+    playlistDownloadScreenState = uiState,
+    onShuffleButtonClick = {
+      viewModel.shufflePlay()
+      onShuffleClick(null)
+    },
+    onPlayButtonClick = {
+      viewModel.play()
+      onPlayClick(null)
+    },
+    onPlayItemClick = {
+      viewModel.play(it.id)
+      onDownloadItemClick(it)
+    },
+  )
 }

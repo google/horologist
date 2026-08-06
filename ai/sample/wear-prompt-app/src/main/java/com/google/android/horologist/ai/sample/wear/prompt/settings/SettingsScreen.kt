@@ -45,111 +45,104 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadd
 
 @Composable
 fun SettingsScreen(
-    modifier: Modifier = Modifier,
-    viewModel: SettingsViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: SettingsViewModel = hiltViewModel(),
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+  val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    SettingsScreen(
-        uiState = uiState,
-        modifier = modifier,
-        selectModel = viewModel::selectModel,
-    )
+  SettingsScreen(
+    uiState = uiState,
+    modifier = modifier,
+    selectModel = viewModel::selectModel,
+  )
 }
 
 @Composable
 private fun SettingsScreen(
-    uiState: SettingsUiState,
-    modifier: Modifier = Modifier,
-    selectModel: (ModelInstanceUiModel) -> Unit,
+  uiState: SettingsUiState,
+  modifier: Modifier = Modifier,
+  selectModel: (ModelInstanceUiModel) -> Unit,
 ) {
-    val transformationSpec = rememberTransformationSpec()
-    val columnState = rememberTransformingLazyColumnState()
-    val contentPadding = rememberResponsiveColumnPadding(
-        first = ColumnItemType.ListHeader,
-        last = ColumnItemType.Button,
+  val transformationSpec = rememberTransformationSpec()
+  val columnState = rememberTransformingLazyColumnState()
+  val contentPadding =
+    rememberResponsiveColumnPadding(
+      first = ColumnItemType.ListHeader,
+      last = ColumnItemType.Button,
     )
 
-    val placeholderState = rememberPlaceholderState(uiState.models == null)
+  val placeholderState = rememberPlaceholderState(uiState.models == null)
 
-    ScreenScaffold(
-        scrollState = columnState,
-        modifier = modifier,
-        contentPadding = contentPadding,
-    ) { contentPadding ->
-        TransformingLazyColumn(state = columnState, contentPadding = contentPadding) {
-            item {
-                ListHeader(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .transformedHeight(this, transformationSpec),
-                    transformation = SurfaceTransformation(transformationSpec),
-                ) {
-                    Text("Browse")
-                }
-            }
-            if (uiState.models == null) {
-                items(3) {
-                    RadioButton(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .transformedHeight(this, transformationSpec)
-                            .placeholderShimmer(placeholderState),
-                        selected = false,
-                        onSelect = {},
-                        label = {
-                            Text(
-                                "      ",
-                                modifier = Modifier.placeholder(placeholderState),
-                            )
-                        },
-                        transformation = SurfaceTransformation(transformationSpec),
-                    )
-                }
-            } else {
-                items(uiState.models) { model ->
-                    key(model.id) {
-                        RadioButton(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .transformedHeight(this, transformationSpec),
-                            selected = model == uiState.current,
-                            onSelect = { selectModel(model) },
-                            label = { Text(model.name) },
-                            secondaryLabel = model.service?.let { { Text(it) } },
-                            transformation = SurfaceTransformation(transformationSpec),
-                        )
-                    }
-                }
-            }
-            item {
-                ListSubHeader(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .transformedHeight(this, transformationSpec),
-                    transformation = SurfaceTransformation(transformationSpec),
-                ) {
-                    Text("Gemini Key")
-                }
-            }
-            item {
-                Text(BuildConfig.GEMINI_API_KEY)
-            }
+  ScreenScaffold(
+    scrollState = columnState,
+    modifier = modifier,
+    contentPadding = contentPadding,
+  ) { contentPadding ->
+    TransformingLazyColumn(state = columnState, contentPadding = contentPadding) {
+      item {
+        ListHeader(
+          modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
+          transformation = SurfaceTransformation(transformationSpec),
+        ) {
+          Text("Browse")
         }
+      }
+      if (uiState.models == null) {
+        items(3) {
+          RadioButton(
+            modifier =
+              Modifier.fillMaxWidth()
+                .transformedHeight(this, transformationSpec)
+                .placeholderShimmer(placeholderState),
+            selected = false,
+            onSelect = {},
+            label = {
+              Text(
+                "      ",
+                modifier = Modifier.placeholder(placeholderState),
+              )
+            },
+            transformation = SurfaceTransformation(transformationSpec),
+          )
+        }
+      } else {
+        items(uiState.models) { model ->
+          key(model.id) {
+            RadioButton(
+              modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
+              selected = model == uiState.current,
+              onSelect = { selectModel(model) },
+              label = { Text(model.name) },
+              secondaryLabel = model.service?.let { { Text(it) } },
+              transformation = SurfaceTransformation(transformationSpec),
+            )
+          }
+        }
+      }
+      item {
+        ListSubHeader(
+          modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
+          transformation = SurfaceTransformation(transformationSpec),
+        ) {
+          Text("Gemini Key")
+        }
+      }
+      item { Text(BuildConfig.GEMINI_API_KEY) }
     }
+  }
 }
 
 @WearPreviewLargeRound
 @Composable
 fun SettingsScreenPreview() {
-    val current = ModelInstanceUiModel("dummy", "Dummy Model")
-    val other1 = ModelInstanceUiModel("1", "Dummy Model 1")
-    val other2 = ModelInstanceUiModel("2", "Dummy Model 2")
+  val current = ModelInstanceUiModel("dummy", "Dummy Model")
+  val other1 = ModelInstanceUiModel("1", "Dummy Model 1")
+  val other2 = ModelInstanceUiModel("2", "Dummy Model 2")
 
-    val uiState = SettingsUiState(current, listOf(current, other1, other2))
+  val uiState = SettingsUiState(current, listOf(current, other1, other2))
 
-    SettingsScreen(
-        uiState = uiState,
-        selectModel = {},
-    )
+  SettingsScreen(
+    uiState = uiState,
+    selectModel = {},
+  )
 }

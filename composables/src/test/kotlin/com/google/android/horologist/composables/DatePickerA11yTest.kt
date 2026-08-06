@@ -27,77 +27,77 @@ import com.github.takahirom.roborazzi.ExperimentalRoborazziApi
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityViewCheckResult
 import com.google.android.apps.common.testing.accessibility.framework.checks.TouchTargetSizeCheck
 import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
+import java.time.LocalDate
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Test
-import java.time.LocalDate
 
 class DatePickerA11yTest : WearLegacyA11yTest() {
-    override fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> {
-        // Year is off screen initially
-        return object : TypeSafeMatcher<AccessibilityViewCheckResult>() {
-            override fun matchesSafely(item: AccessibilityViewCheckResult): Boolean {
-                val isTouchTargetCheck =
-                    item.accessibilityHierarchyCheck == TouchTargetSizeCheck::class.java
-                return (isTouchTargetCheck && item.element?.boundsInScreen?.right == 454)
-            }
+  override fun accessibilitySuppressions(): Matcher<in AccessibilityViewCheckResult> {
+    // Year is off screen initially
+    return object : TypeSafeMatcher<AccessibilityViewCheckResult>() {
+      override fun matchesSafely(item: AccessibilityViewCheckResult): Boolean {
+        val isTouchTargetCheck =
+          item.accessibilityHierarchyCheck == TouchTargetSizeCheck::class.java
+        return (isTouchTargetCheck && item.element?.boundsInScreen?.right == 454)
+      }
 
-            override fun describeTo(description: Description) {
-                description.appendText("a TouchTargetSizeCheck on the screen edge")
-            }
-        }
+      override fun describeTo(description: Description) {
+        description.appendText("a TouchTargetSizeCheck on the screen edge")
+      }
+    }
+  }
+
+  // run during test
+  override val runAtf: Boolean = false
+
+  @Test
+  fun screenshot() {
+    enableTouchExploration()
+
+    runScreenTest {
+      DatePicker(
+        onDateConfirm = {},
+        date = LocalDate.of(2022, 4, 25),
+      )
     }
 
-    // run during test
-    override val runAtf: Boolean = false
+    composeRule.onRoot().runAccessibilityChecks()
+  }
 
-    @Test
-    fun screenshot() {
-        enableTouchExploration()
+  @Test
+  fun interactionTest() {
+    enableTouchExploration()
 
-        runScreenTest {
-            DatePicker(
-                onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25),
-            )
-        }
-
-        composeRule.onRoot().runAccessibilityChecks()
+    runScreenTest {
+      DatePicker(
+        onDateConfirm = {},
+        date = LocalDate.of(2022, 4, 25),
+      )
     }
 
-    @Test
-    fun interactionTest() {
-        enableTouchExploration()
+    composeRule.onRoot().runAccessibilityChecks()
 
-        runScreenTest {
-            DatePicker(
-                onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25),
-            )
-        }
+    composeRule.onNodeWithContentDescription("Next").assertHasClickAction().performClick()
 
-        composeRule.onRoot().runAccessibilityChecks()
+    composeRule.onNodeWithText("Day").assertExists()
+    captureScreenshot("_1")
 
-        composeRule.onNodeWithContentDescription("Next").assertHasClickAction().performClick()
+    composeRule.onRoot().runAccessibilityChecks()
 
-        composeRule.onNodeWithText("Day").assertExists()
-        captureScreenshot("_1")
+    composeRule.onNodeWithContentDescription("Next").assertHasClickAction().performClick()
 
-        composeRule.onRoot().runAccessibilityChecks()
+    composeRule.onNodeWithText("Month").assertExists()
+    captureScreenshot("_2")
 
-        composeRule.onNodeWithContentDescription("Next").assertHasClickAction().performClick()
+    composeRule.onRoot().runAccessibilityChecks()
 
-        composeRule.onNodeWithText("Month").assertExists()
-        captureScreenshot("_2")
+    composeRule.onNodeWithContentDescription("Next").assertHasClickAction().performClick()
 
-        composeRule.onRoot().runAccessibilityChecks()
+    composeRule.onNodeWithText("Year").assertExists()
+    captureScreenshot("_3")
 
-        composeRule.onNodeWithContentDescription("Next").assertHasClickAction().performClick()
-
-        composeRule.onNodeWithText("Year").assertExists()
-        captureScreenshot("_3")
-
-        composeRule.onRoot().runAccessibilityChecks()
-    }
+    composeRule.onRoot().runAccessibilityChecks()
+  }
 }

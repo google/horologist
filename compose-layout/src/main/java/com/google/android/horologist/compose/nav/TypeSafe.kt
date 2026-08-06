@@ -35,15 +35,15 @@ import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
 public class WearComposeNavigatorDestinationBuilder(
-    val wearNavigator: WearNavigator,
-    route: KClass<*>,
-    typeMap: Map<KType, @JvmSuppressWildcards NavType<*>>,
-    private val content: @Composable (NavBackStackEntry) -> Unit,
+  val wearNavigator: WearNavigator,
+  route: KClass<*>,
+  typeMap: Map<KType, @JvmSuppressWildcards NavType<*>>,
+  private val content: @Composable (NavBackStackEntry) -> Unit,
 ) : NavDestinationBuilder<WearNavigator.Destination>(wearNavigator, route, typeMap) {
 
-    override fun instantiateDestination(): WearNavigator.Destination {
-        return WearNavigator.Destination(wearNavigator, content)
-    }
+  override fun instantiateDestination(): WearNavigator.Destination {
+    return WearNavigator.Destination(wearNavigator, content)
+  }
 }
 
 /**
@@ -59,22 +59,19 @@ public class WearComposeNavigatorDestinationBuilder(
  */
 @ExperimentalHorologistApi
 public inline fun <reified T : Any> NavGraphBuilder.composable(
-    typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = emptyMap(),
-    deepLinks: List<NavDeepLink> = emptyList(),
-    noinline content: @Composable (NavBackStackEntry) -> Unit,
+  typeMap: Map<KType, @JvmSuppressWildcards NavType<*>> = emptyMap(),
+  deepLinks: List<NavDeepLink> = emptyList(),
+  noinline content: @Composable (NavBackStackEntry) -> Unit,
 ) {
-    destination(
-        WearComposeNavigatorDestinationBuilder(
-            wearNavigator = provider[WearNavigator::class],
-            route = T::class,
-            typeMap = typeMap,
-            content = content,
-        ).apply {
-            deepLinks.forEach { deepLink ->
-                deepLink(deepLink)
-            }
-        },
-    )
+  destination(
+    WearComposeNavigatorDestinationBuilder(
+        wearNavigator = provider[WearNavigator::class],
+        route = T::class,
+        typeMap = typeMap,
+        content = content,
+      )
+      .apply { deepLinks.forEach { deepLink -> deepLink(deepLink) } }
+  )
 }
 
 /**
@@ -103,19 +100,24 @@ public inline fun <reified T : Any> NavGraphBuilder.composable(
 @ExperimentalHorologistApi
 @Composable
 public fun SwipeDismissableNavHost(
-    navController: NavHostController,
-    startDestination: Any,
-    modifier: Modifier = Modifier,
-    userSwipeEnabled: Boolean = true,
-    state: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
-    route: KClass<*>? = null,
-    builder: NavGraphBuilder.() -> Unit,
-) = androidx.wear.compose.navigation.SwipeDismissableNavHost(
+  navController: NavHostController,
+  startDestination: Any,
+  modifier: Modifier = Modifier,
+  userSwipeEnabled: Boolean = true,
+  state: SwipeDismissableNavHostState = rememberSwipeDismissableNavHostState(),
+  route: KClass<*>? = null,
+  builder: NavGraphBuilder.() -> Unit,
+) =
+  androidx.wear.compose.navigation.SwipeDismissableNavHost(
     navController,
     remember(route, startDestination, builder) {
-        navController.createGraph(startDestination = startDestination, route = route, builder = builder)
+      navController.createGraph(
+        startDestination = startDestination,
+        route = route,
+        builder = builder,
+      )
     },
     modifier,
     userSwipeEnabled,
     state = state,
-)
+  )

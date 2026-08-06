@@ -28,65 +28,68 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @WearPreviewDevices
 @Composable
 fun PlaylistsScreenPreview() {
-    PlaylistsScreen(
-        playlistsScreenState = PlaylistsScreenState.Loaded(
-            buildList {
-                add(
-                    PlaylistUiModel(
-                        id = "id",
-                        title = "Rock Classics",
-                        artworkUri = "https://www.example.com/album1.png",
-                    ),
-                )
-                add(
-                    PlaylistUiModel(
-                        id = "id",
-                        title = "Pop Punk",
-                        artworkUri = "https://www.example.com/album2.png",
-                    ),
-                )
-            },
-        ),
-        onPlaylistItemClick = { },
-        playlistItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.AutoMirrored.Default.FeaturedPlayList,
-            tintColor = Color.Green,
-        ),
-    )
+  PlaylistsScreen(
+    playlistsScreenState =
+      PlaylistsScreenState.Loaded(
+        buildList {
+          add(
+            PlaylistUiModel(
+              id = "id",
+              title = "Rock Classics",
+              artworkUri = "https://www.example.com/album1.png",
+            )
+          )
+          add(
+            PlaylistUiModel(
+              id = "id",
+              title = "Pop Punk",
+              artworkUri = "https://www.example.com/album2.png",
+            )
+          )
+        }
+      ),
+    onPlaylistItemClick = {},
+    playlistItemArtworkPlaceholder =
+      rememberVectorPainter(
+        image = Icons.AutoMirrored.Default.FeaturedPlayList,
+        tintColor = Color.Green,
+      ),
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistsScreenPreviewLoading() {
-    PlaylistsScreen(
-        playlistsScreenState = PlaylistsScreenState.Loading,
-        onPlaylistItemClick = { },
-    )
+  PlaylistsScreen(
+    playlistsScreenState = PlaylistsScreenState.Loading,
+    onPlaylistItemClick = {},
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistsScreenPreviewFailed() {
-    PlaylistsScreen(
-        playlistsScreenState = PlaylistsScreenState.Failed,
-        onPlaylistItemClick = { },
-    )
+  PlaylistsScreen(
+    playlistsScreenState = PlaylistsScreenState.Failed,
+    onPlaylistItemClick = {},
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistsScreenPreviewCustomLayout() {
-    PlaylistsScreen(
-        playlists = listOf(
-            Pair("Rock Classics", "Downloading 73%.."),
-            Pair("Pop Punk", "Completed"),
-        ),
-        playlistContent = { (name, status) ->
-            Chip(
-                label = name,
-                onClick = { },
-                secondaryLabel = status,
-            )
-        },
-    )
+  PlaylistsScreen(
+    playlists =
+      listOf(
+        Pair("Rock Classics", "Downloading 73%.."),
+        Pair("Pop Punk", "Completed"),
+      ),
+    playlistContent = { (name, status) ->
+      Chip(
+        label = name,
+        onClick = {},
+        secondaryLabel = status,
+      )
+    },
+  )
 }

@@ -24,22 +24,23 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineScope
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DatalayerModule {
 
-    @Provides
-    @Singleton
-    fun wearDataLayerAppHelper(
-        @ApplicationContext applicationContext: Context,
-        wearDataLayerRegistry: WearDataLayerRegistry,
-        coroutineScope: CoroutineScope,
-    ) = WearDataLayerAppHelper(
-        context = applicationContext,
-        registry = wearDataLayerRegistry,
-        scope = coroutineScope,
+  @Provides
+  @Singleton
+  fun wearDataLayerAppHelper(
+    @ApplicationContext applicationContext: Context,
+    wearDataLayerRegistry: WearDataLayerRegistry,
+    coroutineScope: CoroutineScope,
+  ) =
+    WearDataLayerAppHelper(
+      context = applicationContext,
+      registry = wearDataLayerRegistry,
+      scope = coroutineScope,
     )
 }

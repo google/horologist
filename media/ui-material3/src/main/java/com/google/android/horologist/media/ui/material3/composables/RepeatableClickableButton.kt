@@ -46,7 +46,8 @@ import androidx.wear.compose.material3.ripple
  * A base button that can send single onClick event or repeated [onRepeatableClick] events by
  * holding it down.
  *
- * Code modified from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material3/src/main/java/androidx/wear/compose/material3/IconButton.kt
+ * Code modified from
+ * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material3/src/main/java/androidx/wear/compose/material3/IconButton.kt
  *
  * @param onClick the single click event
  * @param onRepeatableClick the repeated click event
@@ -62,57 +63,55 @@ import androidx.wear.compose.material3.ripple
  */
 @Composable
 public fun RepeatableClickableButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    onRepeatableClick: () -> Unit = onClick,
-    onRepeatableClickEnd: () -> Unit = {},
-    enabled: Boolean = true,
-    shape: Shape = CircleShape,
-    colors: IconButtonColors = IconButtonDefaults.iconButtonColors(),
-    border: BorderStroke? = null,
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    indication: Indication? = ripple(),
-    interactionSource: MutableInteractionSource? = null,
-    content: @Composable BoxScope.() -> Unit,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  onRepeatableClick: () -> Unit = onClick,
+  onRepeatableClickEnd: () -> Unit = {},
+  enabled: Boolean = true,
+  shape: Shape = CircleShape,
+  colors: IconButtonColors = IconButtonDefaults.iconButtonColors(),
+  border: BorderStroke? = null,
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  indication: Indication? = ripple(),
+  interactionSource: MutableInteractionSource? = null,
+  content: @Composable BoxScope.() -> Unit,
 ) {
-    val contentColor = rememberUpdatedState(
-        colors.run { if (enabled) contentColor else disabledContentColor },
-    )
-    val containerColor = rememberUpdatedState(
-        colors.run { if (enabled) containerColor else disabledContainerColor },
-    )
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier =
-            modifier
-                .repeatableClickable(
-                    enabled = enabled,
-                    role = Role.Button,
-                    indication = indication,
-                    onClick = onClick,
-                    onRepeatableClick = onRepeatableClick,
-                    onRepeatableClickEnd = onRepeatableClickEnd,
-                    interactionSource = interactionSource,
-                )
-                .padding(buttonPadding)
-                .clip(shape)
-                .then(
-                    if (border != null) {
-                        Modifier.border(border, shape)
-                    } else {
-                        Modifier
-                    },
-                )
-                .background(
-                    color = containerColor.value,
-                    shape = shape,
-                ),
+  val contentColor =
+    rememberUpdatedState(colors.run { if (enabled) contentColor else disabledContentColor })
+  val containerColor =
+    rememberUpdatedState(colors.run { if (enabled) containerColor else disabledContainerColor })
+  Box(
+    contentAlignment = Alignment.Center,
+    modifier =
+      modifier
+        .repeatableClickable(
+          enabled = enabled,
+          role = Role.Button,
+          indication = indication,
+          onClick = onClick,
+          onRepeatableClick = onRepeatableClick,
+          onRepeatableClickEnd = onRepeatableClickEnd,
+          interactionSource = interactionSource,
+        )
+        .padding(buttonPadding)
+        .clip(shape)
+        .then(
+          if (border != null) {
+            Modifier.border(border, shape)
+          } else {
+            Modifier
+          }
+        )
+        .background(
+          color = containerColor.value,
+          shape = shape,
+        ),
+  ) {
+    CompositionLocalProvider(
+      LocalContentColor provides contentColor.value,
+      LocalTextStyle provides MaterialTheme.typography.labelMedium,
     ) {
-        CompositionLocalProvider(
-            LocalContentColor provides contentColor.value,
-            LocalTextStyle provides MaterialTheme.typography.labelMedium,
-        ) {
-            content()
-        }
+      content()
     }
+  }
 }

@@ -22,13 +22,11 @@ import androidx.activity.compose.setContent
 import com.google.android.horologist.sample.di.SampleAppDI
 
 class AuditActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        SampleAppDI.inject(this)
+    SampleAppDI.inject(this)
 
-        setContent {
-            AuditWearApp()
-        }
-    }
+    setContent { AuditWearApp() }
+  }
 }

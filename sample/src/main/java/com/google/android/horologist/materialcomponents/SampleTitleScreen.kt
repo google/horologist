@@ -28,29 +28,21 @@ import com.google.android.horologist.compose.material.Title
 
 @Composable
 internal fun SampleTitleScreen(
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Title(
-                text = "Title",
-            )
-        }
-        item {
-            SecondaryTitle(
-                text = "Title",
-            )
-        }
-        item {
-            SecondaryTitle(
-                text = "Title",
-                icon = Icons.Filled.Add,
-                iconTint = Color(0xFF946EB1),
-            )
-        }
+  ScalingLazyColumn(
+    columnState = columnState,
+    modifier = modifier,
+  ) {
+    item { Title(text = "Title") }
+    item { SecondaryTitle(text = "Title") }
+    item {
+      SecondaryTitle(
+        text = "Title",
+        icon = Icons.Filled.Add,
+        iconTint = Color(0xFF946EB1),
+      )
     }
+  }
 }

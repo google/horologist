@@ -51,18 +51,19 @@ fun LottiePreview(
   slotMap: SlotMap = SlotMap(emptyMap()),
   clock: RemoteClock = RemoteClock.SYSTEM,
 ) {
-  val doc = rememberRemoteDocument(clock = clock) {
-    RemoteColumn(
-      horizontalAlignment = RemoteAlignment.CenterHorizontally,
-      verticalArrangement = RemoteArrangement.Center,
-    ) {
-      LottieAnimation(
-        animation,
-        slotMap = slotMap,
-        modifier = RemoteModifier.width(animation.width).height(animation.height),
-      )
+  val doc =
+    rememberRemoteDocument(clock = clock) {
+      RemoteColumn(
+        horizontalAlignment = RemoteAlignment.CenterHorizontally,
+        verticalArrangement = RemoteArrangement.Center,
+      ) {
+        LottieAnimation(
+          animation,
+          slotMap = slotMap,
+          modifier = RemoteModifier.width(animation.width).height(animation.height),
+        )
+      }
     }
-  }
   doc.value?.let { document ->
     RemoteDocumentPlayer(
       document = document,

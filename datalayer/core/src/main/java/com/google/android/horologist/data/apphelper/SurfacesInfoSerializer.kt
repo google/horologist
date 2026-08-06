@@ -24,16 +24,16 @@ import java.io.InputStream
 import java.io.OutputStream
 
 public object SurfacesInfoSerializer : Serializer<SurfacesInfo> {
-    override val defaultValue: SurfacesInfo = SurfacesInfo.getDefaultInstance()
+  override val defaultValue: SurfacesInfo = SurfacesInfo.getDefaultInstance()
 
-    override suspend fun readFrom(input: InputStream): SurfacesInfo =
-        try {
-            SurfacesInfo.parseFrom(input)
-        } catch (exception: InvalidProtocolBufferException) {
-            throw CorruptionException("Cannot read proto.", exception)
-        }
-
-    override suspend fun writeTo(t: SurfacesInfo, output: OutputStream) {
-        t.writeTo(output)
+  override suspend fun readFrom(input: InputStream): SurfacesInfo =
+    try {
+      SurfacesInfo.parseFrom(input)
+    } catch (exception: InvalidProtocolBufferException) {
+      throw CorruptionException("Cannot read proto.", exception)
     }
+
+  override suspend fun writeTo(t: SurfacesInfo, output: OutputStream) {
+    t.writeTo(output)
+  }
 }

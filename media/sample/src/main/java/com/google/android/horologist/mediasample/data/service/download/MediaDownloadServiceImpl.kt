@@ -30,55 +30,45 @@ import javax.inject.Inject
 
 @SuppressLint("UnsafeOptInUsageError")
 @AndroidEntryPoint
-class MediaDownloadServiceImpl : MediaDownloadService(
-    /* foregroundNotificationId= */
-    MEDIA_DOWNLOAD_FOREGROUND_NOTIFICATION_ID,
-    /* foregroundNotificationUpdateInterval= */
-    DEFAULT_FOREGROUND_NOTIFICATION_UPDATE_INTERVAL,
-    /* channelId= */
-    MEDIA_DOWNLOAD_CHANNEL_ID,
-    /* channelNameResourceId= */
-    MEDIA_DOWNLOAD_CHANNEL_NAME,
-    /* channelDescriptionResourceId= */
-    MEDIA_DOWNLOAD_CHANNEL_DESCRIPTION_NOT_PROVIDED,
-    /* notificationIcon= */
-    MEDIA_DOWNLOAD_NOTIFICATION_ICON,
-) {
+class MediaDownloadServiceImpl :
+  MediaDownloadService(
+    /* foregroundNotificationId= */ MEDIA_DOWNLOAD_FOREGROUND_NOTIFICATION_ID,
+    /* foregroundNotificationUpdateInterval= */ DEFAULT_FOREGROUND_NOTIFICATION_UPDATE_INTERVAL,
+    /* channelId= */ MEDIA_DOWNLOAD_CHANNEL_ID,
+    /* channelNameResourceId= */ MEDIA_DOWNLOAD_CHANNEL_NAME,
+    /* channelDescriptionResourceId= */ MEDIA_DOWNLOAD_CHANNEL_DESCRIPTION_NOT_PROVIDED,
+    /* notificationIcon= */ MEDIA_DOWNLOAD_NOTIFICATION_ICON,
+  ) {
 
-    @Inject
-    lateinit var downloadManagerParam: DownloadManager
+  @Inject lateinit var downloadManagerParam: DownloadManager
 
-    @Inject
-    lateinit var workManagerSchedulerParam: WorkManagerScheduler
+  @Inject lateinit var workManagerSchedulerParam: WorkManagerScheduler
 
-    @Inject
-    lateinit var downloadNotificationHelperParam: DownloadNotificationHelper
+  @Inject lateinit var downloadNotificationHelperParam: DownloadNotificationHelper
 
-    @Inject
-    lateinit var intentBuilder: IntentBuilder
+  @Inject lateinit var intentBuilder: IntentBuilder
 
-    @Inject
-    lateinit var downloadManagerListenerParam: DownloadManagerListener
+  @Inject lateinit var downloadManagerListenerParam: DownloadManagerListener
 
-    override fun getDownloadManager(): DownloadManager = downloadManagerParam
+  override fun getDownloadManager(): DownloadManager = downloadManagerParam
 
-    override val downloadManagerListener: DownloadManagerListener
-        get() = downloadManagerListenerParam
+  override val downloadManagerListener: DownloadManagerListener
+    get() = downloadManagerListenerParam
 
-    override val workManagerScheduler: WorkManagerScheduler
-        get() = workManagerSchedulerParam
+  override val workManagerScheduler: WorkManagerScheduler
+    get() = workManagerSchedulerParam
 
-    override val downloadIntent: PendingIntent
-        get() = intentBuilder.buildDownloadIntent()
+  override val downloadIntent: PendingIntent
+    get() = intentBuilder.buildDownloadIntent()
 
-    override val downloadNotificationHelper: DownloadNotificationHelper
-        get() = downloadNotificationHelperParam
+  override val downloadNotificationHelper: DownloadNotificationHelper
+    get() = downloadNotificationHelperParam
 
-    companion object {
-        private const val MEDIA_DOWNLOAD_FOREGROUND_NOTIFICATION_ID = 1
-        const val MEDIA_DOWNLOAD_CHANNEL_ID = "download_channel"
-        private val MEDIA_DOWNLOAD_CHANNEL_NAME = R.string.media_download_channel_name
-        private const val MEDIA_DOWNLOAD_CHANNEL_DESCRIPTION_NOT_PROVIDED = 0
-        private val MEDIA_DOWNLOAD_NOTIFICATION_ICON = R.drawable.ic_uamp_headset
-    }
+  companion object {
+    private const val MEDIA_DOWNLOAD_FOREGROUND_NOTIFICATION_ID = 1
+    const val MEDIA_DOWNLOAD_CHANNEL_ID = "download_channel"
+    private val MEDIA_DOWNLOAD_CHANNEL_NAME = R.string.media_download_channel_name
+    private const val MEDIA_DOWNLOAD_CHANNEL_DESCRIPTION_NOT_PROVIDED = 0
+    private val MEDIA_DOWNLOAD_NOTIFICATION_ICON = R.drawable.ic_uamp_headset
+  }
 }

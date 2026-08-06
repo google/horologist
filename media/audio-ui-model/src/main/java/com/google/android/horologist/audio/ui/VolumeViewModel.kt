@@ -49,105 +49,111 @@ import kotlinx.coroutines.flow.stateIn
  *
  * Volume changes can be made via [increaseVolume] and [decreaseVolume].
  *
- * See [AudioManager.setStreamVolume]
- * See [AudioManager.STREAM_MUSIC]
+ * See [AudioManager.setStreamVolume] See [AudioManager.STREAM_MUSIC]
  */
 @ExperimentalHorologistApi
 public open class VolumeViewModel(
-    internal val volumeRepository: VolumeRepository,
-    internal val audioOutputRepository: AudioOutputRepository,
-    private val onCleared: () -> Unit = {},
-    private val vibrator: Vibrator,
+  internal val volumeRepository: VolumeRepository,
+  internal val audioOutputRepository: AudioOutputRepository,
+  private val onCleared: () -> Unit = {},
+  private val vibrator: Vibrator,
 ) : ViewModel() {
-    private val userActionEvents = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
+  private val userActionEvents = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
-    public val volumeUiState: StateFlow<VolumeUiState> =
-        volumeRepository.volumeState.map(VolumeUiStateMapper::map).stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(5000),
-            initialValue = VolumeUiState(),
+  public val volumeUiState: StateFlow<VolumeUiState> =
+    volumeRepository.volumeState
+      .map(VolumeUiStateMapper::map)
+      .stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue = VolumeUiState(),
+      )
+
+  public val displayIndicatorEvents: Flow<Unit> =
+    merge(userActionEvents, volumeUiState.drop(1)).map {}
+
+  public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
+
+  public fun increaseVolumeWithHaptics() {
+    increaseVolume()
+    if (!volumeUiState.value.isMax) {
+      performHaptics()
+    }
+  }
+
+  public fun decreaseVolumeWithHaptics() {
+    decreaseVolume()
+    if (!volumeUiState.value.isMin) {
+      performHaptics()
+    }
+  }
+
+  public fun increaseVolume() {
+    val unused = userActionEvents.tryEmit(Unit)
+    volumeRepository.increaseVolume()
+  }
+
+  public fun decreaseVolume() {
+    val unused = userActionEvents.tryEmit(Unit)
+    volumeRepository.decreaseVolume()
+  }
+
+  public fun launchOutputSelection(clientPackageName: String? = null) {
+    audioOutputRepository.launchOutputSelection(
+      closeOnConnect = false,
+      clientPackageName = clientPackageName,
+    )
+  }
+
+  override fun onCleared() {
+    onCleared.invoke()
+  }
+
+  private fun performHaptics() {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+      val effect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK)
+      vibrator.vibrate(effect)
+    } else {
+      notSupported()
+    }
+  }
+
+  private fun notSupported() {
+    Log.i(TAG, "Effect not supported")
+  }
+
+  public fun onVolumeChangeByScroll(pixels: Float) {
+    when {
+      pixels > 0 -> increaseVolumeWithHaptics()
+      pixels < 0 -> decreaseVolumeWithHaptics()
+    }
+  }
+
+  public fun setVolume(volume: Int) {
+    val unused = userActionEvents.tryEmit(Unit)
+    if (volume != volumeRepository.volumeState.value.current) {
+      volumeRepository.setVolume(volume)
+    }
+  }
+
+  @ExperimentalHorologistApi
+  public companion object {
+    private const val TAG = "VolumeViewModel"
+
+    public val Factory: ViewModelProvider.Factory = viewModelFactory {
+      initializer {
+        val application = this[APPLICATION_KEY]!!
+
+        val audioRepository = SystemAudioRepository.fromContext(application)
+        val vibrator: Vibrator = application.getSystemService(Vibrator::class.java)
+
+        VolumeViewModel(
+          audioRepository,
+          audioRepository,
+          onCleared = { audioRepository.close() },
+          vibrator,
         )
-
-    public val displayIndicatorEvents: Flow<Unit> = merge(userActionEvents, volumeUiState.drop(1)).map { }
-
-    public val audioOutput: StateFlow<AudioOutput> = audioOutputRepository.audioOutput
-    public fun increaseVolumeWithHaptics() {
-        increaseVolume()
-        if (!volumeUiState.value.isMax) {
-            performHaptics()
-        }
+      }
     }
-
-    public fun decreaseVolumeWithHaptics() {
-        decreaseVolume()
-        if (!volumeUiState.value.isMin) {
-            performHaptics()
-        }
-    }
-
-    public fun increaseVolume() {
-        val unused = userActionEvents.tryEmit(Unit)
-        volumeRepository.increaseVolume()
-    }
-
-    public fun decreaseVolume() {
-        val unused = userActionEvents.tryEmit(Unit)
-        volumeRepository.decreaseVolume()
-    }
-
-    public fun launchOutputSelection(clientPackageName: String? = null) {
-        audioOutputRepository.launchOutputSelection(
-            closeOnConnect = false,
-            clientPackageName = clientPackageName,
-        )
-    }
-
-    override fun onCleared() {
-        onCleared.invoke()
-    }
-
-    private fun performHaptics() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val effect = VibrationEffect.createPredefined(VibrationEffect.EFFECT_CLICK)
-            vibrator.vibrate(effect)
-        } else {
-            notSupported()
-        }
-    }
-
-    private fun notSupported() {
-        Log.i(TAG, "Effect not supported")
-    }
-
-    public fun onVolumeChangeByScroll(pixels: Float) {
-        when {
-            pixels > 0 -> increaseVolumeWithHaptics()
-            pixels < 0 -> decreaseVolumeWithHaptics()
-        }
-    }
-
-    public fun setVolume(volume: Int) {
-        val unused = userActionEvents.tryEmit(Unit)
-        if (volume != volumeRepository.volumeState.value.current) {
-            volumeRepository.setVolume(volume)
-        }
-    }
-
-    @ExperimentalHorologistApi
-    public companion object {
-        private const val TAG = "VolumeViewModel"
-
-        public val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = this[APPLICATION_KEY]!!
-
-                val audioRepository = SystemAudioRepository.fromContext(application)
-                val vibrator: Vibrator = application.getSystemService(Vibrator::class.java)
-
-                VolumeViewModel(audioRepository, audioRepository, onCleared = {
-                    audioRepository.close()
-                }, vibrator)
-            }
-        }
-    }
+  }
 }

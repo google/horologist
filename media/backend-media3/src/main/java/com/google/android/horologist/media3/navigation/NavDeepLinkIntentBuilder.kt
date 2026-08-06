@@ -23,35 +23,35 @@ import android.content.Intent
 import androidx.core.net.toUri
 
 public class NavDeepLinkIntentBuilder(
-    private val application: Context,
-    private val downloadUri: String,
-    private val playerUri: String,
+  private val application: Context,
+  private val downloadUri: String,
+  private val playerUri: String,
 ) : IntentBuilder {
-    override fun buildDownloadIntent(): PendingIntent {
-        val taskDetailIntent = Intent(
-            Intent.ACTION_VIEW,
-            downloadUri.toUri(),
-        ).apply {
-            setPackage(application.packageName)
-        }
+  override fun buildDownloadIntent(): PendingIntent {
+    val taskDetailIntent =
+      Intent(
+          Intent.ACTION_VIEW,
+          downloadUri.toUri(),
+        )
+        .apply { setPackage(application.packageName) }
 
-        return TaskStackBuilder.create(application).run {
-            addNextIntentWithParentStack(taskDetailIntent)
-            getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-        }
+    return TaskStackBuilder.create(application).run {
+      addNextIntentWithParentStack(taskDetailIntent)
+      getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
     }
+  }
 
-    override fun buildPlayerIntent(): PendingIntent {
-        val taskDetailIntent = Intent(
-            Intent.ACTION_VIEW,
-            playerUri.toUri(),
-        ).apply {
-            setPackage(application.packageName)
-        }
+  override fun buildPlayerIntent(): PendingIntent {
+    val taskDetailIntent =
+      Intent(
+          Intent.ACTION_VIEW,
+          playerUri.toUri(),
+        )
+        .apply { setPackage(application.packageName) }
 
-        return TaskStackBuilder.create(application).run {
-            addNextIntentWithParentStack(taskDetailIntent)
-            getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
-        }
+    return TaskStackBuilder.create(application).run {
+      addNextIntentWithParentStack(taskDetailIntent)
+      getPendingIntent(0, PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
     }
+  }
 }

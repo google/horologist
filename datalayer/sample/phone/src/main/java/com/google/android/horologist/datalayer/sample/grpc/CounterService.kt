@@ -24,19 +24,18 @@ import com.google.android.horologist.datalayer.sample.util.toProtoTimestamp
 import com.google.protobuf.Empty
 import kotlinx.coroutines.flow.first
 
-class CounterService(
-    private val dataStore: DataStore<GrpcDemoProto.CounterValue>,
-) : CounterServiceGrpcKt.CounterServiceCoroutineImplBase() {
-    override suspend fun getCounter(request: Empty): GrpcDemoProto.CounterValue {
-        return dataStore.data.first()
-    }
+class CounterService(private val dataStore: DataStore<GrpcDemoProto.CounterValue>) :
+  CounterServiceGrpcKt.CounterServiceCoroutineImplBase() {
+  override suspend fun getCounter(request: Empty): GrpcDemoProto.CounterValue {
+    return dataStore.data.first()
+  }
 
-    override suspend fun increment(request: GrpcDemoProto.CounterDelta): GrpcDemoProto.CounterValue {
-        return dataStore.updateData {
-            it.copy {
-                this.value += request.delta
-                this.updated = System.currentTimeMillis().toProtoTimestamp()
-            }
-        }
+  override suspend fun increment(request: GrpcDemoProto.CounterDelta): GrpcDemoProto.CounterValue {
+    return dataStore.updateData {
+      it.copy {
+        this.value += request.delta
+        this.updated = System.currentTimeMillis().toProtoTimestamp()
+      }
     }
+  }
 }

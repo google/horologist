@@ -23,47 +23,48 @@ import org.junit.Test
 
 class ShowPlaylistChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun givenArtwork_thenDisplaysArtwork() {
-        runComponentTest {
-            ShowPlaylistChip(
-                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
-                name = "Playlists",
-                onClick = {},
-            )
-        }
+  @Test
+  fun givenArtwork_thenDisplaysArtwork() {
+    runComponentTest {
+      ShowPlaylistChip(
+        artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+        name = "Playlists",
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun givenNOArtwork_thenDoesNOTDisplayArtwork() {
-        runComponentTest {
-            ShowPlaylistChip(
-                artworkPaintable = null,
-                name = "Playlists",
-                onClick = {},
-            )
-        }
+  @Test
+  fun givenNOArtwork_thenDoesNOTDisplayArtwork() {
+    runComponentTest {
+      ShowPlaylistChip(
+        artworkPaintable = null,
+        name = "Playlists",
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun givenNOName_thenDoesDisplayArtwork() {
-        runComponentTest {
-            ShowPlaylistChip(
-                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
-                name = null,
-                onClick = {},
-            )
-        }
+  @Test
+  fun givenNOName_thenDoesDisplayArtwork() {
+    runComponentTest {
+      ShowPlaylistChip(
+        artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+        name = null,
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
-        runComponentTest {
-            ShowPlaylistChip(
-                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
-                name = "Very very very very very very very very very very very very very very very very very very very long title",
-                onClick = {},
-            )
-        }
+  @Test
+  fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
+    runComponentTest {
+      ShowPlaylistChip(
+        artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+        name =
+          "Very very very very very very very very very very very very very very very very very very very long title",
+        onClick = {},
+      )
     }
+  }
 }

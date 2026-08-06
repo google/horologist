@@ -24,8 +24,9 @@ import com.google.android.horologist.compose.tools.tileRendererPreviewData
 
 @Preview(device = WearDevices.LARGE_ROUND)
 @Preview(device = WearDevices.SMALL_ROUND)
-fun SampleTilePreview(context: Context): TilePreviewData = tileRendererPreviewData(
+fun SampleTilePreview(context: Context): TilePreviewData =
+  tileRendererPreviewData(
     renderer = SampleTileRenderer(context),
     tileState = Unit,
     resourceState = Unit,
-)
+  )

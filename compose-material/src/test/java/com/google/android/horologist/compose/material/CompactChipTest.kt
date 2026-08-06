@@ -31,96 +31,103 @@ import org.robolectric.annotation.Config
 
 class CompactChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            CompactChip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-            )
-        }
+  @Test
+  fun default() {
+    runComponentTest {
+      CompactChip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun withIcon() {
-        runComponentTest {
-            CompactChip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                icon = Icons.Filled.Add.asPaintable(),
-            )
-        }
+  @Test
+  fun withIcon() {
+    runComponentTest {
+      CompactChip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        icon = Icons.Filled.Add.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun iconOnly() {
-        runComponentTest {
-            CompactChip(
-                onClick = { },
-                icon = Icons.Filled.Add.asPaintable(),
-                contentDescription = "Add Icon",
-            )
-        }
+  @Test
+  fun iconOnly() {
+    runComponentTest {
+      CompactChip(
+        onClick = {},
+        icon = Icons.Filled.Add.asPaintable(),
+        contentDescription = "Add Icon",
+      )
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            CompactChip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                icon = Icons.Filled.Add.asPaintable(),
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      CompactChip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        icon = Icons.Filled.Add.asPaintable(),
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun withLongText() {
-        runComponentTest {
-            CompactChip(
-                label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                onClick = { },
-            )
-        }
+  @Test
+  fun withLongText() {
+    runComponentTest {
+      CompactChip(
+        label =
+          "Primary label very very very very very very very very very very very very very very very very very long text",
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun withLongTextAndLargestFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(LARGEST_FONT_SCALE)) {
-                CompactChip(
-                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    onClick = { },
-                )
-            }
-        }
+  @Test
+  fun withLongTextAndLargestFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(LARGEST_FONT_SCALE)) {
+        CompactChip(
+          label =
+            "Primary label very very very very very very very very very very very very very very very very very long text",
+          onClick = {},
+        )
+      }
     }
+  }
 
-    @Test
-    fun usingDrawableResAsIcon() {
-        runComponentTest {
-            CompactChip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                icon = DrawableResPaintable(R.drawable.ic_delete),
-            )
-        }
+  @Test
+  fun usingDrawableResAsIcon() {
+    runComponentTest {
+      CompactChip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        icon = DrawableResPaintable(R.drawable.ic_delete),
+      )
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun withIconRtl() {
-        runComponentTest {
-            CompactChip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun withIconRtl() {
+    runComponentTest {
+      CompactChip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        icon = Icons.AutoMirrored.Default.DirectionsBike.asPaintable(),
+      )
     }
+  }
 
-    companion object {
-        private const val LARGEST_FONT_SCALE = 1.24f
-    }
+  companion object {
+    private const val LARGEST_FONT_SCALE = 1.24f
+  }
 }

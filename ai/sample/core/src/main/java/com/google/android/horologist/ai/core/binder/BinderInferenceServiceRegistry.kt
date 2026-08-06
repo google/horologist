@@ -26,33 +26,33 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class BinderInferenceServiceRegistry(
-    val coroutineScope: CoroutineScope,
-    val context: Context,
+  val coroutineScope: CoroutineScope,
+  val context: Context,
 ) : InferenceServiceRegistry {
-    override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
-        return flow {
-            val intent = Intent("InferenceService")
-            val services = context.packageManager.queryIntentServices(intent, 0)
-            val verifiedServices = services.filter {
-                context.packageManager.checkSignatures(
-                    context.packageName,
-                    it.serviceInfo.packageName,
-                ) == android.content.pm.PackageManager.SIGNATURE_MATCH
-            }
+  override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
+    return flow {
+      val intent = Intent("InferenceService")
+      val services = context.packageManager.queryIntentServices(intent, 0)
+      val verifiedServices = services.filter {
+        context.packageManager.checkSignatures(
+          context.packageName,
+          it.serviceInfo.packageName,
+        ) == android.content.pm.PackageManager.SIGNATURE_MATCH
+      }
 
-            emit(
-                verifiedServices.map {
-                    BinderInferenceService(
-                        AiGrpcClientLookup.lookupInferenceService(
-                            context,
-                            it.serviceInfo.packageName,
-                        ),
-                    )
-                },
+      emit(
+        verifiedServices.map {
+          BinderInferenceService(
+            AiGrpcClientLookup.lookupInferenceService(
+              context,
+              it.serviceInfo.packageName,
             )
+          )
         }
+      )
     }
+  }
 
-    override val priority: Int
-        get() = 1
+  override val priority: Int
+    get() = 1
 }

@@ -40,83 +40,74 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AiModule {
-    @Singleton
-    @Provides
-    fun client() = Client.builder()
-        .apiKey(GEMINI_API_KEY)
-        .clientOptions(
-            ClientOptions.builder()
-                .build(),
-        )
-        .httpOptions(
-            HttpOptions.builder()
-                .build(),
-        )
-        .build()
+  @Singleton
+  @Provides
+  fun client() =
+    Client.builder()
+      .apiKey(GEMINI_API_KEY)
+      .clientOptions(ClientOptions.builder().build())
+      .httpOptions(HttpOptions.builder().build())
+      .build()
 
-    @Singleton
-    @Provides
-    fun geminiSDKService(
-        client: Client,
-        contentConfig: GenerateContentConfig,
-    ) = GeminiSDKInferenceServiceImpl(
-        client,
-        serviceName = "Device Info",
-        configuredModels = listOf(
-            GeminiModel.Gemini2dot5Flash,
-        ),
-        contentConfig = GenerateContentConfig.builder()
-            .mediaResolution(MediaResolution.Known.MEDIA_RESOLUTION_LOW)
-            .build(),
+  @Singleton
+  @Provides
+  fun geminiSDKService(
+    client: Client,
+    contentConfig: GenerateContentConfig,
+  ) =
+    GeminiSDKInferenceServiceImpl(
+      client,
+      serviceName = "Device Info",
+      configuredModels = listOf(GeminiModel.Gemini2dot5Flash),
+      contentConfig =
+        GenerateContentConfig.builder()
+          .mediaResolution(MediaResolution.Known.MEDIA_RESOLUTION_LOW)
+          .build(),
     )
 
-    @Singleton
-    @Provides
-    fun generateContentConfig(): GenerateContentConfig = GenerateContentConfig.builder()
-        .toolConfig(
-            ToolConfig.builder()
-                .retrievalConfig(
-                    RetrievalConfig.builder()
-                        .latLng(
-                            LatLng.builder().latitude(51.5332609).longitude(-0.1285781)
-                                .build(),
-                        )
-                        .languageCode("en_GB")
-                        .build(),
-                )
-                .functionCallingConfig(
-                    FunctionCallingConfig.builder()
-                        .mode(FunctionCallingConfigMode.Known.AUTO)
-                        .build(),
-                )
-                .build(),
-        )
-        .tools(
-            Tool.builder()
-//                        googleMaps(GoogleMaps.builder()
-//                            .authConfig(AuthConfig.builder()
-//                                .build())
-//                            .build())
-//                    .functionDeclarations(FunctionDeclaration.builder()
-//                        .build())
-                .functions(
-                    ExposedMethods::class.java.getMethod("deviceModel"),
-                    ExposedMethods::class.java.getMethod("deviceManufacturer"),
-                )
-//                    .googleSearchRetrieval(
-//                        GoogleSearchRetrieval.builder()
-//                            .dynamicRetrievalConfig(
-//                                DynamicRetrievalConfig.builder()
-//                                    .mode(DynamicRetrievalConfigMode.Known.MODE_DYNAMIC)
-//                                    .build()
-//                            )
-//                            .build()
-//                    )
-//                    .googleSearch(
-//                        GoogleSearch.builder()
-//                            .build()
-//                    )
-                .build(),
-        )
-        .build()
+  @Singleton
+  @Provides
+  fun generateContentConfig(): GenerateContentConfig =
+    GenerateContentConfig.builder()
+      .toolConfig(
+        ToolConfig.builder()
+          .retrievalConfig(
+            RetrievalConfig.builder()
+              .latLng(LatLng.builder().latitude(51.5332609).longitude(-0.1285781).build())
+              .languageCode("en_GB")
+              .build()
+          )
+          .functionCallingConfig(
+            FunctionCallingConfig.builder().mode(FunctionCallingConfigMode.Known.AUTO).build()
+          )
+          .build()
+      )
+      .tools(
+        Tool.builder()
+          //                        googleMaps(GoogleMaps.builder()
+          //                            .authConfig(AuthConfig.builder()
+          //                                .build())
+          //                            .build())
+          //                    .functionDeclarations(FunctionDeclaration.builder()
+          //                        .build())
+          .functions(
+            ExposedMethods::class.java.getMethod("deviceModel"),
+            ExposedMethods::class.java.getMethod("deviceManufacturer"),
+          )
+          //                    .googleSearchRetrieval(
+          //                        GoogleSearchRetrieval.builder()
+          //                            .dynamicRetrievalConfig(
+          //                                DynamicRetrievalConfig.builder()
+          //                                    .mode(DynamicRetrievalConfigMode.Known.MODE_DYNAMIC)
+          //                                    .build()
+          //                            )
+          //                            .build()
+          //                    )
+          //                    .googleSearch(
+          //                        GoogleSearch.builder()
+          //                            .build()
+          //                    )
+          .build()
+      )
+      .build()
 }

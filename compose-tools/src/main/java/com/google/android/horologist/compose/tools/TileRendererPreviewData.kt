@@ -20,18 +20,17 @@ import androidx.wear.tiles.tooling.preview.TilePreviewData
 import com.google.android.horologist.tiles.render.TileLayoutRenderer
 
 public fun <T, R> tileRendererPreviewData(
-    renderer: TileLayoutRenderer<T, R>,
-    tileState: T,
-    resourceState: R,
-): TilePreviewData = TilePreviewData(
+  renderer: TileLayoutRenderer<T, R>,
+  tileState: T,
+  resourceState: R,
+): TilePreviewData =
+  TilePreviewData(
     onTileResourceRequest = { resourcesRequest ->
-        with(renderer) {
-            produceRequestedResources(resourceState, resourcesRequest)
-        }
-    },
-) { tileRequest ->
+      with(renderer) { produceRequestedResources(resourceState, resourcesRequest) }
+    }
+  ) { tileRequest ->
     renderer.renderTimeline(
-        tileState,
-        tileRequest,
+      tileState,
+      tileRequest,
     )
-}
+  }

@@ -24,80 +24,79 @@ import kotlinx.coroutines.flow.StateFlow
 
 class FakePlaylistDownloadDataSource(private val playlist: Playlist? = null) {
 
-    private val _playlistDownloadFlow: MutableStateFlow<PlaylistDownload?> =
-        MutableStateFlow(
-            playlist?.let {
-                PlaylistDownload(
-                    playlist = it,
-                    mediaList = playlist.mediaList.map { media ->
-                        MediaDownload(
-                            media = media,
-                            status = MediaDownload.Status.Idle,
-                            size = MediaDownload.Size.Unknown,
-                        )
-                    },
-                )
+  private val _playlistDownloadFlow: MutableStateFlow<PlaylistDownload?> =
+    MutableStateFlow(
+      playlist?.let {
+        PlaylistDownload(
+          playlist = it,
+          mediaList =
+            playlist.mediaList.map { media ->
+              MediaDownload(
+                media = media,
+                status = MediaDownload.Status.Idle,
+                size = MediaDownload.Size.Unknown,
+              )
             },
         )
-    val playlistDownloadFlow: StateFlow<PlaylistDownload?> get() =
-        _playlistDownloadFlow
+      }
+    )
+  val playlistDownloadFlow: StateFlow<PlaylistDownload?>
+    get() = _playlistDownloadFlow
 
-    fun setAllMediaDownloadsToIdle() {
-        playlist?.let {
-            _playlistDownloadFlow.value =
-
-                PlaylistDownload(
-                    playlist = it,
-                    mediaList = playlist.mediaList.map { media ->
-                        MediaDownload(
-                            media = media,
-                            status = MediaDownload.Status.Idle,
-                            size = MediaDownload.Size.Unknown,
-                        )
-                    },
-                )
-        }
+  fun setAllMediaDownloadsToIdle() {
+    playlist?.let {
+      _playlistDownloadFlow.value =
+        PlaylistDownload(
+          playlist = it,
+          mediaList =
+            playlist.mediaList.map { media ->
+              MediaDownload(
+                media = media,
+                status = MediaDownload.Status.Idle,
+                size = MediaDownload.Size.Unknown,
+              )
+            },
+        )
     }
+  }
 
-    fun setAllMediaDownloadsToCompleted() {
-        playlist?.let {
-            _playlistDownloadFlow.value =
-
-                PlaylistDownload(
-                    playlist = it,
-                    mediaList = playlist.mediaList.map { media ->
-                        MediaDownload(
-                            media = media,
-                            status = MediaDownload.Status.Completed,
-                            size = MediaDownload.Size.Unknown,
-                        )
-                    },
-                )
-        }
+  fun setAllMediaDownloadsToCompleted() {
+    playlist?.let {
+      _playlistDownloadFlow.value =
+        PlaylistDownload(
+          playlist = it,
+          mediaList =
+            playlist.mediaList.map { media ->
+              MediaDownload(
+                media = media,
+                status = MediaDownload.Status.Completed,
+                size = MediaDownload.Size.Unknown,
+              )
+            },
+        )
     }
+  }
 
-    fun cancelMediaDownloadDownloadProgress(mediaId: String) {
-        _playlistDownloadFlow.value?.let { playlistDownload ->
-
-            playlist?.let { playlist ->
-
-                _playlistDownloadFlow.value =
-
-                    PlaylistDownload(
-                        playlist = playlist,
-                        mediaList = playlistDownload.mediaList.map { mediaDownload ->
-                            if (mediaDownload.media.id == mediaId) {
-                                MediaDownload(
-                                    media = mediaDownload.media,
-                                    status = MediaDownload.Status.Idle,
-                                    size = MediaDownload.Size.Unknown,
-                                )
-                            } else {
-                                mediaDownload
-                            }
-                        },
-                    )
-            }
-        }
+  fun cancelMediaDownloadDownloadProgress(mediaId: String) {
+    _playlistDownloadFlow.value?.let { playlistDownload ->
+      playlist?.let { playlist ->
+        _playlistDownloadFlow.value =
+          PlaylistDownload(
+            playlist = playlist,
+            mediaList =
+              playlistDownload.mediaList.map { mediaDownload ->
+                if (mediaDownload.media.id == mediaId) {
+                  MediaDownload(
+                    media = mediaDownload.media,
+                    status = MediaDownload.Status.Idle,
+                    size = MediaDownload.Size.Unknown,
+                  )
+                } else {
+                  mediaDownload
+                }
+              },
+          )
+      }
     }
+  }
 }

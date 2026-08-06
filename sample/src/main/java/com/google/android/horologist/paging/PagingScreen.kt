@@ -60,176 +60,168 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun PagingScreen(
-    navController: NavController,
-    columnState: ScalingLazyColumnState,
-    modifier: Modifier = Modifier,
+  navController: NavController,
+  columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
 ) {
-    val myBackend = remember { MyBackend() }
+  val myBackend = remember { MyBackend() }
 
-    val pager: Pager<Int, PagingItem> = remember {
-        Pager(
-            PagingConfig(
-                pageSize = myBackend.dataBatchSize,
-                enablePlaceholders = true,
-                maxSize = 200,
-            ),
-        ) { myBackend.getAllData() }
-    }
-
-    val lazyPagingItems = pager.flow.collectAsLazyPagingItems()
-
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
+  val pager: Pager<Int, PagingItem> = remember {
+    Pager(
+      PagingConfig(
+        pageSize = myBackend.dataBatchSize,
+        enablePlaceholders = true,
+        maxSize = 200,
+      )
     ) {
-        // TODO This should be folded into com.google.android.horologist.compose.paging.items
-        if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
-            items(10) {
-                PagingItemCard(item = null)
-            }
-        } else {
-            items(lazyPagingItems) { item ->
-                PagingItemCard(item) {
-                    if (item != null) {
-                        navController.navigate("pagingItem?id=${item.item}")
-                    }
-                }
-            }
-        }
+      myBackend.getAllData()
     }
+  }
+
+  val lazyPagingItems = pager.flow.collectAsLazyPagingItems()
+
+  ScalingLazyColumn(
+    columnState = columnState,
+    modifier = modifier,
+  ) {
+    // TODO This should be folded into com.google.android.horologist.compose.paging.items
+    if (lazyPagingItems.loadState.refresh == LoadState.Loading) {
+      items(10) { PagingItemCard(item = null) }
+    } else {
+      items(lazyPagingItems) { item ->
+        PagingItemCard(item) {
+          if (item != null) {
+            navController.navigate("pagingItem?id=${item.item}")
+          }
+        }
+      }
+    }
+  }
 }
 
 @Composable
 private fun PagingItemCard(
-    item: PagingItem?,
-    modifier: Modifier = Modifier,
-    placeholderState: PlaceholderState = rememberActivePlaceholderState { item != null },
-    onClick: () -> Unit = {},
+  item: PagingItem?,
+  modifier: Modifier = Modifier,
+  placeholderState: PlaceholderState = rememberActivePlaceholderState { item != null },
+  onClick: () -> Unit = {},
 ) {
-    TitleCard(
-        modifier = modifier
-            .fillMaxWidth()
-            .placeholderShimmer(placeholderState),
-        enabled = item != null,
-        onClick = onClick,
-        title = {
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth(if (placeholderState.isShowContent) 1f else 0.5f)
-                    .placeholder(placeholderState),
-                text = item?.toString().orEmpty(),
-            )
+  TitleCard(
+    modifier = modifier.fillMaxWidth().placeholderShimmer(placeholderState),
+    enabled = item != null,
+    onClick = onClick,
+    title = {
+      Text(
+        modifier =
+          Modifier.fillMaxWidth(if (placeholderState.isShowContent) 1f else 0.5f)
+            .placeholder(placeholderState),
+        text = item?.toString().orEmpty(),
+      )
+    },
+    backgroundPainter =
+      PlaceholderDefaults.painterWithPlaceholderOverlayBackgroundBrush(
+        placeholderState = placeholderState,
+        painter = CardDefaults.cardBackgroundPainter(),
+      ),
+  ) {
+    Text(
+      modifier = Modifier.fillMaxWidth().placeholder(placeholderState),
+      text =
+        if (item != null) {
+          stringResource(R.string.lorem_ipsum)
+        } else {
+          "\n\n"
         },
-        backgroundPainter = PlaceholderDefaults.painterWithPlaceholderOverlayBackgroundBrush(
-            placeholderState = placeholderState,
-            painter = CardDefaults.cardBackgroundPainter(),
-        ),
-    ) {
-        Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .placeholder(placeholderState),
-            text = if (item != null) {
-                stringResource(R.string.lorem_ipsum)
-            } else {
-                "\n\n"
-            },
-            maxLines = 3,
-            overflow = TextOverflow.Ellipsis,
-        )
-    }
+      maxLines = 3,
+      overflow = TextOverflow.Ellipsis,
+    )
+  }
 }
 
 private class MyBackend {
-    private val backendDataList = (0..65).toList()
-    val dataBatchSize = 5
+  private val backendDataList = (0..65).toList()
+  val dataBatchSize = 5
 
-    class DesiredLoadResultPageResponse(
-        val data: List<PagingItem>,
-        val itemsAfter: Int = PagingSource.LoadResult.Page.COUNT_UNDEFINED,
-    )
+  class DesiredLoadResultPageResponse(
+    val data: List<PagingItem>,
+    val itemsAfter: Int = PagingSource.LoadResult.Page.COUNT_UNDEFINED,
+  )
 
-    /**
-     * Returns [dataBatchSize] items for a key
-     */
-    fun searchItemsByKey(key: Int): DesiredLoadResultPageResponse {
-        val maxKey = ceil(backendDataList.size.toFloat() / dataBatchSize).toInt()
+  /** Returns [dataBatchSize] items for a key */
+  fun searchItemsByKey(key: Int): DesiredLoadResultPageResponse {
+    val maxKey = ceil(backendDataList.size.toFloat() / dataBatchSize).toInt()
 
-        if (key >= maxKey) {
-            return DesiredLoadResultPageResponse(data = emptyList(), itemsAfter = 0)
-        }
-
-        val from = key * dataBatchSize
-        val to = minOf((key + 1) * dataBatchSize, backendDataList.size)
-        val currentSublist = backendDataList.subList(from, to).map {
-            PagingItem(it)
-        }
-
-        val itemsAfter = backendDataList.size - to - 1
-        return DesiredLoadResultPageResponse(data = currentSublist, itemsAfter = itemsAfter)
+    if (key >= maxKey) {
+      return DesiredLoadResultPageResponse(data = emptyList(), itemsAfter = 0)
     }
 
-    fun getAllData(): PagingSource<Int, PagingItem> {
-        // Example from https://developer.android.com/reference/kotlin/androidx/paging/PagingSource
-        return object : PagingSource<Int, PagingItem>() {
-            override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PagingItem> {
-                // Simulate latency
-                delay(1.5.seconds)
+    val from = key * dataBatchSize
+    val to = minOf((key + 1) * dataBatchSize, backendDataList.size)
+    val currentSublist = backendDataList.subList(from, to).map { PagingItem(it) }
 
-                val pageNumber = params.key ?: 0
+    val itemsAfter = backendDataList.size - to - 1
+    return DesiredLoadResultPageResponse(data = currentSublist, itemsAfter = itemsAfter)
+  }
 
-                val response = searchItemsByKey(pageNumber)
+  fun getAllData(): PagingSource<Int, PagingItem> {
+    // Example from https://developer.android.com/reference/kotlin/androidx/paging/PagingSource
+    return object : PagingSource<Int, PagingItem>() {
+      override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PagingItem> {
+        // Simulate latency
+        delay(1.5.seconds)
 
-                // Since 0 is the lowest page number, return null to signify no more pages should
-                // be loaded before it.
-                val prevKey = if (pageNumber > 0) pageNumber - 1 else null
+        val pageNumber = params.key ?: 0
 
-                // This API defines that it's out of data when a page returns empty. When out of
-                // data, we return `null` to signify no more pages should be loaded
-                val nextKey = if (response.data.isNotEmpty()) pageNumber + 1 else null
+        val response = searchItemsByKey(pageNumber)
 
-                return LoadResult.Page(
-                    data = response.data,
-                    prevKey = prevKey,
-                    nextKey = nextKey,
-                    itemsAfter = response.itemsAfter,
-                )
-            }
+        // Since 0 is the lowest page number, return null to signify no more pages should
+        // be loaded before it.
+        val prevKey = if (pageNumber > 0) pageNumber - 1 else null
 
-            override fun getRefreshKey(state: PagingState<Int, PagingItem>): Int = (
-                (state.anchorPosition ?: 0) -
-                    state.config.initialLoadSize / 2.coerceAtLeast(0)
-                )
-        }
+        // This API defines that it's out of data when a page returns empty. When out of
+        // data, we return `null` to signify no more pages should be loaded
+        val nextKey = if (response.data.isNotEmpty()) pageNumber + 1 else null
+
+        return LoadResult.Page(
+          data = response.data,
+          prevKey = prevKey,
+          nextKey = nextKey,
+          itemsAfter = response.itemsAfter,
+        )
+      }
+
+      override fun getRefreshKey(state: PagingState<Int, PagingItem>): Int =
+        ((state.anchorPosition ?: 0) - state.config.initialLoadSize / 2.coerceAtLeast(0))
     }
+  }
 }
 
 data class PagingItem(val item: Int, val loadedAt: LocalTime = LocalTime.now()) {
-    override fun toString(): String = "$item (${loadedAt.format(timeFormatter)})"
+  override fun toString(): String = "$item (${loadedAt.format(timeFormatter)})"
 
-    companion object {
-        private val timeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss")
-    }
+  companion object {
+    private val timeFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss")
+  }
 }
 
 @WearPreviewSquare
 @Composable
 fun PagingItemCardPreviewWithDelayedContent() {
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        var item by remember { mutableStateOf<PagingItem?>(null) }
-        LaunchedEffect(Unit) {
-            delay(1000)
-            item = PagingItem(10)
-        }
-        PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
+  Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+    var item by remember { mutableStateOf<PagingItem?>(null) }
+    LaunchedEffect(Unit) {
+      delay(1000)
+      item = PagingItem(10)
     }
+    PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
+  }
 }
 
 @WearPreviewSquare
 @Composable
 fun PagingItemCardPreviewWithInitialContent() {
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        val item = remember { PagingItem(10) }
-        PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
-    }
+  Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+    val item = remember { PagingItem(10) }
+    PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
+  }
 }

@@ -34,38 +34,39 @@ import com.google.android.horologist.media.ui.model.R
 
 @Composable
 public fun AnimatedSeekToPreviousButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    onRepeatableClick: (() -> Unit)? = null,
-    onRepeatableClickEnd: (() -> Unit)? = null,
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource? = null,
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(),
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  onRepeatableClick: (() -> Unit)? = null,
+  onRepeatableClickEnd: (() -> Unit)? = null,
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource? = null,
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(),
+  iconSize: Dp = IconButtonDefaults.LargeIconSize,
 ) {
-    val compositionResult = rememberLottieComposition(
-        spec = LottieCompositionSpec.Asset("lottie/M3Next.json"),
-    )
-    // Reverse the button padding as the icon is flipped horizontally.
-    val reversedButtonPadding = PaddingValues.Absolute(
-        left = buttonPadding.calculateRightPadding(LocalLayoutDirection.current),
-        right = buttonPadding.calculateLeftPadding(LocalLayoutDirection.current),
-        top = buttonPadding.calculateTopPadding(),
-        bottom = buttonPadding.calculateBottomPadding(),
+  val compositionResult =
+    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/M3Next.json"))
+  // Reverse the button padding as the icon is flipped horizontally.
+  val reversedButtonPadding =
+    PaddingValues.Absolute(
+      left = buttonPadding.calculateRightPadding(LocalLayoutDirection.current),
+      right = buttonPadding.calculateLeftPadding(LocalLayoutDirection.current),
+      top = buttonPadding.calculateTopPadding(),
+      bottom = buttonPadding.calculateBottomPadding(),
     )
 
-    AnimatedMediaButton(
-        modifier = modifier.graphicsLayer(scaleX = -1f),
-        onClick = onClick,
-        contentDescription = stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
-        enabled = enabled,
-        colors = colors,
-        iconSize = iconSize,
-        buttonPadding = reversedButtonPadding,
-        compositionResult = compositionResult,
-        onRepeatableClick = onRepeatableClick,
-        onRepeatableClickEnd = onRepeatableClickEnd,
-        interactionSource = interactionSource,
-    )
+  AnimatedMediaButton(
+    modifier = modifier.graphicsLayer(scaleX = -1f),
+    onClick = onClick,
+    contentDescription =
+      stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
+    enabled = enabled,
+    colors = colors,
+    iconSize = iconSize,
+    buttonPadding = reversedButtonPadding,
+    compositionResult = compositionResult,
+    onRepeatableClick = onRepeatableClick,
+    onRepeatableClickEnd = onRepeatableClickEnd,
+    interactionSource = interactionSource,
+  )
 }

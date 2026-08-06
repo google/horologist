@@ -22,66 +22,66 @@ import org.junit.Test
 
 class AccountChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            AccountChip(
-                email = "maggie@example.com",
-                onClick = {},
-            )
-        }
+  @Test
+  fun default() {
+    runComponentTest {
+      AccountChip(
+        email = "maggie@example.com",
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            AccountChip(
-                email = "maggie@example.com",
-                onClick = {},
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      AccountChip(
+        email = "maggie@example.com",
+        onClick = {},
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun withSmallAvatar() {
-        runComponentTest {
-            AccountChip(
-                email = "maggie@example.com",
-                onClick = {},
-                largeAvatar = false,
-            )
-        }
+  @Test
+  fun withSmallAvatar() {
+    runComponentTest {
+      AccountChip(
+        email = "maggie@example.com",
+        onClick = {},
+        largeAvatar = false,
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryChipType() {
-        runComponentTest {
-            AccountChip(
-                email = "maggie@example.com",
-                onClick = {},
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  @Test
+  fun withSecondaryChipType() {
+    runComponentTest {
+      AccountChip(
+        email = "maggie@example.com",
+        onClick = {},
+        colors = ChipDefaults.secondaryChipColors(),
+      )
     }
+  }
 
-    @Test
-    fun withLongEmailAddress() {
-        runComponentTest {
-            AccountChip(
-                email = "thisisaverylongemailaddresssample@example.com",
-                onClick = {},
-            )
-        }
+  @Test
+  fun withLongEmailAddress() {
+    runComponentTest {
+      AccountChip(
+        email = "thisisaverylongemailaddresssample@example.com",
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun withEmailAddressStartingWithSingleLetterAndDot() {
-        runComponentTest {
-            AccountChip(
-                email = "p.thisisaverylongemailaddress@example.com",
-                onClick = {},
-            )
-        }
+  @Test
+  fun withEmailAddressStartingWithSingleLetterAndDot() {
+    runComponentTest {
+      AccountChip(
+        email = "p.thisisaverylongemailaddress@example.com",
+        onClick = {},
+      )
     }
+  }
 }

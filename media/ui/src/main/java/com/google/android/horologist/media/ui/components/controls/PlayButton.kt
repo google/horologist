@@ -30,19 +30,19 @@ import com.google.android.horologist.media.ui.model.R
 @ExperimentalHorologistApi
 @Composable
 public fun PlayButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
-    iconSize: Dp = 32.dp,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+  iconSize: Dp = 32.dp,
 ) {
-    MediaButton(
-        onClick = onClick,
-        icon = Icons.Default.PlayArrow,
-        contentDescription = stringResource(id = R.string.horologist_play_button_content_description),
-        modifier = modifier,
-        enabled = enabled,
-        colors = colors,
-        iconSize = iconSize,
-    )
+  MediaButton(
+    onClick = onClick,
+    icon = Icons.Default.PlayArrow,
+    contentDescription = stringResource(id = R.string.horologist_play_button_content_description),
+    modifier = modifier,
+    enabled = enabled,
+    colors = colors,
+    iconSize = iconSize,
+  )
 }

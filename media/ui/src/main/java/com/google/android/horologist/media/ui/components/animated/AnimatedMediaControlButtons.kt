@@ -42,73 +42,73 @@ import kotlinx.coroutines.flow.flowOf
 @ExperimentalHorologistApi
 @Composable
 public fun AnimatedMediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    onSeekToPreviousButtonClick: () -> Unit,
-    seekToPreviousButtonEnabled: Boolean,
-    onSeekToNextButtonClick: () -> Unit,
-    seekToNextButtonEnabled: Boolean,
-    modifier: Modifier = Modifier,
-    onSeekToPreviousLongRepeatableClick: (() -> Unit)? = null,
-    onSeekToPreviousLongRepeatableClickEnd: (() -> Unit)? = null,
-    onSeekToNextLongRepeatableClick: (() -> Unit)? = null,
-    onSeekToNextLongRepeatableClickEnd: (() -> Unit)? = null,
-    trackPositionUiModel: TrackPositionUiModel,
-    progressColor: Color = MaterialTheme.colors.primary,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
-    rotateProgressIndicator: Flow<Unit> = flowOf(),
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  playPauseButtonEnabled: Boolean,
+  playing: Boolean,
+  onSeekToPreviousButtonClick: () -> Unit,
+  seekToPreviousButtonEnabled: Boolean,
+  onSeekToNextButtonClick: () -> Unit,
+  seekToNextButtonEnabled: Boolean,
+  modifier: Modifier = Modifier,
+  onSeekToPreviousLongRepeatableClick: (() -> Unit)? = null,
+  onSeekToPreviousLongRepeatableClickEnd: (() -> Unit)? = null,
+  onSeekToNextLongRepeatableClick: (() -> Unit)? = null,
+  onSeekToNextLongRepeatableClickEnd: (() -> Unit)? = null,
+  trackPositionUiModel: TrackPositionUiModel,
+  progressColor: Color = MaterialTheme.colors.primary,
+  colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+  rotateProgressIndicator: Flow<Unit> = flowOf(),
 ) {
-    ControlButtonLayout(
-        modifier = modifier,
-        leftButton = {
-            AnimatedSeekToPreviousButton(
-                modifier = Modifier.fillMaxSize(),
-                onClick = onSeekToPreviousButtonClick,
-                enabled = seekToPreviousButtonEnabled,
-                colors = colors,
-                onLongRepeatableClick = onSeekToPreviousLongRepeatableClick,
-                onLongRepeatableClickEnd = onSeekToPreviousLongRepeatableClickEnd,
-            )
-        },
-        middleButton = {
-            if (trackPositionUiModel.showProgress) {
-                AnimatedPlayPauseProgressButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    trackPositionUiModel = trackPositionUiModel,
-                    modifier = Modifier.fillMaxSize(),
-                    colors = colors,
-                    progressColor = progressColor,
-                    rotateProgressIndicator = rotateProgressIndicator,
-                    iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
-                )
-            } else {
-                AnimatedPlayPauseButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    modifier = Modifier.fillMaxSize(),
-                    colors = colors,
-                    iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
-                )
-            }
-        },
-        rightButton = {
-            AnimatedSeekToNextButton(
-                modifier = Modifier.fillMaxSize(),
-                onClick = onSeekToNextButtonClick,
-                onLongRepeatableClick = onSeekToNextLongRepeatableClick,
-                onLongRepeatableClickEnd = onSeekToNextLongRepeatableClickEnd,
-                enabled = seekToNextButtonEnabled,
-                colors = colors,
-            )
-        },
-    )
+  ControlButtonLayout(
+    modifier = modifier,
+    leftButton = {
+      AnimatedSeekToPreviousButton(
+        modifier = Modifier.fillMaxSize(),
+        onClick = onSeekToPreviousButtonClick,
+        enabled = seekToPreviousButtonEnabled,
+        colors = colors,
+        onLongRepeatableClick = onSeekToPreviousLongRepeatableClick,
+        onLongRepeatableClickEnd = onSeekToPreviousLongRepeatableClickEnd,
+      )
+    },
+    middleButton = {
+      if (trackPositionUiModel.showProgress) {
+        AnimatedPlayPauseProgressButton(
+          onPlayClick = onPlayButtonClick,
+          onPauseClick = onPauseButtonClick,
+          enabled = playPauseButtonEnabled,
+          playing = playing,
+          trackPositionUiModel = trackPositionUiModel,
+          modifier = Modifier.fillMaxSize(),
+          colors = colors,
+          progressColor = progressColor,
+          rotateProgressIndicator = rotateProgressIndicator,
+          iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
+        )
+      } else {
+        AnimatedPlayPauseButton(
+          onPlayClick = onPlayButtonClick,
+          onPauseClick = onPauseButtonClick,
+          enabled = playPauseButtonEnabled,
+          playing = playing,
+          modifier = Modifier.fillMaxSize(),
+          colors = colors,
+          iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
+        )
+      }
+    },
+    rightButton = {
+      AnimatedSeekToNextButton(
+        modifier = Modifier.fillMaxSize(),
+        onClick = onSeekToNextButtonClick,
+        onLongRepeatableClick = onSeekToNextLongRepeatableClick,
+        onLongRepeatableClickEnd = onSeekToNextLongRepeatableClickEnd,
+        enabled = seekToNextButtonEnabled,
+        colors = colors,
+      )
+    },
+  )
 }
 
 /**
@@ -117,47 +117,47 @@ public fun AnimatedMediaControlButtons(
  */
 @Composable
 public fun AnimatedMediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    leftButton: @Composable () -> Unit,
-    rightButton: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    trackPositionUiModel: TrackPositionUiModel,
-    progressColor: Color = MaterialTheme.colors.primary,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
-    rotateProgressIndicator: Flow<Unit> = flowOf(),
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  playPauseButtonEnabled: Boolean,
+  playing: Boolean,
+  leftButton: @Composable () -> Unit,
+  rightButton: @Composable () -> Unit,
+  modifier: Modifier = Modifier,
+  trackPositionUiModel: TrackPositionUiModel,
+  progressColor: Color = MaterialTheme.colors.primary,
+  colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+  rotateProgressIndicator: Flow<Unit> = flowOf(),
 ) {
-    ControlButtonLayout(
-        modifier = modifier,
-        leftButton = leftButton,
-        middleButton = {
-            if (trackPositionUiModel.showProgress) {
-                AnimatedPlayPauseProgressButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    trackPositionUiModel = trackPositionUiModel,
-                    modifier = Modifier.fillMaxSize(),
-                    colors = colors,
-                    progressColor = progressColor,
-                    rotateProgressIndicator = rotateProgressIndicator,
-                    iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
-                )
-            } else {
-                AnimatedPlayPauseButton(
-                    onPlayClick = onPlayButtonClick,
-                    onPauseClick = onPauseButtonClick,
-                    enabled = playPauseButtonEnabled,
-                    playing = playing,
-                    modifier = Modifier.fillMaxSize(),
-                    colors = colors,
-                    iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
-                )
-            }
-        },
-        rightButton = rightButton,
-    )
+  ControlButtonLayout(
+    modifier = modifier,
+    leftButton = leftButton,
+    middleButton = {
+      if (trackPositionUiModel.showProgress) {
+        AnimatedPlayPauseProgressButton(
+          onPlayClick = onPlayButtonClick,
+          onPauseClick = onPauseButtonClick,
+          enabled = playPauseButtonEnabled,
+          playing = playing,
+          trackPositionUiModel = trackPositionUiModel,
+          modifier = Modifier.fillMaxSize(),
+          colors = colors,
+          progressColor = progressColor,
+          rotateProgressIndicator = rotateProgressIndicator,
+          iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
+        )
+      } else {
+        AnimatedPlayPauseButton(
+          onPlayClick = onPlayButtonClick,
+          onPauseClick = onPauseButtonClick,
+          enabled = playPauseButtonEnabled,
+          playing = playing,
+          modifier = Modifier.fillMaxSize(),
+          colors = colors,
+          iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
+        )
+      }
+    },
+    rightButton = rightButton,
+  )
 }

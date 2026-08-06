@@ -26,38 +26,36 @@ import androidx.wear.compose.material.ProgressIndicatorDefaults
 
 @Composable
 fun ProgressIndicatorAudit(route: AuditNavigation.ProgressIndicator.Audit) {
-    when (route.config) {
-        AuditNavigation.ProgressIndicator.Config.GapAtTop -> {
-            CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize().padding(1.dp),
-                startAngle = 270f + (51f / 2f),
-                endAngle = 270f - (51f / 2f),
-                progress = 0.3f,
-                strokeWidth = ProgressIndicatorDefaults.FullScreenStrokeWidth,
-            )
-        }
-
-        AuditNavigation.ProgressIndicator.Config.GapAtBottom -> {
-            CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize().padding(1.dp),
-                startAngle = 90f + (51f / 2f),
-                endAngle = 90f - (51f / 2f),
-                progress = 0.3f,
-                strokeWidth = ProgressIndicatorDefaults.FullScreenStrokeWidth,
-            )
-        }
-
-        AuditNavigation.ProgressIndicator.Config.WithoutGap -> {
-            CircularProgressIndicator(
-                0.40f,
-                modifier = Modifier.fillMaxSize().padding(1.dp),
-            )
-        }
-
-        AuditNavigation.ProgressIndicator.Config.Indeterminate -> {
-            CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize().padding(1.dp),
-            )
-        }
+  when (route.config) {
+    AuditNavigation.ProgressIndicator.Config.GapAtTop -> {
+      CircularProgressIndicator(
+        modifier = Modifier.fillMaxSize().padding(1.dp),
+        startAngle = 270f + (51f / 2f),
+        endAngle = 270f - (51f / 2f),
+        progress = 0.3f,
+        strokeWidth = ProgressIndicatorDefaults.FullScreenStrokeWidth,
+      )
     }
+
+    AuditNavigation.ProgressIndicator.Config.GapAtBottom -> {
+      CircularProgressIndicator(
+        modifier = Modifier.fillMaxSize().padding(1.dp),
+        startAngle = 90f + (51f / 2f),
+        endAngle = 90f - (51f / 2f),
+        progress = 0.3f,
+        strokeWidth = ProgressIndicatorDefaults.FullScreenStrokeWidth,
+      )
+    }
+
+    AuditNavigation.ProgressIndicator.Config.WithoutGap -> {
+      CircularProgressIndicator(
+        0.40f,
+        modifier = Modifier.fillMaxSize().padding(1.dp),
+      )
+    }
+
+    AuditNavigation.ProgressIndicator.Config.Indeterminate -> {
+      CircularProgressIndicator(modifier = Modifier.fillMaxSize().padding(1.dp))
+    }
+  }
 }

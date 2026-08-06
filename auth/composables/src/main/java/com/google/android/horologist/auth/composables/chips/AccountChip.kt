@@ -36,24 +36,24 @@ import com.google.android.horologist.images.base.paintable.Paintable
  */
 @Composable
 public fun AccountChip(
-    account: AccountUiModel,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
-    largeAvatar: Boolean = true,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true,
+  account: AccountUiModel,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
+  largeAvatar: Boolean = true,
+  colors: ChipColors = ChipDefaults.primaryChipColors(),
+  enabled: Boolean = true,
 ) {
-    AccountChip(
-        email = account.email,
-        onClick = onClick,
-        modifier = modifier,
-        avatar = account.avatar,
-        defaultAvatar = defaultAvatar,
-        largeAvatar = largeAvatar,
-        colors = colors,
-        enabled = enabled,
-    )
+  AccountChip(
+    email = account.email,
+    onClick = onClick,
+    modifier = modifier,
+    avatar = account.avatar,
+    defaultAvatar = defaultAvatar,
+    largeAvatar = largeAvatar,
+    colors = colors,
+    enabled = enabled,
+  )
 }
 
 /**
@@ -63,34 +63,37 @@ public fun AccountChip(
  */
 @Composable
 public fun AccountChip(
-    email: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    avatar: Paintable? = null,
-    defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
-    largeAvatar: Boolean = true,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true,
+  email: String,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  avatar: Paintable? = null,
+  defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
+  largeAvatar: Boolean = true,
+  colors: ChipColors = ChipDefaults.primaryChipColors(),
+  enabled: Boolean = true,
 ) {
-    MaterialTheme(
-        typography = MaterialTheme.typography.copy(
-            button = MaterialTheme.typography.button.copy(
-                lineBreak = LineBreak(
-                    strategy = LineBreak.Strategy.Balanced,
-                    strictness = LineBreak.Strictness.Normal,
-                    wordBreak = LineBreak.WordBreak.Default,
-                ),
-            ),
-        ),
-    ) {
-        Chip(
-            label = email,
-            onClick = onClick,
-            modifier = modifier,
-            icon = avatar ?: defaultAvatar,
-            largeIcon = largeAvatar,
-            colors = colors,
-            enabled = enabled,
-        )
-    }
+  MaterialTheme(
+    typography =
+      MaterialTheme.typography.copy(
+        button =
+          MaterialTheme.typography.button.copy(
+            lineBreak =
+              LineBreak(
+                strategy = LineBreak.Strategy.Balanced,
+                strictness = LineBreak.Strictness.Normal,
+                wordBreak = LineBreak.WordBreak.Default,
+              )
+          )
+      )
+  ) {
+    Chip(
+      label = email,
+      onClick = onClick,
+      modifier = modifier,
+      icon = avatar ?: defaultAvatar,
+      largeIcon = largeAvatar,
+      colors = colors,
+      enabled = enabled,
+    )
+  }
 }

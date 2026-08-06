@@ -24,61 +24,61 @@ import org.junit.Test
 
 class ToggleChipA11yTest : WearLegacyA11yTest() {
 
-    @Test
-    fun withSecondaryLabelAndIcon() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image.asPaintable(),
-                secondaryLabel = "Secondary label",
-            )
-        }
+  @Test
+  fun withSecondaryLabelAndIcon() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = "Primary label",
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icons.Default.Image.asPaintable(),
+        secondaryLabel = "Secondary label",
+      )
     }
+  }
 
-    @Test
-    fun unchecked() {
-        runComponentTest {
-            ToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image.asPaintable(),
-                secondaryLabel = "Secondary label",
-            )
-        }
+  @Test
+  fun unchecked() {
+    runComponentTest {
+      ToggleChip(
+        checked = false,
+        onCheckedChanged = {},
+        label = "Primary label",
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icons.Default.Image.asPaintable(),
+        secondaryLabel = "Secondary label",
+      )
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            ToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image.asPaintable(),
-                secondaryLabel = "Secondary label",
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      ToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = "Primary label",
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icons.Default.Image.asPaintable(),
+        secondaryLabel = "Secondary label",
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun uncheckedAndDisabled() {
-        runComponentTest {
-            ToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = "Primary label",
-                toggleControl = ToggleChipToggleControl.Switch,
-                icon = Icons.Default.Image.asPaintable(),
-                secondaryLabel = "Secondary label",
-                enabled = false,
-            )
-        }
+  @Test
+  fun uncheckedAndDisabled() {
+    runComponentTest {
+      ToggleChip(
+        checked = false,
+        onCheckedChanged = {},
+        label = "Primary label",
+        toggleControl = ToggleChipToggleControl.Switch,
+        icon = Icons.Default.Image.asPaintable(),
+        secondaryLabel = "Secondary label",
+        enabled = false,
+      )
     }
+  }
 }

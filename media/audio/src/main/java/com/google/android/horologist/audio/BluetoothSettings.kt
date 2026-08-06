@@ -21,26 +21,25 @@ import android.content.Intent
 import android.provider.Settings
 
 /**
- * Support for launching the user directly into the bluetooth settings page in order to connect
- * to a headset.
+ * Support for launching the user directly into the bluetooth settings page in order to connect to a
+ * headset.
  *
  * https://developer.android.com/training/wearables/overlays/audio?hl=ca
  */
 public object BluetoothSettings {
-    /**
-     * Open the bluetooth settings activity and optionally close after connection established.
-     */
-    public fun Context.launchBluetoothSettings(closeOnConnect: Boolean = true) {
-        val intent = with(Intent(Settings.ACTION_BLUETOOTH_SETTINGS)) {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-            putExtra("EXTRA_CONNECTION_ONLY", true)
-            if (closeOnConnect) {
-                putExtra("EXTRA_CLOSE_ON_CONNECT", true)
-            }
-            putExtra("android.bluetooth.devicepicker.extra.FILTER_TYPE", FILTER_TYPE_AUDIO)
+  /** Open the bluetooth settings activity and optionally close after connection established. */
+  public fun Context.launchBluetoothSettings(closeOnConnect: Boolean = true) {
+    val intent =
+      with(Intent(Settings.ACTION_BLUETOOTH_SETTINGS)) {
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        putExtra("EXTRA_CONNECTION_ONLY", true)
+        if (closeOnConnect) {
+          putExtra("EXTRA_CLOSE_ON_CONNECT", true)
         }
-        startActivity(intent)
-    }
+        putExtra("android.bluetooth.devicepicker.extra.FILTER_TYPE", FILTER_TYPE_AUDIO)
+      }
+    startActivity(intent)
+  }
 
-    internal const val FILTER_TYPE_AUDIO = 1
+  internal const val FILTER_TYPE_AUDIO = 1
 }

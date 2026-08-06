@@ -35,126 +35,106 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 
 @Composable
 fun SampleMenu(
-    columnState: ScalingLazyColumnState,
-    borders: (DrawScope.() -> Unit)? = null,
-    items: ScalingLazyListScope.() -> Unit,
+  columnState: ScalingLazyColumnState,
+  borders: (DrawScope.() -> Unit)? = null,
+  items: ScalingLazyListScope.() -> Unit,
 ) {
-    SampleTheme {
-        AppScaffold(timeText = {
-            TimeText(
-                timeSource = object : TimeSource {
-                    override val currentTime: String
-                        @Composable get() = "9:30"
-                },
-            )
-        }) {
-            ScreenScaffold(scrollState = columnState) {
-                ScalingLazyColumn(columnState = columnState) {
-                    items()
-                }
+  SampleTheme {
+    AppScaffold(
+      timeText = {
+        TimeText(
+          timeSource =
+            object : TimeSource {
+              override val currentTime: String
+                @Composable get() = "9:30"
             }
-        }
-
-        if (borders != null) {
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                borders()
-            }
-        }
+        )
+      }
+    ) {
+      ScreenScaffold(scrollState = columnState) {
+        ScalingLazyColumn(columnState = columnState) { items() }
+      }
     }
+
+    if (borders != null) {
+      Canvas(modifier = Modifier.fillMaxSize()) { borders() }
+    }
+  }
 }
 
 @Composable
 fun SampleMenu(
-    columnState: ScalingLazyColumnState,
-    before:
-        @Composable()
-        (() -> Unit)? = null,
-    after:
-        @Composable()
-        (() -> Unit)? = null,
-    borders: (DrawScope.() -> Unit)? = null,
+  columnState: ScalingLazyColumnState,
+  before: @Composable() (() -> Unit)? = null,
+  after: @Composable() (() -> Unit)? = null,
+  borders: (DrawScope.() -> Unit)? = null,
 ) {
-    SampleMenu(borders = borders, columnState = columnState) {
-        chipMenu(before, after)
-    }
+  SampleMenu(borders = borders, columnState = columnState) { chipMenu(before, after) }
 }
 
 fun ScalingLazyListScope.chipMenu(
-    before: @Composable (() -> Unit)? = null,
-    after: @Composable (() -> Unit)? = null,
+  before: @Composable (() -> Unit)? = null,
+  after: @Composable (() -> Unit)? = null,
 ) {
-    if (before != null) {
-        item {
-            before()
-        }
-    }
-    item {
-        ConnectivityChip()
-    }
-    item {
-        AppsChip()
-    }
-    item {
-        SoundChip()
-    }
-    item {
-        AccountsChip()
-    }
-    item {
-        SystemChip()
-    }
-    if (after != null) {
-        item {
-            after()
-        }
-    }
+  if (before != null) {
+    item { before() }
+  }
+  item { ConnectivityChip() }
+  item { AppsChip() }
+  item { SoundChip() }
+  item { AccountsChip() }
+  item { SystemChip() }
+  if (after != null) {
+    item { after() }
+  }
 }
 
 @Composable
 private fun SampleTheme(content: @Composable () -> Unit) {
-    MaterialTheme(
-        colors = MaterialTheme.colors.copy(
-            primary = Color.DarkGray,
-            onPrimary = Color.White,
-        ),
-    ) {
-        content()
-    }
+  MaterialTheme(
+    colors =
+      MaterialTheme.colors.copy(
+        primary = Color.DarkGray,
+        onPrimary = Color.White,
+      )
+  ) {
+    content()
+  }
 }
 
 fun DrawScope.top(fl: Float) {
-    drawRect(
-        color = MagentaIsh,
-        alpha = 0.4f,
-        topLeft = Offset.Zero,
-        size = Size(this.size.width, this.size.height * fl),
-    )
+  drawRect(
+    color = MagentaIsh,
+    alpha = 0.4f,
+    topLeft = Offset.Zero,
+    size = Size(this.size.width, this.size.height * fl),
+  )
 }
 
 fun DrawScope.bottom(fl: Float) {
-    val height = this.size.height * fl
-    drawRect(
-        color = MagentaIsh,
-        alpha = 0.4f,
-        topLeft = Offset(x = 0f, y = this.size.height - height),
-        size = Size(this.size.width, height),
-    )
+  val height = this.size.height * fl
+  drawRect(
+    color = MagentaIsh,
+    alpha = 0.4f,
+    topLeft = Offset(x = 0f, y = this.size.height - height),
+    size = Size(this.size.width, height),
+  )
 }
 
 fun DrawScope.side(fl: Float, offset: Float = 0f, color: Color = MagentaIsh) {
-    val width = this.size.width * fl
-    drawRect(
-        color = color,
-        alpha = 0.4f,
-        topLeft = Offset(x = 0f + offset * this.size.width, y = 0f),
-        size = Size(width, this.size.height),
-    )
-    drawRect(
-        color = color,
-        alpha = 0.4f,
-        topLeft = Offset(x = this.size.width - width - offset * this.size.width, y = 0f),
-        size = Size(width, this.size.height),
-    )
+  val width = this.size.width * fl
+  drawRect(
+    color = color,
+    alpha = 0.4f,
+    topLeft = Offset(x = 0f + offset * this.size.width, y = 0f),
+    size = Size(width, this.size.height),
+  )
+  drawRect(
+    color = color,
+    alpha = 0.4f,
+    topLeft = Offset(x = this.size.width - width - offset * this.size.width, y = 0f),
+    size = Size(width, this.size.height),
+  )
 }
 
 val MagentaIsh = Color.Magenta

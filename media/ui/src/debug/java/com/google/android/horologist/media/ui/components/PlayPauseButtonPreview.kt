@@ -20,61 +20,61 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
 @Preview(
-    "Enabled - Playing",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  "Enabled - Playing",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun PlayPauseButtonPreviewPlaying() {
-    PlayPauseButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        enabled = true,
-        playing = true,
-    )
+  PlayPauseButton(
+    onPlayClick = {},
+    onPauseClick = {},
+    enabled = true,
+    playing = true,
+  )
 }
 
 @Preview(
-    "Enabled - Not playing",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  "Enabled - Not playing",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun PlayPauseButtonPreviewNotPlaying() {
-    PlayPauseButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        enabled = true,
-        playing = false,
-    )
+  PlayPauseButton(
+    onPlayClick = {},
+    onPauseClick = {},
+    enabled = true,
+    playing = false,
+  )
 }
 
 @Preview(
-    "Disabled - Playing",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  "Disabled - Playing",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun PlayPauseButtonPreviewDisabledPlaying() {
-    PlayPauseButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        enabled = false,
-        playing = true,
-    )
+  PlayPauseButton(
+    onPlayClick = {},
+    onPauseClick = {},
+    enabled = false,
+    playing = true,
+  )
 }
 
 @Preview(
-    "Disabled - Not playing",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  "Disabled - Not playing",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun PlayPauseButtonPreviewDisabledNotPlaying() {
-    PlayPauseButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        enabled = false,
-        playing = false,
-    )
+  PlayPauseButton(
+    onPlayClick = {},
+    onPauseClick = {},
+    enabled = false,
+    playing = false,
+  )
 }

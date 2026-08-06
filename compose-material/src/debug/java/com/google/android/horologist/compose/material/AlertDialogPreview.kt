@@ -22,30 +22,31 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @WearPreviewDevices
 @Composable
 fun AlertDialogPreview() {
-    AlertContent(
-        title = "Title",
-        message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        onCancel = { },
-        onOk = { },
-        okButtonContentDescription = "Ok",
-        cancelButtonContentDescription = "Cancel",
-    )
+  AlertContent(
+    title = "Title",
+    message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    onCancel = {},
+    onOk = {},
+    okButtonContentDescription = "Ok",
+    cancelButtonContentDescription = "Cancel",
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun AlertDialogWithLongBodyPreview() {
-    AlertContent(
-        title = "Title",
-        message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
-            "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud " +
-            "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute " +
-            "irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
-            "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia " +
-            "deserunt mollit anim id est laborum.",
-        onCancel = { },
-        onOk = { },
-        okButtonContentDescription = "Ok",
-        cancelButtonContentDescription = "Cancel",
-    )
+  AlertContent(
+    title = "Title",
+    message =
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
+        "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud " +
+        "exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute " +
+        "irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla " +
+        "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia " +
+        "deserunt mollit anim id est laborum.",
+    onCancel = {},
+    onOk = {},
+    okButtonContentDescription = "Ok",
+    cancelButtonContentDescription = "Cancel",
+  )
 }

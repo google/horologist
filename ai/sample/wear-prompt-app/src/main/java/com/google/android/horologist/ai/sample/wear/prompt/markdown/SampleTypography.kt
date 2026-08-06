@@ -31,43 +31,47 @@ import com.mikepenz.markdown.model.DefaultMarkdownTypography
 
 @Composable
 fun sampleTypography(): DefaultMarkdownTypography {
-    val link = MaterialTheme.typography.bodyMedium.copy(
-        fontWeight = FontWeight.Bold,
-        textDecoration = TextDecoration.Underline,
-        color = Color.Blue,
+  val link =
+    MaterialTheme.typography.bodyMedium.copy(
+      fontWeight = FontWeight.Bold,
+      textDecoration = TextDecoration.Underline,
+      color = Color.Blue,
     )
-    val text = MaterialTheme.typography.bodyMedium
-    return DefaultMarkdownTypography(
-        h1 = MaterialTheme.typography.titleLarge,
-        h2 = MaterialTheme.typography.titleMedium,
-        h3 = MaterialTheme.typography.titleSmall,
-        h4 = MaterialTheme.typography.displayLarge,
-        h5 = MaterialTheme.typography.displayMedium,
-        h6 = MaterialTheme.typography.displaySmall,
-        text = text,
-        code = MaterialTheme.typography.bodyMedium.copy(
-            fontFamily = FontFamily.Monospace,
-            color = LocalContentColor.current,
-        ),
-        quote = MaterialTheme.typography.bodyMedium.plus(SpanStyle(fontStyle = FontStyle.Italic)),
-        paragraph = MaterialTheme.typography.bodyLarge,
-        ordered = MaterialTheme.typography.bodyLarge,
-        bullet = MaterialTheme.typography.bodyLarge,
-        list = MaterialTheme.typography.bodyLarge,
-        inlineCode = MaterialTheme.typography.bodyLarge.copy(
-            fontFamily = FontFamily.Monospace,
-            color = LocalContentColor.current,
-        ),
-        textLink = TextLinkStyles(style = link.toSpanStyle()),
-        table = text.copy(color = Color.Unspecified),
-    )
+  val text = MaterialTheme.typography.bodyMedium
+  return DefaultMarkdownTypography(
+    h1 = MaterialTheme.typography.titleLarge,
+    h2 = MaterialTheme.typography.titleMedium,
+    h3 = MaterialTheme.typography.titleSmall,
+    h4 = MaterialTheme.typography.displayLarge,
+    h5 = MaterialTheme.typography.displayMedium,
+    h6 = MaterialTheme.typography.displaySmall,
+    text = text,
+    code =
+      MaterialTheme.typography.bodyMedium.copy(
+        fontFamily = FontFamily.Monospace,
+        color = LocalContentColor.current,
+      ),
+    quote = MaterialTheme.typography.bodyMedium.plus(SpanStyle(fontStyle = FontStyle.Italic)),
+    paragraph = MaterialTheme.typography.bodyLarge,
+    ordered = MaterialTheme.typography.bodyLarge,
+    bullet = MaterialTheme.typography.bodyLarge,
+    list = MaterialTheme.typography.bodyLarge,
+    inlineCode =
+      MaterialTheme.typography.bodyLarge.copy(
+        fontFamily = FontFamily.Monospace,
+        color = LocalContentColor.current,
+      ),
+    textLink = TextLinkStyles(style = link.toSpanStyle()),
+    table = text.copy(color = Color.Unspecified),
+  )
 }
 
 @Composable
-fun sampleColors() = DefaultMarkdownColors(
+fun sampleColors() =
+  DefaultMarkdownColors(
     text = Color.White,
     codeBackground = MaterialTheme.colorScheme.background,
     inlineCodeBackground = MaterialTheme.colorScheme.background,
     dividerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f),
     tableBackground = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.02f),
-)
+  )

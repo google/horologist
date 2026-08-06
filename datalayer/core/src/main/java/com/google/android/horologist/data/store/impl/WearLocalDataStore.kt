@@ -28,6 +28,8 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.TargetNodeId
 import com.google.android.horologist.data.WearDataLayerRegistry
 import com.google.android.horologist.data.WearDataLayerRegistry.Companion.buildUri
+import java.io.ByteArrayInputStream
+import java.io.ByteArrayOutputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
@@ -40,87 +42,83 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.tasks.await
-import java.io.ByteArrayInputStream
-import java.io.ByteArrayOutputStream
 
 @ExperimentalHorologistApi
 public class WearLocalDataStore<T>(
-    private val wearDataLayerRegistry: WearDataLayerRegistry,
-    started: SharingStarted = SharingStarted.Eagerly,
-    coroutineScope: CoroutineScope,
-    private val serializer: Serializer<T>,
-    private val path: String,
+  private val wearDataLayerRegistry: WearDataLayerRegistry,
+  started: SharingStarted = SharingStarted.Eagerly,
+  coroutineScope: CoroutineScope,
+  private val serializer: Serializer<T>,
+  private val path: String,
 ) : DataStore<T> {
-    private val nodeIdFlow = nodeIdFlow().shareIn(coroutineScope, started = started, replay = 1)
+  private val nodeIdFlow = nodeIdFlow().shareIn(coroutineScope, started = started, replay = 1)
 
-    private val mutex = Mutex()
+  private val mutex = Mutex()
 
-    val dataClient: DataClient
-        get() = wearDataLayerRegistry.dataClient
+  val dataClient: DataClient
+    get() = wearDataLayerRegistry.dataClient
 
-    private fun nodeIdFlow() = flow {
-        val nodeId = TargetNodeId.ThisNodeId.evaluate(wearDataLayerRegistry)
-        emit(
-            NodeIdAndPath(
-                nodeId = nodeId,
-                fullPath = buildUri(nodeId, path),
-            ),
-        )
-    }
+  private fun nodeIdFlow() = flow {
+    val nodeId = TargetNodeId.ThisNodeId.evaluate(wearDataLayerRegistry)
+    emit(
+      NodeIdAndPath(
+        nodeId = nodeId,
+        fullPath = buildUri(nodeId, path),
+      )
+    )
+  }
 
-    private val sharedFlow: SharedFlow<T> = nodeIdFlow.flatMapLatest { (nodeId, _) ->
+  private val sharedFlow: SharedFlow<T> =
+    nodeIdFlow
+      .flatMapLatest { (nodeId, _) ->
         dataClient.dataItemFlow(
-            nodeId,
-            path,
-            serializer,
+          nodeId,
+          path,
+          serializer,
         )
-    }.shareIn(coroutineScope, started = SharingStarted.Eagerly, replay = 1)
+      }
+      .shareIn(coroutineScope, started = SharingStarted.Eagerly, replay = 1)
 
-    override val data: Flow<T> = sharedFlow
+  override val data: Flow<T> = sharedFlow
 
-    private suspend fun writeBytes(t: T): ByteArray {
-        return ByteArrayOutputStream().apply {
-            serializer.writeTo(t, this)
-        }.toByteArray()
+  private suspend fun writeBytes(t: T): ByteArray {
+    return ByteArrayOutputStream().apply { serializer.writeTo(t, this) }.toByteArray()
+  }
+
+  override suspend fun updateData(transform: suspend (t: T) -> T): T = mutex.withLock {
+    val nodeId = nodeIdFlow.first()
+
+    val oldT = readExistingValue(nodeId)
+    val newT = transform(oldT)
+
+    if (newT == null) {
+      dataClient.deleteDataItems(nodeId.fullPath).await()
+    } else if (newT != oldT) {
+      val request = PutDataRequest.create(path).apply { data = writeBytes(newT) }
+
+      dataClient.putDataItem(request).await()
     }
 
-    override suspend fun updateData(transform: suspend (t: T) -> T): T = mutex.withLock {
-        val nodeId = nodeIdFlow.first()
+    return newT
+  }
 
-        val oldT = readExistingValue(nodeId)
-        val newT = transform(oldT)
+  private suspend fun readExistingValue(nodeId: NodeIdAndPath): T {
+    try {
+      val data = dataClient.getDataItem(buildUri(nodeId.nodeId, path)).await().data
 
-        if (newT == null) {
-            dataClient.deleteDataItems(nodeId.fullPath)
-                .await()
-        } else if (newT != oldT) {
-            val request = PutDataRequest.create(path).apply {
-                data = writeBytes(newT)
-            }
-
-            dataClient.putDataItem(request).await()
-        }
-
-        return newT
+      if (data != null) {
+        return serializer.readFrom(ByteArrayInputStream(data))
+      }
+    } catch (e: Exception) {
+      // TODO introduce CorruptionHandler
+      Log.w("WearLocalDataStore", "Corrupted data for DataStore")
     }
 
-    private suspend fun readExistingValue(nodeId: NodeIdAndPath): T {
-        try {
-            val data = dataClient.getDataItem(buildUri(nodeId.nodeId, path)).await().data
-
-            if (data != null) {
-                return serializer.readFrom(ByteArrayInputStream(data))
-            }
-        } catch (e: Exception) {
-            // TODO introduce CorruptionHandler
-            Log.w("WearLocalDataStore", "Corrupted data for DataStore")
-        }
-
-        return serializer.defaultValue
-    }
+    return serializer.defaultValue
+  }
 }
 
 data class NodeIdAndPath(
-    val nodeId: String,
-    val fullPath: Uri,
+  val nodeId: String,
+  val fullPath: Uri,
 )

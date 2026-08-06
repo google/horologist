@@ -19,4 +19,4 @@ package com.google.android.horologist.mediasample.data.service.offload
 import androidx.media3.common.Format
 
 internal val Format.shortDescription: String
-    get() = "$sampleMimeType $sampleRate"
+  get() = "$sampleMimeType $sampleRate"

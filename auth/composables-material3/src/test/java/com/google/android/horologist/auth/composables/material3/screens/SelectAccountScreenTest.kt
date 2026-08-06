@@ -24,52 +24,54 @@ import org.junit.Test
 
 class SelectAccountScreenTest : WearLegacyScreenTest() {
 
-    @Test
-    fun selectAccountScreen() {
-        runTest {
-            SelectAccountScreen(
-                accounts = listOf(
-                    AccountUiModel(
-                        email = "timandrews123@example.com",
-                        name = "Timothy Andrews",
-                        avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_1),
-                    ),
-                    AccountUiModel(
-                        email = "thisisaverylongemailaccountsample@example.com",
-                        name = "Kim Wong",
-                        avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_2),
-                    ),
-                ),
-                onAccountClicked = { _, _ -> },
-                title = "Select Account",
-            )
-        }
+  @Test
+  fun selectAccountScreen() {
+    runTest {
+      SelectAccountScreen(
+        accounts =
+          listOf(
+            AccountUiModel(
+              email = "timandrews123@example.com",
+              name = "Timothy Andrews",
+              avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_1),
+            ),
+            AccountUiModel(
+              email = "thisisaverylongemailaccountsample@example.com",
+              name = "Kim Wong",
+              avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_2),
+            ),
+          ),
+        onAccountClicked = { _, _ -> },
+        title = "Select Account",
+      )
     }
+  }
 
-    @Test
-    fun selectAccountScreenNoAvatar() {
-        runTest {
-            SelectAccountScreen(
-                accounts = listOf(
-                    AccountUiModel(
-                        email = "thisisaverylongemailaccountsample@example.com",
-                        name = "Extenta Namuratus Hereditus III",
-                        avatar = null,
-                    ),
-                    AccountUiModel(
-                        email = "timandrews123@example.com",
-                        name = "Timothy Andrews",
-                        avatar = null,
-                    ),
-                    AccountUiModel(
-                        email = "thisisaverylongemailaccountsample@example.com",
-                        name = "Kim Wong",
-                        avatar = null,
-                    ),
-                ),
-                onAccountClicked = { _, _ -> },
-                title = "Select Account",
-            )
-        }
+  @Test
+  fun selectAccountScreenNoAvatar() {
+    runTest {
+      SelectAccountScreen(
+        accounts =
+          listOf(
+            AccountUiModel(
+              email = "thisisaverylongemailaccountsample@example.com",
+              name = "Extenta Namuratus Hereditus III",
+              avatar = null,
+            ),
+            AccountUiModel(
+              email = "timandrews123@example.com",
+              name = "Timothy Andrews",
+              avatar = null,
+            ),
+            AccountUiModel(
+              email = "thisisaverylongemailaccountsample@example.com",
+              name = "Kim Wong",
+              avatar = null,
+            ),
+          ),
+        onAccountClicked = { _, _ -> },
+        title = "Select Account",
+      )
     }
+  }
 }

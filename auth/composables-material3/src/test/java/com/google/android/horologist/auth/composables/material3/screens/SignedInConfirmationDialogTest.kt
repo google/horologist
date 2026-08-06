@@ -25,73 +25,73 @@ import org.junit.Test
 
 class SignedInConfirmationDialogTest : WearLegacyScreenTest() {
 
-    @Test
-    fun signedInConfirmationDialog() {
-        runTest {
-            SignedInConfirmationDialogContent(
-                modifier = Modifier.fillMaxSize(),
-                name = "Maggie",
-                email = "maggie123@example.com",
-                avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
-            )
-        }
+  @Test
+  fun signedInConfirmationDialog() {
+    runTest {
+      SignedInConfirmationDialogContent(
+        modifier = Modifier.fillMaxSize(),
+        name = "Maggie",
+        email = "maggie123@example.com",
+        avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
+      )
     }
+  }
 
-    @Test
-    fun signedInLongEmailAndName() {
-        runTest {
-            SignedInConfirmationDialogContent(
-                modifier = Modifier.fillMaxSize(),
-                name = "Extenta Namuratus Hereditus III",
-                email = "thisisaverylongemailaccountsample@example.com",
-                avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
-            )
-        }
+  @Test
+  fun signedInLongEmailAndName() {
+    runTest {
+      SignedInConfirmationDialogContent(
+        modifier = Modifier.fillMaxSize(),
+        name = "Extenta Namuratus Hereditus III",
+        email = "thisisaverylongemailaccountsample@example.com",
+        avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
+      )
     }
+  }
 
-    @Test
-    fun signedInConfirmationNoAvatar() {
-        runTest {
-            SignedInConfirmationDialogContent(
-                modifier = Modifier.fillMaxSize(),
-                name = "Maggie",
-                email = "maggie123@example.com",
-            )
-        }
+  @Test
+  fun signedInConfirmationNoAvatar() {
+    runTest {
+      SignedInConfirmationDialogContent(
+        modifier = Modifier.fillMaxSize(),
+        name = "Maggie",
+        email = "maggie123@example.com",
+      )
     }
+  }
 
-    @Test
-    fun signedInConfirmationNoAvatarEmailName() {
-        runTest {
-            SignedInConfirmationDialogContent(
-                modifier = Modifier.fillMaxSize(),
-                name = null,
-                email = null,
-            )
-        }
+  @Test
+  fun signedInConfirmationNoAvatarEmailName() {
+    runTest {
+      SignedInConfirmationDialogContent(
+        modifier = Modifier.fillMaxSize(),
+        name = null,
+        email = null,
+      )
     }
+  }
 
-    @Test
-    fun signedInConfirmationDialogNoName() {
-        runTest {
-            SignedInConfirmationDialogContent(
-                modifier = Modifier.fillMaxSize(),
-                name = null,
-                email = "maggie123@example.com",
-                avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
-            )
-        }
+  @Test
+  fun signedInConfirmationDialogNoName() {
+    runTest {
+      SignedInConfirmationDialogContent(
+        modifier = Modifier.fillMaxSize(),
+        name = null,
+        email = "maggie123@example.com",
+        avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
+      )
     }
+  }
 
-    @Test
-    fun signedInConfirmationDialogNoEmail() {
-        runTest {
-            SignedInConfirmationDialogContent(
-                modifier = Modifier.fillMaxSize(),
-                name = "Maggie",
-                email = null,
-                avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
-            )
-        }
+  @Test
+  fun signedInConfirmationDialogNoEmail() {
+    runTest {
+      SignedInConfirmationDialogContent(
+        modifier = Modifier.fillMaxSize(),
+        name = "Maggie",
+        email = null,
+        avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
+      )
     }
+  }
 }

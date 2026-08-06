@@ -29,80 +29,82 @@ import com.google.android.horologist.media.ui.uamp.UampTheme
 @WearPreviewDevices
 @Composable
 fun PlaylistDownloadBrowseScreenPreview() {
-    PlaylistDownloadBrowseScreen(
-        browseScreenState = BrowseScreenState.Loaded(downloadList),
-        onDownloadItemClick = { },
-        onDownloadItemInProgressClick = { },
-        onPlaylistsClick = { },
-        onSettingsClick = { },
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.AutoMirrored.Default.FeaturedPlayList,
-            tintColor = Color.Green,
-        ),
-    )
+  PlaylistDownloadBrowseScreen(
+    browseScreenState = BrowseScreenState.Loaded(downloadList),
+    onDownloadItemClick = {},
+    onDownloadItemInProgressClick = {},
+    onPlaylistsClick = {},
+    onSettingsClick = {},
+    downloadItemArtworkPlaceholder =
+      rememberVectorPainter(
+        image = Icons.AutoMirrored.Default.FeaturedPlayList,
+        tintColor = Color.Green,
+      ),
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewNoDownloads() {
-    PlaylistDownloadBrowseScreen(
-        browseScreenState = BrowseScreenState.Loaded(emptyList()),
-        onDownloadItemClick = { },
-        onDownloadItemInProgressClick = { },
-        onPlaylistsClick = { },
-        onSettingsClick = { },
-    )
+  PlaylistDownloadBrowseScreen(
+    browseScreenState = BrowseScreenState.Loaded(emptyList()),
+    onDownloadItemClick = {},
+    onDownloadItemInProgressClick = {},
+    onPlaylistsClick = {},
+    onSettingsClick = {},
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewLoading() {
-    PlaylistDownloadBrowseScreen(
-        browseScreenState = BrowseScreenState.Loading,
-        onDownloadItemClick = { },
-        onDownloadItemInProgressClick = { },
-        onPlaylistsClick = { },
-        onSettingsClick = { },
-    )
+  PlaylistDownloadBrowseScreen(
+    browseScreenState = BrowseScreenState.Loading,
+    onDownloadItemClick = {},
+    onDownloadItemInProgressClick = {},
+    onPlaylistsClick = {},
+    onSettingsClick = {},
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
-    UampTheme {
-        PlaylistDownloadBrowseScreen(
-            browseScreenState = BrowseScreenState.Loaded(downloadList),
-            onDownloadItemClick = { },
-            onDownloadItemInProgressClick = { },
-            onPlaylistsClick = { },
-            onSettingsClick = { },
-            downloadItemArtworkPlaceholder = rememberVectorPainter(
-                image = Icons.AutoMirrored.Default.FeaturedPlayList,
-                tintColor = Color.Green,
-            ),
-        )
-    }
+  UampTheme {
+    PlaylistDownloadBrowseScreen(
+      browseScreenState = BrowseScreenState.Loaded(downloadList),
+      onDownloadItemClick = {},
+      onDownloadItemInProgressClick = {},
+      onPlaylistsClick = {},
+      onSettingsClick = {},
+      downloadItemArtworkPlaceholder =
+        rememberVectorPainter(
+          image = Icons.AutoMirrored.Default.FeaturedPlayList,
+          tintColor = Color.Green,
+        ),
+    )
+  }
 }
 
 private val downloadList = buildList {
-    add(
-        PlaylistDownloadUiModel.InProgress(
-            PlaylistUiModel(
-                id = "id",
-                title = "Rock Classics",
-                artworkUri = "https://www.example.com/album1.png",
-            ),
-            percentage = 15,
-        ),
+  add(
+    PlaylistDownloadUiModel.InProgress(
+      PlaylistUiModel(
+        id = "id",
+        title = "Rock Classics",
+        artworkUri = "https://www.example.com/album1.png",
+      ),
+      percentage = 15,
     )
+  )
 
-    add(
-        PlaylistDownloadUiModel.Completed(
-            PlaylistUiModel(
-                id = "id",
-                title = "Pop Punk",
-                artworkUri = "https://www.example.com/album2.png",
-            ),
-        ),
+  add(
+    PlaylistDownloadUiModel.Completed(
+      PlaylistUiModel(
+        id = "id",
+        title = "Pop Punk",
+        artworkUri = "https://www.example.com/album2.png",
+      )
     )
+  )
 }

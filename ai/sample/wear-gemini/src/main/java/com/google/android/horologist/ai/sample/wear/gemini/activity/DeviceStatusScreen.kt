@@ -34,30 +34,30 @@ import coil.compose.AsyncImage
 
 @Composable
 fun DeviceStatusScreen(
-    modifier: Modifier = Modifier,
-    viewModel: DeviceStatusViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: DeviceStatusViewModel = hiltViewModel(),
 ) {
-    val uiState = viewModel.uiState.collectAsStateWithLifecycle()
-    ScreenScaffold(modifier = modifier) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center,
-        ) {
-            val uiState = uiState.value
-            if (uiState is Loaded) {
-                AsyncImage(
-                    model = uiState.image,
-                    contentDescription = null,
-                    modifier = Modifier.width(100.dp),
-                    contentScale = ContentScale.FillWidth,
-                )
-                Text(uiState.description ?: "None", style = MaterialTheme.typography.bodyExtraSmall)
-            } else {
-                Text("Loading...")
-            }
-        }
+  val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+  ScreenScaffold(modifier = modifier) {
+    Column(
+      modifier = Modifier.fillMaxSize(),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      verticalArrangement = Arrangement.Center,
+    ) {
+      val uiState = uiState.value
+      if (uiState is Loaded) {
+        AsyncImage(
+          model = uiState.image,
+          contentDescription = null,
+          modifier = Modifier.width(100.dp),
+          contentScale = ContentScale.FillWidth,
+        )
+        Text(uiState.description ?: "None", style = MaterialTheme.typography.bodyExtraSmall)
+      } else {
+        Text("Loading...")
+      }
     }
+  }
 }
 
 sealed interface DeviceStatusUiState
@@ -65,6 +65,6 @@ sealed interface DeviceStatusUiState
 data object Loading : DeviceStatusUiState
 
 data class Loaded(
-    val image: ByteArray?,
-    val description: String?,
+  val image: ByteArray?,
+  val description: String?,
 ) : DeviceStatusUiState

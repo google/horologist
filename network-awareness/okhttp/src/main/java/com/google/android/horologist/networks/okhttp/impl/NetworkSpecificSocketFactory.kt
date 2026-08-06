@@ -24,48 +24,48 @@ import java.net.Socket
 import javax.net.SocketFactory
 
 /**
- * SocketFactory that only creates connections on a specific Network Address.
- * Uses [Network.bindSocket] to control the network on outgoing socket connections.
+ * SocketFactory that only creates connections on a specific Network Address. Uses
+ * [Network.bindSocket] to control the network on outgoing socket connections.
  */
 @ExperimentalHorologistApi
 internal class NetworkSpecificSocketFactory(
-    private val networkStatus: NetworkStatus,
-    private val socketFactory: SocketFactory = getDefault(),
+  private val networkStatus: NetworkStatus,
+  private val socketFactory: SocketFactory = getDefault(),
 ) : SocketFactory() {
-    private fun Socket.bindToPreferredNetwork(): Socket {
-        networkStatus.bindSocket(this)
-        return this
-    }
+  private fun Socket.bindToPreferredNetwork(): Socket {
+    networkStatus.bindSocket(this)
+    return this
+  }
 
-    override fun createSocket(): Socket {
-        return socketFactory.createSocket().bindToPreferredNetwork()
-    }
+  override fun createSocket(): Socket {
+    return socketFactory.createSocket().bindToPreferredNetwork()
+  }
 
-    override fun createSocket(host: String, port: Int): Socket {
-        return socketFactory.createSocket(host, port).bindToPreferredNetwork()
-    }
+  override fun createSocket(host: String, port: Int): Socket {
+    return socketFactory.createSocket(host, port).bindToPreferredNetwork()
+  }
 
-    override fun createSocket(host: InetAddress, port: Int): Socket {
-        return socketFactory.createSocket(host, port).bindToPreferredNetwork()
-    }
+  override fun createSocket(host: InetAddress, port: Int): Socket {
+    return socketFactory.createSocket(host, port).bindToPreferredNetwork()
+  }
 
-    // Unsupported operations
+  // Unsupported operations
 
-    override fun createSocket(
-        host: String,
-        port: Int,
-        localHost: InetAddress?,
-        localPort: Int,
-    ): Socket {
-        return socketFactory.createSocket(host, port, localHost, localPort)
-    }
+  override fun createSocket(
+    host: String,
+    port: Int,
+    localHost: InetAddress?,
+    localPort: Int,
+  ): Socket {
+    return socketFactory.createSocket(host, port, localHost, localPort)
+  }
 
-    override fun createSocket(
-        address: InetAddress,
-        port: Int,
-        localAddress: InetAddress?,
-        localPort: Int,
-    ): Socket {
-        return socketFactory.createSocket(address, port, localAddress, localPort)
-    }
+  override fun createSocket(
+    address: InetAddress,
+    port: Int,
+    localAddress: InetAddress?,
+    localPort: Int,
+  ): Socket {
+    return socketFactory.createSocket(address, port, localAddress, localPort)
+  }
 }

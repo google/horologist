@@ -39,110 +39,114 @@ import com.google.android.horologist.compose.material.Title
 
 @Composable
 fun MainScreen(
-    navigateToRoute: (String) -> Unit,
-    modifier: Modifier = Modifier,
+  navigateToRoute: (String) -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ItemType.Text,
+          last = ItemType.Chip,
+        )
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        SectionedList(
-            columnState = columnState,
-            modifier = modifier.fillMaxSize(),
-        ) {
-            googleSignInSection(navigateToRoute)
+  ScreenScaffold(scrollState = columnState) {
+    SectionedList(
+      columnState = columnState,
+      modifier = modifier.fillMaxSize(),
+    ) {
+      googleSignInSection(navigateToRoute)
 
-            tokenShareSection(navigateToRoute)
+      tokenShareSection(navigateToRoute)
 
-            commonScreensSection(navigateToRoute)
-        }
+      commonScreensSection(navigateToRoute)
     }
+  }
 }
 
 private fun SectionedListScope.googleSignInSection(navigateToRoute: (String) -> Unit) {
-    section(
-        listOf(
-            Pair(
-                R.string.auth_menu_google_sign_in_prompt_item,
-                Screen.GoogleSignInPromptSampleScreen.route,
-            ),
-            Pair(R.string.auth_menu_google_sign_out_item, Screen.GoogleSignOutScreen.route),
-        ),
-    ) {
-        header {
-            ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                Text(stringResource(id = R.string.auth_menu_google_sign_in_header), modifier = Modifier.listTextPadding())
-            }
-        }
-        loaded { (textId, route) ->
-            Chip(
-                label = stringResource(id = textId),
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-            )
-        }
+  section(
+    listOf(
+      Pair(
+        R.string.auth_menu_google_sign_in_prompt_item,
+        Screen.GoogleSignInPromptSampleScreen.route,
+      ),
+      Pair(R.string.auth_menu_google_sign_out_item, Screen.GoogleSignOutScreen.route),
+    )
+  ) {
+    header {
+      ResponsiveListHeader(contentPadding = firstItemPadding()) {
+        Text(
+          stringResource(id = R.string.auth_menu_google_sign_in_header),
+          modifier = Modifier.listTextPadding(),
+        )
+      }
     }
+    loaded { (textId, route) ->
+      Chip(
+        label = stringResource(id = textId),
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToRoute(route) },
+      )
+    }
+  }
 }
 
 private fun SectionedListScope.tokenShareSection(navigateToRoute: (String) -> Unit) {
-    section(
-        listOf(
-            Pair(
-                R.string.auth_menu_token_share_default_key_item,
-                Screen.TokenShareDefaultKeyScreen.route,
-            ),
-            Pair(
-                R.string.auth_menu_token_share_custom_key_item,
-                Screen.TokenShareCustomKeyScreen.route,
-            ),
-        ),
-    ) {
-        header {
-            ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                Text(stringResource(id = R.string.auth_menu_token_share_header), modifier = Modifier.listTextPadding())
-            }
-        }
-        loaded { (textId, route) ->
-            Chip(
-                label = stringResource(id = textId),
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-            )
-        }
+  section(
+    listOf(
+      Pair(
+        R.string.auth_menu_token_share_default_key_item,
+        Screen.TokenShareDefaultKeyScreen.route,
+      ),
+      Pair(
+        R.string.auth_menu_token_share_custom_key_item,
+        Screen.TokenShareCustomKeyScreen.route,
+      ),
+    )
+  ) {
+    header {
+      ResponsiveListHeader(contentPadding = firstItemPadding()) {
+        Text(
+          stringResource(id = R.string.auth_menu_token_share_header),
+          modifier = Modifier.listTextPadding(),
+        )
+      }
     }
+    loaded { (textId, route) ->
+      Chip(
+        label = stringResource(id = textId),
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToRoute(route) },
+      )
+    }
+  }
 }
 
 private fun SectionedListScope.commonScreensSection(navigateToRoute: (String) -> Unit) {
-    section(
-        listOf(
-            Pair(
-                R.string.auth_menu_common_screens_streamline_sign_in_item,
-                Screen.StreamlineSignInMenuScreen.route,
-            ),
-        ),
-    ) {
-        header {
-            Title(stringResource(id = R.string.auth_menu_common_screens_header))
-        }
-        loaded { (textId, route) ->
-            Chip(
-                label = stringResource(id = textId),
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(route) },
-            )
-        }
+  section(
+    listOf(
+      Pair(
+        R.string.auth_menu_common_screens_streamline_sign_in_item,
+        Screen.StreamlineSignInMenuScreen.route,
+      )
+    )
+  ) {
+    header { Title(stringResource(id = R.string.auth_menu_common_screens_header)) }
+    loaded { (textId, route) ->
+      Chip(
+        label = stringResource(id = textId),
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToRoute(route) },
+      )
     }
+  }
 }
 
 @Suppress("unused")
 @WearPreviewDevices
 @Composable
 fun AuthMenuScreenPreview() {
-    MainScreen(
-        navigateToRoute = {},
-    )
+  MainScreen(navigateToRoute = {})
 }

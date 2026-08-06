@@ -19,22 +19,20 @@ package com.google.android.horologist.navsample.snackbar
 import androidx.compose.runtime.mutableStateListOf
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * Coordination point for message producers and the single message consumer.
- */
+/** Coordination point for message producers and the single message consumer. */
 @ExperimentalHorologistApi
 public class SnackbarManager {
-    internal val messages = mutableStateListOf<UiMessage>()
+  internal val messages = mutableStateListOf<UiMessage>()
 
-    public fun showMessage(message: UiMessage) {
-        messages.add(message)
-    }
+  public fun showMessage(message: UiMessage) {
+    messages.add(message)
+  }
 
-    internal fun setMessageShown(messageId: String) {
-        messages.removeIf { it.id == messageId }
-    }
+  internal fun setMessageShown(messageId: String) {
+    messages.removeIf { it.id == messageId }
+  }
 
-    public fun showMessage(message: String) {
-        showMessage(UiMessage(message = message))
-    }
+  public fun showMessage(message: String) {
+    showMessage(UiMessage(message = message))
+  }
 }

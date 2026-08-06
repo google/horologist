@@ -25,78 +25,79 @@ import com.google.android.horologist.compose.tools.WearPreview
 @WearPreview
 @Composable
 fun ButtonPreview() {
-    Button(
-        imageVector = Icons.Default.Check,
-        contentDescription = "contentDescription",
-        onClick = { },
-    )
+  Button(
+    imageVector = Icons.Default.Check,
+    contentDescription = "contentDescription",
+    onClick = {},
+  )
 }
 
 @WearPreview
 @Composable
 fun ButtonPreviewLarge() {
-    Button(
-        imageVector = Icons.Default.Check,
-        contentDescription = "contentDescription",
-        onClick = { },
-        buttonSize = ButtonSize.Large,
-    )
+  Button(
+    imageVector = Icons.Default.Check,
+    contentDescription = "contentDescription",
+    onClick = {},
+    buttonSize = ButtonSize.Large,
+  )
 }
 
 @WearPreview
 @Composable
 fun ButtonPreviewSmall() {
-    Button(
-        imageVector = Icons.Default.Check,
-        contentDescription = "contentDescription",
-        onClick = { },
-        buttonSize = ButtonSize.Small,
-    )
+  Button(
+    imageVector = Icons.Default.Check,
+    contentDescription = "contentDescription",
+    onClick = {},
+    buttonSize = ButtonSize.Small,
+  )
 }
 
 @WearPreview
 @Composable
 fun ButtonPreviewCustomSize() {
-    Button(
-        imageVector = Icons.Default.Check,
-        contentDescription = "contentDescription",
-        onClick = { },
-        buttonSize = ButtonSize.Custom(
-            customIconSize = ButtonDefaults.SmallIconSize,
-            customTapTargetSize = ButtonDefaults.LargeButtonSize,
-        ),
-    )
+  Button(
+    imageVector = Icons.Default.Check,
+    contentDescription = "contentDescription",
+    onClick = {},
+    buttonSize =
+      ButtonSize.Custom(
+        customIconSize = ButtonDefaults.SmallIconSize,
+        customTapTargetSize = ButtonDefaults.LargeButtonSize,
+      ),
+  )
 }
 
 @WearPreview
 @Composable
 fun ButtonPreviewDisabled() {
-    Button(
-        imageVector = Icons.Default.Check,
-        contentDescription = "contentDescription",
-        onClick = { },
-        enabled = false,
-    )
+  Button(
+    imageVector = Icons.Default.Check,
+    contentDescription = "contentDescription",
+    onClick = {},
+    enabled = false,
+  )
 }
 
 @WearPreview
 @Composable
 fun ButtonPreviewWithSecondaryButtonColors() {
-    Button(
-        imageVector = Icons.Default.Check,
-        contentDescription = "contentDescription",
-        onClick = { },
-        colors = ButtonDefaults.secondaryButtonColors(),
-    )
+  Button(
+    imageVector = Icons.Default.Check,
+    contentDescription = "contentDescription",
+    onClick = {},
+    colors = ButtonDefaults.secondaryButtonColors(),
+  )
 }
 
 @WearPreview
 @Composable
 fun ButtonPreviewWithIconButtonColors() {
-    Button(
-        imageVector = Icons.Default.Check,
-        contentDescription = "contentDescription",
-        onClick = { },
-        colors = ButtonDefaults.iconButtonColors(),
-    )
+  Button(
+    imageVector = Icons.Default.Check,
+    contentDescription = "contentDescription",
+    onClick = {},
+    colors = ButtonDefaults.iconButtonColors(),
+  )
 }

@@ -27,31 +27,31 @@ import com.google.android.horologist.media.repository.PlayerRepository
  */
 @Stable
 public data class PlayerUiController(private val playerRepository: PlayerRepository) {
-    public fun play() {
-        playerRepository.play()
-    }
+  public fun play() {
+    playerRepository.play()
+  }
 
-    public fun pause() {
-        playerRepository.pause()
-    }
+  public fun pause() {
+    playerRepository.pause()
+  }
 
-    public fun skipToPreviousMedia() {
-        playerRepository.skipToPreviousMedia()
-    }
+  public fun skipToPreviousMedia() {
+    playerRepository.skipToPreviousMedia()
+  }
 
-    public fun skipToNextMedia() {
-        playerRepository.skipToNextMedia()
-    }
+  public fun skipToNextMedia() {
+    playerRepository.skipToNextMedia()
+  }
 
-    public fun seekBack() {
-        playerRepository.seekBack()
-    }
+  public fun seekBack() {
+    playerRepository.seekBack()
+  }
 
-    public fun seekForward() {
-        playerRepository.seekForward()
-    }
+  public fun seekForward() {
+    playerRepository.seekForward()
+  }
 
-    public fun setPlaybackSpeed(speed: Float) {
-        playerRepository.setPlaybackSpeed(speed)
-    }
+  public fun setPlaybackSpeed(speed: Float) {
+    playerRepository.setPlaybackSpeed(speed)
+  }
 }

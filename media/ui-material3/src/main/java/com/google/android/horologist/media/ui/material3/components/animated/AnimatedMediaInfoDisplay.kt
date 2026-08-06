@@ -34,22 +34,22 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
  */
 @Composable
 public fun AnimatedMediaInfoDisplay(
-    media: MediaUiModel?,
-    loading: Boolean,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  media: MediaUiModel?,
+  loading: Boolean,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
-    if (loading) {
-        LoadingMediaDisplay(modifier, colorScheme = colorScheme)
-    } else if (media is MediaUiModel.Ready) {
-        MarqueeTextMediaDisplay(
-            modifier = modifier,
-            title = media.title,
-            artist = media.subtitle,
-            titleIcon = media.titleIcon,
-            colorScheme = colorScheme,
-        )
-    } else {
-        NothingPlayingDisplay(modifier)
-    }
+  if (loading) {
+    LoadingMediaDisplay(modifier, colorScheme = colorScheme)
+  } else if (media is MediaUiModel.Ready) {
+    MarqueeTextMediaDisplay(
+      modifier = modifier,
+      title = media.title,
+      artist = media.subtitle,
+      titleIcon = media.titleIcon,
+      colorScheme = colorScheme,
+    )
+  } else {
+    NothingPlayingDisplay(modifier)
+  }
 }

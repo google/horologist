@@ -54,81 +54,87 @@ import kotlinx.coroutines.delay
 @ExperimentalHorologistApi
 @Composable
 public fun Confirmation(
-    showDialog: Boolean,
-    onTimeout: () -> Unit,
-    modifier: Modifier = Modifier,
-    icon: @Composable (() -> Unit)? = null,
-    title: String? = null,
-    durationMillis: Long = DialogDefaults.ShortDurationMillis,
-    @Suppress("DEPRECATION") columnState: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(
-            verticalArrangement = confirmationVerticalArrangement(),
-            additionalPaddingAtBottom = 0.dp,
-        ),
+  showDialog: Boolean,
+  onTimeout: () -> Unit,
+  modifier: Modifier = Modifier,
+  icon: @Composable (() -> Unit)? = null,
+  title: String? = null,
+  durationMillis: Long = DialogDefaults.ShortDurationMillis,
+  @Suppress("DEPRECATION")
+  columnState: ScalingLazyColumnState =
+    rememberColumnState(
+      ScalingLazyColumnDefaults.responsive(
+        verticalArrangement = confirmationVerticalArrangement(),
+        additionalPaddingAtBottom = 0.dp,
+      )
     ),
 ) {
-    // Always refer to the latest inputs with which Confirmation was recomposed.
-    val currentOnDismissed by rememberUpdatedState(onTimeout)
+  // Always refer to the latest inputs with which Confirmation was recomposed.
+  val currentOnDismissed by rememberUpdatedState(onTimeout)
 
-    val a11yDurationMillis = LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
-        originalTimeoutMillis = durationMillis,
-        containsIcons = icon != null,
-        containsText = title != null,
-        containsControls = false,
+  val a11yDurationMillis =
+    LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
+      originalTimeoutMillis = durationMillis,
+      containsIcons = icon != null,
+      containsText = title != null,
+      containsControls = false,
     ) ?: durationMillis
 
-    LaunchedEffect(showDialog, a11yDurationMillis) {
-        if (showDialog) {
-            delay(a11yDurationMillis)
-            currentOnDismissed()
-        }
+  LaunchedEffect(showDialog, a11yDurationMillis) {
+    if (showDialog) {
+      delay(a11yDurationMillis)
+      currentOnDismissed()
     }
+  }
 
-    Dialog(
-        showDialog = showDialog,
-        onDismissRequest = currentOnDismissed,
-        modifier = modifier,
-        scrollState = columnState.state,
-    ) {
-        ConfirmationContent(
-            icon = icon,
-            title = title,
-            columnState = columnState,
-            showPositionIndicator = false,
-        )
-    }
+  Dialog(
+    showDialog = showDialog,
+    onDismissRequest = currentOnDismissed,
+    modifier = modifier,
+    scrollState = columnState.state,
+  ) {
+    ConfirmationContent(
+      icon = icon,
+      title = title,
+      columnState = columnState,
+      showPositionIndicator = false,
+    )
+  }
 }
 
 @ExperimentalHorologistApi
 @Composable
 public fun ConfirmationContent(
-    icon: @Composable (() -> Unit)? = null,
-    title: String? = null,
-    @Suppress("DEPRECATION") columnState: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(
-            verticalArrangement = confirmationVerticalArrangement(),
-            additionalPaddingAtBottom = 0.dp,
-        ),
+  icon: @Composable (() -> Unit)? = null,
+  title: String? = null,
+  @Suppress("DEPRECATION")
+  columnState: ScalingLazyColumnState =
+    rememberColumnState(
+      ScalingLazyColumnDefaults.responsive(
+        verticalArrangement = confirmationVerticalArrangement(),
+        additionalPaddingAtBottom = 0.dp,
+      )
     ),
-    showPositionIndicator: Boolean = true,
+  showPositionIndicator: Boolean = true,
 ) {
-    ResponsiveDialogContent(
-        icon = icon,
-        title = title?.let {
-            {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = it,
-                    color = MaterialTheme.colors.onBackground,
-                    textAlign = TextAlign.Center,
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis,
-                )
-            }
-        },
-        state = columnState,
-        showPositionIndicator = showPositionIndicator,
-    )
+  ResponsiveDialogContent(
+    icon = icon,
+    title =
+      title?.let {
+        {
+          Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = it,
+            color = MaterialTheme.colors.onBackground,
+            textAlign = TextAlign.Center,
+            maxLines = 3,
+            overflow = TextOverflow.Ellipsis,
+          )
+        }
+      },
+    state = columnState,
+    showPositionIndicator = showPositionIndicator,
+  )
 }
 
 /**
@@ -140,43 +146,45 @@ public fun ConfirmationContent(
 @ExperimentalHorologistApi
 @Composable
 public fun Confirmation(
-    onTimeout: () -> Unit,
-    modifier: Modifier = Modifier,
-    icon: @Composable (ColumnScope.() -> Unit)? = null,
-    scrollState: ScalingLazyListState = rememberScalingLazyListState(),
-    durationMillis: Long = DialogDefaults.ShortDurationMillis,
-    backgroundColor: Color = MaterialTheme.colors.background,
-    contentColor: Color = contentColorFor(backgroundColor),
-    iconColor: Color = contentColor,
-    verticalArrangement: Arrangement.Vertical = confirmationVerticalArrangement(),
-    contentPadding: PaddingValues = DialogDefaults.ContentPadding,
-    content: @Composable ColumnScope.() -> Unit,
+  onTimeout: () -> Unit,
+  modifier: Modifier = Modifier,
+  icon: @Composable (ColumnScope.() -> Unit)? = null,
+  scrollState: ScalingLazyListState = rememberScalingLazyListState(),
+  durationMillis: Long = DialogDefaults.ShortDurationMillis,
+  backgroundColor: Color = MaterialTheme.colors.background,
+  contentColor: Color = contentColorFor(backgroundColor),
+  iconColor: Color = contentColor,
+  verticalArrangement: Arrangement.Vertical = confirmationVerticalArrangement(),
+  contentPadding: PaddingValues = DialogDefaults.ContentPadding,
+  content: @Composable ColumnScope.() -> Unit,
 ) {
-    val a11yDurationMillis = LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
-        originalTimeoutMillis = durationMillis,
-        containsIcons = false,
-        containsText = true,
-        containsControls = false,
+  val a11yDurationMillis =
+    LocalAccessibilityManager.current?.calculateRecommendedTimeoutMillis(
+      originalTimeoutMillis = durationMillis,
+      containsIcons = false,
+      containsText = true,
+      containsControls = false,
     ) ?: durationMillis
 
-    Confirmation(
-        onTimeout = onTimeout,
-        modifier = modifier,
-        icon = icon,
-        scrollState = scrollState,
-        durationMillis = a11yDurationMillis,
-        backgroundColor = backgroundColor,
-        contentColor = contentColor,
-        iconColor = iconColor,
-        verticalArrangement = verticalArrangement,
-        contentPadding = contentPadding,
-        content = content,
-    )
+  Confirmation(
+    onTimeout = onTimeout,
+    modifier = modifier,
+    icon = icon,
+    scrollState = scrollState,
+    durationMillis = a11yDurationMillis,
+    backgroundColor = backgroundColor,
+    contentColor = contentColor,
+    iconColor = iconColor,
+    verticalArrangement = verticalArrangement,
+    contentPadding = contentPadding,
+    content = content,
+  )
 }
 
-private fun confirmationVerticalArrangement() = Arrangement.spacedBy(
+private fun confirmationVerticalArrangement() =
+  Arrangement.spacedBy(
     // NB an additional 4dp bottom padding is added after the icon
     // in ResponsiveDialogContent to make the 8dp in the UX spec.
     space = 4.dp,
     alignment = Alignment.CenterVertically,
-)
+  )

@@ -20,4 +20,4 @@ import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.test.SemanticsMatcher
 
 fun hasProgressBar(): SemanticsMatcher =
-    SemanticsMatcher.keyIsDefined(SemanticsProperties.ProgressBarRangeInfo)
+  SemanticsMatcher.keyIsDefined(SemanticsProperties.ProgressBarRangeInfo)

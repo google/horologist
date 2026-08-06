@@ -40,52 +40,47 @@ import com.google.android.horologist.sample.R
 
 @Composable
 fun CardsAudit(route: AuditNavigation.Cards.Audit) {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Card,
-            last = ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ItemType.Card,
+          last = ItemType.Chip,
+        )
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(columnState = columnState) {
-            if (route.config == Config.BackgroundImage) {
-                item {
-                    BackgroundImageCard()
-                }
-            }
-        }
+  ScreenScaffold(scrollState = columnState) {
+    ScalingLazyColumn(columnState = columnState) {
+      if (route.config == Config.BackgroundImage) {
+        item { BackgroundImageCard() }
+      }
     }
+  }
 }
 
 @Composable
 fun BackgroundImageCard() {
-    TitleCard(
-        onClick = { /* Do something */ },
-        title = { Text("TitleCard With an ImageBackground", maxLines = 2) },
-        backgroundPainter = CardDefaults.imageWithScrimBackgroundPainter(
-            backgroundImagePainter = painterResource(id = R.drawable.backgroundimage),
-        ),
-        contentColor = MaterialTheme.colors.onSurface,
-        titleColor = MaterialTheme.colors.onSurface,
-    ) {
-        // Apply 24.dp padding in bottom for TitleCard with an ImageBackground.
-        // Already 12.dp padding exists. Ref - [CardDefaults.ContentPadding]
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(bottom = 12.dp),
-        ) {
-            Text("Text coloured to stand out on the image", maxLines = 2)
-        }
+  TitleCard(
+    onClick = { /* Do something */ },
+    title = { Text("TitleCard With an ImageBackground", maxLines = 2) },
+    backgroundPainter =
+      CardDefaults.imageWithScrimBackgroundPainter(
+        backgroundImagePainter = painterResource(id = R.drawable.backgroundimage)
+      ),
+    contentColor = MaterialTheme.colors.onSurface,
+    titleColor = MaterialTheme.colors.onSurface,
+  ) {
+    // Apply 24.dp padding in bottom for TitleCard with an ImageBackground.
+    // Already 12.dp padding exists. Ref - [CardDefaults.ContentPadding]
+    Column(modifier = Modifier.fillMaxSize().padding(bottom = 12.dp)) {
+      Text("Text coloured to stand out on the image", maxLines = 2)
     }
+  }
 }
 
 @Composable
 @WearPreviewSmallRound
 @WearPreviewLargeRound
 fun CardsAuditPreview() {
-    AppScaffold {
-        CardsAudit(AuditNavigation.Cards.Audit(Config.BackgroundImage))
-    }
+  AppScaffold { CardsAudit(AuditNavigation.Cards.Audit(Config.BackgroundImage)) }
 }

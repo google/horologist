@@ -16,7 +16,8 @@
 
 package com.google.android.horologist.compose.snackbar
 
-// From https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/material/material/src/commonMain/kotlin/androidx/compose/material/SnackbarHost.kt
+// From
+// https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/material/material/src/commonMain/kotlin/androidx/compose/material/SnackbarHost.kt
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
@@ -43,95 +44,91 @@ import androidx.compose.ui.semantics.LiveRegionMode
 import androidx.compose.ui.semantics.dismiss
 import androidx.compose.ui.semantics.liveRegion
 import androidx.compose.ui.semantics.semantics
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
+import kotlin.coroutines.resume
 import kotlinx.coroutines.CancellableContinuation
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlin.contracts.ExperimentalContracts
-import kotlin.contracts.contract
-import kotlin.coroutines.resume
 
 /**
- * State of the [SnackbarHost], controls the queue and the current [Snackbar] being shown inside
- * the [SnackbarHost].
+ * State of the [SnackbarHost], controls the queue and the current [Snackbar] being shown inside the
+ * [SnackbarHost].
  *
  * This state usually lives as a part of a [ScaffoldState] and provided to the [SnackbarHost]
  * automatically, but can be decoupled from it and live separately when desired.
  */
 @Stable
 public class SnackbarHostState {
-    /**
-     * Only one [Snackbar] can be shown at a time.
-     * Since a suspending Mutex is a fair queue, this manages our message queue
-     * and we don't have to maintain one.
-     */
-    private val mutex = Mutex()
+  /**
+   * Only one [Snackbar] can be shown at a time. Since a suspending Mutex is a fair queue, this
+   * manages our message queue and we don't have to maintain one.
+   */
+  private val mutex = Mutex()
 
-    /**
-     * The current [SnackbarData] being shown by the [SnackbarHost], of `null` if none.
-     */
-    public var currentSnackbarData: SnackbarData? by mutableStateOf(null)
-        private set
+  /** The current [SnackbarData] being shown by the [SnackbarHost], of `null` if none. */
+  public var currentSnackbarData: SnackbarData? by mutableStateOf(null)
+    private set
 
-    /**
-     * Shows or queues to be shown a [Snackbar] at the bottom of the [Scaffold] at
-     * which this state is attached and suspends until snackbar is disappeared.
-     *
-     * [SnackbarHostState] guarantees to show at most one snackbar at a time. If this function is
-     * called while another snackbar is already visible, it will be suspended until this snack
-     * bar is shown and subsequently addressed. If the caller is cancelled, the snackbar will be
-     * removed from display and/or the queue to be displayed.
-     *
-     * All of this allows for granular control over the snackbar queue from within:
-     *
-     * @sample androidx.compose.material.samples.ScaffoldWithCoroutinesSnackbar
-     *
-     * To change the Snackbar appearance, change it in 'snackbarHost' on the [Scaffold].
-     *
-     * @param message text to be shown in the Snackbar
-     * @param actionLabel optional action label to show as button in the Snackbar
-     * @param duration duration to control how long snackbar will be shown in [SnackbarHost], either
-     * [SnackbarDuration.Short], [SnackbarDuration.Long] or [SnackbarDuration.Indefinite]
-     *
-     * @return [SnackbarResult.ActionPerformed] if option action has been clicked or
-     * [SnackbarResult.Dismissed] if snackbar has been dismissed via timeout or by the user
-     */
-    public suspend fun showSnackbar(
-        message: String,
-        actionLabel: String? = null,
-        duration: SnackbarDuration = SnackbarDuration.Short,
-    ): SnackbarResult = mutex.withLock {
-        try {
-            return suspendCancellableCoroutine { continuation ->
-                currentSnackbarData = SnackbarDataImpl(message, actionLabel, duration, continuation)
-            }
-        } finally {
-            currentSnackbarData = null
-        }
+  /**
+   * Shows or queues to be shown a [Snackbar] at the bottom of the [Scaffold] at which this state is
+   * attached and suspends until snackbar is disappeared.
+   *
+   * [SnackbarHostState] guarantees to show at most one snackbar at a time. If this function is
+   * called while another snackbar is already visible, it will be suspended until this snack bar is
+   * shown and subsequently addressed. If the caller is cancelled, the snackbar will be removed from
+   * display and/or the queue to be displayed.
+   *
+   * All of this allows for granular control over the snackbar queue from within:
+   *
+   * @sample androidx.compose.material.samples.ScaffoldWithCoroutinesSnackbar
+   *
+   * To change the Snackbar appearance, change it in 'snackbarHost' on the [Scaffold].
+   *
+   * @param message text to be shown in the Snackbar
+   * @param actionLabel optional action label to show as button in the Snackbar
+   * @param duration duration to control how long snackbar will be shown in [SnackbarHost], either
+   *   [SnackbarDuration.Short], [SnackbarDuration.Long] or [SnackbarDuration.Indefinite]
+   * @return [SnackbarResult.ActionPerformed] if option action has been clicked or
+   *   [SnackbarResult.Dismissed] if snackbar has been dismissed via timeout or by the user
+   */
+  public suspend fun showSnackbar(
+    message: String,
+    actionLabel: String? = null,
+    duration: SnackbarDuration = SnackbarDuration.Short,
+  ): SnackbarResult = mutex.withLock {
+    try {
+      return suspendCancellableCoroutine { continuation ->
+        currentSnackbarData = SnackbarDataImpl(message, actionLabel, duration, continuation)
+      }
+    } finally {
+      currentSnackbarData = null
+    }
+  }
+
+  @Stable
+  private class SnackbarDataImpl(
+    override val message: String,
+    override val actionLabel: String?,
+    override val duration: SnackbarDuration,
+    private val continuation: CancellableContinuation<SnackbarResult>,
+  ) : SnackbarData {
+
+    override fun performAction() {
+      if (continuation.isActive) continuation.resume(SnackbarResult.ActionPerformed)
     }
 
-    @Stable
-    private class SnackbarDataImpl(
-        override val message: String,
-        override val actionLabel: String?,
-        override val duration: SnackbarDuration,
-        private val continuation: CancellableContinuation<SnackbarResult>,
-    ) : SnackbarData {
-
-        override fun performAction() {
-            if (continuation.isActive) continuation.resume(SnackbarResult.ActionPerformed)
-        }
-
-        override fun dismiss() {
-            if (continuation.isActive) continuation.resume(SnackbarResult.Dismissed)
-        }
+    override fun dismiss() {
+      if (continuation.isActive) continuation.resume(SnackbarResult.Dismissed)
     }
+  }
 }
 
 /**
- * Host for [Snackbar]s to be used in [Scaffold] to properly show, hide and dismiss items based
- * on material specification and the [hostState].
+ * Host for [Snackbar]s to be used in [Scaffold] to properly show, hide and dismiss items based on
+ * material specification and the [hostState].
  *
  * This component with default parameters comes build-in with [Scaffold], if you need to show a
  * default [Snackbar], use use [ScaffoldState.snackbarHostState] and
@@ -143,35 +140,35 @@ public class SnackbarHostState {
  * of the [SnackbarHost] to the [Scaffold]:
  *
  * @sample androidx.compose.material.samples.ScaffoldWithCustomSnackbar
- *
  * @param hostState state of this component to read and show [Snackbar]s accordingly
  * @param modifier optional modifier for this component
  * @param snackbar the instance of the [Snackbar] to be shown at the appropriate time with
- * appearance based on the [SnackbarData] provided as a param
+ *   appearance based on the [SnackbarData] provided as a param
  */
 @Composable
 public fun SnackbarHost(
-    hostState: SnackbarHostState,
-    modifier: Modifier = Modifier,
-    snackbar: @Composable (SnackbarData) -> Unit,
+  hostState: SnackbarHostState,
+  modifier: Modifier = Modifier,
+  snackbar: @Composable (SnackbarData) -> Unit,
 ) {
-    val currentSnackbarData = hostState.currentSnackbarData
-    val accessibilityManager = LocalAccessibilityManager.current
-    LaunchedEffect(currentSnackbarData) {
-        if (currentSnackbarData != null) {
-            val duration = currentSnackbarData.duration.toMillis(
-                currentSnackbarData.actionLabel != null,
-                accessibilityManager,
-            )
-            delay(duration)
-            currentSnackbarData.dismiss()
-        }
+  val currentSnackbarData = hostState.currentSnackbarData
+  val accessibilityManager = LocalAccessibilityManager.current
+  LaunchedEffect(currentSnackbarData) {
+    if (currentSnackbarData != null) {
+      val duration =
+        currentSnackbarData.duration.toMillis(
+          currentSnackbarData.actionLabel != null,
+          accessibilityManager,
+        )
+      delay(duration)
+      currentSnackbarData.dismiss()
     }
-    FadeInFadeOutWithScale(
-        current = hostState.currentSnackbarData,
-        modifier = modifier,
-        content = snackbar,
-    )
+  }
+  FadeInFadeOutWithScale(
+    current = hostState.currentSnackbarData,
+    modifier = modifier,
+    content = snackbar,
+  )
 }
 
 /**
@@ -182,204 +179,184 @@ public fun SnackbarHost(
  * @property duration duration of the snackbar
  */
 public interface SnackbarData {
-    public val message: String
-    public val actionLabel: String?
-    public val duration: SnackbarDuration
+  public val message: String
+  public val actionLabel: String?
+  public val duration: SnackbarDuration
 
-    /**
-     * Function to be called when Snackbar action has been performed to notify the listeners
-     */
-    public fun performAction()
+  /** Function to be called when Snackbar action has been performed to notify the listeners */
+  public fun performAction()
 
-    /**
-     * Function to be called when Snackbar is dismissed either by timeout or by the user
-     */
-    public fun dismiss()
+  /** Function to be called when Snackbar is dismissed either by timeout or by the user */
+  public fun dismiss()
 }
 
-/**
- * Possible results of the [SnackbarHostState.showSnackbar] call
- */
+/** Possible results of the [SnackbarHostState.showSnackbar] call */
 public enum class SnackbarResult {
-    /**
-     * [Snackbar] that is shown has been dismissed either by timeout of by user
-     */
-    Dismissed,
+  /** [Snackbar] that is shown has been dismissed either by timeout of by user */
+  Dismissed,
 
-    /**
-     * Action on the [Snackbar] has been clicked before the time out passed
-     */
-    ActionPerformed,
+  /** Action on the [Snackbar] has been clicked before the time out passed */
+  ActionPerformed,
 }
 
-/**
- * Possible durations of the [Snackbar] in [SnackbarHost]
- */
+/** Possible durations of the [Snackbar] in [SnackbarHost] */
 public enum class SnackbarDuration {
-    /**
-     * Show the Snackbar for a short period of time
-     */
-    Short,
+  /** Show the Snackbar for a short period of time */
+  Short,
 
-    /**
-     * Show the Snackbar for a long period of time
-     */
-    Long,
+  /** Show the Snackbar for a long period of time */
+  Long,
 
-    /**
-     * Show the Snackbar indefinitely until explicitly dismissed or action is clicked
-     */
-    Indefinite,
+  /** Show the Snackbar indefinitely until explicitly dismissed or action is clicked */
+  Indefinite,
 }
 
 // TODO: magic numbers adjustment
 internal fun SnackbarDuration.toMillis(
-    hasAction: Boolean,
-    accessibilityManager: AccessibilityManager?,
+  hasAction: Boolean,
+  accessibilityManager: AccessibilityManager?,
 ): Long {
-    val original = when (this) {
-        SnackbarDuration.Indefinite -> Long.MAX_VALUE
-        SnackbarDuration.Long -> 10000L
-        SnackbarDuration.Short -> 4000L
+  val original =
+    when (this) {
+      SnackbarDuration.Indefinite -> Long.MAX_VALUE
+      SnackbarDuration.Long -> 10000L
+      SnackbarDuration.Short -> 4000L
     }
-    if (accessibilityManager == null) {
-        return original
-    }
-    return accessibilityManager.calculateRecommendedTimeoutMillis(
-        original,
-        containsIcons = true,
-        containsText = true,
-        containsControls = hasAction,
-    )
+  if (accessibilityManager == null) {
+    return original
+  }
+  return accessibilityManager.calculateRecommendedTimeoutMillis(
+    original,
+    containsIcons = true,
+    containsText = true,
+    containsControls = hasAction,
+  )
 }
 
 // TODO: to be replaced with the public customizable implementation
 // it's basically tweaked nullable version of Crossfade
 @Composable
 private fun FadeInFadeOutWithScale(
-    current: SnackbarData?,
-    modifier: Modifier = Modifier,
-    content: @Composable (SnackbarData) -> Unit,
+  current: SnackbarData?,
+  modifier: Modifier = Modifier,
+  content: @Composable (SnackbarData) -> Unit,
 ) {
-    val state = remember { FadeInFadeOutState<SnackbarData?>() }
-    if (current != state.current) {
-        state.current = current
-        val keys = state.items.map { it.key }.toMutableList()
-        if (!keys.contains(current)) {
-            keys.add(current)
-        }
-        state.items.clear()
-        keys.filterNotNull().mapTo(state.items) { key ->
-            FadeInFadeOutAnimationItem(key) { children ->
-                val isVisible = key == current
-                val duration = if (isVisible) SnackbarFadeInMillis else SnackbarFadeOutMillis
-                val delay = SnackbarFadeOutMillis + SnackbarInBetweenDelayMillis
-                val animationDelay = if (isVisible && keys.filterNotNull().size != 1) delay else 0
-                val opacity = animatedOpacity(
-                    animation = tween(
-                        easing = LinearEasing,
-                        delayMillis = animationDelay,
-                        durationMillis = duration,
-                    ),
-                    visible = isVisible,
-                    onAnimationFinish = {
-                        if (key != state.current) {
-                            // leave only the current in the list
-                            state.items.removeAll { it.key == key }
-                            state.scope?.invalidate()
-                        }
-                    },
-                )
-                val scale = animatedScale(
-                    animation = tween(
-                        easing = FastOutSlowInEasing,
-                        delayMillis = animationDelay,
-                        durationMillis = duration,
-                    ),
-                    visible = isVisible,
-                )
-                Box(
-                    Modifier
-                        .graphicsLayer(
-                            scaleX = scale.value,
-                            scaleY = scale.value,
-                            alpha = opacity.value,
-                        )
-                        .semantics {
-                            liveRegion = LiveRegionMode.Polite
-                            dismiss {
-                                key.dismiss()
-                                true
-                            }
-                        },
-                ) {
-                    children()
-                }
-            }
-        }
+  val state = remember { FadeInFadeOutState<SnackbarData?>() }
+  if (current != state.current) {
+    state.current = current
+    val keys = state.items.map { it.key }.toMutableList()
+    if (!keys.contains(current)) {
+      keys.add(current)
     }
-    Box(modifier) {
-        state.scope = currentRecomposeScope
-        state.items.fastForEach { (item, opacity) ->
-            key(item) {
-                opacity {
-                    content(item!!)
-                }
+    state.items.clear()
+    keys.filterNotNull().mapTo(state.items) { key ->
+      FadeInFadeOutAnimationItem(key) { children ->
+        val isVisible = key == current
+        val duration = if (isVisible) SnackbarFadeInMillis else SnackbarFadeOutMillis
+        val delay = SnackbarFadeOutMillis + SnackbarInBetweenDelayMillis
+        val animationDelay = if (isVisible && keys.filterNotNull().size != 1) delay else 0
+        val opacity =
+          animatedOpacity(
+            animation =
+              tween(
+                easing = LinearEasing,
+                delayMillis = animationDelay,
+                durationMillis = duration,
+              ),
+            visible = isVisible,
+            onAnimationFinish = {
+              if (key != state.current) {
+                // leave only the current in the list
+                state.items.removeAll { it.key == key }
+                state.scope?.invalidate()
+              }
+            },
+          )
+        val scale =
+          animatedScale(
+            animation =
+              tween(
+                easing = FastOutSlowInEasing,
+                delayMillis = animationDelay,
+                durationMillis = duration,
+              ),
+            visible = isVisible,
+          )
+        Box(
+          Modifier.graphicsLayer(
+              scaleX = scale.value,
+              scaleY = scale.value,
+              alpha = opacity.value,
+            )
+            .semantics {
+              liveRegion = LiveRegionMode.Polite
+              dismiss {
+                key.dismiss()
+                true
+              }
             }
+        ) {
+          children()
         }
+      }
     }
+  }
+  Box(modifier) {
+    state.scope = currentRecomposeScope
+    state.items.fastForEach { (item, opacity) -> key(item) { opacity { content(item!!) } } }
+  }
 }
 
 @OptIn(ExperimentalContracts::class)
 internal inline fun <T> List<T>.fastForEach(action: (T) -> Unit) {
-    contract { callsInPlace(action) }
-    for (index in indices) {
-        val item = get(index)
-        action(item)
-    }
+  contract { callsInPlace(action) }
+  for (index in indices) {
+    val item = get(index)
+    action(item)
+  }
 }
 
 private class FadeInFadeOutState<T> {
-    // we use Any here as something which will not be equals to the real initial value
-    var current: Any? = Any()
-    var items = mutableListOf<FadeInFadeOutAnimationItem<T>>()
-    var scope: RecomposeScope? = null
+  // we use Any here as something which will not be equals to the real initial value
+  var current: Any? = Any()
+  var items = mutableListOf<FadeInFadeOutAnimationItem<T>>()
+  var scope: RecomposeScope? = null
 }
 
 private data class FadeInFadeOutAnimationItem<T>(
-    val key: T,
-    val transition: FadeInFadeOutTransition,
+  val key: T,
+  val transition: FadeInFadeOutTransition,
 )
 
 private typealias FadeInFadeOutTransition = @Composable (content: @Composable () -> Unit) -> Unit
 
 @Composable
 private fun animatedOpacity(
-    animation: AnimationSpec<Float>,
-    visible: Boolean,
-    onAnimationFinish: () -> Unit = {},
+  animation: AnimationSpec<Float>,
+  visible: Boolean,
+  onAnimationFinish: () -> Unit = {},
 ): State<Float> {
-    val alpha = remember { Animatable(if (!visible) 1f else 0f) }
-    LaunchedEffect(visible) {
-        alpha.animateTo(
-            if (visible) 1f else 0f,
-            animationSpec = animation,
-        )
-        onAnimationFinish()
-    }
-    return alpha.asState()
+  val alpha = remember { Animatable(if (!visible) 1f else 0f) }
+  LaunchedEffect(visible) {
+    alpha.animateTo(
+      if (visible) 1f else 0f,
+      animationSpec = animation,
+    )
+    onAnimationFinish()
+  }
+  return alpha.asState()
 }
 
 @Composable
 private fun animatedScale(animation: AnimationSpec<Float>, visible: Boolean): State<Float> {
-    val scale = remember { Animatable(if (!visible) 1f else 0.8f) }
-    LaunchedEffect(visible) {
-        scale.animateTo(
-            if (visible) 1f else 0.8f,
-            animationSpec = animation,
-        )
-    }
-    return scale.asState()
+  val scale = remember { Animatable(if (!visible) 1f else 0.8f) }
+  LaunchedEffect(visible) {
+    scale.animateTo(
+      if (visible) 1f else 0.8f,
+      animationSpec = animation,
+    )
+  }
+  return scale.asState()
 }
 
 private const val SnackbarFadeInMillis = 150

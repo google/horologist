@@ -19,34 +19,34 @@ package com.google.android.horologist.screenshots.a11y
 import android.graphics.Rect
 
 internal data class AccessibilityState(
-    val width: Int,
-    val height: Int,
-    val elements: List<Element>,
+  val width: Int,
+  val height: Int,
+  val elements: List<Element>,
 ) {
-    internal data class Element(
-        val displayBounds: Rect,
-        val touchBounds: Rect?,
-        val text: List<String>?,
-        val contentDescription: List<String>?,
-        val stateDescription: String?,
-        val onClickLabel: String?,
-        val role: String?,
-        val disabled: Boolean,
-        val heading: Boolean,
-        val customActions: List<CustomAction>?,
-        val progress: Progress?,
-    )
+  internal data class Element(
+    val displayBounds: Rect,
+    val touchBounds: Rect?,
+    val text: List<String>?,
+    val contentDescription: List<String>?,
+    val stateDescription: String?,
+    val onClickLabel: String?,
+    val role: String?,
+    val disabled: Boolean,
+    val heading: Boolean,
+    val customActions: List<CustomAction>?,
+    val progress: Progress?,
+  )
 
-    internal data class CustomAction(val label: String)
+  internal data class CustomAction(val label: String)
 
-    internal data class Progress(
-        val current: Float,
-        val range: ClosedRange<Float>,
-        val steps: Int,
-        val hasAction: Boolean,
-    ) {
-        override fun toString(): String {
-            return "$current [$range] ${if (hasAction) "Action" else ""}"
-        }
+  internal data class Progress(
+    val current: Float,
+    val range: ClosedRange<Float>,
+    val steps: Int,
+    val hasAction: Boolean,
+  ) {
+    override fun toString(): String {
+      return "$current [$range] ${if (hasAction) "Action" else ""}"
     }
+  }
 }

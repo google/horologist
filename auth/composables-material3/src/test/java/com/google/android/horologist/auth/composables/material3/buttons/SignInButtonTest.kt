@@ -23,49 +23,45 @@ import org.junit.Test
 
 class SignInButtonTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            HorologistMaterialTheme {
-                SignInButton(onClick = {})
-            }
-        }
-    }
+  @Test
+  fun default() {
+    runComponentTest { HorologistMaterialTheme { SignInButton(onClick = {}) } }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            HorologistMaterialTheme {
-                SignInButton(
-                    onClick = {},
-                    enabled = false,
-                )
-            }
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      HorologistMaterialTheme {
+        SignInButton(
+          onClick = {},
+          enabled = false,
+        )
+      }
     }
+  }
 
-    @Test
-    fun withVariantButtonStyle() {
-        runComponentTest {
-            HorologistMaterialTheme {
-                SignInButton(
-                    onClick = {},
-                    colors = ButtonDefaults.filledVariantButtonColors(),
-                )
-            }
-        }
+  @Test
+  fun withVariantButtonStyle() {
+    runComponentTest {
+      HorologistMaterialTheme {
+        SignInButton(
+          onClick = {},
+          colors = ButtonDefaults.filledVariantButtonColors(),
+        )
+      }
     }
+  }
 
-    @Test
-    fun withVariantButtonStyleDisabled() {
-        runComponentTest {
-            HorologistMaterialTheme {
-                SignInButton(
-                    onClick = {},
-                    colors = ButtonDefaults.filledVariantButtonColors(),
-                    enabled = false,
-                )
-            }
-        }
+  @Test
+  fun withVariantButtonStyleDisabled() {
+    runComponentTest {
+      HorologistMaterialTheme {
+        SignInButton(
+          onClick = {},
+          colors = ButtonDefaults.filledVariantButtonColors(),
+          enabled = false,
+        )
+      }
     }
+  }
 }

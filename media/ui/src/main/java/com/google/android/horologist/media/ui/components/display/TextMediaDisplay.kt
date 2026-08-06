@@ -39,65 +39,71 @@ import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.components.controls.MediaTitleIcon
 import com.google.android.horologist.media.ui.util.isLargeScreen
 
-/**
- * A simple text only display showing artist and title in two separated rows.
- */
+/** A simple text only display showing artist and title in two separated rows. */
 @ExperimentalHorologistApi
 @Composable
 public fun TextMediaDisplay(
-    title: String,
-    subtitle: String,
-    modifier: Modifier = Modifier,
-    titleIcon: Paintable? = null,
+  title: String,
+  subtitle: String,
+  modifier: Modifier = Modifier,
+  titleIcon: Paintable? = null,
 ) {
-    val isLargeScreen = LocalConfiguration.current.isLargeScreen
-    val titleSidePadding = (0.063f * LocalConfiguration.current.screenWidthDp).dp
+  val isLargeScreen = LocalConfiguration.current.isLargeScreen
+  val titleSidePadding = (0.063f * LocalConfiguration.current.screenWidthDp).dp
 
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center) {
-        val textStyle = MaterialTheme.typography.button
-        val text = buildAnnotatedString {
-            if (titleIcon != null) {
-                appendInlineContent(id = "iconSlot")
-                append(" ")
-            }
-            append(title)
-        }
-        val inlineContent = if (titleIcon != null) {
-            mapOf(
-                "iconSlot" to InlineTextContent(
-                    Placeholder(textStyle.fontSize, textStyle.fontSize, PlaceholderVerticalAlign.TextCenter),
-                ) {
-                    MediaTitleIcon(titleIcon)
-                },
-            )
-        } else {
-            emptyMap()
-        }
-        Text(
-            text = text,
-            inlineContent = inlineContent,
-            modifier = Modifier
-                .padding(
-                    top = if (isLargeScreen) 0.dp else 2.dp,
-                    bottom = if (isLargeScreen) 3.dp else 1.dp,
-                    start = titleSidePadding,
-                    end = titleSidePadding,
-                ),
-            color = MaterialTheme.colors.onBackground,
-            textAlign = TextAlign.Center,
-            maxLines = 1,
-            style = textStyle,
-        )
-        Text(
-            text = subtitle,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 1.dp, bottom = .6.dp),
-            color = MaterialTheme.colors.onBackground,
-            textAlign = TextAlign.Center,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1,
-            style = MaterialTheme.typography.body2,
-        )
+  Column(
+    modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center,
+  ) {
+    val textStyle = MaterialTheme.typography.button
+    val text = buildAnnotatedString {
+      if (titleIcon != null) {
+        appendInlineContent(id = "iconSlot")
+        append(" ")
+      }
+      append(title)
     }
+    val inlineContent =
+      if (titleIcon != null) {
+        mapOf(
+          "iconSlot" to
+            InlineTextContent(
+              Placeholder(
+                textStyle.fontSize,
+                textStyle.fontSize,
+                PlaceholderVerticalAlign.TextCenter,
+              )
+            ) {
+              MediaTitleIcon(titleIcon)
+            }
+        )
+      } else {
+        emptyMap()
+      }
+    Text(
+      text = text,
+      inlineContent = inlineContent,
+      modifier =
+        Modifier.padding(
+          top = if (isLargeScreen) 0.dp else 2.dp,
+          bottom = if (isLargeScreen) 3.dp else 1.dp,
+          start = titleSidePadding,
+          end = titleSidePadding,
+        ),
+      color = MaterialTheme.colors.onBackground,
+      textAlign = TextAlign.Center,
+      maxLines = 1,
+      style = textStyle,
+    )
+    Text(
+      text = subtitle,
+      modifier = Modifier.fillMaxWidth().padding(top = 1.dp, bottom = .6.dp),
+      color = MaterialTheme.colors.onBackground,
+      textAlign = TextAlign.Center,
+      overflow = TextOverflow.Ellipsis,
+      maxLines = 1,
+      style = MaterialTheme.typography.body2,
+    )
+  }
 }

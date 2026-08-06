@@ -20,23 +20,21 @@ import androidx.tracing.Trace
 import java.util.concurrent.atomic.AtomicInteger
 
 class AsyncTraceEvent(val name: String) : AutoCloseable {
-    val id = idGenerator.getAndIncrement()
+  val id = idGenerator.getAndIncrement()
 
-    init {
-        Trace.beginAsyncSection(name, id)
+  init {
+    Trace.beginAsyncSection(name, id)
+  }
+
+  companion object {
+    val idGenerator = AtomicInteger(1000)
+
+    suspend fun <R> withTracing(name: String, block: suspend () -> R): R {
+      return AsyncTraceEvent(name).use { block() }
     }
+  }
 
-    companion object {
-        val idGenerator = AtomicInteger(1000)
-
-        suspend fun <R> withTracing(name: String, block: suspend () -> R): R {
-            return AsyncTraceEvent(name).use {
-                block()
-            }
-        }
-    }
-
-    override fun close() {
-        Trace.endAsyncSection(name, id)
-    }
+  override fun close() {
+    Trace.endAsyncSection(name, id)
+  }
 }

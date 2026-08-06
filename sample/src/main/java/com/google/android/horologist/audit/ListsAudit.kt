@@ -43,75 +43,75 @@ import com.google.android.horologist.compose.material.responsiveButtonWidth
 
 @Composable
 fun ListsAudit(route: AuditNavigation.Lists.Audit) {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = when (route.config) {
-                AuditNavigation.Lists.Config.OneBottomChip -> ItemType.Chip
-                AuditNavigation.Lists.Config.NoBottomButton -> ItemType.BodyText
-                AuditNavigation.Lists.Config.OneBottomButton -> ItemType.SingleButton
-                AuditNavigation.Lists.Config.TwoBottomRound -> ItemType.MultiButton
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ItemType.Text,
+          last =
+            when (route.config) {
+              AuditNavigation.Lists.Config.OneBottomChip -> ItemType.Chip
+              AuditNavigation.Lists.Config.NoBottomButton -> ItemType.BodyText
+              AuditNavigation.Lists.Config.OneBottomButton -> ItemType.SingleButton
+              AuditNavigation.Lists.Config.TwoBottomRound -> ItemType.MultiButton
             },
-        ),
+        )
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(columnState = columnState) {
-            items(10) {
-                Chip("Chip $it", onClick = {})
+  ScreenScaffold(scrollState = columnState) {
+    ScalingLazyColumn(columnState = columnState) {
+      items(10) { Chip("Chip $it", onClick = {}) }
+      item {
+        when (route.config) {
+          AuditNavigation.Lists.Config.NoBottomButton -> {
+            Text(
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
+              modifier = Modifier.listTextPadding(),
+              maxLines = 3,
+            )
+          }
+
+          AuditNavigation.Lists.Config.OneBottomChip -> {
+            Chip("Final Chip", onClick = {}, modifier = Modifier.padding(top = 12.dp))
+          }
+
+          AuditNavigation.Lists.Config.TwoBottomRound -> {
+            val (buttonSpacedBy, buttonWidth) = responsiveButtonWidth(2)
+            Row(
+              modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
+              horizontalArrangement =
+                Arrangement.spacedBy(
+                  buttonSpacedBy,
+                  Alignment.CenterHorizontally,
+                ),
+            ) {
+              ResponsiveButton(
+                onClick = {},
+                icon = Icons.Default.PlusOne,
+                contentDescription = "",
+                buttonWidth = buttonWidth,
+              )
+              ResponsiveButton(
+                onClick = {},
+                icon = Icons.Default.LooksTwo,
+                contentDescription = "",
+                buttonWidth = buttonWidth,
+              )
             }
-            item {
-                when (route.config) {
-                    AuditNavigation.Lists.Config.NoBottomButton -> {
-                        Text(
-                            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt",
-                            modifier = Modifier.listTextPadding(),
-                            maxLines = 3,
-                        )
-                    }
+          }
 
-                    AuditNavigation.Lists.Config.OneBottomChip -> {
-                        Chip("Final Chip", onClick = {}, modifier = Modifier.padding(top = 12.dp))
-                    }
-
-                    AuditNavigation.Lists.Config.TwoBottomRound -> {
-                        val (buttonSpacedBy, buttonWidth) = responsiveButtonWidth(2)
-                        Row(
-                            modifier = Modifier.fillMaxWidth().padding(top = 12.dp),
-                            horizontalArrangement = Arrangement.spacedBy(
-                                buttonSpacedBy,
-                                Alignment.CenterHorizontally,
-                            ),
-                        ) {
-                            ResponsiveButton(
-                                onClick = {},
-                                icon = Icons.Default.PlusOne,
-                                contentDescription = "",
-                                buttonWidth = buttonWidth,
-                            )
-                            ResponsiveButton(
-                                onClick = {},
-                                icon = Icons.Default.LooksTwo,
-                                contentDescription = "",
-                                buttonWidth = buttonWidth,
-                            )
-                        }
-                    }
-
-                    AuditNavigation.Lists.Config.OneBottomButton -> {
-                        Button(
-                            onClick = {},
-                            imageVector = Icons.Default.WhereToVote,
-                            contentDescription = "",
-                            modifier = Modifier.padding(top = 12.dp),
-                        )
-                    }
-                }
-            }
+          AuditNavigation.Lists.Config.OneBottomButton -> {
+            Button(
+              onClick = {},
+              imageVector = Icons.Default.WhereToVote,
+              contentDescription = "",
+              modifier = Modifier.padding(top = 12.dp),
+            )
+          }
         }
+      }
     }
+  }
 
-    LaunchedEffect(Unit) {
-        columnState.state.scrollToItem(100)
-    }
+  LaunchedEffect(Unit) { columnState.state.scrollToItem(100) }
 }

@@ -35,82 +35,82 @@ import com.google.android.horologist.compose.material.Card
 @WearPreviewDevices
 @Composable
 fun SampleCardScreenPreview() {
-    val state = rememberResponsiveColumnState(first = ItemType.Card, last = ItemType.Card)
-    SampleCardScreen(columnState = state)
+  val state = rememberResponsiveColumnState(first = ItemType.Card, last = ItemType.Card)
+  SampleCardScreen(columnState = state)
 }
 
 @Composable
 internal fun SampleCardScreen(
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        modifier = modifier,
-        columnState = columnState,
-    ) {
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                enabled = false,
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                modifier = Modifier.background(Color.Cyan),
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                modifier = Modifier.background(Color.Cyan),
-                shape = MaterialTheme.shapes.medium,
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                backgroundPainter = painterResource(id = android.R.drawable.ic_dialog_alert),
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                contentPadding = PaddingValues(24.dp),
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                contentColor = MaterialTheme.colors.primaryVariant,
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                enabled = false,
-            ) {
-                Text("Hello\nCard")
-            }
-        }
+  ScalingLazyColumn(
+    modifier = modifier,
+    columnState = columnState,
+  ) {
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        enabled = false,
+      ) {
+        Text("Hello\nCard")
+      }
     }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        modifier = Modifier.background(Color.Cyan),
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        modifier = Modifier.background(Color.Cyan),
+        shape = MaterialTheme.shapes.medium,
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        backgroundPainter = painterResource(id = android.R.drawable.ic_dialog_alert),
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        contentPadding = PaddingValues(24.dp),
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        contentColor = MaterialTheme.colors.primaryVariant,
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        enabled = false,
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+  }
 }

@@ -23,62 +23,64 @@ import com.google.android.horologist.networks.data.RequestType
 
 @ExperimentalHorologistApi
 public interface NetworkStatusLogger {
-    public fun logNetworkEvent(event: String, error: Boolean = false)
-    public fun logJobEvent(event: String, error: Boolean = false)
-    public fun debugNetworkEvent(event: String)
+  public fun logNetworkEvent(event: String, error: Boolean = false)
 
-    public fun logNetworkResponse(
-        requestType: RequestType,
-        networkInfo: NetworkInfo,
-        bytesTransferred: Long,
-    )
+  public fun logJobEvent(event: String, error: Boolean = false)
 
-    @ExperimentalHorologistApi
-    public object Logging : NetworkStatusLogger {
-        override fun logNetworkEvent(event: String, error: Boolean) {
-            Log.println(if (error) Log.WARN else Log.INFO, "networks", event)
-        }
+  public fun debugNetworkEvent(event: String)
 
-        override fun logJobEvent(event: String, error: Boolean) {
-            Log.println(if (error) Log.WARN else Log.INFO, "networks", event)
-        }
+  public fun logNetworkResponse(
+    requestType: RequestType,
+    networkInfo: NetworkInfo,
+    bytesTransferred: Long,
+  )
 
-        override fun debugNetworkEvent(event: String) {
-            Log.d("networks", event)
-        }
-
-        override fun logNetworkResponse(
-            requestType: RequestType,
-            networkInfo: NetworkInfo,
-            bytesTransferred: Long,
-        ) {
-            Log.d("networks", "response $requestType ${networkInfo.type} ${bytesTransferred}B")
-        }
+  @ExperimentalHorologistApi
+  public object Logging : NetworkStatusLogger {
+    override fun logNetworkEvent(event: String, error: Boolean) {
+      Log.println(if (error) Log.WARN else Log.INFO, "networks", event)
     }
 
-    @ExperimentalHorologistApi
-    public class InMemory : NetworkStatusLogger {
-        public val events: MutableList<String> = mutableListOf<String>()
-
-        override fun logNetworkEvent(event: String, error: Boolean) {
-            events.add(event)
-        }
-
-        override fun logJobEvent(event: String, error: Boolean) {
-            events.add(event)
-        }
-
-        override fun debugNetworkEvent(event: String) {
-            events.add(event)
-        }
-
-        override fun logNetworkResponse(
-            requestType: RequestType,
-            networkInfo: NetworkInfo,
-            bytesTransferred: Long,
-        ) {
-            val event = "response $requestType ${networkInfo.type} ${bytesTransferred}B"
-            events.add(event)
-        }
+    override fun logJobEvent(event: String, error: Boolean) {
+      Log.println(if (error) Log.WARN else Log.INFO, "networks", event)
     }
+
+    override fun debugNetworkEvent(event: String) {
+      Log.d("networks", event)
+    }
+
+    override fun logNetworkResponse(
+      requestType: RequestType,
+      networkInfo: NetworkInfo,
+      bytesTransferred: Long,
+    ) {
+      Log.d("networks", "response $requestType ${networkInfo.type} ${bytesTransferred}B")
+    }
+  }
+
+  @ExperimentalHorologistApi
+  public class InMemory : NetworkStatusLogger {
+    public val events: MutableList<String> = mutableListOf<String>()
+
+    override fun logNetworkEvent(event: String, error: Boolean) {
+      events.add(event)
+    }
+
+    override fun logJobEvent(event: String, error: Boolean) {
+      events.add(event)
+    }
+
+    override fun debugNetworkEvent(event: String) {
+      events.add(event)
+    }
+
+    override fun logNetworkResponse(
+      requestType: RequestType,
+      networkInfo: NetworkInfo,
+      bytesTransferred: Long,
+    ) {
+      val event = "response $requestType ${networkInfo.type} ${bytesTransferred}B"
+      events.add(event)
+    }
+  }
 }

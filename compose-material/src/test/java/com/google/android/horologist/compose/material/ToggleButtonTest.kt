@@ -30,240 +30,240 @@ import org.robolectric.annotation.Config
 
 class ToggleButtonTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-            )
-        }
+  @Test
+  fun default() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+      )
     }
+  }
 
-    @Test
-    fun notChecked() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                checked = false,
-            )
-        }
+  @Test
+  fun notChecked() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        checked = false,
+      )
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun notCheckedDisabled() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                checked = false,
-                enabled = false,
-            )
-        }
+  @Test
+  fun notCheckedDisabled() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        checked = false,
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun text() {
-        runComponentTest {
-            ToggleButton(
-                text = "Monday",
-                onCheckedChanged = {},
-            )
-        }
+  @Test
+  fun text() {
+    runComponentTest {
+      ToggleButton(
+        text = "Monday",
+        onCheckedChanged = {},
+      )
     }
+  }
 
-    @Test
-    fun textNotChecked() {
-        runComponentTest {
-            ToggleButton(
-                text = "Monday",
-                onCheckedChanged = {},
-                checked = false,
-            )
-        }
+  @Test
+  fun textNotChecked() {
+    runComponentTest {
+      ToggleButton(
+        text = "Monday",
+        onCheckedChanged = {},
+        checked = false,
+      )
     }
+  }
 
-    @Test
-    fun textDisabled() {
-        runComponentTest {
-            ToggleButton(
-                text = "Monday",
-                onCheckedChanged = {},
-                enabled = false,
-            )
-        }
+  @Test
+  fun textDisabled() {
+    runComponentTest {
+      ToggleButton(
+        text = "Monday",
+        onCheckedChanged = {},
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun textNotCheckedDisabled() {
-        runComponentTest {
-            ToggleButton(
-                text = "Monday",
-                onCheckedChanged = {},
-                checked = false,
-                enabled = false,
-            )
-        }
+  @Test
+  fun textNotCheckedDisabled() {
+    runComponentTest {
+      ToggleButton(
+        text = "Monday",
+        onCheckedChanged = {},
+        checked = false,
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun small() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                smallSize = true,
-            )
-        }
+  @Test
+  fun small() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        smallSize = true,
+      )
     }
+  }
 
-    @Test
-    fun smallNotChecked() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                checked = false,
-                smallSize = true,
-            )
-        }
+  @Test
+  fun smallNotChecked() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        checked = false,
+        smallSize = true,
+      )
     }
+  }
 
-    @Test
-    fun smallDisabled() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                enabled = false,
-                smallSize = true,
-            )
-        }
+  @Test
+  fun smallDisabled() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        enabled = false,
+        smallSize = true,
+      )
     }
+  }
 
-    fun smallNotCheckedDisabled() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                checked = false,
-                enabled = false,
-                smallSize = true,
-            )
-        }
+  fun smallNotCheckedDisabled() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        checked = false,
+        enabled = false,
+        smallSize = true,
+      )
     }
+  }
 
-    fun iconOnly() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true,
-            )
-        }
+  fun iconOnly() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        colors = ToggleButtonDefaults.iconOnlyColors(),
+        smallSize = true,
+      )
     }
+  }
 
-    fun iconOnlyNotChecked() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                checked = false,
-                colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true,
-            )
-        }
+  fun iconOnlyNotChecked() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        checked = false,
+        colors = ToggleButtonDefaults.iconOnlyColors(),
+        smallSize = true,
+      )
     }
+  }
 
-    fun iconOnlyDisabled() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                enabled = false,
-                colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true,
-            )
-        }
+  fun iconOnlyDisabled() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        enabled = false,
+        colors = ToggleButtonDefaults.iconOnlyColors(),
+        smallSize = true,
+      )
     }
+  }
 
-    fun iconOnlyNotCheckedDisabled() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-                notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-                checked = false,
-                enabled = false,
-                colors = ToggleButtonDefaults.iconOnlyColors(),
-                smallSize = true,
-            )
-        }
+  fun iconOnlyNotCheckedDisabled() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+        checked = false,
+        enabled = false,
+        colors = ToggleButtonDefaults.iconOnlyColors(),
+        smallSize = true,
+      )
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun rtl() {
-        runComponentTest {
-            ToggleButton(
-                checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
-                notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
-                contentDescription = "contentDescription",
-                onCheckedChanged = {},
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun rtl() {
+    runComponentTest {
+      ToggleButton(
+        checkedIcon = Icons.AutoMirrored.Filled.VolumeUp.asPaintable(),
+        notCheckedIcon = Icons.AutoMirrored.Filled.VolumeOff.asPaintable(),
+        contentDescription = "contentDescription",
+        onCheckedChanged = {},
+      )
     }
+  }
 
-    @Test
-    fun textWithLargestFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-                ToggleButton(
-                    text = "Monday",
-                    onCheckedChanged = {},
-                )
-            }
-        }
+  @Test
+  fun textWithLargestFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
+        ToggleButton(
+          text = "Monday",
+          onCheckedChanged = {},
+        )
+      }
     }
+  }
 
-    companion object {
+  companion object {
 
-        private const val largestFontScale = 1.18f
-    }
+    private const val largestFontScale = 1.18f
+  }
 }

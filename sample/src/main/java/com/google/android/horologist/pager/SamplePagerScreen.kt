@@ -29,24 +29,12 @@ import com.google.android.horologist.compose.pager.PagerScreen
 
 @Composable
 fun SamplePagerScreen() {
-    PagerScreen(
-        state = rememberPagerState {
-            10
-        },
-    ) {
-        PagerItemScreen(item = "item $it")
-    }
+  PagerScreen(state = rememberPagerState { 10 }) { PagerItemScreen(item = "item $it") }
 }
 
 @Composable
-internal fun PagerItemScreen(
-    item: String,
-) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.DarkGray),
-    ) {
-        Text(text = item, modifier = Modifier.align(Alignment.Center))
-    }
+internal fun PagerItemScreen(item: String) {
+  Box(modifier = Modifier.fillMaxSize().background(Color.DarkGray)) {
+    Text(text = item, modifier = Modifier.align(Alignment.Center))
+  }
 }

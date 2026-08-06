@@ -21,7 +21,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material.Colors
 import androidx.wear.compose.material.MaterialTheme
 
-public val UampColors = Colors(
+public val UampColors =
+  Colors(
     primary = Color(0xFF981F68),
     primaryVariant = Color(0xFF66003d),
     secondary = Color(0xFF981F68),
@@ -30,11 +31,9 @@ public val UampColors = Colors(
     onSurfaceVariant = Color(0xFFDADCE0),
     surface = Color(0xFF303133),
     onError = Color.Black,
-)
+  )
 
 @Composable
 public fun UampTheme(block: @Composable () -> Unit) {
-    MaterialTheme(colors = UampColors) {
-        block()
-    }
+  MaterialTheme(colors = UampColors) { block() }
 }

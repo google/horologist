@@ -53,126 +53,109 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
 @Config(
-    sdk = [35],
-    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
+  sdk = [35],
+  qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
 )
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Category(ScreenshotTest::class)
 public abstract class WearScreenshotTest {
 
-    @get:Rule
-    public val composeRule: ComposeContentTestRule = createComposeRule()
+  @get:Rule public val composeRule: ComposeContentTestRule = createComposeRule()
 
-    @get:Rule
-    public val testInfo: TestName = TestName()
+  @get:Rule public val testInfo: TestName = TestName()
 
-    public open val device: WearDevice? = null
+  public open val device: WearDevice? = null
 
-    // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
-    public open val tolerance: Float = 0.0f
+  // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
+  public open val tolerance: Float = 0.0f
 
-    public open val imageLoader: FakeImageLoaderEngine? = null
+  public open val imageLoader: FakeImageLoaderEngine? = null
 
-    public open fun roborazziOptions(applyDeviceCrop: Boolean = true): RoborazziOptions =
-        RoborazziOptions(
-            recordOptions = RoborazziOptions.RecordOptions(
-                applyDeviceCrop = applyDeviceCrop,
-            ),
-            compareOptions = RoborazziOptions.CompareOptions(
-                resultValidator = ThresholdValidator(tolerance),
-            ),
-        )
+  public open fun roborazziOptions(applyDeviceCrop: Boolean = true): RoborazziOptions =
+    RoborazziOptions(
+      recordOptions = RoborazziOptions.RecordOptions(applyDeviceCrop = applyDeviceCrop),
+      compareOptions =
+        RoborazziOptions.CompareOptions(resultValidator = ThresholdValidator(tolerance)),
+    )
 
-    public fun runTest(
-        suffix: String? = null,
-        device: WearDevice? = this.device,
-        applyDeviceConfig: Boolean = true,
-        captureScreenshot: Boolean = true,
-        content: @Composable () -> Unit,
-    ) {
-        if (applyDeviceConfig && device != null) {
-            RuntimeEnvironment.setQualifiers("+w${device.dp}dp-h${device.dp}dp" + (if (device.isRound) "" else "-notround"))
-            RuntimeEnvironment.setFontScale(device.fontScale)
-        }
-
-        composeRule.setContent {
-            withImageLoader(imageLoader) {
-                TestScaffold {
-                    content()
-                }
-            }
-        }
-        if (captureScreenshot) {
-            captureScreenshot(suffix.orEmpty())
-        }
+  public fun runTest(
+    suffix: String? = null,
+    device: WearDevice? = this.device,
+    applyDeviceConfig: Boolean = true,
+    captureScreenshot: Boolean = true,
+    content: @Composable () -> Unit,
+  ) {
+    if (applyDeviceConfig && device != null) {
+      RuntimeEnvironment.setQualifiers(
+        "+w${device.dp}dp-h${device.dp}dp" + (if (device.isRound) "" else "-notround")
+      )
+      RuntimeEnvironment.setFontScale(device.fontScale)
     }
 
-    public fun captureScreenshot(suffix: String = "") {
-        captureScreenRoboImage(
-            filePath = testName(suffix),
-            roborazziOptions = roborazziOptions(),
-        )
+    composeRule.setContent { withImageLoader(imageLoader) { TestScaffold { content() } } }
+    if (captureScreenshot) {
+      captureScreenshot(suffix.orEmpty())
+    }
+  }
+
+  public fun captureScreenshot(suffix: String = "") {
+    captureScreenRoboImage(
+      filePath = testName(suffix),
+      roborazziOptions = roborazziOptions(),
+    )
+  }
+
+  @Composable
+  public open fun TestScaffold(content: @Composable () -> Unit) {
+    CorrectLayout {
+      AppScaffold(
+        modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.background),
+        timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
+      ) {
+        content()
+      }
+    }
+  }
+
+  public open fun testName(suffix: String): String =
+    "src/test/screenshots/${this.javaClass.simpleName}_${device?.id ?: WearDevice.GenericLargeRound.id}$suffix.png"
+
+  public companion object {
+    internal const val PIXEL_COPY_RENDER_MODE = "robolectric.pixelCopyRenderMode"
+
+    init {
+      useHardwareRenderer()
+    }
+
+    public fun useHardwareRenderer() {
+      System.setProperty(PIXEL_COPY_RENDER_MODE, "hardware")
     }
 
     @Composable
-    public open fun TestScaffold(content: @Composable () -> Unit) {
-        CorrectLayout {
-            AppScaffold(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(MaterialTheme.colors.background),
-                timeText = { ResponsiveTimeText(timeSource = FixedTimeSource) },
-            ) {
-                content()
-            }
-        }
+    public fun withImageLoader(
+      imageLoaderEngine: FakeImageLoaderEngine?,
+      content: @Composable () -> Unit,
+    ) {
+      if (imageLoaderEngine == null) {
+        content()
+      } else {
+        val imageLoader =
+          ImageLoader.Builder(LocalContext.current).components { add(imageLoaderEngine) }.build()
+        @Suppress("DEPRECATION")
+        CompositionLocalProvider(LocalImageLoader provides imageLoader) { content() }
+      }
     }
 
-    public open fun testName(suffix: String): String =
-        "src/test/screenshots/${this.javaClass.simpleName}_${device?.id ?: WearDevice.GenericLargeRound.id}$suffix.png"
-
-    public companion object {
-        internal const val PIXEL_COPY_RENDER_MODE = "robolectric.pixelCopyRenderMode"
-
-        init {
-            useHardwareRenderer()
+    @Composable
+    public fun CorrectLayout(content: @Composable () -> Unit) {
+      // TODO why needed
+      val layoutDirection =
+        when (LocalConfiguration.current.layoutDirection) {
+          RTL -> LayoutDirection.Rtl
+          else -> LayoutDirection.Ltr
         }
-
-        public fun useHardwareRenderer() {
-            System.setProperty(PIXEL_COPY_RENDER_MODE, "hardware")
-        }
-
-        @Composable
-        public fun withImageLoader(
-            imageLoaderEngine: FakeImageLoaderEngine?,
-            content: @Composable () -> Unit,
-        ) {
-            if (imageLoaderEngine == null) {
-                content()
-            } else {
-                val imageLoader = ImageLoader.Builder(LocalContext.current)
-                    .components { add(imageLoaderEngine) }
-                    .build()
-                @Suppress("DEPRECATION")
-                CompositionLocalProvider(LocalImageLoader provides imageLoader) {
-                    content()
-                }
-            }
-        }
-
-        @Composable
-        public fun CorrectLayout(
-            content: @Composable () -> Unit,
-        ) {
-            // TODO why needed
-            val layoutDirection = when (LocalConfiguration.current.layoutDirection) {
-                RTL -> LayoutDirection.Rtl
-                else -> LayoutDirection.Ltr
-            }
-            CompositionLocalProvider(value = LocalLayoutDirection provides layoutDirection) {
-                content()
-            }
-        }
+      CompositionLocalProvider(value = LocalLayoutDirection provides layoutDirection) { content() }
     }
+  }
 }

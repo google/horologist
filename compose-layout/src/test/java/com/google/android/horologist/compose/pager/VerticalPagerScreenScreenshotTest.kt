@@ -27,21 +27,14 @@ import org.junit.Test
 
 class VerticalPagerScreenScreenshotTest : WearLegacyScreenTest() {
 
-    @Test
-    fun screens() {
-        runTest {
-            VerticalPagerScreen(
-                state = rememberPagerState {
-                    10
-                },
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                ) {
-                    Text(text = "Item $it", modifier = Modifier.align(Alignment.Center))
-                }
-            }
+  @Test
+  fun screens() {
+    runTest {
+      VerticalPagerScreen(state = rememberPagerState { 10 }) {
+        Box(modifier = Modifier.fillMaxSize()) {
+          Text(text = "Item $it", modifier = Modifier.align(Alignment.Center))
         }
+      }
     }
+  }
 }

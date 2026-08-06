@@ -26,24 +26,27 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class LenientTest {
-    @Test
-    fun getPreferredNetwork() {
-        val wifiFirst = Fixtures.networks(wifi, bt)
-        assertThat(Lenient.getPreferredNetwork(wifiFirst, ImageRequest)).isEqualTo(wifi)
+  @Test
+  fun getPreferredNetwork() {
+    val wifiFirst = Fixtures.networks(wifi, bt)
+    assertThat(Lenient.getPreferredNetwork(wifiFirst, ImageRequest)).isEqualTo(wifi)
 
-        val btFirst = Fixtures.networks(bt, wifi)
-        assertThat(Lenient.getPreferredNetwork(btFirst, ImageRequest)).isEqualTo(wifi)
+    val btFirst = Fixtures.networks(bt, wifi)
+    assertThat(Lenient.getPreferredNetwork(btFirst, ImageRequest)).isEqualTo(wifi)
 
-        val btOnly = Fixtures.networks(bt)
-        assertThat(Lenient.getPreferredNetwork(btOnly, ImageRequest)).isEqualTo(bt)
-    }
+    val btOnly = Fixtures.networks(bt)
+    assertThat(Lenient.getPreferredNetwork(btOnly, ImageRequest)).isEqualTo(bt)
+  }
 
-    @Test
-    fun checkValidRequest() {
-        assertThat(Lenient.checkValidRequest(ImageRequest, wifi.networkInfo)).isInstanceOf(Allow::class.java)
+  @Test
+  fun checkValidRequest() {
+    assertThat(Lenient.checkValidRequest(ImageRequest, wifi.networkInfo))
+      .isInstanceOf(Allow::class.java)
 
-        assertThat(Lenient.checkValidRequest(ImageRequest, cell.networkInfo)).isInstanceOf(Allow::class.java)
+    assertThat(Lenient.checkValidRequest(ImageRequest, cell.networkInfo))
+      .isInstanceOf(Allow::class.java)
 
-        assertThat(Lenient.checkValidRequest(ImageRequest, bt.networkInfo)).isInstanceOf(Allow::class.java)
-    }
+    assertThat(Lenient.checkValidRequest(ImageRequest, bt.networkInfo))
+      .isInstanceOf(Allow::class.java)
+  }
 }

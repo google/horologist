@@ -34,35 +34,32 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 @Composable
 @ExperimentalHorologistApi
 public fun VerticalPagerScreen(
-    state: PagerState,
-    modifier: Modifier = Modifier,
-    beyondViewportPageCount: Int = 0,
-    userScrollEnabled: Boolean = true,
-    reverseLayout: Boolean = false,
-    key: ((index: Int) -> Any)? = null,
-    content: @Composable (Int) -> Unit,
+  state: PagerState,
+  modifier: Modifier = Modifier,
+  beyondViewportPageCount: Int = 0,
+  userScrollEnabled: Boolean = true,
+  reverseLayout: Boolean = false,
+  key: ((index: Int) -> Any)? = null,
+  content: @Composable (Int) -> Unit,
 ) {
-    ScreenScaffold(
-        modifier = modifier.fillMaxSize(),
-        positionIndicator = {
-            VerticalPageIndicator(
-                pageIndicatorState = PageScreenIndicatorState(state),
-                modifier = Modifier.padding(6.dp),
-            )
-        },
-    ) {
-        VerticalPager(
-            modifier = Modifier
-                .fillMaxSize(),
-            state = state,
-            beyondViewportPageCount = beyondViewportPageCount,
-            userScrollEnabled = userScrollEnabled,
-            reverseLayout = reverseLayout,
-            key = key,
-        ) { page ->
-            ClippedBox(state) {
-                content(page)
-            }
-        }
+  ScreenScaffold(
+    modifier = modifier.fillMaxSize(),
+    positionIndicator = {
+      VerticalPageIndicator(
+        pageIndicatorState = PageScreenIndicatorState(state),
+        modifier = Modifier.padding(6.dp),
+      )
+    },
+  ) {
+    VerticalPager(
+      modifier = Modifier.fillMaxSize(),
+      state = state,
+      beyondViewportPageCount = beyondViewportPageCount,
+      userScrollEnabled = userScrollEnabled,
+      reverseLayout = reverseLayout,
+      key = key,
+    ) { page ->
+      ClippedBox(state) { content(page) }
     }
+  }
 }

@@ -50,17 +50,11 @@ data class Point(val x: RemoteFloat, val y: RemoteFloat)
  * animation specified in the Lottie Position Property.
  */
 @SuppressLint("RestrictedApi")
-fun animatePosition(
-  position: BasePositionProperty,
-  animationSettings: LottieSettings,
-): Point {
+fun animatePosition(position: BasePositionProperty, animationSettings: LottieSettings): Point {
   return when (position) {
     // Static constant position: directly wrap the [x, y] coordinates into RemoteFloats.
     is StaticPositionProperty -> {
-      Point(
-        x = position.value.getOrElse(0) { 0f }.rf,
-        y = position.value.getOrElse(1) { 0f }.rf,
-      )
+      Point(x = position.value.getOrElse(0) { 0f }.rf, y = position.value.getOrElse(1) { 0f }.rf)
     }
     // Keyframed animated position: interpolate [x, y] across keyframes using Bézier easing curves.
     is AnimatedPositionProperty -> {

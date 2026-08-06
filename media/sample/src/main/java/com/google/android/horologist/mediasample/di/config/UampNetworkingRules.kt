@@ -50,10 +50,7 @@ object UampNetworkingRules : NetworkingRules {
     }
   }
 
-  override fun getPreferredNetwork(
-    networks: Networks,
-    requestType: RequestType,
-  ): NetworkStatus? {
+  override fun getPreferredNetwork(networks: Networks, requestType: RequestType): NetworkStatus? {
     if (requestType is RequestType.MediaRequest) {
       return getPreferredNetworkForMedia(networks, requestType)
     } else if (requestType is RequestType.ImageRequest) {

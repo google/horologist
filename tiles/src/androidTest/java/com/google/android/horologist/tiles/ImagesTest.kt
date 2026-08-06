@@ -35,12 +35,7 @@ class ImagesTest {
   @Test
   fun hardwareBitmapToImageResource() {
     val softwareBitmap =
-      Bitmap.createBitmap(
-        intArrayOf(Color.RED, Color.GREEN),
-        2,
-        1,
-        Bitmap.Config.ARGB_8888,
-      )
+      Bitmap.createBitmap(intArrayOf(Color.RED, Color.GREEN), 2, 1, Bitmap.Config.ARGB_8888)
     val encodedBitmap =
       ByteArrayOutputStream()
         .also { softwareBitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }

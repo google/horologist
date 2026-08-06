@@ -58,11 +58,7 @@ public class TokenBundleRepositoryImpl<T>(
       serializer: Serializer<T>,
       key: String = DEFAULT_TOKEN_BUNDLE_KEY,
     ): TokenBundleRepositoryImpl<T> =
-      TokenBundleRepositoryImpl(
-        registry = registry,
-        serializer = serializer,
-        path = buildPath(key),
-      )
+      TokenBundleRepositoryImpl(registry = registry, serializer = serializer, path = buildPath(key))
 
     private fun buildPath(key: String) =
       if (key.startsWith("/")) {

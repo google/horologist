@@ -29,32 +29,18 @@ class OtherOptionsChipTest : WearLegacyComponentTest() {
 
   @Test
   fun disabled() {
-    runComponentTest {
-      OtherOptionsChip(
-        onClick = {},
-        enabled = false,
-      )
-    }
+    runComponentTest { OtherOptionsChip(onClick = {}, enabled = false) }
   }
 
   @Test
   fun withSecondaryChipType() {
-    runComponentTest {
-      OtherOptionsChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
-    }
+    runComponentTest { OtherOptionsChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
   }
 
   @Test
   fun withSecondaryChipTypeDisabled() {
     runComponentTest {
-      OtherOptionsChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-        enabled = false,
-      )
+      OtherOptionsChip(onClick = {}, colors = ChipDefaults.secondaryChipColors(), enabled = false)
     }
   }
 }

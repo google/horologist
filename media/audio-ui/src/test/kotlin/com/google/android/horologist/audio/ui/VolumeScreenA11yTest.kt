@@ -38,18 +38,11 @@ class VolumeScreenA11yTest {
 
   @Test
   fun testLabelOrdering() {
-    val volumeState =
-      VolumeState(
-        current = 5,
-        max = 10,
-      )
+    val volumeState = VolumeState(current = 5, max = 10)
     val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
     composeTestRule.setContent {
-      VolumeScreenTestCase(
-        volumeState = volumeState,
-        audioOutput = audioOutput,
-      )
+      VolumeScreenTestCase(volumeState = volumeState, audioOutput = audioOutput)
     }
 
     composeTestRule.onNodeWithContentDescription("Volume set to 50%").assertIsDisplayed()

@@ -47,11 +47,7 @@ import com.google.android.horologist.compose.material.Chip
 fun SectionedListPreviewLoadingSection() {
   val columnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Text,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
   ScreenScaffold(scrollState = columnState) {
@@ -68,11 +64,7 @@ fun SectionedListPreviewLoadingSection() {
 fun SectionedListPreviewLoadedSection() {
   val columnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Text,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
   ScreenScaffold(scrollState = columnState) {
@@ -89,11 +81,7 @@ fun SectionedListPreviewLoadedSection() {
 fun SectionedListPreviewFailedSection() {
   val columnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Text,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
   ScreenScaffold(scrollState = columnState) {
@@ -110,11 +98,7 @@ fun SectionedListPreviewFailedSection() {
 fun SectionedListPreviewEmptySection() {
   val columnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Text,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
   ScreenScaffold(scrollState = columnState) {
@@ -200,11 +184,7 @@ private fun DownloadsEmpty() {
 
 @Composable
 private fun DownloadsFooter() {
-  Chip(
-    label = "More downloads..",
-    onClick = {},
-    colors = ChipDefaults.secondaryChipColors(),
-  )
+  Chip(label = "More downloads..", onClick = {}, colors = ChipDefaults.secondaryChipColors())
 }
 
 private val favourites = listOf("Dance Anthems", "Indie Jukebox")
@@ -281,9 +261,5 @@ private fun FavouritesEmpty() {
 
 @Composable
 fun FavouritesFooter() {
-  Chip(
-    label = "More favourites..",
-    onClick = {},
-    colors = ChipDefaults.secondaryChipColors(),
-  )
+  Chip(label = "More favourites..", onClick = {}, colors = ChipDefaults.secondaryChipColors())
 }

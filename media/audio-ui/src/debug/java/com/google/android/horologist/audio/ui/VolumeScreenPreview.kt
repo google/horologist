@@ -104,11 +104,7 @@ fun VolumeScreenWithLabel() {
 
   Box(modifier = Modifier.fillMaxSize()) {
     Scaffold(positionIndicator = { VolumePositionIndicator(volumeUiState = { volumeUiState }) }) {
-      VolumeWithLabelScreen(
-        volume = { volumeUiState },
-        increaseVolume = {},
-        decreaseVolume = {},
-      )
+      VolumeWithLabelScreen(volume = { volumeUiState }, increaseVolume = {}, decreaseVolume = {})
     }
   }
 }

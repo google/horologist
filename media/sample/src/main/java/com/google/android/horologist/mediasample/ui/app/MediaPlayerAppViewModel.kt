@@ -63,12 +63,7 @@ constructor(
 
   val appState =
     settingsRepository.settingsFlow
-      .map {
-        UampAppState(
-          streamingMode = it.streamingMode,
-          guestMode = it.guestMode,
-        )
-      }
+      .map { UampAppState(streamingMode = it.streamingMode, guestMode = it.guestMode) }
       .stateIn(
         viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
@@ -108,11 +103,7 @@ constructor(
     // If it's currently not playing and user opted in to load items at startup,
     // then we start playing using the last played media item.
     if (currentMediaItem == null && settings.loadItemsAtStartup) {
-      playItems(
-        settings.currentMediaItemId,
-        settings.currentMediaListId,
-        settings.currentPosition,
-      )
+      playItems(settings.currentMediaItemId, settings.currentMediaListId, settings.currentPosition)
     } else if (currentMediaItem == null) {
       val loadAtStartup = settingsRepository.settingsFlow.first().loadItemsAtStartup
 
@@ -161,10 +152,7 @@ constructor(
       }
     } catch (e: IOException) {
       snackbarManager.showMessage(
-        UiMessage(
-          message = resourceProvider.getString(R.string.sample_network_error),
-          error = true,
-        )
+        UiMessage(message = resourceProvider.getString(R.string.sample_network_error), error = true)
       )
     }
   }

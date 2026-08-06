@@ -112,10 +112,7 @@ class StreamlineSignInViewModelTest {
         assertThat(awaitItem())
           .isEqualTo(
             StreamlineSignInScreenState.SingleAccountAvailable(
-              AccountUiModel(
-                email = email,
-                name = name,
-              )
+              AccountUiModel(email = email, name = name)
             )
           )
       }

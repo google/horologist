@@ -183,11 +183,7 @@ private fun MediaContent(
         label = mediaTitle,
         onClick = { onDownloadItemClick(downloadMediaUiModel) },
         secondaryLabel = secondaryLabel,
-        icon =
-          CoilPaintable(
-            downloadMediaUiModel.artworkUri,
-            downloadItemArtworkPlaceholder,
-          ),
+        icon = CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder),
         largeIcon = true,
         colors = ChipDefaults.secondaryChipColors(),
         enabled = downloadMediaUiModel !is DownloadMediaUiModel.NotDownloaded,
@@ -211,10 +207,7 @@ private fun MediaContent(
                 progress = progress,
                 modifier = Modifier.clearAndSetSemantics {},
                 icon =
-                  CoilPaintable(
-                    downloadMediaUiModel.artworkUri,
-                    downloadItemArtworkPlaceholder,
-                  ),
+                  CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder),
                 largeIcon = true,
               )
             }
@@ -225,10 +218,7 @@ private fun MediaContent(
               ChipIconWithProgress(
                 modifier = Modifier.clearAndSetSemantics {},
                 icon =
-                  CoilPaintable(
-                    downloadMediaUiModel.artworkUri,
-                    downloadItemArtworkPlaceholder,
-                  ),
+                  CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder),
                 largeIcon = true,
               )
             }
@@ -238,10 +228,7 @@ private fun MediaContent(
       val customModifier =
         onDownloadItemInProgressClickActionLabel?.let {
           Modifier.semantics {
-            onClick(
-              label = onDownloadItemInProgressClickActionLabel,
-              action = null,
-            )
+            onClick(label = onDownloadItemInProgressClickActionLabel, action = null)
           }
         } ?: Modifier
 
@@ -414,13 +401,7 @@ private fun <Collection> FirstButton(
           id = R.string.horologist_playlist_download_button_download_done_content_description
         ),
       onClick = { onDownloadCompletedButtonClick(collectionModel) },
-      modifier =
-        modifier.semantics {
-          onClick(
-            label = label,
-            action = null,
-          )
-        },
+      modifier = modifier.semantics { onClick(label = label, action = null) },
       colors = ButtonDefaults.secondaryButtonColors(),
     )
   } else {

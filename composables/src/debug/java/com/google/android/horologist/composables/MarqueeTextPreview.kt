@@ -92,10 +92,7 @@ fun MarqueeTextShortTextRightPreview() {
 @Composable
 fun MarqueeTextShortTextRtlPreview() {
   CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
-    MarqueeText(
-      text = "A",
-      modifier = Modifier.background(Color.DarkGray).width(100.dp),
-    )
+    MarqueeText(text = "A", modifier = Modifier.background(Color.DarkGray).width(100.dp))
   }
 }
 

@@ -100,10 +100,7 @@ internal fun BrowseScreenScope.PlaylistDownloadBrowseScreenContent(
             label = download.playlistUiModel.title,
             onClick = { onDownloadItemClick(download) },
             icon =
-              CoilPaintable(
-                download.playlistUiModel.artworkUri,
-                downloadItemArtworkPlaceholder,
-              ),
+              CoilPaintable(download.playlistUiModel.artworkUri, downloadItemArtworkPlaceholder),
             largeIcon = true,
             colors = ChipDefaults.secondaryChipColors(),
           )
@@ -113,10 +110,7 @@ internal fun BrowseScreenScope.PlaylistDownloadBrowseScreenContent(
           val customModifier =
             onDownloadItemInProgressClickActionLabel?.let {
               Modifier.semantics {
-                onClick(
-                  label = onDownloadItemInProgressClickActionLabel,
-                  action = null,
-                )
+                onClick(label = onDownloadItemInProgressClickActionLabel, action = null)
               }
             } ?: Modifier
 

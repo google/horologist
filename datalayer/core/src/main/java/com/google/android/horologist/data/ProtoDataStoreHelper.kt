@@ -43,9 +43,6 @@ object ProtoDataStoreHelper {
   inline fun <reified T : Any> WearDataLayerRegistry.registerProtoDataListener(
     listener: ProtoDataListener<T>
   ) {
-    this.registerProtoDataListener(
-      WearDataLayerRegistry.dataStorePath(T::class),
-      listener,
-    )
+    this.registerProtoDataListener(WearDataLayerRegistry.dataStorePath(T::class), listener)
   }
 }

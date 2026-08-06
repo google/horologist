@@ -138,18 +138,8 @@ public open class NetworkLoggingEventListenerFactory(
       val requestType = call.request().requestType
       val networkInfo = call.request().networkInfo ?: NetworkInfo.Unknown("unknown")
 
-      logger.logNetworkResponse(
-        requestType,
-        networkInfo,
-        bytesTransferred,
-      )
-      dataRequestRepository?.storeRequest(
-        DataRequest(
-          requestType,
-          networkInfo,
-          bytesTransferred,
-        )
-      )
+      logger.logNetworkResponse(requestType, networkInfo, bytesTransferred)
+      dataRequestRepository?.storeRequest(DataRequest(requestType, networkInfo, bytesTransferred))
     }
   }
 

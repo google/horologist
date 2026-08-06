@@ -52,12 +52,7 @@ class MediaPlayerScreenTest(private val themeValue: ThemeValues) : WearLegacyScr
         shuffleOn = false,
         playPauseEnabled = true,
         playing = true,
-        media =
-          MediaUiModel.Ready(
-            id = "",
-            title = "Weather with You",
-            subtitle = "Crowded House",
-          ),
+        media = MediaUiModel.Ready(id = "", title = "Weather with You", subtitle = "Crowded House"),
         trackPositionUiModel =
           TrackPositionUiModel.Actual(
             percent = 0.1f,

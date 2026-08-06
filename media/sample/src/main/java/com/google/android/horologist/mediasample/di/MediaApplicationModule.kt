@@ -64,10 +64,7 @@ object MediaApplicationModule {
 
   @Singleton
   @Provides
-  fun intentBuilder(
-    @ApplicationContext application: Context,
-    appConfig: AppConfig,
-  ): IntentBuilder =
+  fun intentBuilder(@ApplicationContext application: Context, appConfig: AppConfig): IntentBuilder =
     NavDeepLinkIntentBuilder(
       application,
       "${appConfig.deeplinkUriPrefix}/player?page=1",
@@ -142,15 +139,8 @@ object MediaApplicationModule {
 
   @Singleton
   @Provides
-  fun media3Cache(
-    @CacheDir cacheDir: File,
-    cacheDatabaseProvider: DatabaseProvider,
-  ): Cache =
-    SimpleCache(
-      cacheDir.resolve("media3cache"),
-      NoOpCacheEvictor(),
-      cacheDatabaseProvider,
-    )
+  fun media3Cache(@CacheDir cacheDir: File, cacheDatabaseProvider: DatabaseProvider): Cache =
+    SimpleCache(cacheDir.resolve("media3cache"), NoOpCacheEvictor(), cacheDatabaseProvider)
 
   @Singleton @Provides fun snackbarManager() = SnackbarManager()
 
@@ -165,10 +155,7 @@ object MediaApplicationModule {
     val updater =
       ComplicationDataSourceUpdateRequester.create(
         application,
-        ComponentName(
-          application,
-          MediaStatusComplicationService::class.java,
-        ),
+        ComponentName(application, MediaStatusComplicationService::class.java),
       )
     return DataUpdates(updater)
   }

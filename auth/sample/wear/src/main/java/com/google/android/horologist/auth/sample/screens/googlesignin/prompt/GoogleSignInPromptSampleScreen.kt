@@ -65,10 +65,7 @@ fun GoogleSignInPromptSampleScreen(
       )
     }
     item {
-      GuestModeButton(
-        onClick = navController::popBackStack,
-        modifier = Modifier.fillMaxWidth(),
-      )
+      GuestModeButton(onClick = navController::popBackStack, modifier = Modifier.fillMaxWidth())
     }
   }
 

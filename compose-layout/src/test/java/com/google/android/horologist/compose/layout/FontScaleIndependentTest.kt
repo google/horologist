@@ -42,10 +42,7 @@ import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.annotation.Config
 
-@Config(
-  sdk = [35],
-  qualifiers = RobolectricDeviceQualifiers.LargeDesktop,
-)
+@Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.LargeDesktop)
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class FontScaleIndependentTest(val fontSize: Size) : WearScreenshotTest() {
 
@@ -59,39 +56,19 @@ class FontScaleIndependentTest(val fontSize: Size) : WearScreenshotTest() {
       val density = LocalDensity.current
       Column(modifier = Modifier.background(Color.Black).testTag("Column")) {
         sizes.forEach { fontScale ->
-          CompositionLocalProvider(
-            LocalDensity provides
-              Density(
-                density.density,
-                fontScale,
-              )
-          ) {
+          CompositionLocalProvider(LocalDensity provides Density(density.density, fontScale)) {
             Row {
-              Box(
-                modifier = Modifier.wrapContentSize(),
-                contentAlignment = Alignment.BottomStart,
-              ) {
-                FontScaleIndependent {
-                  Text(
-                    text = "Independent 1.0 |",
-                    fontSize = fontSize.size,
-                  )
-                }
+              Box(modifier = Modifier.wrapContentSize(), contentAlignment = Alignment.BottomStart) {
+                FontScaleIndependent { Text(text = "Independent 1.0 |", fontSize = fontSize.size) }
               }
-              Box(
-                modifier = Modifier.wrapContentSize(),
-                contentAlignment = Alignment.BottomStart,
-              ) {
+              Box(modifier = Modifier.wrapContentSize(), contentAlignment = Alignment.BottomStart) {
                 val tm = rememberTextMeasurer()
                 val height =
                   tm
                     .measure("|", style = TextStyle.Default.copy(fontSize = fontSize.size))
                     .size
                     .height
-                Text(
-                  text = "| $fontScale Scale (${height}px)",
-                  fontSize = fontSize.size,
-                )
+                Text(text = "| $fontScale Scale (${height}px)", fontSize = fontSize.size)
               }
             }
           }

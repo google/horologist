@@ -66,11 +66,7 @@ class WearLocalDataStoreTest {
     path = WearDataLayerRegistry.dataStorePath(Preferences::class) + "-" + testName.methodName
 
     preferencesDataStore =
-      registry.protoDataStore(
-        path,
-        scope,
-        registry.serializers.serializerForType<Preferences>(),
-      )
+      registry.protoDataStore(path, scope, registry.serializers.serializerForType<Preferences>())
   }
 
   @Test

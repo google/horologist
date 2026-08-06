@@ -29,32 +29,18 @@ class GuestModeChipTest : WearLegacyComponentTest() {
 
   @Test
   fun disabled() {
-    runComponentTest {
-      GuestModeChip(
-        onClick = {},
-        enabled = false,
-      )
-    }
+    runComponentTest { GuestModeChip(onClick = {}, enabled = false) }
   }
 
   @Test
   fun withSecondaryChipType() {
-    runComponentTest {
-      GuestModeChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
-    }
+    runComponentTest { GuestModeChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
   }
 
   @Test
   fun withSecondaryChipTypeDisabled() {
     runComponentTest {
-      GuestModeChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-        enabled = false,
-      )
+      GuestModeChip(onClick = {}, colors = ChipDefaults.secondaryChipColors(), enabled = false)
     }
   }
 }

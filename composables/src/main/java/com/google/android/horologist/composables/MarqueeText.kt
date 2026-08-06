@@ -215,20 +215,10 @@ private class MarqueeController(edgeGradientWidth: Dp) {
       // The brush will only be instantiated on first render and if the size of the composable
       // changes. Otherwise the same brush instance will be used.
       val leftBrush =
-        Brush.horizontalGradient(
-          listOf(
-            Color.Transparent,
-            Color.Black,
-          ),
-          startX = 0f,
-          endX = width,
-        )
+        Brush.horizontalGradient(listOf(Color.Transparent, Color.Black), startX = 0f, endX = width)
       val rightBrush =
         Brush.horizontalGradient(
-          listOf(
-            Color.Transparent,
-            Color.Black,
-          ),
+          listOf(Color.Transparent, Color.Black),
           startX = size.width,
           endX = size.width - width,
         )
@@ -238,21 +228,13 @@ private class MarqueeController(edgeGradientWidth: Dp) {
         if (needsScrolling) {
           drawRect(
             size = Size(width, size.height),
-            topLeft =
-              Offset(
-                0f,
-                0f,
-              ),
+            topLeft = Offset(0f, 0f),
             brush = leftBrush,
             blendMode = BlendMode.DstIn,
           )
           drawRect(
             size = Size(width, size.height),
-            topLeft =
-              Offset(
-                size.width - width,
-                0f,
-              ),
+            topLeft = Offset(size.width - width, 0f),
             brush = rightBrush,
             blendMode = BlendMode.DstIn,
           )

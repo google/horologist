@@ -60,11 +60,5 @@ object TestMedia {
 
   // https://podnews.net/article/audio-quality-comparisons
   val songMp3_192 =
-    Media(
-      "4",
-      "https://podnews.net/audio/s-192-44100.mp3",
-      "Espressif",
-      "Sample",
-      null,
-    )
+    Media("4", "https://podnews.net/audio/s-192-44100.mp3", "Espressif", "Sample", null)
 }

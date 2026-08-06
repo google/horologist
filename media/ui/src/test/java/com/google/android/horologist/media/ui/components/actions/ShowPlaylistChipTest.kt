@@ -36,13 +36,7 @@ class ShowPlaylistChipTest : WearLegacyComponentTest() {
 
   @Test
   fun givenNOArtwork_thenDoesNOTDisplayArtwork() {
-    runComponentTest {
-      ShowPlaylistChip(
-        artworkPaintable = null,
-        name = "Playlists",
-        onClick = {},
-      )
-    }
+    runComponentTest { ShowPlaylistChip(artworkPaintable = null, name = "Playlists", onClick = {}) }
   }
 
   @Test

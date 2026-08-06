@@ -76,7 +76,4 @@ private fun Timestamp.isBefore(other: CounterValue): Boolean =
   seconds < other.updated.seconds ||
     (seconds == other.updated.seconds && nanos < other.updated.nanos)
 
-data class DataLayerScreenState(
-  val counterValue: CounterValue? = null,
-  val error: String? = null,
-)
+data class DataLayerScreenState(val counterValue: CounterValue? = null, val error: String? = null)

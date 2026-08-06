@@ -67,10 +67,7 @@ public fun PlayerLibraryPagerScreen(
     }
   }
 
-  PagerScreen(
-    modifier = modifier.background(Color.Transparent),
-    state = pagerState,
-  ) { page ->
+  PagerScreen(modifier = modifier.background(Color.Transparent), state = pagerState) { page ->
     when (page) {
       0 -> {
         ScreenScaffold(

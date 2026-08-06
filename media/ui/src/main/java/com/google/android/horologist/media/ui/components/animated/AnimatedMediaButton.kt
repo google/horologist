@@ -90,11 +90,7 @@ public fun AnimatedMediaButton(
       modifier = modifier,
       enabled = enabled,
       colors = colors,
-      indication =
-        ripple(
-          bounded = false,
-          radius = 35.dp,
-        ),
+      indication = ripple(bounded = false, radius = 35.dp),
     ) {
       this.MediaButtonContent(
         compositionResult = compositionResult,

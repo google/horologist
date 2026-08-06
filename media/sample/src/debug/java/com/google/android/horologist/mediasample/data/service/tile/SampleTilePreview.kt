@@ -34,10 +34,7 @@ import com.google.android.horologist.tiles.images.toImageResource
 fun SampleTilePreview(context: Context): TilePreviewData =
   tileRendererPreviewData(
     renderer =
-      MediaCollectionsTileRenderer(
-        context = context,
-        debugResourceMode = BuildConfig.DEBUG,
-      ),
+      MediaCollectionsTileRenderer(context = context, debugResourceMode = BuildConfig.DEBUG),
     tileState =
       MediaCollectionsTileRenderer.MediaCollectionsState(
         chipName = R.string.sample_playlists,

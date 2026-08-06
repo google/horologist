@@ -60,36 +60,22 @@ fun PlaylistsScreenPreview() {
 @WearPreviewDevices
 @Composable
 fun PlaylistsScreenPreviewLoading() {
-  PlaylistsScreen(
-    playlistsScreenState = PlaylistsScreenState.Loading,
-    onPlaylistItemClick = {},
-  )
+  PlaylistsScreen(playlistsScreenState = PlaylistsScreenState.Loading, onPlaylistItemClick = {})
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistsScreenPreviewFailed() {
-  PlaylistsScreen(
-    playlistsScreenState = PlaylistsScreenState.Failed,
-    onPlaylistItemClick = {},
-  )
+  PlaylistsScreen(playlistsScreenState = PlaylistsScreenState.Failed, onPlaylistItemClick = {})
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistsScreenPreviewCustomLayout() {
   PlaylistsScreen(
-    playlists =
-      listOf(
-        Pair("Rock Classics", "Downloading 73%.."),
-        Pair("Pop Punk", "Completed"),
-      ),
+    playlists = listOf(Pair("Rock Classics", "Downloading 73%.."), Pair("Pop Punk", "Completed")),
     playlistContent = { (name, status) ->
-      Chip(
-        label = name,
-        onClick = {},
-        secondaryLabel = status,
-      )
+      Chip(label = name, onClick = {}, secondaryLabel = status)
     },
   )
 }

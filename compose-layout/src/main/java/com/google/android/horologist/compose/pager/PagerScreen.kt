@@ -54,10 +54,7 @@ public fun PagerScreen(
   key: ((index: Int) -> Any)? = null,
   content: @Composable (Int) -> Unit,
 ) {
-  PagerScaffold(
-    modifier = modifier.fillMaxSize(),
-    pagerState = state,
-  ) {
+  PagerScaffold(modifier = modifier.fillMaxSize(), pagerState = state) {
     HorizontalPager(
       state = state,
       beyondViewportPageCount = beyondViewportPageCount,

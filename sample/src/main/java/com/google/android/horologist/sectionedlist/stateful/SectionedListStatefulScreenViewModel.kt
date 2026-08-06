@@ -57,10 +57,7 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
     object Failed : RecommendationSectionState()
   }
 
-  data class Recommendation(
-    val playlistName: String,
-    val icon: ImageVector,
-  )
+  data class Recommendation(val playlistName: String, val icon: ImageVector)
 
   sealed class TrendingSectionState {
     object Loading : TrendingSectionState()
@@ -70,10 +67,7 @@ class SectionedListStatefulScreenViewModel : ViewModel() {
     object Failed : TrendingSectionState()
   }
 
-  data class Trending(
-    val name: String,
-    val artist: String,
-  )
+  data class Trending(val name: String, val artist: String)
 
   fun loadRecommendations() {
     viewModelScope.launch {

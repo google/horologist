@@ -48,7 +48,4 @@ public fun Icon(
 
 @Composable
 internal fun Modifier.autoMirrored(autoMirror: Boolean): Modifier =
-  scale(
-    scaleX = if (autoMirror) -1f else 1f,
-    scaleY = 1f,
-  )
+  scale(scaleX = if (autoMirror) -1f else 1f, scaleY = 1f)

@@ -29,10 +29,10 @@ import androidx.wear.compose.foundation.rotary.rotaryScrollable
 import com.google.android.horologist.compose.rotaryinput.RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX
 import kotlinx.coroutines.launch
 
-public fun Modifier.rotaryWithPager(
-  state: PagerState,
-  focusRequester: FocusRequester,
-): Modifier = composed { rotaryScrollable(pagerRotaryBehaviour(state), focusRequester) }
+public fun Modifier.rotaryWithPager(state: PagerState, focusRequester: FocusRequester): Modifier =
+  composed {
+    rotaryScrollable(pagerRotaryBehaviour(state), focusRequester)
+  }
 
 @Composable
 public fun pagerRotaryBehaviour(state: PagerState): RotaryScrollableBehavior {

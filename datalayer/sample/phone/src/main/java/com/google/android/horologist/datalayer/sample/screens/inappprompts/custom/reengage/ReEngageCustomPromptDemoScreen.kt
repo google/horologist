@@ -142,10 +142,7 @@ fun ReEngageCustomPromptDemoScreen(
               modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth(),
               horizontalArrangement = Arrangement.End,
             ) {
-              TextButton(
-                onClick = onPromptDismiss,
-                modifier = Modifier.padding(end = 12.dp),
-              ) {
+              TextButton(onClick = onPromptDismiss, modifier = Modifier.padding(end = 12.dp)) {
                 Text(
                   text =
                     stringResource(

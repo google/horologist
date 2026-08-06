@@ -197,10 +197,7 @@ class RotaryVolumeControlsTest {
     assertThat(actual).isEqualTo(0)
   }
 
-  private fun setUpViewWithRotaryVolumeModifier(
-    volumeState: VolumeState,
-    isLowRes: Boolean,
-  ) {
+  private fun setUpViewWithRotaryVolumeModifier(volumeState: VolumeState, isLowRes: Boolean) {
     val context = ApplicationProvider.getApplicationContext<Context>()
     val packageManager = context.packageManager
 

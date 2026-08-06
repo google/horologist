@@ -76,12 +76,7 @@ public fun MediaInfoTimeText(
         pinnedNetworks = pinnedNetworks,
       )
     },
-    endCurvedContent = {
-      offloadDataStatus(
-        offloadStatus = offloadStatus,
-        style = style,
-      )
-    },
+    endCurvedContent = { offloadDataStatus(offloadStatus = offloadStatus, style = style) },
   )
 }
 
@@ -91,9 +86,6 @@ public fun CurvedScope.offloadDataStatus(
   style: CurvedTextStyle,
 ) {
   if (offloadStatus != null) {
-    curvedText(
-      text = offloadStatus.trackOffloadDescription(),
-      style = style,
-    )
+    curvedText(text = offloadStatus.trackOffloadDescription(), style = style)
   }
 }

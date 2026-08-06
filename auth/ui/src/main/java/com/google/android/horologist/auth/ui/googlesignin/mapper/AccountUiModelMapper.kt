@@ -26,10 +26,7 @@ import com.google.android.horologist.images.coil.CoilPaintable
 public object AccountUiModelMapper {
 
   /** Maps from a [GoogleSignInAccount]. */
-  public fun map(
-    account: GoogleSignInAccount,
-    defaultEmail: String = "",
-  ): AccountUiModel =
+  public fun map(account: GoogleSignInAccount, defaultEmail: String = ""): AccountUiModel =
     AccountUiModel(
       email = account.email ?: defaultEmail,
       name = account.displayName,

@@ -234,10 +234,7 @@ internal fun VolumeScreen(
     contentSlot()
   }
   if (showVolumeIndicator) {
-    VolumePositionIndicator(
-      volumeUiState = { volume() },
-      color = volumeColor,
-    )
+    VolumePositionIndicator(volumeUiState = { volume() }, color = volumeColor)
   }
 }
 

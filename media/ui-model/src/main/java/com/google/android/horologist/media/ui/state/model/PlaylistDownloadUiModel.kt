@@ -23,8 +23,6 @@ public sealed class PlaylistDownloadUiModel(public open val playlistUiModel: Pla
   public data class Completed(override val playlistUiModel: PlaylistUiModel) :
     PlaylistDownloadUiModel(playlistUiModel = playlistUiModel)
 
-  public data class InProgress(
-    override val playlistUiModel: PlaylistUiModel,
-    val percentage: Int,
-  ) : PlaylistDownloadUiModel(playlistUiModel = playlistUiModel)
+  public data class InProgress(override val playlistUiModel: PlaylistUiModel, val percentage: Int) :
+    PlaylistDownloadUiModel(playlistUiModel = playlistUiModel)
 }

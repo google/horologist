@@ -50,10 +50,7 @@ class VolumeButtonTest : WearLegacyComponentTest() {
     val currentVolume = 0
 
     runComponentTest {
-      VolumeButton(
-        onVolumeClick = {},
-        volumeUiState = VolumeUiState(current = currentVolume),
-      )
+      VolumeButton(onVolumeClick = {}, volumeUiState = VolumeUiState(current = currentVolume))
     }
   }
 
@@ -62,10 +59,7 @@ class VolumeButtonTest : WearLegacyComponentTest() {
     val currentVolume = 1
 
     runComponentTest {
-      VolumeButton(
-        onVolumeClick = {},
-        volumeUiState = VolumeUiState(current = currentVolume),
-      )
+      VolumeButton(onVolumeClick = {}, volumeUiState = VolumeUiState(current = currentVolume))
     }
   }
 

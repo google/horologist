@@ -133,17 +133,7 @@ class SignInPromptScreenTest : WearLegacyScreenTest() {
   }
 
   private fun ScalingLazyListScope.testContent() {
-    item {
-      SignInChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
-    }
-    item {
-      GuestModeChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
-    }
+    item { SignInChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
+    item { GuestModeChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
   }
 }

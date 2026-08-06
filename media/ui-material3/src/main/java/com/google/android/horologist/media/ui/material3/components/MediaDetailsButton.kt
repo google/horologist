@@ -86,20 +86,8 @@ public fun MediaDetailsButton(
   FilledTonalButton(
     modifier = modifier.fillMaxWidth(),
     onClick = onClick,
-    contentPadding =
-      PaddingValues(
-        start = 12.dp,
-        top = 6.dp,
-        end = 0.dp,
-        bottom = 6.dp,
-      ),
+    contentPadding = PaddingValues(start = 12.dp, top = 6.dp, end = 0.dp, bottom = 6.dp),
     icon = appIcon,
-    label = {
-      Text(
-        text = title,
-        maxLines = 2,
-        overflow = TextOverflow.Ellipsis,
-      )
-    },
+    label = { Text(text = title, maxLines = 2, overflow = TextOverflow.Ellipsis) },
   )
 }

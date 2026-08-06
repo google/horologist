@@ -47,10 +47,7 @@ import org.robolectric.annotation.Config
 
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
-@Config(
-  sdk = [35],
-  qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-)
+@Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
 class SnackbarHostTest {
 
   @get:Rule val rule = createComposeRule()
@@ -128,11 +125,7 @@ class SnackbarHostTest {
     rule.waitUntil { job1.isCompleted }
 
     val job2 = scope.launch {
-      val result =
-        hostState.showSnackbar(
-          message = "1",
-          actionLabel = "do not press",
-        )
+      val result = hostState.showSnackbar(message = "1", actionLabel = "do not press")
       Truth.assertThat(result).isEqualTo(SnackbarResult.Dismissed)
     }
 
@@ -209,26 +202,14 @@ class SnackbarHostTest {
             mockDurationNonControl
           }
       }
-    assertEquals(
-      Long.MAX_VALUE,
-      SnackbarDuration.Indefinite.toMillis(true, accessibilityManager),
-    )
-    assertEquals(
-      Long.MAX_VALUE,
-      SnackbarDuration.Indefinite.toMillis(false, accessibilityManager),
-    )
-    assertEquals(
-      mockDurationControl,
-      SnackbarDuration.Long.toMillis(true, accessibilityManager),
-    )
+    assertEquals(Long.MAX_VALUE, SnackbarDuration.Indefinite.toMillis(true, accessibilityManager))
+    assertEquals(Long.MAX_VALUE, SnackbarDuration.Indefinite.toMillis(false, accessibilityManager))
+    assertEquals(mockDurationControl, SnackbarDuration.Long.toMillis(true, accessibilityManager))
     assertEquals(
       mockDurationNonControl,
       SnackbarDuration.Long.toMillis(false, accessibilityManager),
     )
-    assertEquals(
-      mockDurationControl,
-      SnackbarDuration.Short.toMillis(true, accessibilityManager),
-    )
+    assertEquals(mockDurationControl, SnackbarDuration.Short.toMillis(true, accessibilityManager))
     assertEquals(
       mockDurationNonControl,
       SnackbarDuration.Short.toMillis(false, accessibilityManager),
@@ -237,29 +218,11 @@ class SnackbarHostTest {
 
   @Test
   fun snackbarDuration_toMillis_nullAccessibilityManager() {
-    assertEquals(
-      Long.MAX_VALUE,
-      SnackbarDuration.Indefinite.toMillis(true, null),
-    )
-    assertEquals(
-      Long.MAX_VALUE,
-      SnackbarDuration.Indefinite.toMillis(false, null),
-    )
-    assertEquals(
-      10000L,
-      SnackbarDuration.Long.toMillis(true, null),
-    )
-    assertEquals(
-      10000L,
-      SnackbarDuration.Long.toMillis(false, null),
-    )
-    assertEquals(
-      4000L,
-      SnackbarDuration.Short.toMillis(true, null),
-    )
-    assertEquals(
-      4000L,
-      SnackbarDuration.Short.toMillis(false, null),
-    )
+    assertEquals(Long.MAX_VALUE, SnackbarDuration.Indefinite.toMillis(true, null))
+    assertEquals(Long.MAX_VALUE, SnackbarDuration.Indefinite.toMillis(false, null))
+    assertEquals(10000L, SnackbarDuration.Long.toMillis(true, null))
+    assertEquals(10000L, SnackbarDuration.Long.toMillis(false, null))
+    assertEquals(4000L, SnackbarDuration.Short.toMillis(true, null))
+    assertEquals(4000L, SnackbarDuration.Short.toMillis(false, null))
   }
 }

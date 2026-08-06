@@ -51,10 +51,7 @@ object AiModule {
 
   @Singleton
   @Provides
-  fun geminiSDKService(
-    client: Client,
-    contentConfig: GenerateContentConfig,
-  ) =
+  fun geminiSDKService(client: Client, contentConfig: GenerateContentConfig) =
     GeminiSDKInferenceServiceImpl(
       client,
       serviceName = "Device Info",

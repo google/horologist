@@ -39,15 +39,7 @@ public open class WearMedia3Factory(private val context: Context) {
     audioSink: AudioSink,
     mediaCodecSelector: MediaCodecSelector = MediaCodecSelector.DEFAULT,
   ): RenderersFactory = RenderersFactory { handler, _, audioListener, _, _ ->
-    arrayOf(
-      MediaCodecAudioRenderer(
-        context,
-        mediaCodecSelector,
-        handler,
-        audioListener,
-        audioSink,
-      )
-    )
+    arrayOf(MediaCodecAudioRenderer(context, mediaCodecSelector, handler, audioListener, audioSink))
   }
 
   public fun mediaCodecSelector(): MediaCodecSelector = MediaCodecSelector.DEFAULT

@@ -64,11 +64,7 @@ public fun <T> PlaylistsScreen(
 ) {
   val columnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Text,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
   // TODO This should be folded into SectionedList
@@ -77,10 +73,7 @@ public fun <T> PlaylistsScreen(
   }
 
   ScreenScaffold(scrollState = columnState) {
-    SectionedList(
-      modifier = modifier,
-      columnState = columnState,
-    ) {
+    SectionedList(modifier = modifier, columnState = columnState) {
       val sectionState =
         when (playlistsScreenState) {
           is PlaylistsScreenState.Loaded<T> -> {
@@ -93,10 +86,7 @@ public fun <T> PlaylistsScreen(
 
       section(state = sectionState) {
         header {
-          Title(
-            R.string.horologist_browse_playlist_title,
-            Modifier.padding(bottom = 12.dp),
-          )
+          Title(R.string.horologist_browse_playlist_title, Modifier.padding(bottom = 12.dp))
         }
 
         loaded { playlistContent(it) }

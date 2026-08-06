@@ -53,14 +53,8 @@ fun DeveloperOptionsScreen(
   val transformationSpec = rememberTransformationSpec()
   val columnState = rememberTransformingLazyColumnState()
 
-  ScreenScaffold(
-    scrollState = columnState,
-    modifier = modifier,
-  ) { contentPadding ->
-    TransformingLazyColumn(
-      state = columnState,
-      contentPadding = contentPadding,
-    ) {
+  ScreenScaffold(scrollState = columnState, modifier = modifier) { contentPadding ->
+    TransformingLazyColumn(state = columnState, contentPadding = contentPadding) {
       item {
         ListHeader(
           modifier =
@@ -72,10 +66,7 @@ fun DeveloperOptionsScreen(
           Text(text = stringResource(id = R.string.sample_developer_options))
         }
       }
-      developerActionSetting(
-        transformationSpec = transformationSpec,
-        text = "New Hotness Player",
-      ) {
+      developerActionSetting(transformationSpec = transformationSpec, text = "New Hotness Player") {
         backStack.add(CustomRoute(NewHotness.navRoute))
       }
       developerCheckedSetting(

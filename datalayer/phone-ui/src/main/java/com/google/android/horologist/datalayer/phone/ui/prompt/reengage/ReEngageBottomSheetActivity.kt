@@ -83,12 +83,7 @@ internal class ReEngageBottomSheetActivity : ComponentActivity() {
           imageResId
             .takeIf { it != NO_IMAGE }
             ?.let {
-              {
-                Image(
-                  painter = painterResource(id = imageResId),
-                  contentDescription = null,
-                )
-              }
+              { Image(painter = painterResource(id = imageResId), contentDescription = null) }
             }
 
         ReEngageBottomSheet(
@@ -118,10 +113,7 @@ internal class ReEngageBottomSheetActivity : ComponentActivity() {
     // Can't use the Activity's lifecycleScope as it is going to finish the activity immediately
     // after this call
     coroutineAppScope.launch {
-      ReEngagePromptAction.run(
-        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
-        nodeId = nodeId,
-      )
+      ReEngagePromptAction.run(phoneDataLayerAppHelper = phoneDataLayerAppHelper, nodeId = nodeId)
     }
 
     // It returns OK to indicate that the user tapped on the positive button.

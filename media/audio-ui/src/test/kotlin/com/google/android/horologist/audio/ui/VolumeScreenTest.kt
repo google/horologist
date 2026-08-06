@@ -65,10 +65,7 @@ class VolumeScreenTest {
 
     composeTestRule.setContent {
       val focusRequester = remember { FocusRequester() }
-      VolumeScreen(
-        modifier = Modifier.fillMaxSize().focusRequester(focusRequester),
-        model,
-      )
+      VolumeScreen(modifier = Modifier.fillMaxSize().focusRequester(focusRequester), model)
     }
   }
 

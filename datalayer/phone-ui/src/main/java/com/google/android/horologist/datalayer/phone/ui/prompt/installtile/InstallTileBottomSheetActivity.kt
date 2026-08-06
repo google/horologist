@@ -59,12 +59,7 @@ internal class InstallTileBottomSheetActivity : ComponentActivity() {
           imageResId
             .takeIf { it != NO_IMAGE }
             ?.let {
-              {
-                Image(
-                  painter = painterResource(id = imageResId),
-                  contentDescription = null,
-                )
-              }
+              { Image(painter = painterResource(id = imageResId), contentDescription = null) }
             }
 
         InstallTileBottomSheet(

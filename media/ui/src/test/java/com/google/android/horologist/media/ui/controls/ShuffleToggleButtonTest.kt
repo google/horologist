@@ -24,21 +24,11 @@ class ShuffleToggleButtonTest : WearLegacyComponentTest() {
 
   @Test
   fun givenShuffleIsOn_thenIconIsShuffleOn() {
-    runComponentTest {
-      ShuffleToggleButton(
-        onToggle = {},
-        shuffleOn = true,
-      )
-    }
+    runComponentTest { ShuffleToggleButton(onToggle = {}, shuffleOn = true) }
   }
 
   @Test
   fun givenShuffleIsOff_thenIconIsShuffle() {
-    runComponentTest {
-      ShuffleToggleButton(
-        onToggle = {},
-        shuffleOn = false,
-      )
-    }
+    runComponentTest { ShuffleToggleButton(onToggle = {}, shuffleOn = false) }
   }
 }

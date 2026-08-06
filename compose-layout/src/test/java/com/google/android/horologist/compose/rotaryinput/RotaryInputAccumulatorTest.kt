@@ -64,10 +64,7 @@ class RotaryInputAccumulatorTest {
 
   @Test
   fun highRes_onRotaryScroll_whenAccumulatedValueAboveMinimum_notifyChange() {
-    highResRotaryInputAccumulator.onRotaryScroll(
-      minChangePx,
-      eventTimeMillis = 0L,
-    )
+    highResRotaryInputAccumulator.onRotaryScroll(minChangePx, eventTimeMillis = 0L)
     verifyOnValueChange(timesCalled = 1, minChangePx)
   }
 
@@ -88,18 +85,9 @@ class RotaryInputAccumulatorTest {
   fun highRes_onRotaryScroll_whenOutsideAccumulationThreshold_resetAccumulation() {
     val scrollPixels = minChangePx / 2
 
-    highResRotaryInputAccumulator.onRotaryScroll(
-      scrollPixels,
-      0L,
-    )
-    highResRotaryInputAccumulator.onRotaryScroll(
-      scrollPixels,
-      accumulationThreshold + 1,
-    )
-    highResRotaryInputAccumulator.onRotaryScroll(
-      scrollPixels,
-      accumulationThreshold + 2,
-    )
+    highResRotaryInputAccumulator.onRotaryScroll(scrollPixels, 0L)
+    highResRotaryInputAccumulator.onRotaryScroll(scrollPixels, accumulationThreshold + 1)
+    highResRotaryInputAccumulator.onRotaryScroll(scrollPixels, accumulationThreshold + 2)
 
     verifyOnValueChange(timesCalled = 1, minChangePx)
   }

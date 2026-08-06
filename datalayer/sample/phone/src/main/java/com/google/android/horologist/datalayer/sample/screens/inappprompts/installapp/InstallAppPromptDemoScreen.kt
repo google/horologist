@@ -101,10 +101,7 @@ fun InstallAppPromptDemoScreen(
   Column(modifier = modifier.padding(all = 10.dp)) {
     Text(text = stringResource(id = R.string.install_app_prompt_api_call_demo_message))
 
-    Row(
-      modifier = Modifier.padding(top = 10.dp),
-      verticalAlignment = Alignment.CenterVertically,
-    ) {
+    Row(modifier = Modifier.padding(top = 10.dp), verticalAlignment = Alignment.CenterVertically) {
       Checkbox(checked = shouldFilterByNearby, onCheckedChange = { shouldFilterByNearby = it })
       Text(text = stringResource(id = R.string.install_app_prompt_checkbox_label))
     }

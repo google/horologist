@@ -19,10 +19,7 @@ package com.google.android.horologist.compose.material
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun SplitToggleChipSwitchPreview() {
   SplitToggleChip(
@@ -34,10 +31,7 @@ fun SplitToggleChipSwitchPreview() {
   )
 }
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun SplitToggleChipRadioPreview() {
   SplitToggleChip(
@@ -49,10 +43,7 @@ fun SplitToggleChipRadioPreview() {
   )
 }
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun SplitToggleChipCheckboxPreview() {
   SplitToggleChip(
@@ -64,10 +55,7 @@ fun SplitToggleChipCheckboxPreview() {
   )
 }
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun SplitToggleChipUncheckedPreview() {
   SplitToggleChip(
@@ -79,11 +67,7 @@ fun SplitToggleChipUncheckedPreview() {
   )
 }
 
-@Preview(
-  name = "With secondary label",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "With secondary label", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun SplitToggleChipWithSecondaryLabel() {
   SplitToggleChip(
@@ -96,11 +80,7 @@ fun SplitToggleChipWithSecondaryLabel() {
   )
 }
 
-@Preview(
-  name = "Disabled",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "Disabled", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun SplitToggleChipPreviewDisabled() {
   SplitToggleChip(
@@ -113,10 +93,7 @@ fun SplitToggleChipPreviewDisabled() {
   )
 }
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun SplitToggleChipUncheckedAndDisabledPreview() {
   SplitToggleChip(

@@ -45,13 +45,7 @@ public fun GuestModeButton(
   enabled: Boolean = true,
 ) {
   Button(
-    label = {
-      Text(
-        label,
-        textAlign = TextAlign.Start,
-        modifier = Modifier.fillMaxWidth(),
-      )
-    },
+    label = { Text(label, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth()) },
     onClick = onClick,
     modifier = modifier,
     colors = colors,

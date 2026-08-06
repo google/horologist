@@ -89,15 +89,9 @@ fun NodeDetailsScreen(
   var showFailureDialog by rememberSaveable { mutableStateOf(false) }
   var errorCode by rememberSaveable { mutableStateOf("") }
 
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier.fillMaxSize(),
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier.fillMaxSize()) {
     item {
-      Title(
-        textId = R.string.node_details_header,
-        modifier = Modifier.padding(bottom = 10.dp),
-      )
+      Title(textId = R.string.node_details_header, modifier = Modifier.padding(bottom = 10.dp))
     }
 
     item { Text(text = stringResource(id = R.string.node_details_id, nodeId)) }

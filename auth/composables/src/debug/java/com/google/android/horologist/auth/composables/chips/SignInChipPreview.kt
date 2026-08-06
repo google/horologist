@@ -19,10 +19,7 @@ package com.google.android.horologist.auth.composables.chips
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun SignInChipPreview() {
   SignInChip(onClick = {})

@@ -61,10 +61,7 @@ import org.robolectric.annotation.Config
 
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
-@Config(
-  sdk = [35],
-  qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-)
+@Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
 @Ignore("Failing with robolectric")
 class PagerScreenTest {
   @get:Rule val composeTestRule = createComposeRule()

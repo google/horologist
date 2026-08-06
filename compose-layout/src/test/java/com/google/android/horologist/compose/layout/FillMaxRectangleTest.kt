@@ -41,10 +41,7 @@ class FillMaxRectangleTest {
   @get:Rule val composeTestRule = createComposeRule()
 
   @Test
-  @Config(
-    sdk = [35],
-    qualifiers = RobolectricDeviceQualifiers.WearOSSquare,
-  )
+  @Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSSquare)
   fun testSquare() {
     composeTestRule.setContent { Boxes() }
 
@@ -55,10 +52,7 @@ class FillMaxRectangleTest {
   }
 
   @Test
-  @Config(
-    sdk = [35],
-    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-  )
+  @Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
   fun testCircle() {
     composeTestRule.setContent { Boxes() }
 

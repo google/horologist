@@ -39,10 +39,7 @@ public open class SnackbarViewModel(private val snackbarManager: SnackbarManager
     viewModelScope.launch {
       val messages = snapshotFlow { snackbarManager.messages.firstOrNull() }.filterNotNull()
       messages.collect { message ->
-        snackbarHostState.showSnackbar(
-          message = message.message,
-          duration = SnackbarDuration.Short,
-        )
+        snackbarHostState.showSnackbar(message = message.message, duration = SnackbarDuration.Short)
         snackbarManager.setMessageShown(message.id)
       }
     }

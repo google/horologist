@@ -30,23 +30,13 @@ class GuestModeButtonTest : WearLegacyComponentTest() {
 
   @Test
   fun disabled() {
-    runComponentTest {
-      HorologistMaterialTheme {
-        GuestModeButton(
-          onClick = {},
-          enabled = false,
-        )
-      }
-    }
+    runComponentTest { HorologistMaterialTheme { GuestModeButton(onClick = {}, enabled = false) } }
   }
 
   @Test
   fun withVariantButtonStyle() {
     runComponentTest {
-      GuestModeButton(
-        onClick = {},
-        colors = ButtonDefaults.filledVariantButtonColors(),
-      )
+      GuestModeButton(onClick = {}, colors = ButtonDefaults.filledVariantButtonColors())
     }
   }
 

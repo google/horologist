@@ -42,11 +42,7 @@ import com.google.android.horologist.sample.R
 fun CardsAudit(route: AuditNavigation.Cards.Audit) {
   val columnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Card,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Card, last = ItemType.Chip)
     )
 
   ScreenScaffold(scrollState = columnState) {

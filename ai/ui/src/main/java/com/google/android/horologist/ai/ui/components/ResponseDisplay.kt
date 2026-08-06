@@ -40,11 +40,7 @@ public fun FailedResponseChip(
   onClick: (() -> Unit)? = null,
   transformation: SurfaceTransformation? = null,
 ) {
-  Text(
-    text = answer.message,
-    modifier = modifier,
-    color = MaterialTheme.colorScheme.error,
-  )
+  Text(text = answer.message, modifier = modifier, color = MaterialTheme.colorScheme.error)
 }
 
 @Composable

@@ -49,11 +49,7 @@ class AlertDialogTest {
   @Test
   fun defaultState_whenShownAgain_resetsScrollPosition() {
     composeTestRule.setContent {
-      AlertDialog(
-        showDialog = showDialog,
-        onDismiss = {},
-        title = title,
-      ) {
+      AlertDialog(showDialog = showDialog, onDismiss = {}, title = title) {
         repeat(itemCount) { index -> item { Text("Item $index") } }
       }
     }
@@ -76,20 +72,10 @@ class AlertDialogTest {
   fun suppliedState_whenShownAgain_preservesScrollPosition() {
     val state =
       ScalingLazyColumnState(
-        initialScrollPosition =
-          ScalingLazyColumnState.ScrollPosition(
-            index = 3,
-            offsetPx = 0,
-          )
+        initialScrollPosition = ScalingLazyColumnState.ScrollPosition(index = 3, offsetPx = 0)
       )
     composeTestRule.setContent {
-      AlertDialog(
-        showDialog = showDialog,
-        onCancel = {},
-        onOk = {},
-        title = title,
-        state = state,
-      ) {
+      AlertDialog(showDialog = showDialog, onCancel = {}, onOk = {}, title = title, state = state) {
         repeat(itemCount) { index -> item { Text("Item $index") } }
       }
     }
@@ -104,10 +90,7 @@ class AlertDialogTest {
     composeTestRule.runOnIdle { showDialog = true }
     composeTestRule.waitForIdle()
 
-    assertEquals(
-      scrolledItemIndex,
-      composeTestRule.runOnIdle { state.state.centerItemIndex },
-    )
+    assertEquals(scrolledItemIndex, composeTestRule.runOnIdle { state.state.centerItemIndex })
     composeTestRule.onNodeWithText(lastItem).assertIsDisplayed()
   }
 

@@ -31,55 +31,34 @@ class VolumeScreenA11yScreenshotTest : WearLegacyA11yTest() {
 
   @Test
   fun volumeScreenAtMinimum() {
-    val volumeState =
-      VolumeState(
-        current = 0,
-        max = 100,
-      )
+    val volumeState = VolumeState(current = 0, max = 100)
     val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
     runScreenTest {
-      VolumeScreenTest.TestVolumeScreen(
-        volumeState = volumeState,
-        audioOutput = audioOutput,
-      )
+      VolumeScreenTest.TestVolumeScreen(volumeState = volumeState, audioOutput = audioOutput)
     }
   }
 
   @Test
   fun volumeScreenNotConnected() {
-    val volumeState =
-      VolumeState(
-        current = 0,
-        max = 100,
-      )
+    val volumeState = VolumeState(current = 0, max = 100)
     // Media Router returns "Phone"
     val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
 
     runScreenTest {
-      VolumeScreenTest.TestVolumeScreen(
-        volumeState = volumeState,
-        audioOutput = audioOutput,
-      )
+      VolumeScreenTest.TestVolumeScreen(volumeState = volumeState, audioOutput = audioOutput)
     }
   }
 
   @Test
   fun volumeScreenWatchSpeakerConnected() {
-    val volumeState =
-      VolumeState(
-        current = 0,
-        max = 100,
-      )
+    val volumeState = VolumeState(current = 0, max = 100)
 
     // Media Router returns "Phone"
     val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", true)
 
     runScreenTest {
-      VolumeScreenTest.TestVolumeScreen(
-        volumeState = volumeState,
-        audioOutput = audioOutput,
-      )
+      VolumeScreenTest.TestVolumeScreen(volumeState = volumeState, audioOutput = audioOutput)
     }
   }
 

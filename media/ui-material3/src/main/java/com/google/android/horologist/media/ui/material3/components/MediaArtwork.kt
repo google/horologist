@@ -34,11 +34,7 @@ public fun MediaArtwork(
 ) {
   val painter = media.artwork?.rememberPainter() ?: placeholder
   if (painter != null) {
-    MediaArtwork(
-      painter = painter,
-      contentDescription = media.title,
-      modifier = modifier,
-    )
+    MediaArtwork(painter = painter, contentDescription = media.title, modifier = modifier)
   }
 }
 

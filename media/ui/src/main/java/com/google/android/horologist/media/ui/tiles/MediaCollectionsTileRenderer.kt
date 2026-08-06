@@ -48,10 +48,7 @@ public class MediaCollectionsTileRenderer(
   SingleTileLayoutRenderer<
     MediaCollectionsTileRenderer.MediaCollectionsState,
     MediaCollectionsTileRenderer.ResourceState,
-  >(
-    context,
-    debugResourceMode,
-  ) {
+  >(context, debugResourceMode) {
   override fun createTheme(): Colors = materialTheme
 
   private val expandedDimensionProp = ExpandedDimensionProp.Builder().build()
@@ -68,19 +65,9 @@ public class MediaCollectionsTileRenderer(
         Column.Builder()
           .setWidth(expandedDimensionProp)
           .setHeight(wrapDimensionProp)
-          .addContent(
-            collectionChip(
-              state.collection1,
-              deviceParameters,
-            )
-          )
+          .addContent(collectionChip(state.collection1, deviceParameters))
           .addContent(spacer(4f))
-          .addContent(
-            collectionChip(
-              state.collection2,
-              deviceParameters,
-            )
-          )
+          .addContent(collectionChip(state.collection2, deviceParameters))
           .build()
       )
       .setPrimaryChipContent(

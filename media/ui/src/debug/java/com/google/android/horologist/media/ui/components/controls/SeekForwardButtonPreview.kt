@@ -26,10 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 )
 @Composable
 fun SeekForwardButtonPreview5() {
-  SeekForwardButton(
-    onClick = {},
-    seekButtonIncrement = SeekButtonIncrement.Five,
-  )
+  SeekForwardButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Five)
 }
 
 @Preview(
@@ -39,11 +36,7 @@ fun SeekForwardButtonPreview5() {
 )
 @Composable
 fun SeekForwardButtonPreview10() {
-  SeekForwardButton(
-    onClick = {},
-    seekButtonIncrement = SeekButtonIncrement.Ten,
-    enabled = false,
-  )
+  SeekForwardButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Ten, enabled = false)
 }
 
 @Preview(
@@ -53,10 +46,7 @@ fun SeekForwardButtonPreview10() {
 )
 @Composable
 fun SeekForwardButtonPreview30() {
-  SeekForwardButton(
-    onClick = {},
-    seekButtonIncrement = SeekButtonIncrement.Thirty,
-  )
+  SeekForwardButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Thirty)
 }
 
 @Preview(
@@ -80,8 +70,5 @@ fun SeekForwardButtonPreviewOther() {
 )
 @Composable
 fun SeekForwardButtonPreviewUnknown() {
-  SeekForwardButton(
-    onClick = {},
-    seekButtonIncrement = SeekButtonIncrement.Unknown,
-  )
+  SeekForwardButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Unknown)
 }

@@ -44,9 +44,6 @@ public abstract class RendererPreviewTileService<T, R, S : TileLayoutRenderer<T,
   }
 
   override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
-    return renderer.produceRequestedResources(
-      createResourcesInput(),
-      requestParams,
-    )
+    return renderer.produceRequestedResources(createResourcesInput(), requestParams)
   }
 }

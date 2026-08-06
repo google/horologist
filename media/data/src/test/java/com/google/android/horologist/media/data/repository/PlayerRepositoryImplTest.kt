@@ -978,13 +978,7 @@ class PlayerRepositoryImplTest {
   }
 
   private fun getDummyMedia() =
-    Media(
-      id = "id",
-      uri = "uri",
-      title = "title",
-      artist = "artist",
-      artworkUri = "artworkUri",
-    )
+    Media(id = "id", uri = "uri", title = "title", artist = "artist", artworkUri = "artworkUri")
 
   private fun getStubMedia(id: String) =
     Media(

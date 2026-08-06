@@ -32,10 +32,7 @@ class CardA11yTest : WearLegacyA11yTest() {
   @Test
   fun default() {
     runComponentTest {
-      Card(
-        onClick = {},
-        onLongClick = {},
-      ) {
+      Card(onClick = {}, onLongClick = {}) {
         Column(modifier = Modifier.fillMaxWidth()) {
           Text("Hello, Card")
 
@@ -71,11 +68,7 @@ class CardA11yTest : WearLegacyA11yTest() {
   @Test
   fun disabled() {
     runComponentTest {
-      Card(
-        onClick = {},
-        onLongClick = {},
-        enabled = false,
-      ) {
+      Card(onClick = {}, onLongClick = {}, enabled = false) {
         Column(modifier = Modifier.fillMaxWidth()) {
           Text("Hello, Card")
 

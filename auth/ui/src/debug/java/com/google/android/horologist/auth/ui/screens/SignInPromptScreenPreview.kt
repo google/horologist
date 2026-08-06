@@ -37,18 +37,8 @@ fun SignInPromptScreenPreviewSignedOut() {
     onIdleStateObserved = {},
     onAlreadySignedIn = {},
   ) {
-    item {
-      SignInChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
-    }
-    item {
-      GuestModeChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
-    }
+    item { SignInChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
+    item { GuestModeChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
   }
 }
 
@@ -62,18 +52,8 @@ fun SignInPromptScreenPreviewLoading() {
     onIdleStateObserved = {},
     onAlreadySignedIn = {},
   ) {
-    item {
-      SignInChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
-    }
-    item {
-      GuestModeChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
-    }
+    item { SignInChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
+    item { GuestModeChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
   }
 }
 
@@ -88,17 +68,7 @@ fun SignInPromptScreenPreviewCustomLoading() {
     onAlreadySignedIn = {},
     loadingContent = { Box(contentAlignment = Alignment.Center) { Text("Loading...") } },
   ) {
-    item {
-      SignInChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
-    }
-    item {
-      GuestModeChip(
-        onClick = {},
-        colors = ChipDefaults.secondaryChipColors(),
-      )
-    }
+    item { SignInChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
+    item { GuestModeChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
   }
 }

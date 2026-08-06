@@ -39,10 +39,7 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
 @RunWith(RobolectricTestRunner::class)
-@Config(
-  sdk = [35],
-  qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-)
+@Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class DatePickerInteractionTest {
   @get:Rule val composeTestRule = createComposeRule()
@@ -52,10 +49,7 @@ class DatePickerInteractionTest {
     var date by mutableStateOf<LocalDate?>(null)
     composeTestRule.setContent {
       if (date == null) {
-        DatePicker(
-          onDateConfirm = { date = it },
-          date = LocalDate.of(2022, 4, 25),
-        )
+        DatePicker(onDateConfirm = { date = it }, date = LocalDate.of(2022, 4, 25))
       } else {
         Text(modifier = Modifier.testTag("date"), text = "$date")
       }
@@ -97,36 +91,21 @@ class DatePickerInteractionTest {
 
   @Test
   fun content_description_exists_for_day_picker() {
-    composeTestRule.setContent {
-      DatePicker(
-        onDateConfirm = {},
-        date = LocalDate.of(2022, 4, 25),
-      )
-    }
+    composeTestRule.setContent { DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 4, 25)) }
 
     composeTestRule.onNodeWithContentDescription("Day, 25", ignoreCase = true).assertExists()
   }
 
   @Test
   fun content_description_exists_for_month_picker() {
-    composeTestRule.setContent {
-      DatePicker(
-        onDateConfirm = {},
-        date = LocalDate.of(2022, 4, 25),
-      )
-    }
+    composeTestRule.setContent { DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 4, 25)) }
 
     composeTestRule.onNodeWithContentDescription("April", ignoreCase = true).assertExists()
   }
 
   @Test
   fun content_description_exists_for_year_picker() {
-    composeTestRule.setContent {
-      DatePicker(
-        onDateConfirm = {},
-        date = LocalDate.of(2022, 4, 25),
-      )
-    }
+    composeTestRule.setContent { DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 4, 25)) }
 
     composeTestRule.onNodeWithContentDescription("Year, 2022", ignoreCase = true).assertExists()
   }

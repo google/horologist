@@ -52,12 +52,7 @@ class UampPlayerScreenshotTest(device: WearDevice) : WearDeviceScreenshotTest(de
         shuffleOn = false,
         playPauseEnabled = true,
         playing = true,
-        media =
-          MediaUiModel.Ready(
-            id = "",
-            title = "Weather with You",
-            subtitle = "Crowded House",
-          ),
+        media = MediaUiModel.Ready(id = "", title = "Weather with You", subtitle = "Crowded House"),
         trackPositionUiModel =
           TrackPositionUiModel.Actual(
             percent = 0.133f,
@@ -69,11 +64,7 @@ class UampPlayerScreenshotTest(device: WearDevice) : WearDeviceScreenshotTest(de
 
     val volumeUiState = VolumeUiState(current = 1)
 
-    val audioOutput =
-      AudioOutput.BluetoothHeadset(
-        id = "bt0",
-        name = "BT_Headphone",
-      )
+    val audioOutput = AudioOutput.BluetoothHeadset(id = "bt0", name = "BT_Headphone")
 
     UampTheme {
       PlayerScreen(

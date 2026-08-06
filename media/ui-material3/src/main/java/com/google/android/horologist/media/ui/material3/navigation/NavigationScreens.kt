@@ -65,10 +65,7 @@ public open class NavigationScreens(public val navRoute: String) {
     public val id: String = "id"
     public val collectionId: String = "collectionId"
 
-    public fun destination(
-      id: String,
-      collectionId: String? = null,
-    ): String {
+    public fun destination(id: String, collectionId: String? = null): String {
       var route = "mediaItem?id=$id"
       if (collectionId != null) {
         route += "&collectionId=$collectionId"

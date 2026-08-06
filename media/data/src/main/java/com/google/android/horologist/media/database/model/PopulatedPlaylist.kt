@@ -29,11 +29,7 @@ public data class PopulatedPlaylist(
     parentColumn = "playlistId",
     entityColumn = "mediaId",
     associateBy =
-      Junction(
-        PlaylistMediaEntity::class,
-        parentColumn = "playlistId",
-        entityColumn = "mediaId",
-      ),
+      Junction(PlaylistMediaEntity::class, parentColumn = "playlistId", entityColumn = "mediaId"),
   )
   val mediaList: List<MediaEntity>,
 )

@@ -81,12 +81,7 @@ class ToggleButtonA11yTest : WearLegacyA11yTest() {
 
   @Test
   fun text() {
-    runComponentTest {
-      ToggleButton(
-        text = "Monday",
-        onCheckedChanged = {},
-      )
-    }
+    runComponentTest { ToggleButton(text = "Monday", onCheckedChanged = {}) }
   }
 
   @Test

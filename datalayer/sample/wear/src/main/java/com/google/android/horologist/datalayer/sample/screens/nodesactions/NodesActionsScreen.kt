@@ -73,10 +73,7 @@ fun NodesActionsScreen(
   columnState: ScalingLazyColumnState,
   modifier: Modifier = Modifier,
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier.fillMaxSize(),
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier.fillMaxSize()) {
     item {
       Text(
         text = stringResource(id = R.string.nodes_actions_header),

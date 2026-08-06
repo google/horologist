@@ -29,8 +29,5 @@ public fun <T, R> tileRendererPreviewData(
       with(renderer) { produceRequestedResources(resourceState, resourcesRequest) }
     }
   ) { tileRequest ->
-    renderer.renderTimeline(
-      tileState,
-      tileRequest,
-    )
+    renderer.renderTimeline(tileState, tileRequest)
   }

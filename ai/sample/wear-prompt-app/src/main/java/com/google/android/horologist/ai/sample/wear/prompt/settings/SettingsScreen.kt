@@ -44,17 +44,10 @@ import com.google.android.horologist.compose.layout.ColumnItemType
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
 @Composable
-fun SettingsScreen(
-  modifier: Modifier = Modifier,
-  viewModel: SettingsViewModel = hiltViewModel(),
-) {
+fun SettingsScreen(modifier: Modifier = Modifier, viewModel: SettingsViewModel = hiltViewModel()) {
   val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-  SettingsScreen(
-    uiState = uiState,
-    modifier = modifier,
-    selectModel = viewModel::selectModel,
-  )
+  SettingsScreen(uiState = uiState, modifier = modifier, selectModel = viewModel::selectModel)
 }
 
 @Composable
@@ -66,18 +59,12 @@ private fun SettingsScreen(
   val transformationSpec = rememberTransformationSpec()
   val columnState = rememberTransformingLazyColumnState()
   val contentPadding =
-    rememberResponsiveColumnPadding(
-      first = ColumnItemType.ListHeader,
-      last = ColumnItemType.Button,
-    )
+    rememberResponsiveColumnPadding(first = ColumnItemType.ListHeader, last = ColumnItemType.Button)
 
   val placeholderState = rememberPlaceholderState(uiState.models == null)
 
-  ScreenScaffold(
-    scrollState = columnState,
-    modifier = modifier,
-    contentPadding = contentPadding,
-  ) { contentPadding ->
+  ScreenScaffold(scrollState = columnState, modifier = modifier, contentPadding = contentPadding) {
+    contentPadding ->
     TransformingLazyColumn(state = columnState, contentPadding = contentPadding) {
       item {
         ListHeader(
@@ -96,12 +83,7 @@ private fun SettingsScreen(
                 .placeholderShimmer(placeholderState),
             selected = false,
             onSelect = {},
-            label = {
-              Text(
-                "      ",
-                modifier = Modifier.placeholder(placeholderState),
-              )
-            },
+            label = { Text("      ", modifier = Modifier.placeholder(placeholderState)) },
             transformation = SurfaceTransformation(transformationSpec),
           )
         }
@@ -141,8 +123,5 @@ fun SettingsScreenPreview() {
 
   val uiState = SettingsUiState(current, listOf(current, other1, other2))
 
-  SettingsScreen(
-    uiState = uiState,
-    selectModel = {},
-  )
+  SettingsScreen(uiState = uiState, selectModel = {})
 }

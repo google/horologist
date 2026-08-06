@@ -34,24 +34,13 @@ object AuthUserRepositoryStreamlineImpl : AuthUserRepository {
     return when (mode) {
       Mode.NO_ACCOUNTS_AVAILABLE -> emptyList()
       Mode.SINGLE_ACCOUNT_AVAILABLE -> {
-        listOf(
-          AuthUser(
-            displayName = "Maggie",
-            email = "maggie@example.com",
-          )
-        )
+        listOf(AuthUser(displayName = "Maggie", email = "maggie@example.com"))
       }
 
       Mode.MULTIPLE_ACCOUNTS_AVAILABLE -> {
         listOf(
-          AuthUser(
-            displayName = "Maggie",
-            email = "maggie@example.com",
-          ),
-          AuthUser(
-            displayName = "John",
-            email = "john@example.com",
-          ),
+          AuthUser(displayName = "Maggie", email = "maggie@example.com"),
+          AuthUser(displayName = "John", email = "john@example.com"),
         )
       }
     }

@@ -39,11 +39,7 @@ object DatabaseModule {
   @Provides
   @Singleton
   fun mediaDatabase(@ApplicationContext context: Context): MediaDatabase {
-    return Room.databaseBuilder(
-        context,
-        MediaDatabase::class.java,
-        MEDIA_DATABASE_NAME,
-      )
+    return Room.databaseBuilder(context, MediaDatabase::class.java, MEDIA_DATABASE_NAME)
       // Until stable, don't require incrementing MediaDatabase version.
       .fallbackToDestructiveMigration(dropAllTables = true)
       .build()

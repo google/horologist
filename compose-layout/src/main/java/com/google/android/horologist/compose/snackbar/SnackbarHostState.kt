@@ -258,11 +258,7 @@ private fun FadeInFadeOutWithScale(
         val opacity =
           animatedOpacity(
             animation =
-              tween(
-                easing = LinearEasing,
-                delayMillis = animationDelay,
-                durationMillis = duration,
-              ),
+              tween(easing = LinearEasing, delayMillis = animationDelay, durationMillis = duration),
             visible = isVisible,
             onAnimationFinish = {
               if (key != state.current) {
@@ -283,11 +279,7 @@ private fun FadeInFadeOutWithScale(
             visible = isVisible,
           )
         Box(
-          Modifier.graphicsLayer(
-              scaleX = scale.value,
-              scaleY = scale.value,
-              alpha = opacity.value,
-            )
+          Modifier.graphicsLayer(scaleX = scale.value, scaleY = scale.value, alpha = opacity.value)
             .semantics {
               liveRegion = LiveRegionMode.Polite
               dismiss {
@@ -338,10 +330,7 @@ private fun animatedOpacity(
 ): State<Float> {
   val alpha = remember { Animatable(if (!visible) 1f else 0f) }
   LaunchedEffect(visible) {
-    alpha.animateTo(
-      if (visible) 1f else 0f,
-      animationSpec = animation,
-    )
+    alpha.animateTo(if (visible) 1f else 0f, animationSpec = animation)
     onAnimationFinish()
   }
   return alpha.asState()
@@ -350,12 +339,7 @@ private fun animatedOpacity(
 @Composable
 private fun animatedScale(animation: AnimationSpec<Float>, visible: Boolean): State<Float> {
   val scale = remember { Animatable(if (!visible) 1f else 0.8f) }
-  LaunchedEffect(visible) {
-    scale.animateTo(
-      if (visible) 1f else 0.8f,
-      animationSpec = animation,
-    )
-  }
+  LaunchedEffect(visible) { scale.animateTo(if (visible) 1f else 0.8f, animationSpec = animation) }
   return scale.asState()
 }
 

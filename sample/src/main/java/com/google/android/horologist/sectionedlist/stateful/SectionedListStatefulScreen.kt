@@ -72,10 +72,7 @@ fun SectionedListStatefulScreen(
 ) {
   val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-  SectionedList(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  SectionedList(columnState = columnState, modifier = modifier) {
     topMenuSection()
 
     recommendationsSection(state = state, viewModel = viewModel)

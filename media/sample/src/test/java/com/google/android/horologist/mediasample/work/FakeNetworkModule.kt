@@ -43,10 +43,7 @@ import okhttp3.Call
 import okhttp3.Request
 
 @Module
-@TestInstallIn(
-  components = [SingletonComponent::class],
-  replaces = [NetworkModule::class],
-)
+@TestInstallIn(components = [SingletonComponent::class], replaces = [NetworkModule::class])
 object FakeNetworkModule {
   @Singleton @Provides fun uampService(): UampService = FakeUampService()
 

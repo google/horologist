@@ -96,10 +96,7 @@ class SegmentedProgressIndicatorTest : WearLegacyScreenTest() {
             1f,
             Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
           ),
-          ProgressIndicatorSegment(
-            weight = 1f,
-            indicatorColor = Color.Cyan,
-          ),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Cyan),
           ProgressIndicatorSegment(
             weight = 1f,
             indicatorBrush =

@@ -28,12 +28,7 @@ class TimePicker12hA11yTest : WearLegacyA11yTest() {
   fun initial() {
     enableTouchExploration()
 
-    runScreenTest {
-      TimePickerWith12HourClock(
-        time = LocalTime.of(10, 10, 0),
-        onTimeConfirm = {},
-      )
-    }
+    runScreenTest { TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {}) }
 
     composeRule.onNodeWithContentDescription("Confirm").assertHasClickAction()
   }

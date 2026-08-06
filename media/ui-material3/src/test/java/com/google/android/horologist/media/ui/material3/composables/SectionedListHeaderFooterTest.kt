@@ -61,46 +61,22 @@ class SectionedListHeaderFooterTest(
     @Suppress("unused") // it's used by the test as params
     fun params() =
       listOf(
-        arrayOf(
-          Section.ALL_STATES,
-          Section.NO_STATES,
-          Section.State.Loading,
-        ),
+        arrayOf(Section.ALL_STATES, Section.NO_STATES, Section.State.Loading),
         arrayOf(
           Section.ALL_STATES,
           Section.NO_STATES,
           Section.State.Loaded(SectionedListTest.downloads),
         ),
-        arrayOf(
-          Section.ALL_STATES,
-          Section.NO_STATES,
-          Section.State.Failed,
-        ),
-        arrayOf(
-          Section.ALL_STATES,
-          Section.NO_STATES,
-          Section.State.Empty,
-        ),
-        arrayOf(
-          Section.NO_STATES,
-          Section.ALL_STATES,
-          Section.State.Loading,
-        ),
+        arrayOf(Section.ALL_STATES, Section.NO_STATES, Section.State.Failed),
+        arrayOf(Section.ALL_STATES, Section.NO_STATES, Section.State.Empty),
+        arrayOf(Section.NO_STATES, Section.ALL_STATES, Section.State.Loading),
         arrayOf(
           Section.NO_STATES,
           Section.ALL_STATES,
           Section.State.Loaded(SectionedListTest.downloads),
         ),
-        arrayOf(
-          Section.NO_STATES,
-          Section.ALL_STATES,
-          Section.State.Failed,
-        ),
-        arrayOf(
-          Section.NO_STATES,
-          Section.ALL_STATES,
-          Section.State.Empty,
-        ),
+        arrayOf(Section.NO_STATES, Section.ALL_STATES, Section.State.Failed),
+        arrayOf(Section.NO_STATES, Section.ALL_STATES, Section.State.Empty),
       )
   }
 }

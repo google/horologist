@@ -25,50 +25,33 @@ public class SeekBackButtonTest : WearLegacyComponentTest() {
   @Test
   fun givenIncrementIsFive_thenIconIsFive() {
     runComponentTest {
-      SeekBackButton(
-        onClick = {},
-        seekButtonIncrement = SeekButtonIncrement.Five,
-      )
+      SeekBackButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Five)
     }
   }
 
   @Test
   fun givenIncrementIsTen_thenIconIsTen() {
-    runComponentTest {
-      SeekBackButton(
-        onClick = {},
-        seekButtonIncrement = SeekButtonIncrement.Ten,
-      )
-    }
+    runComponentTest { SeekBackButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Ten) }
   }
 
   @Test
   fun givenIncrementIsThirty_thenIconIsThirty() {
     runComponentTest {
-      SeekBackButton(
-        onClick = {},
-        seekButtonIncrement = SeekButtonIncrement.Thirty,
-      )
+      SeekBackButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Thirty)
     }
   }
 
   @Test
   fun givenIncrementIsOtherValue_thenIconIsDefault() {
     runComponentTest {
-      SeekBackButton(
-        onClick = {},
-        seekButtonIncrement = SeekButtonIncrement.Known(15),
-      )
+      SeekBackButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Known(15))
     }
   }
 
   @Test
   fun givenIncrementIsUnknown_thenIconIsDefault() {
     runComponentTest {
-      SeekBackButton(
-        onClick = {},
-        seekButtonIncrement = SeekButtonIncrement.Unknown,
-      )
+      SeekBackButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Unknown)
     }
   }
 }

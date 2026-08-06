@@ -43,10 +43,7 @@ class CardTest : WearLegacyComponentTest() {
   @Test
   fun withLongClick() {
     runComponentTest {
-      Card(
-        onClick = {},
-        onLongClick = {},
-      ) {
+      Card(onClick = {}, onLongClick = {}) {
         Column(modifier = Modifier.fillMaxWidth()) {
           Text("Hello, Card")
 
@@ -59,10 +56,7 @@ class CardTest : WearLegacyComponentTest() {
   @Test
   fun withoutLongClickCustomPadding() {
     runComponentTest {
-      Card(
-        onClick = {},
-        contentPadding = PaddingValues(20.dp),
-      ) {
+      Card(onClick = {}, contentPadding = PaddingValues(20.dp)) {
         Column(modifier = Modifier.fillMaxWidth()) {
           Text("Hello, Card")
 
@@ -75,11 +69,7 @@ class CardTest : WearLegacyComponentTest() {
   @Test
   fun withLongClickCustomPadding() {
     runComponentTest {
-      Card(
-        onClick = {},
-        onLongClick = {},
-        contentPadding = PaddingValues(20.dp),
-      ) {
+      Card(onClick = {}, onLongClick = {}, contentPadding = PaddingValues(20.dp)) {
         Column(modifier = Modifier.fillMaxWidth()) {
           Text("Hello, Card")
 

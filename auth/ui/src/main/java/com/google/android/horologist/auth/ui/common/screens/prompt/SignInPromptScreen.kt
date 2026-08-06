@@ -101,12 +101,7 @@ public fun SignInPromptScreen(
       }
 
       SignInPromptScreenState.SignedOut -> {
-        AlertContent(
-          title = title,
-          message = message,
-          content = content,
-          modifier = modifier,
-        )
+        AlertContent(title = title, message = message, content = content, modifier = modifier)
       }
     }
   }

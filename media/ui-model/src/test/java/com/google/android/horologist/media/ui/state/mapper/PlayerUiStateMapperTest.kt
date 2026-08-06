@@ -360,13 +360,7 @@ class PlayerUiStateMapperTest {
     val id = "id"
     val title = "title"
     val artist = "artist"
-    val media =
-      Media(
-        id = id,
-        uri = "http://www.example.com",
-        title = title,
-        artist = artist,
-      )
+    val media = Media(id = id, uri = "http://www.example.com", title = title, artist = artist)
 
     // when
     val result =

@@ -43,10 +43,7 @@ class ScalingLazyColumnStateTest(override val device: WearDevice) : WearScreensh
       val columnState =
         rememberResponsiveColumnState(
           contentPadding =
-            ScalingLazyColumnDefaults.padding(
-              first = ItemType.Text,
-              last = ItemType.Text,
-            )
+            ScalingLazyColumnDefaults.padding(first = ItemType.Text, last = ItemType.Text)
         )
       ScreenScaffold(scrollState = columnState) {
         ScalingLazyColumn(columnState = columnState) { items(100) { Text("Item $it") } }
@@ -60,10 +57,7 @@ class ScalingLazyColumnStateTest(override val device: WearDevice) : WearScreensh
       val columnState =
         rememberResponsiveColumnState(
           contentPadding =
-            ScalingLazyColumnDefaults.padding(
-              first = ItemType.Text,
-              last = ItemType.Text,
-            ),
+            ScalingLazyColumnDefaults.padding(first = ItemType.Text, last = ItemType.Text),
           initialItemIndex = 4,
         )
       ScreenScaffold(scrollState = columnState) {

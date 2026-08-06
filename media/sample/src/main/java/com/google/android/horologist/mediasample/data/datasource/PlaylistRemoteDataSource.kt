@@ -28,8 +28,6 @@ class PlaylistRemoteDataSource(
   private val uampService: UampService,
 ) {
 
-  fun getPlaylists(): Flow<CatalogApiModel> = flow {
-    emit(uampService.catalog())
-  }
-    .flowOn(ioDispatcher)
+  fun getPlaylists(): Flow<CatalogApiModel> =
+    flow { emit(uampService.catalog()) }.flowOn(ioDispatcher)
 }

@@ -150,10 +150,7 @@ class FastScrollingTransformingLazyColumnTest(override val device: WearDevice) :
         ScreenScaffold(
           scrollState = columnState,
           contentPadding =
-            rememberResponsiveColumnPadding(
-              first = ColumnItemType.Card,
-              last = ColumnItemType.Card,
-            ),
+            rememberResponsiveColumnPadding(first = ColumnItemType.Card, last = ColumnItemType.Card),
         ) { contentPadding ->
           val transformationSpec = rememberTransformationSpec()
 

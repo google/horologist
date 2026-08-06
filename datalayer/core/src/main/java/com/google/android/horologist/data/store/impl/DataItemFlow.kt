@@ -34,32 +34,34 @@ public fun <T> DataClient.dataItemFlow(
   path: String,
   serializer: Serializer<T>,
   defaultValue: () -> T = { serializer.defaultValue },
-): Flow<T> = callbackFlow {
-  val listener = OnDataChangedListener {
-    @SuppressWarnings("GmsCoreFirstPartyApiChecker") val dataItem = it[it.count - 1].dataItem
-    val data = dataItem.data
+): Flow<T> =
+  callbackFlow {
+      val listener = OnDataChangedListener {
+        @SuppressWarnings("GmsCoreFirstPartyApiChecker") val dataItem = it[it.count - 1].dataItem
+        val data = dataItem.data
 
-    @Suppress("UNUSED_VARIABLE") val unused = trySend(data)
-  }
+        @Suppress("UNUSED_VARIABLE") val unused = trySend(data)
+      }
 
-  val uri =
-    Uri.Builder().scheme(PutDataRequest.WEAR_URI_SCHEME).path(path).authority(nodeId).build()
+      val uri =
+        Uri.Builder().scheme(PutDataRequest.WEAR_URI_SCHEME).path(path).authority(nodeId).build()
 
-  addListener(listener, uri, DataClient.FILTER_LITERAL)
-    .await() // Ensure we are subscribed to updates first,
+      addListener(listener, uri, DataClient.FILTER_LITERAL)
+        .await() // Ensure we are subscribed to updates first,
 
-  val item: DataItem? = this@dataItemFlow.getDataItem(uri).await() // then get the current value.
+      val item: DataItem? =
+        this@dataItemFlow.getDataItem(uri).await() // then get the current value.
 
-  @Suppress("UNUSED_VARIABLE") val unused = trySend(item?.data)
+      @Suppress("UNUSED_VARIABLE") val unused = trySend(item?.data)
 
-  awaitClose { removeListener(listener) }
-}
-  .map {
-    if (it != null) {
-      serializer.parse(it)
-    } else {
-      defaultValue()
+      awaitClose { removeListener(listener) }
     }
-  }
+    .map {
+      if (it != null) {
+        serializer.parse(it)
+      } else {
+        defaultValue()
+      }
+    }
 
 private suspend fun <T> Serializer<T>.parse(data: ByteArray) = readFrom(ByteArrayInputStream(data))

@@ -42,11 +42,7 @@ class SetAudioOutputButtonTest : WearLegacyComponentTest() {
         onVolumeClick = {},
         volumeUiState = VolumeUiState(current = currentVolume, max = 10),
         audioOutputUi =
-          AudioOutputUi(
-            displayName = "",
-            imageVector = Icons.Filled.Headphones,
-            isConnected = true,
-          ),
+          AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
       )
     }
   }
@@ -60,11 +56,7 @@ class SetAudioOutputButtonTest : WearLegacyComponentTest() {
         onVolumeClick = {},
         volumeUiState = VolumeUiState(current = currentVolume, max = 10),
         audioOutputUi =
-          AudioOutputUi(
-            displayName = "",
-            imageVector = Icons.Filled.Headphones,
-            isConnected = true,
-          ),
+          AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
       )
     }
   }
@@ -78,11 +70,7 @@ class SetAudioOutputButtonTest : WearLegacyComponentTest() {
         onVolumeClick = {},
         volumeUiState = VolumeUiState(current = currentVolume, max = 10),
         audioOutputUi =
-          AudioOutputUi(
-            displayName = "",
-            imageVector = Icons.Filled.Headphones,
-            isConnected = true,
-          ),
+          AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
       )
     }
   }
@@ -93,11 +81,7 @@ class SetAudioOutputButtonTest : WearLegacyComponentTest() {
       SetAudioOutputButton(
         onVolumeClick = {},
         audioOutputUi =
-          AudioOutputUi(
-            displayName = "",
-            imageVector = Icons.Filled.Headphones,
-            isConnected = true,
-          ),
+          AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
       )
     }
   }

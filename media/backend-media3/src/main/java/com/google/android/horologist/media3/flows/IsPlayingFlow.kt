@@ -27,18 +27,19 @@ import kotlinx.coroutines.flow.flowOn
 
 /** Create a Flow for the isPlaying state of Player using callbacks. */
 @ExperimentalHorologistApi
-public fun Player.isPlayingFlow(): Flow<Boolean> = callbackFlow {
-  send(isPlaying)
+public fun Player.isPlayingFlow(): Flow<Boolean> =
+  callbackFlow {
+      send(isPlaying)
 
-  val listener =
-    object : Player.Listener {
-      override fun onIsPlayingChanged(isPlaying: Boolean) {
-        trySendBlocking(isPlaying)
-      }
+      val listener =
+        object : Player.Listener {
+          override fun onIsPlayingChanged(isPlaying: Boolean) {
+            trySendBlocking(isPlaying)
+          }
+        }
+
+      addListener(listener)
+
+      awaitClose { removeListener(listener) }
     }
-
-  addListener(listener)
-
-  awaitClose { removeListener(listener) }
-}
-  .flowOn(Dispatchers.Main)
+    .flowOn(Dispatchers.Main)

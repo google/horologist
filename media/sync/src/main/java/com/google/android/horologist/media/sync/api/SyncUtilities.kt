@@ -98,24 +98,25 @@ public suspend fun Synchronizer.changeListSync(
   changeListFetcher: suspend (model: String, currentVersion: Int) -> List<NetworkChangeList>,
   modelDeleter: suspend (model: String, ids: List<String>) -> Unit,
   modelUpdater: suspend (model: String, ids: List<String>) -> Unit,
-): Boolean = suspendRunCatching {
-  for (model in models) {
-    // Fetch the change list since last sync (akin to a git fetch)
-    val currentVersion = getChangeListVersions(model)
-    val changeList = changeListFetcher(model, currentVersion)
-    if (changeList.isEmpty()) return@suspendRunCatching true
+): Boolean =
+  suspendRunCatching {
+      for (model in models) {
+        // Fetch the change list since last sync (akin to a git fetch)
+        val currentVersion = getChangeListVersions(model)
+        val changeList = changeListFetcher(model, currentVersion)
+        if (changeList.isEmpty()) return@suspendRunCatching true
 
-    val (deleted, updated) = changeList.partition(NetworkChangeList::isDelete)
+        val (deleted, updated) = changeList.partition(NetworkChangeList::isDelete)
 
-    // Delete models that have been deleted server-side
-    modelDeleter(model, deleted.map(NetworkChangeList::id))
+        // Delete models that have been deleted server-side
+        modelDeleter(model, deleted.map(NetworkChangeList::id))
 
-    // Using the change list, pull down and save the changes (akin to a git pull)
-    modelUpdater(model, updated.map(NetworkChangeList::id))
+        // Using the change list, pull down and save the changes (akin to a git pull)
+        modelUpdater(model, updated.map(NetworkChangeList::id))
 
-    // Update the last synced version (akin to updating local git HEAD)
-    val latestVersion = changeList.last().changeListVersion
-    updateChangeListVersions(model, latestVersion)
-  }
-}
-  .isSuccess
+        // Update the last synced version (akin to updating local git HEAD)
+        val latestVersion = changeList.last().changeListVersion
+        updateChangeListVersions(model, latestVersion)
+      }
+    }
+    .isSuccess

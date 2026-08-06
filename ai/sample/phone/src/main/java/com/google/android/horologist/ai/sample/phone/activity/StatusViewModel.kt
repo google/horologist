@@ -31,8 +31,7 @@ class StatusViewModel
 @Inject
 constructor(private val service: InferenceServiceGrpcKt.InferenceServiceCoroutineStub) :
   ViewModel() {
-  val uiState = flow {
-    emit(StatusUiState(serviceName = service.serviceInfo(empty {}).name))
-  }
-    .stateIn(viewModelScope, SharingStarted.Lazily, StatusUiState())
+  val uiState =
+    flow { emit(StatusUiState(serviceName = service.serviceInfo(empty {}).name)) }
+      .stateIn(viewModelScope, SharingStarted.Lazily, StatusUiState())
 }

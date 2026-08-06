@@ -18,6 +18,7 @@ package com.google.android.horologist.remotecompose.lottie
 
 import android.annotation.SuppressLint
 import androidx.annotation.RawRes
+import androidx.compose.remote.core.RemoteClock
 import androidx.compose.remote.creation.compose.capture.rememberRemoteDocument
 import androidx.compose.remote.creation.compose.layout.RemoteAlignment
 import androidx.compose.remote.creation.compose.layout.RemoteArrangement
@@ -41,6 +42,8 @@ import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
  * @param animation The parsed Lottie animation to play.
  * @param modifier The modifier to apply to the host layout.
  * @param slotMap Optional mapping of slot IDs to values for dynamic theming.
+ * @param clock The clock driving the animation. The document carries this clock through to the
+ *   player.
  */
 @SuppressLint("RestrictedApi")
 @Composable
@@ -48,8 +51,9 @@ fun LottiePreview(
   animation: Animation,
   modifier: Modifier = Modifier,
   slotMap: SlotMap = SlotMap(emptyMap()),
+  clock: RemoteClock = RemoteClock.SYSTEM,
 ) {
-  val doc = rememberRemoteDocument {
+  val doc = rememberRemoteDocument(clock = clock) {
     RemoteColumn(
       modifier = RemoteModifier.background(Color.Black),
       horizontalAlignment = RemoteAlignment.CenterHorizontally,
@@ -78,14 +82,16 @@ fun LottiePreview(
  * @param animationResId The raw resource ID of the Lottie JSON file.
  * @param modifier The modifier to apply to the host layout.
  * @param slotMap Optional mapping of slot IDs to values for dynamic theming.
+ * @param clock The clock driving the animation.
  */
 @Composable
 fun LottiePreview(
   @RawRes animationResId: Int,
   modifier: Modifier = Modifier,
   slotMap: SlotMap = SlotMap(emptyMap()),
+  clock: RemoteClock = RemoteClock.SYSTEM,
 ) {
   val context = LocalContext.current
   val animation = remember(animationResId) { Animation.load(animationResId, context) }
-  LottiePreview(animation, modifier, slotMap)
+  LottiePreview(animation, modifier, slotMap, clock)
 }

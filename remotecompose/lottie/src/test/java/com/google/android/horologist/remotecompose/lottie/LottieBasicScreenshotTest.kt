@@ -32,7 +32,7 @@ class LottieBasicScreenshotTest : WearScreenshotTest() {
     fun geometry() {
         composeRule.setContent {
             Box(modifier = Modifier.background(Color.Black).testTag("Box")) {
-                LottiePreview(R.raw.geometry)
+                LottiePreview(R.raw.geometry, clock = FixedRemoteClock())
             }
         }
 

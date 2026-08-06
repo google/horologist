@@ -3,6 +3,9 @@ name: Android Test
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   test:
     runs-on: macos-latest
@@ -35,10 +38,10 @@ jobs:
           java-version: 17
 
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@ac2d340dc04d9e1113182899e983b5400c17cda1 # v3
+        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
 
       - name: Run tests
-        uses: reactivecircus/android-emulator-runner@4c44018e59b437e86cdfc41da381398f93ed8808 # v2
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2
         with:
           api-level: ${{ matrix.api-level }}
           target: android-wear

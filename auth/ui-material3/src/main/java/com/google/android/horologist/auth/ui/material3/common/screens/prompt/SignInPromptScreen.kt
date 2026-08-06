@@ -104,20 +104,8 @@ public fun SignInPromptScreen(
 
       SignInPromptScreenState.SignedOut -> {
         AlertDialogContent(
-          title =
-            @Composable {
-              Text(
-                text = title,
-                style = MaterialTheme.typography.titleLarge,
-              )
-            },
-          text =
-            @Composable {
-              Text(
-                text = message,
-                style = MaterialTheme.typography.bodyMedium,
-              )
-            },
+          title = @Composable { Text(text = title, style = MaterialTheme.typography.titleLarge) },
+          text = @Composable { Text(text = message, style = MaterialTheme.typography.bodyMedium) },
           content = content,
           modifier = modifier,
         )

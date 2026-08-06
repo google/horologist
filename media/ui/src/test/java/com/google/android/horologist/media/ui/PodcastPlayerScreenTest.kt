@@ -52,12 +52,7 @@ class PodcastPlayerScreenTest(private val options: PodcastOptions) : WearLegacyS
         shuffleOn = false,
         playPauseEnabled = true,
         playing = true,
-        media =
-          MediaUiModel.Ready(
-            id = "",
-            title = "The power of types",
-            subtitle = "Kotlinconf",
-          ),
+        media = MediaUiModel.Ready(id = "", title = "The power of types", subtitle = "Kotlinconf"),
         trackPositionUiModel =
           TrackPositionUiModel.Actual(
             percent = 0.1f,

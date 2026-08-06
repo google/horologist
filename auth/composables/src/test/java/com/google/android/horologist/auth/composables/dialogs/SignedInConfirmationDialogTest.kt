@@ -31,10 +31,7 @@ class SignedInConfirmationDialogTest : WearLegacyScreenTest() {
   @Test
   fun signedInConfirmationDialog() {
     runTest {
-      Box(
-        modifier = Modifier.background(Color.Black),
-        contentAlignment = Alignment.Center,
-      ) {
+      Box(modifier = Modifier.background(Color.Black), contentAlignment = Alignment.Center) {
         SignedInConfirmationDialog(
           onDismissOrTimeout = {},
           name = "Maggie",
@@ -70,12 +67,7 @@ class SignedInConfirmationDialogTest : WearLegacyScreenTest() {
 
   @Test
   fun signedInConfirmationDialogNoNameNoAvatar() {
-    runTest {
-      SignedInConfirmationDialog(
-        onDismissOrTimeout = {},
-        email = "maggie@example.com",
-      )
-    }
+    runTest { SignedInConfirmationDialog(onDismissOrTimeout = {}, email = "maggie@example.com") }
   }
 
   @Test

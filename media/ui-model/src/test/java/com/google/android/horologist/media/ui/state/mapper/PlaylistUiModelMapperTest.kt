@@ -29,25 +29,12 @@ class PlaylistUiModelMapperTest {
     val id = "id"
     val name = "name"
     val artworkUri = "artworkUri"
-    val playlist =
-      Playlist(
-        id = id,
-        name = name,
-        artworkUri = artworkUri,
-        mediaList = emptyList(),
-      )
+    val playlist = Playlist(id = id, name = name, artworkUri = artworkUri, mediaList = emptyList())
 
     // when
     val result = PlaylistUiModelMapper.map(playlist)
 
     // then
-    assertThat(result)
-      .isEqualTo(
-        PlaylistUiModel(
-          id = id,
-          title = name,
-          artworkUri = artworkUri,
-        )
-      )
+    assertThat(result).isEqualTo(PlaylistUiModel(id = id, title = name, artworkUri = artworkUri))
   }
 }

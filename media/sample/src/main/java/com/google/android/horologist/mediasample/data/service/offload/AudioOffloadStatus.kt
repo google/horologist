@@ -32,11 +32,7 @@ public data class AudioOffloadStatus(
   public val offloadTimes: OffloadTimes,
   public val audioOffloadPreferences: AudioOffloadPreferences,
 ) {
-  public fun updateToNow(): OffloadTimes =
-    offloadTimes.timesToNow(
-      sleepingForOffload,
-      isPlaying,
-    )
+  public fun updateToNow(): OffloadTimes = offloadTimes.timesToNow(sleepingForOffload, isPlaying)
 
   public fun describe(): String {
     return "Offload State: " +

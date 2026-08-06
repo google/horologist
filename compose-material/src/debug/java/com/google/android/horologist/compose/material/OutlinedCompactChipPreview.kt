@@ -25,10 +25,7 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 @WearPreview
 @Composable
 fun OutlinedCompactChipPreview() {
-  OutlinedCompactChip(
-    onClick = {},
-    label = "Primary label",
-  )
+  OutlinedCompactChip(onClick = {}, label = "Primary label")
 }
 
 @WearPreview

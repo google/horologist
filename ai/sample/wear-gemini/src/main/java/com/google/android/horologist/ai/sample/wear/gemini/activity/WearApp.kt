@@ -31,10 +31,7 @@ fun WearApp(
   navController: NavHostController = rememberSwipeDismissableNavController(),
 ) {
   AppScaffold(modifier = modifier) {
-    SwipeDismissableNavHost(
-      startDestination = "Home",
-      navController = navController,
-    ) {
+    SwipeDismissableNavHost(startDestination = "Home", navController = navController) {
       composable(route = "Home") { DeviceStatusScreen() }
     }
   }

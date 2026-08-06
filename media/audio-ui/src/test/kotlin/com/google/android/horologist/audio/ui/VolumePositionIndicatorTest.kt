@@ -40,13 +40,7 @@ import org.robolectric.RobolectricTestRunner
 class VolumePositionIndicatorTest {
   @get:Rule val composeTestRule = createComposeRule().apply { mainClock.autoAdvance = false }
 
-  private var volumeState by
-    mutableStateOf(
-      VolumeState(
-        current = 50,
-        max = 100,
-      )
-    )
+  private var volumeState by mutableStateOf(VolumeState(current = 50, max = 100))
 
   @Test
   fun testNoAutoHide() {

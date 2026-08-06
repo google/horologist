@@ -32,10 +32,8 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class MediaPlayerScreenViewModel
 @Inject
-constructor(
-  playerRepository: PlayerRepositoryImpl,
-  settingsRepository: SettingsRepository,
-) : PlayerViewModel(playerRepository) {
+constructor(playerRepository: PlayerRepositoryImpl, settingsRepository: SettingsRepository) :
+  PlayerViewModel(playerRepository) {
 
   init {
     // TODO: consider if this should be done elsewhere

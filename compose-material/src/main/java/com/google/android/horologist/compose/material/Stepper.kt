@@ -66,14 +66,7 @@ public fun Stepper(
   enableRangeSemantics: Boolean = true,
   content: @Composable BoxScope.() -> Unit,
 ) {
-  val currentStep =
-    remember(value, valueRange, steps) {
-      snapValueToStep(
-        value,
-        valueRange,
-        steps,
-      )
-    }
+  val currentStep = remember(value, valueRange, steps) { snapValueToStep(value, valueRange, steps) }
 
   val updateValue: (Int) -> Unit = { stepDiff ->
     val newValue = calculateCurrentStepValue(currentStep + stepDiff, steps, valueRange)
@@ -174,11 +167,7 @@ internal fun calculateCurrentStepValue(
   steps: Int,
   valueRange: ClosedFloatingPointRange<Float>,
 ): Float =
-  lerp(
-      valueRange.start,
-      valueRange.endInclusive,
-      currentStep.toFloat() / (steps + 1).toFloat(),
-    )
+  lerp(valueRange.start, valueRange.endInclusive, currentStep.toFloat() / (steps + 1).toFloat())
     .coerceIn(valueRange)
 
 /** Snaps [value] to the closest [step] in the [valueRange] */

@@ -112,10 +112,7 @@ internal fun BrowseScreenScope.PlaylistDownloadBrowseScreenContent(
             icon = {
               Image(
                 painter =
-                  CoilPaintable(
-                      download.playlistUiModel.artworkUri,
-                      downloadItemArtworkPlaceholder,
-                    )
+                  CoilPaintable(download.playlistUiModel.artworkUri, downloadItemArtworkPlaceholder)
                     .rememberPainter(),
                 contentDescription = null,
                 modifier = Modifier.size(ButtonDefaults.IconSize).clip(CircleShape),
@@ -129,10 +126,7 @@ internal fun BrowseScreenScope.PlaylistDownloadBrowseScreenContent(
           val customModifier =
             onDownloadItemInProgressClickActionLabel?.let {
               Modifier.semantics {
-                onClick(
-                  label = onDownloadItemInProgressClickActionLabel,
-                  action = null,
-                )
+                onClick(label = onDownloadItemInProgressClickActionLabel, action = null)
               }
             } ?: Modifier
 
@@ -148,12 +142,7 @@ internal fun BrowseScreenScope.PlaylistDownloadBrowseScreenContent(
               )
             },
             onClick = { onDownloadItemInProgressClick(download) },
-            icon = {
-              Icon(
-                imageVector = Icons.Default.Downloading,
-                contentDescription = null,
-              )
-            },
+            icon = { Icon(imageVector = Icons.Default.Downloading, contentDescription = null) },
           )
         }
       }

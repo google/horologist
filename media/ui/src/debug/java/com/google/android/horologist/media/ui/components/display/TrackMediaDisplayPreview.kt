@@ -25,20 +25,11 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 @Composable
 fun TrackMediaDisplayPreview() {
   TrackMediaDisplay(
-    media =
-      MediaUiModel.Ready(
-        id = "id",
-        title = "Song title",
-        subtitle = "Artist name",
-      )
+    media = MediaUiModel.Ready(id = "id", title = "Song title", subtitle = "Artist name")
   )
 }
 
-@Preview(
-  "With long text",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview("With long text", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun TrackMediaDisplayPreviewLongText() {
   TrackMediaDisplay(

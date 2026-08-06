@@ -49,13 +49,7 @@ class MediaItemMapperTest {
     val artworkUri = "artworkUri"
 
     val mediaItem =
-      Media(
-        id = id,
-        uri = uri,
-        title = title,
-        artist = artist,
-        artworkUri = artworkUri,
-      )
+      Media(id = id, uri = uri, title = title, artist = artist, artworkUri = artworkUri)
 
     // when
     val result = sut.map(mediaItem)
@@ -78,13 +72,7 @@ class MediaItemMapperTest {
     val artist = "artist"
     val title = "title"
 
-    val mediaItem =
-      Media(
-        id = id,
-        uri = uri,
-        artist = artist,
-        title = title,
-      )
+    val mediaItem = Media(id = id, uri = uri, artist = artist, title = title)
 
     // when
     val result = sut.map(mediaItem)

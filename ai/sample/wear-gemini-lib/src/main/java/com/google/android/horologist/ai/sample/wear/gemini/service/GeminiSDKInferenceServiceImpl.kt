@@ -86,12 +86,7 @@ class GeminiSDKInferenceServiceImpl(
   // generateImages is deprecated in the underlying Gemini Java SDK
   @Suppress("DEPRECATION")
   private fun geminiGenerateImages(request: PromptRequest, modelId: String): Flow<Response> = flow {
-    val responses =
-      client.models.generateImages(
-        modelId,
-        request.toTextPrompt(),
-        imagesConfig,
-      )
+    val responses = client.models.generateImages(modelId, request.toTextPrompt(), imagesConfig)
 
     emitAll(
       responses.generatedImages().getOrNull().orEmpty().asFlow().mapNotNull {
@@ -109,19 +104,12 @@ class GeminiSDKInferenceServiceImpl(
     )
   }
 
-  private fun geminiGenerateContentStream(
-    request: PromptRequest,
-    modelId: String,
-  ): Flow<Response> {
+  private fun geminiGenerateContentStream(request: PromptRequest, modelId: String): Flow<Response> {
     // TODO handle stream and multiple parts
 
     val responseStream =
       try {
-        client.models.generateContentStream(
-          modelId,
-          request.toContent(),
-          contentConfig,
-        )
+        client.models.generateContentStream(modelId, request.toContent(), contentConfig)
       } catch (e: Exception) {
         Log.w("Gemini", "Gemini query failed", e)
         return flowOf(response { failure = failure { message = "Gemini query failed: $e" } })

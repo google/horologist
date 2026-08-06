@@ -29,11 +29,7 @@ public class NavDeepLinkIntentBuilder(
 ) : IntentBuilder {
   override fun buildDownloadIntent(): PendingIntent {
     val taskDetailIntent =
-      Intent(
-          Intent.ACTION_VIEW,
-          downloadUri.toUri(),
-        )
-        .apply { setPackage(application.packageName) }
+      Intent(Intent.ACTION_VIEW, downloadUri.toUri()).apply { setPackage(application.packageName) }
 
     return TaskStackBuilder.create(application).run {
       addNextIntentWithParentStack(taskDetailIntent)
@@ -43,11 +39,7 @@ public class NavDeepLinkIntentBuilder(
 
   override fun buildPlayerIntent(): PendingIntent {
     val taskDetailIntent =
-      Intent(
-          Intent.ACTION_VIEW,
-          playerUri.toUri(),
-        )
-        .apply { setPackage(application.packageName) }
+      Intent(Intent.ACTION_VIEW, playerUri.toUri()).apply { setPackage(application.packageName) }
 
     return TaskStackBuilder.create(application).run {
       addNextIntentWithParentStack(taskDetailIntent)

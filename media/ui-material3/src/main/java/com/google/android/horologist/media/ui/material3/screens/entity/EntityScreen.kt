@@ -38,10 +38,7 @@ public fun EntityScreen(
   val scrollState = rememberScalingLazyListState()
 
   ScreenScaffold(scrollState = scrollState) {
-    ScalingLazyColumn(
-      state = scrollState,
-      modifier = modifier,
-    ) {
+    ScalingLazyColumn(state = scrollState, modifier = modifier) {
       item { headerContent() }
 
       buttonsContent?.let { item { buttonsContent() } }
@@ -128,9 +125,6 @@ public sealed class EntityScreenState<out Media> {
 /** A default implementation of a header for [EntityScreen]. */
 @ExperimentalHorologistApi
 @Composable
-public fun DefaultEntityScreenHeader(
-  title: String,
-  modifier: Modifier = Modifier,
-) {
+public fun DefaultEntityScreenHeader(title: String, modifier: Modifier = Modifier) {
   ListHeader(modifier = modifier) { Text(title) }
 }

@@ -42,27 +42,14 @@ class MetricDisplayTest : WearLegacyComponentTest() {
 
   @Test
   fun metricDisplayTextOnly() {
-    runComponentTest {
-      MetricDisplay(
-        metric =
-          MetricUiModel(
-            text = "18:52",
-            color = HR_LIGHT,
-          )
-      )
-    }
+    runComponentTest { MetricDisplay(metric = MetricUiModel(text = "18:52", color = HR_LIGHT)) }
   }
 
   @Test
   fun metricDisplayTopRightText() {
     runComponentTest {
       MetricDisplay(
-        metric =
-          MetricUiModel(
-            text = "8'32\"",
-            topRightText = ":15",
-            color = HR_MODERATE,
-          )
+        metric = MetricUiModel(text = "8'32\"", topRightText = ":15", color = HR_MODERATE)
       )
     }
   }
@@ -71,12 +58,7 @@ class MetricDisplayTest : WearLegacyComponentTest() {
   fun metricDisplayBottomRightText() {
     runComponentTest {
       MetricDisplay(
-        metric =
-          MetricUiModel(
-            text = "2.1",
-            bottomRightText = "/3 mi",
-            color = HR_MAXIMUM,
-          )
+        metric = MetricUiModel(text = "2.1", bottomRightText = "/3 mi", color = HR_MAXIMUM)
       )
     }
   }
@@ -113,11 +95,7 @@ class MetricDisplayTest : WearLegacyComponentTest() {
   fun metricDisplayTopRightTextTruncation() {
     runComponentTest {
       MetricDisplay(
-        metric =
-          MetricUiModel(
-            text = "139",
-            topRightText = "Very very very very long text",
-          )
+        metric = MetricUiModel(text = "139", topRightText = "Very very very very long text")
       )
     }
   }
@@ -126,11 +104,7 @@ class MetricDisplayTest : WearLegacyComponentTest() {
   fun metricDisplayBottomRightTextTruncation() {
     runComponentTest {
       MetricDisplay(
-        metric =
-          MetricUiModel(
-            text = "139",
-            bottomRightText = "Very very very very long text",
-          )
+        metric = MetricUiModel(text = "139", bottomRightText = "Very very very very long text")
       )
     }
   }

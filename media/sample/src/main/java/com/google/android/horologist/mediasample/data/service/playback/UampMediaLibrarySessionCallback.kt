@@ -27,10 +27,8 @@ import com.google.android.horologist.media3.service.SuspendingMediaLibrarySessio
 import com.google.common.collect.ImmutableList
 import kotlinx.coroutines.CoroutineScope
 
-class UampMediaLibrarySessionCallback(
-  serviceScope: CoroutineScope,
-  appEventLogger: ErrorReporter,
-) : SuspendingMediaLibrarySessionCallback(serviceScope, appEventLogger) {
+class UampMediaLibrarySessionCallback(serviceScope: CoroutineScope, appEventLogger: ErrorReporter) :
+  SuspendingMediaLibrarySessionCallback(serviceScope, appEventLogger) {
   @SuppressLint("UnsafeOptInUsageError")
   override suspend fun onGetLibraryRootInternal(
     session: MediaLibraryService.MediaLibrarySession,

@@ -89,21 +89,15 @@ object ViewModelModule {
     coroutineScope: CoroutineScope,
     mediaController: Deferred<MediaBrowser>,
   ): PlayerRepositoryImpl =
-    PlayerRepositoryImpl(
-        mediaMapper = mediaMapper,
-        mediaItemMapper = mediaItemMapper,
-      )
-      .also { playerRepository ->
-        activityRetainedLifecycle.addOnClearedListener { playerRepository.close() }
+    PlayerRepositoryImpl(mediaMapper = mediaMapper, mediaItemMapper = mediaItemMapper).also {
+      playerRepository ->
+      activityRetainedLifecycle.addOnClearedListener { playerRepository.close() }
 
-        coroutineScope.launch(Dispatchers.Main) {
-          val player = mediaController.await()
-          playerRepository.connect(
-            player = player,
-            onClose = player::release,
-          )
-        }
+      coroutineScope.launch(Dispatchers.Main) {
+        val player = mediaController.await()
+        playerRepository.connect(player = player, onClose = player::release)
       }
+    }
 
   @Provides
   @ActivityRetainedScoped

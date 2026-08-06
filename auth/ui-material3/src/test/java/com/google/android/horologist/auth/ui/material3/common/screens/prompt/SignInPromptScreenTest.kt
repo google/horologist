@@ -85,13 +85,7 @@ class SignInPromptScreenTest : WearLegacyScreenTest() {
   fun signedIn() {
     runTest {
       SignInPromptScreen(
-        state =
-          SignInPromptScreenState.SignedIn(
-            AccountUiModel(
-              "user@example.com",
-              "John Doe",
-            )
-          ),
+        state = SignInPromptScreenState.SignedIn(AccountUiModel("user@example.com", "John Doe")),
         title = "Sign in",
         message = "Send messages and create chat groups with your friends",
         onIdleStateObserved = {},
@@ -139,17 +133,7 @@ class SignInPromptScreenTest : WearLegacyScreenTest() {
   }
 
   private fun ScalingLazyListScope.testContent() {
-    item {
-      SignInButton(
-        onClick = {},
-        modifier = Modifier.fillMaxWidth(),
-      )
-    }
-    item {
-      GuestModeButton(
-        onClick = {},
-        modifier = Modifier.fillMaxWidth(),
-      )
-    }
+    item { SignInButton(onClick = {}, modifier = Modifier.fillMaxWidth()) }
+    item { GuestModeButton(onClick = {}, modifier = Modifier.fillMaxWidth()) }
   }
 }

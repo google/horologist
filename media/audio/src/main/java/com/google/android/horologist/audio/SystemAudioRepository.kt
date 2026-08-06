@@ -143,10 +143,7 @@ public class SystemAudioRepository(
 
   public companion object {
     public fun fromContext(application: Context): SystemAudioRepository {
-      return SystemAudioRepository(
-        application,
-        MediaRouter.getInstance(application),
-      )
+      return SystemAudioRepository(application, MediaRouter.getInstance(application))
     }
   }
 

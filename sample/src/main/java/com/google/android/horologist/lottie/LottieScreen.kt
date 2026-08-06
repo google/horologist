@@ -24,8 +24,5 @@ import com.google.android.horologist.sample.R
 
 @Composable
 fun LottieScreen(modifier: Modifier = Modifier) {
-  LottiePreview(
-    animationResId = R.raw.geometry,
-    modifier = modifier.fillMaxSize(),
-  )
+  LottiePreview(animationResId = R.raw.geometry, modifier = modifier.fillMaxSize())
 }

@@ -133,10 +133,7 @@ public fun LinearDataUsage(
     )
     val usage = networkUsage?.dataByType?.get(activeNetwork.networkInfo.type)
     if (usage != null) {
-      Text(
-        text = usage.toSize(context),
-        style = style,
-      )
+      Text(text = usage.toSize(context), style = style)
     }
   }
 }

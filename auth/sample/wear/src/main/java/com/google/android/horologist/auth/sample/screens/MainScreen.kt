@@ -38,24 +38,14 @@ import com.google.android.horologist.compose.material.ResponsiveListHeader
 import com.google.android.horologist.compose.material.Title
 
 @Composable
-fun MainScreen(
-  navigateToRoute: (String) -> Unit,
-  modifier: Modifier = Modifier,
-) {
+fun MainScreen(navigateToRoute: (String) -> Unit, modifier: Modifier = Modifier) {
   val columnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Text,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
   ScreenScaffold(scrollState = columnState) {
-    SectionedList(
-      columnState = columnState,
-      modifier = modifier.fillMaxSize(),
-    ) {
+    SectionedList(columnState = columnState, modifier = modifier.fillMaxSize()) {
       googleSignInSection(navigateToRoute)
 
       tokenShareSection(navigateToRoute)
@@ -100,10 +90,7 @@ private fun SectionedListScope.tokenShareSection(navigateToRoute: (String) -> Un
         R.string.auth_menu_token_share_default_key_item,
         Screen.TokenShareDefaultKeyScreen.route,
       ),
-      Pair(
-        R.string.auth_menu_token_share_custom_key_item,
-        Screen.TokenShareCustomKeyScreen.route,
-      ),
+      Pair(R.string.auth_menu_token_share_custom_key_item, Screen.TokenShareCustomKeyScreen.route),
     )
   ) {
     header {

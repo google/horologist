@@ -32,23 +32,9 @@ internal fun SampleToggleButtonScreen(
   modifier: Modifier = Modifier,
   columnState: ScalingLazyColumnState,
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
-    item {
-      ToggleButton(
-        text = "Monday",
-        onCheckedChanged = {},
-      )
-    }
-    item {
-      ToggleButton(
-        text = "Monday",
-        onCheckedChanged = {},
-        checked = false,
-      )
-    }
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
+    item { ToggleButton(text = "Monday", onCheckedChanged = {}) }
+    item { ToggleButton(text = "Monday", onCheckedChanged = {}, checked = false) }
     item {
       ToggleButton(
         checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),

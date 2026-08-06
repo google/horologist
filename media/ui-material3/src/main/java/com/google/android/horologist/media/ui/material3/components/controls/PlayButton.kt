@@ -42,12 +42,7 @@ public fun PlayButton(
   iconSize: Dp = IconButtonDefaults.LargeIconSize,
   colors: IconButtonColors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
 ) {
-  FilledIconButton(
-    onClick = onClick,
-    modifier = modifier,
-    enabled = enabled,
-    colors = colors,
-  ) {
+  FilledIconButton(onClick = onClick, modifier = modifier, enabled = enabled, colors = colors) {
     Icon(
       modifier = Modifier.size(iconSize),
       imageVector = Icons.Rounded.PlayArrow,

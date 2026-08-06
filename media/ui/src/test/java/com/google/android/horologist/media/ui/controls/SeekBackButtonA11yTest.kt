@@ -33,10 +33,7 @@ class SeekBackButtonA11yTest : WearLegacyA11yTest() {
   fun incrementIsFive() {
     runComponentTest {
       Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        SeekBackButton(
-          onClick = {},
-          seekButtonIncrement = SeekButtonIncrement.Five,
-        )
+        SeekBackButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Five)
       }
     }
   }
@@ -45,10 +42,7 @@ class SeekBackButtonA11yTest : WearLegacyA11yTest() {
   fun incrementIsTen() {
     runComponentTest {
       Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        SeekBackButton(
-          onClick = {},
-          seekButtonIncrement = SeekButtonIncrement.Ten,
-        )
+        SeekBackButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Ten)
       }
     }
   }
@@ -57,10 +51,7 @@ class SeekBackButtonA11yTest : WearLegacyA11yTest() {
   fun incrementIsThirty() {
     runComponentTest {
       Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        SeekBackButton(
-          onClick = {},
-          seekButtonIncrement = SeekButtonIncrement.Thirty,
-        )
+        SeekBackButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Thirty)
       }
     }
   }
@@ -69,10 +60,7 @@ class SeekBackButtonA11yTest : WearLegacyA11yTest() {
   fun incrementIsOther() {
     runComponentTest {
       Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        SeekBackButton(
-          onClick = {},
-          seekButtonIncrement = SeekButtonIncrement.Known(15),
-        )
+        SeekBackButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Known(15))
       }
     }
   }
@@ -81,10 +69,7 @@ class SeekBackButtonA11yTest : WearLegacyA11yTest() {
   fun incrementIsUnknown() {
     runComponentTest {
       Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
-        SeekBackButton(
-          onClick = {},
-          seekButtonIncrement = SeekButtonIncrement.Unknown,
-        )
+        SeekBackButton(onClick = {}, seekButtonIncrement = SeekButtonIncrement.Unknown)
       }
     }
   }

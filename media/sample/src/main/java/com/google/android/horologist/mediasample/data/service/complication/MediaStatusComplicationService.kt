@@ -98,17 +98,9 @@ class MediaStatusComplicationService : DataComplicationService<Data, Complicatio
     )
   }
 
-  private fun createContentDescription(
-    mediaTitle: String,
-    mediaArtist: String,
-  ): ComplicationText =
+  private fun createContentDescription(mediaTitle: String, mediaArtist: String): ComplicationText =
     PlainComplicationText.Builder(
-        text =
-          getString(
-            R.string.complication_content_description,
-            mediaTitle,
-            mediaArtist,
-          )
+        text = getString(R.string.complication_content_description, mediaTitle, mediaArtist)
       )
       .build()
 }

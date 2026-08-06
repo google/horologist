@@ -31,14 +31,7 @@ class MediaEntityMapperTest {
     val title = "title"
     val artist = "artist"
     val artworkUri = "artworkUri"
-    val media =
-      Media(
-        id = id,
-        uri = uri,
-        title = title,
-        artist = artist,
-        artworkUri = artworkUri,
-      )
+    val media = Media(id = id, uri = uri, title = title, artist = artist, artworkUri = artworkUri)
 
     // when
     val result = MediaEntityMapper.map(media)
@@ -64,14 +57,7 @@ class MediaEntityMapperTest {
     val title = "title"
     val artist = "artist"
     val artworkUri = null
-    val media =
-      Media(
-        id = id,
-        uri = uri,
-        title = title,
-        artist = artist,
-        artworkUri = artworkUri,
-      )
+    val media = Media(id = id, uri = uri, title = title, artist = artist, artworkUri = artworkUri)
 
     // when
     val result = MediaEntityMapper.map(media)
@@ -79,13 +65,7 @@ class MediaEntityMapperTest {
     // then
     assertThat(result)
       .isEqualTo(
-        MediaEntity(
-          mediaId = id,
-          mediaUrl = uri,
-          artworkUrl = "",
-          title = title,
-          artist = artist,
-        )
+        MediaEntity(mediaId = id, mediaUrl = uri, artworkUrl = "", title = title, artist = artist)
       )
   }
 }

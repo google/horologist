@@ -30,22 +30,10 @@ internal fun SampleCompactChipScreen(
   modifier: Modifier = Modifier,
   columnState: ScalingLazyColumnState,
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
+    item { CompactChip(label = "Primary label", onClick = {}) }
     item {
-      CompactChip(
-        label = "Primary label",
-        onClick = {},
-      )
-    }
-    item {
-      CompactChip(
-        label = "Primary label",
-        onClick = {},
-        icon = Icons.Filled.Add.asPaintable(),
-      )
+      CompactChip(label = "Primary label", onClick = {}, icon = Icons.Filled.Add.asPaintable())
     }
     item {
       CompactChip(

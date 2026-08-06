@@ -38,10 +38,7 @@ class MediaChipA11yTest : WearLegacyA11yTest() {
         interceptor = {
           SuccessResult(
             drawable =
-              ContextCompat.getDrawable(
-                it.request.context,
-                FakeImageLoader.TestIconResource,
-              )!!,
+              ContextCompat.getDrawable(it.request.context, FakeImageLoader.TestIconResource)!!,
             request = it.request,
             dataSource = DataSource.DISK,
           )

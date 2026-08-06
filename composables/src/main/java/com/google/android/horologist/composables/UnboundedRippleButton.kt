@@ -82,11 +82,7 @@ public fun UnboundedRippleButton(
         )
         .combinedClickable(
           interactionSource = interactionSource,
-          indication =
-            ripple(
-              bounded = false,
-              radius = rippleRadius,
-            ),
+          indication = ripple(bounded = false, radius = rippleRadius),
           onClick = { onClick() },
           onLongClick = onLongClick,
           role = Role.Button,

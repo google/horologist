@@ -67,10 +67,7 @@ public fun PlayPauseButton(
   iconSize: Dp = IconButtonDefaults.LargeIconSize,
   progress: @Composable () -> Unit = {},
 ) {
-  Box(
-    modifier = modifier,
-    contentAlignment = Alignment.Center,
-  ) {
+  Box(modifier = modifier, contentAlignment = Alignment.Center) {
     progress()
 
     if (playing) {

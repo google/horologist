@@ -198,10 +198,7 @@ private fun MediaContent(
         icon = {
           Image(
             painter =
-              CoilPaintable(
-                  downloadMediaUiModel.artworkUri,
-                  downloadItemArtworkPlaceholder,
-                )
+              CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder)
                 .rememberPainter(),
             contentDescription = null,
             modifier = Modifier.size(ButtonDefaults.IconSize).clip(CircleShape),
@@ -226,10 +223,7 @@ private fun MediaContent(
                 )
               Image(
                 painter =
-                  CoilPaintable(
-                      downloadMediaUiModel.artworkUri,
-                      downloadItemArtworkPlaceholder,
-                    )
+                  CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder)
                     .rememberPainter(),
                 contentDescription = null,
                 modifier = Modifier.size(ButtonDefaults.LargeIconSize).clip(CircleShape),
@@ -246,10 +240,7 @@ private fun MediaContent(
             {
               Image(
                 painter =
-                  CoilPaintable(
-                      downloadMediaUiModel.artworkUri,
-                      downloadItemArtworkPlaceholder,
-                    )
+                  CoilPaintable(downloadMediaUiModel.artworkUri, downloadItemArtworkPlaceholder)
                     .rememberPainter(),
                 contentDescription = null,
                 modifier = Modifier.size(ButtonDefaults.LargeIconSize).clip(CircleShape),
@@ -263,10 +254,7 @@ private fun MediaContent(
       val customModifier =
         onDownloadItemInProgressClickActionLabel?.let {
           Modifier.semantics {
-            onClick(
-              label = onDownloadItemInProgressClickActionLabel,
-              action = null,
-            )
+            onClick(label = onDownloadItemInProgressClickActionLabel, action = null)
           }
         } ?: Modifier
 
@@ -302,12 +290,7 @@ private fun ButtonsContent(
         },
         onClick = {},
         modifier = Modifier.padding(bottom = 16.dp),
-        icon = {
-          Icon(
-            imageVector = Icons.Default.Download,
-            contentDescription = null,
-          )
-        },
+        icon = { Icon(imageVector = Icons.Default.Download, contentDescription = null) },
         enabled = false,
       )
     }
@@ -324,12 +307,7 @@ private fun ButtonsContent(
             },
             onClick = { onCancelDownloadButtonClick(state.collectionModel) },
             modifier = Modifier.padding(bottom = 16.dp),
-            icon = {
-              Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = null,
-              )
-            },
+            icon = { Icon(imageVector = Icons.Default.Close, contentDescription = null) },
           )
         } else {
           Button(
@@ -338,12 +316,7 @@ private fun ButtonsContent(
             },
             onClick = { onDownloadButtonClick(state.collectionModel) },
             modifier = Modifier.padding(bottom = 16.dp),
-            icon = {
-              Icon(
-                imageVector = Icons.Default.Download,
-                contentDescription = null,
-              )
-            },
+            icon = { Icon(imageVector = Icons.Default.Download, contentDescription = null) },
           )
         }
       } else {
@@ -457,13 +430,7 @@ private fun <Collection> FirstButton(
       stringResource(id = R.string.horologist_playlist_download_button_remove_download_action_label)
     IconButton(
       onClick = { onDownloadCompletedButtonClick(collectionModel) },
-      modifier =
-        modifier.semantics {
-          onClick(
-            label = label,
-            action = null,
-          )
-        },
+      modifier = modifier.semantics { onClick(label = label, action = null) },
     ) {
       Icon(
         imageVector = Icons.Default.DownloadDone,

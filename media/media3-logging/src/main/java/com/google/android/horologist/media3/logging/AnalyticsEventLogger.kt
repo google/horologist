@@ -37,10 +37,7 @@ import java.io.IOException
 @ExperimentalHorologistApi
 public class AnalyticsEventLogger(private val appEventLogger: ErrorReporter) :
   EventLogger("ErrorReporter") {
-  override fun onAudioSinkError(
-    eventTime: AnalyticsListener.EventTime,
-    audioSinkError: Exception,
-  ) {
+  override fun onAudioSinkError(eventTime: AnalyticsListener.EventTime, audioSinkError: Exception) {
     appEventLogger.logMessage(
       "onAudioSinkError $audioSinkError",
       category = ErrorReporter.Category.Playback,
@@ -142,10 +139,7 @@ public class AnalyticsEventLogger(private val appEventLogger: ErrorReporter) :
     mediaLoadData: MediaLoadData,
     retryCount: Int,
   ) {
-    appEventLogger.logMessage(
-      "onLoadStarted",
-      category = ErrorReporter.Category.Playback,
-    )
+    appEventLogger.logMessage("onLoadStarted", category = ErrorReporter.Category.Playback)
   }
 
   override fun onLoadCompleted(
@@ -153,10 +147,7 @@ public class AnalyticsEventLogger(private val appEventLogger: ErrorReporter) :
     loadEventInfo: LoadEventInfo,
     mediaLoadData: MediaLoadData,
   ) {
-    appEventLogger.logMessage(
-      "onLoadCompleted",
-      category = ErrorReporter.Category.Playback,
-    )
+    appEventLogger.logMessage("onLoadCompleted", category = ErrorReporter.Category.Playback)
   }
 
   override fun onAudioInputFormatChanged(

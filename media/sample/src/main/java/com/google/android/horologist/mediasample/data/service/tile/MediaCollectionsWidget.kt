@@ -125,10 +125,7 @@ class MediaCollectionsWidget(
     }
   }
 
-  private suspend fun loadArtworkBitmap(
-    context: Context,
-    artworkUri: String,
-  ): Bitmap? {
+  private suspend fun loadArtworkBitmap(context: Context, artworkUri: String): Bitmap? {
     val request =
       ImageRequest.Builder(context).data(artworkUri).size(ARTWORK_SIZE).allowHardware(false).build()
     val result = imageLoader.execute(request)

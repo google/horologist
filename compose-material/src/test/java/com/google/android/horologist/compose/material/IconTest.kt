@@ -30,10 +30,7 @@ class IconTest : WearLegacyComponentTest() {
   @Test
   fun default() {
     runComponentTest {
-      Icon(
-        paintable = Icons.Outlined.Abc.asPaintable(),
-        contentDescription = "contentDescription",
-      )
+      Icon(paintable = Icons.Outlined.Abc.asPaintable(), contentDescription = "contentDescription")
     }
   }
 
@@ -41,10 +38,7 @@ class IconTest : WearLegacyComponentTest() {
   @Config(qualifiers = "+ar-rXB-ldrtl")
   fun defaultRtl() {
     runComponentTest {
-      Icon(
-        paintable = Icons.Outlined.Abc.asPaintable(),
-        contentDescription = "contentDescription",
-      )
+      Icon(paintable = Icons.Outlined.Abc.asPaintable(), contentDescription = "contentDescription")
     }
   }
 

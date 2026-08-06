@@ -25,11 +25,7 @@ import com.google.android.horologist.compose.tools.WearPreview
 @WearPreview
 @Composable
 fun ButtonPreview() {
-  Button(
-    imageVector = Icons.Default.Check,
-    contentDescription = "contentDescription",
-    onClick = {},
-  )
+  Button(imageVector = Icons.Default.Check, contentDescription = "contentDescription", onClick = {})
 }
 
 @WearPreview

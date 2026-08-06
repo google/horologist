@@ -31,19 +31,11 @@ internal class ScaffoldState {
     screenContent.removeIf { it.key === key }
   }
 
-  fun addScreen(
-    key: Any,
-    timeText: @Composable (() -> Unit)?,
-    scrollState: ScrollableState?,
-  ) {
+  fun addScreen(key: Any, timeText: @Composable (() -> Unit)?, scrollState: ScrollableState?) {
     screenContent.add(ScreenContent(key, scrollState, timeText))
   }
 
-  fun updateIfNeeded(
-    key: Any,
-    timeText: @Composable (() -> Unit)?,
-    scrollState: ScrollableState?,
-  ) {
+  fun updateIfNeeded(key: Any, timeText: @Composable (() -> Unit)?, scrollState: ScrollableState?) {
     screenContent
       .find { it.key == key }
       ?.let {

@@ -37,10 +37,8 @@ object ViewModelModule {
     @ApplicationContext context: Context,
     lifecycle: ViewModelLifecycle,
   ): InferenceServiceGrpcKt.InferenceServiceCoroutineStub {
-    return lookupInferenceService(
-        context,
-        context.packageName,
-      )
-      .apply { lifecycle.addOnClearedListener { (channel as? ManagedChannel?)?.shutdownNow() } }
+    return lookupInferenceService(context, context.packageName).apply {
+      lifecycle.addOnClearedListener { (channel as? ManagedChannel?)?.shutdownNow() }
+    }
   }
 }

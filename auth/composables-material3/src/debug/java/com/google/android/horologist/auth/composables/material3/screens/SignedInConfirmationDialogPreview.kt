@@ -87,10 +87,7 @@ fun SignedInConfirmationDialogPreviewNoName() {
 @WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreviewNoEmail() {
-  SignedInConfirmationDialog(
-    onDismissOrTimeout = {},
-    name = "Maggie",
-  )
+  SignedInConfirmationDialog(onDismissOrTimeout = {}, name = "Maggie")
 }
 
 @WearPreviewDevices

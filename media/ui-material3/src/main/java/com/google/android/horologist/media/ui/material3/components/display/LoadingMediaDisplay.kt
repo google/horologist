@@ -65,10 +65,7 @@ public fun LoadingMediaDisplay(
               placeholderState = placeholderState,
               color = colorScheme.onBackground,
             )
-            .placeholder(
-              placeholderState = placeholderState,
-              color = colorScheme.outlineVariant,
-            )
+            .placeholder(placeholderState = placeholderState, color = colorScheme.outlineVariant)
       )
     }
     Box(
@@ -83,10 +80,7 @@ public fun LoadingMediaDisplay(
               placeholderState = placeholderState,
               color = colorScheme.onBackground,
             )
-            .placeholder(
-              placeholderState = placeholderState,
-              color = colorScheme.outlineVariant,
-            )
+            .placeholder(placeholderState = placeholderState, color = colorScheme.outlineVariant)
       )
     }
   }

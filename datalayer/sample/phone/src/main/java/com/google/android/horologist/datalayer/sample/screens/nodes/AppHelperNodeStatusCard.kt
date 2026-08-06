@@ -56,10 +56,7 @@ fun AppHelperNodeStatusCard(
   onStartRemoteActivityClick: (nodeId: String) -> Unit,
   modifier: Modifier = Modifier,
 ) {
-  Box(
-    modifier = modifier.padding(16.dp).fillMaxWidth(),
-    contentAlignment = Alignment.Center,
-  ) {
+  Box(modifier = modifier.padding(16.dp).fillMaxWidth(), contentAlignment = Alignment.Center) {
     Card {
       Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
         Text(stringResource(R.string.node_status_node_name_label, nodeStatus.displayName))
@@ -69,19 +66,12 @@ fun AppHelperNodeStatusCard(
         )
         Text(
           style = MaterialTheme.typography.labelMedium,
-          text =
-            stringResource(
-              R.string.node_status_node_is_nearby_label,
-              nodeStatus.isNearby,
-            ),
+          text = stringResource(R.string.node_status_node_is_nearby_label, nodeStatus.isNearby),
         )
         Text(
           style = MaterialTheme.typography.labelMedium,
           text =
-            stringResource(
-              R.string.node_status_is_app_installed_label,
-              nodeStatus.appInstalled,
-            ),
+            stringResource(R.string.node_status_is_app_installed_label, nodeStatus.appInstalled),
         )
         val nodeType =
           if (nodeStatus.appInstalled) {

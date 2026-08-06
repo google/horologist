@@ -34,10 +34,7 @@ import kotlinx.coroutines.withContext
 @HiltViewModel
 class DeviceStatusViewModel
 @Inject
-constructor(
-  client: Client,
-  val contentConfig: GenerateContentConfig,
-) : ViewModel() {
+constructor(client: Client, val contentConfig: GenerateContentConfig) : ViewModel() {
   val uiState = flow {
     val model: String = ExposedMethods.deviceModel()
     val manufacturer: String = ExposedMethods.deviceManufacturer()

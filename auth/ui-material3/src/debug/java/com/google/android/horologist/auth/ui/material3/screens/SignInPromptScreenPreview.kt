@@ -46,12 +46,7 @@ fun SignInPromptScreenPreviewSignedOut() {
         colors = ButtonDefaults.filledTonalButtonColors(),
       )
     }
-    item {
-      GuestModeButton(
-        onClick = {},
-        colors = ButtonDefaults.filledTonalButtonColors(),
-      )
-    }
+    item { GuestModeButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
   }
 }
 
@@ -65,18 +60,8 @@ fun SignInPromptScreenPreviewLoading() {
     onIdleStateObserved = {},
     onAlreadySignedIn = {},
   ) {
-    item {
-      SignInButton(
-        onClick = {},
-        colors = ButtonDefaults.filledTonalButtonColors(),
-      )
-    }
-    item {
-      GuestModeButton(
-        onClick = {},
-        colors = ButtonDefaults.filledTonalButtonColors(),
-      )
-    }
+    item { SignInButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
+    item { GuestModeButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
   }
 }
 
@@ -91,17 +76,7 @@ fun SignInPromptScreenPreviewCustomLoading() {
     onAlreadySignedIn = {},
     loadingContent = { Box(contentAlignment = Alignment.Center) { Text("Loading...") } },
   ) {
-    item {
-      SignInButton(
-        onClick = {},
-        colors = ButtonDefaults.filledTonalButtonColors(),
-      )
-    }
-    item {
-      GuestModeButton(
-        onClick = {},
-        colors = ButtonDefaults.filledTonalButtonColors(),
-      )
-    }
+    item { SignInButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
+    item { GuestModeButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
   }
 }

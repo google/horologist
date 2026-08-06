@@ -43,10 +43,7 @@ fun BrowseScreenPreview() {
     downloadsSectionState =
       Section.State.Loaded(
         list =
-          listOf(
-            "Puccini" to "O mio babbino caro",
-            "J.S. Bach" to "Toccata and Fugue in D minor",
-          )
+          listOf("Puccini" to "O mio babbino caro", "J.S. Bach" to "Toccata and Fugue in D minor")
       ),
   )
 }

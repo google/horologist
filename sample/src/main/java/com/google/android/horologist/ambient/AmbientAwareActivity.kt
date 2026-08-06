@@ -106,18 +106,8 @@ fun HomeScreen(modifier: Modifier = Modifier, onRun: () -> Unit, onSettings: () 
   ScreenScaffold(modifier = modifier, scrollState = columnState) {
     ScalingLazyColumn(columnState = columnState) {
       item { Title("Home") }
-      item {
-        Chip(
-          label = "Run",
-          onClick = onRun,
-        )
-      }
-      item {
-        Chip(
-          label = "Settings",
-          onClick = onSettings,
-        )
-      }
+      item { Chip(label = "Run", onClick = onRun) }
+      item { Chip(label = "Settings", onClick = onSettings) }
     }
   }
 }
@@ -140,10 +130,7 @@ fun ExerciseScreen(modifier: Modifier = Modifier, onStop: () -> Unit, onSettings
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
           ) {
-            Text(
-              "Exercise",
-              color = Color.Green,
-            )
+            Text("Exercise", color = Color.Green)
             Button(
               onClick = onStop,
               imageVector = Icons.Rounded.Cancel,
@@ -173,14 +160,8 @@ fun PreparingScreen(modifier: Modifier = Modifier, onStart: () -> Unit, onSettin
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
       ) {
-        Text(
-          "Preparing",
-          color = Color.Blue,
-        )
-        Text(
-          ambientState.displayName,
-          color = Color.Blue,
-        )
+        Text("Preparing", color = Color.Blue)
+        Text(ambientState.displayName, color = Color.Blue)
         Button(
           onClick = onStart,
           imageVector = Icons.Rounded.PlayArrow,

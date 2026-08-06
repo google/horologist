@@ -40,14 +40,8 @@ import com.google.android.horologist.datalayer.sample.screens.SignInCustomPrompt
 import com.google.android.horologist.datalayer.sample.screens.SignInPromptDemo
 
 @Composable
-fun MenuScreen(
-  navController: NavHostController,
-  modifier: Modifier = Modifier,
-) {
-  Column(
-    modifier = modifier,
-    horizontalAlignment = Alignment.CenterHorizontally,
-  ) {
+fun MenuScreen(navController: NavHostController, modifier: Modifier = Modifier) {
+  Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
     Text(text = stringResource(id = R.string.menu_screen_apphelper_header))
 
     Button(onClick = { navController.navigate(AppHelperNodes) }) {

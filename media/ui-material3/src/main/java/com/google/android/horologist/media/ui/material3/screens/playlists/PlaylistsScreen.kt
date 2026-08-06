@@ -73,10 +73,7 @@ public fun <T> PlaylistsScreen(
     rememberPlaceholderState(playlistsScreenState is PlaylistsScreenState.Loading)
 
   ScreenScaffold(scrollState = scrollState) {
-    SectionedList(
-      modifier = modifier,
-      scrollState = scrollState,
-    ) {
+    SectionedList(modifier = modifier, scrollState = scrollState) {
       val sectionState =
         when (playlistsScreenState) {
           is PlaylistsScreenState.Loaded<T> -> {

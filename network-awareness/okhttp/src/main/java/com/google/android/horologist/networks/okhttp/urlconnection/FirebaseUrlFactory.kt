@@ -844,10 +844,7 @@ public class FirebaseUrlFactory(private val client: Call.Factory) : URLStreamHan
     val UTC = TimeZone.getTimeZone("GMT")
     val HTTP_CONTINUE = 100
     val STANDARD_DATE_FORMAT =
-      DateTimeFormatter.ofPattern(
-          "EEE, dd MMM yyyy HH:mm:ss 'GMT'",
-          Locale.US,
-        )
+      DateTimeFormatter.ofPattern("EEE, dd MMM yyyy HH:mm:ss 'GMT'", Locale.US)
         .withZone(ZoneId.of("GMT"))
 
     fun permitsRequestBody(method: String): Boolean {

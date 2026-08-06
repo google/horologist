@@ -55,10 +55,7 @@ public fun SectionedList(
   columnState: ScalingLazyColumnState,
   sections: List<Section<*>> = emptyList(),
 ) {
-  ScalingLazyColumn(
-    columnState = columnState,
-    modifier = modifier,
-  ) {
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
     for (section in sections) {
       section.display(this)
     }
@@ -155,28 +152,13 @@ public data class Section<T>(
     internal const val DEFAULT_LOADING_CONTENT_COUNT: Int = 1
 
     public val ALL_STATES: VisibleStates =
-      VisibleStates(
-        loading = true,
-        loaded = true,
-        failed = true,
-        empty = true,
-      )
+      VisibleStates(loading = true, loaded = true, failed = true, empty = true)
 
     public val LOADED_STATE_ONLY: VisibleStates =
-      VisibleStates(
-        loading = false,
-        loaded = true,
-        failed = false,
-        empty = false,
-      )
+      VisibleStates(loading = false, loaded = true, failed = false, empty = false)
 
     public val NO_STATES: VisibleStates =
-      VisibleStates(
-        loading = false,
-        loaded = false,
-        failed = false,
-        empty = false,
-      )
+      VisibleStates(loading = false, loaded = false, failed = false, empty = false)
   }
 }
 
@@ -190,10 +172,7 @@ public class SectionedListScope {
 
   internal val sections: MutableList<Section<*>> = mutableListOf()
 
-  public fun <T> section(
-    state: Section.State<T>,
-    content: SectionScope<T>.() -> Unit,
-  ) {
+  public fun <T> section(state: Section.State<T>, content: SectionScope<T>.() -> Unit) {
     SectionScope<T>().apply(content).let { scope ->
       sections.add(
         Section(
@@ -213,21 +192,12 @@ public class SectionedListScope {
   }
 
   /** Add a section in [loaded][Section.State.Loaded] state. */
-  public fun <T> section(
-    list: List<T>,
-    content: SectionScope<T>.() -> Unit,
-  ): Unit =
-    section(
-      state = Section.State.Loaded(list),
-      content = content,
-    )
+  public fun <T> section(list: List<T>, content: SectionScope<T>.() -> Unit): Unit =
+    section(state = Section.State.Loaded(list), content = content)
 
   /** Add a section in [loaded][Section.State.Loaded] state with a single item. */
   public fun section(content: SectionScope<Unit>.() -> Unit): Unit =
-    section(
-      state = Section.State.Loaded(listOf(Unit)),
-      content = content,
-    )
+    section(state = Section.State.Loaded(listOf(Unit)), content = content)
 }
 
 /** Receiver scope which is used by content parameter in [SectionedListScope] functions. */

@@ -27,51 +27,25 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ChipDefaults
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
-@Preview(
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ChipPreview() {
-  Chip(
-    label = "Primary label",
-    onClick = {},
-  )
+  Chip(label = "Primary label", onClick = {})
 }
 
-@Preview(
-  name = "With secondary label",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "With secondary label", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ChipPreviewWithSecondaryLabel() {
-  Chip(
-    label = "Primary label",
-    onClick = {},
-    secondaryLabel = "Secondary label",
-  )
+  Chip(label = "Primary label", onClick = {}, secondaryLabel = "Secondary label")
 }
 
-@Preview(
-  name = "With icon",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "With icon", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ChipPreviewWithIcon() {
-  Chip(
-    label = "Primary label",
-    onClick = {},
-    icon = ImageVectorPaintable(Icons.Default.Image),
-  )
+  Chip(label = "Primary label", onClick = {}, icon = ImageVectorPaintable(Icons.Default.Image))
 }
 
-@Preview(
-  name = "With large icon",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "With large icon", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ChipPreviewWithLargeIcon() {
   Chip(
@@ -113,11 +87,7 @@ fun ChipPreviewWithSecondaryLabelAndLargeIcon() {
   )
 }
 
-@Preview(
-  name = "Disabled",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "Disabled", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ChipPreviewDisabled() {
   Chip(
@@ -129,11 +99,7 @@ fun ChipPreviewDisabled() {
   )
 }
 
-@Preview(
-  name = "With secondary chip colors",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "With secondary chip colors", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ChipPreviewWithSecondaryChipColors() {
   Chip(

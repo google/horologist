@@ -59,12 +59,7 @@ class NetworkSelectingCallFactoryTest {
   private val networkingRules = ConfigurableNetworkingRules()
   private val networkRequester = FakeNetworkRequester(networkRepository)
   private val highBandwidthRequester =
-    StandardHighBandwidthNetworkMediator(
-      logger,
-      networkRequester,
-      testScope,
-      3.seconds,
-    )
+    StandardHighBandwidthNetworkMediator(logger, networkRequester, testScope, 3.seconds)
   private val dataRequestRepository = InMemoryDataRequestRepository()
 
   private val networkingRulesEngine =

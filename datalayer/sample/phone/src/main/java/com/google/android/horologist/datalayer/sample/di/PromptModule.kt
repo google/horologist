@@ -53,10 +53,7 @@ object PromptModule {
     coroutineScope: CoroutineScope,
     phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
   ): SignInPrompt =
-    SignInPrompt(
-      coroutineScope = coroutineScope,
-      phoneDataLayerAppHelper = phoneDataLayerAppHelper,
-    )
+    SignInPrompt(coroutineScope = coroutineScope, phoneDataLayerAppHelper = phoneDataLayerAppHelper)
 
   @Singleton
   @Provides

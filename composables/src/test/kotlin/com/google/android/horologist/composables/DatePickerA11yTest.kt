@@ -56,12 +56,7 @@ class DatePickerA11yTest : WearLegacyA11yTest() {
   fun screenshot() {
     enableTouchExploration()
 
-    runScreenTest {
-      DatePicker(
-        onDateConfirm = {},
-        date = LocalDate.of(2022, 4, 25),
-      )
-    }
+    runScreenTest { DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 4, 25)) }
 
     composeRule.onRoot().runAccessibilityChecks()
   }
@@ -70,12 +65,7 @@ class DatePickerA11yTest : WearLegacyA11yTest() {
   fun interactionTest() {
     enableTouchExploration()
 
-    runScreenTest {
-      DatePicker(
-        onDateConfirm = {},
-        date = LocalDate.of(2022, 4, 25),
-      )
-    }
+    runScreenTest { DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 4, 25)) }
 
     composeRule.onRoot().runAccessibilityChecks()
 

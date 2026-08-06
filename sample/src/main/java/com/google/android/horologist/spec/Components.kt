@@ -92,11 +92,7 @@ fun ScalingLazyListScope.chipMenu(
 @Composable
 private fun SampleTheme(content: @Composable () -> Unit) {
   MaterialTheme(
-    colors =
-      MaterialTheme.colors.copy(
-        primary = Color.DarkGray,
-        onPrimary = Color.White,
-      )
+    colors = MaterialTheme.colors.copy(primary = Color.DarkGray, onPrimary = Color.White)
   ) {
     content()
   }

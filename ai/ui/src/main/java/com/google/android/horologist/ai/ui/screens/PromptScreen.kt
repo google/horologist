@@ -73,10 +73,7 @@ public fun PromptScreen(
   val transformationSpec: TransformationSpec = rememberTransformationSpec()
   val columnState = rememberTransformingLazyColumnState()
   val contentPadding =
-    rememberResponsiveColumnPadding(
-      first = ColumnItemType.ListHeader,
-      last = ColumnItemType.Button,
-    )
+    rememberResponsiveColumnPadding(first = ColumnItemType.ListHeader, last = ColumnItemType.Button)
 
   ScreenScaffold(
     scrollState = columnState,

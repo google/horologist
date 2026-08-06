@@ -38,10 +38,7 @@ import java.io.File
 import javax.inject.Singleton
 
 @Module
-@TestInstallIn(
-  components = [SingletonComponent::class],
-  replaces = [ConfigModule::class],
-)
+@TestInstallIn(components = [SingletonComponent::class], replaces = [ConfigModule::class])
 object FakeConfigModule {
   var appConfigFn: () -> AppConfig = { AppConfig() }
 
@@ -54,10 +51,7 @@ object FakeConfigModule {
   @Singleton
   @Provides
   @CacheDir
-  fun cacheDir(
-    @ApplicationContext application: Context,
-    appConfig: AppConfig,
-  ): File =
+  fun cacheDir(@ApplicationContext application: Context, appConfig: AppConfig): File =
     StrictMode.allowThreadDiskWrites().resetAfter { appConfig.cacheDir ?: application.cacheDir }
 
   @Singleton

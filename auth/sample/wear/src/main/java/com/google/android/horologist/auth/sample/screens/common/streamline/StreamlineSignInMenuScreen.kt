@@ -36,24 +36,14 @@ import com.google.android.horologist.compose.material.ListHeaderDefaults.firstIt
 import com.google.android.horologist.compose.material.ResponsiveListHeader
 
 @Composable
-fun StreamlineSignInMenuScreen(
-  navController: NavHostController,
-  modifier: Modifier = Modifier,
-) {
+fun StreamlineSignInMenuScreen(navController: NavHostController, modifier: Modifier = Modifier) {
   val columnState =
     rememberResponsiveColumnState(
-      contentPadding =
-        padding(
-          first = ItemType.Text,
-          last = ItemType.Chip,
-        )
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
   ScreenScaffold(scrollState = columnState) {
-    SectionedList(
-      columnState = columnState,
-      modifier = modifier.fillMaxSize(),
-    ) {
+    SectionedList(columnState = columnState, modifier = modifier.fillMaxSize()) {
       section(
         listOf(
           Triple(

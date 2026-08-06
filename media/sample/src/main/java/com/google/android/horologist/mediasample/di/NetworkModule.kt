@@ -70,19 +70,12 @@ object NetworkModule {
   fun networkRepository(
     @ApplicationContext application: Context,
     @ForApplicationScope coroutineScope: CoroutineScope,
-  ): NetworkRepository =
-    NetworkRepositoryImpl.fromContext(
-      application,
-      coroutineScope,
-    )
+  ): NetworkRepository = NetworkRepositoryImpl.fromContext(application, coroutineScope)
 
   @Singleton
   @Provides
   fun cache(@ApplicationContext application: Context): Cache =
-    Cache(
-      application.cacheDir.resolve("HttpCache"),
-      10_000_000,
-    )
+    Cache(application.cacheDir.resolve("HttpCache"), 10_000_000)
 
   @Singleton
   @Provides
@@ -98,10 +91,7 @@ object NetworkModule {
 
   @Singleton
   @Provides
-  fun okhttpClient(
-    cache: Cache,
-    alwaysHttpsInterceptor: Interceptor,
-  ): OkHttpClient {
+  fun okhttpClient(cache: Cache, alwaysHttpsInterceptor: Interceptor): OkHttpClient {
     return OkHttpClient.Builder()
       .followSslRedirects(false)
       .addInterceptor(alwaysHttpsInterceptor)
@@ -131,12 +121,7 @@ object NetworkModule {
     networkRequester: NetworkRequester,
     @ForApplicationScope coroutineScope: CoroutineScope,
   ) =
-    StandardHighBandwidthNetworkMediator(
-      networkLogger,
-      networkRequester,
-      coroutineScope,
-      3.seconds,
-    )
+    StandardHighBandwidthNetworkMediator(networkLogger, networkRequester, coroutineScope, 3.seconds)
 
   @Singleton
   @Provides
@@ -194,19 +179,11 @@ object NetworkModule {
 
   @Singleton
   @Provides
-  fun retrofit(
-    callFactory: Call.Factory,
-    moshiConverterFactory: MoshiConverterFactory,
-  ) =
+  fun retrofit(callFactory: Call.Factory, moshiConverterFactory: MoshiConverterFactory) =
     Retrofit.Builder()
       .addConverterFactory(moshiConverterFactory)
       .baseUrl(UampService.BASE_URL)
-      .callFactory(
-        NetworkAwareCallFactory(
-          callFactory,
-          RequestType.ApiRequest,
-        )
-      )
+      .callFactory(NetworkAwareCallFactory(callFactory, RequestType.ApiRequest))
       .build()
 
   @Singleton
@@ -230,10 +207,7 @@ object NetworkModule {
       .diskCachePolicy(CachePolicy.ENABLED)
       .networkCachePolicy(CachePolicy.ENABLED)
       .callFactory {
-        NetworkAwareCallFactory(
-          callFactory,
-          defaultRequestType = RequestType.ImageRequest,
-        )
+        NetworkAwareCallFactory(callFactory, defaultRequestType = RequestType.ImageRequest)
       }
       .apply {
         if (BuildConfig.DEBUG) {

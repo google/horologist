@@ -23,11 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
-@Preview(
-  name = "Standard",
-  backgroundColor = 0xff000000,
-  showBackground = true,
-)
+@Preview(name = "Standard", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ChipIconWithProgressPreview() {
   ChipIconWithProgress()
@@ -50,11 +46,7 @@ fun ChipIconWithProgressInProgressPreview() {
 )
 @Composable
 fun ChipIconWithProgressInProgressLargeIconPreview() {
-  ChipIconWithProgress(
-    progress = 75f,
-    icon = ImageVectorPaintable(Icon48dp),
-    largeIcon = true,
-  )
+  ChipIconWithProgress(progress = 75f, icon = ImageVectorPaintable(Icon48dp), largeIcon = true)
 }
 
 @Preview(

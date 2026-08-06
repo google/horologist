@@ -102,10 +102,7 @@ public fun RepeatableClickableButton(
             Modifier
           }
         )
-        .background(
-          color = containerColor.value,
-          shape = shape,
-        ),
+        .background(color = containerColor.value, shape = shape),
   ) {
     CompositionLocalProvider(
       LocalContentColor provides contentColor.value,

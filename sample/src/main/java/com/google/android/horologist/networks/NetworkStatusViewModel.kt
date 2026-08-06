@@ -34,26 +34,19 @@ public class NetworkStatusViewModel(
   private val dataRequestRepository: DataRequestRepository,
 ) : ViewModel() {
   val state =
-    combine(
-        networkRepository.networkStatus,
-        dataRequestRepository.currentPeriodUsage(),
-      ) { networkStatus, currentPeriodUsage ->
+    combine(networkRepository.networkStatus, dataRequestRepository.currentPeriodUsage()) {
+        networkStatus,
+        currentPeriodUsage ->
         NetworkStatusAppState(networks = networkStatus, dataUsage = currentPeriodUsage)
       }
       .stateIn(
         viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue =
-          NetworkStatusAppState(
-            networks = networkRepository.networkStatus.value,
-            dataUsage = null,
-          ),
+          NetworkStatusAppState(networks = networkRepository.networkStatus.value, dataUsage = null),
       )
 
-  data class NetworkStatusAppState(
-    val networks: Networks,
-    val dataUsage: DataUsageReport? = null,
-  )
+  data class NetworkStatusAppState(val networks: Networks, val dataUsage: DataUsageReport? = null)
 
   public object Factory : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")

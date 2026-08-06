@@ -108,13 +108,7 @@ fun WearDialogApp() {
           } else null,
       ) {
         when (contentIx.value) {
-          1 ->
-            items(10) {
-              Chip(
-                onClick = {},
-                label = { Text("Chip $it") },
-              )
-            }
+          1 -> items(10) { Chip(onClick = {}, label = { Text("Chip $it") }) }
           2 -> {
             item {
               Text(
@@ -149,12 +143,7 @@ fun WearDialogApp() {
       SimpleToggle("OK", hasOkButton)
       SimpleToggle("Cancel", hasCancelButton)
     }
-    ToggleRow(
-      title = "Content",
-      options = contentTypes,
-      selected = contentIx,
-      optionWidth = 100.dp,
-    )
+    ToggleRow(title = "Content", options = contentTypes, selected = contentIx, optionWidth = 100.dp)
   }
 }
 
@@ -181,19 +170,9 @@ fun ToggleRow(
     options.forEachIndexed { ix, text ->
       val shape =
         if (ix == 0) {
-          RoundedCornerShape(
-            heightPx / 2,
-            0f,
-            0f,
-            heightPx / 2,
-          )
+          RoundedCornerShape(heightPx / 2, 0f, 0f, heightPx / 2)
         } else if (ix == options.lastIndex) {
-          RoundedCornerShape(
-            0f,
-            heightPx / 2,
-            heightPx / 2,
-            0f,
-          )
+          RoundedCornerShape(0f, heightPx / 2, heightPx / 2, 0f)
         } else {
           RectangleShape
         }
@@ -201,11 +180,7 @@ fun ToggleRow(
       Box(
         Modifier.width(optionWidth)
           .height(heightDp)
-          .border(
-            1.dp,
-            Color(0xFF75717A),
-            shape = shape,
-          )
+          .border(1.dp, Color(0xFF75717A), shape = shape)
           .clip(shape)
           .clickable { selected.value = ix }
           .background(
@@ -254,10 +229,7 @@ fun SizedContainer(
         get() = currentDensity.density * ZoomLevel
     }
 
-  CompositionLocalProvider(
-    LocalConfiguration provides config,
-    LocalDensity provides density,
-  ) {
+  CompositionLocalProvider(LocalConfiguration provides config, LocalDensity provides density) {
     val shape = if (roundScreen) CircleShape else RoundedCornerShape(0)
     Box(
       modifier =

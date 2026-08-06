@@ -49,11 +49,7 @@ public data class OffloadTimes(
         isPlaying = updatedIsPlaying,
       )
     } else {
-      copy(
-        notPlaying = notPlaying + extra,
-        updated = time,
-        isPlaying = updatedIsPlaying,
-      )
+      copy(notPlaying = notPlaying + extra, updated = time, isPlaying = updatedIsPlaying)
     }
   }
 

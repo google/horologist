@@ -74,12 +74,7 @@ class NetworkRequesterTest {
     callback.onAvailable(cellNetwork)
 
     assertThat(lease.grantedNetwork.value)
-      .isEqualTo(
-        NetworkReference(
-          id = cellNetwork.id,
-          type = NetworkType.Cell,
-        )
-      )
+      .isEqualTo(NetworkReference(id = cellNetwork.id, type = NetworkType.Cell))
   }
 
   @Test

@@ -61,12 +61,7 @@ fun EntityScreenPreview() {
           Modifier.fillMaxWidth()
             .height(100.dp)
             .background(
-              Brush.radialGradient(
-                listOf(
-                  (Color.Green).copy(alpha = 0.3f),
-                  Color.Transparent,
-                )
-              )
+              Brush.radialGradient(listOf((Color.Green).copy(alpha = 0.3f), Color.Transparent))
             ),
         contentAlignment = Alignment.Center,
       ) {
@@ -145,10 +140,7 @@ fun EntityScreenPreviewFailedState() {
           contentDescription = null,
           modifier = Modifier.size(24.dp).wrapContentSize(align = Alignment.Center),
         )
-        Text(
-          text = "Could not retrieve the playlist.",
-          textAlign = TextAlign.Center,
-        )
+        Text(text = "Could not retrieve the playlist.", textAlign = TextAlign.Center)
       }
     },
   )

@@ -35,20 +35,10 @@ public class Media3DownloadDataSource(
   public fun download(id: String, uri: Uri) {
     val downloadRequest = DownloadRequest.Builder(id, uri).build()
 
-    DownloadService.sendAddDownload(
-      context,
-      downloadService,
-      downloadRequest,
-      true,
-    )
+    DownloadService.sendAddDownload(context, downloadService, downloadRequest, true)
   }
 
   public fun removeDownload(id: String) {
-    DownloadService.sendRemoveDownload(
-      context,
-      downloadService,
-      id,
-      false,
-    )
+    DownloadService.sendRemoveDownload(context, downloadService, id, false)
   }
 }

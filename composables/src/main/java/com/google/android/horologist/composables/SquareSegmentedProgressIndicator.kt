@@ -70,11 +70,7 @@ public fun SquareSegmentedProgressIndicator(
   val localDensity = LocalDensity.current
   val stroke =
     with(localDensity) {
-      Stroke(
-        width = strokeWidth.toPx(),
-        join = StrokeJoin.Round,
-        cap = StrokeCap.Square,
-      )
+      Stroke(width = strokeWidth.toPx(), join = StrokeJoin.Round, cap = StrokeCap.Square)
     }
 
   BoxWithConstraints(modifier.padding(strokeWidth).progressSemantics(progress)) {
@@ -82,14 +78,7 @@ public fun SquareSegmentedProgressIndicator(
     val height = with(localDensity) { maxHeight.toPx() }
 
     val calculatedSegments =
-      remember(
-        trackSegments,
-        height,
-        width,
-        cornerRadiusDp,
-        strokeWidth,
-        paddingDp,
-      ) {
+      remember(trackSegments, height, width, cornerRadiusDp, strokeWidth, paddingDp) {
         calculateSegments(
           height = height,
           width = width,

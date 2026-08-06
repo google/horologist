@@ -31,28 +31,17 @@ import kotlinx.coroutines.flow.stateIn
 class SettingsViewModel @Inject constructor(private val inferenceService: InferenceService) :
   ViewModel() {
   val uiState =
-    combine(
-        inferenceService.connectedModel,
-        inferenceService.models,
-      ) { current, models ->
+    combine(inferenceService.connectedModel, inferenceService.models) { current, models ->
         val uiModels = models?.flatMap { (serviceInfo, _) ->
           serviceInfo.modelsList.map { modelInfo ->
-            ModelInstanceUiModel(
-                modelInfo.modelId.id,
-                modelInfo.name,
-                serviceInfo.name,
-              )
-              .also {
-                if (it.id.isBlank()) {
-                  throw Exception("Blank id ${modelInfo.name} ")
-                }
+            ModelInstanceUiModel(modelInfo.modelId.id, modelInfo.name, serviceInfo.name).also {
+              if (it.id.isBlank()) {
+                throw Exception("Blank id ${modelInfo.name} ")
               }
+            }
           }
         }
-        SettingsUiState(
-          uiModels?.find { it.id == current?.id },
-          uiModels,
-        )
+        SettingsUiState(uiModels?.find { it.id == current?.id }, uiModels)
       }
       .stateIn(viewModelScope, SharingStarted.Eagerly, SettingsUiState(null, null))
 

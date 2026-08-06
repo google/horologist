@@ -49,10 +49,7 @@ public interface NetworkingRules {
    *
    * Null means no suitable network.
    */
-  public fun getPreferredNetwork(
-    networks: Networks,
-    requestType: RequestType,
-  ): NetworkStatus?
+  public fun getPreferredNetwork(networks: Networks, requestType: RequestType): NetworkStatus?
 
   /** Lenient rules that allow most request types on any network but prefer Wifi when available. */
   @ExperimentalHorologistApi
@@ -68,10 +65,7 @@ public interface NetworkingRules {
       return Allow
     }
 
-    override fun getPreferredNetwork(
-      networks: Networks,
-      requestType: RequestType,
-    ): NetworkStatus? {
+    override fun getPreferredNetwork(networks: Networks, requestType: RequestType): NetworkStatus? {
       val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
       return wifi ?: networks.networks.firstOrNull()
     }
@@ -126,10 +120,7 @@ public interface NetworkingRules {
       return Allow
     }
 
-    override fun getPreferredNetwork(
-      networks: Networks,
-      requestType: RequestType,
-    ): NetworkStatus? {
+    override fun getPreferredNetwork(networks: Networks, requestType: RequestType): NetworkStatus? {
       val wifi = networks.networks.firstOrNull { it.networkInfo is Wifi }
 
       if (wifi != null) return wifi

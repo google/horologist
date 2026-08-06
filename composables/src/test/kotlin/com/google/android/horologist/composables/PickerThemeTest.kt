@@ -39,10 +39,7 @@ class PickerThemeTest(private val themeValue: ThemeValues) : WearLegacyScreenTes
   fun datePicker() {
     runTest {
       MaterialTheme(colors = themeValue.colors) {
-        DatePicker(
-          onDateConfirm = {},
-          date = LocalDate.of(2022, 4, 25),
-        )
+        DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 4, 25))
       }
     }
   }
@@ -51,10 +48,7 @@ class PickerThemeTest(private val themeValue: ThemeValues) : WearLegacyScreenTes
   fun timePicker() {
     runTest {
       MaterialTheme(colors = themeValue.colors) {
-        TimePicker(
-          time = LocalTime.of(10, 10, 0),
-          onTimeConfirm = {},
-        )
+        TimePicker(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
       }
     }
   }
@@ -63,10 +57,7 @@ class PickerThemeTest(private val themeValue: ThemeValues) : WearLegacyScreenTes
   fun timePicker12h() {
     runTest {
       MaterialTheme(colors = themeValue.colors) {
-        TimePickerWith12HourClock(
-          time = LocalTime.of(10, 10, 0),
-          onTimeConfirm = {},
-        )
+        TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
       }
     }
   }

@@ -114,7 +114,7 @@ jobs:
       # ref and driver-ref. Floating this one on @main meant the PR render could
       # run a newer renderer than the publish did, so a preview could look right
       # here and different on the delivery branch. Bump all three together.
-      - uses: yschimke/compose-ai-tools/.github/actions/apply@v0.19.38
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@v0.19.46
         with:
           # Only the compose pipeline. The a11y / notifications / resources
           # pipelines are additional renders on top of this one; turn them on

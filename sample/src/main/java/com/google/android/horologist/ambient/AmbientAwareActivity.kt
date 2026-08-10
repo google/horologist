@@ -28,6 +28,7 @@ import androidx.compose.material.icons.rounded.Cancel
 import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -41,13 +42,14 @@ import androidx.compose.ui.graphics.Paint
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.withSaveLayer
+import androidx.wear.compose.foundation.AmbientMode
+import androidx.wear.compose.foundation.LocalAmbientModeManager
+import androidx.wear.compose.foundation.rememberAmbientModeManager
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.TimeText
 import androidx.wear.compose.material.curvedText
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
-import com.google.android.horologist.compose.ambient.AmbientAware
-import com.google.android.horologist.compose.ambient.AmbientState
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScreenScaffold
@@ -71,30 +73,34 @@ class AmbientAwareActivity : ComponentActivity() {
 
 @Composable
 fun AmbientAwareWearApp() {
-  val navController = rememberSwipeDismissableNavController()
+  val ambientModeManager = rememberAmbientModeManager()
 
-  AppScaffold {
-    Box(modifier = Modifier.fillMaxSize()) {
-      SwipeDismissableNavHost(navController, Home) {
-        composable<Home> {
-          HomeScreen(
-            onRun = { navController.navigate(Preparing) },
-            onSettings = { navController.navigate(Settings) },
-          )
+  CompositionLocalProvider(LocalAmbientModeManager provides ambientModeManager) {
+    val navController = rememberSwipeDismissableNavController()
+
+    AppScaffold {
+      Box(modifier = Modifier.fillMaxSize()) {
+        SwipeDismissableNavHost(navController, Home) {
+          composable<Home> {
+            HomeScreen(
+              onRun = { navController.navigate(Preparing) },
+              onSettings = { navController.navigate(Settings) },
+            )
+          }
+          composable<Preparing> {
+            PreparingScreen(
+              onStart = { navController.navigate(Exercise) },
+              onSettings = { navController.navigate(Settings) },
+            )
+          }
+          composable<Exercise> {
+            ExerciseScreen(
+              onStop = { navController.navigate(Home) },
+              onSettings = { navController.navigate(Settings) },
+            )
+          }
+          composable<Settings> { SettingsScreen() }
         }
-        composable<Preparing> {
-          PreparingScreen(
-            onStart = { navController.navigate(Exercise) },
-            onSettings = { navController.navigate(Settings) },
-          )
-        }
-        composable<Exercise> {
-          ExerciseScreen(
-            onStop = { navController.navigate(Home) },
-            onSettings = { navController.navigate(Settings) },
-          )
-        }
-        composable<Settings> { SettingsScreen() }
       }
     }
   }
@@ -114,34 +120,26 @@ fun HomeScreen(modifier: Modifier = Modifier, onRun: () -> Unit, onSettings: () 
 
 @Composable
 fun ExerciseScreen(modifier: Modifier = Modifier, onStop: () -> Unit, onSettings: () -> Unit) {
-  AmbientAware { ambientState ->
-    if (ambientState.isInteractive) {
-      ScreenScaffold(
-        modifier = modifier,
-        timeText = {
-          if (ambientState.isInteractive) {
-            AmbientAwareTimeText(ambientState)
-          }
-        },
-      ) {
-        Box(modifier = modifier.fillMaxSize()) {
-          Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-          ) {
-            Text("Exercise", color = Color.Green)
-            Button(
-              onClick = onStop,
-              imageVector = Icons.Rounded.Cancel,
-              contentDescription = "Cancel",
-            )
-            Button(
-              onClick = onSettings,
-              imageVector = Icons.Rounded.Settings,
-              contentDescription = "Settings",
-            )
-          }
+  val ambientMode = LocalAmbientModeManager.current?.currentAmbientMode
+  if (ambientMode is AmbientMode.Interactive) {
+    ScreenScaffold(modifier = modifier, timeText = { AmbientAwareTimeText(ambientMode) }) {
+      Box(modifier = modifier.fillMaxSize()) {
+        Column(
+          modifier = Modifier.fillMaxSize(),
+          verticalArrangement = Arrangement.Center,
+          horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+          Text("Exercise", color = Color.Green)
+          Button(
+            onClick = onStop,
+            imageVector = Icons.Rounded.Cancel,
+            contentDescription = "Cancel",
+          )
+          Button(
+            onClick = onSettings,
+            imageVector = Icons.Rounded.Settings,
+            contentDescription = "Settings",
+          )
         }
       }
     }
@@ -150,29 +148,24 @@ fun ExerciseScreen(modifier: Modifier = Modifier, onStop: () -> Unit, onSettings
 
 @Composable
 fun PreparingScreen(modifier: Modifier = Modifier, onStart: () -> Unit, onSettings: () -> Unit) {
-  AmbientAware { ambientState ->
-    ScreenScaffold(
-      modifier = modifier.ambientGray(ambientState),
-      timeText = { AmbientAwareTimeText(ambientState) },
+  val ambientMode = LocalAmbientModeManager.current?.currentAmbientMode
+  ScreenScaffold(
+    modifier = modifier.ambientGray(ambientMode),
+    timeText = { AmbientAwareTimeText(ambientMode) },
+  ) {
+    Column(
+      modifier = Modifier.fillMaxSize(),
+      verticalArrangement = Arrangement.Center,
+      horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-      Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-      ) {
-        Text("Preparing", color = Color.Blue)
-        Text(ambientState.displayName, color = Color.Blue)
-        Button(
-          onClick = onStart,
-          imageVector = Icons.Rounded.PlayArrow,
-          contentDescription = "Start",
-        )
-        Button(
-          onClick = onSettings,
-          imageVector = Icons.Rounded.Settings,
-          contentDescription = "Settings",
-        )
-      }
+      Text("Preparing", color = Color.Blue)
+      Text(ambientMode.displayName, color = Color.Blue)
+      Button(onClick = onStart, imageVector = Icons.Rounded.PlayArrow, contentDescription = "Start")
+      Button(
+        onClick = onSettings,
+        imageVector = Icons.Rounded.Settings,
+        contentDescription = "Settings",
+      )
     }
   }
 }
@@ -202,8 +195,8 @@ private val grayscale =
     isAntiAlias = false
   }
 
-internal fun Modifier.ambientGray(ambientState: AmbientState): Modifier =
-  if (ambientState.isAmbient) {
+internal fun Modifier.ambientGray(ambientMode: AmbientMode?): Modifier =
+  if (ambientMode is AmbientMode.Ambient) {
     graphicsLayer {
         scaleX = 0.9f
         scaleY = 0.9f
@@ -215,9 +208,17 @@ internal fun Modifier.ambientGray(ambientState: AmbientState): Modifier =
     this
   }
 
+private val AmbientMode?.displayName: String
+  get() =
+    when (this) {
+      is AmbientMode.Ambient -> "Ambient"
+      is AmbientMode.Interactive -> "Interactive"
+      else -> "Inactive"
+    }
+
 @Composable
-fun AmbientAwareTimeText(ambientState: AmbientState) {
-  TimeText(endCurvedContent = { curvedText(ambientState.displayName, color = Color.LightGray) })
+fun AmbientAwareTimeText(ambientMode: AmbientMode?) {
+  TimeText(endCurvedContent = { curvedText(ambientMode.displayName, color = Color.LightGray) })
 }
 
 @Serializable object Home

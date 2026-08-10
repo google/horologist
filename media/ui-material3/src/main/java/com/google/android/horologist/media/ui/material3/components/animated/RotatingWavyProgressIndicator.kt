@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.material3.components.animated
 
+import android.graphics.Path as AndroidPath
 import androidx.compose.animation.core.FiniteAnimationSpec
 import androidx.compose.animation.core.Transition
 import androidx.compose.animation.core.animateFloat
@@ -49,9 +50,9 @@ import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.LayoutDirection
 import androidx.graphics.shapes.Morph
+import androidx.graphics.shapes.MutableCubic
 import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.TransformResult
-import androidx.graphics.shapes.toPath
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayoutDefaults
@@ -74,8 +75,8 @@ internal fun RotatingWavyProgressIndicator(
   shapeMorphProgress: State<Float>,
   rotationProgress: State<Float>,
   strokeWidth: Dp,
-  modifier: Modifier = Modifier,
   colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  modifier: Modifier = Modifier,
 ) {
   val coercedProgress by remember { derivedStateOf { progress.value.coerceIn(0f, 1f) } }
 
@@ -88,6 +89,11 @@ internal fun RotatingWavyProgressIndicator(
 
   val density = LocalDensity.current
   val configuration = LocalConfiguration.current
+
+  val stroke =
+    remember(density, strokeWidth) {
+      Stroke(with(density) { strokeWidth.toPx() }, cap = StrokeCap.Round)
+    }
 
   val scallopShapeSize =
     remember(configuration) {
@@ -129,6 +135,13 @@ internal fun RotatingWavyProgressIndicator(
     Path()
   } // To draw the part of indicator path at the end due its rotation
   val preTrack = remember { Path() } // To draw the part of track path at the start due its rotation
+  val androidPathInstance = remember {
+    AndroidPath()
+  } // Path instance to be used (and reused) for morphing
+  val mutableCubic = remember {
+    MutableCubic()
+  } // Cubic instance to be used (and reused) for morphing
+  val pathMeasurer = remember { PathMeasure() }
 
   Spacer(
     modifier
@@ -145,15 +158,15 @@ internal fun RotatingWavyProgressIndicator(
             )
           }
         val path =
-          morph.toPath(shapeMorphProgress.value).asComposePath().apply {
-            translate(Offset(size.width / 2f, size.height / 2f))
-          }
+          morph
+            .toPath(shapeMorphProgress.value, androidPathInstance, mutableCubic)
+            .asComposePath()
+            .apply { translate(Offset(size.width / 2f, size.height / 2f)) }
 
-        val pathMeasurer = PathMeasure().also { it.setPath(path, true) }
+        pathMeasurer.setPath(path, true)
         val length = pathMeasurer.length
 
-        val strokePx = strokeWidth.toPx()
-        val gap = (length * 0.006f) + strokePx
+        val gap = (length * 0.006f) + stroke.width
 
         indicatorPath.reset()
         pathMeasurer.getSegment(
@@ -193,29 +206,13 @@ internal fun RotatingWavyProgressIndicator(
 
         onDrawBehind {
           rotate(degrees = 360f * rotationProgress.value) {
-            drawPath(
-              path = preTrack,
-              color = trackColor,
-              style = Stroke(strokePx, cap = StrokeCap.Round),
-            )
+            drawPath(path = preTrack, color = trackColor, style = stroke)
 
-            drawPath(
-              path = trackPath,
-              color = trackColor,
-              style = Stroke(strokePx, cap = StrokeCap.Round),
-            )
+            drawPath(path = trackPath, color = trackColor, style = stroke)
 
-            drawPath(
-              path = indicatorPath,
-              color = indicatorColor,
-              style = Stroke(strokePx, cap = StrokeCap.Round),
-            )
+            drawPath(path = indicatorPath, color = indicatorColor, style = stroke)
 
-            drawPath(
-              path = postPath,
-              color = indicatorColor,
-              style = Stroke(strokePx, cap = StrokeCap.Round),
-            )
+            drawPath(path = postPath, color = indicatorColor, style = stroke)
           }
         }
       }
@@ -234,7 +231,8 @@ internal class RotatingMorphedScallopShape(
 ) : Shape {
 
   private val matrix = Matrix()
-  private val path = android.graphics.Path()
+  private val path = AndroidPath()
+  private val mutableCubic = MutableCubic()
 
   private val scallopSize =
     if (isLargeScreen) {
@@ -286,7 +284,7 @@ internal class RotatingMorphedScallopShape(
     path.reset()
     matrix.rotateZ(rotationProgress.value * 360f)
     val morphPath =
-      morph.toPath(morphProgress.value, path).asComposePath().apply {
+      morph.toPath(morphProgress.value, path, mutableCubic).asComposePath().apply {
         transform(matrix)
         translate(Offset(size.width / 2f, size.height / 2f))
       }
@@ -319,4 +317,55 @@ internal fun RoundedPolygon.scaleToSize(sizePx: Float): RoundedPolygon {
   val scallopHeight = scallopBounds[3] - scallopBounds[1]
   val scaleFactor = sizePx / scallopHeight
   return transformed { x, y -> TransformResult(x * scaleFactor, y * scaleFactor) }
+}
+
+private fun Morph.toPath(
+  progress: Float,
+  path: AndroidPath = AndroidPath(),
+  mutableCubic: MutableCubic = MutableCubic(),
+): AndroidPath {
+  // The first/last mechanism here ensures that the final anchor point in the shape
+  // exactly matches the first anchor point. There can be rendering artifacts introduced
+  // by those points being slightly off, even by much less than a pixel
+  path.rewind()
+
+  var firstX = 0f
+  var firstY = 0f
+  var prevControl0X = 0f
+  var prevControl0Y = 0f
+  var prevControl1X = 0f
+  var prevControl1Y = 0f
+  var prevAnchor1X = 0f
+  var prevAnchor1Y = 0f
+  var first = true
+  forEachCubic(progress, mutableCubic) {
+    if (first) {
+      path.moveTo(it.anchor0X, it.anchor0Y)
+      firstX = it.anchor0X
+      firstY = it.anchor0Y
+      first = false
+    } else {
+      // We delay using the current cubic, because we need to do something special for the
+      // last one and we can't detect it is the last one until the loop ends.
+      path.cubicTo(
+        prevControl0X,
+        prevControl0Y,
+        prevControl1X,
+        prevControl1Y,
+        prevAnchor1X,
+        prevAnchor1Y,
+      )
+    }
+    prevControl0X = it.control0X
+    prevControl0Y = it.control0Y
+    prevControl1X = it.control1X
+    prevControl1Y = it.control1Y
+    prevAnchor1X = it.anchor1X
+    prevAnchor1Y = it.anchor1Y
+  }
+  if (!first) {
+    path.cubicTo(prevControl0X, prevControl0Y, prevControl1X, prevControl1Y, firstX, firstY)
+  }
+  path.close()
+  return path
 }

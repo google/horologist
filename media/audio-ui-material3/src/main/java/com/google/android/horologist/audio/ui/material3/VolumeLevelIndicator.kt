@@ -55,6 +55,7 @@ public fun VolumeLevelIndicator(
 ) {
   val visible by
     produceState(displayIndicatorEvents == null, displayIndicatorEvents) {
+      value = displayIndicatorEvents == null
       displayIndicatorEvents?.collectLatest {
         value = true
         delay(2500)

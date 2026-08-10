@@ -17,17 +17,18 @@
 package com.google.android.horologist.media.ui.material3.components.animated
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.IconButtonColors
-import androidx.wear.compose.material3.IconButtonDefaults
+import com.airbnb.lottie.compose.LottieAnimatable
+import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.rememberLottieAnimatable
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.media.ui.material3.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.model.R
@@ -42,31 +43,49 @@ public fun AnimatedSeekToPreviousButton(
   interactionSource: MutableInteractionSource? = null,
   buttonPadding: PaddingValues = PaddingValues(0.dp),
   colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(),
-  iconSize: Dp = IconButtonDefaults.LargeIconSize,
+  lottieAnimatable: LottieAnimatable = rememberLottieAnimatable(),
+  content: @Composable (BoxScope.() -> Unit)? = null,
 ) {
   val compositionResult =
     rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/M3Next.json"))
-  // Reverse the button padding as the icon is flipped horizontally.
-  val reversedButtonPadding =
-    PaddingValues.Absolute(
-      left = buttonPadding.calculateRightPadding(LocalLayoutDirection.current),
-      right = buttonPadding.calculateLeftPadding(LocalLayoutDirection.current),
-      top = buttonPadding.calculateTopPadding(),
-      bottom = buttonPadding.calculateBottomPadding(),
-    )
+  val contentDescription =
+    stringResource(id = R.string.horologist_seek_to_previous_button_content_description)
 
   AnimatedMediaButton(
-    modifier = modifier.graphicsLayer(scaleX = -1f),
+    modifier = modifier,
     onClick = onClick,
-    contentDescription =
-      stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
+    contentDescription = contentDescription,
     enabled = enabled,
     colors = colors,
-    iconSize = iconSize,
-    buttonPadding = reversedButtonPadding,
+    buttonPadding = buttonPadding,
     compositionResult = compositionResult,
     onRepeatableClick = onRepeatableClick,
     onRepeatableClickEnd = onRepeatableClickEnd,
     interactionSource = interactionSource,
+    lottieAnimatable = lottieAnimatable,
+  ) {
+    content?.invoke(this)
+      ?: AnimatedSeekToPreviousButtonContent(
+        compositionResult = compositionResult,
+        contentDescription = contentDescription,
+        lottieAnimatable = lottieAnimatable,
+      )
+  }
+}
+
+@Composable
+public fun BoxScope.AnimatedSeekToPreviousButtonContent(
+  modifier: Modifier = Modifier,
+  contentDescription: String =
+    stringResource(id = R.string.horologist_seek_to_previous_button_content_description),
+  compositionResult: LottieCompositionResult =
+    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/M3Next.json")),
+  lottieAnimatable: LottieAnimatable = rememberLottieAnimatable(),
+) {
+  MediaButtonContent(
+    modifier = modifier.graphicsLayer(scaleX = -1f),
+    compositionResult = compositionResult,
+    contentDescription = contentDescription,
+    lottieAnimatable = lottieAnimatable,
   )
 }

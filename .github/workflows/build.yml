@@ -36,7 +36,7 @@ jobs:
           java-version: 21
 
       - name: Unit Tests
-        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
         with:
           arguments: testDebug -Dtest.excludeCategories=com.google.android.horologist.screenshots.rng.ScreenshotTest
 
@@ -72,7 +72,7 @@ jobs:
           java-version: 21
 
       - name: Unit Tests
-        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
         id: screenshotsverify
         with:
           arguments: verifyRoborazziDebug -x composables:verifyRoborazziDebug -x sample:verifyRoborazziDebug
@@ -110,7 +110,7 @@ jobs:
           java-version: 21
 
       - name: Unit Tests 2
-        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
         id: screenshotsverify2
         with:
           arguments: composables:verifyRoborazziDebug sample:verifyRoborazziDebug
@@ -151,7 +151,7 @@ jobs:
           java-version: 21
 
       - name: Compile tests
-        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
         with:
           arguments: -Pstrict.build=true compileDebugAndroidTestSources
 
@@ -181,7 +181,7 @@ jobs:
           ./scripts/git-lfs-check.sh
 
       - name: Code format check
-        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
         with:
           arguments: --stacktrace ktfmtCheck
 
@@ -207,7 +207,7 @@ jobs:
           java-version: 21
 
       - name: Metalava compatibility check
-        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
         with:
           arguments: --stacktrace metalavaCheckCompatibility metalavaCheckCompatibilityRelease
 
@@ -233,7 +233,7 @@ jobs:
           java-version: 21
 
       - name: Lint analysis
-        uses: gradle/actions/setup-gradle@d9c87d481d55275bb5441eef3fe0e46805f9ef70 # v3
+        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
         with:
           arguments: --stacktrace lintDebug
 

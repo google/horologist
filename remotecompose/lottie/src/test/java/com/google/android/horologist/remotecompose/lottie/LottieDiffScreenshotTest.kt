@@ -198,7 +198,7 @@ public fun LottieAndroidPreview(
 
 /** Compose UI Composable for rendering a Lottie animation using Remote Compose. */
 @Composable
-public fun LottieRcPreview(
+internal fun LottieRcPreview(
   @RawRes animationResId: Int,
   modifier: Modifier = Modifier,
   boxSize: Dp = 84.dp,

@@ -21,7 +21,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.AnimatedVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.StaticVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe
-import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
 import com.google.android.horologist.remotecompose.lottie.renderer.animateVector
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -29,7 +28,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class AnimationTest {
-  private val emptySlotMap = SlotMap(emptyMap())
+  private val emptySlotMap = SlotMap.Empty
 
   @Test
   fun animateVectorWithStaticInput_returnsInput() {

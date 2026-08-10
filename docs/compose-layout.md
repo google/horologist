@@ -147,34 +147,6 @@ Box(
 
 ![](fill_max_rectangle.png){: loading=lazy width=70% align=center }
 
-## AmbientAware composable
-
-`AmbientAware` allows your UI to react to ambient mode changes. For more information on how Ambient
-mode and Always-on work on Wear OS, see the [developer guidance][always-on].
-
-You should place this composable high up in your screen, but within navigation routes so that 
-different screens can handle ambient mode differently.
-
-```kotlin
-@Composable
-fun MyScreen() {
-    AmbientAware { ambientState ->
-        if (ambientState.isAmbient) {
-            val ambientDetails = state.ambientDetails
-            val burnInProtectionRequired = ambientDetails?.burnInProtectionRequired
-            val deviceHasLowBitAmbient = ambientDetails?.deviceHasLowBitAmbient
-            // Device is in ambient (low power) mode
-        } else {
-            // Device is in interactive (high power) mode
-        }
-    }
-}
-```
-
-For example, in a workout app, it is desirable that the main  workout screen uses always-on, but the
-workout summary at the end does not. See the [`ExerciseClient`][exercise-client]
-guide and [samples][health-samples] for more information on building a workout app.
-
 ## Download
 
 ```groovy
@@ -186,8 +158,3 @@ dependencies {
     implementation "com.google.android.horologist:horologist-compose-layout:<version>"
 }
 ```
-
-
-[always-on]: https://developer.android.com/training/wearables/views/always-on
-[exercise-client]: https://developer.android.com/training/wearables/health-services/active-data#work-with-data
-[health-samples]: https://github.com/android/health-samples

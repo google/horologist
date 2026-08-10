@@ -23,7 +23,7 @@ import kotlinx.serialization.Serializable
 
 /** A path defined by a set of bezier curves. */
 @Serializable
-data class BezierValue(
+internal data class BezierValue(
   @SerialName("c") val closed: Boolean,
   @SerialName("i") val inTangents: List<List<Float>>,
   @SerialName("o") val outTangents: List<List<Float>>,

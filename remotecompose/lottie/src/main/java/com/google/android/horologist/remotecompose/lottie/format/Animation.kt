@@ -24,7 +24,7 @@ import kotlinx.serialization.Serializable
 
 /** Top level object in a Lottie file, describing the animation. */
 @Serializable
-data class Animation(
+internal data class Animation(
   @SerialName("nm") val name: String? = null,
   @SerialName("ver") val version: String? = "0.0.0",
   @SerialName("fr") val frameRate: Int,
@@ -34,16 +34,14 @@ data class Animation(
   @SerialName("h") val height: Int,
   @SerialName("layers") val layers: List<Layer>,
 ) {
-  public companion object {
+  companion object {
     /** Decodes an [Animation] from a JSON string using [LottieDecoder]. */
-    public fun decodeFromString(json: String): Animation = LottieDecoder.decodeFromString(json)
+    fun decodeFromString(json: String): Animation = LottieDecoder.decodeFromString(json)
 
     /** Decodes an [Animation] from an [InputStream] using [LottieDecoder]. */
-    public fun decodeFromStream(stream: InputStream): Animation =
-      LottieDecoder.decodeFromStream(stream)
+    fun decodeFromStream(stream: InputStream): Animation = LottieDecoder.decodeFromStream(stream)
 
     /** Decodes an [Animation] from a raw resource ID using [LottieDecoder]. */
-    public fun load(@RawRes rawRes: Int, context: Context): Animation =
-      LottieDecoder.load(rawRes, context)
+    fun load(@RawRes rawRes: Int, context: Context): Animation = LottieDecoder.load(rawRes, context)
   }
 }

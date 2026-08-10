@@ -50,7 +50,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
 
 /** `kotlinx.serialization` JSON decoder for Lottie animations. */
-object LottieDecoder {
+internal object LottieDecoder {
 
   val json = Json {
     ignoreUnknownKeys = true
@@ -73,7 +73,7 @@ object LottieDecoder {
 }
 
 /** Polymorphic serializer for [Layer] based on integer "ty" field. */
-object LayerSerializer : JsonContentPolymorphicSerializer<Layer>(Layer::class) {
+internal object LayerSerializer : JsonContentPolymorphicSerializer<Layer>(Layer::class) {
   override fun selectDeserializer(element: JsonElement): DeserializationStrategy<Layer> {
     val ty = element.jsonObject["ty"]?.jsonPrimitive?.intOrNull
     return when (ty) {
@@ -85,7 +85,7 @@ object LayerSerializer : JsonContentPolymorphicSerializer<Layer>(Layer::class) {
 }
 
 /** Serializer for [LayerType] enum. */
-object LayerTypeSerializer : KSerializer<LayerType> {
+internal object LayerTypeSerializer : KSerializer<LayerType> {
   override val descriptor: SerialDescriptor =
     PrimitiveSerialDescriptor("LayerType", PrimitiveKind.INT)
 
@@ -100,7 +100,7 @@ object LayerTypeSerializer : KSerializer<LayerType> {
 }
 
 /** Polymorphic serializer for [GraphicElement] based on string "ty" field. */
-object GraphicElementSerializer :
+internal object GraphicElementSerializer :
   JsonContentPolymorphicSerializer<GraphicElement>(GraphicElement::class) {
   override fun selectDeserializer(element: JsonElement): DeserializationStrategy<GraphicElement> {
     val ty = element.jsonObject["ty"]?.jsonPrimitive?.contentOrNull
@@ -115,7 +115,7 @@ object GraphicElementSerializer :
 }
 
 /** Serializer for [ShapeType] enum. */
-object ShapeTypeSerializer : KSerializer<ShapeType> {
+internal object ShapeTypeSerializer : KSerializer<ShapeType> {
   override val descriptor: SerialDescriptor =
     PrimitiveSerialDescriptor("ShapeType", PrimitiveKind.STRING)
 
@@ -130,7 +130,7 @@ object ShapeTypeSerializer : KSerializer<ShapeType> {
 }
 
 /** Polymorphic serializer for [BaseVectorProperty] based on "a" field. */
-object BaseVectorPropertySerializer :
+internal object BaseVectorPropertySerializer :
   JsonContentPolymorphicSerializer<BaseVectorProperty>(BaseVectorProperty::class) {
   override fun selectDeserializer(
     element: JsonElement
@@ -145,7 +145,7 @@ object BaseVectorPropertySerializer :
 }
 
 /** Polymorphic serializer for [BasePositionProperty] based on "a" field. */
-object BasePositionPropertySerializer :
+internal object BasePositionPropertySerializer :
   JsonContentPolymorphicSerializer<BasePositionProperty>(BasePositionProperty::class) {
   override fun selectDeserializer(
     element: JsonElement
@@ -160,7 +160,7 @@ object BasePositionPropertySerializer :
 }
 
 /** Polymorphic serializer for [BaseBezierProperty] based on "a" field. */
-object BaseBezierPropertySerializer :
+internal object BaseBezierPropertySerializer :
   JsonContentPolymorphicSerializer<BaseBezierProperty>(BaseBezierProperty::class) {
   override fun selectDeserializer(
     element: JsonElement
@@ -175,7 +175,7 @@ object BaseBezierPropertySerializer :
 }
 
 /** Serializer for [ScalarKeyframeEasing] handling numbers or 1-element arrays. */
-object ScalarKeyframeEasingSerializer : KSerializer<ScalarKeyframeEasing> {
+internal object ScalarKeyframeEasingSerializer : KSerializer<ScalarKeyframeEasing> {
   override val descriptor: SerialDescriptor =
     buildClassSerialDescriptor("ScalarKeyframeEasing") {
       element<Float>("x")
@@ -210,7 +210,7 @@ object ScalarKeyframeEasingSerializer : KSerializer<ScalarKeyframeEasing> {
 }
 
 /** Custom serializer for [StaticColorProperty] parsing color array [r, g, b, a]. */
-object StaticColorPropertySerializer : KSerializer<StaticColorProperty> {
+internal object StaticColorPropertySerializer : KSerializer<StaticColorProperty> {
   override val descriptor: SerialDescriptor =
     buildClassSerialDescriptor("StaticColorProperty") {
       element<String?>("sid", isOptional = true)

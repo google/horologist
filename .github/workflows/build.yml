@@ -35,10 +35,11 @@ jobs:
           distribution: 'zulu'
           java-version: 21
 
-      - name: Unit Tests
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
-        with:
-          arguments: testDebug -Dtest.excludeCategories=com.google.android.horologist.screenshots.rng.ScreenshotTest
+
+      - name: Unit Tests
+        run: ./gradlew testDebug -Dtest.excludeCategories=com.google.android.horologist.screenshots.rng.ScreenshotTest
 
       - name: test-results
         if: always()
@@ -71,11 +72,11 @@ jobs:
           distribution: 'zulu'
           java-version: 21
 
-      - name: Unit Tests
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
-        id: screenshotsverify
-        with:
-          arguments: verifyRoborazziDebug -x composables:verifyRoborazziDebug -x sample:verifyRoborazziDebug
+
+      - name: Unit Tests
+        run: ./gradlew verifyRoborazziDebug -x composables:verifyRoborazziDebug -x sample:verifyRoborazziDebug
 
       - name: screenshot-test-results-1
         if: always()
@@ -109,11 +110,11 @@ jobs:
           distribution: 'zulu'
           java-version: 21
 
-      - name: Unit Tests 2
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
-        id: screenshotsverify2
-        with:
-          arguments: composables:verifyRoborazziDebug sample:verifyRoborazziDebug
+
+      - name: Unit Tests 2
+        run: ./gradlew composables:verifyRoborazziDebug sample:verifyRoborazziDebug
 
       - name: screenshot-test-results-2
         if: always()
@@ -150,10 +151,11 @@ jobs:
           distribution: 'zulu'
           java-version: 21
 
-      - name: Compile tests
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
-        with:
-          arguments: -Pstrict.build=true compileDebugAndroidTestSources
+
+      - name: Compile tests
+        run: ./gradlew -Pstrict.build=true compileDebugAndroidTestSources
 
   format:
     # Skip build if head commit contains 'skip ci'
@@ -180,10 +182,11 @@ jobs:
         run: |
           ./scripts/git-lfs-check.sh
 
-      - name: Code format check
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
-        with:
-          arguments: --stacktrace ktfmtCheck
+
+      - name: Code format check
+        run: ./gradlew --stacktrace ktfmtCheck
 
   api-check:
     # Skip build if head commit contains 'skip ci'
@@ -206,10 +209,11 @@ jobs:
           distribution: 'zulu'
           java-version: 21
 
-      - name: Metalava compatibility check
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
-        with:
-          arguments: --stacktrace metalavaCheckCompatibility metalavaCheckCompatibilityRelease
+
+      - name: Metalava compatibility check
+        run: ./gradlew --stacktrace metalavaCheckCompatibility metalavaCheckCompatibilityRelease
 
   lint:
     # Skip build if head commit contains 'skip ci'
@@ -232,10 +236,11 @@ jobs:
           distribution: 'zulu'
           java-version: 21
 
-      - name: Lint analysis
+      - name: Setup Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
-        with:
-          arguments: --stacktrace lintDebug
+
+      - name: Lint analysis
+        run: ./gradlew --stacktrace lintDebug
 
       - name: lint-results
         if: always()

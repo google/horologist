@@ -179,6 +179,24 @@ subprojects {
     }
   }
 
+  tasks.withType<Test>().configureEach {
+    val shardIndex =
+      (project.findProperty("shardIndex") as? String)
+        ?: (project.findProperty("test.shardIndex") as? String)
+        ?: System.getProperty("test.shardIndex")
+    val totalShards =
+      (project.findProperty("totalShards") as? String)
+        ?: (project.findProperty("test.totalShards") as? String)
+        ?: System.getProperty("test.totalShards")
+
+    if (shardIndex != null) {
+      systemProperty("test.shardIndex", shardIndex)
+    }
+    if (totalShards != null) {
+      systemProperty("test.totalShards", totalShards)
+    }
+  }
+
   // Must be afterEvaluate or else com.vanniktech.maven.publish will overwrite our
   // dokka and version configuration.
   afterEvaluate {

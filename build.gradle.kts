@@ -179,6 +179,23 @@ subprojects {
     }
   }
 
+  tasks.withType<Test>().configureEach {
+    val shardIndex = (project.findProperty("test.shardIndex") as? String
+      ?: System.getProperty("test.shardIndex"))?.toIntOrNull()
+    val shardCount = (project.findProperty("test.shardCount") as? String
+      ?: System.getProperty("test.shardCount"))?.toIntOrNull()
+
+    if (shardIndex != null && shardCount != null && shardCount > 1) {
+      exclude { fileTreeElement ->
+        if (fileTreeElement.file.isFile && (fileTreeElement.name.endsWith("Test.class") || fileTreeElement.name.endsWith("Tests.class"))) {
+          Math.floorMod(fileTreeElement.name.hashCode(), shardCount) != shardIndex
+        } else {
+          false
+        }
+      }
+    }
+  }
+
   // Must be afterEvaluate or else com.vanniktech.maven.publish will overwrite our
   // dokka and version configuration.
   afterEvaluate {

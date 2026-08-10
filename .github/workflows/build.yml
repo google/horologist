@@ -51,12 +51,18 @@ jobs:
             **/build/reports/*
             **/out/*
 
-  screenshot1:
+  screenshots:
     # Skip build if head commit contains 'skip ci'
     if: "!contains(github.event.head_commit.message, 'skip ci')"
 
     runs-on: ubuntu-latest
     timeout-minutes: 40
+
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [0, 1]
+        shardCount: [2]
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
@@ -75,52 +81,14 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
 
-      - name: Unit Tests
-        run: ./gradlew verifyRoborazziDebug -x composables:verifyRoborazziDebug -x sample:verifyRoborazziDebug
+      - name: Roborazzi Screenshot Tests (Shard ${{ matrix.shardIndex }}/${{ matrix.shardCount }})
+        run: ./gradlew verifyRoborazziDebug -Ptest.shardIndex=${{ matrix.shardIndex }} -Ptest.shardCount=${{ matrix.shardCount }}
 
-      - name: screenshot-test-results-1
+      - name: screenshot-test-results
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: screenshot-results-1
-          path: |
-            **/build/test-results/*
-            **/build/reports/*
-            **/build/outputs/roborazzi/*
-            **/out/*
-
-  screenshot2:
-    # Skip build if head commit contains 'skip ci'
-    if: "!contains(github.event.head_commit.message, 'skip ci')"
-
-    runs-on: ubuntu-latest
-    timeout-minutes: 40
-
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-        with:
-          lfs: 'true'
-
-      - name: Copy CI gradle.properties
-        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
-
-      - name: set up JDK
-        uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
-        with:
-          distribution: 'zulu'
-          java-version: 21
-
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
-
-      - name: Unit Tests 2
-        run: ./gradlew composables:verifyRoborazziDebug sample:verifyRoborazziDebug
-
-      - name: screenshot-test-results-2
-        if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
-        with:
-          name: screenshot-results-2
+          name: screenshot-results-${{ matrix.shardIndex }}
           path: |
             **/build/test-results/*
             **/build/reports/*

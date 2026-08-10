@@ -34,7 +34,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.horologist.remotecompose.lottie.format.Animation
-import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
 
 /**
  * Displays a Lottie animation using Remote Compose.
@@ -48,10 +47,10 @@ import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
  */
 @SuppressLint("RestrictedApi")
 @Composable
-fun LottiePreview(
+internal fun LottiePreview(
   animation: Animation,
   modifier: Modifier = Modifier,
-  slotMap: SlotMap = SlotMap(emptyMap()),
+  slotMap: SlotMap = SlotMap.Empty,
   clock: RemoteClock = RemoteClock.SYSTEM,
   progress: Float? = null,
 ) {
@@ -107,7 +106,7 @@ fun LottiePreview(
 fun LottiePreview(
   @RawRes animationResId: Int,
   modifier: Modifier = Modifier,
-  slotMap: SlotMap = SlotMap(emptyMap()),
+  slotMap: SlotMap = SlotMap.Empty,
   clock: RemoteClock = RemoteClock.SYSTEM,
   progress: Float? = null,
 ) {

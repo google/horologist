@@ -32,7 +32,7 @@ import kotlinx.serialization.Serializable
  * @property parent The parent of the layer.
  */
 @Serializable(with = LayerSerializer::class)
-sealed class Layer {
+internal sealed class Layer {
   abstract val name: String?
   abstract val type: LayerType
   abstract val index: Int?
@@ -68,7 +68,7 @@ sealed class Layer {
 }
 
 @Serializable(with = LayerTypeSerializer::class)
-enum class LayerType(val value: Int) {
+internal enum class LayerType(val value: Int) {
   Null(3),
   Shape(4);
 

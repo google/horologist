@@ -40,7 +40,7 @@ import com.google.android.horologist.remotecompose.lottie.format.StaticVectorPro
 internal data class AnimationSegment(val startFrame: Float, val value: RemoteFloat)
 
 /** A 2D point represented with RemoteFloats. */
-data class Point(val x: RemoteFloat, val y: RemoteFloat)
+internal data class Point(val x: RemoteFloat, val y: RemoteFloat)
 
 /**
  * Animates a position property.
@@ -50,7 +50,10 @@ data class Point(val x: RemoteFloat, val y: RemoteFloat)
  * animation specified in the Lottie Position Property.
  */
 @SuppressLint("RestrictedApi")
-fun animatePosition(position: BasePositionProperty, animationSettings: LottieSettings): Point {
+internal fun animatePosition(
+  position: BasePositionProperty,
+  animationSettings: LottieSettings,
+): Point {
   return when (position) {
     // Static constant position: directly wrap the [x, y] coordinates into RemoteFloats.
     is StaticPositionProperty -> {
@@ -131,7 +134,7 @@ fun animatePosition(position: BasePositionProperty, animationSettings: LottieSet
  * Lottie Vector Property.
  */
 @SuppressLint("RestrictedApi")
-fun animateVector(
+internal fun animateVector(
   vector: BaseVectorProperty,
   animationSettings: LottieSettings,
 ): List<RemoteFloat> {
@@ -356,5 +359,5 @@ private fun BezierValue.toRemote(): RemoteBezierValue {
 
 private fun <T, U> List<List<T>>.innerMap(f: (T) -> U): List<List<U>> = this.map { it.map(f) }
 
-val scalarLinearEasingOut = ScalarKeyframeEasing(x = 0f, 0f)
-val scalarLinearEasingIn = ScalarKeyframeEasing(1f, 1f)
+internal val scalarLinearEasingOut = ScalarKeyframeEasing(x = 0f, 0f)
+internal val scalarLinearEasingIn = ScalarKeyframeEasing(1f, 1f)

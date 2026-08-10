@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.remotecompose.lottie.renderer
+package com.google.android.horologist.remotecompose.lottie
 
 import androidx.compose.remote.creation.compose.state.RemoteColor
 import com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty
@@ -26,9 +26,18 @@ import com.google.android.horologist.remotecompose.lottie.format.StaticColorProp
  * example, a fill color can reference a slot ID, which can be resolved to a color provided by the
  * application to enable dynamic theming.
  */
-class SlotMap(private val colorSlots: Map<String, StaticColorProperty>) {
+class SlotMap(colors: Map<String, Int>) {
+  private val colorSlots: Map<String, StaticColorProperty> =
+    colors.mapValues { (slotId, colorInt) ->
+      StaticColorProperty(slotId = slotId, colorInt = colorInt)
+    }
+
   fun getColor(slotId: String): RemoteColor? {
     val prop = colorSlots[slotId] ?: return null
     return prop.value
+  }
+
+  companion object {
+    val Empty: SlotMap = SlotMap(emptyMap())
   }
 }

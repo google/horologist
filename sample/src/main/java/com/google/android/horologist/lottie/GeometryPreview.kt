@@ -23,8 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.remotecompose.lottie.LottiePreview
-import com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty
-import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
+import com.google.android.horologist.remotecompose.lottie.SlotMap
 import com.google.android.horologist.sample.R
 
 @WearPreviewDevices
@@ -40,6 +39,6 @@ fun TintGeometryPreview() {
   LottiePreview(
     animationResId = R.raw.geometry,
     modifier = Modifier.size(100.dp),
-    slotMap = SlotMap(mapOf("color.primary" to StaticColorProperty.fromColor(0xFF00FF00.toInt()))),
+    slotMap = SlotMap(mapOf("color.primary" to 0xFF00FF00.toInt())),
   )
 }

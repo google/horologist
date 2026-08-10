@@ -17,6 +17,7 @@
 package com.google.android.horologist.lottie
 
 import android.annotation.SuppressLint
+import androidx.annotation.RawRes
 import androidx.compose.remote.creation.compose.layout.RemoteAlignment
 import androidx.compose.remote.creation.compose.layout.RemoteArrangement
 import androidx.compose.remote.creation.compose.layout.RemoteColumn
@@ -24,30 +25,21 @@ import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.remote.creation.compose.modifier.background
 import androidx.compose.remote.creation.compose.modifier.fillMaxSize
-import androidx.compose.remote.creation.compose.modifier.height
-import androidx.compose.remote.creation.compose.modifier.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.remotecompose.lottie.LottieAnimation
-import com.google.android.horologist.remotecompose.lottie.format.Animation
-import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
+import com.google.android.horologist.remotecompose.lottie.SlotMap
 
 /** Demo for Lottie animations. */
-class AnimationDemo(val animation: Animation, val slotMap: SlotMap) {
-  @SuppressLint("RestrictedApi")
-  @Composable
-  @RemoteComposable
-  fun Render() {
-    RemoteColumn(
-      modifier = RemoteModifier.fillMaxSize().background(Color.Black),
-      horizontalAlignment = RemoteAlignment.CenterHorizontally,
-      verticalArrangement = RemoteArrangement.Center,
-    ) {
-      LottieAnimation(
-        animation,
-        modifier = RemoteModifier.width(animation.width).height(animation.height),
-        slotMap = slotMap,
-      )
-    }
+@SuppressLint("RestrictedApi")
+@Composable
+@RemoteComposable
+fun AnimationDemo(@RawRes animationResId: Int, slotMap: SlotMap = SlotMap.Empty) {
+  RemoteColumn(
+    modifier = RemoteModifier.fillMaxSize().background(Color.Black),
+    horizontalAlignment = RemoteAlignment.CenterHorizontally,
+    verticalArrangement = RemoteArrangement.Center,
+  ) {
+    LottieAnimation(animationResId, slotMap = slotMap)
   }
 }

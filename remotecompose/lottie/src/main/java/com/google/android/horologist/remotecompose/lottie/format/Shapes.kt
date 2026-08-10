@@ -27,7 +27,7 @@ import kotlinx.serialization.Serializable
  * mechanisms (including transforms).
  */
 @Serializable(with = GraphicElementSerializer::class)
-sealed class GraphicElement {
+internal sealed class GraphicElement {
   abstract val name: String?
   abstract val hidden: Boolean?
   abstract val type: ShapeType
@@ -89,7 +89,7 @@ sealed class GraphicElement {
 }
 
 @Serializable(with = ShapeTypeSerializer::class)
-enum class ShapeType(val value: String) {
+internal enum class ShapeType(val value: String) {
   Fill("fl"),
   Group("gr"),
   Path("sh"),

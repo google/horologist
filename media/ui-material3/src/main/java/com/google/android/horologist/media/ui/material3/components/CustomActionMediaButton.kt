@@ -18,6 +18,7 @@ package com.google.android.horologist.media.ui.material3.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -53,6 +54,7 @@ import com.google.android.horologist.media.ui.material3.composables.UnboundedRip
  *   emitting [Interaction]s for this button (Optional).
  * @param iconSize The size of the icon. Defaults to [IconButtonDefaults.SmallIconSize] (Optional).
  * @param border [BorderStroke] to be applied to the button. If null, no border is drawn (Optional).
+ * @param content A composable content to be used instead of the default one (Optional).
  */
 @Composable
 public fun CustomActionMediaButton(
@@ -67,6 +69,7 @@ public fun CustomActionMediaButton(
   interactionSource: MutableInteractionSource? = null,
   iconSize: Dp = IconButtonDefaults.SmallIconSize,
   border: BorderStroke? = null,
+  content: @Composable (BoxScope.() -> Unit)? = null,
 ) {
   UnboundedRippleIconButton(
     onClick = onClick,
@@ -79,11 +82,12 @@ public fun CustomActionMediaButton(
     rippleRadius = null,
     border = border,
   ) {
-    Icon(
-      painter = icon.rememberPainter(),
-      contentDescription = contentDescription,
-      modifier = Modifier.size(iconSize),
-    )
+    content?.invoke(this)
+      ?: Icon(
+        painter = icon.rememberPainter(),
+        contentDescription = contentDescription,
+        modifier = Modifier.size(iconSize),
+      )
   }
 }
 

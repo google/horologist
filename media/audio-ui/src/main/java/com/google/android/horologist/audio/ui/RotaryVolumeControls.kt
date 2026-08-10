@@ -141,7 +141,7 @@ internal fun convertPixelToVolume(change: Float, volumeUiStateProvider: () -> Vo
  * feedback [HapticFeedbackConstants.LONG_PRESS] if reaching the limit (either max or min) of the
  * volume range, otherwise returns [HapticFeedbackConstants.KEYBOARD_TAP]
  */
-private fun performHapticFeedback(
+internal fun performHapticFeedback(
   targetVolume: Int,
   volumeUiStateProvider: () -> VolumeUiState,
   localView: View,

@@ -44,10 +44,13 @@ import com.github.takahirom.roborazzi.captureScreenRoboImage
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.screenshots.FixedTimeSource
+import org.junit.Assume
 import org.junit.Rule
 import org.junit.experimental.categories.Category
 import org.junit.rules.TestName
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
+import org.junit.runners.model.Statement
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
@@ -61,6 +64,25 @@ public abstract class WearScreenshotTest {
   @get:Rule public val composeRule: ComposeContentTestRule = createComposeRule()
 
   @get:Rule public val testInfo: TestName = TestName()
+
+  @get:Rule
+  public val shardRule: TestRule = TestRule { base, description ->
+    object : Statement() {
+      override fun evaluate() {
+        val shardIndex = System.getProperty("test.shardIndex")?.toIntOrNull()
+        val totalShards = System.getProperty("test.totalShards")?.toIntOrNull()
+        if (shardIndex != null && totalShards != null && totalShards > 1) {
+          val className = description.className ?: this@WearScreenshotTest.javaClass.name
+          val assignedShard = Math.floorMod(className.hashCode(), totalShards)
+          Assume.assumeTrue(
+            "Skipping $className for shard $shardIndex of $totalShards (assigned to $assignedShard)",
+            assignedShard == shardIndex,
+          )
+        }
+        base.evaluate()
+      }
+    }
+  }
 
   public open val device: WearDevice? = null
 

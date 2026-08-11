@@ -52,7 +52,7 @@ jobs:
     if: ${{ github.repository == 'yschimke/horologist' }}
     permissions:
       contents: write
-    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v0.19.56
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@v0.19.57
     with:
       system: horologist
       spec: catalog.spec.json
@@ -66,10 +66,11 @@ jobs:
       # CLI that renders the bundle can never drift ahead of the applied plugin.
       cli-version: catalog
       catalog-key: composeAiTools
-      # Keep the export driver on the same release as the renderer. v0.19.56 pins
-      # @design-parity/catalog-export (and adapter/core) to 0.1.56, and records that
-      # provenance in catalog.json when the delivery branch is regenerated.
-      driver-ref: v0.19.56
+      # Keep the export driver on the same release as the renderer, so the driver
+      # and the CLI that produced the PNGs it reads can't skew apart. The pinned
+      # @design-parity/catalog-export provenance is recorded in catalog.json when
+      # the delivery branch is regenerated.
+      driver-ref: v0.19.57
       # Refuse to publish a degraded render, the default. This was briefly `true`,
       # then the eight dialog- and bottom-sheet-shaped previews were withheld from
       # the spec instead: they captured blank, which the export reported as

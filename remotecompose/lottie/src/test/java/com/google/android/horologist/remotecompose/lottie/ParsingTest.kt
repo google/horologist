@@ -25,6 +25,7 @@ import com.google.android.horologist.remotecompose.lottie.format.Animation
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.Layer
 import com.google.android.horologist.remotecompose.lottie.format.LayerType
+import com.google.android.horologist.remotecompose.lottie.format.PolyStarType
 import com.google.android.horologist.remotecompose.lottie.format.ShapeType
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -111,5 +112,53 @@ class ParsingTest {
 
     assertThat(animatedScale.keyframes).hasSize(5)
     assertThat(animatedScale.keyframes[0].inTangent?.x).isEqualTo(0.999f)
+  }
+
+  @Test
+  fun rectEllipse_deserializes() {
+    val context = ApplicationProvider.getApplicationContext<Context>()
+    val animation = Animation.load(R.raw.rect_ellipse, context)
+
+    assertThat(animation).isNotNull()
+    val shapeLayer = animation.layers[0] as Layer.ShapeLayer
+    assertThat(shapeLayer.shapes).hasSize(4)
+
+    val group1 = shapeLayer.shapes[0] as GraphicElement.Group
+    val rect = group1.shapes[0] as GraphicElement.Rectangle
+    assertThat(rect.type).isEqualTo(ShapeType.Rectangle)
+    assertThat(rect.position.getPointValues()).isEqualTo(floatArrayOf(36f, 36f))
+    assertThat(rect.size.getVectorValues()).isEqualTo(floatArrayOf(48f, 40f))
+    assertThat(rect.cornerRadius.getFloatValue()).isEqualTo(10f)
+
+    val group3 = shapeLayer.shapes[2] as GraphicElement.Group
+    val ellipse = group3.shapes[0] as GraphicElement.Ellipse
+    assertThat(ellipse.type).isEqualTo(ShapeType.Ellipse)
+    assertThat(ellipse.position.getPointValues()).isEqualTo(floatArrayOf(36f, 92f))
+    assertThat(ellipse.size.getVectorValues()).isEqualTo(floatArrayOf(42f, 42f))
+  }
+
+  @Test
+  fun polystar_deserializes() {
+    val context = ApplicationProvider.getApplicationContext<Context>()
+    val animation = Animation.load(R.raw.polystar, context)
+
+    assertThat(animation).isNotNull()
+    val shapeLayer = animation.layers[0] as Layer.ShapeLayer
+    assertThat(shapeLayer.shapes).hasSize(4)
+
+    val starGroup = shapeLayer.shapes[0] as GraphicElement.Group
+    val star = starGroup.shapes[0] as GraphicElement.PolyStar
+    assertThat(star.type).isEqualTo(ShapeType.PolyStar)
+    assertThat(star.starType).isEqualTo(PolyStarType.Star)
+    assertThat(star.points.getFloatValue()).isEqualTo(5f)
+    assertThat(star.outerRadius.getFloatValue()).isEqualTo(26f)
+    assertThat(star.innerRadius?.getFloatValue()).isEqualTo(13f)
+
+    val polygonGroup = shapeLayer.shapes[1] as GraphicElement.Group
+    val polygon = polygonGroup.shapes[0] as GraphicElement.PolyStar
+    assertThat(polygon.type).isEqualTo(ShapeType.PolyStar)
+    assertThat(polygon.starType).isEqualTo(PolyStarType.Polygon)
+    assertThat(polygon.points.getFloatValue()).isEqualTo(6f)
+    assertThat(polygon.outerRadius.getFloatValue()).isEqualTo(24f)
   }
 }

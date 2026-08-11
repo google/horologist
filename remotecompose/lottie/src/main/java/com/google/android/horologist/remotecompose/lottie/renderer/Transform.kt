@@ -19,7 +19,6 @@ package com.google.android.horologist.remotecompose.lottie.renderer
 import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.state.RemotePaint
-import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
 
@@ -31,9 +30,9 @@ internal fun transform(
   animationSettings: LottieSettings,
   canvas: RemoteCanvas,
 ) {
-  val rotation = transform.rotation.value.rf
+  val rotation = animateScalar(transform.rotation, animationSettings)
   val translation = animatePosition(transform.positionTranslation, animationSettings)
-  val opacity = transform.opacity.value
+  val opacity = animateScalar(transform.opacity, animationSettings)
   val anchorPoint = animatePosition(transform.anchorPoint, animationSettings)
 
   val scale = animateVector(transform.scale, animationSettings)
@@ -46,5 +45,5 @@ internal fun transform(
   canvas.scale(scaleX, scaleY)
   canvas.translate(-anchorPoint.x, -anchorPoint.y)
 
-  paint.color = paint.color.copy(alpha = (opacity / 100f).rf)
+  paint.color = paint.color.copy(alpha = opacity / 100f)
 }

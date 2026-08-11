@@ -34,4 +34,14 @@ class LottieFeatureDiffScreenshotTest : LottieDiffScreenshotTest() {
       captureFrame(frame = 60f)
     }
   }
+
+  @Test
+  fun rectEllipse() {
+    runLottieDiffTest(R.raw.rect_ellipse)
+  }
+
+  @Test
+  fun polystar() {
+    runLottieDiffTest(R.raw.polystar)
+  }
 }

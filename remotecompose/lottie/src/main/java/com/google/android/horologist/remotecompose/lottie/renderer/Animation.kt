@@ -17,9 +17,9 @@
 package com.google.android.horologist.remotecompose.lottie.renderer
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.core.CubicBezierEasing
+
 import androidx.compose.remote.creation.compose.state.RemoteFloat
-import androidx.compose.remote.creation.compose.state.RemoteFloatArray
+import androidx.compose.remote.creation.compose.state.cubicEasing
 import androidx.compose.remote.creation.compose.state.clamp
 import androidx.compose.remote.creation.compose.state.lerp
 import androidx.compose.remote.creation.compose.state.rf
@@ -334,18 +334,9 @@ private fun lookupValueInBezier(
   duration: Float,
   frame: RemoteFloat,
 ): RemoteFloat {
-  // TODO implement using Remote Compose expressions to avoid a Compose UI impl
-  val easing = CubicBezierEasing(a, b, c, d)
-  val frameAnimationValues = mutableListOf<Float>()
-
-  for (i in 0..duration.toInt()) {
-    frameAnimationValues.add(easing.transform(i / duration))
-  }
-
-  val remoteFrameAnimationValues = RemoteFloatArray(frameAnimationValues.map { it.rf })
-  val clampedFrame = clamp(value = frame, min = 0.rf, max = (frameAnimationValues.size - 1).rf)
-
-  return remoteFrameAnimationValues[clampedFrame]
+  val clampedFrame = clamp(value = frame, min = 0.rf, max = duration.rf)
+  val progress = if (duration == 0f) 0.rf else clampedFrame / duration.rf
+  return cubicEasing(a.rf, b.rf, c.rf, d.rf, progress)
 }
 
 private fun BezierValue.toRemote(): RemoteBezierValue {

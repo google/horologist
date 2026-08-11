@@ -119,6 +119,12 @@ class ParsingTest {
     assertThat(animatedScale.keyframes[0].inTangent?.x).isEqualTo(0.999f)
   }
 
+  /**
+   * Tests deserialization of parametric rectangle and ellipse shapes.
+   *
+   * Source:
+   * [Lottie Format Feature Support & Sample Test Suite](https://docs.google.com/document/d/1jXj3kbXL57kxjRc0soUqst2poa2-Lrc2qZAIzEmbB8w/edit)
+   */
   @Test
   fun rectEllipse_deserializes() {
     val context = ApplicationProvider.getApplicationContext<Context>()
@@ -151,6 +157,12 @@ class ParsingTest {
     assertThat((ellipse.size as StaticVectorProperty).value).isEqualTo(floatArrayOf(42f, 42f))
   }
 
+  /**
+   * Tests deserialization of parametric star and polygon shapes.
+   *
+   * Source:
+   * [Lottie Format Feature Support & Sample Test Suite](https://docs.google.com/document/d/1jXj3kbXL57kxjRc0soUqst2poa2-Lrc2qZAIzEmbB8w/edit)
+   */
   @Test
   fun polystar_deserializes() {
     val context = ApplicationProvider.getApplicationContext<Context>()

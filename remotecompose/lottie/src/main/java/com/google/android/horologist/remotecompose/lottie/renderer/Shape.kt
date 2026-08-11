@@ -166,17 +166,17 @@ private fun path(lottiePath: Path, animationSettings: LottieSettings): RemoteLot
 private fun rectangle(rect: Rectangle, animationSettings: LottieSettings): RemoteLottiePath? {
   if (rect.hidden == true) return null
 
-  val pos = rect.position.getPointValues()
-  val posX = pos.getOrElse(0) { 0f }
-  val posY = pos.getOrElse(1) { 0f }
+  val pos = animatePosition(rect.position, animationSettings)
+  val posX = pos.x.constantValueOrNull ?: 0f
+  val posY = pos.y.constantValueOrNull ?: 0f
 
-  val size = rect.size.getVectorValues()
-  val width = size.getOrElse(0) { 0f }
-  val height = size.getOrElse(1) { 0f }
+  val size = animateVector(rect.size, animationSettings)
+  val width = size.getOrNull(0)?.constantValueOrNull ?: 0f
+  val height = size.getOrNull(1)?.constantValueOrNull ?: 0f
   val halfWidth = width / 2f
   val halfHeight = height / 2f
 
-  val cornerRadius = rect.cornerRadius.getFloatValue()
+  val cornerRadius = animateScalar(rect.cornerRadius, animationSettings).constantValueOrNull ?: 0f
   val maxRadius = minOf(halfWidth, halfHeight)
   val r = cornerRadius.coerceIn(0f, maxRadius)
 
@@ -238,13 +238,13 @@ private fun rectangle(rect: Rectangle, animationSettings: LottieSettings): Remot
 private fun ellipse(el: Ellipse, animationSettings: LottieSettings): RemoteLottiePath? {
   if (el.hidden == true) return null
 
-  val pos = el.position.getPointValues()
-  val posX = pos.getOrElse(0) { 0f }
-  val posY = pos.getOrElse(1) { 0f }
+  val pos = animatePosition(el.position, animationSettings)
+  val posX = pos.x.constantValueOrNull ?: 0f
+  val posY = pos.y.constantValueOrNull ?: 0f
 
-  val size = el.size.getVectorValues()
-  val width = size.getOrElse(0) { 0f }
-  val height = size.getOrElse(1) { 0f }
+  val size = animateVector(el.size, animationSettings)
+  val width = size.getOrNull(0)?.constantValueOrNull ?: 0f
+  val height = size.getOrNull(1)?.constantValueOrNull ?: 0f
   val halfWidth = width / 2f
   val halfHeight = height / 2f
 
@@ -335,20 +335,24 @@ private fun ellipse(el: Ellipse, animationSettings: LottieSettings): RemoteLotti
 private fun polyStar(star: PolyStar, animationSettings: LottieSettings): RemoteLottiePath? {
   if (star.hidden == true) return null
 
-  val pos = star.position.getPointValues()
-  val posX = pos.getOrElse(0) { 0f }
-  val posY = pos.getOrElse(1) { 0f }
+  val pos = animatePosition(star.position, animationSettings)
+  val posX = pos.x.constantValueOrNull ?: 0f
+  val posY = pos.y.constantValueOrNull ?: 0f
 
-  val points = star.points.getFloatValue()
-  val rotation = star.rotation.getFloatValue()
-  val outerRadius = star.outerRadius.getFloatValue()
-  val outerRoundedness = star.outerRoundedness.getFloatValue() / 100f
+  val points = animateScalar(star.points, animationSettings).constantValueOrNull ?: 0f
+  val rotation = animateScalar(star.rotation, animationSettings).constantValueOrNull ?: 0f
+  val outerRadius = animateScalar(star.outerRadius, animationSettings).constantValueOrNull ?: 0f
+  val outerRoundedness =
+    (animateScalar(star.outerRoundedness, animationSettings).constantValueOrNull ?: 0f) / 100f
 
   val rcPath =
     when (star.starType) {
       PolyStarType.Star -> {
-        val innerRadius = star.innerRadius?.getFloatValue() ?: 0f
-        val innerRoundedness = (star.innerRoundedness?.getFloatValue() ?: 0f) / 100f
+        val innerRadius =
+          star.innerRadius?.let { animateScalar(it, animationSettings).constantValueOrNull } ?: 0f
+        val innerRoundedness =
+          (star.innerRoundedness?.let { animateScalar(it, animationSettings).constantValueOrNull }
+            ?: 0f) / 100f
         createStarPath(
           points = points,
           positionX = posX,

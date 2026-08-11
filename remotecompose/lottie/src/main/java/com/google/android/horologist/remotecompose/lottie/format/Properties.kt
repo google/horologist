@@ -37,13 +37,6 @@ internal sealed class AnimatableProperty {
 @Serializable(with = BaseScalarPropertySerializer::class)
 internal sealed class BaseScalarProperty : AnimatableProperty() {
   abstract override val animated: Boolean
-
-  fun getFloatValue(): Float {
-    return when (this) {
-      is StaticScalarProperty -> value
-      is AnimatedScalarProperty -> keyframes.firstOrNull()?.value ?: 0f
-    }
-  }
 }
 
 /** A single float value that is not animated */
@@ -76,13 +69,6 @@ internal data class ScalarPropertyKeyframe(
 @Serializable(with = BaseVectorPropertySerializer::class)
 internal sealed class BaseVectorProperty : AnimatableProperty() {
   abstract override val animated: Boolean
-
-  fun getVectorValues(): FloatArray {
-    return when (this) {
-      is StaticVectorProperty -> value
-      is AnimatedVectorProperty -> keyframes.firstOrNull()?.value ?: floatArrayOf(0f, 0f)
-    }
-  }
 }
 
 /** A static array of floats. */
@@ -115,13 +101,6 @@ internal data class VectorPropertyKeyframe(
 @Serializable(with = BasePositionPropertySerializer::class)
 internal sealed class BasePositionProperty : AnimatableProperty() {
   abstract override val animated: Boolean
-
-  fun getPointValues(): FloatArray {
-    return when (this) {
-      is StaticPositionProperty -> value
-      is AnimatedPositionProperty -> keyframes.firstOrNull()?.value ?: floatArrayOf(0f, 0f)
-    }
-  }
 }
 
 /** A static position property is an array of floats with 2 or 3 values. */

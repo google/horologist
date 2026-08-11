@@ -6,6 +6,8 @@
   "w": 128,
   "h": 128,
   "nm": "rect_ellipse",
+  "author": "Google Horologist / RemoteCompose Lottie Test Suite",
+  "description": "Parametric shapes test: rectangle, rounded rectangle, ellipse, circle. Source: https://docs.google.com/document/d/1jXj3kbXL57kxjRc0soUqst2poa2-Lrc2qZAIzEmbB8w/edit",
   "layers": [
     {
       "ty": 4,

@@ -6,8 +6,8 @@
   "w": 128,
   "h": 128,
   "nm": "polystar",
-  "author": "Airbnb (airbnb/lottie-web test suite)",
-  "description": "Parametric shapes test: star, rounded star, polygon, rounded polygon. Sourced from airbnb/lottie-web (test/) via Lottie Format Feature Support Suite (https://docs.google.com/document/d/1jXj3kbXL57kxjRc0soUqst2poa2-Lrc2qZAIzEmbB8w/edit)",
+  "author": "Google Horologist",
+  "description": "Parametric shapes test created for Horologist RemoteCompose Lottie: star, rounded star, polygon, rounded polygon.",
   "layers": [
     {
       "ty": 4,

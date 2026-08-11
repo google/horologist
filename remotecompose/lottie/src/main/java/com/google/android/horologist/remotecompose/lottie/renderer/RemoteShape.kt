@@ -20,6 +20,7 @@ import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.layout.RemoteDrawScope
 import androidx.compose.remote.creation.compose.state.remotePath
+import androidx.compose.remote.creation.compose.vector.RemotePathScope
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
 
@@ -35,7 +36,7 @@ internal class RemoteLottiePath(val bezierValue: RemoteBezierValue) : RemoteShap
     canvas.drawPath(path)
   }
 
-  private fun androidx.compose.remote.creation.compose.vector.RemotePathScope.drawSplinePaths(
+  private fun RemotePathScope.drawSplinePaths(
     bezierValue: RemoteBezierValue
   ) {
     val vertices = bezierValue.vertices

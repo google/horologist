@@ -1,0 +1,86 @@
+name: Compose Preview Publish
+
+# Trusted half of the fork-PR preview split (see `compose-preview.yml`).
+#
+# A fork PR's GITHUB_TOKEN is read-only on every scope, so the render job
+# cannot push its PNGs or post the sticky comment. This workflow does both,
+# from a `workflow_run` that runs **`main`'s** copy of these files — it never
+# checks out the PR and never invokes Gradle, so it holds a write token
+# without ever executing contributor code.
+#
+# Nothing to do on same-repo runs: those publish inline in `compose-preview.yml`
+# and upload no handoff.
+on:
+  workflow_run:
+    workflows: [Compose Preview]
+    types: [completed]
+
+permissions: {}
+
+concurrency:
+  # Serialised per head branch. NOT cancel-in-progress: a publisher already
+  # pushing should finish, and the next one supersedes it on the same shared
+  # render branch anyway. Cancelling mid-push just strands the branch.
+  group: compose-preview-publish-${{ github.event.workflow_run.head_repository.full_name }}-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish fork PR previews
+    # A failed render has nothing worth publishing, and a stale sticky comment
+    # beats one built from a half-written envelope.
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write          # renders push to the compose-preview/… PR branches
+      pull-requests: write     # sticky diff comment upsert
+      actions: read            # reading the render run's artifact across runs
+
+    steps:
+      # `main`'s code, never the PR's. The handoff is read as data only.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      # Only fork runs upload a handoff. Deciding that from `head_repository`
+      # rather than from the download's own outcome is deliberate: a blanket
+      # `continue-on-error` would also swallow a real artifact-service or auth
+      # failure on a fork run, and this workflow would finish green having
+      # published nothing.
+      - name: Is this a fork run?
+        id: fork
+        env:
+          HEAD_REPO: ${{ github.event.workflow_run.head_repository.full_name }}
+          THIS_REPO: ${{ github.repository }}
+        run: |
+          if [ "$HEAD_REPO" = "$THIS_REPO" ]; then
+            echo "is_fork=false" >> "$GITHUB_OUTPUT"
+            echo "Same-repo run — it published inline; nothing to do here."
+          else
+            echo "is_fork=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download preview handoff
+        if: steps.fork.outputs.is_fork == 'true'
+        uses: actions/download-artifact@v7
+        with:
+          name: compose-preview-handoff
+          path: _compose_preview_handoff
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # `github.event.workflow_run.pull_requests` is empty for fork PRs, so the
+      # number travels in the handoff. The action re-checks it against this
+      # run's head repo and branch before commenting, so a number tampered with
+      # by the render job can't redirect the comment onto another PR.
+      - name: Read PR number
+        id: pr
+        if: steps.fork.outputs.is_fork == 'true'
+        run: echo "number=$(cat _compose_preview_handoff/_pr_number)" >> "$GITHUB_OUTPUT"
+
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@95b53fd706c8e883fdeba82132c9af0c2e932058 # main
+        if: steps.pr.outputs.number != ''
+        with:
+          phase: publish
+          pr-number: ${{ steps.pr.outputs.number }}

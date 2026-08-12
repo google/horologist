@@ -3,27 +3,57 @@ name: Compose Preview
 on:
   push:
     branches: [main]
-  pull_request_target:
+  # `pull_request`, not `pull_request_target`. The latter grants a write-scoped
+  # token and the repository's secrets to a workflow that then checks out and
+  # Gradle-builds the PR's own code — arbitrary code execution with write
+  # access. Fork PRs get their previews from the render/publish split below
+  # instead; see `compose-preview-publish.yml`.
+  pull_request:
     branches: [main]
     types: [opened, synchronize]
   workflow_dispatch:
 
-permissions:
-  contents: write          # baselines push + compose-preview/pr branch
-  pull-requests: write     # upserts the PR comment
+# Nothing by default — each job asks for exactly what it needs. This is what
+# keeps the fork path honest: a workflow-level write grant would be handed to
+# the job that runs the PR's own Gradle build if the org ever enables write
+# tokens for fork pull requests.
+permissions: {}
 
 concurrency:
   group: compose-preview-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  apply:
+  # Fork PRs render here and publish nothing.
+  #
+  # A fork PR's GITHUB_TOKEN is read-only on every scope no matter what a
+  # permissions block says, so the `apply` job below cannot push its renders or
+  # post its comment for one — it fails on the push and the PR gets no preview.
+  # This job renders and stops; `compose-preview-publish.yml` picks the result
+  # up from a `workflow_run` and publishes it from `main`'s own code, holding
+  # the write token without ever executing contributor code.
+  #
+  # The job-level `permissions` block is the load-bearing part: an organization
+  # can enable write tokens for fork pull requests, and this job — the one that
+  # builds the PR — must not receive them.
+  render-fork:
+    name: Render previews (fork PR)
+    if: ${{ github.event.pull_request.head.repo.fork }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           lfs: 'true'
+          # No `ref:` override — under `pull_request` the default checkout is
+          # already the PR merge commit. The explicit `head.sha` this replaces
+          # was only needed because `pull_request_target` defaults to the base.
+          #
+          # Nothing here should leave a usable token in `.git/config` for the
+          # fork's build to find.
+          persist-credentials: false
 
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
@@ -35,4 +65,43 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
 
-      - uses: yschimke/compose-ai-tools/.github/actions/apply@aaac0585636f4913ce78d60bc7816f8ea79a4751 # main
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@95b53fd706c8e883fdeba82132c9af0c2e932058 # main
+        with:
+          phase: render
+
+      - name: Upload preview handoff
+        uses: actions/upload-artifact@v7
+        with:
+          name: compose-preview-handoff
+          path: _compose_preview_handoff/
+          if-no-files-found: error
+          retention-days: 1
+
+  # Everything trusted — same-repo PRs and the baseline push on `main` — keeps
+  # the single-job path, which already holds the write token it needs.
+  apply:
+    if: ${{ !github.event.pull_request.head.repo.fork }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write          # baselines push + compose-preview/pr branch
+      pull-requests: write     # upserts the PR comment
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: 'true'
+          # The action pushes via an explicit token in the remote URL, so the
+          # default git credentials aren't needed here.
+          persist-credentials: false
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: zulu
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
+
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@95b53fd706c8e883fdeba82132c9af0c2e932058 # main

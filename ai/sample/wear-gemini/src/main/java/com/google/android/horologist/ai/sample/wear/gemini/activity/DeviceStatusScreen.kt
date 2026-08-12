@@ -38,13 +38,20 @@ fun DeviceStatusScreen(
   viewModel: DeviceStatusViewModel = hiltViewModel(),
 ) {
   val uiState = viewModel.uiState.collectAsStateWithLifecycle()
+  DeviceStatusScreen(uiState = uiState.value, modifier = modifier)
+}
+
+@Composable
+fun DeviceStatusScreen(
+  uiState: DeviceStatusUiState,
+  modifier: Modifier = Modifier,
+) {
   ScreenScaffold(modifier = modifier) {
     Column(
       modifier = Modifier.fillMaxSize(),
       horizontalAlignment = Alignment.CenterHorizontally,
       verticalArrangement = Arrangement.Center,
     ) {
-      val uiState = uiState.value
       if (uiState is Loaded) {
         AsyncImage(
           model = uiState.image,

@@ -94,9 +94,9 @@ fun SamplePromptScreen(
 }
 
 /**
- * Stateless variant. `internal` rather than `private` so [WearApp] can render the start
- * destination from supplied state in a preview, instead of reaching for [hiltViewModel], which
- * produces no output at render time and fails the run under `missing-renders: fail`.
+ * Stateless variant. `internal` rather than `private` so [WearApp] can render the start destination
+ * from supplied state in a preview, instead of reaching for [hiltViewModel], which produces no
+ * output at render time and fails the run under `missing-renders: fail`.
  */
 @Composable
 internal fun SamplePromptScreen(

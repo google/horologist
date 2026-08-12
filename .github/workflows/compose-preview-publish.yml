@@ -10,7 +10,28 @@ name: Compose Preview Publish
 #
 # Nothing to do on same-repo runs: those publish inline in `compose-preview.yml`
 # and upload no handoff.
-on:
+#
+# zizmor flags `workflow_run` as a dangerous trigger, and it is right to by
+# default: it runs with the base repository's privileges and typically consumes
+# an artifact a fork produced. Suppressed deliberately, because every pitfall
+# behind that rule is closed here — and because the alternative it pushes you
+# toward, `pull_request_target`, is strictly worse. That trigger is what this
+# workflow exists to remove: it hands the same write token to a job that checks
+# out and Gradle-builds the PR's own code.
+#
+#  - This job never checks out the PR and never invokes Gradle. It runs the
+#    base branch's files only; the handoff is read as data.
+#  - No push control comes from the artifact. Destination branch, commit
+#    message and skip flag are rebuilt inside the action from its own
+#    constants, so a tampered `_push_branch` cannot retarget the push.
+#  - The staged PR number is verified against this run's head repository and
+#    branch before anything is posted, so it cannot redirect a comment onto an
+#    unrelated PR.
+#  - Gated on `conclusion == 'success'` and serialised per head branch.
+#
+# See .github/actions/apply/README.md in yschimke/compose-ai-tools ("Fork PRs")
+# for the full threat model.
+on:  # zizmor: ignore[dangerous-triggers]
   workflow_run:
     workflows: [Compose Preview]
     types: [completed]

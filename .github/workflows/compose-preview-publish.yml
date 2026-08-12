@@ -63,7 +63,7 @@ jobs:
 
       - name: Download preview handoff
         if: steps.fork.outputs.is_fork == 'true'
-        uses: actions/download-artifact@v7
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
           name: compose-preview-handoff
           path: _compose_preview_handoff

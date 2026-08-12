@@ -1,8 +1,12 @@
-name: PR Review (Codex + Preview)
+name: Compose Preview
 
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   preview:
@@ -43,15 +47,3 @@ jobs:
         with:
           name: compose-preview-metadata
           path: '**/build/compose-previews/**/*.json'
-
-  codex-review:
-    needs: [preview]
-    uses: yschimke/compose-ai-tools/.github/workflows/codex-pr-review-reusable.yml@main
-    with:
-      preview_status: ${{ needs.preview.result }}
-      strict_mode: true
-    secrets:
-      codex_api_key: ${{ secrets.CODEX_API_KEY }}
-      claude_api_key: ${{ secrets.CLAUDE_API_KEY }}
-      gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
-      github_token: ${{ secrets.GITHUB_TOKEN }}

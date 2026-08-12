@@ -37,6 +37,7 @@ import kotlinx.serialization.json.JsonContentPolymorphicSerializer
 import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonEncoder
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
@@ -109,6 +110,9 @@ internal object GraphicElementSerializer :
       ShapeType.Group.value -> GraphicElement.Group.serializer()
       ShapeType.Transform.value -> GraphicElement.Transform.serializer()
       ShapeType.Fill.value -> GraphicElement.Fill.serializer()
+      ShapeType.Rectangle.value -> GraphicElement.Rectangle.serializer()
+      ShapeType.Ellipse.value -> GraphicElement.Ellipse.serializer()
+      ShapeType.PolyStar.value -> GraphicElement.PolyStar.serializer()
       else -> GraphicElement.Group.serializer()
     }
   }
@@ -126,6 +130,144 @@ internal object ShapeTypeSerializer : KSerializer<ShapeType> {
 
   override fun serialize(encoder: Encoder, value: ShapeType) {
     encoder.encodeString(value.value)
+  }
+}
+
+/** Serializer for [PolyStarType] enum. */
+internal object PolyStarTypeSerializer : KSerializer<PolyStarType> {
+  override val descriptor: SerialDescriptor =
+    PrimitiveSerialDescriptor("PolyStarType", PrimitiveKind.INT)
+
+  override fun deserialize(decoder: Decoder): PolyStarType {
+    val value = decoder.decodeInt()
+    return PolyStarType.fromValueOrNull(value) ?: PolyStarType.Star
+  }
+
+  override fun serialize(encoder: Encoder, value: PolyStarType) {
+    encoder.encodeInt(value.value)
+  }
+}
+
+/** Polymorphic serializer for [BaseScalarProperty] based on "a" field. */
+internal object BaseScalarPropertySerializer :
+  JsonContentPolymorphicSerializer<BaseScalarProperty>(BaseScalarProperty::class) {
+  override fun selectDeserializer(
+    element: JsonElement
+  ): DeserializationStrategy<BaseScalarProperty> {
+    return when (element) {
+      is JsonPrimitive -> StaticScalarProperty.serializer()
+      is JsonArray -> StaticScalarProperty.serializer()
+      is JsonObject -> {
+        val animated = element["a"]?.jsonPrimitive?.intOrNull == 1
+        if (animated) {
+          AnimatedScalarProperty.serializer()
+        } else {
+          StaticScalarProperty.serializer()
+        }
+      }
+    }
+  }
+}
+
+/** Serializer for [StaticScalarProperty] handling primitive numbers, arrays, or objects. */
+internal object StaticScalarPropertySerializer : KSerializer<StaticScalarProperty> {
+  override val descriptor: SerialDescriptor =
+    buildClassSerialDescriptor("StaticScalarProperty") {
+      element<String?>("s", isOptional = true)
+      element<Boolean>("animated", isOptional = true)
+      element<Float>("k")
+    }
+
+  override fun deserialize(decoder: Decoder): StaticScalarProperty {
+    val jsonDecoder = decoder as JsonDecoder
+    val element = jsonDecoder.decodeJsonElement()
+    return when (element) {
+      is JsonPrimitive -> {
+        StaticScalarProperty(value = element.floatOrNull ?: 0f)
+      }
+      is JsonArray -> {
+        val v = element.firstOrNull()?.jsonPrimitive?.floatOrNull ?: 0f
+        StaticScalarProperty(value = v)
+      }
+      is JsonObject -> {
+        val slotId = element["s"]?.jsonPrimitive?.contentOrNull
+        val kElem = element["k"]
+        val v =
+          when (kElem) {
+            is JsonPrimitive -> kElem.floatOrNull ?: 0f
+            is JsonArray -> kElem.firstOrNull()?.jsonPrimitive?.floatOrNull ?: 0f
+            else -> 0f
+          }
+        StaticScalarProperty(slotId = slotId, animated = false, value = v)
+      }
+    }
+  }
+
+  override fun serialize(encoder: Encoder, value: StaticScalarProperty) {
+    val jsonEncoder = encoder as JsonEncoder
+    jsonEncoder.encodeJsonElement(
+      buildJsonObject {
+        value.slotId?.let { put("s", it) }
+        put("a", 0)
+        put("k", value.value)
+      }
+    )
+  }
+}
+
+/** Serializer for [ScalarPropertyKeyframe] handling scalar keyframes. */
+internal object ScalarPropertyKeyframeSerializer : KSerializer<ScalarPropertyKeyframe> {
+  override val descriptor: SerialDescriptor =
+    buildClassSerialDescriptor("ScalarPropertyKeyframe") {
+      element<Float>("t", isOptional = true)
+      element<Boolean>("h", isOptional = true)
+      element<ScalarKeyframeEasing?>("i", isOptional = true)
+      element<ScalarKeyframeEasing?>("o", isOptional = true)
+      element<Float>("s", isOptional = true)
+    }
+
+  override fun deserialize(decoder: Decoder): ScalarPropertyKeyframe {
+    val jsonDecoder = decoder as JsonDecoder
+    val obj = jsonDecoder.decodeJsonElement().jsonObject
+
+    val frame = obj["t"]?.jsonPrimitive?.floatOrNull ?: 0f
+    val hold = (obj["h"]?.jsonPrimitive?.intOrNull ?: 0) == 1
+    val inTangent =
+      obj["i"]?.let { jsonDecoder.json.decodeFromJsonElement(ScalarKeyframeEasingSerializer, it) }
+    val outTangent =
+      obj["o"]?.let { jsonDecoder.json.decodeFromJsonElement(ScalarKeyframeEasingSerializer, it) }
+    val sElem = obj["s"]
+    val value =
+      when (sElem) {
+        is JsonPrimitive -> sElem.floatOrNull ?: 0f
+        is JsonArray -> sElem.firstOrNull()?.jsonPrimitive?.floatOrNull ?: 0f
+        else -> 0f
+      }
+
+    return ScalarPropertyKeyframe(
+      frame = frame,
+      hold = hold,
+      inTangent = inTangent,
+      outTangent = outTangent,
+      value = value,
+    )
+  }
+
+  override fun serialize(encoder: Encoder, value: ScalarPropertyKeyframe) {
+    val jsonEncoder = encoder as JsonEncoder
+    jsonEncoder.encodeJsonElement(
+      buildJsonObject {
+        put("t", value.frame)
+        if (value.hold) put("h", 1)
+        value.inTangent?.let {
+          put("i", jsonEncoder.json.encodeToJsonElement(ScalarKeyframeEasingSerializer, it))
+        }
+        value.outTangent?.let {
+          put("o", jsonEncoder.json.encodeToJsonElement(ScalarKeyframeEasingSerializer, it))
+        }
+        put("s", value.value)
+      }
+    )
   }
 }
 

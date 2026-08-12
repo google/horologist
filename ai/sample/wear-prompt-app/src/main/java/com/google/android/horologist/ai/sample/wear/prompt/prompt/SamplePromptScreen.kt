@@ -93,12 +93,17 @@ fun SamplePromptScreen(
   }
 }
 
+/**
+ * Stateless variant. `internal` rather than `private` so [WearApp] can render the start
+ * destination from supplied state in a preview, instead of reaching for [hiltViewModel], which
+ * produces no output at render time and fails the run under `missing-renders: fail`.
+ */
 @Composable
-private fun SamplePromptScreen(
+internal fun SamplePromptScreen(
   uiState: PromptUiState,
   modifier: Modifier = Modifier,
   onSettingsClick: (() -> Unit)? = null,
-  promptEntry: @Composable (Boolean) -> Unit,
+  promptEntry: @Composable (Boolean) -> Unit = { DefaultPromptEntry() },
 ) {
   CompositionLocalProvider(
     LocalMarkdownColors provides sampleColors(),
@@ -145,6 +150,17 @@ public fun SampleTextResponseCard(
     transformation = transformation,
   ) {
     Markdown(textResponseUiModel.text, colors = sampleColors(), typography = sampleTypography())
+  }
+}
+
+/** The ask-again affordance the stateless previews already used, shared as the default. */
+@Composable
+private fun DefaultPromptEntry() {
+  EdgeButton(onClick = {}, buttonSize = EdgeButtonSize.ExtraSmall) {
+    Icon(
+      imageVector = Icons.Default.QuestionAnswer,
+      contentDescription = stringResource(R.string.ask_again),
+    )
   }
 }
 

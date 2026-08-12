@@ -3,7 +3,7 @@ name: Compose Preview
 on:
   push:
     branches: [main]
-  pull_request:
+  pull_request_target:
     branches: [main]
     types: [opened, synchronize]
   workflow_dispatch:
@@ -22,6 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           lfs: 'true'
 
       - name: Copy CI gradle.properties

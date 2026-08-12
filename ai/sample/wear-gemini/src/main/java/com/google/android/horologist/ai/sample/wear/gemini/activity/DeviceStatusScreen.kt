@@ -42,10 +42,7 @@ fun DeviceStatusScreen(
 }
 
 @Composable
-fun DeviceStatusScreen(
-  uiState: DeviceStatusUiState,
-  modifier: Modifier = Modifier,
-) {
+fun DeviceStatusScreen(uiState: DeviceStatusUiState, modifier: Modifier = Modifier) {
   ScreenScaffold(modifier = modifier) {
     Column(
       modifier = Modifier.fillMaxSize(),

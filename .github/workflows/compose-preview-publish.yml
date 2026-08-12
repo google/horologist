@@ -48,9 +48,19 @@ concurrency:
 jobs:
   publish:
     name: Publish fork PR previews
-    # A failed render has nothing worth publishing, and a stale sticky comment
-    # beats one built from a half-written envelope.
-    if: github.event.workflow_run.conclusion == 'success'
+    # Runs on a failed render too, deliberately. A pipeline that fails part-way
+    # still renders most previews, and the action stages the handoff before it
+    # surfaces the failure — so a red render usually still carries a complete,
+    # publishable bundle, and the comment it produces names the previews that
+    # failed. Gating on success alone would mean a fork PR with one broken
+    # preview gets no comment at all, where the single-job path would still
+    # have posted one.
+    #
+    # `startup_failure` / `cancelled` are excluded: those never reached the
+    # staging step, so there is nothing to publish.
+    if: >-
+      github.event.workflow_run.conclusion == 'success' ||
+      github.event.workflow_run.conclusion == 'failure'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -83,7 +93,13 @@ jobs:
           fi
 
       - name: Download preview handoff
+        id: handoff
         if: steps.fork.outputs.is_fork == 'true'
+        # Tolerated only when the render itself went red: it may have died
+        # before reaching the staging step, in which case there is genuinely
+        # nothing to download and this workflow has no work to do. After a
+        # successful render a missing artifact is a real bug, so it stays loud.
+        continue-on-error: ${{ github.event.workflow_run.conclusion == 'failure' }}
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
         with:
           name: compose-preview-handoff
@@ -97,7 +113,7 @@ jobs:
       # by the render job can't redirect the comment onto another PR.
       - name: Read PR number
         id: pr
-        if: steps.fork.outputs.is_fork == 'true'
+        if: steps.handoff.outcome == 'success'
         run: echo "number=$(cat _compose_preview_handoff/_pr_number)" >> "$GITHUB_OUTPUT"
 
       - uses: yschimke/compose-ai-tools/.github/actions/apply@95b53fd706c8e883fdeba82132c9af0c2e932058 # main

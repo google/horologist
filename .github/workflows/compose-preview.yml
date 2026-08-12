@@ -69,7 +69,15 @@ jobs:
         with:
           phase: render
 
+      # `!cancelled()`, not the default success-only. A pipeline that fails
+      # part-way still renders most previews, and the action stages the handoff
+      # *before* it surfaces the failure — so the bundle is complete and worth
+      # publishing even on a red render. The single-job path behaves exactly
+      # this way ("PR comments and successful renders were still published");
+      # without this, a fork PR with one broken preview would get no comment at
+      # all, which is strictly worse than what it replaced.
       - name: Upload preview handoff
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
           name: compose-preview-handoff

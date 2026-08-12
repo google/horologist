@@ -17,9 +17,10 @@
 package com.google.android.horologist.remotecompose.lottie.renderer
 
 import android.annotation.SuppressLint
-import androidx.compose.remote.creation.RemotePath
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.layout.RemoteDrawScope
+import androidx.compose.remote.creation.compose.state.remotePath
+import androidx.compose.remote.creation.compose.vector.RemotePathScope
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
 
@@ -29,9 +30,31 @@ internal interface RemoteShape {
 }
 
 @SuppressLint("RestrictedApi")
-internal class RemoteLottiePath(val path: RemotePath) : RemoteShape {
+internal class RemoteLottiePath(val bezierValue: RemoteBezierValue) : RemoteShape {
   override fun draw(drawScope: RemoteDrawScope, canvas: RemoteCanvas) {
+    val path = drawScope.remotePath { drawSplinePaths(bezierValue) }
     canvas.drawPath(path)
+  }
+
+  private fun RemotePathScope.drawSplinePaths(
+    bezierValue: RemoteBezierValue
+  ) {
+    val vertices = bezierValue.vertices
+    if (vertices.isEmpty()) return
+
+    moveTo(vertices[0][0], vertices[0][1])
+
+    val maxIndex = if (bezierValue.closed) vertices.size else vertices.size - 1
+    for (i in 0 until maxIndex) {
+      val lastIndex = if (i == vertices.size - 1) 0 else i + 1
+
+      val p0 = vertices[i]
+      val p4 = vertices[lastIndex]
+      val outT = bezierValue.outTangents[i]
+      val inT = bezierValue.inTangents[lastIndex]
+
+      curveTo(p0[0] + outT[0], p0[1] + outT[1], p4[0] + inT[0], p4[1] + inT[1], p4[0], p4[1])
+    }
   }
 }
 

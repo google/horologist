@@ -17,7 +17,6 @@
 package com.google.android.horologist.remotecompose.lottie.renderer
 
 import android.annotation.SuppressLint
-import androidx.compose.remote.creation.RemotePath
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
@@ -73,7 +72,7 @@ private fun gatherShapes(
 
   for (shape in shapes.reversed()) {
     when (shape) {
-      is GraphicElement.Path -> currentShapes.addIfNotNull(path(shape, animationSettings))
+      is GraphicElement.Path -> currentShapes.addAll(path(shape, animationSettings))
       is GraphicElement.Group -> currentShapes.addIfNotNull(group(shape, animationSettings))
       is GraphicElement.Fill -> {
         val fill = fill(shape, animationSettings)
@@ -111,39 +110,20 @@ private fun group(group: Group, animationSettings: LottieSettings): RemoteGroup?
 }
 
 @SuppressLint("RestrictedApi")
-private fun path(lottiePath: Path, animationSettings: LottieSettings): RemoteLottiePath {
-  val path = animateBezier(lottiePath.shape, animationSettings)
-  val vertices = path.vertices
-  val inTangents = path.inTangents
-  val outTangents = path.outTangents
-
-  val rcPath = RemotePath()
-  rcPath.reset()
-  rcPath.moveTo(vertices[0][0], vertices[0][1])
-
-  for (i in vertices.indices) {
-    val p0 = vertices[i]
-    val lastIndex = if (i == vertices.size - 1 && path.closed) 0 else i + 1
-    val p4 = vertices[lastIndex]
-    val inTangent = inTangents[lastIndex]
-    val outTangent = outTangents[i]
-    val p1 = listOf(p0[0] + outTangent[0], p0[1] + outTangent[1])
-    val p2 = listOf(p4[0] + inTangent[0], p4[1] + inTangent[1])
-
-    rcPath.cubicTo(p1[0], p1[1], p2[0], p2[1], p4[0], p4[1])
+private fun path(lottiePath: Path, animationSettings: LottieSettings): List<RemoteLottiePath> {
+  return animateBezier(lottiePath.shape, animationSettings).map { pathValue ->
+    RemoteLottiePath(pathValue)
   }
+}
 
-  return RemoteLottiePath(rcPath)
+private fun <T> MutableList<T>.addIfNotNull(element: T?) {
+  if (element != null) {
+    this.add(element)
+  }
 }
 
 private fun fill(fill: Fill, animationSettings: LottieSettings): RemoteFill {
   val slotId = fill.color.slotId
   val remoteColor = if (slotId != null) animationSettings.slotMap.getColor(slotId) else null
   return RemoteFill(remoteColor ?: fill.color.value)
-}
-
-private fun MutableList<RemoteShape>.addIfNotNull(shape: RemoteShape?) {
-  if (shape != null) {
-    this.add(shape)
-  }
 }

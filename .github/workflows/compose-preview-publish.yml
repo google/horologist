@@ -27,7 +27,8 @@ name: Compose Preview Publish
 #  - The staged PR number is verified against this run's head repository and
 #    branch before anything is posted, so it cannot redirect a comment onto an
 #    unrelated PR.
-#  - Gated on `conclusion == 'success'` and serialised per head branch.
+#  - Only runs for a render that reached the staging step, and is serialised
+#    per head branch.
 #
 # See .github/actions/apply/README.md in yschimke/compose-ai-tools ("Fork PRs")
 # for the full threat model.

@@ -1,0 +1,57 @@
+name: PR Review (Codex + Preview)
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    outputs:
+      preview_status: ${{ job.status }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: 'true'
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 21
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Render Compose Previews
+        run: ./gradlew composePreviewRenderAll
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: compose-preview-images
+          path: '**/build/compose-previews/renders'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: compose-preview-diff-images
+          path: '**/build/compose-previews/diffs'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: compose-preview-metadata
+          path: '**/build/compose-previews/**/*.json'
+
+  codex-review:
+    needs: [preview]
+    uses: yschimke/compose-ai-tools/.github/workflows/codex-pr-review-reusable.yml@main
+    with:
+      preview_status: ${{ needs.preview.result }}
+      strict_mode: true
+    secrets:
+      codex_api_key: ${{ secrets.CODEX_API_KEY }}
+      claude_api_key: ${{ secrets.CLAUDE_API_KEY }}
+      gemini_api_key: ${{ secrets.GEMINI_API_KEY }}
+      github_token: ${{ secrets.GITHUB_TOKEN }}

@@ -235,3 +235,35 @@ private fun InstallTileBottomSheetContentPreviewNoIcon() {
     onConfirmation = {},
   )
 }
+
+@Preview(
+  name = "Install Tile Bottom Sheet - Landscape",
+  device = "spec:parent=pixel_5,orientation=landscape",
+  showBackground = true,
+)
+@Composable
+private fun InstallTileBottomSheetLandscapeContentPreview() {
+  InstallTileBottomSheetLandscapeContent(
+    image = { Icon(Icons.Default.Email, contentDescription = null) },
+    topMessage = "Find useful content from your app with a glance.",
+    bottomMessage = "Add the Tile to your Wear OS app for accessing data with a glance.",
+    onDismissRequest = {},
+    onConfirmation = {},
+  )
+}
+
+@Preview(
+  name = "Install Tile Bottom Sheet - Landscape - No Icon",
+  device = "spec:parent=pixel_5,orientation=landscape",
+  showBackground = true,
+)
+@Composable
+private fun InstallTileBottomSheetLandscapeContentPreviewNoIcon() {
+  InstallTileBottomSheetLandscapeContent(
+    image = null,
+    topMessage = "Find useful content from your app with a glance.",
+    bottomMessage = "Add the Tile to your Wear OS app for accessing data with a glance.",
+    onDismissRequest = {},
+    onConfirmation = {},
+  )
+}

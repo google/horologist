@@ -18,6 +18,8 @@
 
 package com.google.android.horologist.media.ui.screens.browse
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Login
 import androidx.compose.material.icons.automirrored.filled.PlaylistPlay
@@ -25,17 +27,25 @@ import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Podcasts
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.material.ExperimentalWearMaterialApi
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.composables.PlaceholderChip
 import com.google.android.horologist.composables.Section
+import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.material.Chip
+import com.google.android.horologist.compose.tools.PinnedTimeSource
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.media.ui.R
+import ee.schimke.composeai.preview.ScrollMode
+import ee.schimke.composeai.preview.ScrollingPreview
 
 @WearPreviewDevices
+@ScrollingPreview(modes = [ScrollMode.LONG])
 @Composable
 fun BrowseScreenPreview() {
   BrowseScreenPreviewSample(
@@ -71,69 +81,74 @@ private fun BrowseScreenPreviewSample(
   trendingSectionState: Section.State<String>,
   downloadsSectionState: Section.State<Pair<String, String>>,
 ) {
-  BrowseScreen {
-    button(
-      BrowseScreenPlaylistsSectionButton(
-        textId = R.string.horologist_browse_screen_preview_sign_in,
-        icon = Icons.AutoMirrored.Default.Login,
-        onClick = {},
+  AppScaffold(
+    modifier = Modifier.fillMaxSize().background(Color.Black),
+    timeText = { ResponsiveTimeText(timeSource = PinnedTimeSource) },
+  ) {
+    BrowseScreen {
+      button(
+        BrowseScreenPlaylistsSectionButton(
+          textId = R.string.horologist_browse_screen_preview_sign_in,
+          icon = Icons.AutoMirrored.Default.Login,
+          onClick = {},
+        )
       )
-    )
 
-    section(
-      state = trendingSectionState,
-      titleId = R.string.horologist_browse_screen_preview_trending_title,
-      emptyMessageId = R.string.horologist_browse_screen_preview_trending_empty,
-      failedMessageId = R.string.horologist_browse_screen_preview_trending_failed,
-    ) {
-      loaded { item: String ->
-        Chip(
-          label = item,
-          onClick = {},
-          icon = Icons.Default.Person.asPaintable(),
-          colors = ChipDefaults.secondaryChipColors(),
-        )
-      }
-
-      loading { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) }
-    }
-
-    downloadsSection(state = downloadsSectionState) {
-      loaded { item ->
-        Chip(
-          label = item.first,
-          onClick = {},
-          secondaryLabel = item.second,
-          icon = Icons.Default.MusicNote.asPaintable(),
-          colors = ChipDefaults.secondaryChipColors(),
-        )
-      }
-
-      loading { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) }
-
-      footer {
-        Chip(
-          label = stringResource(id = R.string.horologist_browse_screen_preview_see_more_button),
-          onClick = {},
-          colors = ChipDefaults.secondaryChipColors(),
-        )
-      }
-    }
-
-    playlistsSection(
-      buttons =
-        listOf(
-          BrowseScreenPlaylistsSectionButton(
-            textId = R.string.horologist_browse_screen_preview_playlists_button,
-            icon = Icons.AutoMirrored.Default.PlaylistPlay,
+      section(
+        state = trendingSectionState,
+        titleId = R.string.horologist_browse_screen_preview_trending_title,
+        emptyMessageId = R.string.horologist_browse_screen_preview_trending_empty,
+        failedMessageId = R.string.horologist_browse_screen_preview_trending_failed,
+      ) {
+        loaded { item: String ->
+          Chip(
+            label = item,
             onClick = {},
-          ),
-          BrowseScreenPlaylistsSectionButton(
-            textId = R.string.horologist_browse_screen_preview_podcasts_button,
-            icon = Icons.Default.Podcasts,
+            icon = Icons.Default.Person.asPaintable(),
+            colors = ChipDefaults.secondaryChipColors(),
+          )
+        }
+
+        loading { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) }
+      }
+
+      downloadsSection(state = downloadsSectionState) {
+        loaded { item ->
+          Chip(
+            label = item.first,
             onClick = {},
-          ),
-        )
-    )
+            secondaryLabel = item.second,
+            icon = Icons.Default.MusicNote.asPaintable(),
+            colors = ChipDefaults.secondaryChipColors(),
+          )
+        }
+
+        loading { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) }
+
+        footer {
+          Chip(
+            label = stringResource(id = R.string.horologist_browse_screen_preview_see_more_button),
+            onClick = {},
+            colors = ChipDefaults.secondaryChipColors(),
+          )
+        }
+      }
+
+      playlistsSection(
+        buttons =
+          listOf(
+            BrowseScreenPlaylistsSectionButton(
+              textId = R.string.horologist_browse_screen_preview_playlists_button,
+              icon = Icons.AutoMirrored.Default.PlaylistPlay,
+              onClick = {},
+            ),
+            BrowseScreenPlaylistsSectionButton(
+              textId = R.string.horologist_browse_screen_preview_podcasts_button,
+              icon = Icons.Default.Podcasts,
+              onClick = {},
+            ),
+          )
+      )
+    }
   }
 }

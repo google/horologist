@@ -20,6 +20,7 @@ plugins {
   alias(libs.plugins.metalavaGradle)
   alias(libs.plugins.kotlinx.serialization)
   alias(libs.plugins.roborazzi)
+  alias(libs.plugins.composeAiPreview)
 }
 
 android {
@@ -55,6 +56,8 @@ dependencies {
   debugImplementation(libs.androidx.compose.remote.player.core)
   debugImplementation(libs.androidx.compose.remote.player.compose)
   debugImplementation(libs.androidx.compose.remote.player.view)
+  debugImplementation(libs.compose.ui.toolingpreview)
+  debugImplementation(libs.compose.preview.annotations)
 
   testImplementation(libs.junit)
   testImplementation(libs.truth)

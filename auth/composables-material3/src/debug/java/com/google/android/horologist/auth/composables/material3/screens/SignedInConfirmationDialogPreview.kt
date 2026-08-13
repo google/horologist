@@ -31,6 +31,7 @@ fun SignedInConfirmationDialogPreview() {
     SignedInConfirmationDialogContent(
       modifier = Modifier.fillMaxSize(),
       name = "Maggie",
+      email = "maggie@example.com",
       avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
     )
   }
@@ -38,67 +39,15 @@ fun SignedInConfirmationDialogPreview() {
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationDialogMMMPreview() {
+fun SignedInConfirmationDialogMinimalPreview() {
   HorologistMaterialTheme {
-    SignedInConfirmationDialogContent(
-      modifier = Modifier.fillMaxSize(),
-      name = "MMMMMMMMM",
-      email = "MMMMMMMMMMMMMMMMMMMMMMMM",
-      avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
-    )
+    SignedInConfirmationDialogContent(modifier = Modifier.fillMaxSize(), name = "Maggie")
   }
 }
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationDialogContentPreview() {
-  HorologistMaterialTheme {
-    SignedInConfirmationDialogContent(
-      modifier = Modifier.fillMaxSize(),
-      name = "Maggie",
-      email = "maggiesveryveryverylongworkemail@example.com",
-      avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
-    )
-  }
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationNoAvatar() {
-  HorologistMaterialTheme {
-    SignedInConfirmationDialogContent(
-      modifier = Modifier.fillMaxSize(),
-      name = "Timothy",
-      email = "timandrews123@example.com",
-    )
-  }
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogPreviewNoName() {
-  SignedInConfirmationDialog(
-    onDismissOrTimeout = {},
-    email = "timandrews123@example.com",
-    avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
-  )
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogPreviewNoEmail() {
-  SignedInConfirmationDialog(onDismissOrTimeout = {}, name = "Maggie")
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogPreviewNoInformation() {
-  SignedInConfirmationDialog(onDismissOrTimeout = {})
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogPreviewTruncation() {
+fun SignedInConfirmationDialogTruncationPreview() {
   SignedInConfirmationDialog(
     onDismissOrTimeout = {},
     name = "Wolfeschlegelsteinhausenbergerdorff",

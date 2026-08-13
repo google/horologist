@@ -17,6 +17,7 @@
 package com.google.android.horologist.remotecompose.lottie
 
 import android.content.Context
+import androidx.compose.remote.creation.compose.state.rf
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.AnimatedBezierProperty
@@ -25,7 +26,12 @@ import com.google.android.horologist.remotecompose.lottie.format.Animation
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.Layer
 import com.google.android.horologist.remotecompose.lottie.format.LayerType
+import com.google.android.horologist.remotecompose.lottie.format.PolyStarType
 import com.google.android.horologist.remotecompose.lottie.format.ShapeType
+import com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty
+import com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty
+import com.google.android.horologist.remotecompose.lottie.format.StaticVectorProperty
+import com.google.android.horologist.remotecompose.lottie.renderer.animateScalar
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -111,5 +117,82 @@ class ParsingTest {
 
     assertThat(animatedScale.keyframes).hasSize(5)
     assertThat(animatedScale.keyframes[0].inTangent?.x).isEqualTo(0.999f)
+  }
+
+  /**
+   * Tests deserialization of parametric rectangle and ellipse shapes.
+   *
+   * Source:
+   * [Lottie Format Feature Support & Sample Test Suite](https://docs.google.com/document/d/1jXj3kbXL57kxjRc0soUqst2poa2-Lrc2qZAIzEmbB8w/edit)
+   */
+  @Test
+  fun rectEllipse_deserializes() {
+    val context = ApplicationProvider.getApplicationContext<Context>()
+    val animation = Animation.load(R.raw.rect_ellipse, context)
+
+    assertThat(animation).isNotNull()
+    val shapeLayer = animation.layers[0] as Layer.ShapeLayer
+    assertThat(shapeLayer.shapes).hasSize(4)
+
+    val group1 = shapeLayer.shapes[0] as GraphicElement.Group
+    val rect = group1.shapes[0] as GraphicElement.Rectangle
+    assertThat(rect.type).isEqualTo(ShapeType.Rectangle)
+    assertThat(rect.position.animated).isFalse()
+    assertThat((rect.position as StaticPositionProperty).value).isEqualTo(floatArrayOf(36f, 36f))
+    assertThat(rect.size.animated).isFalse()
+    assertThat((rect.size as StaticVectorProperty).value).isEqualTo(floatArrayOf(48f, 40f))
+    assertThat(rect.cornerRadius.animated).isFalse()
+    assertThat((rect.cornerRadius as StaticScalarProperty).value).isEqualTo(10f)
+
+    val settings = LottieSettings(0.rf, SlotMap.Empty)
+    val cornerRadiusRf = animateScalar(rect.cornerRadius, settings)
+    assertThat(cornerRadiusRf.constantValueOrNull).isEqualTo(10f)
+
+    val group3 = shapeLayer.shapes[2] as GraphicElement.Group
+    val ellipse = group3.shapes[0] as GraphicElement.Ellipse
+    assertThat(ellipse.type).isEqualTo(ShapeType.Ellipse)
+    assertThat(ellipse.position.animated).isFalse()
+    assertThat((ellipse.position as StaticPositionProperty).value).isEqualTo(floatArrayOf(36f, 92f))
+    assertThat(ellipse.size.animated).isFalse()
+    assertThat((ellipse.size as StaticVectorProperty).value).isEqualTo(floatArrayOf(42f, 42f))
+  }
+
+  /**
+   * Tests deserialization of parametric star and polygon shapes.
+   *
+   * Source:
+   * [Lottie Format Feature Support & Sample Test Suite](https://docs.google.com/document/d/1jXj3kbXL57kxjRc0soUqst2poa2-Lrc2qZAIzEmbB8w/edit)
+   */
+  @Test
+  fun polystar_deserializes() {
+    val context = ApplicationProvider.getApplicationContext<Context>()
+    val animation = Animation.load(R.raw.polystar, context)
+
+    assertThat(animation).isNotNull()
+    val shapeLayer = animation.layers[0] as Layer.ShapeLayer
+    assertThat(shapeLayer.shapes).hasSize(4)
+
+    val starGroup = shapeLayer.shapes[0] as GraphicElement.Group
+    val star = starGroup.shapes[0] as GraphicElement.PolyStar
+    assertThat(star.type).isEqualTo(ShapeType.PolyStar)
+    assertThat(star.starType).isEqualTo(PolyStarType.Star)
+    assertThat(star.points.animated).isFalse()
+    assertThat((star.points as StaticScalarProperty).value).isEqualTo(5f)
+    assertThat((star.outerRadius as StaticScalarProperty).value).isEqualTo(26f)
+    assertThat((star.innerRadius as StaticScalarProperty).value).isEqualTo(13f)
+
+    val polygonGroup = shapeLayer.shapes[1] as GraphicElement.Group
+    val polygon = polygonGroup.shapes[0] as GraphicElement.PolyStar
+    assertThat(polygon.type).isEqualTo(ShapeType.PolyStar)
+    assertThat(polygon.starType).isEqualTo(PolyStarType.Polygon)
+    assertThat(polygon.points.animated).isFalse()
+    assertThat((polygon.points as StaticScalarProperty).value).isEqualTo(6f)
+    assertThat((polygon.outerRadius as StaticScalarProperty).value).isEqualTo(24f)
+
+    val settings = LottieSettings(0.rf, SlotMap.Empty)
+    val pointsRf = animateScalar(polygon.points, settings)
+    assertThat(pointsRf.constantValueOrNull).isEqualTo(6f)
+    val outerRadiusRf = animateScalar(polygon.outerRadius, settings)
+    assertThat(outerRadiusRf.constantValueOrNull).isEqualTo(24f)
   }
 }

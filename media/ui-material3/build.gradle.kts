@@ -21,6 +21,7 @@ plugins {
   alias(libs.plugins.roborazzi)
   kotlin("plugin.serialization")
   alias(libs.plugins.compose.compiler)
+  alias(libs.plugins.composeAiPreview)
 }
 
 android {
@@ -114,6 +115,7 @@ dependencies {
   debugImplementation(projects.logo)
 
   debugImplementation(libs.compose.ui.tooling)
+  debugImplementation(libs.compose.preview.annotations)
   debugImplementation(libs.compose.ui.test.manifest)
   debugImplementation(projects.media.audioUiMaterial3)
   debugImplementation(projects.composeTools)

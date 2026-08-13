@@ -18,11 +18,16 @@ package com.google.android.horologist.media.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.wear.compose.material.MaterialTheme
+import com.google.android.horologist.media.ui.components.animated.AnimatedPlayPauseProgressButton
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import ee.schimke.composeai.preview.AnimatedPreview
 import kotlin.time.Duration.Companion.seconds
 
 @Preview("Enabled - Playing - Progress 0%", backgroundColor = 0xff000000, showBackground = true)
@@ -82,6 +87,7 @@ fun PlayPauseProgressButtonPreview100() {
 }
 
 @Preview("Loading", backgroundColor = 0xff000000, showBackground = true)
+@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun PlayPauseProgressButtonLoadingPreview() {
   PlayPauseProgressButton(
@@ -90,7 +96,44 @@ fun PlayPauseProgressButtonLoadingPreview() {
     enabled = true,
     playing = true,
     trackPositionUiModel = TrackPositionUiModel.Loading(showProgress = true),
+    modifier = Modifier.size(60.dp),
   )
+}
+
+@Preview(name = "Animated Play Pause Progress", backgroundColor = 0xff000000, showBackground = true)
+@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@Composable
+fun AnimatedPlayPauseProgressButtonPreview() {
+  MaterialTheme {
+    PlayPauseProgressButton(
+      onPlayClick = {},
+      onPauseClick = {},
+      enabled = true,
+      playing = true,
+      trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds),
+      modifier = Modifier.size(60.dp),
+    )
+  }
+}
+
+@Preview(
+  name = "Animated Play Pause Progress Morph",
+  backgroundColor = 0xff000000,
+  showBackground = true,
+)
+@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@Composable
+fun AnimatedPlayPauseProgressButtonMorphPreview() {
+  MaterialTheme {
+    AnimatedPlayPauseProgressButton(
+      onPlayClick = {},
+      onPauseClick = {},
+      enabled = true,
+      playing = true,
+      trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds),
+      modifier = Modifier.size(60.dp),
+    )
+  }
 }
 
 @Preview("On Background - Progress 50%", backgroundColor = 0xff000000, showBackground = true)

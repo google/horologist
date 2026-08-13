@@ -51,6 +51,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberActivePlaceholderState
 import com.google.android.horologist.compose.paging.items
+import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.sample.R
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -204,17 +205,15 @@ fun PagingItemCardPreviewWithDelayedContent() {
     var item by remember { mutableStateOf<PagingItem?>(null) }
     LaunchedEffect(Unit) {
       delay(1000)
-      item = PagingItem(10)
+      item = PagingItem(10, LocalTime.of(10, 10, 0))
     }
     PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
   }
 }
 
-@WearPreviewSquare
+@WearPreview
 @Composable
 fun PagingItemCardPreviewWithInitialContent() {
-  Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-    val item = remember { PagingItem(10) }
-    PagingItemCard(modifier = Modifier.fillMaxWidth(), item = item)
-  }
+  val item = remember { PagingItem(10, LocalTime.of(10, 10, 0)) }
+  PagingItemCard(item = item)
 }

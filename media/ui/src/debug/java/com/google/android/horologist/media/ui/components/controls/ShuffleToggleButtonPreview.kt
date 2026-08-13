@@ -16,29 +16,21 @@
 
 package com.google.android.horologist.media.ui.components.controls
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
-@Preview("Disabled - Off", backgroundColor = 0xff000000, showBackground = true)
+@Preview("Shuffle Button Gallery", backgroundColor = 0xff000000, showBackground = true)
 @Composable
-fun ShuffleButtonPreviewDisabledOff() {
-  ShuffleToggleButton(onToggle = {}, shuffleOn = false, enabled = false)
-}
-
-@Preview("Enabled - Off", backgroundColor = 0xff000000, showBackground = true)
-@Composable
-fun ShuffleButtonPreviewEnabledOff() {
-  ShuffleToggleButton(onToggle = {}, shuffleOn = false)
-}
-
-@Preview("Disabled - On", backgroundColor = 0xff000000, showBackground = true)
-@Composable
-fun ShuffleButtonPreviewDisabledOn() {
-  ShuffleToggleButton(onToggle = {}, shuffleOn = true, enabled = false)
-}
-
-@Preview("Enabled - On", backgroundColor = 0xff000000, showBackground = true)
-@Composable
-fun ShuffleButtonPreviewEnabledOn() {
-  ShuffleToggleButton(onToggle = {}, shuffleOn = true)
+fun ShuffleToggleButtonPreview() {
+  Row(modifier = Modifier.padding(8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    ShuffleToggleButton(onToggle = {}, shuffleOn = false, enabled = false)
+    ShuffleToggleButton(onToggle = {}, shuffleOn = false)
+    ShuffleToggleButton(onToggle = {}, shuffleOn = true, enabled = false)
+    ShuffleToggleButton(onToggle = {}, shuffleOn = true)
+  }
 }

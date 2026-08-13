@@ -16,6 +16,14 @@
 
 package com.google.android.horologist.ai.ui.components
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
+import com.google.android.horologist.ai.ui.model.TextPromptUiModel
+
 @WearPreviewLargeRound
 @Composable
 internal fun TextPromptDisplayPreview() {

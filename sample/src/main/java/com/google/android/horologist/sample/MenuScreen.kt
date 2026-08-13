@@ -16,13 +16,17 @@
 
 package com.google.android.horologist.sample
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ListHeader
 import androidx.wear.compose.material.Text
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
@@ -30,6 +34,7 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.SecondaryTitle
+import com.google.android.horologist.compose.tools.PinnedTimeSource
 
 @Composable
 fun MenuScreen(modifier: Modifier = Modifier, navigateToRoute: (String) -> Unit) {
@@ -219,5 +224,10 @@ fun MenuScreen(modifier: Modifier = Modifier, navigateToRoute: (String) -> Unit)
 @WearPreviewDevices
 @Composable
 fun MenuScreenPreview() {
-  MenuScreen(modifier = Modifier.fillMaxSize(), navigateToRoute = {})
+  AppScaffold(
+    modifier = Modifier.fillMaxSize().background(Color.Black),
+    timeText = { ResponsiveTimeText(timeSource = PinnedTimeSource) },
+  ) {
+    MenuScreen(modifier = Modifier.fillMaxSize(), navigateToRoute = {})
+  }
 }

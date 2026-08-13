@@ -46,6 +46,7 @@ import com.google.android.horologist.composables.Section
 import com.google.android.horologist.composables.SectionContentScope
 import com.google.android.horologist.composables.SectionedList
 import com.google.android.horologist.composables.SectionedListScope
+import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
@@ -181,5 +182,5 @@ private fun SectionHeader(text: String, expanded: Boolean, onClick: () -> Unit) 
 @ScrollingPreview(modes = [ScrollMode.LONG])
 @Composable
 fun SectionedListExpandableScreenPreview() {
-  SectionedListExpandableScreen(columnState = rememberResponsiveColumnState())
+  AppScaffold { SectionedListExpandableScreen(columnState = rememberResponsiveColumnState()) }
 }

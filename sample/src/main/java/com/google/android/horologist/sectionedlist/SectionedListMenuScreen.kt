@@ -25,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
@@ -79,5 +80,7 @@ fun SectionedListMenuScreen(
 @ScrollingPreview(modes = [ScrollMode.LONG])
 @Composable
 fun Preview() {
-  SectionedListMenuScreen(navigateToRoute = {}, columnState = rememberResponsiveColumnState())
+  AppScaffold {
+    SectionedListMenuScreen(navigateToRoute = {}, columnState = rememberResponsiveColumnState())
+  }
 }

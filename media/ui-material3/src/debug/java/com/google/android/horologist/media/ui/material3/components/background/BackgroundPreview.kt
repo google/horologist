@@ -21,22 +21,22 @@ import androidx.compose.material.icons.filled.Album
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material3.MaterialTheme
-import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
-@WearPreviewDevices
+@WearPreview
 @Composable
 fun RadialBackgroundPreview() {
   MaterialTheme { RadialBackground(color = Color(0xFFE53935)) }
 }
 
-@WearPreviewDevices
+@WearPreview
 @Composable
 fun ColorBackgroundPreview() {
   MaterialTheme { ColorBackground(color = Color(0xFF1E88E5)) }
 }
 
-@WearPreviewDevices
+@WearPreview
 @Composable
 fun ArtworkImageBackgroundPreview() {
   MaterialTheme { ArtworkImageBackground(artwork = Icons.Default.Album.asPaintable()) }

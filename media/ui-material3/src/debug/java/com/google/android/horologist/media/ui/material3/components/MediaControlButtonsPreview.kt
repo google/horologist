@@ -24,13 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.material3.MaterialTheme
-import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
-import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlin.time.Duration.Companion.seconds
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun MediaControlButtonsPlayingPreview() {
   MaterialTheme {
@@ -53,8 +51,7 @@ fun MediaControlButtonsPlayingPreview() {
   }
 }
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun MediaControlButtonsPausedPreview() {
   MaterialTheme {
@@ -77,8 +74,7 @@ fun MediaControlButtonsPausedPreview() {
   }
 }
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun MediaControlButtonsDisabledPreview() {
   MaterialTheme {

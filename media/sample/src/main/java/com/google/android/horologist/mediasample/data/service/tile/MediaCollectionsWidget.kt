@@ -37,6 +37,7 @@ import androidx.compose.remote.creation.compose.modifier.fillMaxWidth
 import androidx.compose.remote.creation.compose.modifier.padding
 import androidx.compose.remote.creation.compose.modifier.size
 import androidx.compose.remote.creation.compose.state.RemoteDp
+import androidx.compose.remote.creation.compose.state.RemoteImageBitmap
 import androidx.compose.remote.creation.compose.state.rdp
 import androidx.compose.remote.creation.compose.state.rs
 import androidx.compose.remote.creation.compose.text.RemoteTextStyle
@@ -231,7 +232,7 @@ private fun PlaylistButton(
     icon = {
       if (playlistArtwork != null) {
         RemoteImage(
-          bitmap = playlistArtwork,
+          remoteBitmap = RemoteImageBitmap(playlistArtwork),
           contentDescription = "Artwork".rs,
           modifier = RemoteModifier.size(imageSize),
         )

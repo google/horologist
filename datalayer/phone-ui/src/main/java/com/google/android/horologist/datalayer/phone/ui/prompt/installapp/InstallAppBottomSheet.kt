@@ -235,3 +235,35 @@ private fun InstallAppBottomSheetContentPreviewNoIcon() {
     onConfirmation = {},
   )
 }
+
+@Preview(
+  name = "Install App Bottom Sheet - Landscape",
+  device = "spec:parent=pixel_5,orientation=landscape",
+  showBackground = true,
+)
+@Composable
+private fun InstallAppBottomSheetLandscapeContentPreview() {
+  InstallAppBottomSheetLandscapeContent(
+    image = { Icon(Icons.Default.Email, contentDescription = null) },
+    topMessage = "Stay productive and manage emails right from your wrist.",
+    bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
+    onDismissRequest = {},
+    onConfirmation = {},
+  )
+}
+
+@Preview(
+  name = "Install App Bottom Sheet - Landscape - No Icon",
+  device = "spec:parent=pixel_5,orientation=landscape",
+  showBackground = true,
+)
+@Composable
+private fun InstallAppBottomSheetLandscapeContentPreviewNoIcon() {
+  InstallAppBottomSheetLandscapeContent(
+    image = null,
+    topMessage = "Stay productive and manage emails right from your wrist.",
+    bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
+    onDismissRequest = {},
+    onConfirmation = {},
+  )
+}

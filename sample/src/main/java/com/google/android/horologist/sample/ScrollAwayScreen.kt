@@ -49,6 +49,8 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.tools.PinnedTimeSource
+import com.google.android.horologist.compose.tools.WearPreviewScreenScaffold
 
 @Composable
 fun ScrollScreenLazyColumn(scrollState: LazyListState) {
@@ -79,7 +81,9 @@ fun ScrollAwayScreenScalingLazyColumn(columnState: ScalingLazyColumnState) {
 fun ScrollAwayScreenColumn(scrollState: ScrollState) {
   Scaffold(
     modifier = Modifier.fillMaxSize(),
-    timeText = { ResponsiveTimeText(modifier = Modifier.scrollAway(scrollState)) },
+    timeText = {
+      ResponsiveTimeText(timeSource = PinnedTimeSource, modifier = Modifier.scrollAway(scrollState))
+    },
     positionIndicator = { PositionIndicator(scrollState = scrollState) },
   ) {
     Column(
@@ -112,5 +116,6 @@ private fun ExampleCard(modifier: Modifier, i: Int) {
 @WearPreviewLargeRound
 @Composable
 fun ScrollAwayScreenPreview() {
-  ScrollScreenLazyColumn(rememberLazyListState())
+  val scrollState = rememberLazyListState()
+  WearPreviewScreenScaffold { ScrollScreenLazyColumn(scrollState) }
 }

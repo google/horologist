@@ -25,8 +25,10 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.remotecompose.lottie.LottiePreview
 import com.google.android.horologist.remotecompose.lottie.SlotMap
 import com.google.android.horologist.sample.R
+import ee.schimke.composeai.preview.AnimatedPreview
 
 @WearPreviewDevices
+@AnimatedPreview(durationMs = 3000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun GeometryPreview() {
   LottiePreview(animationResId = R.raw.geometry, progress = 0f)
@@ -34,6 +36,7 @@ fun GeometryPreview() {
 
 @SuppressLint("RestrictedApi")
 @WearPreviewDevices
+@AnimatedPreview(durationMs = 3000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun TintGeometryPreview() {
   LottiePreview(

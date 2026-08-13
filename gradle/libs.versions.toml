@@ -191,6 +191,7 @@ compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-mani
 compose-ui-text = { group = "androidx.compose.ui", name = "ui-text" }
 compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 compose-ui-toolingpreview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+compose-preview-annotations = { module = "ee.schimke.composeai:preview-annotations", version.ref = "composeAiTools" }
 compose-ui-unit = { group = "androidx.compose.ui", name = "ui-unit" }
 compose-ui-util = { group = "androidx.compose.ui", name = "ui-util" }
 dagger-hiltandroid = { module = "com.google.dagger:hilt-android", version.ref = "googledagger" }

@@ -94,6 +94,7 @@ dependencies {
 
   debugImplementation(libs.compose.material.iconsext)
   debugImplementation(libs.compose.ui.toolingpreview)
+  debugImplementation(libs.compose.preview.annotations)
   debugRuntimeOnly(libs.compose.ui.tooling)
   debugRuntimeOnly(libs.compose.ui.test.manifest)
 

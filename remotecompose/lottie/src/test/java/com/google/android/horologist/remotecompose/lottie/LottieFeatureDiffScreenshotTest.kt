@@ -18,6 +18,12 @@ package com.google.android.horologist.remotecompose.lottie
 
 import org.junit.Test
 
+/**
+ * Screenshot tests comparing RemoteCompose Lottie rendering with `lottie-android` reference output.
+ *
+ * Test cases for parametric shapes (`rect_ellipse`, `polystar`) are sourced from the
+ * [Lottie Format Feature Support & Sample Test Suite](https://docs.google.com/document/d/1jXj3kbXL57kxjRc0soUqst2poa2-Lrc2qZAIzEmbB8w/edit).
+ */
 class LottieFeatureDiffScreenshotTest : LottieDiffScreenshotTest() {
 
   @Test
@@ -33,5 +39,17 @@ class LottieFeatureDiffScreenshotTest : LottieDiffScreenshotTest() {
       captureFrame(frame = 40f)
       captureFrame(frame = 60f)
     }
+  }
+
+  /** Tests parametric rectangle, rounded rectangle, ellipse, and circle shapes. */
+  @Test
+  fun rectEllipse() {
+    runLottieDiffTest(R.raw.rect_ellipse)
+  }
+
+  /** Tests parametric star, rounded star, polygon, and rounded polygon shapes. */
+  @Test
+  fun polystar() {
+    runLottieDiffTest(R.raw.polystar)
   }
 }

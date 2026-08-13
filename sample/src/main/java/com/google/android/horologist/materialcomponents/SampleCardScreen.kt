@@ -25,19 +25,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Card
-
-@WearPreviewDevices
-@Composable
-fun SampleCardScreenPreview() {
-  val state = rememberResponsiveColumnState(first = ItemType.Card, last = ItemType.Card)
-  SampleCardScreen(columnState = state)
-}
 
 @Composable
 internal fun SampleCardScreen(modifier: Modifier = Modifier, columnState: ScalingLazyColumnState) {

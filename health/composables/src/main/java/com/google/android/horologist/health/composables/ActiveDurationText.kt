@@ -36,6 +36,7 @@ import androidx.wear.compose.material.LocalTextStyle
 import androidx.wear.compose.material.Text
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.tools.WearPreview
+import ee.schimke.composeai.preview.AnimatedPreview
 import java.time.Duration
 import java.time.Instant
 import kotlinx.coroutines.delay
@@ -175,6 +176,7 @@ private fun calculateDurationSeconds(
 }
 
 @WearPreview
+@AnimatedPreview(durationMs = 2500, frameIntervalMs = 500, showCurves = false)
 @Composable
 internal fun ActiveDurationTextPreview() {
   var state by remember { mutableStateOf(ExerciseState.ACTIVE) }

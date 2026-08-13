@@ -33,12 +33,36 @@ internal sealed class AnimatableProperty {
   abstract val animated: Boolean
 }
 
+/** Base class for scalar (single Float) properties. */
+@Serializable(with = BaseScalarPropertySerializer::class)
+internal sealed class BaseScalarProperty : AnimatableProperty() {
+  abstract override val animated: Boolean
+}
+
 /** A single float value that is not animated */
-@Serializable
+@Serializable(with = StaticScalarPropertySerializer::class)
 internal data class StaticScalarProperty(
   @SerialName("s") val slotId: String? = null,
-  val animated: Boolean = false,
-  @SerialName("k") val value: Float,
+  override val animated: Boolean = false,
+  @SerialName("k") val value: Float = 0f,
+) : BaseScalarProperty()
+
+/** An animated scalar property with keyframes. */
+@Serializable
+internal data class AnimatedScalarProperty(
+  @SerialName("s") val slotId: String? = null,
+  override val animated: Boolean = true,
+  @SerialName("k") val keyframes: List<ScalarPropertyKeyframe>,
+) : BaseScalarProperty()
+
+/** A single keyframe for an animated scalar property. */
+@Serializable(with = ScalarPropertyKeyframeSerializer::class)
+internal data class ScalarPropertyKeyframe(
+  @SerialName("t") val frame: Float = 0f,
+  @SerialName("h") val hold: Boolean = false,
+  @SerialName("i") val inTangent: ScalarKeyframeEasing? = null,
+  @SerialName("o") val outTangent: ScalarKeyframeEasing? = null,
+  @SerialName("s") val value: Float = 0f,
 )
 
 /** A vector property is an array of floats. */

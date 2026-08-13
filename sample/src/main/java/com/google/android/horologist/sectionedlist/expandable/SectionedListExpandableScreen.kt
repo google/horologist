@@ -52,6 +52,8 @@ import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.sample.R
+import ee.schimke.composeai.preview.ScrollMode
+import ee.schimke.composeai.preview.ScrollingPreview
 
 private val todayTasks =
   listOf(
@@ -176,6 +178,7 @@ private fun SectionHeader(text: String, expanded: Boolean, onClick: () -> Unit) 
 }
 
 @WearPreviewDevices
+@ScrollingPreview(modes = [ScrollMode.LONG])
 @Composable
 fun SectionedListExpandableScreenPreview() {
   SectionedListExpandableScreen(columnState = rememberResponsiveColumnState())

@@ -61,6 +61,7 @@ metalava { filename.set("api/current.api") }
 
 dependencies {
   api(projects.annotations)
+  api(libs.compose.ai.preview.annotations)
 
   implementation(libs.kotlin.reflect)
   implementation(projects.tiles)

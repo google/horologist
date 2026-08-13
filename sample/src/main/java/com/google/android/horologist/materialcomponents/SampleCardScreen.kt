@@ -31,8 +31,11 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.It
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Card
+import ee.schimke.composeai.preview.ScrollMode
+import ee.schimke.composeai.preview.ScrollingPreview
 
 @WearPreviewDevices
+@ScrollingPreview(modes = [ScrollMode.LONG])
 @Composable
 fun SampleCardScreenPreview() {
   val state = rememberResponsiveColumnState(first = ItemType.Card, last = ItemType.Card)

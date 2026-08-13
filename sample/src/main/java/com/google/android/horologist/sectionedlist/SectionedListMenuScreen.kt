@@ -33,6 +33,8 @@ import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
+import ee.schimke.composeai.preview.ScrollMode
+import ee.schimke.composeai.preview.ScrollingPreview
 
 @Composable
 fun SectionedListMenuScreen(
@@ -73,8 +75,9 @@ fun SectionedListMenuScreen(
   }
 }
 
-@Composable
 @WearPreviewLargeRound
+@ScrollingPreview(modes = [ScrollMode.LONG])
+@Composable
 fun Preview() {
   SectionedListMenuScreen(navigateToRoute = {}, columnState = rememberResponsiveColumnState())
 }

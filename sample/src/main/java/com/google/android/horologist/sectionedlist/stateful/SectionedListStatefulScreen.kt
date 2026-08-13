@@ -63,6 +63,8 @@ import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefu
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.RecommendationSectionState
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.Trending
 import com.google.android.horologist.sectionedlist.stateful.SectionedListStatefulScreenViewModel.TrendingSectionState
+import ee.schimke.composeai.preview.ScrollMode
+import ee.schimke.composeai.preview.ScrollingPreview
 
 @Composable
 fun SectionedListStatefulScreen(
@@ -227,6 +229,7 @@ private fun FailedView(onClick: () -> Unit) {
 }
 
 @WearPreviewDevices
+@ScrollingPreview(modes = [ScrollMode.LONG])
 @Composable
 fun SectionedListStatefulScreenPreview() {
   SectionedListStatefulScreen(columnState = rememberResponsiveColumnState())

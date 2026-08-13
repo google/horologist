@@ -34,8 +34,11 @@ import com.google.android.horologist.composables.Section
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.media.ui.R
+import ee.schimke.composeai.preview.ScrollMode
+import ee.schimke.composeai.preview.ScrollingPreview
 
 @WearPreviewDevices
+@ScrollingPreview(modes = [ScrollMode.LONG])
 @Composable
 fun BrowseScreenPreview() {
   BrowseScreenPreviewSample(

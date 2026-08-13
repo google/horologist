@@ -39,6 +39,8 @@ import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.sample.R
+import ee.schimke.composeai.preview.ScrollMode
+import ee.schimke.composeai.preview.ScrollingPreview
 
 @Composable
 fun SectionedListStatelessScreen(
@@ -161,6 +163,7 @@ private fun SectionedListScope.bottomMenuSection() {
 }
 
 @WearPreviewDevices
+@ScrollingPreview(modes = [ScrollMode.LONG])
 @Composable
 fun SectionedListStatelessScreenPreview() {
   SectionedListStatelessScreen(columnState = rememberResponsiveColumnState())

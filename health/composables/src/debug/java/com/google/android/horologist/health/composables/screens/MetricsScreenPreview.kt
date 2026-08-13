@@ -19,6 +19,7 @@ package com.google.android.horologist.health.composables.screens
 import androidx.compose.runtime.Composable
 import androidx.wear.compose.material.PositionIndicator
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
+import com.google.android.horologist.compose.tools.WearPreviewScreenScaffold
 import com.google.android.horologist.health.composables.model.MetricUiModel
 import com.google.android.horologist.health.composables.theme.HR_HARD
 import com.google.android.horologist.health.composables.theme.HR_MAXIMUM
@@ -26,41 +27,49 @@ import com.google.android.horologist.health.composables.theme.HR_MAXIMUM
 @WearPreviewDevices
 @Composable
 fun MetricsScreenPreviewOneMetric() {
-  MetricsScreen(
-    firstMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
-    positionIndicator = { PositionIndicator(value = { 0.25f }) },
-  )
+  WearPreviewScreenScaffold {
+    MetricsScreen(
+      firstMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+      positionIndicator = { PositionIndicator(value = { 0.25f }) },
+    )
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun MetricsScreenPreviewTwoMetrics() {
-  MetricsScreen(
-    firstMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
-    secondMetric = MetricUiModel(text = "138", bottomRightText = "cal"),
-    positionIndicator = { PositionIndicator(value = { 0.5f }) },
-  )
+  WearPreviewScreenScaffold {
+    MetricsScreen(
+      firstMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+      secondMetric = MetricUiModel(text = "138", bottomRightText = "cal"),
+      positionIndicator = { PositionIndicator(value = { 0.5f }) },
+    )
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun MetricsScreenPreviewThreeMetrics() {
-  MetricsScreen(
-    firstMetric = MetricUiModel(text = "164", bottomRightText = "Vigorous", color = HR_HARD),
-    secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
-    thirdMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
-    positionIndicator = { PositionIndicator(value = { 0.75f }) },
-  )
+  WearPreviewScreenScaffold {
+    MetricsScreen(
+      firstMetric = MetricUiModel(text = "164", bottomRightText = "Vigorous", color = HR_HARD),
+      secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
+      thirdMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+      positionIndicator = { PositionIndicator(value = { 0.75f }) },
+    )
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun MetricsScreenPreviewFourMetrics() {
-  MetricsScreen(
-    firstMetric = MetricUiModel(text = "198", bottomRightText = "Peak", color = HR_MAXIMUM),
-    secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
-    thirdMetric = MetricUiModel(text = "8'51\"", bottomRightText = "pace"),
-    fourthMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
-    positionIndicator = { PositionIndicator(value = { 1f }) },
-  )
+  WearPreviewScreenScaffold {
+    MetricsScreen(
+      firstMetric = MetricUiModel(text = "198", bottomRightText = "Peak", color = HR_MAXIMUM),
+      secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
+      thirdMetric = MetricUiModel(text = "8'51\"", bottomRightText = "pace"),
+      fourthMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+      positionIndicator = { PositionIndicator(value = { 1f }) },
+    )
+  }
 }

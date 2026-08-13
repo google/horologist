@@ -40,6 +40,7 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.CompactChip
+import com.google.android.horologist.compose.tools.WearPreviewScreenScaffold
 import com.google.android.horologist.datalayer.sample.R
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 import ee.schimke.composeai.preview.ScrollMode
@@ -135,54 +136,63 @@ fun NodesActionsScreen(
 @ScrollingPreview(modes = [ScrollMode.END])
 @Composable
 fun NodesActionsScreenPreviewLoaded() {
-  NodesActionsScreen(
-    state =
-      NodesActionScreenState.Loaded(
-        listOf(
-          NodeUiModel(
-            id = "123",
-            name = "Pixel Watch",
-            appInstalled = true,
-            type = NodeTypeUiModel.WATCH,
-          ),
-          NodeUiModel(
-            id = "123",
-            name = "Pixel 6 Pro",
-            appInstalled = true,
-            type = NodeTypeUiModel.PHONE,
-          ),
-          NodeUiModel(
-            id = "123",
-            name = "Unknown",
-            appInstalled = false,
-            type = NodeTypeUiModel.UNKNOWN,
-          ),
-        )
-      ),
-    onNodeClick = { _, _ -> },
-    onRefreshClick = {},
-    columnState = rememberResponsiveColumnState(),
-  )
+  val columnState = rememberResponsiveColumnState()
+  WearPreviewScreenScaffold(scrollState = columnState.state) {
+    NodesActionsScreen(
+      state =
+        NodesActionScreenState.Loaded(
+          listOf(
+            NodeUiModel(
+              id = "123",
+              name = "Pixel Watch",
+              appInstalled = true,
+              type = NodeTypeUiModel.WATCH,
+            ),
+            NodeUiModel(
+              id = "123",
+              name = "Pixel 6 Pro",
+              appInstalled = true,
+              type = NodeTypeUiModel.PHONE,
+            ),
+            NodeUiModel(
+              id = "123",
+              name = "Unknown",
+              appInstalled = false,
+              type = NodeTypeUiModel.UNKNOWN,
+            ),
+          )
+        ),
+      onNodeClick = { _, _ -> },
+      onRefreshClick = {},
+      columnState = columnState,
+    )
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun NodesActionsScreenPreviewEmptyNodes() {
-  NodesActionsScreen(
-    state = NodesActionScreenState.Loaded(emptyList()),
-    onNodeClick = { _, _ -> },
-    onRefreshClick = {},
-    columnState = rememberResponsiveColumnState(),
-  )
+  val columnState = rememberResponsiveColumnState()
+  WearPreviewScreenScaffold(scrollState = columnState.state) {
+    NodesActionsScreen(
+      state = NodesActionScreenState.Loaded(emptyList()),
+      onNodeClick = { _, _ -> },
+      onRefreshClick = {},
+      columnState = columnState,
+    )
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun NodesActionsScreenPreviewApiNotAvailable() {
-  NodesActionsScreen(
-    state = NodesActionScreenState.ApiNotAvailable,
-    onNodeClick = { _, _ -> },
-    onRefreshClick = {},
-    columnState = rememberResponsiveColumnState(),
-  )
+  val columnState = rememberResponsiveColumnState()
+  WearPreviewScreenScaffold(scrollState = columnState.state) {
+    NodesActionsScreen(
+      state = NodesActionScreenState.ApiNotAvailable,
+      onNodeClick = { _, _ -> },
+      onRefreshClick = {},
+      columnState = columnState,
+    )
+  }
 }

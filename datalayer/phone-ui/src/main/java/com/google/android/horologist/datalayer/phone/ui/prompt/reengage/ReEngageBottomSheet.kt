@@ -253,3 +253,39 @@ private fun ReEngageBottomSheetContentPreviewNoIcon() {
     onConfirmation = {},
   )
 }
+
+@Preview(
+  name = "Re-engage Bottom Sheet - Landscape",
+  device = "spec:parent=pixel_5,orientation=landscape",
+  showBackground = true,
+)
+@Composable
+private fun ReEngageBottomSheetLandscapeContentPreview() {
+  ReEngageBottomSheetLandscapeContent(
+    image = { Icon(Icons.Default.Email, contentDescription = null) },
+    topMessage = "Stay productive and manage emails right from your wrist.",
+    bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
+    positiveButtonLabel = "Try on watch",
+    negativeButtonLabel = "Now now",
+    onDismissRequest = {},
+    onConfirmation = {},
+  )
+}
+
+@Preview(
+  name = "Re-engage Bottom Sheet - Landscape - No Icon",
+  device = "spec:parent=pixel_5,orientation=landscape",
+  showBackground = true,
+)
+@Composable
+private fun ReEngageBottomSheetLandscapeContentPreviewNoIcon() {
+  ReEngageBottomSheetLandscapeContent(
+    image = null,
+    topMessage = "Stay productive and manage emails right from your wrist.",
+    bottomMessage = "Add the Gmail app to your Wear OS watch for easy access wherever you are.",
+    positiveButtonLabel = "Try on watch",
+    negativeButtonLabel = "Now now",
+    onDismissRequest = {},
+    onConfirmation = {},
+  )
+}

@@ -34,6 +34,23 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `SamplePromptScreenPreviewQuestion` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:sample:wear-prompt-app/SamplePromptScreenPreviewQuestion_Devices_Small_Round.png" width="150" /> |
 | `SettingsScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:sample:wear-prompt-app/SettingsScreenPreview_Devices_Large_Round.png" width="150" /> |
 
+## ai:ui
+
+| Preview | Image |
+|---------|-------|
+| `FailedResponseChipPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/FailedResponseChipPreview_Devices_Large_Round.png" width="150" /> |
+| `ResponseInProgressCardPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/ResponseInProgressCardPreview_Devices_Large_Round.png" width="150" /> |
+| `TextResponseCardPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/TextResponseCardPreview_Devices_Large_Round.png" width="150" /> |
+| `TextPromptDisplayPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/TextPromptDisplayPreview_Devices_Large_Round.png" width="150" /> |
+| `PromptScreenErrorPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/PromptScreenErrorPreview_Devices_Large_Round.png" width="150" /> |
+| `PromptScreenErrorPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/PromptScreenErrorPreview_Devices_Small_Round.png" width="150" /> |
+| `PromptScreenMultiTurnPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/PromptScreenMultiTurnPreview_Devices_Large_Round.png" width="150" /> |
+| `PromptScreenMultiTurnPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/PromptScreenMultiTurnPreview_Devices_Small_Round.png" width="150" /> |
+| `PromptScreenStreamingPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/PromptScreenStreamingPreview_Devices_Large_Round.png" width="150" /> |
+| `PromptScreenStreamingPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/PromptScreenStreamingPreview_Devices_Small_Round.png" width="150" /> |
+| `PromptScreenSuccessPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/PromptScreenSuccessPreview_Devices_Large_Round.png" width="150" /> |
+| `PromptScreenSuccessPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/ai:ui/PromptScreenSuccessPreview_Devices_Small_Round.png" width="150" /> |
+
 ## auth:composables
 
 | Preview | Image |
@@ -45,16 +62,12 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `GuestModeChipPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/GuestModeChipPreview.png" width="150" /> |
 | `OtherOptionsChipPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/OtherOptionsChipPreview.png" width="150" /> |
 | `SignInChipPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignInChipPreview.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoEmail` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogPreviewNoEmail_Devices_Large_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoEmail` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogPreviewNoEmail_Devices_Small_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoInformation` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogPreviewNoInformation_Devices_Large_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoInformation` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogPreviewNoInformation_Devices_Small_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoName` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogPreviewNoName_Devices_Large_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoName` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogPreviewNoName_Devices_Small_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewTruncation` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogPreviewTruncation_Devices_Large_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewTruncation` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogPreviewTruncation_Devices_Small_Round.png" width="150" /> |
+| `SignedInConfirmationDialogMinimalPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogMinimalPreview_Devices_Large_Round.png" width="150" /> |
+| `SignedInConfirmationDialogMinimalPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogMinimalPreview_Devices_Small_Round.png" width="150" /> |
 | `SignedInConfirmationDialogPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogPreview_Devices_Large_Round.png" width="150" /> |
 | `SignedInConfirmationDialogPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogPreview_Devices_Small_Round.png" width="150" /> |
+| `SignedInConfirmationDialogTruncationPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogTruncationPreview_Devices_Large_Round.png" width="150" /> |
+| `SignedInConfirmationDialogTruncationPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/SignedInConfirmationDialogTruncationPreview_Devices_Small_Round.png" width="150" /> |
 | `AuthErrorScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/AuthErrorScreenPreview_Devices_Large_Round.png" width="150" /> |
 | `AuthErrorScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/AuthErrorScreenPreview_Devices_Small_Round.png" width="150" /> |
 | `CheckYourPhoneScreenPreviewWithMessage` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables/CheckYourPhoneScreenPreviewWithMessage_Devices_Large_Round.png" width="150" /> |
@@ -80,22 +93,12 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `SelectAccountScreenOneLineAccountsPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SelectAccountScreenOneLineAccountsPreview_Devices_Small_Round.png" width="150" /> |
 | `SelectAccountScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SelectAccountScreenPreview_Devices_Large_Round.png" width="150" /> |
 | `SelectAccountScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SelectAccountScreenPreview_Devices_Small_Round.png" width="150" /> |
-| `SignedInConfirmationDialogContentPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogContentPreview_Devices_Large_Round.png" width="150" /> |
-| `SignedInConfirmationDialogContentPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogContentPreview_Devices_Small_Round.png" width="150" /> |
-| `SignedInConfirmationDialogMMMPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogMMMPreview_Devices_Large_Round.png" width="150" /> |
-| `SignedInConfirmationDialogMMMPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogMMMPreview_Devices_Small_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoEmail` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogPreviewNoEmail_Devices_Large_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoEmail` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogPreviewNoEmail_Devices_Small_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoInformation` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogPreviewNoInformation_Devices_Large_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoInformation` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogPreviewNoInformation_Devices_Small_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoName` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogPreviewNoName_Devices_Large_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewNoName` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogPreviewNoName_Devices_Small_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewTruncation` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogPreviewTruncation_Devices_Large_Round.png" width="150" /> |
-| `SignedInConfirmationDialogPreviewTruncation` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogPreviewTruncation_Devices_Small_Round.png" width="150" /> |
+| `SignedInConfirmationDialogMinimalPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogMinimalPreview_Devices_Large_Round.png" width="150" /> |
+| `SignedInConfirmationDialogMinimalPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogMinimalPreview_Devices_Small_Round.png" width="150" /> |
 | `SignedInConfirmationDialogPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogPreview_Devices_Large_Round.png" width="150" /> |
 | `SignedInConfirmationDialogPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogPreview_Devices_Small_Round.png" width="150" /> |
-| `SignedInConfirmationNoAvatar` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationNoAvatar_Devices_Large_Round.png" width="150" /> |
-| `SignedInConfirmationNoAvatar` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationNoAvatar_Devices_Small_Round.png" width="150" /> |
+| `SignedInConfirmationDialogTruncationPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogTruncationPreview_Devices_Large_Round.png" width="150" /> |
+| `SignedInConfirmationDialogTruncationPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/auth:composables-material3/SignedInConfirmationDialogTruncationPreview_Devices_Small_Round.png" width="150" /> |
 
 ## auth:sample:phone
 
@@ -143,12 +146,6 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `DatePickerPreviewSmallDeviceWithLargeFontBold` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/DatePickerPreviewSmallDeviceWithLargeFontBold_Fonts_Largest.png" width="150" /> |
 | `DatePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/DatePickerPreview_Devices_Large_Round.png" width="150" /> |
 | `DatePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/DatePickerPreview_Devices_Small_Round.png" width="150" /> |
-| `DatePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/DatePickerPreview_Fonts_Large.png" width="150" /> |
-| `DatePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/DatePickerPreview_Fonts_Larger.png" width="150" /> |
-| `DatePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/DatePickerPreview_Fonts_Largest.png" width="150" /> |
-| `DatePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/DatePickerPreview_Fonts_Medium.png" width="150" /> |
-| `DatePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/DatePickerPreview_Fonts_Normal.png" width="150" /> |
-| `DatePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/DatePickerPreview_Fonts_Small.png" width="150" /> |
 | `MarqueeTextConstantScrollingPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/MarqueeTextConstantScrollingPreview.png" width="150" /> |
 | `MarqueeTextConstantWithIconScrollingPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/MarqueeTextConstantWithIconScrollingPreview.png" width="150" /> |
 | `MarqueeTextShortTextCenterPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/MarqueeTextShortTextCenterPreview.png" width="150" /> |
@@ -179,22 +176,10 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `TimePicker12hPreviewSmallDeviceWithLargeFontBold` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePicker12hPreviewSmallDeviceWithLargeFontBold_Fonts_Largest.png" width="150" /> |
 | `TimePicker12hPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePicker12hPreview_Devices_Large_Round.png" width="150" /> |
 | `TimePicker12hPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePicker12hPreview_Devices_Small_Round.png" width="150" /> |
-| `TimePicker12hPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePicker12hPreview_Fonts_Large.png" width="150" /> |
-| `TimePicker12hPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePicker12hPreview_Fonts_Larger.png" width="150" /> |
-| `TimePicker12hPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePicker12hPreview_Fonts_Largest.png" width="150" /> |
-| `TimePicker12hPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePicker12hPreview_Fonts_Medium.png" width="150" /> |
-| `TimePicker12hPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePicker12hPreview_Fonts_Normal.png" width="150" /> |
-| `TimePicker12hPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePicker12hPreview_Fonts_Small.png" width="150" /> |
 | `TimePickerPreviewLargeDeviceSmallFont` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePickerPreviewLargeDeviceSmallFont_Fonts_Small.png" width="150" /> |
 | `TimePickerPreviewSmallDeviceWithLargeFontBold` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePickerPreviewSmallDeviceWithLargeFontBold_Fonts_Largest.png" width="150" /> |
 | `TimePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePickerPreview_Devices_Large_Round.png" width="150" /> |
 | `TimePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePickerPreview_Devices_Small_Round.png" width="150" /> |
-| `TimePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePickerPreview_Fonts_Large.png" width="150" /> |
-| `TimePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePickerPreview_Fonts_Larger.png" width="150" /> |
-| `TimePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePickerPreview_Fonts_Largest.png" width="150" /> |
-| `TimePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePickerPreview_Fonts_Medium.png" width="150" /> |
-| `TimePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePickerPreview_Fonts_Normal.png" width="150" /> |
-| `TimePickerPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/composables/TimePickerPreview_Fonts_Small.png" width="150" /> |
 
 ## compose-layout
 
@@ -202,6 +187,8 @@ The render task completed but no PNG was produced for these previews. Entries wi
 |---------|-------|
 | `FillMaxRectanglePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-layout/FillMaxRectanglePreview_Devices_Large_Round.png" width="150" /> |
 | `FillMaxRectanglePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-layout/FillMaxRectanglePreview_Devices_Small_Round.png" width="150" /> |
+| `PagerScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-layout/PagerScreenPreview_Devices_Large_Round.png" width="150" /> |
+| `PagerScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-layout/PagerScreenPreview_Devices_Small_Round.png" width="150" /> |
 | `VerticalPagerIndicatorPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-layout/VerticalPagerIndicatorPreview_Devices_Large_Round.png" width="150" /> |
 | `VerticalPagerIndicatorPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-layout/VerticalPagerIndicatorPreview_Devices_Small_Round.png" width="150" /> |
 
@@ -211,6 +198,8 @@ The render task completed but no PNG was produced for these previews. Entries wi
 |---------|-------|
 | `AlertDialogPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/AlertDialogPreview_Devices_Large_Round.png" width="150" /> |
 | `AlertDialogPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/AlertDialogPreview_Devices_Small_Round.png" width="150" /> |
+| `AlertDialogWithIconPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/AlertDialogWithIconPreview_Devices_Large_Round.png" width="150" /> |
+| `AlertDialogWithIconPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/AlertDialogWithIconPreview_Devices_Small_Round.png" width="150" /> |
 | `AlertDialogWithLongBodyPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/AlertDialogWithLongBodyPreview_Devices_Large_Round.png" width="150" /> |
 | `AlertDialogWithLongBodyPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/AlertDialogWithLongBodyPreview_Devices_Small_Round.png" width="150" /> |
 | `ButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ButtonPreview.png" width="150" /> |
@@ -224,7 +213,8 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `ChipIconWithProgressInProgressMediumIconPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ChipIconWithProgressInProgressMediumIconPreview_With_75_percent_download_complete_with_medium_icon.png" width="150" /> |
 | `ChipIconWithProgressInProgressPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ChipIconWithProgressInProgressPreview_With_75_percent_download_complete.png" width="150" /> |
 | `ChipIconWithProgressInProgressSmallIconPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ChipIconWithProgressInProgressSmallIconPreview_With_75_percent_download_complete_with_small_icon.png" width="150" /> |
-| `ChipIconWithProgressPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ChipIconWithProgressPreview_Standard.png" width="150" /> |
+| `ChipIconWithProgressPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ChipIconWithProgressPreview_Standard.gif" width="150" /> |
+| `ChipIconWithProgressWithIconPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ChipIconWithProgressWithIconPreview_Standard_with_Icon.gif" width="150" /> |
 | `ChipPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ChipPreview.png" width="150" /> |
 | `ChipPreviewDisabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ChipPreviewDisabled_Disabled.png" width="150" /> |
 | `ChipPreviewWithGradientBackgroundChipColors` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ChipPreviewWithGradientBackgroundChipColors_With_gradient_background_chip_colors.png" width="150" /> |
@@ -238,6 +228,10 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `CompactChipPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/CompactChipPreview.png" width="150" /> |
 | `CompactChipPreviewIconOnly` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/CompactChipPreviewIconOnly.png" width="150" /> |
 | `CompactChipPreviewWithIcon` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/CompactChipPreviewWithIcon.png" width="150" /> |
+| `ConfirmationLongTitlePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ConfirmationLongTitlePreview_Devices_Large_Round.png" width="150" /> |
+| `ConfirmationLongTitlePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ConfirmationLongTitlePreview_Devices_Small_Round.png" width="150" /> |
+| `ConfirmationPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ConfirmationPreview_Devices_Large_Round.png" width="150" /> |
+| `ConfirmationPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ConfirmationPreview_Devices_Small_Round.png" width="150" /> |
 | `IconPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/IconPreview.png" width="150" /> |
 | `IconPreviewMirrored` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/IconPreviewMirrored.png" width="150" /> |
 | `OutlinedChipPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/OutlinedChipPreview.png" width="150" /> |
@@ -261,6 +255,8 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `SplitToggleChipUncheckedAndDisabledPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/SplitToggleChipUncheckedAndDisabledPreview.png" width="150" /> |
 | `SplitToggleChipUncheckedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/SplitToggleChipUncheckedPreview.png" width="150" /> |
 | `SplitToggleChipWithSecondaryLabel` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/SplitToggleChipWithSecondaryLabel_With_secondary_label.png" width="150" /> |
+| `StepperFloatPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/StepperFloatPreview_Devices_Large_Round.png" width="150" /> |
+| `StepperPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/StepperPreview_Devices_Large_Round.png" width="150" /> |
 | `TitlePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/TitlePreview.png" width="150" /> |
 | `TitlePreviewWithLongText` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/TitlePreviewWithLongText.png" width="150" /> |
 | `ToggleButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/compose-material/ToggleButtonPreview.png" width="150" /> |
@@ -289,12 +285,20 @@ The render task completed but no PNG was produced for these previews. Entries wi
 |---------|-------|
 | `InstallAppBottomSheetContentPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/InstallAppBottomSheetContentPreview.png" width="150" /> |
 | `InstallAppBottomSheetContentPreviewNoIcon` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/InstallAppBottomSheetContentPreviewNoIcon.png" width="150" /> |
+| `InstallAppBottomSheetLandscapeContentPreviewNoIcon` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/InstallAppBottomSheetLandscapeContentPreviewNoIcon_Install_App_Bottom_Sheet_Landscape_No_Icon.png" width="150" /> |
+| `InstallAppBottomSheetLandscapeContentPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/InstallAppBottomSheetLandscapeContentPreview_Install_App_Bottom_Sheet_Landscape.png" width="150" /> |
 | `InstallTileBottomSheetContentPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/InstallTileBottomSheetContentPreview.png" width="150" /> |
 | `InstallTileBottomSheetContentPreviewNoIcon` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/InstallTileBottomSheetContentPreviewNoIcon.png" width="150" /> |
+| `InstallTileBottomSheetLandscapeContentPreviewNoIcon` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/InstallTileBottomSheetLandscapeContentPreviewNoIcon_Install_Tile_Bottom_Sheet_Landscape_No_Icon.png" width="150" /> |
+| `InstallTileBottomSheetLandscapeContentPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/InstallTileBottomSheetLandscapeContentPreview_Install_Tile_Bottom_Sheet_Landscape.png" width="150" /> |
 | `ReEngageBottomSheetContentPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/ReEngageBottomSheetContentPreview.png" width="150" /> |
 | `ReEngageBottomSheetContentPreviewNoIcon` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/ReEngageBottomSheetContentPreviewNoIcon.png" width="150" /> |
+| `ReEngageBottomSheetLandscapeContentPreviewNoIcon` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/ReEngageBottomSheetLandscapeContentPreviewNoIcon_Re_engage_Bottom_Sheet_Landscape_No_Icon.png" width="150" /> |
+| `ReEngageBottomSheetLandscapeContentPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/ReEngageBottomSheetLandscapeContentPreview_Re_engage_Bottom_Sheet_Landscape.png" width="150" /> |
 | `SignInBottomSheetContentPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/SignInBottomSheetContentPreview.png" width="150" /> |
 | `SignInBottomSheetContentPreviewNoIcon` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/SignInBottomSheetContentPreviewNoIcon.png" width="150" /> |
+| `SignInBottomSheetLandscapeContentPreviewNoIcon` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/SignInBottomSheetLandscapeContentPreviewNoIcon_Sign_In_Bottom_Sheet_Landscape_No_Icon.png" width="150" /> |
+| `SignInBottomSheetLandscapeContentPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:phone-ui/SignInBottomSheetLandscapeContentPreview_Sign_In_Bottom_Sheet_Landscape.png" width="150" /> |
 
 ## datalayer:sample:phone
 
@@ -339,8 +343,8 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `NodesActionsScreenPreviewApiNotAvailable` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:sample:wear/NodesActionsScreenPreviewApiNotAvailable_Devices_Small_Round.png" width="150" /> |
 | `NodesActionsScreenPreviewEmptyNodes` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:sample:wear/NodesActionsScreenPreviewEmptyNodes_Devices_Large_Round.png" width="150" /> |
 | `NodesActionsScreenPreviewEmptyNodes` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:sample:wear/NodesActionsScreenPreviewEmptyNodes_Devices_Small_Round.png" width="150" /> |
-| `NodesActionsScreenPreviewLoaded` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:sample:wear/NodesActionsScreenPreviewLoaded_Devices_Large_Round.png" width="150" /> |
-| `NodesActionsScreenPreviewLoaded` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:sample:wear/NodesActionsScreenPreviewLoaded_Devices_Small_Round.png" width="150" /> |
+| `NodesActionsScreenPreviewLoaded · scroll end` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:sample:wear/NodesActionsScreenPreviewLoaded_Devices_Large_Round.png" width="150" /> |
+| `NodesActionsScreenPreviewLoaded · scroll end` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:sample:wear/NodesActionsScreenPreviewLoaded_Devices_Small_Round.png" width="150" /> |
 | `NodesListenerScreenPreviewApiNotAvailable` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:sample:wear/NodesListenerScreenPreviewApiNotAvailable_Devices_Large_Round.png" width="150" /> |
 | `NodesListenerScreenPreviewApiNotAvailable` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:sample:wear/NodesListenerScreenPreviewApiNotAvailable_Devices_Small_Round.png" width="150" /> |
 | `NodesListenerScreenPreviewEmptyNodes` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/datalayer:sample:wear/NodesListenerScreenPreviewEmptyNodes_Devices_Large_Round.png" width="150" /> |
@@ -355,7 +359,7 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | Preview | Image |
 |---------|-------|
 | `ActiveDurationTextCustomSeparatorPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/health:composables/ActiveDurationTextCustomSeparatorPreview.png" width="150" /> |
-| `ActiveDurationTextPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/health:composables/ActiveDurationTextPreview.png" width="150" /> |
+| `ActiveDurationTextPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/health:composables/ActiveDurationTextPreview.gif" width="150" /> |
 | `MetricDisplayPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/health:composables/MetricDisplayPreview.png" width="150" /> |
 | `MetricDisplayPreviewBottomRightText` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/health:composables/MetricDisplayPreviewBottomRightText.png" width="150" /> |
 | `MetricDisplayPreviewTextOnly` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/health:composables/MetricDisplayPreviewTextOnly.png" width="150" /> |
@@ -375,39 +379,14 @@ The render task completed but no PNG was produced for these previews. Entries wi
 |---------|-------|
 | `DeviceChipPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/DeviceChipPreview.png" width="150" /> |
 | `VolumeScreenLocalePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenLocalePreview_Locales.png" width="150" /> |
-| `VolumeScreenGuideWithLongText` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenGuideWithLongText_Devices_Small_Round.png" width="150" /> |
-| `VolumeScreenPreview · parameter 0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Devices_Large_Round_PARAM_0.png" width="150" /> |
-| `VolumeScreenPreview · parameter 1` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Devices_Large_Round_PARAM_1.png" width="150" /> |
-| `VolumeScreenPreview · parameter 2` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Devices_Large_Round_PARAM_2.png" width="150" /> |
-| `VolumeScreenPreview · parameter 3` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Devices_Large_Round_PARAM_3.png" width="150" /> |
-| `VolumeScreenPreview · parameter 0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Devices_Small_Round_PARAM_0.png" width="150" /> |
-| `VolumeScreenPreview · parameter 1` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Devices_Small_Round_PARAM_1.png" width="150" /> |
-| `VolumeScreenPreview · parameter 2` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Devices_Small_Round_PARAM_2.png" width="150" /> |
-| `VolumeScreenPreview · parameter 3` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Devices_Small_Round_PARAM_3.png" width="150" /> |
-| `VolumeScreenPreview · parameter 0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Large_PARAM_0.png" width="150" /> |
-| `VolumeScreenPreview · parameter 1` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Large_PARAM_1.png" width="150" /> |
-| `VolumeScreenPreview · parameter 2` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Large_PARAM_2.png" width="150" /> |
-| `VolumeScreenPreview · parameter 3` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Large_PARAM_3.png" width="150" /> |
-| `VolumeScreenPreview · parameter 0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Larger_PARAM_0.png" width="150" /> |
-| `VolumeScreenPreview · parameter 1` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Larger_PARAM_1.png" width="150" /> |
-| `VolumeScreenPreview · parameter 2` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Larger_PARAM_2.png" width="150" /> |
-| `VolumeScreenPreview · parameter 3` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Larger_PARAM_3.png" width="150" /> |
-| `VolumeScreenPreview · parameter 0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Largest_PARAM_0.png" width="150" /> |
-| `VolumeScreenPreview · parameter 1` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Largest_PARAM_1.png" width="150" /> |
-| `VolumeScreenPreview · parameter 2` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Largest_PARAM_2.png" width="150" /> |
-| `VolumeScreenPreview · parameter 3` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Largest_PARAM_3.png" width="150" /> |
-| `VolumeScreenPreview · parameter 0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Medium_PARAM_0.png" width="150" /> |
-| `VolumeScreenPreview · parameter 1` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Medium_PARAM_1.png" width="150" /> |
-| `VolumeScreenPreview · parameter 2` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Medium_PARAM_2.png" width="150" /> |
-| `VolumeScreenPreview · parameter 3` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Medium_PARAM_3.png" width="150" /> |
-| `VolumeScreenPreview · parameter 0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Normal_PARAM_0.png" width="150" /> |
-| `VolumeScreenPreview · parameter 1` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Normal_PARAM_1.png" width="150" /> |
-| `VolumeScreenPreview · parameter 2` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Normal_PARAM_2.png" width="150" /> |
-| `VolumeScreenPreview · parameter 3` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Normal_PARAM_3.png" width="150" /> |
-| `VolumeScreenPreview · parameter 0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Small_PARAM_0.png" width="150" /> |
-| `VolumeScreenPreview · parameter 1` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Small_PARAM_1.png" width="150" /> |
-| `VolumeScreenPreview · parameter 2` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Small_PARAM_2.png" width="150" /> |
-| `VolumeScreenPreview · parameter 3` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Fonts_Small_PARAM_3.png" width="150" /> |
+| `VolumeScreenLongLabelPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenLongLabelPreview_Fonts_Large.png" width="150" /> |
+| `VolumeScreenLongLabelPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenLongLabelPreview_Fonts_Larger.png" width="150" /> |
+| `VolumeScreenLongLabelPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenLongLabelPreview_Fonts_Largest.png" width="150" /> |
+| `VolumeScreenLongLabelPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenLongLabelPreview_Fonts_Medium.png" width="150" /> |
+| `VolumeScreenLongLabelPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenLongLabelPreview_Fonts_Normal.png" width="150" /> |
+| `VolumeScreenLongLabelPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenLongLabelPreview_Fonts_Small.png" width="150" /> |
+| `VolumeScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Devices_Large_Round.png" width="150" /> |
+| `VolumeScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenPreview_Devices_Small_Round.png" width="150" /> |
 | `VolumeScreenTheme · Blue 7FCFFF` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenTheme_Devices_Large_Round_Blue_7FCFFF.png" width="150" /> |
 | `VolumeScreenTheme · Blue Default - AECBFA` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenTheme_Devices_Large_Round_Blue_Default_-_AECBFA.png" width="150" /> |
 | `VolumeScreenTheme · Blue with Text 7FCFFF` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenTheme_Devices_Large_Round_Blue_with_Text_7FCFFF.png" width="150" /> |
@@ -417,12 +396,6 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `VolumeScreenTheme · Uamp` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenTheme_Devices_Large_Round_Uamp.png" width="150" /> |
 | `VolumeScreenWithLabel` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenWithLabel_Devices_Large_Round.png" width="150" /> |
 | `VolumeScreenWithLabel` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenWithLabel_Devices_Small_Round.png" width="150" /> |
-| `VolumeScreenWithLabel` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenWithLabel_Fonts_Large.png" width="150" /> |
-| `VolumeScreenWithLabel` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenWithLabel_Fonts_Larger.png" width="150" /> |
-| `VolumeScreenWithLabel` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenWithLabel_Fonts_Largest.png" width="150" /> |
-| `VolumeScreenWithLabel` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenWithLabel_Fonts_Medium.png" width="150" /> |
-| `VolumeScreenWithLabel` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenWithLabel_Fonts_Normal.png" width="150" /> |
-| `VolumeScreenWithLabel` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/VolumeScreenWithLabel_Fonts_Small.png" width="150" /> |
 | `AudioOutputButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/AudioOutputButtonPreview.png" width="150" /> |
 | `SetAudioOutputButtonPreviewMaxVolume` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/SetAudioOutputButtonPreviewMaxVolume_Max_volume.png" width="150" /> |
 | `SetAudioOutputButtonPreviewMinVolume` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/SetAudioOutputButtonPreviewMinVolume_Min_volume.png" width="150" /> |
@@ -434,7 +407,8 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `SettingsButtonsDisabledPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/SettingsButtonsDisabledPreview.png" width="150" /> |
 | `SettingsButtonsPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/SettingsButtonsPreview.png" width="150" /> |
 | `SettingsButtonsWithBrandIconPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/SettingsButtonsWithBrandIconPreview.png" width="150" /> |
-| `AnimatedSetVolumeButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/AnimatedSetVolumeButtonPreview_Devices_Small_Round.png" width="150" /> |
+| `AnimatedSetVolumeButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/AnimatedSetVolumeButtonPreview_Devices_Small_Round.gif" width="150" /> |
+| `AnimatedVolumeButtonMotionPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:audio-ui/AnimatedVolumeButtonMotionPreview_Animated_Volume_Button.gif" width="150" /> |
 
 ## media:sample
 
@@ -457,11 +431,10 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `MediaChipPreviewVeryLongTitle` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/MediaChipPreviewVeryLongTitle_Very_long_title.png" width="150" /> |
 | `MediaControlButtonsPreviewNoProgress` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/MediaControlButtonsPreviewNoProgress_Disabled_Not_playing_Without_progress.png" width="150" /> |
 | `MediaControlButtonsPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/MediaControlButtonsPreview_Enabled_Playing_With_progress.png" width="150" /> |
-| `PlayPauseButtonPreviewDisabledNotPlaying` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayPauseButtonPreviewDisabledNotPlaying_Disabled_Not_playing.png" width="150" /> |
-| `PlayPauseButtonPreviewDisabledPlaying` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayPauseButtonPreviewDisabledPlaying_Disabled_Playing.png" width="150" /> |
-| `PlayPauseButtonPreviewNotPlaying` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayPauseButtonPreviewNotPlaying_Enabled_Not_playing.png" width="150" /> |
-| `PlayPauseButtonPreviewPlaying` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayPauseButtonPreviewPlaying_Enabled_Playing.png" width="150" /> |
-| `PlayPauseProgressButtonLoadingPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayPauseProgressButtonLoadingPreview_Loading.png" width="150" /> |
+| `PlayPauseButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayPauseButtonPreview_Play_Pause_Button_Gallery.png" width="150" /> |
+| `AnimatedPlayPauseProgressButtonMorphPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/AnimatedPlayPauseProgressButtonMorphPreview_Animated_Play_Pause_Progress_Morph.gif" width="150" /> |
+| `AnimatedPlayPauseProgressButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/AnimatedPlayPauseProgressButtonPreview_Animated_Play_Pause_Progress.gif" width="150" /> |
+| `PlayPauseProgressButtonLoadingPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayPauseProgressButtonLoadingPreview_Loading.gif" width="150" /> |
 | `PlayPauseProgressButtonPreview0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayPauseProgressButtonPreview0_Enabled_Playing_Progress_0.png" width="150" /> |
 | `PlayPauseProgressButtonPreview100` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayPauseProgressButtonPreview100_Enabled_Not_playing_Progress_100.png" width="150" /> |
 | `PlayPauseProgressButtonPreview25` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayPauseProgressButtonPreview25_Disabled_Not_playing_Progress_25.png" width="150" /> |
@@ -477,30 +450,13 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `ShowPlaylistChipPreviewVeryLongName` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/ShowPlaylistChipPreviewVeryLongName_Very_long_name.png" width="150" /> |
 | `AnimatedSeekToNextButtonPreviewDisabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/AnimatedSeekToNextButtonPreviewDisabled_Disabled.png" width="150" /> |
 | `AnimatedSeekToNextButtonPreviewEnabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/AnimatedSeekToNextButtonPreviewEnabled_Enabled.png" width="150" /> |
-| `MediaButtonPreviewPauseDisabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/MediaButtonPreviewPauseDisabled_Pause_Disabled.png" width="150" /> |
-| `MediaButtonPreviewPlayEnabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/MediaButtonPreviewPlayEnabled_Play_Enabled.png" width="150" /> |
-| `PauseButtonPreviewDisabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PauseButtonPreviewDisabled_Disabled.png" width="150" /> |
-| `PauseButtonPreviewEnabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PauseButtonPreviewEnabled_Enabled.png" width="150" /> |
-| `PlayButtonPreviewDisabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayButtonPreviewDisabled_Disabled.png" width="150" /> |
-| `PlayButtonPreviewEnabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayButtonPreviewEnabled_Enabled.png" width="150" /> |
-| `SeekBackButtonPreview10` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekBackButtonPreview10_10_seconds_increment_Disabled.png" width="150" /> |
-| `SeekBackButtonPreview30` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekBackButtonPreview30_30_seconds_increment_Enabled.png" width="150" /> |
-| `SeekBackButtonPreview5` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekBackButtonPreview5_5_seconds_increment_Enabled.png" width="150" /> |
-| `SeekBackButtonPreviewOther` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekBackButtonPreviewOther_Other_amount_of_seconds_increment_Disabled.png" width="150" /> |
-| `SeekBackButtonPreviewUnknown` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekBackButtonPreviewUnknown_Unknown_amount_of_seconds_increment_Enabled.png" width="150" /> |
-| `SeekForwardButtonPreview10` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekForwardButtonPreview10_10_seconds_increment_Disabled.png" width="150" /> |
-| `SeekForwardButtonPreview30` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekForwardButtonPreview30_30_seconds_increment_Enabled.png" width="150" /> |
-| `SeekForwardButtonPreview5` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekForwardButtonPreview5_5_seconds_increment_Enabled.png" width="150" /> |
-| `SeekForwardButtonPreviewOther` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekForwardButtonPreviewOther_Other_amount_of_seconds_increment_Disabled.png" width="150" /> |
-| `SeekForwardButtonPreviewUnknown` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekForwardButtonPreviewUnknown_Unknown_amount_of_seconds_increment_Enabled.png" width="150" /> |
-| `SeekToNextButtonPreviewDisabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekToNextButtonPreviewDisabled_Disabled.png" width="150" /> |
-| `SeekToNextButtonPreviewEnabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekToNextButtonPreviewEnabled_Enabled.png" width="150" /> |
-| `SeekToPreviousButtonPreviewDisabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekToPreviousButtonPreviewDisabled_Disabled.png" width="150" /> |
-| `SeekToPreviousButtonPreviewEnabled` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekToPreviousButtonPreviewEnabled_Enabled.png" width="150" /> |
-| `ShuffleButtonPreviewDisabledOff` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/ShuffleButtonPreviewDisabledOff_Disabled_Off.png" width="150" /> |
-| `ShuffleButtonPreviewDisabledOn` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/ShuffleButtonPreviewDisabledOn_Disabled_On.png" width="150" /> |
-| `ShuffleButtonPreviewEnabledOff` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/ShuffleButtonPreviewEnabledOff_Enabled_Off.png" width="150" /> |
-| `ShuffleButtonPreviewEnabledOn` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/ShuffleButtonPreviewEnabledOn_Enabled_On.png" width="150" /> |
+| `MediaButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/MediaButtonPreview_Media_Button_Gallery.png" width="150" /> |
+| `PauseButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PauseButtonPreview_Pause_Button.png" width="150" /> |
+| `PlayButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayButtonPreview_Play_Button.png" width="150" /> |
+| `SeekButtonsGalleryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekButtonsGalleryPreview_Seek_Buttons_Gallery.png" width="150" /> |
+| `SeekToNextButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekToNextButtonPreview_Seek_To_Next_Button.png" width="150" /> |
+| `SeekToPreviousButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/SeekToPreviousButtonPreview_Seek_To_Previous_Button.png" width="150" /> |
+| `ShuffleToggleButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/ShuffleToggleButtonPreview_Shuffle_Button_Gallery.png" width="150" /> |
 | `TextMediaDisplayPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/TextMediaDisplayPreview.png" width="150" /> |
 | `TextMediaDisplayPreviewLongText` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/TextMediaDisplayPreviewLongText_With_long_text.png" width="150" /> |
 | `TrackMediaDisplayPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/TrackMediaDisplayPreview.png" width="150" /> |
@@ -509,8 +465,8 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `BrowseScreenPreviewFailed` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/BrowseScreenPreviewFailed_Devices_Small_Round.png" width="150" /> |
 | `BrowseScreenPreviewLoading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/BrowseScreenPreviewLoading_Devices_Large_Round.png" width="150" /> |
 | `BrowseScreenPreviewLoading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/BrowseScreenPreviewLoading_Devices_Small_Round.png" width="150" /> |
-| `BrowseScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/BrowseScreenPreview_Devices_Large_Round.png" width="150" /> |
-| `BrowseScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/BrowseScreenPreview_Devices_Small_Round.png" width="150" /> |
+| `BrowseScreenPreview · scroll long` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/BrowseScreenPreview_Devices_Large_Round.png" width="150" /> |
+| `BrowseScreenPreview · scroll long` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/BrowseScreenPreview_Devices_Small_Round.png" width="150" /> |
 | `PlaylistDownloadBrowseScreenPreviewLoading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadBrowseScreenPreviewLoading_Devices_Large_Round.png" width="150" /> |
 | `PlaylistDownloadBrowseScreenPreviewLoading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadBrowseScreenPreviewLoading_Devices_Small_Round.png" width="150" /> |
 | `PlaylistDownloadBrowseScreenPreviewNoDownloads` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadBrowseScreenPreviewNoDownloads_Devices_Large_Round.png" width="150" /> |
@@ -531,8 +487,8 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `PlaylistDownloadScreenPreviewFailed` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewFailed_Devices_Small_Round.png" width="150" /> |
 | `PlaylistDownloadScreenPreviewLoadedFullyDownloaded` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedFullyDownloaded_Devices_Large_Round.png" width="150" /> |
 | `PlaylistDownloadScreenPreviewLoadedFullyDownloaded` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedFullyDownloaded_Devices_Small_Round.png" width="150" /> |
-| `PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading_Devices_Large_Round.png" width="150" /> |
-| `PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading_Devices_Small_Round.png" width="150" /> |
+| `PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading_Devices_Large_Round.gif" width="150" /> |
+| `PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading_Devices_Small_Round.gif" width="150" /> |
 | `PlaylistDownloadScreenPreviewLoadedNoneDownloaded` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedNoneDownloaded_Devices_Large_Round.png" width="150" /> |
 | `PlaylistDownloadScreenPreviewLoadedNoneDownloaded` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedNoneDownloaded_Devices_Small_Round.png" width="150" /> |
 | `PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize_Devices_Large_Round.png" width="150" /> |
@@ -541,8 +497,8 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting_Devices_Small_Round.png" width="150" /> |
 | `PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded_Devices_Large_Round.png" width="150" /> |
 | `PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded_Devices_Small_Round.png" width="150" /> |
-| `PlaylistDownloadScreenPreviewLoading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoading_Devices_Large_Round.png" width="150" /> |
-| `PlaylistDownloadScreenPreviewLoading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoading_Devices_Small_Round.png" width="150" /> |
+| `PlaylistDownloadScreenPreviewLoading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoading_Devices_Large_Round.gif" width="150" /> |
+| `PlaylistDownloadScreenPreviewLoading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistDownloadScreenPreviewLoading_Devices_Small_Round.gif" width="150" /> |
 | `PlayerScreenPreviewCustomBackground` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayerScreenPreviewCustomBackground_Devices_Large_Round.png" width="150" /> |
 | `PlayerScreenPreviewCustomBackground` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayerScreenPreviewCustomBackground_Devices_Small_Round.png" width="150" /> |
 | `PlayerScreenPreviewCustomMediaDisplay` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayerScreenPreviewCustomMediaDisplay_Devices_Large_Round.png" width="150" /> |
@@ -559,14 +515,10 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `PlayerScreenPreviewNotingPlayingDisplay` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayerScreenPreviewNotingPlayingDisplay_Devices_Small_Round.png" width="150" /> |
 | `PlayerScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayerScreenPreview_Devices_Large_Round.png" width="150" /> |
 | `PlayerScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayerScreenPreview_Devices_Small_Round.png" width="150" /> |
-| `VolumeScreenTheme · Blue 7FCFFF` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/VolumeScreenTheme_Devices_Large_Round_Blue_7FCFFF.png" width="150" /> |
-| `VolumeScreenTheme · Blue Default - AECBFA` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/VolumeScreenTheme_Devices_Large_Round_Blue_Default_-_AECBFA.png" width="150" /> |
-| `VolumeScreenTheme · Blue with Text 7FCFFF` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/VolumeScreenTheme_Devices_Large_Round_Blue_with_Text_7FCFFF.png" width="150" /> |
-| `VolumeScreenTheme · Green 6DD58C` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/VolumeScreenTheme_Devices_Large_Round_Green_6DD58C.png" width="150" /> |
-| `VolumeScreenTheme · Lilac D0BCFF` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/VolumeScreenTheme_Devices_Large_Round_Lilac_D0BCFF.png" width="150" /> |
-| `VolumeScreenTheme · Orange-y` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/VolumeScreenTheme_Devices_Large_Round_Orange-y.png" width="150" /> |
-| `VolumeScreenTheme · Uamp` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/VolumeScreenTheme_Devices_Large_Round_Uamp.png" width="150" /> |
+| `PlayerScreenThemePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayerScreenThemePreview_Devices_Large_Round.png" width="150" /> |
 | `PlayerScreenPreviewUamp` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlayerScreenPreviewUamp_Devices_Large_Round.png" width="150" /> |
+| `PlaylistsScreenLongPreview · scroll end` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistsScreenLongPreview_Devices_Large_Round.png" width="150" /> |
+| `PlaylistsScreenLongPreview · scroll long` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistsScreenLongPreview_Devices_Large_Round_SCROLL_long.png" width="150" /> |
 | `PlaylistsScreenPreviewCustomLayout` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistsScreenPreviewCustomLayout_Devices_Large_Round.png" width="150" /> |
 | `PlaylistsScreenPreviewCustomLayout` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistsScreenPreviewCustomLayout_Devices_Small_Round.png" width="150" /> |
 | `PlaylistsScreenPreviewFailed` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistsScreenPreviewFailed_Devices_Large_Round.png" width="150" /> |
@@ -575,6 +527,14 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `PlaylistsScreenPreviewLoading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistsScreenPreviewLoading_Devices_Small_Round.png" width="150" /> |
 | `PlaylistsScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistsScreenPreview_Devices_Large_Round.png" width="150" /> |
 | `PlaylistsScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui/PlaylistsScreenPreview_Devices_Small_Round.png" width="150" /> |
+
+## media:ui-material3
+
+| Preview | Image |
+|---------|-------|
+| `AnimatedPlayPauseMorphPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/AnimatedPlayPauseMorphPreview_Animated_Play_Pause_Morph.gif" width="150" /> |
+| `AnimatedPlayPauseProgressButtonLoadingPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/AnimatedPlayPauseProgressButtonLoadingPreview_Animated_Play_Pause_Progress_Loading.gif" width="150" /> |
+| `AnimatedPlayPauseProgressButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/AnimatedPlayPauseProgressButtonPreview_Animated_Play_Pause_Progress.gif" width="150" /> |
 
 ## sample
 
@@ -590,14 +550,12 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `PageIndicatorLeft5PlusAuditPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/PageIndicatorLeft5PlusAuditPreview_Devices_Small_Round.png" width="150" /> |
 | `PageIndicatorRight5PlusAuditPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/PageIndicatorRight5PlusAuditPreview_Devices_Large_Round.png" width="150" /> |
 | `PageIndicatorRight5PlusAuditPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/PageIndicatorRight5PlusAuditPreview_Devices_Small_Round.png" width="150" /> |
-| `GeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/GeometryPreview_Devices_Large_Round.png" width="150" /> |
-| `GeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/GeometryPreview_Devices_Small_Round.png" width="150" /> |
-| `TintGeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/TintGeometryPreview_Devices_Large_Round.png" width="150" /> |
-| `TintGeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/TintGeometryPreview_Devices_Small_Round.png" width="150" /> |
-| `SampleCardScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SampleCardScreenPreview_Devices_Large_Round.png" width="150" /> |
-| `SampleCardScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SampleCardScreenPreview_Devices_Small_Round.png" width="150" /> |
+| `GeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/GeometryPreview_Devices_Large_Round.gif" width="150" /> |
+| `GeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/GeometryPreview_Devices_Small_Round.gif" width="150" /> |
+| `TintGeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/TintGeometryPreview_Devices_Large_Round.gif" width="150" /> |
+| `TintGeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/TintGeometryPreview_Devices_Small_Round.gif" width="150" /> |
 | `PagingItemCardPreviewWithDelayedContent` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/PagingItemCardPreviewWithDelayedContent_Devices_Small_Square.png" width="150" /> |
-| `PagingItemCardPreviewWithInitialContent` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/PagingItemCardPreviewWithInitialContent_Devices_Small_Square.png" width="150" /> |
+| `PagingItemCardPreviewWithInitialContent` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/PagingItemCardPreviewWithInitialContent.png" width="150" /> |
 | `FillMaxRectanglePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/FillMaxRectanglePreview_Devices_Large_Round.png" width="150" /> |
 | `FillMaxRectanglePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/FillMaxRectanglePreview_Devices_Small_Round.png" width="150" /> |
 | `MenuScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/MenuScreenPreview_Devices_Large_Round.png" width="150" /> |
@@ -607,11 +565,11 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `ScratchPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/ScratchPreview_Devices_Large_Round.png" width="150" /> |
 | `Standard` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/Standard_Devices_Large_Round.png" width="150" /> |
 | `Standard` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/Standard_Devices_Small_Round.png" width="150" /> |
-| `Preview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/Preview_Devices_Large_Round.png" width="150" /> |
-| `SectionedListExpandableScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListExpandableScreenPreview_Devices_Large_Round.png" width="150" /> |
-| `SectionedListExpandableScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListExpandableScreenPreview_Devices_Small_Round.png" width="150" /> |
-| `SectionedListStatefulScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListStatefulScreenPreview_Devices_Large_Round.png" width="150" /> |
-| `SectionedListStatefulScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListStatefulScreenPreview_Devices_Small_Round.png" width="150" /> |
-| `SectionedListStatelessScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListStatelessScreenPreview_Devices_Large_Round.png" width="150" /> |
-| `SectionedListStatelessScreenPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListStatelessScreenPreview_Devices_Small_Round.png" width="150" /> |
+| `Preview · scroll long` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/Preview_Devices_Large_Round.png" width="150" /> |
+| `SectionedListExpandableScreenPreview · scroll long` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListExpandableScreenPreview_Devices_Large_Round.png" width="150" /> |
+| `SectionedListExpandableScreenPreview · scroll long` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListExpandableScreenPreview_Devices_Small_Round.png" width="150" /> |
+| `SectionedListStatefulScreenPreview · scroll long` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListStatefulScreenPreview_Devices_Large_Round.png" width="150" /> |
+| `SectionedListStatefulScreenPreview · scroll long` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListStatefulScreenPreview_Devices_Small_Round.png" width="150" /> |
+| `SectionedListStatelessScreenPreview · scroll long` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListStatelessScreenPreview_Devices_Large_Round.png" width="150" /> |
+| `SectionedListStatelessScreenPreview · scroll long` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/SectionedListStatelessScreenPreview_Devices_Small_Round.png" width="150" /> |
 

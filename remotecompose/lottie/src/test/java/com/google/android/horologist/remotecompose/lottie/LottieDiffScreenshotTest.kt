@@ -348,7 +348,7 @@ internal fun LottieRcPreview(
     verticalArrangement = Arrangement.spacedBy(4.dp),
     modifier = modifier,
   ) {
-    BasicText(text = "LottiePreview", style = TextStyle(color = Color.LightGray, fontSize = 10.sp))
+    BasicText(text = "rc/lottie", style = TextStyle(color = Color.LightGray, fontSize = 10.sp))
     Box(
       modifier = Modifier.size(boxWidth, boxHeight).background(Color(0xFF2D2D2D)).padding(4.dp),
       contentAlignment = Alignment.Center,
@@ -387,7 +387,7 @@ internal fun LottieRcPreview(
     verticalArrangement = Arrangement.spacedBy(4.dp),
     modifier = modifier,
   ) {
-    BasicText(text = "LottiePreview", style = TextStyle(color = Color.LightGray, fontSize = 10.sp))
+    BasicText(text = "rc/lottie", style = TextStyle(color = Color.LightGray, fontSize = 10.sp))
     Box(
       modifier = Modifier.size(boxWidth, boxHeight).background(Color(0xFF2D2D2D)).padding(4.dp),
       contentAlignment = Alignment.Center,

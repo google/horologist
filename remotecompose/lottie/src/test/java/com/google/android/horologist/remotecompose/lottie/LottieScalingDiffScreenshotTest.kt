@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.takahirom.roborazzi.captureRoboImage
 import org.junit.Test
+import org.robolectric.annotation.Config
 
 /**
  * Screenshot tests comparing scaling behavior between lottie-android and Remote Compose across 16
@@ -50,6 +51,7 @@ import org.junit.Test
  * - 128x128dp
  * - 192x128dp
  */
+@Config(qualifiers = "w600dp-h400dp-xhdpi")
 class LottieScalingDiffScreenshotTest : LottieDiffScreenshotTest() {
 
   // --- Lottie 64x64 (Square, small) ---
@@ -94,7 +96,6 @@ class LottieScalingDiffScreenshotTest : LottieDiffScreenshotTest() {
 
   private fun runScalingTest(lottieWidth: Int, lottieHeight: Int, boxWidth: Dp, boxHeight: Dp) {
     val json = createLottieJson(lottieWidth, lottieHeight)
-    val useVerticalStack = boxWidth > 84.dp
 
     composeRule.setContent {
       Column(
@@ -108,22 +109,12 @@ class LottieScalingDiffScreenshotTest : LottieDiffScreenshotTest() {
           style = TextStyle(color = Color.White, fontSize = 10.sp),
         )
 
-        if (useVerticalStack) {
-          Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(6.dp),
-          ) {
-            LottieAndroidPreview(json = json, boxWidth = boxWidth, boxHeight = boxHeight)
-            LottieRcPreview(json = json, boxWidth = boxWidth, boxHeight = boxHeight)
-          }
-        } else {
-          Row(
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-            verticalAlignment = Alignment.CenterVertically,
-          ) {
-            LottieAndroidPreview(json = json, boxWidth = boxWidth, boxHeight = boxHeight)
-            LottieRcPreview(json = json, boxWidth = boxWidth, boxHeight = boxHeight)
-          }
+        Row(
+          horizontalArrangement = Arrangement.spacedBy(8.dp),
+          verticalAlignment = Alignment.CenterVertically,
+        ) {
+          LottieAndroidPreview(json = json, boxWidth = boxWidth, boxHeight = boxHeight)
+          LottieRcPreview(json = json, boxWidth = boxWidth, boxHeight = boxHeight)
         }
       }
     }

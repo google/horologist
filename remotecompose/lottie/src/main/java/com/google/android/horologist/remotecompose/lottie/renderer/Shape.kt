@@ -69,29 +69,27 @@ internal fun RenderShapes(shapes: List<GraphicElement>, transformStack: List<Tra
     val dx = (canvasWidth - scaledWidth) / 2.rf
     val dy = (canvasHeight - scaledHeight) / 2.rf
 
-    for (shapeGroup in shapeGroups) {
-      val paint = shapeGroup.style.getPaint()
+    translate(dx, dy) {
+      scale(scale) {
+        for (shapeGroup in shapeGroups) {
+          val paint = shapeGroup.style.getPaint()
 
-      remoteCanvas.save()
-      remoteCanvas.translate(dx, dy)
-      remoteCanvas.scale(scale, scale)
+          for (transform in transformStack) {
+            remoteCanvas.save()
+            transform(transform, paint, animationSettings, remoteCanvas)
+          }
 
-      for (transform in transformStack) {
-        remoteCanvas.save()
-        transform(transform, paint, animationSettings, remoteCanvas)
-      }
+          usePaint(paint) {
+            for (shape in shapeGroup.shapes) {
+              shape.draw(this, remoteCanvas)
+            }
+          }
 
-      usePaint(paint) {
-        for (shape in shapeGroup.shapes) {
-          shape.draw(this, remoteCanvas)
+          for (transform in transformStack) {
+            remoteCanvas.restore()
+          }
         }
       }
-
-      for (transform in transformStack) {
-        remoteCanvas.restore()
-      }
-
-      remoteCanvas.restore()
     }
   }
 }

@@ -27,7 +27,6 @@ import androidx.compose.ui.draw.drawWithCache
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.foundation.pager.rememberPagerState
 import androidx.wear.compose.material.CircularProgressIndicator
@@ -42,8 +41,6 @@ import com.google.android.horologist.audio.ui.components.SettingsButtons
 import com.google.android.horologist.audio.ui.components.SettingsButtonsDefaults
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.pager.PagerScreen
-import com.google.android.horologist.compose.tools.ThemeValues
-import com.google.android.horologist.compose.tools.WearPreviewThemes
 import com.google.android.horologist.logo.R
 import com.google.android.horologist.media.ui.components.MediaControlButtons
 import com.google.android.horologist.media.ui.components.background.radialBackgroundBrush
@@ -200,8 +197,8 @@ fun PlayerScreenPreviewDevices() {
 
 @WearPreviewLargeRound
 @Composable
-fun VolumeScreenTheme(@PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues) {
-  MaterialTheme(themeValues.colors) { DefaultMediaPreview() }
+fun PlayerScreenThemePreview() {
+  UampTheme { DefaultMediaPreview() }
 }
 
 @Composable

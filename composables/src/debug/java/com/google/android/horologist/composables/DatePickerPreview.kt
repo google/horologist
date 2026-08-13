@@ -21,13 +21,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.android.horologist.compose.tools.copy
 import java.time.LocalDate
 
 @WearPreviewDevices
-@WearPreviewFontScales
 @Composable
 fun DatePickerPreview() {
   DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 4, 25))

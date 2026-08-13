@@ -27,25 +27,13 @@ fun SignedInConfirmationDialogPreview() {
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationDialogPreviewNoName() {
-  SignedInConfirmationDialog(onDismissOrTimeout = {}, email = "maggie@example.com")
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogPreviewNoEmail() {
+fun SignedInConfirmationDialogMinimalPreview() {
   SignedInConfirmationDialog(onDismissOrTimeout = {}, name = "Maggie")
 }
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationDialogPreviewNoInformation() {
-  SignedInConfirmationDialog(onDismissOrTimeout = {})
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogPreviewTruncation() {
+fun SignedInConfirmationDialogTruncationPreview() {
   SignedInConfirmationDialog(
     onDismissOrTimeout = {},
     name = "Wolfeschlegelsteinhausenbergerdorff",

@@ -58,6 +58,8 @@ internal object LottieDecoder {
     ignoreUnknownKeys = true
     isLenient = true
     coerceInputValues = true
+    encodeDefaults = true
+    explicitNulls = false
   }
 
   fun decodeFromString(jsonString: String): Animation {

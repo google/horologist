@@ -38,6 +38,8 @@ import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonEncoder
 import kotlinx.serialization.json.JsonPrimitive
+import kotlinx.serialization.json.add
+import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
 import kotlinx.serialization.json.decodeFromStream
@@ -239,10 +241,20 @@ internal object StaticColorPropertySerializer : KSerializer<StaticColorProperty>
 
   override fun serialize(encoder: Encoder, value: StaticColorProperty) {
     val jsonEncoder = encoder as JsonEncoder
+    val color = Color(value.colorInt)
     jsonEncoder.encodeJsonElement(
       buildJsonObject {
         value.slotId?.let { put("sid", it) }
-        put("animated", false)
+        put("a", 0)
+        put(
+          "k",
+          buildJsonArray {
+            add(JsonPrimitive(color.red))
+            add(JsonPrimitive(color.green))
+            add(JsonPrimitive(color.blue))
+            add(JsonPrimitive(color.alpha))
+          },
+        )
       }
     )
   }

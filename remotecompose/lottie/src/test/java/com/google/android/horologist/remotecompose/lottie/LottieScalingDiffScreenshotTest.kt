@@ -32,7 +32,18 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.takahirom.roborazzi.captureRoboImage
+import com.google.android.horologist.remotecompose.lottie.format.Animation
+import com.google.android.horologist.remotecompose.lottie.format.BezierValue
+import com.google.android.horologist.remotecompose.lottie.format.GraphicElement
+import com.google.android.horologist.remotecompose.lottie.format.Layer
+import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
+import com.google.android.horologist.remotecompose.lottie.format.StaticBezierProperty
+import com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty
+import com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty
+import com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.annotation.Config
 
 /**
@@ -51,48 +62,21 @@ import org.robolectric.annotation.Config
  * - 128x128dp
  * - 192x128dp
  */
+@RunWith(ParameterizedRobolectricTestRunner::class)
 @Config(qualifiers = "w600dp-h400dp-xhdpi")
-class LottieScalingDiffScreenshotTest : LottieDiffScreenshotTest() {
+class LottieScalingDiffScreenshotTest(
+  private val lottieSize: Pair<Int, Int>,
+  private val boxSize: Pair<Int, Int>,
+) : LottieDiffScreenshotTest() {
 
-  // --- Lottie 64x64 (Square, small) ---
+  override fun screenshotFilePath(suffix: String): String {
+    return "src/test/screenshots/LottieScalingDiffScreenshotTest_lottie${lottieSize.first}x${lottieSize.second}_box${boxSize.first}x${boxSize.second}$suffix.png"
+  }
 
-  @Test fun lottie64x64_box64x64() = runScalingTest(64, 64, 64.dp, 64.dp)
-
-  @Test fun lottie64x64_box64x96() = runScalingTest(64, 64, 64.dp, 96.dp)
-
-  @Test fun lottie64x64_box128x128() = runScalingTest(64, 64, 128.dp, 128.dp)
-
-  @Test fun lottie64x64_box192x128() = runScalingTest(64, 64, 192.dp, 128.dp)
-
-  // --- Lottie 64x96 (Tall / 2:3 aspect ratio) ---
-
-  @Test fun lottie64x96_box64x64() = runScalingTest(64, 96, 64.dp, 64.dp)
-
-  @Test fun lottie64x96_box64x96() = runScalingTest(64, 96, 64.dp, 96.dp)
-
-  @Test fun lottie64x96_box128x128() = runScalingTest(64, 96, 128.dp, 128.dp)
-
-  @Test fun lottie64x96_box192x128() = runScalingTest(64, 96, 192.dp, 128.dp)
-
-  // --- Lottie 128x128 (Square, medium) ---
-
-  @Test fun lottie128x128_box64x64() = runScalingTest(128, 128, 64.dp, 64.dp)
-
-  @Test fun lottie128x128_box64x96() = runScalingTest(128, 128, 64.dp, 96.dp)
-
-  @Test fun lottie128x128_box128x128() = runScalingTest(128, 128, 128.dp, 128.dp)
-
-  @Test fun lottie128x128_box192x128() = runScalingTest(128, 128, 192.dp, 128.dp)
-
-  // --- Lottie 192x128 (Wide / 3:2 aspect ratio) ---
-
-  @Test fun lottie192x128_box64x64() = runScalingTest(192, 128, 64.dp, 64.dp)
-
-  @Test fun lottie192x128_box64x96() = runScalingTest(192, 128, 64.dp, 96.dp)
-
-  @Test fun lottie192x128_box128x128() = runScalingTest(192, 128, 128.dp, 128.dp)
-
-  @Test fun lottie192x128_box192x128() = runScalingTest(192, 128, 192.dp, 128.dp)
+  @Test
+  fun test() {
+    runScalingTest(lottieSize.first, lottieSize.second, boxSize.first.dp, boxSize.second.dp)
+  }
 
   private fun runScalingTest(lottieWidth: Int, lottieHeight: Int, boxWidth: Dp, boxHeight: Dp) {
     val json = createLottieJson(lottieWidth, lottieHeight)
@@ -123,12 +107,20 @@ class LottieScalingDiffScreenshotTest : LottieDiffScreenshotTest() {
   }
 
   companion object {
+    val sizes = listOf(64 to 64, 64 to 96, 128 to 128, 192 to 128)
+
+    @JvmStatic
+    @ParameterizedRobolectricTestRunner.Parameters(name = "lottie_{0}_box_{1}")
+    fun parameters(): List<Array<Any>> {
+      return sizes.flatMap { lottie -> sizes.map { box -> arrayOf(lottie, box) } }
+    }
+
     /**
-     * Generates a Lottie animation JSON string for the given canvas dimensions. Contains an outer
-     * bounding rectangle and a centered circle to clearly highlight scaling, aspect ratio
+     * Generates a Lottie animation object using kotlinx.serialization data classes. Contains an
+     * outer bounding rectangle and a centered circle to clearly highlight scaling, aspect ratio
      * preservation, letterboxing/pillarboxing, and centering.
      */
-    fun createLottieJson(width: Int, height: Int): String {
+    internal fun createLottieAnimation(width: Int, height: Int): Animation {
       val w = width.toFloat()
       val h = height.toFloat()
       val cx = w / 2f
@@ -136,104 +128,115 @@ class LottieScalingDiffScreenshotTest : LottieDiffScreenshotTest() {
       val r = minOf(w, h) / 4f
       val handle = r * 0.55228475f
 
-      return """
-      {
-        "v": "5.9.6",
-        "fr": 60,
-        "ip": 0,
-        "op": 60,
-        "w": $width,
-        "h": $height,
-        "nm": "test_${width}x${height}",
-        "layers": [
-          {
-            "ty": 4,
-            "nm": "Shape Layer",
-            "ind": 1,
-            "ip": 0,
-            "op": 60,
-            "ks": {
-              "a": { "a": 0, "k": [0, 0, 0] },
-              "p": { "a": 0, "k": [0, 0, 0] },
-              "r": { "a": 0, "k": 0 },
-              "s": { "a": 0, "k": [100, 100] },
-              "o": { "a": 0, "k": 100 }
-            },
-            "shapes": [
-              {
-                "ty": "gr",
-                "nm": "Center Circle",
-                "it": [
-                  {
-                    "ty": "sh",
-                    "nm": "Circle Path",
-                    "ks": {
-                      "a": 0,
-                      "k": {
-                        "c": true,
-                        "v": [[0, -$r], [$r, 0], [0, $r], [-$r, 0]],
-                        "i": [[-$handle, 0], [0, -$handle], [$handle, 0], [0, $handle]],
-                        "o": [[$handle, 0], [0, $handle], [-$handle, 0], [0, -$handle]]
-                      }
-                    }
-                  },
-                  {
-                    "ty": "fl",
-                    "nm": "Circle Fill",
-                    "c": { "a": 0, "k": [0.95, 0.25, 0.2, 1.0] },
-                    "o": { "a": 0, "k": 100 }
-                  },
-                  {
-                    "ty": "tr",
-                    "nm": "Transform",
-                    "a": { "a": 0, "k": [0, 0] },
-                    "p": { "a": 0, "k": [$cx, $cy] },
-                    "s": { "a": 0, "k": [100, 100] },
-                    "r": { "a": 0, "k": 0 },
-                    "o": { "a": 0, "k": 100 }
-                  }
-                ]
-              },
-              {
-                "ty": "gr",
-                "nm": "Outer Rect",
-                "it": [
-                  {
-                    "ty": "sh",
-                    "nm": "Rect Path",
-                    "ks": {
-                      "a": 0,
-                      "k": {
-                        "c": true,
-                        "v": [[2, 2], [${width - 2}, 2], [${width - 2}, ${height - 2}], [2, ${height - 2}]],
-                        "i": [[0, 0], [0, 0], [0, 0], [0, 0]],
-                        "o": [[0, 0], [0, 0], [0, 0], [0, 0]]
-                      }
-                    }
-                  },
-                  {
-                    "ty": "fl",
-                    "nm": "Rect Fill",
-                    "c": { "a": 0, "k": [0.2, 0.5, 0.9, 1.0] },
-                    "o": { "a": 0, "k": 100 }
-                  },
-                  {
-                    "ty": "tr",
-                    "nm": "Transform",
-                    "a": { "a": 0, "k": [0, 0] },
-                    "p": { "a": 0, "k": [0, 0] },
-                    "s": { "a": 0, "k": [100, 100] },
-                    "r": { "a": 0, "k": 0 },
-                    "o": { "a": 0, "k": 100 }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-      """
-        .trimIndent()
+      val circleShape =
+        GraphicElement.Group(
+          name = "Center Circle",
+          shapes =
+            listOf(
+              GraphicElement.Path(
+                name = "Circle Path",
+                shape =
+                  StaticBezierProperty(
+                    value =
+                      BezierValue(
+                        closed = true,
+                        vertices =
+                          listOf(listOf(0f, -r), listOf(r, 0f), listOf(0f, r), listOf(-r, 0f)),
+                        inTangents =
+                          listOf(
+                            listOf(-handle, 0f),
+                            listOf(0f, -handle),
+                            listOf(handle, 0f),
+                            listOf(0f, handle),
+                          ),
+                        outTangents =
+                          listOf(
+                            listOf(handle, 0f),
+                            listOf(0f, handle),
+                            listOf(-handle, 0f),
+                            listOf(0f, -handle),
+                          ),
+                      )
+                  ),
+              ),
+              GraphicElement.Fill(
+                name = "Circle Fill",
+                color = StaticColorProperty.fromColor(Color(0.95f, 0.25f, 0.2f, 1.0f)),
+                opacity = StaticScalarProperty(value = 100f),
+              ),
+              GraphicElement.Transform(
+                name = "Transform",
+                positionTranslation = StaticPositionProperty(value = floatArrayOf(cx, cy)),
+              ),
+            ),
+        )
+
+      val rectShape =
+        GraphicElement.Group(
+          name = "Outer Rect",
+          shapes =
+            listOf(
+              GraphicElement.Path(
+                name = "Rect Path",
+                shape =
+                  StaticBezierProperty(
+                    value =
+                      BezierValue(
+                        closed = true,
+                        vertices =
+                          listOf(
+                            listOf(2f, 2f),
+                            listOf(w - 2f, 2f),
+                            listOf(w - 2f, h - 2f),
+                            listOf(2f, h - 2f),
+                          ),
+                        inTangents =
+                          listOf(listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f)),
+                        outTangents =
+                          listOf(listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f)),
+                      )
+                  ),
+              ),
+              GraphicElement.Fill(
+                name = "Rect Fill",
+                color = StaticColorProperty.fromColor(Color(0.2f, 0.5f, 0.9f, 1.0f)),
+                opacity = StaticScalarProperty(value = 100f),
+              ),
+              GraphicElement.Transform(
+                name = "Transform",
+                positionTranslation = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
+              ),
+            ),
+        )
+
+      return Animation(
+        name = "test_${width}x${height}",
+        version = "5.9.6",
+        frameRate = 60,
+        startFrame = 0,
+        endFrame = 60,
+        width = width,
+        height = height,
+        layers =
+          listOf(
+            Layer.ShapeLayer(
+              name = "Shape Layer",
+              index = 1,
+              startFrame = 0,
+              endFrame = 60,
+              transform = GraphicElement.Transform(),
+              shapes = listOf(circleShape, rectShape),
+            )
+          ),
+      )
+    }
+
+    /** Generates a Lottie animation JSON string for the given canvas dimensions. */
+    fun createLottieJson(width: Int, height: Int): String {
+      return LottieDecoder.json.encodeToString(
+        Animation.serializer(),
+        createLottieAnimation(width, height),
+      )
     }
   }
 }

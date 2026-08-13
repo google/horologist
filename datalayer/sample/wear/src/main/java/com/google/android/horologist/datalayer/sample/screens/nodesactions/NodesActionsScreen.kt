@@ -42,6 +42,8 @@ import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.compose.material.CompactChip
 import com.google.android.horologist.datalayer.sample.R
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
+import ee.schimke.composeai.preview.ScrollMode
+import ee.schimke.composeai.preview.ScrollingPreview
 
 @Composable
 fun NodesActionsScreen(
@@ -130,6 +132,7 @@ fun NodesActionsScreen(
 }
 
 @WearPreviewDevices
+@ScrollingPreview(modes = [ScrollMode.END])
 @Composable
 fun NodesActionsScreenPreviewLoaded() {
   NodesActionsScreen(

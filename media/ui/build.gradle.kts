@@ -112,6 +112,7 @@ dependencies {
   debugImplementation(projects.logo)
 
   debugImplementation(libs.compose.ui.tooling)
+  debugImplementation(libs.compose.preview.annotations)
   debugImplementation(libs.compose.ui.test.manifest)
   debugImplementation(projects.media.audioUi)
   debugImplementation(projects.composeTools)

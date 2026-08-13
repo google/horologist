@@ -24,8 +24,10 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.images.base.util.rememberVectorPainter
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
+import ee.schimke.composeai.preview.AnimatedPreview
 
 @WearPreviewDevices
+@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun PlaylistDownloadScreenPreviewLoading() {
   PlaylistDownloadScreen(
@@ -62,6 +64,7 @@ fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
 }
 
 @WearPreviewDevices
+@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
   PlaylistDownloadScreen(

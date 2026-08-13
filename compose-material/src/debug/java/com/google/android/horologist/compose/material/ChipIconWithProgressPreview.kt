@@ -22,11 +22,20 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
+import ee.schimke.composeai.preview.AnimatedPreview
 
 @Preview(name = "Standard", backgroundColor = 0xff000000, showBackground = true)
+@AnimatedPreview(durationMs = 1500, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun ChipIconWithProgressPreview() {
   ChipIconWithProgress()
+}
+
+@Preview(name = "Standard with Icon", backgroundColor = 0xff000000, showBackground = true)
+@AnimatedPreview(durationMs = 1500, frameIntervalMs = 100, showCurves = false)
+@Composable
+fun ChipIconWithProgressWithIconPreview() {
+  ChipIconWithProgress(icon = ImageVectorPaintable(Icon32dp))
 }
 
 @Preview(

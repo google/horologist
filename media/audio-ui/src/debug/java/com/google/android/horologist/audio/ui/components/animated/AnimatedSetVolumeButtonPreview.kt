@@ -16,18 +16,12 @@
 
 package com.google.android.horologist.audio.ui.components.animated
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Stepper
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
@@ -56,21 +50,14 @@ fun AnimatedSetVolumeButtonPreview() {
   }
 }
 
-@Preview(
-  name = "Animated Volume Button",
-  device = "id:wearos_small_round",
-  showBackground = true,
-  backgroundColor = 0xFF000000,
-)
+@Preview(name = "Animated Volume Button", showBackground = true, backgroundColor = 0xFF000000)
 @AnimatedPreview(durationMs = 1200, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun AnimatedVolumeButtonMotionPreview() {
   MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
-      AnimatedSetVolumeButton(
-        volumeUiState = VolumeUiState(current = 6, max = 10),
-        onVolumeClick = {},
-      )
-    }
+    AnimatedSetVolumeButton(
+      volumeUiState = VolumeUiState(current = 6, max = 10),
+      onVolumeClick = {},
+    )
   }
 }

@@ -18,7 +18,7 @@ package com.google.android.horologist.media.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -96,50 +96,43 @@ fun PlayPauseProgressButtonLoadingPreview() {
     enabled = true,
     playing = true,
     trackPositionUiModel = TrackPositionUiModel.Loading(showProgress = true),
+    modifier = Modifier.size(60.dp),
   )
 }
 
-@Preview(
-  name = "Animated Play Pause Progress",
-  device = "id:wearos_large_round",
-  showBackground = true,
-  backgroundColor = 0xFF000000,
-)
+@Preview(name = "Animated Play Pause Progress", backgroundColor = 0xff000000, showBackground = true)
 @AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun AnimatedPlayPauseProgressButtonPreview() {
   MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
-      PlayPauseProgressButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        enabled = true,
-        playing = true,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds),
-      )
-    }
+    PlayPauseProgressButton(
+      onPlayClick = {},
+      onPauseClick = {},
+      enabled = true,
+      playing = true,
+      trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds),
+      modifier = Modifier.size(60.dp),
+    )
   }
 }
 
 @Preview(
   name = "Animated Play Pause Progress Morph",
-  device = "id:wearos_large_round",
+  backgroundColor = 0xff000000,
   showBackground = true,
-  backgroundColor = 0xFF000000,
 )
 @AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun AnimatedPlayPauseProgressButtonMorphPreview() {
   MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
-      AnimatedPlayPauseProgressButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        enabled = true,
-        playing = true,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds),
-      )
-    }
+    AnimatedPlayPauseProgressButton(
+      onPlayClick = {},
+      onPauseClick = {},
+      enabled = true,
+      playing = true,
+      trackPositionUiModel = TrackPositionUiModel.Actual(0.5f, 50.seconds, 100.seconds),
+      modifier = Modifier.size(60.dp),
+    )
   }
 }
 

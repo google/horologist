@@ -22,6 +22,8 @@ import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.remote.creation.compose.modifier.fillMaxSize
+import androidx.compose.remote.creation.compose.state.min
+import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.remotecompose.lottie.LocalAnimationSettings
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
@@ -43,8 +45,26 @@ internal fun RenderShapes(shapes: List<GraphicElement>, transformStack: List<Tra
   val shapeGroups = gatherShapes(shapes, animationSettings)
 
   RemoteCanvas(modifier = RemoteModifier.fillMaxSize()) {
+    val canvasWidth = remote.component.width
+    val canvasHeight = remote.component.height
+    val lottieWidth = animationSettings.width.rf
+    val lottieHeight = animationSettings.height.rf
+
+    val scaleX = canvasWidth / lottieWidth
+    val scaleY = canvasHeight / lottieHeight
+    val scale = min(scaleX, scaleY)
+
+    val scaledWidth = lottieWidth * scale
+    val scaledHeight = lottieHeight * scale
+    val dx = (canvasWidth - scaledWidth) / 2.rf
+    val dy = (canvasHeight - scaledHeight) / 2.rf
+
     for (shapeGroup in shapeGroups) {
       val paint = shapeGroup.style.getPaint()
+
+      remoteCanvas.save()
+      remoteCanvas.translate(dx, dy)
+      remoteCanvas.scale(scale, scale)
 
       for (transform in transformStack) {
         remoteCanvas.save()
@@ -60,6 +80,8 @@ internal fun RenderShapes(shapes: List<GraphicElement>, transformStack: List<Tra
       for (transform in transformStack) {
         remoteCanvas.restore()
       }
+
+      remoteCanvas.restore()
     }
   }
 }

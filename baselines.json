@@ -2140,7 +2140,7 @@
     "functionName": "ActiveDurationTextPreview",
     "module": "health:composables",
     "renderBasename": "ActiveDurationTextPreview.gif",
-    "sha256": "7b5b3e575ac35299a186aa1d41406d5e0d0ddf51c466e081e3c5262838f9a7db",
+    "sha256": "6e81e3acba55ba5301f32af875e60a05226c49e8b5767829743466e6e5588389",
     "sourceFile": "src/main/java/com/google/android/horologist/health/composables/ActiveDurationText.kt"
   },
   "health:composables/com.google.android.horologist.health.composables.components.MetricDisplayPreviewKt.MetricDisplayPreview": {

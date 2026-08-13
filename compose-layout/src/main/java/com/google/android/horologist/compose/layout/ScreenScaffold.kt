@@ -28,6 +28,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalScrollCaptureInProgress
 import androidx.wear.compose.foundation.ExperimentalWearFoundationApi
 import androidx.wear.compose.foundation.LocalScreenIsActive
 import androidx.wear.compose.foundation.lazy.ScalingLazyListState
@@ -79,14 +80,16 @@ fun ScreenScaffold(
         {
           if (positionIndicator != null) {
             positionIndicator()
-          } else if (scrollState is ScalingLazyColumnState) {
-            PositionIndicator(scalingLazyListState = scrollState.state)
-          } else if (scrollState is ScalingLazyListState) {
-            PositionIndicator(scalingLazyListState = scrollState)
-          } else if (scrollState is LazyListState) {
-            PositionIndicator(scrollState)
-          } else if (scrollState is ScrollState) {
-            PositionIndicator(scrollState)
+          } else if (!LocalScrollCaptureInProgress.current) {
+            if (scrollState is ScalingLazyColumnState) {
+              PositionIndicator(scalingLazyListState = scrollState.state)
+            } else if (scrollState is ScalingLazyListState) {
+              PositionIndicator(scalingLazyListState = scrollState)
+            } else if (scrollState is LazyListState) {
+              PositionIndicator(scrollState)
+            } else if (scrollState is ScrollState) {
+              PositionIndicator(scrollState)
+            }
           }
         }
       },

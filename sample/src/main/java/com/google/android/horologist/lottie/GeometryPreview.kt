@@ -29,7 +29,7 @@ import com.google.android.horologist.sample.R
 @WearPreviewDevices
 @Composable
 fun GeometryPreview() {
-  LottiePreview(animationResId = R.raw.geometry)
+  LottiePreview(animationResId = R.raw.geometry, progress = 0f)
 }
 
 @SuppressLint("RestrictedApi")
@@ -40,5 +40,6 @@ fun TintGeometryPreview() {
     animationResId = R.raw.geometry,
     modifier = Modifier.size(100.dp),
     slotMap = SlotMap(mapOf("color.primary" to 0xFF00FF00.toInt())),
+    progress = 0f,
   )
 }

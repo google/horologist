@@ -43,6 +43,51 @@ internal sealed class GraphicElement {
     @SerialName("ks") val shape: BaseBezierProperty,
   ) : GraphicElement()
 
+  /** A rectangle parametric shape. */
+  @Serializable
+  data class Rectangle(
+    @SerialName("nm") override val name: String? = "",
+    @SerialName("hd") override val hidden: Boolean? = false,
+    @SerialName("ty") override val type: ShapeType = ShapeType.Rectangle,
+    @SerialName("d") val direction: Int? = null,
+    @SerialName("p")
+    val position: BasePositionProperty = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
+    @SerialName("s")
+    val size: BaseVectorProperty = StaticVectorProperty(value = floatArrayOf(0f, 0f)),
+    @SerialName("r") val cornerRadius: BaseScalarProperty = StaticScalarProperty(value = 0f),
+  ) : GraphicElement()
+
+  /** An ellipse parametric shape. */
+  @Serializable
+  data class Ellipse(
+    @SerialName("nm") override val name: String? = "",
+    @SerialName("hd") override val hidden: Boolean? = false,
+    @SerialName("ty") override val type: ShapeType = ShapeType.Ellipse,
+    @SerialName("d") val direction: Int? = null,
+    @SerialName("p")
+    val position: BasePositionProperty = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
+    @SerialName("s")
+    val size: BaseVectorProperty = StaticVectorProperty(value = floatArrayOf(0f, 0f)),
+  ) : GraphicElement()
+
+  /** A polystar (star or regular polygon) parametric shape. */
+  @Serializable
+  data class PolyStar(
+    @SerialName("nm") override val name: String? = "",
+    @SerialName("hd") override val hidden: Boolean? = false,
+    @SerialName("ty") override val type: ShapeType = ShapeType.PolyStar,
+    @SerialName("sy") val starType: PolyStarType = PolyStarType.Star,
+    @SerialName("pt") val points: BaseScalarProperty = StaticScalarProperty(value = 5f),
+    @SerialName("p")
+    val position: BasePositionProperty = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
+    @SerialName("r") val rotation: BaseScalarProperty = StaticScalarProperty(value = 0f),
+    @SerialName("or") val outerRadius: BaseScalarProperty = StaticScalarProperty(value = 0f),
+    @SerialName("os") val outerRoundedness: BaseScalarProperty = StaticScalarProperty(value = 0f),
+    @SerialName("ir") val innerRadius: BaseScalarProperty? = null,
+    @SerialName("is") val innerRoundedness: BaseScalarProperty? = null,
+    @SerialName("d") val direction: Int? = null,
+  ) : GraphicElement()
+
   // Grouping
 
   /** A group of other graphic elements. This allows transforms to be nested. */
@@ -69,10 +114,10 @@ internal sealed class GraphicElement {
     @SerialName("p")
     val positionTranslation: BasePositionProperty =
       StaticPositionProperty(value = floatArrayOf(0f, 0f)),
-    @SerialName("r") val rotation: StaticScalarProperty = StaticScalarProperty(value = 0f),
+    @SerialName("r") val rotation: BaseScalarProperty = StaticScalarProperty(value = 0f),
     @SerialName("s")
     val scale: BaseVectorProperty = StaticVectorProperty(value = floatArrayOf(100f, 100f)),
-    @SerialName("o") val opacity: StaticScalarProperty = StaticScalarProperty(value = 100f),
+    @SerialName("o") val opacity: BaseScalarProperty = StaticScalarProperty(value = 100f),
   ) : GraphicElement()
 
   // Styles
@@ -83,20 +128,35 @@ internal sealed class GraphicElement {
     @SerialName("nm") override val name: String? = "",
     @SerialName("hd") override val hidden: Boolean? = false,
     @SerialName("ty") override val type: ShapeType = ShapeType.Fill,
-    @SerialName("o") val opacity: StaticScalarProperty = StaticScalarProperty(value = 100f),
+    @SerialName("o") val opacity: BaseScalarProperty = StaticScalarProperty(value = 100f),
     @SerialName("c") val color: StaticColorProperty,
   ) : GraphicElement()
 }
 
 @Serializable(with = ShapeTypeSerializer::class)
 internal enum class ShapeType(val value: String) {
+  Ellipse("el"),
   Fill("fl"),
   Group("gr"),
   Path("sh"),
+  PolyStar("sr"),
+  Rectangle("rc"),
   Transform("tr");
 
   companion object {
     fun fromValueOrNull(value: String): ShapeType? {
+      return values().firstOrNull { it.value == value }
+    }
+  }
+}
+
+@Serializable(with = PolyStarTypeSerializer::class)
+internal enum class PolyStarType(val value: Int) {
+  Star(1),
+  Polygon(2);
+
+  companion object {
+    fun fromValueOrNull(value: Int): PolyStarType? {
       return values().firstOrNull { it.value == value }
     }
   }

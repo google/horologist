@@ -27,20 +27,80 @@ import androidx.compose.remote.creation.compose.state.selectIfLt
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.AnimatedBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.AnimatedPositionProperty
+import com.google.android.horologist.remotecompose.lottie.format.AnimatedScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.AnimatedVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.BaseBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.BasePositionProperty
+import com.google.android.horologist.remotecompose.lottie.format.BaseScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.BezierValue
 import com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.format.StaticBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty
+import com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.StaticVectorProperty
 
 internal data class AnimationSegment(val startFrame: Float, val value: RemoteFloat)
 
 /** A 2D point represented with RemoteFloats. */
 internal data class Point(val x: RemoteFloat, val y: RemoteFloat)
+
+/**
+ * Animates a scalar property.
+ *
+ * Take a BaseScalarProperty (either animated or static) and convert it to a RemoteFloat. If the
+ * scalar is animated, the RemoteFloat will change based on the animation specified in the Lottie
+ * Scalar Property.
+ */
+@SuppressLint("RestrictedApi")
+internal fun animateScalar(
+  scalar: BaseScalarProperty,
+  animationSettings: LottieSettings,
+): RemoteFloat {
+  return when (scalar) {
+    is StaticScalarProperty -> scalar.value.rf
+    is AnimatedScalarProperty -> {
+      if (scalar.keyframes.isEmpty()) {
+        return 0f.rf
+      }
+      if (scalar.keyframes.size == 1) {
+        return scalar.keyframes[0].value.rf
+      }
+
+      val animationSegments = mutableListOf<AnimationSegment>()
+
+      val firstKeyframe = scalar.keyframes[0]
+      if (firstKeyframe.frame != 0f) {
+        animationSegments.add(AnimationSegment(0f, firstKeyframe.value.rf))
+      }
+
+      for (i in 0 until scalar.keyframes.size - 1) {
+        val startKeyframe = scalar.keyframes[i]
+        val endKeyframe = scalar.keyframes[i + 1]
+        val duration = endKeyframe.frame - startKeyframe.frame
+        val frameInAnimation = animationSettings.currentFrame - startKeyframe.frame
+
+        val outTangent = startKeyframe.outTangent ?: scalarLinearEasingOut
+        val inTangent = startKeyframe.inTangent ?: scalarLinearEasingIn
+
+        val currentBezierValue =
+          lookupValueInBezier(
+            outTangent.x,
+            outTangent.y,
+            inTangent.x,
+            inTangent.y,
+            duration,
+            frameInAnimation,
+          )
+
+        val segmentValue = lerp(startKeyframe.value.rf, endKeyframe.value.rf, currentBezierValue)
+        animationSegments.add(AnimationSegment(startKeyframe.frame, segmentValue))
+      }
+
+      chainAnimation(animationSegments, animationSettings.currentFrame)
+    }
+  }
+}
 
 /**
  * Animates a position property.

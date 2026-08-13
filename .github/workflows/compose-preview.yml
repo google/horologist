@@ -1,0 +1,147 @@
+name: Compose Preview
+
+on:
+  push:
+    branches: [main]
+  # `pull_request`, not `pull_request_target`. The latter grants a write-scoped
+  # token and the repository's secrets to a workflow that then checks out and
+  # Gradle-builds the PR's own code — arbitrary code execution with write
+  # access. Fork PRs get their previews from the render/publish split below
+  # instead; see `compose-preview-publish.yml`.
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+  workflow_dispatch:
+
+# Nothing by default — each job asks for exactly what it needs. This is what
+# keeps the fork path honest: a workflow-level write grant would be handed to
+# the job that runs the PR's own Gradle build if the org ever enables write
+# tokens for fork pull requests.
+permissions: {}
+
+concurrency:
+  group: compose-preview-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Fork PRs render here and publish nothing.
+  #
+  # A fork PR's GITHUB_TOKEN is read-only on every scope no matter what a
+  # permissions block says, so the `apply` job below cannot push its renders or
+  # post its comment for one — it fails on the push and the PR gets no preview.
+  # This job renders and stops; `compose-preview-publish.yml` picks the result
+  # up from a `workflow_run` and publishes it from `main`'s own code, holding
+  # the write token without ever executing contributor code.
+  #
+  # The job-level `permissions` block is the load-bearing part: an organization
+  # can enable write tokens for fork pull requests, and this job — the one that
+  # builds the PR — must not receive them.
+  render-fork:
+    name: Render previews (fork PR)
+    if: ${{ github.event.pull_request.head.repo.fork }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: 'true'
+          # No `ref:` override — under `pull_request` the default checkout is
+          # already the PR merge commit. The explicit `head.sha` this replaces
+          # was only needed because `pull_request_target` defaults to the base.
+          #
+          # Nothing here should leave a usable token in `.git/config` for the
+          # fork's build to find.
+          persist-credentials: false
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: zulu
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
+
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@10f91c7d728cee4c9d3621f197997735becc1af9 # main
+        with:
+          phase: render
+          # Downgraded from the default `fail` while one preview cannot render
+          # off-device: sample's AmbientAwareActivity WearAppPreview calls
+          # rememberAmbientModeManager(), which needs the Wear Services class
+          # com.google.wear.services.ambient.AmbientComponentState — absent from
+          # the Robolectric runtime classpath, so it throws NoClassDefFoundError
+          # and produces no PNG. Nothing in this repo can render it; `warn` keeps
+          # the other ~500 previews reporting instead of one structural gap
+          # sinking the run. Restore `fail` once that preview is excluded or the
+          # renderer can stub the class.
+          missing-renders: warn
+          # Must match the `apply` job below. `only` is resolved render-side
+          # and travels in the handoff, so the publish workflow does not repeat
+          # it — but if the two render paths disagreed, a fork PR and a
+          # same-repo PR would populate different baseline branches.
+          only: compose
+
+      # `!cancelled()`, not the default success-only. A pipeline that fails
+      # part-way still renders most previews, and the action stages the handoff
+      # *before* it surfaces the failure — so the bundle is complete and worth
+      # publishing even on a red render. The single-job path behaves exactly
+      # this way ("PR comments and successful renders were still published");
+      # without this, a fork PR with one broken preview would get no comment at
+      # all, which is strictly worse than what it replaced.
+      - name: Upload preview handoff
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: compose-preview-handoff
+          path: _compose_preview_handoff/
+          if-no-files-found: error
+          retention-days: 1
+
+  # Everything trusted — same-repo PRs and the baseline push on `main` — keeps
+  # the single-job path, which already holds the write token it needs.
+  apply:
+    if: ${{ !github.event.pull_request.head.repo.fork }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write          # baselines push + compose-preview/pr branch
+      pull-requests: write     # upserts the PR comment
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          lfs: 'true'
+          # The action pushes via an explicit token in the remote URL, so the
+          # default git credentials aren't needed here.
+          persist-credentials: false
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - uses: actions/setup-java@b6effb05e454b25005698d916606bdc6ffcbf961 # v5
+        with:
+          distribution: zulu
+          java-version: 21
+
+      - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
+
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@10f91c7d728cee4c9d3621f197997735becc1af9 # main
+        with:
+          # Only the compose pipeline. The resources / a11y / notifications
+          # pipelines are additional renders on top of this one; turn them on
+          # separately once the compose baseline is settled. Must match
+          # `render-fork` above, or the two paths would populate different
+          # baseline branches.
+          only: compose
+          # Downgraded from the default `fail` while one preview cannot render
+          # off-device: sample's AmbientAwareActivity WearAppPreview calls
+          # rememberAmbientModeManager(), which needs the Wear Services class
+          # com.google.wear.services.ambient.AmbientComponentState — absent from
+          # the Robolectric runtime classpath, so it throws NoClassDefFoundError
+          # and produces no PNG. Nothing in this repo can render it; `warn` keeps
+          # the other ~500 previews reporting instead of one structural gap
+          # sinking the run. Restore `fail` once that preview is excluded or the
+          # renderer can stub the class.
+          missing-renders: warn

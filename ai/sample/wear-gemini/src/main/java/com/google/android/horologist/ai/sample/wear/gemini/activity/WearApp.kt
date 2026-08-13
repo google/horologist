@@ -29,10 +29,17 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 fun WearApp(
   modifier: Modifier = Modifier,
   navController: NavHostController = rememberSwipeDismissableNavController(),
+  uiState: DeviceStatusUiState? = null,
 ) {
   AppScaffold(modifier = modifier) {
     SwipeDismissableNavHost(startDestination = "Home", navController = navController) {
-      composable(route = "Home") { DeviceStatusScreen() }
+      composable(route = "Home") {
+        if (uiState != null) {
+          DeviceStatusScreen(uiState = uiState)
+        } else {
+          DeviceStatusScreen()
+        }
+      }
     }
   }
 }
@@ -40,5 +47,5 @@ fun WearApp(
 @WearPreviewSmallRound
 @Composable
 fun DefaultPreview() {
-  WearApp()
+  WearApp(uiState = Loaded(image = null, description = "Google Pixel Watch"))
 }

@@ -25,6 +25,8 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.ai.sample.wear.prompt.prompt.SamplePromptScreen
 import com.google.android.horologist.ai.sample.wear.prompt.settings.SettingsScreen
+import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
+import com.google.android.horologist.ai.ui.screens.PromptUiState
 import com.google.android.horologist.compose.nav.SwipeDismissableNavHost
 import com.google.android.horologist.compose.nav.composable
 
@@ -32,11 +34,19 @@ import com.google.android.horologist.compose.nav.composable
 fun WearApp(
   modifier: Modifier = Modifier,
   navController: NavHostController = rememberSwipeDismissableNavController(),
+  uiState: PromptUiState? = null,
 ) {
   AppScaffold(modifier = modifier) {
     SwipeDismissableNavHost(startDestination = Prompt, navController = navController) {
       composable<Prompt> {
-        SamplePromptScreen(onSettingsClick = { navController.navigate(Settings) })
+        if (uiState != null) {
+          SamplePromptScreen(
+            uiState = uiState,
+            onSettingsClick = { navController.navigate(Settings) },
+          )
+        } else {
+          SamplePromptScreen(onSettingsClick = { navController.navigate(Settings) })
+        }
       }
       composable<Settings> { SettingsScreen() }
     }
@@ -47,5 +57,8 @@ fun WearApp(
 @WearPreviewLargeRound
 @Composable
 fun DefaultPreview() {
-  WearApp()
+  // Supplying state keeps the render off the `hiltViewModel()` default. Left to inject, this
+  // preview produces no PNG at all, which fails the run under `missing-renders: fail` — the same
+  // failure fixed for the wear-gemini sample.
+  WearApp(uiState = PromptUiState(modelInfo = ModelInstanceUiModel("id", "Demo Model")))
 }

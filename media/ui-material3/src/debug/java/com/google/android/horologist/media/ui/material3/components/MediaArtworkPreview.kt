@@ -16,39 +16,27 @@
 
 package com.google.android.horologist.media.ui.material3.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Album
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.MaterialTheme
-import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
-import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun MediaArtworkPreview() {
   MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
-      MediaArtwork(
-        media =
-          MediaUiModel.Ready(
-            id = "id",
-            title = "Title",
-            artwork = Icons.Default.Album.asPaintable(),
-          ),
-        modifier = Modifier.size(80.dp),
-        placeholder = rememberVectorPainter(image = Icons.Default.Album),
-      )
-    }
+    MediaArtwork(
+      media =
+        MediaUiModel.Ready(id = "id", title = "Title", artwork = Icons.Default.Album.asPaintable()),
+      modifier = Modifier.size(80.dp),
+      placeholder = rememberVectorPainter(image = Icons.Default.Album),
+    )
   }
 }

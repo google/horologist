@@ -16,82 +16,53 @@
 
 package com.google.android.horologist.media.ui.material3.components.display
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
-import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
-import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun TextMediaDisplayPreview() {
-  MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
-      TextMediaDisplay(title = "Starboy", subtitle = "The Weeknd ft. Daft Punk")
-    }
-  }
+  MaterialTheme { TextMediaDisplay(title = "Starboy", subtitle = "The Weeknd ft. Daft Punk") }
 }
 
-@WearPreviewLargeRound
 @WearPreviewFontScales
 @Composable
 fun TextMediaDisplayLongTextPreview() {
   MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
-      TextMediaDisplay(
-        title = "Symphony No. 9 in D minor, Op. 125 'Choral'",
-        subtitle = "Ludwig van Beethoven, Berlin Philharmonic",
-      )
-    }
+    TextMediaDisplay(
+      title = "Symphony No. 9 in D minor, Op. 125 'Choral'",
+      subtitle = "Ludwig van Beethoven, Berlin Philharmonic",
+    )
   }
 }
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun TrackMediaDisplayPreview() {
   MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
-      TrackMediaDisplay(
-        media = MediaUiModel.Ready(id = "1", title = "Midnight City", subtitle = "M83")
-      )
-    }
+    TrackMediaDisplay(
+      media = MediaUiModel.Ready(id = "1", title = "Midnight City", subtitle = "M83")
+    )
   }
 }
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun LoadingMediaDisplayPreview() {
-  MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) { LoadingMediaDisplay() }
-  }
+  MaterialTheme { LoadingMediaDisplay() }
 }
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun NothingPlayingDisplayPreview() {
-  MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) { NothingPlayingDisplay() }
-  }
+  MaterialTheme { NothingPlayingDisplay() }
 }
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun MessageMediaDisplayPreview() {
-  MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
-      MessageMediaDisplay(message = "Custom Display Message")
-    }
-  }
+  MaterialTheme { MessageMediaDisplay(message = "Custom Display Message") }
 }

@@ -16,33 +16,24 @@
 
 package com.google.android.horologist.media.ui.material3.components.actions
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.PlaylistPlay
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.MaterialTheme
-import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
-import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun ShowPlaylistButtonPreview() {
   MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
-      ShowPlaylistButton(
-        artworkPaintable = Icons.AutoMirrored.Default.PlaylistPlay.asPaintable(),
-        name = "Favorites Playlist",
-        onClick = {},
-        modifier = Modifier.fillMaxWidth(),
-      )
-    }
+    ShowPlaylistButton(
+      artworkPaintable = Icons.AutoMirrored.Default.PlaylistPlay.asPaintable(),
+      name = "Favorites Playlist",
+      onClick = {},
+      modifier = Modifier.fillMaxWidth(),
+    )
   }
 }

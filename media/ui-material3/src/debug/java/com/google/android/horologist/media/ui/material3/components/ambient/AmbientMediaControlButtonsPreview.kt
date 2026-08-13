@@ -17,12 +17,12 @@
 package com.google.android.horologist.media.ui.material3.components.ambient
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
@@ -32,7 +32,10 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 @Composable
 fun AmbientMediaControlButtonsPlayingPreview() {
   MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
+    Row(
+      modifier = Modifier.fillMaxWidth().background(Color.Black),
+      verticalAlignment = Alignment.CenterVertically,
+    ) {
       AmbientMediaControlButtons(
         playing = true,
         onPlayButtonClick = {},
@@ -50,7 +53,10 @@ fun AmbientMediaControlButtonsPlayingPreview() {
 @Composable
 fun AmbientMediaControlButtonsPausedPreview() {
   MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
+    Row(
+      modifier = Modifier.fillMaxWidth().background(Color.Black),
+      verticalAlignment = Alignment.CenterVertically,
+    ) {
       AmbientMediaControlButtons(
         playing = false,
         onPlayButtonClick = {},
@@ -68,7 +74,10 @@ fun AmbientMediaControlButtonsPausedPreview() {
 @Composable
 fun AmbientMediaControlButtonsDisabledPreview() {
   MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) {
+    Row(
+      modifier = Modifier.fillMaxWidth().background(Color.Black),
+      verticalAlignment = Alignment.CenterVertically,
+    ) {
       AmbientMediaControlButtons(
         playing = false,
         onPlayButtonClick = {},

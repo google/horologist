@@ -16,94 +16,67 @@
 
 package com.google.android.horologist.media.ui.material3.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.MaterialTheme
-import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
-import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
+import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.media.ui.material3.components.controls.PauseButton
 import com.google.android.horologist.media.ui.material3.components.controls.PlayButton
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlin.time.Duration.Companion.seconds
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun PlayPauseProgressButtonPlayingPreview() {
   MaterialTheme {
-    Box(
-      modifier = Modifier.background(Color.Black).padding(8.dp).size(60.dp),
-      contentAlignment = Alignment.Center,
-    ) {
-      PlayPauseProgressButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        playing = true,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0.6f, 60.seconds, 100.seconds),
-      )
-    }
+    PlayPauseProgressButton(
+      onPlayClick = {},
+      onPauseClick = {},
+      playing = true,
+      trackPositionUiModel = TrackPositionUiModel.Actual(0.6f, 60.seconds, 100.seconds),
+      modifier = Modifier.size(60.dp),
+    )
   }
 }
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun PlayPauseProgressButtonPausedPreview() {
   MaterialTheme {
-    Box(
-      modifier = Modifier.background(Color.Black).padding(8.dp).size(60.dp),
-      contentAlignment = Alignment.Center,
-    ) {
-      PlayPauseProgressButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        playing = false,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0.6f, 60.seconds, 100.seconds),
-      )
-    }
+    PlayPauseProgressButton(
+      onPlayClick = {},
+      onPauseClick = {},
+      playing = false,
+      trackPositionUiModel = TrackPositionUiModel.Actual(0.6f, 60.seconds, 100.seconds),
+      modifier = Modifier.size(60.dp),
+    )
   }
 }
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun PlayPauseProgressButtonLoadingPreview() {
   MaterialTheme {
-    Box(
-      modifier = Modifier.background(Color.Black).padding(8.dp).size(60.dp),
-      contentAlignment = Alignment.Center,
-    ) {
-      PlayPauseProgressButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        playing = true,
-        trackPositionUiModel = TrackPositionUiModel.Loading(showProgress = true),
-      )
-    }
+    PlayPauseProgressButton(
+      onPlayClick = {},
+      onPauseClick = {},
+      playing = true,
+      trackPositionUiModel = TrackPositionUiModel.Loading(showProgress = true),
+      modifier = Modifier.size(60.dp),
+    )
   }
 }
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun PlayButtonPreview() {
-  MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) { PlayButton(onClick = {}) }
-  }
+  MaterialTheme { PlayButton(onClick = {}) }
 }
 
-@WearPreviewLargeRound
-@WearPreviewSmallRound
+@WearPreview
 @Composable
 fun PauseButtonPreview() {
-  MaterialTheme {
-    Box(modifier = Modifier.background(Color.Black).padding(8.dp)) { PauseButton(onClick = {}) }
-  }
+  MaterialTheme { PauseButton(onClick = {}) }
 }

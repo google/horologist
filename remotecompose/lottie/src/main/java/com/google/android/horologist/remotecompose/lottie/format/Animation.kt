@@ -26,7 +26,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal data class Animation(
   @SerialName("nm") val name: String? = null,
-  @SerialName("ver") val version: String? = "0.0.0",
+  @SerialName("v") val version: String? = "5.9.6",
   @SerialName("fr") val frameRate: Int,
   @SerialName("ip") val startFrame: Int,
   @SerialName("op") val endFrame: Int,

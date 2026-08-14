@@ -132,6 +132,66 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
     }
   }
 
+  public fun runLottieDiffTest(
+    json: String,
+    boxWidth: Dp = 84.dp,
+    boxHeight: Dp = 84.dp,
+    progress: Float = 0f,
+    suffix: String = "",
+    expectedFailure: Boolean = false,
+    block: (LottieDiffTestScope.() -> Unit)? = null,
+  ) {
+    val animationResult = runCatching { Animation.decodeFromString(json) }
+
+    if (expectedFailure) {
+      assertThat(animationResult.isFailure).isTrue()
+    } else {
+      assertThat(animationResult.isSuccess).isTrue()
+    }
+
+    val progressState = mutableStateOf(progress)
+    val clockNanoTimeState = mutableStateOf(0L)
+    val clock = SettableRemoteClock()
+
+    composeRule.setContent {
+      val currentProgress by progressState
+
+      Row(
+        modifier = Modifier.background(Color(0xFF1E1E1E)).padding(8.dp).testTag("LottieDiff"),
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        verticalAlignment = Alignment.CenterVertically,
+      ) {
+        LottieAndroidPreview(
+          json = json,
+          boxWidth = boxWidth,
+          boxHeight = boxHeight,
+          progress = currentProgress,
+        )
+
+        LottieRcPreview(
+          json = json,
+          boxWidth = boxWidth,
+          boxHeight = boxHeight,
+          progress = currentProgress,
+          animationResult = animationResult,
+        )
+      }
+    }
+
+    if (block != null) {
+      val scope =
+        LottieDiffTestScope(clock) { stepSuffix, stepProgress ->
+          progressState.value = stepProgress
+          clockNanoTimeState.value = clock.currentNanoTime
+          composeRule.waitForIdle()
+          composeRule.onNodeWithTag("LottieDiff").captureRoboImage(screenshotFilePath(stepSuffix))
+        }
+      scope.block()
+    } else {
+      composeRule.onNodeWithTag("LottieDiff").captureRoboImage(screenshotFilePath(suffix))
+    }
+  }
+
   protected open fun screenshotFilePath(suffix: String): String =
     "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName}$suffix.png"
 
@@ -172,6 +232,27 @@ public fun LottieAndroidPreview(
   boxSize: Dp = 84.dp,
   progress: Float = 0f,
 ) {
+  LottieAndroidPreview(
+    animationResId = animationResId,
+    modifier = modifier,
+    boxWidth = boxSize,
+    boxHeight = boxSize,
+    progress = progress,
+  )
+}
+
+/**
+ * Compose UI Composable for rendering a Lottie animation using the reference lottie-android library
+ * with custom width and height.
+ */
+@Composable
+public fun LottieAndroidPreview(
+  @RawRes animationResId: Int,
+  modifier: Modifier = Modifier,
+  boxWidth: Dp,
+  boxHeight: Dp,
+  progress: Float = 0f,
+) {
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -179,7 +260,7 @@ public fun LottieAndroidPreview(
   ) {
     BasicText(text = "lottie-android", style = TextStyle(color = Color.LightGray, fontSize = 10.sp))
     Box(
-      modifier = Modifier.size(boxSize).background(Color(0xFF2D2D2D)).padding(4.dp),
+      modifier = Modifier.size(boxWidth, boxHeight).background(Color(0xFF2D2D2D)).padding(4.dp),
       contentAlignment = Alignment.Center,
     ) {
       val context = LocalContext.current
@@ -197,6 +278,40 @@ public fun LottieAndroidPreview(
   }
 }
 
+/**
+ * Compose UI Composable for rendering a Lottie animation JSON string using the reference
+ * lottie-android library.
+ */
+@Composable
+public fun LottieAndroidPreview(
+  json: String,
+  modifier: Modifier = Modifier,
+  boxWidth: Dp = 84.dp,
+  boxHeight: Dp = 84.dp,
+  progress: Float = 0f,
+) {
+  Column(
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(4.dp),
+    modifier = modifier,
+  ) {
+    BasicText(text = "lottie-android", style = TextStyle(color = Color.LightGray, fontSize = 10.sp))
+    Box(
+      modifier = Modifier.size(boxWidth, boxHeight).background(Color(0xFF2D2D2D)).padding(4.dp),
+      contentAlignment = Alignment.Center,
+    ) {
+      val composition =
+        remember(json) { LottieCompositionFactory.fromJsonStringSync(json, null).value }
+
+      com.airbnb.lottie.compose.LottieAnimation(
+        composition = composition,
+        progress = { progress },
+        modifier = Modifier.fillMaxSize(),
+      )
+    }
+  }
+}
+
 /** Compose UI Composable for rendering a Lottie animation using Remote Compose. */
 @Composable
 internal fun LottieRcPreview(
@@ -206,20 +321,80 @@ internal fun LottieRcPreview(
   progress: Float = 0f,
   animationResult: Result<Animation>? = null,
 ) {
+  LottieRcPreview(
+    animationResId = animationResId,
+    modifier = modifier,
+    boxWidth = boxSize,
+    boxHeight = boxSize,
+    progress = progress,
+    animationResult = animationResult,
+  )
+}
+
+/**
+ * Compose UI Composable for rendering a Lottie animation using Remote Compose with custom width and
+ * height.
+ */
+@Composable
+internal fun LottieRcPreview(
+  @RawRes animationResId: Int,
+  modifier: Modifier = Modifier,
+  boxWidth: Dp,
+  boxHeight: Dp,
+  progress: Float = 0f,
+  animationResult: Result<Animation>? = null,
+) {
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
     verticalArrangement = Arrangement.spacedBy(4.dp),
     modifier = modifier,
   ) {
-    BasicText(text = "LottiePreview", style = TextStyle(color = Color.LightGray, fontSize = 10.sp))
+    BasicText(text = "rc/lottie", style = TextStyle(color = Color.LightGray, fontSize = 10.sp))
     Box(
-      modifier = Modifier.size(boxSize).background(Color(0xFF2D2D2D)).padding(4.dp),
+      modifier = Modifier.size(boxWidth, boxHeight).background(Color(0xFF2D2D2D)).padding(4.dp),
       contentAlignment = Alignment.Center,
     ) {
       val context = LocalContext.current
       val result =
         animationResult
           ?: remember(animationResId) { runCatching { Animation.load(animationResId, context) } }
+      val animation = result.getOrNull()
+      if (animation != null) {
+        LottiePreview(animation = animation, progress = progress, modifier = Modifier.fillMaxSize())
+      } else {
+        val errorMessage = LottieDiffScreenshotTest.sanitizeErrorMessage(result.exceptionOrNull())
+        BasicText(
+          text = errorMessage,
+          style =
+            TextStyle(color = Color(0xFFFF6B6B), fontSize = 8.sp, textAlign = TextAlign.Center),
+        )
+      }
+    }
+  }
+}
+
+/** Compose UI Composable for rendering a Lottie animation JSON string using Remote Compose. */
+@Composable
+internal fun LottieRcPreview(
+  json: String,
+  modifier: Modifier = Modifier,
+  boxWidth: Dp = 84.dp,
+  boxHeight: Dp = 84.dp,
+  progress: Float = 0f,
+  animationResult: Result<Animation>? = null,
+) {
+  Column(
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(4.dp),
+    modifier = modifier,
+  ) {
+    BasicText(text = "rc/lottie", style = TextStyle(color = Color.LightGray, fontSize = 10.sp))
+    Box(
+      modifier = Modifier.size(boxWidth, boxHeight).background(Color(0xFF2D2D2D)).padding(4.dp),
+      contentAlignment = Alignment.Center,
+    ) {
+      val result =
+        animationResult ?: remember(json) { runCatching { Animation.decodeFromString(json) } }
       val animation = result.getOrNull()
       if (animation != null) {
         LottiePreview(animation = animation, progress = progress, modifier = Modifier.fillMaxSize())

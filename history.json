@@ -1,6 +1,6 @@
 {
     "formatVersion": "compose-preview-history/v1",
-    "generatedFrom": "74a439c7a9a0316780fbf167a7e53268fe170a0b",
+    "generatedFrom": "bd5aad1887df7b3d25b8a3dabe39863cdc923c08",
     "previews": {
         "ai:sample:wear-gemini/com.google.android.horologist.ai.sample.wear.gemini.activity.WearAppKt.DefaultPreview_Devices - Small Round": {
             "path": "renders/ai:sample:wear-gemini/DefaultPreview_Devices_Small_Round.png",
@@ -8090,6 +8090,13 @@
             "path": "renders/remotecompose:lottie/LottieGeometryPreview.png",
             "versions": [
                 {
+                    "blob": "50c2f63d3c07c68d8a0fe34340d553bbf13731aa",
+                    "commit": "bd5aad1887df7b3d25b8a3dabe39863cdc923c08",
+                    "date": "2026-08-14T14:39:28Z",
+                    "sourceSha": "f86078ac",
+                    "commits": 1
+                },
+                {
                     "blob": "8c9b086e0349629fc3b8c65dd4365676939aa1f8",
                     "commit": "74a439c7a9a0316780fbf167a7e53268fe170a0b",
                     "date": "2026-08-14T13:00:35Z",
@@ -8097,7 +8104,7 @@
                     "commits": 1
                 }
             ],
-            "observations": 1,
+            "observations": 2,
             "unstable": false,
             "flapCount": 0
         },
@@ -8255,6 +8262,13 @@
             "path": "renders/remotecompose:lottie/LottieTintGeometryAnimatedPreview.gif",
             "versions": [
                 {
+                    "blob": "9f5676b8cc051dbcdcf1bb53a93c3c5c4091bcb2",
+                    "commit": "bd5aad1887df7b3d25b8a3dabe39863cdc923c08",
+                    "date": "2026-08-14T14:39:28Z",
+                    "sourceSha": "f86078ac",
+                    "commits": 1
+                },
+                {
                     "blob": "234e1d87def4174041bb622ea2ca126850344163",
                     "commit": "74a439c7a9a0316780fbf167a7e53268fe170a0b",
                     "date": "2026-08-14T13:00:35Z",
@@ -8262,13 +8276,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 1,
+            "observations": 2,
             "unstable": false,
             "flapCount": 0
         },
         "remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottieTintGeometryPreview": {
             "path": "renders/remotecompose:lottie/LottieTintGeometryPreview.png",
             "versions": [
+                {
+                    "blob": "d2823a749008b83bd4ebf09af73a75f0b84fb2d5",
+                    "commit": "bd5aad1887df7b3d25b8a3dabe39863cdc923c08",
+                    "date": "2026-08-14T14:39:28Z",
+                    "sourceSha": "f86078ac",
+                    "commits": 1
+                },
                 {
                     "blob": "b85f4e7b96503e06a30215b23a3b34b28695bd0d",
                     "commit": "74a439c7a9a0316780fbf167a7e53268fe170a0b",
@@ -8277,7 +8298,7 @@
                     "commits": 1
                 }
             ],
-            "observations": 1,
+            "observations": 2,
             "unstable": false,
             "flapCount": 0
         },

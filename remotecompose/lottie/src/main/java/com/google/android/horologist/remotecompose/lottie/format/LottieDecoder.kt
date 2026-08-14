@@ -173,7 +173,7 @@ internal object BaseScalarPropertySerializer :
 internal object StaticScalarPropertySerializer : KSerializer<StaticScalarProperty> {
   override val descriptor: SerialDescriptor =
     buildClassSerialDescriptor("StaticScalarProperty") {
-      element<String?>("s", isOptional = true)
+      element<String?>("sid", isOptional = true)
       element<Boolean>("animated", isOptional = true)
       element<Float>("k")
     }
@@ -190,7 +190,7 @@ internal object StaticScalarPropertySerializer : KSerializer<StaticScalarPropert
         StaticScalarProperty(value = v)
       }
       is JsonObject -> {
-        val slotId = element["s"]?.jsonPrimitive?.contentOrNull
+        val slotId = element["sid"]?.jsonPrimitive?.contentOrNull
         val kElem = element["k"]
         val v =
           when (kElem) {
@@ -207,7 +207,7 @@ internal object StaticScalarPropertySerializer : KSerializer<StaticScalarPropert
     val jsonEncoder = encoder as JsonEncoder
     jsonEncoder.encodeJsonElement(
       buildJsonObject {
-        value.slotId?.let { put("s", it) }
+        value.slotId?.let { put("sid", it) }
         put("a", 0)
         put("k", value.value)
       }

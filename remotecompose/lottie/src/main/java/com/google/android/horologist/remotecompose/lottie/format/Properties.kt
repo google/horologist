@@ -42,7 +42,7 @@ internal sealed class BaseScalarProperty : AnimatableProperty() {
 /** A single float value that is not animated */
 @Serializable(with = StaticScalarPropertySerializer::class)
 internal data class StaticScalarProperty(
-  @SerialName("s") val slotId: String? = null,
+  @SerialName("sid") val slotId: String? = null,
   override val animated: Boolean = false,
   @SerialName("k") val value: Float = 0f,
 ) : BaseScalarProperty()
@@ -50,7 +50,7 @@ internal data class StaticScalarProperty(
 /** An animated scalar property with keyframes. */
 @Serializable
 internal data class AnimatedScalarProperty(
-  @SerialName("s") val slotId: String? = null,
+  @SerialName("sid") val slotId: String? = null,
   override val animated: Boolean = true,
   @SerialName("k") val keyframes: List<ScalarPropertyKeyframe>,
 ) : BaseScalarProperty()
@@ -74,7 +74,7 @@ internal sealed class BaseVectorProperty : AnimatableProperty() {
 /** A static array of floats. */
 @Serializable
 internal data class StaticVectorProperty(
-  @SerialName("s") val slotId: String? = null,
+  @SerialName("sid") val slotId: String? = null,
   override val animated: Boolean = false,
   @SerialName("k") val value: FloatArray,
 ) : BaseVectorProperty()
@@ -82,7 +82,7 @@ internal data class StaticVectorProperty(
 /** An animated array of floats. */
 @Serializable
 internal data class AnimatedVectorProperty(
-  @SerialName("s") val slotId: String? = null,
+  @SerialName("sid") val slotId: String? = null,
   override val animated: Boolean = true,
   @SerialName("k") val keyframes: List<VectorPropertyKeyframe>,
 ) : BaseVectorProperty()
@@ -106,7 +106,7 @@ internal sealed class BasePositionProperty : AnimatableProperty() {
 /** A static position property is an array of floats with 2 or 3 values. */
 @Serializable
 internal data class StaticPositionProperty(
-  @SerialName("s") val slotId: String? = null,
+  @SerialName("sid") val slotId: String? = null,
   @SerialName("k") val value: FloatArray,
 ) : BasePositionProperty() {
   override val animated: Boolean
@@ -131,7 +131,7 @@ internal data class StaticPositionProperty(
 /** An animated position property with keyframes. */
 @Serializable
 internal data class AnimatedPositionProperty(
-  @SerialName("s") val slotId: String? = null,
+  @SerialName("sid") val slotId: String? = null,
   @SerialName("k") val keyframes: List<VectorPropertyKeyframe>,
 ) : BasePositionProperty() {
   override val animated: Boolean

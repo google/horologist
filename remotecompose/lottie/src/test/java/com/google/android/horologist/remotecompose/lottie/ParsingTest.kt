@@ -82,6 +82,17 @@ class ParsingTest {
   }
 
   @Test
+  fun fillColorSlotId_deserializes() {
+    val animation = loadGeometry()
+
+    val shapeLayer = animation.layers[1] as Layer.ShapeLayer
+    val group = shapeLayer.shapes[0] as GraphicElement.Group
+    val fill = group.shapes[1] as GraphicElement.Fill
+
+    assertThat(fill.color.slotId).isEqualTo("color.primary")
+  }
+
+  @Test
   fun shapeTypeEnum_deserializes() {
     val animation = loadGeometry()
 

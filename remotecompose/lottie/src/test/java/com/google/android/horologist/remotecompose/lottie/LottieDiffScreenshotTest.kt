@@ -303,7 +303,7 @@ public fun LottieAndroidPreview(
       val composition =
         remember(json) { LottieCompositionFactory.fromJsonStringSync(json, null).value }
 
-      com.airbnb.lottie.compose.LottieAnimation(
+      LottieAndroidAnimation(
         composition = composition,
         progress = { progress },
         modifier = Modifier.fillMaxSize(),

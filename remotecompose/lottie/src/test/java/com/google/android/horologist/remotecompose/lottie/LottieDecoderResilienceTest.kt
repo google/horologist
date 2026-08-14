@@ -135,6 +135,53 @@ class LottieDecoderResilienceTest {
   }
 
   @Test
+  fun colorProperty_parsesSlotId() {
+    val json =
+      """
+      {
+        "v": "5.7.0",
+        "fr": 30,
+        "ip": 0,
+        "op": 30,
+        "w": 50,
+        "h": 50,
+        "layers": [
+          {
+            "ty": 4,
+            "nm": "ShapeLayer",
+            "shapes": [
+              {
+                "ty": "fl",
+                "nm": "SidFill",
+                "c": { "sid": "color.primary", "k": [1.0, 0.0, 0.0, 1.0] }
+              },
+              {
+                "ty": "fl",
+                "nm": "DefaultFill",
+                "c": { "k": [0.0, 1.0, 0.0, 1.0] }
+              }
+            ]
+          }
+        ]
+      }
+      """
+        .trimIndent()
+
+    val animation = Animation.decodeFromString(json)
+
+    val shapeLayer = animation.layers[0] as Layer.ShapeLayer
+    val fill1 = shapeLayer.shapes[0] as GraphicElement.Fill
+    val fill2 = shapeLayer.shapes[1] as GraphicElement.Fill
+
+    assertThat(fill1.color.slotId).isEqualTo("color.primary")
+    assertThat(fill2.color.slotId).isNull()
+
+    val slotMap = SlotMap(mapOf("color.primary" to 0xFF00FF00.toInt()))
+    assertThat(slotMap.getColor("color.primary")).isNotNull()
+    assertThat(slotMap.getColor("unknown")).isNull()
+  }
+
+  @Test
   fun extraPluginMetadata_ignoredCleanly() {
     val json =
       """

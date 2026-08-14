@@ -26,12 +26,8 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.remote.core.RemoteClock
 import androidx.compose.remote.creation.compose.capture.rememberRemoteDocument
-import androidx.compose.remote.creation.compose.layout.RemoteAlignment
-import androidx.compose.remote.creation.compose.layout.RemoteArrangement
-import androidx.compose.remote.creation.compose.layout.RemoteColumn
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
-import androidx.compose.remote.creation.compose.modifier.height
-import androidx.compose.remote.creation.compose.modifier.width
+import androidx.compose.remote.creation.compose.modifier.fillMaxSize
 import androidx.compose.remote.creation.compose.state.rememberNamedRemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.remote.player.compose.RemoteDocumentPlayer
@@ -72,17 +68,12 @@ internal fun LottiePreview(
         } else {
           null
         }
-      RemoteColumn(
-        horizontalAlignment = RemoteAlignment.CenterHorizontally,
-        verticalArrangement = RemoteArrangement.Center,
-      ) {
-        LottieAnimation(
-          animation,
-          slotMap = slotMap,
-          progress = progressVar,
-          modifier = RemoteModifier.width(animation.width).height(animation.height),
-        )
-      }
+      LottieAnimation(
+        animation,
+        slotMap = slotMap,
+        progress = progressVar,
+        modifier = RemoteModifier.fillMaxSize(),
+      )
     }
   doc.value?.let { document ->
     RemoteDocumentPlayer(

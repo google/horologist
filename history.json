@@ -1,6 +1,6 @@
 {
     "formatVersion": "compose-preview-history/v1",
-    "generatedFrom": "99ca6d3fa92e103146611049e5972e0c2a26dd77",
+    "generatedFrom": "8630b46a9f1df0bdc48be0d3fe41a9f350647395",
     "previews": {
         "ai:sample:wear-gemini/com.google.android.horologist.ai.sample.wear.gemini.activity.WearAppKt.DefaultPreview_Devices - Small Round": {
             "path": "renders/ai:sample:wear-gemini/DefaultPreview_Devices_Small_Round.png",
@@ -8225,6 +8225,13 @@
             "path": "renders/sample/GeometryPreview_Devices_Large_Round.gif",
             "versions": [
                 {
+                    "blob": "5ebe6b238560a8956e5e1856c14c183408718e9f",
+                    "commit": "8630b46a9f1df0bdc48be0d3fe41a9f350647395",
+                    "date": "2026-08-14T11:28:48Z",
+                    "sourceSha": "cb313386",
+                    "commits": 1
+                },
+                {
                     "blob": "ac76ccb353631ba32ddad7d0a9f75b541b7ec004",
                     "commit": "fe6595408b2298011afffa61c51f18d919b798f4",
                     "date": "2026-08-13T11:52:39Z",
@@ -8232,7 +8239,7 @@
                     "commits": 1
                 }
             ],
-            "observations": 1,
+            "observations": 2,
             "unstable": false,
             "flapCount": 0
         },
@@ -8240,6 +8247,13 @@
             "path": "renders/sample/GeometryPreview_Devices_Small_Round.gif",
             "versions": [
                 {
+                    "blob": "ad396a4e29074b0a38e8bf138b0e8c7cf069dd9d",
+                    "commit": "8630b46a9f1df0bdc48be0d3fe41a9f350647395",
+                    "date": "2026-08-14T11:28:48Z",
+                    "sourceSha": "cb313386",
+                    "commits": 1
+                },
+                {
                     "blob": "2939650e36d9573c45da3eebcd74808104b6541a",
                     "commit": "fe6595408b2298011afffa61c51f18d919b798f4",
                     "date": "2026-08-13T11:52:39Z",
@@ -8247,13 +8261,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 1,
+            "observations": 2,
             "unstable": false,
             "flapCount": 0
         },
         "sample/com.google.android.horologist.lottie.GeometryPreviewKt.TintGeometryPreview_Devices - Large Round": {
             "path": "renders/sample/TintGeometryPreview_Devices_Large_Round.gif",
             "versions": [
+                {
+                    "blob": "5ebe6b238560a8956e5e1856c14c183408718e9f",
+                    "commit": "8630b46a9f1df0bdc48be0d3fe41a9f350647395",
+                    "date": "2026-08-14T11:28:48Z",
+                    "sourceSha": "cb313386",
+                    "commits": 1
+                },
                 {
                     "blob": "ac76ccb353631ba32ddad7d0a9f75b541b7ec004",
                     "commit": "fe6595408b2298011afffa61c51f18d919b798f4",
@@ -8262,13 +8283,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 1,
+            "observations": 2,
             "unstable": false,
             "flapCount": 0
         },
         "sample/com.google.android.horologist.lottie.GeometryPreviewKt.TintGeometryPreview_Devices - Small Round": {
             "path": "renders/sample/TintGeometryPreview_Devices_Small_Round.gif",
             "versions": [
+                {
+                    "blob": "ad396a4e29074b0a38e8bf138b0e8c7cf069dd9d",
+                    "commit": "8630b46a9f1df0bdc48be0d3fe41a9f350647395",
+                    "date": "2026-08-14T11:28:48Z",
+                    "sourceSha": "cb313386",
+                    "commits": 1
+                },
                 {
                     "blob": "2939650e36d9573c45da3eebcd74808104b6541a",
                     "commit": "fe6595408b2298011afffa61c51f18d919b798f4",
@@ -8277,7 +8305,7 @@
                     "commits": 1
                 }
             ],
-            "observations": 1,
+            "observations": 2,
             "unstable": false,
             "flapCount": 0
         },

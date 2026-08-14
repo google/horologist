@@ -636,6 +636,25 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `PlaylistsScreenPreviewLoading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/PlaylistsScreenPreviewLoading_Devices_Large_Round.png" width="150" /> |
 | `PlaylistsScreenPreviewLoading` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/PlaylistsScreenPreviewLoading_Devices_Small_Round.png" width="150" /> |
 
+## remotecompose:lottie
+
+| Preview | Image |
+|---------|-------|
+| `LottieGeometryAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieGeometryAnimatedPreview.gif" width="150" /> |
+| `LottieGeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieGeometryPreview.png" width="150" /> |
+| `LottieM3PlayPauseAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieM3PlayPauseAnimatedPreview.gif" width="150" /> |
+| `LottieM3PlayPausePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieM3PlayPausePreview.png" width="150" /> |
+| `LottieNextAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieNextAnimatedPreview.gif" width="150" /> |
+| `LottieNextPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieNextPreview.png" width="150" /> |
+| `LottiePlayPauseAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePlayPauseAnimatedPreview.gif" width="150" /> |
+| `LottiePlayPausePauseStatePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePlayPausePauseStatePreview.png" width="150" /> |
+| `LottiePlayPausePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePlayPausePreview.png" width="150" /> |
+| `LottiePositionAnimatedLivePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePositionAnimatedLivePreview.gif" width="150" /> |
+| `LottiePositionAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePositionAnimatedPreview.png" width="150" /> |
+| `LottiePositionStaticPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePositionStaticPreview.png" width="150" /> |
+| `LottieTintGeometryAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieTintGeometryAnimatedPreview.gif" width="150" /> |
+| `LottieTintGeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieTintGeometryPreview.png" width="150" /> |
+
 ## sample
 
 | Preview | Image |
@@ -650,10 +669,6 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `PageIndicatorLeft5PlusAuditPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/PageIndicatorLeft5PlusAuditPreview_Devices_Small_Round.png" width="150" /> |
 | `PageIndicatorRight5PlusAuditPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/PageIndicatorRight5PlusAuditPreview_Devices_Large_Round.png" width="150" /> |
 | `PageIndicatorRight5PlusAuditPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/PageIndicatorRight5PlusAuditPreview_Devices_Small_Round.png" width="150" /> |
-| `GeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/GeometryPreview_Devices_Large_Round.gif" width="150" /> |
-| `GeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/GeometryPreview_Devices_Small_Round.gif" width="150" /> |
-| `TintGeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/TintGeometryPreview_Devices_Large_Round.gif" width="150" /> |
-| `TintGeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/TintGeometryPreview_Devices_Small_Round.gif" width="150" /> |
 | `PagingItemCardPreviewWithDelayedContent` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/PagingItemCardPreviewWithDelayedContent_Devices_Small_Square.png" width="150" /> |
 | `PagingItemCardPreviewWithInitialContent` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/PagingItemCardPreviewWithInitialContent.png" width="150" /> |
 | `FillMaxRectanglePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/sample/FillMaxRectanglePreview_Devices_Large_Round.png" width="150" /> |

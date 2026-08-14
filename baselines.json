@@ -4196,7 +4196,7 @@
     "functionName": "LottieGeometryPreview",
     "module": "remotecompose:lottie",
     "renderBasename": "LottieGeometryPreview.png",
-    "sha256": "39d8c81096d5cc972392fb0c7556e7ae171cb31b6b4454e06ce09c49a1f79b90",
+    "sha256": "69885de78cd133949d61d393627e98cfa0a6a42aaba408f6635dcd1ae8a1a024",
     "sourceFile": "src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt"
   },
   "remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottieM3PlayPauseAnimatedPreview": {
@@ -4284,7 +4284,7 @@
     "functionName": "LottieTintGeometryAnimatedPreview",
     "module": "remotecompose:lottie",
     "renderBasename": "LottieTintGeometryAnimatedPreview.gif",
-    "sha256": "32e433da50ac1fa68ea969af0e4bbcc48620950e57a625f683998400cb929461",
+    "sha256": "0a8c3a09f19244195f944d142f47fc4c4e0824a5dce3254c256ed68585ebe043",
     "sourceFile": "src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt"
   },
   "remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottieTintGeometryPreview": {
@@ -4292,7 +4292,7 @@
     "functionName": "LottieTintGeometryPreview",
     "module": "remotecompose:lottie",
     "renderBasename": "LottieTintGeometryPreview.png",
-    "sha256": "51ddc39e3e730d22e7905c1097c777d8398ecaadf8019e4e30414afe77f5bc57",
+    "sha256": "e27897e8be3be7cb9f88be398ab2ffb075c95197695b8c8f00787e712f3165c8",
     "sourceFile": "src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt"
   },
   "sample/com.google.android.horologist.audit.AuditMenuScreenKt.AuditMenuScreenPreview_Devices - Large Round": {

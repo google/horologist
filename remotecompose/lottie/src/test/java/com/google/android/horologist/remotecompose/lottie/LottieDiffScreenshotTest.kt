@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.test.core.app.ApplicationProvider
 import com.airbnb.lottie.LottieCompositionFactory
+import com.airbnb.lottie.compose.LottieAnimation as LottieAndroidAnimation
 import com.github.takahirom.roborazzi.captureRoboImage
 import com.google.android.horologist.remotecompose.lottie.format.Animation
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest
@@ -268,7 +269,7 @@ public fun LottieAndroidPreview(
           LottieCompositionFactory.fromRawResSync(context, animationResId).value
         }
 
-      com.airbnb.lottie.compose.LottieAnimation(
+      LottieAndroidAnimation(
         composition = composition,
         progress = { progress },
         modifier = Modifier.fillMaxSize(),

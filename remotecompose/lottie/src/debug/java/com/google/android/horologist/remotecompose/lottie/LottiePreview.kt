@@ -18,6 +18,12 @@ package com.google.android.horologist.remotecompose.lottie
 
 import android.annotation.SuppressLint
 import androidx.annotation.RawRes
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.remote.core.RemoteClock
 import androidx.compose.remote.creation.compose.capture.rememberRemoteDocument
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
@@ -26,6 +32,7 @@ import androidx.compose.remote.creation.compose.state.rememberNamedRemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.remote.player.compose.RemoteDocumentPlayer
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -104,4 +111,67 @@ fun LottiePreview(
   val context = LocalContext.current
   val animation = remember(animationResId) { Animation.load(animationResId, context) }
   LottiePreview(animation, modifier, slotMap, clock, progress)
+}
+
+/**
+ * Displays an animated Lottie animation using Remote Compose, driving the progress through a
+ * Compose [InfiniteTransition] so that it animates continuously in previews.
+ *
+ * @param animation The parsed Lottie animation to play.
+ * @param modifier The modifier to apply to the host layout.
+ * @param slotMap Optional mapping of slot IDs to values for dynamic theming.
+ * @param durationMillis Optional override for the animation duration in milliseconds.
+ */
+@SuppressLint("RestrictedApi")
+@Composable
+internal fun LottieAnimatedPreview(
+  animation: Animation,
+  modifier: Modifier = Modifier,
+  slotMap: SlotMap = SlotMap.Empty,
+  durationMillis: Int? = null,
+) {
+  val duration =
+    durationMillis
+      ?: if (animation.frameRate > 0) {
+        (((animation.endFrame - animation.startFrame) / animation.frameRate.toFloat()) * 1000)
+          .toInt()
+          .coerceAtLeast(100)
+      } else {
+        1000
+      }
+  val transition = rememberInfiniteTransition(label = "LottieProgress")
+  val progress by
+    transition.animateFloat(
+      initialValue = 0f,
+      targetValue = 1f,
+      animationSpec =
+        infiniteRepeatable(
+          animation = tween(durationMillis = duration, easing = LinearEasing),
+          repeatMode = RepeatMode.Restart,
+        ),
+      label = "Progress",
+    )
+  LottiePreview(animation = animation, modifier = modifier, slotMap = slotMap, progress = progress)
+}
+
+/**
+ * Displays an animated Lottie animation from a raw resource ID using Remote Compose, driving the
+ * progress through a Compose [InfiniteTransition] so that it animates continuously in previews.
+ *
+ * @param animationResId The raw resource ID of the Lottie JSON file.
+ * @param modifier The modifier to apply to the host layout.
+ * @param slotMap Optional mapping of slot IDs to values for dynamic theming.
+ * @param durationMillis Optional override for the animation duration in milliseconds.
+ */
+@SuppressLint("RestrictedApi")
+@Composable
+fun LottieAnimatedPreview(
+  @RawRes animationResId: Int,
+  modifier: Modifier = Modifier,
+  slotMap: SlotMap = SlotMap.Empty,
+  durationMillis: Int? = null,
+) {
+  val context = LocalContext.current
+  val animation = remember(animationResId) { Animation.load(animationResId, context) }
+  LottieAnimatedPreview(animation, modifier, slotMap, durationMillis)
 }

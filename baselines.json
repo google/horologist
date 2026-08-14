@@ -4268,7 +4268,7 @@
     "functionName": "GeometryPreview",
     "module": "sample",
     "renderBasename": "GeometryPreview_Devices_Large_Round.gif",
-    "sha256": "66e45c687a1df0fc976fb0175e6ede2120f0579e8ce2a03d08d890e585904c45",
+    "sha256": "b0970c59fce5aac3e6085f155a512432d08e4bdad76fcfbf701b0a0f30ff653e",
     "sourceFile": "src/main/java/com/google/android/horologist/lottie/GeometryPreview.kt"
   },
   "sample/com.google.android.horologist.lottie.GeometryPreviewKt.GeometryPreview_Devices - Small Round": {
@@ -4276,7 +4276,7 @@
     "functionName": "GeometryPreview",
     "module": "sample",
     "renderBasename": "GeometryPreview_Devices_Small_Round.gif",
-    "sha256": "818f65db5daf631a143bc02b0401d221c1a9b7d2cbed8108a4edf38f60bc9183",
+    "sha256": "1347a8e1c249d9eb3643ecb85df932811dac1e0ccd668c1a742c0455bd3f4b71",
     "sourceFile": "src/main/java/com/google/android/horologist/lottie/GeometryPreview.kt"
   },
   "sample/com.google.android.horologist.lottie.GeometryPreviewKt.TintGeometryPreview_Devices - Large Round": {
@@ -4284,7 +4284,7 @@
     "functionName": "TintGeometryPreview",
     "module": "sample",
     "renderBasename": "TintGeometryPreview_Devices_Large_Round.gif",
-    "sha256": "66e45c687a1df0fc976fb0175e6ede2120f0579e8ce2a03d08d890e585904c45",
+    "sha256": "b0970c59fce5aac3e6085f155a512432d08e4bdad76fcfbf701b0a0f30ff653e",
     "sourceFile": "src/main/java/com/google/android/horologist/lottie/GeometryPreview.kt"
   },
   "sample/com.google.android.horologist.lottie.GeometryPreviewKt.TintGeometryPreview_Devices - Small Round": {
@@ -4292,7 +4292,7 @@
     "functionName": "TintGeometryPreview",
     "module": "sample",
     "renderBasename": "TintGeometryPreview_Devices_Small_Round.gif",
-    "sha256": "818f65db5daf631a143bc02b0401d221c1a9b7d2cbed8108a4edf38f60bc9183",
+    "sha256": "1347a8e1c249d9eb3643ecb85df932811dac1e0ccd668c1a742c0455bd3f4b71",
     "sourceFile": "src/main/java/com/google/android/horologist/lottie/GeometryPreview.kt"
   },
   "sample/com.google.android.horologist.paging.PagingScreenKt.PagingItemCardPreviewWithDelayedContent_Devices - Small Square": {

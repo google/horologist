@@ -67,71 +67,70 @@ import androidx.wear.compose.material3.ripple
  */
 @Composable
 public fun UnboundedRippleIconButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: IconButtonColors = IconButtonDefaults.iconButtonColors(),
-    interactionSource: MutableInteractionSource? = null,
-    rippleRadius: Dp? = Dp.Unspecified,
-    shape: Shape = CircleShape,
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    border: BorderStroke? = null,
-    animationSpec: FiniteAnimationSpec<Color> = MaterialTheme.motionScheme.slowEffectsSpec(),
-    content: @Composable BoxScope.() -> Unit,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  colors: IconButtonColors = IconButtonDefaults.iconButtonColors(),
+  interactionSource: MutableInteractionSource? = null,
+  rippleRadius: Dp? = Dp.Unspecified,
+  shape: Shape = CircleShape,
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  border: BorderStroke? = null,
+  animationSpec: FiniteAnimationSpec<Color> = MaterialTheme.motionScheme.slowEffectsSpec(),
+  content: @Composable BoxScope.() -> Unit,
 ) {
-    val contentColor = remember(colors, enabled) {
-        colors.run { if (enabled) contentColor else disabledContentColor }
-    }
-    val containerColor = remember(colors, enabled) {
-        colors.run { if (enabled) containerColor else disabledContainerColor }
-    }
-
-    val animatedContainerColor = remember { Animatable(containerColor) }
-
-    LaunchedEffect(containerColor) {
-        animatedContainerColor.animateTo(containerColor, animationSpec)
+  val contentColor =
+    remember(colors, enabled) { colors.run { if (enabled) contentColor else disabledContentColor } }
+  val containerColor =
+    remember(colors, enabled) {
+      colors.run { if (enabled) containerColor else disabledContainerColor }
     }
 
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = modifier
-            .minimumInteractiveComponentSize()
-            .size(
-                if (rippleRadius == null || rippleRadius == Dp.Unspecified) {
-                    IconButtonDefaults.DefaultButtonSize
-                } else {
-                    (rippleRadius * 2f)
-                },
-            )
-            .clickable(
-                interactionSource = interactionSource,
-                indication = rippleRadius?.let { ripple(bounded = false, radius = it) },
-                onClick = onClick,
-                role = Role.Button,
-                enabled = enabled,
-            )
-            .padding(buttonPadding)
-            .clip(shape)
-            .then(
-                if (border != null) {
-                    Modifier.border(border = border, shape = shape)
-                } else {
-                    Modifier
-                },
-            )
-            .drawWithCache {
-                val outline = shape.createOutline(size, layoutDirection, this)
-                onDrawWithContent {
-                    drawOutline(outline, color = animatedContainerColor.value)
-                    drawContent()
-                }
-            },
+  val animatedContainerColor = remember { Animatable(containerColor) }
+
+  LaunchedEffect(containerColor) { animatedContainerColor.animateTo(containerColor, animationSpec) }
+
+  Box(
+    contentAlignment = Alignment.Center,
+    modifier =
+      modifier
+        .minimumInteractiveComponentSize()
+        .size(
+          if (rippleRadius == null || rippleRadius == Dp.Unspecified) {
+            IconButtonDefaults.DefaultButtonSize
+          } else {
+            (rippleRadius * 2f)
+          }
+        )
+        .clickable(
+          interactionSource = interactionSource,
+          indication = rippleRadius?.let { ripple(bounded = false, radius = it) },
+          onClick = onClick,
+          role = Role.Button,
+          enabled = enabled,
+        )
+        .padding(buttonPadding)
+        .clip(shape)
+        .then(
+          if (border != null) {
+            Modifier.border(border = border, shape = shape)
+          } else {
+            Modifier
+          }
+        )
+        .drawWithCache {
+          val outline = shape.createOutline(size, layoutDirection, this)
+          onDrawWithContent {
+            drawOutline(outline, color = animatedContainerColor.value)
+            drawContent()
+          }
+        },
+  ) {
+    CompositionLocalProvider(
+      LocalContentColor provides contentColor,
+      LocalTextStyle provides MaterialTheme.typography.labelMedium,
     ) {
-        CompositionLocalProvider(
-            LocalContentColor provides contentColor,
-            LocalTextStyle provides MaterialTheme.typography.labelMedium,
-        ) {
-            content()
-        }
+      content()
     }
+  }
 }

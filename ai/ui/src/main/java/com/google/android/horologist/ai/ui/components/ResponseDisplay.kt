@@ -35,60 +35,55 @@ import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 
 @Composable
 public fun FailedResponseChip(
-    answer: FailedResponseUiModel,
-    modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null,
-    transformation: SurfaceTransformation? = null,
+  answer: FailedResponseUiModel,
+  modifier: Modifier = Modifier,
+  onClick: (() -> Unit)? = null,
+  transformation: SurfaceTransformation? = null,
 ) {
-    Text(
-        text = answer.message,
-        modifier = modifier,
-        color = MaterialTheme.colorScheme.error,
-    )
+  Text(text = answer.message, modifier = modifier, color = MaterialTheme.colorScheme.error)
 }
 
 @Composable
 public fun TextResponseCard(
-    textResponseUiModel: TextResponseUiModel,
-    modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null,
-    transformation: SurfaceTransformation? = null,
+  textResponseUiModel: TextResponseUiModel,
+  modifier: Modifier = Modifier,
+  onClick: (() -> Unit)? = null,
+  transformation: SurfaceTransformation? = null,
 ) {
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        onClick = onClick ?: {},
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainer,
-            contentColor = MaterialTheme.colorScheme.onSurface,
-        ),
-        transformation = transformation,
-    ) {
-        Text(text = textResponseUiModel.text, style = MaterialTheme.typography.bodyMedium)
-    }
+  Card(
+    modifier = modifier.fillMaxWidth(),
+    onClick = onClick ?: {},
+    colors =
+      CardDefaults.cardColors(
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        contentColor = MaterialTheme.colorScheme.onSurface,
+      ),
+    transformation = transformation,
+  ) {
+    Text(text = textResponseUiModel.text, style = MaterialTheme.typography.bodyMedium)
+  }
 }
 
 @Composable
 public fun ImageResponseCard(
-    imageResponseUiModel: ImageResponseUiModel,
-    modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null,
-    transformation: SurfaceTransformation? = null,
+  imageResponseUiModel: ImageResponseUiModel,
+  modifier: Modifier = Modifier,
+  onClick: (() -> Unit)? = null,
+  transformation: SurfaceTransformation? = null,
 ) {
-    AsyncImage(
-        modifier = modifier.clickable(enabled = onClick != null, onClick = onClick ?: {}),
-        model = imageResponseUiModel.imageUrl ?: imageResponseUiModel.image,
-        contentDescription = null,
-    )
+  AsyncImage(
+    modifier = modifier.clickable(enabled = onClick != null, onClick = onClick ?: {}),
+    model = imageResponseUiModel.imageUrl ?: imageResponseUiModel.image,
+    contentDescription = null,
+  )
 }
 
 @Composable
 public fun ResponseInProgressCard(
-    @Suppress("UNUSED_PARAMETER") inProgress: InProgressResponseUiModel,
-    modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null,
-    transformation: SurfaceTransformation? = null,
+  @Suppress("UNUSED_PARAMETER") inProgress: InProgressResponseUiModel,
+  modifier: Modifier = Modifier,
+  onClick: (() -> Unit)? = null,
+  transformation: SurfaceTransformation? = null,
 ) {
-    Box(modifier = modifier) {
-        CircularProgressIndicator()
-    }
+  Box(modifier = modifier) { CircularProgressIndicator() }
 }

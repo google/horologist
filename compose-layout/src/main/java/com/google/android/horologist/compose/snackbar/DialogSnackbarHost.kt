@@ -27,36 +27,25 @@ import androidx.wear.compose.material.Text
 import androidx.wear.compose.material.dialog.Confirmation
 
 @Composable
-public fun DialogSnackbarHost(
-    hostState: SnackbarHostState,
-    modifier: Modifier = Modifier,
-) {
-    val accessibilityManager = LocalAccessibilityManager.current
-    SnackbarHost(
-        modifier = modifier.alpha(0.9f),
-        snackbar = {
-            val duration = it.duration.toMillis(
-                it.actionLabel != null,
-                accessibilityManager,
-            )
-            Confirmation(
-                onTimeout = { it.dismiss() },
-                durationMillis = duration,
-            ) {
-                Text(
-                    modifier = Modifier.align(CenterHorizontally),
-                    textAlign = TextAlign.Center,
-                    text = it.message,
-                )
-                CompactChip(
-                    modifier = Modifier.align(CenterHorizontally),
-                    onClick = { it.dismiss() },
-                    label = {
-                        Text(text = "Dismiss")
-                    },
-                )
-            }
-        },
-        hostState = hostState,
-    )
+public fun DialogSnackbarHost(hostState: SnackbarHostState, modifier: Modifier = Modifier) {
+  val accessibilityManager = LocalAccessibilityManager.current
+  SnackbarHost(
+    modifier = modifier.alpha(0.9f),
+    snackbar = {
+      val duration = it.duration.toMillis(it.actionLabel != null, accessibilityManager)
+      Confirmation(onTimeout = { it.dismiss() }, durationMillis = duration) {
+        Text(
+          modifier = Modifier.align(CenterHorizontally),
+          textAlign = TextAlign.Center,
+          text = it.message,
+        )
+        CompactChip(
+          modifier = Modifier.align(CenterHorizontally),
+          onClick = { it.dismiss() },
+          label = { Text(text = "Dismiss") },
+        )
+      }
+    },
+    hostState = hostState,
+  )
 }

@@ -24,35 +24,27 @@ import org.junit.Test
 
 class PlaylistMediaEntityMapperTest {
 
-    @Test
-    fun mapsCorrectly() {
-        // given
-        val playlistId = "playlistId"
-        val playlist = Playlist(
-            id = playlistId,
-            name = "name",
-            artworkUri = "artworkUri",
-            mediaList = listOf(),
-        )
+  @Test
+  fun mapsCorrectly() {
+    // given
+    val playlistId = "playlistId"
+    val playlist =
+      Playlist(id = playlistId, name = "name", artworkUri = "artworkUri", mediaList = listOf())
 
-        val mediaId = "mediaId"
-        val media = Media(
-            id = mediaId,
-            uri = "uri",
-            title = "title",
-            artist = "artist",
-            artworkUri = "artworkUri",
-        )
+    val mediaId = "mediaId"
+    val media =
+      Media(
+        id = mediaId,
+        uri = "uri",
+        title = "title",
+        artist = "artist",
+        artworkUri = "artworkUri",
+      )
 
-        // when
-        val result = PlaylistMediaEntityMapper.map(playlist, media)
+    // when
+    val result = PlaylistMediaEntityMapper.map(playlist, media)
 
-        // then
-        assertThat(result).isEqualTo(
-            PlaylistMediaEntity(
-                playlistId = playlistId,
-                mediaId = mediaId,
-            ),
-        )
-    }
+    // then
+    assertThat(result).isEqualTo(PlaylistMediaEntity(playlistId = playlistId, mediaId = mediaId))
+  }
 }

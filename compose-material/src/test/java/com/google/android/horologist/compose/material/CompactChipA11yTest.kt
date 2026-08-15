@@ -23,37 +23,33 @@ import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
 class CompactChipA11yTest : WearLegacyA11yTest() {
-    @Test
-    fun withIcon() {
-        runComponentTest {
-            CompactChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icons.Filled.Add.asPaintable(),
-            )
-        }
+  @Test
+  fun withIcon() {
+    runComponentTest {
+      CompactChip(label = "Primary label", onClick = {}, icon = Icons.Filled.Add.asPaintable())
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            CompactChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icons.Filled.Add.asPaintable(),
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      CompactChip(
+        label = "Primary label",
+        onClick = {},
+        icon = Icons.Filled.Add.asPaintable(),
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun iconOnly() {
-        runComponentTest {
-            CompactChip(
-                onClick = { },
-                icon = Icons.Filled.Add.asPaintable(),
-                contentDescription = "contentDescription",
-            )
-        }
+  @Test
+  fun iconOnly() {
+    runComponentTest {
+      CompactChip(
+        onClick = {},
+        icon = Icons.Filled.Add.asPaintable(),
+        contentDescription = "contentDescription",
+      )
     }
+  }
 }

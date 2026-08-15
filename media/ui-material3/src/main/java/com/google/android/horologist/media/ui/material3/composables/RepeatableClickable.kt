@@ -42,7 +42,8 @@ import kotlinx.coroutines.launch
  * the composable. Should be used instead of clickable modifier to achieve clickable and repeatable
  * clickable behavior. Can't be used along with clickable modifier as it already implements it.
  *
- * Code from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material-core/src/main/java/androidx/wear/compose/materialcore/RepeatableClickable.kt
+ * Code from
+ * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material-core/src/main/java/androidx/wear/compose/materialcore/RepeatableClickable.kt
  *
  * Callbacks [onClick] and [onRepeatableClick] are different. [onClick] is triggered only when the
  * hold duration is shorter than [initialDelay] and no repeatable clicks happened.
@@ -68,60 +69,60 @@ import kotlinx.coroutines.launch
  * @param onRepeatableClickEnd will be called after the after the onRepeatableClick call(s).
  */
 internal fun Modifier.repeatableClickable(
-    interactionSource: MutableInteractionSource?,
-    indication: Indication?,
-    enabled: Boolean = true,
-    onClickLabel: String? = null,
-    role: Role? = null,
-    initialDelay: Long = 500L,
-    incrementalDelay: Long = 60L,
-    onClick: () -> Unit,
-    onRepeatableClick: () -> Unit = onClick,
-    onRepeatableClickEnd: () -> Unit = {},
+  interactionSource: MutableInteractionSource?,
+  indication: Indication?,
+  enabled: Boolean = true,
+  onClickLabel: String? = null,
+  role: Role? = null,
+  initialDelay: Long = 500L,
+  incrementalDelay: Long = 60L,
+  onClick: () -> Unit,
+  onRepeatableClick: () -> Unit = onClick,
+  onRepeatableClickEnd: () -> Unit = {},
 ): Modifier = composed {
-    val currentOnRepeatableClick by rememberUpdatedState(onRepeatableClick)
-    val currentOnRepeatableClickEnd by rememberUpdatedState(onRepeatableClickEnd)
-    val currentOnClick by rememberUpdatedState(onClick)
-    // This flag is used for checking whether the onClick should be ignored or not.
-    // If this flag is true, then it means that repeatable click happened and onClick
-    // shouldn't be triggered.
-    var ignoreOnClick by remember { mutableStateOf(false) }
+  val currentOnRepeatableClick by rememberUpdatedState(onRepeatableClick)
+  val currentOnRepeatableClickEnd by rememberUpdatedState(onRepeatableClickEnd)
+  val currentOnClick by rememberUpdatedState(onClick)
+  // This flag is used for checking whether the onClick should be ignored or not.
+  // If this flag is true, then it means that repeatable click happened and onClick
+  // shouldn't be triggered.
+  var ignoreOnClick by remember { mutableStateOf(false) }
 
-    // Repeatable logic should always follow the clickable, as the lowest modifier finishes first,
-    // and we have to be sure that repeatable goes before clickable.
-    clickable(
-        interactionSource = interactionSource,
-        indication = indication,
-        enabled = enabled,
-        onClickLabel = onClickLabel,
-        role = role,
-        onClick = {
-            if (!ignoreOnClick) {
-                currentOnClick()
-            }
-            ignoreOnClick = false
-        },
-    )
-        .pointerInput(enabled) {
-            coroutineScope {
-                awaitEachGesture {
-                    awaitFirstDown()
-                    ignoreOnClick = false
-                    val repeatingJob = launch {
-                        delay(initialDelay)
-                        ignoreOnClick = true
-                        while (enabled) {
-                            currentOnRepeatableClick()
-                            delay(incrementalDelay)
-                        }
-                    }
-                    // Waiting for up or cancellation of the gesture.
-                    waitForUpOrCancellation()
-                    repeatingJob.cancel()
-                    if (ignoreOnClick) {
-                        currentOnRepeatableClickEnd()
-                    }
-                }
-            }
+  // Repeatable logic should always follow the clickable, as the lowest modifier finishes first,
+  // and we have to be sure that repeatable goes before clickable.
+  clickable(
+      interactionSource = interactionSource,
+      indication = indication,
+      enabled = enabled,
+      onClickLabel = onClickLabel,
+      role = role,
+      onClick = {
+        if (!ignoreOnClick) {
+          currentOnClick()
         }
+        ignoreOnClick = false
+      },
+    )
+    .pointerInput(enabled) {
+      coroutineScope {
+        awaitEachGesture {
+          awaitFirstDown()
+          ignoreOnClick = false
+          val repeatingJob = launch {
+            delay(initialDelay)
+            ignoreOnClick = true
+            while (enabled) {
+              currentOnRepeatableClick()
+              delay(incrementalDelay)
+            }
+          }
+          // Waiting for up or cancellation of the gesture.
+          waitForUpOrCancellation()
+          repeatingJob.cancel()
+          if (ignoreOnClick) {
+            currentOnRepeatableClickEnd()
+          }
+        }
+      }
+    }
 }

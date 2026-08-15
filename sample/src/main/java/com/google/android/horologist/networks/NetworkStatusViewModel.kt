@@ -30,43 +30,39 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 
 public class NetworkStatusViewModel(
-    private val networkRepository: NetworkRepository,
-    private val dataRequestRepository: DataRequestRepository,
+  private val networkRepository: NetworkRepository,
+  private val dataRequestRepository: DataRequestRepository,
 ) : ViewModel() {
-    val state =
-        combine(
-            networkRepository.networkStatus,
-            dataRequestRepository.currentPeriodUsage(),
-        ) { networkStatus, currentPeriodUsage ->
-            NetworkStatusAppState(networks = networkStatus, dataUsage = currentPeriodUsage)
-        }
-            .stateIn(
-                viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000),
-                initialValue = NetworkStatusAppState(
-                    networks = networkRepository.networkStatus.value,
-                    dataUsage = null,
-                ),
-            )
+  val state =
+    combine(networkRepository.networkStatus, dataRequestRepository.currentPeriodUsage()) {
+        networkStatus,
+        currentPeriodUsage ->
+        NetworkStatusAppState(networks = networkStatus, dataUsage = currentPeriodUsage)
+      }
+      .stateIn(
+        viewModelScope,
+        started = SharingStarted.WhileSubscribed(5000),
+        initialValue =
+          NetworkStatusAppState(networks = networkRepository.networkStatus.value, dataUsage = null),
+      )
 
-    data class NetworkStatusAppState(
-        val networks: Networks,
-        val dataUsage: DataUsageReport? = null,
-    )
+  data class NetworkStatusAppState(val networks: Networks, val dataUsage: DataUsageReport? = null)
 
-    public object Factory : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-            check(modelClass == NetworkStatusViewModel::class.java)
+  public object Factory : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+      check(modelClass == NetworkStatusViewModel::class.java)
 
-            val application = extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as SampleApplication
-            val networkRepository = application.networkRepository
-            val dataRequestRepository = application.dataRequestRepository
+      val application =
+        extras[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as SampleApplication
+      val networkRepository = application.networkRepository
+      val dataRequestRepository = application.dataRequestRepository
 
-            return NetworkStatusViewModel(
-                networkRepository = networkRepository,
-                dataRequestRepository = dataRequestRepository,
-            ) as T
-        }
+      return NetworkStatusViewModel(
+        networkRepository = networkRepository,
+        dataRequestRepository = dataRequestRepository,
+      )
+        as T
     }
+  }
 }

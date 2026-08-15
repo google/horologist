@@ -49,85 +49,73 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
+import com.google.android.horologist.compose.tools.PinnedTimeSource
+import com.google.android.horologist.compose.tools.WearPreviewScreenScaffold
 
 @Composable
 fun ScrollScreenLazyColumn(scrollState: LazyListState) {
-    LazyColumn(
-        modifier = Modifier
-            .requestFocusOnHierarchyActive()
-            .rotaryScrollable(
-                behavior = behavior(scrollableState = scrollState),
-                focusRequester = remember { FocusRequester() },
-            ),
-        state = scrollState,
-    ) {
-        items(3) { i ->
-            val modifier = Modifier.fillParentMaxHeight(0.5f)
-            ExampleCard(modifier = modifier, i = i)
-        }
+  LazyColumn(
+    modifier =
+      Modifier.requestFocusOnHierarchyActive()
+        .rotaryScrollable(
+          behavior = behavior(scrollableState = scrollState),
+          focusRequester = remember { FocusRequester() },
+        ),
+    state = scrollState,
+  ) {
+    items(3) { i ->
+      val modifier = Modifier.fillParentMaxHeight(0.5f)
+      ExampleCard(modifier = modifier, i = i)
     }
+  }
 }
 
 @Composable
-fun ScrollAwayScreenScalingLazyColumn(
-    columnState: ScalingLazyColumnState,
-) {
-    ScalingLazyColumn(
-        columnState = columnState,
-    ) {
-        items(3) { i ->
-            ExampleCard(Modifier.fillParentMaxHeight(0.5f), i)
-        }
-    }
+fun ScrollAwayScreenScalingLazyColumn(columnState: ScalingLazyColumnState) {
+  ScalingLazyColumn(columnState = columnState) {
+    items(3) { i -> ExampleCard(Modifier.fillParentMaxHeight(0.5f), i) }
+  }
 }
 
 @Composable
 fun ScrollAwayScreenColumn(scrollState: ScrollState) {
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        timeText = {
-            ResponsiveTimeText(modifier = Modifier.scrollAway(scrollState))
-        },
-        positionIndicator = {
-            PositionIndicator(scrollState = scrollState)
-        },
+  Scaffold(
+    modifier = Modifier.fillMaxSize(),
+    timeText = {
+      ResponsiveTimeText(timeSource = PinnedTimeSource, modifier = Modifier.scrollAway(scrollState))
+    },
+    positionIndicator = { PositionIndicator(scrollState = scrollState) },
+  ) {
+    Column(
+      modifier =
+        Modifier.requestFocusOnHierarchyActive()
+          .rotaryScrollable(
+            behavior = behavior(scrollableState = scrollState),
+            focusRequester = remember { FocusRequester() },
+          )
+          .verticalScroll(scrollState)
     ) {
-        Column(
-            modifier = Modifier
-                .requestFocusOnHierarchyActive()
-                .rotaryScrollable(
-                    behavior = behavior(scrollableState = scrollState),
-                    focusRequester = remember { FocusRequester() },
-                )
-                .verticalScroll(scrollState),
-        ) {
-            val modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp / 2)
-            repeat(3) { i ->
-                ExampleCard(modifier, i)
-            }
-        }
+      val modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp / 2)
+      repeat(3) { i -> ExampleCard(modifier, i) }
     }
+  }
 }
 
 @Composable
 private fun ExampleCard(modifier: Modifier, i: Int) {
-    Card(
-        modifier = modifier,
-        onClick = { },
+  Card(modifier = modifier, onClick = {}) {
+    Box(
+      modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.surface),
+      contentAlignment = Alignment.Center,
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colors.surface),
-            contentAlignment = Alignment.Center,
-        ) {
-            Text(text = "Card $i")
-        }
+      Text(text = "Card $i")
     }
+  }
 }
 
 @WearPreviewLargeRound
 @Composable
 fun ScrollAwayScreenPreview() {
-    ScrollScreenLazyColumn(rememberLazyListState())
+  val scrollState = rememberLazyListState()
+  WearPreviewScreenScaffold { ScrollScreenLazyColumn(scrollState) }
 }

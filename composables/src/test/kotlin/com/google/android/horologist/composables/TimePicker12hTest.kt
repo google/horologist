@@ -18,63 +18,40 @@ package com.google.android.horologist.composables
 
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
+import java.time.LocalTime
 import org.junit.Test
 import org.robolectric.annotation.Config
-import java.time.LocalTime
 
 class TimePicker12hTest : WearLegacyScreenTest() {
 
-    @Test
-    fun initial() {
-        runTest {
-            TimePickerWith12HourClock(
-                time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {},
-            )
-        }
-    }
+  @Test
+  fun initial() {
+    runTest { TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {}) }
+  }
 
-    @Test
-    fun midnight() {
-        runTest {
-            TimePickerWith12HourClock(
-                time = LocalTime.of(0, 0, 0),
-                onTimeConfirm = {},
-            )
-        }
-    }
+  @Test
+  fun midnight() {
+    runTest { TimePickerWith12HourClock(time = LocalTime.of(0, 0, 0), onTimeConfirm = {}) }
+  }
 
-    @Test
-    @Config(
-        fontScale = 1.24f,
-    )
-    fun largestFontScaling() {
-        runTest(applyDeviceConfig = false) {
-            TimePickerWith12HourClock(
-                time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {},
-            )
-        }
+  @Test
+  @Config(fontScale = 1.24f)
+  fun largestFontScaling() {
+    runTest(applyDeviceConfig = false) {
+      TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
     }
+  }
 
-    @Test
-    fun smallDeviceLargeFontBold() {
-        runTest(device = WearDevice.GooglePixelWatchLargeFont) {
-            TimePickerWith12HourClock(
-                time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {},
-            )
-        }
+  @Test
+  fun smallDeviceLargeFontBold() {
+    runTest(device = WearDevice.GooglePixelWatchLargeFont) {
+      TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+en-rGB")
-    fun localeEnGb() {
-        runTest {
-            TimePickerWith12HourClock(
-                time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {},
-            )
-        }
-    }
+  @Test
+  @Config(qualifiers = "+en-rGB")
+  fun localeEnGb() {
+    runTest { TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {}) }
+  }
 }

@@ -47,149 +47,125 @@ import org.junit.Test
 
 class CoilPaintableTest : WearLegacyComponentTest() {
 
-    override val imageLoader = FakeImageLoaderEngine.Builder()
-        .intercept(
-            predicate = {
-                it == sample_image
-            },
-            interceptor = {
-                val rawBitmap =
-                    BitmapFactory.decodeFile("src/main/res/drawable-nodpi/sample_image.png")
+  override val imageLoader =
+    FakeImageLoaderEngine.Builder()
+      .intercept(
+        predicate = { it == sample_image },
+        interceptor = {
+          val rawBitmap = BitmapFactory.decodeFile("src/main/res/drawable-nodpi/sample_image.png")
 
-                val resultBitmap = it.request.transformations.fold(rawBitmap) { bitmap, transformation ->
-                    transformation.transform(bitmap, it.size)
-                }
-
-                SuccessResult(
-                    drawable = resultBitmap.toDrawable(it.request.context.resources),
-                    request = it.request,
-                    dataSource = DataSource.MEMORY,
-                )
-            },
-        )
-        .build()
-
-    @Test
-    fun imageFromChip() {
-        runComponentTest {
-            val paintable = CoilPaintable(
-                sample_image,
-            )
-
-            ImageFromChip(paintable)
-        }
-    }
-
-    @Test
-    fun imageFromChipAlpha50() {
-        runComponentTest {
-            val paintable = CoilPaintable(
-                sample_image,
-            )
-
-            CompositionLocalProvider(LocalContentAlpha provides 0.5f) {
-                ImageFromChip(paintable)
+          val resultBitmap =
+            it.request.transformations.fold(rawBitmap) { bitmap, transformation ->
+              transformation.transform(bitmap, it.size)
             }
-        }
+
+          SuccessResult(
+            drawable = resultBitmap.toDrawable(it.request.context.resources),
+            request = it.request,
+            dataSource = DataSource.MEMORY,
+          )
+        },
+      )
+      .build()
+
+  @Test
+  fun imageFromChip() {
+    runComponentTest {
+      val paintable = CoilPaintable(sample_image)
+
+      ImageFromChip(paintable)
     }
+  }
 
-    @Test
-    fun imageDirectAlpha50() {
-        runComponentTest {
-            val paintable = CoilPaintable(
-                sample_image,
-            )
+  @Test
+  fun imageFromChipAlpha50() {
+    runComponentTest {
+      val paintable = CoilPaintable(sample_image)
 
-            Image(
-                painter = paintable.rememberPainter(),
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                modifier = Modifier
-                    .size(ChipDefaults.LargeIconSize)
-                    .clip(CircleShape)
-                    .alpha(0.5f),
-            )
-        }
+      CompositionLocalProvider(LocalContentAlpha provides 0.5f) { ImageFromChip(paintable) }
     }
+  }
 
-    @Test
-    fun imageDirectOnlyDefaults() {
-        runComponentTest {
-            val paintable = CoilPaintable(
-                sample_image,
-            )
+  @Test
+  fun imageDirectAlpha50() {
+    runComponentTest {
+      val paintable = CoilPaintable(sample_image)
 
-            Image(
-                painter = paintable.rememberPainter(),
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                modifier = Modifier
-                    .size(ChipDefaults.LargeIconSize),
-            )
-        }
+      Image(
+        painter = paintable.rememberPainter(),
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+        modifier = Modifier.size(ChipDefaults.LargeIconSize).clip(CircleShape).alpha(0.5f),
+      )
     }
+  }
 
-    @Test
-    fun imageRequest() {
-        runComponentTest {
-            val paintable = CoilPaintable(
-                ImageRequest.Builder(LocalContext.current)
-                    .data(sample_image)
-                    .build(),
-            )
+  @Test
+  fun imageDirectOnlyDefaults() {
+    runComponentTest {
+      val paintable = CoilPaintable(sample_image)
 
-            Image(
-                painter = paintable.rememberPainter(),
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                modifier = Modifier
-                    .size(ChipDefaults.LargeIconSize)
-                    .clip(CircleShape),
-            )
-        }
+      Image(
+        painter = paintable.rememberPainter(),
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+        modifier = Modifier.size(ChipDefaults.LargeIconSize),
+      )
     }
+  }
 
-    @Test
-    fun imageRequestWithTransformationAlpha50() {
-        runComponentTest {
-            val paintable = CoilPaintable(
-                ImageRequest.Builder(LocalContext.current)
-                    .data(sample_image)
-                    .transformations(CircleCropTransformation())
-                    .build(),
-            )
+  @Test
+  fun imageRequest() {
+    runComponentTest {
+      val paintable =
+        CoilPaintable(ImageRequest.Builder(LocalContext.current).data(sample_image).build())
 
-            Image(
-                painter = paintable.rememberPainter(),
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                alpha = 0.5f,
-                modifier = Modifier.size(ChipDefaults.LargeIconSize),
-            )
-        }
+      Image(
+        painter = paintable.rememberPainter(),
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+        modifier = Modifier.size(ChipDefaults.LargeIconSize).clip(CircleShape),
+      )
     }
+  }
 
-    // Not using CoilPaintable, just Coil directly
-    @Test
-    fun coilDirectlyAsyncImageAlpha50() {
-        runComponentTest {
-            AsyncImage(
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                model = sample_image,
-                modifier = Modifier
-                    .size(ChipDefaults.LargeIconSize)
-                    .clip(CircleShape)
-                    .alpha(0.5f),
-            )
-        }
-    }
-
-    @Composable
-    private fun ImageFromChip(paintable: CoilPaintable) {
-        Image(
-            painter = paintable.rememberPainter(),
-            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-            modifier = Modifier
-                .size(ChipDefaults.LargeIconSize)
-                .clip(CircleShape),
-            contentScale = ContentScale.Crop,
-            alpha = LocalContentAlpha.current,
+  @Test
+  fun imageRequestWithTransformationAlpha50() {
+    runComponentTest {
+      val paintable =
+        CoilPaintable(
+          ImageRequest.Builder(LocalContext.current)
+            .data(sample_image)
+            .transformations(CircleCropTransformation())
+            .build()
         )
+
+      Image(
+        painter = paintable.rememberPainter(),
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+        alpha = 0.5f,
+        modifier = Modifier.size(ChipDefaults.LargeIconSize),
+      )
     }
+  }
+
+  // Not using CoilPaintable, just Coil directly
+  @Test
+  fun coilDirectlyAsyncImageAlpha50() {
+    runComponentTest {
+      AsyncImage(
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+        model = sample_image,
+        modifier = Modifier.size(ChipDefaults.LargeIconSize).clip(CircleShape).alpha(0.5f),
+      )
+    }
+  }
+
+  @Composable
+  private fun ImageFromChip(paintable: CoilPaintable) {
+    Image(
+      painter = paintable.rememberPainter(),
+      contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+      modifier = Modifier.size(ChipDefaults.LargeIconSize).clip(CircleShape),
+      contentScale = ContentScale.Crop,
+      alpha = LocalContentAlpha.current,
+    )
+  }
 }

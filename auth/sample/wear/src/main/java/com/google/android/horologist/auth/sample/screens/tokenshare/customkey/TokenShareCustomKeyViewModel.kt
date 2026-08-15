@@ -34,29 +34,28 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.runningReduce
 import kotlinx.coroutines.flow.stateIn
 
-class TokenShareCustomKeyViewModel(
-    tokenBundleRepository: TokenBundleRepository<TokenBundle?>,
-) : ViewModel() {
+class TokenShareCustomKeyViewModel(tokenBundleRepository: TokenBundleRepository<TokenBundle?>) :
+  ViewModel() {
 
-    public val uiState: StateFlow<List<TokenBundle?>> =
-        tokenBundleRepository.flow
-            .map { listOf(it) }
-            .runningReduce { accumulator, value -> accumulator + value }
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
+  public val uiState: StateFlow<List<TokenBundle?>> =
+    tokenBundleRepository.flow
+      .map { listOf(it) }
+      .runningReduce { accumulator, value -> accumulator + value }
+      .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), emptyList())
 
-    companion object {
-        public val Factory: ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                val application = this[APPLICATION_KEY]!!
+  companion object {
+    public val Factory: ViewModelProvider.Factory = viewModelFactory {
+      initializer {
+        val application = this[APPLICATION_KEY]!!
 
-                TokenShareCustomKeyViewModel(
-                    TokenBundleRepositoryImpl.create(
-                        registry = (application as SampleApplication).registry,
-                        serializer = TokenBundleSerializer,
-                        key = TOKEN_BUNDLE_CUSTOM_KEY,
-                    ),
-                )
-            }
-        }
+        TokenShareCustomKeyViewModel(
+          TokenBundleRepositoryImpl.create(
+            registry = (application as SampleApplication).registry,
+            serializer = TokenBundleSerializer,
+            key = TOKEN_BUNDLE_CUSTOM_KEY,
+          )
+        )
+      }
     }
+  }
 }

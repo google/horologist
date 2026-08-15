@@ -41,45 +41,44 @@ import com.google.android.horologist.compose.material.ResponsiveListHeader
 
 @Composable
 fun TokenShareDefaultKeyScreen(
-    modifier: Modifier = Modifier,
-    viewModel: TokenShareDefaultKeyViewModel = viewModel(factory = TokenShareDefaultKeyViewModel.Factory),
+  modifier: Modifier = Modifier,
+  viewModel: TokenShareDefaultKeyViewModel =
+    viewModel(factory = TokenShareDefaultKeyViewModel.Factory),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(
-            columnState = columnState,
-            modifier = modifier,
-        ) {
-            item {
-                ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                    Text(stringResource(id = R.string.token_share_default_key_title), modifier = Modifier.listTextPadding())
-                }
-            }
-            item {
-                Text(
-                    text = stringResource(id = R.string.token_share_default_key_message),
-                    modifier = Modifier.padding(horizontal = 8.dp),
-                    textAlign = TextAlign.Center,
-                )
-            }
-            items(state) { tokenBundle ->
-                tokenBundle?.let {
-                    Chip(
-                        label = tokenBundle.accessToken,
-                        onClick = { /* do nothing */ },
-                        colors = ChipDefaults.secondaryChipColors(),
-                        enabled = false,
-                    )
-                }
-            }
+  ScreenScaffold(scrollState = columnState) {
+    ScalingLazyColumn(columnState = columnState, modifier = modifier) {
+      item {
+        ResponsiveListHeader(contentPadding = firstItemPadding()) {
+          Text(
+            stringResource(id = R.string.token_share_default_key_title),
+            modifier = Modifier.listTextPadding(),
+          )
         }
+      }
+      item {
+        Text(
+          text = stringResource(id = R.string.token_share_default_key_message),
+          modifier = Modifier.padding(horizontal = 8.dp),
+          textAlign = TextAlign.Center,
+        )
+      }
+      items(state) { tokenBundle ->
+        tokenBundle?.let {
+          Chip(
+            label = tokenBundle.accessToken,
+            onClick = { /* do nothing */ },
+            colors = ChipDefaults.secondaryChipColors(),
+            enabled = false,
+          )
+        }
+      }
     }
+  }
 }

@@ -16,65 +16,21 @@
 
 package com.google.android.horologist.media.ui.components
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
-@Preview(
-    "Enabled - Playing",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview("Play/Pause Button Gallery", backgroundColor = 0xff000000, showBackground = true)
 @Composable
-fun PlayPauseButtonPreviewPlaying() {
-    PlayPauseButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        enabled = true,
-        playing = true,
-    )
-}
-
-@Preview(
-    "Enabled - Not playing",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
-@Composable
-fun PlayPauseButtonPreviewNotPlaying() {
-    PlayPauseButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        enabled = true,
-        playing = false,
-    )
-}
-
-@Preview(
-    "Disabled - Playing",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
-@Composable
-fun PlayPauseButtonPreviewDisabledPlaying() {
-    PlayPauseButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        enabled = false,
-        playing = true,
-    )
-}
-
-@Preview(
-    "Disabled - Not playing",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
-@Composable
-fun PlayPauseButtonPreviewDisabledNotPlaying() {
-    PlayPauseButton(
-        onPlayClick = {},
-        onPauseClick = {},
-        enabled = false,
-        playing = false,
-    )
+fun PlayPauseButtonPreview() {
+  Row(modifier = Modifier.padding(8.dp), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+    PlayPauseButton(onPlayClick = {}, onPauseClick = {}, enabled = true, playing = true)
+    PlayPauseButton(onPlayClick = {}, onPauseClick = {}, enabled = true, playing = false)
+    PlayPauseButton(onPlayClick = {}, onPauseClick = {}, enabled = false, playing = true)
+    PlayPauseButton(onPlayClick = {}, onPauseClick = {}, enabled = false, playing = false)
+  }
 }

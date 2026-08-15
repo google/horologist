@@ -38,111 +38,108 @@ import kotlinx.coroutines.tasks.await
 
 private const val SAMSUNG_COMPANION_PKG = "com.samsung.android.app.watchmanager"
 
-/**
- * Subclass of [DataLayerAppHelper] for use on phones.
- */
+/** Subclass of [DataLayerAppHelper] for use on phones. */
 @ExperimentalHorologistApi
-public class PhoneDataLayerAppHelper(
-    context: Context,
-    registry: WearDataLayerRegistry,
-) : DataLayerAppHelper(context, registry) {
+public class PhoneDataLayerAppHelper(context: Context, registry: WearDataLayerRegistry) :
+  DataLayerAppHelper(context, registry) {
 
-    override val connectedAndInstalledNodes: Flow<Set<Node>>
-        get() = connectedAndInstalledNodes(WATCH_CAPABILITY)
+  override val connectedAndInstalledNodes: Flow<Set<Node>>
+    get() = connectedAndInstalledNodes(WATCH_CAPABILITY)
 
-    override suspend fun installOnNode(nodeId: String): AppHelperResultCode {
-        checkIsForegroundOrThrow()
+  override suspend fun installOnNode(nodeId: String): AppHelperResultCode {
+    checkIsForegroundOrThrow()
 
-        val intent = Intent(Intent.ACTION_VIEW)
-            .addCategory(Intent.CATEGORY_BROWSABLE)
-            .setData(Uri.parse(playStoreUri))
+    val intent =
+      Intent(Intent.ACTION_VIEW)
+        .addCategory(Intent.CATEGORY_BROWSABLE)
+        .setData(Uri.parse(playStoreUri))
 
-        try {
-            remoteActivityHelper.startRemoteActivity(intent, nodeId).await()
-        } catch (e: RemoteActivityHelper.RemoteIntentException) {
-            return AppHelperResultCode.APP_HELPER_RESULT_ERROR_STARTING_ACTIVITY
-        }
-        return AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
+    try {
+      remoteActivityHelper.startRemoteActivity(intent, nodeId).await()
+    } catch (e: RemoteActivityHelper.RemoteIntentException) {
+      return AppHelperResultCode.APP_HELPER_RESULT_ERROR_STARTING_ACTIVITY
     }
+    return AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
+  }
 
-    @CheckResult
-    override suspend fun startCompanion(nodeId: String): AppHelperResultCode {
-        checkIsForegroundOrThrow()
-        val companionPackage = registry.nodeClient.getCompanionPackageForNode(nodeId).await()
-
-        /**
-         * Some devices report the wrong companion for actually launching the Companion app: For
-         * example, Samsung devices report the plugin packages that handle comms with GW4, GW5
-         * etc, whereas the package name for the companion *app* is different.
-         */
-        val launchPackage = rewriteCompanionPackageName(companionPackage)
-
-        val intent = context.packageManager.getLaunchIntentForPackage(launchPackage)
-            ?: return AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
-        try {
-            context.startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-            return AppHelperResultCode.APP_HELPER_RESULT_ACTIVITY_NOT_FOUND
-        }
-        return AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
-    }
+  @CheckResult
+  override suspend fun startCompanion(nodeId: String): AppHelperResultCode {
+    checkIsForegroundOrThrow()
+    val companionPackage = registry.nodeClient.getCompanionPackageForNode(nodeId).await()
 
     /**
-     * Filters for watch nodes where the app is installed but Tile is not installed.
+     * Some devices report the wrong companion for actually launching the Companion app: For
+     * example, Samsung devices report the plugin packages that handle comms with GW4, GW5 etc,
+     * whereas the package name for the companion *app* is different.
      */
-    public suspend fun findWatchToInstallTile(): AppHelperNodeStatus? {
-        val node = this.connectedNodes()
-            .filter {
-                it.appInstalled &&
-                    registry.nodeClient.getCompanionPackageForNode(it.id).await() == "com.google.android.apps.wear.companion"
-            }
-            .firstOrNull {
-                val uri = Uri.Builder()
-                    .scheme(PutDataRequest.WEAR_URI_SCHEME)
-                    .path("/tile_tracking_enabled")
-                    .authority(it.id)
-                    .build()
+    val launchPackage = rewriteCompanionPackageName(companionPackage)
 
-                registry.dataClient.getDataItem(uri).await() != null
-            }
-        return node
+    val intent =
+      context.packageManager.getLaunchIntentForPackage(launchPackage)
+        ?: return AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
+    try {
+      context.startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+      return AppHelperResultCode.APP_HELPER_RESULT_ACTIVITY_NOT_FOUND
     }
+    return AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
+  }
 
-    /**
-     * Checks that the companion app supports deep linking to Tile editor setting.
-     */
-    public fun checkCompanionVersionSupportTileEditing(): AppHelperResultCode? {
-        return try {
-            val packageInfo: PackageInfo =
-                context.packageManager.getPackageInfo("com.google.android.apps.wear.companion", 0)
-            val version = packageInfo.versionName
-
-            val companionVersion = version?.let { Version.parse(version) }
-            if (companionVersion != null && companionVersion >= RequiredCompanionVersion) {
-                AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
-            } else {
-                AppHelperResultCode.APP_HELPER_RESULT_INVALID_COMPANION
-            }
-        } catch (nnfe: PackageManager.NameNotFoundException) {
-            AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
+  /** Filters for watch nodes where the app is installed but Tile is not installed. */
+  public suspend fun findWatchToInstallTile(): AppHelperNodeStatus? {
+    val node =
+      this.connectedNodes()
+        .filter {
+          it.appInstalled &&
+            registry.nodeClient.getCompanionPackageForNode(it.id).await() ==
+              "com.google.android.apps.wear.companion"
         }
-    }
+        .firstOrNull {
+          val uri =
+            Uri.Builder()
+              .scheme(PutDataRequest.WEAR_URI_SCHEME)
+              .path("/tile_tracking_enabled")
+              .authority(it.id)
+              .build()
 
-    /**
-     * Some devices report back a different packageName from getCompanionPackageForNode() than is
-     * the actual package of the Companion app. Where this is the case, this lookup ensures the
-     * correct companion app can be launched..
-     */
-    private fun rewriteCompanionPackageName(companionPackage: String): String {
-        val regex = Regex("""com.samsung.*plugin""")
-        return if (regex.matches(companionPackage)) {
-            SAMSUNG_COMPANION_PKG
-        } else {
-            companionPackage
+          registry.dataClient.getDataItem(uri).await() != null
         }
-    }
+    return node
+  }
 
-    public companion object {
-        public val RequiredCompanionVersion: Version = Version.parse("2.1.0.576785526")!!
+  /** Checks that the companion app supports deep linking to Tile editor setting. */
+  public fun checkCompanionVersionSupportTileEditing(): AppHelperResultCode? {
+    return try {
+      val packageInfo: PackageInfo =
+        context.packageManager.getPackageInfo("com.google.android.apps.wear.companion", 0)
+      val version = packageInfo.versionName
+
+      val companionVersion = version?.let { Version.parse(version) }
+      if (companionVersion != null && companionVersion >= RequiredCompanionVersion) {
+        AppHelperResultCode.APP_HELPER_RESULT_SUCCESS
+      } else {
+        AppHelperResultCode.APP_HELPER_RESULT_INVALID_COMPANION
+      }
+    } catch (nnfe: PackageManager.NameNotFoundException) {
+      AppHelperResultCode.APP_HELPER_RESULT_NO_COMPANION_FOUND
     }
+  }
+
+  /**
+   * Some devices report back a different packageName from getCompanionPackageForNode() than is the
+   * actual package of the Companion app. Where this is the case, this lookup ensures the correct
+   * companion app can be launched..
+   */
+  private fun rewriteCompanionPackageName(companionPackage: String): String {
+    val regex = Regex("""com.samsung.*plugin""")
+    return if (regex.matches(companionPackage)) {
+      SAMSUNG_COMPANION_PKG
+    } else {
+      companionPackage
+    }
+  }
+
+  public companion object {
+    public val RequiredCompanionVersion: Version = Version.parse("2.1.0.576785526")!!
+  }
 }

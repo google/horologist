@@ -26,18 +26,19 @@ import com.google.android.horologist.mediasample.data.service.playback.PlaybackS
 import org.junit.Assume
 
 abstract class BasePlaybackTest : BaseContainerTest() {
-    protected fun checkSupportedConfig() {
-        if (isEmulator()) {
-            Assume.assumeFalse(appConfig.offloadEnabled)
-        }
+  protected fun checkSupportedConfig() {
+    if (isEmulator()) {
+      Assume.assumeFalse(appConfig.offloadEnabled)
     }
+  }
 
-    fun isEmulator(): Boolean = Build.PRODUCT.startsWith("sdk_gwear")
+  fun isEmulator(): Boolean = Build.PRODUCT.startsWith("sdk_gwear")
 
-    suspend fun browser(): MediaBrowser {
-        return MediaBrowser.Builder(
-            application,
-            SessionToken(application, ComponentName(application, PlaybackService::class.java)),
-        ).buildSuspend()
-    }
+  suspend fun browser(): MediaBrowser {
+    return MediaBrowser.Builder(
+        application,
+        SessionToken(application, ComponentName(application, PlaybackService::class.java)),
+      )
+      .buildSuspend()
+  }
 }

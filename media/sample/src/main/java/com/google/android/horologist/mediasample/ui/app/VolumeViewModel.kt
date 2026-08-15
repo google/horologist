@@ -24,12 +24,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 public class VolumeViewModel
-    @Inject
-    constructor(
-        systemAudioRepository: SystemAudioRepository,
-        vibrator: Vibrator,
-    ) : VolumeViewModel(
-        volumeRepository = systemAudioRepository,
-        audioOutputRepository = systemAudioRepository,
-        vibrator = vibrator,
-    )
+@Inject
+constructor(systemAudioRepository: SystemAudioRepository, vibrator: Vibrator) :
+  VolumeViewModel(
+    volumeRepository = systemAudioRepository,
+    audioOutputRepository = systemAudioRepository,
+    vibrator = vibrator,
+  )

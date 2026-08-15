@@ -28,28 +28,29 @@ import com.google.android.horologist.compose.rotaryinput.RotaryDefaults.isLowRes
 
 @Composable
 fun accumulatedBehavior(
-    eventAccumulationThresholdMs: Long = RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
-    minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
-    rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
-    isLowRes: Boolean = isLowResInput(),
-    onValueChange: (change: Float) -> Unit,
+  eventAccumulationThresholdMs: Long =
+    RotaryInputConfigDefaults.DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS,
+  minValueChangeDistancePx: Float = RotaryInputConfigDefaults.DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX,
+  rateLimitCoolDownMs: Long = RotaryInputConfigDefaults.DEFAULT_RATE_LIMIT_COOL_DOWN_MS,
+  isLowRes: Boolean = isLowResInput(),
+  onValueChange: (change: Float) -> Unit,
 ): RotaryScrollableBehavior {
-    val onValueChangeState = rememberUpdatedState(newValue = onValueChange)
+  val onValueChangeState = rememberUpdatedState(newValue = onValueChange)
 
-    return remember {
-        RotaryInputAccumulator(
-            eventAccumulationThresholdMs,
-            minValueChangeDistancePx,
-            rateLimitCoolDownMs,
-            isLowRes,
-            onValueChangeState,
-        )
-    }
+  return remember {
+    RotaryInputAccumulator(
+      eventAccumulationThresholdMs,
+      minValueChangeDistancePx,
+      rateLimitCoolDownMs,
+      isLowRes,
+      onValueChangeState,
+    )
+  }
 }
 
 public object RotaryInputConfigDefaults {
-    public const val DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS: Long = 200L
-    public const val DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX: Float = 48f
-    public const val DEFAULT_RATE_LIMIT_COOL_DOWN_MS: Long = 30L
-    public const val RATE_LIMITING_DISABLED: Long = -1L
+  public const val DEFAULT_EVENT_ACCUMULATION_THRESHOLD_MS: Long = 200L
+  public const val DEFAULT_MIN_VALUE_CHANGE_DISTANCE_PX: Float = 48f
+  public const val DEFAULT_RATE_LIMIT_COOL_DOWN_MS: Long = 30L
+  public const val RATE_LIMITING_DISABLED: Long = -1L
 }

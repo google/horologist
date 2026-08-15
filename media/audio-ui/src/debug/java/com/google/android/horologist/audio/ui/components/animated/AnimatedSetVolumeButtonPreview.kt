@@ -21,31 +21,43 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Stepper
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
 import com.google.android.horologist.audio.ui.VolumeUiState
+import ee.schimke.composeai.preview.AnimatedPreview
 
 @WearPreviewSmallRound
+@AnimatedPreview(durationMs = 1200, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun AnimatedSetVolumeButtonPreview() {
-    var volumeUiState by remember { mutableStateOf(VolumeUiState(3, 5)) }
+  var volumeUiState by remember { mutableStateOf(VolumeUiState(3, 5)) }
 
-    InteractivePreviewAware {
-        Stepper(
-            value = volumeUiState.current.toFloat(),
-            onValueChange = { volumeUiState = volumeUiState.copy(current = it.toInt()) },
-            steps = volumeUiState.max - 1,
-            valueRange = (0f..volumeUiState.max.toFloat()),
-            increaseIcon = {
-                IncreaseIcon()
-            },
-            decreaseIcon = {
-                DecreaseIcon()
-            },
-        ) {
-            AnimatedSetVolumeButton(onVolumeClick = { }, volumeUiState = volumeUiState)
-        }
+  InteractivePreviewAware {
+    Stepper(
+      value = volumeUiState.current.toFloat(),
+      onValueChange = { volumeUiState = volumeUiState.copy(current = it.toInt()) },
+      steps = volumeUiState.max - 1,
+      valueRange = (0f..volumeUiState.max.toFloat()),
+      increaseIcon = { IncreaseIcon() },
+      decreaseIcon = { DecreaseIcon() },
+    ) {
+      AnimatedSetVolumeButton(onVolumeClick = {}, volumeUiState = volumeUiState)
     }
+  }
+}
+
+@Preview(name = "Animated Volume Button", showBackground = true, backgroundColor = 0xFF000000)
+@AnimatedPreview(durationMs = 1200, frameIntervalMs = 100, showCurves = false)
+@Composable
+fun AnimatedVolumeButtonMotionPreview() {
+  MaterialTheme {
+    AnimatedSetVolumeButton(
+      volumeUiState = VolumeUiState(current = 6, max = 10),
+      onVolumeClick = {},
+    )
+  }
 }

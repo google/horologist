@@ -26,8 +26,8 @@ import android.net.NetworkCapabilities
  * Used to simplify app code now needing to make decisions based on these types.
  */
 public enum class NetworkType {
-    Wifi,
-    Cell,
-    BT,
-    Unknown,
+  Wifi,
+  Cell,
+  BT,
+  Unknown,
 }

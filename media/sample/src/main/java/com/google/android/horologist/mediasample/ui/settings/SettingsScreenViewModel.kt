@@ -33,45 +33,42 @@ import kotlinx.coroutines.launch
 class SettingsScreenViewModel
 @Inject
 constructor(
-    private val settingsRepository: SettingsRepository,
-    private val authUserRepository: GoogleSignInAuthUserRepository,
+  private val settingsRepository: SettingsRepository,
+  private val authUserRepository: GoogleSignInAuthUserRepository,
 ) : ViewModel() {
-    val screenState = combine(
-        settingsRepository.settingsFlow,
-        authUserRepository.authState,
-    ) { settings, authState ->
+  val screenState =
+    combine(settingsRepository.settingsFlow, authUserRepository.authState) { settings, authState ->
         SettingsScreenState(
-            authUser = authState,
-            guestMode = settings.guestMode,
-            writable = true,
-            showDeveloperOptions = BuildConfig.DEBUG,
+          authUser = authState,
+          guestMode = settings.guestMode,
+          writable = true,
+          showDeveloperOptions = BuildConfig.DEBUG,
         )
-    }.stateIn(
+      }
+      .stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5000),
         SettingsScreenState(
-            authUser = null,
-            guestMode = false,
-            writable = false,
-            showDeveloperOptions = BuildConfig.DEBUG,
+          authUser = null,
+          guestMode = false,
+          writable = false,
+          showDeveloperOptions = BuildConfig.DEBUG,
         ),
-    )
+      )
 
-    fun setGuestMode(enabled: Boolean) {
-        viewModelScope.launch {
-            settingsRepository.edit {
-                it.toBuilder().setGuestMode(enabled).build()
-            }
-            if (enabled) {
-                authUserRepository.signOut()
-            }
-        }
+  fun setGuestMode(enabled: Boolean) {
+    viewModelScope.launch {
+      settingsRepository.edit { it.toBuilder().setGuestMode(enabled).build() }
+      if (enabled) {
+        authUserRepository.signOut()
+      }
     }
+  }
 }
 
 data class SettingsScreenState(
-    val authUser: AuthUser?,
-    val guestMode: Boolean,
-    val writable: Boolean,
-    val showDeveloperOptions: Boolean,
+  val authUser: AuthUser?,
+  val guestMode: Boolean,
+  val writable: Boolean,
+  val showDeveloperOptions: Boolean,
 )

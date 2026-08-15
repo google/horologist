@@ -24,5 +24,4 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  *
  * https://developer.android.com/jetpack/compose/accessibility#describe-visual
  */
-@ExperimentalHorologistApi
-public val DECORATIVE_ELEMENT_CONTENT_DESCRIPTION: String? = null
+@ExperimentalHorologistApi public val DECORATIVE_ELEMENT_CONTENT_DESCRIPTION: String? = null

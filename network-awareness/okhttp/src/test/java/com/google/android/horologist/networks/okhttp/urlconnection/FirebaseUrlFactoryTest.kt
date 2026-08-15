@@ -26,140 +26,124 @@ import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
-@Config(
-    sdk = [35],
-)
+@Config(sdk = [35])
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class FirebaseUrlFactoryTest {
-    val server = MockWebServer()
+  val server = MockWebServer()
 
-    val client = OkHttpClient()
-    val urlFactory = FirebaseUrlFactory(client)
+  val client = OkHttpClient()
+  val urlFactory = FirebaseUrlFactory(client)
 
-    @Test
-    fun getRequest() {
-        server.enqueue(MockResponse().setBody("hello, world!"))
+  @Test
+  fun getRequest() {
+    server.enqueue(MockResponse().setBody("hello, world!"))
 
-        val conn = urlFactory.open(server.url("/").toUrl())
+    val conn = urlFactory.open(server.url("/").toUrl())
 
-        val text = conn.inputStream.bufferedReader().use {
-            it.readText()
-        }
+    val text = conn.inputStream.bufferedReader().use { it.readText() }
 
-        assertThat(text).isEqualTo("hello, world!")
-        assertThat(conn.responseCode).isEqualTo(200)
+    assertThat(text).isEqualTo("hello, world!")
+    assertThat(conn.responseCode).isEqualTo(200)
 
-        val recordedRequest = server.takeRequest()
-        val headers = recordedRequest.headers
+    val recordedRequest = server.takeRequest()
+    val headers = recordedRequest.headers
 
-        assertThat(headers["Accept-Encoding"]).isEqualTo("gzip")
-        assertThat(headers["Connection"]).isEqualTo("Keep-Alive")
-    }
+    assertThat(headers["Accept-Encoding"]).isEqualTo("gzip")
+    assertThat(headers["Connection"]).isEqualTo("Keep-Alive")
+  }
 
-    @Test
-    fun postRequest() {
-        server.enqueue(MockResponse().setBody("hello, world!"))
+  @Test
+  fun postRequest() {
+    server.enqueue(MockResponse().setBody("hello, world!"))
 
-        val conn = urlFactory.open(server.url("/").toUrl())
+    val conn = urlFactory.open(server.url("/").toUrl())
 
-        conn.requestMethod = "POST"
+    conn.requestMethod = "POST"
 
-        conn.outputStream.bufferedWriter().use {
-            it.write("Hello from here")
-        }
+    conn.outputStream.bufferedWriter().use { it.write("Hello from here") }
 
-        val text = conn.inputStream.bufferedReader().use {
-            it.readText()
-        }
+    val text = conn.inputStream.bufferedReader().use { it.readText() }
 
-        assertThat(text).isEqualTo("hello, world!")
-        assertThat(conn.responseCode).isEqualTo(200)
+    assertThat(text).isEqualTo("hello, world!")
+    assertThat(conn.responseCode).isEqualTo(200)
 
-        val recordedRequest = server.takeRequest()
-        val headers = recordedRequest.headers
+    val recordedRequest = server.takeRequest()
+    val headers = recordedRequest.headers
 
-        assertThat(recordedRequest.body.readUtf8()).isEqualTo("Hello from here")
+    assertThat(recordedRequest.body.readUtf8()).isEqualTo("Hello from here")
 
-        assertThat(headers["Accept-Encoding"]).isEqualTo("gzip")
-        assertThat(headers["Connection"]).isEqualTo("Keep-Alive")
-        assertThat(headers["Content-Type"]).isEqualTo("application/x-www-form-urlencoded")
-        // TODO consider delaying to send with known size
-        assertThat(headers["Transfer-Encoding"]).isEqualTo("chunked")
-    }
+    assertThat(headers["Accept-Encoding"]).isEqualTo("gzip")
+    assertThat(headers["Connection"]).isEqualTo("Keep-Alive")
+    assertThat(headers["Content-Type"]).isEqualTo("application/x-www-form-urlencoded")
+    // TODO consider delaying to send with known size
+    assertThat(headers["Transfer-Encoding"]).isEqualTo("chunked")
+  }
 
-    @Test
-    fun getRequestWithCache() {
-        server.enqueue(MockResponse().setResponseCode(304))
+  @Test
+  fun getRequestWithCache() {
+    server.enqueue(MockResponse().setResponseCode(304))
 
-        val conn = urlFactory.open(server.url("/").toUrl())
+    val conn = urlFactory.open(server.url("/").toUrl())
 
-        conn.ifModifiedSince = 1681890254000
+    conn.ifModifiedSince = 1681890254000
 
-        val text = conn.inputStream.bufferedReader().use {
-            it.readText()
-        }
+    val text = conn.inputStream.bufferedReader().use { it.readText() }
 
-        assertThat(text).isEqualTo("")
-        assertThat(conn.responseCode).isEqualTo(304)
+    assertThat(text).isEqualTo("")
+    assertThat(conn.responseCode).isEqualTo(304)
 
-        val recordedRequest = server.takeRequest()
-        val headers = recordedRequest.headers
+    val recordedRequest = server.takeRequest()
+    val headers = recordedRequest.headers
 
-        assertThat(headers["If-Modified-Since"]).isEqualTo("Wed, 19 Apr 2023 07:44:14 GMT")
-    }
+    assertThat(headers["If-Modified-Since"]).isEqualTo("Wed, 19 Apr 2023 07:44:14 GMT")
+  }
 
-    @Test
-    fun postRequestWithConnect() {
-        server.enqueue(MockResponse().setBody("hello, world!"))
+  @Test
+  fun postRequestWithConnect() {
+    server.enqueue(MockResponse().setBody("hello, world!"))
 
-        val conn = urlFactory.open(server.url("/").toUrl())
+    val conn = urlFactory.open(server.url("/").toUrl())
 
-        conn.requestMethod = "POST"
-        conn.doInput = true
-        conn.connect()
+    conn.requestMethod = "POST"
+    conn.doInput = true
+    conn.connect()
 
-        conn.outputStream.bufferedWriter().use {
-            it.write("Hello from here")
-        }
+    conn.outputStream.bufferedWriter().use { it.write("Hello from here") }
 
-        val text = conn.inputStream.bufferedReader().use {
-            it.readText()
-        }
+    val text = conn.inputStream.bufferedReader().use { it.readText() }
 
-        assertThat(text).isEqualTo("hello, world!")
-        assertThat(conn.responseCode).isEqualTo(200)
+    assertThat(text).isEqualTo("hello, world!")
+    assertThat(conn.responseCode).isEqualTo(200)
 
-        val recordedRequest = server.takeRequest()
-        val headers = recordedRequest.headers
+    val recordedRequest = server.takeRequest()
+    val headers = recordedRequest.headers
 
-        assertThat(recordedRequest.body.readUtf8()).isEqualTo("Hello from here")
-        assertThat(headers["Content-Type"]).isEqualTo("application/x-www-form-urlencoded")
-        assertThat(headers["Transfer-Encoding"]).isEqualTo("chunked")
-    }
+    assertThat(recordedRequest.body.readUtf8()).isEqualTo("Hello from here")
+    assertThat(headers["Content-Type"]).isEqualTo("application/x-www-form-urlencoded")
+    assertThat(headers["Transfer-Encoding"]).isEqualTo("chunked")
+  }
 
-    @Test
-    fun clearProperty() {
-        server.enqueue(MockResponse().setBody("hello, world!"))
+  @Test
+  fun clearProperty() {
+    server.enqueue(MockResponse().setBody("hello, world!"))
 
-        val conn = urlFactory.open(server.url("/").toUrl())
+    val conn = urlFactory.open(server.url("/").toUrl())
 
-        conn.setRequestProperty("a", "b")
-        conn.setRequestProperty("c", "d")
-        conn.setRequestProperty("a", null)
+    conn.setRequestProperty("a", "b")
+    conn.setRequestProperty("c", "d")
+    conn.setRequestProperty("a", null)
 
-        val text = conn.inputStream.bufferedReader().use {
-            it.readText()
-        }
+    val text = conn.inputStream.bufferedReader().use { it.readText() }
 
-        assertThat(text).isEqualTo("hello, world!")
-        assertThat(conn.responseCode).isEqualTo(200)
+    assertThat(text).isEqualTo("hello, world!")
+    assertThat(conn.responseCode).isEqualTo(200)
 
-        val recordedRequest = server.takeRequest()
-        val headers = recordedRequest.headers
+    val recordedRequest = server.takeRequest()
+    val headers = recordedRequest.headers
 
-        assertThat(headers["a"]).isNull()
-        assertThat(headers["c"]).isEqualTo("d")
-        assertThat(headers["Connection"]).isEqualTo("Keep-Alive")
-    }
+    assertThat(headers["a"]).isNull()
+    assertThat(headers["c"]).isEqualTo("d")
+    assertThat(headers["Connection"]).isEqualTo("Keep-Alive")
+  }
 }

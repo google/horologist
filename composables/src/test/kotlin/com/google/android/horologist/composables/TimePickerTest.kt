@@ -20,72 +20,44 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.compose.tools.copy
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
+import java.time.LocalTime
 import org.junit.Test
 import org.robolectric.annotation.Config
-import java.time.LocalTime
 
 class TimePickerTest : WearLegacyScreenTest() {
 
-    @Test
-    fun initial() {
-        runTest {
-            TimePicker(
-                time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {},
-            )
-        }
-    }
+  @Test
+  fun initial() {
+    runTest { TimePicker(time = LocalTime.of(10, 10, 0), onTimeConfirm = {}) }
+  }
 
-    @Test
-    fun midnight() {
-        runTest {
-            TimePicker(
-                time = LocalTime.of(0, 0, 0),
-                onTimeConfirm = {},
-                showSeconds = false,
-            )
-        }
-    }
+  @Test
+  fun midnight() {
+    runTest { TimePicker(time = LocalTime.of(0, 0, 0), onTimeConfirm = {}, showSeconds = false) }
+  }
 
-    @Test
-    @Config(
-        fontScale = 1.24f,
-    )
-    fun largestFontScaling() {
-        runTest(applyDeviceConfig = false) {
-            TestScaffold {
-                TimePicker(
-                    time = LocalTime.of(10, 10, 0),
-                    onTimeConfirm = {},
-                )
-            }
-        }
+  @Test
+  @Config(fontScale = 1.24f)
+  fun largestFontScaling() {
+    runTest(applyDeviceConfig = false) {
+      TestScaffold { TimePicker(time = LocalTime.of(10, 10, 0), onTimeConfirm = {}) }
     }
+  }
 
-    @Test
-    fun noSeconds() {
-        runTest {
-            TimePicker(
-                time = LocalTime.of(10, 10, 0),
-                onTimeConfirm = {},
-                showSeconds = false,
-            )
-        }
-    }
+  @Test
+  fun noSeconds() {
+    runTest { TimePicker(time = LocalTime.of(10, 10, 0), onTimeConfirm = {}, showSeconds = false) }
+  }
 
-    @Test
-    @Config(
-        qualifiers = "+w192dp-h192dp",
-        fontScale = 1.24f,
-    )
-    fun smallDeviceLargeFontBold() {
-        runTest(applyDeviceConfig = false) {
-            MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
-                TimePicker(
-                    time = LocalTime.of(10, 10, 0),
-                    onTimeConfirm = {},
-                )
-            }
-        }
+  @Test
+  @Config(qualifiers = "+w192dp-h192dp", fontScale = 1.24f)
+  fun smallDeviceLargeFontBold() {
+    runTest(applyDeviceConfig = false) {
+      MaterialTheme(
+        typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }
+      ) {
+        TimePicker(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
+      }
     }
+  }
 }

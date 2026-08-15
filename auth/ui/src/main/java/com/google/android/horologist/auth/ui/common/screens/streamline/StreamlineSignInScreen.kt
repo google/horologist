@@ -42,8 +42,8 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
  *
  * Suggested usage for the screen:
  * - [onSingleAccountAvailable] should display a
- * [signed in confirmation dialog][SignedInConfirmationDialog] or navigate the user to the main
- * screen of your app.
+ *   [signed in confirmation dialog][SignedInConfirmationDialog] or navigate the user to the main
+ *   screen of your app.
  *
  * - [onMultipleAccountsAvailable] should navigate the user to the account selection screen.
  *
@@ -51,54 +51,52 @@ import com.google.android.horologist.auth.composables.model.AccountUiModel
  */
 @Composable
 public fun StreamlineSignInScreen(
-    onSingleAccountAvailable: (account: AccountUiModel) -> Unit,
-    onMultipleAccountsAvailable: (accounts: List<AccountUiModel>) -> Unit,
-    onNoAccountsAvailable: () -> Unit,
-    viewModel: StreamlineSignInViewModel = viewModel(),
-    content: @Composable () -> Unit = { },
+  onSingleAccountAvailable: (account: AccountUiModel) -> Unit,
+  onMultipleAccountsAvailable: (accounts: List<AccountUiModel>) -> Unit,
+  onNoAccountsAvailable: () -> Unit,
+  viewModel: StreamlineSignInViewModel = viewModel(),
+  content: @Composable () -> Unit = {},
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    StreamlineSignInScreen(
-        state = state,
-        onIdleStateObserved = viewModel::onIdleStateObserved,
-        onSingleAccountAvailable = onSingleAccountAvailable,
-        onMultipleAccountsAvailable = onMultipleAccountsAvailable,
-        onNoAccountsAvailable = onNoAccountsAvailable,
-        content = content,
-    )
+  StreamlineSignInScreen(
+    state = state,
+    onIdleStateObserved = viewModel::onIdleStateObserved,
+    onSingleAccountAvailable = onSingleAccountAvailable,
+    onMultipleAccountsAvailable = onMultipleAccountsAvailable,
+    onNoAccountsAvailable = onNoAccountsAvailable,
+    content = content,
+  )
 }
 
 @Composable
 internal fun StreamlineSignInScreen(
-    state: StreamlineSignInScreenState,
-    onIdleStateObserved: () -> Unit,
-    onSingleAccountAvailable: (account: AccountUiModel) -> Unit,
-    onMultipleAccountsAvailable: (accounts: List<AccountUiModel>) -> Unit,
-    onNoAccountsAvailable: () -> Unit,
-    content: @Composable () -> Unit = { },
+  state: StreamlineSignInScreenState,
+  onIdleStateObserved: () -> Unit,
+  onSingleAccountAvailable: (account: AccountUiModel) -> Unit,
+  onMultipleAccountsAvailable: (accounts: List<AccountUiModel>) -> Unit,
+  onNoAccountsAvailable: () -> Unit,
+  content: @Composable () -> Unit = {},
 ) {
-    when (state) {
-        StreamlineSignInScreenState.Idle -> {
-            SideEffect {
-                onIdleStateObserved()
-            }
-        }
-
-        StreamlineSignInScreenState.Loading -> {
-            content()
-        }
-
-        is StreamlineSignInScreenState.SingleAccountAvailable -> {
-            onSingleAccountAvailable(state.account)
-        }
-
-        is StreamlineSignInScreenState.MultipleAccountsAvailable -> {
-            onMultipleAccountsAvailable(state.accounts)
-        }
-
-        StreamlineSignInScreenState.NoAccountsAvailable -> {
-            onNoAccountsAvailable()
-        }
+  when (state) {
+    StreamlineSignInScreenState.Idle -> {
+      SideEffect { onIdleStateObserved() }
     }
+
+    StreamlineSignInScreenState.Loading -> {
+      content()
+    }
+
+    is StreamlineSignInScreenState.SingleAccountAvailable -> {
+      onSingleAccountAvailable(state.account)
+    }
+
+    is StreamlineSignInScreenState.MultipleAccountsAvailable -> {
+      onMultipleAccountsAvailable(state.accounts)
+    }
+
+    StreamlineSignInScreenState.NoAccountsAvailable -> {
+      onNoAccountsAvailable()
+    }
+  }
 }

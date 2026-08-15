@@ -45,32 +45,35 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
  */
 @Composable
 public fun AmbientMediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    leftButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
-    rightButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  playPauseButtonEnabled: Boolean,
+  playing: Boolean,
+  leftButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
+  rightButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
-    ButtonGroupLayout(
-        modifier = modifier,
-        leftButton = leftButton,
-        middleButton = {
-            AmbientPlayPauseButton(
-                onPlayClick = onPlayButtonClick,
-                onPauseClick = onPauseButtonClick,
-                enabled = playPauseButtonEnabled,
-                playing = playing,
-                modifier = Modifier.weight(0.5f) // This is used to constrain the size at minWidth for non-pressed state.
-                    .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-                    .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),
-                colorScheme = colorScheme,
-            )
-        },
-        rightButton = rightButton,
-    )
+  ButtonGroupLayout(
+    modifier = modifier,
+    leftButton = leftButton,
+    middleButton = {
+      AmbientPlayPauseButton(
+        onPlayClick = onPlayButtonClick,
+        onPauseClick = onPauseButtonClick,
+        enabled = playPauseButtonEnabled,
+        playing = playing,
+        modifier =
+          Modifier.weight(
+              0.5f
+            ) // This is used to constrain the size at minWidth for non-pressed state.
+            .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+            .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),
+        colorScheme = colorScheme,
+      )
+    },
+    rightButton = rightButton,
+  )
 }
 
 /**
@@ -88,38 +91,38 @@ public fun AmbientMediaControlButtons(
  */
 @Composable
 public fun AmbientMediaControlButtons(
-    playerUiState: PlayerUiState,
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    onSeekToPreviousButtonClick: () -> Unit,
-    onSeekToNextButtonClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  playerUiState: PlayerUiState,
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  onSeekToPreviousButtonClick: () -> Unit,
+  onSeekToNextButtonClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
-    val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
-    val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)
-    AmbientMediaControlButtons(
-        onPlayButtonClick = onPlayButtonClick,
-        onPauseButtonClick = onPauseButtonClick,
-        playPauseButtonEnabled = playerUiState.playPauseEnabled,
-        playing = playerUiState.playing,
-        modifier = modifier,
+  val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
+  val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)
+  AmbientMediaControlButtons(
+    onPlayButtonClick = onPlayButtonClick,
+    onPauseButtonClick = onPauseButtonClick,
+    playPauseButtonEnabled = playerUiState.playPauseEnabled,
+    playing = playerUiState.playing,
+    modifier = modifier,
+    colorScheme = colorScheme,
+    leftButton = {
+      AmbientSeekToPreviousButton(
+        onClick = onSeekToPreviousButtonClick,
+        buttonPadding = leftButtonPadding,
         colorScheme = colorScheme,
-        leftButton = {
-            AmbientSeekToPreviousButton(
-                onClick = onSeekToPreviousButtonClick,
-                buttonPadding = leftButtonPadding,
-                colorScheme = colorScheme,
-                enabled = playerUiState.seekToPreviousEnabled,
-            )
-        },
-        rightButton = {
-            AmbientSeekToNextButton(
-                onClick = onSeekToNextButtonClick,
-                buttonPadding = rightButtonPadding,
-                colorScheme = colorScheme,
-                enabled = playerUiState.seekToNextEnabled,
-            )
-        },
-    )
+        enabled = playerUiState.seekToPreviousEnabled,
+      )
+    },
+    rightButton = {
+      AmbientSeekToNextButton(
+        onClick = onSeekToNextButtonClick,
+        buttonPadding = rightButtonPadding,
+        colorScheme = colorScheme,
+        enabled = playerUiState.seekToNextEnabled,
+      )
+    },
+  )
 }

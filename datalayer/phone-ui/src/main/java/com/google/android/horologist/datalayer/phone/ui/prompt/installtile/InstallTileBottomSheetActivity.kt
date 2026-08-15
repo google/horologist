@@ -32,7 +32,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.res.painterResource
 import kotlinx.coroutines.launch
 
-internal const val INSTALL_TILE_KEY_APP_PACKAGE_NAME = "HOROLOGIST_INSTALL_TILE_KEY_APP_PACKAGE_NAME"
+internal const val INSTALL_TILE_KEY_APP_PACKAGE_NAME =
+  "HOROLOGIST_INSTALL_TILE_KEY_APP_PACKAGE_NAME"
 internal const val INSTALL_TILE_KEY_IMAGE_RES_ID = "HOROLOGIST_INSTALL_TILE_KEY_IMAGE_RES_ID"
 internal const val INSTALL_TILE_KEY_TOP_MESSAGE = "HOROLOGIST_INSTALL_TILE_KEY_TOP_MESSAGE"
 internal const val INSTALL_TILE_KEY_BOTTOM_MESSAGE = "HOROLOGIST_INSTALL_TILE_KEY_BOTTOM_MESSAGE"
@@ -41,76 +42,74 @@ private const val NO_IMAGE = 0
 
 internal class InstallTileBottomSheetActivity : ComponentActivity() {
 
-    @OptIn(ExperimentalMaterial3Api::class)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  @OptIn(ExperimentalMaterial3Api::class)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        val imageResId = intent.extras?.getInt(INSTALL_TILE_KEY_IMAGE_RES_ID) ?: NO_IMAGE
-        val topMessage = intent.extras?.getString(INSTALL_TILE_KEY_TOP_MESSAGE) ?: ""
-        val bottomMessage = intent.extras?.getString(INSTALL_TILE_KEY_BOTTOM_MESSAGE) ?: ""
+    val imageResId = intent.extras?.getInt(INSTALL_TILE_KEY_IMAGE_RES_ID) ?: NO_IMAGE
+    val topMessage = intent.extras?.getString(INSTALL_TILE_KEY_TOP_MESSAGE) ?: ""
+    val bottomMessage = intent.extras?.getString(INSTALL_TILE_KEY_BOTTOM_MESSAGE) ?: ""
 
-        setContent {
-            Surface {
-                val bottomSheetState = rememberModalBottomSheetState()
-                val coroutineScope = rememberCoroutineScope()
+    setContent {
+      Surface {
+        val bottomSheetState = rememberModalBottomSheetState()
+        val coroutineScope = rememberCoroutineScope()
 
-                val image: (@Composable () -> Unit)? = imageResId.takeIf { it != NO_IMAGE }?.let {
-                    {
-                        Image(
-                            painter = painterResource(id = imageResId),
-                            contentDescription = null,
-                        )
-                    }
-                }
-
-                InstallTileBottomSheet(
-                    image = image,
-                    topMessage = topMessage,
-                    bottomMessage = bottomMessage,
-                    onDismissRequest = {
-                        setResult(RESULT_CANCELED)
-                        coroutineScope.launch {
-                            try {
-                                bottomSheetState.hide()
-                            } finally {
-                                finishWithoutAnimation()
-                            }
-                        }
-                    },
-                    onConfirmation = {
-                        InstallTilePromptAction.run(context = this)
-
-                        setResult(RESULT_OK)
-                        finishWithoutAnimation()
-                    },
-                    sheetState = bottomSheetState,
-                )
+        val image: (@Composable () -> Unit)? =
+          imageResId
+            .takeIf { it != NO_IMAGE }
+            ?.let {
+              { Image(painter = painterResource(id = imageResId), contentDescription = null) }
             }
-        }
-    }
 
-    private fun finishWithoutAnimation() {
-        finish()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, 0, 0)
-        } else {
-            @Suppress("DEPRECATION")
-            overridePendingTransition(0, 0)
-        }
-    }
+        InstallTileBottomSheet(
+          image = image,
+          topMessage = topMessage,
+          bottomMessage = bottomMessage,
+          onDismissRequest = {
+            setResult(RESULT_CANCELED)
+            coroutineScope.launch {
+              try {
+                bottomSheetState.hide()
+              } finally {
+                finishWithoutAnimation()
+              }
+            }
+          },
+          onConfirmation = {
+            InstallTilePromptAction.run(context = this)
 
-    internal companion object {
-        fun getIntent(
-            context: Context,
-            appPackageName: String,
-            @DrawableRes image: Int,
-            topMessage: String,
-            bottomMessage: String,
-        ) = Intent(context, InstallTileBottomSheetActivity::class.java).apply {
-            putExtra(INSTALL_TILE_KEY_APP_PACKAGE_NAME, appPackageName)
-            putExtra(INSTALL_TILE_KEY_TOP_MESSAGE, topMessage)
-            putExtra(INSTALL_TILE_KEY_BOTTOM_MESSAGE, bottomMessage)
-            putExtra(INSTALL_TILE_KEY_IMAGE_RES_ID, image)
-        }
+            setResult(RESULT_OK)
+            finishWithoutAnimation()
+          },
+          sheetState = bottomSheetState,
+        )
+      }
     }
+  }
+
+  private fun finishWithoutAnimation() {
+    finish()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+      overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, 0, 0)
+    } else {
+      @Suppress("DEPRECATION") overridePendingTransition(0, 0)
+    }
+  }
+
+  internal companion object {
+    fun getIntent(
+      context: Context,
+      appPackageName: String,
+      @DrawableRes image: Int,
+      topMessage: String,
+      bottomMessage: String,
+    ) =
+      Intent(context, InstallTileBottomSheetActivity::class.java).apply {
+        putExtra(INSTALL_TILE_KEY_APP_PACKAGE_NAME, appPackageName)
+        putExtra(INSTALL_TILE_KEY_TOP_MESSAGE, topMessage)
+        putExtra(INSTALL_TILE_KEY_BOTTOM_MESSAGE, bottomMessage)
+        putExtra(INSTALL_TILE_KEY_IMAGE_RES_ID, image)
+      }
+  }
 }

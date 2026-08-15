@@ -52,207 +52,192 @@ import com.google.android.horologist.datalayer.sample.R
 import com.google.android.horologist.datalayer.sample.util.toProtoTimestamp
 
 @Composable
-fun NodesScreen(
-    modifier: Modifier = Modifier,
-    viewModel: NodesViewModel = hiltViewModel(),
-) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+fun NodesScreen(modifier: Modifier = Modifier, viewModel: NodesViewModel = hiltViewModel()) {
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == NodesScreenState.Idle) {
-        SideEffect {
-            viewModel.initialize()
-        }
-    }
+  if (state == NodesScreenState.Idle) {
+    SideEffect { viewModel.initialize() }
+  }
 
-    NodesScreen(
-        state = state,
-        onRefreshClick = viewModel::onRefreshClick,
-        onInstallOnNodeClick = viewModel::onInstallOnNodeClick,
-        onStartCompanionClick = viewModel::onStartCompanionClick,
-        onStartRemoteOwnAppClick = viewModel::onStartRemoteOwnAppClick,
-        onStartRemoteActivityClick = viewModel::onStartRemoteActivityClick,
-        onDialogDismiss = viewModel::onDialogDismiss,
-        modifier = modifier,
-    )
+  NodesScreen(
+    state = state,
+    onRefreshClick = viewModel::onRefreshClick,
+    onInstallOnNodeClick = viewModel::onInstallOnNodeClick,
+    onStartCompanionClick = viewModel::onStartCompanionClick,
+    onStartRemoteOwnAppClick = viewModel::onStartRemoteOwnAppClick,
+    onStartRemoteActivityClick = viewModel::onStartRemoteActivityClick,
+    onDialogDismiss = viewModel::onDialogDismiss,
+    modifier = modifier,
+  )
 }
 
 @Composable
 fun NodesScreen(
-    state: NodesScreenState,
-    onRefreshClick: () -> Unit,
-    onInstallOnNodeClick: (nodeId: String) -> Unit,
-    onStartCompanionClick: (nodeId: String) -> Unit,
-    onStartRemoteOwnAppClick: (nodeId: String) -> Unit,
-    onStartRemoteActivityClick: (nodeId: String) -> Unit,
-    onDialogDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
+  state: NodesScreenState,
+  onRefreshClick: () -> Unit,
+  onInstallOnNodeClick: (nodeId: String) -> Unit,
+  onStartCompanionClick: (nodeId: String) -> Unit,
+  onStartRemoteOwnAppClick: (nodeId: String) -> Unit,
+  onStartRemoteActivityClick: (nodeId: String) -> Unit,
+  onDialogDismiss: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    var showSuccessDialog by rememberSaveable { mutableStateOf(false) }
-    var showFailureDialog by rememberSaveable { mutableStateOf(false) }
-    var errorCode by rememberSaveable { mutableStateOf("") }
+  var showSuccessDialog by rememberSaveable { mutableStateOf(false) }
+  var showFailureDialog by rememberSaveable { mutableStateOf(false) }
+  var errorCode by rememberSaveable { mutableStateOf("") }
 
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        item {
-            Text(
-                text = stringResource(id = R.string.nodes_screen_header),
-                modifier = Modifier.padding(vertical = 10.dp),
-                style = MaterialTheme.typography.titleLarge,
+  LazyColumn(
+    modifier = modifier.fillMaxSize(),
+    horizontalAlignment = Alignment.CenterHorizontally,
+  ) {
+    item {
+      Text(
+        text = stringResource(id = R.string.nodes_screen_header),
+        modifier = Modifier.padding(vertical = 10.dp),
+        style = MaterialTheme.typography.titleLarge,
+      )
+    }
+    when (state) {
+      NodesScreenState.Idle,
+      NodesScreenState.Loading,
+      NodesScreenState.ActionRunning -> {
+        item { CircularProgressIndicator() }
+      }
+
+      is NodesScreenState.Loaded -> {
+        if (state.nodeList.isNotEmpty()) {
+          items(items = state.nodeList) { nodeStatus ->
+            AppHelperNodeStatusCard(
+              nodeStatus = nodeStatus,
+              onInstallOnNodeClick = onInstallOnNodeClick,
+              onStartCompanionClick = onStartCompanionClick,
+              onStartRemoteOwnAppClick = onStartRemoteOwnAppClick,
+              onStartRemoteActivityClick = onStartRemoteActivityClick,
             )
+          }
+        } else {
+          item { Text(stringResource(id = R.string.nodes_screen_no_nodes)) }
         }
-        when (state) {
-            NodesScreenState.Idle,
-            NodesScreenState.Loading,
-            NodesScreenState.ActionRunning,
-            -> {
-                item {
-                    CircularProgressIndicator()
-                }
-            }
 
-            is NodesScreenState.Loaded -> {
-                if (state.nodeList.isNotEmpty()) {
-                    items(items = state.nodeList) { nodeStatus ->
-                        AppHelperNodeStatusCard(
-                            nodeStatus = nodeStatus,
-                            onInstallOnNodeClick = onInstallOnNodeClick,
-                            onStartCompanionClick = onStartCompanionClick,
-                            onStartRemoteOwnAppClick = onStartRemoteOwnAppClick,
-                            onStartRemoteActivityClick = onStartRemoteActivityClick,
-                        )
-                    }
-                } else {
-                    item {
-                        Text(stringResource(id = R.string.nodes_screen_no_nodes))
-                    }
-                }
-
-                item {
-                    Button(
-                        onClick = onRefreshClick,
-                    ) {
-                        Row {
-                            Icon(
-                                imageVector = Icons.Default.Refresh,
-                                contentDescription = null,
-                                modifier = Modifier.padding(end = 10.dp),
-                            )
-                            Text(
-                                stringResource(id = R.string.nodes_screen_refresh_button_label),
-                                modifier = Modifier
-                                    .fillMaxHeight()
-                                    .align(Alignment.CenterVertically),
-                            )
-                        }
-                    }
-                }
+        item {
+          Button(onClick = onRefreshClick) {
+            Row {
+              Icon(
+                imageVector = Icons.Default.Refresh,
+                contentDescription = null,
+                modifier = Modifier.padding(end = 10.dp),
+              )
+              Text(
+                stringResource(id = R.string.nodes_screen_refresh_button_label),
+                modifier = Modifier.fillMaxHeight().align(Alignment.CenterVertically),
+              )
             }
-
-            NodesScreenState.ApiNotAvailable -> {
-                item {
-                    Text(stringResource(id = R.string.wearable_message_api_unavailable))
-                }
-            }
-
-            is NodesScreenState.ActionFailed -> {
-                showFailureDialog = true
-                errorCode = state.errorCode
-            }
-
-            NodesScreenState.ActionSucceeded -> {
-                showSuccessDialog = true
-            }
+          }
         }
-    }
+      }
 
-    if (showSuccessDialog) {
-        NodesActionSucceededDialog(
-            message = stringResource(id = R.string.node_screen_success_dialog_message),
-            onDismissRequest = {
-                showSuccessDialog = false
-                onDialogDismiss()
-            },
-        )
-    }
+      NodesScreenState.ApiNotAvailable -> {
+        item { Text(stringResource(id = R.string.wearable_message_api_unavailable)) }
+      }
 
-    if (showFailureDialog) {
-        NodesActionFailureDialog(
-            message = stringResource(id = R.string.node_screen_failure_dialog_message, errorCode),
-            onDismissRequest = {
-                showFailureDialog = false
-                onDialogDismiss()
-            },
-        )
+      is NodesScreenState.ActionFailed -> {
+        showFailureDialog = true
+        errorCode = state.errorCode
+      }
+
+      NodesScreenState.ActionSucceeded -> {
+        showSuccessDialog = true
+      }
     }
+  }
+
+  if (showSuccessDialog) {
+    NodesActionSucceededDialog(
+      message = stringResource(id = R.string.node_screen_success_dialog_message),
+      onDismissRequest = {
+        showSuccessDialog = false
+        onDialogDismiss()
+      },
+    )
+  }
+
+  if (showFailureDialog) {
+    NodesActionFailureDialog(
+      message = stringResource(id = R.string.node_screen_failure_dialog_message, errorCode),
+      onDismissRequest = {
+        showFailureDialog = false
+        onDialogDismiss()
+      },
+    )
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun NodesScreenPreview() {
-    NodesScreen(
-        state = NodesScreenState.Loaded(
-            listOf(
-                AppHelperNodeStatus(
-                    id = "a1b2c3d4",
-                    displayName = "Pixel Watch",
-                    isNearby = true,
-                    appInstallationStatus = AppInstallationStatus.Installed(
-                        nodeType = AppInstallationStatusNodeType.WATCH,
-                    ),
-                    surfacesInfo = surfacesInfo {
-                        tiles.add(
-                            tileInfo {
-                                name = "MyTile"
-                                timestamp = System.currentTimeMillis().toProtoTimestamp()
-                            },
-                        )
-                        complications.add(
-                            complicationInfo {
-                                name = "MyComplication"
-                                instanceId = 101
-                                type = "SHORT_TEXT"
-                                timestamp = System.currentTimeMillis().toProtoTimestamp()
-                            },
-                        )
-                    },
-                ),
-            ),
-        ),
-        onRefreshClick = { },
-        onInstallOnNodeClick = { },
-        onStartCompanionClick = { },
-        onStartRemoteOwnAppClick = { },
-        onStartRemoteActivityClick = { },
-        onDialogDismiss = { },
-    )
+  NodesScreen(
+    state =
+      NodesScreenState.Loaded(
+        listOf(
+          AppHelperNodeStatus(
+            id = "a1b2c3d4",
+            displayName = "Pixel Watch",
+            isNearby = true,
+            appInstallationStatus =
+              AppInstallationStatus.Installed(nodeType = AppInstallationStatusNodeType.WATCH),
+            surfacesInfo =
+              surfacesInfo {
+                tiles.add(
+                  tileInfo {
+                    name = "MyTile"
+                    timestamp = System.currentTimeMillis().toProtoTimestamp()
+                  }
+                )
+                complications.add(
+                  complicationInfo {
+                    name = "MyComplication"
+                    instanceId = 101
+                    type = "SHORT_TEXT"
+                    timestamp = System.currentTimeMillis().toProtoTimestamp()
+                  }
+                )
+              },
+          )
+        )
+      ),
+    onRefreshClick = {},
+    onInstallOnNodeClick = {},
+    onStartCompanionClick = {},
+    onStartRemoteOwnAppClick = {},
+    onStartRemoteActivityClick = {},
+    onDialogDismiss = {},
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun NodesScreenPreviewEmptyNodes() {
-    NodesScreen(
-        state = NodesScreenState.Loaded(emptyList()),
-        onRefreshClick = { },
-        onInstallOnNodeClick = { },
-        onStartCompanionClick = { },
-        onStartRemoteOwnAppClick = { },
-        onStartRemoteActivityClick = { },
-        onDialogDismiss = { },
-    )
+  NodesScreen(
+    state = NodesScreenState.Loaded(emptyList()),
+    onRefreshClick = {},
+    onInstallOnNodeClick = {},
+    onStartCompanionClick = {},
+    onStartRemoteOwnAppClick = {},
+    onStartRemoteActivityClick = {},
+    onDialogDismiss = {},
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun NodesScreenPreviewApiNotAvailable() {
-    NodesScreen(
-        state = NodesScreenState.ApiNotAvailable,
-        onRefreshClick = { },
-        onInstallOnNodeClick = { },
-        onStartCompanionClick = { },
-        onStartRemoteOwnAppClick = { },
-        onStartRemoteActivityClick = { },
-        onDialogDismiss = { },
-    )
+  NodesScreen(
+    state = NodesScreenState.ApiNotAvailable,
+    onRefreshClick = {},
+    onInstallOnNodeClick = {},
+    onStartCompanionClick = {},
+    onStartRemoteOwnAppClick = {},
+    onStartRemoteActivityClick = {},
+    onDialogDismiss = {},
+  )
 }

@@ -49,37 +49,37 @@ import com.google.android.horologist.compose.layout.rememberColumnState
 @ExperimentalHorologistApi
 @Composable
 public fun AlertDialog(
-    showDialog: Boolean,
-    onCancel: () -> Unit,
-    onOk: () -> Unit,
-    modifier: Modifier = Modifier,
-    icon: @Composable (() -> Unit)? = null,
-    title: String? = null,
-    message: String? = null,
-    okButtonContentDescription: String = stringResource(android.R.string.ok),
-    cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    state: ScalingLazyColumnState = rememberAlertDialogColumnState(showDialog),
-    content: (ScalingLazyListScope.() -> Unit)? = null,
+  showDialog: Boolean,
+  onCancel: () -> Unit,
+  onOk: () -> Unit,
+  modifier: Modifier = Modifier,
+  icon: @Composable (() -> Unit)? = null,
+  title: String? = null,
+  message: String? = null,
+  okButtonContentDescription: String = stringResource(android.R.string.ok),
+  cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
+  state: ScalingLazyColumnState = rememberAlertDialogColumnState(showDialog),
+  content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
-    Dialog(
-        showDialog = showDialog,
-        onDismissRequest = onCancel,
-        modifier = modifier,
-        scrollState = state.state,
-    ) {
-        AlertContent(
-            icon = icon,
-            title = title,
-            message = message,
-            content = content,
-            onCancel = onCancel,
-            onOk = onOk,
-            okButtonContentDescription = okButtonContentDescription,
-            cancelButtonContentDescription = cancelButtonContentDescription,
-            state = state,
-            showPositionIndicator = false,
-        )
-    }
+  Dialog(
+    showDialog = showDialog,
+    onDismissRequest = onCancel,
+    modifier = modifier,
+    scrollState = state.state,
+  ) {
+    AlertContent(
+      icon = icon,
+      title = title,
+      message = message,
+      content = content,
+      onCancel = onCancel,
+      onOk = onOk,
+      okButtonContentDescription = okButtonContentDescription,
+      cancelButtonContentDescription = cancelButtonContentDescription,
+      state = state,
+      showPositionIndicator = false,
+    )
+  }
 }
 
 /**
@@ -91,111 +91,110 @@ public fun AlertDialog(
 @ExperimentalHorologistApi
 @Composable
 public fun AlertDialog(
-    showDialog: Boolean,
-    onDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
-    icon: @Composable (() -> Unit)? = null,
-    title: String? = null,
-    message: String? = null,
-    state: ScalingLazyColumnState = rememberAlertDialogColumnState(showDialog),
-    content: (ScalingLazyListScope.() -> Unit)? = null,
+  showDialog: Boolean,
+  onDismiss: () -> Unit,
+  modifier: Modifier = Modifier,
+  icon: @Composable (() -> Unit)? = null,
+  title: String? = null,
+  message: String? = null,
+  state: ScalingLazyColumnState = rememberAlertDialogColumnState(showDialog),
+  content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
-    Dialog(
-        showDialog = showDialog,
-        onDismissRequest = onDismiss,
-        modifier = modifier,
-        scrollState = state.state,
-    ) {
-        AlertContent(
-            icon = icon,
-            title = title,
-            message = message,
-            content = content,
-            state = state,
-            showPositionIndicator = true,
-        )
-    }
+  Dialog(
+    showDialog = showDialog,
+    onDismissRequest = onDismiss,
+    modifier = modifier,
+    scrollState = state.state,
+  ) {
+    AlertContent(
+      icon = icon,
+      title = title,
+      message = message,
+      content = content,
+      state = state,
+      showPositionIndicator = true,
+    )
+  }
 }
 
 @Composable
 @Suppress("DEPRECATION")
 private fun rememberAlertDialogColumnState(showDialog: Boolean): ScalingLazyColumnState =
-    key(showDialog) {
-        rememberColumnState(ScalingLazyColumnDefaults.responsive())
-    }
+  key(showDialog) { rememberColumnState(ScalingLazyColumnDefaults.responsive()) }
 
 @ExperimentalHorologistApi
 @Composable
 public fun AlertContent(
-    modifier: Modifier = Modifier,
-    onCancel: (() -> Unit)? = null,
-    onOk: (() -> Unit)? = null,
-    icon: @Composable (() -> Unit)? = null,
-    title: String? = null,
-    message: String? = null,
-    okButtonContentDescription: String = stringResource(android.R.string.ok),
-    cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    @Suppress("DEPRECATION") state: ScalingLazyColumnState = rememberColumnState(
-        ScalingLazyColumnDefaults.responsive(
-            additionalPaddingAtBottom = 0.dp,
-        ),
-    ),
-    showPositionIndicator: Boolean = true,
-    content: (ScalingLazyListScope.() -> Unit)? = null,
+  modifier: Modifier = Modifier,
+  onCancel: (() -> Unit)? = null,
+  onOk: (() -> Unit)? = null,
+  icon: @Composable (() -> Unit)? = null,
+  title: String? = null,
+  message: String? = null,
+  okButtonContentDescription: String = stringResource(android.R.string.ok),
+  cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
+  @Suppress("DEPRECATION")
+  state: ScalingLazyColumnState =
+    rememberColumnState(ScalingLazyColumnDefaults.responsive(additionalPaddingAtBottom = 0.dp)),
+  showPositionIndicator: Boolean = true,
+  content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
-    val density = LocalDensity.current
-    val maxScreenWidthPx = with(density) {
-        LocalConfiguration.current.screenWidthDp.dp.toPx()
-    }
+  val density = LocalDensity.current
+  val maxScreenWidthPx = with(density) { LocalConfiguration.current.screenWidthDp.dp.toPx() }
 
-    ResponsiveDialogContent(
-        modifier = modifier,
-        icon = icon,
-        title = title?.let {
-            {
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = it,
-                    color = MaterialTheme.colors.onBackground,
-                    textAlign = TextAlign.Center,
-                    maxLines = if (icon == null) 3 else 2,
-                    overflow = TextOverflow.Ellipsis,
+  ResponsiveDialogContent(
+    modifier = modifier,
+    icon = icon,
+    title =
+      title?.let {
+        {
+          Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = it,
+            color = MaterialTheme.colors.onBackground,
+            textAlign = TextAlign.Center,
+            maxLines = if (icon == null) 3 else 2,
+            overflow = TextOverflow.Ellipsis,
+          )
+        }
+      },
+    message =
+      message?.let {
+        {
+          // Should message be start or center aligned?
+          val textMeasurer = rememberTextMeasurer()
+          val textStyle = LocalTextStyle.current
+          val totalPaddingPercentage = globalHorizontalPadding + messageExtraHorizontalPadding
+          val lineCount =
+            remember(it, density, textStyle, textMeasurer) {
+              textMeasurer
+                .measure(
+                  text = it,
+                  style = textStyle,
+                  constraints =
+                    Constraints(
+                      // Available width is reduced by responsive dialog horizontal padding.
+                      maxWidth =
+                        (maxScreenWidthPx * (1f - totalPaddingPercentage * 2f / 100f)).toInt()
+                    ),
                 )
+                .lineCount
             }
-        },
-        message = message?.let {
-            {
-                // Should message be start or center aligned?
-                val textMeasurer = rememberTextMeasurer()
-                val textStyle = LocalTextStyle.current
-                val totalPaddingPercentage = globalHorizontalPadding + messageExtraHorizontalPadding
-                val lineCount = remember(it, density, textStyle, textMeasurer) {
-                    textMeasurer.measure(
-                        text = it,
-                        style = textStyle,
-                        constraints = Constraints(
-                            // Available width is reduced by responsive dialog horizontal padding.
-                            maxWidth = (
-                                maxScreenWidthPx * (1f - totalPaddingPercentage * 2f / 100f)
-                                ).toInt(),
-                        ),
-                    ).lineCount
-                }
-                val textAlign = if (lineCount <= 3) TextAlign.Center else TextAlign.Start
-                Text(
-                    modifier = Modifier.fillMaxWidth(),
-                    text = it,
-                    color = MaterialTheme.colors.onBackground,
-                    textAlign = textAlign,
-                )
-            }
-        },
-        content = content,
-        onOk = onOk,
-        onCancel = onCancel,
-        okButtonContentDescription = okButtonContentDescription,
-        cancelButtonContentDescription = cancelButtonContentDescription,
-        state = state,
-        showPositionIndicator = showPositionIndicator,
-    )
+          val textAlign = if (lineCount <= 3) TextAlign.Center else TextAlign.Start
+          Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = it,
+            color = MaterialTheme.colors.onBackground,
+            textAlign = textAlign,
+          )
+        }
+      },
+    content = content,
+    onOk = onOk,
+    onCancel = onCancel,
+    okButtonContentDescription = okButtonContentDescription,
+    cancelButtonContentDescription = cancelButtonContentDescription,
+    state = state,
+    showPositionIndicator = showPositionIndicator,
+  )
 }

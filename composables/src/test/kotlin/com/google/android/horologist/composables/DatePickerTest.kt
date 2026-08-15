@@ -18,21 +18,16 @@ package com.google.android.horologist.composables
 
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearTriadScreenshotTest
+import java.time.LocalDate
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
-import java.time.LocalDate
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class DatePickerTest(device: WearDevice) : WearTriadScreenshotTest(device) {
 
-    @Test
-    fun datePicker() {
-        runTest {
-            DatePicker(
-                onDateConfirm = {},
-                date = LocalDate.of(2022, 4, 25),
-            )
-        }
-    }
+  @Test
+  fun datePicker() {
+    runTest { DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 4, 25)) }
+  }
 }

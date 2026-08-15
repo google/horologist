@@ -31,18 +31,19 @@ import kotlinx.coroutines.SupervisorJob
 @InstallIn(SingletonComponent::class)
 object DataLayerModule {
 
-    @Provides
-    fun coroutineScope(): CoroutineScope {
-        return CoroutineScope(SupervisorJob() + Dispatchers.Default)
-    }
+  @Provides
+  fun coroutineScope(): CoroutineScope {
+    return CoroutineScope(SupervisorJob() + Dispatchers.Default)
+  }
 
-    @Provides
-    fun wearDataLayerRegistry(
-        @ApplicationContext applicationContext: Context,
-        coroutineScope: CoroutineScope,
-    ): WearDataLayerRegistry = WearDataLayerRegistry.fromContext(
+  @Provides
+  fun wearDataLayerRegistry(
+    @ApplicationContext applicationContext: Context,
+    coroutineScope: CoroutineScope,
+  ): WearDataLayerRegistry =
+    WearDataLayerRegistry.fromContext(
         application = applicationContext,
         coroutineScope = coroutineScope,
-    ).apply {
-    }
+      )
+      .apply {}
 }

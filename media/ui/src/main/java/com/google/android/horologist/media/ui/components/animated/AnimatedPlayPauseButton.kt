@@ -73,273 +73,247 @@ import com.google.android.horologist.media.ui.animation.PlaybackProgressAnimatio
 import com.google.android.horologist.media.ui.model.R
 import com.google.android.horologist.media.ui.state.ProgressStateHolder
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flowOf
 import kotlin.math.floor
 import kotlin.math.min
 import kotlin.math.roundToInt
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 public fun AnimatedPlayPauseButton(
-    onPlayClick: () -> Unit,
-    onPauseClick: () -> Unit,
-    playing: Boolean,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    iconSize: Dp = 32.dp,
-    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
-    progress: @Composable () -> Unit = {},
+  onPlayClick: () -> Unit,
+  onPauseClick: () -> Unit,
+  playing: Boolean,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+  iconSize: Dp = 32.dp,
+  backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
+  progress: @Composable () -> Unit = {},
 ) {
-    val compositionResult = rememberLottieComposition(
-        spec = LottieCompositionSpec.Asset(
-            "lottie/PlayPause.json",
-        ),
-    )
-    val lottieProgress =
-        animateLottieProgressAsState(playing = playing, composition = compositionResult.value)
-    Box(
-        modifier = modifier
-            .clip(CircleShape)
-            .background(backgroundColor),
-        contentAlignment = Alignment.Center,
+  val compositionResult =
+    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/PlayPause.json"))
+  val lottieProgress =
+    animateLottieProgressAsState(playing = playing, composition = compositionResult.value)
+  Box(
+    modifier = modifier.clip(CircleShape).background(backgroundColor),
+    contentAlignment = Alignment.Center,
+  ) {
+    progress()
+    val pauseContentDescription =
+      stringResource(id = R.string.horologist_pause_button_content_description)
+    val playContentDescription =
+      stringResource(id = R.string.horologist_play_button_content_description)
+
+    Button(
+      onClick = { if (playing) onPauseClick() else onPlayClick() },
+      modifier =
+        modifier.semantics {
+          contentDescription =
+            if (playing) {
+              pauseContentDescription
+            } else {
+              playContentDescription
+            }
+        },
+      enabled = enabled,
+      colors = colors,
     ) {
-        progress()
-        val pauseContentDescription =
-            stringResource(id = R.string.horologist_pause_button_content_description)
-        val playContentDescription =
-            stringResource(id = R.string.horologist_play_button_content_description)
+      val contentModifier =
+        Modifier.size(iconSize)
+          .align(Alignment.Center)
+          .graphicsLayer(alpha = LocalContentAlpha.current)
 
-        Button(
-            onClick = { if (playing) onPauseClick() else onPlayClick() },
-            modifier = modifier
-                .semantics {
-                    contentDescription = if (playing) {
-                        pauseContentDescription
-                    } else {
-                        playContentDescription
-                    }
-                },
-            enabled = enabled,
-            colors = colors,
-        ) {
-            val contentModifier = Modifier
-                .size(iconSize)
-                .align(Alignment.Center)
-                .graphicsLayer(alpha = LocalContentAlpha.current)
-
-            LottieAnimationWithPlaceholder(
-                lottieCompositionResult = compositionResult,
-                progress = { lottieProgress.value },
-                placeholder = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
-                contentDescription = if (playing) pauseContentDescription else playContentDescription,
-                modifier = contentModifier,
-            )
-        }
+      LottieAnimationWithPlaceholder(
+        lottieCompositionResult = compositionResult,
+        progress = { lottieProgress.value },
+        placeholder = if (playing) LottiePlaceholders.Pause else LottiePlaceholders.Play,
+        contentDescription = if (playing) pauseContentDescription else playContentDescription,
+        modifier = contentModifier,
+      )
     }
+  }
 }
 
 @Composable
 private fun animateLottieProgressAsState(
-    playing: Boolean,
-    composition: LottieComposition?,
+  playing: Boolean,
+  composition: LottieComposition?,
 ): State<Float> {
-    val lottieProgress = rememberLottieAnimatable()
-    var firstTime by remember { mutableStateOf(true) }
+  val lottieProgress = rememberLottieAnimatable()
+  var firstTime by remember { mutableStateOf(true) }
 
-    // Ensures lottie initializes to the correct progress with the playing state.
-    LaunchedEffect(firstTime) {
-        firstTime = false
-        if (playing) {
-            lottieProgress.snapTo(progress = 1f)
-        } else {
-            lottieProgress.snapTo(progress = 0f)
-        }
+  // Ensures lottie initializes to the correct progress with the playing state.
+  LaunchedEffect(firstTime) {
+    firstTime = false
+    if (playing) {
+      lottieProgress.snapTo(progress = 1f)
+    } else {
+      lottieProgress.snapTo(progress = 0f)
     }
+  }
 
-    LaunchedEffect(playing) {
-        val targetValue = if (playing) 1f else 0f
-        if (lottieProgress.progress < targetValue) {
-            lottieProgress.animate(composition, speed = 1f)
-        } else if (lottieProgress.progress > targetValue) {
-            lottieProgress.animate(composition, speed = -1f)
-        }
+  LaunchedEffect(playing) {
+    val targetValue = if (playing) 1f else 0f
+    if (lottieProgress.progress < targetValue) {
+      lottieProgress.animate(composition, speed = 1f)
+    } else if (lottieProgress.progress > targetValue) {
+      lottieProgress.animate(composition, speed = -1f)
     }
+  }
 
-    return lottieProgress
+  return lottieProgress
 }
 
 @Composable
 public fun AnimatedPlayPauseProgressButton(
-    onPlayClick: () -> Unit,
-    onPauseClick: () -> Unit,
-    playing: Boolean,
-    trackPositionUiModel: TrackPositionUiModel,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    iconSize: Dp = 30.dp,
-    tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
-    progressStrokeWidth: Dp = 4.dp,
-    progressColor: Color = MaterialTheme.colors.primary,
-    trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
-    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
-    rotateProgressIndicator: Flow<Unit> = flowOf(),
+  onPlayClick: () -> Unit,
+  onPauseClick: () -> Unit,
+  playing: Boolean,
+  trackPositionUiModel: TrackPositionUiModel,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+  iconSize: Dp = 30.dp,
+  tapTargetSize: DpSize = DpSize(60.dp, 60.dp),
+  progressStrokeWidth: Dp = 4.dp,
+  progressColor: Color = MaterialTheme.colors.primary,
+  trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
+  backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
+  rotateProgressIndicator: Flow<Unit> = flowOf(),
 ) {
-    val animatedProgressColor = animateColorAsState(
-        targetValue = progressColor,
-        animationSpec = tween(450, 0, LinearEasing),
-        "Progress Colour",
+  val animatedProgressColor =
+    animateColorAsState(
+      targetValue = progressColor,
+      animationSpec = tween(450, 0, LinearEasing),
+      "Progress Colour",
     )
 
-    AnimatedPlayPauseButton(
-        onPlayClick = onPlayClick,
-        onPauseClick = onPauseClick,
-        enabled = enabled,
-        playing = playing,
-        modifier = modifier,
-        colors = colors,
-        iconSize = iconSize,
-        backgroundColor = backgroundColor,
-    ) {
-        if (trackPositionUiModel.isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize(),
-                indicatorColor = animatedProgressColor.value,
-                trackColor = trackColor,
-                strokeWidth = progressStrokeWidth,
-            )
-        } else if (trackPositionUiModel.showProgress) {
-            val progress = ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
+  AnimatedPlayPauseButton(
+    onPlayClick = onPlayClick,
+    onPauseClick = onPauseClick,
+    enabled = enabled,
+    playing = playing,
+    modifier = modifier,
+    colors = colors,
+    iconSize = iconSize,
+    backgroundColor = backgroundColor,
+  ) {
+    if (trackPositionUiModel.isLoading) {
+      CircularProgressIndicator(
+        modifier = Modifier.fillMaxSize(),
+        indicatorColor = animatedProgressColor.value,
+        trackColor = trackColor,
+        strokeWidth = progressStrokeWidth,
+      )
+    } else if (trackPositionUiModel.showProgress) {
+      val progress = ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
 
-            CircularProgressIndicatorFast(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .rotate(animateChangeAsRotation(rotateProgressIndicator)),
-                progress = { progress.value },
-                indicatorColor = animatedProgressColor.value,
-                trackColor = trackColor,
-                strokeWidth = progressStrokeWidth,
-                tapTargetSize = tapTargetSize,
-            )
-        }
+      CircularProgressIndicatorFast(
+        modifier = Modifier.fillMaxSize().rotate(animateChangeAsRotation(rotateProgressIndicator)),
+        progress = { progress.value },
+        indicatorColor = animatedProgressColor.value,
+        trackColor = trackColor,
+        strokeWidth = progressStrokeWidth,
+        tapTargetSize = tapTargetSize,
+      )
     }
+  }
 }
 
 @Composable
 private fun animateChangeAsRotation(rotateProgressIndicator: Flow<Unit>): Float {
-    // False positive - https://issuetracker.google.com/issues/349411310
-    @Suppress("ProduceStateDoesNotAssignValue")
-    val progressIndicatorRotation by produceState(0f, rotateProgressIndicator) {
-        rotateProgressIndicator.collectLatest { value += 360 }
+  // False positive - https://issuetracker.google.com/issues/349411310
+  @Suppress("ProduceStateDoesNotAssignValue")
+  val progressIndicatorRotation by
+    produceState(0f, rotateProgressIndicator) {
+      rotateProgressIndicator.collectLatest { value += 360 }
     }
-    val animatedProgressIndicatorRotation by animateFloatAsState(
-        targetValue = progressIndicatorRotation,
-        animationSpec = PLAYBACK_PROGRESS_ANIMATION_SPEC,
-        label = "Progress Indicator Rotation",
+  val animatedProgressIndicatorRotation by
+    animateFloatAsState(
+      targetValue = progressIndicatorRotation,
+      animationSpec = PLAYBACK_PROGRESS_ANIMATION_SPEC,
+      label = "Progress Indicator Rotation",
     )
-    return animatedProgressIndicatorRotation
+  return animatedProgressIndicatorRotation
 }
 
-// From https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/tiles/tiles-material/src/main/java/androidx/wear/tiles/material/CircularProgressIndicator.java?q=CircularProgressIndicator
+// From
+// https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/tiles/tiles-material/src/main/java/androidx/wear/tiles/material/CircularProgressIndicator.java?q=CircularProgressIndicator
 @Composable
 private fun CircularProgressIndicatorFast(
-    progress: () -> Float,
-    modifier: Modifier = Modifier,
-    startAngle: Float = 270f,
-    endAngle: Float = startAngle,
-    indicatorColor: Color = MaterialTheme.colors.primary,
-    trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f),
-    strokeWidth: Dp = ProgressIndicatorDefaults.StrokeWidth,
-    tapTargetSize: DpSize,
+  progress: () -> Float,
+  modifier: Modifier = Modifier,
+  startAngle: Float = 270f,
+  endAngle: Float = startAngle,
+  indicatorColor: Color = MaterialTheme.colors.primary,
+  trackColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.1f),
+  strokeWidth: Dp = ProgressIndicatorDefaults.StrokeWidth,
+  tapTargetSize: DpSize,
 ) {
-    val progressSteps = with(LocalDensity.current) {
-        (tapTargetSize.width.toPx() * Math.PI).roundToInt()
-    }
-    val truncatedProgress by remember {
-        derivedStateOf {
-            roundProgress(
-                progress = progress(),
-                progressSteps = progressSteps,
-            )
-        }
-    }
+  val progressSteps =
+    with(LocalDensity.current) { (tapTargetSize.width.toPx() * Math.PI).roundToInt() }
+  val truncatedProgress by remember {
+    derivedStateOf { roundProgress(progress = progress(), progressSteps = progressSteps) }
+  }
 
-    val stroke = with(LocalDensity.current) {
-        Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round)
-    }
+  val stroke =
+    with(LocalDensity.current) { Stroke(width = strokeWidth.toPx(), cap = StrokeCap.Round) }
 
-    Canvas(
-        modifier
-            .progressSemantics({ progress() })
-            .focusable(),
-    ) {
-        val backgroundSweep = 360f - ((startAngle - endAngle) % 360 + 360) % 360
-        val progressSweep = backgroundSweep * truncatedProgress
-        // Draw a background
-        drawCircularIndicator(
-            startAngle,
-            backgroundSweep,
-            trackColor,
-            stroke,
-        )
+  Canvas(modifier.progressSemantics({ progress() }).focusable()) {
+    val backgroundSweep = 360f - ((startAngle - endAngle) % 360 + 360) % 360
+    val progressSweep = backgroundSweep * truncatedProgress
+    // Draw a background
+    drawCircularIndicator(startAngle, backgroundSweep, trackColor, stroke)
 
-        // Draw a progress
-        drawCircularIndicator(
-            startAngle,
-            progressSweep,
-            indicatorColor,
-            stroke,
-        )
-    }
+    // Draw a progress
+    drawCircularIndicator(startAngle, progressSweep, indicatorColor, stroke)
+  }
 }
 
 @Stable
 private fun Modifier.progressSemantics(
-    value: () -> Float,
-    valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
-    @IntRange(from = 0) steps: Int = 0,
+  value: () -> Float,
+  valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
+  @IntRange(from = 0) steps: Int = 0,
 ): Modifier {
-    // Copy of with a lambda
-    // https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/foundation/foundation/src/commonMain/kotlin/androidx/compose/foundation/ProgressSemantics.kt?q=progressSemantics
-    return semantics(mergeDescendants = true) {
-        progressBarRangeInfo =
-            ProgressBarRangeInfo(value().coerceIn(valueRange), valueRange, steps)
-    }
+  // Copy of with a lambda
+  // https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:compose/foundation/foundation/src/commonMain/kotlin/androidx/compose/foundation/ProgressSemantics.kt?q=progressSemantics
+  return semantics(mergeDescendants = true) {
+    progressBarRangeInfo = ProgressBarRangeInfo(value().coerceIn(valueRange), valueRange, steps)
+  }
 }
 
-private fun roundProgress(progress: Float, progressSteps: Int) = if (progress == 0f) {
+private fun roundProgress(progress: Float, progressSteps: Int) =
+  if (progress == 0f) {
     0f
-} else {
-    (
-        floor(
-            progress * progressSteps,
-        ) / progressSteps
-        ).coerceIn(0.001f..1f)
-}
+  } else {
+    (floor(progress * progressSteps) / progressSteps).coerceIn(0.001f..1f)
+  }
 
 private fun DrawScope.drawCircularIndicator(
-    startAngle: Float,
-    sweep: Float,
-    color: Color,
-    stroke: Stroke,
+  startAngle: Float,
+  sweep: Float,
+  color: Color,
+  stroke: Stroke,
 ) {
-    // To draw this circle we need a rect with edges that line up with the midpoint of the stroke.
-    // To do this we need to remove half the stroke width from the total diameter for both sides.
-    val diameter = min(size.width, size.height)
-    val diameterOffset = stroke.width / 2
-    val arcDimen = diameter - 2 * diameterOffset
-    drawArc(
-        color = color,
-        startAngle = startAngle,
-        sweepAngle = sweep,
-        useCenter = false,
-        topLeft = Offset(
-            diameterOffset + (size.width - diameter) / 2,
-            diameterOffset + (size.height - diameter) / 2,
-        ),
-        size = Size(arcDimen, arcDimen),
-        style = stroke,
-    )
+  // To draw this circle we need a rect with edges that line up with the midpoint of the stroke.
+  // To do this we need to remove half the stroke width from the total diameter for both sides.
+  val diameter = min(size.width, size.height)
+  val diameterOffset = stroke.width / 2
+  val arcDimen = diameter - 2 * diameterOffset
+  drawArc(
+    color = color,
+    startAngle = startAngle,
+    sweepAngle = sweep,
+    useCenter = false,
+    topLeft =
+      Offset(
+        diameterOffset + (size.width - diameter) / 2,
+        diameterOffset + (size.height - diameter) / 2,
+      ),
+    size = Size(arcDimen, arcDimen),
+    style = stroke,
+  )
 }

@@ -38,70 +38,51 @@ import org.junit.Test
 
 class MarqueeTest : WearLegacyScreenTest() {
 
-    @Test
-    fun noMarquee() {
-        runComponentTest {
-            MarqueeSample("Sia")
+  @Test
+  fun noMarquee() {
+    runComponentTest { MarqueeSample("Sia") }
+  }
+
+  @Test
+  fun marquee() {
+    composeRule.mainClock.autoAdvance = false
+    composeRule.setContent {
+      withImageLoader(imageLoader) {
+        Box(modifier = Modifier.wrapContentSize().background(Color.Black)) {
+          MarqueeSample("Tikki Tikki Tembo-no Sa Rembo-chari Bari Ruchi-pip Peri Pembo")
         }
+      }
     }
+    captureComponentImage()
+    composeRule.mainClock.advanceTimeBy(4_500)
+    captureComponentImage("_4500")
+  }
 
-    @Test
-    fun marquee() {
-        composeRule.mainClock.autoAdvance = false
-        composeRule.setContent {
-            withImageLoader(imageLoader) {
-                Box(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .background(Color.Black),
-                ) {
-                    MarqueeSample("Tikki Tikki Tembo-no Sa Rembo-chari Bari Ruchi-pip Peri Pembo")
-                }
-            }
-        }
-        captureComponentImage()
-        composeRule.mainClock.advanceTimeBy(4_500)
-        captureComponentImage("_4500")
+  public fun runComponentTest(content: @Composable () -> Unit) {
+    composeRule.setContent {
+      withImageLoader(imageLoader) {
+        Box(modifier = Modifier.wrapContentSize().background(Color.Black)) { content() }
+      }
     }
+    captureComponentImage()
+  }
 
-    public fun runComponentTest(
-        content: @Composable () -> Unit,
-    ) {
-        composeRule.setContent {
-            withImageLoader(imageLoader) {
-                Box(
-                    modifier = Modifier
-                        .wrapContentSize()
-                        .background(Color.Black),
-                ) {
-                    content()
-                }
-            }
-        }
-        captureComponentImage()
-    }
+  private fun captureComponentImage(suffix: String = "") {
+    composeRule
+      .onRoot()
+      .captureRoboImage(
+        filePath = testName(suffix),
+        roborazziOptions =
+          RoborazziOptions(
+            recordOptions = RoborazziOptions.RecordOptions(applyDeviceCrop = false),
+            compareOptions =
+              RoborazziOptions.CompareOptions(resultValidator = ThresholdValidator(tolerance)),
+          ),
+      )
+  }
 
-    private fun captureComponentImage(suffix: String = "") {
-        composeRule.onRoot().captureRoboImage(
-            filePath = testName(suffix),
-            roborazziOptions = RoborazziOptions(
-                recordOptions = RoborazziOptions.RecordOptions(
-                    applyDeviceCrop = false,
-                ),
-                compareOptions = RoborazziOptions.CompareOptions(
-                    resultValidator = ThresholdValidator(tolerance),
-                ),
-            ),
-        )
-    }
-
-    @Composable
-    private fun MarqueeSample(text: String) {
-        MarqueeText(
-            text = text,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .width(192.dp),
-        )
-    }
+  @Composable
+  private fun MarqueeSample(text: String) {
+    MarqueeText(text = text, textAlign = TextAlign.Center, modifier = Modifier.width(192.dp))
+  }
 }

@@ -55,130 +55,117 @@ import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var tokenBundleRepositoryDefaultKey: TokenBundleRepository<TokenBundle?>
-    private lateinit var tokenBundleRepositoryCustomKey: TokenBundleRepository<TokenBundle?>
+  private lateinit var tokenBundleRepositoryDefaultKey: TokenBundleRepository<TokenBundle?>
+  private lateinit var tokenBundleRepositoryCustomKey: TokenBundleRepository<TokenBundle?>
 
-    private lateinit var phoneDataLayerAppHelper: PhoneDataLayerAppHelper
+  private lateinit var phoneDataLayerAppHelper: PhoneDataLayerAppHelper
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        val registry = WearDataLayerRegistry.fromContext(
-            application = this@MainActivity.applicationContext,
-            coroutineScope = lifecycleScope,
-        )
+    val registry =
+      WearDataLayerRegistry.fromContext(
+        application = this@MainActivity.applicationContext,
+        coroutineScope = lifecycleScope,
+      )
 
-        tokenBundleRepositoryDefaultKey = TokenBundleRepositoryImpl(
-            registry = registry,
-            coroutineScope = lifecycleScope,
-            serializer = TokenBundleSerializer,
-        )
+    tokenBundleRepositoryDefaultKey =
+      TokenBundleRepositoryImpl(
+        registry = registry,
+        coroutineScope = lifecycleScope,
+        serializer = TokenBundleSerializer,
+      )
 
-        tokenBundleRepositoryCustomKey = TokenBundleRepositoryImpl(
-            registry = registry,
-            coroutineScope = lifecycleScope,
-            serializer = TokenBundleSerializer,
-            key = TOKEN_BUNDLE_CUSTOM_KEY,
-        )
+    tokenBundleRepositoryCustomKey =
+      TokenBundleRepositoryImpl(
+        registry = registry,
+        coroutineScope = lifecycleScope,
+        serializer = TokenBundleSerializer,
+        key = TOKEN_BUNDLE_CUSTOM_KEY,
+      )
 
-        phoneDataLayerAppHelper = PhoneDataLayerAppHelper(
-            context = this,
-            registry = registry,
-        )
+    phoneDataLayerAppHelper = PhoneDataLayerAppHelper(context = this, registry = registry)
 
-        setContent {
-            HorologistTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    val coroutineScope = rememberCoroutineScope()
-                    var apiAvailable by remember { mutableStateOf(false) }
-                    LaunchedEffect(Unit) {
-                        coroutineScope.launch {
-                            apiAvailable = tokenBundleRepositoryDefaultKey.isAvailable()
-                        }
-                    }
+    setContent {
+      HorologistTheme {
+        // A surface container using the 'background' color from the theme
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+          val coroutineScope = rememberCoroutineScope()
+          var apiAvailable by remember { mutableStateOf(false) }
+          LaunchedEffect(Unit) {
+            coroutineScope.launch { apiAvailable = tokenBundleRepositoryDefaultKey.isAvailable() }
+          }
 
-                    MainScreen(
-                        apiAvailable = apiAvailable,
-                        onUpdateTokenDefault = ::onUpdateTokenDefault,
-                        onUpdateTokenCustom = ::onUpdateTokenCustom,
-                    )
-                }
-            }
+          MainScreen(
+            apiAvailable = apiAvailable,
+            onUpdateTokenDefault = ::onUpdateTokenDefault,
+            onUpdateTokenCustom = ::onUpdateTokenCustom,
+          )
         }
+      }
     }
+  }
 
-    private fun onUpdateTokenDefault() {
-        lifecycleScope.launch {
-            tokenBundleRepositoryDefaultKey.update(
-                tokenBundle {
-                    accessToken = "${System.currentTimeMillis()}"
-                },
-            )
-        }
+  private fun onUpdateTokenDefault() {
+    lifecycleScope.launch {
+      tokenBundleRepositoryDefaultKey.update(
+        tokenBundle { accessToken = "${System.currentTimeMillis()}" }
+      )
     }
+  }
 
-    private fun onUpdateTokenCustom() {
-        lifecycleScope.launch {
-            tokenBundleRepositoryCustomKey.update(
-                tokenBundle {
-                    accessToken = "${System.currentTimeMillis()}"
-                },
-            )
-        }
+  private fun onUpdateTokenCustom() {
+    lifecycleScope.launch {
+      tokenBundleRepositoryCustomKey.update(
+        tokenBundle { accessToken = "${System.currentTimeMillis()}" }
+      )
     }
+  }
 }
 
 @Composable
 fun MainScreen(
-    apiAvailable: Boolean,
-    onUpdateTokenDefault: () -> Unit,
-    onUpdateTokenCustom: () -> Unit,
-    modifier: Modifier = Modifier,
+  apiAvailable: Boolean,
+  onUpdateTokenDefault: () -> Unit,
+  onUpdateTokenCustom: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+  Column(
+    modifier = modifier.fillMaxSize(),
+    verticalArrangement = Arrangement.Center,
+    horizontalAlignment = Alignment.CenterHorizontally,
+  ) {
+    Button(
+      onClick = { onUpdateTokenDefault() },
+      modifier = Modifier.wrapContentHeight(),
+      enabled = apiAvailable,
     ) {
-        Button(
-            onClick = {
-                onUpdateTokenDefault()
-            },
-            modifier = Modifier.wrapContentHeight(),
-            enabled = apiAvailable,
-        ) { Text(stringResource(R.string.token_share_button_update_token_default)) }
-
-        Button(
-            onClick = {
-                onUpdateTokenCustom()
-            },
-            modifier = Modifier.wrapContentHeight(),
-            enabled = apiAvailable,
-        ) { Text(stringResource(R.string.token_share_button_update_token_custom)) }
-
-        if (!apiAvailable) {
-            Text(
-                text = stringResource(R.string.token_share_message_api_unavailable),
-                modifier.fillMaxWidth(),
-                color = Color.Red,
-                textAlign = TextAlign.Center,
-            )
-        }
+      Text(stringResource(R.string.token_share_button_update_token_default))
     }
+
+    Button(
+      onClick = { onUpdateTokenCustom() },
+      modifier = Modifier.wrapContentHeight(),
+      enabled = apiAvailable,
+    ) {
+      Text(stringResource(R.string.token_share_button_update_token_custom))
+    }
+
+    if (!apiAvailable) {
+      Text(
+        text = stringResource(R.string.token_share_message_api_unavailable),
+        modifier.fillMaxWidth(),
+        color = Color.Red,
+        textAlign = TextAlign.Center,
+      )
+    }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun MainPreview() {
-    HorologistTheme {
-        MainScreen(
-            apiAvailable = true,
-            onUpdateTokenDefault = { },
-            onUpdateTokenCustom = { },
-        )
-    }
+  HorologistTheme {
+    MainScreen(apiAvailable = true, onUpdateTokenDefault = {}, onUpdateTokenCustom = {})
+  }
 }

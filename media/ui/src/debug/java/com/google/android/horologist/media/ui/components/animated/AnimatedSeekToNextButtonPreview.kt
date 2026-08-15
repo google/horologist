@@ -20,26 +20,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.audio.ui.components.animated.InteractivePreviewAware
 
-@Preview(
-    name = "Enabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(name = "Enabled", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun AnimatedSeekToNextButtonPreviewEnabled() {
-    InteractivePreviewAware {
-        AnimatedSeekToNextButton(onClick = {})
-    }
+  InteractivePreviewAware { AnimatedSeekToNextButton(onClick = {}) }
 }
 
-@Preview(
-    name = "Disabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(name = "Disabled", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun AnimatedSeekToNextButtonPreviewDisabled() {
-    InteractivePreviewAware {
-        AnimatedSeekToNextButton(onClick = {}, enabled = false)
-    }
+  InteractivePreviewAware { AnimatedSeekToNextButton(onClick = {}, enabled = false) }
 }

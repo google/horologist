@@ -18,48 +18,37 @@ package com.google.android.horologist.auth.sample.screens.common.streamline
 
 import com.google.android.horologist.auth.data.common.model.AuthUser
 import com.google.android.horologist.auth.data.common.repository.AuthUserRepository
-import kotlinx.coroutines.delay
 import kotlin.random.Random
+import kotlinx.coroutines.delay
 
 object AuthUserRepositoryStreamlineImpl : AuthUserRepository {
 
-    var mode: Mode = Mode.NO_ACCOUNTS_AVAILABLE
+  var mode: Mode = Mode.NO_ACCOUNTS_AVAILABLE
 
-    override suspend fun getAuthenticated(): AuthUser? = null
+  override suspend fun getAuthenticated(): AuthUser? = null
 
-    override suspend fun getAvailable(): List<AuthUser> {
-        // simulate latency in fetching the accounts
-        delay(Random.nextLong(500, 1000))
+  override suspend fun getAvailable(): List<AuthUser> {
+    // simulate latency in fetching the accounts
+    delay(Random.nextLong(500, 1000))
 
-        return when (mode) {
-            Mode.NO_ACCOUNTS_AVAILABLE -> emptyList()
-            Mode.SINGLE_ACCOUNT_AVAILABLE -> {
-                listOf(
-                    AuthUser(
-                        displayName = "Maggie",
-                        email = "maggie@example.com",
-                    ),
-                )
-            }
+    return when (mode) {
+      Mode.NO_ACCOUNTS_AVAILABLE -> emptyList()
+      Mode.SINGLE_ACCOUNT_AVAILABLE -> {
+        listOf(AuthUser(displayName = "Maggie", email = "maggie@example.com"))
+      }
 
-            Mode.MULTIPLE_ACCOUNTS_AVAILABLE -> {
-                listOf(
-                    AuthUser(
-                        displayName = "Maggie",
-                        email = "maggie@example.com",
-                    ),
-                    AuthUser(
-                        displayName = "John",
-                        email = "john@example.com",
-                    ),
-                )
-            }
-        }
+      Mode.MULTIPLE_ACCOUNTS_AVAILABLE -> {
+        listOf(
+          AuthUser(displayName = "Maggie", email = "maggie@example.com"),
+          AuthUser(displayName = "John", email = "john@example.com"),
+        )
+      }
     }
+  }
 
-    enum class Mode {
-        NO_ACCOUNTS_AVAILABLE,
-        SINGLE_ACCOUNT_AVAILABLE,
-        MULTIPLE_ACCOUNTS_AVAILABLE,
-    }
+  enum class Mode {
+    NO_ACCOUNTS_AVAILABLE,
+    SINGLE_ACCOUNT_AVAILABLE,
+    MULTIPLE_ACCOUNTS_AVAILABLE,
+  }
 }

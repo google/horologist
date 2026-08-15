@@ -23,44 +23,42 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkType.Unknown
 import com.google.android.horologist.networks.data.id
 import com.google.android.horologist.networks.data.networkType
-import kotlinx.coroutines.flow.MutableStateFlow
 import java.time.Instant
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @ExperimentalHorologistApi
-public class NetworkRequesterImpl(
-    private val connectivityManager: ConnectivityManager,
-) : NetworkRequester {
-    override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
-        val lease = NetworkLeaseImpl()
+public class NetworkRequesterImpl(private val connectivityManager: ConnectivityManager) :
+  NetworkRequester {
+  override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease {
+    val lease = NetworkLeaseImpl()
 
-        try {
-            connectivityManager.requestNetwork(request.toNetworkRequest(), lease)
-        } catch (e: Exception) {
-            // Likely ConnectivityManager$TooManyRequestsException
-            lease.onUnavailable()
-        }
-
-        return lease
+    try {
+      connectivityManager.requestNetwork(request.toNetworkRequest(), lease)
+    } catch (e: Exception) {
+      // Likely ConnectivityManager$TooManyRequestsException
+      lease.onUnavailable()
     }
 
-    private inner class NetworkLeaseImpl : NetworkCallback(), NetworkLease {
-        override val acquiredAt: Instant = Instant.now()
+    return lease
+  }
 
-        override val grantedNetwork: MutableStateFlow<NetworkReference?> =
-            MutableStateFlow(null)
+  private inner class NetworkLeaseImpl : NetworkCallback(), NetworkLease {
+    override val acquiredAt: Instant = Instant.now()
 
-        override fun onAvailable(network: Network) {
-            grantedNetwork.value =
-                NetworkReference(network.id, connectivityManager.networkType(network) ?: Unknown)
-        }
+    override val grantedNetwork: MutableStateFlow<NetworkReference?> = MutableStateFlow(null)
 
-        override fun onUnavailable() {
-            grantedNetwork.value = null
-        }
-
-        override fun close() {
-            connectivityManager.unregisterNetworkCallback(this)
-            grantedNetwork.value = null
-        }
+    override fun onAvailable(network: Network) {
+      grantedNetwork.value =
+        NetworkReference(network.id, connectivityManager.networkType(network) ?: Unknown)
     }
+
+    override fun onUnavailable() {
+      grantedNetwork.value = null
+    }
+
+    override fun close() {
+      connectivityManager.unregisterNetworkCallback(this)
+      grantedNetwork.value = null
+    }
+  }
 }

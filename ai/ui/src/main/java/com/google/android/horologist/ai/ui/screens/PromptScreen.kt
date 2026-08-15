@@ -51,100 +51,93 @@ import com.google.android.horologist.compose.layout.ColumnItemType
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadding
 
 /**
- * A screen to display metrics, e.g. workout metrics.
- * It can display up to four metrics, and it's recommended that at least two metrics should be
- * displayed.
+ * A screen to display metrics, e.g. workout metrics. It can display up to four metrics, and it's
+ * recommended that at least two metrics should be displayed.
  */
 @Composable
 public fun PromptScreen(
-    uiState: PromptUiState,
-    modifier: Modifier = Modifier,
-    onSettingsClick: (() -> Unit)? = null,
-    promptDisplay: @Composable (PromptOrResponseUiModel, Modifier, SurfaceTransformation) -> Unit = { model, modifier, transformation ->
-        PromptOrResponseDisplay(
-            promptResponse = model,
-            onClick = {},
-            modifier = modifier,
-            transformation = transformation,
-        )
+  uiState: PromptUiState,
+  modifier: Modifier = Modifier,
+  onSettingsClick: (() -> Unit)? = null,
+  promptDisplay: @Composable (PromptOrResponseUiModel, Modifier, SurfaceTransformation) -> Unit =
+    { model, modifier, transformation ->
+      PromptOrResponseDisplay(
+        promptResponse = model,
+        onClick = {},
+        modifier = modifier,
+        transformation = transformation,
+      )
     },
-    promptEntry: @Composable (Boolean) -> Unit,
+  promptEntry: @Composable (Boolean) -> Unit,
 ) {
-    val transformationSpec: TransformationSpec = rememberTransformationSpec()
-    val columnState = rememberTransformingLazyColumnState()
-    val contentPadding = rememberResponsiveColumnPadding(
-        first = ColumnItemType.ListHeader,
-        last = ColumnItemType.Button,
-    )
+  val transformationSpec: TransformationSpec = rememberTransformationSpec()
+  val columnState = rememberTransformingLazyColumnState()
+  val contentPadding =
+    rememberResponsiveColumnPadding(first = ColumnItemType.ListHeader, last = ColumnItemType.Button)
 
-    ScreenScaffold(
-        scrollState = columnState,
-        contentPadding = contentPadding,
-        edgeButton = { promptEntry(uiState.pending) },
-    ) { contentPadding ->
-        TransformingLazyColumn(
-            state = columnState,
-            modifier = modifier,
-            contentPadding = contentPadding,
+  ScreenScaffold(
+    scrollState = columnState,
+    contentPadding = contentPadding,
+    edgeButton = { promptEntry(uiState.pending) },
+  ) { contentPadding ->
+    TransformingLazyColumn(
+      state = columnState,
+      modifier = modifier,
+      contentPadding = contentPadding,
+    ) {
+      item {
+        ListHeader(
+          modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
+          transformation = SurfaceTransformation(transformationSpec),
         ) {
-            item {
-                ListHeader(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .transformedHeight(this, transformationSpec),
-                    transformation = SurfaceTransformation(transformationSpec),
-                ) {
-                    Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-                        Text(
-                            text = uiState.modelInfo?.name
-                                ?: stringResource(R.string.horologist_unknown_model),
-                            modifier = Modifier.fillMaxWidth(0.6f),
-                        )
+          Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+            Text(
+              text = uiState.modelInfo?.name ?: stringResource(R.string.horologist_unknown_model),
+              modifier = Modifier.fillMaxWidth(0.6f),
+            )
 
-                        if (onSettingsClick != null) {
-                            IconButton(
-                                onClick = onSettingsClick,
-                                modifier = Modifier
-                                    .touchTargetAwareSize(IconButtonDefaults.ExtraSmallButtonSize)
-                                    .align(Alignment.CenterEnd),
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Settings,
-                                    contentDescription = stringResource(R.string.horologist_settings_content_description),
-                                )
-                            }
-                        }
-                    }
-                }
+            if (onSettingsClick != null) {
+              IconButton(
+                onClick = onSettingsClick,
+                modifier =
+                  Modifier.touchTargetAwareSize(IconButtonDefaults.ExtraSmallButtonSize)
+                    .align(Alignment.CenterEnd),
+              ) {
+                Icon(
+                  imageVector = Icons.Default.Settings,
+                  contentDescription =
+                    stringResource(R.string.horologist_settings_content_description),
+                )
+              }
             }
-            uiState.messages.forEach {
-                item {
-                    val padding = when (it) {
-                        is PromptUiModel -> PaddingValues(end = 20.dp)
-                        is ResponseUiModel -> PaddingValues(start = 20.dp)
-                        else -> PaddingValues()
-                    }
-                    promptDisplay(
-                        it,
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(padding)
-                            .transformedHeight(this, transformationSpec),
-                        SurfaceTransformation(transformationSpec),
-                    )
-                }
-            }
-            val pending = uiState.pending
-            if (pending) {
-                item {
-                    ResponseInProgressCard(
-                        InProgressResponseUiModel,
-                        transformation = SurfaceTransformation(transformationSpec),
-                        modifier = Modifier
-                            .transformedHeight(this, transformationSpec),
-                    )
-                }
-            }
+          }
         }
+      }
+      uiState.messages.forEach {
+        item {
+          val padding =
+            when (it) {
+              is PromptUiModel -> PaddingValues(end = 20.dp)
+              is ResponseUiModel -> PaddingValues(start = 20.dp)
+              else -> PaddingValues()
+            }
+          promptDisplay(
+            it,
+            Modifier.fillMaxWidth().padding(padding).transformedHeight(this, transformationSpec),
+            SurfaceTransformation(transformationSpec),
+          )
+        }
+      }
+      val pending = uiState.pending
+      if (pending) {
+        item {
+          ResponseInProgressCard(
+            InProgressResponseUiModel,
+            transformation = SurfaceTransformation(transformationSpec),
+            modifier = Modifier.transformedHeight(this, transformationSpec),
+          )
+        }
+      }
     }
+  }
 }

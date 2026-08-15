@@ -22,11 +22,9 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
 internal fun interface SnapshotTransformer {
-    public fun transform(node: SemanticsNodeInteraction, bitmap: Bitmap): Bitmap
+  public fun transform(node: SemanticsNodeInteraction, bitmap: Bitmap): Bitmap
 
-    companion object {
-        public val None: SnapshotTransformer = SnapshotTransformer { _, bitmap ->
-            bitmap
-        }
-    }
+  companion object {
+    public val None: SnapshotTransformer = SnapshotTransformer { _, bitmap -> bitmap }
+  }
 }

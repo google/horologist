@@ -85,6 +85,20 @@
       "description": "Requires compileSdk 37"
     },
     {
+      "matchPackagePatterns": [
+        "androidx.compose.animation:*"
+      ],
+      "allowedVersions": "<1.12.0",
+      "description": "Requires compileSdk 37"
+    },
+    {
+      "matchPackagePatterns": [
+        "androidx.compose.runtime:runtime-tracing"
+      ],
+      "allowedVersions": "<1.12.0",
+      "description": "Requires compileSdk 37"
+    },
+    {
       "description": "`previews` exists only to carry the design catalog, so Renovate has no business updating the rest of the tree there — main already does that. Without this, adding `previews` to baseBranches would open a duplicate of every dependency PR against it. Must stay second-to-last: packageRules are applied in order and the rule below re-enables the one thing previews does need.",
       "matchBaseBranches": [
         "previews"

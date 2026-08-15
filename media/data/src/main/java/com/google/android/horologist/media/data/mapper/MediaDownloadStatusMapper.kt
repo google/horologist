@@ -21,19 +21,17 @@ import com.google.android.horologist.media.database.model.MediaDownloadEntity
 import com.google.android.horologist.media.database.model.MediaDownloadEntityStatus
 import com.google.android.horologist.media.model.MediaDownload
 
-/**
- * Functions to map models from other layers and / or packages into a [MediaDownload.Status].
- */
+/** Functions to map models from other layers and / or packages into a [MediaDownload.Status]. */
 @ExperimentalHorologistApi
 public object MediaDownloadStatusMapper {
 
-    /**
-     * Maps from a [MediaDownloadEntity].
-     */
-    public fun map(mediaDownloadEntity: MediaDownloadEntity): MediaDownload.Status = when (mediaDownloadEntity.status) {
-        MediaDownloadEntityStatus.NotDownloaded -> MediaDownload.Status.Idle
-        MediaDownloadEntityStatus.Downloading -> MediaDownload.Status.InProgress(mediaDownloadEntity.progress)
-        MediaDownloadEntityStatus.Downloaded -> MediaDownload.Status.Completed
-        MediaDownloadEntityStatus.Failed -> MediaDownload.Status.Idle
+  /** Maps from a [MediaDownloadEntity]. */
+  public fun map(mediaDownloadEntity: MediaDownloadEntity): MediaDownload.Status =
+    when (mediaDownloadEntity.status) {
+      MediaDownloadEntityStatus.NotDownloaded -> MediaDownload.Status.Idle
+      MediaDownloadEntityStatus.Downloading ->
+        MediaDownload.Status.InProgress(mediaDownloadEntity.progress)
+      MediaDownloadEntityStatus.Downloaded -> MediaDownload.Status.Completed
+      MediaDownloadEntityStatus.Failed -> MediaDownload.Status.Idle
     }
 }

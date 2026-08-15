@@ -27,67 +27,67 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.test.toolbox.testdoubles.MockPlayerRepository
 import com.google.common.truth.Truth
+import kotlin.time.DurationUnit
+import kotlin.time.toDuration
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import kotlin.time.DurationUnit
-import kotlin.time.toDuration
 
 class PlayerUiStateProducerTest {
-    @Test
-    fun `given a PlayerRepository produces correct PlayerUiState`() = runTest {
-        // when
-        val sut = PlayerUiStateProducer(
-            MockPlayerRepository(
-                connectedValue = true,
-                availableCommandsValue = setOf(Command.PlayPause, Command.SeekBack),
-                currentMediaValue = Media(
-                    id = "id",
-                    uri = "http://uri",
-                    title = "title",
-                    artist = "artist",
-                ),
-                playbackStateEvent = PlaybackStateEvent(
-                    PlaybackState(
-                        playerState = PlayerState.Playing,
-                        isLive = false,
-                        currentPosition = 2.toDuration(DurationUnit.SECONDS),
-                        duration = 20.toDuration(DurationUnit.SECONDS),
-                        playbackSpeed = 1f,
-                    ),
-                    timestamp = 0.toDuration(DurationUnit.SECONDS),
-                    cause = PlaybackStateEvent.Cause.Other,
-                ),
+  @Test
+  fun `given a PlayerRepository produces correct PlayerUiState`() = runTest {
+    // when
+    val sut =
+      PlayerUiStateProducer(
+        MockPlayerRepository(
+          connectedValue = true,
+          availableCommandsValue = setOf(Command.PlayPause, Command.SeekBack),
+          currentMediaValue =
+            Media(id = "id", uri = "http://uri", title = "title", artist = "artist"),
+          playbackStateEvent =
+            PlaybackStateEvent(
+              PlaybackState(
+                playerState = PlayerState.Playing,
+                isLive = false,
+                currentPosition = 2.toDuration(DurationUnit.SECONDS),
+                duration = 20.toDuration(DurationUnit.SECONDS),
+                playbackSpeed = 1f,
+              ),
+              timestamp = 0.toDuration(DurationUnit.SECONDS),
+              cause = PlaybackStateEvent.Cause.Other,
             ),
         )
+      )
 
-        // then
-        Truth.assertThat(sut.playerUiStateFlow.first()).isEqualTo(
-            PlayerUiState(
-                playEnabled = true,
-                pauseEnabled = true,
-                seekBackEnabled = true,
-                seekForwardEnabled = false,
-                seekInCurrentMediaItemEnabled = false,
-                seekToPreviousEnabled = false,
-                seekToNextEnabled = false,
-                shuffleEnabled = false,
-                shuffleOn = false,
-                playPauseEnabled = true,
-                playing = true,
-                media = MediaUiModel.Ready(id = "id", title = "title", subtitle = "artist"),
-                trackPositionUiModel = TrackPositionUiModel.Predictive(
-                    MediaPositionPredictor(
-                        currentPositionMs = 2000,
-                        durationMs = 20000,
-                        positionSpeed = 1f,
-                        eventTimestamp = 0,
-                    ),
-                ),
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
-                seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
-                connected = true,
+    // then
+    Truth.assertThat(sut.playerUiStateFlow.first())
+      .isEqualTo(
+        PlayerUiState(
+          playEnabled = true,
+          pauseEnabled = true,
+          seekBackEnabled = true,
+          seekForwardEnabled = false,
+          seekInCurrentMediaItemEnabled = false,
+          seekToPreviousEnabled = false,
+          seekToNextEnabled = false,
+          shuffleEnabled = false,
+          shuffleOn = false,
+          playPauseEnabled = true,
+          playing = true,
+          media = MediaUiModel.Ready(id = "id", title = "title", subtitle = "artist"),
+          trackPositionUiModel =
+            TrackPositionUiModel.Predictive(
+              MediaPositionPredictor(
+                currentPositionMs = 2000,
+                durationMs = 20000,
+                positionSpeed = 1f,
+                eventTimestamp = 0,
+              )
             ),
+          seekBackButtonIncrement = SeekButtonIncrement.Unknown,
+          seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
+          connected = true,
         )
-    }
+      )
+  }
 }

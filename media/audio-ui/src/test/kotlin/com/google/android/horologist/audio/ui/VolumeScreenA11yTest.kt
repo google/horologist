@@ -34,39 +34,34 @@ import org.robolectric.RobolectricTestRunner
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
 class VolumeScreenA11yTest {
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Test
-    fun testLabelOrdering() {
-        val volumeState = VolumeState(
-            current = 5,
-            max = 10,
-        )
-        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
+  @Test
+  fun testLabelOrdering() {
+    val volumeState = VolumeState(current = 5, max = 10)
+    val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        composeTestRule.setContent {
-            VolumeScreenTestCase(
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
-
-        composeTestRule.onNodeWithContentDescription("Volume set to 50%")
-            .assertIsDisplayed()
-
-        composeTestRule.onNodeWithContentDescription("Increase Volume")
-            .assertIsDisplayed()
-            .assertHasClickAction()
-
-        composeTestRule.onNodeWithText("Pixelbuds")
-            .assertIsDisplayed()
-            .assertHasClickAction()
-            .assertHasStateDescription("Connected")
-            .assertHasClickLabel("Change Audio Output")
-
-        composeTestRule.onNodeWithContentDescription("Decrease Volume")
-            .assertIsDisplayed()
-            .assertHasClickAction()
+    composeTestRule.setContent {
+      VolumeScreenTestCase(volumeState = volumeState, audioOutput = audioOutput)
     }
+
+    composeTestRule.onNodeWithContentDescription("Volume set to 50%").assertIsDisplayed()
+
+    composeTestRule
+      .onNodeWithContentDescription("Increase Volume")
+      .assertIsDisplayed()
+      .assertHasClickAction()
+
+    composeTestRule
+      .onNodeWithText("Pixelbuds")
+      .assertIsDisplayed()
+      .assertHasClickAction()
+      .assertHasStateDescription("Connected")
+      .assertHasClickLabel("Change Audio Output")
+
+    composeTestRule
+      .onNodeWithContentDescription("Decrease Volume")
+      .assertIsDisplayed()
+      .assertHasClickAction()
+  }
 }

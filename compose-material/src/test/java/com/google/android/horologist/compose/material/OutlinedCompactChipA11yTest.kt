@@ -23,37 +23,37 @@ import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
 class OutlinedCompactChipA11yTest : WearLegacyA11yTest() {
-    @Test
-    fun withIcon() {
-        runComponentTest {
-            OutlinedCompactChip(
-                onClick = { },
-                label = "Primary label",
-                icon = Icons.Filled.Add.asPaintable(),
-            )
-        }
+  @Test
+  fun withIcon() {
+    runComponentTest {
+      OutlinedCompactChip(
+        onClick = {},
+        label = "Primary label",
+        icon = Icons.Filled.Add.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            OutlinedCompactChip(
-                onClick = { },
-                label = "Primary label",
-                icon = Icons.Filled.Add.asPaintable(),
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      OutlinedCompactChip(
+        onClick = {},
+        label = "Primary label",
+        icon = Icons.Filled.Add.asPaintable(),
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun iconOnly() {
-        runComponentTest {
-            OutlinedCompactChip(
-                onClick = { },
-                icon = Icons.Filled.Add.asPaintable(),
-                contentDescription = "contentDescription",
-            )
-        }
+  @Test
+  fun iconOnly() {
+    runComponentTest {
+      OutlinedCompactChip(
+        onClick = {},
+        icon = Icons.Filled.Add.asPaintable(),
+        contentDescription = "contentDescription",
+      )
     }
+  }
 }

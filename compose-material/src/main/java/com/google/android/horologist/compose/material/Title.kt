@@ -39,98 +39,74 @@ import com.google.android.horologist.compose.material.ListHeaderDefaults.firstIt
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
-/**
- * A primary title heading to group and identify items.
- */
+/** A primary title heading to group and identify items. */
 @ExperimentalHorologistApi
 @Composable
-public fun Title(
-    @StringRes textId: Int,
-    modifier: Modifier = Modifier,
-) {
-    Title(
-        text = stringResource(id = textId),
-        modifier = modifier,
+public fun Title(@StringRes textId: Int, modifier: Modifier = Modifier) {
+  Title(text = stringResource(id = textId), modifier = modifier)
+}
+
+/** A primary title heading to group and identify items. */
+@ExperimentalHorologistApi
+@Composable
+public fun Title(text: String, modifier: Modifier = Modifier) {
+  ResponsiveListHeader(modifier = modifier, contentPadding = firstItemPadding()) {
+    Text(
+      text = text,
+      modifier = Modifier.fillMaxWidth().listTextPadding(),
+      color = MaterialTheme.colors.onSurfaceVariant,
+      textAlign = TextAlign.Center,
+      overflow = TextOverflow.Ellipsis,
+      maxLines = 3,
     )
+  }
 }
 
-/**
- * A primary title heading to group and identify items.
- */
-@ExperimentalHorologistApi
-@Composable
-public fun Title(
-    text: String,
-    modifier: Modifier = Modifier,
-) {
-    ResponsiveListHeader(modifier = modifier, contentPadding = firstItemPadding()) {
-        Text(
-            text = text,
-            modifier = Modifier
-                .fillMaxWidth()
-                .listTextPadding(),
-            color = MaterialTheme.colors.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 3,
-        )
-    }
-}
-
-/**
- * A secondary title heading to group and identify items with optional icon.
- */
+/** A secondary title heading to group and identify items with optional icon. */
 @ExperimentalHorologistApi
 @Composable
 public fun SecondaryTitle(
-    @StringRes textId: Int,
-    modifier: Modifier = Modifier,
-    icon: ImageVector? = null,
-    iconSize: Dp = 24.dp,
+  @StringRes textId: Int,
+  modifier: Modifier = Modifier,
+  icon: ImageVector? = null,
+  iconSize: Dp = 24.dp,
 ) {
-    SecondaryTitle(
-        text = stringResource(id = textId),
-        modifier = modifier,
-        icon = icon,
-        iconSize = iconSize,
-    )
+  SecondaryTitle(
+    text = stringResource(id = textId),
+    modifier = modifier,
+    icon = icon,
+    iconSize = iconSize,
+  )
 }
 
-/**
- * A secondary title heading to group and identify items with optional icon.
- */
+/** A secondary title heading to group and identify items with optional icon. */
 @ExperimentalHorologistApi
 @Composable
 public fun SecondaryTitle(
-    text: String,
-    modifier: Modifier = Modifier,
-    icon: ImageVector? = null,
-    iconTint: Color = MaterialTheme.colors.onBackground,
-    iconSize: Dp = 24.dp,
+  text: String,
+  modifier: Modifier = Modifier,
+  icon: ImageVector? = null,
+  iconTint: Color = MaterialTheme.colors.onBackground,
+  iconSize: Dp = 24.dp,
 ) {
-    ResponsiveListHeader(modifier = modifier) {
-        icon?.let {
-            Icon(
-                paintable = icon.asPaintable(),
-                contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                modifier = Modifier
-                    .size(iconSize)
-                    .align(Alignment.CenterVertically),
-                tint = iconTint,
-            )
-            Spacer(modifier = Modifier.width(6.dp))
-        }
-        Text(
-            text = text,
-            modifier = Modifier
-                .fillMaxWidth()
-                .listTextPadding()
-                .align(Alignment.CenterVertically),
-            color = MaterialTheme.colors.onBackground,
-            textAlign = TextAlign.Start,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 3,
-            style = MaterialTheme.typography.caption1,
-        )
+  ResponsiveListHeader(modifier = modifier) {
+    icon?.let {
+      Icon(
+        paintable = icon.asPaintable(),
+        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+        modifier = Modifier.size(iconSize).align(Alignment.CenterVertically),
+        tint = iconTint,
+      )
+      Spacer(modifier = Modifier.width(6.dp))
     }
+    Text(
+      text = text,
+      modifier = Modifier.fillMaxWidth().listTextPadding().align(Alignment.CenterVertically),
+      color = MaterialTheme.colors.onBackground,
+      textAlign = TextAlign.Start,
+      overflow = TextOverflow.Ellipsis,
+      maxLines = 3,
+      style = MaterialTheme.typography.caption1,
+    )
+  }
 }

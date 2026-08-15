@@ -20,15 +20,15 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
 public sealed interface RequestCheck {
-    public val isForbidden: Boolean
+  public val isForbidden: Boolean
 }
 
 @ExperimentalHorologistApi
 public data class Fail(public val reason: String) : RequestCheck {
-    override val isForbidden: Boolean = true
+  override val isForbidden: Boolean = true
 }
 
 @ExperimentalHorologistApi
 public object Allow : RequestCheck {
-    override val isForbidden: Boolean = false
+  override val isForbidden: Boolean = false
 }

@@ -21,20 +21,15 @@ import androidx.room.Junction
 import androidx.room.Relation
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * [PlaylistEntity] populated with a list of [MediaEntity].
- */
+/** [PlaylistEntity] populated with a list of [MediaEntity]. */
 @ExperimentalHorologistApi
 public data class PopulatedPlaylist(
-    @Embedded val playlist: PlaylistEntity,
-    @Relation(
-        parentColumn = "playlistId",
-        entityColumn = "mediaId",
-        associateBy = Junction(
-            PlaylistMediaEntity::class,
-            parentColumn = "playlistId",
-            entityColumn = "mediaId",
-        ),
-    )
-    val mediaList: List<MediaEntity>,
+  @Embedded val playlist: PlaylistEntity,
+  @Relation(
+    parentColumn = "playlistId",
+    entityColumn = "mediaId",
+    associateBy =
+      Junction(PlaylistMediaEntity::class, parentColumn = "playlistId", entityColumn = "mediaId"),
+  )
+  val mediaList: List<MediaEntity>,
 )

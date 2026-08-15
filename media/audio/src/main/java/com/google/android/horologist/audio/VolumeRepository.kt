@@ -19,27 +19,19 @@ package com.google.android.horologist.audio
 import kotlinx.coroutines.flow.StateFlow
 
 /**
- * A state repository for audio volume, typically the system AudioManager,
- * but possibly a remote app in paired situations.
+ * A state repository for audio volume, typically the system AudioManager, but possibly a remote app
+ * in paired situations.
  */
 public interface VolumeRepository : AutoCloseable {
-    /**
-     * The current volume state, including volume, min, max.
-     */
-    public val volumeState: StateFlow<VolumeState>
+  /** The current volume state, including volume, min, max. */
+  public val volumeState: StateFlow<VolumeState>
 
-    /**
-     * Increase the volume of the current audio output.
-     */
-    public fun increaseVolume()
+  /** Increase the volume of the current audio output. */
+  public fun increaseVolume()
 
-    /**
-     * Decrease the volume of the current audio output.
-     */
-    public fun decreaseVolume()
+  /** Decrease the volume of the current audio output. */
+  public fun decreaseVolume()
 
-    /**
-     * Sets the volume of the current audio output.
-     */
-    public fun setVolume(volume: Int)
+  /** Sets the volume of the current audio output. */
+  public fun setVolume(volume: Int)
 }

@@ -40,75 +40,78 @@ import kotlinx.coroutines.flow.flowOf
  */
 @Composable
 public fun AnimatedMediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    onSeekToPreviousButtonClick: () -> Unit,
-    seekToPreviousButtonEnabled: Boolean,
-    onSeekToNextButtonClick: () -> Unit,
-    seekToNextButtonEnabled: Boolean,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    onSeekToPreviousRepeatableClick: (() -> Unit)? = null,
-    onSeekToPreviousRepeatableClickEnd: (() -> Unit)? = null,
-    onSeekToNextRepeatableClick: (() -> Unit)? = null,
-    onSeekToNextRepeatableClickEnd: (() -> Unit)? = null,
-    trackPositionUiModel: TrackPositionUiModel,
-    rotateProgressIndicator: Flow<Unit> = flowOf(),
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  playPauseButtonEnabled: Boolean,
+  playing: Boolean,
+  onSeekToPreviousButtonClick: () -> Unit,
+  seekToPreviousButtonEnabled: Boolean,
+  onSeekToNextButtonClick: () -> Unit,
+  seekToNextButtonEnabled: Boolean,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  onSeekToPreviousRepeatableClick: (() -> Unit)? = null,
+  onSeekToPreviousRepeatableClickEnd: (() -> Unit)? = null,
+  onSeekToNextRepeatableClick: (() -> Unit)? = null,
+  onSeekToNextRepeatableClickEnd: (() -> Unit)? = null,
+  trackPositionUiModel: TrackPositionUiModel,
+  rotateProgressIndicator: Flow<Unit> = flowOf(),
 ) {
-    val interactionSources = remember { Array(BUTTON_GROUP_ITEMS_COUNT) { MutableInteractionSource() } }
-    val buttonPressedStateList = interactionSources.map { it.collectIsPressedAsState() }
-    val isAnyButtonPressed = remember {
-        derivedStateOf { buttonPressedStateList.any { it.value } }
-    }
+  val interactionSources = remember {
+    Array(BUTTON_GROUP_ITEMS_COUNT) { MutableInteractionSource() }
+  }
+  val buttonPressedStateList = interactionSources.map { it.collectIsPressedAsState() }
+  val isAnyButtonPressed = remember { derivedStateOf { buttonPressedStateList.any { it.value } } }
 
-    val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
-    val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)
+  val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
+  val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)
 
-    ButtonGroupLayout(
-        modifier = modifier,
-        interactionSources = interactionSources,
-        leftButton = {
-            AnimatedSeekToPreviousButton(
-                modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
-                onClick = onSeekToPreviousButtonClick,
-                enabled = seekToPreviousButtonEnabled,
-                interactionSource = it,
-                buttonPadding = leftButtonPadding,
-                onRepeatableClick = onSeekToPreviousRepeatableClick,
-                onRepeatableClickEnd = onSeekToPreviousRepeatableClickEnd,
-            )
-        },
-        middleButton = {
-            AnimatedPlayPauseProgressButton(
-                onPlayClick = onPlayButtonClick,
-                onPauseClick = onPauseButtonClick,
-                enabled = playPauseButtonEnabled,
-                playing = playing,
-                interactionSource = it,
-                trackPositionUiModel = trackPositionUiModel,
-                modifier = Modifier.weight(0.5f) // This is used to constrain the size at minWidth for non-pressed state.
-                    .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-                    .animateWidth(it)
-                    .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),
-                colorScheme = colorScheme,
-                rotateProgressIndicator = rotateProgressIndicator,
-                isAnyButtonPressed = isAnyButtonPressed,
-            )
-        },
-        rightButton = {
-            AnimatedSeekToNextButton(
-                modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
-                onClick = onSeekToNextButtonClick,
-                interactionSource = it,
-                buttonPadding = rightButtonPadding,
-                onRepeatableClick = onSeekToNextRepeatableClick,
-                onRepeatableClickEnd = onSeekToNextRepeatableClickEnd,
-                enabled = seekToNextButtonEnabled,
-            )
-        },
-    )
+  ButtonGroupLayout(
+    modifier = modifier,
+    interactionSources = interactionSources,
+    leftButton = {
+      AnimatedSeekToPreviousButton(
+        modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
+        onClick = onSeekToPreviousButtonClick,
+        enabled = seekToPreviousButtonEnabled,
+        interactionSource = it,
+        buttonPadding = leftButtonPadding,
+        onRepeatableClick = onSeekToPreviousRepeatableClick,
+        onRepeatableClickEnd = onSeekToPreviousRepeatableClickEnd,
+      )
+    },
+    middleButton = {
+      AnimatedPlayPauseProgressButton(
+        onPlayClick = onPlayButtonClick,
+        onPauseClick = onPauseButtonClick,
+        enabled = playPauseButtonEnabled,
+        playing = playing,
+        interactionSource = it,
+        trackPositionUiModel = trackPositionUiModel,
+        modifier =
+          Modifier.weight(
+              0.5f
+            ) // This is used to constrain the size at minWidth for non-pressed state.
+            .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+            .animateWidth(it)
+            .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),
+        colorScheme = colorScheme,
+        rotateProgressIndicator = rotateProgressIndicator,
+        isAnyButtonPressed = isAnyButtonPressed,
+      )
+    },
+    rightButton = {
+      AnimatedSeekToNextButton(
+        modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
+        onClick = onSeekToNextButtonClick,
+        interactionSource = it,
+        buttonPadding = rightButtonPadding,
+        onRepeatableClick = onSeekToNextRepeatableClick,
+        onRepeatableClickEnd = onSeekToNextRepeatableClickEnd,
+        enabled = seekToNextButtonEnabled,
+      )
+    },
+  )
 }
 
 /**
@@ -117,44 +120,47 @@ public fun AnimatedMediaControlButtons(
  */
 @Composable
 public fun AnimatedMediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    leftButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
-    rightButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    trackPositionUiModel: TrackPositionUiModel,
-    rotateProgressIndicator: Flow<Unit> = flowOf(),
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  playPauseButtonEnabled: Boolean,
+  playing: Boolean,
+  leftButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
+  rightButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  trackPositionUiModel: TrackPositionUiModel,
+  rotateProgressIndicator: Flow<Unit> = flowOf(),
 ) {
-    val interactionSources = remember { Array(BUTTON_GROUP_ITEMS_COUNT) { MutableInteractionSource() } }
-    val buttonPressedStateList = interactionSources.map { it.collectIsPressedAsState() }
-    val isAnyButtonPressed = remember {
-        derivedStateOf { buttonPressedStateList.any { it.value } }
-    }
+  val interactionSources = remember {
+    Array(BUTTON_GROUP_ITEMS_COUNT) { MutableInteractionSource() }
+  }
+  val buttonPressedStateList = interactionSources.map { it.collectIsPressedAsState() }
+  val isAnyButtonPressed = remember { derivedStateOf { buttonPressedStateList.any { it.value } } }
 
-    ButtonGroupLayout(
-        modifier = modifier,
-        interactionSources = interactionSources,
-        leftButton = leftButton,
-        middleButton = {
-            AnimatedPlayPauseProgressButton(
-                onPlayClick = onPlayButtonClick,
-                onPauseClick = onPauseButtonClick,
-                enabled = playPauseButtonEnabled,
-                playing = playing,
-                interactionSource = it,
-                trackPositionUiModel = trackPositionUiModel,
-                modifier = Modifier.weight(0.5f) // This is used to constrain the size at minWidth for non-pressed state.
-                    .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-                    .animateWidth(it)
-                    .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),
-                colorScheme = colorScheme,
-                rotateProgressIndicator = rotateProgressIndicator,
-                isAnyButtonPressed = isAnyButtonPressed,
-            )
-        },
-        rightButton = rightButton,
-    )
+  ButtonGroupLayout(
+    modifier = modifier,
+    interactionSources = interactionSources,
+    leftButton = leftButton,
+    middleButton = {
+      AnimatedPlayPauseProgressButton(
+        onPlayClick = onPlayButtonClick,
+        onPauseClick = onPauseButtonClick,
+        enabled = playPauseButtonEnabled,
+        playing = playing,
+        interactionSource = it,
+        trackPositionUiModel = trackPositionUiModel,
+        modifier =
+          Modifier.weight(
+              0.5f
+            ) // This is used to constrain the size at minWidth for non-pressed state.
+            .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+            .animateWidth(it)
+            .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize),
+        colorScheme = colorScheme,
+        rotateProgressIndicator = rotateProgressIndicator,
+        isAnyButtonPressed = isAnyButtonPressed,
+      )
+    },
+    rightButton = rightButton,
+  )
 }

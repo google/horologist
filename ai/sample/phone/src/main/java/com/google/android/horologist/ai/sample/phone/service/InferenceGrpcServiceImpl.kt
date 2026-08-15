@@ -24,13 +24,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class InferenceGrpcServiceImpl : BaseGrpcDataService<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>() {
-    @Inject
-    public override lateinit var registry: WearDataLayerRegistry
+class InferenceGrpcServiceImpl :
+  BaseGrpcDataService<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>() {
+  @Inject public override lateinit var registry: WearDataLayerRegistry
 
-    @Inject
-    public lateinit var bindableService: GeminiSDKInferenceServiceImpl
+  @Inject public lateinit var bindableService: GeminiSDKInferenceServiceImpl
 
-    override fun buildService(): InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase =
-        bindableService
+  override fun buildService(): InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase =
+    bindableService
 }

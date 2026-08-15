@@ -30,16 +30,17 @@ internal val horologist_on_surface: Color = Color(0xFFEBF1FF)
 
 @Composable
 internal fun HorologistMaterialTheme(content: @Composable () -> Unit) {
-    MaterialTheme(
-        colorScheme = MaterialTheme.colorScheme.copy(
-            primary = horologist_primary,
-            onPrimary = horologist_on_primary,
-            primaryContainer = horologist_primary_container,
-            onPrimaryContainer = horologist_on_primary_container,
-            onBackground = horologist_on_background,
-            surfaceContainer = horologist_surface_container,
-            onSurface = horologist_on_surface,
-        ),
-        content = content,
-    )
+  MaterialTheme(
+    colorScheme =
+      MaterialTheme.colorScheme.copy(
+        primary = horologist_primary,
+        onPrimary = horologist_on_primary,
+        primaryContainer = horologist_primary_container,
+        onPrimaryContainer = horologist_on_primary_container,
+        onBackground = horologist_on_background,
+        surfaceContainer = horologist_surface_container,
+        onSurface = horologist_on_surface,
+      ),
+    content = content,
+  )
 }

@@ -20,15 +20,11 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiModel
 
-/**
- * Functions to map models from other layers and / or packages into a [PlaylistDownloadUiModel].
- */
+/** Functions to map models from other layers and / or packages into a [PlaylistDownloadUiModel]. */
 @ExperimentalHorologistApi
 public object PlaylistDownloadUiModelMapper {
 
-    /**
-     * Maps from [Playlist].
-     */
-    public fun map(playlist: Playlist): PlaylistDownloadUiModel.Completed =
-        PlaylistDownloadUiModel.Completed(PlaylistUiModelMapper.map(playlist))
+  /** Maps from [Playlist]. */
+  public fun map(playlist: Playlist): PlaylistDownloadUiModel.Completed =
+    PlaylistDownloadUiModel.Completed(PlaylistUiModelMapper.map(playlist))
 }

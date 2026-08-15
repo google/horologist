@@ -22,37 +22,40 @@ import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 
 object Fixtures {
-    fun networks(default: NetworkStatus?, vararg rest: NetworkStatus): Networks {
-        return Networks(default, listOfNotNull(default, *rest))
-    }
+  fun networks(default: NetworkStatus?, vararg rest: NetworkStatus): Networks {
+    return Networks(default, listOfNotNull(default, *rest))
+  }
 
-    val wifi = NetworkStatus(
-        id = "wlan0",
-        status = Status.Available,
-        networkInfo = NetworkInfo.Wifi("wifi", null),
-        addresses = listOf(),
-        capabilities = null,
-        linkProperties = null,
-        bindSocket = {},
+  val wifi =
+    NetworkStatus(
+      id = "wlan0",
+      status = Status.Available,
+      networkInfo = NetworkInfo.Wifi("wifi", null),
+      addresses = listOf(),
+      capabilities = null,
+      linkProperties = null,
+      bindSocket = {},
     )
 
-    val bt = NetworkStatus(
-        id = "bt",
-        status = Status.Available,
-        networkInfo = NetworkInfo.Bluetooth("bt"),
-        addresses = listOf(),
-        capabilities = null,
-        linkProperties = null,
-        bindSocket = {},
+  val bt =
+    NetworkStatus(
+      id = "bt",
+      status = Status.Available,
+      networkInfo = NetworkInfo.Bluetooth("bt"),
+      addresses = listOf(),
+      capabilities = null,
+      linkProperties = null,
+      bindSocket = {},
     )
 
-    val cell = NetworkStatus(
-        id = "cell",
-        status = Status.Available,
-        networkInfo = NetworkInfo.Cellular("cell", false),
-        addresses = listOf(),
-        capabilities = null,
-        linkProperties = null,
-        bindSocket = {},
+  val cell =
+    NetworkStatus(
+      id = "cell",
+      status = Status.Available,
+      networkInfo = NetworkInfo.Cellular("cell", false),
+      addresses = listOf(),
+      capabilities = null,
+      linkProperties = null,
+      bindSocket = {},
     )
 }

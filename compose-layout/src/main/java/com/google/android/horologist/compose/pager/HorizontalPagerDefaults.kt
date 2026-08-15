@@ -32,21 +32,19 @@ import androidx.compose.runtime.Composable
  * This exists only until available in androidx.wear.compose.foundation.pager.
  */
 public object HorizontalPagerDefaults {
-    /**
-     * Creates [flingParams] that represents fling properties for [HorizontalPager].
-     * See [HorizontalPagerSample] for usage.
-     *
-     * @param pagerState the state to control this pager
-     */
-    @Composable
-    @OptIn(ExperimentalFoundationApi::class)
-    public fun flingParams(
-        pagerState: PagerState,
-    ): TargetedFlingBehavior {
-        return PagerDefaults.flingBehavior(
-            state = pagerState,
-            pagerSnapDistance = PagerSnapDistance.atMost(0),
-            snapAnimationSpec = spring(Spring.DampingRatioNoBouncy, 2000f),
-        )
-    }
+  /**
+   * Creates [flingParams] that represents fling properties for [HorizontalPager]. See
+   * [HorizontalPagerSample] for usage.
+   *
+   * @param pagerState the state to control this pager
+   */
+  @Composable
+  @OptIn(ExperimentalFoundationApi::class)
+  public fun flingParams(pagerState: PagerState): TargetedFlingBehavior {
+    return PagerDefaults.flingBehavior(
+      state = pagerState,
+      pagerSnapDistance = PagerSnapDistance.atMost(0),
+      snapAnimationSpec = spring(Spring.DampingRatioNoBouncy, 2000f),
+    )
+  }
 }

@@ -36,30 +36,30 @@ import com.google.android.horologist.media.ui.util.isLargeScreen
 @ExperimentalHorologistApi
 @Composable
 public fun MediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    onSeekToPreviousButtonClick: () -> Unit,
-    seekToPreviousButtonEnabled: Boolean,
-    onSeekToNextButtonClick: () -> Unit,
-    seekToNextButtonEnabled: Boolean,
-    modifier: Modifier = Modifier,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  playPauseButtonEnabled: Boolean,
+  playing: Boolean,
+  onSeekToPreviousButtonClick: () -> Unit,
+  seekToPreviousButtonEnabled: Boolean,
+  onSeekToNextButtonClick: () -> Unit,
+  seekToNextButtonEnabled: Boolean,
+  modifier: Modifier = Modifier,
+  colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
-    MediaControlButtons(
-        onPlayButtonClick = onPlayButtonClick,
-        onPauseButtonClick = onPauseButtonClick,
-        playPauseButtonEnabled = playPauseButtonEnabled,
-        playing = playing,
-        onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
-        seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
-        onSeekToNextButtonClick = onSeekToNextButtonClick,
-        seekToNextButtonEnabled = seekToNextButtonEnabled,
-        trackPositionUiModel = TrackPositionUiModel.Hidden,
-        modifier = modifier,
-        colors = colors,
-    )
+  MediaControlButtons(
+    onPlayButtonClick = onPlayButtonClick,
+    onPauseButtonClick = onPauseButtonClick,
+    playPauseButtonEnabled = playPauseButtonEnabled,
+    playing = playing,
+    onSeekToPreviousButtonClick = onSeekToPreviousButtonClick,
+    seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
+    onSeekToNextButtonClick = onSeekToNextButtonClick,
+    seekToNextButtonEnabled = seekToNextButtonEnabled,
+    trackPositionUiModel = TrackPositionUiModel.Hidden,
+    modifier = modifier,
+    colors = colors,
+  )
 }
 
 /**
@@ -69,47 +69,47 @@ public fun MediaControlButtons(
 @ExperimentalHorologistApi
 @Composable
 public fun MediaControlButtons(
-    onPlayButtonClick: () -> Unit,
-    onPauseButtonClick: () -> Unit,
-    playPauseButtonEnabled: Boolean,
-    playing: Boolean,
-    onSeekToPreviousButtonClick: () -> Unit,
-    seekToPreviousButtonEnabled: Boolean,
-    onSeekToNextButtonClick: () -> Unit,
-    seekToNextButtonEnabled: Boolean,
-    modifier: Modifier = Modifier,
-    trackPositionUiModel: TrackPositionUiModel,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+  onPlayButtonClick: () -> Unit,
+  onPauseButtonClick: () -> Unit,
+  playPauseButtonEnabled: Boolean,
+  playing: Boolean,
+  onSeekToPreviousButtonClick: () -> Unit,
+  seekToPreviousButtonEnabled: Boolean,
+  onSeekToNextButtonClick: () -> Unit,
+  seekToNextButtonEnabled: Boolean,
+  modifier: Modifier = Modifier,
+  trackPositionUiModel: TrackPositionUiModel,
+  colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
 ) {
-    ControlButtonLayout(
-        modifier = modifier,
-        leftButton = {
-            SeekToPreviousButton(
-                modifier = Modifier.fillMaxSize(),
-                onClick = onSeekToPreviousButtonClick,
-                enabled = seekToPreviousButtonEnabled,
-                colors = colors,
-            )
-        },
-        middleButton = {
-            PlayPauseProgressButton(
-                modifier = Modifier.fillMaxSize(),
-                onPlayClick = onPlayButtonClick,
-                onPauseClick = onPauseButtonClick,
-                enabled = playPauseButtonEnabled,
-                playing = playing,
-                trackPositionUiModel = trackPositionUiModel,
-                colors = colors,
-                iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
-            )
-        },
-        rightButton = {
-            SeekToNextButton(
-                modifier = Modifier.fillMaxSize(),
-                onClick = onSeekToNextButtonClick,
-                enabled = seekToNextButtonEnabled,
-                colors = colors,
-            )
-        },
-    )
+  ControlButtonLayout(
+    modifier = modifier,
+    leftButton = {
+      SeekToPreviousButton(
+        modifier = Modifier.fillMaxSize(),
+        onClick = onSeekToPreviousButtonClick,
+        enabled = seekToPreviousButtonEnabled,
+        colors = colors,
+      )
+    },
+    middleButton = {
+      PlayPauseProgressButton(
+        modifier = Modifier.fillMaxSize(),
+        onPlayClick = onPlayButtonClick,
+        onPauseClick = onPauseButtonClick,
+        enabled = playPauseButtonEnabled,
+        playing = playing,
+        trackPositionUiModel = trackPositionUiModel,
+        colors = colors,
+        iconSize = if (LocalConfiguration.current.isLargeScreen) 38.dp else 32.dp,
+      )
+    },
+    rightButton = {
+      SeekToNextButton(
+        modifier = Modifier.fillMaxSize(),
+        onClick = onSeekToNextButtonClick,
+        enabled = seekToNextButtonEnabled,
+        colors = colors,
+      )
+    },
+  )
 }

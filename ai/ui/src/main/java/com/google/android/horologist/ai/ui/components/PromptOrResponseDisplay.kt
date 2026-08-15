@@ -26,35 +26,58 @@ import com.google.android.horologist.ai.ui.model.PromptOrResponseUiModel
 import com.google.android.horologist.ai.ui.model.TextPromptUiModel
 import com.google.android.horologist.ai.ui.model.TextResponseUiModel
 
-/**
- * A component to display an Answer.
- */
+/** A component to display an Answer. */
 @Composable
 public fun PromptOrResponseDisplay(
-    promptResponse: PromptOrResponseUiModel,
-    modifier: Modifier = Modifier,
-    onClick: (() -> Unit)? = null,
-    transformation: SurfaceTransformation? = null,
+  promptResponse: PromptOrResponseUiModel,
+  modifier: Modifier = Modifier,
+  onClick: (() -> Unit)? = null,
+  transformation: SurfaceTransformation? = null,
 ) {
-    when (promptResponse) {
-        is TextResponseUiModel -> {
-            TextResponseCard(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
-        }
-
-        is ImageResponseUiModel -> {
-            ImageResponseCard(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
-        }
-
-        is FailedResponseUiModel -> {
-            FailedResponseChip(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
-        }
-
-        is InProgressResponseUiModel -> {
-            ResponseInProgressCard(promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
-        }
-
-        is TextPromptUiModel -> {
-            TextPromptDisplay(prompt = promptResponse, onClick = onClick, modifier = modifier, transformation = transformation)
-        }
+  when (promptResponse) {
+    is TextResponseUiModel -> {
+      TextResponseCard(
+        promptResponse,
+        onClick = onClick,
+        modifier = modifier,
+        transformation = transformation,
+      )
     }
+
+    is ImageResponseUiModel -> {
+      ImageResponseCard(
+        promptResponse,
+        onClick = onClick,
+        modifier = modifier,
+        transformation = transformation,
+      )
+    }
+
+    is FailedResponseUiModel -> {
+      FailedResponseChip(
+        promptResponse,
+        onClick = onClick,
+        modifier = modifier,
+        transformation = transformation,
+      )
+    }
+
+    is InProgressResponseUiModel -> {
+      ResponseInProgressCard(
+        promptResponse,
+        onClick = onClick,
+        modifier = modifier,
+        transformation = transformation,
+      )
+    }
+
+    is TextPromptUiModel -> {
+      TextPromptDisplay(
+        prompt = promptResponse,
+        onClick = onClick,
+        modifier = modifier,
+        transformation = transformation,
+      )
+    }
+  }
 }

@@ -30,24 +30,23 @@ import androidx.wear.compose.material.TimeTextDefaults.CurvedTextSeparator
 import androidx.wear.compose.material.TimeTextDefaults.TextSeparator
 import androidx.wear.compose.material.TimeTextDefaults.timeFormat
 
-/**
- * Provides a [TimeText] component with a responsive padding of 2.1%.
- */
+/** Provides a [TimeText] component with a responsive padding of 2.1%. */
 @Composable
 public fun ResponsiveTimeText(
-    modifier: Modifier = Modifier,
-    timeSource: TimeSource = TimeTextDefaults.timeSource(timeFormat()),
-    timeTextStyle: TextStyle = TimeTextDefaults.timeTextStyle(),
-    contentPadding: PaddingValues = responsivePaddingDefaults(),
-    startLinearContent: (@Composable () -> Unit)? = null,
-    startCurvedContent: (CurvedScope.() -> Unit)? = null,
-    endLinearContent: (@Composable () -> Unit)? = null,
-    endCurvedContent: (CurvedScope.() -> Unit)? = null,
-    textLinearSeparator: @Composable () -> Unit = { TextSeparator(textStyle = timeTextStyle) },
-    textCurvedSeparator: CurvedScope.() -> Unit = {
-        CurvedTextSeparator(curvedTextStyle = CurvedTextStyle(timeTextStyle))
-    },
-): Unit = TimeText(
+  modifier: Modifier = Modifier,
+  timeSource: TimeSource = TimeTextDefaults.timeSource(timeFormat()),
+  timeTextStyle: TextStyle = TimeTextDefaults.timeTextStyle(),
+  contentPadding: PaddingValues = responsivePaddingDefaults(),
+  startLinearContent: (@Composable () -> Unit)? = null,
+  startCurvedContent: (CurvedScope.() -> Unit)? = null,
+  endLinearContent: (@Composable () -> Unit)? = null,
+  endCurvedContent: (CurvedScope.() -> Unit)? = null,
+  textLinearSeparator: @Composable () -> Unit = { TextSeparator(textStyle = timeTextStyle) },
+  textCurvedSeparator: CurvedScope.() -> Unit = {
+    CurvedTextSeparator(curvedTextStyle = CurvedTextStyle(timeTextStyle))
+  },
+): Unit =
+  TimeText(
     modifier = modifier,
     timeSource = timeSource,
     timeTextStyle = timeTextStyle,
@@ -58,9 +57,9 @@ public fun ResponsiveTimeText(
     endCurvedContent = endCurvedContent,
     textLinearSeparator = textLinearSeparator,
     textCurvedSeparator = textCurvedSeparator,
-)
+  )
 
 @Composable
 public fun responsivePaddingDefaults(): PaddingValues {
-    return PaddingValues(2.dp)
+  return PaddingValues(2.dp)
 }

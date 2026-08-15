@@ -25,7 +25,5 @@ import androidx.wear.compose.material.Text
 
 @Composable
 fun PagingItemScreen(item: Int) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text("Item $item")
-    }
+  Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text("Item $item") }
 }

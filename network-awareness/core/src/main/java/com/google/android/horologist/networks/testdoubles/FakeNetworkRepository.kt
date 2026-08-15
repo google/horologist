@@ -23,75 +23,77 @@ import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.Networks
 import com.google.android.horologist.networks.data.Status
 import com.google.android.horologist.networks.status.NetworkRepository
-import kotlinx.coroutines.flow.MutableStateFlow
 import java.net.InetAddress
+import kotlinx.coroutines.flow.MutableStateFlow
 
 public class FakeNetworkRepository : NetworkRepository {
-    private var defaultNetworks = listOf(BtNetwork)
-    private var pinned: NetworkType? = null
+  private var defaultNetworks = listOf(BtNetwork)
+  private var pinned: NetworkType? = null
 
-    override val networkStatus: MutableStateFlow<Networks> =
-        MutableStateFlow(Networks(defaultNetworks.firstOrNull(), defaultNetworks))
+  override val networkStatus: MutableStateFlow<Networks> =
+    MutableStateFlow(Networks(defaultNetworks.firstOrNull(), defaultNetworks))
 
-    override fun networkByAddress(localAddress: InetAddress): NetworkStatus? {
-        return networkStatus.value.networks.firstOrNull {
-            it.addresses.contains(localAddress)
-        }
+  override fun networkByAddress(localAddress: InetAddress): NetworkStatus? {
+    return networkStatus.value.networks.firstOrNull { it.addresses.contains(localAddress) }
+  }
+
+  override fun updateNetworkAvailability(network: Network) {}
+
+  public fun pinNetwork(value: NetworkType?) {
+    synchronized(this) {
+      pinned = value
+      update()
     }
+  }
 
-    override fun updateNetworkAvailability(network: Network) {
+  public fun setDefaultNetworks(networks: List<NetworkStatus>) {
+    synchronized(this) {
+      defaultNetworks = networks
+      update()
     }
+  }
 
-    public fun pinNetwork(value: NetworkType?) {
-        synchronized(this) {
-            pinned = value
-            update()
-        }
-    }
+  private fun update() {
+    val addNetwork =
+      pinned != null && defaultNetworks.find { it.networkInfo.type == pinned } == null
+    val networks =
+      if (addNetwork)
+        defaultNetworks + (if (pinned == NetworkType.Cell) CellNetwork else WifiNetwork)
+      else defaultNetworks
 
-    public fun setDefaultNetworks(networks: List<NetworkStatus>) {
-        synchronized(this) {
-            defaultNetworks = networks
-            update()
-        }
-    }
+    networkStatus.value = Networks(defaultNetworks.firstOrNull(), networks)
+  }
 
-    private fun update() {
-        val addNetwork =
-            pinned != null && defaultNetworks.find { it.networkInfo.type == pinned } == null
-        val networks =
-            if (addNetwork) defaultNetworks + (if (pinned == NetworkType.Cell) CellNetwork else WifiNetwork) else defaultNetworks
-
-        networkStatus.value = Networks(defaultNetworks.firstOrNull(), networks)
-    }
-
-    internal companion object {
-        internal val WifiNetwork = NetworkStatus(
-            id = "wifi1",
-            status = Status.Available,
-            networkInfo = NetworkInfo.Wifi("wifi1"),
-            addresses = listOf(),
-            capabilities = null,
-            linkProperties = null,
-            bindSocket = {},
-        )
-        internal val CellNetwork = NetworkStatus(
-            id = "cell1",
-            status = Status.Available,
-            networkInfo = NetworkInfo.Cellular("cell1"),
-            addresses = listOf(),
-            capabilities = null,
-            linkProperties = null,
-            bindSocket = {},
-        )
-        internal val BtNetwork = NetworkStatus(
-            id = "bt1",
-            status = Status.Available,
-            networkInfo = NetworkInfo.Bluetooth("bt1"),
-            addresses = listOf(),
-            capabilities = null,
-            linkProperties = null,
-            bindSocket = {},
-        )
-    }
+  internal companion object {
+    internal val WifiNetwork =
+      NetworkStatus(
+        id = "wifi1",
+        status = Status.Available,
+        networkInfo = NetworkInfo.Wifi("wifi1"),
+        addresses = listOf(),
+        capabilities = null,
+        linkProperties = null,
+        bindSocket = {},
+      )
+    internal val CellNetwork =
+      NetworkStatus(
+        id = "cell1",
+        status = Status.Available,
+        networkInfo = NetworkInfo.Cellular("cell1"),
+        addresses = listOf(),
+        capabilities = null,
+        linkProperties = null,
+        bindSocket = {},
+      )
+    internal val BtNetwork =
+      NetworkStatus(
+        id = "bt1",
+        status = Status.Available,
+        networkInfo = NetworkInfo.Bluetooth("bt1"),
+        addresses = listOf(),
+        capabilities = null,
+        linkProperties = null,
+        bindSocket = {},
+      )
+  }
 }

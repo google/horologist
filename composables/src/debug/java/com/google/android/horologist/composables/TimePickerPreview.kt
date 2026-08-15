@@ -21,51 +21,42 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
-import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import androidx.wear.tooling.preview.devices.WearDevices
 import com.google.android.horologist.compose.tools.copy
 import java.time.LocalTime
 
 @WearPreviewDevices
-@WearPreviewFontScales
 @Composable
 fun TimePickerPreview() {
-    TimePicker(
-        time = LocalTime.of(10, 10, 0),
-        onTimeConfirm = { },
-    )
+  TimePicker(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
 }
 
 @Composable
 @Preview(
-    device = WearDevices.SMALL_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Fonts - Largest",
-    fontScale = 1.24f,
+  device = WearDevices.SMALL_ROUND,
+  showSystemUi = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
+  group = "Fonts - Largest",
+  fontScale = 1.24f,
 )
 fun TimePickerPreviewSmallDeviceWithLargeFontBold() {
-    MaterialTheme(typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }) {
-        TimePicker(
-            time = LocalTime.of(10, 0, 0),
-            onTimeConfirm = { },
-        )
-    }
+  MaterialTheme(
+    typography = MaterialTheme.typography.copy { this.copy(fontWeight = FontWeight.Bold) }
+  ) {
+    TimePicker(time = LocalTime.of(10, 0, 0), onTimeConfirm = {})
+  }
 }
 
 @Composable
 @Preview(
-    device = WearDevices.LARGE_ROUND,
-    showSystemUi = true,
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    group = "Fonts - Small",
-    fontScale = 0.94f,
+  device = WearDevices.LARGE_ROUND,
+  showSystemUi = true,
+  backgroundColor = 0xff000000,
+  showBackground = true,
+  group = "Fonts - Small",
+  fontScale = 0.94f,
 )
 fun TimePickerPreviewLargeDeviceSmallFont() {
-    TimePicker(
-        time = LocalTime.of(10, 0, 0),
-        onTimeConfirm = { },
-    )
+  TimePicker(time = LocalTime.of(10, 0, 0), onTimeConfirm = {})
 }

@@ -19,15 +19,10 @@ package com.google.android.horologist.media.ui.state.model
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
-public sealed class PlaylistDownloadUiModel(
-    public open val playlistUiModel: PlaylistUiModel,
-) {
-    public data class Completed(
-        override val playlistUiModel: PlaylistUiModel,
-    ) : PlaylistDownloadUiModel(playlistUiModel = playlistUiModel)
+public sealed class PlaylistDownloadUiModel(public open val playlistUiModel: PlaylistUiModel) {
+  public data class Completed(override val playlistUiModel: PlaylistUiModel) :
+    PlaylistDownloadUiModel(playlistUiModel = playlistUiModel)
 
-    public data class InProgress(
-        override val playlistUiModel: PlaylistUiModel,
-        val percentage: Int,
-    ) : PlaylistDownloadUiModel(playlistUiModel = playlistUiModel)
+  public data class InProgress(override val playlistUiModel: PlaylistUiModel, val percentage: Int) :
+    PlaylistDownloadUiModel(playlistUiModel = playlistUiModel)
 }

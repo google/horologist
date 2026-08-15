@@ -46,84 +46,71 @@ import com.google.android.horologist.compose.layout.PagerScaffold
  */
 @Composable
 public fun PagerScreen(
-    state: PagerState,
-    modifier: Modifier = Modifier,
-    beyondViewportPageCount: Int = 0,
-    userScrollEnabled: Boolean = true,
-    reverseLayout: Boolean = false,
-    key: ((index: Int) -> Any)? = null,
-    content: @Composable (Int) -> Unit,
+  state: PagerState,
+  modifier: Modifier = Modifier,
+  beyondViewportPageCount: Int = 0,
+  userScrollEnabled: Boolean = true,
+  reverseLayout: Boolean = false,
+  key: ((index: Int) -> Any)? = null,
+  content: @Composable (Int) -> Unit,
 ) {
-    PagerScaffold(
-        modifier = modifier.fillMaxSize(),
-        pagerState = state,
-    ) {
-        HorizontalPager(
-            state = state,
-            beyondViewportPageCount = beyondViewportPageCount,
-            userScrollEnabled = userScrollEnabled,
-            reverseLayout = reverseLayout,
-            key = key,
-        ) { page ->
-            ClippedBox(state, modifier = Modifier.hierarchicalFocusGroup(page == state.currentPage)) {
-                content(page)
-            }
-        }
+  PagerScaffold(modifier = modifier.fillMaxSize(), pagerState = state) {
+    HorizontalPager(
+      state = state,
+      beyondViewportPageCount = beyondViewportPageCount,
+      userScrollEnabled = userScrollEnabled,
+      reverseLayout = reverseLayout,
+      key = key,
+    ) { page ->
+      ClippedBox(state, modifier = Modifier.hierarchicalFocusGroup(page == state.currentPage)) {
+        content(page)
+      }
     }
+  }
 }
 
 @Composable
 internal fun ClippedBox(
-    pagerState: PagerState,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit,
+  pagerState: PagerState,
+  modifier: Modifier = Modifier,
+  content: @Composable () -> Unit,
 ) {
-    val shape = rememberClipWhenScrolling(pagerState)
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .optionalClip(shape),
-    ) {
-        content()
-    }
+  val shape = rememberClipWhenScrolling(pagerState)
+  Box(modifier = modifier.fillMaxSize().optionalClip(shape)) { content() }
 }
 
 @Composable
 private fun rememberClipWhenScrolling(state: PagerState): State<RoundedCornerShape?> {
-    val shape = if (LocalConfiguration.current.isScreenRound) CircleShape else null
-    return remember(state) {
-        derivedStateOf {
-            if (shape != null && state.currentPageOffsetFraction != 0f) {
-                shape
-            } else {
-                null
-            }
-        }
+  val shape = if (LocalConfiguration.current.isScreenRound) CircleShape else null
+  return remember(state) {
+    derivedStateOf {
+      if (shape != null && state.currentPageOffsetFraction != 0f) {
+        shape
+      } else {
+        null
+      }
     }
+  }
 }
 
 private fun Modifier.optionalClip(shapeState: State<RoundedCornerShape?>): Modifier {
-    val shape = shapeState.value
+  val shape = shapeState.value
 
-    return if (shape != null) {
-        clip(shape)
-    } else {
-        this
-    }
+  return if (shape != null) {
+    clip(shape)
+  } else {
+    this
+  }
 }
 
-/**
- * Bridge between Foundation PagerState and the Wear Compose PageIndicatorState.
- */
-public class PageScreenIndicatorState(
-    private val state: PagerState,
-) : PageIndicatorState {
-    override val pageCount: Int
-        get() = state.pageCount
+/** Bridge between Foundation PagerState and the Wear Compose PageIndicatorState. */
+public class PageScreenIndicatorState(private val state: PagerState) : PageIndicatorState {
+  override val pageCount: Int
+    get() = state.pageCount
 
-    override val pageOffset: Float
-        get() = state.currentPageOffsetFraction.takeIf { it.isFinite() } ?: 0f
+  override val pageOffset: Float
+    get() = state.currentPageOffsetFraction.takeIf { it.isFinite() } ?: 0f
 
-    override val selectedPage: Int
-        get() = state.currentPage
+  override val selectedPage: Int
+    get() = state.currentPage
 }

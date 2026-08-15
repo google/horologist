@@ -43,83 +43,66 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class StreamlineSignInNavigationTest {
 
-    @get:Rule
-    var coroutineRule = MainDispatcherRule()
+  @get:Rule var coroutineRule = MainDispatcherRule()
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    private val streamLineSignInChipText = "Streamline Sign-in"
-    private lateinit var navController: TestNavHostController
+  private val streamLineSignInChipText = "Streamline Sign-in"
+  private lateinit var navController: TestNavHostController
 
-    @Before
-    fun setUp() {
-        composeTestRule.setContent {
-            navController = TestNavHostController(LocalContext.current)
-            navController.navigatorProvider.addNavigator(WearNavigator())
-            WearApp(navController = navController)
-        }
-
-        composeTestRule.onNode(hasScrollToNodeAction())
-            .performScrollToNode(hasText(streamLineSignInChipText))
-
-        composeTestRule.onNodeWithText(streamLineSignInChipText)
-            .performClick()
+  @Before
+  fun setUp() {
+    composeTestRule.setContent {
+      navController = TestNavHostController(LocalContext.current)
+      navController.navigatorProvider.addNavigator(WearNavigator())
+      WearApp(navController = navController)
     }
 
-    @Test
-    fun streamlineSignIn_singleAccount() = runTest {
-        composeTestRule
-            .onNodeWithText("Single account available")
-            .performClick()
+    composeTestRule
+      .onNode(hasScrollToNodeAction())
+      .performScrollToNode(hasText(streamLineSignInChipText))
 
-        composeTestRule.waitUntil {
-            advanceUntilIdle()
-            composeTestRule.onAllNodesWithText("Hi, Maggie").fetchSemanticsNodes().size == 1
-        }
-        composeTestRule
-            .onNodeWithText("Hi, Maggie")
-            .assertIsDisplayed()
+    composeTestRule.onNodeWithText(streamLineSignInChipText).performClick()
+  }
+
+  @Test
+  fun streamlineSignIn_singleAccount() = runTest {
+    composeTestRule.onNodeWithText("Single account available").performClick()
+
+    composeTestRule.waitUntil {
+      advanceUntilIdle()
+      composeTestRule.onAllNodesWithText("Hi, Maggie").fetchSemanticsNodes().size == 1
+    }
+    composeTestRule.onNodeWithText("Hi, Maggie").assertIsDisplayed()
+  }
+
+  @Test
+  fun streamlineSignIn_multipleAccounts() = runTest {
+    composeTestRule.onNodeWithText("Multiple accounts available").performClick()
+
+    composeTestRule.waitUntil {
+      advanceUntilIdle()
+      composeTestRule.onAllNodesWithText("Select account").fetchSemanticsNodes().size == 1
     }
 
-    @Test
-    fun streamlineSignIn_multipleAccounts() = runTest {
-        composeTestRule
-            .onNodeWithText("Multiple accounts available")
-            .performClick()
+    composeTestRule.onNodeWithText("maggie@example.com").assertIsDisplayed()
 
-        composeTestRule.waitUntil {
-            advanceUntilIdle()
-            composeTestRule.onAllNodesWithText("Select account").fetchSemanticsNodes().size == 1
-        }
+    composeTestRule.onNodeWithText("john@example.com").assertIsDisplayed().performClick()
 
-        composeTestRule
-            .onNodeWithText("maggie@example.com")
-            .assertIsDisplayed()
+    composeTestRule.onNodeWithText("Hi, John").assertIsDisplayed()
+  }
 
-        composeTestRule
-            .onNodeWithText("john@example.com")
-            .assertIsDisplayed()
-            .performClick()
+  @Test
+  fun streamlineSignIn_noAccounts() = runTest {
+    composeTestRule.onNodeWithText("No accounts available").performClick()
 
-        composeTestRule
-            .onNodeWithText("Hi, John")
-            .assertIsDisplayed()
+    composeTestRule.waitUntil {
+      advanceUntilIdle()
+      composeTestRule
+        .onAllNodesWithText("Should navigate to add account screen.")
+        .fetchSemanticsNodes()
+        .size == 1
     }
-
-    @Test
-    fun streamlineSignIn_noAccounts() = runTest {
-        composeTestRule
-            .onNodeWithText("No accounts available")
-            .performClick()
-
-        composeTestRule.waitUntil {
-            advanceUntilIdle()
-            composeTestRule.onAllNodesWithText("Should navigate to add account screen.")
-                .fetchSemanticsNodes().size == 1
-        }
-        composeTestRule
-            .onNodeWithText("Should navigate to add account screen.")
-            .assertIsDisplayed()
-    }
+    composeTestRule.onNodeWithText("Should navigate to add account screen.").assertIsDisplayed()
+  }
 }

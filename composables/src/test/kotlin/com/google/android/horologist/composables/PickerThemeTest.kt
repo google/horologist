@@ -20,62 +20,49 @@ import androidx.wear.compose.material.MaterialTheme
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.themeValues
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
+import java.time.LocalDate
+import java.time.LocalTime
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
-import java.time.LocalDate
-import java.time.LocalTime
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class PickerThemeTest(
-    private val themeValue: ThemeValues,
-) : WearLegacyScreenTest() {
+class PickerThemeTest(private val themeValue: ThemeValues) : WearLegacyScreenTest() {
 
-    override fun testName(suffix: String): String {
-        return "src/test/snapshots/images/" +
-            "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
-            "${themeValue.safeName}.png"
-    }
+  override fun testName(suffix: String): String {
+    return "src/test/snapshots/images/" +
+      "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
+      "${themeValue.safeName}.png"
+  }
 
-    @Test
-    fun datePicker() {
-        runTest {
-            MaterialTheme(colors = themeValue.colors) {
-                DatePicker(
-                    onDateConfirm = {},
-                    date = LocalDate.of(2022, 4, 25),
-                )
-            }
-        }
+  @Test
+  fun datePicker() {
+    runTest {
+      MaterialTheme(colors = themeValue.colors) {
+        DatePicker(onDateConfirm = {}, date = LocalDate.of(2022, 4, 25))
+      }
     }
+  }
 
-    @Test
-    fun timePicker() {
-        runTest {
-            MaterialTheme(colors = themeValue.colors) {
-                TimePicker(
-                    time = LocalTime.of(10, 10, 0),
-                    onTimeConfirm = {},
-                )
-            }
-        }
+  @Test
+  fun timePicker() {
+    runTest {
+      MaterialTheme(colors = themeValue.colors) {
+        TimePicker(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
+      }
     }
+  }
 
-    @Test
-    fun timePicker12h() {
-        runTest {
-            MaterialTheme(colors = themeValue.colors) {
-                TimePickerWith12HourClock(
-                    time = LocalTime.of(10, 10, 0),
-                    onTimeConfirm = {},
-                )
-            }
-        }
+  @Test
+  fun timePicker12h() {
+    runTest {
+      MaterialTheme(colors = themeValue.colors) {
+        TimePickerWith12HourClock(time = LocalTime.of(10, 10, 0), onTimeConfirm = {})
+      }
     }
+  }
 
-    companion object {
-        @JvmStatic
-        @ParameterizedRobolectricTestRunner.Parameters
-        fun colors() = themeValues
-    }
+  companion object {
+    @JvmStatic @ParameterizedRobolectricTestRunner.Parameters fun colors() = themeValues
+  }
 }

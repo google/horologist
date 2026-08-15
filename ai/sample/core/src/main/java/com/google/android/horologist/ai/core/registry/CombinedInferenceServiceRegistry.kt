@@ -20,18 +20,16 @@ import com.google.android.horologist.ai.core.InferenceServiceGrpcKt
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 
-class CombinedInferenceServiceRegistry(
-    val registries: List<InferenceServiceRegistry>,
-) : InferenceServiceRegistry {
-    override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
-        return combine(
-            registries.sortedByDescending { it.priority }
-                .map { registry -> registry.models() },
-        ) {
-            it.toList().flatten()
-        }
+class CombinedInferenceServiceRegistry(val registries: List<InferenceServiceRegistry>) :
+  InferenceServiceRegistry {
+  override fun models(): Flow<List<InferenceServiceGrpcKt.InferenceServiceCoroutineImplBase>> {
+    return combine(
+      registries.sortedByDescending { it.priority }.map { registry -> registry.models() }
+    ) {
+      it.toList().flatten()
     }
+  }
 
-    override val priority: Int
-        get() = 0
+  override val priority: Int
+    get() = 0
 }

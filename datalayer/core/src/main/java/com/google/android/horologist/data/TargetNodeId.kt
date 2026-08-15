@@ -21,51 +21,44 @@ import kotlinx.coroutines.tasks.await
 
 /**
  * A selector for a Node to connect with over the data client without needing to resolve ahead of
- * time. The implementations could be anything from a hardcoded value to querying the CapabilityClient.
+ * time. The implementations could be anything from a hardcoded value to querying the
+ * CapabilityClient.
  */
 public interface TargetNodeId {
-    /**
-     * Return the node id for the given strategy.
-     */
-    public suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String?
+  /** Return the node id for the given strategy. */
+  public suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String?
 
-    /**
-     * A reference to the Node for this device.
-     */
-    public object ThisNodeId : TargetNodeId {
-        override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String {
-            return dataLayerRegistry.nodeClient.localNode.await().id
-        }
+  /** A reference to the Node for this device. */
+  public object ThisNodeId : TargetNodeId {
+    override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String {
+      return dataLayerRegistry.nodeClient.localNode.await().id
     }
+  }
 
-    /**
-     * A reference to the single paired node for the connected phone.
-     * All wear devices must have a single connected device, although it may not be available.
-     */
-    public object PairedPhone : TargetNodeId {
-        override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String? {
-            val capabilitySearch = dataLayerRegistry.capabilityClient.getCapability(
-                HOROLOGIST_PHONE,
-                CapabilityClient.FILTER_ALL,
-            ).await()
+  /**
+   * A reference to the single paired node for the connected phone. All wear devices must have a
+   * single connected device, although it may not be available.
+   */
+  public object PairedPhone : TargetNodeId {
+    override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String? {
+      val capabilitySearch =
+        dataLayerRegistry.capabilityClient
+          .getCapability(HOROLOGIST_PHONE, CapabilityClient.FILTER_ALL)
+          .await()
 
-            return capabilitySearch.nodes.singleOrNull()?.id
-        }
+      return capabilitySearch.nodes.singleOrNull()?.id
     }
+  }
 
-    /**
-     * A reference to a specific node id, via prior configuration.
-     */
-    public class SpecificNodeId(
-        public val nodeId: String,
-    ) : TargetNodeId {
-        override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String {
-            return nodeId
-        }
+  /** A reference to a specific node id, via prior configuration. */
+  public class SpecificNodeId(public val nodeId: String) : TargetNodeId {
+    override suspend fun evaluate(dataLayerRegistry: WearDataLayerRegistry): String {
+      return nodeId
     }
+  }
 
-    companion object {
-        const val HOROLOGIST_PHONE = "horologist_phone"
-        const val HOROLOGIST_WATCH = "horologist_watch"
-    }
+  companion object {
+    const val HOROLOGIST_PHONE = "horologist_phone"
+    const val HOROLOGIST_WATCH = "horologist_watch"
+  }
 }

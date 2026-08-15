@@ -41,6 +41,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
+
 /**
  * This component is an alternative to [OutlinedCompactChip], providing the following:
  * - a convenient way of providing a label;
@@ -49,26 +50,26 @@ import com.google.android.horologist.images.base.paintable.PaintableIcon
 @ExperimentalHorologistApi
 @Composable
 public fun OutlinedCompactChip(
-    label: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    icon: Paintable? = null,
-    colors: ChipColors = ChipDefaults.outlinedChipColors(),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.outlinedChipBorder(),
+  label: String,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  icon: Paintable? = null,
+  colors: ChipColors = ChipDefaults.outlinedChipColors(),
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  border: ChipBorder = ChipDefaults.outlinedChipBorder(),
 ) {
-    OutlinedCompactChip(
-        onClick = onClick,
-        modifier = modifier,
-        label = label,
-        icon = icon,
-        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-        colors = colors,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        border = border,
-    )
+  OutlinedCompactChip(
+    onClick = onClick,
+    modifier = modifier,
+    label = label,
+    icon = icon,
+    contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+    colors = colors,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    border = border,
+  )
 }
 
 /**
@@ -79,25 +80,25 @@ public fun OutlinedCompactChip(
 @ExperimentalHorologistApi
 @Composable
 public fun OutlinedCompactChip(
-    @StringRes labelId: Int,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    icon: Paintable? = null,
-    colors: ChipColors = ChipDefaults.outlinedChipColors(),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.outlinedChipBorder(),
+  @StringRes labelId: Int,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  icon: Paintable? = null,
+  colors: ChipColors = ChipDefaults.outlinedChipColors(),
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  border: ChipBorder = ChipDefaults.outlinedChipBorder(),
 ) {
-    OutlinedCompactChip(
-        onClick = onClick,
-        modifier = modifier,
-        label = stringResource(id = labelId),
-        icon = icon,
-        colors = colors,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        border = border,
-    )
+  OutlinedCompactChip(
+    onClick = onClick,
+    modifier = modifier,
+    label = stringResource(id = labelId),
+    icon = icon,
+    colors = colors,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    border = border,
+  )
 }
 
 /**
@@ -108,85 +109,81 @@ public fun OutlinedCompactChip(
 @ExperimentalHorologistApi
 @Composable
 public fun OutlinedCompactChip(
-    icon: Paintable,
-    contentDescription: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    colors: ChipColors = ChipDefaults.outlinedChipColors(),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.outlinedChipBorder(),
+  icon: Paintable,
+  contentDescription: String,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  colors: ChipColors = ChipDefaults.outlinedChipColors(),
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  border: ChipBorder = ChipDefaults.outlinedChipBorder(),
 ) {
-    OutlinedCompactChip(
-        onClick = onClick,
-        modifier = modifier,
-        label = null,
-        icon = icon,
-        contentDescription = contentDescription,
-        colors = colors,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        border = border,
-    )
+  OutlinedCompactChip(
+    onClick = onClick,
+    modifier = modifier,
+    label = null,
+    icon = icon,
+    contentDescription = contentDescription,
+    colors = colors,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    border = border,
+  )
 }
 
 @Composable
 internal fun OutlinedCompactChip(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    label: String? = null,
-    icon: Paintable? = null,
-    contentDescription: String? = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-    colors: ChipColors = ChipDefaults.outlinedChipColors(),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.outlinedChipBorder(),
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  label: String? = null,
+  icon: Paintable? = null,
+  contentDescription: String? = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+  colors: ChipColors = ChipDefaults.outlinedChipColors(),
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  border: ChipBorder = ChipDefaults.outlinedChipBorder(),
 ) {
-    val iconParam: (@Composable BoxScope.() -> Unit)? = icon?.let {
-        {
-            Row {
-                val iconModifier = Modifier.size(ChipDefaults.SmallIconSize)
+  val iconParam: (@Composable BoxScope.() -> Unit)? = icon?.let {
+    {
+      Row {
+        val iconModifier = Modifier.size(ChipDefaults.SmallIconSize)
 
-                if (it is PaintableIcon) {
-                    Icon(
-                        paintable = it,
-                        contentDescription = contentDescription,
-                        modifier = iconModifier,
-                    )
-                } else {
-                    Image(
-                        painter = it.rememberPainter(),
-                        contentDescription = contentDescription,
-                        modifier = iconModifier,
-                        contentScale = ContentScale.Crop,
-                        alpha = LocalContentAlpha.current,
-                    )
-                }
-            }
+        if (it is PaintableIcon) {
+          Icon(paintable = it, contentDescription = contentDescription, modifier = iconModifier)
+        } else {
+          Image(
+            painter = it.rememberPainter(),
+            contentDescription = contentDescription,
+            modifier = iconModifier,
+            contentScale = ContentScale.Crop,
+            alpha = LocalContentAlpha.current,
+          )
         }
+      }
     }
-    val hasIcon = icon != null
+  }
+  val hasIcon = icon != null
 
-    val labelParam: (@Composable RowScope.() -> Unit)? = label?.let {
-        {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = label,
-                textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1,
-            )
-        }
+  val labelParam: (@Composable RowScope.() -> Unit)? = label?.let {
+    {
+      Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = label,
+        textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 1,
+      )
     }
+  }
 
-    OutlinedCompactChip(
-        modifier = modifier,
-        onClick = onClick,
-        label = labelParam,
-        icon = iconParam,
-        colors = colors,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        border = border,
-    )
+  OutlinedCompactChip(
+    modifier = modifier,
+    onClick = onClick,
+    label = labelParam,
+    icon = iconParam,
+    colors = colors,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    border = border,
+  )
 }

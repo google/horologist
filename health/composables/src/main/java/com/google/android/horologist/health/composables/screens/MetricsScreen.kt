@@ -28,32 +28,29 @@ import com.google.android.horologist.health.composables.components.MetricDisplay
 import com.google.android.horologist.health.composables.model.MetricUiModel
 
 /**
- * A screen to display metrics, e.g. workout metrics.
- * It can display up to four metrics, and it's recommended that at least two metrics should be
- * displayed.
+ * A screen to display metrics, e.g. workout metrics. It can display up to four metrics, and it's
+ * recommended that at least two metrics should be displayed.
  */
 @Composable
 public fun MetricsScreen(
-    firstMetric: MetricUiModel,
-    modifier: Modifier = Modifier,
-    secondMetric: MetricUiModel? = null,
-    thirdMetric: MetricUiModel? = null,
-    fourthMetric: MetricUiModel? = null,
-    positionIndicator: @Composable (() -> Unit)? = null,
+  firstMetric: MetricUiModel,
+  modifier: Modifier = Modifier,
+  secondMetric: MetricUiModel? = null,
+  thirdMetric: MetricUiModel? = null,
+  fourthMetric: MetricUiModel? = null,
+  positionIndicator: @Composable (() -> Unit)? = null,
 ) {
-    Box {
-        positionIndicator?.invoke()
+  Box {
+    positionIndicator?.invoke()
 
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(start = 40.dp),
-            verticalArrangement = Arrangement.Center,
-        ) {
-            MetricDisplay(metric = firstMetric)
-            secondMetric?.let { MetricDisplay(metric = it) }
-            thirdMetric?.let { MetricDisplay(metric = it) }
-            fourthMetric?.let { MetricDisplay(metric = it) }
-        }
+    Column(
+      modifier = modifier.fillMaxSize().padding(start = 40.dp),
+      verticalArrangement = Arrangement.Center,
+    ) {
+      MetricDisplay(metric = firstMetric)
+      secondMetric?.let { MetricDisplay(metric = it) }
+      thirdMetric?.let { MetricDisplay(metric = it) }
+      fourthMetric?.let { MetricDisplay(metric = it) }
     }
+  }
 }

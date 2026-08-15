@@ -31,45 +31,37 @@ import androidx.wear.tiles.TileBuilders.Tile
 import com.google.android.horologist.tiles.SuspendingTileService
 
 class ExampleTileService : SuspendingTileService() {
-    private lateinit var batteryManager: BatteryManager
+  private lateinit var batteryManager: BatteryManager
 
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        batteryManager =
-            applicationContext.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-    }
+    batteryManager = applicationContext.getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+  }
 
-    override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
-        return Tile.Builder()
-            .setResourcesVersion("1")
-            .setTileTimeline(
-                Timeline.Builder()
-                    .addTimelineEntry(
-                        TimelineEntry.Builder()
-                            .setLayout(
-                                Layout.Builder().setRoot(mainLayout())
-                                    .build(),
-                            )
-                            .build(),
-                    )
-                    .build(),
-            )
-            .build()
-    }
+  override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
+    return Tile.Builder()
+      .setResourcesVersion("1")
+      .setTileTimeline(
+        Timeline.Builder()
+          .addTimelineEntry(
+            TimelineEntry.Builder()
+              .setLayout(Layout.Builder().setRoot(mainLayout()).build())
+              .build()
+          )
+          .build()
+      )
+      .build()
+  }
 
-    override suspend fun resourcesRequest(
-        requestParams: RequestBuilders.ResourcesRequest,
-    ): ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().setVersion("1").build()
+  override suspend fun resourcesRequest(
+    requestParams: RequestBuilders.ResourcesRequest
+  ): ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().setVersion("1").build()
 
-    fun mainLayout(): LayoutElement {
-        return Column.Builder()
-            .addContent(
-                Text.Builder()
-                    .setText("Charging: " + batteryManager.isCharging)
-                    .build(),
-            )
-            .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
-            .build()
-    }
+  fun mainLayout(): LayoutElement {
+    return Column.Builder()
+      .addContent(Text.Builder().setText("Charging: " + batteryManager.isCharging).build())
+      .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
+      .build()
+  }
 }

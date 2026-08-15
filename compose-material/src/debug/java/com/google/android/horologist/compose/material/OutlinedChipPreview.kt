@@ -25,120 +25,95 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun OutlinedChipPreview() {
-    OutlinedChip(
-        label = "Primary label",
-        onClick = { },
-    )
+  OutlinedChip(label = "Primary label", onClick = {})
 }
 
-@Preview(
-    name = "With secondary label",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(name = "With secondary label", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun OutlinedChipPreviewWithSecondaryLabel() {
-    OutlinedChip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-    )
+  OutlinedChip(label = "Primary label", onClick = {}, secondaryLabel = "Secondary label")
 }
 
-@Preview(
-    name = "With icon",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(name = "With icon", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun OutlinedChipPreviewWithIcon() {
-    OutlinedChip(
-        label = "Primary label",
-        onClick = { },
-        icon = ImageVectorPaintable(Icons.Default.Image),
-    )
+  OutlinedChip(
+    label = "Primary label",
+    onClick = {},
+    icon = ImageVectorPaintable(Icons.Default.Image),
+  )
 }
 
-@Preview(
-    name = "With large icon",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(name = "With large icon", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun OutlinedChipPreviewWithLargeIcon() {
-    OutlinedChip(
-        label = "Primary label",
-        onClick = { },
-        icon = ImageVectorPaintable(Icon32dp),
-        largeIcon = true,
-    )
+  OutlinedChip(
+    label = "Primary label",
+    onClick = {},
+    icon = ImageVectorPaintable(Icon32dp),
+    largeIcon = true,
+  )
 }
 
 @Preview(
-    name = "With secondary label and icon",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With secondary label and icon",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun OutlinedChipPreviewWithSecondaryLabelAndIcon() {
-    OutlinedChip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = ImageVectorPaintable(Icons.Default.Image),
-    )
+  OutlinedChip(
+    label = "Primary label",
+    onClick = {},
+    secondaryLabel = "Secondary label",
+    icon = ImageVectorPaintable(Icons.Default.Image),
+  )
 }
 
 @Preview(
-    name = "With secondary label and large icon",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  name = "With secondary label and large icon",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun OutlinedChipPreviewWithSecondaryLabelAndLargeIcon() {
-    OutlinedChip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = ImageVectorPaintable(Icon32dp),
-        largeIcon = true,
-    )
+  OutlinedChip(
+    label = "Primary label",
+    onClick = {},
+    secondaryLabel = "Secondary label",
+    icon = ImageVectorPaintable(Icon32dp),
+    largeIcon = true,
+  )
 }
 
-@Preview(
-    name = "Disabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(name = "Disabled", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun OutlinedChipPreviewDisabled() {
-    OutlinedChip(
-        label = "Primary label",
-        onClick = { },
-        secondaryLabel = "Secondary label",
-        icon = ImageVectorPaintable(Icons.Default.Image),
-        enabled = false,
-    )
+  OutlinedChip(
+    label = "Primary label",
+    onClick = {},
+    secondaryLabel = "Secondary label",
+    icon = ImageVectorPaintable(Icons.Default.Image),
+    enabled = false,
+  )
 }
 
 private val Icon32dp: ImageVector
-    get() = ImageVector.Builder(
+  get() =
+    ImageVector.Builder(
         name = "Icon Large",
         defaultWidth = 32f.dp,
         defaultHeight = 32f.dp,
         viewportWidth = 32f,
         viewportHeight = 32f,
-    )
-        .materialPath {
-            horizontalLineToRelative(32.0f)
-            verticalLineToRelative(32.0f)
-            horizontalLineTo(0.0f)
-            close()
-        }
-        .build()
+      )
+      .materialPath {
+        horizontalLineToRelative(32.0f)
+        verticalLineToRelative(32.0f)
+        horizontalLineTo(0.0f)
+        close()
+      }
+      .build()

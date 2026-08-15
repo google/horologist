@@ -25,79 +25,78 @@ import org.junit.Test
 
 class ChipIconWithProgressTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            ChipIconWithProgress(progress = 75f)
-        }
+  @Test
+  fun default() {
+    runComponentTest { ChipIconWithProgress(progress = 75f) }
+  }
+
+  @Test
+  fun withProgressSmallIcon() {
+    runComponentTest { ChipIconWithProgress(progress = 75f, icon = Icon12dp.asPaintable()) }
+  }
+
+  @Test
+  fun withProgressMediumIcon() {
+    runComponentTest { ChipIconWithProgress(progress = 75f, icon = Icon32dp.asPaintable()) }
+  }
+
+  @Test
+  fun withProgressLargeIcon() {
+    runComponentTest {
+      ChipIconWithProgress(progress = 75f, icon = Icon48dp.asPaintable(), largeIcon = true)
     }
+  }
 
-    @Test
-    fun withProgressSmallIcon() {
-        runComponentTest {
-            ChipIconWithProgress(progress = 75f, icon = Icon12dp.asPaintable())
-        }
-    }
+  companion object {
+    private val Icon12dp: ImageVector
+      get() =
+        ImageVector.Builder(
+            name = "Icon Small",
+            defaultWidth = 12f.dp,
+            defaultHeight = 12f.dp,
+            viewportWidth = 12f,
+            viewportHeight = 12f,
+          )
+          .materialPath {
+            horizontalLineToRelative(12.0f)
+            verticalLineToRelative(12.0f)
+            horizontalLineTo(0.0f)
+            close()
+          }
+          .build()
 
-    @Test
-    fun withProgressMediumIcon() {
-        runComponentTest {
-            ChipIconWithProgress(progress = 75f, icon = Icon32dp.asPaintable())
-        }
-    }
+    private val Icon32dp: ImageVector
+      get() =
+        ImageVector.Builder(
+            name = "Icon Large",
+            defaultWidth = 32f.dp,
+            defaultHeight = 32f.dp,
+            viewportWidth = 32f,
+            viewportHeight = 32f,
+          )
+          .materialPath {
+            horizontalLineToRelative(32.0f)
+            verticalLineToRelative(32.0f)
+            horizontalLineTo(0.0f)
+            close()
+          }
+          .build()
 
-    @Test
-    fun withProgressLargeIcon() {
-        runComponentTest {
-            ChipIconWithProgress(
-                progress = 75f,
-                icon = Icon48dp.asPaintable(),
-                largeIcon = true,
-            )
-        }
-    }
-
-    companion object {
-        private val Icon12dp: ImageVector
-            get() = ImageVector.Builder(
-                name = "Icon Small",
-                defaultWidth = 12f.dp,
-                defaultHeight = 12f.dp,
-                viewportWidth = 12f,
-                viewportHeight = 12f,
-            ).materialPath {
-                horizontalLineToRelative(12.0f)
-                verticalLineToRelative(12.0f)
-                horizontalLineTo(0.0f)
-                close()
-            }.build()
-
-        private val Icon32dp: ImageVector
-            get() = ImageVector.Builder(
-                name = "Icon Large",
-                defaultWidth = 32f.dp,
-                defaultHeight = 32f.dp,
-                viewportWidth = 32f,
-                viewportHeight = 32f,
-            ).materialPath {
-                horizontalLineToRelative(32.0f)
-                verticalLineToRelative(32.0f)
-                horizontalLineTo(0.0f)
-                close()
-            }.build()
-
-        private val Icon48dp: ImageVector
-            get() = ImageVector.Builder(
-                name = "Icon Extra Large",
-                defaultWidth = 48f.dp,
-                defaultHeight = 48f.dp,
-                viewportWidth = 48f,
-                viewportHeight = 48f,
-            ).materialPath {
-                horizontalLineToRelative(48.0f)
-                verticalLineToRelative(48.0f)
-                horizontalLineTo(0.0f)
-                close()
-            }.build()
-    }
+    private val Icon48dp: ImageVector
+      get() =
+        ImageVector.Builder(
+            name = "Icon Extra Large",
+            defaultWidth = 48f.dp,
+            defaultHeight = 48f.dp,
+            viewportWidth = 48f,
+            viewportHeight = 48f,
+          )
+          .materialPath {
+            horizontalLineToRelative(48.0f)
+            verticalLineToRelative(48.0f)
+            horizontalLineTo(0.0f)
+            close()
+          }
+          .build()
+  }
 }

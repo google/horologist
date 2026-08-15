@@ -25,11 +25,7 @@ import com.google.android.horologist.remotecompose.lottie.format.LayerType
 /** A Layer in the Lottie composition */
 @Composable
 @RemoteComposable
-internal fun Layer(
-  layer: Layer,
-  parentTransforms: Map<Int, Transform>,
-  transform: Transform?,
-) {
+internal fun Layer(layer: Layer, parentTransforms: Map<Int, Transform>, transform: Transform?) {
   val transformStack =
     if (layer.parent == null || !parentTransforms.containsKey(layer.parent)) {
       mutableListOf()
@@ -38,7 +34,8 @@ internal fun Layer(
     }
 
   // TODO: Replace passing a transform param in and applying it to the transform stack with
-  // graphicsLayer transforms in the calling composable, once the ANDROID_NATIVE player supports graphicsLayer
+  // graphicsLayer transforms in the calling composable, once the ANDROID_NATIVE player supports
+  // graphicsLayer
   // (b/408913726)
   if (transform != null) {
     transformStack.add(0, transform)
@@ -53,10 +50,7 @@ internal fun Layer(
 /** A Layer containing Shapes */
 @Composable
 @RemoteComposable
-internal fun ShapeLayer(
-  layer: Layer.ShapeLayer,
-  transformStack: List<Transform?>? = null,
-) {
+internal fun ShapeLayer(layer: Layer.ShapeLayer, transformStack: List<Transform?>? = null) {
   if (layer.hidden == true) {
     return
   }

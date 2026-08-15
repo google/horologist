@@ -29,55 +29,46 @@ import com.google.android.horologist.compose.material.NonScrollableAlertContent
 
 @Composable
 fun DialogsAudit(route: AuditNavigation.Dialogs.Audit) {
-    when (route.config) {
-        AuditNavigation.Dialogs.Config.Title -> {
-            AlertDialog(showDialog = true, title = "Title", onDismiss = {})
-        }
-
-        AuditNavigation.Dialogs.Config.IconAndTitle -> {
-            AlertDialog(
-                showDialog = true,
-                title = "Title",
-                onDismiss = {},
-                icon = { Icon(Icons.Default.MedicalServices, contentDescription = "") },
-            )
-        }
-
-        AuditNavigation.Dialogs.Config.OneButtonChip -> {
-            AlertDialog(showDialog = true, title = "Title", onDismiss = {}) {
-                item {
-                    Chip("A Chip", onClick = {})
-                }
-            }
-        }
-        AuditNavigation.Dialogs.Config.TwoBottomButtons -> {
-            AlertDialog(showDialog = true, title = "Title", onOk = {}, onCancel = {})
-        }
-        AuditNavigation.Dialogs.Config.NoBottomButton -> {
-            AlertDialog(showDialog = true, title = "Title", onDismiss = {})
-        }
-        AuditNavigation.Dialogs.Config.OneBottomButton -> {
-            AlertDialog(showDialog = true, title = "Title", onDismiss = {}) {
-                item {
-                    Button(
-                        onClick = {},
-                        imageVector = Icons.Default.WhereToVote,
-                        contentDescription = "",
-                    )
-                }
-            }
-        }
-
-        AuditNavigation.Dialogs.Config.NonScrollable -> {
-            Dialog(
-                showDialog = true,
-                onDismissRequest = {},
-            ) {
-                NonScrollableAlertContent(
-                    icon = { Icon(Icons.Default.MedicalServices, contentDescription = "") },
-                    title = "Title",
-                )
-            }
-        }
+  when (route.config) {
+    AuditNavigation.Dialogs.Config.Title -> {
+      AlertDialog(showDialog = true, title = "Title", onDismiss = {})
     }
+
+    AuditNavigation.Dialogs.Config.IconAndTitle -> {
+      AlertDialog(
+        showDialog = true,
+        title = "Title",
+        onDismiss = {},
+        icon = { Icon(Icons.Default.MedicalServices, contentDescription = "") },
+      )
+    }
+
+    AuditNavigation.Dialogs.Config.OneButtonChip -> {
+      AlertDialog(showDialog = true, title = "Title", onDismiss = {}) {
+        item { Chip("A Chip", onClick = {}) }
+      }
+    }
+    AuditNavigation.Dialogs.Config.TwoBottomButtons -> {
+      AlertDialog(showDialog = true, title = "Title", onOk = {}, onCancel = {})
+    }
+    AuditNavigation.Dialogs.Config.NoBottomButton -> {
+      AlertDialog(showDialog = true, title = "Title", onDismiss = {})
+    }
+    AuditNavigation.Dialogs.Config.OneBottomButton -> {
+      AlertDialog(showDialog = true, title = "Title", onDismiss = {}) {
+        item {
+          Button(onClick = {}, imageVector = Icons.Default.WhereToVote, contentDescription = "")
+        }
+      }
+    }
+
+    AuditNavigation.Dialogs.Config.NonScrollable -> {
+      Dialog(showDialog = true, onDismissRequest = {}) {
+        NonScrollableAlertContent(
+          icon = { Icon(Icons.Default.MedicalServices, contentDescription = "") },
+          title = "Title",
+        )
+      }
+    }
+  }
 }

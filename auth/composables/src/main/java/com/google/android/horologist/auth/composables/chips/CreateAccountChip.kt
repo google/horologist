@@ -35,46 +35,48 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 /**
  * An opinionated [Chip] to represent the "Create account" action.
  *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/create_account_chip.png" height="120" width="120" >
+ * <img
+ * src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/create_account_chip.png"
+ * height="120" width="120" >
  */
 @Composable
 public fun CreateAccountChip(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    label: String = stringResource(id = R.string.horologist_create_account_chip_label),
-    largeIconSpace: Boolean = false,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  label: String = stringResource(id = R.string.horologist_create_account_chip_label),
+  largeIconSpace: Boolean = false,
+  colors: ChipColors = ChipDefaults.primaryChipColors(),
+  enabled: Boolean = true,
 ) {
-    if (largeIconSpace) {
-        Chip(
-            label = label,
-            onClick = onClick,
-            modifier = modifier,
-            icon = {
-                Box(
-                    modifier = Modifier.size(ChipDefaults.LargeIconSize),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Outlined.SendToMobile,
-                        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                        modifier = Modifier.size(ChipDefaults.IconSize),
-                    )
-                }
-            },
-            largeIcon = true,
-            colors = colors,
-            enabled = enabled,
-        )
-    } else {
-        Chip(
-            label = label,
-            onClick = onClick,
-            modifier = modifier,
-            icon = Icons.AutoMirrored.Outlined.SendToMobile.asPaintable(),
-            colors = colors,
-            enabled = enabled,
-        )
-    }
+  if (largeIconSpace) {
+    Chip(
+      label = label,
+      onClick = onClick,
+      modifier = modifier,
+      icon = {
+        Box(
+          modifier = Modifier.size(ChipDefaults.LargeIconSize),
+          contentAlignment = Alignment.Center,
+        ) {
+          Icon(
+            imageVector = Icons.AutoMirrored.Outlined.SendToMobile,
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+            modifier = Modifier.size(ChipDefaults.IconSize),
+          )
+        }
+      },
+      largeIcon = true,
+      colors = colors,
+      enabled = enabled,
+    )
+  } else {
+    Chip(
+      label = label,
+      onClick = onClick,
+      modifier = modifier,
+      icon = Icons.AutoMirrored.Outlined.SendToMobile.asPaintable(),
+      colors = colors,
+      enabled = enabled,
+    )
+  }
 }

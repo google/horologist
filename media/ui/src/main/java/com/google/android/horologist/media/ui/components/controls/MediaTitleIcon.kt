@@ -26,24 +26,22 @@ import com.google.android.horologist.compose.material.Icon
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
 
-/**
- * An icon to be shown in the media display before media title.
- */
+/** An icon to be shown in the media display before media title. */
 @Composable
 internal fun MediaTitleIcon(icon: Paintable) {
-    if (icon is PaintableIcon) {
-        Icon(
-            modifier = Modifier.fillMaxSize(),
-            paintable = icon,
-            contentDescription = null,
-            tint = MaterialTheme.colors.onBackground,
-        )
-    } else {
-        Image(
-            modifier = Modifier.fillMaxSize(),
-            painter = icon.rememberPainter(),
-            contentDescription = null,
-            contentScale = ContentScale.FillHeight,
-        )
-    }
+  if (icon is PaintableIcon) {
+    Icon(
+      modifier = Modifier.fillMaxSize(),
+      paintable = icon,
+      contentDescription = null,
+      tint = MaterialTheme.colors.onBackground,
+    )
+  } else {
+    Image(
+      modifier = Modifier.fillMaxSize(),
+      painter = icon.rememberPainter(),
+      contentDescription = null,
+      contentScale = ContentScale.FillHeight,
+    )
+  }
 }

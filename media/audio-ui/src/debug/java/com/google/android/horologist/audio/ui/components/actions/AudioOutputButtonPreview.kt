@@ -22,5 +22,5 @@ import androidx.compose.ui.tooling.preview.Preview
 @Preview
 @Composable
 fun AudioOutputButtonPreview() {
-    AudioOutputButton(onOutputClick = {})
+  AudioOutputButton(onOutputClick = {})
 }

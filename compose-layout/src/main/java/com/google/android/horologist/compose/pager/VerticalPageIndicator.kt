@@ -34,35 +34,28 @@ import androidx.wear.compose.material.PageIndicatorState
 import androidx.wear.compose.material.PageIndicatorStyle
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * A Wear Material Compliant Vertical Page Indicator.
- */
+/** A Wear Material Compliant Vertical Page Indicator. */
 @Composable
 @ExperimentalHorologistApi
 fun VerticalPageIndicator(
-    pageIndicatorState: PageIndicatorState,
-    modifier: Modifier = Modifier,
-    indicatorStyle: PageIndicatorStyle = PageIndicatorDefaults.style(),
-    selectedColor: Color = MaterialTheme.colors.onBackground,
-    unselectedColor: Color = selectedColor.copy(alpha = 0.3f),
-    indicatorSize: Dp = 6.dp,
-    spacing: Dp = 4.dp,
-    indicatorShape: Shape = CircleShape,
+  pageIndicatorState: PageIndicatorState,
+  modifier: Modifier = Modifier,
+  indicatorStyle: PageIndicatorStyle = PageIndicatorDefaults.style(),
+  selectedColor: Color = MaterialTheme.colors.onBackground,
+  unselectedColor: Color = selectedColor.copy(alpha = 0.3f),
+  indicatorSize: Dp = 6.dp,
+  spacing: Dp = 4.dp,
+  indicatorShape: Shape = CircleShape,
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .rotate(90f)
-            .scale(scaleY = -1f, scaleX = 1f),
-    ) {
-        HorizontalPageIndicator(
-            pageIndicatorState = pageIndicatorState,
-            indicatorStyle = indicatorStyle,
-            selectedColor = selectedColor,
-            unselectedColor = unselectedColor,
-            indicatorSize = indicatorSize,
-            spacing = spacing,
-            indicatorShape = indicatorShape,
-        )
-    }
+  Box(modifier = modifier.fillMaxSize().rotate(90f).scale(scaleY = -1f, scaleX = 1f)) {
+    HorizontalPageIndicator(
+      pageIndicatorState = pageIndicatorState,
+      indicatorStyle = indicatorStyle,
+      selectedColor = selectedColor,
+      unselectedColor = unselectedColor,
+      indicatorSize = indicatorSize,
+      spacing = spacing,
+      indicatorShape = indicatorShape,
+    )
+  }
 }

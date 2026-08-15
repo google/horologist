@@ -29,75 +29,74 @@ import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 
 @ExperimentalHorologistApi
 public class InstallAppPrompt(private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper) {
-    /**
-     * Returns a [AppHelperNodeStatus] that meets the criteria to show this prompt, otherwise
-     * returns null.
-     *
-     * @param predicate augments the criteria applying a [filter][List.filter] with this predicate.
-     */
-    public suspend fun shouldDisplayPrompt(
-        predicate: ((AppHelperNodeStatus) -> Boolean)? = null,
-    ): AppHelperNodeStatus? =
-        phoneDataLayerAppHelper.connectedNodes()
-            .filter { !it.appInstalled }
-            .let {
-                if (predicate != null) {
-                    it.filter(predicate)
-                } else {
-                    it
-                }
-            }
-            .firstOrNull()
+  /**
+   * Returns a [AppHelperNodeStatus] that meets the criteria to show this prompt, otherwise returns
+   * null.
+   *
+   * @param predicate augments the criteria applying a [filter][List.filter] with this predicate.
+   */
+  public suspend fun shouldDisplayPrompt(
+    predicate: ((AppHelperNodeStatus) -> Boolean)? = null
+  ): AppHelperNodeStatus? =
+    phoneDataLayerAppHelper
+      .connectedNodes()
+      .filter { !it.appInstalled }
+      .let {
+        if (predicate != null) {
+          it.filter(predicate)
+        } else {
+          it
+        }
+      }
+      .firstOrNull()
 
-    /**
-     * Returns the [Intent] to display an install app prompt to the user.
-     *
-     * This can be used in Compose with [rememberLauncherForActivityResult] and
-     * [ActivityResultLauncher.launch]:
-     *
-     * ```
-     * val launcher = rememberLauncherForActivityResult(
-     *     ActivityResultContracts.StartActivityForResult()
-     * ) { result ->
-     *     if (result.resultCode == RESULT_OK) {
-     *         // user pushed install!
-     *     }
-     * }
-     *
-     * launcher.launch(installAppPrompt.getIntent(/*params*/))
-     * ```
-     *
-     * It can also be used directly in an [ComponentActivity] with
-     * [ComponentActivity.registerForActivityResult]:
-     * ```
-     *  val launcher = registerForActivityResult(
-     *      ActivityResultContracts.StartActivityForResult()
-     *  ) { result ->
-     *      if (result.resultCode == RESULT_OK) {
-     *          // user pushed install!
-     *      }
-     *  }
-     *
-     * launcher.launch(installAppPrompt.getIntent(/*params*/))
-     * ```
-     */
-    public fun getIntent(
-        context: Context,
-        appPackageName: String,
-        @DrawableRes image: Int,
-        topMessage: String,
-        bottomMessage: String,
-    ): Intent = InstallAppBottomSheetActivity.getIntent(
-        context = context,
-        appPackageName = appPackageName,
-        image = image,
-        topMessage = topMessage,
-        bottomMessage = bottomMessage,
+  /**
+   * Returns the [Intent] to display an install app prompt to the user.
+   *
+   * This can be used in Compose with [rememberLauncherForActivityResult] and
+   * [ActivityResultLauncher.launch]:
+   * ```
+   * val launcher = rememberLauncherForActivityResult(
+   *     ActivityResultContracts.StartActivityForResult()
+   * ) { result ->
+   *     if (result.resultCode == RESULT_OK) {
+   *         // user pushed install!
+   *     }
+   * }
+   *
+   * launcher.launch(installAppPrompt.getIntent(/*params*/))
+   * ```
+   *
+   * It can also be used directly in an [ComponentActivity] with
+   * [ComponentActivity.registerForActivityResult]:
+   * ```
+   *  val launcher = registerForActivityResult(
+   *      ActivityResultContracts.StartActivityForResult()
+   *  ) { result ->
+   *      if (result.resultCode == RESULT_OK) {
+   *          // user pushed install!
+   *      }
+   *  }
+   *
+   * launcher.launch(installAppPrompt.getIntent(/*params*/))
+   * ```
+   */
+  public fun getIntent(
+    context: Context,
+    appPackageName: String,
+    @DrawableRes image: Int,
+    topMessage: String,
+    bottomMessage: String,
+  ): Intent =
+    InstallAppBottomSheetActivity.getIntent(
+      context = context,
+      appPackageName = appPackageName,
+      image = image,
+      topMessage = topMessage,
+      bottomMessage = bottomMessage,
     )
 
-    /**
-     * Performs the same action taken by the prompt when the user taps on "install".
-     */
-    public fun performAction(context: Context, appPackageName: String): Unit =
-        InstallAppPromptAction.run(context = context, appPackageName = appPackageName)
+  /** Performs the same action taken by the prompt when the user taps on "install". */
+  public fun performAction(context: Context, appPackageName: String): Unit =
+    InstallAppPromptAction.run(context = context, appPackageName = appPackageName)
 }

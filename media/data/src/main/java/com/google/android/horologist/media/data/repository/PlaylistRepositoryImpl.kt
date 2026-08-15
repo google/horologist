@@ -26,18 +26,16 @@ import kotlinx.coroutines.flow.map
 
 @ExperimentalHorologistApi
 public class PlaylistRepositoryImpl(
-    private val playlistLocalDataSource: PlaylistLocalDataSource,
-    private val playlistMapper: PlaylistMapper,
+  private val playlistLocalDataSource: PlaylistLocalDataSource,
+  private val playlistMapper: PlaylistMapper,
 ) : PlaylistRepository {
 
-    override suspend fun get(playlistId: String): Playlist? =
-        playlistLocalDataSource.getPopulated(playlistId)?.let(playlistMapper::map)
+  override suspend fun get(playlistId: String): Playlist? =
+    playlistLocalDataSource.getPopulated(playlistId)?.let(playlistMapper::map)
 
-    override fun getAll(): Flow<List<Playlist>> =
-        playlistLocalDataSource.getAllPopulated()
-            .map { it.map(playlistMapper::map) }
+  override fun getAll(): Flow<List<Playlist>> =
+    playlistLocalDataSource.getAllPopulated().map { it.map(playlistMapper::map) }
 
-    override fun getAllDownloaded(): Flow<List<Playlist>> =
-        playlistLocalDataSource.getAllDownloaded()
-            .map { it.map(playlistMapper::map) }
+  override fun getAllDownloaded(): Flow<List<Playlist>> =
+    playlistLocalDataSource.getAllDownloaded().map { it.map(playlistMapper::map) }
 }

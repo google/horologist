@@ -31,60 +31,59 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class RepeatableClickableButtonTest {
-    @get:Rule
-    public val rule = createComposeRule()
-    private val text = "myRepeatableClickableButton"
-    private val onClick: () -> Unit = { ++clickCounter }
-    private val onLongRepeatableClick: () -> Unit = { ++longRepeatableClickCounter }
-    private val onLongRepeatableClickEnd: () -> Unit = { longRepeatedClickEnd = true }
+  @get:Rule public val rule = createComposeRule()
+  private val text = "myRepeatableClickableButton"
+  private val onClick: () -> Unit = { ++clickCounter }
+  private val onLongRepeatableClick: () -> Unit = { ++longRepeatableClickCounter }
+  private val onLongRepeatableClickEnd: () -> Unit = { longRepeatedClickEnd = true }
 
-    private var clickCounter = 0
-    private var longRepeatableClickCounter = 0
-    private var longRepeatedClickEnd = false
+  private var clickCounter = 0
+  private var longRepeatableClickCounter = 0
+  private var longRepeatedClickEnd = false
 
-    @Before
-    fun setup() {
-        rule.setContent {
-            Box {
-                RepeatableClickableButton(
-                    onClick = onClick,
-                    onLongRepeatableClick = onLongRepeatableClick,
-                    onLongRepeatableClickEnd = onLongRepeatableClickEnd,
-                ) {
-                    Text(text)
-                }
-            }
+  @Before
+  fun setup() {
+    rule.setContent {
+      Box {
+        RepeatableClickableButton(
+          onClick = onClick,
+          onLongRepeatableClick = onLongRepeatableClick,
+          onLongRepeatableClickEnd = onLongRepeatableClickEnd,
+        ) {
+          Text(text)
         }
-
-        // Reset counters and state
-        clickCounter = 0
-        longRepeatableClickCounter = 0
-        longRepeatedClickEnd = false
+      }
     }
 
-    @Test
-    fun findByTextAndClick() {
-        rule.onNodeWithText(text).performClick()
+    // Reset counters and state
+    clickCounter = 0
+    longRepeatableClickCounter = 0
+    longRepeatedClickEnd = false
+  }
 
-        rule.runOnIdle {
-            assertThat(clickCounter).isEqualTo(1)
-            assertThat(longRepeatableClickCounter).isEqualTo(0)
-            assertThat(longRepeatedClickEnd).isFalse()
-        }
+  @Test
+  fun findByTextAndClick() {
+    rule.onNodeWithText(text).performClick()
+
+    rule.runOnIdle {
+      assertThat(clickCounter).isEqualTo(1)
+      assertThat(longRepeatableClickCounter).isEqualTo(0)
+      assertThat(longRepeatedClickEnd).isFalse()
+    }
+  }
+
+  @Test
+  fun findByTextAndHoldClick2Seconds() {
+    rule.onNodeWithText(text).performTouchInput {
+      down(center)
+      advanceEventTime(2000L)
+      up()
     }
 
-    @Test
-    fun findByTextAndHoldClick2Seconds() {
-        rule.onNodeWithText(text).performTouchInput {
-            down(center)
-            advanceEventTime(2000L)
-            up()
-        }
-
-        rule.runOnIdle {
-            assertThat(clickCounter).isEqualTo(0)
-            assertThat(longRepeatableClickCounter).isGreaterThan(0)
-            assertThat(longRepeatedClickEnd).isTrue()
-        }
+    rule.runOnIdle {
+      assertThat(clickCounter).isEqualTo(0)
+      assertThat(longRepeatableClickCounter).isGreaterThan(0)
+      assertThat(longRepeatedClickEnd).isTrue()
     }
+  }
 }

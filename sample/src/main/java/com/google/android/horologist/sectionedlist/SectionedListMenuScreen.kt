@@ -25,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.wear.compose.material.ChipDefaults
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.composables.SectionedList
+import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
@@ -33,58 +34,53 @@ import com.google.android.horologist.compose.material.Title
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 import com.google.android.horologist.sample.R
 import com.google.android.horologist.sample.Screen
+import ee.schimke.composeai.preview.ScrollMode
+import ee.schimke.composeai.preview.ScrollingPreview
 
 @Composable
 fun SectionedListMenuScreen(
-    modifier: Modifier = Modifier,
-    navigateToRoute: (String) -> Unit,
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  navigateToRoute: (String) -> Unit,
+  columnState: ScalingLazyColumnState,
 ) {
-    ScreenScaffold(scrollState = columnState) {
-        SectionedList(
-            columnState = columnState,
-            modifier = modifier.fillMaxSize(),
-        ) {
-            section(
-                listOf(
-                    Pair(
-                        R.string.sectionedlist_stateless_sections_menu,
-                        Screen.SectionedListStatelessScreen.route,
-                    ),
-                    Pair(
-                        R.string.sectionedlist_stateful_sections_menu,
-                        Screen.SectionedListStatefulScreen.route,
-                    ),
-                    Pair(
-                        R.string.sectionedlist_expandable_sections_menu,
-                        Screen.SectionedListExpandableScreen.route,
-                    ),
-                ),
-            ) {
-                header {
-                    Title(
-                        stringResource(R.string.sectionedlist_samples_title),
-                    )
-                }
+  ScreenScaffold(scrollState = columnState) {
+    SectionedList(columnState = columnState, modifier = modifier.fillMaxSize()) {
+      section(
+        listOf(
+          Pair(
+            R.string.sectionedlist_stateless_sections_menu,
+            Screen.SectionedListStatelessScreen.route,
+          ),
+          Pair(
+            R.string.sectionedlist_stateful_sections_menu,
+            Screen.SectionedListStatefulScreen.route,
+          ),
+          Pair(
+            R.string.sectionedlist_expandable_sections_menu,
+            Screen.SectionedListExpandableScreen.route,
+          ),
+        )
+      ) {
+        header { Title(stringResource(R.string.sectionedlist_samples_title)) }
 
-                loaded { item ->
-                    Chip(
-                        label = stringResource(id = item.first),
-                        icon = Icons.AutoMirrored.Default.FormatListBulleted.asPaintable(),
-                        onClick = { navigateToRoute(item.second) },
-                        colors = ChipDefaults.primaryChipColors(),
-                    )
-                }
-            }
+        loaded { item ->
+          Chip(
+            label = stringResource(id = item.first),
+            icon = Icons.AutoMirrored.Default.FormatListBulleted.asPaintable(),
+            onClick = { navigateToRoute(item.second) },
+            colors = ChipDefaults.primaryChipColors(),
+          )
         }
+      }
     }
+  }
 }
 
-@Composable
 @WearPreviewLargeRound
+@ScrollingPreview(modes = [ScrollMode.LONG])
+@Composable
 fun Preview() {
-    SectionedListMenuScreen(
-        navigateToRoute = {},
-        columnState = rememberResponsiveColumnState(),
-    )
+  AppScaffold {
+    SectionedListMenuScreen(navigateToRoute = {}, columnState = rememberResponsiveColumnState())
+  }
 }

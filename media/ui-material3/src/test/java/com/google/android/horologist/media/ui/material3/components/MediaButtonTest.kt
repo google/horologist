@@ -27,65 +27,54 @@ import org.junit.Test
 
 class MediaButtonTest : WearLegacyComponentTest() {
 
-    @Test
-    fun givenMediaWithArtwork_thenDisplaysArtwork() {
-        runComponentTest {
-            MediaDetailsButton(
-                title = "Red Hot Chilli Peppers",
-                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
-                onClick = {},
-            )
-        }
+  @Test
+  fun givenMediaWithArtwork_thenDisplaysArtwork() {
+    runComponentTest {
+      MediaDetailsButton(
+        title = "Red Hot Chilli Peppers",
+        artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun givenMediaWithNoArtwork_thenDoesNotDisplayArtwork() {
-        runComponentTest {
-            MediaDetailsButton(
-                title = "Red Hot Chilli Peppers",
-                artworkPaintable = null,
-                onClick = {},
-            )
-        }
+  @Test
+  fun givenMediaWithNoArtwork_thenDoesNotDisplayArtwork() {
+    runComponentTest {
+      MediaDetailsButton(title = "Red Hot Chilli Peppers", artworkPaintable = null, onClick = {})
     }
+  }
 
-    @Test
-    fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
-        runComponentTest {
-            MediaDetailsButton(
-                title = "Very very very very very very very very very very very long title",
-                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
-                onClick = {},
-            )
-        }
+  @Test
+  fun givenVeryLongTitle_thenEllipsizeAt2ndLine() {
+    runComponentTest {
+      MediaDetailsButton(
+        title = "Very very very very very very very very very very very long title",
+        artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun givenNoTitle_thenDisplaysDefaultTitle() {
-        runComponentTest {
-            MediaDetailsButton(
-                media = MediaUiModel.Ready(
-                    id = "id",
-                    title = "",
-                ),
-                onClick = {},
-                defaultTitle = "No title",
-            )
-        }
+  @Test
+  fun givenNoTitle_thenDisplaysDefaultTitle() {
+    runComponentTest {
+      MediaDetailsButton(
+        media = MediaUiModel.Ready(id = "id", title = ""),
+        onClick = {},
+        defaultTitle = "No title",
+      )
     }
+  }
 
-    @Test
-    fun givenModifier_thenAppliesModifierCorrectly() {
-        runComponentTest {
-            MediaDetailsButton(
-                media = MediaUiModel.Ready(
-                    id = "id",
-                    title = "Red Hot Chilli Peppers",
-                ),
-                onClick = {},
-                modifier = Modifier
-                    .height(120.dp),
-            )
-        }
+  @Test
+  fun givenModifier_thenAppliesModifierCorrectly() {
+    runComponentTest {
+      MediaDetailsButton(
+        media = MediaUiModel.Ready(id = "id", title = "Red Hot Chilli Peppers"),
+        onClick = {},
+        modifier = Modifier.height(120.dp),
+      )
     }
+  }
 }

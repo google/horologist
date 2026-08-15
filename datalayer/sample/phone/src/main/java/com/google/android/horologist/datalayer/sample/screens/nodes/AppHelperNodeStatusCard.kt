@@ -34,10 +34,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.android.horologist.data.ComplicationInfo
-import com.google.android.horologist.data.SurfacesInfo
-import com.google.android.horologist.data.TileInfo
-import com.google.android.horologist.data.UsageInfo
 import com.google.android.horologist.data.UsageStatus
 import com.google.android.horologist.data.apphelper.AppHelperNodeStatus
 import com.google.android.horologist.data.apphelper.AppInstallationStatus
@@ -53,176 +49,156 @@ import com.google.android.horologist.datalayer.sample.util.toProtoTimestamp
 
 @Composable
 fun AppHelperNodeStatusCard(
-    nodeStatus: AppHelperNodeStatus,
-    onInstallOnNodeClick: (String) -> Unit,
-    onStartCompanionClick: (String) -> Unit,
-    onStartRemoteOwnAppClick: (String) -> Unit,
-    onStartRemoteActivityClick: (nodeId: String) -> Unit,
-    modifier: Modifier = Modifier,
+  nodeStatus: AppHelperNodeStatus,
+  onInstallOnNodeClick: (String) -> Unit,
+  onStartCompanionClick: (String) -> Unit,
+  onStartRemoteOwnAppClick: (String) -> Unit,
+  onStartRemoteActivityClick: (nodeId: String) -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    Box(
-        modifier = modifier
-            .padding(16.dp)
-            .fillMaxWidth(),
-        contentAlignment = Alignment.Center,
-    ) {
-        Card {
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-
-            ) {
-                Text(stringResource(R.string.node_status_node_name_label, nodeStatus.displayName))
-                Text(
-                    style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(R.string.node_status_node_id_label, nodeStatus.id),
-                )
-                Text(
-                    style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(
-                        R.string.node_status_node_is_nearby_label,
-                        nodeStatus.isNearby,
-                    ),
-                )
-                Text(
-                    style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(
-                        R.string.node_status_is_app_installed_label,
-                        nodeStatus.appInstalled,
-                    ),
-                )
-                val nodeType = if (nodeStatus.appInstalled) {
-                    (nodeStatus.appInstallationStatus as AppInstallationStatus.Installed).nodeType
-                } else {
-                    stringResource(id = R.string.node_status_node_type_unknown_label)
-                }
-                Text(
-                    style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(R.string.node_status_node_type_label, nodeType),
-                )
-                if (nodeStatus.surfacesInfo.complicationsList.isNotEmpty()) {
-                    Text(
-                        style = MaterialTheme.typography.labelMedium,
-                        text = stringResource(
-                            R.string.node_status_complications_label,
-                            nodeStatus.surfacesInfo.complicationsList.joinToString { it.name },
-                        ),
-                    )
-                }
-                if (nodeStatus.surfacesInfo.tilesList.isNotEmpty()) {
-                    Text(
-                        style = MaterialTheme.typography.labelMedium,
-                        text = stringResource(
-                            R.string.node_status_tiles_label,
-                            nodeStatus.surfacesInfo.tilesList.joinToString {
-                                it.name.substringAfterLast(".")
-                            },
-                        ),
-                    )
-                }
-                Text(
-                    style = MaterialTheme.typography.labelMedium,
-                    text = stringResource(
-                        R.string.node_status_usage_status,
-                        nodeStatus.surfacesInfo.usageInfo.usageStatus.name,
-                    ),
-                )
-                Row(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Button(
-                        onClick = { onStartCompanionClick(nodeStatus.id) },
-                        modifier = Modifier.wrapContentHeight(),
-                    ) {
-                        Text(
-                            stringResource(id = R.string.node_status_start_companion_button_label),
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                    Button(
-                        onClick = { onInstallOnNodeClick(nodeStatus.id) },
-                        modifier = Modifier.wrapContentHeight().padding(start = 10.dp),
-                    ) {
-                        Text(
-                            stringResource(id = R.string.node_status_install_on_node_button_label),
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                }
-                Row(
-                    modifier = Modifier
-                        .padding(8.dp)
-                        .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    Button(
-                        onClick = { onStartRemoteOwnAppClick(nodeStatus.id) },
-                        modifier = Modifier.wrapContentHeight(),
-                        enabled = nodeStatus.appInstalled,
-                    ) {
-                        Text(
-                            stringResource(id = R.string.node_status_start_own_app_button_label),
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                    Button(
-                        onClick = { onStartRemoteActivityClick(nodeStatus.id) },
-                        modifier = Modifier
-                            .wrapContentHeight()
-                            .padding(start = 10.dp),
-                        enabled = nodeStatus.appInstalled,
-                    ) {
-                        Text(
-                            stringResource(
-                                id = R.string.node_status_start_remote_activity_button_label,
-                            ),
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                }
-            }
+  Box(modifier = modifier.padding(16.dp).fillMaxWidth(), contentAlignment = Alignment.Center) {
+    Card {
+      Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+        Text(stringResource(R.string.node_status_node_name_label, nodeStatus.displayName))
+        Text(
+          style = MaterialTheme.typography.labelMedium,
+          text = stringResource(R.string.node_status_node_id_label, nodeStatus.id),
+        )
+        Text(
+          style = MaterialTheme.typography.labelMedium,
+          text = stringResource(R.string.node_status_node_is_nearby_label, nodeStatus.isNearby),
+        )
+        Text(
+          style = MaterialTheme.typography.labelMedium,
+          text =
+            stringResource(R.string.node_status_is_app_installed_label, nodeStatus.appInstalled),
+        )
+        val nodeType =
+          if (nodeStatus.appInstalled) {
+            (nodeStatus.appInstallationStatus as AppInstallationStatus.Installed).nodeType
+          } else {
+            stringResource(id = R.string.node_status_node_type_unknown_label)
+          }
+        Text(
+          style = MaterialTheme.typography.labelMedium,
+          text = stringResource(R.string.node_status_node_type_label, nodeType),
+        )
+        if (nodeStatus.surfacesInfo.complicationsList.isNotEmpty()) {
+          Text(
+            style = MaterialTheme.typography.labelMedium,
+            text =
+              stringResource(
+                R.string.node_status_complications_label,
+                nodeStatus.surfacesInfo.complicationsList.joinToString { it.name },
+              ),
+          )
         }
+        if (nodeStatus.surfacesInfo.tilesList.isNotEmpty()) {
+          Text(
+            style = MaterialTheme.typography.labelMedium,
+            text =
+              stringResource(
+                R.string.node_status_tiles_label,
+                nodeStatus.surfacesInfo.tilesList.joinToString { it.name.substringAfterLast(".") },
+              ),
+          )
+        }
+        Text(
+          style = MaterialTheme.typography.labelMedium,
+          text =
+            stringResource(
+              R.string.node_status_usage_status,
+              nodeStatus.surfacesInfo.usageInfo.usageStatus.name,
+            ),
+        )
+        Row(
+          modifier = Modifier.padding(8.dp).fillMaxWidth(),
+          horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+          Button(
+            onClick = { onStartCompanionClick(nodeStatus.id) },
+            modifier = Modifier.wrapContentHeight(),
+          ) {
+            Text(
+              stringResource(id = R.string.node_status_start_companion_button_label),
+              textAlign = TextAlign.Center,
+            )
+          }
+          Button(
+            onClick = { onInstallOnNodeClick(nodeStatus.id) },
+            modifier = Modifier.wrapContentHeight().padding(start = 10.dp),
+          ) {
+            Text(
+              stringResource(id = R.string.node_status_install_on_node_button_label),
+              textAlign = TextAlign.Center,
+            )
+          }
+        }
+        Row(
+          modifier = Modifier.padding(8.dp).fillMaxWidth(),
+          horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+          Button(
+            onClick = { onStartRemoteOwnAppClick(nodeStatus.id) },
+            modifier = Modifier.wrapContentHeight(),
+            enabled = nodeStatus.appInstalled,
+          ) {
+            Text(
+              stringResource(id = R.string.node_status_start_own_app_button_label),
+              textAlign = TextAlign.Center,
+            )
+          }
+          Button(
+            onClick = { onStartRemoteActivityClick(nodeStatus.id) },
+            modifier = Modifier.wrapContentHeight().padding(start = 10.dp),
+            enabled = nodeStatus.appInstalled,
+          ) {
+            Text(
+              stringResource(id = R.string.node_status_start_remote_activity_button_label),
+              textAlign = TextAlign.Center,
+            )
+          }
+        }
+      }
     }
+  }
 }
 
 @Preview
 @Composable
 fun NodeCardPreview() {
-    val nodeStatus = AppHelperNodeStatus(
-        displayName = "Pixel Watch",
-        id = "a1b2c3",
-        isNearby = true,
-        appInstallationStatus = AppInstallationStatus.Installed(
-            nodeType = AppInstallationStatusNodeType.WATCH,
-        ),
-        surfacesInfo = surfacesInfo {
-            tiles += tileInfo {
-                name = "Horologist Tile"
-                timestamp = System.currentTimeMillis().toProtoTimestamp()
-            }
-            complications += complicationInfo {
-                type = "SHORT_TEXT"
-                instanceId = 123
-                name = "Horologist Complication"
-                timestamp = System.currentTimeMillis().toProtoTimestamp()
-            }
-            usageInfo = usageInfo {
-                usageStatus = UsageStatus.USAGE_STATUS_LAUNCHED_ONCE
-                timestamp = System.currentTimeMillis().toProtoTimestamp()
-            }
+  val nodeStatus =
+    AppHelperNodeStatus(
+      displayName = "Pixel Watch",
+      id = "a1b2c3",
+      isNearby = true,
+      appInstallationStatus =
+        AppInstallationStatus.Installed(nodeType = AppInstallationStatusNodeType.WATCH),
+      surfacesInfo =
+        surfacesInfo {
+          tiles += tileInfo {
+            name = "Horologist Tile"
+            timestamp = System.currentTimeMillis().toProtoTimestamp()
+          }
+          complications += complicationInfo {
+            type = "SHORT_TEXT"
+            instanceId = 123
+            name = "Horologist Complication"
+            timestamp = System.currentTimeMillis().toProtoTimestamp()
+          }
+          usageInfo = usageInfo {
+            usageStatus = UsageStatus.USAGE_STATUS_LAUNCHED_ONCE
+            timestamp = System.currentTimeMillis().toProtoTimestamp()
+          }
         },
     )
-    HorologistTheme {
-        AppHelperNodeStatusCard(
-            nodeStatus = nodeStatus,
-            onStartCompanionClick = { },
-            onInstallOnNodeClick = { },
-            onStartRemoteOwnAppClick = { },
-            onStartRemoteActivityClick = { },
-        )
-    }
+  HorologistTheme {
+    AppHelperNodeStatusCard(
+      nodeStatus = nodeStatus,
+      onStartCompanionClick = {},
+      onInstallOnNodeClick = {},
+      onStartRemoteOwnAppClick = {},
+      onStartRemoteActivityClick = {},
+    )
+  }
 }

@@ -24,17 +24,17 @@ import java.io.InputStream
 import java.io.OutputStream
 
 object CounterValueSerializer : Serializer<CounterValue> {
-    override val defaultValue: CounterValue
-        get() = CounterValue.getDefaultInstance()
+  override val defaultValue: CounterValue
+    get() = CounterValue.getDefaultInstance()
 
-    override suspend fun readFrom(input: InputStream): CounterValue =
-        try {
-            CounterValue.parseFrom(input)
-        } catch (exception: InvalidProtocolBufferException) {
-            throw CorruptionException("Cannot read proto.", exception)
-        }
-
-    override suspend fun writeTo(t: CounterValue, output: OutputStream) {
-        t.writeTo(output)
+  override suspend fun readFrom(input: InputStream): CounterValue =
+    try {
+      CounterValue.parseFrom(input)
+    } catch (exception: InvalidProtocolBufferException) {
+      throw CorruptionException("Cannot read proto.", exception)
     }
+
+  override suspend fun writeTo(t: CounterValue, output: OutputStream) {
+    t.writeTo(output)
+  }
 }

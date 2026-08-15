@@ -22,79 +22,87 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 import com.google.android.horologist.datalayer.phone.ui.prompt.installtile.InstallTilePrompt
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class InstallTilePromptDemoViewModel
-    @Inject
-    constructor(
-        private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-        val installTilePrompt: InstallTilePrompt,
-    ) : ViewModel() {
+@Inject
+constructor(
+  private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+  val installTilePrompt: InstallTilePrompt,
+) : ViewModel() {
 
-        private var initializeCalled = false
+  private var initializeCalled = false
 
-        private val _uiState =
-            MutableStateFlow<InstallTilePromptDemoScreenState>(InstallTilePromptDemoScreenState.Idle)
-        public val uiState: StateFlow<InstallTilePromptDemoScreenState> = _uiState
+  private val _uiState =
+    MutableStateFlow<InstallTilePromptDemoScreenState>(InstallTilePromptDemoScreenState.Idle)
+  public val uiState: StateFlow<InstallTilePromptDemoScreenState> = _uiState
 
-        @MainThread
-        fun initialize() {
-            if (initializeCalled) return
-            initializeCalled = true
+  @MainThread
+  fun initialize() {
+    if (initializeCalled) return
+    initializeCalled = true
 
-            _uiState.value = InstallTilePromptDemoScreenState.Loading
+    _uiState.value = InstallTilePromptDemoScreenState.Loading
 
-            viewModelScope.launch {
-                if (!phoneDataLayerAppHelper.isAvailable()) {
-                    _uiState.value = InstallTilePromptDemoScreenState.ApiNotAvailable
-                } else {
-                    _uiState.value = InstallTilePromptDemoScreenState.Loaded
-                }
-            }
-        }
+    viewModelScope.launch {
+      if (!phoneDataLayerAppHelper.isAvailable()) {
+        _uiState.value = InstallTilePromptDemoScreenState.ApiNotAvailable
+      } else {
+        _uiState.value = InstallTilePromptDemoScreenState.Loaded
+      }
+    }
+  }
 
-        fun onRunDemoClick() {
-            _uiState.value = InstallTilePromptDemoScreenState.Loading
+  fun onRunDemoClick() {
+    _uiState.value = InstallTilePromptDemoScreenState.Loading
 
-            viewModelScope.launch {
-                val node = installTilePrompt.shouldDisplayPrompt(TILE_NAME)
+    viewModelScope.launch {
+      val node = installTilePrompt.shouldDisplayPrompt(TILE_NAME)
 
-                _uiState.value = if (node != null) {
-                    InstallTilePromptDemoScreenState.WatchFound(node.id)
-                } else {
-                    InstallTilePromptDemoScreenState.WatchNotFound
-                }
-            }
-        }
-
-        fun onPromptLaunched() {
-            _uiState.value = InstallTilePromptDemoScreenState.Idle
-        }
-
-        fun onPromptPositiveButtonClick() {
-            _uiState.value = InstallTilePromptDemoScreenState.PromptPositiveButtonClicked
-        }
-
-        fun onPromptDismiss() {
-            _uiState.value = InstallTilePromptDemoScreenState.PromptDismissed
-        }
-
-        companion object {
-            private const val TILE_NAME = "com.google.android.horologist.datalayer.sample.SampleTileService"
+      _uiState.value =
+        if (node != null) {
+          InstallTilePromptDemoScreenState.WatchFound(node.id)
+        } else {
+          InstallTilePromptDemoScreenState.WatchNotFound
         }
     }
+  }
+
+  fun onPromptLaunched() {
+    _uiState.value = InstallTilePromptDemoScreenState.Idle
+  }
+
+  fun onPromptPositiveButtonClick() {
+    _uiState.value = InstallTilePromptDemoScreenState.PromptPositiveButtonClicked
+  }
+
+  fun onPromptDismiss() {
+    _uiState.value = InstallTilePromptDemoScreenState.PromptDismissed
+  }
+
+  companion object {
+    private const val TILE_NAME = "com.google.android.horologist.datalayer.sample.SampleTileService"
+  }
+}
 
 sealed class InstallTilePromptDemoScreenState {
-    data object Idle : InstallTilePromptDemoScreenState()
-    data object Loading : InstallTilePromptDemoScreenState()
-    data object Loaded : InstallTilePromptDemoScreenState()
-    data class WatchFound(val nodeId: String) : InstallTilePromptDemoScreenState()
-    data object WatchNotFound : InstallTilePromptDemoScreenState()
-    data object PromptPositiveButtonClicked : InstallTilePromptDemoScreenState()
-    data object PromptDismissed : InstallTilePromptDemoScreenState()
-    data object ApiNotAvailable : InstallTilePromptDemoScreenState()
+  data object Idle : InstallTilePromptDemoScreenState()
+
+  data object Loading : InstallTilePromptDemoScreenState()
+
+  data object Loaded : InstallTilePromptDemoScreenState()
+
+  data class WatchFound(val nodeId: String) : InstallTilePromptDemoScreenState()
+
+  data object WatchNotFound : InstallTilePromptDemoScreenState()
+
+  data object PromptPositiveButtonClicked : InstallTilePromptDemoScreenState()
+
+  data object PromptDismissed : InstallTilePromptDemoScreenState()
+
+  data object ApiNotAvailable : InstallTilePromptDemoScreenState()
 }

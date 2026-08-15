@@ -26,20 +26,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.flowOn
 
-/**
- * Create a Flow for the currentMediaItem of a Player using callbacks.
- */
+/** Create a Flow for the currentMediaItem of a Player using callbacks. */
 @ExperimentalHorologistApi
-public fun Player.currentMediaItemFlow(): Flow<MediaItem?> = callbackFlow {
-    send(currentMediaItem)
+public fun Player.currentMediaItemFlow(): Flow<MediaItem?> =
+  callbackFlow {
+      send(currentMediaItem)
 
-    val listener = object : Player.Listener {
-        override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
+      val listener =
+        object : Player.Listener {
+          override fun onMediaItemTransition(mediaItem: MediaItem?, reason: Int) {
             trySendBlocking(mediaItem)
+          }
         }
+
+      addListener(listener)
+
+      awaitClose { removeListener(listener) }
     }
-
-    addListener(listener)
-
-    awaitClose { removeListener(listener) }
-}.flowOn(Dispatchers.Main)
+    .flowOn(Dispatchers.Main)

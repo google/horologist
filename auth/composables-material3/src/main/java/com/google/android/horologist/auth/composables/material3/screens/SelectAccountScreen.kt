@@ -48,105 +48,97 @@ import kotlin.collections.forEachIndexed
 
 @Composable
 public fun SelectAccountScreen(
-    accounts: List<AccountUiModel>,
-    onAccountClicked: (index: Int, account: AccountUiModel) -> Unit,
-    modifier: Modifier = Modifier,
-    title: String = stringResource(id = R.string.horologist_select_account_title),
-    defaultAvatar: Paintable = Icons.Outlined.AccountCircle.asPaintable(),
-    contentPadding: PaddingValues = defaultContentPadding(),
+  accounts: List<AccountUiModel>,
+  onAccountClicked: (index: Int, account: AccountUiModel) -> Unit,
+  modifier: Modifier = Modifier,
+  title: String = stringResource(id = R.string.horologist_select_account_title),
+  defaultAvatar: Paintable = Icons.Outlined.AccountCircle.asPaintable(),
+  contentPadding: PaddingValues = defaultContentPadding(),
 ) {
-    val state = rememberTransformingLazyColumnState()
-    val transformationSpec = rememberTransformationSpec()
+  val state = rememberTransformingLazyColumnState()
+  val transformationSpec = rememberTransformationSpec()
 
-    val emailTextStyle = MaterialTheme.typography.labelSmall.copy(
-        lineBreak = LineBreak(
-            strategy = LineBreak.Strategy.Balanced,
-            strictness = LineBreak.Strictness.Normal,
-            wordBreak = LineBreak.WordBreak.Default,
-        ),
+  val emailTextStyle =
+    MaterialTheme.typography.labelSmall.copy(
+      lineBreak =
+        LineBreak(
+          strategy = LineBreak.Strategy.Balanced,
+          strictness = LineBreak.Strictness.Normal,
+          wordBreak = LineBreak.WordBreak.Default,
+        )
     )
 
-    TransformingLazyColumn(
-        state = state,
-        contentPadding = contentPadding,
-        modifier = modifier,
-    ) {
-        item {
-            ListHeader {
-                Text(text = title, style = MaterialTheme.typography.titleLarge, maxLines = 2)
-            }
-        }
-        accounts.forEachIndexed { index, account ->
-            item {
-                val avatar = account.avatar
-                Button(
-                    onClick = { onAccountClicked(index, account) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .transformedHeight(this@item, transformationSpec),
-                    transformation = SurfaceTransformation(transformationSpec),
-                    icon = {
-                        if (avatar != null) {
-                            Image(
-                                avatar.rememberPainter(),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .size(ButtonDefaults.LargeIconSize),
-                            )
-                        } else {
-                            Icon(
-                                defaultAvatar.rememberPainter(),
-                                contentDescription = null,
-                                modifier = Modifier
-                                    .size(ButtonDefaults.IconSize),
-                            )
-                        }
-                    },
-                    contentPadding = if (avatar != null) {
-                        ButtonDefaults.ButtonWithLargeIconContentPadding
-                    } else {
-                        ButtonDefaults.ContentPadding
-                    },
-                    colors = ButtonDefaults.filledTonalButtonColors(),
-                    secondaryLabel = {
-                        Text(
-                            account.email,
-                            style = emailTextStyle,
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 2,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    },
-                ) {
-                    val name = account.name
-                    if (!name.isNullOrBlank()) {
-                        Text(
-                            name,
-                            style = MaterialTheme.typography.titleMedium,
-                            overflow = TextOverflow.Ellipsis,
-                            maxLines = 2,
-                            color = MaterialTheme.colorScheme.onBackground,
-                        )
-                    }
-                }
-            }
-        }
+  TransformingLazyColumn(state = state, contentPadding = contentPadding, modifier = modifier) {
+    item {
+      ListHeader { Text(text = title, style = MaterialTheme.typography.titleLarge, maxLines = 2) }
     }
+    accounts.forEachIndexed { index, account ->
+      item {
+        val avatar = account.avatar
+        Button(
+          onClick = { onAccountClicked(index, account) },
+          modifier = Modifier.fillMaxWidth().transformedHeight(this@item, transformationSpec),
+          transformation = SurfaceTransformation(transformationSpec),
+          icon = {
+            if (avatar != null) {
+              Image(
+                avatar.rememberPainter(),
+                contentDescription = null,
+                modifier = Modifier.size(ButtonDefaults.LargeIconSize),
+              )
+            } else {
+              Icon(
+                defaultAvatar.rememberPainter(),
+                contentDescription = null,
+                modifier = Modifier.size(ButtonDefaults.IconSize),
+              )
+            }
+          },
+          contentPadding =
+            if (avatar != null) {
+              ButtonDefaults.ButtonWithLargeIconContentPadding
+            } else {
+              ButtonDefaults.ContentPadding
+            },
+          colors = ButtonDefaults.filledTonalButtonColors(),
+          secondaryLabel = {
+            Text(
+              account.email,
+              style = emailTextStyle,
+              overflow = TextOverflow.Ellipsis,
+              maxLines = 2,
+              color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+          },
+        ) {
+          val name = account.name
+          if (!name.isNullOrBlank()) {
+            Text(
+              name,
+              style = MaterialTheme.typography.titleMedium,
+              overflow = TextOverflow.Ellipsis,
+              maxLines = 2,
+              color = MaterialTheme.colorScheme.onBackground,
+            )
+          }
+        }
+      }
+    }
+  }
 }
 
 @Composable
 private fun defaultContentPadding(): PaddingValues {
-    val (screenWidthDp, screenHeightDp) = LocalConfiguration.current.run {
-        screenWidthDp.dp to screenHeightDp.dp
-    }
+  val (screenWidthDp, screenHeightDp) =
+    LocalConfiguration.current.run { screenWidthDp.dp to screenHeightDp.dp }
 
-    val horizontalPadding = (screenWidthDp * 0.052f)
-    val topPadding = (screenHeightDp * 0.1f)
-    val bottomPadding = (screenHeightDp * 0.3646f)
-    return PaddingValues(
-        start = horizontalPadding,
-        top = topPadding,
-        end = horizontalPadding,
-        bottom = bottomPadding,
-    )
+  val horizontalPadding = (screenWidthDp * 0.052f)
+  val topPadding = (screenHeightDp * 0.1f)
+  val bottomPadding = (screenHeightDp * 0.3646f)
+  return PaddingValues(
+    start = horizontalPadding,
+    top = topPadding,
+    end = horizontalPadding,
+    bottom = bottomPadding,
+  )
 }

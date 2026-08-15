@@ -37,36 +37,34 @@ import org.junit.Test
 
 class MediaArtworkA11yTest : WearLegacyA11yTest() {
 
-    override val imageLoader = FakeImageLoaderEngine.Builder()
-        .intercept(
-            predicate = {
-                it == FakeImageLoader.TestIconResourceUri
-            },
-            interceptor = {
-                SuccessResult(
-                    drawable = ContextCompat.getDrawable(
-                        it.request.context,
-                        FakeImageLoader.TestIconResource,
-                    )!!,
-                    request = it.request,
-                    dataSource = DataSource.DISK,
-                )
-            },
-        )
-        .build()
+  override val imageLoader =
+    FakeImageLoaderEngine.Builder()
+      .intercept(
+        predicate = { it == FakeImageLoader.TestIconResourceUri },
+        interceptor = {
+          SuccessResult(
+            drawable =
+              ContextCompat.getDrawable(it.request.context, FakeImageLoader.TestIconResource)!!,
+            request = it.request,
+            dataSource = DataSource.DISK,
+          )
+        },
+      )
+      .build()
 
-    @Test
-    fun a11y() {
-        runComponentTest {
-            MediaArtwork(
-                modifier = Modifier.size(ButtonDefaults.LargeIconSize),
-                media = MediaUiModel.Ready(
-                    id = "id",
-                    title = "title",
-                    artwork = CoilPaintable(FakeImageLoader.TestIconResourceUri),
-                ),
-                placeholder = rememberVectorPainter(image = Icons.Default.Album),
-            )
-        }
+  @Test
+  fun a11y() {
+    runComponentTest {
+      MediaArtwork(
+        modifier = Modifier.size(ButtonDefaults.LargeIconSize),
+        media =
+          MediaUiModel.Ready(
+            id = "id",
+            title = "title",
+            artwork = CoilPaintable(FakeImageLoader.TestIconResourceUri),
+          ),
+        placeholder = rememberVectorPainter(image = Icons.Default.Album),
+      )
     }
+  }
 }

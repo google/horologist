@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-// Uses legacy Wear Material 2 auth composable dialogs (SignedInConfirmationDialog, SelectAccountScreen)
+// Uses legacy Wear Material 2 auth composable dialogs (SignedInConfirmationDialog,
+// SelectAccountScreen)
 @file:Suppress("DEPRECATION")
 
 package com.google.android.horologist.auth.ui.common.screens.streamline
@@ -32,7 +33,7 @@ import com.google.android.horologist.auth.composables.screens.SelectAccountScree
  * An opinionated implementation of [StreamlineSignInScreen] that:
  * - displays the [SignedInConfirmationDialog] when there is a single account available;
  * - displays the [SelectAccountScreen] when there are multiple accounts available, then displays
- * the [SignedInConfirmationDialog] after the account is selected;
+ *   the [SignedInConfirmationDialog] after the account is selected;
  *
  * The [content] of this composable would be displayed when the screen is in "loading" state. This
  * is an optional param, in case of no other layout is expected to be displayed while this screen is
@@ -42,48 +43,44 @@ import com.google.android.horologist.auth.composables.screens.SelectAccountScree
  */
 @Composable
 public fun StreamlineSignInDefaultScreen(
-    onSignedInConfirmationDialogDismissOrTimeout: (account: AccountUiModel) -> Unit,
-    onNoAccountsAvailable: () -> Unit,
-    viewModel: StreamlineSignInDefaultViewModel,
-    modifier: Modifier = Modifier,
-    content: @Composable () -> Unit = { },
+  onSignedInConfirmationDialogDismissOrTimeout: (account: AccountUiModel) -> Unit,
+  onNoAccountsAvailable: () -> Unit,
+  viewModel: StreamlineSignInDefaultViewModel,
+  modifier: Modifier = Modifier,
+  content: @Composable () -> Unit = {},
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when (state) {
-        StreamlineSignInDefaultScreenState.Idle -> {
-            SideEffect {
-                viewModel.onIdleStateObserved()
-            }
-        }
-
-        StreamlineSignInDefaultScreenState.Loading -> {
-            content()
-        }
-
-        is StreamlineSignInDefaultScreenState.SignedIn -> {
-            val account = (state as StreamlineSignInDefaultScreenState.SignedIn).account
-            SignedInConfirmationDialog(
-                onDismissOrTimeout = { onSignedInConfirmationDialogDismissOrTimeout(account) },
-                modifier = modifier,
-                accountUiModel = account,
-            )
-        }
-
-        is StreamlineSignInDefaultScreenState.MultipleAccountsAvailable -> {
-            val accounts =
-                (state as StreamlineSignInDefaultScreenState.MultipleAccountsAvailable).accounts
-            SelectAccountScreen(
-                accounts = accounts,
-                onAccountClicked = { _, account ->
-                    viewModel.onAccountSelected(account)
-                },
-                modifier = modifier,
-            )
-        }
-
-        StreamlineSignInDefaultScreenState.NoAccountsAvailable -> {
-            onNoAccountsAvailable()
-        }
+  when (state) {
+    StreamlineSignInDefaultScreenState.Idle -> {
+      SideEffect { viewModel.onIdleStateObserved() }
     }
+
+    StreamlineSignInDefaultScreenState.Loading -> {
+      content()
+    }
+
+    is StreamlineSignInDefaultScreenState.SignedIn -> {
+      val account = (state as StreamlineSignInDefaultScreenState.SignedIn).account
+      SignedInConfirmationDialog(
+        onDismissOrTimeout = { onSignedInConfirmationDialogDismissOrTimeout(account) },
+        modifier = modifier,
+        accountUiModel = account,
+      )
+    }
+
+    is StreamlineSignInDefaultScreenState.MultipleAccountsAvailable -> {
+      val accounts =
+        (state as StreamlineSignInDefaultScreenState.MultipleAccountsAvailable).accounts
+      SelectAccountScreen(
+        accounts = accounts,
+        onAccountClicked = { _, account -> viewModel.onAccountSelected(account) },
+        modifier = modifier,
+      )
+    }
+
+    StreamlineSignInDefaultScreenState.NoAccountsAvailable -> {
+      onNoAccountsAvailable()
+    }
+  }
 }

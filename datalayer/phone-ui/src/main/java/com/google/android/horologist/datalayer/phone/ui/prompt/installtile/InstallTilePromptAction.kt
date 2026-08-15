@@ -22,13 +22,10 @@ import android.net.Uri
 
 internal object InstallTilePromptAction {
 
-    private const val TILE_EDITOR_URL = "https://madeby.google.com/wear-companion/navigation?dest=tile_management_add"
-    fun run(context: Context) {
-        context.startActivity(
-            Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(TILE_EDITOR_URL),
-            ),
-        )
-    }
+  private const val TILE_EDITOR_URL =
+    "https://madeby.google.com/wear-companion/navigation?dest=tile_management_add"
+
+  fun run(context: Context) {
+    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(TILE_EDITOR_URL)))
+  }
 }

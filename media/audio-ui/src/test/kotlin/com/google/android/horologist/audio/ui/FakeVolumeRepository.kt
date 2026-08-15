@@ -21,23 +21,22 @@ import com.google.android.horologist.audio.VolumeState
 import kotlinx.coroutines.flow.MutableStateFlow
 
 class FakeVolumeRepository(initial: VolumeState) : VolumeRepository {
-    override val volumeState: MutableStateFlow<VolumeState> = MutableStateFlow(initial)
+  override val volumeState: MutableStateFlow<VolumeState> = MutableStateFlow(initial)
 
-    override fun increaseVolume() {
-        val current = volumeState.value
-        volumeState.value = current.copy(current = (current.current + 1).coerceAtMost(current.max))
-    }
+  override fun increaseVolume() {
+    val current = volumeState.value
+    volumeState.value = current.copy(current = (current.current + 1).coerceAtMost(current.max))
+  }
 
-    override fun decreaseVolume() {
-        val current = volumeState.value
-        volumeState.value = current.copy(current = (current.current - 1).coerceAtLeast(current.min))
-    }
+  override fun decreaseVolume() {
+    val current = volumeState.value
+    volumeState.value = current.copy(current = (current.current - 1).coerceAtLeast(current.min))
+  }
 
-    override fun setVolume(volume: Int) {
-        val current = volumeState.value
-        volumeState.value = current.copy(current = volume.coerceIn(current.min, current.max))
-    }
+  override fun setVolume(volume: Int) {
+    val current = volumeState.value
+    volumeState.value = current.copy(current = volume.coerceIn(current.min, current.max))
+  }
 
-    override fun close() {
-    }
+  override fun close() {}
 }

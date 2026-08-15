@@ -28,6 +28,5 @@ import org.robolectric.annotation.GraphicsMode
 @Config(application = HiltTestApplication::class, sdk = [35])
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 abstract class BaseAppTest {
-    @get:Rule
-    var hiltRule = HiltAndroidRule(this)
+  @get:Rule var hiltRule = HiltAndroidRule(this)
 }

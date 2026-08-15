@@ -18,6 +18,7 @@ package com.google.android.horologist.media.ui.material3.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -53,49 +54,51 @@ import com.google.android.horologist.media.ui.material3.composables.UnboundedRip
  *   emitting [Interaction]s for this button (Optional).
  * @param iconSize The size of the icon. Defaults to [IconButtonDefaults.SmallIconSize] (Optional).
  * @param border [BorderStroke] to be applied to the button. If null, no border is drawn (Optional).
+ * @param content A composable content to be used instead of the default one (Optional).
  */
 @Composable
 public fun CustomActionMediaButton(
-    onClick: () -> Unit,
-    icon: Paintable,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    shape: Shape = CircleShape,
-    colors: IconButtonColors = CustomActionMediaButtonDefaults.buttonColors(),
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    interactionSource: MutableInteractionSource? = null,
-    iconSize: Dp = IconButtonDefaults.SmallIconSize,
-    border: BorderStroke? = null,
+  onClick: () -> Unit,
+  icon: Paintable,
+  contentDescription: String?,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  shape: Shape = CircleShape,
+  colors: IconButtonColors = CustomActionMediaButtonDefaults.buttonColors(),
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  interactionSource: MutableInteractionSource? = null,
+  iconSize: Dp = IconButtonDefaults.SmallIconSize,
+  border: BorderStroke? = null,
+  content: @Composable (BoxScope.() -> Unit)? = null,
 ) {
-    UnboundedRippleIconButton(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        colors = colors,
-        shape = shape,
-        buttonPadding = buttonPadding,
-        interactionSource = interactionSource,
-        rippleRadius = null,
-        border = border,
-    ) {
-        Icon(
-            painter = icon.rememberPainter(),
-            contentDescription = contentDescription,
-            modifier = Modifier.size(iconSize),
-        )
-    }
+  UnboundedRippleIconButton(
+    onClick = onClick,
+    modifier = modifier,
+    enabled = enabled,
+    colors = colors,
+    shape = shape,
+    buttonPadding = buttonPadding,
+    interactionSource = interactionSource,
+    rippleRadius = null,
+    border = border,
+  ) {
+    content?.invoke(this)
+      ?: Icon(
+        painter = icon.rememberPainter(),
+        contentDescription = contentDescription,
+        modifier = Modifier.size(iconSize),
+      )
+  }
 }
 
 /** Default values for [CustomActionMediaButton]. */
 public object CustomActionMediaButtonDefaults {
-    @Composable
-    public fun buttonColors(
-        colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    ): IconButtonColors = IconButtonDefaults.filledIconButtonColors(
-        containerColor = colorScheme.secondary,
-        contentColor = colorScheme.onSecondary,
-        disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-        disabledContentColor = colorScheme.onSurface.toDisabledColor(),
+  @Composable
+  public fun buttonColors(colorScheme: ColorScheme = MaterialTheme.colorScheme): IconButtonColors =
+    IconButtonDefaults.filledIconButtonColors(
+      containerColor = colorScheme.secondary,
+      contentColor = colorScheme.onSecondary,
+      disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+      disabledContentColor = colorScheme.onSurface.toDisabledColor(),
     )
 }

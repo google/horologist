@@ -16,11 +16,5 @@
 
 package com.google.android.horologist.audio
 
-/**
- * Data class holding the current state of the volume system.
- */
-public data class VolumeState(
-    val current: Int,
-    val max: Int,
-    val min: Int = 0,
-)
+/** Data class holding the current state of the volume system. */
+public data class VolumeState(val current: Int, val max: Int, val min: Int = 0)

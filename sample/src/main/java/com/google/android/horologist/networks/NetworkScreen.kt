@@ -34,66 +34,51 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnStat
 
 @Composable
 fun NetworkScreen(
-    viewModel: NetworkScreenViewModel = viewModel(factory = NetworkScreenViewModel.Factory),
+  viewModel: NetworkScreenViewModel = viewModel(factory = NetworkScreenViewModel.Factory)
 ) {
-    val uiState by viewModel.state.collectAsStateWithLifecycle()
+  val uiState by viewModel.state.collectAsStateWithLifecycle()
 
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ScalingLazyColumnDefaults.ItemType.Chip,
-            last = ScalingLazyColumnDefaults.ItemType.Text,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding =
+        padding(
+          first = ScalingLazyColumnDefaults.ItemType.Chip,
+          last = ScalingLazyColumnDefaults.ItemType.Text,
+        )
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(
-            columnState = columnState,
-        ) {
-            item {
-                Chip(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = { viewModel.makeRequests() },
-                    label = {
-                        Text("Requests")
-                    },
-                )
-            }
-            items(uiState.responses.entries.toList()) { (name, response) ->
-                Text(text = "$name: $response")
-            }
+  ScreenScaffold(scrollState = columnState) {
+    ScalingLazyColumn(columnState = columnState) {
+      item {
+        Chip(
+          modifier = Modifier.fillMaxWidth(),
+          onClick = { viewModel.makeRequests() },
+          label = { Text("Requests") },
+        )
+      }
+      items(uiState.responses.entries.toList()) { (name, response) ->
+        Text(text = "$name: $response")
+      }
 
-            item {
-                ListHeader {
-                    Text("Networks")
-                }
-            }
-            items(uiState.networks.networks) {
-                val downloads = uiState.dataUsage.dataByType[it.networkInfo.type] ?: 0
-                Chip(
+      item { ListHeader { Text("Networks") } }
+      items(uiState.networks.networks) {
+        val downloads = uiState.dataUsage.dataByType[it.networkInfo.type] ?: 0
+        Chip(
+          modifier = Modifier.fillMaxWidth(),
+          label = { Text(text = "${it.id} ${it.networkInfo.type} ${it.status}") },
+          onClick = {},
+          secondaryLabel = { Text(text = "bytes: $downloads") },
+        )
+      }
 
-                    modifier = Modifier.fillMaxWidth(),
-                    label = {
-                        Text(text = "${it.id} ${it.networkInfo.type} ${it.status}")
-                    },
-                    onClick = { },
-                    secondaryLabel = {
-                        Text(text = "bytes: $downloads")
-                    },
-                )
-            }
-
-            item {
-                ListHeader {
-                    Text("Events")
-                }
-            }
-            items(uiState.requests.takeLast(5).reversed()) {
-                if (it is InMemoryStatusLogger.Event.NetworkResponse) {
-                    Text(text = "Network: ${it.networkInfo.type} ${it.bytesTransferred}")
-                } else {
-                    Text(text = it.message)
-                }
-            }
+      item { ListHeader { Text("Events") } }
+      items(uiState.requests.takeLast(5).reversed()) {
+        if (it is InMemoryStatusLogger.Event.NetworkResponse) {
+          Text(text = "Network: ${it.networkInfo.type} ${it.bytesTransferred}")
+        } else {
+          Text(text = it.message)
         }
+      }
     }
+  }
 }

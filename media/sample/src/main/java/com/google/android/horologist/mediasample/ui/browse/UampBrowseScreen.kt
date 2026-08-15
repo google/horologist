@@ -27,23 +27,24 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampBrowseScreen(
-    uampBrowseScreenViewModel: UampBrowseScreenViewModel,
-    onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
-    onPlaylistsClick: () -> Unit,
-    onSettingsClick: () -> Unit,
-    modifier: Modifier = Modifier,
+  uampBrowseScreenViewModel: UampBrowseScreenViewModel,
+  onDownloadItemClick: (PlaylistDownloadUiModel) -> Unit,
+  onPlaylistsClick: () -> Unit,
+  onSettingsClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val uiState by uampBrowseScreenViewModel.uiState.collectAsStateWithLifecycle()
+  val uiState by uampBrowseScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    PlaylistDownloadBrowseScreen(
-        browseScreenState = uiState,
-        onDownloadItemClick = onDownloadItemClick,
-        onDownloadItemInProgressClick = {
-            // TODO: https://github.com/google/horologist/issues/678
-        },
-        onPlaylistsClick = onPlaylistsClick,
-        onSettingsClick = onSettingsClick,
-        modifier = modifier,
-        onDownloadItemInProgressClickActionLabel = stringResource(id = R.string.browse_download_cancel_action_label),
-    )
+  PlaylistDownloadBrowseScreen(
+    browseScreenState = uiState,
+    onDownloadItemClick = onDownloadItemClick,
+    onDownloadItemInProgressClick = {
+      // TODO: https://github.com/google/horologist/issues/678
+    },
+    onPlaylistsClick = onPlaylistsClick,
+    onSettingsClick = onSettingsClick,
+    modifier = modifier,
+    onDownloadItemInProgressClickActionLabel =
+      stringResource(id = R.string.browse_download_cancel_action_label),
+  )
 }

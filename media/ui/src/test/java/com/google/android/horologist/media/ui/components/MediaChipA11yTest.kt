@@ -31,35 +31,33 @@ import org.junit.Test
 
 class MediaChipA11yTest : WearLegacyA11yTest() {
 
-    override val imageLoader = FakeImageLoaderEngine.Builder()
-        .intercept(
-            predicate = {
-                it == FakeImageLoader.TestIconResourceUri
-            },
-            interceptor = {
-                SuccessResult(
-                    drawable = ContextCompat.getDrawable(
-                        it.request.context,
-                        FakeImageLoader.TestIconResource,
-                    )!!,
-                    request = it.request,
-                    dataSource = DataSource.DISK,
-                )
-            },
-        )
-        .build()
+  override val imageLoader =
+    FakeImageLoaderEngine.Builder()
+      .intercept(
+        predicate = { it == FakeImageLoader.TestIconResourceUri },
+        interceptor = {
+          SuccessResult(
+            drawable =
+              ContextCompat.getDrawable(it.request.context, FakeImageLoader.TestIconResource)!!,
+            request = it.request,
+            dataSource = DataSource.DISK,
+          )
+        },
+      )
+      .build()
 
-    @Test
-    fun a11y() {
-        runComponentTest {
-            MediaChip(
-                media = MediaUiModel.Ready(
-                    id = "id",
-                    title = "Red Hot Chilli Peppers",
-                    artwork = CoilPaintable(FakeImageLoader.TestIconResourceUri),
-                ),
-                onClick = {},
-            )
-        }
+  @Test
+  fun a11y() {
+    runComponentTest {
+      MediaChip(
+        media =
+          MediaUiModel.Ready(
+            id = "id",
+            title = "Red Hot Chilli Peppers",
+            artwork = CoilPaintable(FakeImageLoader.TestIconResourceUri),
+          ),
+        onClick = {},
+      )
     }
+  }
 }

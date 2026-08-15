@@ -41,87 +41,84 @@ import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 @ExperimentalHorologistApi
 @Composable
 public fun PlayPauseButton(
-    onPlayClick: () -> Unit,
-    onPauseClick: () -> Unit,
-    playing: Boolean,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    iconSize: Dp = 32.dp,
-    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
-    progress: @Composable () -> Unit = {},
+  onPlayClick: () -> Unit,
+  onPauseClick: () -> Unit,
+  playing: Boolean,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+  iconSize: Dp = 32.dp,
+  backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
+  progress: @Composable () -> Unit = {},
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .clip(CircleShape)
-            .background(backgroundColor),
-        contentAlignment = Alignment.Center,
-    ) {
-        progress()
+  Box(
+    modifier = modifier.fillMaxSize().clip(CircleShape).background(backgroundColor),
+    contentAlignment = Alignment.Center,
+  ) {
+    progress()
 
-        if (playing) {
-            PauseButton(
-                onClick = onPauseClick,
-                enabled = enabled,
-                modifier = modifier,
-                colors = colors,
-                iconSize = iconSize,
-            )
-        } else {
-            PlayButton(
-                onClick = onPlayClick,
-                enabled = enabled,
-                modifier = modifier,
-                colors = colors,
-                iconSize = iconSize,
-            )
-        }
+    if (playing) {
+      PauseButton(
+        onClick = onPauseClick,
+        enabled = enabled,
+        modifier = modifier,
+        colors = colors,
+        iconSize = iconSize,
+      )
+    } else {
+      PlayButton(
+        onClick = onPlayClick,
+        enabled = enabled,
+        modifier = modifier,
+        colors = colors,
+        iconSize = iconSize,
+      )
     }
+  }
 }
 
 @ExperimentalHorologistApi
 @Composable
 public fun PlayPauseProgressButton(
-    onPlayClick: () -> Unit,
-    onPauseClick: () -> Unit,
-    playing: Boolean,
-    trackPositionUiModel: TrackPositionUiModel,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    iconSize: Dp = 32.dp,
-    progressStrokeWidth: Dp = 4.dp,
-    progressColor: Color = MaterialTheme.colors.primary,
-    trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
-    backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
+  onPlayClick: () -> Unit,
+  onPauseClick: () -> Unit,
+  playing: Boolean,
+  trackPositionUiModel: TrackPositionUiModel,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+  iconSize: Dp = 32.dp,
+  progressStrokeWidth: Dp = 4.dp,
+  progressColor: Color = MaterialTheme.colors.primary,
+  trackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = 0.10f),
+  backgroundColor: Color = MaterialTheme.colors.onBackground.copy(alpha = 0.10f),
 ) {
-    PlayPauseButton(
-        onPlayClick = onPlayClick,
-        onPauseClick = onPauseClick,
-        enabled = enabled,
-        playing = playing,
-        modifier = modifier,
-        colors = colors,
-        iconSize = iconSize,
-        backgroundColor = backgroundColor,
-    ) {
-        val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
-        if (trackPositionUiModel.isLoading) {
-            CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize(),
-                indicatorColor = progressColor,
-                trackColor = trackColor,
-                strokeWidth = progressStrokeWidth,
-            )
-        } else if (trackPositionUiModel.showProgress) {
-            CircularProgressIndicator(
-                modifier = Modifier.fillMaxSize(),
-                progress = progress,
-                indicatorColor = progressColor,
-                trackColor = trackColor,
-                strokeWidth = progressStrokeWidth,
-            )
-        }
+  PlayPauseButton(
+    onPlayClick = onPlayClick,
+    onPauseClick = onPauseClick,
+    enabled = enabled,
+    playing = playing,
+    modifier = modifier,
+    colors = colors,
+    iconSize = iconSize,
+    backgroundColor = backgroundColor,
+  ) {
+    val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
+    if (trackPositionUiModel.isLoading) {
+      CircularProgressIndicator(
+        modifier = Modifier.fillMaxSize(),
+        indicatorColor = progressColor,
+        trackColor = trackColor,
+        strokeWidth = progressStrokeWidth,
+      )
+    } else if (trackPositionUiModel.showProgress) {
+      CircularProgressIndicator(
+        modifier = Modifier.fillMaxSize(),
+        progress = progress,
+        indicatorColor = progressColor,
+        trackColor = trackColor,
+        strokeWidth = progressStrokeWidth,
+      )
     }
+  }
 }

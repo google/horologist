@@ -39,52 +39,55 @@ import org.robolectric.RobolectricTestRunner
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
 class VolumeScreenTest {
-    private lateinit var vibrator: Vibrator
-    private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private var volumeState: VolumeState = VolumeState(current = 5, max = 25)
-    private val volumeRepository = FakeVolumeRepository(volumeState)
-    private val audioOutputRepository = FakeAudioOutputRepository()
-    private lateinit var model: VolumeViewModel
+  private lateinit var vibrator: Vibrator
+  private val context = InstrumentationRegistry.getInstrumentation().targetContext
+  private var volumeState: VolumeState = VolumeState(current = 5, max = 25)
+  private val volumeRepository = FakeVolumeRepository(volumeState)
+  private val audioOutputRepository = FakeAudioOutputRepository()
+  private lateinit var model: VolumeViewModel
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Before
-    fun setUp() {
-        volumeState = VolumeState(current = 5, max = 25)
-        vibrator =
-            context.applicationContext.getSystemService(Vibrator::class.java)
-        model = VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {
-            volumeRepository.close()
-            audioOutputRepository.close()
-        }, vibrator)
+  @Before
+  fun setUp() {
+    volumeState = VolumeState(current = 5, max = 25)
+    vibrator = context.applicationContext.getSystemService(Vibrator::class.java)
+    model =
+      VolumeViewModel(
+        volumeRepository,
+        audioOutputRepository,
+        onCleared = {
+          volumeRepository.close()
+          audioOutputRepository.close()
+        },
+        vibrator,
+      )
 
-        composeTestRule.setContent {
-            val focusRequester = remember { FocusRequester() }
-            VolumeScreen(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .focusRequester(focusRequester),
-                model,
-            )
-        }
+    composeTestRule.setContent {
+      val focusRequester = remember { FocusRequester() }
+      VolumeScreen(modifier = Modifier.fillMaxSize().focusRequester(focusRequester), model)
     }
+  }
 
-    @Test
-    fun clickVolumeUp_increaseVolume() {
-        composeTestRule.onNodeWithContentDescription(
-            context.getString(R.string.horologist_volume_screen_volume_up_content_description),
-        ).performClick()
+  @Test
+  fun clickVolumeUp_increaseVolume() {
+    composeTestRule
+      .onNodeWithContentDescription(
+        context.getString(R.string.horologist_volume_screen_volume_up_content_description)
+      )
+      .performClick()
 
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(6)
-    }
+    assertThat(volumeRepository.volumeState.value.current).isEqualTo(6)
+  }
 
-    @Test
-    fun clickVolumeDown_decreasesVolume() {
-        composeTestRule.onNodeWithContentDescription(
-            context.getString(R.string.horologist_volume_screen_volume_down_content_description),
-        ).performClick()
+  @Test
+  fun clickVolumeDown_decreasesVolume() {
+    composeTestRule
+      .onNodeWithContentDescription(
+        context.getString(R.string.horologist_volume_screen_volume_down_content_description)
+      )
+      .performClick()
 
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(4)
-    }
+    assertThat(volumeRepository.volumeState.value.current).isEqualTo(4)
+  }
 }

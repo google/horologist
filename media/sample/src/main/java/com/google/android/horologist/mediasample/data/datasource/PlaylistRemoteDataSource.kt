@@ -24,11 +24,10 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
 class PlaylistRemoteDataSource(
-    private val ioDispatcher: CoroutineDispatcher,
-    private val uampService: UampService,
+  private val ioDispatcher: CoroutineDispatcher,
+  private val uampService: UampService,
 ) {
 
-    fun getPlaylists(): Flow<CatalogApiModel> = flow {
-        emit(uampService.catalog())
-    }.flowOn(ioDispatcher)
+  fun getPlaylists(): Flow<CatalogApiModel> =
+    flow { emit(uampService.catalog()) }.flowOn(ioDispatcher)
 }

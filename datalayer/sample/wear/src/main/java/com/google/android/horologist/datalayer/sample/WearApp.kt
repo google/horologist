@@ -43,78 +43,73 @@ import com.google.android.horologist.datalayer.sample.screens.tracking.TrackingS
 
 @Composable
 fun WearApp(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberSwipeDismissableNavController(),
+  modifier: Modifier = Modifier,
+  navController: NavHostController = rememberSwipeDismissableNavController(),
 ) {
-    AppScaffold {
-        SwipeDismissableNavHost(
-            startDestination = Screen.MainScreen.route,
-            navController = navController,
-            modifier = modifier,
-        ) {
-            composable(
-                route = Screen.MainScreen.route,
-            ) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
+  AppScaffold {
+    SwipeDismissableNavHost(
+      startDestination = Screen.MainScreen.route,
+      navController = navController,
+      modifier = modifier,
+    ) {
+      composable(route = Screen.MainScreen.route) {
+        val columnState =
+          rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
-                ScreenScaffold(scrollState = columnState) {
-                    MainScreen(
-                        navigateToRoute = navController::navigate,
-                        columnState = columnState,
-                    )
-                }
-            }
-            composable(route = Screen.CounterScreen.route) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
-
-                ScreenScaffold(scrollState = columnState) {
-                    DataLayerScreen(columnState = columnState)
-                }
-            }
-            composable(route = Screen.ListNodesScreen.route) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
-
-                ScreenScaffold(scrollState = columnState) {
-                    DataLayerNodesScreen(columnState = columnState)
-                }
-            }
-            composable(route = Screen.AppHelperTrackingScreen.route) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
-
-                ScreenScaffold(scrollState = columnState) {
-                    TrackingScreen(
-                        onDisplayInfoClicked = navController::navigateToInfoScreen,
-                        columnState = columnState,
-                    )
-                }
-            }
-            composable(route = Screen.AppHelperNodesActionsScreen.route) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
-
-                ScreenScaffold(scrollState = columnState) {
-                    NodesActionsScreen(
-                        onNodeClick = navController::navigateToNodeDetailsScreen,
-                        columnState = columnState,
-                    )
-                }
-            }
-            composable(route = Screen.AppHelperNodesListenerScreen.route) {
-                val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
-
-                ScreenScaffold(scrollState = columnState) {
-                    NodesListenerScreen(columnState = columnState)
-                }
-            }
-            nodeDetailsScreen()
-            infoScreen(
-                onDismissClick = navController::popBackStack,
-            )
+        ScreenScaffold(scrollState = columnState) {
+          MainScreen(navigateToRoute = navController::navigate, columnState = columnState)
         }
+      }
+      composable(route = Screen.CounterScreen.route) {
+        val columnState =
+          rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
+
+        ScreenScaffold(scrollState = columnState) { DataLayerScreen(columnState = columnState) }
+      }
+      composable(route = Screen.ListNodesScreen.route) {
+        val columnState =
+          rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
+
+        ScreenScaffold(scrollState = columnState) {
+          DataLayerNodesScreen(columnState = columnState)
+        }
+      }
+      composable(route = Screen.AppHelperTrackingScreen.route) {
+        val columnState =
+          rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
+
+        ScreenScaffold(scrollState = columnState) {
+          TrackingScreen(
+            onDisplayInfoClicked = navController::navigateToInfoScreen,
+            columnState = columnState,
+          )
+        }
+      }
+      composable(route = Screen.AppHelperNodesActionsScreen.route) {
+        val columnState =
+          rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
+
+        ScreenScaffold(scrollState = columnState) {
+          NodesActionsScreen(
+            onNodeClick = navController::navigateToNodeDetailsScreen,
+            columnState = columnState,
+          )
+        }
+      }
+      composable(route = Screen.AppHelperNodesListenerScreen.route) {
+        val columnState =
+          rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
+
+        ScreenScaffold(scrollState = columnState) { NodesListenerScreen(columnState = columnState) }
+      }
+      nodeDetailsScreen()
+      infoScreen(onDismissClick = navController::popBackStack)
     }
+  }
 }
 
 @WearPreviewSmallRound
 @Composable
 fun DefaultPreview() {
-    WearApp()
+  WearApp()
 }

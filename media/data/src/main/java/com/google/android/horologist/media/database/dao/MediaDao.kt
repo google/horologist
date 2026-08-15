@@ -23,21 +23,20 @@ import androidx.room.Query
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.database.model.MediaEntity
 
-/**
- * DAO for [com.google.android.horologist.media.database.model.MediaEntity].
- */
+/** DAO for [com.google.android.horologist.media.database.model.MediaEntity]. */
 @ExperimentalHorologistApi
 @Dao
 public interface MediaDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    public suspend fun upsert(mediaList: List<MediaEntity>)
+  @Insert(onConflict = OnConflictStrategy.REPLACE)
+  public suspend fun upsert(mediaList: List<MediaEntity>)
 
-    @Query(
-        value = """
+  @Query(
+    value =
+      """
         DELETE FROM MediaEntity
         WHERE mediaId in (:mediaIds)
-    """,
-    )
-    public suspend fun delete(mediaIds: List<String>)
+    """
+  )
+  public suspend fun delete(mediaIds: List<String>)
 }

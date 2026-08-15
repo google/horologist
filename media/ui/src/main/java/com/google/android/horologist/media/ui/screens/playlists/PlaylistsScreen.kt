@@ -44,109 +44,99 @@ import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 @ExperimentalHorologistApi
 @Composable
 public fun <T> PlaylistsScreen(
-    playlists: List<T>,
-    playlistContent: @Composable (playlist: T) -> Unit,
-    modifier: Modifier = Modifier,
+  playlists: List<T>,
+  playlistContent: @Composable (playlist: T) -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    PlaylistsScreen(
-        playlistsScreenState = PlaylistsScreenState.Loaded(playlists),
-        playlistContent = playlistContent,
-        modifier = modifier,
-    )
+  PlaylistsScreen(
+    playlistsScreenState = PlaylistsScreenState.Loaded(playlists),
+    playlistContent = playlistContent,
+    modifier = modifier,
+  )
 }
 
 @ExperimentalHorologistApi
 @Composable
 public fun <T> PlaylistsScreen(
-    playlistsScreenState: PlaylistsScreenState<T>,
-    playlistContent: @Composable (playlist: T) -> Unit,
-    modifier: Modifier = Modifier,
+  playlistsScreenState: PlaylistsScreenState<T>,
+  playlistContent: @Composable (playlist: T) -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
-    // TODO This should be folded into SectionedList
-    val placeholderState =
-        rememberActivePlaceholderState { playlistsScreenState !is PlaylistsScreenState.Loading }
+  // TODO This should be folded into SectionedList
+  val placeholderState = rememberActivePlaceholderState {
+    playlistsScreenState !is PlaylistsScreenState.Loading
+  }
 
-    ScreenScaffold(scrollState = columnState) {
-        SectionedList(
-            modifier = modifier,
-            columnState = columnState,
-        ) {
-            val sectionState = when (playlistsScreenState) {
-                is PlaylistsScreenState.Loaded<T> -> {
-                    Section.State.Loaded(playlistsScreenState.playlistList)
-                }
+  ScreenScaffold(scrollState = columnState) {
+    SectionedList(modifier = modifier, columnState = columnState) {
+      val sectionState =
+        when (playlistsScreenState) {
+          is PlaylistsScreenState.Loaded<T> -> {
+            Section.State.Loaded(playlistsScreenState.playlistList)
+          }
 
-                PlaylistsScreenState.Failed -> Section.State.Failed
-                PlaylistsScreenState.Loading -> Section.State.Loading
-            }
-
-            section(state = sectionState) {
-                header {
-                    Title(
-                        R.string.horologist_browse_playlist_title,
-                        Modifier.padding(bottom = 12.dp),
-                    )
-                }
-
-                loaded { playlistContent(it) }
-
-                loading(count = 4) {
-                    Column {
-                        PlaceholderChip(
-                            colors = ChipDefaults.secondaryChipColors(),
-                            placeholderState = placeholderState,
-                            secondaryLabel = false,
-                        )
-                    }
-                }
-            }
+          PlaylistsScreenState.Failed -> Section.State.Failed
+          PlaylistsScreenState.Loading -> Section.State.Loading
         }
+
+      section(state = sectionState) {
+        header {
+          Title(R.string.horologist_browse_playlist_title, Modifier.padding(bottom = 12.dp))
+        }
+
+        loaded { playlistContent(it) }
+
+        loading(count = 4) {
+          Column {
+            PlaceholderChip(
+              colors = ChipDefaults.secondaryChipColors(),
+              placeholderState = placeholderState,
+              secondaryLabel = false,
+            )
+          }
+        }
+      }
     }
+  }
 }
 
 @ExperimentalHorologistApi
 @Composable
 public fun PlaylistsScreen(
-    playlistsScreenState: PlaylistsScreenState<PlaylistUiModel>,
-    onPlaylistItemClick: (PlaylistUiModel) -> Unit,
-    modifier: Modifier = Modifier,
-    playlistItemArtworkPlaceholder: Painter? = null,
+  playlistsScreenState: PlaylistsScreenState<PlaylistUiModel>,
+  onPlaylistItemClick: (PlaylistUiModel) -> Unit,
+  modifier: Modifier = Modifier,
+  playlistItemArtworkPlaceholder: Painter? = null,
 ) {
-    val playlistContent: @Composable (playlist: PlaylistUiModel) -> Unit = { playlist ->
-        Chip(
-            label = playlist.title,
-            onClick = { onPlaylistItemClick(playlist) },
-            icon = CoilPaintable(playlist.artworkUri, playlistItemArtworkPlaceholder),
-            largeIcon = true,
-            colors = ChipDefaults.secondaryChipColors(),
-        )
-    }
-
-    PlaylistsScreen(
-        playlistsScreenState = playlistsScreenState,
-        playlistContent = playlistContent,
-        modifier = modifier,
+  val playlistContent: @Composable (playlist: PlaylistUiModel) -> Unit = { playlist ->
+    Chip(
+      label = playlist.title,
+      onClick = { onPlaylistItemClick(playlist) },
+      icon = CoilPaintable(playlist.artworkUri, playlistItemArtworkPlaceholder),
+      largeIcon = true,
+      colors = ChipDefaults.secondaryChipColors(),
     )
+  }
+
+  PlaylistsScreen(
+    playlistsScreenState = playlistsScreenState,
+    playlistContent = playlistContent,
+    modifier = modifier,
+  )
 }
 
-/**
- * Represents the state of [PlaylistsScreen].
- */
+/** Represents the state of [PlaylistsScreen]. */
 @ExperimentalHorologistApi
 public sealed class PlaylistsScreenState<out T> {
 
-    public object Loading : PlaylistsScreenState<Nothing>()
+  public object Loading : PlaylistsScreenState<Nothing>()
 
-    public data class Loaded<T>(
-        val playlistList: List<T>,
-    ) : PlaylistsScreenState<T>()
+  public data class Loaded<T>(val playlistList: List<T>) : PlaylistsScreenState<T>()
 
-    public object Failed : PlaylistsScreenState<Nothing>()
+  public object Failed : PlaylistsScreenState<Nothing>()
 }

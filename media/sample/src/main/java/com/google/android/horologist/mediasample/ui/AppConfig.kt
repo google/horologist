@@ -26,12 +26,12 @@ import java.io.File
 
 @SuppressLint("UnsafeOptInUsageError")
 data class AppConfig(
-    val offloadEnabled: Boolean = Build.VERSION.SDK_INT >= 30,
-    val strictNetworking: NetworkingRules? = UampNetworkingRules,
-    val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp",
-    val cacheItems: Boolean = true,
-    val cacheWriteBack: Boolean = true,
-    val strictMode: Boolean = false,
-    val cacheDir: File? = null,
-    val audioOffloadPreferences: AudioOffloadPreferences = AudioOffloadPreferences.Builder().build(),
+  val offloadEnabled: Boolean = Build.VERSION.SDK_INT >= 30,
+  val strictNetworking: NetworkingRules? = UampNetworkingRules,
+  val deeplinkUriPrefix: String = "uamp${if (BuildConfig.DEBUG) "-debug" else ""}://uamp",
+  val cacheItems: Boolean = true,
+  val cacheWriteBack: Boolean = true,
+  val strictMode: Boolean = false,
+  val cacheDir: File? = null,
+  val audioOffloadPreferences: AudioOffloadPreferences = AudioOffloadPreferences.Builder().build(),
 )

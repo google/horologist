@@ -24,6 +24,7 @@ import androidx.concurrent.futures.await
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.testing.TestTileClient
 import com.google.common.truth.Truth.assertThat
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
@@ -35,56 +36,56 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
-import kotlin.time.Duration.Companion.seconds
 
 @RunWith(RobolectricTestRunner::class)
 public class SuspendingCancelTileTest {
-    private lateinit var fakeCoroutineScope: TestScope
-    private lateinit var tileService: TestTileService
-    private lateinit var tileServiceClient: TestTileClient<TestTileService>
+  private lateinit var fakeCoroutineScope: TestScope
+  private lateinit var tileService: TestTileService
+  private lateinit var tileServiceClient: TestTileClient<TestTileService>
 
-    @Before
-    fun setUp() {
-        fakeCoroutineScope = TestScope(UnconfinedTestDispatcher())
+  @Before
+  fun setUp() {
+    fakeCoroutineScope = TestScope(UnconfinedTestDispatcher())
 
-        tileService = TestTileService()
-        tileServiceClient = TestTileClient(
-            tileService,
-            fakeCoroutineScope,
-            fakeCoroutineScope.coroutineContext[CoroutineDispatcher]!!,
-        )
-    }
+    tileService = TestTileService()
+    tileServiceClient =
+      TestTileClient(
+        tileService,
+        fakeCoroutineScope,
+        fakeCoroutineScope.coroutineContext[CoroutineDispatcher]!!,
+      )
+  }
 
-    @Test
-    fun tileProviderReturnsTile() = fakeCoroutineScope.runTest {
-        val tileRequest = RequestBuilders.TileRequest.Builder().build()
+  @Test
+  fun tileProviderReturnsTile() = fakeCoroutineScope.runTest {
+    val tileRequest = RequestBuilders.TileRequest.Builder().build()
 
-        val tileFuture = tileServiceClient.requestTile(tileRequest)
-        shadowOf(Looper.getMainLooper()).idle()
-        val tile = tileFuture.await()
+    val tileFuture = tileServiceClient.requestTile(tileRequest)
+    shadowOf(Looper.getMainLooper()).idle()
+    val tile = tileFuture.await()
 
-        assertThat(tile.resourcesVersion).isEqualTo("1")
-        assertThat(tileService.started).isEqualTo(1)
-        assertThat(tileService.completed).isEqualTo(1)
-        assertThat(tileService.cancelled).isEqualTo(0)
-    }
+    assertThat(tile.resourcesVersion).isEqualTo("1")
+    assertThat(tileService.started).isEqualTo(1)
+    assertThat(tileService.completed).isEqualTo(1)
+    assertThat(tileService.cancelled).isEqualTo(0)
+  }
 
-    @Test
-    @Ignore("Fails on https://issuetracker.google.com/issues/223047254")
-    fun tileProviderCanBeCancelled() = fakeCoroutineScope.runTest {
-        tileService.delayDuration = 3.seconds
+  @Test
+  @Ignore("Fails on https://issuetracker.google.com/issues/223047254")
+  fun tileProviderCanBeCancelled() = fakeCoroutineScope.runTest {
+    tileService.delayDuration = 3.seconds
 
-        val tileRequest = RequestBuilders.TileRequest.Builder().build()
+    val tileRequest = RequestBuilders.TileRequest.Builder().build()
 
-        val tileFuture = tileServiceClient.requestTile(tileRequest)
+    val tileFuture = tileServiceClient.requestTile(tileRequest)
 
-        tileFuture.cancel(false)
+    tileFuture.cancel(false)
 
-        shadowOf(Looper.getMainLooper()).idle()
+    shadowOf(Looper.getMainLooper()).idle()
 
-        assertThat(tileService.started).isEqualTo(1)
-        assertThat(tileService.completed).isEqualTo(0)
-        // Fails on https://issuetracker.google.com/issues/223047254
-        assertThat(tileService.cancelled).isEqualTo(1)
-    }
+    assertThat(tileService.started).isEqualTo(1)
+    assertThat(tileService.completed).isEqualTo(0)
+    // Fails on https://issuetracker.google.com/issues/223047254
+    assertThat(tileService.cancelled).isEqualTo(1)
+  }
 }

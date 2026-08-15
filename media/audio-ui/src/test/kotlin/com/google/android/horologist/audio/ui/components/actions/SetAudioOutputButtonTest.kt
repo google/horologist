@@ -33,71 +33,73 @@ import org.junit.Test
 
 class SetAudioOutputButtonTest : WearLegacyComponentTest() {
 
-    @Test
-    fun givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown() {
-        val currentVolume = 5
+  @Test
+  fun givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown() {
+    val currentVolume = 5
 
-        runComponentTest {
-            SetAudioOutputButton(
-                onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume, max = 10),
-                audioOutputUi = AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
-            )
-        }
+    runComponentTest {
+      SetAudioOutputButton(
+        onVolumeClick = {},
+        volumeUiState = VolumeUiState(current = currentVolume, max = 10),
+        audioOutputUi =
+          AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
+      )
     }
+  }
 
-    @Test
-    fun givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
-        val currentVolume = 0
+  @Test
+  fun givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
+    val currentVolume = 0
 
-        runComponentTest {
-            SetAudioOutputButton(
-                onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume, max = 10),
-                audioOutputUi = AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
-            )
-        }
+    runComponentTest {
+      SetAudioOutputButton(
+        onVolumeClick = {},
+        volumeUiState = VolumeUiState(current = currentVolume, max = 10),
+        audioOutputUi =
+          AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
+      )
     }
+  }
 
-    @Test
-    fun givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
-        val currentVolume = 10
+  @Test
+  fun givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
+    val currentVolume = 10
 
-        runComponentTest {
-            SetAudioOutputButton(
-                onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume, max = 10),
-                audioOutputUi = AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
-            )
-        }
+    runComponentTest {
+      SetAudioOutputButton(
+        onVolumeClick = {},
+        volumeUiState = VolumeUiState(current = currentVolume, max = 10),
+        audioOutputUi =
+          AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
+      )
     }
+  }
 
-    @Test
-    fun givenNoVolumeUiState_thenIconIsVolumeUp() {
-        runComponentTest {
-            SetAudioOutputButton(
-                onVolumeClick = {},
-                audioOutputUi = AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
-            )
-        }
+  @Test
+  fun givenNoVolumeUiState_thenIconIsVolumeUp() {
+    runComponentTest {
+      SetAudioOutputButton(
+        onVolumeClick = {},
+        audioOutputUi =
+          AudioOutputUi(displayName = "", imageVector = Icons.Filled.Headphones, isConnected = true),
+      )
     }
+  }
 
-    @Test
-    fun givenNoAudioOutputUi_thenIconIsMediaOutputOff() {
-        runComponentTest {
-            SetAudioOutputButton(onVolumeClick = {})
-        }
-    }
+  @Test
+  fun givenNoAudioOutputUi_thenIconIsMediaOutputOff() {
+    runComponentTest { SetAudioOutputButton(onVolumeClick = {}) }
+  }
 
-    @Composable
-    override fun ComponentScaffold(content: @Composable () -> Unit) {
-        Box(
-            modifier = Modifier
-                .wrapContentSize()
-                .background(Color.Black.copy(alpha = 0.5f))
-                .border(1.dp, Color.White),
-        ) {
-            content()
-        }
+  @Composable
+  override fun ComponentScaffold(content: @Composable () -> Unit) {
+    Box(
+      modifier =
+        Modifier.wrapContentSize()
+          .background(Color.Black.copy(alpha = 0.5f))
+          .border(1.dp, Color.White)
+    ) {
+      content()
     }
+  }
 }

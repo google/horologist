@@ -31,31 +31,35 @@ import com.google.android.horologist.tiles.images.toImageResource
 
 @Preview(device = WearDevices.LARGE_ROUND)
 @Preview(device = WearDevices.SMALL_ROUND)
-fun SampleTilePreview(context: Context): TilePreviewData = tileRendererPreviewData(
-    renderer = MediaCollectionsTileRenderer(
-        context = context,
-        debugResourceMode = BuildConfig.DEBUG,
-    ),
-    tileState = MediaCollectionsTileRenderer.MediaCollectionsState(
+fun SampleTilePreview(context: Context): TilePreviewData =
+  tileRendererPreviewData(
+    renderer =
+      MediaCollectionsTileRenderer(context = context, debugResourceMode = BuildConfig.DEBUG),
+    tileState =
+      MediaCollectionsTileRenderer.MediaCollectionsState(
         chipName = R.string.sample_playlists,
         chipAction = ActionBuilders.LaunchAction.Builder().build(),
-        collection1 = MediaCollectionsTileRenderer.MediaCollection(
+        collection1 =
+          MediaCollectionsTileRenderer.MediaCollection(
             name = "Kyoto Songs",
             artworkId = "s1",
             action = ActionBuilders.LaunchAction.Builder().build(),
-        ),
-        collection2 = MediaCollectionsTileRenderer.MediaCollection(
+          ),
+        collection2 =
+          MediaCollectionsTileRenderer.MediaCollection(
             name = "Podcasts",
             artworkId = "c2",
             action = ActionBuilders.LaunchAction.Builder().build(),
-        ),
-    ),
-    resourceState = MediaCollectionsTileRenderer.ResourceState(
+          ),
+      ),
+    resourceState =
+      MediaCollectionsTileRenderer.ResourceState(
         appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
-        images = mapOf(
-            "s1" to BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)
-                ?.toImageResource(),
+        images =
+          mapOf(
+            "s1" to
+              BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)?.toImageResource(),
             "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
-        ),
-    ),
-)
+          ),
+      ),
+  )

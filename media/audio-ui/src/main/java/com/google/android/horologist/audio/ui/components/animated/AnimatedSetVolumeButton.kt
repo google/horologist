@@ -41,45 +41,37 @@ import com.google.android.horologist.audio.ui.VolumeUiState
  */
 @Composable
 public fun AnimatedSetVolumeButton(
-    onVolumeClick: () -> Unit,
-    volumeUiState: VolumeUiState,
-    modifier: Modifier = Modifier,
+  onVolumeClick: () -> Unit,
+  volumeUiState: VolumeUiState,
+  modifier: Modifier = Modifier,
 ) {
-    val volumeUp by rememberLottieComposition(
-        spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json"),
-    )
-    val volumeDown by rememberLottieComposition(
-        spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json"),
-    )
-    val lottieAnimatable = rememberLottieAnimatable()
+  val volumeUp by
+    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json"))
+  val volumeDown by
+    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json"))
+  val lottieAnimatable = rememberLottieAnimatable()
 
-    var lastVolume by remember { mutableIntStateOf(volumeUiState.current) }
+  var lastVolume by remember { mutableIntStateOf(volumeUiState.current) }
 
-    LaunchedEffect(volumeUiState) {
-        val lastVolumeBefore = lastVolume
-        lastVolume = volumeUiState.current
-        if (volumeUiState.current > lastVolumeBefore) {
-            lottieAnimatable.animate(
-                iterations = 1,
-                composition = volumeUp,
-            )
-        } else {
-            lottieAnimatable.animate(
-                iterations = 1,
-                composition = volumeDown,
-            )
-        }
+  LaunchedEffect(volumeUiState) {
+    val lastVolumeBefore = lastVolume
+    lastVolume = volumeUiState.current
+    if (volumeUiState.current > lastVolumeBefore) {
+      lottieAnimatable.animate(iterations = 1, composition = volumeUp)
+    } else {
+      lottieAnimatable.animate(iterations = 1, composition = volumeDown)
     }
+  }
 
-    Button(
-        modifier = modifier.size(ButtonDefaults.SmallButtonSize),
-        onClick = onVolumeClick,
-        colors = ButtonDefaults.iconButtonColors(),
-    ) {
-        LottieAnimation(
-            composition = volumeDown,
-            modifier = Modifier.size(24.dp),
-            progress = { lottieAnimatable.progress },
-        )
-    }
+  Button(
+    modifier = modifier.size(ButtonDefaults.SmallButtonSize),
+    onClick = onVolumeClick,
+    colors = ButtonDefaults.iconButtonColors(),
+  ) {
+    LottieAnimation(
+      composition = volumeDown,
+      modifier = Modifier.size(24.dp),
+      progress = { lottieAnimatable.progress },
+    )
+  }
 }

@@ -36,50 +36,53 @@ import org.robolectric.annotation.Config
 @RunWith(AndroidJUnit4::class)
 @Config(sdk = [35])
 class BatteryStatusMonitorTest {
-    private lateinit var powerManager: PowerManager
-    private lateinit var batteryManager: BatteryManager
-    private lateinit var batteryStatusMonitor: BatteryStatusMonitor
+  private lateinit var powerManager: PowerManager
+  private lateinit var batteryManager: BatteryManager
+  private lateinit var batteryStatusMonitor: BatteryStatusMonitor
 
-    @Before
-    fun setup() {
-        val applicationContext = ApplicationProvider.getApplicationContext<Application>()
-        batteryManager = applicationContext.getSystemService(BatteryManager::class.java)
-        powerManager = applicationContext.getSystemService(PowerManager::class.java)
-        batteryStatusMonitor = BatteryStatusMonitor(applicationContext)
-    }
+  @Before
+  fun setup() {
+    val applicationContext = ApplicationProvider.getApplicationContext<Application>()
+    batteryManager = applicationContext.getSystemService(BatteryManager::class.java)
+    powerManager = applicationContext.getSystemService(PowerManager::class.java)
+    batteryStatusMonitor = BatteryStatusMonitor(applicationContext)
+  }
 
-    @Test
-    fun readsFromBatteryManager() = runTest {
-        var status = batteryStatusMonitor.status.first()
+  @Test
+  fun readsFromBatteryManager() = runTest {
+    var status = batteryStatusMonitor.status.first()
 
-        assertThat(status).isEqualTo(
-            BatteryStatusMonitor.BatteryStatus(
-                batteryManager.isCharging,
-                powerManager.isDeviceIdleMode,
-                powerManager.isPowerSaveMode,
-            ),
+    assertThat(status)
+      .isEqualTo(
+        BatteryStatusMonitor.BatteryStatus(
+          batteryManager.isCharging,
+          powerManager.isDeviceIdleMode,
+          powerManager.isPowerSaveMode,
         )
+      )
 
-        shadowOf(batteryManager).setIsCharging(false)
-        status = batteryStatusMonitor.status.first()
+    shadowOf(batteryManager).setIsCharging(false)
+    status = batteryStatusMonitor.status.first()
 
-        assertThat(status).isEqualTo(
-            BatteryStatusMonitor.BatteryStatus(
-                false,
-                powerManager.isDeviceIdleMode,
-                powerManager.isPowerSaveMode,
-            ),
+    assertThat(status)
+      .isEqualTo(
+        BatteryStatusMonitor.BatteryStatus(
+          false,
+          powerManager.isDeviceIdleMode,
+          powerManager.isPowerSaveMode,
         )
+      )
 
-        shadowOf(batteryManager).setIsCharging(true)
-        status = batteryStatusMonitor.status.first()
+    shadowOf(batteryManager).setIsCharging(true)
+    status = batteryStatusMonitor.status.first()
 
-        assertThat(status).isEqualTo(
-            BatteryStatusMonitor.BatteryStatus(
-                true,
-                powerManager.isDeviceIdleMode,
-                powerManager.isPowerSaveMode,
-            ),
+    assertThat(status)
+      .isEqualTo(
+        BatteryStatusMonitor.BatteryStatus(
+          true,
+          powerManager.isDeviceIdleMode,
+          powerManager.isPowerSaveMode,
         )
-    }
+      )
+  }
 }

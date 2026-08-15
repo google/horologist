@@ -34,54 +34,53 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun UampPlaylistsScreen(
-    uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel,
-    onPlaylistItemClick: (PlaylistUiModel) -> Unit,
-    onErrorDialogCancelClick: () -> Unit,
+  uampPlaylistsScreenViewModel: UampPlaylistsScreenViewModel,
+  onPlaylistItemClick: (PlaylistUiModel) -> Unit,
+  onErrorDialogCancelClick: () -> Unit,
 ) {
-    val uiState by uampPlaylistsScreenViewModel.uiState.collectAsStateWithLifecycle()
+  val uiState by uampPlaylistsScreenViewModel.uiState.collectAsStateWithLifecycle()
 
-    val modifiedState = when (uiState) {
-        is PlaylistsScreenState.Loaded -> {
-            val modifiedPlaylistList = (uiState as PlaylistsScreenState.Loaded).playlistList.map {
-                it.takeIf { it.title.isNotEmpty() }
-                    ?: it.copy(title = stringResource(id = R.string.no_title))
-            }
+  val modifiedState =
+    when (uiState) {
+      is PlaylistsScreenState.Loaded -> {
+        val modifiedPlaylistList =
+          (uiState as PlaylistsScreenState.Loaded).playlistList.map {
+            it.takeIf { it.title.isNotEmpty() }
+              ?: it.copy(title = stringResource(id = R.string.no_title))
+          }
 
-            PlaylistsScreenState.Loaded(modifiedPlaylistList)
-        }
+        PlaylistsScreenState.Loaded(modifiedPlaylistList)
+      }
 
-        PlaylistsScreenState.Failed,
-        PlaylistsScreenState.Loading,
-        -> uiState
+      PlaylistsScreenState.Failed,
+      PlaylistsScreenState.Loading -> uiState
     }
 
-    PlaylistsScreen(
-        playlistsScreenState = modifiedState,
-        onPlaylistItemClick = {
-            onPlaylistItemClick(it)
-        },
-    )
+  PlaylistsScreen(
+    playlistsScreenState = modifiedState,
+    onPlaylistItemClick = { onPlaylistItemClick(it) },
+  )
 
-    // b/242302037 - it should stop listening to uiState emissions while dialog is presented
-    if (modifiedState == PlaylistsScreenState.Failed) {
-        AlertDialog(
-            visible = true,
-            onDismissRequest = onErrorDialogCancelClick,
-            title = {
-                Text(
-                    text = stringResource(R.string.playlists_no_playlists),
-                    color = MaterialTheme.colorScheme.onBackground,
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleSmall,
-                )
-            },
-            icon = {
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription =
-                        stringResource(id = R.string.playlists_failed_dialog_cancel_button_content_description),
-                )
-            },
+  // b/242302037 - it should stop listening to uiState emissions while dialog is presented
+  if (modifiedState == PlaylistsScreenState.Failed) {
+    AlertDialog(
+      visible = true,
+      onDismissRequest = onErrorDialogCancelClick,
+      title = {
+        Text(
+          text = stringResource(R.string.playlists_no_playlists),
+          color = MaterialTheme.colorScheme.onBackground,
+          textAlign = TextAlign.Center,
+          style = MaterialTheme.typography.titleSmall,
         )
-    }
+      },
+      icon = {
+        Icon(
+          imageVector = Icons.Default.Close,
+          contentDescription =
+            stringResource(id = R.string.playlists_failed_dialog_cancel_button_content_description),
+        )
+      },
+    )
+  }
 }

@@ -30,69 +30,63 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 
 @Composable
 internal fun SampleOutlinedChipScreen(
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
-        item {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                icon = Icon32dp.asPaintable(),
-                largeIcon = true,
-            )
-        }
-        item {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
-        item {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icon32dp.asPaintable(),
-                largeIcon = true,
-            )
-        }
-        item {
-            OutlinedChip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-                enabled = false,
-            )
-        }
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
+    item {
+      OutlinedChip(label = "Primary label", onClick = {}, icon = Icons.Default.Image.asPaintable())
     }
+    item {
+      OutlinedChip(
+        label = "Primary label",
+        onClick = {},
+        icon = Icon32dp.asPaintable(),
+        largeIcon = true,
+      )
+    }
+    item {
+      OutlinedChip(
+        label = "Primary label",
+        onClick = {},
+        secondaryLabel = "Secondary label",
+        icon = Icons.Default.Image.asPaintable(),
+      )
+    }
+    item {
+      OutlinedChip(
+        label = "Primary label",
+        onClick = {},
+        secondaryLabel = "Secondary label",
+        icon = Icon32dp.asPaintable(),
+        largeIcon = true,
+      )
+    }
+    item {
+      OutlinedChip(
+        label = "Primary label",
+        onClick = {},
+        secondaryLabel = "Secondary label",
+        icon = Icons.Default.Image.asPaintable(),
+        enabled = false,
+      )
+    }
+  }
 }
 
 private val Icon32dp: ImageVector
-    get() = ImageVector.Builder(
+  get() =
+    ImageVector.Builder(
         name = "Icon Large",
         defaultWidth = 32f.dp,
         defaultHeight = 32f.dp,
         viewportWidth = 32f,
         viewportHeight = 32f,
-    )
-        .materialPath {
-            horizontalLineToRelative(32.0f)
-            verticalLineToRelative(32.0f)
-            horizontalLineTo(0.0f)
-            close()
-        }
-        .build()
+      )
+      .materialPath {
+        horizontalLineToRelative(32.0f)
+        verticalLineToRelative(32.0f)
+        horizontalLineTo(0.0f)
+        close()
+      }
+      .build()

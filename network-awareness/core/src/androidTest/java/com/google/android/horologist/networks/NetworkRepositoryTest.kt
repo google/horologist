@@ -40,41 +40,40 @@ import org.junit.Test
 @Ignore("https://github.com/google/horologist/issues/1191")
 @MediumTest
 class NetworkRepositoryTest {
-    private lateinit var networkRepository: NetworkRepositoryImpl
-    private lateinit var context: Context
-    val scope = TestScope()
+  private lateinit var networkRepository: NetworkRepositoryImpl
+  private lateinit var context: Context
+  val scope = TestScope()
 
-    @Before
-    fun setup() {
-        Dispatchers.setMain(StandardTestDispatcher(scope.testScheduler))
+  @Before
+  fun setup() {
+    Dispatchers.setMain(StandardTestDispatcher(scope.testScheduler))
 
-        context = InstrumentationRegistry.getInstrumentation().context
-        networkRepository =
-            NetworkRepositoryImpl.fromContext(context, scope)
-    }
+    context = InstrumentationRegistry.getInstrumentation().context
+    networkRepository = NetworkRepositoryImpl.fromContext(context, scope)
+  }
 
-    @After
-    fun tearDown() {
-        networkRepository.close()
+  @After
+  fun tearDown() {
+    networkRepository.close()
 
-        Dispatchers.resetMain()
-    }
+    Dispatchers.resetMain()
+  }
 
-    @Suppress("DEPRECATION")
-    @Test
-    public fun testNetworks() = scope.runTest {
-        val networks = networkRepository.networkStatus.value
+  @Suppress("DEPRECATION")
+  @Test
+  public fun testNetworks() = scope.runTest {
+    val networks = networkRepository.networkStatus.value
 
-        Truth.assertThat(networks.networks).isNotEmpty()
+    Truth.assertThat(networks.networks).isNotEmpty()
 
-        val connectivityManager =
-            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectivityManager =
+      context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-        val networkIds = connectivityManager.allNetworks.map { it.toString() }
-        val activeNetworkId = connectivityManager.activeNetwork?.id
+    val networkIds = connectivityManager.allNetworks.map { it.toString() }
+    val activeNetworkId = connectivityManager.activeNetwork?.id
 
-        val map: List<String> = networks.networks.map { it.id }
-        Truth.assertThat(map).containsExactlyElementsIn(networkIds)
-        Truth.assertThat(networks.activeNetwork?.id).isEqualTo(activeNetworkId)
-    }
+    val map: List<String> = networks.networks.map { it.id }
+    Truth.assertThat(map).containsExactlyElementsIn(networkIds)
+    Truth.assertThat(networks.activeNetwork?.id).isEqualTo(activeNetworkId)
+  }
 }

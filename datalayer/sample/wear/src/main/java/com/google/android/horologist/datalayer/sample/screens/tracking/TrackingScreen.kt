@@ -39,163 +39,151 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun TrackingScreen(
-    onDisplayInfoClicked: (info: String) -> Unit,
-    columnState: ScalingLazyColumnState,
-    modifier: Modifier = Modifier,
-    viewModel: TrackingScreenViewModel = hiltViewModel(),
+  onDisplayInfoClicked: (info: String) -> Unit,
+  columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  viewModel: TrackingScreenViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == TrackingScreenUiState.Idle) {
-        SideEffect {
-            viewModel.initialize()
-        }
-    }
+  if (state == TrackingScreenUiState.Idle) {
+    SideEffect { viewModel.initialize() }
+  }
 
-    TrackingScreen(
-        state = state,
-        onActivityLaunchedOnceCheckedChanged = viewModel::onActivityLaunchedOnceCheckedChanged,
-        onSetupCompletedCheckedChanged = viewModel::onSetupCompletedCheckedChanged,
-        onComplicationCheckedChanged = viewModel::onComplicationCheckedChanged,
-        onDisplayInfoClicked = onDisplayInfoClicked,
-        columnState = columnState,
-        modifier = modifier,
-    )
+  TrackingScreen(
+    state = state,
+    onActivityLaunchedOnceCheckedChanged = viewModel::onActivityLaunchedOnceCheckedChanged,
+    onSetupCompletedCheckedChanged = viewModel::onSetupCompletedCheckedChanged,
+    onComplicationCheckedChanged = viewModel::onComplicationCheckedChanged,
+    onDisplayInfoClicked = onDisplayInfoClicked,
+    columnState = columnState,
+    modifier = modifier,
+  )
 }
 
 @Composable
 fun TrackingScreen(
-    state: TrackingScreenUiState,
-    onActivityLaunchedOnceCheckedChanged: (Boolean) -> Unit,
-    onSetupCompletedCheckedChanged: (Boolean) -> Unit,
-    onComplicationCheckedChanged: (complication: String, Boolean) -> Unit,
-    onDisplayInfoClicked: (info: String) -> Unit,
-    columnState: ScalingLazyColumnState,
-    modifier: Modifier = Modifier,
+  state: TrackingScreenUiState,
+  onActivityLaunchedOnceCheckedChanged: (Boolean) -> Unit,
+  onSetupCompletedCheckedChanged: (Boolean) -> Unit,
+  onComplicationCheckedChanged: (complication: String, Boolean) -> Unit,
+  onDisplayInfoClicked: (info: String) -> Unit,
+  columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            Title(text = stringResource(id = R.string.apphelper_tracking_title))
-        }
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
+    item { Title(text = stringResource(id = R.string.apphelper_tracking_title)) }
 
-        item {
-            Text(
-                text = stringResource(id = R.string.apphelper_tracking_message),
-                modifier = Modifier.padding(vertical = 10.dp),
-            )
-        }
-
-        when (state) {
-            TrackingScreenUiState.Idle,
-            TrackingScreenUiState.Loading,
-            -> {
-                item {
-                    CircularProgressIndicator()
-                }
-            }
-
-            is TrackingScreenUiState.Loaded -> {
-                item {
-                    val info =
-                        stringResource(id = R.string.apphelper_tracking_activity_launched_info)
-                    SplitToggleChip(
-                        checked = state.activityLaunchedOnce,
-                        onCheckedChanged = onActivityLaunchedOnceCheckedChanged,
-                        label = stringResource(id = R.string.apphelper_tracking_activity_launched_chip_label),
-                        onClick = { onDisplayInfoClicked(info) },
-                        toggleControl = ToggleChipToggleControl.Switch,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                }
-
-                item {
-                    val info = stringResource(id = R.string.apphelper_tracking_setup_completed_info)
-                    SplitToggleChip(
-                        checked = state.setupCompleted,
-                        onCheckedChanged = onSetupCompletedCheckedChanged,
-                        label = stringResource(id = R.string.apphelper_tracking_setup_completed_chip_label),
-                        onClick = { onDisplayInfoClicked(info) },
-                        toggleControl = ToggleChipToggleControl.Switch,
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                }
-
-                item {
-                    Title(
-                        text = stringResource(id = R.string.apphelper_tracking_tile_header),
-                        modifier = Modifier.padding(vertical = 10.dp),
-                    )
-                }
-
-                for (tileEntry in state.tilesInstalled) {
-                    item {
-                        val info = stringResource(
-                            id = R.string.apphelper_tracking_tile_installation_info,
-                            tileEntry.key,
-                        )
-                        SplitToggleChip(
-                            checked = tileEntry.value,
-                            onCheckedChanged = { /* NO-OP */ },
-                            label = tileEntry.key,
-                            onClick = { onDisplayInfoClicked(info) },
-                            toggleControl = ToggleChipToggleControl.Switch,
-                            modifier = Modifier.fillMaxWidth(),
-                            secondaryLabel = stringResource(id = R.string.apphelper_tracking_tile_installation_chip_label),
-                        )
-                    }
-                }
-
-                item {
-                    Title(
-                        text = stringResource(id = R.string.apphelper_tracking_complication_header),
-                        modifier = Modifier.padding(vertical = 10.dp),
-                    )
-                }
-
-                for (complicationEntry in state.complicationsInstalled) {
-                    item {
-                        val info = stringResource(
-                            id = R.string.apphelper_tracking_complication_installation_info,
-                            complicationEntry.key,
-                        )
-                        SplitToggleChip(
-                            checked = complicationEntry.value,
-                            onCheckedChanged = {
-                                onComplicationCheckedChanged(
-                                    complicationEntry.key,
-                                    it,
-                                )
-                            },
-                            label = complicationEntry.key,
-                            onClick = { onDisplayInfoClicked(info) },
-                            toggleControl = ToggleChipToggleControl.Switch,
-                            modifier = Modifier.fillMaxWidth(),
-                            secondaryLabel = stringResource(id = R.string.apphelper_tracking_complication_installation_chip_label),
-                        )
-                    }
-                }
-            }
-        }
+    item {
+      Text(
+        text = stringResource(id = R.string.apphelper_tracking_message),
+        modifier = Modifier.padding(vertical = 10.dp),
+      )
     }
+
+    when (state) {
+      TrackingScreenUiState.Idle,
+      TrackingScreenUiState.Loading -> {
+        item { CircularProgressIndicator() }
+      }
+
+      is TrackingScreenUiState.Loaded -> {
+        item {
+          val info = stringResource(id = R.string.apphelper_tracking_activity_launched_info)
+          SplitToggleChip(
+            checked = state.activityLaunchedOnce,
+            onCheckedChanged = onActivityLaunchedOnceCheckedChanged,
+            label = stringResource(id = R.string.apphelper_tracking_activity_launched_chip_label),
+            onClick = { onDisplayInfoClicked(info) },
+            toggleControl = ToggleChipToggleControl.Switch,
+            modifier = Modifier.fillMaxWidth(),
+          )
+        }
+
+        item {
+          val info = stringResource(id = R.string.apphelper_tracking_setup_completed_info)
+          SplitToggleChip(
+            checked = state.setupCompleted,
+            onCheckedChanged = onSetupCompletedCheckedChanged,
+            label = stringResource(id = R.string.apphelper_tracking_setup_completed_chip_label),
+            onClick = { onDisplayInfoClicked(info) },
+            toggleControl = ToggleChipToggleControl.Switch,
+            modifier = Modifier.fillMaxWidth(),
+          )
+        }
+
+        item {
+          Title(
+            text = stringResource(id = R.string.apphelper_tracking_tile_header),
+            modifier = Modifier.padding(vertical = 10.dp),
+          )
+        }
+
+        for (tileEntry in state.tilesInstalled) {
+          item {
+            val info =
+              stringResource(id = R.string.apphelper_tracking_tile_installation_info, tileEntry.key)
+            SplitToggleChip(
+              checked = tileEntry.value,
+              onCheckedChanged = { /* NO-OP */ },
+              label = tileEntry.key,
+              onClick = { onDisplayInfoClicked(info) },
+              toggleControl = ToggleChipToggleControl.Switch,
+              modifier = Modifier.fillMaxWidth(),
+              secondaryLabel =
+                stringResource(id = R.string.apphelper_tracking_tile_installation_chip_label),
+            )
+          }
+        }
+
+        item {
+          Title(
+            text = stringResource(id = R.string.apphelper_tracking_complication_header),
+            modifier = Modifier.padding(vertical = 10.dp),
+          )
+        }
+
+        for (complicationEntry in state.complicationsInstalled) {
+          item {
+            val info =
+              stringResource(
+                id = R.string.apphelper_tracking_complication_installation_info,
+                complicationEntry.key,
+              )
+            SplitToggleChip(
+              checked = complicationEntry.value,
+              onCheckedChanged = { onComplicationCheckedChanged(complicationEntry.key, it) },
+              label = complicationEntry.key,
+              onClick = { onDisplayInfoClicked(info) },
+              toggleControl = ToggleChipToggleControl.Switch,
+              modifier = Modifier.fillMaxWidth(),
+              secondaryLabel =
+                stringResource(
+                  id = R.string.apphelper_tracking_complication_installation_chip_label
+                ),
+            )
+          }
+        }
+      }
+    }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun TrackingScreenPreview() {
-    TrackingScreen(
-        state = TrackingScreenUiState.Loaded(
-            activityLaunchedOnce = true,
-            setupCompleted = false,
-            tilesInstalled = mapOf("Tile 1" to true, "Tile 2" to false),
-            complicationsInstalled = mapOf("Comp 1" to true, "Comp 2" to true),
-        ),
-        onActivityLaunchedOnceCheckedChanged = { },
-        onSetupCompletedCheckedChanged = { },
-        onComplicationCheckedChanged = { _, _ -> },
-        onDisplayInfoClicked = { },
-        columnState = rememberResponsiveColumnState(),
-    )
+  TrackingScreen(
+    state =
+      TrackingScreenUiState.Loaded(
+        activityLaunchedOnce = true,
+        setupCompleted = false,
+        tilesInstalled = mapOf("Tile 1" to true, "Tile 2" to false),
+        complicationsInstalled = mapOf("Comp 1" to true, "Comp 2" to true),
+      ),
+    onActivityLaunchedOnceCheckedChanged = {},
+    onSetupCompletedCheckedChanged = {},
+    onComplicationCheckedChanged = { _, _ -> },
+    onDisplayInfoClicked = {},
+    columnState = rememberResponsiveColumnState(),
+  )
 }

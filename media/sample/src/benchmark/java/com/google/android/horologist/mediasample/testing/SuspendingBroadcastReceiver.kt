@@ -23,49 +23,47 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeout
-import kotlin.time.Duration.Companion.seconds
 
 abstract class SuspendingBroadcastReceiver : BroadcastReceiver() {
-    abstract val action: String
-    open val coroutineScope: CoroutineScope = GlobalScope
+  abstract val action: String
+  open val coroutineScope: CoroutineScope = GlobalScope
 
-    override fun onReceive(context: Context, intent: Intent) {
-        println("Received $intent")
+  override fun onReceive(context: Context, intent: Intent) {
+    println("Received $intent")
 
-        if (intent.action != action) {
-            return
-        }
-
-        val intentExtras = intent.extras
-
-        val pendingResult = goAsync()
-        coroutineScope.launch {
-            try {
-                val result = withTimeout(9.seconds) {
-                    execute(context, intentExtras ?: Bundle.EMPTY)
-                }
-                pendingResult.setResult(result.code, result.data, result.extras)
-            } catch (e: TimeoutCancellationException) {
-                pendingResult.setResult(Activity.RESULT_CANCELED, e.toString(), Bundle.EMPTY)
-            } catch (e: Exception) {
-                pendingResult.setResult(Activity.RESULT_CANCELED, e.toString(), Bundle.EMPTY)
-            } finally {
-                pendingResult.finish()
-            }
-        }
+    if (intent.action != action) {
+      return
     }
 
-    abstract suspend fun execute(context: Context, intentExtras: Bundle): BroadcastResult
+    val intentExtras = intent.extras
+
+    val pendingResult = goAsync()
+    coroutineScope.launch {
+      try {
+        val result = withTimeout(9.seconds) { execute(context, intentExtras ?: Bundle.EMPTY) }
+        pendingResult.setResult(result.code, result.data, result.extras)
+      } catch (e: TimeoutCancellationException) {
+        pendingResult.setResult(Activity.RESULT_CANCELED, e.toString(), Bundle.EMPTY)
+      } catch (e: Exception) {
+        pendingResult.setResult(Activity.RESULT_CANCELED, e.toString(), Bundle.EMPTY)
+      } finally {
+        pendingResult.finish()
+      }
+    }
+  }
+
+  abstract suspend fun execute(context: Context, intentExtras: Bundle): BroadcastResult
 }
 
 data class BroadcastResult(
-    val data: String,
-    val code: Int = Activity.RESULT_OK,
-    val extras: Bundle = Bundle.EMPTY,
+  val data: String,
+  val code: Int = Activity.RESULT_OK,
+  val extras: Bundle = Bundle.EMPTY,
 )

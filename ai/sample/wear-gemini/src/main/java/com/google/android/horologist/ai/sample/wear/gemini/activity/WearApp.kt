@@ -23,26 +23,29 @@ import androidx.wear.compose.material3.AppScaffold
 import androidx.wear.compose.navigation.SwipeDismissableNavHost
 import androidx.wear.compose.navigation.composable
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 
 @Composable
 fun WearApp(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberSwipeDismissableNavController(),
+  modifier: Modifier = Modifier,
+  navController: NavHostController = rememberSwipeDismissableNavController(),
+  uiState: DeviceStatusUiState? = null,
 ) {
-    AppScaffold(modifier = modifier) {
-        SwipeDismissableNavHost(
-            startDestination = "Home",
-            navController = navController,
-        ) {
-            composable(
-                route = "Home",
-            ) {
-                DeviceStatusScreen()
-            }
+  AppScaffold(modifier = modifier) {
+    SwipeDismissableNavHost(startDestination = "Home", navController = navController) {
+      composable(route = "Home") {
+        if (uiState != null) {
+          DeviceStatusScreen(uiState = uiState)
+        } else {
+          DeviceStatusScreen()
         }
+      }
     }
+  }
 }
 
-// The preview lives next to `DeviceStatusScreen`, on its stateless overload. Previewing `WearApp`
-// itself rendered nothing: the nav host resolves `DeviceStatusScreen`'s `hiltViewModel()`, which
-// has no Hilt-enabled activity behind a preview.
+@WearPreviewSmallRound
+@Composable
+fun DefaultPreview() {
+  WearApp(uiState = Loaded(image = null, description = "Google Pixel Watch"))
+}

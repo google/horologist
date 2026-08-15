@@ -33,24 +33,21 @@ import com.google.android.horologist.datalayer.sample.ui.theme.HorologistTheme
 
 class StartRemoteSampleActivity : ComponentActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        setContent {
-            HorologistTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background,
-                ) {
-                    Box(modifier = Modifier.fillMaxSize()) {
-                        Text(
-                            text = stringResource(id = R.string.app_helper_start_remote_activity_message),
-                            modifier = Modifier.align(Alignment.Center),
-                            textAlign = TextAlign.Center,
-                        )
-                    }
-                }
-            }
+    setContent {
+      HorologistTheme {
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+          Box(modifier = Modifier.fillMaxSize()) {
+            Text(
+              text = stringResource(id = R.string.app_helper_start_remote_activity_message),
+              modifier = Modifier.align(Alignment.Center),
+              textAlign = TextAlign.Center,
+            )
+          }
         }
+      }
     }
+  }
 }

@@ -29,82 +29,71 @@ import org.junit.Test
 import org.robolectric.annotation.Config
 
 class MediaCollectionsTileTest : WearLegacyScreenTest() {
-    @Test
-    fun largeRound() {
-        tileScreenshot()
+  @Test
+  fun largeRound() {
+    tileScreenshot()
+  }
+
+  @Config(qualifiers = "+w192dp-h192dp")
+  @Test
+  fun smallRound() {
+    tileScreenshot()
+  }
+
+  @Config(qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav")
+  @Test
+  fun square() {
+    tileScreenshot()
+  }
+
+  fun tileScreenshot() {
+    runTest { SampleTilePreview() }
+  }
+
+  @Composable
+  fun SampleTilePreview() {
+    val context = LocalContext.current
+
+    val action = ActionBuilders.LaunchAction.Builder().build()
+
+    val tileState = remember {
+      MediaCollectionsTileRenderer.MediaCollectionsState(
+        chipName = com.google.android.horologist.media.ui.model.R.string.sample_playlists_name,
+        chipAction = action,
+        collection1 =
+          MediaCollectionsTileRenderer.MediaCollection(
+            name = "Liked Songs",
+            artworkId = "1",
+            action = action,
+          ),
+        collection2 =
+          MediaCollectionsTileRenderer.MediaCollection(
+            name = "Podcasts",
+            artworkId = "2",
+            action = action,
+          ),
+      )
     }
 
-    @Config(
-        qualifiers = "+w192dp-h192dp",
-    )
-    @Test
-    fun smallRound() {
-        tileScreenshot()
+    val resourceState = remember {
+      MediaCollectionsTileRenderer.ResourceState(
+        appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
+        images =
+          mapOf(
+            "1" to drawableResToImageResource(R.drawable.ic_baseline_queue_music_24),
+            "2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
+          ),
+      )
     }
 
-    @Config(
-        qualifiers = "w192dp-h192dp-small-notlong-round-watch-hdpi-keyshidden-nonav",
-    )
-    @Test
-    fun square() {
-        tileScreenshot()
+    val renderer = remember {
+      MediaCollectionsTileRenderer(
+        context = context,
+        materialTheme = UampColors.toTileColors(),
+        debugResourceMode = false,
+      )
     }
 
-    fun tileScreenshot() {
-        runTest {
-            SampleTilePreview()
-        }
-    }
-
-    @Composable
-    fun SampleTilePreview() {
-        val context = LocalContext.current
-
-        val action = ActionBuilders.LaunchAction.Builder()
-            .build()
-
-        val tileState = remember {
-            MediaCollectionsTileRenderer.MediaCollectionsState(
-                chipName = com.google.android.horologist.media.ui.model.R.string.sample_playlists_name,
-                chipAction = action,
-                collection1 = MediaCollectionsTileRenderer.MediaCollection(
-                    name = "Liked Songs",
-                    artworkId = "1",
-                    action = action,
-                ),
-                collection2 = MediaCollectionsTileRenderer.MediaCollection(
-                    name = "Podcasts",
-                    artworkId = "2",
-                    action = action,
-                ),
-            )
-        }
-
-        val resourceState = remember {
-            MediaCollectionsTileRenderer.ResourceState(
-                appIcon = com.google.android.horologist.logo.R.drawable.ic_stat_horologist,
-                images = mapOf(
-                    "1" to drawableResToImageResource(R.drawable.ic_baseline_queue_music_24),
-                    "2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
-                ),
-            )
-        }
-
-        val renderer = remember {
-            MediaCollectionsTileRenderer(
-                context = context,
-                materialTheme = UampColors.toTileColors(),
-                debugResourceMode = false,
-            )
-        }
-
-        @Suppress("DEPRECATION")
-        (
-            TileLayoutPreview(
-                tileState,
-                resourceState,
-                renderer,
-            )
-            )
-    }
+    @Suppress("DEPRECATION") (TileLayoutPreview(tileState, resourceState, renderer))
+  }
 }

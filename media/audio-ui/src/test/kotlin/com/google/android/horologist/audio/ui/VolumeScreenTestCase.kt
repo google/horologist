@@ -27,28 +27,24 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 
 @Composable
 fun VolumeScreenTestCase(
-    colors: Colors = MaterialTheme.colors,
-    volumeState: VolumeState,
-    audioOutput: AudioOutput,
+  colors: Colors = MaterialTheme.colors,
+  volumeState: VolumeState,
+  audioOutput: AudioOutput,
 ) {
-    val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
-    MaterialTheme(colors = colors) {
-        ScreenScaffold(
-            positionIndicator = {
-                VolumePositionIndicator(
-                    volumeUiState = { volumeUiState },
-                )
-            },
-            timeText = {},
-        ) {
-            VolumeScreen(
-                volume = { volumeUiState },
-                audioOutputUi = audioOutput.toAudioOutputUi(),
-                increaseVolume = { },
-                decreaseVolume = { },
-                onAudioOutputClick = { },
-                showVolumeIndicator = false,
-            )
-        }
+  val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
+  MaterialTheme(colors = colors) {
+    ScreenScaffold(
+      positionIndicator = { VolumePositionIndicator(volumeUiState = { volumeUiState }) },
+      timeText = {},
+    ) {
+      VolumeScreen(
+        volume = { volumeUiState },
+        audioOutputUi = audioOutput.toAudioOutputUi(),
+        increaseVolume = {},
+        decreaseVolume = {},
+        onAudioOutputClick = {},
+        showVolumeIndicator = false,
+      )
     }
+  }
 }

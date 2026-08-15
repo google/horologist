@@ -25,15 +25,15 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 
 public class PhoneDataLayerListenerService : DataLayerAppHelperService() {
-    private val serviceScope = CoroutineScope(Dispatchers.IO + Job())
+  private val serviceScope = CoroutineScope(Dispatchers.IO + Job())
 
-    public override val appHelper: DataLayerAppHelper by lazy {
-        val registry = WearDataLayerRegistry.fromContext(this, serviceScope)
-        PhoneDataLayerAppHelper(this, registry)
-    }
+  public override val appHelper: DataLayerAppHelper by lazy {
+    val registry = WearDataLayerRegistry.fromContext(this, serviceScope)
+    PhoneDataLayerAppHelper(this, registry)
+  }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        serviceScope.cancel()
-    }
+  override fun onDestroy() {
+    super.onDestroy()
+    serviceScope.cancel()
+  }
 }

@@ -26,56 +26,48 @@ import androidx.wear.protolayout.TimelineBuilders.Timeline
 import androidx.wear.protolayout.TimelineBuilders.TimelineEntry
 import androidx.wear.tiles.RequestBuilders
 import androidx.wear.tiles.TileBuilders.Tile
-import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.seconds
+import kotlinx.coroutines.delay
 
 public class TestTileService : SuspendingTileService() {
-    var delayDuration = 0.seconds
-    var started = 0
-    var cancelled = 0
-    var completed = 0
+  var delayDuration = 0.seconds
+  var started = 0
+  var cancelled = 0
+  var completed = 0
 
-    override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
-        started++
+  override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): Tile {
+    started++
 
-        delay(delayDuration)
+    delay(delayDuration)
 
-        return Tile.Builder()
-            .setResourcesVersion(FAKE_VERSION)
-            .setTileTimeline(
-                Timeline.Builder()
-                    .addTimelineEntry(
-                        TimelineEntry.Builder()
-                            .setLayout(
-                                Layout.Builder().setRoot(mainLayout())
-                                    .build(),
-                            )
-                            .build(),
-                    )
-                    .build(),
-            )
-            .build().also {
-                completed++
-            }
-    }
+    return Tile.Builder()
+      .setResourcesVersion(FAKE_VERSION)
+      .setTileTimeline(
+        Timeline.Builder()
+          .addTimelineEntry(
+            TimelineEntry.Builder()
+              .setLayout(Layout.Builder().setRoot(mainLayout()).build())
+              .build()
+          )
+          .build()
+      )
+      .build()
+      .also { completed++ }
+  }
 
-    override suspend fun resourcesRequest(
-        requestParams: RequestBuilders.ResourcesRequest,
-    ): ResourceBuilders.Resources = ResourceBuilders.Resources.Builder().setVersion(FAKE_VERSION)
-        .build()
+  override suspend fun resourcesRequest(
+    requestParams: RequestBuilders.ResourcesRequest
+  ): ResourceBuilders.Resources =
+    ResourceBuilders.Resources.Builder().setVersion(FAKE_VERSION).build()
 
-    private fun mainLayout(): LayoutElement {
-        return Column.Builder()
-            .addContent(
-                Text.Builder()
-                    .setText("Tile Visiblity: showing")
-                    .build(),
-            )
-            .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
-            .build()
-    }
+  private fun mainLayout(): LayoutElement {
+    return Column.Builder()
+      .addContent(Text.Builder().setText("Tile Visiblity: showing").build())
+      .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
+      .build()
+  }
 
-    public companion object {
-        public val FAKE_VERSION = "1"
-    }
+  public companion object {
+    public val FAKE_VERSION = "1"
+  }
 }

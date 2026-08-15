@@ -30,74 +30,71 @@ import org.junit.Test
 
 class PlaylistDownloadMapperTest {
 
-    private lateinit var sut: PlaylistDownloadMapper
+  private lateinit var sut: PlaylistDownloadMapper
 
-    @Before
-    fun setUp() {
-        sut = PlaylistDownloadMapper(PlaylistMapper(MediaMapper(MediaExtrasMapperNoopImpl)))
-    }
+  @Before
+  fun setUp() {
+    sut = PlaylistDownloadMapper(PlaylistMapper(MediaMapper(MediaExtrasMapperNoopImpl)))
+  }
 
-    @Test
-    fun mapsCorrectly() {
-        // given
-        val playlistId = "playlistId"
-        val playlistName = "playlistName"
-        val playlistArtworkUri = "playlistArtworkUri"
-        val mediaId = "mediaId"
-        val mediaUrl = "mediaUrl"
-        val artworkUrl = "artworkUrl"
-        val title = "title"
-        val artist = "artist"
+  @Test
+  fun mapsCorrectly() {
+    // given
+    val playlistId = "playlistId"
+    val playlistName = "playlistName"
+    val playlistArtworkUri = "playlistArtworkUri"
+    val mediaId = "mediaId"
+    val mediaUrl = "mediaUrl"
+    val artworkUrl = "artworkUrl"
+    val title = "title"
+    val artist = "artist"
 
-        val populatedPlaylist = PopulatedPlaylist(
-            PlaylistEntity(
-                playlistId = playlistId,
-                name = playlistName,
-                artworkUri = playlistArtworkUri,
-            ),
-            listOf(
-                MediaEntity(
-                    mediaId = mediaId,
-                    mediaUrl = mediaUrl,
-                    artworkUrl = artworkUrl,
-                    title = title,
-                    artist = artist,
-                ),
-            ),
-        )
-
-        val expectedMedia = Media(
-            id = mediaId,
-            uri = mediaUrl,
+    val populatedPlaylist =
+      PopulatedPlaylist(
+        PlaylistEntity(
+          playlistId = playlistId,
+          name = playlistName,
+          artworkUri = playlistArtworkUri,
+        ),
+        listOf(
+          MediaEntity(
+            mediaId = mediaId,
+            mediaUrl = mediaUrl,
+            artworkUrl = artworkUrl,
             title = title,
             artist = artist,
-            artworkUri = artworkUrl,
-        )
+          )
+        ),
+      )
 
-        val mediaDownloadEntity = listOf<MediaDownloadEntity>()
+    val expectedMedia =
+      Media(id = mediaId, uri = mediaUrl, title = title, artist = artist, artworkUri = artworkUrl)
 
-        // then
-        val result = sut.map(populatedPlaylist, mediaDownloadEntity)
+    val mediaDownloadEntity = listOf<MediaDownloadEntity>()
 
-        // then
-        assertThat(result).isEqualTo(
-            PlaylistDownload(
-                playlist = Playlist(
-                    id = playlistId,
-                    name = playlistName,
-                    artworkUri = playlistArtworkUri,
-                    mediaList = listOf(
-                        expectedMedia,
-                    ),
-                ),
-                mediaList = listOf(
-                    MediaDownload(
-                        media = expectedMedia,
-                        status = MediaDownload.Status.Idle,
-                        size = MediaDownload.Size.Unknown,
-                    ),
-                ),
+    // then
+    val result = sut.map(populatedPlaylist, mediaDownloadEntity)
+
+    // then
+    assertThat(result)
+      .isEqualTo(
+        PlaylistDownload(
+          playlist =
+            Playlist(
+              id = playlistId,
+              name = playlistName,
+              artworkUri = playlistArtworkUri,
+              mediaList = listOf(expectedMedia),
+            ),
+          mediaList =
+            listOf(
+              MediaDownload(
+                media = expectedMedia,
+                status = MediaDownload.Status.Idle,
+                size = MediaDownload.Size.Unknown,
+              )
             ),
         )
-    }
+      )
+  }
 }

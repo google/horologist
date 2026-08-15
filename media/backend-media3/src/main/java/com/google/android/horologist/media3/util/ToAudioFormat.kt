@@ -25,21 +25,20 @@ import androidx.media3.common.util.Util
 
 @SuppressLint("WrongConstant", "UnsafeOptInUsageError")
 public fun Format.toAudioFormat(): AudioFormat? {
-    val encoding: @C.Encoding Int =
-        MimeTypes.getEncoding(checkNotNull(sampleMimeType), codecs)
+  val encoding: @C.Encoding Int = MimeTypes.getEncoding(checkNotNull(sampleMimeType), codecs)
 
-    if (encoding == C.ENCODING_INVALID) {
-        return null
-    }
+  if (encoding == C.ENCODING_INVALID) {
+    return null
+  }
 
-    val audioTrackChannelConfig = Util.getAudioTrackChannelConfig(channelCount)
-    if (audioTrackChannelConfig == AudioFormat.CHANNEL_INVALID) {
-        return null
-    }
+  val audioTrackChannelConfig = Util.getAudioTrackChannelConfig(channelCount)
+  if (audioTrackChannelConfig == AudioFormat.CHANNEL_INVALID) {
+    return null
+  }
 
-    return AudioFormat.Builder()
-        .setSampleRate(sampleRate)
-        .setChannelMask(audioTrackChannelConfig)
-        .setEncoding(encoding)
-        .build()
+  return AudioFormat.Builder()
+    .setSampleRate(sampleRate)
+    .setChannelMask(audioTrackChannelConfig)
+    .setEncoding(encoding)
+    .build()
 }

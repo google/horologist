@@ -53,93 +53,73 @@ private val progressBarStrokeWidth = 4.dp
 
 @Composable
 private fun ProgressCircle(modifier: Modifier) {
-    Box(
-        modifier = modifier
-            .size(iconSize)
-            .clip(CircleShape),
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.size(iconSize - progressBarStrokeWidth + indicatorPadding),
-            strokeWidth = progressBarStrokeWidth,
-        )
-        Icon(
-            imageVector = Icons.Default.SecurityUpdateGood,
-            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-            modifier = Modifier
-                .align(Alignment.Center)
-                .size(iconSize - indicatorPadding - 8.dp)
-                .clip(CircleShape),
-        )
-    }
+  Box(modifier = modifier.size(iconSize).clip(CircleShape)) {
+    CircularProgressIndicator(
+      modifier = Modifier.size(iconSize - progressBarStrokeWidth + indicatorPadding),
+      strokeWidth = progressBarStrokeWidth,
+    )
+    Icon(
+      imageVector = Icons.Default.SecurityUpdateGood,
+      contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+      modifier =
+        Modifier.align(Alignment.Center).size(iconSize - indicatorPadding - 8.dp).clip(CircleShape),
+    )
+  }
 }
 
 /**
- * A screen to request the user to check their paired phone to proceed.
- * It also allows a [message] to be displayed.
+ * A screen to request the user to check their paired phone to proceed. It also allows a [message]
+ * to be displayed.
  *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/check_your_phone_screen_code.png"  height="120" width="120"/>
+ * <img
+ * src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/check_your_phone_screen_code.png"
+ * height="120" width="120"/>
  */
 @Composable
-public fun CheckYourPhoneScreen(
-    modifier: Modifier = Modifier,
-    message: String? = null,
-) {
-    val configuration = LocalConfiguration.current
+public fun CheckYourPhoneScreen(modifier: Modifier = Modifier, message: String? = null) {
+  val configuration = LocalConfiguration.current
 
-    val isLarge = configuration.isLargeScreen
+  val isLarge = configuration.isLargeScreen
 
-    val topPadding = (configuration.screenHeightDp * TOP_PADDING_SCREEN_PERCENTAGE).dp
-    val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
-    val sidePadding = (configuration.screenHeightDp * SIDE_PADDING_SCREEN_PERCENTAGE).dp
-    val textPadding =
-        if (isLarge) (configuration.screenHeightDp * TEXT_PADDING_SCREEN_PERCENTAGE).dp else 0.dp
+  val topPadding = (configuration.screenHeightDp * TOP_PADDING_SCREEN_PERCENTAGE).dp
+  val bottomPadding = (configuration.screenHeightDp * BOTTOM_PADDING_SCREEN_PERCENTAGE).dp
+  val sidePadding = (configuration.screenHeightDp * SIDE_PADDING_SCREEN_PERCENTAGE).dp
+  val textPadding =
+    if (isLarge) (configuration.screenHeightDp * TEXT_PADDING_SCREEN_PERCENTAGE).dp else 0.dp
 
-    ScreenScaffold(timeText = {}) {
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .padding(
-                    top = topPadding,
-                    bottom = bottomPadding,
-                    start = sidePadding,
-                    end = sidePadding,
-                ),
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-                    .padding(horizontal = textPadding),
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = stringResource(id = R.string.horologist_check_your_phone_title),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .align(Alignment.CenterHorizontally),
-                    textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.title3,
-                )
+  ScreenScaffold(timeText = {}) {
+    Column(
+      modifier =
+        modifier
+          .fillMaxSize()
+          .padding(top = topPadding, bottom = bottomPadding, start = sidePadding, end = sidePadding)
+    ) {
+      Column(
+        modifier = Modifier.fillMaxWidth().weight(1f).padding(horizontal = textPadding),
+        verticalArrangement = Arrangement.Center,
+      ) {
+        Text(
+          text = stringResource(id = R.string.horologist_check_your_phone_title),
+          modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally),
+          textAlign = TextAlign.Center,
+          style = MaterialTheme.typography.title3,
+        )
 
-                if (message != null) {
-                    Text(
-                        text = message,
-                        modifier = Modifier
-                            .padding(top = 20.dp)
-                            .fillMaxWidth()
-                            .align(Alignment.CenterHorizontally),
-                        textAlign = TextAlign.Center,
-                    )
-                }
-            }
-
-            ProgressCircle(
-                Modifier
-                    .align(Alignment.CenterHorizontally),
-            )
+        if (message != null) {
+          Text(
+            text = message,
+            modifier =
+              Modifier.padding(top = 20.dp).fillMaxWidth().align(Alignment.CenterHorizontally),
+            textAlign = TextAlign.Center,
+          )
         }
+      }
+
+      ProgressCircle(Modifier.align(Alignment.CenterHorizontally))
     }
+  }
 }
 
 /** Whether the device is considered large screen for layout adjustment purposes. */
-internal val Configuration.isLargeScreen: Boolean get() = screenHeightDp > 224
+internal val Configuration.isLargeScreen: Boolean
+  get() = screenHeightDp > 224

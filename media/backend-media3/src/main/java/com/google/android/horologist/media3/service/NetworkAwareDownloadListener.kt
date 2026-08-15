@@ -31,101 +31,100 @@ import com.google.android.horologist.networks.request.HighBandwidthRequest
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 
 /**
- * Simple implementation of [DownloadManager.Listener] for downloading with
- * a required high bandwidth network. Also includes event logging.
+ * Simple implementation of [DownloadManager.Listener] for downloading with a required high
+ * bandwidth network. Also includes event logging.
  */
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
 public class NetworkAwareDownloadListener(
-    private val appEventLogger: ErrorReporter,
-    private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
-    private val networkingRulesEngine: NetworkingRulesEngine,
+  private val appEventLogger: ErrorReporter,
+  private val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
+  private val networkingRulesEngine: NetworkingRulesEngine,
 ) : DownloadManager.Listener {
-    private var networkRequest: HighBandwidthConnectionLease? = null
+  private var networkRequest: HighBandwidthConnectionLease? = null
 
-    override fun onInitialized(downloadManager: DownloadManager) {
-        appEventLogger.logMessage("init", category = Downloads)
+  override fun onInitialized(downloadManager: DownloadManager) {
+    appEventLogger.logMessage("init", category = Downloads)
 
-        updateNetworkState(downloadManager)
-    }
+    updateNetworkState(downloadManager)
+  }
 
-    override fun onDownloadsPausedChanged(
-        downloadManager: DownloadManager,
-        downloadsPaused: Boolean,
-    ) {
-        appEventLogger.logMessage("paused $downloadsPaused", category = Downloads)
-    }
+  override fun onDownloadsPausedChanged(
+    downloadManager: DownloadManager,
+    downloadsPaused: Boolean,
+  ) {
+    appEventLogger.logMessage("paused $downloadsPaused", category = Downloads)
+  }
 
-    override fun onDownloadChanged(
-        downloadManager: DownloadManager,
-        download: Download,
-        finalException: Exception?,
-    ) {
-        val percent = (download.percentDownloaded).toInt().coerceAtLeast(0)
+  override fun onDownloadChanged(
+    downloadManager: DownloadManager,
+    download: Download,
+    finalException: Exception?,
+  ) {
+    val percent = (download.percentDownloaded).toInt().coerceAtLeast(0)
+    appEventLogger.logMessage(
+      "download ${download.request.uri.lastPathSegment} $percent% ${finalException?.message.orEmpty()}",
+      category = Downloads,
+    )
+
+    updateNetworkState(downloadManager)
+  }
+
+  override fun onDownloadRemoved(downloadManager: DownloadManager, download: Download) {
+    appEventLogger.logMessage("removed ${download.name}", category = Downloads)
+  }
+
+  override fun onIdle(downloadManager: DownloadManager) {
+    updateNetworkState(downloadManager)
+
+    appEventLogger.logMessage("idle", category = Downloads)
+  }
+
+  override fun onRequirementsStateChanged(
+    downloadManager: DownloadManager,
+    requirements: Requirements,
+    notMetRequirements: Int,
+  ) {
+    appEventLogger.logMessage("missingReqs $notMetRequirements", category = Downloads)
+  }
+
+  override fun onWaitingForRequirementsChanged(
+    downloadManager: DownloadManager,
+    waitingForRequirements: Boolean,
+  ) {
+    updateNetworkState(downloadManager)
+
+    appEventLogger.logMessage(
+      "waitingForRequirements $waitingForRequirements",
+      category = Downloads,
+    )
+  }
+
+  private fun updateNetworkState(downloadManager: DownloadManager) {
+    val hasReadyDownloads =
+      downloadManager.currentDownloads.isNotEmpty() && !downloadManager.isWaitingForRequirements
+
+    if (hasReadyDownloads) {
+      if (networkRequest == null) {
+        val types = networkingRulesEngine.supportedTypes(MediaRequest(MediaRequestType.Download))
+        val request = HighBandwidthRequest.from(types)
+
         appEventLogger.logMessage(
-            "download ${download.request.uri.lastPathSegment} $percent% ${finalException?.message.orEmpty()}",
-            category = Downloads,
+          "Requesting network for downloads $networkRequest",
+          category = Downloads,
         )
 
-        updateNetworkState(downloadManager)
+        networkRequest = highBandwidthNetworkMediator.requestHighBandwidthNetwork(request)
+      }
+    } else {
+      if (networkRequest != null) {
+        appEventLogger.logMessage("Releasing network for downloads", category = Downloads)
+        networkRequest?.close()
+        networkRequest = null
+      }
     }
+  }
 
-    override fun onDownloadRemoved(downloadManager: DownloadManager, download: Download) {
-        appEventLogger.logMessage("removed ${download.name}", category = Downloads)
-    }
-
-    override fun onIdle(downloadManager: DownloadManager) {
-        updateNetworkState(downloadManager)
-
-        appEventLogger.logMessage("idle", category = Downloads)
-    }
-
-    override fun onRequirementsStateChanged(
-        downloadManager: DownloadManager,
-        requirements: Requirements,
-        notMetRequirements: Int,
-    ) {
-        appEventLogger.logMessage("missingReqs $notMetRequirements", category = Downloads)
-    }
-
-    override fun onWaitingForRequirementsChanged(
-        downloadManager: DownloadManager,
-        waitingForRequirements: Boolean,
-    ) {
-        updateNetworkState(downloadManager)
-
-        appEventLogger.logMessage(
-            "waitingForRequirements $waitingForRequirements",
-            category = Downloads,
-        )
-    }
-
-    private fun updateNetworkState(downloadManager: DownloadManager) {
-        val hasReadyDownloads =
-            downloadManager.currentDownloads.isNotEmpty() && !downloadManager.isWaitingForRequirements
-
-        if (hasReadyDownloads) {
-            if (networkRequest == null) {
-                val types =
-                    networkingRulesEngine.supportedTypes(MediaRequest(MediaRequestType.Download))
-                val request = HighBandwidthRequest.from(types)
-
-                appEventLogger.logMessage(
-                    "Requesting network for downloads $networkRequest",
-                    category = Downloads,
-                )
-
-                networkRequest = highBandwidthNetworkMediator.requestHighBandwidthNetwork(request)
-            }
-        } else {
-            if (networkRequest != null) {
-                appEventLogger.logMessage("Releasing network for downloads", category = Downloads)
-                networkRequest?.close()
-                networkRequest = null
-            }
-        }
-    }
-
-    private val Download.name: String
-        get() = this.request.uri.lastPathSegment ?: "unknown"
+  private val Download.name: String
+    get() = this.request.uri.lastPathSegment ?: "unknown"
 }

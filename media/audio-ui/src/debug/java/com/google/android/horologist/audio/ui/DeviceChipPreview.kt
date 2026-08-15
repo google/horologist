@@ -27,17 +27,16 @@ import com.google.android.horologist.compose.tools.WearPreview
 @WearPreview
 @Composable
 fun DeviceChipPreview() {
-    DeviceChip(
-        volumeDescription = "",
-        deviceName = "Bluetooth Headphones",
-        icon = {
-            Icon(
-                imageVector = Icons.Default.Headphones,
-                contentDescription = "",
-                tint = MaterialTheme.colors.onSurfaceVariant,
-            )
-        },
-        onAudioOutputClick = {
-        },
-    )
+  DeviceChip(
+    volumeDescription = "",
+    deviceName = "Bluetooth Headphones",
+    icon = {
+      Icon(
+        imageVector = Icons.Default.Headphones,
+        contentDescription = "",
+        tint = MaterialTheme.colors.onSurfaceVariant,
+      )
+    },
+    onAudioOutputClick = {},
+  )
 }

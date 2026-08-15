@@ -23,15 +23,13 @@ import kotlin.time.Duration
  * available.
  */
 public interface HighBandwidthConnectionLease : AutoCloseable {
-    /**
-     * Await a connection being granted on this lease. The
-     * connection could be immediately revoked, so apps
-     * should check available networks after this call completes.
-     * May return immediately if a network is unlikely to be
-     * granted.
-     *
-     * @param timeout the length of time to wait for a likely network.
-     * @return whether a network was found within the timeout.
-     */
-    public suspend fun awaitGranted(timeout: Duration): Boolean
+  /**
+   * Await a connection being granted on this lease. The connection could be immediately revoked, so
+   * apps should check available networks after this call completes. May return immediately if a
+   * network is unlikely to be granted.
+   *
+   * @param timeout the length of time to wait for a likely network.
+   * @return whether a network was found within the timeout.
+   */
+  public suspend fun awaitGranted(timeout: Duration): Boolean
 }

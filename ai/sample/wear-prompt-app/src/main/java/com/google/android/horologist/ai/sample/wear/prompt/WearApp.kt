@@ -21,36 +21,44 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.wear.compose.material3.AppScaffold
 import androidx.wear.compose.navigation.rememberSwipeDismissableNavController
+import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
+import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.ai.sample.wear.prompt.prompt.SamplePromptScreen
 import com.google.android.horologist.ai.sample.wear.prompt.settings.SettingsScreen
+import com.google.android.horologist.ai.ui.model.ModelInstanceUiModel
+import com.google.android.horologist.ai.ui.screens.PromptUiState
 import com.google.android.horologist.compose.nav.SwipeDismissableNavHost
 import com.google.android.horologist.compose.nav.composable
 
 @Composable
 fun WearApp(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberSwipeDismissableNavController(),
+  modifier: Modifier = Modifier,
+  navController: NavHostController = rememberSwipeDismissableNavController(),
+  uiState: PromptUiState? = null,
 ) {
-    AppScaffold(modifier = modifier) {
-        SwipeDismissableNavHost(
-            startDestination = Prompt,
-            navController = navController,
-        ) {
-            composable<Prompt> {
-                SamplePromptScreen(
-                    onSettingsClick = { navController.navigate(Settings) },
-                )
-            }
-            composable<Settings> {
-                SettingsScreen()
-            }
+  AppScaffold(modifier = modifier) {
+    SwipeDismissableNavHost(startDestination = Prompt, navController = navController) {
+      composable<Prompt> {
+        if (uiState != null) {
+          SamplePromptScreen(
+            uiState = uiState,
+            onSettingsClick = { navController.navigate(Settings) },
+          )
+        } else {
+          SamplePromptScreen(onSettingsClick = { navController.navigate(Settings) })
         }
+      }
+      composable<Settings> { SettingsScreen() }
     }
+  }
 }
 
-// There is deliberately no `@Preview` of `WearApp()`. Its nav host resolves `SamplePromptScreen`,
-// which reaches for `hiltViewModel()`, and there is no Hilt-enabled activity behind a preview — so
-// the capture produces no image at all and fails the render outright. The same fix as
-// `:ai:sample:wear-gemini`: preview the screens, which already have stateless overloads and their
-// own previews in `prompt/SamplePromptScreen.kt` and `settings/SettingsScreen.kt`, so nothing is
-// lost by dropping this one.
+@WearPreviewSmallRound
+@WearPreviewLargeRound
+@Composable
+fun DefaultPreview() {
+  // Supplying state keeps the render off the `hiltViewModel()` default. Left to inject, this
+  // preview produces no PNG at all, which fails the run under `missing-renders: fail` — the same
+  // failure fixed for the wear-gemini sample.
+  WearApp(uiState = PromptUiState(modelInfo = ModelInstanceUiModel("id", "Demo Model")))
+}

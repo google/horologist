@@ -27,30 +27,24 @@ import org.junit.Test
 
 class PlaceholderButtonTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            PlaceholderButton(modifier = Modifier.fillMaxWidth(), enabled = true)
-        }
-    }
+  @Test
+  fun default() {
+    runComponentTest { PlaceholderButton(modifier = Modifier.fillMaxWidth(), enabled = true) }
+  }
 
-    @Test
-    fun secondaryColors() {
-        runComponentTest {
-            PlaceholderButton(
-                modifier = Modifier.fillMaxWidth(),
-                enabled = true,
-                colors = ButtonDefaults.filledTonalButtonColors(),
-            )
-        }
+  @Test
+  fun secondaryColors() {
+    runComponentTest {
+      PlaceholderButton(
+        modifier = Modifier.fillMaxWidth(),
+        enabled = true,
+        colors = ButtonDefaults.filledTonalButtonColors(),
+      )
     }
+  }
 
-    @Composable
-    override fun ComponentScaffold(content: @Composable () -> Unit) {
-        CompositionLocalProvider(
-            LocalReduceMotion provides true,
-        ) {
-            super.ComponentScaffold(content)
-        }
-    }
+  @Composable
+  override fun ComponentScaffold(content: @Composable () -> Unit) {
+    CompositionLocalProvider(LocalReduceMotion provides true) { super.ComponentScaffold(content) }
+  }
 }

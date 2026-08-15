@@ -54,119 +54,122 @@ import org.robolectric.RobolectricTestRunner
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
 class VolumeScreenTest {
-    private lateinit var vibrator: Vibrator
-    private val context = InstrumentationRegistry.getInstrumentation().targetContext
-    private lateinit var volumeState: VolumeState
-    private lateinit var audioOutput: AudioOutput
-    private lateinit var volumeRepository: VolumeRepository
-    private val audioOutputRepository = FakeAudioOutputRepository()
-    private lateinit var model: VolumeViewModel
+  private lateinit var vibrator: Vibrator
+  private val context = InstrumentationRegistry.getInstrumentation().targetContext
+  private lateinit var volumeState: VolumeState
+  private lateinit var audioOutput: AudioOutput
+  private lateinit var volumeRepository: VolumeRepository
+  private val audioOutputRepository = FakeAudioOutputRepository()
+  private lateinit var model: VolumeViewModel
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Before
-    fun setUp() {
-        volumeState = VolumeState(current = 5, max = 10)
-        audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
-        volumeRepository = FakeVolumeRepository(volumeState)
-        vibrator =
-            context.applicationContext.getSystemService(Vibrator::class.java)
-        model = VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {
-            volumeRepository.close()
-            audioOutputRepository.close()
-        }, vibrator)
+  @Before
+  fun setUp() {
+    volumeState = VolumeState(current = 5, max = 10)
+    audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
+    volumeRepository = FakeVolumeRepository(volumeState)
+    vibrator = context.applicationContext.getSystemService(Vibrator::class.java)
+    model =
+      VolumeViewModel(
+        volumeRepository,
+        audioOutputRepository,
+        onCleared = {
+          volumeRepository.close()
+          audioOutputRepository.close()
+        },
+        vibrator,
+      )
+  }
+
+  @Test
+  fun clickVolumeUp_increaseVolume() {
+    composeTestRule.setContent {
+      val focusRequester = remember { FocusRequester() }
+      VolumeScreen(
+        modifier = Modifier.fillMaxSize().focusRequester(focusRequester),
+        volumeViewModel = model,
+      )
     }
 
-    @Test
-    fun clickVolumeUp_increaseVolume() {
-        composeTestRule.setContent {
-            val focusRequester = remember { FocusRequester() }
-            VolumeScreen(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .focusRequester(focusRequester),
-                volumeViewModel = model,
-            )
+    composeTestRule
+      .onNodeWithContentDescription(
+        context.getString(R.string.horologist_volume_screen_volume_up_content_description)
+      )
+      .performClick()
+
+    assertThat(volumeRepository.volumeState.value.current).isEqualTo(6)
+  }
+
+  @Test
+  fun clickVolumeDown_decreasesVolume() {
+    composeTestRule.setContent {
+      val focusRequester = remember { FocusRequester() }
+      VolumeScreen(
+        modifier = Modifier.fillMaxSize().focusRequester(focusRequester),
+        volumeViewModel = model,
+      )
+    }
+
+    composeTestRule
+      .onNodeWithContentDescription(
+        context.getString(R.string.horologist_volume_screen_volume_down_content_description)
+      )
+      .performClick()
+
+    assertThat(volumeRepository.volumeState.value.current).isEqualTo(4)
+  }
+
+  @Test
+  fun testLabelOrdering() {
+    composeTestRule.setContent {
+      TestVolumeScreen(volumeState = volumeState, audioOutput = audioOutput)
+    }
+
+    composeTestRule.onNodeWithContentDescription("Volume set to 50%").assertIsDisplayed()
+
+    composeTestRule
+      .onNodeWithContentDescription("Increase Volume")
+      .assertIsDisplayed()
+      .assertHasClickAction()
+
+    composeTestRule
+      .onNodeWithText("Pixelbuds")
+      .assertIsDisplayed()
+      .assertHasClickAction()
+      .assertHasStateDescription("Connected")
+      .assertHasClickLabel("Change Audio Output")
+
+    composeTestRule
+      .onNodeWithContentDescription("Decrease Volume")
+      .assertIsDisplayed()
+      .assertHasClickAction()
+  }
+
+  companion object {
+    fun SemanticsNodeInteraction.assertHasStateDescription(
+      value: String
+    ): SemanticsNodeInteraction = assert(hasStateDescription(value))
+
+    fun SemanticsNodeInteraction.assertHasClickLabel(
+      expectedValue: String
+    ): SemanticsNodeInteraction =
+      assert(
+        SemanticsMatcher("${SemanticsActions.OnClick.name} = '$expectedValue'") {
+          it.config.getOrNull(SemanticsActions.OnClick)?.label == expectedValue
         }
+      )
 
-        composeTestRule.onNodeWithContentDescription(
-            context.getString(R.string.horologist_volume_screen_volume_up_content_description),
-        ).performClick()
-
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(6)
+    @Composable
+    fun TestVolumeScreen(volumeState: VolumeState, audioOutput: AudioOutput) {
+      val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
+      VolumeScreen(
+        volume = { volumeUiState },
+        audioOutputUi = audioOutput.toAudioOutputUi(),
+        increaseVolume = {},
+        decreaseVolume = {},
+        onAudioOutputClick = {},
+      )
     }
-
-    @Test
-    fun clickVolumeDown_decreasesVolume() {
-        composeTestRule.setContent {
-            val focusRequester = remember { FocusRequester() }
-            VolumeScreen(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .focusRequester(focusRequester),
-                volumeViewModel = model,
-            )
-        }
-
-        composeTestRule.onNodeWithContentDescription(
-            context.getString(R.string.horologist_volume_screen_volume_down_content_description),
-        ).performClick()
-
-        assertThat(volumeRepository.volumeState.value.current).isEqualTo(4)
-    }
-
-    @Test
-    fun testLabelOrdering() {
-        composeTestRule.setContent {
-            TestVolumeScreen(
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
-
-        composeTestRule.onNodeWithContentDescription("Volume set to 50%")
-            .assertIsDisplayed()
-
-        composeTestRule.onNodeWithContentDescription("Increase Volume")
-            .assertIsDisplayed()
-            .assertHasClickAction()
-
-        composeTestRule.onNodeWithText("Pixelbuds")
-            .assertIsDisplayed()
-            .assertHasClickAction()
-            .assertHasStateDescription("Connected")
-            .assertHasClickLabel("Change Audio Output")
-
-        composeTestRule.onNodeWithContentDescription("Decrease Volume")
-            .assertIsDisplayed()
-            .assertHasClickAction()
-    }
-
-    companion object {
-        fun SemanticsNodeInteraction.assertHasStateDescription(value: String): SemanticsNodeInteraction =
-            assert(hasStateDescription(value))
-
-        fun SemanticsNodeInteraction.assertHasClickLabel(expectedValue: String): SemanticsNodeInteraction =
-            assert(
-                SemanticsMatcher("${SemanticsActions.OnClick.name} = '$expectedValue'") {
-                    it.config.getOrNull(SemanticsActions.OnClick)?.label == expectedValue
-                },
-            )
-
-        @Composable
-        fun TestVolumeScreen(
-            volumeState: VolumeState,
-            audioOutput: AudioOutput,
-        ) {
-            val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
-            VolumeScreen(
-                volume = { volumeUiState },
-                audioOutputUi = audioOutput.toAudioOutputUi(),
-                increaseVolume = {},
-                decreaseVolume = {},
-                onAudioOutputClick = {},
-            )
-        }
-    }
+  }
 }

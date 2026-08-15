@@ -22,40 +22,25 @@ import org.junit.Test
 
 class CreateAccountChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            CreateAccountChip(onClick = {})
-        }
-    }
+  @Test
+  fun default() {
+    runComponentTest { CreateAccountChip(onClick = {}) }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            CreateAccountChip(
-                onClick = {},
-                enabled = false,
-            )
-        }
-    }
+  @Test
+  fun disabled() {
+    runComponentTest { CreateAccountChip(onClick = {}, enabled = false) }
+  }
 
-    @Test
-    fun withLargeIconSpace() {
-        runComponentTest {
-            CreateAccountChip(
-                onClick = {},
-                largeIconSpace = true,
-            )
-        }
-    }
+  @Test
+  fun withLargeIconSpace() {
+    runComponentTest { CreateAccountChip(onClick = {}, largeIconSpace = true) }
+  }
 
-    @Test
-    fun withSecondaryChipType() {
-        runComponentTest {
-            CreateAccountChip(
-                onClick = {},
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  @Test
+  fun withSecondaryChipType() {
+    runComponentTest {
+      CreateAccountChip(onClick = {}, colors = ChipDefaults.secondaryChipColors())
     }
+  }
 }

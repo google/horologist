@@ -36,54 +36,53 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class PickerActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        setContent {
-            WearPickerApp()
-        }
-    }
+    setContent { WearPickerApp() }
+  }
 }
 
 @Composable
 fun WearPickerApp() {
-    val sizes = listOf(190, 200, 210, 220, 230)
-    val size = remember { mutableIntStateOf(0) }
+  val sizes = listOf(190, 200, 210, 220, 230)
+  val size = remember { mutableIntStateOf(0) }
 
-    val pickerTypes = arrayOf("Date", "Time12h", "Time24h", "Time hms")
-    val pickerType = remember { mutableIntStateOf(0) }
+  val pickerTypes = arrayOf("Date", "Time12h", "Time24h", "Time hms")
+  val pickerType = remember { mutableIntStateOf(0) }
 
-    var time by remember { mutableStateOf(LocalDateTime.now()) }
+  var time by remember { mutableStateOf(LocalDateTime.now()) }
 
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        SizedContainer(screenSize = sizes[size.intValue], roundScreen = true) {
-            when (pickerType.value) {
-                0 -> DatePicker({
-                    time = time.toLocalTime().atDate(it)
-                })
-                1 -> TimePickerWith12HourClock({
-                    time = time.toLocalDate().atTime(it)
-                }, time = time.toLocalTime())
-                2 -> TimePicker({
-                    time = time.toLocalDate().atTime(it)
-                }, time = time.toLocalTime(), showSeconds = false)
-                else -> TimePicker({
-                    time = time.toLocalDate().atTime(it)
-                }, time = time.toLocalTime(), showSeconds = true)
-            }
-        }
-        ToggleRow(
-            title = "Size",
-            options = sizes.map { it.toString() }.toTypedArray(),
-            selected = size,
-            optionWidth = 50.dp,
-        )
-        ToggleRow(
-            title = "Type",
-            options = pickerTypes,
-            selected = pickerType,
-            optionWidth = 80.dp,
-        )
-        Text(time.format(DateTimeFormatter.ISO_DATE_TIME))
+  Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+    SizedContainer(screenSize = sizes[size.intValue], roundScreen = true) {
+      when (pickerType.value) {
+        0 -> DatePicker({ time = time.toLocalTime().atDate(it) })
+        1 ->
+          TimePickerWith12HourClock(
+            { time = time.toLocalDate().atTime(it) },
+            time = time.toLocalTime(),
+          )
+        2 ->
+          TimePicker(
+            { time = time.toLocalDate().atTime(it) },
+            time = time.toLocalTime(),
+            showSeconds = false,
+          )
+        else ->
+          TimePicker(
+            { time = time.toLocalDate().atTime(it) },
+            time = time.toLocalTime(),
+            showSeconds = true,
+          )
+      }
     }
+    ToggleRow(
+      title = "Size",
+      options = sizes.map { it.toString() }.toTypedArray(),
+      selected = size,
+      optionWidth = 50.dp,
+    )
+    ToggleRow(title = "Type", options = pickerTypes, selected = pickerType, optionWidth = 80.dp)
+    Text(time.format(DateTimeFormatter.ISO_DATE_TIME))
+  }
 }

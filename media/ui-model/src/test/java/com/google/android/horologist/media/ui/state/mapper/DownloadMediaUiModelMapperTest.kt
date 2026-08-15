@@ -24,103 +24,91 @@ import org.junit.Test
 
 class DownloadMediaUiModelMapperTest {
 
-    @Test
-    fun givenStatusIdle_thenMapsCorrectly() {
-        // given
-        val id = "id"
-        val title = "title"
-        val artist = "artist"
-        val artworkUri = "artworkUri"
-        val mediaDownload = MediaDownload(
-            media = Media(
-                id = id,
-                uri = "",
-                title = title,
-                artist = artist,
-                artworkUri = artworkUri,
-            ),
-            status = MediaDownload.Status.Idle,
-            size = MediaDownload.Size.Unknown,
+  @Test
+  fun givenStatusIdle_thenMapsCorrectly() {
+    // given
+    val id = "id"
+    val title = "title"
+    val artist = "artist"
+    val artworkUri = "artworkUri"
+    val mediaDownload =
+      MediaDownload(
+        media = Media(id = id, uri = "", title = title, artist = artist, artworkUri = artworkUri),
+        status = MediaDownload.Status.Idle,
+        size = MediaDownload.Size.Unknown,
+      )
+
+    // when
+    val result = DownloadMediaUiModelMapper.map(mediaDownload)
+
+    // then
+    assertThat(result)
+      .isEqualTo(
+        DownloadMediaUiModel.NotDownloaded(
+          id = id,
+          title = title,
+          artist = artist,
+          artworkUri = artworkUri,
         )
+      )
+  }
 
-        // when
-        val result = DownloadMediaUiModelMapper.map(mediaDownload)
+  @Test
+  fun givenStatusInProgressZeroSizeUnknown_thenMapsCorrectly() {
+    // given
+    val id = "id"
+    val title = "title"
+    val artist = "artist"
+    val artworkUri = "artworkUri"
+    val mediaDownload =
+      MediaDownload(
+        media = Media(id = id, uri = "", title = title, artist = artist, artworkUri = artworkUri),
+        status = MediaDownload.Status.InProgress(progress = 0F),
+        size = MediaDownload.Size.Unknown,
+      )
 
-        // then
-        assertThat(result).isEqualTo(
-            DownloadMediaUiModel.NotDownloaded(
-                id = id,
-                title = title,
-                artist = artist,
-                artworkUri = artworkUri,
-            ),
+    // when
+    val result = DownloadMediaUiModelMapper.map(mediaDownload)
+
+    // then
+    assertThat(result)
+      .isEqualTo(
+        DownloadMediaUiModel.Downloading(
+          id = id,
+          title = title,
+          artworkUri = artworkUri,
+          progress = DownloadMediaUiModel.Progress.Waiting,
+          size = DownloadMediaUiModel.Size.Unknown,
         )
-    }
+      )
+  }
 
-    @Test
-    fun givenStatusInProgressZeroSizeUnknown_thenMapsCorrectly() {
-        // given
-        val id = "id"
-        val title = "title"
-        val artist = "artist"
-        val artworkUri = "artworkUri"
-        val mediaDownload = MediaDownload(
-            media = Media(
-                id = id,
-                uri = "",
-                title = title,
-                artist = artist,
-                artworkUri = artworkUri,
-            ),
-            status = MediaDownload.Status.InProgress(progress = 0F),
-            size = MediaDownload.Size.Unknown,
+  @Test
+  fun givenStatusCompleted_thenMapsCorrectly() {
+    // given
+    val id = "id"
+    val title = "title"
+    val artist = "artist"
+    val artworkUri = "artworkUri"
+    val mediaDownload =
+      MediaDownload(
+        media = Media(id = id, uri = "", title = title, artist = artist, artworkUri = artworkUri),
+        status = MediaDownload.Status.Completed,
+        size = MediaDownload.Size.Unknown,
+      )
+
+    // when
+    val result = DownloadMediaUiModelMapper.map(mediaDownload)
+
+    // then
+    assertThat(result)
+      .isEqualTo(
+        DownloadMediaUiModel.Downloaded(
+          id = id,
+          title = title,
+          artist = artist,
+          artworkUri = artworkUri,
         )
-
-        // when
-        val result = DownloadMediaUiModelMapper.map(mediaDownload)
-
-        // then
-        assertThat(result).isEqualTo(
-            DownloadMediaUiModel.Downloading(
-                id = id,
-                title = title,
-                artworkUri = artworkUri,
-                progress = DownloadMediaUiModel.Progress.Waiting,
-                size = DownloadMediaUiModel.Size.Unknown,
-            ),
-        )
-    }
-
-    @Test
-    fun givenStatusCompleted_thenMapsCorrectly() {
-        // given
-        val id = "id"
-        val title = "title"
-        val artist = "artist"
-        val artworkUri = "artworkUri"
-        val mediaDownload = MediaDownload(
-            media = Media(
-                id = id,
-                uri = "",
-                title = title,
-                artist = artist,
-                artworkUri = artworkUri,
-            ),
-            status = MediaDownload.Status.Completed,
-            size = MediaDownload.Size.Unknown,
-        )
-
-        // when
-        val result = DownloadMediaUiModelMapper.map(mediaDownload)
-
-        // then
-        assertThat(result).isEqualTo(
-            DownloadMediaUiModel.Downloaded(
-                id = id,
-                title = title,
-                artist = artist,
-                artworkUri = artworkUri,
-            ),
-        )
-    }
+      )
+  }
 }

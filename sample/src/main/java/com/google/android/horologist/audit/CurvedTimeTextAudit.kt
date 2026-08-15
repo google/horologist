@@ -39,52 +39,58 @@ import java.util.Calendar
 
 @Composable
 fun CurvedTimeTextAudit(route: AuditNavigation.CurvedTimeText.Audit) {
-    ScreenScaffold(
-        timeText = {
-            when (route.config) {
-                Config.H12 -> ResponsiveTimeText(timeSource = FixedTimeSource.H12)
-                Config.H24 -> ResponsiveTimeText(timeSource = FixedTimeSource.H24)
-                Config.Tall -> ResponsiveTimeText(
-                    timeSource = object : TimeSource {
-                        override val currentTime: String
-                            @Composable get() = DateFormat.format(
-                                "9⎥:⎥0",
-                                Calendar.getInstance().apply {
-                                    set(Calendar.HOUR_OF_DAY, 21)
-                                    set(Calendar.MINUTE, 30)
-                                },
-                            ).toString()
-                    },
-                )
+  ScreenScaffold(
+    timeText = {
+      when (route.config) {
+        Config.H12 -> ResponsiveTimeText(timeSource = FixedTimeSource.H12)
+        Config.H24 -> ResponsiveTimeText(timeSource = FixedTimeSource.H24)
+        Config.Tall ->
+          ResponsiveTimeText(
+            timeSource =
+              object : TimeSource {
+                override val currentTime: String
+                  @Composable
+                  get() =
+                    DateFormat.format(
+                        "9⎥:⎥0",
+                        Calendar.getInstance().apply {
+                          set(Calendar.HOUR_OF_DAY, 21)
+                          set(Calendar.MINUTE, 30)
+                        },
+                      )
+                      .toString()
+              }
+          )
 
-                Config.LongerTextString -> ResponsiveTimeText(
-                    timeSource = FixedTimeSource,
-                    startCurvedContent = {
-                        this.curvedText("Network unavailable")
-                    },
-                )
-            }
-        },
-    ) {
-        if (route.config == Config.Tall) {
-            Canvas(modifier = Modifier.fillMaxSize()) {
-                val fromTop = 2.dp.toPx()
-                drawCircle(
-                    style = Stroke(HairlineWidth),
-                    color = Color.White,
-                    radius = size.width / 2f - fromTop,
-                )
-                drawLine(Color.White, Offset(0f, fromTop), Offset(size.width, fromTop))
-            }
-        }
+        Config.LongerTextString ->
+          ResponsiveTimeText(
+            timeSource = FixedTimeSource,
+            startCurvedContent = { this.curvedText("Network unavailable") },
+          )
+      }
     }
+  ) {
+    if (route.config == Config.Tall) {
+      Canvas(modifier = Modifier.fillMaxSize()) {
+        val fromTop = 2.dp.toPx()
+        drawCircle(
+          style = Stroke(HairlineWidth),
+          color = Color.White,
+          radius = size.width / 2f - fromTop,
+        )
+        drawLine(Color.White, Offset(0f, fromTop), Offset(size.width, fromTop))
+      }
+    }
+  }
 }
 
 @Composable
 @WearPreviewSmallRound
 @WearPreviewLargeRound
 fun CurvedTimeTextAuditPreview() {
-    AppScaffold {
-        CurvedTimeTextAudit(AuditNavigation.CurvedTimeText.Audit(AuditNavigation.CurvedTimeText.Config.H24))
-    }
+  AppScaffold {
+    CurvedTimeTextAudit(
+      AuditNavigation.CurvedTimeText.Audit(AuditNavigation.CurvedTimeText.Config.H24)
+    )
+  }
 }

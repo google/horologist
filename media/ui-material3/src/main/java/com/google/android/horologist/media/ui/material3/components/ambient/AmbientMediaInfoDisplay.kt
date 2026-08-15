@@ -36,31 +36,31 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
  */
 @Composable
 public fun AmbientMediaInfoDisplay(
-    media: MediaUiModel?,
-    loading: Boolean,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  media: MediaUiModel?,
+  loading: Boolean,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
-    if (media is MediaUiModel.Ready) {
-        TrackMediaDisplay(
-            media = media,
-            modifier = modifier,
-            colorScheme = colorScheme,
-            titleOverflow = TextOverflow.Clip,
-            subtitleOverflow = TextOverflow.Clip,
-            titleSoftWrap = false,
-            subtitleSoftWrap = false,
-        )
-    } else {
-        AmbientMessageDisplay(
-            message =
-                if (loading) {
-                    stringResource(R.string.horologist_loading_title)
-                } else {
-                    stringResource(R.string.horologist_nothing_playing)
-                },
-            modifier = modifier,
-            colorScheme = colorScheme,
-        )
-    }
+  if (media is MediaUiModel.Ready) {
+    TrackMediaDisplay(
+      media = media,
+      modifier = modifier,
+      colorScheme = colorScheme,
+      titleOverflow = TextOverflow.Clip,
+      subtitleOverflow = TextOverflow.Clip,
+      titleSoftWrap = false,
+      subtitleSoftWrap = false,
+    )
+  } else {
+    AmbientMessageDisplay(
+      message =
+        if (loading) {
+          stringResource(R.string.horologist_loading_title)
+        } else {
+          stringResource(R.string.horologist_nothing_playing)
+        },
+      modifier = modifier,
+      colorScheme = colorScheme,
+    )
+  }
 }

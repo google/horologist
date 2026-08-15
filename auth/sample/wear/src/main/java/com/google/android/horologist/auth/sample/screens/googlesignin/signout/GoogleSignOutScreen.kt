@@ -35,50 +35,41 @@ import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
 fun GoogleSignOutScreen(
-    navController: NavHostController,
-    viewModel: GoogleSignOutViewModel = viewModel(factory = GoogleSignOutViewModel.Factory),
+  navController: NavHostController,
+  viewModel: GoogleSignOutViewModel = viewModel(factory = GoogleSignOutViewModel.Factory),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when (state) {
-        GoogleSignOutScreenState.Idle -> {
-            SideEffect {
-                viewModel.onIdleStateObserved()
-            }
+  when (state) {
+    GoogleSignOutScreenState.Idle -> {
+      SideEffect { viewModel.onIdleStateObserved() }
 
-            LoadingView()
-        }
-
-        GoogleSignOutScreenState.Loading -> {
-            LoadingView()
-        }
-
-        GoogleSignOutScreenState.Success -> {
-            Confirmation(
-                onTimeout = navController::popBackStack,
-            ) {
-                Text(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    textAlign = TextAlign.Center,
-                    text = stringResource(id = R.string.google_sign_out_success_message),
-                )
-            }
-        }
-
-        GoogleSignOutScreenState.Failed -> {
-            SideEffect {
-                navController.popBackStack()
-            }
-        }
+      LoadingView()
     }
+
+    GoogleSignOutScreenState.Loading -> {
+      LoadingView()
+    }
+
+    GoogleSignOutScreenState.Success -> {
+      Confirmation(onTimeout = navController::popBackStack) {
+        Text(
+          modifier = Modifier.align(Alignment.CenterHorizontally),
+          textAlign = TextAlign.Center,
+          text = stringResource(id = R.string.google_sign_out_success_message),
+        )
+      }
+    }
+
+    GoogleSignOutScreenState.Failed -> {
+      SideEffect { navController.popBackStack() }
+    }
+  }
 }
 
 @Composable
 private fun LoadingView() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        CircularProgressIndicator()
-    }
+  Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    CircularProgressIndicator()
+  }
 }

@@ -27,32 +27,24 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 
 @Composable
 internal fun SampleOutlinedCompactChipScreen(
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            OutlinedCompactChip(
-                onClick = { },
-                label = "Primary label",
-            )
-        }
-        item {
-            OutlinedCompactChip(
-                onClick = { },
-                label = "Primary label",
-                icon = Icons.Filled.Add.asPaintable(),
-            )
-        }
-        item {
-            OutlinedCompactChip(
-                onClick = { },
-                icon = Icons.Filled.Add.asPaintable(),
-                contentDescription = "contentDescription",
-            )
-        }
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
+    item { OutlinedCompactChip(onClick = {}, label = "Primary label") }
+    item {
+      OutlinedCompactChip(
+        onClick = {},
+        label = "Primary label",
+        icon = Icons.Filled.Add.asPaintable(),
+      )
     }
+    item {
+      OutlinedCompactChip(
+        onClick = {},
+        icon = Icons.Filled.Add.asPaintable(),
+        contentDescription = "contentDescription",
+      )
+    }
+  }
 }

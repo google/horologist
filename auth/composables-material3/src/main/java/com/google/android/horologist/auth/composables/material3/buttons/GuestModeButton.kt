@@ -30,29 +30,25 @@ import com.google.android.horologist.auth.composables.material3.R
 /**
  * An opinionated [Button] to represent the "Guest mode" action.
  *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables-material3/guest_mode_button.png" height="120" width="120" >
+ * <img
+ * src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables-material3/guest_mode_button.png"
+ * height="120" width="120" >
  *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
  */
 @Composable
 public fun GuestModeButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    label: String = stringResource(id = R.string.horologist_guest_mode_chip_label),
-    colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
-    enabled: Boolean = true,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  label: String = stringResource(id = R.string.horologist_guest_mode_chip_label),
+  colors: ButtonColors = ButtonDefaults.filledTonalButtonColors(),
+  enabled: Boolean = true,
 ) {
-    Button(
-        label = {
-            Text(
-                label,
-                textAlign = TextAlign.Start,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        },
-        onClick = onClick,
-        modifier = modifier,
-        colors = colors,
-        enabled = enabled,
-    )
+  Button(
+    label = { Text(label, textAlign = TextAlign.Start, modifier = Modifier.fillMaxWidth()) },
+    onClick = onClick,
+    modifier = modifier,
+    colors = colors,
+    enabled = enabled,
+  )
 }

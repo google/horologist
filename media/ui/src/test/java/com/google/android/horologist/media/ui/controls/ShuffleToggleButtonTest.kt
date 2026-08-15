@@ -22,23 +22,13 @@ import org.junit.Test
 
 class ShuffleToggleButtonTest : WearLegacyComponentTest() {
 
-    @Test
-    fun givenShuffleIsOn_thenIconIsShuffleOn() {
-        runComponentTest {
-            ShuffleToggleButton(
-                onToggle = {},
-                shuffleOn = true,
-            )
-        }
-    }
+  @Test
+  fun givenShuffleIsOn_thenIconIsShuffleOn() {
+    runComponentTest { ShuffleToggleButton(onToggle = {}, shuffleOn = true) }
+  }
 
-    @Test
-    fun givenShuffleIsOff_thenIconIsShuffle() {
-        runComponentTest {
-            ShuffleToggleButton(
-                onToggle = {},
-                shuffleOn = false,
-            )
-        }
-    }
+  @Test
+  fun givenShuffleIsOff_thenIconIsShuffle() {
+    runComponentTest { ShuffleToggleButton(onToggle = {}, shuffleOn = false) }
+  }
 }

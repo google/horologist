@@ -32,38 +32,34 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 
 /**
- * This composable provides an animated label that smoothly transitions between different
- * text values. It uses animations for appearance, disappearance, and content changes.
+ * This composable provides an animated label that smoothly transitions between different text
+ * values. It uses animations for appearance, disappearance, and content changes.
  *
  * @param label The text to display in the label. If `null`, the label is hidden.
- * @param content The composable function to render the animated content within the label.
- * This function receives the current `targetState` (the text being displayed) as a parameter.
+ * @param content The composable function to render the animated content within the label. This
+ *   function receives the current `targetState` (the text being displayed) as a parameter.
  */
 @Composable
 public fun AnimatedLabel(
-    label: String?,
-    content: @Composable AnimatedContentScope.(targetState: String) -> Unit,
+  label: String?,
+  content: @Composable AnimatedContentScope.(targetState: String) -> Unit,
 ) {
-    var previousLabel by remember {
-        mutableStateOf(label ?: "")
-    }
-    label?.also { previousLabel = it }
+  var previousLabel by remember { mutableStateOf(label ?: "") }
+  label?.also { previousLabel = it }
 
-    AnimatedVisibility(
-        visible = label != null,
-        enter = fadeIn(tween(250, delayMillis = 50)) +
-            expandVertically(tween(200)),
-        exit = fadeOut(tween(250)) +
-            shrinkVertically(tween(200, delayMillis = 50)),
-    ) {
-        AnimatedContent(
-            targetState = previousLabel,
-            transitionSpec = {
-                fadeIn(tween(durationMillis = 300, delayMillis = 150))
-                    .togetherWith(fadeOut(tween(durationMillis = 150), targetAlpha = 0.1f))
-            },
-            label = "AnimatedLabel",
-            content = content,
-        )
-    }
+  AnimatedVisibility(
+    visible = label != null,
+    enter = fadeIn(tween(250, delayMillis = 50)) + expandVertically(tween(200)),
+    exit = fadeOut(tween(250)) + shrinkVertically(tween(200, delayMillis = 50)),
+  ) {
+    AnimatedContent(
+      targetState = previousLabel,
+      transitionSpec = {
+        fadeIn(tween(durationMillis = 300, delayMillis = 150))
+          .togetherWith(fadeOut(tween(durationMillis = 150), targetAlpha = 0.1f))
+      },
+      label = "AnimatedLabel",
+      content = content,
+    )
+  }
 }

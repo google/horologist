@@ -41,14 +41,13 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 
 @Composable
 fun Title(lines: Int) {
-    ResponsiveListHeader(
-        contentPadding = ListHeaderDefaults.firstItemPadding(),
-    ) {
-        Text(text = (1..lines).map { "MMMMMMMM" }.joinToString("\n"), maxLines = lines)
-    }
+  ResponsiveListHeader(contentPadding = ListHeaderDefaults.firstItemPadding()) {
+    Text(text = (1..lines).map { "MMMMMMMM" }.joinToString("\n"), maxLines = lines)
+  }
 }
 
-val text = "We posted a payment for your credit card ending in 5555. " +
+val text =
+  "We posted a payment for your credit card ending in 5555. " +
     "If there is anything that does not match your payment details " +
     "please log into your account or contact us with any questions. " +
     "Please contact us if you did not perform this purchase. " +
@@ -56,138 +55,97 @@ val text = "We posted a payment for your credit card ending in 5555. " +
 
 @Composable
 fun WarningText() {
-    Text(
-        text,
-        modifier = Modifier.listTextPadding(),
-    )
+  Text(text, modifier = Modifier.listTextPadding())
 }
 
 fun ScalingLazyListScope.warningTextItems() {
-    text.split(".").forEach {
-        val textLine = it.trim()
-        if (textLine.isNotBlank()) {
-            item {
-                Text(textLine, modifier = Modifier.listTextPadding())
-            }
-        }
+  text.split(".").forEach {
+    val textLine = it.trim()
+    if (textLine.isNotBlank()) {
+      item { Text(textLine, modifier = Modifier.listTextPadding()) }
     }
+  }
 }
 
 @Composable
 fun MessagesCard() {
-    AppCard(
-        onClick = { /*TODO*/ },
-        appName = { Text(text = "messages") },
-        time = { Text(text = "12m") },
-        title = {
-            Text(
-                text = "Robert Simpson",
-            )
-        },
-    ) {
-        Text(text = "Let me know when you leave home")
-    }
+  AppCard(
+    onClick = { /*TODO*/ },
+    appName = { Text(text = "messages") },
+    time = { Text(text = "12m") },
+    title = { Text(text = "Robert Simpson") },
+  ) {
+    Text(text = "Let me know when you leave home")
+  }
 }
 
 @Composable
 fun BofACard() {
-    AppCard(
-        onClick = { /*TODO*/ },
-        appName = { Text(text = "Gmail") },
-        time = { Text(text = "15m") },
-        title = {
-            Text(
-                text = "Bank of America",
-            )
-        },
-    ) {
-        Text(text = "Reminder: Your payment is now due")
-    }
+  AppCard(
+    onClick = { /*TODO*/ },
+    appName = { Text(text = "Gmail") },
+    time = { Text(text = "15m") },
+    title = { Text(text = "Bank of America") },
+  ) {
+    Text(text = "Reminder: Your payment is now due")
+  }
 }
 
 @Composable
 fun LocationOnButton() {
-    Button(
-        imageVector = Icons.Filled.LocationOn,
-        contentDescription = "",
-        onClick = { },
-    )
+  Button(imageVector = Icons.Filled.LocationOn, contentDescription = "", onClick = {})
 }
 
 @Composable
 fun AddCircleButton() {
-    Button(
-        imageVector = Icons.Filled.AddCircle,
-        contentDescription = "",
-        onClick = { },
-    )
+  Button(imageVector = Icons.Filled.AddCircle, contentDescription = "", onClick = {})
 }
 
 @Composable
 fun DoneCompactChip() {
-    CompactChip(
-        icon = Icons.Default.Done.asPaintable(),
-        contentDescription = "",
-        onClick = { /*TODO*/ },
-    )
+  CompactChip(
+    icon = Icons.Default.Done.asPaintable(),
+    contentDescription = "",
+    onClick = { /*TODO*/ },
+  )
 }
 
 @Composable
 fun SystemChip() {
-    Chip(
-        label = "System",
-        onClick = { },
-        icon = Icons.Default.Schedule.asPaintable(),
-    )
+  Chip(label = "System", onClick = {}, icon = Icons.Default.Schedule.asPaintable())
 }
 
 @Composable
 fun AccountsChip() {
-    Chip(
-        label = "Accounts & Security",
-        onClick = { },
-        icon = Icons.Outlined.Badge.asPaintable(),
-    )
+  Chip(label = "Accounts & Security", onClick = {}, icon = Icons.Outlined.Badge.asPaintable())
 }
 
 @Composable
 fun SoundChip() {
-    Chip(
-        label = "Sound & vibration",
-        onClick = { },
-        icon = Icons.Default.Apps.asPaintable(),
-    )
+  Chip(label = "Sound & vibration", onClick = {}, icon = Icons.Default.Apps.asPaintable())
 }
 
 @Composable
 fun AppsChip() {
-    Chip(
-        label = "Apps & notifications",
-        onClick = { },
-        icon = Icons.Default.Apps.asPaintable(),
-    )
+  Chip(label = "Apps & notifications", onClick = {}, icon = Icons.Default.Apps.asPaintable())
 }
 
 @Composable
 fun ConnectivityChip() {
-    Chip(
-        label = "Connectivity",
-        onClick = { },
-        icon = Icons.Outlined.Cloud.asPaintable(),
-    )
+  Chip(label = "Connectivity", onClick = {}, icon = Icons.Outlined.Cloud.asPaintable())
 }
 
 @Composable
 fun VolumeSlider() {
-    Chip(label = "TODO", onClick = { /*TODO*/ })
+  Chip(label = "TODO", onClick = { /*TODO*/ })
 }
 
 @Composable
 fun SoundToggleChip() {
-    ToggleChip(
-        label = "Sound",
-        checked = true,
-        onCheckedChanged = {},
-        toggleControl = ToggleChipToggleControl.Switch,
-    )
+  ToggleChip(
+    label = "Sound",
+    checked = true,
+    onCheckedChanged = {},
+    toggleControl = ToggleChipToggleControl.Switch,
+  )
 }

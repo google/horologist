@@ -18,38 +18,26 @@ package com.google.android.horologist.datalayer.sample.screens
 
 import kotlinx.serialization.Serializable
 
-@Serializable
-object Menu
+@Serializable object Menu
 
-@Serializable
-object AppHelperNodes
+@Serializable object AppHelperNodes
 
-@Serializable
-object AppHelperNodesListener
+@Serializable object AppHelperNodesListener
 
-@Serializable
-object InstallAppPromptDemo
+@Serializable object InstallAppPromptDemo
 
-@Serializable
-object ReEngagePromptDemo
+@Serializable object ReEngagePromptDemo
 
-@Serializable
-object SignInPromptDemo
+@Serializable object SignInPromptDemo
 
-@Serializable
-object InstallTilePromptDemo
+@Serializable object InstallTilePromptDemo
 
-@Serializable
-object InstallAppCustomPromptDemo
+@Serializable object InstallAppCustomPromptDemo
 
-@Serializable
-object ReEngageCustomPromptDemo
+@Serializable object ReEngageCustomPromptDemo
 
-@Serializable
-object SignInCustomPromptDemo
+@Serializable object SignInCustomPromptDemo
 
-@Serializable
-object InstallTileCustomPromptDemo
+@Serializable object InstallTileCustomPromptDemo
 
-@Serializable
-object Counter
+@Serializable object Counter

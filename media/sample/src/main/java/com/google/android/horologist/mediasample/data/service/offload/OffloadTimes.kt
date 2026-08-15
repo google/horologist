@@ -19,47 +19,41 @@ package com.google.android.horologist.mediasample.data.service.offload
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.text.NumberFormat
 
-/**
- * A stats object for Audio Offload state.
- */
+/** A stats object for Audio Offload state. */
 @ExperimentalHorologistApi
 public data class OffloadTimes(
-    public val enabled: Long = 0L,
-    public val disabled: Long = 0L,
-    public val notPlaying: Long = 0L,
-    public val isPlaying: Boolean = false,
-    public val updated: Long = System.currentTimeMillis(),
+  public val enabled: Long = 0L,
+  public val disabled: Long = 0L,
+  public val notPlaying: Long = 0L,
+  public val isPlaying: Boolean = false,
+  public val updated: Long = System.currentTimeMillis(),
 ) {
-    val shortDescription: String
-        get() = "$enabled/$disabled/$isPlaying"
+  val shortDescription: String
+    get() = "$enabled/$disabled/$isPlaying"
 
-    public val percent: String
-        get() {
-            val value = enabled.toFloat() / (enabled + disabled)
-            return if (value.isNaN()) "--%" else PercentFormat.format(value)
-        }
-
-    public fun timesToNow(sleepingForOffload: Boolean, updatedIsPlaying: Boolean): OffloadTimes {
-        val time = System.currentTimeMillis()
-        val extra = time - updated
-
-        return if (isPlaying) {
-            copy(
-                enabled = enabled + (if (sleepingForOffload) extra else 0),
-                disabled = disabled + (if (sleepingForOffload) 0 else extra),
-                updated = time,
-                isPlaying = updatedIsPlaying,
-            )
-        } else {
-            copy(
-                notPlaying = notPlaying + extra,
-                updated = time,
-                isPlaying = updatedIsPlaying,
-            )
-        }
+  public val percent: String
+    get() {
+      val value = enabled.toFloat() / (enabled + disabled)
+      return if (value.isNaN()) "--%" else PercentFormat.format(value)
     }
 
-    internal companion object {
-        internal val PercentFormat: NumberFormat = NumberFormat.getPercentInstance()
+  public fun timesToNow(sleepingForOffload: Boolean, updatedIsPlaying: Boolean): OffloadTimes {
+    val time = System.currentTimeMillis()
+    val extra = time - updated
+
+    return if (isPlaying) {
+      copy(
+        enabled = enabled + (if (sleepingForOffload) extra else 0),
+        disabled = disabled + (if (sleepingForOffload) 0 else extra),
+        updated = time,
+        isPlaying = updatedIsPlaying,
+      )
+    } else {
+      copy(notPlaying = notPlaying + extra, updated = time, isPlaying = updatedIsPlaying)
     }
+  }
+
+  internal companion object {
+    internal val PercentFormat: NumberFormat = NumberFormat.getPercentInstance()
+  }
 }

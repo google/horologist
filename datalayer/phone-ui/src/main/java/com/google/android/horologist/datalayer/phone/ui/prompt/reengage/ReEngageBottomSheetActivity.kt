@@ -40,122 +40,116 @@ internal const val RE_ENGAGE_KEY_IMAGE_RES_ID = "HOROLOGIST_RE_ENGAGE_KEY_IMAGE_
 internal const val RE_ENGAGE_KEY_TOP_MESSAGE = "HOROLOGIST_RE_ENGAGE_KEY_TOP_MESSAGE"
 internal const val RE_ENGAGE_KEY_BOTTOM_MESSAGE = "HOROLOGIST_RE_ENGAGE_KEY_BOTTOM_MESSAGE"
 internal const val RE_ENGAGE_KEY_POSITIVE_BUTTON_LABEL =
-    "HOROLOGIST_RE_ENGAGE_KEY_POSITIVE_BUTTON_LABEL"
+  "HOROLOGIST_RE_ENGAGE_KEY_POSITIVE_BUTTON_LABEL"
 internal const val RE_ENGAGE_KEY_NEGATIVE_BUTTON_LABEL =
-    "HOROLOGIST_RE_ENGAGE_KEY_NEGATIVE_BUTTON_LABEL"
+  "HOROLOGIST_RE_ENGAGE_KEY_NEGATIVE_BUTTON_LABEL"
 
 private const val NO_IMAGE = 0
 
 internal class ReEngageBottomSheetActivity : ComponentActivity() {
 
-    private lateinit var phoneDataLayerAppHelper: PhoneDataLayerAppHelper
-    private lateinit var coroutineAppScope: CoroutineScope
-    private lateinit var nodeId: String
+  private lateinit var phoneDataLayerAppHelper: PhoneDataLayerAppHelper
+  private lateinit var coroutineAppScope: CoroutineScope
+  private lateinit var nodeId: String
 
-    @OptIn(ExperimentalMaterial3Api::class)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  @OptIn(ExperimentalMaterial3Api::class)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        coroutineAppScope = CoroutineScopeHolder.coroutineScope
+    coroutineAppScope = CoroutineScopeHolder.coroutineScope
 
-        phoneDataLayerAppHelper = PhoneDataLayerAppHelper(
-            this,
-            WearDataLayerRegistry.fromContext(
-                application = application,
-                coroutineScope = coroutineAppScope,
-            ),
-        )
+    phoneDataLayerAppHelper =
+      PhoneDataLayerAppHelper(
+        this,
+        WearDataLayerRegistry.fromContext(
+          application = application,
+          coroutineScope = coroutineAppScope,
+        ),
+      )
 
-        nodeId = intent.extras?.getString(RE_ENGAGE_KEY_NODE_ID) ?: ""
-        val imageResId = intent.extras?.getInt(RE_ENGAGE_KEY_IMAGE_RES_ID) ?: NO_IMAGE
-        val topMessage = intent.extras?.getString(RE_ENGAGE_KEY_TOP_MESSAGE) ?: ""
-        val bottomMessage = intent.extras?.getString(RE_ENGAGE_KEY_BOTTOM_MESSAGE) ?: ""
-        val positiveButtonLabel = intent.extras?.getString(RE_ENGAGE_KEY_POSITIVE_BUTTON_LABEL)
-        val negativeButtonLabel = intent.extras?.getString(RE_ENGAGE_KEY_NEGATIVE_BUTTON_LABEL)
+    nodeId = intent.extras?.getString(RE_ENGAGE_KEY_NODE_ID) ?: ""
+    val imageResId = intent.extras?.getInt(RE_ENGAGE_KEY_IMAGE_RES_ID) ?: NO_IMAGE
+    val topMessage = intent.extras?.getString(RE_ENGAGE_KEY_TOP_MESSAGE) ?: ""
+    val bottomMessage = intent.extras?.getString(RE_ENGAGE_KEY_BOTTOM_MESSAGE) ?: ""
+    val positiveButtonLabel = intent.extras?.getString(RE_ENGAGE_KEY_POSITIVE_BUTTON_LABEL)
+    val negativeButtonLabel = intent.extras?.getString(RE_ENGAGE_KEY_NEGATIVE_BUTTON_LABEL)
 
-        setContent {
-            Surface {
-                val bottomSheetState = rememberModalBottomSheetState()
-                val coroutineScope = rememberCoroutineScope()
+    setContent {
+      Surface {
+        val bottomSheetState = rememberModalBottomSheetState()
+        val coroutineScope = rememberCoroutineScope()
 
-                val image: (@Composable () -> Unit)? = imageResId.takeIf { it != NO_IMAGE }?.let {
-                    {
-                        Image(
-                            painter = painterResource(id = imageResId),
-                            contentDescription = null,
-                        )
-                    }
-                }
-
-                ReEngageBottomSheet(
-                    image = image,
-                    topMessage = topMessage,
-                    bottomMessage = bottomMessage,
-                    onDismissRequest = {
-                        setResult(RESULT_CANCELED)
-                        coroutineScope.launch {
-                            try {
-                                bottomSheetState.hide()
-                            } finally {
-                                finishWithoutAnimation()
-                            }
-                        }
-                    },
-                    onConfirmation = {
-                        launchAppOnWatch()
-                    },
-                    positiveButtonLabel = positiveButtonLabel,
-                    negativeButtonLabel = negativeButtonLabel,
-                    sheetState = bottomSheetState,
-                )
+        val image: (@Composable () -> Unit)? =
+          imageResId
+            .takeIf { it != NO_IMAGE }
+            ?.let {
+              { Image(painter = painterResource(id = imageResId), contentDescription = null) }
             }
-        }
+
+        ReEngageBottomSheet(
+          image = image,
+          topMessage = topMessage,
+          bottomMessage = bottomMessage,
+          onDismissRequest = {
+            setResult(RESULT_CANCELED)
+            coroutineScope.launch {
+              try {
+                bottomSheetState.hide()
+              } finally {
+                finishWithoutAnimation()
+              }
+            }
+          },
+          onConfirmation = { launchAppOnWatch() },
+          positiveButtonLabel = positiveButtonLabel,
+          negativeButtonLabel = negativeButtonLabel,
+          sheetState = bottomSheetState,
+        )
+      }
+    }
+  }
+
+  private fun launchAppOnWatch() {
+    // Can't use the Activity's lifecycleScope as it is going to finish the activity immediately
+    // after this call
+    coroutineAppScope.launch {
+      ReEngagePromptAction.run(phoneDataLayerAppHelper = phoneDataLayerAppHelper, nodeId = nodeId)
     }
 
-    private fun launchAppOnWatch() {
-        // Can't use the Activity's lifecycleScope as it is going to finish the activity immediately
-        // after this call
-        coroutineAppScope.launch {
-            ReEngagePromptAction.run(
-                phoneDataLayerAppHelper = phoneDataLayerAppHelper,
-                nodeId = nodeId,
-            )
-        }
+    // It returns OK to indicate that the user tapped on the positive button.
+    // The call above might fail, but the result is not reflected in the activity's result.
+    // In order to do that, it would require to make the bottom sheet display a spinner while
+    // waiting for the result of the call.
+    setResult(RESULT_OK)
+    finishWithoutAnimation()
+  }
 
-        // It returns OK to indicate that the user tapped on the positive button.
-        // The call above might fail, but the result is not reflected in the activity's result.
-        // In order to do that, it would require to make the bottom sheet display a spinner while
-        // waiting for the result of the call.
-        setResult(RESULT_OK)
-        finishWithoutAnimation()
+  private fun finishWithoutAnimation() {
+    finish()
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+      overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, 0, 0)
+    } else {
+      @Suppress("DEPRECATION") overridePendingTransition(0, 0)
     }
+  }
 
-    private fun finishWithoutAnimation() {
-        finish()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            overrideActivityTransition(OVERRIDE_TRANSITION_CLOSE, 0, 0)
-        } else {
-            @Suppress("DEPRECATION")
-            overridePendingTransition(0, 0)
-        }
-    }
-
-    internal companion object {
-        fun getIntent(
-            context: Context,
-            nodeId: String,
-            @DrawableRes image: Int,
-            topMessage: String,
-            bottomMessage: String,
-            positiveButtonLabel: String? = null,
-            negativeButtonLabel: String? = null,
-        ) = Intent(context, ReEngageBottomSheetActivity::class.java).apply {
-            putExtra(RE_ENGAGE_KEY_NODE_ID, nodeId)
-            putExtra(RE_ENGAGE_KEY_IMAGE_RES_ID, image)
-            putExtra(RE_ENGAGE_KEY_TOP_MESSAGE, topMessage)
-            putExtra(RE_ENGAGE_KEY_BOTTOM_MESSAGE, bottomMessage)
-            putExtra(RE_ENGAGE_KEY_POSITIVE_BUTTON_LABEL, positiveButtonLabel)
-            putExtra(RE_ENGAGE_KEY_NEGATIVE_BUTTON_LABEL, negativeButtonLabel)
-        }
-    }
+  internal companion object {
+    fun getIntent(
+      context: Context,
+      nodeId: String,
+      @DrawableRes image: Int,
+      topMessage: String,
+      bottomMessage: String,
+      positiveButtonLabel: String? = null,
+      negativeButtonLabel: String? = null,
+    ) =
+      Intent(context, ReEngageBottomSheetActivity::class.java).apply {
+        putExtra(RE_ENGAGE_KEY_NODE_ID, nodeId)
+        putExtra(RE_ENGAGE_KEY_IMAGE_RES_ID, image)
+        putExtra(RE_ENGAGE_KEY_TOP_MESSAGE, topMessage)
+        putExtra(RE_ENGAGE_KEY_BOTTOM_MESSAGE, bottomMessage)
+        putExtra(RE_ENGAGE_KEY_POSITIVE_BUTTON_LABEL, positiveButtonLabel)
+        putExtra(RE_ENGAGE_KEY_NEGATIVE_BUTTON_LABEL, negativeButtonLabel)
+      }
+  }
 }

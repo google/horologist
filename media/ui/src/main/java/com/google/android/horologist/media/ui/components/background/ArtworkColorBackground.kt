@@ -40,84 +40,80 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.images.coil.rememberArtworkColor
 
-/**
- * Background using a radial gradient extracted from artwork.
- */
+/** Background using a radial gradient extracted from artwork. */
 @Composable
 @ExperimentalHorologistApi
 public fun ArtworkColorBackground(
-    paintable: CoilPaintable?,
-    modifier: Modifier = Modifier,
-    defaultColor: Color? = null,
-    background: Color = MaterialTheme.colors.background,
+  paintable: CoilPaintable?,
+  modifier: Modifier = Modifier,
+  defaultColor: Color? = null,
+  background: Color = MaterialTheme.colors.background,
 ) {
-    val artworkColor = rememberArtworkColor(
-        model = paintable?.model,
-        defaultColor = defaultColor ?: Color.Black,
-    )
+  val artworkColor =
+    rememberArtworkColor(model = paintable?.model, defaultColor = defaultColor ?: Color.Black)
 
-    ColorBackground(artworkColor.value, modifier = modifier, background = background)
+  ColorBackground(artworkColor.value, modifier = modifier, background = background)
 }
 
 @Composable
 @ExperimentalHorologistApi
 public fun rememberArtworkColorBrush(
-    artworkColor: Color,
-    background: Color = Color.Black,
+  artworkColor: Color,
+  background: Color = Color.Black,
 ): State<Brush> {
-    val animatedBackgroundColor = animateColorAsState(
-        targetValue = artworkColor,
-        animationSpec = tween(450, 0, LinearEasing),
-        label = "ColorBackground",
+  val animatedBackgroundColor =
+    animateColorAsState(
+      targetValue = artworkColor,
+      animationSpec = tween(450, 0, LinearEasing),
+      label = "ColorBackground",
     )
 
-    return remember {
-        derivedStateOf {
-            Brush.radialGradient(
-                listOf(
-                    animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
-                    background,
-                ),
-            )
-        }
+  return remember {
+    derivedStateOf {
+      Brush.radialGradient(
+        listOf(
+          animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
+          background,
+        )
+      )
     }
+  }
 }
 
 @Composable
 @ExperimentalHorologistApi
 public fun ColorBackground(
-    color: Color?,
-    modifier: Modifier = Modifier,
-    background: Color = MaterialTheme.colors.background,
+  color: Color?,
+  modifier: Modifier = Modifier,
+  background: Color = MaterialTheme.colors.background,
 ) {
-    val animatedBackgroundColor = animateColorAsState(
-        targetValue = color ?: Color.Black,
-        animationSpec = tween(450, 0, LinearEasing),
-        label = "ColorBackground",
+  val animatedBackgroundColor =
+    animateColorAsState(
+      targetValue = color ?: Color.Black,
+      animationSpec = tween(450, 0, LinearEasing),
+      label = "ColorBackground",
     )
 
-    Box(
-        modifier = modifier
-            .fillMaxSize()
-            .drawWithCache {
-                val bitmap = ImageBitmap(size.width.toInt(), size.height.toInt())
-                val canvas = androidx.compose.ui.graphics.Canvas(bitmap)
-                val paint = Paint().apply {
-                    shader = RadialGradientShader(
-                        center = Offset(x = size.center.x, y = size.center.y),
-                        radius = size.minDimension / 2,
-                        colors = listOf(
-                            animatedBackgroundColor.value
-                                .copy(alpha = 0.3f)
-                                .compositeOver(background),
-                            background,
-                        ),
-                    )
-                }
-                canvas.drawRect(0f, 0f, size.width, size.height, paint = paint)
-                onDrawBehind {
-                    drawImage(bitmap)
-                }
-            },
-    )
+  Box(
+    modifier =
+      modifier.fillMaxSize().drawWithCache {
+        val bitmap = ImageBitmap(size.width.toInt(), size.height.toInt())
+        val canvas = androidx.compose.ui.graphics.Canvas(bitmap)
+        val paint =
+          Paint().apply {
+            shader =
+              RadialGradientShader(
+                center = Offset(x = size.center.x, y = size.center.y),
+                radius = size.minDimension / 2,
+                colors =
+                  listOf(
+                    animatedBackgroundColor.value.copy(alpha = 0.3f).compositeOver(background),
+                    background,
+                  ),
+              )
+          }
+        canvas.drawRect(0f, 0f, size.width, size.height, paint = paint)
+        onDrawBehind { drawImage(bitmap) }
+      }
+  )
 }

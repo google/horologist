@@ -25,117 +25,95 @@ import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
 class VolumeScreenIndividualTest : WearLegacyScreenTest() {
-    @Test
-    fun volumeScreenAtMinimum() {
-        val volumeState = VolumeState(
-            current = 0,
-            max = 100,
-        )
-        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
+  @Test
+  fun volumeScreenAtMinimum() {
+    val volumeState = VolumeState(current = 0, max = 100)
+    val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        runTest {
-            VolumeScreenTestCase(
-                colors = MaterialTheme.colors,
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
+    runTest {
+      VolumeScreenTestCase(
+        colors = MaterialTheme.colors,
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 
-    @Test
-    fun volumeScreenAtMaximum() {
-        val volumeState = VolumeState(
-            current = 100,
-            max = 100,
-        )
-        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
+  @Test
+  fun volumeScreenAtMaximum() {
+    val volumeState = VolumeState(current = 100, max = 100)
+    val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
 
-        runTest {
-            VolumeScreenTestCase(
-                colors = MaterialTheme.colors,
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
+    runTest {
+      VolumeScreenTestCase(
+        colors = MaterialTheme.colors,
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 
-    @Test
-    fun volumeScreenWithLongTest() {
-        val volumeState = VolumeState(
-            current = 50,
-            max = 100,
-        )
-        val audioOutput = AudioOutput.BluetoothHeadset("id", "Galaxy Watch 4")
+  @Test
+  fun volumeScreenWithLongTest() {
+    val volumeState = VolumeState(current = 50, max = 100)
+    val audioOutput = AudioOutput.BluetoothHeadset("id", "Galaxy Watch 4")
 
-        runTest {
-            VolumeScreenTestCase(
-                colors = MaterialTheme.colors,
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
+    runTest {
+      VolumeScreenTestCase(
+        colors = MaterialTheme.colors,
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 
-    @Test
-    fun volumeScreenWithWatchSpeaker() {
-        val volumeState = VolumeState(
-            current = 50,
-            max = 100,
-        )
-        // Media Router returns "Phone"
-        val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", true)
+  @Test
+  fun volumeScreenWithWatchSpeaker() {
+    val volumeState = VolumeState(current = 50, max = 100)
+    // Media Router returns "Phone"
+    val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", true)
 
-        runTest {
-            VolumeScreenTestCase(
-                colors = MaterialTheme.colors,
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
+    runTest {
+      VolumeScreenTestCase(
+        colors = MaterialTheme.colors,
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 
-    @Test
-    fun volumeScreenWithWatchSpeakerNotPlayable() {
-        val volumeState = VolumeState(
-            current = 50,
-            max = 100,
-        )
-        // Media Router returns "Phone"
-        val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
+  @Test
+  fun volumeScreenWithWatchSpeakerNotPlayable() {
+    val volumeState = VolumeState(current = 50, max = 100)
+    // Media Router returns "Phone"
+    val audioOutput = AudioOutput.WatchSpeaker("id", "Phone", false)
 
-        runTest {
-            VolumeScreenTestCase(
-                colors = MaterialTheme.colors,
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
+    runTest {
+      VolumeScreenTestCase(
+        colors = MaterialTheme.colors,
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 
-    @Test
-    fun volumeScreenWithLabel() {
-        val volumeState = VolumeState(
-            current = 50,
-            max = 100,
+  @Test
+  fun volumeScreenWithLabel() {
+    val volumeState = VolumeState(current = 50, max = 100)
+    val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
+
+    runTest {
+      ScreenScaffold(
+        positionIndicator = { VolumePositionIndicator(volumeUiState = { volumeUiState }) },
+        timeText = {},
+      ) {
+        VolumeWithLabelScreen(
+          volume = { volumeUiState },
+          increaseVolume = {},
+          decreaseVolume = {},
+          showVolumeIndicator = false,
         )
-        val volumeUiState = VolumeUiStateMapper.map(volumeState = volumeState)
-
-        runTest {
-            ScreenScaffold(
-                positionIndicator = {
-                    VolumePositionIndicator(
-                        volumeUiState = { volumeUiState },
-                    )
-                },
-                timeText = {},
-            ) {
-                VolumeWithLabelScreen(
-                    volume = { volumeUiState },
-                    increaseVolume = { },
-                    decreaseVolume = { },
-                    showVolumeIndicator = false,
-                )
-            }
-        }
+      }
     }
+  }
 }

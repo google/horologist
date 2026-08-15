@@ -52,27 +52,30 @@ import com.google.android.horologist.media.ui.material3.components.controls.Medi
  */
 @Composable
 public fun AmbientSeekToPreviousButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    icon: ImageVector = ImageVector.vectorResource(R.drawable.rounded_skip_previous_24),
-    iconSize: Dp = IconButtonDefaults.SmallIconSize,
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(colorScheme),
-    border: BorderStroke? = MediaButtonDefaults
-        .ambientButtonBorder(enabled = enabled, colorScheme = colorScheme),
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  icon: ImageVector = ImageVector.vectorResource(R.drawable.rounded_skip_previous_24),
+  iconSize: Dp = IconButtonDefaults.SmallIconSize,
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  colors: IconButtonColors = MediaButtonDefaults.mediaButtonAmbientColors(colorScheme),
+  border: BorderStroke? =
+    MediaButtonDefaults.ambientButtonBorder(enabled = enabled, colorScheme = colorScheme),
 ) {
-    MediaButton(
-        onClick = onClick,
-        icon = icon,
-        contentDescription =
-            stringResource(com.google.android.horologist.media.ui.model.R.string.horologist_seek_to_previous_button_content_description),
-        modifier = modifier,
-        buttonPadding = buttonPadding,
-        enabled = enabled,
-        iconSize = iconSize,
-        colors = colors,
-        border = border,
-    )
+  MediaButton(
+    onClick = onClick,
+    icon = icon,
+    contentDescription =
+      stringResource(
+        com.google.android.horologist.media.ui.model.R.string
+          .horologist_seek_to_previous_button_content_description
+      ),
+    modifier = modifier,
+    buttonPadding = buttonPadding,
+    enabled = enabled,
+    iconSize = iconSize,
+    colors = colors,
+    border = border,
+  )
 }

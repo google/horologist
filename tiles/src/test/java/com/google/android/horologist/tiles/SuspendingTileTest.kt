@@ -29,35 +29,34 @@ import org.robolectric.Shadows.shadowOf
 
 @RunWith(RobolectricTestRunner::class)
 public class SuspendingTileTest {
-    private val fakeTileService = TestTileService()
+  private val fakeTileService = TestTileService()
 
-    private lateinit var clientUnderTest: TestTileClient<TestTileService>
+  private lateinit var clientUnderTest: TestTileClient<TestTileService>
 
-    @Before
-    public fun setUp() {
-        val executor = MoreExecutors.directExecutor()
-        clientUnderTest = TestTileClient(fakeTileService, executor)
-    }
+  @Before
+  public fun setUp() {
+    val executor = MoreExecutors.directExecutor()
+    clientUnderTest = TestTileClient(fakeTileService, executor)
+  }
 
-    @Test
-    public fun canCallOnTileRequest() {
-        val future = clientUnderTest.requestTile(RequestBuilders.TileRequest.Builder().build())
+  @Test
+  public fun canCallOnTileRequest() {
+    val future = clientUnderTest.requestTile(RequestBuilders.TileRequest.Builder().build())
 
-        shadowOf(Looper.getMainLooper()).idle()
+    shadowOf(Looper.getMainLooper()).idle()
 
-        assertThat(future.isDone).isTrue()
-        assertThat(future.get().resourcesVersion).isEqualTo(TestTileService.FAKE_VERSION)
-    }
+    assertThat(future.isDone).isTrue()
+    assertThat(future.get().resourcesVersion).isEqualTo(TestTileService.FAKE_VERSION)
+  }
 
-    @Test
-    public fun canCallOnResourcesRequest() {
-        val future = clientUnderTest.requestTileResourcesAsync(
-            RequestBuilders.ResourcesRequest.Builder().build(),
-        )
+  @Test
+  public fun canCallOnResourcesRequest() {
+    val future =
+      clientUnderTest.requestTileResourcesAsync(RequestBuilders.ResourcesRequest.Builder().build())
 
-        shadowOf(Looper.getMainLooper()).idle()
+    shadowOf(Looper.getMainLooper()).idle()
 
-        assertThat(future.isDone).isTrue()
-        assertThat(future.get().version).isEqualTo(TestTileService.FAKE_VERSION)
-    }
+    assertThat(future.isDone).isTrue()
+    assertThat(future.get().version).isEqualTo(TestTileService.FAKE_VERSION)
+  }
 }

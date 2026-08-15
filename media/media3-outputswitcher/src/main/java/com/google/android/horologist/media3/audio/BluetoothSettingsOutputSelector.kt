@@ -24,26 +24,27 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withTimeoutOrNull
 
 /**
- * Implementation of audio output selection using bluetooth settings fragment
- * and waiting up to 15 seconds for a new output to be available.
+ * Implementation of audio output selection using bluetooth settings fragment and waiting up to 15
+ * seconds for a new output to be available.
  */
 @ExperimentalHorologistApi
 public class BluetoothSettingsOutputSelector(
-    private val audioOutputRepository: AudioOutputRepository,
+  private val audioOutputRepository: AudioOutputRepository
 ) : AudioOutputSelector {
-    override suspend fun selectNewOutput(currentAudioOutput: AudioOutput): AudioOutput? {
-        audioOutputRepository.launchOutputSelection(true)
+  override suspend fun selectNewOutput(currentAudioOutput: AudioOutput): AudioOutput? {
+    audioOutputRepository.launchOutputSelection(true)
 
-        val newAudioOutput = withTimeoutOrNull(15000) {
-            audioOutputRepository.audioOutput.filter {
-                it != AudioOutput.None && it != currentAudioOutput
-            }.first()
-        }
+    val newAudioOutput =
+      withTimeoutOrNull(15000) {
+        audioOutputRepository.audioOutput
+          .filter { it != AudioOutput.None && it != currentAudioOutput }
+          .first()
+      }
 
-        return newAudioOutput
-    }
+    return newAudioOutput
+  }
 
-    override fun launchSelector() {
-        audioOutputRepository.launchOutputSelection(false)
-    }
+  override fun launchSelector() {
+    audioOutputRepository.launchOutputSelection(false)
+  }
 }

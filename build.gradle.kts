@@ -3,8 +3,6 @@ import com.vanniktech.maven.publish.AndroidSingleVariantLibrary
 import com.vanniktech.maven.publish.JavaLibrary
 import com.vanniktech.maven.publish.JavadocJar
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.net.URI
-import java.util.Properties
 
 /*
  * Copyright 2022 The Android Open Source Project
@@ -23,34 +21,34 @@ import java.util.Properties
  */
 
 buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
+  repositories {
+    google()
+    mavenCentral()
+  }
 
-    dependencies {
-        classpath(libs.android.tools.build.gradle)
-        classpath(libs.kotlin.gradlePlugin)
+  dependencies {
+    classpath(libs.android.tools.build.gradle)
+    classpath(libs.kotlin.gradlePlugin)
 
-        classpath(libs.gradleMavenPublishPlugin)
+    classpath(libs.gradleMavenPublishPlugin)
 
-        classpath(libs.dagger.hiltandroidplugin)
-        classpath(libs.oss.licenses.plugin)
-    }
+    classpath(libs.dagger.hiltandroidplugin)
+    classpath(libs.oss.licenses.plugin)
+  }
 }
 
 plugins {
-    alias(libs.plugins.compose.compiler) apply false
-    alias(libs.plugins.dependencyAnalysis)
-    alias(libs.plugins.dokka)
-    alias(libs.plugins.gradleMavenPublishPlugin)
-    alias(libs.plugins.kotlinGradle) apply false
-    alias(libs.plugins.kotlinx.serialization) apply false
-    alias(libs.plugins.ksp) apply false
-    alias(libs.plugins.metalavaGradle) apply false
-    alias(libs.plugins.protobuf) apply false
-    alias(libs.plugins.roborazzi) apply false
-    alias(libs.plugins.ktfmt) apply false
+  alias(libs.plugins.compose.compiler) apply false
+  alias(libs.plugins.dependencyAnalysis)
+  alias(libs.plugins.dokka)
+  alias(libs.plugins.gradleMavenPublishPlugin)
+  alias(libs.plugins.kotlinGradle) apply false
+  alias(libs.plugins.kotlinx.serialization) apply false
+  alias(libs.plugins.ksp) apply false
+  alias(libs.plugins.metalavaGradle) apply false
+  alias(libs.plugins.protobuf) apply false
+  alias(libs.plugins.roborazzi) apply false
+  alias(libs.plugins.ktfmt) apply false
 }
 
 apply(plugin = "org.jetbrains.dokka")
@@ -58,159 +56,194 @@ apply(plugin = "org.jetbrains.dokka")
 val media3Checkout = project.properties["media3Checkout"]?.toString() ?: ""
 
 if (media3Checkout.isNotBlank()) {
-    allprojects {
-        configurations.all {
-            resolutionStrategy {
-                dependencySubstitution {
-                    substitute(module("androidx.media3:media3-common")).using(project(":media3-lib-common"))
-                    substitute(module("androidx.media3:media3-datasource-okhttp")).using(project(":media3-lib-datasource-okhttp"))
-                    substitute(module("androidx.media3:media3-exoplayer")).using(project(":media3-lib-exoplayer"))
-                    substitute(module("androidx.media3:media3-exoplayer-dash")).using(project(":media3-lib-exoplayer-dash"))
-                    substitute(module("androidx.media3:media3-exoplayer-hls")).using(project(":media3-lib-exoplayer-hls"))
-                    substitute(module("androidx.media3:media3-exoplayer-rtsp")).using(project(":media3-lib-exoplayer-rtsp"))
-                    substitute(module("androidx.media3:media3-exoplayer-workmanager")).using(
-                        project(
-                            ":media3-lib-exoplayer-workmanager"
-                        )
-                    )
-                    substitute(module("androidx.media3:media3-session")).using(project(":media3-lib-session"))
-                    substitute(module("androidx.media3:media3-test-utils")).using(project(":media3-test-utils"))
-                    substitute(module("androidx.media3:media3-test-utils-robolectric")).using(
-                        project(":media3-test-utils-robolectric")
-                    )
-                    substitute(module("androidx.media3:media3-ui")).using(project(":media3-lib-ui"))
-                }
-            }
+  allprojects {
+    configurations.all {
+      resolutionStrategy {
+        dependencySubstitution {
+          substitute(module("androidx.media3:media3-common")).using(project(":media3-lib-common"))
+          substitute(module("androidx.media3:media3-datasource-okhttp"))
+            .using(project(":media3-lib-datasource-okhttp"))
+          substitute(module("androidx.media3:media3-exoplayer"))
+            .using(project(":media3-lib-exoplayer"))
+          substitute(module("androidx.media3:media3-exoplayer-dash"))
+            .using(project(":media3-lib-exoplayer-dash"))
+          substitute(module("androidx.media3:media3-exoplayer-hls"))
+            .using(project(":media3-lib-exoplayer-hls"))
+          substitute(module("androidx.media3:media3-exoplayer-rtsp"))
+            .using(project(":media3-lib-exoplayer-rtsp"))
+          substitute(module("androidx.media3:media3-exoplayer-workmanager"))
+            .using(project(":media3-lib-exoplayer-workmanager"))
+          substitute(module("androidx.media3:media3-session")).using(project(":media3-lib-session"))
+          substitute(module("androidx.media3:media3-test-utils"))
+            .using(project(":media3-test-utils"))
+          substitute(module("androidx.media3:media3-test-utils-robolectric"))
+            .using(project(":media3-test-utils-robolectric"))
+          substitute(module("androidx.media3:media3-ui")).using(project(":media3-lib-ui"))
         }
+      }
     }
+  }
 }
 
-
-
 allprojects {
-    repositories {
-        google()
-        mavenCentral()
+  repositories {
+    google()
+    mavenCentral()
 
-        val composeSnapshot = rootProject.libs.versions.composesnapshot.get()
-        if (composeSnapshot.length > 1) {
-            maven(url = uri("https://androidx.dev/snapshots/builds/$composeSnapshot/artifacts/repository/"))
-        }
+    val composeSnapshot = rootProject.libs.versions.composesnapshot.get()
+    if (composeSnapshot.length > 1) {
+      maven(
+        url = uri("https://androidx.dev/snapshots/builds/$composeSnapshot/artifacts/repository/")
+      )
     }
+  }
 
-    configurations.all {
-        val isLint = name.contains("lint", ignoreCase = true)
-        if (!isLint) {
-            exclude(group = "com.google.protobuf", module = "protobuf-java")
-            resolutionStrategy {
-                dependencySubstitution {
-                    substitute(module("com.google.protobuf:protobuf-java")).using(module("com.google.protobuf:protobuf-javalite:4.35.1"))
-                }
-                force(rootProject.libs.grpc.stub)
-                force(rootProject.libs.io.grpc.protobuf.lite)
-                force(rootProject.libs.io.grpc.grpc.android)
-                force(rootProject.libs.io.grpc.grpc.binder)
-                eachDependency {
-                    if (requested.group == "androidx.core" && (requested.name == "core" || requested.name == "core-ktx")) {
-                        useVersion(rootProject.libs.versions.androidxCore.get())
-                    }
-                    if (requested.group == "androidx.lifecycle") {
-                        useVersion(rootProject.libs.versions.androidxLifecycle.get())
-                    }
-                }
-            }
+  configurations.all {
+    val isLint = name.contains("lint", ignoreCase = true)
+    if (!isLint) {
+      exclude(group = "com.google.protobuf", module = "protobuf-java")
+      resolutionStrategy {
+        dependencySubstitution {
+          substitute(module("com.google.protobuf:protobuf-java"))
+            .using(module("com.google.protobuf:protobuf-javalite:4.35.1"))
         }
+        force(rootProject.libs.grpc.stub)
+        force(rootProject.libs.io.grpc.protobuf.lite)
+        force(rootProject.libs.io.grpc.grpc.android)
+        force(rootProject.libs.io.grpc.grpc.binder)
+        eachDependency {
+          if (
+            requested.group == "androidx.core" &&
+              (requested.name == "core" || requested.name == "core-ktx")
+          ) {
+            useVersion(rootProject.libs.versions.androidxCore.get())
+          }
+          if (requested.group == "androidx.lifecycle") {
+            useVersion(rootProject.libs.versions.androidxLifecycle.get())
+          }
+        }
+      }
     }
+  }
 
-    plugins.withId("com.vanniktech.maven.publish") {
-        mavenPublishing {
-            if (project.plugins.hasPlugin("com.android.library")) {
-                configure(
-                    AndroidSingleVariantLibrary(
-                        variant = "release",
-                        sourcesJar = true,
-                        publishJavadocJar = false
-                    )
-                )
-            } else if (project.plugins.hasPlugin("java-library")) {
-                configure(JavaLibrary(javadocJar = JavadocJar.Empty(), sourcesJar = true))
-            }
-        }
+  plugins.withId("com.vanniktech.maven.publish") {
+    mavenPublishing {
+      if (project.plugins.hasPlugin("com.android.library")) {
+        configure(
+          AndroidSingleVariantLibrary(
+            variant = "release",
+            sourcesJar = true,
+            publishJavadocJar = false,
+          )
+        )
+      } else if (project.plugins.hasPlugin("java-library")) {
+        configure(JavaLibrary(javadocJar = JavadocJar.Empty(), sourcesJar = true))
+      }
     }
+  }
 }
 
 subprojects {
-    apply(plugin = "com.ncorti.ktfmt.gradle")
+  apply(plugin = "com.ncorti.ktfmt.gradle")
 
-    configure<com.ncorti.ktfmt.gradle.KtfmtExtension> {
-        googleStyle()
+  configurations.configureEach {
+    resolutionStrategy.eachDependency {
+      if (requested.group == "com.facebook" && requested.name == "ktfmt") {
+        useVersion("0.62")
+      }
+    }
+  }
+
+  configure<com.ncorti.ktfmt.gradle.KtfmtExtension> {
+    googleStyle()
+    trailingCommaManagementStrategy.set(
+      com.ncorti.ktfmt.gradle.TrailingCommaManagementStrategy.COMPLETE
+    )
+  }
+
+  tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    compilerOptions {
+      if (rootProject.property("strict.build") == true) {
+        // Treat all Kotlin warnings as errors
+        allWarningsAsErrors = true
+      }
+      jvmTarget.set(JvmTarget.JVM_17)
+      languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2)
+      freeCompilerArgs.addAll(
+        listOf(
+          // Allow use of @OptIn
+          "-opt-in=kotlin.RequiresOptIn",
+          "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
+        )
+      )
+    }
+  }
+
+  tasks.withType<Test>().configureEach {
+    val shardIndex =
+      (project.findProperty("shardIndex") as? String)
+        ?: (project.findProperty("test.shardIndex") as? String)
+        ?: System.getProperty("test.shardIndex")
+    val totalShards =
+      (project.findProperty("totalShards") as? String)
+        ?: (project.findProperty("test.totalShards") as? String)
+        ?: System.getProperty("test.totalShards")
+
+    if (shardIndex != null) {
+      systemProperty("test.shardIndex", shardIndex)
+    }
+    if (totalShards != null) {
+      systemProperty("test.totalShards", totalShards)
+    }
+  }
+
+  // Must be afterEvaluate or else com.vanniktech.maven.publish will overwrite our
+  // dokka and version configuration.
+  afterEvaluate {
+    if (tasks.findByName("dokkaHtmlPartial") == null) {
+      // If dokka isn't enabled on this module, skip
+      return@afterEvaluate
     }
 
-    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
-        compilerOptions {
-            if (rootProject.property("strict.build") == true) {
-                // Treat all Kotlin warnings as errors
-                allWarningsAsErrors = true
-            }
-            jvmTarget.set(JvmTarget.JVM_17)
-            languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2)
-            freeCompilerArgs.addAll(
-                listOf(
-                    // Allow use of @OptIn
-                    "-opt-in=kotlin.RequiresOptIn",
-                    "-opt-in=com.google.android.horologist.annotations.ExperimentalHorologistApi",
-                )
-            )
+    val buildDir = project.layout.buildDirectory
+    val outputDirectory = buildDir.dir("generated/sources/generateVersionFile")
+    val versionName = project.properties["VERSION_NAME"] as String
+    val moduleName =
+      if (project.parent?.name == "horologist") project.name
+      else project.parent?.name + project.name
+
+    val generateVersionFile =
+      tasks.register("generateVersionFile") {
+        doLast {
+          val manifestDir = outputDirectory.get().dir("META-INF")
+          manifestDir.asFile.mkdirs()
+          manifestDir
+            .file("com.google.android.horologist_$moduleName.version")
+            .asFile
+            .writeText("${versionName}\n")
         }
-    }
+      }
 
-    // Must be afterEvaluate or else com.vanniktech.maven.publish will overwrite our
-    // dokka and version configuration.
     afterEvaluate {
-        if (tasks.findByName("dokkaHtmlPartial") == null) {
-            // If dokka isn't enabled on this module, skip
-            return@afterEvaluate
-        }
+      val processResources = tasks.findByName("processResources")
+      if (processResources != null) {
+        processResources.dependsOn(generateVersionFile)
 
-        val buildDir = project.layout.buildDirectory
-        val outputDirectory =
-            buildDir.dir("generated/sources/generateVersionFile")
-        val versionName = project.properties["VERSION_NAME"] as String
-        val moduleName = if (project.parent?.name == "horologist")
-            project.name
-        else
-            project.parent?.name + project.name
-
-        val generateVersionFile = tasks.register("generateVersionFile") {
-            doLast {
-                val manifestDir = outputDirectory.get().dir("META-INF")
-                manifestDir.asFile.mkdirs()
-                manifestDir.file(
-                    "com.google.android.horologist_$moduleName.version"
-                ).asFile.writeText("${versionName}\n")
-            }
-        }
-
-        afterEvaluate {
-            val processResources = tasks.findByName("processResources")
-            if (processResources != null) {
-                processResources.dependsOn(generateVersionFile)
-
-                val sourceSets = extensions.getByType(SourceSetContainer::class)
-                val resources = sourceSets.findByName("main")?.resources
-                resources?.srcDir(outputDirectory)
-            }
-        }
-
-        plugins.withId("com.android.library") {
-            val library = extensions.getByType(LibraryExtension::class)
-
-            val resources = library.sourceSets.findByName("main")?.resources!!
-            resources.directories.add(outputDirectory.get().asFile.absolutePath)
-
-            tasks.matching { it.name.startsWith("process") && it.name.endsWith("JavaResources") }.configureEach {
-                dependsOn(generateVersionFile)
-            }
-        }
+        val sourceSets = extensions.getByType(SourceSetContainer::class)
+        val resources = sourceSets.findByName("main")?.resources
+        resources?.srcDir(outputDirectory)
+      }
     }
+
+    plugins.withId("com.android.library") {
+      val library = extensions.getByType(LibraryExtension::class)
+
+      val resources = library.sourceSets.findByName("main")?.resources!!
+      resources.directories.add(outputDirectory.get().asFile.absolutePath)
+
+      tasks
+        .matching { it.name.startsWith("process") && it.name.endsWith("JavaResources") }
+        .configureEach { dependsOn(generateVersionFile) }
+    }
+  }
 }

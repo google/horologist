@@ -41,76 +41,67 @@ import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
-@Config(
-    sdk = [35],
-    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-)
+@Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 public abstract class WearLegacyComponentTest {
 
-    @get:Rule
-    public val testInfo: TestName = TestName()
+  @get:Rule public val testInfo: TestName = TestName()
 
-    public open fun testName(suffix: String): String =
-        "src/test/snapshots/images/" +
-            "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
-            "${testInfo.methodName}$suffix.png"
+  public open fun testName(suffix: String): String =
+    "src/test/snapshots/images/" +
+      "${this.javaClass.`package`?.name}_${this.javaClass.simpleName}_" +
+      "${testInfo.methodName}$suffix.png"
 
-    public open val device: WearDevice? = null
+  public open val device: WearDevice? = null
 
-    // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
-    public open val tolerance: Float = 0.0f
+  // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
+  public open val tolerance: Float = 0.0f
 
-    public open val imageLoader: FakeImageLoaderEngine? = null
+  public open val imageLoader: FakeImageLoaderEngine? = null
 
-    public fun runComponentTest(
-        background: Color? = Color.Black.copy(alpha = 0.3f),
-        content: @Composable () -> Unit,
+  public fun runComponentTest(
+    background: Color? = Color.Black.copy(alpha = 0.3f),
+    content: @Composable () -> Unit,
+  ) {
+    device?.let {
+      RuntimeEnvironment.setQualifiers("+w${it.dp}dp-h${it.dp}dp")
+      RuntimeEnvironment.setFontScale(it.fontScale)
+    }
+    captureRoboImage(
+      filePath = testName(""),
+      roborazziOptions =
+        RoborazziOptions(
+          recordOptions = RoborazziOptions.RecordOptions(applyDeviceCrop = false),
+          compareOptions =
+            RoborazziOptions.CompareOptions(resultValidator = ThresholdValidator(tolerance)),
+        ),
     ) {
-        device?.let {
-            RuntimeEnvironment.setQualifiers("+w${it.dp}dp-h${it.dp}dp")
-            RuntimeEnvironment.setFontScale(it.fontScale)
-        }
-        captureRoboImage(
-            filePath = testName(""),
-            roborazziOptions = RoborazziOptions(
-                recordOptions = RoborazziOptions.RecordOptions(
-                    applyDeviceCrop = false,
-                ),
-                compareOptions = RoborazziOptions.CompareOptions(
-                    resultValidator = ThresholdValidator(tolerance),
-                ),
-            ),
-        ) {
-            withImageLoader(imageLoader) {
-                Box(
-                    modifier = Modifier.run {
-                        if (background != null) {
-                            background(background)
-                        } else {
-                            this
-                        }
-                    },
-                ) {
-                    ComponentScaffold {
-                        content()
-                    }
-                }
+      withImageLoader(imageLoader) {
+        Box(
+          modifier =
+            Modifier.run {
+              if (background != null) {
+                background(background)
+              } else {
+                this
+              }
             }
+        ) {
+          ComponentScaffold { content() }
         }
+      }
     }
+  }
 
-    @Composable
-    public open fun ComponentScaffold(content: @Composable () -> Unit) {
-        CorrectLayout {
-            content()
-        }
-    }
+  @Composable
+  public open fun ComponentScaffold(content: @Composable () -> Unit) {
+    CorrectLayout { content() }
+  }
 
-    internal companion object {
-        init {
-            useHardwareRenderer()
-        }
+  internal companion object {
+    init {
+      useHardwareRenderer()
     }
+  }
 }

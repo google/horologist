@@ -26,42 +26,42 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
 
 @Composable
 fun VolumeRsbAudit(route: AuditNavigation.VolumeRsb.Audit) {
-    val volume =
-        when (route.config) {
-            AuditNavigation.VolumeRsb.Config.TopLong -> {
-                VolumeState(19, 20)
-            }
+  val volume =
+    when (route.config) {
+      AuditNavigation.VolumeRsb.Config.TopLong -> {
+        VolumeState(19, 20)
+      }
 
-            AuditNavigation.VolumeRsb.Config.TopShort -> {
-                VolumeState(4, 4)
-            }
+      AuditNavigation.VolumeRsb.Config.TopShort -> {
+        VolumeState(4, 4)
+      }
 
-            AuditNavigation.VolumeRsb.Config.BottomLong -> {
-                VolumeState(1, 20)
-            }
+      AuditNavigation.VolumeRsb.Config.BottomLong -> {
+        VolumeState(1, 20)
+      }
 
-            AuditNavigation.VolumeRsb.Config.BottomShort -> {
-                VolumeState(0, 4)
-            }
+      AuditNavigation.VolumeRsb.Config.BottomShort -> {
+        VolumeState(0, 4)
+      }
 
-            AuditNavigation.VolumeRsb.Config.MiddleLong -> {
-                VolumeState(10, 20)
-            }
+      AuditNavigation.VolumeRsb.Config.MiddleLong -> {
+        VolumeState(10, 20)
+      }
 
-            AuditNavigation.VolumeRsb.Config.MiddleShort -> {
-                VolumeState(2, 4)
-            }
-        }
-    val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
-
-    ScreenScaffold(timeText = {}) {
-        VolumeScreen(
-            volume = { volumeUiState },
-            audioOutputUi = AudioOutput.BluetoothHeadset(id = "1", name = "Galaxy Watch 4")
-                .toAudioOutputUi(),
-            increaseVolume = { },
-            decreaseVolume = { },
-            onAudioOutputClick = {},
-        )
+      AuditNavigation.VolumeRsb.Config.MiddleShort -> {
+        VolumeState(2, 4)
+      }
     }
+  val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
+
+  ScreenScaffold(timeText = {}) {
+    VolumeScreen(
+      volume = { volumeUiState },
+      audioOutputUi =
+        AudioOutput.BluetoothHeadset(id = "1", name = "Galaxy Watch 4").toAudioOutputUi(),
+      increaseVolume = {},
+      decreaseVolume = {},
+      onAudioOutputClick = {},
+    )
+  }
 }

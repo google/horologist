@@ -38,18 +38,19 @@ import java.nio.ByteBuffer
  * @param configurer any additional configuration of the ImageRequest being built.
  */
 public suspend fun ImageLoader.loadImage(
-    context: Context,
-    data: Any?,
-    configurer: ImageRequest.Builder.() -> Unit = {},
+  context: Context,
+  data: Any?,
+  configurer: ImageRequest.Builder.() -> Unit = {},
 ): Bitmap? {
-    val request = ImageRequest.Builder(context)
-        .data(data)
-        .apply(configurer)
-        .allowRgb565(false)
-        .allowHardware(false)
-        .build()
-    val response = execute(request)
-    return (response.drawable as? BitmapDrawable)?.bitmap
+  val request =
+    ImageRequest.Builder(context)
+      .data(data)
+      .apply(configurer)
+      .allowRgb565(false)
+      .allowHardware(false)
+      .build()
+  val response = execute(request)
+  return (response.drawable as? BitmapDrawable)?.bitmap
 }
 
 /**
@@ -60,9 +61,9 @@ public suspend fun ImageLoader.loadImage(
  * @param configurer any additional configuration of the ImageRequest being built.
  */
 public suspend fun ImageLoader.loadImageResource(
-    context: Context,
-    data: Any?,
-    configurer: ImageRequest.Builder.() -> Unit = {},
+  context: Context,
+  data: Any?,
+  configurer: ImageRequest.Builder.() -> Unit = {},
 ): ImageResource? = loadImage(context, data, configurer)?.toImageResource()
 
 /**
@@ -72,30 +73,33 @@ public suspend fun ImageLoader.loadImageResource(
  * based on the bitmap. Hardware bitmaps are copied to ARGB_8888 before conversion.
  */
 public fun Bitmap.toImageResource(): ImageResource {
-    val pixelReadableBitmap = if (config == Bitmap.Config.HARDWARE) {
-        copy(Bitmap.Config.ARGB_8888, false)
+  val pixelReadableBitmap =
+    if (config == Bitmap.Config.HARDWARE) {
+      copy(Bitmap.Config.ARGB_8888, false)
     } else {
-        this
+      this
     }
-    val format = when (pixelReadableBitmap.config) {
-        Bitmap.Config.ARGB_8888 -> IMAGE_FORMAT_ARGB_8888
-        Bitmap.Config.RGB_565 -> IMAGE_FORMAT_RGB_565
-        else -> IMAGE_FORMAT_UNDEFINED
+  val format =
+    when (pixelReadableBitmap.config) {
+      Bitmap.Config.ARGB_8888 -> IMAGE_FORMAT_ARGB_8888
+      Bitmap.Config.RGB_565 -> IMAGE_FORMAT_RGB_565
+      else -> IMAGE_FORMAT_UNDEFINED
     }
 
-    val byteBuffer = ByteBuffer.allocate(pixelReadableBitmap.byteCount)
-    pixelReadableBitmap.copyPixelsToBuffer(byteBuffer)
-    val bytes: ByteArray = byteBuffer.array()
+  val byteBuffer = ByteBuffer.allocate(pixelReadableBitmap.byteCount)
+  pixelReadableBitmap.copyPixelsToBuffer(byteBuffer)
+  val bytes: ByteArray = byteBuffer.array()
 
-    return ImageResource.Builder().setInlineResource(
-        ResourceBuilders.InlineImageResource.Builder()
-            .setData(bytes)
-            .setWidthPx(pixelReadableBitmap.width)
-            .setHeightPx(pixelReadableBitmap.height)
-            .setFormat(format)
-            .build(),
-    )
+  return ImageResource.Builder()
+    .setInlineResource(
+      ResourceBuilders.InlineImageResource.Builder()
+        .setData(bytes)
+        .setWidthPx(pixelReadableBitmap.width)
+        .setHeightPx(pixelReadableBitmap.height)
+        .setFormat(format)
         .build()
+    )
+    .build()
 }
 
 /**

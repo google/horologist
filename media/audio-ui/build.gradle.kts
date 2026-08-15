@@ -92,6 +92,7 @@ dependencies {
 
   implementation(libs.compose.ui.toolingpreview)
   debugImplementation(libs.compose.ui.tooling)
+  debugImplementation(libs.compose.preview.annotations)
   debugImplementation(projects.composeTools)
   debugImplementation(libs.compose.ui.test.manifest)
 

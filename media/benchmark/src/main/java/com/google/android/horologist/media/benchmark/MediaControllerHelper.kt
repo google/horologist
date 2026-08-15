@@ -29,30 +29,25 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 public object MediaControllerHelper {
-    public fun lookupController(component: ComponentName): ListenableFuture<MediaBrowser> {
-        val context = InstrumentationRegistry.getInstrumentation().context
-        return MediaBrowser.Builder(
-            context,
-            SessionToken(context, component),
-        )
-            .setApplicationLooper(Looper.getMainLooper())
-            .buildAsync()
+  public fun lookupController(component: ComponentName): ListenableFuture<MediaBrowser> {
+    val context = InstrumentationRegistry.getInstrumentation().context
+    return MediaBrowser.Builder(context, SessionToken(context, component))
+      .setApplicationLooper(Looper.getMainLooper())
+      .buildAsync()
+  }
+
+  public suspend fun MediaController.startPlaying(mediaItems: List<MediaItem>) {
+    withContext(Dispatchers.Main) {
+      setMediaItems(mediaItems)
+
+      delay(100)
+
+      prepare()
+      play()
     }
+  }
 
-    public suspend fun MediaController.startPlaying(mediaItems: List<MediaItem>) {
-        withContext(Dispatchers.Main) {
-            setMediaItems(mediaItems)
-
-            delay(100)
-
-            prepare()
-            play()
-        }
-    }
-
-    public suspend fun MediaController.stopPlaying() {
-        withContext(Dispatchers.Main) {
-            stop()
-        }
-    }
+  public suspend fun MediaController.stopPlaying() {
+    withContext(Dispatchers.Main) { stop() }
+  }
 }

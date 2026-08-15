@@ -23,21 +23,17 @@ import androidx.compose.runtime.Composable
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 
 class ScratchActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
 
-        setContent {
-            WearApp()
-        }
-    }
+    setContent { WearApp() }
+  }
 }
 
-@Composable
-fun WearApp() {
-}
+@Composable fun WearApp() {}
 
 @WearPreviewLargeRound
 @Composable
 fun WearAppPreview() {
-    WearApp()
+  WearApp()
 }

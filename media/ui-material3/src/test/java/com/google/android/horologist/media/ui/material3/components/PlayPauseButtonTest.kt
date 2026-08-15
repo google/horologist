@@ -31,67 +31,64 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class PlayPauseButtonTest {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Test
-    fun givenIsPlaying_thenPauseButtonIsDisplayed() {
-        // given
-        var clicked = false
-        composeTestRule.setContent {
-            PlayPauseButton(
-                onPlayClick = {},
-                onPauseClick = { clicked = true },
-                enabled = true,
-                playing = true,
-            )
-        }
-
-        // then
-        composeTestRule.onNode(hasAnyChild(hasContentDescription("Pause")))
-            .assertIsDisplayed()
-            .performClick()
-
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
-
-        composeTestRule.onNode(hasAnyChild(hasContentDescription("Play")))
-            .assertDoesNotExist()
-
-        composeTestRule.onNode(hasProgressBar())
-            .assertDoesNotExist()
+  @Test
+  fun givenIsPlaying_thenPauseButtonIsDisplayed() {
+    // given
+    var clicked = false
+    composeTestRule.setContent {
+      PlayPauseButton(
+        onPlayClick = {},
+        onPauseClick = { clicked = true },
+        enabled = true,
+        playing = true,
+      )
     }
 
-    @Test
-    fun givenIsNOTPlaying_thenPlayButtonIsDisplayed() {
-        // given
-        var clicked = false
-        composeTestRule.setContent {
-            PlayPauseButton(
-                onPlayClick = { clicked = true },
-                onPauseClick = {},
-                enabled = true,
-                playing = false,
-            )
-        }
+    // then
+    composeTestRule
+      .onNode(hasAnyChild(hasContentDescription("Pause")))
+      .assertIsDisplayed()
+      .performClick()
 
-        // then
-        composeTestRule.onNode(hasAnyChild(hasContentDescription("Play")))
-            .assertIsDisplayed()
-            .performClick()
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
 
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+    composeTestRule.onNode(hasAnyChild(hasContentDescription("Play"))).assertDoesNotExist()
 
-        composeTestRule.onNode(hasAnyChild(hasContentDescription("Pause")))
-            .assertDoesNotExist()
+    composeTestRule.onNode(hasProgressBar()).assertDoesNotExist()
+  }
 
-        composeTestRule.onNode(hasProgressBar())
-            .assertDoesNotExist()
+  @Test
+  fun givenIsNOTPlaying_thenPlayButtonIsDisplayed() {
+    // given
+    var clicked = false
+    composeTestRule.setContent {
+      PlayPauseButton(
+        onPlayClick = { clicked = true },
+        onPauseClick = {},
+        enabled = true,
+        playing = false,
+      )
     }
 
-    companion object {
-        fun hasProgressBar(): SemanticsMatcher =
-            SemanticsMatcher.keyIsDefined(SemanticsProperties.ProgressBarRangeInfo)
-    }
+    // then
+    composeTestRule
+      .onNode(hasAnyChild(hasContentDescription("Play")))
+      .assertIsDisplayed()
+      .performClick()
+
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+
+    composeTestRule.onNode(hasAnyChild(hasContentDescription("Pause"))).assertDoesNotExist()
+
+    composeTestRule.onNode(hasProgressBar()).assertDoesNotExist()
+  }
+
+  companion object {
+    fun hasProgressBar(): SemanticsMatcher =
+      SemanticsMatcher.keyIsDefined(SemanticsProperties.ProgressBarRangeInfo)
+  }
 }

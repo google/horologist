@@ -27,32 +27,34 @@ import org.robolectric.annotation.Config
 
 class MetricDisplayA11yTest : WearLegacyA11yTest() {
 
-    @Test
-    fun metricDisplay() {
-        runComponentTest {
-            MetricDisplay(
-                metric = MetricUiModel(
-                    text = "139",
-                    topRightText = stringResource(R.string.horologist_vigorous),
-                    bottomRightText = stringResource(R.string.horologist_bpm),
-                    color = HR_MODERATE,
-                ),
-            )
-        }
+  @Test
+  fun metricDisplay() {
+    runComponentTest {
+      MetricDisplay(
+        metric =
+          MetricUiModel(
+            text = "139",
+            topRightText = stringResource(R.string.horologist_vigorous),
+            bottomRightText = stringResource(R.string.horologist_bpm),
+            color = HR_MODERATE,
+          )
+      )
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun rtl() {
-        runComponentTest {
-            MetricDisplay(
-                metric = MetricUiModel(
-                    text = "139",
-                    topRightText = stringResource(R.string.horologist_vigorous),
-                    bottomRightText = stringResource(R.string.horologist_bpm),
-                    color = HR_HARD,
-                ),
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun rtl() {
+    runComponentTest {
+      MetricDisplay(
+        metric =
+          MetricUiModel(
+            text = "139",
+            topRightText = stringResource(R.string.horologist_vigorous),
+            bottomRightText = stringResource(R.string.horologist_bpm),
+            color = HR_HARD,
+          )
+      )
     }
+  }
 }

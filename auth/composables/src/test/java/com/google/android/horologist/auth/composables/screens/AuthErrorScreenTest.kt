@@ -20,10 +20,8 @@ import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
 class AuthErrorScreenTest : WearLegacyScreenTest() {
-    @Test
-    fun authErrorScreen() {
-        runTest {
-            AuthErrorScreen()
-        }
-    }
+  @Test
+  fun authErrorScreen() {
+    runTest { AuthErrorScreen() }
+  }
 }

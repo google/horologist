@@ -32,31 +32,27 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class MediaPlayerScreenViewModel
 @Inject
-constructor(
-    playerRepository: PlayerRepositoryImpl,
-    settingsRepository: SettingsRepository,
-) : PlayerViewModel(playerRepository) {
+constructor(playerRepository: PlayerRepositoryImpl, settingsRepository: SettingsRepository) :
+  PlayerViewModel(playerRepository) {
 
-    init {
-        // TODO: consider if this should be done elsewhere
-        // https://github.com/google/horologist/issues/900
-        viewModelScope.launch {
-            playerRepository.currentMedia.collect { media ->
-                if (media != null) {
-                    settingsRepository.edit {
-                        it.toBuilder().setCurrentMediaItemId(media.id).build()
-                    }
-                }
-            }
+  init {
+    // TODO: consider if this should be done elsewhere
+    // https://github.com/google/horologist/issues/900
+    viewModelScope.launch {
+      playerRepository.currentMedia.collect { media ->
+        if (media != null) {
+          settingsRepository.edit { it.toBuilder().setCurrentMediaItemId(media.id).build() }
         }
+      }
     }
+  }
 
-    val playerState = playerRepository.player
+  val playerState = playerRepository.player
 
-    val settingsState: StateFlow<Settings> = settingsRepository.settingsFlow
-        .stateIn(
-            viewModelScope,
-            started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
-            initialValue = Settings.getDefaultInstance(),
-        )
+  val settingsState: StateFlow<Settings> =
+    settingsRepository.settingsFlow.stateIn(
+      viewModelScope,
+      started = SharingStarted.WhileSubscribed(5.seconds.inWholeMilliseconds),
+      initialValue = Settings.getDefaultInstance(),
+    )
 }

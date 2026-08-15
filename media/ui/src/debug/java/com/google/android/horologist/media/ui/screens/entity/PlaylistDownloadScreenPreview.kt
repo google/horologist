@@ -22,266 +22,266 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.images.base.util.rememberVectorPainter
+import com.google.android.horologist.media.ui.SampleArtworkUri
 import com.google.android.horologist.media.ui.state.model.DownloadMediaUiModel
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
-import com.google.android.horologist.media.ui.SampleArtworkUri
+import ee.schimke.composeai.preview.AnimatedPreview
 
 @WearPreviewDevices
+@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun PlaylistDownloadScreenPreviewLoading() {
-    PlaylistDownloadScreen(
-        playlistName = "Playlist name",
-        playlistDownloadScreenState = PlaylistDownloadScreenState.Loading,
-        onDownloadButtonClick = { },
-        onCancelDownloadButtonClick = { },
-        onDownloadItemClick = { },
-        onDownloadItemInProgressClick = { },
-        onShuffleButtonClick = { },
-        onPlayButtonClick = { },
-    )
+  PlaylistDownloadScreen(
+    playlistName = "Playlist name",
+    playlistDownloadScreenState = PlaylistDownloadScreenState.Loading,
+    onDownloadButtonClick = {},
+    onCancelDownloadButtonClick = {},
+    onDownloadItemClick = {},
+    onDownloadItemInProgressClick = {},
+    onShuffleButtonClick = {},
+    onPlayButtonClick = {},
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedNoneDownloaded() {
-    PlaylistDownloadScreen(
-        playlistName = "Playlist name",
-        playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-            playlistModel = playlistUiModel,
-            downloadMediaList = notDownloaded,
-        ),
-        onDownloadButtonClick = { },
-        onCancelDownloadButtonClick = { },
-        onDownloadItemClick = { },
-        onDownloadItemInProgressClick = { },
-        onShuffleButtonClick = { },
-        onPlayButtonClick = { },
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-        ),
-    )
+  PlaylistDownloadScreen(
+    playlistName = "Playlist name",
+    playlistDownloadScreenState =
+      createPlaylistDownloadScreenStateLoaded(
+        playlistModel = playlistUiModel,
+        downloadMediaList = notDownloaded,
+      ),
+    onDownloadButtonClick = {},
+    onCancelDownloadButtonClick = {},
+    onDownloadItemClick = {},
+    onDownloadItemInProgressClick = {},
+    onShuffleButtonClick = {},
+    onPlayButtonClick = {},
+    downloadItemArtworkPlaceholder =
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
+  )
 }
 
 @WearPreviewDevices
+@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedNoneDownloadedDownloading() {
-    PlaylistDownloadScreen(
-        playlistName = "Playlist name",
-        playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-            playlistModel = playlistUiModel,
-            downloadMediaList = notDownloadedAndDownloading,
-        ),
-        onDownloadButtonClick = { },
-        onCancelDownloadButtonClick = { },
-        onDownloadItemClick = { },
-        onDownloadItemInProgressClick = { },
-        onShuffleButtonClick = { },
-        onPlayButtonClick = { },
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-        ),
-    )
+  PlaylistDownloadScreen(
+    playlistName = "Playlist name",
+    playlistDownloadScreenState =
+      createPlaylistDownloadScreenStateLoaded(
+        playlistModel = playlistUiModel,
+        downloadMediaList = notDownloadedAndDownloading,
+      ),
+    onDownloadButtonClick = {},
+    onCancelDownloadButtonClick = {},
+    onDownloadItemClick = {},
+    onDownloadItemInProgressClick = {},
+    onShuffleButtonClick = {},
+    onPlayButtonClick = {},
+    downloadItemArtworkPlaceholder =
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloaded() {
-    PlaylistDownloadScreen(
-        playlistName = "Playlist name",
-        playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-            playlistModel = playlistUiModel,
-            downloadMediaList = downloadedNotDownloaded,
-        ),
-        onDownloadButtonClick = { },
-        onCancelDownloadButtonClick = { },
-        onDownloadItemClick = { },
-        onDownloadItemInProgressClick = { },
-        onShuffleButtonClick = { },
-        onPlayButtonClick = { },
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-        ),
-    )
+  PlaylistDownloadScreen(
+    playlistName = "Playlist name",
+    playlistDownloadScreenState =
+      createPlaylistDownloadScreenStateLoaded(
+        playlistModel = playlistUiModel,
+        downloadMediaList = downloadedNotDownloaded,
+      ),
+    onDownloadButtonClick = {},
+    onCancelDownloadButtonClick = {},
+    onDownloadItemClick = {},
+    onDownloadItemInProgressClick = {},
+    onShuffleButtonClick = {},
+    onPlayButtonClick = {},
+    downloadItemArtworkPlaceholder =
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingUnknownSize() {
-    PlaylistDownloadScreen(
-        playlistName = "Playlist name",
-        playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-            playlistModel = playlistUiModel,
-            downloadMediaList = downloadedAndDownloadingUnknown,
-        ),
-        onDownloadButtonClick = { },
-        onCancelDownloadButtonClick = { },
-        onDownloadItemClick = { },
-        onDownloadItemInProgressClick = { },
-        onShuffleButtonClick = { },
-        onPlayButtonClick = { },
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-        ),
-    )
+  PlaylistDownloadScreen(
+    playlistName = "Playlist name",
+    playlistDownloadScreenState =
+      createPlaylistDownloadScreenStateLoaded(
+        playlistModel = playlistUiModel,
+        downloadMediaList = downloadedAndDownloadingUnknown,
+      ),
+    onDownloadButtonClick = {},
+    onCancelDownloadButtonClick = {},
+    onDownloadItemClick = {},
+    onDownloadItemInProgressClick = {},
+    onShuffleButtonClick = {},
+    onPlayButtonClick = {},
+    downloadItemArtworkPlaceholder =
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedPartiallyDownloadedDownloadingWaiting() {
-    PlaylistDownloadScreen(
-        playlistName = "Playlist name",
-        playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-            playlistModel = playlistUiModel,
-            downloadMediaList = downloadedAndDownloadingWaiting,
-        ),
-        onDownloadButtonClick = { },
-        onCancelDownloadButtonClick = { },
-        onDownloadItemClick = { },
-        onDownloadItemInProgressClick = { },
-        onShuffleButtonClick = { },
-        onPlayButtonClick = { },
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-        ),
-    )
+  PlaylistDownloadScreen(
+    playlistName = "Playlist name",
+    playlistDownloadScreenState =
+      createPlaylistDownloadScreenStateLoaded(
+        playlistModel = playlistUiModel,
+        downloadMediaList = downloadedAndDownloadingWaiting,
+      ),
+    onDownloadButtonClick = {},
+    onCancelDownloadButtonClick = {},
+    onDownloadItemClick = {},
+    onDownloadItemInProgressClick = {},
+    onShuffleButtonClick = {},
+    onPlayButtonClick = {},
+    downloadItemArtworkPlaceholder =
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewLoadedFullyDownloaded() {
-    PlaylistDownloadScreen(
-        playlistName = "Playlist name",
-        playlistDownloadScreenState = createPlaylistDownloadScreenStateLoaded(
-            playlistModel = playlistUiModel,
-            downloadMediaList = downloaded,
-        ),
-        onDownloadButtonClick = { },
-        onCancelDownloadButtonClick = { },
-        onDownloadItemClick = { },
-        onDownloadItemInProgressClick = { },
-        onShuffleButtonClick = { },
-        onPlayButtonClick = { },
-        downloadItemArtworkPlaceholder = rememberVectorPainter(
-            image = Icons.Default.MusicNote,
-            tintColor = Color.Blue,
-        ),
-    )
+  PlaylistDownloadScreen(
+    playlistName = "Playlist name",
+    playlistDownloadScreenState =
+      createPlaylistDownloadScreenStateLoaded(
+        playlistModel = playlistUiModel,
+        downloadMediaList = downloaded,
+      ),
+    onDownloadButtonClick = {},
+    onCancelDownloadButtonClick = {},
+    onDownloadItemClick = {},
+    onDownloadItemInProgressClick = {},
+    onShuffleButtonClick = {},
+    onPlayButtonClick = {},
+    downloadItemArtworkPlaceholder =
+      rememberVectorPainter(image = Icons.Default.MusicNote, tintColor = Color.Blue),
+  )
 }
 
 @WearPreviewDevices
 @Composable
 fun PlaylistDownloadScreenPreviewFailed() {
-    PlaylistDownloadScreen(
-        playlistName = "Playlist name",
-        playlistDownloadScreenState = PlaylistDownloadScreenState.Failed,
-        onDownloadButtonClick = { },
-        onCancelDownloadButtonClick = { },
-        onDownloadItemClick = { },
-        onDownloadItemInProgressClick = { },
-        onShuffleButtonClick = { },
-        onPlayButtonClick = { },
-    )
+  PlaylistDownloadScreen(
+    playlistName = "Playlist name",
+    playlistDownloadScreenState = PlaylistDownloadScreenState.Failed,
+    onDownloadButtonClick = {},
+    onCancelDownloadButtonClick = {},
+    onDownloadItemClick = {},
+    onDownloadItemInProgressClick = {},
+    onShuffleButtonClick = {},
+    onPlayButtonClick = {},
+  )
 }
 
-private val playlistUiModel = PlaylistUiModel(
-    id = "id",
-    title = "Playlist name",
-)
+private val playlistUiModel = PlaylistUiModel(id = "id", title = "Playlist name")
 
-private val notDownloaded = listOf(
+private val notDownloaded =
+  listOf(
     DownloadMediaUiModel.NotDownloaded(
-        id = "id",
-        title = "Song name",
-        artist = "Artist name",
-        artworkUri = SampleArtworkUri,
+      id = "id",
+      title = "Song name",
+      artist = "Artist name",
+      artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.NotDownloaded(
-        id = "id 2",
-        title = "Song name 2",
-        artist = "Artist name 2",
-        artworkUri = SampleArtworkUri,
+      id = "id 2",
+      title = "Song name 2",
+      artist = "Artist name 2",
+      artworkUri = SampleArtworkUri,
     ),
-)
+  )
 
-private val notDownloadedAndDownloading = listOf(
+private val notDownloadedAndDownloading =
+  listOf(
     DownloadMediaUiModel.NotDownloaded(
-        id = "id",
-        title = "Song name",
-        artist = "Artist name",
-        artworkUri = SampleArtworkUri,
+      id = "id",
+      title = "Song name",
+      artist = "Artist name",
+      artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.Downloading(
-        id = "id 2",
-        title = "Song name 2",
-        progress = DownloadMediaUiModel.Progress.InProgress(78f),
-        size = DownloadMediaUiModel.Size.Known(sizeInBytes = 123456L),
-        artworkUri = SampleArtworkUri,
+      id = "id 2",
+      title = "Song name 2",
+      progress = DownloadMediaUiModel.Progress.InProgress(78f),
+      size = DownloadMediaUiModel.Size.Known(sizeInBytes = 123456L),
+      artworkUri = SampleArtworkUri,
     ),
-)
+  )
 
-private val downloadedAndDownloadingUnknown = listOf(
+private val downloadedAndDownloadingUnknown =
+  listOf(
     DownloadMediaUiModel.Downloaded(
-        id = "id",
-        title = "Song name",
-        artist = "Artist name",
-        artworkUri = SampleArtworkUri,
+      id = "id",
+      title = "Song name",
+      artist = "Artist name",
+      artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.Downloading(
-        id = "id 2",
-        title = "Song name 2",
-        progress = DownloadMediaUiModel.Progress.InProgress(78f),
-        size = DownloadMediaUiModel.Size.Unknown,
-        artworkUri = SampleArtworkUri,
+      id = "id 2",
+      title = "Song name 2",
+      progress = DownloadMediaUiModel.Progress.InProgress(78f),
+      size = DownloadMediaUiModel.Size.Unknown,
+      artworkUri = SampleArtworkUri,
     ),
-)
+  )
 
-private val downloadedAndDownloadingWaiting = listOf(
+private val downloadedAndDownloadingWaiting =
+  listOf(
     DownloadMediaUiModel.Downloaded(
-        id = "id",
-        title = "Song name",
-        artist = "Artist name",
-        artworkUri = SampleArtworkUri,
+      id = "id",
+      title = "Song name",
+      artist = "Artist name",
+      artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.Downloading(
-        id = "id 2",
-        title = "Song name 2",
-        progress = DownloadMediaUiModel.Progress.Waiting,
-        size = DownloadMediaUiModel.Size.Unknown,
-        artworkUri = SampleArtworkUri,
+      id = "id 2",
+      title = "Song name 2",
+      progress = DownloadMediaUiModel.Progress.Waiting,
+      size = DownloadMediaUiModel.Size.Unknown,
+      artworkUri = SampleArtworkUri,
     ),
-)
+  )
 
-private val downloadedNotDownloaded = listOf(
+private val downloadedNotDownloaded =
+  listOf(
     DownloadMediaUiModel.Downloaded(
-        id = "id",
-        title = "Song name",
-        artist = "Artist name",
-        artworkUri = SampleArtworkUri,
+      id = "id",
+      title = "Song name",
+      artist = "Artist name",
+      artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.NotDownloaded(
-        id = "id 2",
-        title = "Song name 2",
-        artist = "Artist name 2",
-        artworkUri = SampleArtworkUri,
+      id = "id 2",
+      title = "Song name 2",
+      artist = "Artist name 2",
+      artworkUri = SampleArtworkUri,
     ),
-)
+  )
 
-private val downloaded = listOf(
+private val downloaded =
+  listOf(
     DownloadMediaUiModel.Downloaded(
-        id = "id",
-        title = "Song name",
-        artist = "Artist name",
-        artworkUri = SampleArtworkUri,
+      id = "id",
+      title = "Song name",
+      artist = "Artist name",
+      artworkUri = SampleArtworkUri,
     ),
     DownloadMediaUiModel.Downloaded(
-        id = "id 2",
-        title = "Song name 2",
-        artist = "Artist name 2",
-        artworkUri = SampleArtworkUri,
+      id = "id 2",
+      title = "Song name 2",
+      artist = "Artist name 2",
+      artworkUri = SampleArtworkUri,
     ),
-)
+  )

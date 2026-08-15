@@ -29,67 +29,52 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 @Composable
 fun NavMenuScreen(
-    modifier: Modifier = Modifier,
-    navigateToRoute: (String) -> Unit,
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  navigateToRoute: (String) -> Unit,
+  columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        modifier = modifier,
-        columnState = columnState,
-    ) {
-        item {
-            Chip(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(NavScreen.ScalingLazyColumn.route) },
-                label = {
-                    Text(modifier = Modifier.weight(1f), text = "ScalingLazyColumn")
-                },
-            )
-        }
-        item {
-            Chip(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(NavScreen.Column.route) },
-                label = {
-                    Text(modifier = Modifier.weight(1f), text = "Column")
-                },
-            )
-        }
-        item {
-            Chip(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(NavScreen.Dialog.route) },
-                label = {
-                    Text(modifier = Modifier.weight(1f), text = "Dialog")
-                },
-            )
-        }
-        item {
-            Chip(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(NavScreen.Pager.route) },
-                label = {
-                    Text(modifier = Modifier.weight(1f), text = "Pager")
-                },
-            )
-        }
-        item {
-            Chip(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(NavScreen.Volume.route) },
-                label = {
-                    Text(modifier = Modifier.weight(1f), text = "Volume (custom scrolling)")
-                },
-            )
-        }
-        item {
-            Chip(
-                modifier = Modifier.fillMaxWidth(),
-                onClick = { navigateToRoute(NavScreen.Snackbar.route) },
-                label = {
-                    Text(modifier = Modifier.weight(1f), text = "Snackbar")
-                },
-            )
-        }
+  ScalingLazyColumn(modifier = modifier, columnState = columnState) {
+    item {
+      Chip(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToRoute(NavScreen.ScalingLazyColumn.route) },
+        label = { Text(modifier = Modifier.weight(1f), text = "ScalingLazyColumn") },
+      )
     }
+    item {
+      Chip(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToRoute(NavScreen.Column.route) },
+        label = { Text(modifier = Modifier.weight(1f), text = "Column") },
+      )
+    }
+    item {
+      Chip(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToRoute(NavScreen.Dialog.route) },
+        label = { Text(modifier = Modifier.weight(1f), text = "Dialog") },
+      )
+    }
+    item {
+      Chip(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToRoute(NavScreen.Pager.route) },
+        label = { Text(modifier = Modifier.weight(1f), text = "Pager") },
+      )
+    }
+    item {
+      Chip(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToRoute(NavScreen.Volume.route) },
+        label = { Text(modifier = Modifier.weight(1f), text = "Volume (custom scrolling)") },
+      )
+    }
+    item {
+      Chip(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = { navigateToRoute(NavScreen.Snackbar.route) },
+        label = { Text(modifier = Modifier.weight(1f), text = "Snackbar") },
+      )
+    }
+  }
 }

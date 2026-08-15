@@ -32,12 +32,10 @@ import org.junit.runner.RunWith
 @LargeTest
 @HiltAndroidTest
 class PlaybackServiceTest : BasePlaybackTest() {
-    @Test
-    fun testMediaBrowser() = runTest {
-        val browser = browser()
+  @Test
+  fun testMediaBrowser() = runTest {
+    val browser = browser()
 
-        withContext(Dispatchers.Main) {
-            assertThat(browser.isConnected).isTrue()
-        }
-    }
+    withContext(Dispatchers.Main) { assertThat(browser.isConnected).isTrue() }
+  }
 }

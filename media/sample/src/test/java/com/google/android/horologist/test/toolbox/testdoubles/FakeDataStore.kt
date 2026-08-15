@@ -22,12 +22,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 class FakeDataStore<T> : DataStore<T> {
-    override val data: Flow<T>
-        get() = flow {
-            SettingsProto.Settings.getDefaultInstance()
-        }
+  override val data: Flow<T>
+    get() = flow { SettingsProto.Settings.getDefaultInstance() }
 
-    override suspend fun updateData(transform: suspend (t: T) -> T): T {
-        TODO("Not yet implemented")
-    }
+  override suspend fun updateData(transform: suspend (t: T) -> T): T {
+    TODO("Not yet implemented")
+  }
 }

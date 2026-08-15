@@ -28,18 +28,18 @@ import io.grpc.MethodDescriptor
 import kotlinx.coroutines.CoroutineScope
 
 public class MessageClientChannel(
-    internal val nodeId: TargetNodeId,
-    internal val path: String,
-    private val wearDataLayerRegistry: WearDataLayerRegistry,
-    private val coroutineScope: CoroutineScope,
+  internal val nodeId: TargetNodeId,
+  internal val path: String,
+  private val wearDataLayerRegistry: WearDataLayerRegistry,
+  private val coroutineScope: CoroutineScope,
 ) : Channel() {
-    override fun <RequestT, ResponseT> newCall(
-        methodDescriptor: MethodDescriptor<RequestT, ResponseT>,
-        callOptions: CallOptions,
-    ): ClientCall<RequestT, ResponseT> {
-        return MessageClientCall(this, methodDescriptor, coroutineScope, wearDataLayerRegistry)
-    }
+  override fun <RequestT, ResponseT> newCall(
+    methodDescriptor: MethodDescriptor<RequestT, ResponseT>,
+    callOptions: CallOptions,
+  ): ClientCall<RequestT, ResponseT> {
+    return MessageClientCall(this, methodDescriptor, coroutineScope, wearDataLayerRegistry)
+  }
 
-    // TODO something better than this for the authority
-    override fun authority(): String = nodeId.toString()
+  // TODO something better than this for the authority
+  override fun authority(): String = nodeId.toString()
 }

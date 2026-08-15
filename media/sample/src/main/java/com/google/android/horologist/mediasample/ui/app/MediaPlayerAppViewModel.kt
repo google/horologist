@@ -50,146 +50,124 @@ import kotlinx.coroutines.flow.stateIn
 class MediaPlayerAppViewModel
 @Inject
 constructor(
-    appConfig: AppConfig,
-    private val settingsRepository: SettingsRepository,
-    private val playerRepository: PlayerRepository,
-    private val playlistRepository: PlaylistRepository,
-    private val snackbarManager: SnackbarManager,
-    private val resourceProvider: ResourceProvider,
-    private val authUserRepository: AuthUserRepository,
+  appConfig: AppConfig,
+  private val settingsRepository: SettingsRepository,
+  private val playerRepository: PlayerRepository,
+  private val playlistRepository: PlaylistRepository,
+  private val snackbarManager: SnackbarManager,
+  private val resourceProvider: ResourceProvider,
+  private val authUserRepository: AuthUserRepository,
 ) : ViewModel() {
 
-    val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
+  val deepLinkPrefix: String = appConfig.deeplinkUriPrefix
 
-    val appState = settingsRepository.settingsFlow.map {
-        UampAppState(
-            streamingMode = it.streamingMode,
-            guestMode = it.guestMode,
-        )
-    }.stateIn(
+  val appState =
+    settingsRepository.settingsFlow
+      .map { UampAppState(streamingMode = it.streamingMode, guestMode = it.guestMode) }
+      .stateIn(
         viewModelScope,
         started = SharingStarted.WhileSubscribed(5_000),
         initialValue = UampAppState(),
-    )
+      )
 
-    @OptIn(FlowPreview::class)
-    private suspend fun loadItems() {
-        playlistRepository.getAll()
-            .catch { throwable ->
-                when (throwable) {
-                    is IOException -> {
-                        snackbarManager.showMessage(
-                            UiMessage(
-                                message = resourceProvider.getString(
-                                    R.string.sample_network_error,
-                                ),
-                                error = true,
-                            ),
-                        )
-                    }
-
-                    else -> throw throwable
-                }
-            }
-            .flatMapConcat { it.asFlow() }
-            .map { it.mediaList }
-            .reduce { accumulator, value -> accumulator + value }
-            .also { list ->
-                playerRepository.setMediaList(list)
-            }
-    }
-
-    suspend fun startupSetup(navigateToLibrary: () -> Unit) {
-        waitForConnection()
-
-        val currentMediaItem = playerRepository.currentMedia.value
-        val settings = settingsRepository.settingsFlow.first()
-
-        // If it's currently not playing and user opted in to load items at startup,
-        // then we start playing using the last played media item.
-        if (currentMediaItem == null && settings.loadItemsAtStartup) {
-            playItems(
-                settings.currentMediaItemId,
-                settings.currentMediaListId,
-                settings.currentPosition,
-            )
-        } else if (currentMediaItem == null) {
-            val loadAtStartup =
-                settingsRepository.settingsFlow.first().loadItemsAtStartup
-
-            if (loadAtStartup) {
-                loadItems()
-            } else {
-                navigateToLibrary()
-            }
-        }
-    }
-
-    private suspend fun loadDownloadedItems(): List<Media> = playlistRepository.getAllDownloaded()
-        .flatMapConcat { it.asFlow() }
-        .map { it.mediaList }
-        .first()
-
-    suspend fun startBenchmarkPlayback() {
-        waitForConnection()
-
-        val items = loadDownloadedItems()
-
-        playerRepository.setMediaList(items)
-        playerRepository.play()
-    }
-
-    suspend fun stopBenchmarkPlayback() {
-        playerRepository.pause()
-    }
-
-    suspend fun playItems(mediaId: String?, collectionId: String, position: Long) {
-        try {
-            playlistRepository.get(collectionId)?.let { playlist ->
-                val index = playlist.mediaList
-                    .indexOfFirst { it.id == mediaId }
-                    .coerceAtLeast(0)
-
-                waitForConnection()
-
-                settingsRepository.edit {
-                    it.toBuilder().setCurrentMediaListId(collectionId).build()
-                }
-                mediaId?.let { id ->
-                    settingsRepository.edit { it.toBuilder().setCurrentMediaItemId(id).build() }
-                }
-                settingsRepository.edit { it.toBuilder().setCurrentPosition(position).build() }
-
-                playerRepository.setMediaList(
-                    playlist.mediaList,
-                    index,
-                    position.toDuration(
-                        DurationUnit.MILLISECONDS,
-                    ),
-                )
-            }
-        } catch (e: IOException) {
+  @OptIn(FlowPreview::class)
+  private suspend fun loadItems() {
+    playlistRepository
+      .getAll()
+      .catch { throwable ->
+        when (throwable) {
+          is IOException -> {
             snackbarManager.showMessage(
-                UiMessage(
-                    message = resourceProvider.getString(R.string.sample_network_error),
-                    error = true,
-                ),
+              UiMessage(
+                message = resourceProvider.getString(R.string.sample_network_error),
+                error = true,
+              )
             )
+          }
+
+          else -> throw throwable
         }
+      }
+      .flatMapConcat { it.asFlow() }
+      .map { it.mediaList }
+      .reduce { accumulator, value -> accumulator + value }
+      .also { list -> playerRepository.setMediaList(list) }
+  }
+
+  suspend fun startupSetup(navigateToLibrary: () -> Unit) {
+    waitForConnection()
+
+    val currentMediaItem = playerRepository.currentMedia.value
+    val settings = settingsRepository.settingsFlow.first()
+
+    // If it's currently not playing and user opted in to load items at startup,
+    // then we start playing using the last played media item.
+    if (currentMediaItem == null && settings.loadItemsAtStartup) {
+      playItems(settings.currentMediaItemId, settings.currentMediaListId, settings.currentPosition)
+    } else if (currentMediaItem == null) {
+      val loadAtStartup = settingsRepository.settingsFlow.first().loadItemsAtStartup
+
+      if (loadAtStartup) {
+        loadItems()
+      } else {
+        navigateToLibrary()
+      }
     }
+  }
 
-    private suspend fun waitForConnection() {
-        // setMediaItems is a noop before this point
-        playerRepository.connected.filter { it }.first()
+  private suspend fun loadDownloadedItems(): List<Media> =
+    playlistRepository.getAllDownloaded().flatMapConcat { it.asFlow() }.map { it.mediaList }.first()
+
+  suspend fun startBenchmarkPlayback() {
+    waitForConnection()
+
+    val items = loadDownloadedItems()
+
+    playerRepository.setMediaList(items)
+    playerRepository.play()
+  }
+
+  suspend fun stopBenchmarkPlayback() {
+    playerRepository.pause()
+  }
+
+  suspend fun playItems(mediaId: String?, collectionId: String, position: Long) {
+    try {
+      playlistRepository.get(collectionId)?.let { playlist ->
+        val index = playlist.mediaList.indexOfFirst { it.id == mediaId }.coerceAtLeast(0)
+
+        waitForConnection()
+
+        settingsRepository.edit { it.toBuilder().setCurrentMediaListId(collectionId).build() }
+        mediaId?.let { id ->
+          settingsRepository.edit { it.toBuilder().setCurrentMediaItemId(id).build() }
+        }
+        settingsRepository.edit { it.toBuilder().setCurrentPosition(position).build() }
+
+        playerRepository.setMediaList(
+          playlist.mediaList,
+          index,
+          position.toDuration(DurationUnit.MILLISECONDS),
+        )
+      }
+    } catch (e: IOException) {
+      snackbarManager.showMessage(
+        UiMessage(message = resourceProvider.getString(R.string.sample_network_error), error = true)
+      )
     }
+  }
 
-    suspend fun shouldShowLoginPrompt(): Boolean = !isGuestMode() && !isLoggedIn()
+  private suspend fun waitForConnection() {
+    // setMediaItems is a noop before this point
+    playerRepository.connected.filter { it }.first()
+  }
 
-    suspend fun isGuestMode(): Boolean = appState.filter {
-        it.guestMode != null
-    }.first().guestMode == true
+  suspend fun shouldShowLoginPrompt(): Boolean = !isGuestMode() && !isLoggedIn()
 
-    suspend fun isLoggedIn(): Boolean = authUserRepository.getAuthenticated() != null
+  suspend fun isGuestMode(): Boolean =
+    appState.filter { it.guestMode != null }.first().guestMode == true
+
+  suspend fun isLoggedIn(): Boolean = authUserRepository.getAuthenticated() != null
 }
 
 data class UampAppState(val streamingMode: Boolean? = null, val guestMode: Boolean? = null)

@@ -42,50 +42,55 @@ import java.util.UUID
 
 @Deprecated("Use Material3TileService instead")
 class ComposableTileService : SuspendingTileService() {
-    private lateinit var renderer: ServiceComposableBitmapRenderer
-    val composeId = "circleCompose"
+  private lateinit var renderer: ServiceComposableBitmapRenderer
+  val composeId = "circleCompose"
 
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        renderer = ServiceComposableBitmapRenderer(this.application, this)
-    }
+    renderer = ServiceComposableBitmapRenderer(this.application, this)
+  }
 
-    /** This method returns a Tile object, which describes the layout of the Tile. */
-    @Suppress("DEPRECATION")
-    override suspend fun tileRequest(requestParams: TileRequest): Tile {
-        val layoutElement =
-            LayoutElementBuilders.Box.Builder().setWidth(expand()).setHeight(expand()).addContent(
-                LayoutElementBuilders.Image.Builder().setWidth(dp(100f)).setHeight(dp(100f))
-                    .setResourceId(composeId).build(),
-            ).build()
+  /** This method returns a Tile object, which describes the layout of the Tile. */
+  @Suppress("DEPRECATION")
+  override suspend fun tileRequest(requestParams: TileRequest): Tile {
+    val layoutElement =
+      LayoutElementBuilders.Box.Builder()
+        .setWidth(expand())
+        .setHeight(expand())
+        .addContent(
+          LayoutElementBuilders.Image.Builder()
+            .setWidth(dp(100f))
+            .setHeight(dp(100f))
+            .setResourceId(composeId)
+            .build()
+        )
+        .build()
 
-        return Tile.Builder().setResourcesVersion(UUID.randomUUID().toString())
-            .setTileTimeline(Timeline.fromLayoutElement(layoutElement)).build()
-    }
+    return Tile.Builder()
+      .setResourcesVersion(UUID.randomUUID().toString())
+      .setTileTimeline(Timeline.fromLayoutElement(layoutElement))
+      .build()
+  }
 
-    override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
-        // Add images to the Resources object, and return
-        val circleComposeBitmap = circleCompose()
-        return Resources.Builder().setVersion(requestParams.version).apply {
-            if (circleComposeBitmap != null) {
-                addIdToImageMapping(
-                    composeId,
-                    circleComposeBitmap.toImageResource(),
-                )
-            }
-        }.build()
-    }
-
-    private suspend fun circleCompose(): ImageBitmap? =
-        renderer.renderComposableToBitmap(DpSize(100.dp, 100.dp)) {
-            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                Canvas(modifier = Modifier.fillMaxSize()) {
-                    drawCircle(Color.DarkGray)
-                }
-                FilledIconButton(onClick = {}) {
-                    Text("\uD83D\uDC6A")
-                }
-            }
+  override suspend fun resourcesRequest(requestParams: ResourcesRequest): Resources {
+    // Add images to the Resources object, and return
+    val circleComposeBitmap = circleCompose()
+    return Resources.Builder()
+      .setVersion(requestParams.version)
+      .apply {
+        if (circleComposeBitmap != null) {
+          addIdToImageMapping(composeId, circleComposeBitmap.toImageResource())
         }
+      }
+      .build()
+  }
+
+  private suspend fun circleCompose(): ImageBitmap? =
+    renderer.renderComposableToBitmap(DpSize(100.dp, 100.dp)) {
+      Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Canvas(modifier = Modifier.fillMaxSize()) { drawCircle(Color.DarkGray) }
+        FilledIconButton(onClick = {}) { Text("\uD83D\uDC6A") }
+      }
+    }
 }

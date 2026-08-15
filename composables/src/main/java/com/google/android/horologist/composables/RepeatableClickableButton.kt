@@ -45,59 +45,59 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  * A base button that can send single onClick event or repeated [onLongRepeatableClick] events by
  * holding it down.
  *
- * Code modified from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material/src/main/java/androidx/wear/compose/material/Button.kt
- *
+ * Code modified from
+ * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:wear/compose/compose-material/src/main/java/androidx/wear/compose/material/Button.kt
  */
 @ExperimentalHorologistApi
 @Composable
 public fun RepeatableClickableButton(
-    onClick: () -> Unit,
-    onLongRepeatableClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    onLongRepeatableClickEnd: () -> Unit = {},
-    enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    shape: Shape = CircleShape,
-    border: ButtonBorder = ButtonDefaults.buttonBorder(),
-    indication: Indication = ripple(),
-    content: @Composable BoxScope.() -> Unit,
+  onClick: () -> Unit,
+  onLongRepeatableClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  onLongRepeatableClickEnd: () -> Unit = {},
+  enabled: Boolean = true,
+  colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  shape: Shape = CircleShape,
+  border: ButtonBorder = ButtonDefaults.buttonBorder(),
+  indication: Indication = ripple(),
+  content: @Composable BoxScope.() -> Unit,
 ) {
-    val borderStroke = border.borderStroke(enabled = enabled).value
+  val borderStroke = border.borderStroke(enabled = enabled).value
 
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier =
-            modifier
-                .defaultMinSize(
-                    minWidth = ButtonDefaults.DefaultButtonSize,
-                    minHeight = ButtonDefaults.DefaultButtonSize,
-                )
-                .then(
-                    if (borderStroke != null) {
-                        Modifier.border(border = borderStroke, shape = shape)
-                    } else {
-                        Modifier
-                    },
-                )
-                .repeatableClickable(
-                    enabled = enabled,
-                    role = Role.Button,
-                    indication = indication,
-                    onClick = onClick,
-                    onLongRepeatableClick = onLongRepeatableClick,
-                    onLongRepeatableClickEnd = onLongRepeatableClickEnd,
-                    interactionSource = interactionSource,
-                )
-                .background(color = colors.backgroundColor(enabled = enabled).value, shape = shape),
+  Box(
+    contentAlignment = Alignment.Center,
+    modifier =
+      modifier
+        .defaultMinSize(
+          minWidth = ButtonDefaults.DefaultButtonSize,
+          minHeight = ButtonDefaults.DefaultButtonSize,
+        )
+        .then(
+          if (borderStroke != null) {
+            Modifier.border(border = borderStroke, shape = shape)
+          } else {
+            Modifier
+          }
+        )
+        .repeatableClickable(
+          enabled = enabled,
+          role = Role.Button,
+          indication = indication,
+          onClick = onClick,
+          onLongRepeatableClick = onLongRepeatableClick,
+          onLongRepeatableClickEnd = onLongRepeatableClickEnd,
+          interactionSource = interactionSource,
+        )
+        .background(color = colors.backgroundColor(enabled = enabled).value, shape = shape),
+  ) {
+    val contentColor = colors.contentColor(enabled = enabled).value
+    CompositionLocalProvider(
+      LocalContentColor provides contentColor,
+      LocalContentAlpha provides contentColor.alpha,
+      LocalTextStyle provides MaterialTheme.typography.button,
     ) {
-        val contentColor = colors.contentColor(enabled = enabled).value
-        CompositionLocalProvider(
-            LocalContentColor provides contentColor,
-            LocalContentAlpha provides contentColor.alpha,
-            LocalTextStyle provides MaterialTheme.typography.button,
-        ) {
-            content()
-        }
+      content()
     }
+  }
 }

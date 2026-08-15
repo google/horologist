@@ -28,11 +28,11 @@ import androidx.compose.ui.graphics.painter.Painter
 @JvmInline
 public value class BitmapPaintable(private val bitmap: ImageBitmap) : Paintable {
 
-    @Composable
-    override fun rememberPainter(): Painter = remember { BitmapPainter(bitmap) }
+  @Composable override fun rememberPainter(): Painter = remember { BitmapPainter(bitmap) }
 
-    public companion object {
-        public fun ImageBitmap.asPaintable(): BitmapPaintable = BitmapPaintable(this)
-        public fun Bitmap.asPaintable(): BitmapPaintable = this.asImageBitmap().asPaintable()
-    }
+  public companion object {
+    public fun ImageBitmap.asPaintable(): BitmapPaintable = BitmapPaintable(this)
+
+    public fun Bitmap.asPaintable(): BitmapPaintable = this.asImageBitmap().asPaintable()
+  }
 }

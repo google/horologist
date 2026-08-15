@@ -1,0 +1,124 @@
+name: Compose Preview Publish
+
+# Trusted half of the fork-PR preview split (see `compose-preview.yml`).
+#
+# A fork PR's GITHUB_TOKEN is read-only on every scope, so the render job
+# cannot push its PNGs or post the sticky comment. This workflow does both,
+# from a `workflow_run` that runs **`main`'s** copy of these files — it never
+# checks out the PR and never invokes Gradle, so it holds a write token
+# without ever executing contributor code.
+#
+# Nothing to do on same-repo runs: those publish inline in `compose-preview.yml`
+# and upload no handoff.
+#
+# zizmor flags `workflow_run` as a dangerous trigger, and it is right to by
+# default: it runs with the base repository's privileges and typically consumes
+# an artifact a fork produced. Suppressed deliberately, because every pitfall
+# behind that rule is closed here — and because the alternative it pushes you
+# toward, `pull_request_target`, is strictly worse. That trigger is what this
+# workflow exists to remove: it hands the same write token to a job that checks
+# out and Gradle-builds the PR's own code.
+#
+#  - This job never checks out the PR and never invokes Gradle. It runs the
+#    base branch's files only; the handoff is read as data.
+#  - No push control comes from the artifact. Destination branch, commit
+#    message and skip flag are rebuilt inside the action from its own
+#    constants, so a tampered `_push_branch` cannot retarget the push.
+#  - The staged PR number is verified against this run's head repository and
+#    branch before anything is posted, so it cannot redirect a comment onto an
+#    unrelated PR.
+#  - Only runs for a render that reached the staging step, and is serialised
+#    per head branch.
+#
+# See .github/actions/apply/README.md in yschimke/compose-ai-tools ("Fork PRs")
+# for the full threat model.
+on:  # zizmor: ignore[dangerous-triggers]
+  workflow_run:
+    workflows: [Compose Preview]
+    types: [completed]
+
+permissions: {}
+
+concurrency:
+  # Serialised per head branch. NOT cancel-in-progress: a publisher already
+  # pushing should finish, and the next one supersedes it on the same shared
+  # render branch anyway. Cancelling mid-push just strands the branch.
+  group: compose-preview-publish-${{ github.event.workflow_run.head_repository.full_name }}-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    name: Publish fork PR previews
+    # Runs on a failed render too, deliberately. A pipeline that fails part-way
+    # still renders most previews, and the action stages the handoff before it
+    # surfaces the failure — so a red render usually still carries a complete,
+    # publishable bundle, and the comment it produces names the previews that
+    # failed. Gating on success alone would mean a fork PR with one broken
+    # preview gets no comment at all, where the single-job path would still
+    # have posted one.
+    #
+    # `startup_failure` / `cancelled` are excluded: those never reached the
+    # staging step, so there is nothing to publish.
+    if: >-
+      github.event.workflow_run.conclusion == 'success' ||
+      github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write          # renders push to the compose-preview/… PR branches
+      pull-requests: write     # sticky diff comment upsert
+      actions: read            # reading the render run's artifact across runs
+
+    steps:
+      # `main`'s code, never the PR's. The handoff is read as data only.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+
+      # Only fork runs upload a handoff. Deciding that from `head_repository`
+      # rather than from the download's own outcome is deliberate: a blanket
+      # `continue-on-error` would also swallow a real artifact-service or auth
+      # failure on a fork run, and this workflow would finish green having
+      # published nothing.
+      - name: Is this a fork run?
+        id: fork
+        env:
+          HEAD_REPO: ${{ github.event.workflow_run.head_repository.full_name }}
+          THIS_REPO: ${{ github.repository }}
+        run: |
+          if [ "$HEAD_REPO" = "$THIS_REPO" ]; then
+            echo "is_fork=false" >> "$GITHUB_OUTPUT"
+            echo "Same-repo run — it published inline; nothing to do here."
+          else
+            echo "is_fork=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Download preview handoff
+        id: handoff
+        if: steps.fork.outputs.is_fork == 'true'
+        # Tolerated only when the render itself went red: it may have died
+        # before reaching the staging step, in which case there is genuinely
+        # nothing to download and this workflow has no work to do. After a
+        # successful render a missing artifact is a real bug, so it stays loud.
+        continue-on-error: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        with:
+          name: compose-preview-handoff
+          path: _compose_preview_handoff
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # `github.event.workflow_run.pull_requests` is empty for fork PRs, so the
+      # number travels in the handoff. The action re-checks it against this
+      # run's head repo and branch before commenting, so a number tampered with
+      # by the render job can't redirect the comment onto another PR.
+      - name: Read PR number
+        id: pr
+        if: steps.handoff.outcome == 'success'
+        run: echo "number=$(cat _compose_preview_handoff/_pr_number)" >> "$GITHUB_OUTPUT"
+
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@c5c1495d9e6922a8e67a39610eace75f1df7d5f5 # main
+        if: steps.pr.outputs.number != ''
+        with:
+          phase: publish
+          pr-number: ${{ steps.pr.outputs.number }}

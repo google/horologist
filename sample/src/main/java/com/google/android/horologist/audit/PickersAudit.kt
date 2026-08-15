@@ -25,18 +25,18 @@ import java.time.LocalTime
 
 @Composable
 fun PickersAudit(route: AuditNavigation.Pickers.Audit) {
-    when (route.config) {
-        AuditNavigation.Pickers.Config.Time12h -> {
-            TimePickerWith12HourClock(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0))
-        }
-        AuditNavigation.Pickers.Config.Time24Hour -> {
-            TimePicker(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0), showSeconds = false)
-        }
-        AuditNavigation.Pickers.Config.Time24hWithSeconds -> {
-            TimePicker(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0), showSeconds = true)
-        }
-        AuditNavigation.Pickers.Config.Date -> {
-            DatePicker(onDateConfirm = {}, date = LocalDate.of(2003, 8, 18))
-        }
+  when (route.config) {
+    AuditNavigation.Pickers.Config.Time12h -> {
+      TimePickerWith12HourClock(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0))
     }
+    AuditNavigation.Pickers.Config.Time24Hour -> {
+      TimePicker(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0), showSeconds = false)
+    }
+    AuditNavigation.Pickers.Config.Time24hWithSeconds -> {
+      TimePicker(onTimeConfirm = {}, time = LocalTime.of(10, 10, 0), showSeconds = true)
+    }
+    AuditNavigation.Pickers.Config.Date -> {
+      DatePicker(onDateConfirm = {}, date = LocalDate.of(2003, 8, 18))
+    }
+  }
 }

@@ -39,93 +39,93 @@ import androidx.wear.tiles.TileBuilders
 import com.google.android.horologist.tiles.SuspendingTileService
 import com.google.android.horologist.tiles.render.SingleTileLayoutRenderer
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class SampleTileService : SuspendingTileService() {
-    @Inject
-    lateinit var tileSync: TileSync
+  @Inject lateinit var tileSync: TileSync
 
-    private val renderer = SampleTileRenderer(this)
+  private val renderer = SampleTileRenderer(this)
 
-    override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): TileBuilders.Tile {
-        return renderer.renderTimeline(Unit, requestParams)
-    }
+  override suspend fun tileRequest(requestParams: RequestBuilders.TileRequest): TileBuilders.Tile {
+    return renderer.renderTimeline(Unit, requestParams)
+  }
 
-    override suspend fun resourcesRequest(requestParams: RequestBuilders.ResourcesRequest): ResourceBuilders.Resources {
-        return renderer.produceRequestedResources(Unit, requestParams)
-    }
+  override suspend fun resourcesRequest(
+    requestParams: RequestBuilders.ResourcesRequest
+  ): ResourceBuilders.Resources {
+    return renderer.produceRequestedResources(Unit, requestParams)
+  }
 
-    override fun onTileAddEvent(requestParams: EventBuilders.TileAddEvent) {
-        updateTiles()
-    }
+  override fun onTileAddEvent(requestParams: EventBuilders.TileAddEvent) {
+    updateTiles()
+  }
 
-    override fun onTileRemoveEvent(requestParams: EventBuilders.TileRemoveEvent) {
-        updateTiles()
-    }
+  override fun onTileRemoveEvent(requestParams: EventBuilders.TileRemoveEvent) {
+    updateTiles()
+  }
 
-    private fun updateTiles() {
-        runBlocking {
-            tileSync.trackInstalledTiles()
-        }
-    }
+  private fun updateTiles() {
+    runBlocking { tileSync.trackInstalledTiles() }
+  }
 }
 
 class SampleTileRenderer(context: Context) : SingleTileLayoutRenderer<Unit, Unit>(context) {
-    override fun renderTile(
-        state: Unit,
-        deviceParameters: DeviceParametersBuilders.DeviceParameters,
-    ): LayoutElementBuilders.LayoutElement {
-        val openClickable = Clickable.Builder()
-            .setOnClick(
-                LaunchAction.Builder()
-                    .setAndroidActivity(
-                        AndroidActivity.Builder()
-                            .setClassName("com.google.android.horologist.datalayer.sample.MainActivity")
-                            .setPackageName("com.google.android.horologist.datalayer.sample")
-                            .build(),
-                    )
-                    .build(),
+  override fun renderTile(
+    state: Unit,
+    deviceParameters: DeviceParametersBuilders.DeviceParameters,
+  ): LayoutElementBuilders.LayoutElement {
+    val openClickable =
+      Clickable.Builder()
+        .setOnClick(
+          LaunchAction.Builder()
+            .setAndroidActivity(
+              AndroidActivity.Builder()
+                .setClassName("com.google.android.horologist.datalayer.sample.MainActivity")
+                .setPackageName("com.google.android.horologist.datalayer.sample")
+                .build()
             )
             .build()
-
-        return PrimaryLayout.Builder(deviceParameters)
-            .setContent(
-                Box.Builder()
-                    .setVerticalAlignment(VERTICAL_ALIGN_CENTER)
-                    .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
-                    .addContent(
-                        Text.Builder(context, "This is a sample Tile.")
-                            .setTypography(Typography.TYPOGRAPHY_TITLE1)
-                            .setColor(argb(theme.primary))
-                            .setMaxLines(2)
-                            .build(),
-                    )
-                    .build(),
-            )
-            .setPrimaryChipContent(
-                CompactChip.Builder(context, "Sample", openClickable, deviceParameters)
-                    .setIconContent("appIcon")
-                    .build(),
-            )
-            .build()
-    }
-
-    override fun ResourceBuilders.Resources.Builder.produceRequestedResources(
-        resourceState: Unit,
-        deviceParameters: DeviceParametersBuilders.DeviceParameters,
-        resourceIds: List<String>,
-    ) {
-        this.addIdToImageMapping(
-            "appIcon",
-            ImageResource.Builder()
-                .setAndroidResourceByResId(
-                    AndroidImageResourceByResId.Builder()
-                        .setResourceId(com.google.android.horologist.tiles.R.drawable.ic_nordic)
-                        .build(),
-                )
-                .build(),
         )
-    }
+        .build()
+
+    return PrimaryLayout.Builder(deviceParameters)
+      .setContent(
+        Box.Builder()
+          .setVerticalAlignment(VERTICAL_ALIGN_CENTER)
+          .setHorizontalAlignment(HORIZONTAL_ALIGN_CENTER)
+          .addContent(
+            Text.Builder(context, "This is a sample Tile.")
+              .setTypography(Typography.TYPOGRAPHY_TITLE1)
+              .setColor(argb(theme.primary))
+              .setMaxLines(2)
+              .build()
+          )
+          .build()
+      )
+      .setPrimaryChipContent(
+        CompactChip.Builder(context, "Sample", openClickable, deviceParameters)
+          .setIconContent("appIcon")
+          .build()
+      )
+      .build()
+  }
+
+  override fun ResourceBuilders.Resources.Builder.produceRequestedResources(
+    resourceState: Unit,
+    deviceParameters: DeviceParametersBuilders.DeviceParameters,
+    resourceIds: List<String>,
+  ) {
+    this.addIdToImageMapping(
+      "appIcon",
+      ImageResource.Builder()
+        .setAndroidResourceByResId(
+          AndroidImageResourceByResId.Builder()
+            .setResourceId(com.google.android.horologist.tiles.R.drawable.ic_nordic)
+            .build()
+        )
+        .build(),
+    )
+  }
 }

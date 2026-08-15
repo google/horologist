@@ -30,303 +30,281 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class MediaControlButtonsTest {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Test
-    fun givenIsPlaying_thenPauseButtonIsDisplayed() {
-        // given
-        val playing = true
+  @Test
+  fun givenIsPlaying_thenPauseButtonIsDisplayed() {
+    // given
+    val playing = true
 
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true,
-            )
-        }
-
-        // then
-        composeTestRule.onNodeWithContentDescription("Pause")
-            .assertIsDisplayed()
-
-        composeTestRule.onNodeWithContentDescription("Play")
-            .assertDoesNotExist()
+    composeTestRule.setContent {
+      MediaControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = playing,
+        onSeekToPreviousButtonClick = {},
+        seekToPreviousButtonEnabled = true,
+        onSeekToNextButtonClick = {},
+        seekToNextButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun givenIsPlaying_whenPauseIsClicked_thenCorrectEventIsTriggered() {
-        // given
-        val playing = true
-        var clicked = false
+    // then
+    composeTestRule.onNodeWithContentDescription("Pause").assertIsDisplayed()
 
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = { clicked = true },
-                playPauseButtonEnabled = true,
-                playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Play").assertDoesNotExist()
+  }
 
-        // when
-        composeTestRule.onNodeWithContentDescription("Pause")
-            .performClick()
+  @Test
+  fun givenIsPlaying_whenPauseIsClicked_thenCorrectEventIsTriggered() {
+    // given
+    val playing = true
+    var clicked = false
 
-        // then
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+    composeTestRule.setContent {
+      MediaControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = { clicked = true },
+        playPauseButtonEnabled = true,
+        playing = playing,
+        onSeekToPreviousButtonClick = {},
+        seekToPreviousButtonEnabled = true,
+        onSeekToNextButtonClick = {},
+        seekToNextButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun givenIsNOTPlaying_thenPlayButtonIsDisplayed() {
-        // given
-        val playing = false
+    // when
+    composeTestRule.onNodeWithContentDescription("Pause").performClick()
 
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true,
-            )
-        }
+    // then
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+  }
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Play")
-            .assertIsDisplayed()
+  @Test
+  fun givenIsNOTPlaying_thenPlayButtonIsDisplayed() {
+    // given
+    val playing = false
 
-        composeTestRule.onNodeWithContentDescription("Pause")
-            .assertDoesNotExist()
+    composeTestRule.setContent {
+      MediaControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = playing,
+        onSeekToPreviousButtonClick = {},
+        seekToPreviousButtonEnabled = true,
+        onSeekToNextButtonClick = {},
+        seekToNextButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun givenIsNOTPlaying_whenPlayIsClicked_thenCorrectEventIsTriggered() {
-        // given
-        val playing = false
-        var clicked = false
+    // then
+    composeTestRule.onNodeWithContentDescription("Play").assertIsDisplayed()
 
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = { clicked = true },
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Pause").assertDoesNotExist()
+  }
 
-        // when
-        composeTestRule.onNodeWithContentDescription("Play")
-            .performClick()
+  @Test
+  fun givenIsNOTPlaying_whenPlayIsClicked_thenCorrectEventIsTriggered() {
+    // given
+    val playing = false
+    var clicked = false
 
-        // then
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+    composeTestRule.setContent {
+      MediaControlButtons(
+        onPlayButtonClick = { clicked = true },
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = playing,
+        onSeekToPreviousButtonClick = {},
+        seekToPreviousButtonEnabled = true,
+        onSeekToNextButtonClick = {},
+        seekToNextButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun whenSeekToPreviousIsClicked_thenCorrectEventIsTriggered() {
-        // given
-        var clicked = false
+    // when
+    composeTestRule.onNodeWithContentDescription("Play").performClick()
 
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = false,
-                onSeekToPreviousButtonClick = { clicked = true },
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true,
-            )
-        }
+    // then
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+  }
 
-        // when
-        composeTestRule.onNodeWithContentDescription("Previous")
-            .performClick()
+  @Test
+  fun whenSeekToPreviousIsClicked_thenCorrectEventIsTriggered() {
+    // given
+    var clicked = false
 
-        // then
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+    composeTestRule.setContent {
+      MediaControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = false,
+        onSeekToPreviousButtonClick = { clicked = true },
+        seekToPreviousButtonEnabled = true,
+        onSeekToNextButtonClick = {},
+        seekToNextButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun whenSeekToNextIsClicked_thenCorrectEventIsTriggered() {
-        // given
-        var clicked = false
+    // when
+    composeTestRule.onNodeWithContentDescription("Previous").performClick()
 
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = false,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = { clicked = true },
-                seekToNextButtonEnabled = true,
-            )
-        }
+    // then
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+  }
 
-        // when
-        composeTestRule.onNodeWithContentDescription("Next")
-            .performClick()
+  @Test
+  fun whenSeekToNextIsClicked_thenCorrectEventIsTriggered() {
+    // given
+    var clicked = false
 
-        // then
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+    composeTestRule.setContent {
+      MediaControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = false,
+        onSeekToPreviousButtonClick = {},
+        seekToPreviousButtonEnabled = true,
+        onSeekToNextButtonClick = { clicked = true },
+        seekToNextButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun givenNOPercentParam_thenNOProgressBarIsDisplayed() {
-        // given
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = false,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = true,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = true,
-            )
-        }
+    // when
+    composeTestRule.onNodeWithContentDescription("Next").performClick()
 
-        // then
-        composeTestRule.onNode(PlayPauseButtonTest.hasProgressBar())
-            .assertDoesNotExist()
+    // then
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+  }
+
+  @Test
+  fun givenNOPercentParam_thenNOProgressBarIsDisplayed() {
+    // given
+    composeTestRule.setContent {
+      MediaControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = false,
+        onSeekToPreviousButtonClick = {},
+        seekToPreviousButtonEnabled = true,
+        onSeekToNextButtonClick = {},
+        seekToNextButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun givenIsPlayingAndPlayPauseEnabledIsTrue_thenPauseButtonIsEnabled() {
-        // given
-        val playing = true
-        val playPauseButtonEnabled = true
+    // then
+    composeTestRule.onNode(PlayPauseButtonTest.hasProgressBar()).assertDoesNotExist()
+  }
 
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = playPauseButtonEnabled,
-                playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = false,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = false,
-            )
-        }
+  @Test
+  fun givenIsPlayingAndPlayPauseEnabledIsTrue_thenPauseButtonIsEnabled() {
+    // given
+    val playing = true
+    val playPauseButtonEnabled = true
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Pause")
-            .assertIsEnabled()
-
-        composeTestRule.onNodeWithContentDescription("Previous")
-            .assertIsNotEnabled()
-        composeTestRule.onNodeWithContentDescription("Next")
-            .assertIsNotEnabled()
+    composeTestRule.setContent {
+      MediaControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = playPauseButtonEnabled,
+        playing = playing,
+        onSeekToPreviousButtonClick = {},
+        seekToPreviousButtonEnabled = false,
+        onSeekToNextButtonClick = {},
+        seekToNextButtonEnabled = false,
+      )
     }
 
-    @Test
-    fun givenIsNOTPlayingAndPlayPauseEnabledIsTrue_thenPlayButtonIsEnabled() {
-        // given
-        val playing = false
-        val playPauseButtonEnabled = true
+    // then
+    composeTestRule.onNodeWithContentDescription("Pause").assertIsEnabled()
 
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = playPauseButtonEnabled,
-                playing = playing,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = false,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = false,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Previous").assertIsNotEnabled()
+    composeTestRule.onNodeWithContentDescription("Next").assertIsNotEnabled()
+  }
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Play")
-            .assertIsEnabled()
+  @Test
+  fun givenIsNOTPlayingAndPlayPauseEnabledIsTrue_thenPlayButtonIsEnabled() {
+    // given
+    val playing = false
+    val playPauseButtonEnabled = true
 
-        composeTestRule.onNodeWithContentDescription("Previous")
-            .assertIsNotEnabled()
-        composeTestRule.onNodeWithContentDescription("Next")
-            .assertIsNotEnabled()
+    composeTestRule.setContent {
+      MediaControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = playPauseButtonEnabled,
+        playing = playing,
+        onSeekToPreviousButtonClick = {},
+        seekToPreviousButtonEnabled = false,
+        onSeekToNextButtonClick = {},
+        seekToNextButtonEnabled = false,
+      )
     }
 
-    @Test
-    fun givenSeekToPreviousButtonEnabledIsTrue_thenSeekToPreviousButtonIsEnabled() {
-        // given
-        val seekToPreviousButtonEnabled = true
+    // then
+    composeTestRule.onNodeWithContentDescription("Play").assertIsEnabled()
 
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = false,
-                playing = false,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = false,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Previous").assertIsNotEnabled()
+    composeTestRule.onNodeWithContentDescription("Next").assertIsNotEnabled()
+  }
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Previous")
-            .assertIsEnabled()
+  @Test
+  fun givenSeekToPreviousButtonEnabledIsTrue_thenSeekToPreviousButtonIsEnabled() {
+    // given
+    val seekToPreviousButtonEnabled = true
 
-        composeTestRule.onNodeWithContentDescription("Play")
-            .assertIsNotEnabled()
-        composeTestRule.onNodeWithContentDescription("Next")
-            .assertIsNotEnabled()
+    composeTestRule.setContent {
+      MediaControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = false,
+        playing = false,
+        onSeekToPreviousButtonClick = {},
+        seekToPreviousButtonEnabled = seekToPreviousButtonEnabled,
+        onSeekToNextButtonClick = {},
+        seekToNextButtonEnabled = false,
+      )
     }
 
-    @Test
-    fun givenSeekToNextButtonEnabledIsTrue_thenSeekToNextButtonIsEnabled() {
-        // given
-        val seekToNextButtonEnabled = true
+    // then
+    composeTestRule.onNodeWithContentDescription("Previous").assertIsEnabled()
 
-        composeTestRule.setContent {
-            MediaControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = false,
-                playing = false,
-                onSeekToPreviousButtonClick = {},
-                seekToPreviousButtonEnabled = false,
-                onSeekToNextButtonClick = {},
-                seekToNextButtonEnabled = seekToNextButtonEnabled,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Play").assertIsNotEnabled()
+    composeTestRule.onNodeWithContentDescription("Next").assertIsNotEnabled()
+  }
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Next")
-            .assertIsEnabled()
+  @Test
+  fun givenSeekToNextButtonEnabledIsTrue_thenSeekToNextButtonIsEnabled() {
+    // given
+    val seekToNextButtonEnabled = true
 
-        composeTestRule.onNodeWithContentDescription("Previous")
-            .assertIsNotEnabled()
-        composeTestRule.onNodeWithContentDescription("Play")
-            .assertIsNotEnabled()
+    composeTestRule.setContent {
+      MediaControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = false,
+        playing = false,
+        onSeekToPreviousButtonClick = {},
+        seekToPreviousButtonEnabled = false,
+        onSeekToNextButtonClick = {},
+        seekToNextButtonEnabled = seekToNextButtonEnabled,
+      )
     }
+
+    // then
+    composeTestRule.onNodeWithContentDescription("Next").assertIsEnabled()
+
+    composeTestRule.onNodeWithContentDescription("Previous").assertIsNotEnabled()
+    composeTestRule.onNodeWithContentDescription("Play").assertIsNotEnabled()
+  }
 }

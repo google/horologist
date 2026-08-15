@@ -42,91 +42,86 @@ import kotlinx.coroutines.flow.first
 
 @Composable
 fun UampMediaPlayerScreen(
-    mediaPlayerScreenViewModel: MediaPlayerScreenViewModel,
-    volumeViewModel: VolumeViewModel,
-    onVolumeClick: () -> Unit,
-    modifier: Modifier = Modifier,
+  mediaPlayerScreenViewModel: MediaPlayerScreenViewModel,
+  volumeViewModel: VolumeViewModel,
+  onVolumeClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val volumeUiState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
-    val audioOutput by volumeViewModel.audioOutput.collectAsStateWithLifecycle()
-    val settingsState by mediaPlayerScreenViewModel.settingsState.collectAsStateWithLifecycle()
+  val volumeUiState by volumeViewModel.volumeUiState.collectAsStateWithLifecycle()
+  val audioOutput by volumeViewModel.audioOutput.collectAsStateWithLifecycle()
+  val settingsState by mediaPlayerScreenViewModel.settingsState.collectAsStateWithLifecycle()
 
-    PlayerScreen(
-        modifier = modifier,
-        background = {
-            val artworkColor = (it.media as? MediaUiModel.Ready)?.artworkColor
-            if (artworkColor != null) {
-                ColorBackground(
-                    color = artworkColor,
-                    modifier = Modifier.fillMaxSize(),
-                )
-            } else {
-                ArtworkImageBackground(
-                    artwork = (it.media as? MediaUiModel.Ready)?.artwork as? CoilPaintable,
-                    colorScheme = MaterialTheme.colorScheme,
-                    modifier = Modifier.fillMaxSize(),
-                )
-            }
-        },
-        playerViewModel = mediaPlayerScreenViewModel,
-        volumeViewModel = volumeViewModel,
-        mediaDisplay = { playerUiState ->
-            if (settingsState.animated) {
-                AnimatedMediaInfoDisplay(
-                    media = playerUiState.media,
-                    loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
-                )
-            } else {
-                DefaultMediaInfoDisplay(playerUiState)
-            }
-        },
-        buttons = { state ->
-            UampSettingsButtons(
-                volumeUiState = volumeUiState,
-                audioOutputUi = audioOutput.toAudioOutputUi(),
-                onVolumeClick = onVolumeClick,
-                enabled = state.connected && state.media != null,
-            )
-        },
-        controlButtons = { playerUiController, playerUiState ->
-            if (settingsState.podcastControls) {
-                PlayerScreenPodcastControlButtons(playerUiController, playerUiState)
-            } else {
-                if (settingsState.animated) {
-                    AnimatedMediaControlButtons(
-                        onPlayButtonClick = { playerUiController.play() },
-                        onPauseButtonClick = { playerUiController.pause() },
-                        playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                        playing = playerUiState.playing,
-                        onSeekToPreviousButtonClick = { playerUiController.skipToPreviousMedia() },
-                        onSeekToPreviousRepeatableClick = { playerUiController.seekBack() },
-                        seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-                        onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
-                        onSeekToNextRepeatableClick = { playerUiController.seekForward() },
-                        seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-                        trackPositionUiModel = playerUiState.trackPositionUiModel,
-                    )
-                } else {
-                    DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
-                }
-            }
-        },
-    )
+  PlayerScreen(
+    modifier = modifier,
+    background = {
+      val artworkColor = (it.media as? MediaUiModel.Ready)?.artworkColor
+      if (artworkColor != null) {
+        ColorBackground(color = artworkColor, modifier = Modifier.fillMaxSize())
+      } else {
+        ArtworkImageBackground(
+          artwork = (it.media as? MediaUiModel.Ready)?.artwork as? CoilPaintable,
+          colorScheme = MaterialTheme.colorScheme,
+          modifier = Modifier.fillMaxSize(),
+        )
+      }
+    },
+    playerViewModel = mediaPlayerScreenViewModel,
+    volumeViewModel = volumeViewModel,
+    mediaDisplay = { playerUiState ->
+      if (settingsState.animated) {
+        AnimatedMediaInfoDisplay(
+          media = playerUiState.media,
+          loading = !playerUiState.connected || playerUiState.media is MediaUiModel.Loading,
+        )
+      } else {
+        DefaultMediaInfoDisplay(playerUiState)
+      }
+    },
+    buttons = { state ->
+      UampSettingsButtons(
+        volumeUiState = volumeUiState,
+        audioOutputUi = audioOutput.toAudioOutputUi(),
+        onVolumeClick = onVolumeClick,
+        enabled = state.connected && state.media != null,
+      )
+    },
+    controlButtons = { playerUiController, playerUiState ->
+      if (settingsState.podcastControls) {
+        PlayerScreenPodcastControlButtons(playerUiController, playerUiState)
+      } else {
+        if (settingsState.animated) {
+          AnimatedMediaControlButtons(
+            onPlayButtonClick = { playerUiController.play() },
+            onPauseButtonClick = { playerUiController.pause() },
+            playPauseButtonEnabled = playerUiState.playPauseEnabled,
+            playing = playerUiState.playing,
+            onSeekToPreviousButtonClick = { playerUiController.skipToPreviousMedia() },
+            onSeekToPreviousRepeatableClick = { playerUiController.seekBack() },
+            seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
+            onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
+            onSeekToNextRepeatableClick = { playerUiController.seekForward() },
+            seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
+            trackPositionUiModel = playerUiState.trackPositionUiModel,
+          )
+        } else {
+          DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
+        }
+      }
+    },
+  )
 
-    ReportDrawnAfter {
-        mediaPlayerScreenViewModel.playerState.filterNotNull().first()
-    }
+  ReportDrawnAfter { mediaPlayerScreenViewModel.playerState.filterNotNull().first() }
 }
 
 @Composable
 public fun PlayerScreenPodcastControlButtons(
-    playerUiController: PlayerUiController,
-    playerUiState: PlayerUiState,
-    modifier: Modifier = Modifier,
+  playerUiController: PlayerUiController,
+  playerUiState: PlayerUiState,
+  modifier: Modifier = Modifier,
 ) {
-    PodcastControlButtons(
-        modifier = modifier,
-        playerController = playerUiController,
-        playerUiState = playerUiState,
-    )
+  PodcastControlButtons(
+    modifier = modifier,
+    playerController = playerUiController,
+    playerUiState = playerUiState,
+  )
 }

@@ -19,6 +19,6 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.reengage
 import com.google.android.horologist.datalayer.phone.PhoneDataLayerAppHelper
 
 internal object ReEngagePromptAction {
-    suspend fun run(phoneDataLayerAppHelper: PhoneDataLayerAppHelper, nodeId: String) =
-        phoneDataLayerAppHelper.startRemoteOwnApp(nodeId = nodeId)
+  suspend fun run(phoneDataLayerAppHelper: PhoneDataLayerAppHelper, nodeId: String) =
+    phoneDataLayerAppHelper.startRemoteOwnApp(nodeId = nodeId)
 }

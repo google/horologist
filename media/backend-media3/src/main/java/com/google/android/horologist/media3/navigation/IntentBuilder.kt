@@ -18,19 +18,17 @@ package com.google.android.horologist.media3.navigation
 
 import android.app.PendingIntent
 
-/**
- * Strategy for generating a PendingIntent links directly to the Player or Downloads View.
- */
+/** Strategy for generating a PendingIntent links directly to the Player or Downloads View. */
 public interface IntentBuilder {
-    /**
-     * Pending intent for the screen showing downloads.
-     * Used in background Notifications for download progress.
-     */
-    public fun buildDownloadIntent(): PendingIntent
+  /**
+   * Pending intent for the screen showing downloads. Used in background Notifications for download
+   * progress.
+   */
+  public fun buildDownloadIntent(): PendingIntent
 
-    /**
-     * Pending intent for the screen showing playback controls.
-     * Used in Media Notification and System Controls.
-     */
-    public fun buildPlayerIntent(): PendingIntent
+  /**
+   * Pending intent for the screen showing playback controls. Used in Media Notification and System
+   * Controls.
+   */
+  public fun buildPlayerIntent(): PendingIntent
 }

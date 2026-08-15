@@ -37,336 +37,367 @@ import org.robolectric.annotation.Config
 
 class ChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-            )
-        }
+  @Test
+  fun default() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryLabel() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-            )
-        }
+  @Test
+  fun withSecondaryLabel() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        secondaryLabel =
+          stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
+      )
     }
+  }
 
-    @Test
-    fun withIcon() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
+  @Test
+  fun withIcon() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        icon = Icons.Default.Image.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun withLargeIcon() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                icon = Icon32dp.asPaintable(),
-                largeIcon = true,
-            )
-        }
+  @Test
+  fun withLargeIcon() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        icon = Icon32dp.asPaintable(),
+        largeIcon = true,
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryLabelAndIcon() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
+  @Test
+  fun withSecondaryLabelAndIcon() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        secondaryLabel =
+          stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
+        icon = Icons.Default.Image.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryLabelAndLargeIcon() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icon32dp.asPaintable(),
-                largeIcon = true,
-            )
-        }
+  @Test
+  fun withSecondaryLabelAndLargeIcon() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        secondaryLabel =
+          stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
+        icon = Icon32dp.asPaintable(),
+        largeIcon = true,
+      )
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icons.Default.Image.asPaintable(),
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        secondaryLabel =
+          stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
+        icon = Icons.Default.Image.asPaintable(),
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun withLongText() {
-        runComponentTest {
-            Chip(
-                label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                onClick = { },
-            )
-        }
+  @Test
+  fun withLongText() {
+    runComponentTest {
+      Chip(
+        label =
+          "Primary label very very very very very very very very very very very very very very very very very long text",
+        onClick = {},
+      )
     }
+  }
 
-    @Test
-    fun withLongTextAndLargestFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-                Chip(
-                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    onClick = { },
-                )
-            }
-        }
+  @Test
+  fun withLongTextAndLargestFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
+        Chip(
+          label =
+            "Primary label very very very very very very very very very very very very very very very very very long text",
+          onClick = {},
+        )
+      }
     }
+  }
 
-    @Test
-    fun withLongTextAndMediumFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(1.06f)) {
-                Chip(
-                    label = "Primary label very very very very very very very very very very very very very very very very very long text",
-                    onClick = { },
-                )
-            }
-        }
+  @Test
+  fun withLongTextAndMediumFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(1.06f)) {
+        Chip(
+          label =
+            "Primary label very very very very very very very very very very very very very very very very very long text",
+          onClick = {},
+        )
+      }
     }
+  }
 
-    @Test
-    fun withSecondaryLabelAndIconAndLongText() {
-        runComponentTest {
-            Chip(
-                label = "Primary label very very very very very very very very long text",
-                onClick = { },
-                secondaryLabel = "Secondary label very very very very very very very very very long text",
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
+  @Test
+  fun withSecondaryLabelAndIconAndLongText() {
+    runComponentTest {
+      Chip(
+        label = "Primary label very very very very very very very very long text",
+        onClick = {},
+        secondaryLabel = "Secondary label very very very very very very very very very long text",
+        icon = Icons.Default.Image.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryLabelAndIconAndLongTextAndLargestFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-                Chip(
-                    label = "Primary label very very very very very very very very long text",
-                    onClick = { },
-                    secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = Icons.Default.Image.asPaintable(),
-                )
-            }
-        }
+  @Test
+  fun withSecondaryLabelAndIconAndLongTextAndLargestFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
+        Chip(
+          label = "Primary label very very very very very very very very long text",
+          onClick = {},
+          secondaryLabel = "Secondary label very very very very very very very very very long text",
+          icon = Icons.Default.Image.asPaintable(),
+        )
+      }
     }
+  }
 
-    @Test
-    fun withSecondaryLabelAndLargeIconAndLongText() {
-        runComponentTest {
-            Chip(
-                label = "Primary label very very very very very very very very long text",
-                onClick = { },
-                secondaryLabel = "Secondary label very very very very very very very very very long text",
-                icon = Icons.Default.Image.asPaintable(),
-                largeIcon = true,
-            )
-        }
+  @Test
+  fun withSecondaryLabelAndLargeIconAndLongText() {
+    runComponentTest {
+      Chip(
+        label = "Primary label very very very very very very very very long text",
+        onClick = {},
+        secondaryLabel = "Secondary label very very very very very very very very very long text",
+        icon = Icons.Default.Image.asPaintable(),
+        largeIcon = true,
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryLabelAndLargeIconAndLongTextAndLargestFontScale() {
-        runComponentTest {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-                Chip(
-                    label = "Primary label very very very very very very very very long text",
-                    onClick = { },
-                    secondaryLabel = "Secondary label very very very very very very very very very long text",
-                    icon = Icons.Default.Image.asPaintable(),
-                    largeIcon = true,
-                )
-            }
-        }
+  @Test
+  fun withSecondaryLabelAndLargeIconAndLongTextAndLargestFontScale() {
+    runComponentTest {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
+        Chip(
+          label = "Primary label very very very very very very very very long text",
+          onClick = {},
+          secondaryLabel = "Secondary label very very very very very very very very very long text",
+          icon = Icons.Default.Image.asPaintable(),
+          largeIcon = true,
+        )
+      }
     }
+  }
 
-    @Test
-    fun usingSmallIcon() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                icon = Icon12dp.asPaintable(),
-            )
-        }
+  @Test
+  fun usingSmallIcon() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        icon = Icon12dp.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun usingDrawableResAsIcon() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                icon = DrawableResPaintable(R.drawable.ic_delete),
-            )
-        }
+  @Test
+  fun usingDrawableResAsIcon() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        icon = DrawableResPaintable(R.drawable.ic_delete),
+      )
     }
+  }
 
-    @Test
-    fun withLargeIconUsingSmallIcon() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                icon = Icon12dp.asPaintable(),
-                largeIcon = true,
-            )
-        }
+  @Test
+  fun withLargeIconUsingSmallIcon() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        icon = Icon12dp.asPaintable(),
+        largeIcon = true,
+      )
     }
+  }
 
-    @Test
-    fun usingExtraLargeIcon() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                icon = Icon48dp.asPaintable(),
-            )
-        }
+  @Test
+  fun usingExtraLargeIcon() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        icon = Icon48dp.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun withLargeIconUsingExtraLargeIcon() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                icon = Icon48dp.asPaintable(),
-                largeIcon = true,
-            )
-        }
+  @Test
+  fun withLargeIconUsingExtraLargeIcon() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        icon = Icon48dp.asPaintable(),
+        largeIcon = true,
+      )
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun withSecondaryLabelAndIconRtl() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun withSecondaryLabelAndIconRtl() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        secondaryLabel =
+          stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
+        icon = Icons.Default.Image.asPaintable(),
+      )
     }
+  }
 
-    @Test
-    fun withSecondaryChipColors() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icons.Default.Image.asPaintable(),
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
+  @Test
+  fun withSecondaryChipColors() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        secondaryLabel =
+          stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
+        icon = Icons.Default.Image.asPaintable(),
+        colors = ChipDefaults.secondaryChipColors(),
+      )
     }
+  }
 
-    @Test
-    fun withGradientBackgroundChipColors() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icons.Default.Image.asPaintable(),
-                colors = ChipDefaults.gradientBackgroundChipColors(),
-            )
-        }
+  @Test
+  fun withGradientBackgroundChipColors() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        secondaryLabel =
+          stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
+        icon = Icons.Default.Image.asPaintable(),
+        colors = ChipDefaults.gradientBackgroundChipColors(),
+      )
     }
+  }
 
-    @Test
-    fun withImageBackgroundChipColors() {
-        runComponentTest {
-            Chip(
-                label = stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
-                onClick = { },
-                secondaryLabel = stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
-                icon = Icons.Default.Image.asPaintable(),
-                colors = ChipDefaults.imageBackgroundChipColors(
-                    backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert),
-                ),
-            )
-        }
+  @Test
+  fun withImageBackgroundChipColors() {
+    runComponentTest {
+      Chip(
+        label =
+          stringResource(com.google.android.horologist.compose.material.R.string.primary_label),
+        onClick = {},
+        secondaryLabel =
+          stringResource(com.google.android.horologist.compose.material.R.string.secondary_label),
+        icon = Icons.Default.Image.asPaintable(),
+        colors =
+          ChipDefaults.imageBackgroundChipColors(
+            backgroundImagePainter = painterResource(id = R.drawable.ic_dialog_alert)
+          ),
+      )
     }
+  }
 
-    companion object {
-        private const val largestFontScale = 1.18f
+  companion object {
+    private const val largestFontScale = 1.18f
 
-        private val Icon12dp: ImageVector
-            get() = ImageVector.Builder(
-                name = "Icon Small",
-                defaultWidth = 12f.dp,
-                defaultHeight = 12f.dp,
-                viewportWidth = 12f,
-                viewportHeight = 12f,
-            )
-                .materialPath {
-                    horizontalLineToRelative(12.0f)
-                    verticalLineToRelative(12.0f)
-                    horizontalLineTo(0.0f)
-                    close()
-                }
-                .build()
+    private val Icon12dp: ImageVector
+      get() =
+        ImageVector.Builder(
+            name = "Icon Small",
+            defaultWidth = 12f.dp,
+            defaultHeight = 12f.dp,
+            viewportWidth = 12f,
+            viewportHeight = 12f,
+          )
+          .materialPath {
+            horizontalLineToRelative(12.0f)
+            verticalLineToRelative(12.0f)
+            horizontalLineTo(0.0f)
+            close()
+          }
+          .build()
 
-        private val Icon32dp: ImageVector
-            get() = ImageVector.Builder(
-                name = "Icon Large",
-                defaultWidth = 32f.dp,
-                defaultHeight = 32f.dp,
-                viewportWidth = 32f,
-                viewportHeight = 32f,
-            )
-                .materialPath {
-                    horizontalLineToRelative(32.0f)
-                    verticalLineToRelative(32.0f)
-                    horizontalLineTo(0.0f)
-                    close()
-                }
-                .build()
+    private val Icon32dp: ImageVector
+      get() =
+        ImageVector.Builder(
+            name = "Icon Large",
+            defaultWidth = 32f.dp,
+            defaultHeight = 32f.dp,
+            viewportWidth = 32f,
+            viewportHeight = 32f,
+          )
+          .materialPath {
+            horizontalLineToRelative(32.0f)
+            verticalLineToRelative(32.0f)
+            horizontalLineTo(0.0f)
+            close()
+          }
+          .build()
 
-        private val Icon48dp: ImageVector
-            get() = ImageVector.Builder(
-                name = "Icon Extra Large",
-                defaultWidth = 48f.dp,
-                defaultHeight = 48f.dp,
-                viewportWidth = 48f,
-                viewportHeight = 48f,
-            )
-                .materialPath {
-                    horizontalLineToRelative(48.0f)
-                    verticalLineToRelative(48.0f)
-                    horizontalLineTo(0.0f)
-                    close()
-                }
-                .build()
-    }
+    private val Icon48dp: ImageVector
+      get() =
+        ImageVector.Builder(
+            name = "Icon Extra Large",
+            defaultWidth = 48f.dp,
+            defaultHeight = 48f.dp,
+            viewportWidth = 48f,
+            viewportHeight = 48f,
+          )
+          .materialPath {
+            horizontalLineToRelative(48.0f)
+            verticalLineToRelative(48.0f)
+            horizontalLineTo(0.0f)
+            close()
+          }
+          .build()
+  }
 }

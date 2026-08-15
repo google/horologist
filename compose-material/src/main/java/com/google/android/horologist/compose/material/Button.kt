@@ -40,6 +40,7 @@ import androidx.compose.ui.semantics.onClick
 import androidx.compose.ui.semantics.onLongClick
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.unit.Dp
+import androidx.wear.compose.material.Button as MaterialButton
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import androidx.wear.compose.material.ButtonDefaults.DefaultButtonSize
@@ -52,161 +53,149 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
-import androidx.wear.compose.material.Button as MaterialButton
 
 /**
  * This component is an alternative to [Button], providing the following:
  * - a convenient way of providing an icon and choosing its size from a range of sizes recommended
- * by the Wear guidelines;
+ *   by the Wear guidelines;
  */
 @ExperimentalHorologistApi
 @Composable
 public fun Button(
-    imageVector: ImageVector,
-    contentDescription: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    onLongClick: (() -> Unit)? = null,
-    colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
-    buttonSize: ButtonSize = ButtonSize.Default,
-    enabled: Boolean = true,
+  imageVector: ImageVector,
+  contentDescription: String,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  onLongClick: (() -> Unit)? = null,
+  colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
+  buttonSize: ButtonSize = ButtonSize.Default,
+  enabled: Boolean = true,
 ) {
-    Button(
-        icon = ImageVectorPaintable(imageVector),
-        contentDescription = contentDescription,
-        onClick = onClick,
-        onLongClick = onLongClick,
-        modifier = modifier,
-        colors = colors,
-        buttonSize = buttonSize,
-        enabled = enabled,
-    )
+  Button(
+    icon = ImageVectorPaintable(imageVector),
+    contentDescription = contentDescription,
+    onClick = onClick,
+    onLongClick = onLongClick,
+    modifier = modifier,
+    colors = colors,
+    buttonSize = buttonSize,
+    enabled = enabled,
+  )
 }
 
 /**
  * This component is an alternative to [Button], providing the following:
  * - a convenient way of providing an icon and choosing its size from a range of sizes recommended
- * by the Wear guidelines;
+ *   by the Wear guidelines;
  */
 @ExperimentalHorologistApi
 @Composable
 public fun Button(
-    @DrawableRes id: Int,
-    contentDescription: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    onLongClick: (() -> Unit)? = null,
-    colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
-    buttonSize: ButtonSize = ButtonSize.Default,
-    enabled: Boolean = true,
+  @DrawableRes id: Int,
+  contentDescription: String,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  onLongClick: (() -> Unit)? = null,
+  colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
+  buttonSize: ButtonSize = ButtonSize.Default,
+  enabled: Boolean = true,
 ) {
-    Button(
-        icon = DrawableResPaintable(id),
-        contentDescription = contentDescription,
-        onClick = onClick,
-        onLongClick = onLongClick,
-        modifier = modifier,
-        colors = colors,
-        buttonSize = buttonSize,
-        enabled = enabled,
-    )
+  Button(
+    icon = DrawableResPaintable(id),
+    contentDescription = contentDescription,
+    onClick = onClick,
+    onLongClick = onLongClick,
+    modifier = modifier,
+    colors = colors,
+    buttonSize = buttonSize,
+    enabled = enabled,
+  )
 }
 
 @OptIn(ExperimentalHorologistApi::class)
 @Composable
 internal fun Button(
-    icon: PaintableIcon,
-    contentDescription: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    onLongClick: (() -> Unit)? = null,
-    colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
-    buttonSize: ButtonSize = ButtonSize.Default,
-    enabled: Boolean = true,
+  icon: PaintableIcon,
+  contentDescription: String,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  onLongClick: (() -> Unit)? = null,
+  colors: ButtonColors = ButtonDefaults.primaryButtonColors(),
+  buttonSize: ButtonSize = ButtonSize.Default,
+  enabled: Boolean = true,
 ) {
-    if (onLongClick != null) {
-        val interactionSource = remember { MutableInteractionSource() }
-        MaterialButton(
-            onClick = onClick,
-            modifier = modifier
-                .size(buttonSize.tapTargetSize)
-                .clearAndSetSemantics {
-                    role = Role.Button
-                    this.contentDescription = contentDescription
-                    if (!enabled) {
-                        disabled()
-                    }
-                    this.onClick(action = {
-                        onClick()
-                        true
-                    })
-                    this.onLongClick(action = {
-                        onLongClick()
-                        true
-                    })
-                },
-            enabled = enabled,
-            colors = colors,
-            interactionSource = interactionSource,
-        ) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape)
-                    .combinedClickable(
-                        interactionSource = interactionSource,
-                        indication = null, // From material Button
-                        enabled = enabled,
-                        onClick = onClick,
-                        onLongClick = onLongClick,
-                        role = Role.Button,
-                    ),
-            ) {
-                val iconModifier = Modifier
-                    .size(buttonSize.iconSize)
-                    .align(Alignment.Center)
-
-                Icon(
-                    paintable = icon,
-                    contentDescription = contentDescription,
-                    modifier = iconModifier,
-                )
+  if (onLongClick != null) {
+    val interactionSource = remember { MutableInteractionSource() }
+    MaterialButton(
+      onClick = onClick,
+      modifier =
+        modifier.size(buttonSize.tapTargetSize).clearAndSetSemantics {
+          role = Role.Button
+          this.contentDescription = contentDescription
+          if (!enabled) {
+            disabled()
+          }
+          this.onClick(
+            action = {
+              onClick()
+              true
             }
-        }
-    } else {
-        MaterialButton(
-            onClick = onClick,
-            modifier = modifier.size(buttonSize.tapTargetSize),
-            enabled = enabled,
-            colors = colors,
-        ) {
-            val iconModifier = Modifier
-                .size(buttonSize.iconSize)
-                .align(Alignment.Center)
-
-            Icon(
-                paintable = icon,
-                contentDescription = contentDescription,
-                modifier = iconModifier,
+          )
+          this.onLongClick(
+            action = {
+              onLongClick()
+              true
+            }
+          )
+        },
+      enabled = enabled,
+      colors = colors,
+      interactionSource = interactionSource,
+    ) {
+      Box(
+        modifier =
+          Modifier.fillMaxSize()
+            .clip(CircleShape)
+            .combinedClickable(
+              interactionSource = interactionSource,
+              indication = null, // From material Button
+              enabled = enabled,
+              onClick = onClick,
+              onLongClick = onLongClick,
+              role = Role.Button,
             )
-        }
+      ) {
+        val iconModifier = Modifier.size(buttonSize.iconSize).align(Alignment.Center)
+
+        Icon(paintable = icon, contentDescription = contentDescription, modifier = iconModifier)
+      }
     }
+  } else {
+    MaterialButton(
+      onClick = onClick,
+      modifier = modifier.size(buttonSize.tapTargetSize),
+      enabled = enabled,
+      colors = colors,
+    ) {
+      val iconModifier = Modifier.size(buttonSize.iconSize).align(Alignment.Center)
+
+      Icon(paintable = icon, contentDescription = contentDescription, modifier = iconModifier)
+    }
+  }
 }
 
 @ExperimentalHorologistApi
-public sealed class ButtonSize(
-    public val iconSize: Dp,
-    public val tapTargetSize: Dp,
-) {
-    public object Default :
-        ButtonSize(iconSize = DefaultIconSize, tapTargetSize = DefaultButtonSize)
+public sealed class ButtonSize(public val iconSize: Dp, public val tapTargetSize: Dp) {
+  public object Default : ButtonSize(iconSize = DefaultIconSize, tapTargetSize = DefaultButtonSize)
 
-    public object Large : ButtonSize(iconSize = LargeIconSize, tapTargetSize = LargeButtonSize)
-    public object Small : ButtonSize(iconSize = SmallIconSize, tapTargetSize = SmallButtonSize)
+  public object Large : ButtonSize(iconSize = LargeIconSize, tapTargetSize = LargeButtonSize)
 
-    /**
-     * Custom sizes should follow the [accessibility principles and guidance for touch targets](https://developer.android.com/training/wearables/accessibility#set-minimum).
-     */
-    public data class Custom(val customIconSize: Dp, val customTapTargetSize: Dp) :
-        ButtonSize(iconSize = customIconSize, tapTargetSize = customTapTargetSize)
+  public object Small : ButtonSize(iconSize = SmallIconSize, tapTargetSize = SmallButtonSize)
+
+  /**
+   * Custom sizes should follow the
+   * [accessibility principles and guidance for touch targets](https://developer.android.com/training/wearables/accessibility#set-minimum).
+   */
+  public data class Custom(val customIconSize: Dp, val customTapTargetSize: Dp) :
+    ButtonSize(iconSize = customIconSize, tapTargetSize = customTapTargetSize)
 }

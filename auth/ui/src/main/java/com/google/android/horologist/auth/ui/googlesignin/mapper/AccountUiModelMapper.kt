@@ -22,20 +22,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.horologist.auth.composables.model.AccountUiModel
 import com.google.android.horologist.images.coil.CoilPaintable
 
-/**
- * Functions to map models from Google Sign In into a [AccountUiModel].
- */
+/** Functions to map models from Google Sign In into a [AccountUiModel]. */
 public object AccountUiModelMapper {
 
-    /**
-     * Maps from a [GoogleSignInAccount].
-     */
-    public fun map(
-        account: GoogleSignInAccount,
-        defaultEmail: String = "",
-    ): AccountUiModel = AccountUiModel(
-        email = account.email ?: defaultEmail,
-        name = account.displayName,
-        avatar = account.photoUrl?.let { CoilPaintable(it) },
+  /** Maps from a [GoogleSignInAccount]. */
+  public fun map(account: GoogleSignInAccount, defaultEmail: String = ""): AccountUiModel =
+    AccountUiModel(
+      email = account.email ?: defaultEmail,
+      name = account.displayName,
+      avatar = account.photoUrl?.let { CoilPaintable(it) },
     )
 }

@@ -30,48 +30,35 @@ import com.google.android.horologist.compose.material.Chip
 
 @Composable
 fun DataLayerNodesScreen(
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
-    viewModel: DataLayerNodesViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  columnState: ScalingLazyColumnState,
+  viewModel: DataLayerNodesViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+  val state by viewModel.state.collectAsStateWithLifecycle()
 
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            ListHeader {
-                Text("Nodes")
-            }
-        }
-        items(state.nodes) {
-            Chip(
-                label = it.displayName,
-                onClick = { },
-                secondaryLabel = "${it.id} ${if (it.isNearby) "(NEAR)" else ""}",
-            )
-        }
-        item {
-            ListHeader {
-                Text("Data")
-            }
-        }
-        item {
-            val thisData = state.thisData
-            if (thisData != null) {
-                Chip(
-                    label = "This Value: ${thisData.value} (${thisData.name})",
-                    onClick = {
-                        viewModel.increment()
-                    },
-                )
-            } else {
-                Text("This Value: None")
-            }
-        }
-        items(state.protoMap.entries.toList()) { (id, data) ->
-            Text("$id Value: ${data.value} (${data.name})")
-        }
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
+    item { ListHeader { Text("Nodes") } }
+    items(state.nodes) {
+      Chip(
+        label = it.displayName,
+        onClick = {},
+        secondaryLabel = "${it.id} ${if (it.isNearby) "(NEAR)" else ""}",
+      )
     }
+    item { ListHeader { Text("Data") } }
+    item {
+      val thisData = state.thisData
+      if (thisData != null) {
+        Chip(
+          label = "This Value: ${thisData.value} (${thisData.name})",
+          onClick = { viewModel.increment() },
+        )
+      } else {
+        Text("This Value: None")
+      }
+    }
+    items(state.protoMap.entries.toList()) { (id, data) ->
+      Text("$id Value: ${data.value} (${data.name})")
+    }
+  }
 }

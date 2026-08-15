@@ -21,51 +21,49 @@ import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.screenshots.rng.WearDevice
 import com.google.android.horologist.screenshots.rng.WearTriadScreenshotTest
+import kotlin.time.Duration.Companion.seconds
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
-import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
-import kotlin.time.Duration.Companion.seconds
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
 class MediaPlayerFontScaleTest(device: WearDevice) : WearTriadScreenshotTest(device) {
 
-    @Test
-    fun mediaPlayerLargeRound() {
-        mediaPlayerScreen()
-    }
+  @Test
+  fun mediaPlayerLargeRound() {
+    mediaPlayerScreen()
+  }
 
-    @Test
-    fun mediaPlayerScreen() {
-        val playerUiState = PlayerUiState(
-            playEnabled = true,
-            pauseEnabled = true,
-            seekBackEnabled = true,
-            seekForwardEnabled = true,
-            seekInCurrentMediaItemEnabled = true,
-            seekToPreviousEnabled = false,
-            seekToNextEnabled = true,
-            shuffleEnabled = false,
-            shuffleOn = false,
-            playPauseEnabled = true,
-            playing = true,
-            media = MediaUiModel.Ready(
-                id = "",
-                title = "Outro - Totally Here and Now (feat. Alan Watts)",
-                subtitle = "The Kyoto Connection",
-            ),
-            trackPositionUiModel = TrackPositionUiModel.Actual(
-                position = 30.seconds,
-                duration = 225.seconds,
-                percent = 0.133f,
-            ),
-            connected = true,
-        )
+  @Test
+  fun mediaPlayerScreen() {
+    val playerUiState =
+      PlayerUiState(
+        playEnabled = true,
+        pauseEnabled = true,
+        seekBackEnabled = true,
+        seekForwardEnabled = true,
+        seekInCurrentMediaItemEnabled = true,
+        seekToPreviousEnabled = false,
+        seekToNextEnabled = true,
+        shuffleEnabled = false,
+        shuffleOn = false,
+        playPauseEnabled = true,
+        playing = true,
+        media =
+          MediaUiModel.Ready(
+            id = "",
+            title = "Outro - Totally Here and Now (feat. Alan Watts)",
+            subtitle = "The Kyoto Connection",
+          ),
+        trackPositionUiModel =
+          TrackPositionUiModel.Actual(
+            position = 30.seconds,
+            duration = 225.seconds,
+            percent = 0.133f,
+          ),
+        connected = true,
+      )
 
-        runTest {
-            MediaPlayerTestCase(
-                playerUiState = playerUiState,
-            )
-        }
-    }
+    runTest { MediaPlayerTestCase(playerUiState = playerUiState) }
+  }
 }

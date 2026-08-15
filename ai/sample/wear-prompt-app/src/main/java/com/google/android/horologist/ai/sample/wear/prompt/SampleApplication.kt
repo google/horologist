@@ -24,8 +24,7 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class SampleApplication : Application(), ImageLoaderFactory {
-    @Inject
-    lateinit var imageLoader: ImageLoader
+  @Inject lateinit var imageLoader: ImageLoader
 
-    override fun newImageLoader(): ImageLoader = imageLoader
+  override fun newImageLoader(): ImageLoader = imageLoader
 }

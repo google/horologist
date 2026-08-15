@@ -28,43 +28,38 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.launch
 
 /**
- * A ViewModel the maintainer the SnackbarHostState, and a reference to the Manager
- * for both processes snackbars sequentially and also showing a message.
+ * A ViewModel the maintainer the SnackbarHostState, and a reference to the Manager for both
+ * processes snackbars sequentially and also showing a message.
  */
 @ExperimentalHorologistApi
-public open class SnackbarViewModel(
-    private val snackbarManager: SnackbarManager,
-) : ViewModel() {
-    public val snackbarHostState: SnackbarHostState = SnackbarHostState()
+public open class SnackbarViewModel(private val snackbarManager: SnackbarManager) : ViewModel() {
+  public val snackbarHostState: SnackbarHostState = SnackbarHostState()
 
-    init {
-        viewModelScope.launch {
-            val messages = snapshotFlow { snackbarManager.messages.firstOrNull() }.filterNotNull()
-            messages.collect { message ->
-                snackbarHostState.showSnackbar(
-                    message = message.message,
-                    duration = SnackbarDuration.Short,
-                )
-                snackbarManager.setMessageShown(message.id)
-            }
-        }
+  init {
+    viewModelScope.launch {
+      val messages = snapshotFlow { snackbarManager.messages.firstOrNull() }.filterNotNull()
+      messages.collect { message ->
+        snackbarHostState.showSnackbar(message = message.message, duration = SnackbarDuration.Short)
+        snackbarManager.setMessageShown(message.id)
+      }
     }
+  }
 
-    public fun showMessage(message: UiMessage) {
-        snackbarManager.showMessage(message)
+  public fun showMessage(message: UiMessage) {
+    snackbarManager.showMessage(message)
+  }
+
+  public fun showMessage(message: String) {
+    snackbarManager.showMessage(message)
+  }
+
+  public object Factory : ViewModelProvider.Factory {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
+      check(modelClass == SnackbarViewModel::class.java)
+
+      val snackbarManager = SnackbarManager()
+      return SnackbarViewModel(snackbarManager) as T
     }
-
-    public fun showMessage(message: String) {
-        snackbarManager.showMessage(message)
-    }
-
-    public object Factory : ViewModelProvider.Factory {
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-            check(modelClass == SnackbarViewModel::class.java)
-
-            val snackbarManager = SnackbarManager()
-            return SnackbarViewModel(snackbarManager) as T
-        }
-    }
+  }
 }

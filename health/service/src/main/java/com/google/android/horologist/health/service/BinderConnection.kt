@@ -27,6 +27,9 @@ import android.os.IBinder
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import kotlin.reflect.KClass
+import kotlin.reflect.KProperty1
+import kotlin.reflect.safeCast
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.awaitCancellation
@@ -38,87 +41,87 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.launch
-import kotlin.reflect.KClass
-import kotlin.reflect.KProperty1
-import kotlin.reflect.safeCast
 
 public class BinderConnection<T : IBinder>(
-    private val context: Context,
-    private val type: KClass<out T>,
+  private val context: Context,
+  private val type: KClass<out T>,
 ) : ServiceConnection {
-    private val mutableBinder = MutableStateFlow<T?>(null)
-    private val binder = mutableBinder.asStateFlow()
+  private val mutableBinder = MutableStateFlow<T?>(null)
+  private val binder = mutableBinder.asStateFlow()
 
-    public fun unbind() {
-        context.unbindService(this)
+  public fun unbind() {
+    context.unbindService(this)
+  }
+
+  public suspend fun <R> runWhenConnected(command: suspend (T) -> R): R =
+    command(binder.filterNotNull().first())
+
+  public fun <N, V : Flow<N>> flowWhenConnected(property: KProperty1<T, V>): Flow<N> =
+    binder.flatMapLatest {
+      it?.let { property.get(it) } ?: emptyFlow()
     }
 
-    public suspend fun <R> runWhenConnected(command: suspend (T) -> R): R =
-        command(binder.filterNotNull().first())
+  override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+    type.safeCast(service)?.also { mutableBinder.value = it }
+  }
 
-    public fun <N, V : Flow<N>> flowWhenConnected(property: KProperty1<T, V>): Flow<N> =
-        binder.flatMapLatest { it?.let { property.get(it) } ?: emptyFlow() }
+  override fun onServiceDisconnected(name: ComponentName?) {
+    mutableBinder.value = null
+  }
 
-    override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-        type.safeCast(service)?.also {
-            mutableBinder.value = it
+  public companion object {
+    // For Hilt
+    //        inline fun <reified T : IBinder, reified S : Service>
+    // ViewModelLifecycle.bindService(context: Context): BinderConnection<T> {
+    //            val connection = BinderConnection(context, T::class)
+    //            bindService(context, S::class, connection)
+    //            addOnClearedListener {
+    //                connection.unbind()
+    //            }
+    //            return connection
+    //        }
+
+    public inline fun <reified T : IBinder, reified S : Service> Lifecycle.bindService(
+      context: Context
+    ): BinderConnection<T> {
+      val connection = BinderConnection(context, T::class)
+      addObserver(
+        object : DefaultLifecycleObserver {
+          override fun onStart(owner: LifecycleOwner) {
+            bindService(context, S::class, connection)
+          }
+
+          override fun onStop(owner: LifecycleOwner) {
+            connection.unbind()
+          }
         }
+      )
+      return connection
     }
 
-    override fun onServiceDisconnected(name: ComponentName?) {
-        mutableBinder.value = null
+    public inline fun <reified T : IBinder, reified S : Service> CoroutineScope.bindService(
+      context: Context
+    ): BinderConnection<T> {
+      val connection = BinderConnection(context, T::class)
+      launch {
+        try {
+          bindService(context, S::class, connection)
+          awaitCancellation()
+        } finally {
+          connection.unbind()
+        }
+      }
+      return connection
     }
 
-    public companion object {
-        // For Hilt
-//        inline fun <reified T : IBinder, reified S : Service> ViewModelLifecycle.bindService(context: Context): BinderConnection<T> {
-//            val connection = BinderConnection(context, T::class)
-//            bindService(context, S::class, connection)
-//            addOnClearedListener {
-//                connection.unbind()
-//            }
-//            return connection
-//        }
-
-        public inline fun <reified T : IBinder, reified S : Service> Lifecycle.bindService(
-            context: Context,
-        ): BinderConnection<T> {
-            val connection = BinderConnection(context, T::class)
-            addObserver(object : DefaultLifecycleObserver {
-                override fun onStart(owner: LifecycleOwner) {
-                    bindService(context, S::class, connection)
-                }
-
-                override fun onStop(owner: LifecycleOwner) {
-                    connection.unbind()
-                }
-            })
-            return connection
-        }
-
-        public inline fun <reified T : IBinder, reified S : Service> CoroutineScope.bindService(
-            context: Context,
-        ): BinderConnection<T> {
-            val connection = BinderConnection(context, T::class)
-            launch {
-                try {
-                    bindService(context, S::class, connection)
-                    awaitCancellation()
-                } finally {
-                    connection.unbind()
-                }
-            }
-            return connection
-        }
-
-        public fun <S : Service> bindService(
-            context: Context,
-            service: KClass<S>,
-            connection: BinderConnection<*>,
-        ) {
-            Intent(context, service.java).also { intent ->
-                context.bindService(intent, connection, Context.BIND_AUTO_CREATE)
-            }
-        }
+    public fun <S : Service> bindService(
+      context: Context,
+      service: KClass<S>,
+      connection: BinderConnection<*>,
+    ) {
+      Intent(context, service.java).also { intent ->
+        context.bindService(intent, connection, Context.BIND_AUTO_CREATE)
+      }
     }
+  }
 }

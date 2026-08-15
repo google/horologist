@@ -23,6 +23,7 @@ plugins {
   alias(libs.plugins.roborazzi)
   kotlin("plugin.serialization")
   alias(libs.plugins.compose.compiler)
+  alias(libs.plugins.composeAiPreview)
 }
 
 android {
@@ -128,6 +129,7 @@ dependencies {
   implementation(libs.okhttp.coroutines)
 
   implementation(libs.compose.ui.toolingpreview)
+  implementation(libs.compose.preview.annotations)
   implementation(libs.androidx.wear.tooling.preview)
 
   implementation(libs.androidx.wear.compose.material3)

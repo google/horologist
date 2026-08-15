@@ -22,41 +22,25 @@ import org.junit.Test
 
 class GuestModeChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            GuestModeChip(onClick = {})
-        }
-    }
+  @Test
+  fun default() {
+    runComponentTest { GuestModeChip(onClick = {}) }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            GuestModeChip(
-                onClick = {},
-                enabled = false,
-            )
-        }
-    }
+  @Test
+  fun disabled() {
+    runComponentTest { GuestModeChip(onClick = {}, enabled = false) }
+  }
 
-    @Test
-    fun withSecondaryChipType() {
-        runComponentTest {
-            GuestModeChip(
-                onClick = {},
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-    }
+  @Test
+  fun withSecondaryChipType() {
+    runComponentTest { GuestModeChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
+  }
 
-    @Test
-    fun withSecondaryChipTypeDisabled() {
-        runComponentTest {
-            GuestModeChip(
-                onClick = {},
-                colors = ChipDefaults.secondaryChipColors(),
-                enabled = false,
-            )
-        }
+  @Test
+  fun withSecondaryChipTypeDisabled() {
+    runComponentTest {
+      GuestModeChip(onClick = {}, colors = ChipDefaults.secondaryChipColors(), enabled = false)
     }
+  }
 }

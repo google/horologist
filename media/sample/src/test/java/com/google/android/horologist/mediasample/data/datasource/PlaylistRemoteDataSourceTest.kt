@@ -26,29 +26,27 @@ import org.junit.Test
 
 class PlaylistRemoteDataSourceTest {
 
-    private val testDispatcher = StandardTestDispatcher()
+  private val testDispatcher = StandardTestDispatcher()
 
-    private val uampService = FakeUampService()
+  private val uampService = FakeUampService()
 
-    private lateinit var sut: PlaylistRemoteDataSource
+  private lateinit var sut: PlaylistRemoteDataSource
 
-    @Before
-    fun setUp() {
-        sut = PlaylistRemoteDataSource(
-            ioDispatcher = testDispatcher,
-            uampService = uampService,
-        )
-    }
+  @Before
+  fun setUp() {
+    sut = PlaylistRemoteDataSource(ioDispatcher = testDispatcher, uampService = uampService)
+  }
 
-    @Test
-    fun getPlaylists_backedByUampServiceCatalog() = runTest(testDispatcher) {
-        // given
-        val uampServiceCatalogResult = uampService.catalog()
+  @Test
+  fun getPlaylists_backedByUampServiceCatalog() =
+    runTest(testDispatcher) {
+      // given
+      val uampServiceCatalogResult = uampService.catalog()
 
-        // when
-        val result = sut.getPlaylists().first()
+      // when
+      val result = sut.getPlaylists().first()
 
-        // then
-        assertThat(result).isEqualTo(uampServiceCatalogResult)
+      // then
+      assertThat(result).isEqualTo(uampServiceCatalogResult)
     }
 }

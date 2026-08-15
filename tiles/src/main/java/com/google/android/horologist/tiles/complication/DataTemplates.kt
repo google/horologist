@@ -34,139 +34,106 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
 @ExperimentalHorologistApi
 public object DataTemplates {
-    public fun ComplicationTemplate<*>.longText(
-        icon: Icon?,
-        type: SmallImageType = SmallImageType.PHOTO,
-        title: String?,
-        text: String,
-        launchIntent: PendingIntent?,
-        contentDescription: ComplicationText? = null,
-    ): LongTextComplicationData = LongTextComplicationData.Builder(
-        text = PlainComplicationText.Builder(
-            text = text,
-        )
-            .build(),
-        contentDescription = contentDescription ?: PlainComplicationText.Builder(
-            text = text,
-        )
-            .build(),
-    )
-        .apply {
-            if (icon != null) {
-                setSmallImage(
-                    SmallImage.Builder(
-                        image = icon,
-                        type = type,
-                    ).build(),
-                )
-            }
-            if (title != null) {
-                setTitle(
-                    PlainComplicationText.Builder(
-                        text = title,
-                    )
-                        .build(),
-                )
-            }
+  public fun ComplicationTemplate<*>.longText(
+    icon: Icon?,
+    type: SmallImageType = SmallImageType.PHOTO,
+    title: String?,
+    text: String,
+    launchIntent: PendingIntent?,
+    contentDescription: ComplicationText? = null,
+  ): LongTextComplicationData =
+    LongTextComplicationData.Builder(
+        text = PlainComplicationText.Builder(text = text).build(),
+        contentDescription =
+          contentDescription ?: PlainComplicationText.Builder(text = text).build(),
+      )
+      .apply {
+        if (icon != null) {
+          setSmallImage(SmallImage.Builder(image = icon, type = type).build())
         }
-        .setTapAction(launchIntent)
-        .build()
-
-    public fun ComplicationTemplate<*>.smallImage(
-        icon: Icon,
-        type: SmallImageType = SmallImageType.PHOTO,
-        name: String,
-        launchIntent: PendingIntent?,
-        contentDescription: ComplicationText? = null,
-    ): SmallImageComplicationData = SmallImageComplicationData.Builder(
-        smallImage = SmallImage.Builder(
-            image = icon,
-            type = type,
-        )
-            .build(),
-        contentDescription = contentDescription ?: PlainComplicationText.Builder(
-            text = name,
-        )
-            .build(),
-    )
-        .setTapAction(launchIntent)
-        .build()
-
-    public fun ComplicationTemplate<*>.shortText(
-        title: String?,
-        text: String,
-        @DrawableRes icon: Int?,
-        launchIntent: PendingIntent?,
-        contentDescription: ComplicationText? = null,
-    ): ShortTextComplicationData = ShortTextComplicationData.Builder(
-        PlainComplicationText.Builder(text)
-            .build(),
-        contentDescription = contentDescription ?: PlainComplicationText.Builder(text = text)
-            .build(),
-    )
-        .apply {
-            if (icon != null) {
-                setMonochromaticImage(
-                    MonochromaticImage.Builder(icon(icon))
-                        .build(),
-                )
-            }
-            if (title != null) {
-                setTitle(
-                    PlainComplicationText.Builder(
-                        text = title,
-                    )
-                        .build(),
-                )
-            }
+        if (title != null) {
+          setTitle(PlainComplicationText.Builder(text = title).build())
         }
-        .setTapAction(launchIntent)
-        .build()
+      }
+      .setTapAction(launchIntent)
+      .build()
 
-    public fun ComplicationTemplate<*>.photoImage(
-        photoImage: Icon,
-        name: String,
-        launchIntent: PendingIntent?,
-        contentDescription: ComplicationText? = null,
-    ): PhotoImageComplicationData = PhotoImageComplicationData.Builder(
+  public fun ComplicationTemplate<*>.smallImage(
+    icon: Icon,
+    type: SmallImageType = SmallImageType.PHOTO,
+    name: String,
+    launchIntent: PendingIntent?,
+    contentDescription: ComplicationText? = null,
+  ): SmallImageComplicationData =
+    SmallImageComplicationData.Builder(
+        smallImage = SmallImage.Builder(image = icon, type = type).build(),
+        contentDescription =
+          contentDescription ?: PlainComplicationText.Builder(text = name).build(),
+      )
+      .setTapAction(launchIntent)
+      .build()
+
+  public fun ComplicationTemplate<*>.shortText(
+    title: String?,
+    text: String,
+    @DrawableRes icon: Int?,
+    launchIntent: PendingIntent?,
+    contentDescription: ComplicationText? = null,
+  ): ShortTextComplicationData =
+    ShortTextComplicationData.Builder(
+        PlainComplicationText.Builder(text).build(),
+        contentDescription =
+          contentDescription ?: PlainComplicationText.Builder(text = text).build(),
+      )
+      .apply {
+        if (icon != null) {
+          setMonochromaticImage(MonochromaticImage.Builder(icon(icon)).build())
+        }
+        if (title != null) {
+          setTitle(PlainComplicationText.Builder(text = title).build())
+        }
+      }
+      .setTapAction(launchIntent)
+      .build()
+
+  public fun ComplicationTemplate<*>.photoImage(
+    photoImage: Icon,
+    name: String,
+    launchIntent: PendingIntent?,
+    contentDescription: ComplicationText? = null,
+  ): PhotoImageComplicationData =
+    PhotoImageComplicationData.Builder(
         photoImage,
-        contentDescription = contentDescription ?: PlainComplicationText.Builder(
-            text = name,
-        )
-            .build(),
-    )
-        .setTapAction(launchIntent)
-        .build()
+        contentDescription =
+          contentDescription ?: PlainComplicationText.Builder(text = name).build(),
+      )
+      .setTapAction(launchIntent)
+      .build()
 
-    public fun ComplicationTemplate<*>.rangedValue(
-        value: Float,
-        min: Float,
-        max: Float,
-        title: String,
-        text: String,
-        image: MonochromaticImage?,
-        launchIntent: PendingIntent?,
-    ): RangedValueComplicationData = RangedValueComplicationData.Builder(
+  public fun ComplicationTemplate<*>.rangedValue(
+    value: Float,
+    min: Float,
+    max: Float,
+    title: String,
+    text: String,
+    image: MonochromaticImage?,
+    launchIntent: PendingIntent?,
+  ): RangedValueComplicationData =
+    RangedValueComplicationData.Builder(
         value,
         min,
         max,
         PlainComplicationText.Builder(text = text).build(),
-    )
-        .setText(PlainComplicationText.Builder(text = text).build())
-        .setTitle(PlainComplicationText.Builder(text = title).build())
-        .setTapAction(launchIntent)
-        .setMonochromaticImage(image)
-        .build()
+      )
+      .setText(PlainComplicationText.Builder(text = text).build())
+      .setTitle(PlainComplicationText.Builder(text = title).build())
+      .setTapAction(launchIntent)
+      .setMonochromaticImage(image)
+      .build()
 
-    public fun ComplicationTemplate<*>.icon(
-        @DrawableRes id: Int,
-    ): Icon = Icon.createWithResource(
-        context,
-        id,
-    )
+  public fun ComplicationTemplate<*>.icon(@DrawableRes id: Int): Icon =
+    Icon.createWithResource(context, id)
 
-    public fun ComplicationTemplate<*>.text(
-        @StringRes id: Int,
-    ): String = context.getText(id)
-        .toString()
+  public fun ComplicationTemplate<*>.text(@StringRes id: Int): String =
+    context.getText(id).toString()
 }

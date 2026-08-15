@@ -18,37 +18,27 @@ package com.google.android.horologist.compose.rotaryinput
 
 import androidx.compose.ui.input.pointer.util.VelocityTracker1D
 
-/**
- * A wrapper around VelocityTracker1D to provide support for rotary input.
- */
+/** A wrapper around VelocityTracker1D to provide support for rotary input. */
 public class RotaryVelocityTracker {
-    private var velocityTracker: VelocityTracker1D = VelocityTracker1D(true)
+  private var velocityTracker: VelocityTracker1D = VelocityTracker1D(true)
 
-    /**
-     * Retrieve the last computed velocity.
-     */
-    public val velocity: Float
-        get() = velocityTracker.calculateVelocity()
+  /** Retrieve the last computed velocity. */
+  public val velocity: Float
+    get() = velocityTracker.calculateVelocity()
 
-    /**
-     * Start tracking motion.
-     */
-    public fun start(currentTime: Long) {
-        velocityTracker.resetTracking()
-        velocityTracker.addDataPoint(currentTime, 0f)
-    }
+  /** Start tracking motion. */
+  public fun start(currentTime: Long) {
+    velocityTracker.resetTracking()
+    velocityTracker.addDataPoint(currentTime, 0f)
+  }
 
-    /**
-     * Continue tracking motion as the input rotates.
-     */
-    public fun move(currentTime: Long, delta: Float) {
-        velocityTracker.addDataPoint(currentTime, delta)
-    }
+  /** Continue tracking motion as the input rotates. */
+  public fun move(currentTime: Long, delta: Float) {
+    velocityTracker.addDataPoint(currentTime, delta)
+  }
 
-    /**
-     * Stop tracking motion.
-     */
-    public fun end() {
-        velocityTracker.resetTracking()
-    }
+  /** Stop tracking motion. */
+  public fun end() {
+    velocityTracker.resetTracking()
+  }
 }

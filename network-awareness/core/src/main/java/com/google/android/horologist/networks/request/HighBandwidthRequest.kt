@@ -23,51 +23,52 @@ import com.google.android.horologist.networks.data.NetworkType
 import com.google.android.horologist.networks.data.RequestType
 
 /**
- * A single request for high bandwidth networks, with specific usable transport types and
- * the originating request type.
+ * A single request for high bandwidth networks, with specific usable transport types and the
+ * originating request type.
  */
 @ExperimentalHorologistApi
 public data class HighBandwidthRequest(
-    val type: Type = Type.All,
-    val requestType: RequestType? = null,
-    val url: String? = null,
+  val type: Type = Type.All,
+  val requestType: RequestType? = null,
+  val url: String? = null,
 ) {
-    public fun toNetworkRequest(): NetworkRequest {
-        return NetworkRequest.Builder()
-            .apply {
-                if (type.cell) {
-                    addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
-                }
-                if (type.wifi) {
-                    addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
-                }
-            }
-            .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-            .build()
-    }
-
-    public enum class Type(public val wifi: Boolean, public val cell: Boolean) {
-        WifiOnly(true, false),
-        CellOnly(false, true),
-        All(true, true),
-    }
-
-    public companion object {
-        public val All: HighBandwidthRequest = HighBandwidthRequest(Type.All)
-        public val Wifi: HighBandwidthRequest = HighBandwidthRequest(Type.WifiOnly)
-        public val Cell: HighBandwidthRequest = HighBandwidthRequest(Type.CellOnly)
-
-        public fun from(supportedTypes: List<NetworkType>): HighBandwidthRequest {
-            val wifi = supportedTypes.contains(NetworkType.Wifi)
-            val cell = supportedTypes.contains(NetworkType.Cell)
-
-            val type = when {
-                wifi && cell -> Type.All
-                wifi -> Type.WifiOnly
-                cell -> Type.CellOnly
-                else -> throw IllegalStateException("must be cell or wifi at least")
-            }
-            return HighBandwidthRequest(type)
+  public fun toNetworkRequest(): NetworkRequest {
+    return NetworkRequest.Builder()
+      .apply {
+        if (type.cell) {
+          addTransportType(NetworkCapabilities.TRANSPORT_CELLULAR)
         }
+        if (type.wifi) {
+          addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
+        }
+      }
+      .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+      .build()
+  }
+
+  public enum class Type(public val wifi: Boolean, public val cell: Boolean) {
+    WifiOnly(true, false),
+    CellOnly(false, true),
+    All(true, true),
+  }
+
+  public companion object {
+    public val All: HighBandwidthRequest = HighBandwidthRequest(Type.All)
+    public val Wifi: HighBandwidthRequest = HighBandwidthRequest(Type.WifiOnly)
+    public val Cell: HighBandwidthRequest = HighBandwidthRequest(Type.CellOnly)
+
+    public fun from(supportedTypes: List<NetworkType>): HighBandwidthRequest {
+      val wifi = supportedTypes.contains(NetworkType.Wifi)
+      val cell = supportedTypes.contains(NetworkType.Cell)
+
+      val type =
+        when {
+          wifi && cell -> Type.All
+          wifi -> Type.WifiOnly
+          cell -> Type.CellOnly
+          else -> throw IllegalStateException("must be cell or wifi at least")
+        }
+      return HighBandwidthRequest(type)
     }
+  }
 }

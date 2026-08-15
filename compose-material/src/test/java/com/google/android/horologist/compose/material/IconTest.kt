@@ -27,66 +27,60 @@ import org.robolectric.annotation.Config
 
 class IconTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            Icon(
-                paintable = Icons.Outlined.Abc.asPaintable(),
-                contentDescription = "contentDescription",
-            )
-        }
+  @Test
+  fun default() {
+    runComponentTest {
+      Icon(paintable = Icons.Outlined.Abc.asPaintable(), contentDescription = "contentDescription")
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun defaultRtl() {
-        runComponentTest {
-            Icon(
-                paintable = Icons.Outlined.Abc.asPaintable(),
-                contentDescription = "contentDescription",
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun defaultRtl() {
+    runComponentTest {
+      Icon(paintable = Icons.Outlined.Abc.asPaintable(), contentDescription = "contentDescription")
     }
+  }
 
-    @Test
-    fun autoMirroredLTR() {
-        runComponentTest {
-            Icon(
-                paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
-                contentDescription = "contentDescription",
-            )
-        }
+  @Test
+  fun autoMirroredLTR() {
+    runComponentTest {
+      Icon(
+        paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
+        contentDescription = "contentDescription",
+      )
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun autoMirroredRtl() {
-        runComponentTest {
-            Icon(
-                paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
-                contentDescription = "contentDescription",
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun autoMirroredRtl() {
+    runComponentTest {
+      Icon(
+        paintable = Icons.AutoMirrored.Outlined.VolumeDown.asPaintable(),
+        contentDescription = "contentDescription",
+      )
     }
+  }
 
-    @Test
-    fun usingDrawableResAsIcon() {
-        runComponentTest {
-            Icon(
-                paintable = DrawableResPaintable(android.R.drawable.ic_media_play),
-                contentDescription = "contentDescription",
-            )
-        }
+  @Test
+  fun usingDrawableResAsIcon() {
+    runComponentTest {
+      Icon(
+        paintable = DrawableResPaintable(android.R.drawable.ic_media_play),
+        contentDescription = "contentDescription",
+      )
     }
+  }
 
-    @Test
-    @Config(qualifiers = "+ar-rXB-ldrtl")
-    fun usingDrawableResAsIconRtl() {
-        runComponentTest {
-            Icon(
-                paintable = DrawableResPaintable(android.R.drawable.ic_media_play),
-                contentDescription = "contentDescription",
-            )
-        }
+  @Test
+  @Config(qualifiers = "+ar-rXB-ldrtl")
+  fun usingDrawableResAsIconRtl() {
+    runComponentTest {
+      Icon(
+        paintable = DrawableResPaintable(android.R.drawable.ic_media_play),
+        contentDescription = "contentDescription",
+      )
     }
+  }
 }

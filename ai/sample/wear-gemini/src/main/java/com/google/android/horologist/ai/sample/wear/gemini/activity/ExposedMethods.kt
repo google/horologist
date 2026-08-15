@@ -19,13 +19,13 @@ package com.google.android.horologist.ai.sample.wear.gemini.activity
 import android.os.Build
 
 object ExposedMethods {
-    @JvmStatic
-    fun deviceModel(): String {
-        return Build.MODEL
-    }
+  @JvmStatic
+  fun deviceModel(): String {
+    return Build.MODEL
+  }
 
-    @JvmStatic
-    fun deviceManufacturer(): String {
-        return Build.MANUFACTURER
-    }
+  @JvmStatic
+  fun deviceManufacturer(): String {
+    return Build.MANUFACTURER
+  }
 }

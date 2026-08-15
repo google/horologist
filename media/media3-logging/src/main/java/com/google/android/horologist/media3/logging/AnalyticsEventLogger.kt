@@ -35,164 +35,154 @@ import java.io.IOException
  */
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
-public class AnalyticsEventLogger(
-    private val appEventLogger: ErrorReporter,
-) : EventLogger("ErrorReporter") {
-    override fun onAudioSinkError(
-        eventTime: AnalyticsListener.EventTime,
-        audioSinkError: Exception,
-    ) {
-        appEventLogger.logMessage(
-            "onAudioSinkError $audioSinkError",
-            category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Error,
-        )
-    }
+public class AnalyticsEventLogger(private val appEventLogger: ErrorReporter) :
+  EventLogger("ErrorReporter") {
+  override fun onAudioSinkError(eventTime: AnalyticsListener.EventTime, audioSinkError: Exception) {
+    appEventLogger.logMessage(
+      "onAudioSinkError $audioSinkError",
+      category = ErrorReporter.Category.Playback,
+      level = ErrorReporter.Level.Error,
+    )
+  }
 
-    override fun onAudioCodecError(
-        eventTime: AnalyticsListener.EventTime,
-        audioCodecError: Exception,
-    ) {
-        appEventLogger.logMessage(
-            "onAudioCodecError $audioCodecError",
-            category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Error,
-        )
-    }
+  override fun onAudioCodecError(
+    eventTime: AnalyticsListener.EventTime,
+    audioCodecError: Exception,
+  ) {
+    appEventLogger.logMessage(
+      "onAudioCodecError $audioCodecError",
+      category = ErrorReporter.Category.Playback,
+      level = ErrorReporter.Level.Error,
+    )
+  }
 
-    override fun onPlaybackStateChanged(eventTime: AnalyticsListener.EventTime, state: Int) {
-        appEventLogger.logMessage(
-            "onPlaybackStateChanged $state",
-            category = ErrorReporter.Category.Playback,
-        )
-        super.onPlaybackStateChanged(eventTime, state)
-    }
+  override fun onPlaybackStateChanged(eventTime: AnalyticsListener.EventTime, state: Int) {
+    appEventLogger.logMessage(
+      "onPlaybackStateChanged $state",
+      category = ErrorReporter.Category.Playback,
+    )
+    super.onPlaybackStateChanged(eventTime, state)
+  }
 
-    override fun onPlayWhenReadyChanged(
-        eventTime: AnalyticsListener.EventTime,
-        playWhenReady: Boolean,
-        reason: Int,
-    ) {
-        appEventLogger.logMessage(
-            "onPlayWhenReadyChanged $playWhenReady $reason",
-            category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Debug,
-        )
-        super.onPlayWhenReadyChanged(eventTime, playWhenReady, reason)
-    }
+  override fun onPlayWhenReadyChanged(
+    eventTime: AnalyticsListener.EventTime,
+    playWhenReady: Boolean,
+    reason: Int,
+  ) {
+    appEventLogger.logMessage(
+      "onPlayWhenReadyChanged $playWhenReady $reason",
+      category = ErrorReporter.Category.Playback,
+      level = ErrorReporter.Level.Debug,
+    )
+    super.onPlayWhenReadyChanged(eventTime, playWhenReady, reason)
+  }
 
-    override fun onAudioUnderrun(
-        eventTime: AnalyticsListener.EventTime,
-        bufferSize: Int,
-        bufferSizeMs: Long,
-        elapsedSinceLastFeedMs: Long,
-    ) {
-        appEventLogger.logMessage(
-            "onAudioUnderrun $elapsedSinceLastFeedMs",
-            category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Error,
-        )
-        super.onAudioUnderrun(eventTime, bufferSize, bufferSizeMs, elapsedSinceLastFeedMs)
-    }
+  override fun onAudioUnderrun(
+    eventTime: AnalyticsListener.EventTime,
+    bufferSize: Int,
+    bufferSizeMs: Long,
+    elapsedSinceLastFeedMs: Long,
+  ) {
+    appEventLogger.logMessage(
+      "onAudioUnderrun $elapsedSinceLastFeedMs",
+      category = ErrorReporter.Category.Playback,
+      level = ErrorReporter.Level.Error,
+    )
+    super.onAudioUnderrun(eventTime, bufferSize, bufferSizeMs, elapsedSinceLastFeedMs)
+  }
 
-    override fun onIsLoadingChanged(eventTime: AnalyticsListener.EventTime, isLoading: Boolean) {
-        appEventLogger.logMessage(
-            "onIsLoadingChanged $isLoading",
-            category = ErrorReporter.Category.Playback,
-        )
-        super.onIsLoadingChanged(eventTime, isLoading)
-    }
+  override fun onIsLoadingChanged(eventTime: AnalyticsListener.EventTime, isLoading: Boolean) {
+    appEventLogger.logMessage(
+      "onIsLoadingChanged $isLoading",
+      category = ErrorReporter.Category.Playback,
+    )
+    super.onIsLoadingChanged(eventTime, isLoading)
+  }
 
-    override fun onLoadError(
-        eventTime: AnalyticsListener.EventTime,
-        loadEventInfo: LoadEventInfo,
-        mediaLoadData: MediaLoadData,
-        error: IOException,
-        wasCanceled: Boolean,
-    ) {
-        appEventLogger.logMessage(
-            "onLoadError $error",
-            category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Error,
-        )
-        super.onLoadError(eventTime, loadEventInfo, mediaLoadData, error, wasCanceled)
-    }
+  override fun onLoadError(
+    eventTime: AnalyticsListener.EventTime,
+    loadEventInfo: LoadEventInfo,
+    mediaLoadData: MediaLoadData,
+    error: IOException,
+    wasCanceled: Boolean,
+  ) {
+    appEventLogger.logMessage(
+      "onLoadError $error",
+      category = ErrorReporter.Category.Playback,
+      level = ErrorReporter.Level.Error,
+    )
+    super.onLoadError(eventTime, loadEventInfo, mediaLoadData, error, wasCanceled)
+  }
 
-    override fun onMediaMetadataChanged(
-        eventTime: AnalyticsListener.EventTime,
-        mediaMetadata: MediaMetadata,
-    ) {
-        appEventLogger.logMessage(
-            "onMediaMetadataChanged ${mediaMetadata.displayTitle}",
-            category = ErrorReporter.Category.Playback,
-        )
-    }
+  override fun onMediaMetadataChanged(
+    eventTime: AnalyticsListener.EventTime,
+    mediaMetadata: MediaMetadata,
+  ) {
+    appEventLogger.logMessage(
+      "onMediaMetadataChanged ${mediaMetadata.displayTitle}",
+      category = ErrorReporter.Category.Playback,
+    )
+  }
 
-    override fun onPlayerError(eventTime: AnalyticsListener.EventTime, error: PlaybackException) {
-        appEventLogger.logMessage(
-            "onPlayerError $error",
-            category = ErrorReporter.Category.Playback,
-            level = ErrorReporter.Level.Error,
-        )
-        super.onPlayerError(eventTime, error)
-    }
+  override fun onPlayerError(eventTime: AnalyticsListener.EventTime, error: PlaybackException) {
+    appEventLogger.logMessage(
+      "onPlayerError $error",
+      category = ErrorReporter.Category.Playback,
+      level = ErrorReporter.Level.Error,
+    )
+    super.onPlayerError(eventTime, error)
+  }
 
-    override fun onLoadStarted(
-        eventTime: AnalyticsListener.EventTime,
-        loadEventInfo: LoadEventInfo,
-        mediaLoadData: MediaLoadData,
-        retryCount: Int,
-    ) {
-        appEventLogger.logMessage(
-            "onLoadStarted",
-            category = ErrorReporter.Category.Playback,
-        )
-    }
+  override fun onLoadStarted(
+    eventTime: AnalyticsListener.EventTime,
+    loadEventInfo: LoadEventInfo,
+    mediaLoadData: MediaLoadData,
+    retryCount: Int,
+  ) {
+    appEventLogger.logMessage("onLoadStarted", category = ErrorReporter.Category.Playback)
+  }
 
-    override fun onLoadCompleted(
-        eventTime: AnalyticsListener.EventTime,
-        loadEventInfo: LoadEventInfo,
-        mediaLoadData: MediaLoadData,
-    ) {
-        appEventLogger.logMessage(
-            "onLoadCompleted",
-            category = ErrorReporter.Category.Playback,
-        )
-    }
+  override fun onLoadCompleted(
+    eventTime: AnalyticsListener.EventTime,
+    loadEventInfo: LoadEventInfo,
+    mediaLoadData: MediaLoadData,
+  ) {
+    appEventLogger.logMessage("onLoadCompleted", category = ErrorReporter.Category.Playback)
+  }
 
-    override fun onAudioInputFormatChanged(
-        eventTime: AnalyticsListener.EventTime,
-        format: Format,
-        decoderReuseEvaluation: DecoderReuseEvaluation?,
-    ) {
-        appEventLogger.logMessage(
-            "onAudioInputFormatChanged ${format.codecs.orEmpty()} ${format.bitrate} ${format.containerMimeType.orEmpty()}",
-            level = ErrorReporter.Level.Debug,
-            category = ErrorReporter.Category.Playback,
-        )
-        super.onAudioInputFormatChanged(eventTime, format, decoderReuseEvaluation)
-    }
+  override fun onAudioInputFormatChanged(
+    eventTime: AnalyticsListener.EventTime,
+    format: Format,
+    decoderReuseEvaluation: DecoderReuseEvaluation?,
+  ) {
+    appEventLogger.logMessage(
+      "onAudioInputFormatChanged ${format.codecs.orEmpty()} ${format.bitrate} ${format.containerMimeType.orEmpty()}",
+      level = ErrorReporter.Level.Debug,
+      category = ErrorReporter.Category.Playback,
+    )
+    super.onAudioInputFormatChanged(eventTime, format, decoderReuseEvaluation)
+  }
 
-    override fun onDownstreamFormatChanged(
-        eventTime: AnalyticsListener.EventTime,
-        mediaLoadData: MediaLoadData,
-    ) {
-        appEventLogger.logMessage(
-            "onDownstreamFormatChanged ${mediaLoadData.dataType}",
-            category = ErrorReporter.Category.Playback,
-        )
-        super.onDownstreamFormatChanged(eventTime, mediaLoadData)
-    }
+  override fun onDownstreamFormatChanged(
+    eventTime: AnalyticsListener.EventTime,
+    mediaLoadData: MediaLoadData,
+  ) {
+    appEventLogger.logMessage(
+      "onDownstreamFormatChanged ${mediaLoadData.dataType}",
+      category = ErrorReporter.Category.Playback,
+    )
+    super.onDownstreamFormatChanged(eventTime, mediaLoadData)
+  }
 
-    override fun onBandwidthEstimate(
-        eventTime: AnalyticsListener.EventTime,
-        totalLoadTimeMs: Int,
-        totalBytesLoaded: Long,
-        bitrateEstimate: Long,
-    ) {
-        appEventLogger.logMessage(
-            "onBandwidthEstimate $bitrateEstimate",
-            level = ErrorReporter.Level.Debug,
-        )
-    }
+  override fun onBandwidthEstimate(
+    eventTime: AnalyticsListener.EventTime,
+    totalLoadTimeMs: Int,
+    totalBytesLoaded: Long,
+    bitrateEstimate: Long,
+  ) {
+    appEventLogger.logMessage(
+      "onBandwidthEstimate $bitrateEstimate",
+      level = ErrorReporter.Level.Debug,
+    )
+  }
 }

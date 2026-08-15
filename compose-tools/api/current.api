@@ -41,6 +41,17 @@ package com.google.android.horologist.compose.tools {
     property public static com.google.android.horologist.compose.tools.Device SamsungGalaxyWatch6Large;
   }
 
+  public final class FixedTimeSource implements androidx.wear.compose.material.TimeSource {
+    ctor public FixedTimeSource();
+    ctor public FixedTimeSource(optional String time);
+    property public String currentTime;
+  }
+
+  public final class PinnedTimeSource implements androidx.wear.compose.material.TimeSource {
+    property public String currentTime;
+    field public static final com.google.android.horologist.compose.tools.PinnedTimeSource INSTANCE;
+  }
+
   public final class PreviewTimeSource implements androidx.wear.compose.material.TimeSource {
     property public String currentTime;
     field public static final com.google.android.horologist.compose.tools.PreviewTimeSource INSTANCE;
@@ -114,6 +125,10 @@ package com.google.android.horologist.compose.tools {
   }
 
   @androidx.compose.ui.tooling.preview.Preview(backgroundColor=4278190080L, showBackground=true) public @interface WearPreview {
+  }
+
+  public final class WearPreviewScreenScaffoldKt {
+    method @KotlinOnly @androidx.compose.runtime.Composable public static void WearPreviewScreenScaffold(optional androidx.compose.ui.Modifier modifier, optional androidx.wear.compose.foundation.lazy.ScalingLazyListState? scrollState, optional kotlin.jvm.functions.Function0<kotlin.Unit> timeText, optional kotlin.jvm.functions.Function0<kotlin.Unit> positionIndicator, kotlin.jvm.functions.Function0<kotlin.Unit> content);
   }
 
   public final class WearPreviewThemes implements androidx.compose.ui.tooling.preview.PreviewParameterProvider<com.google.android.horologist.compose.tools.ThemeValues> {

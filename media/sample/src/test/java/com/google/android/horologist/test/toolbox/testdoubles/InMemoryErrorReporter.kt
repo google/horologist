@@ -20,23 +20,21 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media3.logging.ErrorReporter
 import java.util.Collections
 
-/**
- * Test appropriate implementation of ErrorReporter.
- */
+/** Test appropriate implementation of ErrorReporter. */
 @ExperimentalHorologistApi
 public class InMemoryErrorReporter : ErrorReporter {
-    public val logs = Collections.synchronizedList(mutableListOf<String>())
-    public val messages = Collections.synchronizedList(mutableListOf<Int>())
+  public val logs = Collections.synchronizedList(mutableListOf<String>())
+  public val messages = Collections.synchronizedList(mutableListOf<Int>())
 
-    override fun showMessage(message: Int) {
-        messages.add(message)
-    }
+  override fun showMessage(message: Int) {
+    messages.add(message)
+  }
 
-    override fun logMessage(
-        message: String,
-        category: ErrorReporter.Category,
-        level: ErrorReporter.Level,
-    ) {
-        logs.add(message)
-    }
+  override fun logMessage(
+    message: String,
+    category: ErrorReporter.Category,
+    level: ErrorReporter.Level,
+  ) {
+    logs.add(message)
+  }
 }

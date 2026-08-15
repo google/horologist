@@ -22,56 +22,46 @@ import com.google.android.gms.wearable.DataClient
 import com.google.android.gms.wearable.DataClient.OnDataChangedListener
 import com.google.android.gms.wearable.DataItem
 import com.google.android.gms.wearable.PutDataRequest
+import java.io.ByteArrayInputStream
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.tasks.await
-import java.io.ByteArrayInputStream
 
 public fun <T> DataClient.dataItemFlow(
-    nodeId: String,
-    path: String,
-    serializer: Serializer<T>,
-    defaultValue: () -> T = { serializer.defaultValue },
-): Flow<T> = callbackFlow {
-    val listener = OnDataChangedListener {
-        @SuppressWarnings("GmsCoreFirstPartyApiChecker")
-        val dataItem = it[it.count - 1].dataItem
+  nodeId: String,
+  path: String,
+  serializer: Serializer<T>,
+  defaultValue: () -> T = { serializer.defaultValue },
+): Flow<T> =
+  callbackFlow {
+      val listener = OnDataChangedListener {
+        @SuppressWarnings("GmsCoreFirstPartyApiChecker") val dataItem = it[it.count - 1].dataItem
         val data = dataItem.data
 
-        @Suppress("UNUSED_VARIABLE")
-        val unused = trySend(data)
+        @Suppress("UNUSED_VARIABLE") val unused = trySend(data)
+      }
+
+      val uri =
+        Uri.Builder().scheme(PutDataRequest.WEAR_URI_SCHEME).path(path).authority(nodeId).build()
+
+      addListener(listener, uri, DataClient.FILTER_LITERAL)
+        .await() // Ensure we are subscribed to updates first,
+
+      val item: DataItem? =
+        this@dataItemFlow.getDataItem(uri).await() // then get the current value.
+
+      @Suppress("UNUSED_VARIABLE") val unused = trySend(item?.data)
+
+      awaitClose { removeListener(listener) }
     }
-
-    val uri = Uri.Builder()
-        .scheme(PutDataRequest.WEAR_URI_SCHEME)
-        .path(path)
-        .authority(nodeId)
-        .build()
-
-    addListener(
-        listener,
-        uri,
-        DataClient.FILTER_LITERAL,
-    ).await() // Ensure we are subscribed to updates first,
-
-    val item: DataItem? = this@dataItemFlow.getDataItem(uri).await() // then get the current value.
-
-    @Suppress("UNUSED_VARIABLE")
-    val unused = trySend(item?.data)
-
-    awaitClose {
-        removeListener(listener)
-    }
-}.map {
-    if (it != null) {
+    .map {
+      if (it != null) {
         serializer.parse(it)
-    } else {
+      } else {
         defaultValue()
+      }
     }
-}
 
-private suspend fun <T> Serializer<T>.parse(
-    data: ByteArray,
-) = readFrom(ByteArrayInputStream(data))
+private suspend fun <T> Serializer<T>.parse(data: ByteArray) = readFrom(ByteArrayInputStream(data))

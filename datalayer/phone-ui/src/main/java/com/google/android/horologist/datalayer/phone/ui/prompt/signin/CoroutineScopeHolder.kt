@@ -19,5 +19,5 @@ package com.google.android.horologist.datalayer.phone.ui.prompt.signin
 import kotlinx.coroutines.CoroutineScope
 
 internal object CoroutineScopeHolder {
-    lateinit var coroutineScope: CoroutineScope
+  lateinit var coroutineScope: CoroutineScope
 }

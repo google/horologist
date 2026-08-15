@@ -21,7 +21,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.AnimatedVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.StaticVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.VectorPropertyKeyframe
-import com.google.android.horologist.remotecompose.lottie.renderer.SlotMap
 import com.google.android.horologist.remotecompose.lottie.renderer.animateVector
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -29,26 +28,25 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class AnimationTest {
-  private val emptySlotMap = SlotMap(emptyMap())
+  private val emptySlotMap = SlotMap.Empty
 
   @Test
   fun animateVectorWithStaticInput_returnsInput() {
     val staticVector = StaticVectorProperty(value = floatArrayOf(1f, 2f, 3f))
 
     val result1 = animateVector(staticVector, LottieSettings(0.rf, emptySlotMap))
-    assertThat(result1.map { it.constantValue }.toFloatArray())
-      .isEqualTo(staticVector.value)
+    assertThat(result1.map { it.constantValue }.toFloatArray()).isEqualTo(staticVector.value)
 
     val result2 = animateVector(staticVector, LottieSettings(5.rf, emptySlotMap))
-    assertThat(result2.map { it.constantValue }.toFloatArray())
-      .isEqualTo(staticVector.value)
+    assertThat(result2.map { it.constantValue }.toFloatArray()).isEqualTo(staticVector.value)
   }
 
   @Test
   fun animateVectorWithSingleKeyframe_returnsInput() {
-    val animatedVector = AnimatedVectorProperty(
-      keyframes = listOf(VectorPropertyKeyframe(frame = 0f, value = floatArrayOf(1f, 2f, 3f)))
-    )
+    val animatedVector =
+      AnimatedVectorProperty(
+        keyframes = listOf(VectorPropertyKeyframe(frame = 0f, value = floatArrayOf(1f, 2f, 3f)))
+      )
 
     val result1 = animateVector(animatedVector, LottieSettings(0.rf, emptySlotMap))
     assertThat(result1.map { it.constantValue }.toFloatArray())
@@ -61,12 +59,14 @@ class AnimationTest {
 
   @Test
   fun animateVectorWithTwoKeyframes_returnsAnimatedValues() {
-    val animatedVector = AnimatedVectorProperty(
-      keyframes = listOf(
-        VectorPropertyKeyframe(frame = 0f, value = floatArrayOf(1f, 2f, 3f)),
-        VectorPropertyKeyframe(frame = 10f, value = floatArrayOf(4f, 5f, 6f)),
+    val animatedVector =
+      AnimatedVectorProperty(
+        keyframes =
+          listOf(
+            VectorPropertyKeyframe(frame = 0f, value = floatArrayOf(1f, 2f, 3f)),
+            VectorPropertyKeyframe(frame = 10f, value = floatArrayOf(4f, 5f, 6f)),
+          )
       )
-    )
 
     val firstFrameResult = animateVector(animatedVector, LottieSettings(0.rf, emptySlotMap))
     val middleFrameResult = animateVector(animatedVector, LottieSettings(5.rf, emptySlotMap))

@@ -35,6 +35,8 @@ import com.google.android.horologist.networks.rules.helpers.TestLogger
 import com.google.android.horologist.networks.testdoubles.FakeNetworkRepository
 import com.google.android.horologist.networks.testdoubles.FakeNetworkRequester
 import com.google.common.truth.Truth.assertThat
+import java.io.IOException
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.runTest
@@ -46,132 +48,132 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
-import java.io.IOException
-import kotlin.time.Duration.Companion.seconds
 
-@Config(
-    sdk = [35],
-)
+@Config(sdk = [35])
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class NetworkSelectingCallFactoryTest {
-    private val testScope = TestScope()
-    private val networkRepository = FakeNetworkRepository()
-    private val logger = TestLogger()
-    private val networkingRules = ConfigurableNetworkingRules()
-    private val networkRequester = FakeNetworkRequester(networkRepository)
-    private val highBandwidthRequester = StandardHighBandwidthNetworkMediator(
-        logger,
-        networkRequester,
-        testScope,
-        3.seconds,
-    )
-    private val dataRequestRepository = InMemoryDataRequestRepository()
+  private val testScope = TestScope()
+  private val networkRepository = FakeNetworkRepository()
+  private val logger = TestLogger()
+  private val networkingRules = ConfigurableNetworkingRules()
+  private val networkRequester = FakeNetworkRequester(networkRepository)
+  private val highBandwidthRequester =
+    StandardHighBandwidthNetworkMediator(logger, networkRequester, testScope, 3.seconds)
+  private val dataRequestRepository = InMemoryDataRequestRepository()
 
-    private val networkingRulesEngine = NetworkingRulesEngine(
-        networkRepository = networkRepository,
-        logger = logger,
-        networkingRules = networkingRules,
+  private val networkingRulesEngine =
+    NetworkingRulesEngine(
+      networkRepository = networkRepository,
+      logger = logger,
+      networkingRules = networkingRules,
     )
 
-    private val deadEndInterceptor = DeadEndInterceptor
+  private val deadEndInterceptor = DeadEndInterceptor
 
-    private val rootClient = OkHttpClient.Builder()
-        .addInterceptor(deadEndInterceptor)
+  private val rootClient = OkHttpClient.Builder().addInterceptor(deadEndInterceptor).build()
+
+  private val callFactory =
+    NetworkSelectingCallFactory(
+      networkingRulesEngine = networkingRulesEngine,
+      highBandwidthNetworkMediator = highBandwidthRequester,
+      dataRequestRepository = dataRequestRepository,
+      rootClient = rootClient,
+      networkRepository = networkRepository,
+      coroutineScope = testScope,
+      logger = logger,
+    )
+
+  @Test
+  fun normalConnectionForImages() {
+    val request =
+      Request.Builder()
+        .url("https://example.org/image.png")
+        .requestType(RequestType.ImageRequest)
         .build()
 
-    private val callFactory = NetworkSelectingCallFactory(
-        networkingRulesEngine = networkingRulesEngine,
-        highBandwidthNetworkMediator = highBandwidthRequester,
-        dataRequestRepository = dataRequestRepository,
-        rootClient = rootClient,
-        networkRepository = networkRepository,
-        coroutineScope = testScope,
-        logger = logger,
-    )
+    callFactory.newCall(request).execute()
 
-    @Test
-    fun normalConnectionForImages() {
-        val request = Request.Builder()
-            .url("https://example.org/image.png")
-            .requestType(RequestType.ImageRequest)
-            .build()
+    val networkType = request.networkInfo
 
-        callFactory.newCall(request).execute()
+    assertThat(networkType?.type).isEqualTo(BT)
+  }
 
-        val networkType = request.networkInfo
+  @Test
+  fun executeFailsOnHighBandwidthCalls() {
+    networkingRules.highBandwidthTypes[RequestType.MediaRequest(Download)] = true
 
-        assertThat(networkType?.type).isEqualTo(BT)
+    val request =
+      Request.Builder()
+        .url("https://example.org/music.mp3")
+        .requestType(RequestType.MediaRequest(Download))
+        .build()
+
+    assertThrows(
+      "High Bandwidth Requests are not supported with execute",
+      IOException::class.java,
+    ) {
+      callFactory.newCall(request).execute()
     }
+  }
 
-    @Test
-    fun executeFailsOnHighBandwidthCalls() {
-        networkingRules.highBandwidthTypes[RequestType.MediaRequest(Download)] = true
+  @Test
+  fun enqueueNormalConnectionForImages() = runTest {
+    val request =
+      Request.Builder()
+        .url("https://example.org/image.png")
+        .requestType(RequestType.ImageRequest)
+        .build()
 
-        val request = Request.Builder()
-            .url("https://example.org/music.mp3")
-            .requestType(RequestType.MediaRequest(Download))
-            .build()
+    callFactory.newCall(request).executeAsync()
 
-        assertThrows("High Bandwidth Requests are not supported with execute", IOException::class.java) {
-            callFactory.newCall(request).execute()
-        }
-    }
+    val networkType = request.networkInfo
 
-    @Test
-    fun enqueueNormalConnectionForImages() = runTest {
-        val request = Request.Builder()
-            .url("https://example.org/image.png")
-            .requestType(RequestType.ImageRequest)
-            .build()
+    assertThat(networkType?.type).isEqualTo(BT)
+  }
 
-        callFactory.newCall(request).executeAsync()
+  @Test
+  fun enqueueRequestHighBandwidthForDownloads() = runTest {
+    networkingRules.preferredNetworks[RequestType.MediaRequest(Download)] = NetworkType.Wifi
+    networkingRules.highBandwidthTypes[RequestType.MediaRequest(Download)] = true
+    networkRequester.supportedNetworks = listOf(NetworkType.Wifi)
 
-        val networkType = request.networkInfo
+    val request =
+      Request.Builder()
+        .url("https://example.org/music.mp3")
+        .requestType(RequestType.MediaRequest(Download))
+        .build()
 
-        assertThat(networkType?.type).isEqualTo(BT)
-    }
+    val response = callFactory.newCall(request).executeAsync()
+    response.close()
 
-    @Test
-    fun enqueueRequestHighBandwidthForDownloads() = runTest {
-        networkingRules.preferredNetworks[RequestType.MediaRequest(Download)] = NetworkType.Wifi
-        networkingRules.highBandwidthTypes[RequestType.MediaRequest(Download)] = true
-        networkRequester.supportedNetworks = listOf(NetworkType.Wifi)
+    val networkType = request.networkInfo
 
-        val request = Request.Builder()
-            .url("https://example.org/music.mp3")
-            .requestType(RequestType.MediaRequest(Download))
-            .build()
+    assertThat(networkType?.type).isEqualTo(NetworkType.Wifi)
 
-        val response = callFactory.newCall(request).executeAsync()
-        response.close()
+    //        assertThat(highBandwidthRequester.pinned.value).isEmpty()
+  }
 
-        val networkType = request.networkInfo
+  @Test
+  fun enqueueRequestHighBandwidthForDownloadsButFails(): Unit = runTest {
+    networkingRules.preferredNetworks[DownloadRequest] = NetworkType.Wifi
+    networkingRules.highBandwidthTypes[DownloadRequest] = true
+    networkingRules.validRequests[Pair(DownloadRequest, BT)] = false
+    networkRequester.supportedNetworks = listOf()
 
-        assertThat(networkType?.type).isEqualTo(NetworkType.Wifi)
+    val request =
+      Request.Builder()
+        .url("https://example.org/music.mp3")
+        .requestType(RequestType.MediaRequest(Download))
+        .build()
 
-//        assertThat(highBandwidthRequester.pinned.value).isEmpty()
-    }
+    val result = runCatching { callFactory.newCall(request).executeAsync() }
 
-    @Test
-    fun enqueueRequestHighBandwidthForDownloadsButFails(): Unit = runTest {
-        networkingRules.preferredNetworks[DownloadRequest] = NetworkType.Wifi
-        networkingRules.highBandwidthTypes[DownloadRequest] = true
-        networkingRules.validRequests[Pair(DownloadRequest, BT)] = false
-        networkRequester.supportedNetworks = listOf()
+    assertThat(result.isFailure).isTrue()
+    val throwable = result.exceptionOrNull()
+    assertThat(throwable).isInstanceOf(IOException::class.java)
+    assertThat(throwable).hasMessageThat().isEqualTo("Unable to use BT for media-download")
 
-        val request = Request.Builder()
-            .url("https://example.org/music.mp3")
-            .requestType(RequestType.MediaRequest(Download))
-            .build()
-
-        val result = runCatching { callFactory.newCall(request).executeAsync() }
-
-        assertThat(result.isFailure).isTrue()
-        val throwable = result.exceptionOrNull()
-        assertThat(throwable).isInstanceOf(IOException::class.java)
-        assertThat(throwable).hasMessageThat().isEqualTo("Unable to use BT for media-download")
-
-//        assertThat(highBandwidthRequester.pinned.value).isNull()
-    }
+    //        assertThat(highBandwidthRequester.pinned.value).isNull()
+  }
 }

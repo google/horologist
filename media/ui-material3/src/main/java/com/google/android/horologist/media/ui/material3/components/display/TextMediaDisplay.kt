@@ -60,98 +60,103 @@ import com.google.android.horologist.media.ui.material3.util.TRACK_TITLE_HEIGHT
 /** A simple text only display showing artist and title in two separated rows. */
 @Composable
 public fun TextMediaDisplay(
-    title: String,
-    subtitle: String,
-    modifier: Modifier = Modifier,
-    titleIcon: Paintable? = null,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    titleOverflow: TextOverflow = TextOverflow.Ellipsis,
-    subtitleOverflow: TextOverflow = TextOverflow.Ellipsis,
-    titleSoftWrap: Boolean = true,
-    subtitleSoftWrap: Boolean = true,
+  title: String,
+  subtitle: String,
+  modifier: Modifier = Modifier,
+  titleIcon: Paintable? = null,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  titleOverflow: TextOverflow = TextOverflow.Ellipsis,
+  subtitleOverflow: TextOverflow = TextOverflow.Ellipsis,
+  titleSoftWrap: Boolean = true,
+  subtitleSoftWrap: Boolean = true,
 ) {
-    val textMeasurer = rememberTextMeasurer()
-    var measuredTextWidth by remember { mutableStateOf(0.dp) }
-    with(LocalDensity.current) {
-        measuredTextWidth = textMeasurer.measure(
-            text = AnnotatedString(title),
-            style = MaterialTheme.typography.titleMedium,
-            constraints = Constraints(maxWidth = Int.MAX_VALUE),
-        ).size.width.toDp()
-    }
-    val screenWidth = LocalConfiguration.current.screenWidthDp.dp
-    val titleWidthRatio = if (titleIcon != null) 0.648f else 0.6672f
-    val subtitleWidthRatio = if (titleIcon != null) 0.71f else 0.75f
-    val isTextLongerThanDrawableArea =
-        measuredTextWidth.value > titleWidthRatio * screenWidth.value
-    val shouldShowTitleSpacer = titleIcon != null || isTextLongerThanDrawableArea
+  val textMeasurer = rememberTextMeasurer()
+  var measuredTextWidth by remember { mutableStateOf(0.dp) }
+  with(LocalDensity.current) {
+    measuredTextWidth =
+      textMeasurer
+        .measure(
+          text = AnnotatedString(title),
+          style = MaterialTheme.typography.titleMedium,
+          constraints = Constraints(maxWidth = Int.MAX_VALUE),
+        )
+        .size
+        .width
+        .toDp()
+  }
+  val screenWidth = LocalConfiguration.current.screenWidthDp.dp
+  val titleWidthRatio = if (titleIcon != null) 0.648f else 0.6672f
+  val subtitleWidthRatio = if (titleIcon != null) 0.71f else 0.75f
+  val isTextLongerThanDrawableArea = measuredTextWidth.value > titleWidthRatio * screenWidth.value
+  val shouldShowTitleSpacer = titleIcon != null || isTextLongerThanDrawableArea
 
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center,
+  Column(
+    modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center,
+  ) {
+    Row(
+      modifier = Modifier.fillMaxWidth(titleWidthRatio).height(TRACK_TITLE_HEIGHT),
+      horizontalArrangement = Arrangement.Center,
+      verticalAlignment = Alignment.CenterVertically,
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(titleWidthRatio).height(TRACK_TITLE_HEIGHT),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            titleIcon?.let {
-                Box(modifier = Modifier.size(MEDIA_TITLE_ICON_SIZE)) {
-                    MediaTitleIcon(paintableRes = it, tint = colorScheme.primary)
-                }
-            }
-            if (shouldShowTitleSpacer) {
-                Spacer(modifier = Modifier.width(MEDIA_TITLE_EDGE_GRADIENT_WIDTH))
-            }
-            Text(
-                text = title,
-                modifier =
-                    if (isTextLongerThanDrawableArea) {
-                        Modifier.drawRightFadeGradient(MEDIA_TITLE_EDGE_GRADIENT_WIDTH)
-                    } else {
-                        Modifier
-                    },
-                color = colorScheme.onSurface,
-                maxLines = 1,
-                overflow = titleOverflow,
-                softWrap = titleSoftWrap,
-                style = MaterialTheme.typography.titleMedium,
-            )
+      titleIcon?.let {
+        Box(modifier = Modifier.size(MEDIA_TITLE_ICON_SIZE)) {
+          MediaTitleIcon(paintableRes = it, tint = colorScheme.primary)
         }
-        Row(
-            modifier = Modifier.fillMaxWidth(subtitleWidthRatio).height(TRACK_SUBTITLE_HEIGHT),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(
-                text = subtitle,
-                color = colorScheme.onSurface,
-                textAlign = TextAlign.Center,
-                overflow = subtitleOverflow,
-                softWrap = subtitleSoftWrap,
-                maxLines = 1,
-                style = MaterialTheme.typography.bodyMedium,
-            )
-        }
+      }
+      if (shouldShowTitleSpacer) {
+        Spacer(modifier = Modifier.width(MEDIA_TITLE_EDGE_GRADIENT_WIDTH))
+      }
+      Text(
+        text = title,
+        modifier =
+          if (isTextLongerThanDrawableArea) {
+            Modifier.drawRightFadeGradient(MEDIA_TITLE_EDGE_GRADIENT_WIDTH)
+          } else {
+            Modifier
+          },
+        color = colorScheme.onSurface,
+        maxLines = 1,
+        overflow = titleOverflow,
+        softWrap = titleSoftWrap,
+        style = MaterialTheme.typography.titleMedium,
+      )
     }
+    Row(
+      modifier = Modifier.fillMaxWidth(subtitleWidthRatio).height(TRACK_SUBTITLE_HEIGHT),
+      horizontalArrangement = Arrangement.Center,
+      verticalAlignment = Alignment.CenterVertically,
+    ) {
+      Text(
+        text = subtitle,
+        color = colorScheme.onSurface,
+        textAlign = TextAlign.Center,
+        overflow = subtitleOverflow,
+        softWrap = subtitleSoftWrap,
+        maxLines = 1,
+        style = MaterialTheme.typography.bodyMedium,
+      )
+    }
+  }
 }
 
-private fun Modifier.drawRightFadeGradient(edgeGradientWidth: Dp) = this.drawWithCache {
+private fun Modifier.drawRightFadeGradient(edgeGradientWidth: Dp) =
+  this.drawWithCache {
     val width = edgeGradientWidth.toPx()
     val rightBrush =
-        Brush.horizontalGradient(
-            listOf(Color.Transparent, Color.Black),
-            startX = size.width,
-            endX = size.width - width,
-        )
+      Brush.horizontalGradient(
+        listOf(Color.Transparent, Color.Black),
+        startX = size.width,
+        endX = size.width - width,
+      )
     onDrawWithContent {
-        drawContent()
-        drawRect(
-            size = Size(width, size.height),
-            topLeft = Offset(size.width - width, 0f),
-            brush = rightBrush,
-            blendMode = BlendMode.DstIn,
-        )
+      drawContent()
+      drawRect(
+        size = Size(width, size.height),
+        topLeft = Offset(size.width - width, 0f),
+        brush = rightBrush,
+        blendMode = BlendMode.DstIn,
+      )
     }
-}
+  }

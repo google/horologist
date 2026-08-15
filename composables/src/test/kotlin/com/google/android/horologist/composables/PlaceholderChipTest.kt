@@ -28,26 +28,18 @@ import org.junit.Test
 
 class PlaceholderChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            PlaceholderChip()
-        }
-    }
+  @Test
+  fun default() {
+    runComponentTest { PlaceholderChip() }
+  }
 
-    @Test
-    fun secondaryColors() {
-        runComponentTest {
-            PlaceholderChip(colors = ChipDefaults.secondaryChipColors())
-        }
-    }
+  @Test
+  fun secondaryColors() {
+    runComponentTest { PlaceholderChip(colors = ChipDefaults.secondaryChipColors()) }
+  }
 
-    @Composable
-    override fun ComponentScaffold(content: @Composable () -> Unit) {
-        CompositionLocalProvider(
-            LocalReduceMotion provides true,
-        ) {
-            super.ComponentScaffold(content)
-        }
-    }
+  @Composable
+  override fun ComponentScaffold(content: @Composable () -> Unit) {
+    CompositionLocalProvider(LocalReduceMotion provides true) { super.ComponentScaffold(content) }
+  }
 }

@@ -22,7 +22,8 @@ import androidx.wear.compose.material.Colors
 // This class should have the same values as of UampColors class in:
 // debug/java/com/google/android/horologist/media/ui/uamp/UampTheme.kt
 // Alternatively, this class should be moved to a separated module.
-public val UampColors = Colors(
+public val UampColors =
+  Colors(
     primary = Color(0xFF981F68),
     primaryVariant = Color(0xFF66003d),
     secondary = Color(0xFF981F68),
@@ -31,4 +32,4 @@ public val UampColors = Colors(
     onSurfaceVariant = Color(0xFFDADCE0),
     surface = Color(0xFF303133),
     onError = Color.Black,
-)
+  )

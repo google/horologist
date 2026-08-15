@@ -39,37 +39,30 @@ import kotlinx.coroutines.flow.collectLatest
  */
 @Composable
 public fun VolumePositionIndicator(
-    volumeUiState: () -> VolumeUiState,
-    modifier: Modifier = Modifier,
-    displayIndicatorEvents: Flow<Unit>? = null,
-    color: Color = MaterialTheme.colors.secondary,
+  volumeUiState: () -> VolumeUiState,
+  modifier: Modifier = Modifier,
+  displayIndicatorEvents: Flow<Unit>? = null,
+  color: Color = MaterialTheme.colors.secondary,
 ) {
-    // False positive - https://issuetracker.google.com/issues/349411310
-    @Suppress("ProduceStateDoesNotAssignValue")
-    val visible by produceState(displayIndicatorEvents == null, displayIndicatorEvents) {
-        displayIndicatorEvents?.collectLatest {
-            value = true
-            delay(2000)
-            value = false
-        }
+  // False positive - https://issuetracker.google.com/issues/349411310
+  @Suppress("ProduceStateDoesNotAssignValue")
+  val visible by
+    produceState(displayIndicatorEvents == null, displayIndicatorEvents) {
+      displayIndicatorEvents?.collectLatest {
+        value = true
+        delay(2000)
+        value = false
+      }
     }
-    val uiState = volumeUiState()
+  val uiState = volumeUiState()
 
-    AnimatedVisibility(
-        visible = visible,
-        enter = fadeIn(),
-        exit = fadeOut(),
-    ) {
-        PositionIndicator(
-            modifier = modifier,
-            // RSB indicator uses secondary colors (surface/onSurface)
-            color = color,
-            value = {
-                uiState.current.toFloat()
-            },
-            range = uiState.min.toFloat().rangeTo(
-                uiState.max.toFloat(),
-            ),
-        )
-    }
+  AnimatedVisibility(visible = visible, enter = fadeIn(), exit = fadeOut()) {
+    PositionIndicator(
+      modifier = modifier,
+      // RSB indicator uses secondary colors (surface/onSurface)
+      color = color,
+      value = { uiState.current.toFloat() },
+      range = uiState.min.toFloat().rangeTo(uiState.max.toFloat()),
+    )
+  }
 }

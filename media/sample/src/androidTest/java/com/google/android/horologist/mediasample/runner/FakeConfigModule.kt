@@ -38,56 +38,34 @@ import java.io.File
 import javax.inject.Singleton
 
 @Module
-@TestInstallIn(
-    components = [SingletonComponent::class],
-    replaces = [ConfigModule::class],
-)
+@TestInstallIn(components = [SingletonComponent::class], replaces = [ConfigModule::class])
 object FakeConfigModule {
-    var appConfigFn: () -> AppConfig = { AppConfig() }
+  var appConfigFn: () -> AppConfig = { AppConfig() }
 
-    @Singleton
-    @Provides
-    @IsEmulator
-    fun isEmulator() = Build.PRODUCT.startsWith("sdk_gwear")
+  @Singleton @Provides @IsEmulator fun isEmulator() = Build.PRODUCT.startsWith("sdk_gwear")
 
-    @Singleton
-    @Provides
-    @SuppressSpeakerPlayback
-    fun suppressSpeakerPlayback() = false
+  @Singleton @Provides @SuppressSpeakerPlayback fun suppressSpeakerPlayback() = false
 
-    @Singleton
-    @Provides
-    fun appConfig(): AppConfig = appConfigFn()
+  @Singleton @Provides fun appConfig(): AppConfig = appConfigFn()
 
-    @Singleton
-    @Provides
-    @CacheDir
-    fun cacheDir(
-        @ApplicationContext application: Context,
-        appConfig: AppConfig,
-    ): File =
-        StrictMode.allowThreadDiskWrites().resetAfter {
-            appConfig.cacheDir ?: application.cacheDir
-        }
+  @Singleton
+  @Provides
+  @CacheDir
+  fun cacheDir(@ApplicationContext application: Context, appConfig: AppConfig): File =
+    StrictMode.allowThreadDiskWrites().resetAfter { appConfig.cacheDir ?: application.cacheDir }
 
-    @Singleton
-    @Provides
-    fun audioOutputSelector(
-        systemAudioRepository: SystemAudioRepository,
-    ): AudioOutputSelector =
-        BluetoothSettingsOutputSelector(systemAudioRepository)
+  @Singleton
+  @Provides
+  fun audioOutputSelector(systemAudioRepository: SystemAudioRepository): AudioOutputSelector =
+    BluetoothSettingsOutputSelector(systemAudioRepository)
 
-    @Singleton
-    @Provides
-    fun systemAudioRepository(
-        @ApplicationContext application: Context,
-    ): SystemAudioRepository =
-        SystemAudioRepository.fromContext(application)
+  @Singleton
+  @Provides
+  fun systemAudioRepository(@ApplicationContext application: Context): SystemAudioRepository =
+    SystemAudioRepository.fromContext(application)
 
-    @Singleton
-    @Provides
-    fun notificationManager(
-        @ApplicationContext application: Context,
-    ): NotificationManager =
-        application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+  @Singleton
+  @Provides
+  fun notificationManager(@ApplicationContext application: Context): NotificationManager =
+    application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 }

@@ -45,84 +45,72 @@ import org.junit.rules.TestName
 @Ignore("https://github.com/google/horologist/issues/1191")
 class WearLocalDataStoreTest {
 
-    @get:Rule
-    public val testName: TestName = TestName()
+  @get:Rule public val testName: TestName = TestName()
 
-    val context = InstrumentationRegistry.getInstrumentation().targetContext
+  val context = InstrumentationRegistry.getInstrumentation().targetContext
 
-    val testScope = TestScope()
+  val testScope = TestScope()
 
-    val scope = CoroutineScope(testScope.coroutineContext + Job())
+  val scope = CoroutineScope(testScope.coroutineContext + Job())
 
-    private lateinit var preferencesDataStore: DataStore<Preferences>
+  private lateinit var preferencesDataStore: DataStore<Preferences>
 
-    private lateinit var registry: WearDataLayerRegistry
+  private lateinit var registry: WearDataLayerRegistry
 
-    private lateinit var path: String
+  private lateinit var path: String
 
-    @Before
-    fun setUp() {
-        registry = WearDataLayerRegistry.fromContext(context, scope)
+  @Before
+  fun setUp() {
+    registry = WearDataLayerRegistry.fromContext(context, scope)
 
-        path =
-            WearDataLayerRegistry.dataStorePath(Preferences::class) + "-" + testName.methodName
+    path = WearDataLayerRegistry.dataStorePath(Preferences::class) + "-" + testName.methodName
 
-        preferencesDataStore = registry.protoDataStore(
-            path,
-            scope,
-            registry.serializers.serializerForType<Preferences>(),
-        )
+    preferencesDataStore =
+      registry.protoDataStore(path, scope, registry.serializers.serializerForType<Preferences>())
+  }
+
+  @Test
+  fun testPreferencesDataStore() = testScope.runTest {
+    preferencesDataStore.edit { it.clear() }
+
+    val aStringKey = stringPreferencesKey("aString")
+
+    preferencesDataStore.edit { it[aStringKey] = "a" }
+
+    val preferences =
+      preferencesDataStore.data
+        .filter {
+          // We may possibly receive the existing item as a replay, so skip this.
+          it[aStringKey] == "a"
+        }
+        .first()
+
+    val preferences2 =
+      registry.protoFlow(TargetNodeId.ThisNodeId, PreferencesSerializer, path).first()
+
+    assertThat(preferences).isEqualTo(preferences2)
+    assertThat(preferences[aStringKey]).isEqualTo("a")
+
+    scope.cancel()
+  }
+
+  @Test
+  fun testConcurrentWrites() = testScope.runTest {
+    preferencesDataStore.edit { it.clear() }
+
+    val map: Map<String, Int> = (0 until 10).associateBy { it.toString() }
+
+    coroutineScope {
+      map.forEach { (key, value) ->
+        launch { preferencesDataStore.edit { it[intPreferencesKey(key)] = value } }
+      }
     }
 
-    @Test
-    fun testPreferencesDataStore() = testScope.runTest {
-        preferencesDataStore.edit {
-            it.clear()
-        }
+    val preferences =
+      registry.protoFlow(TargetNodeId.ThisNodeId, PreferencesSerializer, path).first()
 
-        val aStringKey = stringPreferencesKey("aString")
+    assertThat(preferences.asMap().mapKeys { it.key.name }).isEqualTo(map)
 
-        preferencesDataStore.edit {
-            it[aStringKey] = "a"
-        }
-
-        val preferences = preferencesDataStore.data.filter {
-            // We may possibly receive the existing item as a replay, so skip this.
-            it[aStringKey] == "a"
-        }.first()
-
-        val preferences2 =
-            registry.protoFlow(TargetNodeId.ThisNodeId, PreferencesSerializer, path).first()
-
-        assertThat(preferences).isEqualTo(preferences2)
-        assertThat(preferences[aStringKey]).isEqualTo("a")
-
-        scope.cancel()
-    }
-
-    @Test
-    fun testConcurrentWrites() = testScope.runTest {
-        preferencesDataStore.edit {
-            it.clear()
-        }
-
-        val map: Map<String, Int> = (0 until 10).associateBy { it.toString() }
-
-        coroutineScope {
-            map.forEach { (key, value) ->
-                launch {
-                    preferencesDataStore.edit {
-                        it[intPreferencesKey(key)] = value
-                    }
-                }
-            }
-        }
-
-        val preferences =
-            registry.protoFlow(TargetNodeId.ThisNodeId, PreferencesSerializer, path).first()
-
-        assertThat(preferences.asMap().mapKeys { it.key.name }).isEqualTo(map)
-
-        scope.cancel()
-    }
+    scope.cancel()
+  }
 }

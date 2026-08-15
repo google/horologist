@@ -25,29 +25,26 @@ import com.google.android.horologist.screenshots.rng.WearLegacyA11yTest
 import org.junit.Test
 
 class MarqueeA11yTest : WearLegacyA11yTest() {
-    @Test
-    fun noMarquee() {
-        runComponentTest {
-            MarqueeSample("Sia")
-        }
-    }
+  @Test
+  fun noMarquee() {
+    runComponentTest { MarqueeSample("Sia") }
+  }
 
-    @Test
-    fun marquee() {
-        composeRule.mainClock.autoAdvance = false
-        runComponentTest {
-            MarqueeSample("Tikki Tikki Tembo-no Sa Rembo-chari Bari Ruchi-pip Peri Pembo")
-        }
+  @Test
+  fun marquee() {
+    composeRule.mainClock.autoAdvance = false
+    runComponentTest {
+      MarqueeSample("Tikki Tikki Tembo-no Sa Rembo-chari Bari Ruchi-pip Peri Pembo")
     }
+  }
 
-    @Composable
-    private fun MarqueeSample(text: String) {
-        MarqueeText(
-            text = text,
-            textAlign = TextAlign.Center,
-            modifier = Modifier
-                .width(192.dp),
-            startGap = 0.dp,
-        )
-    }
+  @Composable
+  private fun MarqueeSample(text: String) {
+    MarqueeText(
+      text = text,
+      textAlign = TextAlign.Center,
+      modifier = Modifier.width(192.dp),
+      startGap = 0.dp,
+    )
+  }
 }

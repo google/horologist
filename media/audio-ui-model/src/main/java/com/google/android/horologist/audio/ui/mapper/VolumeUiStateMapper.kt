@@ -19,13 +19,8 @@ package com.google.android.horologist.audio.ui.mapper
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeUiState
 
-/**
- * Functions to map a [VolumeUiState] from a [VolumeState].
- */
+/** Functions to map a [VolumeUiState] from a [VolumeState]. */
 public object VolumeUiStateMapper {
-    public fun map(volumeState: VolumeState): VolumeUiState = VolumeUiState(
-        current = volumeState.current,
-        max = volumeState.max,
-        min = volumeState.min,
-    )
+  public fun map(volumeState: VolumeState): VolumeUiState =
+    VolumeUiState(current = volumeState.current, max = volumeState.max, min = volumeState.min)
 }

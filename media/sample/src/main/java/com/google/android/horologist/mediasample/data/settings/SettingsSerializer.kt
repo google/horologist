@@ -28,27 +28,25 @@ import java.io.InputStream
 import java.io.OutputStream
 
 object SettingsSerializer : Serializer<Settings> {
-    override val defaultValue: Settings = settings {
-        animated = true
-        debugOffload = false
-        loadItemsAtStartup = false
-        podcastControls = false
-        showTimeTextInfo = false
-        currentPosition = 0
-    }
+  override val defaultValue: Settings = settings {
+    animated = true
+    debugOffload = false
+    loadItemsAtStartup = false
+    podcastControls = false
+    showTimeTextInfo = false
+    currentPosition = 0
+  }
 
-    override suspend fun readFrom(input: InputStream): Settings {
-        try {
-            return Settings.parseFrom(input)
-        } catch (exception: InvalidProtocolBufferException) {
-            throw CorruptionException("Cannot read proto.", exception)
-        }
+  override suspend fun readFrom(input: InputStream): Settings {
+    try {
+      return Settings.parseFrom(input)
+    } catch (exception: InvalidProtocolBufferException) {
+      throw CorruptionException("Cannot read proto.", exception)
     }
+  }
 
-    override suspend fun writeTo(t: Settings, output: OutputStream) = t.writeTo(output)
+  override suspend fun writeTo(t: Settings, output: OutputStream) = t.writeTo(output)
 }
 
-val Context.settingsStore: DataStore<Settings> by dataStore(
-    fileName = "settings.pb",
-    serializer = SettingsSerializer,
-)
+val Context.settingsStore: DataStore<Settings> by
+  dataStore(fileName = "settings.pb", serializer = SettingsSerializer)

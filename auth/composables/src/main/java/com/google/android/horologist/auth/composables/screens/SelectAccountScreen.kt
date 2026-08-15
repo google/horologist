@@ -43,64 +43,62 @@ import com.google.android.horologist.images.base.paintable.Paintable
 /**
  * A screen to display a list of available accounts and to allow the user select one of them.
  *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/select_account_screen.png" height="120" width="120"/>
+ * <img
+ * src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/select_account_screen.png"
+ * height="120" width="120"/>
  */
-@Deprecated(
-    message = "Please use SelectAccountScreen in the composables-material3 module",
-)
+@Deprecated(message = "Please use SelectAccountScreen in the composables-material3 module")
 @Composable
 public fun SelectAccountScreen(
-    accounts: List<AccountUiModel>,
-    onAccountClicked: (index: Int, account: AccountUiModel) -> Unit,
-    modifier: Modifier = Modifier,
-    title: String = stringResource(id = R.string.horologist_select_account_title),
-    defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
+  accounts: List<AccountUiModel>,
+  onAccountClicked: (index: Int, account: AccountUiModel) -> Unit,
+  modifier: Modifier = Modifier,
+  title: String = stringResource(id = R.string.horologist_select_account_title),
+  defaultAvatar: Paintable? = Icons.Default.AccountCircle.asPaintable(),
 ) {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(
-            modifier = modifier,
-            columnState = columnState,
-        ) {
-            item {
-                ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                    Text(
-                        text = title,
-                        modifier = Modifier.listTextPadding(),
-                        style = MaterialTheme.typography.button,
-                        overflow = TextOverflow.Ellipsis,
-                        maxLines = 3,
-                    )
-                }
-            }
-
-            items(accounts.size) { index ->
-                val account = accounts[index]
-                MaterialTheme(
-                    typography = MaterialTheme.typography.copy(
-                        button = MaterialTheme.typography.button.copy(
-                            lineBreak = LineBreak(
-                                strategy = LineBreak.Strategy.Balanced,
-                                strictness = LineBreak.Strictness.Normal,
-                                wordBreak = LineBreak.WordBreak.Default,
-                            ),
-                        ),
-                    ),
-                ) {
-                    AccountChip(
-                        account = account,
-                        onClick = { onAccountClicked(index, account) },
-                        colors = ChipDefaults.secondaryChipColors(),
-                        defaultAvatar = defaultAvatar,
-                    )
-                }
-            }
+  ScreenScaffold(scrollState = columnState) {
+    ScalingLazyColumn(modifier = modifier, columnState = columnState) {
+      item {
+        ResponsiveListHeader(contentPadding = firstItemPadding()) {
+          Text(
+            text = title,
+            modifier = Modifier.listTextPadding(),
+            style = MaterialTheme.typography.button,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 3,
+          )
         }
+      }
+
+      items(accounts.size) { index ->
+        val account = accounts[index]
+        MaterialTheme(
+          typography =
+            MaterialTheme.typography.copy(
+              button =
+                MaterialTheme.typography.button.copy(
+                  lineBreak =
+                    LineBreak(
+                      strategy = LineBreak.Strategy.Balanced,
+                      strictness = LineBreak.Strictness.Normal,
+                      wordBreak = LineBreak.WordBreak.Default,
+                    )
+                )
+            )
+        ) {
+          AccountChip(
+            account = account,
+            onClick = { onAccountClicked(index, account) },
+            colors = ChipDefaults.secondaryChipColors(),
+            defaultAvatar = defaultAvatar,
+          )
+        }
+      }
     }
+  }
 }

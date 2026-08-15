@@ -27,46 +27,40 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieDynamicProperties
 
-/**
- * A lottie animation with placeholder.
- */
+/** A lottie animation with placeholder. */
 @Composable
 public fun LottieAnimationWithPlaceholder(
-    lottieCompositionResult: LottieCompositionResult,
-    progress: () -> Float,
-    placeholder: ImageVector,
-    contentDescription: String,
-    modifier: Modifier = Modifier,
-    dynamicProperties: LottieDynamicProperties? = null,
+  lottieCompositionResult: LottieCompositionResult,
+  progress: () -> Float,
+  placeholder: ImageVector,
+  contentDescription: String,
+  modifier: Modifier = Modifier,
+  dynamicProperties: LottieDynamicProperties? = null,
 ) {
-    if (LocalInspectionMode.current) {
-        Icon(
-            modifier = modifier,
-            imageVector = placeholder,
-            contentDescription = contentDescription,
-        )
-        return
-    }
+  if (LocalInspectionMode.current) {
+    Icon(modifier = modifier, imageVector = placeholder, contentDescription = contentDescription)
+    return
+  }
 
-    // False positive - https://issuetracker.google.com/issues/349411310
-    @Suppress("ProduceStateDoesNotAssignValue")
-    val isCompositionReady by produceState(initialValue = false, producer = {
+  // False positive - https://issuetracker.google.com/issues/349411310
+  @Suppress("ProduceStateDoesNotAssignValue")
+  val isCompositionReady by
+    produceState(
+      initialValue = false,
+      producer = {
         lottieCompositionResult.await()
         value = true
-    })
+      },
+    )
 
-    if (isCompositionReady) {
-        LottieAnimation(
-            modifier = modifier,
-            composition = lottieCompositionResult.value,
-            progress = progress,
-            dynamicProperties = dynamicProperties,
-        )
-    } else {
-        Icon(
-            modifier = modifier,
-            imageVector = placeholder,
-            contentDescription = contentDescription,
-        )
-    }
+  if (isCompositionReady) {
+    LottieAnimation(
+      modifier = modifier,
+      composition = lottieCompositionResult.value,
+      progress = progress,
+      dynamicProperties = dynamicProperties,
+    )
+  } else {
+    Icon(modifier = modifier, imageVector = placeholder, contentDescription = contentDescription)
+  }
 }

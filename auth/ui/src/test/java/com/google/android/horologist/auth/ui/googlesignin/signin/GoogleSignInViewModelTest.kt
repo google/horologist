@@ -38,104 +38,100 @@ import org.robolectric.RuntimeEnvironment
 @RunWith(AndroidJUnit4::class)
 class GoogleSignInViewModelTest {
 
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
+  @get:Rule val mainDispatcherRule = MainDispatcherRule()
 
-    private val spyGoogleSignInEventListener = GoogleSignInEventListenerSpy()
+  private val spyGoogleSignInEventListener = GoogleSignInEventListenerSpy()
 
-    private lateinit var sut: GoogleSignInViewModel
+  private lateinit var sut: GoogleSignInViewModel
 
-    @Before
-    fun setUp() {
-        val googleSignInClient = GoogleSignIn.getClient(
-            RuntimeEnvironment.getApplication(),
-            GoogleSignInOptions.DEFAULT_SIGN_IN,
-        )
-        sut = GoogleSignInViewModel(googleSignInClient, spyGoogleSignInEventListener)
+  @Before
+  fun setUp() {
+    val googleSignInClient =
+      GoogleSignIn.getClient(
+        RuntimeEnvironment.getApplication(),
+        GoogleSignInOptions.DEFAULT_SIGN_IN,
+      )
+    sut = GoogleSignInViewModel(googleSignInClient, spyGoogleSignInEventListener)
+  }
+
+  @Test
+  fun givenInitialState_thenStateIsIdle() = runTest {
+    // when
+    val result = sut.uiState.value
+
+    // then
+    assertThat(result).isEqualTo(GoogleSignInScreenState.Idle)
+  }
+
+  @Test
+  fun givenInitialState_whenOnIdleStateObserved_thenStateIsSelectAccount() = runTest {
+    // when
+    val whenBlock = { sut.onIdleStateObserved() }
+
+    // then
+    sut.uiState.test {
+      skipItems(1)
+
+      whenBlock()
+
+      assertThat(awaitItem()).isEqualTo(GoogleSignInScreenState.SelectAccount)
     }
+  }
 
-    @Test
-    fun givenInitialState_thenStateIsIdle() = runTest {
-        // when
-        val result = sut.uiState.value
+  @Test
+  fun givenNonIdleState_whenOnIdleStateObserved_thenStateIsTheSame() = runTest {
+    // when
+    sut.onIdleStateObserved()
+    val whenBlock = { sut.onIdleStateObserved() }
 
-        // then
-        assertThat(result).isEqualTo(GoogleSignInScreenState.Idle)
+    // then
+    sut.uiState.test {
+      assertThat(awaitItem()).isNotEqualTo(GoogleSignInScreenState.Idle)
+
+      whenBlock()
+
+      expectNoEvents()
     }
+  }
 
-    @Test
-    fun givenInitialState_whenOnIdleStateObserved_thenStateIsSelectAccount() = runTest {
-        // when
-        val whenBlock = { sut.onIdleStateObserved() }
+  @Test
+  fun whenOnAccountSelected_thenStateIsSuccess() = runTest {
+    // when
+    val account = GoogleSignInAccount.createDefault()
+    sut.onAccountSelected(account)
 
-        // then
-        sut.uiState.test {
-            skipItems(1)
-
-            whenBlock()
-
-            assertThat(awaitItem()).isEqualTo(GoogleSignInScreenState.SelectAccount)
-        }
+    // then
+    sut.uiState.test {
+      assertThat(awaitItem()).isInstanceOf(GoogleSignInScreenState.Success::class.java)
     }
+    assertThat(spyGoogleSignInEventListener.onSignedInAccount).isEqualTo(account)
+  }
 
-    @Test
-    fun givenNonIdleState_whenOnIdleStateObserved_thenStateIsTheSame() = runTest {
-        // when
-        sut.onIdleStateObserved()
-        val whenBlock = { sut.onIdleStateObserved() }
+  @Test
+  fun whenOnAccountSelectionFailed_thenStateIsFailed() = runTest {
+    // when
+    sut.onAccountSelectionFailed()
 
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isNotEqualTo(GoogleSignInScreenState.Idle)
+    // then
+    sut.uiState.test { assertThat(awaitItem()).isEqualTo(GoogleSignInScreenState.Failed) }
+  }
 
-            whenBlock()
+  @Test
+  fun whenOnAuthCancelled_thenStateIsCancelled() = runTest {
+    // when
+    sut.onAuthCancelled()
 
-            expectNoEvents()
-        }
+    // then
+    sut.uiState.test { assertThat(awaitItem()).isEqualTo(GoogleSignInScreenState.Cancelled) }
+  }
+
+  private class GoogleSignInEventListenerSpy : GoogleSignInEventListener {
+
+    var onSignedInAccount: GoogleSignInAccount? = null
+      private set
+
+    override suspend fun onSignedIn(account: GoogleSignInAccount) {
+      onSignedInAccount = account
     }
-
-    @Test
-    fun whenOnAccountSelected_thenStateIsSuccess() = runTest {
-        // when
-        val account = GoogleSignInAccount.createDefault()
-        sut.onAccountSelected(account)
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isInstanceOf(GoogleSignInScreenState.Success::class.java)
-        }
-        assertThat(spyGoogleSignInEventListener.onSignedInAccount).isEqualTo(account)
-    }
-
-    @Test
-    fun whenOnAccountSelectionFailed_thenStateIsFailed() = runTest {
-        // when
-        sut.onAccountSelectionFailed()
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(GoogleSignInScreenState.Failed)
-        }
-    }
-
-    @Test
-    fun whenOnAuthCancelled_thenStateIsCancelled() = runTest {
-        // when
-        sut.onAuthCancelled()
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(GoogleSignInScreenState.Cancelled)
-        }
-    }
-
-    private class GoogleSignInEventListenerSpy : GoogleSignInEventListener {
-
-        var onSignedInAccount: GoogleSignInAccount? = null
-            private set
-
-        override suspend fun onSignedIn(account: GoogleSignInAccount) {
-            onSignedInAccount = account
-        }
-    }
+  }
 }

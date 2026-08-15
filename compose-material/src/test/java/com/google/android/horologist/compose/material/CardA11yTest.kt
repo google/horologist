@@ -29,71 +29,52 @@ import org.junit.Test
 
 class CardA11yTest : WearLegacyA11yTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            Card(
-                onClick = { },
-                onLongClick = { },
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Hello, Card")
+  @Test
+  fun default() {
+    runComponentTest {
+      Card(onClick = {}, onLongClick = {}) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+          Text("Hello, Card")
 
-                    androidx.wear.compose.material.Button(onClick = { }) {
-                        Text("Click me!")
-                    }
-                }
-            }
+          androidx.wear.compose.material.Button(onClick = {}) { Text("Click me!") }
         }
-
-        composeRule.onNode(keyIsDefined(SemanticsProperties.Role))
-            .assertTextEquals("Click me!")
-            .assertHasClickAction()
+      }
     }
 
-    @Test
-    fun material() {
-        runComponentTest {
-            Card(
-                onClick = { },
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Hello, Card")
+    composeRule
+      .onNode(keyIsDefined(SemanticsProperties.Role))
+      .assertTextEquals("Click me!")
+      .assertHasClickAction()
+  }
 
-                    androidx.wear.compose.material.Button(onClick = { }) {
-                        Text("Click me!")
-                    }
-                }
-            }
+  @Test
+  fun material() {
+    runComponentTest {
+      Card(onClick = {}) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+          Text("Hello, Card")
+
+          androidx.wear.compose.material.Button(onClick = {}) { Text("Click me!") }
         }
-
-        composeRule.onNode(keyIsDefined(SemanticsProperties.Role))
-            .assertTextEquals("Click me!")
-            .assertHasClickAction()
+      }
     }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            Card(
-                onClick = {},
-                onLongClick = {},
-                enabled = false,
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Hello, Card")
+    composeRule
+      .onNode(keyIsDefined(SemanticsProperties.Role))
+      .assertTextEquals("Click me!")
+      .assertHasClickAction()
+  }
 
-                    androidx.wear.compose.material.Button(onClick = { }) {
-                        Text("Click me!")
-                    }
-                }
-            }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      Card(onClick = {}, onLongClick = {}, enabled = false) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+          Text("Hello, Card")
+
+          androidx.wear.compose.material.Button(onClick = {}) { Text("Click me!") }
         }
+      }
     }
+  }
 }

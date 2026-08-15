@@ -23,29 +23,18 @@ import org.junit.Test
 
 class PlaylistUiModelMapperTest {
 
-    @Test
-    fun givenPlaylist_thenMapsCorrectly() {
-        // given
-        val id = "id"
-        val name = "name"
-        val artworkUri = "artworkUri"
-        val playlist = Playlist(
-            id = id,
-            name = name,
-            artworkUri = artworkUri,
-            mediaList = emptyList(),
-        )
+  @Test
+  fun givenPlaylist_thenMapsCorrectly() {
+    // given
+    val id = "id"
+    val name = "name"
+    val artworkUri = "artworkUri"
+    val playlist = Playlist(id = id, name = name, artworkUri = artworkUri, mediaList = emptyList())
 
-        // when
-        val result = PlaylistUiModelMapper.map(playlist)
+    // when
+    val result = PlaylistUiModelMapper.map(playlist)
 
-        // then
-        assertThat(result).isEqualTo(
-            PlaylistUiModel(
-                id = id,
-                title = name,
-                artworkUri = artworkUri,
-            ),
-        )
-    }
+    // then
+    assertThat(result).isEqualTo(PlaylistUiModel(id = id, title = name, artworkUri = artworkUri))
+  }
 }

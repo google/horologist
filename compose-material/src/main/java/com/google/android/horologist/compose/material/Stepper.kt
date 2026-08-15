@@ -43,65 +43,61 @@ import kotlin.math.roundToInt
  */
 @Composable
 public fun Stepper(
-    value: Float,
-    onValueChange: (Float) -> Unit,
-    steps: Int,
-    modifier: Modifier = Modifier,
-    decreaseIcon: @Composable () -> Unit = {
-        Icon(
-            StepperDefaults.Decrease.asPaintable(),
-            stringResource(R.string.horologist_stepper_decrease_content_description),
-        )
-    },
-    increaseIcon: @Composable () -> Unit = {
-        Icon(
-            StepperDefaults.Increase.asPaintable(),
-            stringResource(R.string.horologist_stepper_increase_content_description),
-        )
-    },
-    valueRange: ClosedFloatingPointRange<Float> = 0f..(steps + 1).toFloat(),
-    backgroundColor: Color = MaterialTheme.colors.background,
-    contentColor: Color = contentColorFor(backgroundColor),
-    iconColor: Color = contentColor,
-    enableRangeSemantics: Boolean = true,
-    content: @Composable BoxScope.() -> Unit,
-) {
-    val currentStep = remember(value, valueRange, steps) {
-        snapValueToStep(
-            value,
-            valueRange,
-            steps,
-        )
-    }
-
-    val updateValue: (Int) -> Unit = { stepDiff ->
-        val newValue = calculateCurrentStepValue(currentStep + stepDiff, steps, valueRange)
-        if (newValue != value) onValueChange(newValue)
-    }
-
-    androidx.wear.compose.material.Stepper(
-        value,
-        onValueChange,
-        steps,
-        decreaseIcon,
-        increaseIcon,
-        modifier.requestFocusOnHierarchyActive().rotaryScrollable(
-            accumulatedBehavior {
-                if (it < 0f) {
-                    updateValue(1)
-                } else if (it > 0f) {
-                    updateValue(-1)
-                }
-            },
-            focusRequester = remember { FocusRequester() },
-        ),
-        valueRange,
-        backgroundColor,
-        contentColor,
-        iconColor,
-        enableRangeSemantics,
-        content,
+  value: Float,
+  onValueChange: (Float) -> Unit,
+  steps: Int,
+  modifier: Modifier = Modifier,
+  decreaseIcon: @Composable () -> Unit = {
+    Icon(
+      StepperDefaults.Decrease.asPaintable(),
+      stringResource(R.string.horologist_stepper_decrease_content_description),
     )
+  },
+  increaseIcon: @Composable () -> Unit = {
+    Icon(
+      StepperDefaults.Increase.asPaintable(),
+      stringResource(R.string.horologist_stepper_increase_content_description),
+    )
+  },
+  valueRange: ClosedFloatingPointRange<Float> = 0f..(steps + 1).toFloat(),
+  backgroundColor: Color = MaterialTheme.colors.background,
+  contentColor: Color = contentColorFor(backgroundColor),
+  iconColor: Color = contentColor,
+  enableRangeSemantics: Boolean = true,
+  content: @Composable BoxScope.() -> Unit,
+) {
+  val currentStep = remember(value, valueRange, steps) { snapValueToStep(value, valueRange, steps) }
+
+  val updateValue: (Int) -> Unit = { stepDiff ->
+    val newValue = calculateCurrentStepValue(currentStep + stepDiff, steps, valueRange)
+    if (newValue != value) onValueChange(newValue)
+  }
+
+  androidx.wear.compose.material.Stepper(
+    value,
+    onValueChange,
+    steps,
+    decreaseIcon,
+    increaseIcon,
+    modifier
+      .requestFocusOnHierarchyActive()
+      .rotaryScrollable(
+        accumulatedBehavior {
+          if (it < 0f) {
+            updateValue(1)
+          } else if (it > 0f) {
+            updateValue(-1)
+          }
+        },
+        focusRequester = remember { FocusRequester() },
+      ),
+    valueRange,
+    backgroundColor,
+    contentColor,
+    iconColor,
+    enableRangeSemantics,
+    content,
+  )
 }
 
 /**
@@ -111,80 +107,75 @@ public fun Stepper(
  */
 @Composable
 public fun Stepper(
-    value: Int,
-    onValueChange: (Int) -> Unit,
-    valueProgression: IntProgression,
-    modifier: Modifier = Modifier,
-    decreaseIcon: @Composable () -> Unit = {
-        Icon(
-            StepperDefaults.Decrease.asPaintable(),
-            stringResource(R.string.horologist_stepper_decrease_content_description),
-        )
-    },
-    increaseIcon: @Composable () -> Unit = {
-        Icon(
-            StepperDefaults.Increase.asPaintable(),
-            stringResource(R.string.horologist_stepper_increase_content_description),
-        )
-    },
-    backgroundColor: Color = MaterialTheme.colors.background,
-    contentColor: Color = contentColorFor(backgroundColor),
-    iconColor: Color = contentColor,
-    enableRangeSemantics: Boolean = true,
-    content: @Composable BoxScope.() -> Unit,
-) {
-    androidx.wear.compose.material.Stepper(
-        value,
-        onValueChange,
-        valueProgression,
-        decreaseIcon,
-        increaseIcon,
-        modifier
-            .requestFocusOnHierarchyActive()
-            .rotaryScrollable(
-                accumulatedBehavior {
-                    if (it < 0f) {
-                        val newValue = (value + valueProgression.step)
-                        if (newValue <= valueProgression.last) {
-                            onValueChange(newValue)
-                        }
-                    } else if (it > 0f) {
-                        val newValue = (value - valueProgression.step)
-                        if (newValue >= valueProgression.first) {
-                            onValueChange(newValue)
-                        }
-                    }
-                },
-                focusRequester = remember { FocusRequester() },
-            ),
-        backgroundColor,
-        contentColor,
-        iconColor,
-        enableRangeSemantics,
-        content,
+  value: Int,
+  onValueChange: (Int) -> Unit,
+  valueProgression: IntProgression,
+  modifier: Modifier = Modifier,
+  decreaseIcon: @Composable () -> Unit = {
+    Icon(
+      StepperDefaults.Decrease.asPaintable(),
+      stringResource(R.string.horologist_stepper_decrease_content_description),
     )
+  },
+  increaseIcon: @Composable () -> Unit = {
+    Icon(
+      StepperDefaults.Increase.asPaintable(),
+      stringResource(R.string.horologist_stepper_increase_content_description),
+    )
+  },
+  backgroundColor: Color = MaterialTheme.colors.background,
+  contentColor: Color = contentColorFor(backgroundColor),
+  iconColor: Color = contentColor,
+  enableRangeSemantics: Boolean = true,
+  content: @Composable BoxScope.() -> Unit,
+) {
+  androidx.wear.compose.material.Stepper(
+    value,
+    onValueChange,
+    valueProgression,
+    decreaseIcon,
+    increaseIcon,
+    modifier
+      .requestFocusOnHierarchyActive()
+      .rotaryScrollable(
+        accumulatedBehavior {
+          if (it < 0f) {
+            val newValue = (value + valueProgression.step)
+            if (newValue <= valueProgression.last) {
+              onValueChange(newValue)
+            }
+          } else if (it > 0f) {
+            val newValue = (value - valueProgression.step)
+            if (newValue >= valueProgression.first) {
+              onValueChange(newValue)
+            }
+          }
+        },
+        focusRequester = remember { FocusRequester() },
+      ),
+    backgroundColor,
+    contentColor,
+    iconColor,
+    enableRangeSemantics,
+    content,
+  )
 }
 
-/**
- * Calculates value of [currentStep] in [valueRange] depending on number of [steps]
- */
+/** Calculates value of [currentStep] in [valueRange] depending on number of [steps] */
 internal fun calculateCurrentStepValue(
-    currentStep: Int,
-    steps: Int,
-    valueRange: ClosedFloatingPointRange<Float>,
-): Float = lerp(
-    valueRange.start,
-    valueRange.endInclusive,
-    currentStep.toFloat() / (steps + 1).toFloat(),
-).coerceIn(valueRange)
+  currentStep: Int,
+  steps: Int,
+  valueRange: ClosedFloatingPointRange<Float>,
+): Float =
+  lerp(valueRange.start, valueRange.endInclusive, currentStep.toFloat() / (steps + 1).toFloat())
+    .coerceIn(valueRange)
 
-/**
- * Snaps [value] to the closest [step] in the [valueRange]
- */
+/** Snaps [value] to the closest [step] in the [valueRange] */
 internal fun snapValueToStep(
-    value: Float,
-    valueRange: ClosedFloatingPointRange<Float>,
-    steps: Int,
+  value: Float,
+  valueRange: ClosedFloatingPointRange<Float>,
+  steps: Int,
 ): Int =
-    ((value - valueRange.start) / (valueRange.endInclusive - valueRange.start) * (steps + 1)).roundToInt()
-        .coerceIn(0, steps + 1)
+  ((value - valueRange.start) / (valueRange.endInclusive - valueRange.start) * (steps + 1))
+    .roundToInt()
+    .coerceIn(0, steps + 1)

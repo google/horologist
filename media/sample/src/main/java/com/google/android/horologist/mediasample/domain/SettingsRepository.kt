@@ -20,15 +20,11 @@ import androidx.datastore.core.DataStore
 import com.google.android.horologist.mediasample.domain.proto.SettingsProto.Settings
 import kotlinx.coroutines.flow.Flow
 
-class SettingsRepository(
-    private val dataStore: DataStore<Settings>,
-) {
+class SettingsRepository(private val dataStore: DataStore<Settings>) {
 
-    suspend fun edit(transform: suspend (Settings) -> Settings) {
-        dataStore.updateData {
-            transform(it)
-        }
-    }
+  suspend fun edit(transform: suspend (Settings) -> Settings) {
+    dataStore.updateData { transform(it) }
+  }
 
-    val settingsFlow: Flow<Settings> = dataStore.data
+  val settingsFlow: Flow<Settings> = dataStore.data
 }

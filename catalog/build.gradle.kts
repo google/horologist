@@ -96,7 +96,7 @@ dependencies {
   implementation(libs.compose.ui.graphics)
   implementation(libs.compose.ui.text)
   implementation(libs.compose.ui.unit)
-  implementation(libs.composeAiPreviewAnnotations)
+  implementation(libs.compose.ai.preview.annotations)
   implementation(libs.wearcompose.foundation)
   implementation(libs.wearcompose.material)
   implementation(libs.androidx.wear.compose.material3)

@@ -28,14 +28,10 @@ import kotlinx.coroutines.launch
 class UampSignInPromptViewModel
 @Inject
 constructor(
-    authUserRepository: AuthUserRepository,
-    private val settingsRepository: SettingsRepository,
+  authUserRepository: AuthUserRepository,
+  private val settingsRepository: SettingsRepository,
 ) : SignInPromptViewModel(authUserRepository) {
-    fun selectGuestMode() {
-        viewModelScope.launch {
-            settingsRepository.edit {
-                it.toBuilder().setGuestMode(true).build()
-            }
-        }
-    }
+  fun selectGuestMode() {
+    viewModelScope.launch { settingsRepository.edit { it.toBuilder().setGuestMode(true).build() } }
+  }
 }

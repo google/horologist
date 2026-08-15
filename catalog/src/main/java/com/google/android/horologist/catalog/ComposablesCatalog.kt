@@ -139,9 +139,7 @@ internal fun ComposablesTimePicker() {
 @ComposablesCatalog
 @Composable
 internal fun ComposablesTimePickerNoSeconds() {
-  Centred {
-    TimePicker(onTimeConfirm = {}, time = LocalTime.of(9, 41, 0), showSeconds = false)
-  }
+  Centred { TimePicker(onTimeConfirm = {}, time = LocalTime.of(9, 41, 0), showSeconds = false) }
 }
 
 @ComposablesCatalog
@@ -166,7 +164,5 @@ internal fun ComposablesMarqueeText() {
 @ComposablesCatalog
 @Composable
 internal fun ComposablesPlaceholderChip() {
-  Centred {
-    PlaceholderChip(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp))
-  }
+  Centred { PlaceholderChip(modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp)) }
 }

@@ -31,28 +31,19 @@ import com.google.android.horologist.media.ui.material3.composables.MarqueeText
 import com.google.android.horologist.media.ui.material3.util.MEDIA_TITLE_EDGE_GRADIENT_WIDTH
 import com.google.android.horologist.media.ui.material3.util.isLargeScreen
 
-/**
- * A simple marquee-text display showing status information or a message.
- */
+/** A simple marquee-text display showing status information or a message. */
 @Composable
-public fun MessageMediaDisplay(
-    modifier: Modifier = Modifier,
-    message: String,
-) {
-    val isLargeScreen = LocalConfiguration.current.isLargeScreen
-    Box(modifier = modifier, contentAlignment = Alignment.Center) {
-        MarqueeText(
-            text = message,
-            modifier = Modifier
-                .fillMaxWidth(
-                    if (isLargeScreen) 0.71f else 0.75f,
-                )
-                .semantics { heading() },
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleMedium,
-            edgeGradientWidth = MEDIA_TITLE_EDGE_GRADIENT_WIDTH,
-            startGap = 0.dp,
-        )
-    }
+public fun MessageMediaDisplay(modifier: Modifier = Modifier, message: String) {
+  val isLargeScreen = LocalConfiguration.current.isLargeScreen
+  Box(modifier = modifier, contentAlignment = Alignment.Center) {
+    MarqueeText(
+      text = message,
+      modifier = Modifier.fillMaxWidth(if (isLargeScreen) 0.71f else 0.75f).semantics { heading() },
+      color = MaterialTheme.colorScheme.onSurfaceVariant,
+      textAlign = TextAlign.Center,
+      style = MaterialTheme.typography.titleMedium,
+      edgeGradientWidth = MEDIA_TITLE_EDGE_GRADIENT_WIDTH,
+      startGap = 0.dp,
+    )
+  }
 }

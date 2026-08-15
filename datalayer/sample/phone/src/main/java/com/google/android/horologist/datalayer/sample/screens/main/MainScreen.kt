@@ -55,61 +55,29 @@ import com.google.android.horologist.datalayer.sample.screens.nodeslistener.Node
 
 @Composable
 fun MainScreen(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController(),
+  modifier: Modifier = Modifier,
+  navController: NavHostController = rememberNavController(),
 ) {
-    Scaffold(
-        modifier = modifier,
-    ) { padding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            NavHost(
-                navController = navController,
-                startDestination = Menu,
-                modifier = modifier,
-            ) {
-                composable<Menu> {
-                    MenuScreen(navController = navController)
-                }
-                composable<AppHelperNodes> {
-                    NodesScreen()
-                }
-                composable<AppHelperNodesListener> {
-                    NodesListenerScreen()
-                }
-                composable<InstallAppPromptDemo> {
-                    InstallAppPromptDemoScreen()
-                }
-                composable<ReEngagePromptDemo> {
-                    ReEngagePromptDemoScreen()
-                }
-                composable<SignInPromptDemo> {
-                    SignInPromptDemoScreen()
-                }
-                composable<InstallTilePromptDemo> {
-                    InstallTilePromptDemoScreen()
-                }
-                composable<InstallAppCustomPromptDemo> {
-                    InstallAppCustomPromptDemoScreen()
-                }
-                composable<ReEngageCustomPromptDemo> {
-                    ReEngageCustomPromptDemoScreen()
-                }
-                composable<SignInCustomPromptDemo> {
-                    SignInCustomPromptDemoScreen()
-                }
-                composable<InstallTileCustomPromptDemo> {
-                    InstallTileCustomPromptDemoScreen()
-                }
-                composable<Counter> {
-                    CounterScreen()
-                }
-            }
-        }
+  Scaffold(modifier = modifier) { padding ->
+    Column(
+      modifier = Modifier.fillMaxSize().padding(padding),
+      verticalArrangement = Arrangement.Center,
+      horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+      NavHost(navController = navController, startDestination = Menu, modifier = modifier) {
+        composable<Menu> { MenuScreen(navController = navController) }
+        composable<AppHelperNodes> { NodesScreen() }
+        composable<AppHelperNodesListener> { NodesListenerScreen() }
+        composable<InstallAppPromptDemo> { InstallAppPromptDemoScreen() }
+        composable<ReEngagePromptDemo> { ReEngagePromptDemoScreen() }
+        composable<SignInPromptDemo> { SignInPromptDemoScreen() }
+        composable<InstallTilePromptDemo> { InstallTilePromptDemoScreen() }
+        composable<InstallAppCustomPromptDemo> { InstallAppCustomPromptDemoScreen() }
+        composable<ReEngageCustomPromptDemo> { ReEngageCustomPromptDemoScreen() }
+        composable<SignInCustomPromptDemo> { SignInCustomPromptDemoScreen() }
+        composable<InstallTileCustomPromptDemo> { InstallTileCustomPromptDemoScreen() }
+        composable<Counter> { CounterScreen() }
+      }
     }
+  }
 }

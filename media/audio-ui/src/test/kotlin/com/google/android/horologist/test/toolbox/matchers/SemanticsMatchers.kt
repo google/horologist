@@ -24,11 +24,11 @@ import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.hasStateDescription
 
 fun SemanticsNodeInteraction.assertHasStateDescription(value: String): SemanticsNodeInteraction =
-    assert(hasStateDescription(value))
+  assert(hasStateDescription(value))
 
 fun SemanticsNodeInteraction.assertHasClickLabel(expectedValue: String): SemanticsNodeInteraction =
-    assert(
-        SemanticsMatcher("${SemanticsActions.OnClick.name} = '$expectedValue'") {
-            it.config.getOrNull(SemanticsActions.OnClick)?.label == expectedValue
-        },
-    )
+  assert(
+    SemanticsMatcher("${SemanticsActions.OnClick.name} = '$expectedValue'") {
+      it.config.getOrNull(SemanticsActions.OnClick)?.label == expectedValue
+    }
+  )

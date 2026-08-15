@@ -20,17 +20,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * Defaults for rotary modifiers
- */
+/** Defaults for rotary modifiers */
 @ExperimentalHorologistApi
 public object RotaryDefaults {
 
-    /**
-     * Returns whether the input is Low-res (a bezel) or high-res(a crown/rsb).
-     */
-    @ExperimentalHorologistApi
-    @Composable
-    public fun isLowResInput(): Boolean = LocalContext.current.packageManager
-        .hasSystemFeature("android.hardware.rotaryencoder.lowres")
+  /** Returns whether the input is Low-res (a bezel) or high-res(a crown/rsb). */
+  @ExperimentalHorologistApi
+  @Composable
+  public fun isLowResInput(): Boolean =
+    LocalContext.current.packageManager.hasSystemFeature("android.hardware.rotaryencoder.lowres")
 }

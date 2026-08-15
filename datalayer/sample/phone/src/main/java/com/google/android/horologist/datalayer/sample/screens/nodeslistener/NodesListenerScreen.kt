@@ -41,148 +41,111 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun NodesListenerScreen(
-    modifier: Modifier = Modifier,
-    viewModel: NodesListenerViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: NodesListenerViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == NodesListenerScreenState.Idle) {
-        SideEffect {
-            viewModel.initialize()
-        }
-    }
+  if (state == NodesListenerScreenState.Idle) {
+    SideEffect { viewModel.initialize() }
+  }
 
-    NodesListenerScreen(
-        state = state,
-        modifier = modifier,
-    )
+  NodesListenerScreen(state = state, modifier = modifier)
 }
 
 @Composable
-fun NodesListenerScreen(
-    state: NodesListenerScreenState,
-    modifier: Modifier = Modifier,
-) {
-    LazyColumn(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        item {
-            Text(
-                text = stringResource(id = R.string.nodes_listener_screen_header),
-                modifier = Modifier.padding(10.dp),
-                style = MaterialTheme.typography.titleLarge,
-            )
-        }
-
-        if (state != NodesListenerScreenState.ApiNotAvailable) {
-            item {
-                Text(
-                    text = stringResource(id = R.string.nodes_listener_screen_message),
-                    modifier = Modifier.padding(10.dp),
-                    style = MaterialTheme.typography.bodyLarge,
-                )
-            }
-        }
-
-        when (state) {
-            NodesListenerScreenState.Idle,
-            NodesListenerScreenState.Loading,
-            -> {
-                item {
-                    CircularProgressIndicator()
-                }
-            }
-
-            is NodesListenerScreenState.Loaded -> {
-                if (state.nodeList.isNotEmpty()) {
-                    items(items = state.nodeList.toList()) { node ->
-                        Box(
-                            modifier = modifier
-                                .padding(16.dp)
-                                .fillMaxWidth(),
-                            contentAlignment = Alignment.Center,
-                        ) {
-                            Card {
-                                Column(
-                                    modifier = Modifier
-                                        .padding(16.dp)
-                                        .fillMaxWidth(),
-
-                                ) {
-                                    Text(
-                                        stringResource(
-                                            R.string.nodes_listener_screen_node_name_label,
-                                            node.displayName,
-                                        ),
-                                    )
-                                    Text(
-                                        style = MaterialTheme.typography.labelMedium,
-                                        text = stringResource(
-                                            R.string.nodes_listener_screen_node_id_label,
-                                            node.id,
-                                        ),
-                                    )
-                                    Text(
-                                        style = MaterialTheme.typography.labelMedium,
-                                        text = stringResource(
-                                            R.string.nodes_listener_screen_node_is_nearby_label,
-                                            node.isNearby,
-                                        ),
-                                    )
-                                }
-                            }
-                        }
-                    }
-                } else {
-                    item {
-                        Text(stringResource(id = R.string.nodes_listener_screen_no_nodes))
-                    }
-                }
-            }
-
-            NodesListenerScreenState.ApiNotAvailable -> {
-                item {
-                    Text(stringResource(id = R.string.wearable_message_api_unavailable))
-                }
-            }
-        }
+fun NodesListenerScreen(state: NodesListenerScreenState, modifier: Modifier = Modifier) {
+  LazyColumn(
+    modifier = modifier.fillMaxSize(),
+    horizontalAlignment = Alignment.CenterHorizontally,
+  ) {
+    item {
+      Text(
+        text = stringResource(id = R.string.nodes_listener_screen_header),
+        modifier = Modifier.padding(10.dp),
+        style = MaterialTheme.typography.titleLarge,
+      )
     }
+
+    if (state != NodesListenerScreenState.ApiNotAvailable) {
+      item {
+        Text(
+          text = stringResource(id = R.string.nodes_listener_screen_message),
+          modifier = Modifier.padding(10.dp),
+          style = MaterialTheme.typography.bodyLarge,
+        )
+      }
+    }
+
+    when (state) {
+      NodesListenerScreenState.Idle,
+      NodesListenerScreenState.Loading -> {
+        item { CircularProgressIndicator() }
+      }
+
+      is NodesListenerScreenState.Loaded -> {
+        if (state.nodeList.isNotEmpty()) {
+          items(items = state.nodeList.toList()) { node ->
+            Box(
+              modifier = modifier.padding(16.dp).fillMaxWidth(),
+              contentAlignment = Alignment.Center,
+            ) {
+              Card {
+                Column(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+                  Text(
+                    stringResource(R.string.nodes_listener_screen_node_name_label, node.displayName)
+                  )
+                  Text(
+                    style = MaterialTheme.typography.labelMedium,
+                    text = stringResource(R.string.nodes_listener_screen_node_id_label, node.id),
+                  )
+                  Text(
+                    style = MaterialTheme.typography.labelMedium,
+                    text =
+                      stringResource(
+                        R.string.nodes_listener_screen_node_is_nearby_label,
+                        node.isNearby,
+                      ),
+                  )
+                }
+              }
+            }
+          }
+        } else {
+          item { Text(stringResource(id = R.string.nodes_listener_screen_no_nodes)) }
+        }
+      }
+
+      NodesListenerScreenState.ApiNotAvailable -> {
+        item { Text(stringResource(id = R.string.wearable_message_api_unavailable)) }
+      }
+    }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun NodesListenerScreenPreview() {
-    NodesListenerScreen(
-        state = NodesListenerScreenState.Loaded(
-            nodeList = setOf(
-                NodeUiModel(
-                    id = "903b8371",
-                    displayName = "Google Pixel Watch",
-                    isNearby = true,
-                ),
-                NodeUiModel(
-                    id = "813d1812",
-                    displayName = "Galaxy Watch4 Classic",
-                    isNearby = false,
-                ),
-            ),
-        ),
-    )
+  NodesListenerScreen(
+    state =
+      NodesListenerScreenState.Loaded(
+        nodeList =
+          setOf(
+            NodeUiModel(id = "903b8371", displayName = "Google Pixel Watch", isNearby = true),
+            NodeUiModel(id = "813d1812", displayName = "Galaxy Watch4 Classic", isNearby = false),
+          )
+      )
+  )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun NodesListenerScreenPreviewEmptyNodes() {
-    NodesListenerScreen(
-        state = NodesListenerScreenState.Loaded(
-            nodeList = emptySet(),
-        ),
-    )
+  NodesListenerScreen(state = NodesListenerScreenState.Loaded(nodeList = emptySet()))
 }
 
 @Preview(showBackground = true)
 @Composable
 fun NodesListenerScreenPreviewApiNotAvailable() {
-    NodesListenerScreen(state = NodesListenerScreenState.ApiNotAvailable)
+  NodesListenerScreen(state = NodesListenerScreenState.ApiNotAvailable)
 }

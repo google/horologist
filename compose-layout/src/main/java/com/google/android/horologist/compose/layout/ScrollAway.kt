@@ -46,151 +46,131 @@ import androidx.wear.compose.material.scrollAway
 import kotlinx.coroutines.launch
 
 /**
- * Scroll an item vertically in/out of view based on a [ScalingLazyListState].
- * Typically used to scroll a [TimeText] item out of view as the user starts to scroll
- * a [ScalingLazyColumn] of items upwards and bring additional items into view.
+ * Scroll an item vertically in/out of view based on a [ScalingLazyListState]. Typically used to
+ * scroll a [TimeText] item out of view as the user starts to scroll a [ScalingLazyColumn] of items
+ * upwards and bring additional items into view.
  *
  * @param scalingLazyColumnState The list config.
  */
-public fun Modifier.scrollAway(
-    scalingLazyColumnState: ScalingLazyColumnState,
-): Modifier = this.scrollAway { scalingLazyColumnState }
+public fun Modifier.scrollAway(scalingLazyColumnState: ScalingLazyColumnState): Modifier =
+  this.scrollAway { scalingLazyColumnState }
 
 /**
- * Scroll an item vertically in/out of view based on a [ScrollState].
- * Typically used to scroll a [TimeText] item out of view as the user starts to scroll a
- * vertically scrollable [Column] of items upwards and bring additional items into view.
+ * Scroll an item vertically in/out of view based on a [ScrollState]. Typically used to scroll a
+ * [TimeText] item out of view as the user starts to scroll a vertically scrollable [Column] of
+ * items upwards and bring additional items into view.
  *
  * @param scrollState The [ScrollState] to used as the basis for the scroll-away.
- * @param offset Adjustment to the starting point for scrolling away. Positive values result in
- * the scroll away starting later.
+ * @param offset Adjustment to the starting point for scrolling away. Positive values result in the
+ *   scroll away starting later.
  */
-public fun Modifier.scrollAway(
-    scrollableState: () -> ScrollableState?,
-): Modifier = scrollAwayImpl {
-    when (val scrollState = scrollableState()) {
-        is ScalingLazyColumnState -> {
-            val timeTextHomeOffset = scrollState.timeTextHomeOffset
-            val initialOffsetDp = timeTextHomeOffset.offsetPx.toDp()
+public fun Modifier.scrollAway(scrollableState: () -> ScrollableState?): Modifier = scrollAwayImpl {
+  when (val scrollState = scrollableState()) {
+    is ScalingLazyColumnState -> {
+      val timeTextHomeOffset = scrollState.timeTextHomeOffset
+      val initialOffsetDp = timeTextHomeOffset.offsetPx.toDp()
 
-            ScrollParams(
-                valid = timeTextHomeOffset.index < scrollState.state.layoutInfo.totalItemsCount,
-                isScrollInProgress = scrollState.isScrollInProgress,
-                yPx = scrollState.state.layoutInfo.visibleItemsInfo.find { it.index == timeTextHomeOffset.index }
-                    ?.let {
-                        -it.offset - initialOffsetDp.toPx()
-                    },
-            )
-        }
-
-        is LazyListState -> {
-            ScrollParams(
-                valid = 0 < scrollState.layoutInfo.totalItemsCount,
-                isScrollInProgress = scrollState.isScrollInProgress,
-                yPx = scrollState.layoutInfo.visibleItemsInfo.find { it.index == 0 }?.let {
-                    -it.offset - 0f
-                },
-            )
-        }
-
-        is ScrollState -> {
-            ScrollParams(
-                valid = true,
-                isScrollInProgress = scrollState.isScrollInProgress,
-                yPx = scrollState.value.toFloat(),
-            )
-        }
-
-        else -> {
-            // Hide by display as offscreen
-            ScrollParams(
-                true,
-                false,
-                10000f,
-            )
-        }
+      ScrollParams(
+        valid = timeTextHomeOffset.index < scrollState.state.layoutInfo.totalItemsCount,
+        isScrollInProgress = scrollState.isScrollInProgress,
+        yPx =
+          scrollState.state.layoutInfo.visibleItemsInfo
+            .find { it.index == timeTextHomeOffset.index }
+            ?.let { -it.offset - initialOffsetDp.toPx() },
+      )
     }
+
+    is LazyListState -> {
+      ScrollParams(
+        valid = 0 < scrollState.layoutInfo.totalItemsCount,
+        isScrollInProgress = scrollState.isScrollInProgress,
+        yPx =
+          scrollState.layoutInfo.visibleItemsInfo.find { it.index == 0 }?.let { -it.offset - 0f },
+      )
+    }
+
+    is ScrollState -> {
+      ScrollParams(
+        valid = true,
+        isScrollInProgress = scrollState.isScrollInProgress,
+        yPx = scrollState.value.toFloat(),
+      )
+    }
+
+    else -> {
+      // Hide by display as offscreen
+      ScrollParams(true, false, 10000f)
+    }
+  }
 }
 
-private fun Modifier.scrollAwayImpl(
-    scrollFn: Density.() -> ScrollParams,
-): Modifier = composed {
-    val coroutineScope = rememberCoroutineScope()
-    var animatable by remember {
-        mutableStateOf<Animatable<Float, AnimationVector1D>?>(null)
-    }
-    var prevProgress by remember {
-        mutableFloatStateOf(0f)
-    }
-    this.then(
-        @Suppress("ModifierInspectorInfo")
-        object : LayoutModifier {
-            override fun MeasureScope.measure(
-                measurable: Measurable,
-                constraints: Constraints,
-            ): MeasureResult {
-                val placeable = measurable.measure(constraints)
-                return layout(placeable.width, placeable.height) {
-                    placeable.placeWithLayer(0, 0) {
-                        val scrollParams = scrollFn()
-                        val (motionFraction: Float, offsetY) =
-                            if (!scrollParams.valid) {
-                                // When the itemIndex is invalid, just show the content anyway.
-                                1f to 0f
-                            } else if (scrollParams.yPx == null) {
-                                // When itemIndex is valid but yPx is null, we infer that
-                                // the item is not in the visible items list, so hide it.
-                                0f to 0f
-                            } else {
-                                // Scale, fade and scroll the content to scroll it away.
-                                val anim: Animatable<Float, AnimationVector1D> =
-                                    animatable ?: Animatable(prevProgress).also { animatable = it }
-                                val targetProgress: Float =
-                                    (scrollParams.yPx / maxScrollOut.toPx()).coerceIn(0f, 1f)
-                                var progress = 0f
-                                if (scrollParams.isScrollInProgress) {
-                                    if (anim.targetValue != targetProgress) {
-                                        coroutineScope.launch {
-                                            anim.snapTo(targetProgress)
-                                        }
-                                    }
-                                } else {
-                                    if (anim.targetValue != targetProgress) {
-                                        coroutineScope.launch {
-                                            anim.animateTo(
-                                                targetProgress,
-                                                tween(durationMillis = SHORT_4, easing = STANDARD),
-                                            )
-                                        }
-                                    }
-                                }
-                                animatable?.let {
-                                    progress = it.value
-                                }
-                                prevProgress = targetProgress
-                                val motionFraction: Float =
-                                    lerp(minMotionOut, maxMotionOut, progress)
-                                val offsetY = -(maxOffset.toPx() * progress)
-                                motionFraction to offsetY
-                            }
-
-                        alpha = motionFraction
-                        scaleX = motionFraction
-                        scaleY = motionFraction
-                        translationY = offsetY
-                        transformOrigin =
-                            TransformOrigin(pivotFractionX = 0.5f, pivotFractionY = 0.0f)
+private fun Modifier.scrollAwayImpl(scrollFn: Density.() -> ScrollParams): Modifier = composed {
+  val coroutineScope = rememberCoroutineScope()
+  var animatable by remember { mutableStateOf<Animatable<Float, AnimationVector1D>?>(null) }
+  var prevProgress by remember { mutableFloatStateOf(0f) }
+  this.then(
+    @Suppress("ModifierInspectorInfo")
+    object : LayoutModifier {
+      override fun MeasureScope.measure(
+        measurable: Measurable,
+        constraints: Constraints,
+      ): MeasureResult {
+        val placeable = measurable.measure(constraints)
+        return layout(placeable.width, placeable.height) {
+          placeable.placeWithLayer(0, 0) {
+            val scrollParams = scrollFn()
+            val (motionFraction: Float, offsetY) =
+              if (!scrollParams.valid) {
+                // When the itemIndex is invalid, just show the content anyway.
+                1f to 0f
+              } else if (scrollParams.yPx == null) {
+                // When itemIndex is valid but yPx is null, we infer that
+                // the item is not in the visible items list, so hide it.
+                0f to 0f
+              } else {
+                // Scale, fade and scroll the content to scroll it away.
+                val anim: Animatable<Float, AnimationVector1D> =
+                  animatable ?: Animatable(prevProgress).also { animatable = it }
+                val targetProgress: Float =
+                  (scrollParams.yPx / maxScrollOut.toPx()).coerceIn(0f, 1f)
+                var progress = 0f
+                if (scrollParams.isScrollInProgress) {
+                  if (anim.targetValue != targetProgress) {
+                    coroutineScope.launch { anim.snapTo(targetProgress) }
+                  }
+                } else {
+                  if (anim.targetValue != targetProgress) {
+                    coroutineScope.launch {
+                      anim.animateTo(
+                        targetProgress,
+                        tween(durationMillis = SHORT_4, easing = STANDARD),
+                      )
                     }
+                  }
                 }
-            }
-        },
-    )
+                animatable?.let { progress = it.value }
+                prevProgress = targetProgress
+                val motionFraction: Float = lerp(minMotionOut, maxMotionOut, progress)
+                val offsetY = -(maxOffset.toPx() * progress)
+                motionFraction to offsetY
+              }
+
+            alpha = motionFraction
+            scaleX = motionFraction
+            scaleY = motionFraction
+            translationY = offsetY
+            transformOrigin = TransformOrigin(pivotFractionX = 0.5f, pivotFractionY = 0.0f)
+          }
+        }
+      }
+    }
+  )
 }
 
 private data class ScrollParams(
-    val valid: Boolean,
-    val isScrollInProgress: Boolean,
-    val yPx: Float?,
+  val valid: Boolean,
+  val isScrollInProgress: Boolean,
+  val yPx: Float?,
 )
 
 // The scroll motion effects take place between 0dp and 36dp.

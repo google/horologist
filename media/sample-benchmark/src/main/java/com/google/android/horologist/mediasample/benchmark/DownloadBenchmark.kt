@@ -41,79 +41,76 @@ import org.junit.Test
 
 @LargeTest
 class DownloadBenchmark {
-    private val includePower: Boolean = false
+  private val includePower: Boolean = false
 
-    val mediaApp: MediaApp = TestMedia.MediaSampleApp
+  val mediaApp: MediaApp = TestMedia.MediaSampleApp
 
-    @get:Rule
-    public val benchmarkRule: MacrobenchmarkRule = MacrobenchmarkRule()
+  @get:Rule public val benchmarkRule: MacrobenchmarkRule = MacrobenchmarkRule()
 
-    public lateinit var mediaControllerFuture: ListenableFuture<MediaBrowser>
+  public lateinit var mediaControllerFuture: ListenableFuture<MediaBrowser>
 
-    @Test
-    public fun download(): Unit = benchmarkRule.measureRepeated(
-        packageName = mediaApp.packageName,
-        metrics = metrics(),
-        compilationMode = CompilationMode.Partial(),
-        iterations = 3,
-        startupMode = StartupMode.WARM,
-        setupBlock = {
-            mediaControllerFuture = MediaControllerHelper.lookupController(
-                mediaApp.playerComponentName,
-            )
+  @Test
+  public fun download(): Unit =
+    benchmarkRule.measureRepeated(
+      packageName = mediaApp.packageName,
+      metrics = metrics(),
+      compilationMode = CompilationMode.Partial(),
+      iterations = 3,
+      startupMode = StartupMode.WARM,
+      setupBlock = {
+        mediaControllerFuture = MediaControllerHelper.lookupController(mediaApp.playerComponentName)
 
-            startActivityAndWait()
+        startActivityAndWait()
 
-            sendTestBroadcast("delete", "Electronic")
+        sendTestBroadcast("delete", "Electronic")
 
-            // Wait for service
-            mediaControllerFuture.get()
-        },
+        // Wait for service
+        mediaControllerFuture.get()
+      },
     ) {
-        val mediaController = mediaControllerFuture.get()
+      val mediaController = mediaControllerFuture.get()
 
-        val item = TestMedia.Intro
+      val item = TestMedia.Intro
 
-        runBlocking {
-            sendTestBroadcast(
-                command = "download",
-                argument = "${item.mediaId}:${item.requestMetadata.mediaUri}",
-            )
-
-            delay(5000)
-
-            withContext<Unit>(Dispatchers.Main) {
-                mediaController.setMediaItems(mediaApp.testMedia)
-
-                delay(100)
-
-                mediaController.prepare()
-                mediaController.play()
-            }
-        }
-    }
-
-    private fun MacrobenchmarkScope.sendTestBroadcast(
-        command: String,
-        argument: String,
-    ) {
-        println("sending")
-        val result = device.executeShellCommand(
-            "am broadcast " +
-                "-a " +
-                "com.google.android.horologist.mediasample.testing.TEST " +
-                "--es " +
-                "$command \"$argument\" " +
-                "-n " +
-                "com.google.android.horologist.mediasample/" +
-                "com.google.android.horologist.mediasample.testing.BenchmarkBroadcastReceiver",
+      runBlocking {
+        sendTestBroadcast(
+          command = "download",
+          argument = "${item.mediaId}:${item.requestMetadata.mediaUri}",
         )
-        println("sent $result")
+
+        delay(5000)
+
+        withContext<Unit>(Dispatchers.Main) {
+          mediaController.setMediaItems(mediaApp.testMedia)
+
+          delay(100)
+
+          mediaController.prepare()
+          mediaController.play()
+        }
+      }
     }
 
-    public open fun metrics(): List<Metric> = listOfNotNull(
-        StartupTimingMetric(),
-        FrameTimingMetric(),
-        if (includePower) PowerMetric(type = PowerMetric.Type.Battery()) else null,
+  private fun MacrobenchmarkScope.sendTestBroadcast(command: String, argument: String) {
+    println("sending")
+    val result =
+      device.executeShellCommand(
+        "am broadcast " +
+          "-a " +
+          "com.google.android.horologist.mediasample.testing.TEST " +
+          "--es " +
+          "$command \"$argument\" " +
+          "-n " +
+          "com.google.android.horologist.mediasample/" +
+          "com.google.android.horologist.mediasample.testing.BenchmarkBroadcastReceiver"
+      )
+    println("sent $result")
+  }
+
+  public open fun metrics(): List<Metric> =
+    listOfNotNull(
+      StartupTimingMetric(),
+      FrameTimingMetric(),
+      if (includePower) PowerMetric(type = PowerMetric.Type.Battery()) else null,
     )
 }

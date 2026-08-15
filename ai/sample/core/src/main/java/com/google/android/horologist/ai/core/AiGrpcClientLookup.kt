@@ -20,39 +20,39 @@ import android.content.Context
 import android.content.Intent
 import io.grpc.binder.AndroidComponentAddress
 import io.grpc.binder.BinderChannelBuilder
-import io.grpc.binder.UntrustedSecurityPolicies
 
 object AiGrpcClientLookup {
-    // PackageManager.GET_SIGNATURES is deprecated in API 28+ in favor of GET_SIGNING_CERTIFICATES
-    @Suppress("DEPRECATION")
-    @android.annotation.SuppressLint("PackageManagerGetSignatures")
-    fun lookupInferenceService(
-        context: Context,
-        packageName: String,
-    ): InferenceServiceGrpcKt.InferenceServiceCoroutineStub {
-        val mySignature = context.packageManager.getPackageInfo(
-            context.packageName,
-            android.content.pm.PackageManager.GET_SIGNATURES,
-        ).signatures!![0]
+  // PackageManager.GET_SIGNATURES is deprecated in API 28+ in favor of GET_SIGNING_CERTIFICATES
+  @Suppress("DEPRECATION")
+  @android.annotation.SuppressLint("PackageManagerGetSignatures")
+  fun lookupInferenceService(
+    context: Context,
+    packageName: String,
+  ): InferenceServiceGrpcKt.InferenceServiceCoroutineStub {
+    val mySignature =
+      context.packageManager
+        .getPackageInfo(context.packageName, android.content.pm.PackageManager.GET_SIGNATURES)
+        .signatures!![0]
 
-        val channel = BinderChannelBuilder.forAddress(
-            AndroidComponentAddress.forBindIntent(
-                Intent().apply {
-                    setAction("InferenceService")
-                    setPackage(packageName)
-                },
-            ),
-            context,
+    val channel =
+      BinderChannelBuilder.forAddress(
+          AndroidComponentAddress.forBindIntent(
+            Intent().apply {
+              setAction("InferenceService")
+              setPackage(packageName)
+            }
+          ),
+          context,
         )
-            .securityPolicy(
-                io.grpc.binder.SecurityPolicies.hasSignature(
-                    context.packageManager,
-                    packageName,
-                    mySignature,
-                ),
-            )
-            .build()
+        .securityPolicy(
+          io.grpc.binder.SecurityPolicies.hasSignature(
+            context.packageManager,
+            packageName,
+            mySignature,
+          )
+        )
+        .build()
 
-        return InferenceServiceGrpcKt.InferenceServiceCoroutineStub(channel)
-    }
+    return InferenceServiceGrpcKt.InferenceServiceCoroutineStub(channel)
+  }
 }

@@ -32,99 +32,98 @@ import org.junit.Test
 
 class StreamlineSignInDefaultViewModelTest {
 
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
+  @get:Rule val mainDispatcherRule = MainDispatcherRule()
 
-    private val fakeAuthUserRepository = AuthUserRepositoryStub()
+  private val fakeAuthUserRepository = AuthUserRepositoryStub()
 
-    private lateinit var sut: StreamlineSignInDefaultViewModel
+  private lateinit var sut: StreamlineSignInDefaultViewModel
 
-    @Before
-    fun setUp() {
-        sut = StreamlineSignInDefaultViewModel(fakeAuthUserRepository)
+  @Before
+  fun setUp() {
+    sut = StreamlineSignInDefaultViewModel(fakeAuthUserRepository)
+  }
+
+  @Test
+  fun givenInitialState_thenStateIsParentStateIdle() {
+    // when
+    val result = sut.uiState.value
+
+    // then
+    assertThat(result).isEqualTo(StreamlineSignInDefaultScreenState.Idle)
+  }
+
+  @Test
+  fun givenInitialState_whenOnIdleStateObserved_thenStateIsParentStateLoading() = runTest {
+    // when
+    val whenBlock = { sut.onIdleStateObserved() }
+
+    // then
+    sut.uiState.test {
+      skipItems(1)
+
+      whenBlock()
+
+      assertThat(awaitItem()).isEqualTo(StreamlineSignInDefaultScreenState.Loading)
+
+      skipItems(1)
+    }
+  }
+
+  @Test
+  fun givenNonIdleState_whenOnIdleStateObserved_thenStateIsTheSame() = runTest {
+    // when
+    sut.onIdleStateObserved()
+    val whenBlock = { sut.onIdleStateObserved() }
+
+    // then
+    sut.uiState.test {
+      assertThat(awaitItem()).isNotEqualTo(StreamlineSignInDefaultScreenState.Idle)
+
+      whenBlock()
+
+      expectNoEvents()
+    }
+  }
+
+  @Test
+  fun givenNoAccountsAvailable_whenOnIdleStateObserved_thenStateIsNoAccountsAvailable() = runTest {
+    // when
+    sut.onIdleStateObserved()
+
+    // then
+    sut.uiState.test {
+      assertThat(awaitItem()).isEqualTo(StreamlineSignInDefaultScreenState.NoAccountsAvailable)
+    }
+  }
+
+  @Test
+  fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() =
+    runTest {
+      // given
+      val email = "user@example.com"
+      fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email))
+
+      // when
+      sut.onIdleStateObserved()
+
+      // then
+      sut.uiState.test {
+        assertThat(awaitItem())
+          .isEqualTo(StreamlineSignInDefaultScreenState.SignedIn(AccountUiModel(email = email)))
+      }
     }
 
-    @Test
-    fun givenInitialState_thenStateIsParentStateIdle() {
-        // when
-        val result = sut.uiState.value
+  @Test
+  fun whenOnAccountSelected_thenStateIsSignedIn() = runTest {
+    // given
+    val account = AccountUiModel(email = "email@example.com")
 
-        // then
-        assertThat(result).isEqualTo(StreamlineSignInDefaultScreenState.Idle)
+    // when
+    sut.onAccountSelected(account)
+
+    // then
+    sut.uiState.test {
+      assertThat(awaitItem()).isEqualTo(StreamlineSignInDefaultScreenState.SignedIn(account))
     }
-
-    @Test
-    fun givenInitialState_whenOnIdleStateObserved_thenStateIsParentStateLoading() = runTest {
-        // when
-        val whenBlock = { sut.onIdleStateObserved() }
-
-        // then
-        sut.uiState.test {
-            skipItems(1)
-
-            whenBlock()
-
-            assertThat(awaitItem()).isEqualTo(StreamlineSignInDefaultScreenState.Loading)
-
-            skipItems(1)
-        }
-    }
-
-    @Test
-    fun givenNonIdleState_whenOnIdleStateObserved_thenStateIsTheSame() = runTest {
-        // when
-        sut.onIdleStateObserved()
-        val whenBlock = { sut.onIdleStateObserved() }
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isNotEqualTo(StreamlineSignInDefaultScreenState.Idle)
-
-            whenBlock()
-
-            expectNoEvents()
-        }
-    }
-
-    @Test
-    fun givenNoAccountsAvailable_whenOnIdleStateObserved_thenStateIsNoAccountsAvailable() = runTest {
-        // when
-        sut.onIdleStateObserved()
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(StreamlineSignInDefaultScreenState.NoAccountsAvailable)
-        }
-    }
-
-    @Test
-    fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() = runTest {
-        // given
-        val email = "user@example.com"
-        fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email))
-
-        // when
-        sut.onIdleStateObserved()
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(
-                StreamlineSignInDefaultScreenState.SignedIn(AccountUiModel(email = email)),
-            )
-        }
-    }
-
-    @Test
-    fun whenOnAccountSelected_thenStateIsSignedIn() = runTest {
-        // given
-        val account = AccountUiModel(email = "email@example.com")
-
-        // when
-        sut.onAccountSelected(account)
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(StreamlineSignInDefaultScreenState.SignedIn(account))
-        }
-    }
+  }
 }

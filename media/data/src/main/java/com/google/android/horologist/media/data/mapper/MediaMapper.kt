@@ -22,41 +22,37 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.database.model.MediaEntity
 import com.google.android.horologist.media.model.Media
 
-/**
- * Functions to map models from other layers and / or packages into a [Media].
- */
+/** Functions to map models from other layers and / or packages into a [Media]. */
 @ExperimentalHorologistApi
 public class MediaMapper(private val mediaExtrasMapper: MediaExtrasMapper) {
 
-    /**
-     * Maps from a [MediaItem].
-     *
-     * @param mediaItem [MediaItem] to be mapped.
-     * @param defaultArtist value for [Media.artist] for when [MediaMetadata.artist] is null.
-     */
-    public fun map(
-        mediaItem: MediaItem,
-        mediaMetadata: MediaMetadata,
-    ): Media = Media(
-        id = mediaItem.mediaId,
-        uri = mediaItem.localConfiguration?.uri?.toString() ?: "",
-        title = mediaMetadata.title?.toString() ?: "",
-        artist = mediaMetadata.artist?.toString()
-            ?: mediaMetadata.albumArtist?.toString()
-            ?: mediaMetadata.subtitle?.toString()
-            ?: "",
-        artworkUri = mediaMetadata.artworkUri?.toString(),
-        extras = mediaExtrasMapper.map(mediaItem, mediaMetadata),
+  /**
+   * Maps from a [MediaItem].
+   *
+   * @param mediaItem [MediaItem] to be mapped.
+   * @param defaultArtist value for [Media.artist] for when [MediaMetadata.artist] is null.
+   */
+  public fun map(mediaItem: MediaItem, mediaMetadata: MediaMetadata): Media =
+    Media(
+      id = mediaItem.mediaId,
+      uri = mediaItem.localConfiguration?.uri?.toString() ?: "",
+      title = mediaMetadata.title?.toString() ?: "",
+      artist =
+        mediaMetadata.artist?.toString()
+          ?: mediaMetadata.albumArtist?.toString()
+          ?: mediaMetadata.subtitle?.toString()
+          ?: "",
+      artworkUri = mediaMetadata.artworkUri?.toString(),
+      extras = mediaExtrasMapper.map(mediaItem, mediaMetadata),
     )
 
-    /**
-     * Maps from a [MediaEntity].
-     */
-    public fun map(media: MediaEntity): Media = Media(
-        id = media.mediaId,
-        uri = media.mediaUrl,
-        title = media.title ?: "",
-        artist = media.artist ?: "",
-        artworkUri = media.artworkUrl,
+  /** Maps from a [MediaEntity]. */
+  public fun map(media: MediaEntity): Media =
+    Media(
+      id = media.mediaId,
+      uri = media.mediaUrl,
+      title = media.title ?: "",
+      artist = media.artist ?: "",
+      artworkUri = media.artworkUrl,
     )
 }

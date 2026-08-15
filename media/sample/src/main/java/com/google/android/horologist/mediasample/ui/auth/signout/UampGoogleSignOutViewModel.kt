@@ -22,47 +22,47 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.ApiException
 import com.google.android.horologist.mediasample.data.auth.GoogleSignInAuthUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @HiltViewModel
 class UampGoogleSignOutViewModel
-    @Inject
-    constructor(
-        private val googleSignInAuthUserRepository: GoogleSignInAuthUserRepository,
-    ) : ViewModel() {
+@Inject
+constructor(private val googleSignInAuthUserRepository: GoogleSignInAuthUserRepository) :
+  ViewModel() {
 
-        private val _uiState = MutableStateFlow(GoogleSignOutScreenState.Idle)
-        public val uiState: StateFlow<GoogleSignOutScreenState> = _uiState
+  private val _uiState = MutableStateFlow(GoogleSignOutScreenState.Idle)
+  public val uiState: StateFlow<GoogleSignOutScreenState> = _uiState
 
-        fun onIdleStateObserved() {
-            if (_uiState.compareAndSet(
-                    expect = GoogleSignOutScreenState.Idle,
-                    update = GoogleSignOutScreenState.Loading,
-                )
-            ) {
-                viewModelScope.launch {
-                    try {
-                        googleSignInAuthUserRepository.signOut()
-                        _uiState.value = GoogleSignOutScreenState.Success
-                    } catch (apiException: ApiException) {
-                        Log.w(TAG, "Sign out failed: $apiException")
-                        _uiState.value = GoogleSignOutScreenState.Failed
-                    }
-                }
-            }
+  fun onIdleStateObserved() {
+    if (
+      _uiState.compareAndSet(
+        expect = GoogleSignOutScreenState.Idle,
+        update = GoogleSignOutScreenState.Loading,
+      )
+    ) {
+      viewModelScope.launch {
+        try {
+          googleSignInAuthUserRepository.signOut()
+          _uiState.value = GoogleSignOutScreenState.Success
+        } catch (apiException: ApiException) {
+          Log.w(TAG, "Sign out failed: $apiException")
+          _uiState.value = GoogleSignOutScreenState.Failed
         }
-
-        companion object {
-            private val TAG = UampGoogleSignOutViewModel::class.java.simpleName
-        }
+      }
     }
+  }
+
+  companion object {
+    private val TAG = UampGoogleSignOutViewModel::class.java.simpleName
+  }
+}
 
 enum class GoogleSignOutScreenState {
-    Idle,
-    Loading,
-    Success,
-    Failed,
+  Idle,
+  Loading,
+  Success,
+  Failed,
 }

@@ -41,59 +41,64 @@ import kotlinx.coroutines.SupervisorJob
 @InstallIn(ServiceComponent::class)
 object ServiceModule {
 
-    @ServiceScoped
-    @Provides
-    fun coroutineScope(): CoroutineScope {
-        val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
-            Log.e(
-                "SampleApplication",
-                "Uncaught exception thrown by a service: ${throwable.message}",
-                throwable,
-            )
-        }
-        return CoroutineScope(Dispatchers.IO + SupervisorJob() + coroutineExceptionHandler)
+  @ServiceScoped
+  @Provides
+  fun coroutineScope(): CoroutineScope {
+    val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+      Log.e(
+        "SampleApplication",
+        "Uncaught exception thrown by a service: ${throwable.message}",
+        throwable,
+      )
     }
+    return CoroutineScope(Dispatchers.IO + SupervisorJob() + coroutineExceptionHandler)
+  }
 
-    @ServiceScoped
-    @Provides
-    fun wearDataLayerRegistry(
-        @ApplicationContext applicationContext: Context,
-        coroutineScope: CoroutineScope,
-    ): WearDataLayerRegistry = WearDataLayerRegistry.fromContext(
+  @ServiceScoped
+  @Provides
+  fun wearDataLayerRegistry(
+    @ApplicationContext applicationContext: Context,
+    coroutineScope: CoroutineScope,
+  ): WearDataLayerRegistry =
+    WearDataLayerRegistry.fromContext(
         application = applicationContext,
         coroutineScope = coroutineScope,
-    ).apply {
+      )
+      .apply {
         registerSerializer(CounterValueSerializer)
 
         registerSerializer(SampleDataSerializer)
 
-        registerProtoDataListener(object : ProtoDataListener<SampleProto.Data> {
+        registerProtoDataListener(
+          object : ProtoDataListener<SampleProto.Data> {
             override fun dataAdded(nodeId: String, path: String, value: SampleProto.Data) {
-                println("Data Added: $nodeId $path $value")
+              println("Data Added: $nodeId $path $value")
             }
 
             override fun dataDeleted(nodeId: String, path: String) {
-                println("Data Deleted: $nodeId $path")
+              println("Data Deleted: $nodeId $path")
             }
-        })
-    }
+          }
+        )
+      }
 
-    @ServiceScoped
-    @Provides
-    fun wearDataLayerAppHelper(
-        @ApplicationContext applicationContext: Context,
-        wearDataLayerRegistry: WearDataLayerRegistry,
-        coroutineScope: CoroutineScope,
-    ) = WearDataLayerAppHelper(
-        context = applicationContext,
-        registry = wearDataLayerRegistry,
-        scope = coroutineScope,
+  @ServiceScoped
+  @Provides
+  fun wearDataLayerAppHelper(
+    @ApplicationContext applicationContext: Context,
+    wearDataLayerRegistry: WearDataLayerRegistry,
+    coroutineScope: CoroutineScope,
+  ) =
+    WearDataLayerAppHelper(
+      context = applicationContext,
+      registry = wearDataLayerRegistry,
+      scope = coroutineScope,
     )
 
-    @ServiceScoped
-    @Provides
-    fun tileSync(
-        wearDataLayerRegistry: WearDataLayerRegistry,
-        wearDataLayerAppHelper: WearDataLayerAppHelper,
-    ): TileSync = TileSync(wearDataLayerRegistry, wearDataLayerAppHelper)
+  @ServiceScoped
+  @Provides
+  fun tileSync(
+    wearDataLayerRegistry: WearDataLayerRegistry,
+    wearDataLayerAppHelper: WearDataLayerAppHelper,
+  ): TileSync = TileSync(wearDataLayerRegistry, wearDataLayerAppHelper)
 }

@@ -62,221 +62,193 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ServiceComponent
 import dagger.hilt.android.scopes.ServiceScoped
+import javax.inject.Provider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import okhttp3.CacheControl
 import okhttp3.Call
-import javax.inject.Provider
 
 @SuppressLint("UnsafeOptInUsageError")
 @Module
 @InstallIn(ServiceComponent::class)
 object PlaybackServiceModule {
-    @ServiceScoped
-    @Provides
-    fun loadControl(): LoadControl = DefaultLoadControl.Builder()
-        .setBackBuffer(
-            /* backBufferDurationMs = */
-            30_000,
-            /* retainBackBufferFromKeyframe = */
-            false,
-        )
-        .build()
+  @ServiceScoped
+  @Provides
+  fun loadControl(): LoadControl =
+    DefaultLoadControl.Builder()
+      .setBackBuffer(/* backBufferDurationMs= */ 30_000, /* retainBackBufferFromKeyframe= */ false)
+      .build()
 
-    @ServiceScoped
-    @Provides
-    fun mediaCodecSelector(
-        wearMedia3Factory: WearMedia3Factory,
-    ): MediaCodecSelector = wearMedia3Factory.mediaCodecSelector()
+  @ServiceScoped
+  @Provides
+  fun mediaCodecSelector(wearMedia3Factory: WearMedia3Factory): MediaCodecSelector =
+    wearMedia3Factory.mediaCodecSelector()
 
-    @ServiceScoped
-    @Provides
-    fun audioOnlyRenderersFactory(
-        wearMedia3Factory: WearMedia3Factory,
-        audioSink: DefaultAudioSink,
-        mediaCodecSelector: MediaCodecSelector,
-    ) =
-        wearMedia3Factory.audioOnlyRenderersFactory(
-            audioSink,
-            mediaCodecSelector,
-        )
+  @ServiceScoped
+  @Provides
+  fun audioOnlyRenderersFactory(
+    wearMedia3Factory: WearMedia3Factory,
+    audioSink: DefaultAudioSink,
+    mediaCodecSelector: MediaCodecSelector,
+  ) = wearMedia3Factory.audioOnlyRenderersFactory(audioSink, mediaCodecSelector)
 
-    @ServiceScoped
-    @Provides
-    fun defaultAnalyticsCollector(
-        logger: ErrorReporter,
-    ): AnalyticsCollector =
-        DefaultAnalyticsCollector(Clock.DEFAULT).apply {
-            addListener(AnalyticsEventLogger(logger))
+  @ServiceScoped
+  @Provides
+  fun defaultAnalyticsCollector(logger: ErrorReporter): AnalyticsCollector =
+    DefaultAnalyticsCollector(Clock.DEFAULT).apply { addListener(AnalyticsEventLogger(logger)) }
+
+  @ServiceScoped @Provides fun extractorsFactory(): ExtractorsFactory = DefaultExtractorsFactory()
+
+  @ServiceScoped @Provides fun transferListener(logger: ErrorReporter) = TransferListener(logger)
+
+  @ServiceScoped
+  @Provides
+  fun streamDataSourceFactory(
+    callFactory: Call.Factory,
+    transferListener: TransferListener,
+  ): OkHttpDataSource.Factory =
+    OkHttpDataSource.Factory(
+        NetworkAwareCallFactory(callFactory, defaultRequestType = StreamRequest)
+      )
+      .setCacheControl(CacheControl.Builder().noCache().noStore().build())
+      .setTransferListener(transferListener)
+
+  @ServiceScoped
+  @Provides
+  fun cacheDataSourceFactory(
+    downloadCache: Cache,
+    streamDataSourceFactory: OkHttpDataSource.Factory,
+    transferListener: TransferListener,
+    appConfig: AppConfig,
+  ): CacheDataSource.Factory =
+    CacheDataSource.Factory()
+      .setCache(downloadCache)
+      .setUpstreamDataSourceFactory(streamDataSourceFactory)
+      .setEventListener(transferListener)
+      .apply {
+        if (!appConfig.cacheWriteBack) {
+          setCacheWriteDataSinkFactory(null)
         }
+      }
 
-    @ServiceScoped
-    @Provides
-    fun extractorsFactory(): ExtractorsFactory =
-        DefaultExtractorsFactory()
+  @ServiceScoped
+  @Provides
+  fun mediaSourceFactory(
+    appConfig: AppConfig,
+    cacheDataSourceFactory: CacheDataSource.Factory,
+    streamDataSourceFactory: OkHttpDataSource.Factory,
+    extractorsFactory: ExtractorsFactory,
+  ): MediaSource.Factory {
+    val dataSourceFactory =
+      if (appConfig.cacheItems) {
+        cacheDataSourceFactory
+      } else {
+        streamDataSourceFactory
+      }
+    return DefaultMediaSourceFactory(dataSourceFactory, extractorsFactory)
+  }
 
-    @ServiceScoped
-    @Provides
-    fun transferListener(
-        logger: ErrorReporter,
-    ) = TransferListener(logger)
+  @ServiceScoped
+  @Provides
+  fun exoPlayer(
+    service: Service,
+    loadControl: LoadControl,
+    audioOnlyRenderersFactory: RenderersFactory,
+    analyticsCollector: AnalyticsCollector,
+    mediaSourceFactory: MediaSource.Factory,
+    dataUpdates: DataUpdates,
+    audioOffloadManager: Provider<AudioOffloadManager>,
+    appConfig: AppConfig,
+    serviceCoroutineScope: CoroutineScope,
+    @SuppressSpeakerPlayback suppressSpeakerPlayback: Boolean,
+  ): Player =
+    ExoPlayer.Builder(service, audioOnlyRenderersFactory)
+      .setAnalyticsCollector(analyticsCollector)
+      .setMediaSourceFactory(mediaSourceFactory)
+      .setAudioAttributes(AudioAttributes.DEFAULT, true)
+      .setSuppressPlaybackOnUnsuitableOutput(suppressSpeakerPlayback)
+      .setWakeMode(C.WAKE_MODE_NETWORK)
+      .setLoadControl(loadControl)
+      .setSeekForwardIncrementMs(10_000)
+      .setSeekBackIncrementMs(10_000)
+      .build()
+      .apply {
+        addListener(analyticsCollector)
+        addListener(dataUpdates.listener)
+        addListener(WearUnsuitableOutputPlaybackSuppressionResolverListener(service))
+        addListener(TracingListener())
 
-    @ServiceScoped
-    @Provides
-    fun streamDataSourceFactory(
-        callFactory: Call.Factory,
-        transferListener: TransferListener,
-    ): OkHttpDataSource.Factory =
-        OkHttpDataSource.Factory(
-            NetworkAwareCallFactory(
-                callFactory,
-                defaultRequestType = StreamRequest,
-            ),
-        )
-            .setCacheControl(CacheControl.Builder().noCache().noStore().build())
-            .setTransferListener(transferListener)
+        trackSelectionParameters =
+          trackSelectionParameters
+            .buildUpon()
+            .setAudioOffloadPreferences(
+              AudioOffloadPreferences.Builder()
+                .setAudioOffloadMode(AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_ENABLED)
+                .setIsSpeedChangeSupportRequired(false)
+                .setIsGaplessSupportRequired(false)
+                .build()
+            )
+            .build()
 
-    @ServiceScoped
-    @Provides
-    fun cacheDataSourceFactory(
-        downloadCache: Cache,
-        streamDataSourceFactory: OkHttpDataSource.Factory,
-        transferListener: TransferListener,
-        appConfig: AppConfig,
-    ): CacheDataSource.Factory =
-        CacheDataSource.Factory()
-            .setCache(downloadCache)
-            .setUpstreamDataSourceFactory(streamDataSourceFactory)
-            .setEventListener(transferListener)
-            .apply {
-                if (!appConfig.cacheWriteBack) {
-                    setCacheWriteDataSinkFactory(null)
-                }
-            }
-
-    @ServiceScoped
-    @Provides
-    fun mediaSourceFactory(
-        appConfig: AppConfig,
-        cacheDataSourceFactory: CacheDataSource.Factory,
-        streamDataSourceFactory: OkHttpDataSource.Factory,
-        extractorsFactory: ExtractorsFactory,
-    ): MediaSource.Factory {
-        val dataSourceFactory =
-            if (appConfig.cacheItems) {
-                cacheDataSourceFactory
-            } else {
-                streamDataSourceFactory
-            }
-        return DefaultMediaSourceFactory(dataSourceFactory, extractorsFactory)
-    }
-
-    @ServiceScoped
-    @Provides
-    fun exoPlayer(
-        service: Service,
-        loadControl: LoadControl,
-        audioOnlyRenderersFactory: RenderersFactory,
-        analyticsCollector: AnalyticsCollector,
-        mediaSourceFactory: MediaSource.Factory,
-        dataUpdates: DataUpdates,
-        audioOffloadManager: Provider<AudioOffloadManager>,
-        appConfig: AppConfig,
-        serviceCoroutineScope: CoroutineScope,
-        @SuppressSpeakerPlayback suppressSpeakerPlayback: Boolean,
-    ): Player =
-        ExoPlayer.Builder(service, audioOnlyRenderersFactory)
-            .setAnalyticsCollector(analyticsCollector)
-            .setMediaSourceFactory(mediaSourceFactory)
-            .setAudioAttributes(AudioAttributes.DEFAULT, true)
-            .setSuppressPlaybackOnUnsuitableOutput(suppressSpeakerPlayback)
-            .setWakeMode(C.WAKE_MODE_NETWORK)
-            .setLoadControl(loadControl)
-            .setSeekForwardIncrementMs(10_000)
-            .setSeekBackIncrementMs(10_000)
-            .build().apply {
-                addListener(analyticsCollector)
-                addListener(dataUpdates.listener)
-                addListener(WearUnsuitableOutputPlaybackSuppressionResolverListener(service))
-                addListener(TracingListener())
-
-                trackSelectionParameters = trackSelectionParameters.buildUpon()
-                    .setAudioOffloadPreferences(
-                        AudioOffloadPreferences.Builder()
-                            .setAudioOffloadMode(AudioOffloadPreferences.AUDIO_OFFLOAD_MODE_ENABLED)
-                            .setIsSpeedChangeSupportRequired(false)
-                            .setIsGaplessSupportRequired(false)
-                            .build(),
-                    )
-                    .build()
-
-                if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
-                    serviceCoroutineScope.launch {
-                        audioOffloadManager.get().connect(this@apply)
-                    }
-                }
-            }
-
-    @ServiceScoped
-    @Provides
-    fun serviceCoroutineScope(
-        service: Service,
-    ): CoroutineScope {
-        return (service as LifecycleOwner).lifecycleScope
-    }
-
-    @ServiceScoped
-    @Provides
-    fun librarySessionCallback(
-        logger: ErrorReporter,
-        serviceCoroutineScope: CoroutineScope,
-    ): MediaLibrarySession.Callback =
-        UampMediaLibrarySessionCallback(serviceCoroutineScope, logger)
-
-    @ServiceScoped
-    @Provides
-    fun mediaLibrarySession(
-        service: Service,
-        player: Player,
-        librarySessionCallback: MediaLibrarySession.Callback,
-        intentBuilder: IntentBuilder,
-    ): MediaLibrarySession =
-        MediaLibrarySession.Builder(
-            service as MediaLibraryService,
-            player,
-            librarySessionCallback,
-        )
-            .setSessionActivity(intentBuilder.buildPlayerIntent())
-            .build().also {
-                (service as LifecycleOwner).lifecycle.addObserver(
-                    object :
-                        DefaultLifecycleObserver {
-                        override fun onDestroy(owner: LifecycleOwner) {
-                            it.release()
-                        }
-                    },
-                )
-            }
-
-    @ServiceScoped
-    @Provides
-    fun audioSink(
-        wearMedia3Factory: WearMedia3Factory,
-        audioOffloadListener: ExoPlayer.AudioOffloadListener,
-        service: Service,
-    ): DefaultAudioSink {
-        return wearMedia3Factory.audioSink(
-            audioOffloadListener = audioOffloadListener,
-        ).also { audioSink ->
-            if (service is LifecycleOwner) {
-                service.lifecycle.addObserver(
-                    object : DefaultLifecycleObserver {
-                        override fun onStop(owner: LifecycleOwner) {
-                            audioSink.reset()
-                        }
-                    },
-                )
-            }
+        if (appConfig.offloadEnabled && Build.VERSION.SDK_INT >= 30) {
+          serviceCoroutineScope.launch { audioOffloadManager.get().connect(this@apply) }
         }
+      }
+
+  @ServiceScoped
+  @Provides
+  fun serviceCoroutineScope(service: Service): CoroutineScope {
+    return (service as LifecycleOwner).lifecycleScope
+  }
+
+  @ServiceScoped
+  @Provides
+  fun librarySessionCallback(
+    logger: ErrorReporter,
+    serviceCoroutineScope: CoroutineScope,
+  ): MediaLibrarySession.Callback = UampMediaLibrarySessionCallback(serviceCoroutineScope, logger)
+
+  @ServiceScoped
+  @Provides
+  fun mediaLibrarySession(
+    service: Service,
+    player: Player,
+    librarySessionCallback: MediaLibrarySession.Callback,
+    intentBuilder: IntentBuilder,
+  ): MediaLibrarySession =
+    MediaLibrarySession.Builder(service as MediaLibraryService, player, librarySessionCallback)
+      .setSessionActivity(intentBuilder.buildPlayerIntent())
+      .build()
+      .also {
+        (service as LifecycleOwner)
+          .lifecycle
+          .addObserver(
+            object : DefaultLifecycleObserver {
+              override fun onDestroy(owner: LifecycleOwner) {
+                it.release()
+              }
+            }
+          )
+      }
+
+  @ServiceScoped
+  @Provides
+  fun audioSink(
+    wearMedia3Factory: WearMedia3Factory,
+    audioOffloadListener: ExoPlayer.AudioOffloadListener,
+    service: Service,
+  ): DefaultAudioSink {
+    return wearMedia3Factory.audioSink(audioOffloadListener = audioOffloadListener).also { audioSink
+      ->
+      if (service is LifecycleOwner) {
+        service.lifecycle.addObserver(
+          object : DefaultLifecycleObserver {
+            override fun onStop(owner: LifecycleOwner) {
+              audioSink.reset()
+            }
+          }
+        )
+      }
     }
+  }
 }

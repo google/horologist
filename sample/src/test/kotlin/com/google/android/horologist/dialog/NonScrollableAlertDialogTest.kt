@@ -25,78 +25,70 @@ import org.junit.Test
 import org.robolectric.annotation.Config
 
 class NonScrollableAlertDialogTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
-    public override val tolerance: Float = 0.01f
+  public override val tolerance: Float = 0.01f
 
-    override fun testName(suffix: String): String =
-        "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName.substringBefore('[')}_${device.id}$suffix.png"
+  override fun testName(suffix: String): String =
+    "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName.substringBefore('[')}_${device.id}$suffix.png"
 
-    // Not actually non scrolling - but should only be used when developer is confident that
-    // content won't scroll
+  // Not actually non scrolling - but should only be used when developer is confident that
+  // content won't scroll
 
-    @Test
-    fun turnOnBluetoothScrollable() = runTest {
-        AlertContent(
-            title = "Turn on Bluetooth?",
-            onOk = {},
-            onCancel = {},
-        )
-    }
+  @Test
+  fun turnOnBluetoothScrollable() = runTest {
+    AlertContent(title = "Turn on Bluetooth?", onOk = {}, onCancel = {})
+  }
 
-    @Test
-    fun turnOnBluetooth() = runTest {
-        NonScrollableAlertContent(
-            title = "Turn on Bluetooth?",
-            onOk = {},
-            onCancel = {},
-        )
-    }
+  @Test
+  fun turnOnBluetooth() = runTest {
+    NonScrollableAlertContent(title = "Turn on Bluetooth?", onOk = {}, onCancel = {})
+  }
 
-    @Test
-    fun changeAudioOutputEn() = runTest {
-        NonScrollableAlertContent(
-            title = stringResource(horologist_volume_screen_change_audio_output),
-            onOk = {},
-            onCancel = {},
-        )
-    }
+  @Test
+  fun changeAudioOutputEn() = runTest {
+    NonScrollableAlertContent(
+      title = stringResource(horologist_volume_screen_change_audio_output),
+      onOk = {},
+      onCancel = {},
+    )
+  }
 
-    @Test
-    @Config(qualifiers = "+ka")
-    fun changeAudioOutputKa() = runTest {
-        NonScrollableAlertContent(
-            title = stringResource(horologist_volume_screen_change_audio_output),
-            onOk = {},
-            onCancel = {},
-        )
-    }
+  @Test
+  @Config(qualifiers = "+ka")
+  fun changeAudioOutputKa() = runTest {
+    NonScrollableAlertContent(
+      title = stringResource(horologist_volume_screen_change_audio_output),
+      onOk = {},
+      onCancel = {},
+    )
+  }
 
-    @Test
-    @Config(qualifiers = "+ta")
-    fun changeAudioOutputTa() = runTest {
-        NonScrollableAlertContent(
-            title = stringResource(horologist_volume_screen_change_audio_output),
-            onOk = {},
-            onCancel = {},
-        )
-    }
+  @Test
+  @Config(qualifiers = "+ta")
+  fun changeAudioOutputTa() = runTest {
+    NonScrollableAlertContent(
+      title = stringResource(horologist_volume_screen_change_audio_output),
+      onOk = {},
+      onCancel = {},
+    )
+  }
 
-    @Test
-    @Config(qualifiers = "+ru")
-    fun changeAudioOutputRu() = runTest {
-        NonScrollableAlertContent(
-            title = stringResource(horologist_volume_screen_change_audio_output),
-            onOk = {},
-            onCancel = {},
-        )
-    }
+  @Test
+  @Config(qualifiers = "+ru")
+  fun changeAudioOutputRu() = runTest {
+    NonScrollableAlertContent(
+      title = stringResource(horologist_volume_screen_change_audio_output),
+      onOk = {},
+      onCancel = {},
+    )
+  }
 
-    @Test
-    fun tooLong() = runTest {
-        NonScrollableAlertContent(
-            title = "Phone app is required",
-            onCancel = {},
-            onOk = {},
-            message = "Tap the button below to install it on your phone.",
-        )
-    }
+  @Test
+  fun tooLong() = runTest {
+    NonScrollableAlertContent(
+      title = "Phone app is required",
+      onCancel = {},
+      onOk = {},
+      message = "Tap the button below to install it on your phone.",
+    )
+  }
 }

@@ -54,174 +54,157 @@ import com.google.android.horologist.datalayer.sample.R
 
 @Composable
 fun ReEngageCustomPromptDemoScreen(
-    modifier: Modifier = Modifier,
-    viewModel: ReEngageCustomPromptDemoViewModel = hiltViewModel(),
+  modifier: Modifier = Modifier,
+  viewModel: ReEngageCustomPromptDemoViewModel = hiltViewModel(),
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    if (state == ReEngageCustomPromptDemoScreenState.Idle) {
-        SideEffect {
-            viewModel.initialize()
-        }
-    }
+  if (state == ReEngageCustomPromptDemoScreenState.Idle) {
+    SideEffect { viewModel.initialize() }
+  }
 
-    ReEngageCustomPromptDemoScreen(
-        state = state,
-        onRunDemoClick = viewModel::onRunDemoClick,
-        onPromptPositiveButtonClick = viewModel::onPromptPositiveButtonClick,
-        onPromptDismiss = viewModel::onPromptDismiss,
-        modifier = modifier,
-    )
+  ReEngageCustomPromptDemoScreen(
+    state = state,
+    onRunDemoClick = viewModel::onRunDemoClick,
+    onPromptPositiveButtonClick = viewModel::onPromptPositiveButtonClick,
+    onPromptDismiss = viewModel::onPromptDismiss,
+    modifier = modifier,
+  )
 }
 
 @Composable
 fun ReEngageCustomPromptDemoScreen(
-    state: ReEngageCustomPromptDemoScreenState,
-    onRunDemoClick: () -> Unit,
-    onPromptPositiveButtonClick: (nodeId: String) -> Unit,
-    onPromptDismiss: () -> Unit,
-    modifier: Modifier = Modifier,
+  state: ReEngageCustomPromptDemoScreenState,
+  onRunDemoClick: () -> Unit,
+  onPromptPositiveButtonClick: (nodeId: String) -> Unit,
+  onPromptDismiss: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    Column(
-        modifier = modifier.padding(all = 10.dp),
+  Column(modifier = modifier.padding(all = 10.dp)) {
+    Text(text = stringResource(id = R.string.reengage_custom_prompt_api_call_demo_message))
+
+    Button(
+      onClick = onRunDemoClick,
+      modifier = Modifier.padding(top = 10.dp).align(Alignment.CenterHorizontally),
+      enabled = state != ReEngageCustomPromptDemoScreenState.ApiNotAvailable,
     ) {
-        Text(text = stringResource(id = R.string.reengage_custom_prompt_api_call_demo_message))
-
-        Button(
-            onClick = onRunDemoClick,
-            modifier = Modifier
-                .padding(top = 10.dp)
-                .align(Alignment.CenterHorizontally),
-            enabled = state != ReEngageCustomPromptDemoScreenState.ApiNotAvailable,
-        ) {
-            Text(text = stringResource(id = R.string.reengage_custom_prompt_run_demo_button_label))
-        }
-
-        when (state) {
-            ReEngageCustomPromptDemoScreenState.Idle,
-            ReEngageCustomPromptDemoScreenState.Loaded,
-            -> {
-                /* do nothing */
-            }
-
-            ReEngageCustomPromptDemoScreenState.Loading -> {
-                CircularProgressIndicator()
-            }
-
-            is ReEngageCustomPromptDemoScreenState.WatchFound -> {
-                val sheetState = rememberModalBottomSheetState()
-
-                ModalBottomSheet(
-                    onDismissRequest = onPromptDismiss,
-                    modifier = modifier,
-                    sheetState = sheetState,
-                    dragHandle = null,
-                ) {
-                    Column(
-                        modifier = modifier
-                            .padding(16.dp)
-                            .fillMaxWidth()
-                            .verticalScroll(rememberScrollState()),
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .padding(top = 24.dp)
-                                .align(Alignment.CenterHorizontally),
-                        ) {
-                            Icon(imageVector = Icons.Default.Watch, contentDescription = null)
-                        }
-
-                        Text(
-                            text = stringResource(id = R.string.reengage_custom_prompt_demo_prompt_top_message),
-                            modifier = Modifier
-                                .padding(top = 24.dp)
-                                .fillMaxWidth(),
-                            color = MaterialTheme.colorScheme.onSurface,
-                            textAlign = TextAlign.Center,
-                            maxLines = 3,
-                            style = MaterialTheme.typography.titleLarge,
-                        )
-
-                        Text(
-                            text = stringResource(id = R.string.reengage_custom_prompt_demo_prompt_bottom_message),
-                            modifier = Modifier
-                                .padding(top = 16.dp)
-                                .fillMaxWidth(),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            textAlign = TextAlign.Center,
-                            maxLines = 3,
-                            style = MaterialTheme.typography.bodyLarge,
-                        )
-
-                        Spacer(modifier = Modifier.height(24.dp))
-
-                        Row(
-                            modifier = Modifier
-                                .padding(horizontal = 16.dp)
-                                .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.End,
-                        ) {
-                            TextButton(
-                                onClick = onPromptDismiss,
-                                modifier = Modifier
-                                    .padding(end = 12.dp),
-                            ) {
-                                Text(text = stringResource(id = R.string.reengage_custom_prompt_demo_prompt_dismiss_button_label))
-                            }
-
-                            Button(
-                                onClick = {
-                                    onPromptPositiveButtonClick(state.nodeId)
-                                },
-                            ) {
-                                Text(text = stringResource(id = R.string.reengage_custom_prompt_demo_prompt_confirm_button_label))
-                            }
-                        }
-                    }
-                }
-            }
-
-            ReEngageCustomPromptDemoScreenState.WatchNotFound -> {
-                Text(
-                    stringResource(
-                        id = R.string.reengage_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.reengage_custom_prompt_demo_no_watches_found_label),
-                    ),
-                )
-            }
-
-            ReEngageCustomPromptDemoScreenState.PromptPositiveButtonClicked -> {
-                Text(
-                    stringResource(
-                        id = R.string.reengage_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.reengage_custom_prompt_demo_prompt_positive_result_label),
-                    ),
-                )
-            }
-
-            ReEngageCustomPromptDemoScreenState.PromptDismissed -> {
-                Text(
-                    stringResource(
-                        id = R.string.reengage_custom_prompt_demo_result_label,
-                        stringResource(id = R.string.reengage_custom_prompt_demo_prompt_dismiss_result_label),
-                    ),
-                )
-            }
-
-            ReEngageCustomPromptDemoScreenState.ApiNotAvailable -> {
-                Text(stringResource(id = R.string.wearable_message_api_unavailable))
-            }
-        }
+      Text(text = stringResource(id = R.string.reengage_custom_prompt_run_demo_button_label))
     }
+
+    when (state) {
+      ReEngageCustomPromptDemoScreenState.Idle,
+      ReEngageCustomPromptDemoScreenState.Loaded -> {
+        /* do nothing */
+      }
+
+      ReEngageCustomPromptDemoScreenState.Loading -> {
+        CircularProgressIndicator()
+      }
+
+      is ReEngageCustomPromptDemoScreenState.WatchFound -> {
+        val sheetState = rememberModalBottomSheetState()
+
+        ModalBottomSheet(
+          onDismissRequest = onPromptDismiss,
+          modifier = modifier,
+          sheetState = sheetState,
+          dragHandle = null,
+        ) {
+          Column(
+            modifier = modifier.padding(16.dp).fillMaxWidth().verticalScroll(rememberScrollState())
+          ) {
+            Box(modifier = Modifier.padding(top = 24.dp).align(Alignment.CenterHorizontally)) {
+              Icon(imageVector = Icons.Default.Watch, contentDescription = null)
+            }
+
+            Text(
+              text = stringResource(id = R.string.reengage_custom_prompt_demo_prompt_top_message),
+              modifier = Modifier.padding(top = 24.dp).fillMaxWidth(),
+              color = MaterialTheme.colorScheme.onSurface,
+              textAlign = TextAlign.Center,
+              maxLines = 3,
+              style = MaterialTheme.typography.titleLarge,
+            )
+
+            Text(
+              text =
+                stringResource(id = R.string.reengage_custom_prompt_demo_prompt_bottom_message),
+              modifier = Modifier.padding(top = 16.dp).fillMaxWidth(),
+              color = MaterialTheme.colorScheme.onSurfaceVariant,
+              textAlign = TextAlign.Center,
+              maxLines = 3,
+              style = MaterialTheme.typography.bodyLarge,
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Row(
+              modifier = Modifier.padding(horizontal = 16.dp).fillMaxWidth(),
+              horizontalArrangement = Arrangement.End,
+            ) {
+              TextButton(onClick = onPromptDismiss, modifier = Modifier.padding(end = 12.dp)) {
+                Text(
+                  text =
+                    stringResource(
+                      id = R.string.reengage_custom_prompt_demo_prompt_dismiss_button_label
+                    )
+                )
+              }
+
+              Button(onClick = { onPromptPositiveButtonClick(state.nodeId) }) {
+                Text(
+                  text =
+                    stringResource(
+                      id = R.string.reengage_custom_prompt_demo_prompt_confirm_button_label
+                    )
+                )
+              }
+            }
+          }
+        }
+      }
+
+      ReEngageCustomPromptDemoScreenState.WatchNotFound -> {
+        Text(
+          stringResource(
+            id = R.string.reengage_custom_prompt_demo_result_label,
+            stringResource(id = R.string.reengage_custom_prompt_demo_no_watches_found_label),
+          )
+        )
+      }
+
+      ReEngageCustomPromptDemoScreenState.PromptPositiveButtonClicked -> {
+        Text(
+          stringResource(
+            id = R.string.reengage_custom_prompt_demo_result_label,
+            stringResource(id = R.string.reengage_custom_prompt_demo_prompt_positive_result_label),
+          )
+        )
+      }
+
+      ReEngageCustomPromptDemoScreenState.PromptDismissed -> {
+        Text(
+          stringResource(
+            id = R.string.reengage_custom_prompt_demo_result_label,
+            stringResource(id = R.string.reengage_custom_prompt_demo_prompt_dismiss_result_label),
+          )
+        )
+      }
+
+      ReEngageCustomPromptDemoScreenState.ApiNotAvailable -> {
+        Text(stringResource(id = R.string.wearable_message_api_unavailable))
+      }
+    }
+  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ReEngageCustomPromptDemoScreenPreview() {
-    ReEngageCustomPromptDemoScreen(
-        state = ReEngageCustomPromptDemoScreenState.Idle,
-        onRunDemoClick = { },
-        onPromptPositiveButtonClick = { },
-        onPromptDismiss = { },
-    )
+  ReEngageCustomPromptDemoScreen(
+    state = ReEngageCustomPromptDemoScreenState.Idle,
+    onRunDemoClick = {},
+    onPromptPositiveButtonClick = {},
+    onPromptDismiss = {},
+  )
 }

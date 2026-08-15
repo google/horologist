@@ -32,120 +32,120 @@ import org.junit.Test
 
 class StreamlineSignInViewModelTest {
 
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
+  @get:Rule val mainDispatcherRule = MainDispatcherRule()
 
-    private val fakeAuthUserRepository = AuthUserRepositoryStub()
+  private val fakeAuthUserRepository = AuthUserRepositoryStub()
 
-    private lateinit var sut: StreamlineSignInViewModel
+  private lateinit var sut: StreamlineSignInViewModel
 
-    @Before
-    fun setUp() {
-        sut = StreamlineSignInViewModel(fakeAuthUserRepository)
+  @Before
+  fun setUp() {
+    sut = StreamlineSignInViewModel(fakeAuthUserRepository)
+  }
+
+  @Test
+  fun givenInitialState_thenStateIsIdle() {
+    // when
+    val result = sut.uiState.value
+
+    // then
+    assertThat(result).isEqualTo(StreamlineSignInScreenState.Idle)
+  }
+
+  @Test
+  fun givenInitialState_whenOnIdleStateObserved_thenStateIsLoading() = runTest {
+    // when
+    val whenBlock = { sut.onIdleStateObserved() }
+
+    // then
+    sut.uiState.test {
+      skipItems(1)
+
+      whenBlock()
+
+      assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.Loading)
+
+      skipItems(1)
     }
+  }
 
-    @Test
-    fun givenInitialState_thenStateIsIdle() {
-        // when
-        val result = sut.uiState.value
+  @Test
+  fun givenNonIdleState_whenOnIdleStateObserved_thenStateIsTheSame() = runTest {
+    // when
+    sut.onIdleStateObserved()
+    val whenBlock = { sut.onIdleStateObserved() }
 
-        // then
-        assertThat(result).isEqualTo(StreamlineSignInScreenState.Idle)
+    // then
+    sut.uiState.test {
+      assertThat(awaitItem()).isNotEqualTo(StreamlineSignInScreenState.Idle)
+
+      whenBlock()
+
+      expectNoEvents()
     }
+  }
 
-    @Test
-    fun givenInitialState_whenOnIdleStateObserved_thenStateIsLoading() = runTest {
-        // when
-        val whenBlock = { sut.onIdleStateObserved() }
+  @Test
+  fun givenNoAccountsAvailable_whenOnIdleStateObserved_thenStateIsNoAccountsAvailable() = runTest {
+    // when
+    sut.onIdleStateObserved()
 
-        // then
-        sut.uiState.test {
-            skipItems(1)
-
-            whenBlock()
-
-            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.Loading)
-
-            skipItems(1)
-        }
+    // then
+    sut.uiState.test {
+      assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.NoAccountsAvailable)
     }
+  }
 
-    @Test
-    fun givenNonIdleState_whenOnIdleStateObserved_thenStateIsTheSame() = runTest {
-        // when
-        sut.onIdleStateObserved()
-        val whenBlock = { sut.onIdleStateObserved() }
+  @Test
+  fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() =
+    runTest {
+      // given
+      val email = "user@example.com"
+      val name = "Name"
+      fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email, displayName = name))
 
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isNotEqualTo(StreamlineSignInScreenState.Idle)
+      // when
+      sut.onIdleStateObserved()
 
-            whenBlock()
-
-            expectNoEvents()
-        }
-    }
-
-    @Test
-    fun givenNoAccountsAvailable_whenOnIdleStateObserved_thenStateIsNoAccountsAvailable() = runTest {
-        // when
-        sut.onIdleStateObserved()
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(StreamlineSignInScreenState.NoAccountsAvailable)
-        }
-    }
-
-    @Test
-    fun givenSingleAccountAvailable_whenOnIdleStateObserved_thenStateIsSingleAccountAvailable() = runTest {
-        // given
-        val email = "user@example.com"
-        val name = "Name"
-        fakeAuthUserRepository.authUserList = listOf(AuthUser(email = email, displayName = name))
-
-        // when
-        sut.onIdleStateObserved()
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(
-                StreamlineSignInScreenState.SingleAccountAvailable(
-                    AccountUiModel(
-                        email = email,
-                        name = name,
-                    ),
-                ),
+      // then
+      sut.uiState.test {
+        assertThat(awaitItem())
+          .isEqualTo(
+            StreamlineSignInScreenState.SingleAccountAvailable(
+              AccountUiModel(email = email, name = name)
             )
-        }
+          )
+      }
     }
 
-    @Test
-    fun givenMultipleAccountsAvailable_whenOnIdleStateObserved_thenStateIsMultipleAccountsAvailable() = runTest {
-        // given
-        val email1 = "user1@example.com"
-        val email2 = "user2@example.com"
-        val name1 = "Name1"
-        val name2 = "Name2"
-        fakeAuthUserRepository.authUserList =
-            listOf(
-                AuthUser(email = email1, displayName = name1),
-                AuthUser(email = email2, displayName = name2),
-            )
+  @Test
+  fun givenMultipleAccountsAvailable_whenOnIdleStateObserved_thenStateIsMultipleAccountsAvailable() =
+    runTest {
+      // given
+      val email1 = "user1@example.com"
+      val email2 = "user2@example.com"
+      val name1 = "Name1"
+      val name2 = "Name2"
+      fakeAuthUserRepository.authUserList =
+        listOf(
+          AuthUser(email = email1, displayName = name1),
+          AuthUser(email = email2, displayName = name2),
+        )
 
-        // when
-        sut.onIdleStateObserved()
+      // when
+      sut.onIdleStateObserved()
 
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(
-                StreamlineSignInScreenState.MultipleAccountsAvailable(
-                    listOf(
-                        AccountUiModel(email = email1, name = name1),
-                        AccountUiModel(email = email2, name = name2),
-                    ),
-                ),
+      // then
+      sut.uiState.test {
+        assertThat(awaitItem())
+          .isEqualTo(
+            StreamlineSignInScreenState.MultipleAccountsAvailable(
+              listOf(
+                AccountUiModel(email = email1, name = name1),
+                AccountUiModel(email = email2, name = name2),
+              )
             )
-        }
+          )
+      }
     }
 }

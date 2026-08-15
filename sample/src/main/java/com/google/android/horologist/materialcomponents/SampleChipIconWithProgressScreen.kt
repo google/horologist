@@ -24,15 +24,10 @@ import com.google.android.horologist.compose.material.ChipIconWithProgress
 
 @Composable
 internal fun SampleChipIconWithProgressScreen(
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
+  modifier: Modifier = Modifier,
+  columnState: ScalingLazyColumnState,
 ) {
-    ScalingLazyColumn(
-        columnState = columnState,
-        modifier = modifier,
-    ) {
-        item {
-            ChipIconWithProgress()
-        }
-    }
+  ScalingLazyColumn(columnState = columnState, modifier = modifier) {
+    item { ChipIconWithProgress() }
+  }
 }

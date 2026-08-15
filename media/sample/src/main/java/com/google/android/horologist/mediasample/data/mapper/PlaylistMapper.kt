@@ -19,24 +19,22 @@ package com.google.android.horologist.mediasample.data.mapper
 import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.mediasample.data.api.model.CatalogApiModel
 
-/**
- * Maps a [CatalogApiModel] into a [List] of [Playlist].
- */
+/** Maps a [CatalogApiModel] into a [List] of [Playlist]. */
 object PlaylistMapper {
 
-    fun map(catalog: CatalogApiModel): List<Playlist> =
-        catalog.music
-            .groupBy { it.genre }
-            .map { entry ->
-                Playlist(
-                    id = sanitize(entry.key),
-                    name = entry.key,
-                    artworkUri = entry.value.firstOrNull()?.image,
-                    mediaList = entry.value.map(MediaMapper::map),
-                )
-            }
+  fun map(catalog: CatalogApiModel): List<Playlist> =
+    catalog.music
+      .groupBy { it.genre }
+      .map { entry ->
+        Playlist(
+          id = sanitize(entry.key),
+          name = entry.key,
+          artworkUri = entry.value.firstOrNull()?.image,
+          mediaList = entry.value.map(MediaMapper::map),
+        )
+      }
 
-    private fun sanitize(it: String): String {
-        return it.replace("[^A-Za-z]".toRegex(), "")
-    }
+  private fun sanitize(it: String): String {
+    return it.replace("[^A-Za-z]".toRegex(), "")
+  }
 }

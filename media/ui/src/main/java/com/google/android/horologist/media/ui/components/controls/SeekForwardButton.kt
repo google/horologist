@@ -29,29 +29,32 @@ import com.google.android.horologist.media.ui.model.R
 @ExperimentalHorologistApi
 @Composable
 public fun SeekForwardButton(
-    onClick: () -> Unit,
-    seekButtonIncrement: SeekButtonIncrement,
-    modifier: Modifier = Modifier,
-    icon: ImageVector = MediaButtonDefaults.seekForwardIcon(seekButtonIncrement),
-    enabled: Boolean = true,
-    colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
-    iconSize: Dp = 32.dp,
+  onClick: () -> Unit,
+  seekButtonIncrement: SeekButtonIncrement,
+  modifier: Modifier = Modifier,
+  icon: ImageVector = MediaButtonDefaults.seekForwardIcon(seekButtonIncrement),
+  enabled: Boolean = true,
+  colors: ButtonColors = MediaButtonDefaults.mediaButtonDefaultColors,
+  iconSize: Dp = 32.dp,
 ) {
-    val contentDescription = when (seekButtonIncrement) {
-        is SeekButtonIncrement.Known -> stringResource(
-            id = R.string.horologist_seek_forward_button_seconds_content_description,
-            seekButtonIncrement.seconds,
+  val contentDescription =
+    when (seekButtonIncrement) {
+      is SeekButtonIncrement.Known ->
+        stringResource(
+          id = R.string.horologist_seek_forward_button_seconds_content_description,
+          seekButtonIncrement.seconds,
         )
-        SeekButtonIncrement.Unknown -> stringResource(id = R.string.horologist_seek_forward_button_content_description)
+      SeekButtonIncrement.Unknown ->
+        stringResource(id = R.string.horologist_seek_forward_button_content_description)
     }
 
-    MediaButton(
-        onClick = onClick,
-        icon = icon,
-        contentDescription = contentDescription,
-        modifier = modifier,
-        enabled = enabled,
-        colors = colors,
-        iconSize = iconSize,
-    )
+  MediaButton(
+    onClick = onClick,
+    icon = icon,
+    contentDescription = contentDescription,
+    modifier = modifier,
+    enabled = enabled,
+    colors = colors,
+    iconSize = iconSize,
+  )
 }

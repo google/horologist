@@ -16,18 +16,18 @@
 
 package com.google.android.horologist.audio.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import androidx.wear.compose.ui.tooling.preview.WearPreviewFontScales
 import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
-import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.audio.AudioOutput
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
@@ -35,117 +35,72 @@ import com.google.android.horologist.audio.ui.mapper.VolumeUiStateMapper
 import com.google.android.horologist.compose.tools.ThemeValues
 import com.google.android.horologist.compose.tools.WearPreviewThemes
 
-@WearPreviewSmallRound
+@WearPreviewDevices
 @Composable
-fun VolumeScreenGuideWithLongText() {
-    val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
-
-    Box(modifier = Modifier.fillMaxSize()) {
-        Scaffold(
-            positionIndicator = {
-                VolumePositionIndicator(
-                    volumeUiState = { volumeUiState },
-                )
-            },
-        ) {
-            VolumeScreen(
-                volume = { volumeUiState },
-                audioOutputUi = AudioOutput.BluetoothHeadset(id = "1", name = "Galaxy Watch 4")
-                    .toAudioOutputUi(),
-                increaseVolume = { },
-                decreaseVolume = { },
-                onAudioOutputClick = {},
-            )
-        }
+fun VolumeScreenPreview() {
+  val volumeUiState = VolumeUiStateMapper.map(volumeState = VolumeState(5, 10))
+  Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
+    Scaffold(positionIndicator = { VolumePositionIndicator(volumeUiState = { volumeUiState }) }) {
+      VolumeScreen(
+        volume = { volumeUiState },
+        audioOutputUi = AudioOutput.BluetoothHeadset("1", "PixelBuds Pro").toAudioOutputUi(),
+        increaseVolume = {},
+        decreaseVolume = {},
+        onAudioOutputClick = {},
+      )
     }
+  }
 }
 
-@WearPreviewDevices
 @WearPreviewFontScales
 @Composable
-fun VolumeScreenPreview(
-    @PreviewParameter(AudioOutputProvider::class) audioOutput: AudioOutput,
-) {
-    val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
-
-    Scaffold(
-        positionIndicator = {
-            VolumePositionIndicator(
-                volumeUiState = { volumeUiState },
-            )
-        },
-    ) {
-        VolumeScreen(
-            volume = { volumeUiState },
-            audioOutputUi = audioOutput.toAudioOutputUi(),
-            increaseVolume = { },
-            decreaseVolume = { },
-            onAudioOutputClick = {},
-        )
+fun VolumeScreenLongLabelPreview() {
+  val volumeUiState = VolumeUiStateMapper.map(volumeState = VolumeState(5, 10))
+  Box(modifier = Modifier.fillMaxSize().background(Color.Black)) {
+    Scaffold(positionIndicator = { VolumePositionIndicator(volumeUiState = { volumeUiState }) }) {
+      VolumeScreen(
+        volume = { volumeUiState },
+        audioOutputUi =
+          AudioOutput.BluetoothHeadset("2", "Sennheiser Momentum Wireless Plus").toAudioOutputUi(),
+        increaseVolume = {},
+        decreaseVolume = {},
+        onAudioOutputClick = {},
+      )
     }
+  }
 }
 
 @WearPreviewLargeRound
 @Composable
-fun VolumeScreenTheme(
-    @PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues,
-) {
-    val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
+fun VolumeScreenTheme(@PreviewParameter(WearPreviewThemes::class) themeValues: ThemeValues) {
+  val volume = VolumeState(5, 10)
+  val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
 
-    MaterialTheme(themeValues.colors) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            Scaffold(
-                positionIndicator = {
-                    VolumePositionIndicator(
-                        volumeUiState = { volumeUiState },
-                    )
-                },
-            ) {
-                VolumeScreen(
-                    volume = { volumeUiState },
-                    audioOutputUi = AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds")
-                        .toAudioOutputUi(),
-                    increaseVolume = { },
-                    decreaseVolume = { },
-                    onAudioOutputClick = {},
-                )
-            }
-        }
+  MaterialTheme(themeValues.colors) {
+    Box(modifier = Modifier.fillMaxSize()) {
+      Scaffold(positionIndicator = { VolumePositionIndicator(volumeUiState = { volumeUiState }) }) {
+        VolumeScreen(
+          volume = { volumeUiState },
+          audioOutputUi =
+            AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds").toAudioOutputUi(),
+          increaseVolume = {},
+          decreaseVolume = {},
+          onAudioOutputClick = {},
+        )
+      }
     }
+  }
 }
 
 @WearPreviewDevices
-@WearPreviewFontScales
 @Composable
 fun VolumeScreenWithLabel() {
-    val volume = VolumeState(5, 10)
-    val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
+  val volume = VolumeState(5, 10)
+  val volumeUiState = VolumeUiStateMapper.map(volumeState = volume)
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Scaffold(
-            positionIndicator = {
-                VolumePositionIndicator(
-                    volumeUiState = { volumeUiState },
-                )
-            },
-        ) {
-            VolumeWithLabelScreen(
-                volume = { volumeUiState },
-                increaseVolume = { },
-                decreaseVolume = { },
-            )
-        }
+  Box(modifier = Modifier.fillMaxSize()) {
+    Scaffold(positionIndicator = { VolumePositionIndicator(volumeUiState = { volumeUiState }) }) {
+      VolumeWithLabelScreen(volume = { volumeUiState }, increaseVolume = {}, decreaseVolume = {})
     }
-}
-
-class AudioOutputProvider : PreviewParameterProvider<AudioOutput> {
-    override val values = sequenceOf(
-        AudioOutput.BluetoothHeadset(id = "1", name = "PixelBuds"),
-        AudioOutput.WatchSpeaker(id = "2", name = "Galaxy Watch 4"),
-        AudioOutput.WatchSpeaker(id = "2", name = "Galaxy Watch 4", true),
-        AudioOutput.BluetoothHeadset(id = "3", name = "Sennheiser Momentum Wireless"),
-    )
+  }
 }

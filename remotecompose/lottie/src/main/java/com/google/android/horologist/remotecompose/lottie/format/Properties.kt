@@ -20,88 +20,174 @@ import androidx.annotation.ColorInt
 import androidx.compose.remote.creation.compose.state.RemoteColor
 import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.ui.graphics.Color
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Base class for all animatable properties.
  *
  * This class is used to detect whether a property is animated or not for deserialization.
  */
-@JsonClass(generateAdapter = true, generator = "sealed:type")
-sealed class AnimatableProperty {
+@Serializable
+internal sealed class AnimatableProperty {
   abstract val animated: Boolean
 }
 
+/** Base class for scalar (single Float) properties. */
+@Serializable(with = BaseScalarPropertySerializer::class)
+internal sealed class BaseScalarProperty : AnimatableProperty() {
+  abstract override val animated: Boolean
+}
+
 /** A single float value that is not animated */
-@JsonClass(generateAdapter = true)
-data class StaticScalarProperty(
-  @param:Json(name = "s") val slotId: String? = null,
-  val animated: Boolean = false,
-  @param:Json(name = "k") val value: Float,
+@Serializable(with = StaticScalarPropertySerializer::class)
+internal data class StaticScalarProperty(
+  @SerialName("sid") val slotId: String? = null,
+  override val animated: Boolean = false,
+  @SerialName("k") val value: Float = 0f,
+) : BaseScalarProperty()
+
+/** An animated scalar property with keyframes. */
+@Serializable
+internal data class AnimatedScalarProperty(
+  @SerialName("sid") val slotId: String? = null,
+  @SerialName("a") val animatedInt: Int = 1,
+  @SerialName("k") val keyframes: List<ScalarPropertyKeyframe>,
+) : BaseScalarProperty() {
+  override val animated: Boolean
+    get() = animatedInt == 1
+}
+
+/** A single keyframe for an animated scalar property. */
+@Serializable(with = ScalarPropertyKeyframeSerializer::class)
+internal data class ScalarPropertyKeyframe(
+  @SerialName("t") val frame: Float = 0f,
+  @SerialName("h") val hold: Boolean = false,
+  @SerialName("i") val inTangent: ScalarKeyframeEasing? = null,
+  @SerialName("o") val outTangent: ScalarKeyframeEasing? = null,
+  @SerialName("s") val value: Float = 0f,
 )
 
 /** A vector property is an array of floats. */
-@JsonClass(generateAdapter = true, generator = "sealed:type")
-sealed class BaseVectorProperty : AnimatableProperty() {
+@Serializable(with = BaseVectorPropertySerializer::class)
+internal sealed class BaseVectorProperty : AnimatableProperty() {
   abstract override val animated: Boolean
 }
 
 /** A static array of floats. */
-@JsonClass(generateAdapter = true)
-data class StaticVectorProperty(
-  @param:Json(name = "s") val slotId: String? = null,
-  override val animated: Boolean = false,
-  @param:Json(name = "k") val value: FloatArray,
-) : BaseVectorProperty()
+@Serializable
+internal data class StaticVectorProperty(
+  @SerialName("sid") val slotId: String? = null,
+  @SerialName("a") val animatedInt: Int = 0,
+  @SerialName("k") val value: FloatArray,
+) : BaseVectorProperty() {
+  override val animated: Boolean
+    get() = animatedInt == 1
+
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (javaClass != other?.javaClass) return false
+    other as StaticVectorProperty
+    if (slotId != other.slotId) return false
+    if (!value.contentEquals(other.value)) return false
+    return true
+  }
+
+  override fun hashCode(): Int {
+    var result = slotId?.hashCode() ?: 0
+    result = 31 * result + value.contentHashCode()
+    return result
+  }
+}
 
 /** An animated array of floats. */
-@JsonClass(generateAdapter = true)
-data class AnimatedVectorProperty(
-  @param:Json(name = "s") val slotId: String? = null,
-  override val animated: Boolean = true,
-  @param:Json(name = "k") val keyframes: List<VectorPropertyKeyframe>,
-) : BaseVectorProperty()
+@Serializable
+internal data class AnimatedVectorProperty(
+  @SerialName("sid") val slotId: String? = null,
+  @SerialName("a") val animatedInt: Int = 1,
+  @SerialName("k") val keyframes: List<VectorPropertyKeyframe>,
+) : BaseVectorProperty() {
+  override val animated: Boolean
+    get() = animatedInt == 1
+}
 
 /** A single keyframe for an animated vector property. */
-@JsonClass(generateAdapter = true)
-data class VectorPropertyKeyframe(
-  @param:Json(name = "t") val frame: Float = 0f,
-  @param:Json(name = "h") val hold: Boolean = false,
-  @param:Json(name = "i") val inTangent: ScalarKeyframeEasing? = null,
-  @param:Json(name = "o") val outTangent: ScalarKeyframeEasing? = null,
-  @param:Json(name = "s") val value: FloatArray,
+@Serializable
+internal data class VectorPropertyKeyframe(
+  @SerialName("t") val frame: Float = 0f,
+  @SerialName("h") val hold: Boolean = false,
+  @SerialName("i") val inTangent: ScalarKeyframeEasing? = null,
+  @SerialName("o") val outTangent: ScalarKeyframeEasing? = null,
+  @SerialName("s") val value: FloatArray,
 )
 
-/** A static position property is an array of floats with 2 values - x and y */
-@JsonClass(generateAdapter = true)
-data class StaticPositionProperty(
-  @param:Json(name = "s") val slotId: String? = null,
-  val animated: Boolean = false,
-  @param:Json(name = "k") val value: FloatArray,
-)
+/** A position property is an array of floats (either 2D or 3D). */
+@Serializable(with = BasePositionPropertySerializer::class)
+internal sealed class BasePositionProperty : AnimatableProperty() {
+  abstract override val animated: Boolean
+}
+
+/** A static position property is an array of floats with 2 or 3 values. */
+@Serializable
+internal data class StaticPositionProperty(
+  @SerialName("sid") val slotId: String? = null,
+  @SerialName("a") val animatedInt: Int = 0,
+  @SerialName("k") val value: FloatArray,
+) : BasePositionProperty() {
+  override val animated: Boolean
+    get() = animatedInt == 1
+
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (javaClass != other?.javaClass) return false
+    other as StaticPositionProperty
+    if (slotId != other.slotId) return false
+    if (!value.contentEquals(other.value)) return false
+    return true
+  }
+
+  override fun hashCode(): Int {
+    var result = slotId?.hashCode() ?: 0
+    result = 31 * result + value.contentHashCode()
+    return result
+  }
+}
+
+/** An animated position property with keyframes. */
+@Serializable
+internal data class AnimatedPositionProperty(
+  @SerialName("sid") val slotId: String? = null,
+  @SerialName("a") val animatedInt: Int = 1,
+  @SerialName("k") val keyframes: List<VectorPropertyKeyframe>,
+) : BasePositionProperty() {
+  override val animated: Boolean
+    get() = animatedInt == 1
+}
 
 /** A static color property is an array of floats with 3 or 4 values - r, g, b, a */
-@JsonClass(generateAdapter = true)
-data class StaticColorProperty(
-  @param:Json(name = "sid") val slotId: String? = null,
+@Serializable(with = StaticColorPropertySerializer::class)
+internal data class StaticColorProperty(
+  @SerialName("sid") val slotId: String? = null,
   val animated: Boolean = false,
-  @param:Json(name = "k") val value: RemoteColor,
+  @SerialName("k") val colorInt: Int = 0,
 ) {
+  val value: RemoteColor
+    get() = Color(colorInt).rc
+
   companion object {
     fun fromColor(color: Color): StaticColorProperty {
-      return StaticColorProperty(value = color.rc)
+      return StaticColorProperty(colorInt = color.hashCode())
     }
 
     fun fromColor(@ColorInt color: Int): StaticColorProperty {
-      return StaticColorProperty(value = Color(color).rc)
+      return StaticColorProperty(colorInt = color)
     }
   }
 }
 
 /** A base class for bezier properties. */
-@JsonClass(generateAdapter = true, generator = "sealed:type")
-sealed class BaseBezierProperty : AnimatableProperty() {
+@Serializable(with = BaseBezierPropertySerializer::class)
+internal sealed class BaseBezierProperty : AnimatableProperty() {
   abstract override val animated: Boolean
 }
 
@@ -109,27 +195,34 @@ sealed class BaseBezierProperty : AnimatableProperty() {
  * A static bezier. The value is an array of floats with 4 values, describing the 2 control points
  * of the curve.
  */
-@JsonClass(generateAdapter = true)
-data class StaticBezierProperty(
-  override val animated: Boolean = false,
-  @param:Json(name = "k") val value: BezierValue,
-) : BaseBezierProperty()
+@Serializable
+internal data class StaticBezierProperty(
+  @SerialName("a") val animatedInt: Int = 0,
+  @SerialName("k") val value: BezierValue,
+) : BaseBezierProperty() {
+  override val animated: Boolean
+    get() = animatedInt == 1
+}
 
 /** An animated bezier. */
-@JsonClass(generateAdapter = true)
-data class AnimatedBezierProperty(
-  override val animated: Boolean = true,
-  @param:Json(name = "k") val keyframes: List<BezierKeyframe>,
-) : BaseBezierProperty()
+@Serializable
+internal data class AnimatedBezierProperty(
+  @SerialName("a") val animatedInt: Int = 1,
+  @SerialName("k") val keyframes: List<BezierKeyframe>,
+) : BaseBezierProperty() {
+  override val animated: Boolean
+    get() = animatedInt == 1
+}
 
 /** A single keyframe for an animated bezier property. */
-@JsonClass(generateAdapter = true)
-data class BezierKeyframe(
-  @param:Json(name = "t") val frame: Float = 0f,
-  @param:Json(name = "h") val hold: Boolean = false,
-  @param:Json(name = "i") val inTangent: ScalarKeyframeEasing? = null,
-  @param:Json(name = "o") val outTangent: ScalarKeyframeEasing? = null,
-  @param:Json(name = "s") val value: List<BezierValue>,
+@Serializable
+internal data class BezierKeyframe(
+  @SerialName("t") val frame: Float = 0f,
+  @SerialName("h") val hold: Boolean = false,
+  @SerialName("i") val inTangent: ScalarKeyframeEasing? = null,
+  @SerialName("o") val outTangent: ScalarKeyframeEasing? = null,
+  @SerialName("s") val value: List<BezierValue>,
 )
 
-@JsonClass(generateAdapter = true) data class ScalarKeyframeEasing(val x: Float, val y: Float)
+@Serializable(with = ScalarKeyframeEasingSerializer::class)
+internal data class ScalarKeyframeEasing(val x: Float, val y: Float)

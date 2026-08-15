@@ -37,45 +37,46 @@ import com.google.android.horologist.compose.tools.PreviewTimeSource
 
 @Composable
 fun PageIndicatorAudit(route: AuditNavigation.PageIndicator.Audit) {
-    val pagerState = when (route.config) {
-        TwoDots -> {
-            rememberPagerState { 2 }
-        }
+  val pagerState =
+    when (route.config) {
+      TwoDots -> {
+        rememberPagerState { 2 }
+      }
 
-        FourDots -> {
-            rememberPagerState { 4 }
-        }
+      FourDots -> {
+        rememberPagerState { 4 }
+      }
 
-        Left5Plus -> {
-            rememberPagerState(initialPage = 0) { 100 }
-        }
+      Left5Plus -> {
+        rememberPagerState(initialPage = 0) { 100 }
+      }
 
-        Right5Plus -> {
-            rememberPagerState(initialPage = 99) { 100 }
-        }
+      Right5Plus -> {
+        rememberPagerState(initialPage = 99) { 100 }
+      }
     }
 
-    PagerScreen(pagerState) {
-        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-            Text("This page intentionally left blank.\npage $it", textAlign = TextAlign.Center)
-        }
+  PagerScreen(pagerState) {
+    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+      Text("This page intentionally left blank.\npage $it", textAlign = TextAlign.Center)
     }
+  }
 }
 
 @Composable
 @WearPreviewSmallRound
 @WearPreviewLargeRound
 fun PageIndicatorLeft5PlusAuditPreview() {
-    AppScaffold(timeText = { ResponsiveTimeText(timeSource = PreviewTimeSource) }) {
-        PageIndicatorAudit(AuditNavigation.PageIndicator.Audit(Left5Plus))
-    }
+  AppScaffold(timeText = { ResponsiveTimeText(timeSource = PreviewTimeSource) }) {
+    PageIndicatorAudit(AuditNavigation.PageIndicator.Audit(Left5Plus))
+  }
 }
 
 @Composable
 @WearPreviewSmallRound
 @WearPreviewLargeRound
 fun PageIndicatorRight5PlusAuditPreview() {
-    AppScaffold(timeText = { ResponsiveTimeText(timeSource = PreviewTimeSource) }) {
-        PageIndicatorAudit(AuditNavigation.PageIndicator.Audit(Right5Plus))
-    }
+  AppScaffold(timeText = { ResponsiveTimeText(timeSource = PreviewTimeSource) }) {
+    PageIndicatorAudit(AuditNavigation.PageIndicator.Audit(Right5Plus))
+  }
 }

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.material3.navigation
 
+import androidx.core.net.toUri
 import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavDeepLink
 import androidx.navigation.NavType
@@ -23,143 +24,118 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import androidx.core.net.toUri
 
-/**
- * Navigation routes enum.
- */
-public open class NavigationScreens(
-    public val navRoute: String,
-) {
-    public open val arguments: List<NamedNavArgument> = emptyList()
+/** Navigation routes enum. */
+public open class NavigationScreens(public val navRoute: String) {
+  public open val arguments: List<NamedNavArgument> = emptyList()
 
-    public open fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = emptyList()
+  public open fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = emptyList()
 
-    public object Player : NavigationScreens("player?page={page}") {
-        public fun playerDestination(): String = "player?page=0"
-        public fun libraryDestination(): String = "player?page=1"
+  public object Player : NavigationScreens("player?page={page}") {
+    public fun playerDestination(): String = "player?page=0"
 
-        override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
-            navDeepLink {
-                uriPattern = "$deepLinkPrefix/player?page={page}"
-            },
+    public fun libraryDestination(): String = "player?page=1"
+
+    override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> =
+      listOf(navDeepLink { uriPattern = "$deepLinkPrefix/player?page={page}" })
+
+    public fun getPageParam(route: String): Int? {
+      val uri = "app://$route".toUri()
+      val pageParam = uri.getQueryParameter(page)?.toIntOrNull()
+      return if (pageParam == null || pageParam < 0) null else pageParam
+    }
+
+    public val page: String = "page"
+
+    override val arguments: List<NamedNavArgument>
+      get() =
+        listOf(
+          navArgument(page) {
+            type = NavType.IntType
+            defaultValue = 0
+          }
         )
+  }
 
-        public fun getPageParam(route: String): Int? {
-            val uri = "app://$route".toUri()
-            val pageParam = uri.getQueryParameter(page)?.toIntOrNull()
-            return if (pageParam == null || pageParam < 0) null else pageParam
-        }
+  public object Volume : NavigationScreens("volume") {
+    public fun destination(): String = navRoute
+  }
 
-        public val page: String = "page"
+  public object MediaItem : NavigationScreens("mediaItem?id={id}&collectionId={collectionId}") {
+    public val id: String = "id"
+    public val collectionId: String = "collectionId"
 
-        override val arguments: List<NamedNavArgument>
-            get() = listOf(
-                navArgument(page) {
-                    type = NavType.IntType
-                    defaultValue = 0
-                },
-            )
+    public fun destination(id: String, collectionId: String? = null): String {
+      var route = "mediaItem?id=$id"
+      if (collectionId != null) {
+        route += "&collectionId=$collectionId"
+      }
+      return route
     }
 
-    public object Volume : NavigationScreens("volume") {
-        public fun destination(): String = navRoute
-    }
+    override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> =
+      listOf(
+        navDeepLink { uriPattern = "$deepLinkPrefix/mediaItem?id={id}&collectionId={collectionId}" }
+      )
 
-    public object MediaItem :
-        NavigationScreens("mediaItem?id={id}&collectionId={collectionId}") {
-        public val id: String = "id"
-        public val collectionId: String = "collectionId"
-
-        public fun destination(
-            id: String,
-            collectionId: String? = null,
-        ): String {
-            var route = "mediaItem?id=$id"
-            if (collectionId != null) {
-                route += "&collectionId=$collectionId"
-            }
-            return route
-        }
-
-        override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
-            navDeepLink {
-                uriPattern = "$deepLinkPrefix/mediaItem?id={id}&collectionId={collectionId}"
-            },
+    override val arguments: List<NamedNavArgument>
+      get() =
+        listOf(
+          navArgument(id) { type = NavType.StringType },
+          navArgument(collectionId) {
+            type = NavType.StringType
+            nullable = true
+            defaultValue = null
+          },
         )
+  }
 
-        override val arguments: List<NamedNavArgument>
-            get() = listOf(
-                navArgument(id) {
-                    type = NavType.StringType
-                },
-                navArgument(collectionId) {
-                    type = NavType.StringType
-                    nullable = true
-                    defaultValue = null
-                },
-            )
-    }
+  public object Login : NavigationScreens("login") {
+    public fun destination(): String = navRoute
+  }
 
-    public object Login : NavigationScreens("login") {
-        public fun destination(): String = navRoute
-    }
+  public object Settings : NavigationScreens("settings") {
+    public fun destination(): String = navRoute
+  }
 
-    public object Settings : NavigationScreens("settings") {
-        public fun destination(): String = navRoute
-    }
+  public object Collections : NavigationScreens("collections") {
+    public fun destination(): String = navRoute
+  }
 
-    public object Collections : NavigationScreens("collections") {
-        public fun destination(): String = navRoute
-    }
+  public object Collection : NavigationScreens("collection?id={id}&name={name}") {
 
-    public object Collection : NavigationScreens("collection?id={id}&name={name}") {
+    public const val id: String = "id"
+    public const val name: String = "name"
 
-        public const val id: String = "id"
-        public const val name: String = "name"
+    public fun destination(id: String, name: String): String = "collection?id=$id&name=$name"
 
-        public fun destination(id: String, name: String): String = "collection?id=$id&name=$name"
+    override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> =
+      listOf(navDeepLink { uriPattern = "$deepLinkPrefix/collection?id={id}&name={name}" })
 
-        override fun deepLinks(deepLinkPrefix: String): List<NavDeepLink> = listOf(
-            navDeepLink {
-                uriPattern = "$deepLinkPrefix/collection?id={id}&name={name}"
-            },
+    override val arguments: List<NamedNavArgument>
+      get() =
+        listOf(
+          navArgument(id) { type = NavType.StringType },
+          navArgument(name) { type = NavType.StringType },
         )
-
-        override val arguments: List<NamedNavArgument>
-            get() = listOf(
-                navArgument(id) {
-                    type = NavType.StringType
-                },
-                navArgument(name) {
-                    type = NavType.StringType
-                },
-            )
-    }
+  }
 }
 
-@Serializable
-public data class CustomRoute(val route: String) : MediaRoute
+@Serializable public data class CustomRoute(val route: String) : MediaRoute
 
 public sealed interface MediaRoute : NavKey
 
-@Serializable
-public data class PlayerRoute(val page: Int = 0) : MediaRoute
+@Serializable public data class PlayerRoute(val page: Int = 0) : MediaRoute
 
-@Serializable
-public object VolumeRoute : MediaRoute
+@Serializable public object VolumeRoute : MediaRoute
 
 @Serializable
 public data class MediaItemRoute(val id: String, val collectionId: String? = null) : MediaRoute
 
-@Serializable
-public object LoginRoute : MediaRoute
+@Serializable public object LoginRoute : MediaRoute
 
-@Serializable
-public object SettingsRoute : MediaRoute
+@Serializable public object SettingsRoute : MediaRoute
 
-@Serializable
-public object CollectionsRoute : MediaRoute
+@Serializable public object CollectionsRoute : MediaRoute
 
-@Serializable
-public data class CollectionRoute(val id: String, val name: String) : MediaRoute
+@Serializable public data class CollectionRoute(val id: String, val name: String) : MediaRoute

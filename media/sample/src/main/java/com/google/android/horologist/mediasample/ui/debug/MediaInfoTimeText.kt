@@ -36,64 +36,56 @@ import com.google.android.horologist.networks.ui.curveDataUsage
 
 @Composable
 public fun MediaInfoTimeText(
-    mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel,
-    modifier: Modifier = Modifier,
+  mediaInfoTimeTextViewModel: MediaInfoTimeTextViewModel,
+  modifier: Modifier = Modifier,
 ) {
-    val uiState by mediaInfoTimeTextViewModel.uiState.collectAsStateWithLifecycle()
+  val uiState by mediaInfoTimeTextViewModel.uiState.collectAsStateWithLifecycle()
 
-    if (uiState.enabled) {
-        MediaInfoTimeText(
-            modifier = modifier,
-            networkStatus = uiState.networks,
-            networkUsage = uiState.dataUsageReport,
-            offloadStatus = uiState.audioOffloadStatus,
-            pinnedNetworks = uiState.pinnedNetworks,
-        )
-    } else {
-        TimeText(modifier = modifier)
-    }
+  if (uiState.enabled) {
+    MediaInfoTimeText(
+      modifier = modifier,
+      networkStatus = uiState.networks,
+      networkUsage = uiState.dataUsageReport,
+      offloadStatus = uiState.audioOffloadStatus,
+      pinnedNetworks = uiState.pinnedNetworks,
+    )
+  } else {
+    TimeText(modifier = modifier)
+  }
 }
 
 @Composable
 public fun MediaInfoTimeText(
-    networkStatus: Networks,
-    networkUsage: DataUsageReport?,
-    offloadStatus: AudioOffloadStatus?,
-    pinnedNetworks: Set<NetworkType>,
-    modifier: Modifier = Modifier,
+  networkStatus: Networks,
+  networkUsage: DataUsageReport?,
+  offloadStatus: AudioOffloadStatus?,
+  pinnedNetworks: Set<NetworkType>,
+  modifier: Modifier = Modifier,
 ) {
-    val style = CurvedTextStyle(MaterialTheme.typography.caption3)
-    val context = LocalContext.current
+  val style = CurvedTextStyle(MaterialTheme.typography.caption3)
+  val context = LocalContext.current
 
-    ResponsiveTimeText(
-        modifier = modifier,
-        startCurvedContent = {
-            curveDataUsage(
-                networkStatus = networkStatus,
-                networkUsage = networkUsage,
-                style = style,
-                context = context,
-                pinnedNetworks = pinnedNetworks,
-            )
-        },
-        endCurvedContent = {
-            offloadDataStatus(
-                offloadStatus = offloadStatus,
-                style = style,
-            )
-        },
-    )
+  ResponsiveTimeText(
+    modifier = modifier,
+    startCurvedContent = {
+      curveDataUsage(
+        networkStatus = networkStatus,
+        networkUsage = networkUsage,
+        style = style,
+        context = context,
+        pinnedNetworks = pinnedNetworks,
+      )
+    },
+    endCurvedContent = { offloadDataStatus(offloadStatus = offloadStatus, style = style) },
+  )
 }
 
 @ExperimentalHorologistApi
 public fun CurvedScope.offloadDataStatus(
-    offloadStatus: AudioOffloadStatus?,
-    style: CurvedTextStyle,
+  offloadStatus: AudioOffloadStatus?,
+  style: CurvedTextStyle,
 ) {
-    if (offloadStatus != null) {
-        curvedText(
-            text = offloadStatus.trackOffloadDescription(),
-            style = style,
-        )
-    }
+  if (offloadStatus != null) {
+    curvedText(text = offloadStatus.trackOffloadDescription(), style = style)
+  }
 }

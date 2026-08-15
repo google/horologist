@@ -62,7 +62,12 @@ private const val DEFAULT_THEME_PROVIDER =
 public annotation class AuthWearCatalog
 
 /** `:media:ui-material3` — the player, its displays, and its controls. */
-@Preview(device = WEAR_DEVICE, backgroundColor = WEAR_BACKGROUND, showBackground = true, group = "Media")
+@Preview(
+  device = WEAR_DEVICE,
+  backgroundColor = WEAR_BACKGROUND,
+  showBackground = true,
+  group = "Media",
+)
 @PreviewWrapperClass(DEFAULT_THEME_PROVIDER)
 public annotation class MediaCatalog
 
@@ -97,7 +102,12 @@ public annotation class ComposablesCatalog
 public annotation class HealthCatalog
 
 /** `:media:audio-ui-material3` — volume and audio-output surfaces. */
-@Preview(device = WEAR_DEVICE, backgroundColor = WEAR_BACKGROUND, showBackground = true, group = "Audio")
+@Preview(
+  device = WEAR_DEVICE,
+  backgroundColor = WEAR_BACKGROUND,
+  showBackground = true,
+  group = "Audio",
+)
 @PreviewWrapperClass(DEFAULT_THEME_PROVIDER)
 public annotation class AudioCatalog
 
@@ -112,7 +122,12 @@ public annotation class AudioCatalog
 public annotation class LayoutCatalog
 
 /** `:ai:ui` — the on-watch prompt/response surfaces. */
-@Preview(device = WEAR_DEVICE, backgroundColor = WEAR_BACKGROUND, showBackground = true, group = "AI")
+@Preview(
+  device = WEAR_DEVICE,
+  backgroundColor = WEAR_BACKGROUND,
+  showBackground = true,
+  group = "AI",
+)
 @PreviewWrapperClass(DEFAULT_THEME_PROVIDER)
 public annotation class AiCatalog
 

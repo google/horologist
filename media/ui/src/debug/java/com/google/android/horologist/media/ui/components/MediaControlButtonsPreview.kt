@@ -21,41 +21,37 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlin.time.Duration.Companion.minutes
 
-@Preview(
-    "Enabled - Playing - With progress",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview("Enabled - Playing - With progress", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun MediaControlButtonsPreview() {
-    MediaControlButtons(
-        onPlayButtonClick = {},
-        onPauseButtonClick = {},
-        playPauseButtonEnabled = true,
-        playing = true,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.minutes, 25.minutes),
-        onSeekToNextButtonClick = {},
-        seekToNextButtonEnabled = true,
-        onSeekToPreviousButtonClick = {},
-        seekToPreviousButtonEnabled = true,
-    )
+  MediaControlButtons(
+    onPlayButtonClick = {},
+    onPauseButtonClick = {},
+    playPauseButtonEnabled = true,
+    playing = true,
+    trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.minutes, 25.minutes),
+    onSeekToNextButtonClick = {},
+    seekToNextButtonEnabled = true,
+    onSeekToPreviousButtonClick = {},
+    seekToPreviousButtonEnabled = true,
+  )
 }
 
 @Preview(
-    "Disabled - Not playing - Without progress",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  "Disabled - Not playing - Without progress",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun MediaControlButtonsPreviewNoProgress() {
-    MediaControlButtons(
-        onPlayButtonClick = {},
-        onPauseButtonClick = {},
-        playPauseButtonEnabled = false,
-        playing = false,
-        onSeekToNextButtonClick = {},
-        seekToNextButtonEnabled = false,
-        onSeekToPreviousButtonClick = {},
-        seekToPreviousButtonEnabled = false,
-    )
+  MediaControlButtons(
+    onPlayButtonClick = {},
+    onPauseButtonClick = {},
+    playPauseButtonEnabled = false,
+    playing = false,
+    onSeekToNextButtonClick = {},
+    seekToNextButtonEnabled = false,
+    onSeekToPreviousButtonClick = {},
+    seekToPreviousButtonEnabled = false,
+  )
 }

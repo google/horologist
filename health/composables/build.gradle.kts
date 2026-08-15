@@ -86,6 +86,7 @@ dependencies {
   debugImplementation(projects.composeTools)
   debugImplementation(libs.compose.ui.tooling)
   implementation(libs.compose.ui.toolingpreview)
+  implementation(libs.compose.preview.annotations)
   releaseCompileOnly(projects.composeTools)
 
   testImplementation(projects.roboscreenshots)

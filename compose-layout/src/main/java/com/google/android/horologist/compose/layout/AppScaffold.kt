@@ -26,9 +26,8 @@ import androidx.wear.compose.material.Scaffold
 import androidx.wear.compose.material.TimeText
 
 /**
- *  An app scaffold, to be used to wrap a SwipeDismissableNavHost.
- * The [TimeText] will be shown here, but can be customised in either [ScreenScaffold] or
- * [PagerScaffold].
+ * An app scaffold, to be used to wrap a SwipeDismissableNavHost. The [TimeText] will be shown here,
+ * but can be customised in either [ScreenScaffold] or [PagerScaffold].
  *
  * Without this, the vanilla [Scaffold] is likely placed on each individual screen and [TimeText]
  * moves with the screen, or shown twice when swiping to dimiss.
@@ -39,22 +38,15 @@ import androidx.wear.compose.material.TimeText
  */
 @Composable
 fun AppScaffold(
-    modifier: Modifier = Modifier,
-    timeText: @Composable () -> Unit = { ResponsiveTimeText() },
-    content: @Composable BoxScope.() -> Unit,
+  modifier: Modifier = Modifier,
+  timeText: @Composable () -> Unit = { ResponsiveTimeText() },
+  content: @Composable BoxScope.() -> Unit,
 ) {
-    val scaffoldState = LocalScaffoldState.current.apply {
-        appTimeText.value = timeText
-    }
+  val scaffoldState = LocalScaffoldState.current.apply { appTimeText.value = timeText }
 
-    Scaffold(
-        modifier = modifier,
-        timeText = scaffoldState.timeText,
-    ) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            content()
-        }
-    }
+  Scaffold(modifier = modifier, timeText = scaffoldState.timeText) {
+    Box(modifier = Modifier.fillMaxSize()) { content() }
+  }
 }
 
 internal val LocalScaffoldState = compositionLocalOf { ScaffoldState() }

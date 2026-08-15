@@ -17,8 +17,8 @@
 package com.google.android.horologist.remotecompose.lottie.format
 
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * A layer in a Lottie animation.
@@ -31,8 +31,8 @@ import com.squareup.moshi.JsonClass
  * @property index The index of the layer.
  * @property parent The parent of the layer.
  */
-@JsonClass(generateAdapter = true, generator = "sealed:type")
-sealed class Layer {
+@Serializable(with = LayerSerializer::class)
+internal sealed class Layer {
   abstract val name: String?
   abstract val type: LayerType
   abstract val index: Int?
@@ -40,34 +40,35 @@ sealed class Layer {
   abstract val transform: Transform?
 
   /** A layer with no data. Usually used as a parent to apply a transform. */
-  @JsonClass(generateAdapter = true)
+  @Serializable
   data class NullLayer(
-    @param:Json(name = "nm") override val name: String? = "",
-    @param:Json(name = "hd") val hidden: Boolean? = false,
-    @param:Json(name = "ty") override val type: LayerType = LayerType.Null,
-    @param:Json(name = "ind") override val index: Int? = null,
-    @param:Json(name = "parent") override val parent: Int? = null,
-    @param:Json(name = "ip") val startFrame: Int? = null,
-    @param:Json(name = "op") val endFrame: Int? = null,
-    @param:Json(name = "ks") override val transform: Transform? = null,
+    @SerialName("nm") override val name: String? = "",
+    @SerialName("hd") val hidden: Boolean? = false,
+    @SerialName("ty") override val type: LayerType = LayerType.Null,
+    @SerialName("ind") override val index: Int? = null,
+    @SerialName("parent") override val parent: Int? = null,
+    @SerialName("ip") val startFrame: Int? = null,
+    @SerialName("op") val endFrame: Int? = null,
+    @SerialName("ks") override val transform: Transform? = null,
   ) : Layer()
 
   /** A layer containing Shapes. */
-  @JsonClass(generateAdapter = true)
+  @Serializable
   data class ShapeLayer(
-    @param:Json(name = "nm") override val name: String? = "",
-    @param:Json(name = "hd") val hidden: Boolean? = false,
-    @param:Json(name = "ty") override val type: LayerType = LayerType.Shape,
-    @param:Json(name = "ind") override val index: Int? = null,
-    @param:Json(name = "parent") override val parent: Int? = null,
-    @param:Json(name = "ip") val startFrame: Int? = null,
-    @param:Json(name = "op") val endFrame: Int? = null,
-    @param:Json(name = "ks") override val transform: Transform? = null,
-    @param:Json(name = "shapes") val shapes: List<GraphicElement>,
+    @SerialName("nm") override val name: String? = "",
+    @SerialName("hd") val hidden: Boolean? = false,
+    @SerialName("ty") override val type: LayerType = LayerType.Shape,
+    @SerialName("ind") override val index: Int? = null,
+    @SerialName("parent") override val parent: Int? = null,
+    @SerialName("ip") val startFrame: Int? = null,
+    @SerialName("op") val endFrame: Int? = null,
+    @SerialName("ks") override val transform: Transform? = null,
+    @SerialName("shapes") val shapes: List<GraphicElement>,
   ) : Layer()
 }
 
-enum class LayerType(val value: Int) {
+@Serializable(with = LayerTypeSerializer::class)
+internal enum class LayerType(val value: Int) {
   Null(3),
   Shape(4);
 

@@ -29,54 +29,49 @@ import io.grpc.binder.BinderServerBuilder
 import io.grpc.binder.IBinderReceiver
 import io.grpc.binder.SecurityPolicy
 import io.grpc.binder.ServerSecurityPolicy
-import io.grpc.binder.UntrustedSecurityPolicies
 
 abstract class BindableAiGrpcService : LifecycleService() {
-    private lateinit var server: Server
-    private val binderReceiver = IBinderReceiver()
+  private lateinit var server: Server
+  private val binderReceiver = IBinderReceiver()
 
-    // PackageManager.GET_SIGNATURES is deprecated in API 28+ in favor of GET_SIGNING_CERTIFICATES
-    @Suppress("DEPRECATION")
-    @get:android.annotation.SuppressLint("PackageManagerGetSignatures")
-    open val securityPolicy: SecurityPolicy by lazy {
-        val mySignature = packageManager.getPackageInfo(
-            packageName,
-            android.content.pm.PackageManager.GET_SIGNATURES,
-        ).signatures!![0]
-        io.grpc.binder.SecurityPolicies.hasSignature(
-            packageManager,
-            packageName,
-            mySignature,
-        )
-    }
+  // PackageManager.GET_SIGNATURES is deprecated in API 28+ in favor of GET_SIGNING_CERTIFICATES
+  @Suppress("DEPRECATION")
+  @get:android.annotation.SuppressLint("PackageManagerGetSignatures")
+  open val securityPolicy: SecurityPolicy by lazy {
+    val mySignature =
+      packageManager
+        .getPackageInfo(packageName, android.content.pm.PackageManager.GET_SIGNATURES)
+        .signatures!![0]
+    io.grpc.binder.SecurityPolicies.hasSignature(packageManager, packageName, mySignature)
+  }
 
-    abstract val bindableService: BindableService
+  abstract val bindableService: BindableService
 
-    @CallSuper
-    override fun onCreate() {
-        super.onCreate()
-        val serverSecurityPolicy =
-            ServerSecurityPolicy.newBuilder()
-                .servicePolicy(InferenceServiceGrpc.SERVICE_NAME, securityPolicy)
-                .build()
-        server =
-            BinderServerBuilder.forAddress(AndroidComponentAddress.forContext(this), binderReceiver)
-                .securityPolicy(serverSecurityPolicy)
-                .addService(bindableService)
-                .decompressorRegistry(DecompressorRegistry.emptyInstance())
-                .compressorRegistry(CompressorRegistry.newEmptyInstance())
-                .build()
+  @CallSuper
+  override fun onCreate() {
+    super.onCreate()
+    val serverSecurityPolicy =
+      ServerSecurityPolicy.newBuilder()
+        .servicePolicy(InferenceServiceGrpc.SERVICE_NAME, securityPolicy)
+        .build()
+    server =
+      BinderServerBuilder.forAddress(AndroidComponentAddress.forContext(this), binderReceiver)
+        .securityPolicy(serverSecurityPolicy)
+        .addService(bindableService)
+        .decompressorRegistry(DecompressorRegistry.emptyInstance())
+        .compressorRegistry(CompressorRegistry.newEmptyInstance())
+        .build()
 
-        server.start()
-    }
+    server.start()
+  }
 
-    override fun onBind(intent: Intent): IBinder {
-        super.onBind(intent)
-        return binderReceiver.get()!!
-    }
+  override fun onBind(intent: Intent): IBinder {
+    super.onBind(intent)
+    return binderReceiver.get()!!
+  }
 
-    override fun onDestroy() {
-        server.shutdownNow()
-        super.onDestroy()
-    }
+  override fun onDestroy() {
+    server.shutdownNow()
+    super.onDestroy()
+  }
 }

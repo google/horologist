@@ -25,92 +25,76 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.MaterialTheme
 import androidx.wear.compose.material.Text
-import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
-import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnState
-import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
 import com.google.android.horologist.compose.material.Card
 
-@WearPreviewDevices
 @Composable
-fun SampleCardScreenPreview() {
-    val state = rememberResponsiveColumnState(first = ItemType.Card, last = ItemType.Card)
-    SampleCardScreen(columnState = state)
-}
-
-@Composable
-internal fun SampleCardScreen(
-    modifier: Modifier = Modifier,
-    columnState: ScalingLazyColumnState,
-) {
-    ScalingLazyColumn(
-        modifier = modifier,
-        columnState = columnState,
-    ) {
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                enabled = false,
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                modifier = Modifier.background(Color.Cyan),
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                modifier = Modifier.background(Color.Cyan),
-                shape = MaterialTheme.shapes.medium,
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                backgroundPainter = painterResource(id = android.R.drawable.ic_dialog_alert),
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                contentPadding = PaddingValues(24.dp),
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                contentColor = MaterialTheme.colors.primaryVariant,
-            ) {
-                Text("Hello\nCard")
-            }
-        }
-        item {
-            Card(
-                onClick = { println("Click") },
-                onLongClick = { println("LongClick") },
-                enabled = false,
-            ) {
-                Text("Hello\nCard")
-            }
-        }
+internal fun SampleCardScreen(modifier: Modifier = Modifier, columnState: ScalingLazyColumnState) {
+  ScalingLazyColumn(modifier = modifier, columnState = columnState) {
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        enabled = false,
+      ) {
+        Text("Hello\nCard")
+      }
     }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        modifier = Modifier.background(Color.Cyan),
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        modifier = Modifier.background(Color.Cyan),
+        shape = MaterialTheme.shapes.medium,
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        backgroundPainter = painterResource(id = android.R.drawable.ic_dialog_alert),
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        contentPadding = PaddingValues(24.dp),
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        contentColor = MaterialTheme.colors.primaryVariant,
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+    item {
+      Card(
+        onClick = { println("Click") },
+        onLongClick = { println("LongClick") },
+        enabled = false,
+      ) {
+        Text("Hello\nCard")
+      }
+    }
+  }
 }

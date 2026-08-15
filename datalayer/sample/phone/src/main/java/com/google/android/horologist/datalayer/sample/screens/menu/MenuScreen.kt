@@ -40,68 +40,62 @@ import com.google.android.horologist.datalayer.sample.screens.SignInCustomPrompt
 import com.google.android.horologist.datalayer.sample.screens.SignInPromptDemo
 
 @Composable
-fun MenuScreen(
-    navController: NavHostController,
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Text(text = stringResource(id = R.string.menu_screen_apphelper_header))
+fun MenuScreen(navController: NavHostController, modifier: Modifier = Modifier) {
+  Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+    Text(text = stringResource(id = R.string.menu_screen_apphelper_header))
 
-        Button(onClick = { navController.navigate(AppHelperNodes) }) {
-            Text(text = stringResource(id = R.string.menu_screen_nodes_item))
-        }
-
-        Button(onClick = { navController.navigate(AppHelperNodesListener) }) {
-            Text(text = stringResource(id = R.string.menu_screen_nodes_listener_item))
-        }
-
-        Text(
-            text = stringResource(id = R.string.menu_screen_inapp_prompts_header),
-            modifier = Modifier.padding(top = 10.dp),
-        )
-
-        Button(onClick = { navController.navigate(InstallAppPromptDemo) }) {
-            Text(text = stringResource(id = R.string.menu_screen_install_app_demo_item))
-        }
-
-        Button(onClick = { navController.navigate(ReEngagePromptDemo) }) {
-            Text(text = stringResource(id = R.string.menu_screen_reengage_demo_item))
-        }
-
-        Button(onClick = { navController.navigate(SignInPromptDemo) }) {
-            Text(text = stringResource(id = R.string.menu_screen_signin_demo_item))
-        }
-
-        Button(onClick = { navController.navigate(InstallTilePromptDemo) }) {
-            Text(text = stringResource(id = R.string.menu_screen_install_tile_demo_item))
-        }
-
-        Button(onClick = { navController.navigate(InstallAppCustomPromptDemo) }) {
-            Text(text = stringResource(id = R.string.menu_screen_install_app_custom_demo_item))
-        }
-
-        Button(onClick = { navController.navigate(ReEngageCustomPromptDemo) }) {
-            Text(text = stringResource(id = R.string.menu_screen_reengage_custom_demo_item))
-        }
-
-        Button(onClick = { navController.navigate(SignInCustomPromptDemo) }) {
-            Text(text = stringResource(id = R.string.menu_screen_signin_custom_demo_item))
-        }
-
-        Button(onClick = { navController.navigate(InstallTileCustomPromptDemo) }) {
-            Text(text = stringResource(id = R.string.menu_screen_install_tile_custom_demo_item))
-        }
-
-        Text(
-            text = stringResource(id = R.string.menu_screen_datalayer_header),
-            modifier = Modifier.padding(top = 10.dp),
-        )
-
-        Button(onClick = { navController.navigate(Counter) }) {
-            Text(text = stringResource(id = R.string.menu_screen_counter_item))
-        }
+    Button(onClick = { navController.navigate(AppHelperNodes) }) {
+      Text(text = stringResource(id = R.string.menu_screen_nodes_item))
     }
+
+    Button(onClick = { navController.navigate(AppHelperNodesListener) }) {
+      Text(text = stringResource(id = R.string.menu_screen_nodes_listener_item))
+    }
+
+    Text(
+      text = stringResource(id = R.string.menu_screen_inapp_prompts_header),
+      modifier = Modifier.padding(top = 10.dp),
+    )
+
+    Button(onClick = { navController.navigate(InstallAppPromptDemo) }) {
+      Text(text = stringResource(id = R.string.menu_screen_install_app_demo_item))
+    }
+
+    Button(onClick = { navController.navigate(ReEngagePromptDemo) }) {
+      Text(text = stringResource(id = R.string.menu_screen_reengage_demo_item))
+    }
+
+    Button(onClick = { navController.navigate(SignInPromptDemo) }) {
+      Text(text = stringResource(id = R.string.menu_screen_signin_demo_item))
+    }
+
+    Button(onClick = { navController.navigate(InstallTilePromptDemo) }) {
+      Text(text = stringResource(id = R.string.menu_screen_install_tile_demo_item))
+    }
+
+    Button(onClick = { navController.navigate(InstallAppCustomPromptDemo) }) {
+      Text(text = stringResource(id = R.string.menu_screen_install_app_custom_demo_item))
+    }
+
+    Button(onClick = { navController.navigate(ReEngageCustomPromptDemo) }) {
+      Text(text = stringResource(id = R.string.menu_screen_reengage_custom_demo_item))
+    }
+
+    Button(onClick = { navController.navigate(SignInCustomPromptDemo) }) {
+      Text(text = stringResource(id = R.string.menu_screen_signin_custom_demo_item))
+    }
+
+    Button(onClick = { navController.navigate(InstallTileCustomPromptDemo) }) {
+      Text(text = stringResource(id = R.string.menu_screen_install_tile_custom_demo_item))
+    }
+
+    Text(
+      text = stringResource(id = R.string.menu_screen_datalayer_header),
+      modifier = Modifier.padding(top = 10.dp),
+    )
+
+    Button(onClick = { navController.navigate(Counter) }) {
+      Text(text = stringResource(id = R.string.menu_screen_counter_item))
+    }
+  }
 }

@@ -30,78 +30,73 @@ import kotlinx.coroutines.CoroutineScope
 
 @ExperimentalHorologistApi
 public class ReEngagePrompt(
-    coroutineScope: CoroutineScope,
-    private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+  coroutineScope: CoroutineScope,
+  private val phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
 ) {
 
-    init {
-        CoroutineScopeHolder.coroutineScope = coroutineScope
-    }
+  init {
+    CoroutineScopeHolder.coroutineScope = coroutineScope
+  }
 
-    /**
-     * Returns a [AppHelperNodeStatus] that meets the criteria to show this prompt, otherwise
-     * returns null.
-     */
-    public suspend fun shouldDisplayPrompt(): AppHelperNodeStatus? =
-        phoneDataLayerAppHelper.connectedNodes().firstOrNull { it.appInstalled }
+  /**
+   * Returns a [AppHelperNodeStatus] that meets the criteria to show this prompt, otherwise returns
+   * null.
+   */
+  public suspend fun shouldDisplayPrompt(): AppHelperNodeStatus? =
+    phoneDataLayerAppHelper.connectedNodes().firstOrNull { it.appInstalled }
 
-    /**
-     * Returns the [Intent] to display a re-engage prompt to the user.
-     *
-     * This can be used in Compose with [rememberLauncherForActivityResult] and
-     * [ActivityResultLauncher.launch]:
-     *
-     * ```
-     * val launcher = rememberLauncherForActivityResult(
-     *     ActivityResultContracts.StartActivityForResult()
-     * ) { result ->
-     *     if (result.resultCode == RESULT_OK) {
-     *         // user pushed the positive button!
-     *     }
-     * }
-     *
-     * launcher.launch(reEngagePrompt.getIntent(/*params*/))
-     * ```
-     *
-     * It can also be used directly in an [ComponentActivity] with
-     * [ComponentActivity.registerForActivityResult]:
-     * ```
-     *  val launcher = registerForActivityResult(
-     *      ActivityResultContracts.StartActivityForResult()
-     *  ) { result ->
-     *      if (result.resultCode == RESULT_OK) {
-     *          // user pushed the positive button!
-     *      }
-     *  }
-     *
-     * launcher.launch(reEngagePrompt.getIntent(/*params*/))
-     * ```
-     */
-    public fun getIntent(
-        context: Context,
-        nodeId: String,
-        @DrawableRes image: Int,
-        topMessage: String,
-        bottomMessage: String,
-        positiveButtonLabel: String? = null,
-        negativeButtonLabel: String? = null,
-    ): Intent = ReEngageBottomSheetActivity.getIntent(
-        context = context,
-        nodeId = nodeId,
-        image = image,
-        topMessage = topMessage,
-        bottomMessage = bottomMessage,
-        positiveButtonLabel = positiveButtonLabel,
-        negativeButtonLabel = negativeButtonLabel,
+  /**
+   * Returns the [Intent] to display a re-engage prompt to the user.
+   *
+   * This can be used in Compose with [rememberLauncherForActivityResult] and
+   * [ActivityResultLauncher.launch]:
+   * ```
+   * val launcher = rememberLauncherForActivityResult(
+   *     ActivityResultContracts.StartActivityForResult()
+   * ) { result ->
+   *     if (result.resultCode == RESULT_OK) {
+   *         // user pushed the positive button!
+   *     }
+   * }
+   *
+   * launcher.launch(reEngagePrompt.getIntent(/*params*/))
+   * ```
+   *
+   * It can also be used directly in an [ComponentActivity] with
+   * [ComponentActivity.registerForActivityResult]:
+   * ```
+   *  val launcher = registerForActivityResult(
+   *      ActivityResultContracts.StartActivityForResult()
+   *  ) { result ->
+   *      if (result.resultCode == RESULT_OK) {
+   *          // user pushed the positive button!
+   *      }
+   *  }
+   *
+   * launcher.launch(reEngagePrompt.getIntent(/*params*/))
+   * ```
+   */
+  public fun getIntent(
+    context: Context,
+    nodeId: String,
+    @DrawableRes image: Int,
+    topMessage: String,
+    bottomMessage: String,
+    positiveButtonLabel: String? = null,
+    negativeButtonLabel: String? = null,
+  ): Intent =
+    ReEngageBottomSheetActivity.getIntent(
+      context = context,
+      nodeId = nodeId,
+      image = image,
+      topMessage = topMessage,
+      bottomMessage = bottomMessage,
+      positiveButtonLabel = positiveButtonLabel,
+      negativeButtonLabel = negativeButtonLabel,
     )
 
-    /**
-     * Performs the same action taken by the prompt when the user taps on the positive button.
-     */
-    public suspend fun performAction(nodeId: String) {
-        ReEngagePromptAction.run(
-            phoneDataLayerAppHelper = phoneDataLayerAppHelper,
-            nodeId = nodeId,
-        )
-    }
+  /** Performs the same action taken by the prompt when the user taps on the positive button. */
+  public suspend fun performAction(nodeId: String) {
+    ReEngagePromptAction.run(phoneDataLayerAppHelper = phoneDataLayerAppHelper, nodeId = nodeId)
+  }
 }

@@ -42,57 +42,52 @@ import com.google.android.horologist.compose.material.Confirmation
 
 @Composable
 fun GoogleSignInPromptSampleScreen(
-    navController: NavHostController,
-    modifier: Modifier = Modifier,
-    viewModel: SignInPromptViewModel = viewModel(factory = GoogleSignInPromptViewModelFactory),
+  navController: NavHostController,
+  modifier: Modifier = Modifier,
+  viewModel: SignInPromptViewModel = viewModel(factory = GoogleSignInPromptViewModelFactory),
 ) {
-    var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
+  var showAlreadySignedInDialog by rememberSaveable { mutableStateOf(false) }
 
-    SignInPromptScreen(
-        message = stringResource(id = R.string.google_sign_in_prompt_message),
-        onAlreadySignedIn = { showAlreadySignedInDialog = true },
-        modifier = modifier,
-        viewModel = viewModel,
+  SignInPromptScreen(
+    message = stringResource(id = R.string.google_sign_in_prompt_message),
+    onAlreadySignedIn = { showAlreadySignedInDialog = true },
+    modifier = modifier,
+    viewModel = viewModel,
+  ) {
+    item {
+      SignInButton(
+        onClick = {
+          navController.navigate(Screen.GoogleSignInScreen.route) {
+            popUpTo(Screen.MainScreen.route)
+          }
+        },
+        modifier = Modifier.fillMaxWidth(),
+      )
+    }
+    item {
+      GuestModeButton(onClick = navController::popBackStack, modifier = Modifier.fillMaxWidth())
+    }
+  }
+
+  if (showAlreadySignedInDialog) {
+    Confirmation(
+      onTimeout = {
+        showAlreadySignedInDialog = false
+        navController.popBackStack()
+      }
     ) {
-        item {
-            SignInButton(
-                onClick = {
-                    navController.navigate(Screen.GoogleSignInScreen.route) {
-                        popUpTo(Screen.MainScreen.route)
-                    }
-                },
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        item {
-            GuestModeButton(
-                onClick = navController::popBackStack,
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
+      Text(
+        modifier = Modifier.align(Alignment.CenterHorizontally),
+        textAlign = TextAlign.Center,
+        text = stringResource(id = R.string.google_sign_in_prompt_already_signed_in_message),
+      )
     }
-
-    if (showAlreadySignedInDialog) {
-        Confirmation(
-            onTimeout = {
-                showAlreadySignedInDialog = false
-                navController.popBackStack()
-            },
-        ) {
-            Text(
-                modifier = Modifier.align(Alignment.CenterHorizontally),
-                textAlign = TextAlign.Center,
-                text = stringResource(id = R.string.google_sign_in_prompt_already_signed_in_message),
-            )
-        }
-    }
+  }
 }
 
 @Suppress("unused")
 @WearPreviewDevices
 @Composable
 fun GoogleSignInPromptSampleScreenPreview() {
-    GoogleSignInPromptSampleScreen(
-        navController = rememberSwipeDismissableNavController(),
-    )
+  GoogleSignInPromptSampleScreen(navController = rememberSwipeDismissableNavController())
 }

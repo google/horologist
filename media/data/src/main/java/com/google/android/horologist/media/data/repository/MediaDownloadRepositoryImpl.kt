@@ -22,11 +22,10 @@ import com.google.android.horologist.media.repository.MediaDownloadRepository
 
 @ExperimentalHorologistApi
 public class MediaDownloadRepositoryImpl(
-    private val media3DownloadDataSource: Media3DownloadDataSource,
-) :
-    MediaDownloadRepository {
+  private val media3DownloadDataSource: Media3DownloadDataSource
+) : MediaDownloadRepository {
 
-        override fun remove(mediaId: String) {
-            media3DownloadDataSource.removeDownload(mediaId)
-        }
-    }
+  override fun remove(mediaId: String) {
+    media3DownloadDataSource.removeDownload(mediaId)
+  }
+}

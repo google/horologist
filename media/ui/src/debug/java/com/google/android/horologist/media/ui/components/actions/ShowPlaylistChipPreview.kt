@@ -29,69 +29,57 @@ import com.google.android.horologist.media.ui.SampleArtworkUri
 @WearPreview
 @Composable
 fun ShowPlaylistChipPreview() {
-    ShowPlaylistChip(
-        artworkPaintable = CoilPaintable(
-            SampleArtworkUri,
-            rememberVectorPainter(
-                image = Icons.AutoMirrored.Default.FeaturedPlayList,
-                tintColor = Color.Green,
-            ),
+  ShowPlaylistChip(
+    artworkPaintable =
+      CoilPaintable(
+        SampleArtworkUri,
+        rememberVectorPainter(
+          image = Icons.AutoMirrored.Default.FeaturedPlayList,
+          tintColor = Color.Green,
         ),
-        name = "Playlists",
-        onClick = {},
-    )
+      ),
+    name = "Playlists",
+    onClick = {},
+  )
 }
 
-@Preview(
-    name = "No artwork",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(name = "No artwork", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ShowPlaylistChipPreviewNoArtwork() {
-    ShowPlaylistChip(
-        artworkPaintable = null,
-        name = "Playlists",
-        onClick = {},
-    )
+  ShowPlaylistChip(artworkPaintable = null, name = "Playlists", onClick = {})
 }
 
-@Preview(
-    name = "No name",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(name = "No name", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ShowPlaylistChipPreviewNoName() {
-    ShowPlaylistChip(
-        artworkPaintable = CoilPaintable(
-            SampleArtworkUri,
-            rememberVectorPainter(
-                image = Icons.AutoMirrored.Default.FeaturedPlayList,
-                tintColor = Color.Green,
-            ),
+  ShowPlaylistChip(
+    artworkPaintable =
+      CoilPaintable(
+        SampleArtworkUri,
+        rememberVectorPainter(
+          image = Icons.AutoMirrored.Default.FeaturedPlayList,
+          tintColor = Color.Green,
         ),
-        name = null,
-        onClick = {},
-    )
+      ),
+    name = null,
+    onClick = {},
+  )
 }
 
-@Preview(
-    name = "Very long name",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(name = "Very long name", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ShowPlaylistChipPreviewVeryLongName() {
-    ShowPlaylistChip(
-        artworkPaintable = CoilPaintable(
-            SampleArtworkUri,
-            rememberVectorPainter(
-                image = Icons.AutoMirrored.Default.FeaturedPlayList,
-                tintColor = Color.Green,
-            ),
+  ShowPlaylistChip(
+    artworkPaintable =
+      CoilPaintable(
+        SampleArtworkUri,
+        rememberVectorPainter(
+          image = Icons.AutoMirrored.Default.FeaturedPlayList,
+          tintColor = Color.Green,
         ),
-        name = "Very very very very very very very very very very very very very very very very very very very long title",
-        onClick = {},
-    )
+      ),
+    name =
+      "Very very very very very very very very very very very very very very very very very very very long title",
+    onClick = {},
+  )
 }

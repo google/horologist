@@ -42,97 +42,96 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
+
 /**
  * This component is an alternative to [OutlinedChip], providing the following:
  * - a convenient way of providing a label and a secondary label;
  * - a convenient way of providing an icon and a placeholder, and choosing their size based on the
- * sizes recommended by the Wear guidelines;
+ *   sizes recommended by the Wear guidelines;
  */
 @ExperimentalHorologistApi
 @Composable
 public fun OutlinedChip(
-    label: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    secondaryLabel: String? = null,
-    iconRtlMode: Any? = null, // kept to avoid ambiguity with other Chip
-    icon: Paintable? = null,
-    largeIcon: Boolean = false,
-    colors: ChipColors = ChipDefaults.outlinedChipColors(),
-    enabled: Boolean = true,
+  label: String,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  secondaryLabel: String? = null,
+  iconRtlMode: Any? = null, // kept to avoid ambiguity with other Chip
+  icon: Paintable? = null,
+  largeIcon: Boolean = false,
+  colors: ChipColors = ChipDefaults.outlinedChipColors(),
+  enabled: Boolean = true,
 ) {
-    val iconParam: (@Composable BoxScope.() -> Unit)? =
-        icon?.let {
-            {
-                val iconSize = if (largeIcon) {
-                    ChipDefaults.LargeIconSize
-                } else {
-                    ChipDefaults.IconSize
-                }
-
-                Row {
-                    val iconModifier = Modifier
-                        .size(iconSize)
-                        .clip(CircleShape)
-                    if (it is PaintableIcon) {
-                        Icon(
-                            paintable = it,
-                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                            modifier = iconModifier,
-                        )
-                    } else {
-                        Image(
-                            painter = it.rememberPainter(),
-                            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                            modifier = iconModifier,
-                            contentScale = ContentScale.Crop,
-                            alpha = LocalContentAlpha.current,
-                        )
-                    }
-                }
-            }
+  val iconParam: (@Composable BoxScope.() -> Unit)? = icon?.let {
+    {
+      val iconSize =
+        if (largeIcon) {
+          ChipDefaults.LargeIconSize
+        } else {
+          ChipDefaults.IconSize
         }
 
-    OutlinedChip(
-        label = label,
-        onClick = onClick,
-        modifier = modifier,
-        secondaryLabel = secondaryLabel,
-        icon = iconParam,
-        largeIcon = largeIcon,
-        colors = colors,
-        enabled = enabled,
-    )
+      Row {
+        val iconModifier = Modifier.size(iconSize).clip(CircleShape)
+        if (it is PaintableIcon) {
+          Icon(
+            paintable = it,
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+            modifier = iconModifier,
+          )
+        } else {
+          Image(
+            painter = it.rememberPainter(),
+            contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+            modifier = iconModifier,
+            contentScale = ContentScale.Crop,
+            alpha = LocalContentAlpha.current,
+          )
+        }
+      }
+    }
+  }
+
+  OutlinedChip(
+    label = label,
+    onClick = onClick,
+    modifier = modifier,
+    secondaryLabel = secondaryLabel,
+    icon = iconParam,
+    largeIcon = largeIcon,
+    colors = colors,
+    enabled = enabled,
+  )
 }
 
 /**
  * This component is an alternative to [OutlinedChip], providing the following:
  * - a convenient way of providing a label and a secondary label;
  * - a convenient way of providing an icon and a placeholder, and choosing their size based on the
- * sizes recommended by the Wear guidelines;
+ *   sizes recommended by the Wear guidelines;
  */
 @ExperimentalHorologistApi
 @Composable
 public fun OutlinedChip(
-    @StringRes labelId: Int,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    @StringRes secondaryLabel: Int? = null,
-    icon: Paintable? = null,
-    largeIcon: Boolean = false,
-    colors: ChipColors = ChipDefaults.outlinedChipColors(),
-    enabled: Boolean = true,
+  @StringRes labelId: Int,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  @StringRes secondaryLabel: Int? = null,
+  icon: Paintable? = null,
+  largeIcon: Boolean = false,
+  colors: ChipColors = ChipDefaults.outlinedChipColors(),
+  enabled: Boolean = true,
 ) {
-    OutlinedChip(
-        label = stringResource(id = labelId),
-        onClick = onClick,
-        modifier = modifier,
-        secondaryLabel = secondaryLabel?.let { stringResource(id = it) },
-        icon = icon,
-        largeIcon = largeIcon,
-        colors = colors,
-        enabled = enabled,
-    )
+  OutlinedChip(
+    label = stringResource(id = labelId),
+    onClick = onClick,
+    modifier = modifier,
+    secondaryLabel = secondaryLabel?.let { stringResource(id = it) },
+    icon = icon,
+    largeIcon = largeIcon,
+    colors = colors,
+    enabled = enabled,
+  )
 }
 
 /**
@@ -142,61 +141,53 @@ public fun OutlinedChip(
 @ExperimentalHorologistApi
 @Composable
 public fun OutlinedChip(
-    label: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    secondaryLabel: String? = null,
-    icon: (@Composable BoxScope.() -> Unit)? = null,
-    largeIcon: Boolean = false,
-    colors: ChipColors = ChipDefaults.outlinedChipColors(),
-    enabled: Boolean = true,
+  label: String,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  secondaryLabel: String? = null,
+  icon: (@Composable BoxScope.() -> Unit)? = null,
+  largeIcon: Boolean = false,
+  colors: ChipColors = ChipDefaults.outlinedChipColors(),
+  enabled: Boolean = true,
 ) {
-    val hasSecondaryLabel = secondaryLabel != null
-    val hasIcon = icon != null
+  val hasSecondaryLabel = secondaryLabel != null
+  val hasIcon = icon != null
 
-    val labelParam: (@Composable RowScope.() -> Unit) =
-        {
-            Text(
-                text = label,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = if (hasSecondaryLabel) 1 else 2,
-            )
-        }
+  val labelParam: (@Composable RowScope.() -> Unit) = {
+    Text(
+      text = label,
+      modifier = Modifier.fillMaxWidth(),
+      textAlign = if (hasSecondaryLabel || hasIcon) TextAlign.Start else TextAlign.Center,
+      overflow = TextOverflow.Ellipsis,
+      maxLines = if (hasSecondaryLabel) 1 else 2,
+    )
+  }
 
-    val secondaryLabelParam: (@Composable RowScope.() -> Unit)? =
-        secondaryLabel?.let {
-            {
-                Text(
-                    text = secondaryLabel,
-                    overflow = TextOverflow.Ellipsis,
-                    maxLines = 1,
-                )
-            }
-        }
+  val secondaryLabelParam: (@Composable RowScope.() -> Unit)? = secondaryLabel?.let {
+    { Text(text = secondaryLabel, overflow = TextOverflow.Ellipsis, maxLines = 1) }
+  }
 
-    val contentPadding = if (largeIcon) {
-        val verticalPadding = ChipDefaults.ChipVerticalPadding
-        PaddingValues(
-            start = 10.dp,
-            top = verticalPadding,
-            end = ChipDefaults.ChipHorizontalPadding,
-            bottom = verticalPadding,
-        )
+  val contentPadding =
+    if (largeIcon) {
+      val verticalPadding = ChipDefaults.ChipVerticalPadding
+      PaddingValues(
+        start = 10.dp,
+        top = verticalPadding,
+        end = ChipDefaults.ChipHorizontalPadding,
+        bottom = verticalPadding,
+      )
     } else {
-        ChipDefaults.ContentPadding
+      ChipDefaults.ContentPadding
     }
 
-    OutlinedChip(
-        label = labelParam,
-        onClick = onClick,
-        modifier = modifier
-            .fillMaxWidth(),
-        secondaryLabel = secondaryLabelParam,
-        icon = icon,
-        colors = colors,
-        enabled = enabled,
-        contentPadding = contentPadding,
-    )
+  OutlinedChip(
+    label = labelParam,
+    onClick = onClick,
+    modifier = modifier.fillMaxWidth(),
+    secondaryLabel = secondaryLabelParam,
+    icon = icon,
+    colors = colors,
+    enabled = enabled,
+    contentPadding = contentPadding,
+  )
 }

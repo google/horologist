@@ -51,79 +51,68 @@ import com.google.android.horologist.auth.ui.common.logging.TAG
  */
 @Composable
 public fun GoogleSignInScreen(
-    onAuthCancelled: () -> Unit,
-    failedContent: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: GoogleSignInViewModel = viewModel(),
-    content: @Composable (successState: GoogleSignInScreenState.Success) -> Unit,
+  onAuthCancelled: () -> Unit,
+  failedContent: @Composable () -> Unit,
+  modifier: Modifier = Modifier,
+  viewModel: GoogleSignInViewModel = viewModel(),
+  content: @Composable (successState: GoogleSignInScreenState.Success) -> Unit,
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when (state) {
-        GoogleSignInScreenState.Idle -> {
-            SideEffect {
-                viewModel.onIdleStateObserved()
-            }
+  when (state) {
+    GoogleSignInScreenState.Idle -> {
+      SideEffect { viewModel.onIdleStateObserved() }
 
-            SignInPlaceholderScreen(modifier = modifier)
-        }
+      SignInPlaceholderScreen(modifier = modifier)
+    }
 
-        GoogleSignInScreenState.SelectAccount -> {
-            SignInPlaceholderScreen(modifier = modifier)
+    GoogleSignInScreenState.SelectAccount -> {
+      SignInPlaceholderScreen(modifier = modifier)
 
-            val context = LocalContext.current
+      val context = LocalContext.current
 
-            var googleSignInAccount by remember {
-                mutableStateOf(GoogleSignIn.getLastSignedInAccount(context))
-            }
+      var googleSignInAccount by remember {
+        mutableStateOf(GoogleSignIn.getLastSignedInAccount(context))
+      }
 
-            googleSignInAccount?.let { account ->
-                SideEffect {
-                    viewModel.onAccountSelected(account)
-                }
-            } ?: run {
-                val signInRequestLauncher = rememberLauncherForActivityResult(
-                    contract = GoogleSignInContract(
-                        viewModel.googleSignInClient,
-                    ),
-                ) { result ->
-
-                    when (result) {
-                        GoogleSignInContract.Result.Cancelled -> {
-                            viewModel.onAuthCancelled()
-                        }
-
-                        GoogleSignInContract.Result.Failed -> {
-                            viewModel.onAccountSelectionFailed()
-                        }
-
-                        is GoogleSignInContract.Result.Success -> {
-                            googleSignInAccount = result.googleSignInAccount
-                            googleSignInAccount?.let {
-                                viewModel.onAccountSelected(it)
-                            }
-                        }
-                    }
+      googleSignInAccount?.let { account -> SideEffect { viewModel.onAccountSelected(account) } }
+        ?: run {
+          val signInRequestLauncher =
+            rememberLauncherForActivityResult(
+              contract = GoogleSignInContract(viewModel.googleSignInClient)
+            ) { result ->
+              when (result) {
+                GoogleSignInContract.Result.Cancelled -> {
+                  viewModel.onAuthCancelled()
                 }
 
-                SideEffect {
-                    signInRequestLauncher.launch(Unit)
+                GoogleSignInContract.Result.Failed -> {
+                  viewModel.onAccountSelectionFailed()
                 }
+
+                is GoogleSignInContract.Result.Success -> {
+                  googleSignInAccount = result.googleSignInAccount
+                  googleSignInAccount?.let { viewModel.onAccountSelected(it) }
+                }
+              }
             }
-        }
 
-        GoogleSignInScreenState.Failed -> {
-            failedContent()
-        }
-
-        is GoogleSignInScreenState.Success -> {
-            content(state as GoogleSignInScreenState.Success)
-        }
-
-        GoogleSignInScreenState.Cancelled -> {
-            onAuthCancelled()
+          SideEffect { signInRequestLauncher.launch(Unit) }
         }
     }
+
+    GoogleSignInScreenState.Failed -> {
+      failedContent()
+    }
+
+    is GoogleSignInScreenState.Success -> {
+      content(state as GoogleSignInScreenState.Success)
+    }
+
+    GoogleSignInScreenState.Cancelled -> {
+      onAuthCancelled()
+    }
+  }
 }
 
 /**
@@ -137,75 +126,65 @@ public fun GoogleSignInScreen(
  */
 @Composable
 public fun GoogleSignInScreen(
-    onAuthCancelled: () -> Unit,
-    onAuthSucceed: () -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: GoogleSignInViewModel = viewModel(),
+  onAuthCancelled: () -> Unit,
+  onAuthSucceed: () -> Unit,
+  modifier: Modifier = Modifier,
+  viewModel: GoogleSignInViewModel = viewModel(),
 ) {
-    GoogleSignInScreen(
-        onAuthCancelled = {
-            onAuthCancelled()
-        },
-        failedContent = {
-            AuthErrorScreen(modifier)
-        },
-        viewModel = viewModel,
-    ) { successState ->
-        SignedInConfirmationDialog(
-            onDismissOrTimeout = { onAuthSucceed() },
-            modifier = modifier,
-            accountUiModel = successState.accountUiModel,
-        )
-    }
+  GoogleSignInScreen(
+    onAuthCancelled = { onAuthCancelled() },
+    failedContent = { AuthErrorScreen(modifier) },
+    viewModel = viewModel,
+  ) { successState ->
+    SignedInConfirmationDialog(
+      onDismissOrTimeout = { onAuthSucceed() },
+      modifier = modifier,
+      accountUiModel = successState.accountUiModel,
+    )
+  }
 }
 
-/**
- * An [ActivityResultContract] for signing in with the given [GoogleSignInClient].
- */
-private class GoogleSignInContract(
-    private val googleSignInClient: GoogleSignInClient,
-) : ActivityResultContract<Unit, GoogleSignInContract.Result>() {
+/** An [ActivityResultContract] for signing in with the given [GoogleSignInClient]. */
+private class GoogleSignInContract(private val googleSignInClient: GoogleSignInClient) :
+  ActivityResultContract<Unit, GoogleSignInContract.Result>() {
 
-    override fun createIntent(
-        context: Context,
-        input: Unit,
-    ): Intent = googleSignInClient.signInIntent
+  override fun createIntent(context: Context, input: Unit): Intent = googleSignInClient.signInIntent
 
-    override fun parseResult(resultCode: Int, intent: Intent?): Result {
-        val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
+  override fun parseResult(resultCode: Int, intent: Intent?): Result {
+    val task = GoogleSignIn.getSignedInAccountFromIntent(intent)
 
-        return when {
-            !task.isComplete -> {
-                Log.w(TAG, "Sign in failed with incomplete task")
-                Result.Failed
-            }
+    return when {
+      !task.isComplete -> {
+        Log.w(TAG, "Sign in failed with incomplete task")
+        Result.Failed
+      }
 
-            task.isSuccessful -> Result.Success(task.result)
+      task.isSuccessful -> Result.Success(task.result)
 
-            else -> {
-                val exception = task.exception
-                if (exception is ApiException) {
-                    val message = GoogleSignInStatusCodes.getStatusCodeString(exception.statusCode)
-                    Log.w(TAG, "Sign in failed: code=${exception.statusCode}, message=$message")
+      else -> {
+        val exception = task.exception
+        if (exception is ApiException) {
+          val message = GoogleSignInStatusCodes.getStatusCodeString(exception.statusCode)
+          Log.w(TAG, "Sign in failed: code=${exception.statusCode}, message=$message")
 
-                    if (exception.statusCode == SIGN_IN_CANCELLED) {
-                        Result.Cancelled
-                    } else {
-                        Result.Failed
-                    }
-                } else {
-                    Log.w(TAG, "Sign in failed with exception: $exception")
-                    Result.Failed
-                }
-            }
+          if (exception.statusCode == SIGN_IN_CANCELLED) {
+            Result.Cancelled
+          } else {
+            Result.Failed
+          }
+        } else {
+          Log.w(TAG, "Sign in failed with exception: $exception")
+          Result.Failed
         }
+      }
     }
+  }
 
-    internal sealed class Result {
-        object Cancelled : Result()
+  internal sealed class Result {
+    object Cancelled : Result()
 
-        object Failed : Result()
+    object Failed : Result()
 
-        data class Success(val googleSignInAccount: GoogleSignInAccount?) : Result()
-    }
+    data class Success(val googleSignInAccount: GoogleSignInAccount?) : Result()
+  }
 }

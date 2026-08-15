@@ -21,19 +21,14 @@ import androidx.compose.ui.Modifier
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
-/**
- * A simple text only display of [MediaUiModel] showing artist and title in two separated rows.
- */
+/** A simple text only display of [MediaUiModel] showing artist and title in two separated rows. */
 @ExperimentalHorologistApi
 @Composable
-public fun TrackMediaDisplay(
-    media: MediaUiModel.Ready,
-    modifier: Modifier = Modifier,
-) {
-    TextMediaDisplay(
-        title = media.title,
-        subtitle = media.subtitle,
-        titleIcon = media.titleIcon,
-        modifier = modifier,
-    )
+public fun TrackMediaDisplay(media: MediaUiModel.Ready, modifier: Modifier = Modifier) {
+  TextMediaDisplay(
+    title = media.title,
+    subtitle = media.subtitle,
+    titleIcon = media.titleIcon,
+    modifier = modifier,
+  )
 }

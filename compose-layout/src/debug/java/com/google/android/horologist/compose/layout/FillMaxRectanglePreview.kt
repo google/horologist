@@ -30,11 +30,11 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @WearPreviewDevices
 @Composable
 fun FillMaxRectanglePreview() {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier.fillMaxRectangle().background(Color.Blue)) {
-            Text("Top")
-            Spacer(modifier = Modifier.weight(1f))
-            Text("Bottom")
-        }
+  Box(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxRectangle().background(Color.Blue)) {
+      Text("Top")
+      Spacer(modifier = Modifier.weight(1f))
+      Text("Bottom")
     }
+  }
 }

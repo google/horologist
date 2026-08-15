@@ -23,29 +23,19 @@ import org.junit.Test
 
 class PlaylistEntityMapperTest {
 
-    @Test
-    fun mapsCorrectly() {
-        // given
-        val id = "id"
-        val name = "name"
-        val artworkUri = "artworkUri"
-        val playlist = Playlist(
-            id = id,
-            name = name,
-            artworkUri = artworkUri,
-            mediaList = listOf(),
-        )
+  @Test
+  fun mapsCorrectly() {
+    // given
+    val id = "id"
+    val name = "name"
+    val artworkUri = "artworkUri"
+    val playlist = Playlist(id = id, name = name, artworkUri = artworkUri, mediaList = listOf())
 
-        // when
-        val result = PlaylistEntityMapper.map(playlist)
+    // when
+    val result = PlaylistEntityMapper.map(playlist)
 
-        // then
-        assertThat(result).isEqualTo(
-            PlaylistEntity(
-                playlistId = id,
-                name = name,
-                artworkUri = artworkUri,
-            ),
-        )
-    }
+    // then
+    assertThat(result)
+      .isEqualTo(PlaylistEntity(playlistId = id, name = name, artworkUri = artworkUri))
+  }
 }

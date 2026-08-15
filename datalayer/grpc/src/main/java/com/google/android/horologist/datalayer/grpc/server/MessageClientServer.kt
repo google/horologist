@@ -25,68 +25,64 @@ import io.grpc.ServerCall
 import io.grpc.ServerCallHandler
 import io.grpc.ServerMethodDefinition
 import io.grpc.Status
+import java.io.ByteArrayInputStream
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.channels.Channel
-import java.io.ByteArrayInputStream
 
-public class MessageClientServer(
-    service: BindableService,
-    coroutineScope: CoroutineScope,
-) : BaseMessageClientServer(coroutineScope) {
-    private val boundService = service.bindService()
+public class MessageClientServer(service: BindableService, coroutineScope: CoroutineScope) :
+  BaseMessageClientServer(coroutineScope) {
+  private val boundService = service.bindService()
 
-    override suspend fun execute(request: MessageRequest): GeneratedMessageLite<*, *> {
-        val method = boundService.getMethod(request.method)
+  override suspend fun execute(request: MessageRequest): GeneratedMessageLite<*, *> {
+    val method = boundService.getMethod(request.method)
 
-        return executeTyped(method, request) as GeneratedMessageLite<*, *>
-    }
+    return executeTyped(method, request) as GeneratedMessageLite<*, *>
+  }
 
-    private suspend fun <ReqT, ResT> executeTyped(
-        method: ServerMethodDefinition<ReqT, ResT>,
-        request: MessageRequest,
-    ): ResT {
-        val serverCallHandler: ServerCallHandler<ReqT, ResT> = method.serverCallHandler
-        val call = MessageServerCall<ReqT, ResT>(method.methodDescriptor)
+  private suspend fun <ReqT, ResT> executeTyped(
+    method: ServerMethodDefinition<ReqT, ResT>,
+    request: MessageRequest,
+  ): ResT {
+    val serverCallHandler: ServerCallHandler<ReqT, ResT> = method.serverCallHandler
+    val call = MessageServerCall<ReqT, ResT>(method.methodDescriptor)
 
-        val listener = serverCallHandler.startCall(call, Metadata())
+    val listener = serverCallHandler.startCall(call, Metadata())
 
-        val realRequest =
-            method.methodDescriptor.parseRequest(ByteArrayInputStream(request.request.value.toByteArray()))
+    val realRequest =
+      method.methodDescriptor.parseRequest(
+        ByteArrayInputStream(request.request.value.toByteArray())
+      )
 
-        listener.onReady()
-        listener.onMessage(realRequest)
-        listener.onHalfClose()
+    listener.onReady()
+    listener.onMessage(realRequest)
+    listener.onHalfClose()
 
-        return call.channel.receive().also {
-            listener.onComplete()
-        }
-    }
+    return call.channel.receive().also { listener.onComplete() }
+  }
 }
 
 internal class MessageServerCall<ReqT, ResT>(
-    private val _methodDescriptor: MethodDescriptor<ReqT, ResT>,
+  private val _methodDescriptor: MethodDescriptor<ReqT, ResT>
 ) : ServerCall<ReqT, ResT>() {
-    internal val channel: Channel<ResT> = Channel(capacity = 1)
+  internal val channel: Channel<ResT> = Channel(capacity = 1)
 
-    override fun request(numMessages: Int) {
-    }
+  override fun request(numMessages: Int) {}
 
-    override fun sendHeaders(headers: Metadata?) {
-    }
+  override fun sendHeaders(headers: Metadata?) {}
 
-    override fun close(status: Status?, trailers: Metadata?) {
-        channel.close()
-    }
+  override fun close(status: Status?, trailers: Metadata?) {
+    channel.close()
+  }
 
-    override fun isCancelled(): Boolean {
-        return false
-    }
+  override fun isCancelled(): Boolean {
+    return false
+  }
 
-    override fun getMethodDescriptor(): MethodDescriptor<ReqT, ResT> {
-        return _methodDescriptor
-    }
+  override fun getMethodDescriptor(): MethodDescriptor<ReqT, ResT> {
+    return _methodDescriptor
+  }
 
-    override fun sendMessage(message: ResT) {
-        channel.trySend(message)
-    }
+  override fun sendMessage(message: ResT) {
+    channel.trySend(message)
+  }
 }

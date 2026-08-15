@@ -24,6 +24,5 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SampleDataService : WearDataService() {
 
-    @Inject
-    override lateinit var registry: WearDataLayerRegistry
+  @Inject override lateinit var registry: WearDataLayerRegistry
 }

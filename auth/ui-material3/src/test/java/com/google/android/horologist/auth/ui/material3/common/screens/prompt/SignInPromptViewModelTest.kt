@@ -32,94 +32,82 @@ import org.junit.Test
 
 class SignInPromptViewModelTest {
 
-    @get:Rule
-    val mainDispatcherRule = MainDispatcherRule()
+  @get:Rule val mainDispatcherRule = MainDispatcherRule()
 
-    private val fakeAuthUserRepository = AuthUserRepositoryStub()
+  private val fakeAuthUserRepository = AuthUserRepositoryStub()
 
-    private lateinit var sut: SignInPromptViewModel
+  private lateinit var sut: SignInPromptViewModel
 
-    @Before
-    fun setUp() {
-        sut = SignInPromptViewModel(fakeAuthUserRepository)
+  @Before
+  fun setUp() {
+    sut = SignInPromptViewModel(fakeAuthUserRepository)
+  }
+
+  @Test
+  fun givenInitialState_thenStateIsIdle() {
+    // when
+    val result = sut.uiState.value
+
+    // then
+    assertThat(result).isEqualTo(SignInPromptScreenState.Idle)
+  }
+
+  @Test
+  fun givenInitialState_whenOnIdleStateObserved_thenStateIsLoading() = runTest {
+    // when
+    val whenBlock = { sut.onIdleStateObserved() }
+
+    // then
+    sut.uiState.test {
+      skipItems(1)
+
+      whenBlock()
+
+      assertThat(awaitItem()).isEqualTo(SignInPromptScreenState.Loading)
+
+      skipItems(1)
     }
+  }
 
-    @Test
-    fun givenInitialState_thenStateIsIdle() {
-        // when
-        val result = sut.uiState.value
+  @Test
+  fun givenNonIdleState_whenOnIdleStateObserved_thenStateIsTheSame() = runTest {
+    // when
+    sut.onIdleStateObserved()
+    val whenBlock = { sut.onIdleStateObserved() }
 
-        // then
-        assertThat(result).isEqualTo(SignInPromptScreenState.Idle)
+    // then
+    sut.uiState.test {
+      assertThat(awaitItem()).isNotEqualTo(SignInPromptScreenState.Idle)
+
+      whenBlock()
+
+      expectNoEvents()
     }
+  }
 
-    @Test
-    fun givenInitialState_whenOnIdleStateObserved_thenStateIsLoading() = runTest {
-        // when
-        val whenBlock = { sut.onIdleStateObserved() }
+  @Test
+  fun givenNoUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedOut() = runTest {
+    // when
+    sut.onIdleStateObserved()
 
-        // then
-        sut.uiState.test {
-            skipItems(1)
+    // then
+    sut.uiState.test { assertThat(awaitItem()).isEqualTo(SignInPromptScreenState.SignedOut) }
+  }
 
-            whenBlock()
+  @Test
+  fun givenUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedIn() = runTest {
+    // given
+    val email = "user@example.com"
+    val name = "Name"
+    fakeAuthUserRepository.authUser = AuthUser(email = email, displayName = name)
 
-            assertThat(awaitItem()).isEqualTo(SignInPromptScreenState.Loading)
+    // when
+    sut.onIdleStateObserved()
 
-            skipItems(1)
-        }
+    // then
+    sut.uiState.test {
+      assertThat(awaitItem())
+        .isEqualTo(SignInPromptScreenState.SignedIn(AccountUiModel(email = email, name = name)))
     }
-
-    @Test
-    fun givenNonIdleState_whenOnIdleStateObserved_thenStateIsTheSame() = runTest {
-        // when
-        sut.onIdleStateObserved()
-        val whenBlock = { sut.onIdleStateObserved() }
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isNotEqualTo(SignInPromptScreenState.Idle)
-
-            whenBlock()
-
-            expectNoEvents()
-        }
-    }
-
-    @Test
-    fun givenNoUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedOut() = runTest {
-        // when
-        sut.onIdleStateObserved()
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(SignInPromptScreenState.SignedOut)
-        }
-    }
-
-    @Test
-    fun givenUserAuthenticated_whenOnIdleStateObserved_thenStateIsSignedIn() = runTest {
-        // given
-        val email = "user@example.com"
-        val name = "Name"
-        fakeAuthUserRepository.authUser = AuthUser(
-            email = email,
-            displayName = name,
-        )
-
-        // when
-        sut.onIdleStateObserved()
-
-        // then
-        sut.uiState.test {
-            assertThat(awaitItem()).isEqualTo(
-                SignInPromptScreenState.SignedIn(
-                    AccountUiModel(
-                        email = email,
-                        name = name,
-                    ),
-                ),
-            )
-        }
-    }
+  }
 }

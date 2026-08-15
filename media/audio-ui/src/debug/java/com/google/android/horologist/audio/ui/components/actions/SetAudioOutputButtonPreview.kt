@@ -23,62 +23,45 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.components.AudioOutputUi
 
-@Preview(
-    name = "Other volume",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    widthDp = 60,
-)
+@Preview(name = "Other volume", backgroundColor = 0xff000000, showBackground = true, widthDp = 60)
 @Composable
 fun SetAudioOutputButtonPreview() {
-    SetAudioOutputButton(
-        onVolumeClick = {},
-        volumeUiState = VolumeUiState(current = 4, max = 10),
-        audioOutputUi = AudioOutputUi(displayName = "", imageVector = Icons.Default.Headphones, isConnected = true),
-    )
+  SetAudioOutputButton(
+    onVolumeClick = {},
+    volumeUiState = VolumeUiState(current = 4, max = 10),
+    audioOutputUi =
+      AudioOutputUi(displayName = "", imageVector = Icons.Default.Headphones, isConnected = true),
+  )
 }
 
-@Preview(
-    name = "Min volume",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    widthDp = 60,
-)
+@Preview(name = "Min volume", backgroundColor = 0xff000000, showBackground = true, widthDp = 60)
 @Composable
 fun SetAudioOutputButtonPreviewMinVolume() {
-    SetAudioOutputButton(
-        onVolumeClick = {},
-        volumeUiState = VolumeUiState(current = 0, max = 10),
-        audioOutputUi = AudioOutputUi(displayName = "", imageVector = Icons.Default.Headphones, isConnected = true),
-    )
+  SetAudioOutputButton(
+    onVolumeClick = {},
+    volumeUiState = VolumeUiState(current = 0, max = 10),
+    audioOutputUi =
+      AudioOutputUi(displayName = "", imageVector = Icons.Default.Headphones, isConnected = true),
+  )
 }
 
-@Preview(
-    name = "Max volume",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    widthDp = 60,
-)
+@Preview(name = "Max volume", backgroundColor = 0xff000000, showBackground = true, widthDp = 60)
 @Composable
 fun SetAudioOutputButtonPreviewMaxVolume() {
-    SetAudioOutputButton(
-        onVolumeClick = {},
-        volumeUiState = VolumeUiState(current = 10, max = 10),
-        audioOutputUi = AudioOutputUi(displayName = "", imageVector = Icons.Default.Headphones, isConnected = true),
-    )
+  SetAudioOutputButton(
+    onVolumeClick = {},
+    volumeUiState = VolumeUiState(current = 10, max = 10),
+    audioOutputUi =
+      AudioOutputUi(displayName = "", imageVector = Icons.Default.Headphones, isConnected = true),
+  )
 }
 
-@Preview(
-    name = "NoAudioOutput",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-    widthDp = 60,
-)
+@Preview(name = "NoAudioOutput", backgroundColor = 0xff000000, showBackground = true, widthDp = 60)
 @Composable
 fun SetAudioOutputButtonPreviewNoOutput() {
-    SetAudioOutputButton(
-        onVolumeClick = {},
-        volumeUiState = VolumeUiState(current = 10, max = 10),
-        audioOutputUi = null,
-    )
+  SetAudioOutputButton(
+    onVolumeClick = {},
+    volumeUiState = VolumeUiState(current = 10, max = 10),
+    audioOutputUi = null,
+  )
 }

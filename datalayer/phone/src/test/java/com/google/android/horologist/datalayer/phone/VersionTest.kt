@@ -20,37 +20,34 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 
 class VersionTest {
-    @Test
-    fun testValid() {
-        assertThat(Version.parse("1.2")!!.inputVersion).containsExactly(1, 2).inOrder()
-        assertThat(Version.parse("2.1.0.576785526")!!.inputVersion).containsExactly(
-            2,
-            1,
-            0,
-            576785526,
-        ).inOrder()
-    }
+  @Test
+  fun testValid() {
+    assertThat(Version.parse("1.2")!!.inputVersion).containsExactly(1, 2).inOrder()
+    assertThat(Version.parse("2.1.0.576785526")!!.inputVersion)
+      .containsExactly(2, 1, 0, 576785526)
+      .inOrder()
+  }
 
-    @Test
-    fun testNotValid() {
-        assertThat(Version.parse("XYZ")).isNull()
-        assertThat(Version.parse("2.1.0.X")).isNull()
-    }
+  @Test
+  fun testNotValid() {
+    assertThat(Version.parse("XYZ")).isNull()
+    assertThat(Version.parse("2.1.0.X")).isNull()
+  }
 
-    @Test
-    fun testComparison() {
-        val known = Version.parse("2.1.0.576785526")
-        val knownPlusPatch = Version.parse("2.1.1")
-        val knownPlusMinor = Version.parse("2.2.0.576785526")
-        val knownMinorOnly = Version.parse("2.1")
-        val knownPlusPatchZero = Version.parse("2.1.1.0")
-        val old = Version.parse("1.1.0")
+  @Test
+  fun testComparison() {
+    val known = Version.parse("2.1.0.576785526")
+    val knownPlusPatch = Version.parse("2.1.1")
+    val knownPlusMinor = Version.parse("2.2.0.576785526")
+    val knownMinorOnly = Version.parse("2.1")
+    val knownPlusPatchZero = Version.parse("2.1.1.0")
+    val old = Version.parse("1.1.0")
 
-        assertThat(known).isGreaterThan(old)
-        assertThat(known).isLessThan(knownPlusPatch)
-        assertThat(known).isLessThan(knownPlusMinor)
-        assertThat(known).isGreaterThan(knownMinorOnly)
-        assertThat(knownPlusPatch).isLessThan(knownPlusPatchZero)
-        assertThat(known).isEquivalentAccordingToCompareTo(known)
-    }
+    assertThat(known).isGreaterThan(old)
+    assertThat(known).isLessThan(knownPlusPatch)
+    assertThat(known).isLessThan(knownPlusMinor)
+    assertThat(known).isGreaterThan(knownMinorOnly)
+    assertThat(knownPlusPatch).isLessThan(knownPlusPatchZero)
+    assertThat(known).isEquivalentAccordingToCompareTo(known)
+  }
 }

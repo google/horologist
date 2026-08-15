@@ -40,31 +40,26 @@ private val URL_CHARACTER_ENCODING = Charsets.UTF_8.name()
 const val infoScreenRoute = "$routePrefix/{$messageArg}"
 
 internal class InfoScreenArgs(val message: String) {
-    constructor(savedStateHandle: SavedStateHandle) :
-        this(URLDecoder.decode(checkNotNull(savedStateHandle[messageArg]), URL_CHARACTER_ENCODING))
+  constructor(
+    savedStateHandle: SavedStateHandle
+  ) : this(URLDecoder.decode(checkNotNull(savedStateHandle[messageArg]), URL_CHARACTER_ENCODING))
 }
 
 fun NavController.navigateToInfoScreen(message: String) {
-    val encodedMessage = URLEncoder.encode(message, URL_CHARACTER_ENCODING)
-    this.navigate("$routePrefix/$encodedMessage")
+  val encodedMessage = URLEncoder.encode(message, URL_CHARACTER_ENCODING)
+  this.navigate("$routePrefix/$encodedMessage")
 }
 
-fun NavGraphBuilder.infoScreen(
-    onDismissClick: () -> Unit,
-) {
-    composable(
-        route = Screen.InfoScreen.route,
-        arguments = listOf(
-            navArgument(messageArg) { type = NavType.StringType },
-        ),
-    ) {
-        val columnState = rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
+fun NavGraphBuilder.infoScreen(onDismissClick: () -> Unit) {
+  composable(
+    route = Screen.InfoScreen.route,
+    arguments = listOf(navArgument(messageArg) { type = NavType.StringType }),
+  ) {
+    val columnState =
+      rememberResponsiveColumnState(first = ItemType.Unspecified, last = ItemType.Unspecified)
 
-        ScreenScaffold(scrollState = columnState) {
-            InfoScreen(
-                onDismissClick = onDismissClick,
-                columnState = columnState,
-            )
-        }
+    ScreenScaffold(scrollState = columnState) {
+      InfoScreen(onDismissClick = onDismissClick, columnState = columnState)
     }
+  }
 }

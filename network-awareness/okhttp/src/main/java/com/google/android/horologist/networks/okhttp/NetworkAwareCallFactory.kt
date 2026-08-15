@@ -29,11 +29,11 @@ import okhttp3.Request
  */
 @ExperimentalHorologistApi
 public class NetworkAwareCallFactory(
-    private val delegate: Call.Factory,
-    private val defaultRequestType: RequestType,
+  private val delegate: Call.Factory,
+  private val defaultRequestType: RequestType,
 ) : Call.Factory {
-    override fun newCall(request: Request): Call {
-        val finalRequest = request.withDefaultRequestType(defaultRequestType)
-        return delegate.newCall(finalRequest)
-    }
+  override fun newCall(request: Request): Call {
+    val finalRequest = request.withDefaultRequestType(defaultRequestType)
+    return delegate.newCall(finalRequest)
+  }
 }

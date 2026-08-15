@@ -54,202 +54,184 @@ import com.google.android.horologist.media.ui.state.model.PlaylistDownloadUiMode
  */
 @ExperimentalHorologistApi
 @Composable
-public fun BrowseScreen(
-    modifier: Modifier = Modifier,
-    content: BrowseScreenScope.() -> Unit,
-) {
-    val scrollState = rememberScalingLazyListState()
-    ScreenScaffold(scrollState = scrollState) {
-        SectionedList(
-            scrollState = scrollState,
-            modifier = modifier,
-            sections = BrowseScreenScope().apply(content).sections,
-        )
-    }
+public fun BrowseScreen(modifier: Modifier = Modifier, content: BrowseScreenScope.() -> Unit) {
+  val scrollState = rememberScalingLazyListState()
+  ScreenScaffold(scrollState = scrollState) {
+    SectionedList(
+      scrollState = scrollState,
+      modifier = modifier,
+      sections = BrowseScreenScope().apply(content).sections,
+    )
+  }
 }
 
-/**
- * Receiver scope which is used by content parameter in [BrowseScreen].
- */
+/** Receiver scope which is used by content parameter in [BrowseScreen]. */
 @ExperimentalHorologistApi
 @BrowseScreenScopeMarker
 public class BrowseScreenScope {
 
-    internal val sections: MutableList<Section<*>> = mutableListOf()
+  internal val sections: MutableList<Section<*>> = mutableListOf()
 
-    @BrowseScreenScopeMarker
-    public fun <T> section(
-        state: Section.State<T>,
-        @StringRes titleId: Int,
-        @StringRes emptyMessageId: Int,
-        @StringRes failedMessageId: Int? = null,
-        displayFooterOnlyOnLoadedState: Boolean = true,
-        content: BrowseScreenSectionScope<T>.() -> Unit,
-    ) {
-        val scope = BrowseScreenSectionScope<T>().apply(content)
-        sections.add(
-            Section(
-                state = state,
-                headerContent = {
-                    ListHeader(modifier = Modifier.fillMaxWidth()) { Text(text = stringResource(id = titleId)) }
-                },
-                loadingContent = scope.loadingContent,
-                loadedContent = scope.loadedContent,
-                failedContent = {
-                    failedMessageId?.let {
-                        Text(
-                            text = stringResource(id = failedMessageId),
-                            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
-                    }
-                },
-                emptyContent = {
-                    Text(
-                        text = stringResource(id = emptyMessageId),
-                        modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                },
-                footerContent = scope.footerContent,
-                footerVisibleStates = if (displayFooterOnlyOnLoadedState) {
-                    LOADED_STATE_ONLY
-                } else {
-                    ALL_STATES
-                },
-            ),
-        )
-    }
+  @BrowseScreenScopeMarker
+  public fun <T> section(
+    state: Section.State<T>,
+    @StringRes titleId: Int,
+    @StringRes emptyMessageId: Int,
+    @StringRes failedMessageId: Int? = null,
+    displayFooterOnlyOnLoadedState: Boolean = true,
+    content: BrowseScreenSectionScope<T>.() -> Unit,
+  ) {
+    val scope = BrowseScreenSectionScope<T>().apply(content)
+    sections.add(
+      Section(
+        state = state,
+        headerContent = {
+          ListHeader(modifier = Modifier.fillMaxWidth()) {
+            Text(text = stringResource(id = titleId))
+          }
+        },
+        loadingContent = scope.loadingContent,
+        loadedContent = scope.loadedContent,
+        failedContent = {
+          failedMessageId?.let {
+            Text(
+              text = stringResource(id = failedMessageId),
+              modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+              textAlign = TextAlign.Center,
+              style = MaterialTheme.typography.bodyMedium,
+            )
+          }
+        },
+        emptyContent = {
+          Text(
+            text = stringResource(id = emptyMessageId),
+            modifier = Modifier.padding(top = 8.dp, bottom = 8.dp),
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.bodyMedium,
+          )
+        },
+        footerContent = scope.footerContent,
+        footerVisibleStates =
+          if (displayFooterOnlyOnLoadedState) {
+            LOADED_STATE_ONLY
+          } else {
+            ALL_STATES
+          },
+      )
+    )
+  }
 
-    @BrowseScreenScopeMarker
-    public fun <T> downloadsSection(
-        state: Section.State<T>,
-        displayFooterOnlyOnLoadedState: Boolean = true,
-        content: BrowseScreenSectionScope<T>.() -> Unit,
-    ) {
-        section(
-            state = state,
-            titleId = R.string.horologist_browse_downloads_title,
-            emptyMessageId = R.string.horologist_browse_downloads_empty,
-            failedMessageId = null,
-            displayFooterOnlyOnLoadedState = displayFooterOnlyOnLoadedState,
-            content = content,
-        )
-    }
+  @BrowseScreenScopeMarker
+  public fun <T> downloadsSection(
+    state: Section.State<T>,
+    displayFooterOnlyOnLoadedState: Boolean = true,
+    content: BrowseScreenSectionScope<T>.() -> Unit,
+  ) {
+    section(
+      state = state,
+      titleId = R.string.horologist_browse_downloads_title,
+      emptyMessageId = R.string.horologist_browse_downloads_empty,
+      failedMessageId = null,
+      displayFooterOnlyOnLoadedState = displayFooterOnlyOnLoadedState,
+      content = content,
+    )
+  }
 
-    @BrowseScreenScopeMarker
-    public fun playlistsSection(buttons: List<BrowseScreenPlaylistsSectionButton>) {
-        val firstSectionAdded = sections.isEmpty()
-        sections.add(
-            Section(
-                state = Section.State.Loaded(buttons),
-                headerContent = {
-                    ListHeader(
-                        modifier = if (firstSectionAdded) {
-                            Modifier.padding(bottom = 8.dp).fillMaxWidth()
-                        } else {
-                            Modifier.padding(top = 8.dp, bottom = 8.dp).fillMaxWidth()
-                        },
-                    ) { Text(stringResource(R.string.horologist_browse_library_playlists)) }
-                },
-                loadedContent = { item: BrowseScreenPlaylistsSectionButton ->
-                    FilledTonalButton(
-                        onClick = item.onClick,
-                        label = { Text(stringResource(item.textId)) },
-                        icon = {
-                            Icon(
-                                imageVector = item.icon,
-                                contentDescription = null,
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                },
-            ),
-        )
-    }
+  @BrowseScreenScopeMarker
+  public fun playlistsSection(buttons: List<BrowseScreenPlaylistsSectionButton>) {
+    val firstSectionAdded = sections.isEmpty()
+    sections.add(
+      Section(
+        state = Section.State.Loaded(buttons),
+        headerContent = {
+          ListHeader(
+            modifier =
+              if (firstSectionAdded) {
+                Modifier.padding(bottom = 8.dp).fillMaxWidth()
+              } else {
+                Modifier.padding(top = 8.dp, bottom = 8.dp).fillMaxWidth()
+              }
+          ) {
+            Text(stringResource(R.string.horologist_browse_library_playlists))
+          }
+        },
+        loadedContent = { item: BrowseScreenPlaylistsSectionButton ->
+          FilledTonalButton(
+            onClick = item.onClick,
+            label = { Text(stringResource(item.textId)) },
+            icon = { Icon(imageVector = item.icon, contentDescription = null) },
+            modifier = Modifier.fillMaxWidth(),
+          )
+        },
+      )
+    )
+  }
 
-    @BrowseScreenScopeMarker
-    public fun button(button: BrowseScreenPlaylistsSectionButton) {
-        sections.add(
-            Section(
-                state = Section.State.Loaded(listOf(button)),
-                loadedContent = { item: BrowseScreenPlaylistsSectionButton ->
-                    FilledTonalButton(
-                        onClick = item.onClick,
-                        label = { Text(stringResource(item.textId)) },
-                        icon = {
-                            Icon(
-                                imageVector = item.icon,
-                                contentDescription = null,
-                            )
-                        },
-                        modifier = Modifier.fillMaxWidth(),
-                    )
-                },
-            ),
-        )
-    }
+  @BrowseScreenScopeMarker
+  public fun button(button: BrowseScreenPlaylistsSectionButton) {
+    sections.add(
+      Section(
+        state = Section.State.Loaded(listOf(button)),
+        loadedContent = { item: BrowseScreenPlaylistsSectionButton ->
+          FilledTonalButton(
+            onClick = item.onClick,
+            label = { Text(stringResource(item.textId)) },
+            icon = { Icon(imageVector = item.icon, contentDescription = null) },
+            modifier = Modifier.fillMaxWidth(),
+          )
+        },
+      )
+    )
+  }
 }
 
-/**
- * DSL marker used to distinguish between scopes of [BrowseScreen].
- */
-@DslMarker
-internal annotation class BrowseScreenScopeMarker
+/** DSL marker used to distinguish between scopes of [BrowseScreen]. */
+@DslMarker internal annotation class BrowseScreenScopeMarker
 
-/**
- * Receiver scope which is used by content parameter in [BrowseScreenScope].
- */
+/** Receiver scope which is used by content parameter in [BrowseScreenScope]. */
 @ExperimentalHorologistApi
 @BrowseScreenScopeMarker
 public class BrowseScreenSectionScope<T> {
 
-    internal var loadingContent: @Composable SectionContentScope.() -> Unit = { }
-        private set
+  internal var loadingContent: @Composable SectionContentScope.() -> Unit = {}
+    private set
 
-    internal var loadedContent: @Composable SectionContentScope.(T) -> Unit = { }
-        private set
+  internal var loadedContent: @Composable SectionContentScope.(T) -> Unit = {}
+    private set
 
-    internal var footerContent: (@Composable SectionContentScope.() -> Unit)? = null
-        private set
+  internal var footerContent: (@Composable SectionContentScope.() -> Unit)? = null
+    private set
 
-    @BrowseScreenScopeMarker
-    public fun loading(content: @Composable SectionContentScope.() -> Unit) {
-        loadingContent = content
-    }
+  @BrowseScreenScopeMarker
+  public fun loading(content: @Composable SectionContentScope.() -> Unit) {
+    loadingContent = content
+  }
 
-    @BrowseScreenScopeMarker
-    public fun loaded(content: @Composable SectionContentScope.(T) -> Unit) {
-        loadedContent = content
-    }
+  @BrowseScreenScopeMarker
+  public fun loaded(content: @Composable SectionContentScope.(T) -> Unit) {
+    loadedContent = content
+  }
 
-    @BrowseScreenScopeMarker
-    public fun footer(content: @Composable SectionContentScope.() -> Unit) {
-        footerContent = content
-    }
+  @BrowseScreenScopeMarker
+  public fun footer(content: @Composable SectionContentScope.() -> Unit) {
+    footerContent = content
+  }
 }
 
-/**
- * Represents the state of [BrowseScreen].
- */
+/** Represents the state of [BrowseScreen]. */
 @ExperimentalHorologistApi
 public sealed class BrowseScreenState {
 
-    public object Loading : BrowseScreenState()
+  public object Loading : BrowseScreenState()
 
-    public data class Loaded(
-        val downloadList: List<PlaylistDownloadUiModel>,
-    ) : BrowseScreenState()
+  public data class Loaded(val downloadList: List<PlaylistDownloadUiModel>) : BrowseScreenState()
 
-    public object Failed : BrowseScreenState()
+  public object Failed : BrowseScreenState()
 }
 
 @ExperimentalHorologistApi
 public data class BrowseScreenPlaylistsSectionButton(
-    @StringRes val textId: Int,
-    val icon: ImageVector,
-    val onClick: () -> Unit,
+  @StringRes val textId: Int,
+  val icon: ImageVector,
+  val onClick: () -> Unit,
 )

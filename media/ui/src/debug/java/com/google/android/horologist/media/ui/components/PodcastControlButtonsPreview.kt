@@ -22,87 +22,76 @@ import com.google.android.horologist.media.ui.components.controls.SeekButtonIncr
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlin.time.Duration.Companion.seconds
 
-@Preview(
-    "Enabled - Playing - With progress",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview("Enabled - Playing - With progress", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun PodcastControlButtonsPreview() {
-    PodcastControlButtons(
-        onPlayButtonClick = {},
-        onPauseButtonClick = {},
-        playPauseButtonEnabled = true,
-        playing = true,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
-        onSeekBackButtonClick = {},
-        seekBackButtonEnabled = true,
-        onSeekForwardButtonClick = {},
-        seekForwardButtonEnabled = true,
-        seekBackButtonIncrement = SeekButtonIncrement.Ten,
-        seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
-    )
+  PodcastControlButtons(
+    onPlayButtonClick = {},
+    onPauseButtonClick = {},
+    playPauseButtonEnabled = true,
+    playing = true,
+    trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
+    onSeekBackButtonClick = {},
+    seekBackButtonEnabled = true,
+    onSeekForwardButtonClick = {},
+    seekForwardButtonEnabled = true,
+    seekBackButtonIncrement = SeekButtonIncrement.Ten,
+    seekForwardButtonIncrement = SeekButtonIncrement.Thirty,
+  )
 }
 
-@Preview(
-    "Enabled - Playing - With progress",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview("Enabled - Playing - With progress", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun PodcastControlButtonsPreviewUnknown() {
-    PodcastControlButtons(
-        onPlayButtonClick = {},
-        onPauseButtonClick = {},
-        playPauseButtonEnabled = true,
-        playing = true,
-        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
-        onSeekBackButtonClick = {},
-        seekBackButtonEnabled = true,
-        onSeekForwardButtonClick = {},
-        seekForwardButtonEnabled = true,
-        seekBackButtonIncrement = SeekButtonIncrement.Unknown,
-        seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
-    )
+  PodcastControlButtons(
+    onPlayButtonClick = {},
+    onPauseButtonClick = {},
+    playPauseButtonEnabled = true,
+    playing = true,
+    trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 25.seconds, 100.seconds),
+    onSeekBackButtonClick = {},
+    seekBackButtonEnabled = true,
+    onSeekForwardButtonClick = {},
+    seekForwardButtonEnabled = true,
+    seekBackButtonIncrement = SeekButtonIncrement.Unknown,
+    seekForwardButtonIncrement = SeekButtonIncrement.Unknown,
+  )
 }
 
 @Preview(
-    "Disabled - Not playing - Without progress",
-    backgroundColor = 0xff000000,
-    showBackground = true,
+  "Disabled - Not playing - Without progress",
+  backgroundColor = 0xff000000,
+  showBackground = true,
 )
 @Composable
 fun PodcastControlButtonsPreviewNoProgress() {
-    PodcastControlButtons(
-        onPlayButtonClick = {},
-        onPauseButtonClick = {},
-        playPauseButtonEnabled = false,
-        playing = false,
-        onSeekBackButtonClick = {},
-        seekBackButtonEnabled = false,
-        onSeekForwardButtonClick = {},
-        seekForwardButtonEnabled = false,
-        seekBackButtonIncrement = SeekButtonIncrement.Unknown,
-        seekForwardButtonIncrement = SeekButtonIncrement.Five,
-    )
+  PodcastControlButtons(
+    onPlayButtonClick = {},
+    onPauseButtonClick = {},
+    playPauseButtonEnabled = false,
+    playing = false,
+    onSeekBackButtonClick = {},
+    seekBackButtonEnabled = false,
+    onSeekForwardButtonClick = {},
+    seekForwardButtonEnabled = false,
+    seekBackButtonIncrement = SeekButtonIncrement.Unknown,
+    seekForwardButtonIncrement = SeekButtonIncrement.Five,
+  )
 }
 
-@Preview(
-    backgroundColor = 0xff888800,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff888800, showBackground = true)
 @Composable
 fun PodcastControlDisabledLightBackground() {
-    PodcastControlButtons(
-        onPlayButtonClick = {},
-        onPauseButtonClick = {},
-        playPauseButtonEnabled = false,
-        playing = false,
-        onSeekBackButtonClick = {},
-        seekBackButtonEnabled = false,
-        onSeekForwardButtonClick = {},
-        seekForwardButtonEnabled = false,
-        seekBackButtonIncrement = SeekButtonIncrement.Unknown,
-        seekForwardButtonIncrement = SeekButtonIncrement.Five,
-    )
+  PodcastControlButtons(
+    onPlayButtonClick = {},
+    onPauseButtonClick = {},
+    playPauseButtonEnabled = false,
+    playing = false,
+    onSeekBackButtonClick = {},
+    seekBackButtonEnabled = false,
+    onSeekForwardButtonClick = {},
+    seekForwardButtonEnabled = false,
+    seekBackButtonIncrement = SeekButtonIncrement.Unknown,
+    seekForwardButtonIncrement = SeekButtonIncrement.Five,
+  )
 }

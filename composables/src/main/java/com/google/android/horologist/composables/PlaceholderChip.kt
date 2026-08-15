@@ -46,79 +46,80 @@ import androidx.wear.compose.material.placeholderShimmer
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.layout.rememberActivePlaceholderState
 
-/**
- * A placeholder chip to be displayed while the contents of the [Chip] is being loaded.
- */
+/** A placeholder chip to be displayed while the contents of the [Chip] is being loaded. */
 @OptIn(ExperimentalWearMaterialApi::class)
 @ExperimentalHorologistApi
 @Composable
 public fun PlaceholderChip(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    placeholderState: PlaceholderState = rememberActivePlaceholderState { false },
-    secondaryLabel: Boolean = true,
-    icon: Boolean = true,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = false,
-    contentDescription: String = stringResource(id = R.string.horologist_placeholderchip_content_description),
+  modifier: Modifier = Modifier,
+  onClick: () -> Unit = {},
+  placeholderState: PlaceholderState = rememberActivePlaceholderState { false },
+  secondaryLabel: Boolean = true,
+  icon: Boolean = true,
+  colors: ChipColors = ChipDefaults.primaryChipColors(),
+  enabled: Boolean = false,
+  contentDescription: String =
+    stringResource(id = R.string.horologist_placeholderchip_content_description),
 ) {
-    Chip(
-        modifier = modifier
-            .height(ChipDefaults.Height)
-            .fillMaxWidth()
-            .clip(shape = MaterialTheme.shapes.small)
-            .paint(
-                painter = colors.background(enabled = enabled).value,
-                contentScale = ContentScale.Crop,
-            )
-            .placeholderShimmer(placeholderState)
-            .semantics {
-                this.contentDescription = contentDescription
-            },
-        onClick = onClick,
-        enabled = enabled,
-        label = {
-            Column {
-                Box(
-                    modifier = Modifier
-                        .padding(end = 10.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .fillMaxWidth()
-                        .height(12.dp)
-                        .placeholder(placeholderState),
-                )
-                Spacer(Modifier.size(8.dp))
-            }
-        },
-        secondaryLabel = if (secondaryLabel) {
-            {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(end = 30.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .height(12.dp)
-                        .placeholder(placeholderState),
-                )
-            }
-        } else {
-            null
-        },
-        icon = if (icon) {
-            {
-                Box(
-                    modifier = Modifier
-                        .clip(CircleShape)
-                        .size(ChipDefaults.LargeIconSize)
-                        .placeholder(placeholderState),
-                )
-            }
-        } else {
-            null
-        },
-        colors = PlaceholderDefaults.placeholderChipColors(
-            originalChipColors = colors,
-            placeholderState = placeholderState,
-        ),
-    )
+  Chip(
+    modifier =
+      modifier
+        .height(ChipDefaults.Height)
+        .fillMaxWidth()
+        .clip(shape = MaterialTheme.shapes.small)
+        .paint(
+          painter = colors.background(enabled = enabled).value,
+          contentScale = ContentScale.Crop,
+        )
+        .placeholderShimmer(placeholderState)
+        .semantics { this.contentDescription = contentDescription },
+    onClick = onClick,
+    enabled = enabled,
+    label = {
+      Column {
+        Box(
+          modifier =
+            Modifier.padding(end = 10.dp)
+              .clip(RoundedCornerShape(12.dp))
+              .fillMaxWidth()
+              .height(12.dp)
+              .placeholder(placeholderState)
+        )
+        Spacer(Modifier.size(8.dp))
+      }
+    },
+    secondaryLabel =
+      if (secondaryLabel) {
+        {
+          Box(
+            modifier =
+              Modifier.fillMaxWidth()
+                .padding(end = 30.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .height(12.dp)
+                .placeholder(placeholderState)
+          )
+        }
+      } else {
+        null
+      },
+    icon =
+      if (icon) {
+        {
+          Box(
+            modifier =
+              Modifier.clip(CircleShape)
+                .size(ChipDefaults.LargeIconSize)
+                .placeholder(placeholderState)
+          )
+        }
+      } else {
+        null
+      },
+    colors =
+      PlaceholderDefaults.placeholderChipColors(
+        originalChipColors = colors,
+        placeholderState = placeholderState,
+      ),
+  )
 }

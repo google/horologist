@@ -22,5 +22,5 @@ import com.google.android.horologist.media.benchmark.MediaApp
 
 @LargeTest
 class PlaybackBenchmark : BasePlaybackBenchmark() {
-    override val mediaApp: MediaApp = TestMedia.MediaSampleApp
+  override val mediaApp: MediaApp = TestMedia.MediaSampleApp
 }

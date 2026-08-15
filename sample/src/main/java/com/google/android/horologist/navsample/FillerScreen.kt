@@ -41,45 +41,31 @@ import com.google.android.horologist.compose.layout.ScalingLazyColumnState
 
 @Composable
 fun FillerScreen(label: String, modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(label)
-    }
+  Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) { Text(label) }
 }
 
 @Composable
-fun BigScalingLazyColumn(
-    columnState: ScalingLazyColumnState,
-    modifier: Modifier = Modifier,
-) {
-    ScalingLazyColumn(
-        modifier = modifier,
-        columnState = columnState,
-    ) {
-        items(100) {
-            Text("i = $it")
-        }
-    }
+fun BigScalingLazyColumn(columnState: ScalingLazyColumnState, modifier: Modifier = Modifier) {
+  ScalingLazyColumn(modifier = modifier, columnState = columnState) {
+    items(100) { Text("i = $it") }
+  }
 }
 
 @Composable
-fun BigColumn(
-    scrollState: ScrollState,
-    modifier: Modifier = Modifier,
-) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalScroll(scrollState)
-            .requestFocusOnHierarchyActive()
-            .rotaryScrollable(
-                behavior = behavior(scrollableState = scrollState),
-                focusRequester = remember { FocusRequester() },
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Spacer(modifier = Modifier.size(30.dp))
-        (1..100).forEach {
-            Text("i = $it")
-        }
-    }
+fun BigColumn(scrollState: ScrollState, modifier: Modifier = Modifier) {
+  Column(
+    modifier =
+      modifier
+        .fillMaxSize()
+        .verticalScroll(scrollState)
+        .requestFocusOnHierarchyActive()
+        .rotaryScrollable(
+          behavior = behavior(scrollableState = scrollState),
+          focusRequester = remember { FocusRequester() },
+        ),
+    horizontalAlignment = Alignment.CenterHorizontally,
+  ) {
+    Spacer(modifier = Modifier.size(30.dp))
+    (1..100).forEach { Text("i = $it") }
+  }
 }

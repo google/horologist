@@ -49,132 +49,130 @@ import org.junit.Test
 
 class SLCTitleTest(device: WearDevice) : WearDeviceScreenshotTest(device) {
 
-    override fun testName(suffix: String): String =
-        "src/test/screenshots/" +
-            "${javaClass.simpleName}_" +
-            "${testInfo.methodName}_" +
-            "${super.device?.id ?: WearDevice.GenericLargeRound.id}" +
-            "$suffix.png"
+  override fun testName(suffix: String): String =
+    "src/test/screenshots/" +
+      "${javaClass.simpleName}_" +
+      "${testInfo.methodName}_" +
+      "${super.device?.id ?: WearDevice.GenericLargeRound.id}" +
+      "$suffix.png"
 
-    @Test
-    fun padding_16() {
-        listWithPadding(ItemType.Text)
-    }
+  @Test
+  fun padding_16() {
+    listWithPadding(ItemType.Text)
+  }
 
-    @Test
-    fun padding_21() {
-        listWithPadding(ItemType.BodyText)
-    }
+  @Test
+  fun padding_21() {
+    listWithPadding(ItemType.BodyText)
+  }
 
-    fun listWithPadding(topPadding: ItemType) {
-        runTest {
-            Box {
-                AppScaffold(timeText = { TimeText(timeSource = FixedTimeSource) }) {
-                    val columnState = rememberResponsiveColumnState(
-                        contentPadding = padding(
-                            first = topPadding,
-                            last = ItemType.Text,
-                        ),
-                    )
+  fun listWithPadding(topPadding: ItemType) {
+    runTest {
+      Box {
+        AppScaffold(timeText = { TimeText(timeSource = FixedTimeSource) }) {
+          val columnState =
+            rememberResponsiveColumnState(
+              contentPadding = padding(first = topPadding, last = ItemType.Text)
+            )
 
-                    val alpha = remember {
-                        derivedStateOf {
-                            columnState.state.layoutInfo.visibleItemsInfo.getOrNull(0)?.alpha?.let {
-                                String.format("%.2f", it * 100f)
-                            }
-                        }
-                    }
-
-                    ScreenScaffold(scrollState = columnState) {
-                        ScalingLazyColumn(columnState = columnState) {
-                            item {
-                                ResponsiveListHeader(
-                                    contentColor = Color.White,
-                                    contentPadding = firstItemPadding(),
-                                    modifier = Modifier.testTag("Header-1"),
-                                ) {
-                                    Text(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        textAlign = TextAlign.Center,
-                                        text = "Alpha ${alpha.value}",
-                                    )
-                                }
-                            }
-                            item {
-                                ResponsiveListHeader(
-                                    contentColor = Color.White,
-                                    contentPadding = firstItemPadding(),
-                                    modifier = Modifier.testTag("Header-2"),
-                                ) {
-                                    val color = Color.Unspecified
-                                    val style = LocalTextStyle.current
-                                    val localContentColor =
-                                        LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
-
-                                    val textColor = color.takeOrElse {
-                                        style.color.takeOrElse {
-                                            localContentColor
-                                        }
-                                    }
-
-                                    Text(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        textAlign = TextAlign.Center,
-                                        text = "Header ${textColor.hex}",
-                                    )
-                                }
-                            }
-                            item {
-                                ResponsiveListHeader(
-                                    contentColor = Color.White,
-                                    contentPadding = firstItemPadding(),
-                                ) {
-                                    val style = LocalTextStyle.current
-                                    BasicText(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        text = "style ${style.color.hex}",
-                                        color = { style.color },
-                                    )
-                                }
-                            }
-                            item {
-                                ResponsiveListHeader(
-                                    contentColor = Color.White,
-                                    contentPadding = firstItemPadding(),
-                                ) {
-                                    val localContentColor =
-                                        LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
-                                    BasicText(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        text = "content color ${localContentColor.hex}",
-                                        color = { localContentColor },
-                                    )
-                                }
-                            }
-                            item {
-                                ResponsiveListHeader(
-                                    contentColor = Color.White,
-                                    contentPadding = firstItemPadding(),
-                                ) {
-                                    BasicText(
-                                        modifier = Modifier.fillMaxWidth(),
-                                        text = "White ${Color.White.hex}",
-                                        color = { Color.White },
-                                    )
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Canvas(modifier = Modifier.fillMaxSize()) {
-                    val paddingLine = topPadding.topPaddingPct * size.height
-                    drawLine(Color.White, start = Offset(0f, paddingLine), end = Offset(size.width, paddingLine))
-                }
+          val alpha = remember {
+            derivedStateOf {
+              columnState.state.layoutInfo.visibleItemsInfo.getOrNull(0)?.alpha?.let {
+                String.format("%.2f", it * 100f)
+              }
             }
+          }
+
+          ScreenScaffold(scrollState = columnState) {
+            ScalingLazyColumn(columnState = columnState) {
+              item {
+                ResponsiveListHeader(
+                  contentColor = Color.White,
+                  contentPadding = firstItemPadding(),
+                  modifier = Modifier.testTag("Header-1"),
+                ) {
+                  Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    text = "Alpha ${alpha.value}",
+                  )
+                }
+              }
+              item {
+                ResponsiveListHeader(
+                  contentColor = Color.White,
+                  contentPadding = firstItemPadding(),
+                  modifier = Modifier.testTag("Header-2"),
+                ) {
+                  val color = Color.Unspecified
+                  val style = LocalTextStyle.current
+                  val localContentColor =
+                    LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
+
+                  val textColor = color.takeOrElse { style.color.takeOrElse { localContentColor } }
+
+                  Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    text = "Header ${textColor.hex}",
+                  )
+                }
+              }
+              item {
+                ResponsiveListHeader(
+                  contentColor = Color.White,
+                  contentPadding = firstItemPadding(),
+                ) {
+                  val style = LocalTextStyle.current
+                  BasicText(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "style ${style.color.hex}",
+                    color = { style.color },
+                  )
+                }
+              }
+              item {
+                ResponsiveListHeader(
+                  contentColor = Color.White,
+                  contentPadding = firstItemPadding(),
+                ) {
+                  val localContentColor =
+                    LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
+                  BasicText(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "content color ${localContentColor.hex}",
+                    color = { localContentColor },
+                  )
+                }
+              }
+              item {
+                ResponsiveListHeader(
+                  contentColor = Color.White,
+                  contentPadding = firstItemPadding(),
+                ) {
+                  BasicText(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "White ${Color.White.hex}",
+                    color = { Color.White },
+                  )
+                }
+              }
+            }
+          }
         }
+
+        Canvas(modifier = Modifier.fillMaxSize()) {
+          val paddingLine = topPadding.topPaddingPct * size.height
+          drawLine(
+            Color.White,
+            start = Offset(0f, paddingLine),
+            end = Offset(size.width, paddingLine),
+          )
+        }
+      }
     }
+  }
 }
 
 val Color.hex
-    get() = String.format("#%06X", 0xFFFFFF and toArgb())
+  get() = String.format("#%06X", 0xFFFFFF and toArgb())

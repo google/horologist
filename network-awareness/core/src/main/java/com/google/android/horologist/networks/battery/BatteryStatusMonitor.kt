@@ -36,54 +36,50 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 
-public class BatteryStatusMonitor(
-    private val context: Context,
-) {
-    private val powerManager: PowerManager = context.getSystemService(PowerManager::class.java)
-    private val batteryManager: BatteryManager =
-        context.getSystemService(BatteryManager::class.java)
+public class BatteryStatusMonitor(private val context: Context) {
+  private val powerManager: PowerManager = context.getSystemService(PowerManager::class.java)
+  private val batteryManager: BatteryManager = context.getSystemService(BatteryManager::class.java)
 
-    private val subscriptionFlow = callbackFlow {
-        val receiver = object : BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-                trySend(batteryStatus())
-            }
+  private val subscriptionFlow = callbackFlow {
+    val receiver =
+      object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+          trySend(batteryStatus())
         }
+      }
 
-        ContextCompat.registerReceiver(
-            context,
-            receiver,
-            IntentFilter().apply {
-                addAction(ACTION_DEVICE_IDLE_MODE_CHANGED)
-                addAction(ACTION_POWER_SAVE_MODE_CHANGED)
-                addAction(ACTION_CHARGING)
-                addAction(ACTION_DISCHARGING)
-                addAction(ACTION_BATTERY_LOW)
-                addAction(ACTION_BATTERY_OKAY)
-            },
-            RECEIVER_EXPORTED,
-        )
-
-        awaitClose {
-            context.unregisterReceiver(receiver)
-        }
-    }
-
-    public val status: Flow<BatteryStatus> = flow {
-        emit(batteryStatus())
-        emitAll(subscriptionFlow)
-    }
-
-    private fun batteryStatus() =
-        BatteryStatus(
-            batteryManager.isCharging,
-            powerManager.isDeviceIdleMode,
-            powerManager.isPowerSaveMode,
-        )
-
-    public data class BatteryStatus(
-        val charging: Boolean,
-        val deviceIdleMode: Boolean,
-        val powerSaveMode: Boolean,
+    ContextCompat.registerReceiver(
+      context,
+      receiver,
+      IntentFilter().apply {
+        addAction(ACTION_DEVICE_IDLE_MODE_CHANGED)
+        addAction(ACTION_POWER_SAVE_MODE_CHANGED)
+        addAction(ACTION_CHARGING)
+        addAction(ACTION_DISCHARGING)
+        addAction(ACTION_BATTERY_LOW)
+        addAction(ACTION_BATTERY_OKAY)
+      },
+      RECEIVER_EXPORTED,
     )
+
+    awaitClose { context.unregisterReceiver(receiver) }
+  }
+
+  public val status: Flow<BatteryStatus> = flow {
+    emit(batteryStatus())
+    emitAll(subscriptionFlow)
+  }
+
+  private fun batteryStatus() =
+    BatteryStatus(
+      batteryManager.isCharging,
+      powerManager.isDeviceIdleMode,
+      powerManager.isPowerSaveMode,
+    )
+
+  public data class BatteryStatus(
+    val charging: Boolean,
+    val deviceIdleMode: Boolean,
+    val powerSaveMode: Boolean,
+  )
 }

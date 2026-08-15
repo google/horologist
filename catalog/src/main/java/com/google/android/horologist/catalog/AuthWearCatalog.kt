@@ -130,7 +130,8 @@ internal fun AuthWearSelectAccountScreenLongEmail() {
   }
 }
 
-// --- Loading and confirmation ---------------------------------------------------------------------
+// --- Loading and confirmation
+// ---------------------------------------------------------------------
 
 @AuthWearCatalog
 @Composable

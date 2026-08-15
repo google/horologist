@@ -62,90 +62,94 @@ import com.google.android.horologist.media.ui.material3.util.isLargeScreen
  */
 @Composable
 public fun AmbientPlayPauseButton(
-    onPlayClick: () -> Unit,
-    onPauseClick: () -> Unit,
-    playing: Boolean,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    enabled: Boolean = true,
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
+  onPlayClick: () -> Unit,
+  onPauseClick: () -> Unit,
+  playing: Boolean,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  enabled: Boolean = true,
+  iconSize: Dp = IconButtonDefaults.LargeIconSize,
 ) {
-    val density = LocalDensity.current
-    val isLargeScreen = LocalConfiguration.current.isLargeScreen
-    val scallopSize = remember {
-        if (isLargeScreen) {
-            LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-        } else {
-            SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-        }
+  val density = LocalDensity.current
+  val isLargeScreen = LocalConfiguration.current.isLargeScreen
+  val scallopSize = remember {
+    if (isLargeScreen) {
+      LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
+    } else {
+      SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
     }
-    val scallopHeight =
-        remember(scallopSize) { with(density) { (scallopSize - MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH).toPx() } }
-
-    val scallopPolygon = remember(scallopSize, scallopHeight) {
-        PlayPauseButtonDefaults.outerScallopPolygon(density, scallopSize)
-            .scaleToSize(scallopHeight)
+  }
+  val scallopHeight =
+    remember(scallopSize) {
+      with(density) { (scallopSize - MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH).toPx() }
     }
 
-    val circlePolygon = remember(scallopHeight) {
-        PlayPauseButtonDefaults.pillPolygon(scallopHeight, scallopHeight)
+  val scallopPolygon =
+    remember(scallopSize, scallopHeight) {
+      PlayPauseButtonDefaults.outerScallopPolygon(density, scallopSize).scaleToSize(scallopHeight)
     }
-    val pathMap = remember { mutableStateMapOf<Boolean, Path>() }
-    val path = remember(playing) {
-        pathMap.getOrPut(playing) {
-            if (playing) {
-                scallopPolygon
-            } else {
-                circlePolygon
-            }.toPath().asComposePath()
-        }
+
+  val circlePolygon =
+    remember(scallopHeight) { PlayPauseButtonDefaults.pillPolygon(scallopHeight, scallopHeight) }
+  val pathMap = remember { mutableStateMapOf<Boolean, Path>() }
+  val path =
+    remember(playing) {
+      pathMap.getOrPut(playing) {
+        if (playing) {
+            scallopPolygon
+          } else {
+            circlePolygon
+          }
+          .toPath()
+          .asComposePath()
+      }
     }
-    val iconButtonColors = IconButtonDefaults.iconButtonColors(
-        containerColor = Color.Transparent,
-        contentColor = colorScheme.primary,
-        disabledContainerColor = Color.Transparent,
-        disabledContentColor = colorScheme.onSurface.toDisabledColor(),
+  val iconButtonColors =
+    IconButtonDefaults.iconButtonColors(
+      containerColor = Color.Transparent,
+      contentColor = colorScheme.primary,
+      disabledContainerColor = Color.Transparent,
+      disabledContentColor = colorScheme.onSurface.toDisabledColor(),
     )
 
-    Box(
-        modifier =
-            modifier
-                .fillMaxSize()
-                .drawBehind {
-                    val centerX = size.width / 2f
-                    val centerY = size.height / 2f
+  Box(
+    modifier =
+      modifier.fillMaxSize().drawBehind {
+        val centerX = size.width / 2f
+        val centerY = size.height / 2f
 
-                    val translatedPath = Path().apply { addPath(path, Offset(centerX, centerY)) }
-                    drawPath(
-                        path = translatedPath,
-                        color = if (enabled) {
-                            colorScheme.primaryDim
-                        } else {
-                            colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha)
-                        },
-                        style = Stroke(1.dp.toPx(), cap = StrokeCap.Round),
-                    )
-                },
-        contentAlignment = Alignment.Center,
-    ) {
-        if (playing) {
-            PauseButton(
-                onClick = onPauseClick,
-                enabled = enabled,
-                modifier = Modifier,
-                colorScheme = colorScheme,
-                iconSize = iconSize,
-                colors = iconButtonColors,
-            )
-        } else {
-            PlayButton(
-                onClick = onPlayClick,
-                enabled = enabled,
-                modifier = Modifier,
-                colorScheme = colorScheme,
-                iconSize = iconSize,
-                colors = iconButtonColors,
-            )
-        }
+        val translatedPath = Path().apply { addPath(path, Offset(centerX, centerY)) }
+        drawPath(
+          path = translatedPath,
+          color =
+            if (enabled) {
+              colorScheme.primaryDim
+            } else {
+              colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha)
+            },
+          style = Stroke(1.dp.toPx(), cap = StrokeCap.Round),
+        )
+      },
+    contentAlignment = Alignment.Center,
+  ) {
+    if (playing) {
+      PauseButton(
+        onClick = onPauseClick,
+        enabled = enabled,
+        modifier = Modifier,
+        colorScheme = colorScheme,
+        iconSize = iconSize,
+        colors = iconButtonColors,
+      )
+    } else {
+      PlayButton(
+        onClick = onPlayClick,
+        enabled = enabled,
+        modifier = Modifier,
+        colorScheme = colorScheme,
+        iconSize = iconSize,
+        colors = iconButtonColors,
+      )
     }
+  }
 }

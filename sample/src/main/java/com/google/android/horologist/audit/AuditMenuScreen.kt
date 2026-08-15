@@ -42,47 +42,42 @@ import com.google.android.horologist.compose.tools.PreviewTimeSource
 
 @Composable
 fun AuditMenuScreen(
-    columnState: ScalingLazyColumnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+  columnState: ScalingLazyColumnState =
+    rememberResponsiveColumnState(
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     ),
-    onClick: (AuditNavigation) -> Unit,
+  onClick: (AuditNavigation) -> Unit,
 ) {
-    val screens = remember { AuditNavigation.screens.groupBy { it.parent } }
+  val screens = remember { AuditNavigation.screens.groupBy { it.parent } }
 
-    ScreenScaffold(scrollState = columnState) {
-        ScalingLazyColumn(columnState = columnState) {
-            item {
-                Title("Large Screens")
-            }
-            item {
-                Text(
-                    "DP: " + LocalConfiguration.current.screenWidthDp + " FontScale: " + LocalDensity.current.fontScale,
-                    modifier = Modifier.listTextPadding(),
-                    style = MaterialTheme.typography.caption3,
-                )
-            }
-            screens.forEach { (section, auditNavigations) ->
-                if (section != null) {
-                    item {
-                        SecondaryTitle(section.title)
-                    }
-                }
-                items(auditNavigations) {
-                    Chip(it.title, onClick = { onClick(it) })
-                }
-            }
+  ScreenScaffold(scrollState = columnState) {
+    ScalingLazyColumn(columnState = columnState) {
+      item { Title("Large Screens") }
+      item {
+        Text(
+          "DP: " +
+            LocalConfiguration.current.screenWidthDp +
+            " FontScale: " +
+            LocalDensity.current.fontScale,
+          modifier = Modifier.listTextPadding(),
+          style = MaterialTheme.typography.caption3,
+        )
+      }
+      screens.forEach { (section, auditNavigations) ->
+        if (section != null) {
+          item { SecondaryTitle(section.title) }
         }
+        items(auditNavigations) { Chip(it.title, onClick = { onClick(it) }) }
+      }
     }
+  }
 }
 
 @Composable
 @WearPreviewSmallRound
 @WearPreviewLargeRound
 fun AuditMenuScreenPreview() {
-    AppScaffold(timeText = { ResponsiveTimeText(timeSource = PreviewTimeSource) }) {
-        AuditMenuScreen { }
-    }
+  AppScaffold(timeText = { ResponsiveTimeText(timeSource = PreviewTimeSource) }) {
+    AuditMenuScreen {}
+  }
 }

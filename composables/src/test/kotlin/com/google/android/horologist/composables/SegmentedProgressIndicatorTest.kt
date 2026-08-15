@@ -26,102 +26,97 @@ import androidx.compose.ui.unit.dp
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
 import org.junit.Test
 
-class SegmentedProgressIndicatorTest :
-    WearLegacyScreenTest() {
+class SegmentedProgressIndicatorTest : WearLegacyScreenTest() {
 
-    @Test
-    fun segmentedPicker() {
-        runTest {
-            val segments = listOf(
-                ProgressIndicatorSegment(1f, Color.Green),
-                ProgressIndicatorSegment(1f, Color.Cyan),
-                ProgressIndicatorSegment(1f, Color.Magenta),
-                ProgressIndicatorSegment(
-                    weight = 1f,
-                    indicatorColor = Color.Yellow,
-                    inProgressTrackColor = Color.Yellow.copy(alpha = 0.35f)
-                        .compositeOver(Color.Gray),
-                ),
-                ProgressIndicatorSegment(2f, Color.Red),
-            )
+  @Test
+  fun segmentedPicker() {
+    runTest {
+      val segments =
+        listOf(
+          ProgressIndicatorSegment(1f, Color.Green),
+          ProgressIndicatorSegment(1f, Color.Cyan),
+          ProgressIndicatorSegment(1f, Color.Magenta),
+          ProgressIndicatorSegment(
+            weight = 1f,
+            indicatorColor = Color.Yellow,
+            inProgressTrackColor = Color.Yellow.copy(alpha = 0.35f).compositeOver(Color.Gray),
+          ),
+          ProgressIndicatorSegment(2f, Color.Red),
+        )
 
-            SegmentedProgressIndicator(
-                trackSegments = segments,
-                progress = 0.5833f,
-                modifier = Modifier.fillMaxSize(),
-                strokeWidth = 10.dp,
-                paddingAngle = 2f,
-                trackColor = Color.Gray,
-            )
-        }
+      SegmentedProgressIndicator(
+        trackSegments = segments,
+        progress = 0.5833f,
+        modifier = Modifier.fillMaxSize(),
+        strokeWidth = 10.dp,
+        paddingAngle = 2f,
+        trackColor = Color.Gray,
+      )
     }
+  }
 
-    @Test
-    fun segmentedPickerWithBrushColors() {
-        runTest {
-            val segments = listOf(
-                ProgressIndicatorSegment(
-                    1f,
-                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
-                ),
-                ProgressIndicatorSegment(
-                    weight = 1f,
-                    indicatorBrush = Brush.horizontalGradient(
-                        listOf(Color.Cyan, Color.Magenta, Color.Yellow),
-                    ),
-                ),
-                ProgressIndicatorSegment(
-                    weight = 1f,
-                    indicatorBrush = Brush.horizontalGradient(
-                        listOf(Color.Yellow, Color.Magenta, Color.Cyan),
-                    ),
-                ),
-            )
+  @Test
+  fun segmentedPickerWithBrushColors() {
+    runTest {
+      val segments =
+        listOf(
+          ProgressIndicatorSegment(
+            1f,
+            Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
+          ),
+          ProgressIndicatorSegment(
+            weight = 1f,
+            indicatorBrush =
+              Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Yellow)),
+          ),
+          ProgressIndicatorSegment(
+            weight = 1f,
+            indicatorBrush =
+              Brush.horizontalGradient(listOf(Color.Yellow, Color.Magenta, Color.Cyan)),
+          ),
+        )
 
-            SegmentedProgressIndicator(
-                trackSegments = segments,
-                progress = 0.5833f,
-                modifier = Modifier.fillMaxSize(),
-                strokeWidth = 10.dp,
-                paddingAngle = 2f,
-                trackColor = Color.Gray,
-            )
-        }
+      SegmentedProgressIndicator(
+        trackSegments = segments,
+        progress = 0.5833f,
+        modifier = Modifier.fillMaxSize(),
+        strokeWidth = 10.dp,
+        paddingAngle = 2f,
+        trackColor = Color.Gray,
+      )
     }
+  }
 
-    @Test
-    fun segmentedPickerWithBrushColorsAndColorsCombined() {
-        runTest {
-            val segments = listOf(
-                ProgressIndicatorSegment(
-                    1f,
-                    Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
-                ),
-                ProgressIndicatorSegment(
-                    weight = 1f,
-                    indicatorColor = Color.Cyan,
-                ),
-                ProgressIndicatorSegment(
-                    weight = 1f,
-                    indicatorBrush = Brush.horizontalGradient(
-                        listOf(Color.Yellow, Color.Magenta, Color.Cyan),
-                    ),
-                ),
-            )
+  @Test
+  fun segmentedPickerWithBrushColorsAndColorsCombined() {
+    runTest {
+      val segments =
+        listOf(
+          ProgressIndicatorSegment(
+            1f,
+            Brush.horizontalGradient(listOf(Color.Cyan, Color.Magenta, Color.Cyan)),
+          ),
+          ProgressIndicatorSegment(weight = 1f, indicatorColor = Color.Cyan),
+          ProgressIndicatorSegment(
+            weight = 1f,
+            indicatorBrush =
+              Brush.horizontalGradient(listOf(Color.Yellow, Color.Magenta, Color.Cyan)),
+          ),
+        )
 
-            SegmentedProgressIndicator(
-                trackSegments = segments,
-                progress = 0.5833f,
-                modifier = Modifier.fillMaxSize(),
-                strokeWidth = 10.dp,
-                paddingAngle = 2f,
-                trackColor = Color.Gray,
-            )
-        }
+      SegmentedProgressIndicator(
+        trackSegments = segments,
+        progress = 0.5833f,
+        modifier = Modifier.fillMaxSize(),
+        strokeWidth = 10.dp,
+        paddingAngle = 2f,
+        trackColor = Color.Gray,
+      )
     }
+  }
 
-    @Composable
-    override fun TestScaffold(content: @Composable () -> Unit) {
-        content()
-    }
+  @Composable
+  override fun TestScaffold(content: @Composable () -> Unit) {
+    content()
+  }
 }

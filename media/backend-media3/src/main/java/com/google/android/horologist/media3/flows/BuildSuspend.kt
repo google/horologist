@@ -24,4 +24,4 @@ import kotlinx.coroutines.withContext
 
 @ExperimentalHorologistApi
 public suspend fun MediaBrowser.Builder.buildSuspend(): MediaBrowser =
-    withContext(Dispatchers.Main) { buildAsync().await() }
+  withContext(Dispatchers.Main) { buildAsync().await() }

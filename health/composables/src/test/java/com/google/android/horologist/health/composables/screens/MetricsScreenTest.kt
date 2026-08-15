@@ -27,196 +27,99 @@ import org.junit.Test
 import org.robolectric.annotation.Config
 
 class MetricsScreenTest : WearLegacyScreenTest() {
-    @Test
-    fun metricsScreenOneMetric() {
-        runTest {
-            MetricsScreen(
-                firstMetric = MetricUiModel(
-                    text = "21:34",
-                    bottomRightText = "6",
-                ),
-                positionIndicator = {
-                    PositionIndicator(
-                        value = { 0.25f },
-                    )
-                },
-            )
-        }
+  @Test
+  fun metricsScreenOneMetric() {
+    runTest {
+      MetricsScreen(
+        firstMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+        positionIndicator = { PositionIndicator(value = { 0.25f }) },
+      )
     }
+  }
 
-    @Test
-    fun metricsScreenTwoMetrics() {
-        runTest {
-            MetricsScreen(
-                firstMetric = MetricUiModel(
-                    text = "21:34",
-                    bottomRightText = "6",
-                ),
-                secondMetric = MetricUiModel(
-                    text = "138",
-                    bottomRightText = "cal",
-                ),
-                positionIndicator = {
-                    PositionIndicator(
-                        value = { 0.5f },
-                    )
-                },
-            )
-        }
+  @Test
+  fun metricsScreenTwoMetrics() {
+    runTest {
+      MetricsScreen(
+        firstMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+        secondMetric = MetricUiModel(text = "138", bottomRightText = "cal"),
+        positionIndicator = { PositionIndicator(value = { 0.5f }) },
+      )
     }
+  }
 
-    @Test
-    fun metricsScreenThreeMetrics() {
-        runTest {
-            MetricsScreen(
-                firstMetric = MetricUiModel(
-                    text = "164",
-                    bottomRightText = "Vigorous",
-                    color = HR_HARD,
-                ),
-                secondMetric = MetricUiModel(
-                    text = "2.7",
-                    bottomRightText = "mi",
-                ),
-                thirdMetric = MetricUiModel(
-                    text = "21:34",
-                    bottomRightText = "6",
-                ),
-                positionIndicator = {
-                    PositionIndicator(
-                        value = { 0.75f },
-                    )
-                },
-            )
-        }
+  @Test
+  fun metricsScreenThreeMetrics() {
+    runTest {
+      MetricsScreen(
+        firstMetric = MetricUiModel(text = "164", bottomRightText = "Vigorous", color = HR_HARD),
+        secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
+        thirdMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+        positionIndicator = { PositionIndicator(value = { 0.75f }) },
+      )
     }
+  }
 
-    @Test
-    fun metricsScreenFourMetrics() {
-        runTest {
-            MetricsScreen(
-                firstMetric = MetricUiModel(
-                    text = "198",
-                    bottomRightText = "Peak",
-                    color = HR_MAXIMUM,
-                ),
-                secondMetric = MetricUiModel(
-                    text = "2.7",
-                    bottomRightText = "mi",
-                ),
-                thirdMetric = MetricUiModel(
-                    text = "8'51\"",
-                    bottomRightText = "pace",
-                ),
-                fourthMetric = MetricUiModel(
-                    text = "21:34",
-                    bottomRightText = "6",
-                ),
-                positionIndicator = {
-                    PositionIndicator(
-                        value = { 1f },
-                    )
-                },
-            )
-        }
+  @Test
+  fun metricsScreenFourMetrics() {
+    runTest {
+      MetricsScreen(
+        firstMetric = MetricUiModel(text = "198", bottomRightText = "Peak", color = HR_MAXIMUM),
+        secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
+        thirdMetric = MetricUiModel(text = "8'51\"", bottomRightText = "pace"),
+        fourthMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+        positionIndicator = { PositionIndicator(value = { 1f }) },
+      )
     }
+  }
 
-    @Test
-    fun metricsScreenMetricsSkipped() {
-        runTest {
-            MetricsScreen(
-                firstMetric = MetricUiModel(
-                    text = "198",
-                    bottomRightText = "Peak",
-                    color = HR_MAXIMUM,
-                ),
-                fourthMetric = MetricUiModel(
-                    text = "21:34",
-                    bottomRightText = "6",
-                ),
-                positionIndicator = {
-                    PositionIndicator(
-                        value = { 0.75f },
-                    )
-                },
-            )
-        }
+  @Test
+  fun metricsScreenMetricsSkipped() {
+    runTest {
+      MetricsScreen(
+        firstMetric = MetricUiModel(text = "198", bottomRightText = "Peak", color = HR_MAXIMUM),
+        fourthMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+        positionIndicator = { PositionIndicator(value = { 0.75f }) },
+      )
     }
+  }
 
-    @Config(
-        qualifiers = largeScreen,
-    )
-    @Test
-    fun metricsScreenFourMetrics_largeScreen_smallestFont() {
-        runTest(applyDeviceConfig = false) {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(smallestFontScale)) {
-                MetricsScreen(
-                    firstMetric = MetricUiModel(
-                        text = "198",
-                        bottomRightText = "Peak",
-                        color = HR_MAXIMUM,
-                    ),
-                    secondMetric = MetricUiModel(
-                        text = "2.7",
-                        bottomRightText = "mi",
-                    ),
-                    thirdMetric = MetricUiModel(
-                        text = "8'51\"",
-                        bottomRightText = "pace",
-                    ),
-                    fourthMetric = MetricUiModel(
-                        text = "21:34",
-                        bottomRightText = "6",
-                    ),
-                    positionIndicator = {
-                        PositionIndicator(
-                            value = { 0.75f },
-                        )
-                    },
-                )
-            }
-        }
+  @Config(qualifiers = largeScreen)
+  @Test
+  fun metricsScreenFourMetrics_largeScreen_smallestFont() {
+    runTest(applyDeviceConfig = false) {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(smallestFontScale)) {
+        MetricsScreen(
+          firstMetric = MetricUiModel(text = "198", bottomRightText = "Peak", color = HR_MAXIMUM),
+          secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
+          thirdMetric = MetricUiModel(text = "8'51\"", bottomRightText = "pace"),
+          fourthMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+          positionIndicator = { PositionIndicator(value = { 0.75f }) },
+        )
+      }
     }
+  }
 
-    @Config(
-        qualifiers = smallScreen,
-    )
-    @Test
-    fun metricsScreenFourMetrics_smallScreen_largestFont() {
-        runTest(applyDeviceConfig = false) {
-            DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
-                MetricsScreen(
-                    firstMetric = MetricUiModel(
-                        text = "198",
-                        bottomRightText = "Peak",
-                        color = HR_MAXIMUM,
-                    ),
-                    secondMetric = MetricUiModel(
-                        text = "2.7",
-                        bottomRightText = "mi",
-                    ),
-                    thirdMetric = MetricUiModel(
-                        text = "8'51\"",
-                        bottomRightText = "pace",
-                    ),
-                    fourthMetric = MetricUiModel(
-                        text = "21:34",
-                        bottomRightText = "6",
-                    ),
-                    positionIndicator = {
-                        PositionIndicator(
-                            value = { 0.75f },
-                        )
-                    },
-                )
-            }
-        }
+  @Config(qualifiers = smallScreen)
+  @Test
+  fun metricsScreenFourMetrics_smallScreen_largestFont() {
+    runTest(applyDeviceConfig = false) {
+      DeviceConfigurationOverride(DeviceConfigurationOverride.FontScale(largestFontScale)) {
+        MetricsScreen(
+          firstMetric = MetricUiModel(text = "198", bottomRightText = "Peak", color = HR_MAXIMUM),
+          secondMetric = MetricUiModel(text = "2.7", bottomRightText = "mi"),
+          thirdMetric = MetricUiModel(text = "8'51\"", bottomRightText = "pace"),
+          fourthMetric = MetricUiModel(text = "21:34", bottomRightText = "6"),
+          positionIndicator = { PositionIndicator(value = { 0.75f }) },
+        )
+      }
     }
+  }
 
-    companion object {
-        private const val smallestFontScale = 0.94f
-        private const val largestFontScale = 1.24f
-        private const val smallScreen = "+w192dp-h192dp"
-        private const val largeScreen = "+w213dp-h213dp"
-    }
+  companion object {
+    private const val smallestFontScale = 0.94f
+    private const val largestFontScale = 1.24f
+    private const val smallScreen = "+w192dp-h192dp"
+    private const val largeScreen = "+w213dp-h213dp"
+  }
 }

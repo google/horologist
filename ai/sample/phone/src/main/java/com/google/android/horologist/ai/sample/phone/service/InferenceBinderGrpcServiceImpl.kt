@@ -23,6 +23,5 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class InferenceBinderGrpcServiceImpl : BindableAiGrpcService() {
-    @Inject
-    override lateinit var bindableService: GeminiSDKInferenceServiceImpl
+  @Inject override lateinit var bindableService: GeminiSDKInferenceServiceImpl
 }

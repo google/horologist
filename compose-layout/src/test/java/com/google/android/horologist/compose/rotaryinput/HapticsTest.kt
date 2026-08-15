@@ -33,132 +33,132 @@ import org.robolectric.shadows.ShadowBuild
 
 @RunWith(RobolectricTestRunner::class)
 class HapticsTest {
-    @Test
-    @Config(sdk = [35])
-    fun testPixelWatch1Wear_API35() {
-        ShadowBuild.setManufacturer("Google")
-        ShadowBuild.setModel("Google Pixel Watch")
+  @Test
+  @Config(sdk = [35])
+  fun testPixelWatch1Wear_API35() {
+    ShadowBuild.setManufacturer("Google")
+    ShadowBuild.setModel("Google Pixel Watch")
 
-        val hapticFeedback = getHapticFeedback()
+    val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
-    }
+    assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
+  }
 
-    @Test
-    @Config(sdk = [34])
-    fun testPixelWatch1Wear_5() {
-        ShadowBuild.setManufacturer("Google")
-        ShadowBuild.setModel("Google Pixel Watch")
+  @Test
+  @Config(sdk = [34])
+  fun testPixelWatch1Wear_5() {
+    ShadowBuild.setManufacturer("Google")
+    ShadowBuild.setModel("Google Pixel Watch")
 
-        val hapticFeedback = getHapticFeedback()
+    val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
-    }
+    assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
+  }
 
-    @Test
-    @Config(sdk = [33])
-    fun testPixelWatch1Wear_4() {
-        ShadowBuild.setManufacturer("Google")
-        ShadowBuild.setModel("Google Pixel Watch")
+  @Test
+  @Config(sdk = [33])
+  fun testPixelWatch1Wear_4() {
+    ShadowBuild.setManufacturer("Google")
+    ShadowBuild.setModel("Google Pixel Watch")
 
-        val hapticFeedback = getHapticFeedback()
+    val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
-    }
+    assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
+  }
 
-    @Test
-    @Config(sdk = [30])
-    fun testPixelWatch1Wear_3_5() {
-        ShadowBuild.setManufacturer("Google")
-        ShadowBuild.setModel("Google Pixel Watch")
-        Settings.Global.putString(
-            RuntimeEnvironment.getApplication().contentResolver,
-            "wear_platform_mr_number",
-            "5",
-        )
+  @Test
+  @Config(sdk = [30])
+  fun testPixelWatch1Wear_3_5() {
+    ShadowBuild.setManufacturer("Google")
+    ShadowBuild.setModel("Google Pixel Watch")
+    Settings.Global.putString(
+      RuntimeEnvironment.getApplication().contentResolver,
+      "wear_platform_mr_number",
+      "5",
+    )
 
-        val hapticFeedback = getHapticFeedback()
+    val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear3point5RotaryHapticFeedback")
-    }
+    assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear3point5RotaryHapticFeedback")
+  }
 
-    @Test
-    @Config(sdk = [33])
-    fun testGenericWear_4() {
-        ShadowBuild.setManufacturer("XXX")
-        ShadowBuild.setModel("YYY")
+  @Test
+  @Config(sdk = [33])
+  fun testGenericWear_4() {
+    ShadowBuild.setManufacturer("XXX")
+    ShadowBuild.setModel("YYY")
 
-        val hapticFeedback = getHapticFeedback()
+    val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
-    }
+    assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear4AtLeastRotaryHapticFeedback")
+  }
 
-    @Test
-    @Config(sdk = [30])
-    fun testGenericWear_3_5() {
-        ShadowBuild.setManufacturer("XXX")
-        ShadowBuild.setModel("YYY")
-        Settings.Global.putString(
-            RuntimeEnvironment.getApplication().contentResolver,
-            "wear_platform_mr_number",
-            "5",
-        )
+  @Test
+  @Config(sdk = [30])
+  fun testGenericWear_3_5() {
+    ShadowBuild.setManufacturer("XXX")
+    ShadowBuild.setModel("YYY")
+    Settings.Global.putString(
+      RuntimeEnvironment.getApplication().contentResolver,
+      "wear_platform_mr_number",
+      "5",
+    )
 
-        val hapticFeedback = getHapticFeedback()
+    val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear3point5RotaryHapticFeedback")
-    }
+    assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("Wear3point5RotaryHapticFeedback")
+  }
 
-    @Test
-    @Config(sdk = [30])
-    fun testGenericWear_3() {
-        ShadowBuild.setManufacturer("XXX")
-        ShadowBuild.setModel("YYY")
+  @Test
+  @Config(sdk = [30])
+  fun testGenericWear_3() {
+    ShadowBuild.setManufacturer("XXX")
+    ShadowBuild.setModel("YYY")
 
-        val hapticFeedback = getHapticFeedback()
+    val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("DefaultRotaryHapticFeedback")
-    }
+    assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("DefaultRotaryHapticFeedback")
+  }
 
-    @Test
-    @Config(sdk = [28])
-    fun testGenericWear_2() {
-        ShadowBuild.setManufacturer("XXX")
-        ShadowBuild.setModel("YYY")
+  @Test
+  @Config(sdk = [28])
+  fun testGenericWear_2() {
+    ShadowBuild.setManufacturer("XXX")
+    ShadowBuild.setModel("YYY")
 
-        val hapticFeedback = getHapticFeedback()
+    val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("DefaultRotaryHapticFeedback")
-    }
+    assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("DefaultRotaryHapticFeedback")
+  }
 
-    @Test
-    @Config(sdk = [33])
-    fun testGalaxyWatchClassic() {
-        ShadowBuild.setManufacturer("Samsung")
-        // Galaxy Watch4 Classic
-        ShadowBuild.setModel("SM-R890")
+  @Test
+  @Config(sdk = [33])
+  fun testGalaxyWatchClassic() {
+    ShadowBuild.setManufacturer("Samsung")
+    // Galaxy Watch4 Classic
+    ShadowBuild.setModel("SM-R890")
 
-        val hapticFeedback = getHapticFeedback()
+    val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("GalaxyWatchHapticFeedback")
-    }
+    assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("GalaxyWatchHapticFeedback")
+  }
 
-    @Test
-    @Config(sdk = [33])
-    fun testGalaxyWatch() {
-        ShadowBuild.setManufacturer("Samsung")
-        // Galaxy Watch 5 Pro
-        ShadowBuild.setModel("SM-R925")
+  @Test
+  @Config(sdk = [33])
+  fun testGalaxyWatch() {
+    ShadowBuild.setManufacturer("Samsung")
+    // Galaxy Watch 5 Pro
+    ShadowBuild.setModel("SM-R925")
 
-        val hapticFeedback = getHapticFeedback()
+    val hapticFeedback = getHapticFeedback()
 
-        assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("GalaxyWatchHapticFeedback")
-    }
+    assertThat(hapticFeedback.javaClass.simpleName).isEqualTo("GalaxyWatchHapticFeedback")
+  }
 
-    private fun getHapticFeedback(): RotaryHapticFeedback {
-        val activity = Robolectric.buildActivity(Activity::class.java).get()
-        val view = activity.findViewById<View>(R.id.content)
+  private fun getHapticFeedback(): RotaryHapticFeedback {
+    val activity = Robolectric.buildActivity(Activity::class.java).get()
+    val view = activity.findViewById<View>(R.id.content)
 
-        return findDeviceSpecificHapticFeedback(view)
-    }
+    return findDeviceSpecificHapticFeedback(view)
+  }
 }

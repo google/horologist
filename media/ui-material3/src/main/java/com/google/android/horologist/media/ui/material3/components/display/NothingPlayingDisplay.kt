@@ -24,14 +24,12 @@ import com.google.android.horologist.media.ui.material3.util.TRACK_SUBTITLE_HEIG
 import com.google.android.horologist.media.ui.material3.util.TRACK_TITLE_HEIGHT
 import com.google.android.horologist.media.ui.model.R
 
-/**
- * A media display indicating nothing is playing.
- */
+/** A media display indicating nothing is playing. */
 @Composable
 public fun NothingPlayingDisplay(modifier: Modifier = Modifier) {
-    val height = TRACK_TITLE_HEIGHT + TRACK_SUBTITLE_HEIGHT
-    MessageMediaDisplay(
-        message = stringResource(R.string.horologist_nothing_playing),
-        modifier = modifier.height(height),
-    )
+  val height = TRACK_TITLE_HEIGHT + TRACK_SUBTITLE_HEIGHT
+  MessageMediaDisplay(
+    message = stringResource(R.string.horologist_nothing_playing),
+    modifier = modifier.height(height),
+  )
 }

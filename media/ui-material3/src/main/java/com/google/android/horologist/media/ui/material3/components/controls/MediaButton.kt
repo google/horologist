@@ -52,150 +52,152 @@ import com.google.android.horologist.media.ui.material3.composables.UnboundedRip
 /** A base button for media controls. */
 @Composable
 public fun MediaButton(
-    onClick: () -> Unit,
-    icon: ImageVector,
-    contentDescription: String,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource? = null,
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
-    shape: Shape = CircleShape,
-    iconAlign: Alignment = Alignment.Center,
-    colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(colorScheme),
-    border: BorderStroke? = null,
+  onClick: () -> Unit,
+  icon: ImageVector,
+  contentDescription: String,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource? = null,
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  iconSize: Dp = IconButtonDefaults.LargeIconSize,
+  shape: Shape = CircleShape,
+  iconAlign: Alignment = Alignment.Center,
+  colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(colorScheme),
+  border: BorderStroke? = null,
 ) {
-    UnboundedRippleIconButton(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        colors = colors,
-        border = border,
-        shape = shape,
-        interactionSource = interactionSource,
-        rippleRadius = null,
-        buttonPadding = buttonPadding,
-    ) {
-        Icon(
-            imageVector = icon,
-            contentDescription = contentDescription,
-            modifier = Modifier.size(iconSize)
-                .align(iconAlign),
-        )
-    }
+  UnboundedRippleIconButton(
+    onClick = onClick,
+    modifier = modifier,
+    enabled = enabled,
+    colors = colors,
+    border = border,
+    shape = shape,
+    interactionSource = interactionSource,
+    rippleRadius = null,
+    buttonPadding = buttonPadding,
+  ) {
+    Icon(
+      imageVector = icon,
+      contentDescription = contentDescription,
+      modifier = Modifier.size(iconSize).align(iconAlign),
+    )
+  }
 }
 
-/**
- * Provides default configurations for media buttons, including colors and icons.
- */
+/** Provides default configurations for media buttons, including colors and icons. */
 public object MediaButtonDefaults {
-    /**
-     * Provides default color configurations for standard media buttons.
-     *
-     * @return [IconButtonColors] representing the default colors for a media button.
-     */
-    @Composable
-    public fun mediaButtonDefaultColors(
-        colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    ): IconButtonColors = IconButtonDefaults.filledIconButtonColors(
-        containerColor = colorScheme.primaryDim,
-        contentColor = colorScheme.onPrimary,
-        disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-        disabledContentColor = colorScheme.onSurface.toDisabledColor(),
+  /**
+   * Provides default color configurations for standard media buttons.
+   *
+   * @return [IconButtonColors] representing the default colors for a media button.
+   */
+  @Composable
+  public fun mediaButtonDefaultColors(
+    colorScheme: ColorScheme = MaterialTheme.colorScheme
+  ): IconButtonColors =
+    IconButtonDefaults.filledIconButtonColors(
+      containerColor = colorScheme.primaryDim,
+      contentColor = colorScheme.onPrimary,
+      disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+      disabledContentColor = colorScheme.onSurface.toDisabledColor(),
     )
 
-    /**
-     * Provides ambient color configurations for media buttons, suitable for background-less
-     * scenarios.
-     *
-     * @return [IconButtonColors] representing the ambient colors for a media button.
-     */
-    @Composable
-    public fun mediaButtonAmbientColors(
-        colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    ): IconButtonColors = IconButtonDefaults.outlinedIconButtonColors(
-        contentColor = colorScheme.primaryDim,
-        disabledContentColor = colorScheme.onSurface.toDisabledColor(),
+  /**
+   * Provides ambient color configurations for media buttons, suitable for background-less
+   * scenarios.
+   *
+   * @return [IconButtonColors] representing the ambient colors for a media button.
+   */
+  @Composable
+  public fun mediaButtonAmbientColors(
+    colorScheme: ColorScheme = MaterialTheme.colorScheme
+  ): IconButtonColors =
+    IconButtonDefaults.outlinedIconButtonColors(
+      contentColor = colorScheme.primaryDim,
+      disabledContentColor = colorScheme.onSurface.toDisabledColor(),
     )
 
-    /**
-     * Provides default color configurations for play/pause buttons.
-     *
-     * @return [IconButtonColors] representing the default colors for a play/pause button.
-     */
-    @Composable
-    public fun playPauseButtonDefaultColors(
-        colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    ): IconButtonColors = IconButtonDefaults.filledIconButtonColors(
-        containerColor = colorScheme.primary,
-        contentColor = colorScheme.onPrimary,
-        disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
-        disabledContentColor = colorScheme.onSurface.toDisabledColor(),
+  /**
+   * Provides default color configurations for play/pause buttons.
+   *
+   * @return [IconButtonColors] representing the default colors for a play/pause button.
+   */
+  @Composable
+  public fun playPauseButtonDefaultColors(
+    colorScheme: ColorScheme = MaterialTheme.colorScheme
+  ): IconButtonColors =
+    IconButtonDefaults.filledIconButtonColors(
+      containerColor = colorScheme.primary,
+      contentColor = colorScheme.onPrimary,
+      disabledContainerColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+      disabledContentColor = colorScheme.onSurface.toDisabledColor(),
     )
 
-    /**
-     * Provides the appropriate [BorderStroke] for the [MediaButton] in ambient mode.
-     *
-     * @param enabled Whether the outline should be for an enabled [MediaButton].
-     * @param colorScheme [ColorScheme] to be used. Defaults to MaterialTheme.colorScheme.
-     */
-    @Composable
-    public fun ambientButtonBorder(
-        enabled: Boolean,
-        colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    ): BorderStroke = ButtonDefaults.outlinedButtonBorder(
-        enabled = enabled,
-        borderColor = colorScheme.primaryDim.copy(alpha = 0.5f),
-        disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
+  /**
+   * Provides the appropriate [BorderStroke] for the [MediaButton] in ambient mode.
+   *
+   * @param enabled Whether the outline should be for an enabled [MediaButton].
+   * @param colorScheme [ColorScheme] to be used. Defaults to MaterialTheme.colorScheme.
+   */
+  @Composable
+  public fun ambientButtonBorder(
+    enabled: Boolean,
+    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  ): BorderStroke =
+    ButtonDefaults.outlinedButtonBorder(
+      enabled = enabled,
+      borderColor = colorScheme.primaryDim.copy(alpha = 0.5f),
+      disabledBorderColor = colorScheme.onSurface.toDisabledColor(DisabledContainerAlpha),
     )
 
-    /**
-     * Provides the appropriate [ImageVector] for a seek back button based on the seek increment.
-     *
-     * @param seekButtonIncrement The [SeekButtonIncrement] indicating the amount of time to seek
-     *   back.
-     * @return The [ImageVector] representing the seek back action.
-     */
-    public fun seekBackIcon(seekButtonIncrement: SeekButtonIncrement): ImageVector =
-        when (seekButtonIncrement) {
-            SeekButtonIncrement.Five -> Icons.Default.Replay5
-            SeekButtonIncrement.Ten -> Icons.Default.Replay10
-            SeekButtonIncrement.Thirty -> Icons.Default.Replay30
-            else -> Icons.Default.Replay
-        }
+  /**
+   * Provides the appropriate [ImageVector] for a seek back button based on the seek increment.
+   *
+   * @param seekButtonIncrement The [SeekButtonIncrement] indicating the amount of time to seek
+   *   back.
+   * @return The [ImageVector] representing the seek back action.
+   */
+  public fun seekBackIcon(seekButtonIncrement: SeekButtonIncrement): ImageVector =
+    when (seekButtonIncrement) {
+      SeekButtonIncrement.Five -> Icons.Default.Replay5
+      SeekButtonIncrement.Ten -> Icons.Default.Replay10
+      SeekButtonIncrement.Thirty -> Icons.Default.Replay30
+      else -> Icons.Default.Replay
+    }
 
-    /**
-     * Provides the appropriate [ImageVector] for a seek forward button based on the seek increment.
-     *
-     * @param seekButtonIncrement The [SeekButtonIncrement] indicating the amount of time to seek
-     *   forward.
-     * @return The [ImageVector] representing the seek forward action.
-     */
-    public fun seekForwardIcon(seekButtonIncrement: SeekButtonIncrement): ImageVector =
-        when (seekButtonIncrement) {
-            SeekButtonIncrement.Five -> Icons.Default.Forward5
-            SeekButtonIncrement.Ten -> Icons.Default.Forward10
-            SeekButtonIncrement.Thirty -> Icons.Default.Forward30
-            else -> ForwardEmpty
-        }
+  /**
+   * Provides the appropriate [ImageVector] for a seek forward button based on the seek increment.
+   *
+   * @param seekButtonIncrement The [SeekButtonIncrement] indicating the amount of time to seek
+   *   forward.
+   * @return The [ImageVector] representing the seek forward action.
+   */
+  public fun seekForwardIcon(seekButtonIncrement: SeekButtonIncrement): ImageVector =
+    when (seekButtonIncrement) {
+      SeekButtonIncrement.Five -> Icons.Default.Forward5
+      SeekButtonIncrement.Ten -> Icons.Default.Forward10
+      SeekButtonIncrement.Thirty -> Icons.Default.Forward30
+      else -> ForwardEmpty
+    }
 
-    // Icons.Default.Forward is not the same group as 5, 10 and 30 variant
-    private val ForwardEmpty = materialIcon(name = "Filled.ForwardEmpty") {
-        materialPath {
-            moveTo(18.0f, 13.0f)
-            curveToRelative(0.0f, 3.31f, -2.69f, 6.0f, -6.0f, 6.0f)
-            reflectiveCurveToRelative(-6.0f, -2.69f, -6.0f, -6.0f)
-            reflectiveCurveToRelative(2.69f, -6.0f, 6.0f, -6.0f)
-            verticalLineToRelative(4.0f)
-            lineToRelative(5.0f, -5.0f)
-            lineToRelative(-5.0f, -5.0f)
-            verticalLineToRelative(4.0f)
-            curveToRelative(-4.42f, 0.0f, -8.0f, 3.58f, -8.0f, 8.0f)
-            curveToRelative(0.0f, 4.42f, 3.58f, 8.0f, 8.0f, 8.0f)
-            reflectiveCurveToRelative(8.0f, -3.58f, 8.0f, -8.0f)
-            horizontalLineTo(18.0f)
-            close()
-        }
+  // Icons.Default.Forward is not the same group as 5, 10 and 30 variant
+  private val ForwardEmpty =
+    materialIcon(name = "Filled.ForwardEmpty") {
+      materialPath {
+        moveTo(18.0f, 13.0f)
+        curveToRelative(0.0f, 3.31f, -2.69f, 6.0f, -6.0f, 6.0f)
+        reflectiveCurveToRelative(-6.0f, -2.69f, -6.0f, -6.0f)
+        reflectiveCurveToRelative(2.69f, -6.0f, 6.0f, -6.0f)
+        verticalLineToRelative(4.0f)
+        lineToRelative(5.0f, -5.0f)
+        lineToRelative(-5.0f, -5.0f)
+        verticalLineToRelative(4.0f)
+        curveToRelative(-4.42f, 0.0f, -8.0f, 3.58f, -8.0f, 8.0f)
+        curveToRelative(0.0f, 4.42f, 3.58f, 8.0f, 8.0f, 8.0f)
+        reflectiveCurveToRelative(8.0f, -3.58f, 8.0f, -8.0f)
+        horizontalLineTo(18.0f)
+        close()
+      }
     }
 }

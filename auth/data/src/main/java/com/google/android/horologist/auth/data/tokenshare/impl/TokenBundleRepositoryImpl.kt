@@ -29,44 +29,42 @@ import kotlinx.coroutines.flow.Flow
  * @sample com.google.android.horologist.auth.sample.screens.tokenshare.defaultkey.TokenShareDefaultKeyViewModel
  */
 public class TokenBundleRepositoryImpl<T>(
-    private val registry: WearDataLayerRegistry,
-    private val serializer: Serializer<T>,
-    private val path: String,
+  private val registry: WearDataLayerRegistry,
+  private val serializer: Serializer<T>,
+  private val path: String,
 ) : TokenBundleRepository<T> {
 
-    override val flow: Flow<T>
-        get() = registry.protoFlow(
-            targetNodeId = TargetNodeId.PairedPhone,
-            serializer = serializer,
-            path = path,
-        )
+  override val flow: Flow<T>
+    get() =
+      registry.protoFlow(
+        targetNodeId = TargetNodeId.PairedPhone,
+        serializer = serializer,
+        path = path,
+      )
 
-    public companion object {
+  public companion object {
 
-        private const val DEFAULT_TOKEN_BUNDLE_KEY = "/horologist_token_bundle"
+    private const val DEFAULT_TOKEN_BUNDLE_KEY = "/horologist_token_bundle"
 
-        /**
-         * Factory method for [TokenBundleRepositoryImpl].
-         *
-         * If multiple [token bundles][T] are available, specify the [key] of the specific
-         * token bundle wished to be retrieved. Otherwise the token bundle stored with the
-         * [default][DEFAULT_TOKEN_BUNDLE_KEY] key will be used.
-         */
-        public fun <T> create(
-            registry: WearDataLayerRegistry,
-            serializer: Serializer<T>,
-            key: String = DEFAULT_TOKEN_BUNDLE_KEY,
-        ): TokenBundleRepositoryImpl<T> = TokenBundleRepositoryImpl(
-            registry = registry,
-            serializer = serializer,
-            path = buildPath(key),
-        )
+    /**
+     * Factory method for [TokenBundleRepositoryImpl].
+     *
+     * If multiple [token bundles][T] are available, specify the [key] of the specific token bundle
+     * wished to be retrieved. Otherwise the token bundle stored with the
+     * [default][DEFAULT_TOKEN_BUNDLE_KEY] key will be used.
+     */
+    public fun <T> create(
+      registry: WearDataLayerRegistry,
+      serializer: Serializer<T>,
+      key: String = DEFAULT_TOKEN_BUNDLE_KEY,
+    ): TokenBundleRepositoryImpl<T> =
+      TokenBundleRepositoryImpl(registry = registry, serializer = serializer, path = buildPath(key))
 
-        private fun buildPath(key: String) =
-            if (key.startsWith("/")) {
-                key
-            } else {
-                "/$key"
-            }
-    }
+    private fun buildPath(key: String) =
+      if (key.startsWith("/")) {
+        key
+      } else {
+        "/$key"
+      }
+  }
 }

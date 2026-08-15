@@ -23,151 +23,114 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.Companion.asPaintable
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleButtonPreview() {
-    ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-        contentDescription = "contentDescription",
-        onCheckedChanged = {},
-    )
+  ToggleButton(
+    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+    contentDescription = "contentDescription",
+    onCheckedChanged = {},
+  )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleButtonPreviewNotChecked() {
-    ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-        contentDescription = "contentDescription",
-        onCheckedChanged = {},
-        checked = false,
-    )
+  ToggleButton(
+    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+    contentDescription = "contentDescription",
+    onCheckedChanged = {},
+    checked = false,
+  )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleButtonPreviewDisabled() {
-    ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-        contentDescription = "contentDescription",
-        onCheckedChanged = {},
-        enabled = false,
-    )
+  ToggleButton(
+    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+    contentDescription = "contentDescription",
+    onCheckedChanged = {},
+    enabled = false,
+  )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleButtonPreviewNotCheckedDisabled() {
-    ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-        contentDescription = "contentDescription",
-        onCheckedChanged = {},
-        checked = false,
-        enabled = false,
-    )
+  ToggleButton(
+    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+    contentDescription = "contentDescription",
+    onCheckedChanged = {},
+    checked = false,
+    enabled = false,
+  )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleButtonPreviewText() {
-    ToggleButton(
-        text = "Monday",
-        onCheckedChanged = {},
-    )
+  ToggleButton(text = "Monday", onCheckedChanged = {})
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleButtonPreviewTextNotChecked() {
-    ToggleButton(
-        text = "Monday",
-        onCheckedChanged = {},
-        checked = false,
-    )
+  ToggleButton(text = "Monday", onCheckedChanged = {}, checked = false)
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleButtonPreviewSmall() {
-    ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-        contentDescription = "contentDescription",
-        onCheckedChanged = {},
-        smallSize = true,
-    )
+  ToggleButton(
+    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+    contentDescription = "contentDescription",
+    onCheckedChanged = {},
+    smallSize = true,
+  )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleButtonPreviewSmallNotChecked() {
-    ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-        contentDescription = "contentDescription",
-        onCheckedChanged = {},
-        checked = false,
-        smallSize = true,
-    )
+  ToggleButton(
+    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+    contentDescription = "contentDescription",
+    onCheckedChanged = {},
+    checked = false,
+    smallSize = true,
+  )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleButtonPreviewIconOnly() {
-    ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-        contentDescription = "contentDescription",
-        onCheckedChanged = {},
-        colors = ToggleButtonDefaults.iconOnlyColors(),
-        smallSize = true,
-    )
+  ToggleButton(
+    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+    contentDescription = "contentDescription",
+    onCheckedChanged = {},
+    colors = ToggleButtonDefaults.iconOnlyColors(),
+    smallSize = true,
+  )
 }
 
-@Preview(
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun ToggleButtonPreviewIconOnlyNotChecked() {
-    ToggleButton(
-        checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
-        notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
-        contentDescription = "contentDescription",
-        onCheckedChanged = {},
-        checked = false,
-        colors = ToggleButtonDefaults.iconOnlyColors(),
-        smallSize = true,
-    )
+  ToggleButton(
+    checkedIcon = Icons.Filled.AirplanemodeActive.asPaintable(),
+    notCheckedIcon = Icons.Filled.AirplanemodeInactive.asPaintable(),
+    contentDescription = "contentDescription",
+    onCheckedChanged = {},
+    checked = false,
+    colors = ToggleButtonDefaults.iconOnlyColors(),
+    smallSize = true,
+  )
 }

@@ -46,124 +46,123 @@ import com.google.android.horologist.media.ui.material3.components.animated.Anim
 import com.google.android.horologist.media.ui.material3.components.background.ArtworkImageBackground
 import com.google.android.horologist.media.ui.material3.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiState
-import kotlinx.coroutines.flow.flowOf
 import kotlin.math.ceil
+import kotlinx.coroutines.flow.flowOf
 
 @Composable
 fun MediaPlayerTestCase(
-    playerUiState: PlayerUiState,
-    isAmbientModeEnabled: Boolean = false,
-    mediaDisplay: @Composable () -> Unit = {
-        if (isAmbientModeEnabled) {
-            AmbientMediaInfoDisplay(playerUiState.media, loading = false)
-        } else {
-            AnimatedMediaInfoDisplay(playerUiState.media, loading = false)
-        }
-    },
-    controlButtons: @Composable () -> Unit = {
-        if (isAmbientModeEnabled) {
-            AmbientMediaControlButtons(
-                playerUiState = playerUiState,
-                onPlayButtonClick = { },
-                onPauseButtonClick = { },
-                onSeekToPreviousButtonClick = { },
-                onSeekToNextButtonClick = { },
-            )
-        } else {
-            AnimatedMediaControlButtons(
-                onPlayButtonClick = { },
-                onPauseButtonClick = { },
-                playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                playing = playerUiState.playing,
-                onSeekToPreviousButtonClick = { },
-                seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-                onSeekToNextButtonClick = { },
-                seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-                trackPositionUiModel = playerUiState.trackPositionUiModel,
-            )
-        }
-    },
-    buttons: @Composable () -> Unit = {
-        val screenWidthDp = LocalConfiguration.current.screenWidthDp
-        Row(
-            modifier =
-                Modifier
-                    .fillMaxSize()
-                    .padding(
-                        top = ceil(screenWidthDp * 0.012f).dp,
-                        start = ceil(screenWidthDp * 0.145f).dp,
-                        end = ceil(screenWidthDp * 0.145f).dp,
-                    ),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center,
-        ) {
-            Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
-                VolumeButtonWithBadge(
-                    volumeUiState = VolumeUiState(5, 10),
-                    audioOutputUi = if (playerUiState.connected) {
-                        AudioOutput.BluetoothHeadset(id = "id", name = "name")
-                    } else {
-                        AudioOutput.None
-                    }.toAudioOutputUi(),
-                    onOutputClick = { },
-                    enabled = playerUiState.connected,
-                    alignment = Alignment.TopCenter,
-                    buttonColors = if (isAmbientModeEnabled) {
-                        SettingsButtonDefaults.ambientButtonColors()
-                    } else {
-                        SettingsButtonDefaults.buttonColors()
-                    },
-                    border = if (isAmbientModeEnabled) {
-                        SettingsButtonDefaults.ambientButtonBorder(playerUiState.connected)
-                    } else {
-                        null
-                    },
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxHeight(),
-            ) {
-                SettingsButton(
-                    onClick = { },
-                    enabled = playerUiState.connected,
-                    imageVector = Icons.Rounded.MoreVert,
-                    alignment = Alignment.TopCenter,
-                    contentDescription = "More Actions",
-                    buttonColors = if (isAmbientModeEnabled) {
-                        SettingsButtonDefaults.ambientButtonColors()
-                    } else {
-                        SettingsButtonDefaults.buttonColors()
-                    },
-                    border = if (isAmbientModeEnabled) {
-                        SettingsButtonDefaults.ambientButtonBorder(playerUiState.connected)
-                    } else {
-                        null
-                    },
-                )
-            }
-        }
-    },
-) {
-    ScreenScaffold(
-        scrollIndicator = {
-            VolumeLevelIndicator(
-                volumeUiState = {
-                    VolumeUiStateMapper.map(volumeState = VolumeState(6, 10))
-                },
-                displayIndicatorEvents = flowOf(),
-            )
-        },
-    ) {
-        Box(modifier = Modifier.fillMaxSize()) {
-            PlayerScreen(
-                modifier = Modifier.fillMaxSize(),
-                mediaDisplay = mediaDisplay,
-                controlButtons = controlButtons,
-                buttons = buttons,
-                background = { ArtworkImageBackground(null) },
-            )
-        }
+  playerUiState: PlayerUiState,
+  isAmbientModeEnabled: Boolean = false,
+  mediaDisplay: @Composable () -> Unit = {
+    if (isAmbientModeEnabled) {
+      AmbientMediaInfoDisplay(playerUiState.media, loading = false)
+    } else {
+      AnimatedMediaInfoDisplay(playerUiState.media, loading = false)
     }
+  },
+  controlButtons: @Composable () -> Unit = {
+    if (isAmbientModeEnabled) {
+      AmbientMediaControlButtons(
+        playerUiState = playerUiState,
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        onSeekToPreviousButtonClick = {},
+        onSeekToNextButtonClick = {},
+      )
+    } else {
+      AnimatedMediaControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = playerUiState.playPauseEnabled,
+        playing = playerUiState.playing,
+        onSeekToPreviousButtonClick = {},
+        seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
+        onSeekToNextButtonClick = {},
+        seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
+        trackPositionUiModel = playerUiState.trackPositionUiModel,
+      )
+    }
+  },
+  buttons: @Composable () -> Unit = {
+    val screenWidthDp = LocalConfiguration.current.screenWidthDp
+    Row(
+      modifier =
+        Modifier.fillMaxSize()
+          .padding(
+            top = ceil(screenWidthDp * 0.012f).dp,
+            start = ceil(screenWidthDp * 0.145f).dp,
+            end = ceil(screenWidthDp * 0.145f).dp,
+          ),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.Center,
+    ) {
+      Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+        VolumeButtonWithBadge(
+          volumeUiState = VolumeUiState(5, 10),
+          audioOutputUi =
+            if (playerUiState.connected) {
+                AudioOutput.BluetoothHeadset(id = "id", name = "name")
+              } else {
+                AudioOutput.None
+              }
+              .toAudioOutputUi(),
+          onOutputClick = {},
+          enabled = playerUiState.connected,
+          alignment = Alignment.TopCenter,
+          buttonColors =
+            if (isAmbientModeEnabled) {
+              SettingsButtonDefaults.ambientButtonColors()
+            } else {
+              SettingsButtonDefaults.buttonColors()
+            },
+          border =
+            if (isAmbientModeEnabled) {
+              SettingsButtonDefaults.ambientButtonBorder(playerUiState.connected)
+            } else {
+              null
+            },
+        )
+      }
+      Box(modifier = Modifier.weight(1f).fillMaxHeight()) {
+        SettingsButton(
+          onClick = {},
+          enabled = playerUiState.connected,
+          imageVector = Icons.Rounded.MoreVert,
+          alignment = Alignment.TopCenter,
+          contentDescription = "More Actions",
+          buttonColors =
+            if (isAmbientModeEnabled) {
+              SettingsButtonDefaults.ambientButtonColors()
+            } else {
+              SettingsButtonDefaults.buttonColors()
+            },
+          border =
+            if (isAmbientModeEnabled) {
+              SettingsButtonDefaults.ambientButtonBorder(playerUiState.connected)
+            } else {
+              null
+            },
+        )
+      }
+    }
+  },
+) {
+  ScreenScaffold(
+    scrollIndicator = {
+      VolumeLevelIndicator(
+        volumeUiState = { VolumeUiStateMapper.map(volumeState = VolumeState(6, 10)) },
+        displayIndicatorEvents = flowOf(),
+      )
+    }
+  ) {
+    Box(modifier = Modifier.fillMaxSize()) {
+      PlayerScreen(
+        modifier = Modifier.fillMaxSize(),
+        mediaDisplay = mediaDisplay,
+        controlButtons = controlButtons,
+        buttons = buttons,
+        background = { ArtworkImageBackground(null) },
+      )
+    }
+  }
 }

@@ -31,50 +31,48 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.UnboundedRippleButton
 import com.google.android.horologist.images.base.paintable.Paintable
 
-/**
- * A base button for custom action media controls.
- */
+/** A base button for custom action media controls. */
 @ExperimentalHorologistApi
 @Composable
 public fun CustomActionMediaButton(
-    onClick: () -> Unit,
-    contentDescription: String,
-    icon: Paintable,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.iconButtonColors(),
-    iconSize: Dp = 32.dp,
-    iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
+  onClick: () -> Unit,
+  contentDescription: String,
+  icon: Paintable,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  colors: ButtonColors = ButtonDefaults.iconButtonColors(),
+  iconSize: Dp = 32.dp,
+  iconAlign: Alignment.Horizontal = Alignment.CenterHorizontally,
 ) {
-    UnboundedRippleButton(
-        onClick = onClick,
-        modifier = modifier,
-        rippleRadius = 35.dp,
-        enabled = enabled,
-        colors = colors,
-    ) {
-        Image(
-            painter = icon.rememberPainter(),
-            contentDescription = contentDescription,
-            colorFilter = ColorFilter.tint(colors.contentColor(enabled = enabled).value),
-            modifier = Modifier
-                .size(iconSize)
-                .run {
-                    when (iconAlign) {
-                        Alignment.Start -> {
-                            offset(x = -7.5.dp)
-                        }
+  UnboundedRippleButton(
+    onClick = onClick,
+    modifier = modifier,
+    rippleRadius = 35.dp,
+    enabled = enabled,
+    colors = colors,
+  ) {
+    Image(
+      painter = icon.rememberPainter(),
+      contentDescription = contentDescription,
+      colorFilter = ColorFilter.tint(colors.contentColor(enabled = enabled).value),
+      modifier =
+        Modifier.size(iconSize)
+          .run {
+            when (iconAlign) {
+              Alignment.Start -> {
+                offset(x = -7.5.dp)
+              }
 
-                        Alignment.End -> {
-                            offset(x = 7.5.dp)
-                        }
+              Alignment.End -> {
+                offset(x = 7.5.dp)
+              }
 
-                        else -> {
-                            this
-                        }
-                    }
-                }
-                .align(Alignment.Center),
-        )
-    }
+              else -> {
+                this
+              }
+            }
+          }
+          .align(Alignment.Center),
+    )
+  }
 }

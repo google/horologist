@@ -27,83 +27,55 @@ import org.junit.Test
 
 class CardTest : WearLegacyComponentTest() {
 
-    @Test
-    fun withoutLongClick() {
-        runComponentTest {
-            Card(
-                onClick = { },
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Hello, Card")
+  @Test
+  fun withoutLongClick() {
+    runComponentTest {
+      Card(onClick = {}) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+          Text("Hello, Card")
 
-                    androidx.wear.compose.material.Button(onClick = { }) {
-                        Text("Click me!")
-                    }
-                }
-            }
+          androidx.wear.compose.material.Button(onClick = {}) { Text("Click me!") }
         }
+      }
     }
+  }
 
-    @Test
-    fun withLongClick() {
-        runComponentTest {
-            Card(
-                onClick = { },
-                onLongClick = { },
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Hello, Card")
+  @Test
+  fun withLongClick() {
+    runComponentTest {
+      Card(onClick = {}, onLongClick = {}) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+          Text("Hello, Card")
 
-                    androidx.wear.compose.material.Button(onClick = { }) {
-                        Text("Click me!")
-                    }
-                }
-            }
+          androidx.wear.compose.material.Button(onClick = {}) { Text("Click me!") }
         }
+      }
     }
+  }
 
-    @Test
-    fun withoutLongClickCustomPadding() {
-        runComponentTest {
-            Card(
-                onClick = { },
-                contentPadding = PaddingValues(20.dp),
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Hello, Card")
+  @Test
+  fun withoutLongClickCustomPadding() {
+    runComponentTest {
+      Card(onClick = {}, contentPadding = PaddingValues(20.dp)) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+          Text("Hello, Card")
 
-                    androidx.wear.compose.material.Button(onClick = { }) {
-                        Text("Click me!")
-                    }
-                }
-            }
+          androidx.wear.compose.material.Button(onClick = {}) { Text("Click me!") }
         }
+      }
     }
+  }
 
-    @Test
-    fun withLongClickCustomPadding() {
-        runComponentTest {
-            Card(
-                onClick = { },
-                onLongClick = { },
-                contentPadding = PaddingValues(20.dp),
-            ) {
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                ) {
-                    Text("Hello, Card")
+  @Test
+  fun withLongClickCustomPadding() {
+    runComponentTest {
+      Card(onClick = {}, onLongClick = {}, contentPadding = PaddingValues(20.dp)) {
+        Column(modifier = Modifier.fillMaxWidth()) {
+          Text("Hello, Card")
 
-                    androidx.wear.compose.material.Button(onClick = { }) {
-                        Text("Click me!")
-                    }
-                }
-            }
+          androidx.wear.compose.material.Button(onClick = {}) { Text("Click me!") }
         }
+      }
     }
+  }
 }

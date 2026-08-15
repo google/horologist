@@ -24,12 +24,13 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 public interface NetworkUsageDao {
-    @Query("UPDATE DataUsage SET bytesTotal = bytesTotal + :bytes WHERE day = :day AND networkType = :networkType")
-    public suspend fun updateBytes(day: Int, bytes: Long, networkType: String): Int
+  @Query(
+    "UPDATE DataUsage SET bytesTotal = bytesTotal + :bytes WHERE day = :day AND networkType = :networkType"
+  )
+  public suspend fun updateBytes(day: Int, bytes: Long, networkType: String): Int
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    public suspend fun insert(media: DataUsage): Long
+  @Insert(onConflict = OnConflictStrategy.IGNORE) public suspend fun insert(media: DataUsage): Long
 
-    @Query("SELECT * FROM DataUsage WHERE day = :day")
-    public fun getRecords(day: Int): Flow<List<DataUsage>>
+  @Query("SELECT * FROM DataUsage WHERE day = :day")
+  public fun getRecords(day: Int): Flow<List<DataUsage>>
 }

@@ -27,16 +27,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.horologist.auth.ui.googlesignin.signin.GoogleSignInViewModel
 
 val GoogleSignInSampleViewModelFactory: ViewModelProvider.Factory = viewModelFactory {
-    initializer {
-        val application = this[APPLICATION_KEY]!!
+  initializer {
+    val application = this[APPLICATION_KEY]!!
 
-        val googleSignInClient = GoogleSignIn.getClient(
-            application,
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build(),
-        )
+    val googleSignInClient =
+      GoogleSignIn.getClient(
+        application,
+        GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build(),
+      )
 
-        GoogleSignInViewModel(googleSignInClient, GoogleSignInEventListenerSample)
-    }
+    GoogleSignInViewModel(googleSignInClient, GoogleSignInEventListenerSample)
+  }
 }

@@ -21,6 +21,6 @@ import androidx.wear.compose.material.TimeSource
 
 /** A fixed clock for previews whose pixels must not depend on wall time. */
 public object PreviewTimeSource : TimeSource {
-    override val currentTime: String
-        @Composable get() = "10:10"
+  override val currentTime: String
+    @Composable get() = "10:10"
 }

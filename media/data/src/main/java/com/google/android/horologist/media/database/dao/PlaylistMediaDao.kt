@@ -20,26 +20,26 @@ import androidx.room.Dao
 import androidx.room.Query
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * DAO for [com.google.android.horologist.media.database.model.PlaylistMediaEntity].
- */
+/** DAO for [com.google.android.horologist.media.database.model.PlaylistMediaEntity]. */
 @ExperimentalHorologistApi
 @Dao
 public interface PlaylistMediaDao {
 
-    @Query(
-        value = """
+  @Query(
+    value =
+      """
         DELETE FROM PlaylistMediaEntity
         WHERE playlistId in (:playlistIds)
-    """,
-    )
-    public fun deleteByPlaylistId(playlistIds: List<String>)
+    """
+  )
+  public fun deleteByPlaylistId(playlistIds: List<String>)
 
-    @Query(
-        value = """
+  @Query(
+    value =
+      """
         DELETE FROM PlaylistMediaEntity
         WHERE mediaId in (:mediaIds)
-    """,
-    )
-    public fun deleteByMediaId(mediaIds: List<String>)
+    """
+  )
+  public fun deleteByMediaId(mediaIds: List<String>)
 }

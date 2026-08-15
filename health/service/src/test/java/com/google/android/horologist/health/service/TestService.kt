@@ -25,21 +25,21 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 
 class TestService : LifecycleService() {
-    var name: ComponentName? = null
-    val localBinder = LocalBinder()
+  var name: ComponentName? = null
+  val localBinder = LocalBinder()
 
-    override fun onBind(intent: Intent): IBinder {
-        return localBinder
-    }
+  override fun onBind(intent: Intent): IBinder {
+    return localBinder
+  }
 
-    fun doSomething(): String {
-        return "Something"
-    }
+  fun doSomething(): String {
+    return "Something"
+  }
 
-    /** Local clients will use this to access the service. */
-    inner class LocalBinder : Binder() {
-        fun getService() = this@TestService
+  /** Local clients will use this to access the service. */
+  inner class LocalBinder : Binder() {
+    fun getService() = this@TestService
 
-        val flow: Flow<String> = flowOf("Something 1", "Something 2")
-    }
+    val flow: Flow<String> = flowOf("Something 1", "Something 2")
+  }
 }

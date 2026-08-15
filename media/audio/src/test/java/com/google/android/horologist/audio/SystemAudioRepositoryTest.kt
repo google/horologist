@@ -18,10 +18,12 @@ package com.google.android.horologist.audio
 
 import android.content.Context
 import android.media.AudioManager
+import android.media.MediaRouter as MediaRouterLegacy
 import androidx.mediarouter.media.MediaRouter
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.google.common.truth.Truth.assertThat
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
@@ -34,73 +36,64 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
-import kotlin.time.Duration.Companion.seconds
-import android.media.MediaRouter as MediaRouterLegacy
 
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
-@Config(
-    sdk = [33],
-)
+@Config(sdk = [33])
 class SystemAudioRepositoryTest {
-    private lateinit var mediaRouter: MediaRouter
-    private lateinit var audioManager: AudioManager
-    private lateinit var mediaRouterLegacy: MediaRouterLegacy
-    private lateinit var context: Context
+  private lateinit var mediaRouter: MediaRouter
+  private lateinit var audioManager: AudioManager
+  private lateinit var mediaRouterLegacy: MediaRouterLegacy
+  private lateinit var context: Context
 
-    @Before
-    fun setUp() {
-        context = InstrumentationRegistry.getInstrumentation().targetContext
-        mediaRouterLegacy =
-            context.getSystemService(Context.MEDIA_ROUTER_SERVICE) as MediaRouterLegacy
+  @Before
+  fun setUp() {
+    context = InstrumentationRegistry.getInstrumentation().targetContext
+    mediaRouterLegacy = context.getSystemService(Context.MEDIA_ROUTER_SERVICE) as MediaRouterLegacy
 
-        audioManager =
-            context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+    audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
 
-        mediaRouter = MediaRouter.getInstance(context)
+    mediaRouter = MediaRouter.getInstance(context)
+  }
+
+  @Test
+  fun testAudioOutputRepository() {
+    SystemAudioRepository.fromContext(context).use { repository ->
+      assertThat(repository.audioOutput.value).isNotNull()
+      assertThat(repository.available.value).isNotEmpty()
+
+      repository.close()
+
+      assertThat(repository.audioOutput.value).isEqualTo(AudioOutput.None)
+      assertThat(repository.available.value).isEmpty()
+    }
+  }
+
+  @Test
+  @Ignore("File robolectric bug for MediaRouter")
+  fun testVolumeRepository() {
+    Shadows.shadowOf(mediaRouterLegacy).addBluetoothRoute()
+    Shadows.shadowOf(audioManager).apply {
+      setStreamMaxVolume(5)
+      setStreamMaxVolume(10)
     }
 
-    @Test
-    fun testAudioOutputRepository() {
-        SystemAudioRepository.fromContext(context).use { repository ->
-            assertThat(repository.audioOutput.value).isNotNull()
-            assertThat(repository.available.value).isNotEmpty()
+    assertThat(mediaRouter.selectedRoute.deviceType)
+      .isEqualTo(MediaRouter.RouteInfo.DEVICE_TYPE_BLUETOOTH_A2DP)
 
-            repository.close()
+    SystemAudioRepository.fromContext(context).use { repository ->
+      val startingVolume = repository.volumeState.value.current
 
-            assertThat(repository.audioOutput.value).isEqualTo(AudioOutput.None)
-            assertThat(repository.available.value).isEmpty()
+      repository.increaseVolume()
+
+      val newVolume = runBlocking {
+        withTimeout(2.seconds) {
+          repository.volumeState.map { it.current }.filter { it > startingVolume }.first()
         }
+      }
+
+      assertThat(newVolume).isGreaterThan(startingVolume)
+      repository.close()
     }
-
-    @Test
-    @Ignore("File robolectric bug for MediaRouter")
-    fun testVolumeRepository() {
-        Shadows.shadowOf(mediaRouterLegacy).addBluetoothRoute()
-        Shadows.shadowOf(audioManager).apply {
-            setStreamMaxVolume(5)
-            setStreamMaxVolume(10)
-        }
-
-        assertThat(mediaRouter.selectedRoute.deviceType)
-            .isEqualTo(MediaRouter.RouteInfo.DEVICE_TYPE_BLUETOOTH_A2DP)
-
-        SystemAudioRepository.fromContext(context).use { repository ->
-            val startingVolume = repository.volumeState.value.current
-
-            repository.increaseVolume()
-
-            val newVolume = runBlocking {
-                withTimeout(2.seconds) {
-                    repository.volumeState
-                        .map { it.current }
-                        .filter { it > startingVolume }
-                        .first()
-                }
-            }
-
-            assertThat(newVolume).isGreaterThan(startingVolume)
-            repository.close()
-        }
-    }
+  }
 }

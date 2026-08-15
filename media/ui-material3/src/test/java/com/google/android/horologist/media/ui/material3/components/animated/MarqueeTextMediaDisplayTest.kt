@@ -25,35 +25,34 @@ import com.google.android.horologist.screenshots.rng.WearLegacyComponentTest
 import org.junit.Test
 
 class MarqueeTextMediaDisplayTest : WearLegacyComponentTest() {
-    @Test
-    fun givenTitleAndArtist_thenTitleAndArtistAreDisplayed() {
-        runComponentTest {
-            MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie")
-        }
-    }
+  @Test
+  fun givenTitleAndArtist_thenTitleAndArtistAreDisplayed() {
+    runComponentTest { MarqueeTextMediaDisplay(title = "Sorrow", artist = "David Bowie") }
+  }
 
-    @Test
-    fun givenPaintableIcon_thenTintedIconIsDisplayed() {
-        runComponentTest {
-            MarqueeTextMediaDisplay(
-                title = "Sorrow",
-                artist = "David Bowie",
-                titleIcon = DrawableResPaintable(R.drawable.ic_stat_horologist),
-            )
-        }
+  @Test
+  fun givenPaintableIcon_thenTintedIconIsDisplayed() {
+    runComponentTest {
+      MarqueeTextMediaDisplay(
+        title = "Sorrow",
+        artist = "David Bowie",
+        titleIcon = DrawableResPaintable(R.drawable.ic_stat_horologist),
+      )
     }
+  }
 
-    @Test
-    fun givenPaintable_thenImageIsDisplayed() {
-        runComponentTest {
-            MarqueeTextMediaDisplay(
-                title = "Sorrow",
-                artist = "David Bowie",
-                titleIcon = object : Paintable {
-                    @Composable
-                    override fun rememberPainter() = painterResource(id = R.drawable.horologist_logo)
-                },
-            )
-        }
+  @Test
+  fun givenPaintable_thenImageIsDisplayed() {
+    runComponentTest {
+      MarqueeTextMediaDisplay(
+        title = "Sorrow",
+        artist = "David Bowie",
+        titleIcon =
+          object : Paintable {
+            @Composable
+            override fun rememberPainter() = painterResource(id = R.drawable.horologist_logo)
+          },
+      )
     }
+  }
 }

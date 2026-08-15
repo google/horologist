@@ -31,123 +31,109 @@ import org.junit.Test
 
 class SignInPromptScreenTest : WearLegacyScreenTest() {
 
-    @Test
-    fun idle() {
-        runTest {
-            SignInPromptScreen(
-                state = SignInPromptScreenState.Idle,
-                title = "Sign in",
-                message = "Send messages and create chat groups with your friends",
-                onIdleStateObserved = { },
-                onAlreadySignedIn = { },
-            ) {
-                testContent()
-            }
-        }
+  @Test
+  fun idle() {
+    runTest {
+      SignInPromptScreen(
+        state = SignInPromptScreenState.Idle,
+        title = "Sign in",
+        message = "Send messages and create chat groups with your friends",
+        onIdleStateObserved = {},
+        onAlreadySignedIn = {},
+      ) {
+        testContent()
+      }
     }
+  }
 
-    @Test
-    fun loading() {
-        runTest {
-            SignInPromptScreen(
-                state = SignInPromptScreenState.Loading,
-                title = "Sign in",
-                message = "Send messages and create chat groups with your friends",
-                onIdleStateObserved = { },
-                onAlreadySignedIn = { },
-            ) {
-                testContent()
-            }
-        }
+  @Test
+  fun loading() {
+    runTest {
+      SignInPromptScreen(
+        state = SignInPromptScreenState.Loading,
+        title = "Sign in",
+        message = "Send messages and create chat groups with your friends",
+        onIdleStateObserved = {},
+        onAlreadySignedIn = {},
+      ) {
+        testContent()
+      }
     }
+  }
 
-    @Test
-    fun customLoading() {
-        runTest {
-            SignInPromptScreen(
-                state = SignInPromptScreenState.Loading,
-                title = "Sign in",
-                message = "Send messages and create chat groups with your friends",
-                onIdleStateObserved = { },
-                onAlreadySignedIn = { },
-                loadingContent = {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        Text("Loading...")
-                    }
-                },
-            ) {
-                testContent()
-            }
-        }
+  @Test
+  fun customLoading() {
+    runTest {
+      SignInPromptScreen(
+        state = SignInPromptScreenState.Loading,
+        title = "Sign in",
+        message = "Send messages and create chat groups with your friends",
+        onIdleStateObserved = {},
+        onAlreadySignedIn = {},
+        loadingContent = {
+          Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            Text("Loading...")
+          }
+        },
+      ) {
+        testContent()
+      }
     }
+  }
 
-    @Test
-    fun signedIn() {
-        runTest {
-            SignInPromptScreen(
-                state = SignInPromptScreenState.SignedIn(
-                    AccountUiModel(
-                        "user@example.com",
-                        "John Doe",
-                    ),
-                ),
-                title = "Sign in",
-                message = "Send messages and create chat groups with your friends",
-                onIdleStateObserved = { },
-                onAlreadySignedIn = { },
-            ) {
-                testContent()
-            }
-        }
+  @Test
+  fun signedIn() {
+    runTest {
+      SignInPromptScreen(
+        state = SignInPromptScreenState.SignedIn(AccountUiModel("user@example.com", "John Doe")),
+        title = "Sign in",
+        message = "Send messages and create chat groups with your friends",
+        onIdleStateObserved = {},
+        onAlreadySignedIn = {},
+      ) {
+        testContent()
+      }
     }
+  }
 
-    @Test
-    fun signedOut() {
-        runTest {
-            SignInPromptScreen(
-                state = SignInPromptScreenState.SignedOut,
-                title = "Sign in",
-                message = "Send messages and create chat groups with your friends",
-                onIdleStateObserved = { },
-                onAlreadySignedIn = { },
-            ) {
-                testContent()
-            }
-        }
+  @Test
+  fun signedOut() {
+    runTest {
+      SignInPromptScreen(
+        state = SignInPromptScreenState.SignedOut,
+        title = "Sign in",
+        message = "Send messages and create chat groups with your friends",
+        onIdleStateObserved = {},
+        onAlreadySignedIn = {},
+      ) {
+        testContent()
+      }
     }
+  }
 
-    @Test
-    fun signedOutTruncation() {
-        runTest {
-            SignInPromptScreen(
-                state = SignInPromptScreenState.SignedOut,
-                title = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-                message = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
-                    "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
-                    "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
-                    "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
-                    "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
-                    "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-                onIdleStateObserved = { },
-                onAlreadySignedIn = { },
-            ) {
-                testContent()
-            }
-        }
+  @Test
+  fun signedOutTruncation() {
+    runTest {
+      SignInPromptScreen(
+        state = SignInPromptScreenState.SignedOut,
+        title = "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+        message =
+          "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+            "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+            "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+            "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+            "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW" +
+            "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
+        onIdleStateObserved = {},
+        onAlreadySignedIn = {},
+      ) {
+        testContent()
+      }
     }
+  }
 
-    private fun ScalingLazyListScope.testContent() {
-        item {
-            SignInButton(
-                onClick = { },
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-        item {
-            GuestModeButton(
-                onClick = { },
-                modifier = Modifier.fillMaxWidth(),
-            )
-        }
-    }
+  private fun ScalingLazyListScope.testContent() {
+    item { SignInButton(onClick = {}, modifier = Modifier.fillMaxWidth()) }
+    item { GuestModeButton(onClick = {}, modifier = Modifier.fillMaxWidth()) }
+  }
 }

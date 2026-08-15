@@ -21,17 +21,13 @@ import com.google.android.horologist.media.database.model.PlaylistEntity
 import com.google.android.horologist.media.model.Playlist
 
 /**
- * Functions to map models from other layers and / or packages into a [com.google.android.horologist.media.database.model.PlaylistEntity].
+ * Functions to map models from other layers and / or packages into a
+ * [com.google.android.horologist.media.database.model.PlaylistEntity].
  */
 @ExperimentalHorologistApi
 public object PlaylistEntityMapper {
 
-    /**
-     * Maps from a [Playlist].
-     */
-    public fun map(playlist: Playlist): PlaylistEntity = PlaylistEntity(
-        playlistId = playlist.id,
-        name = playlist.name,
-        artworkUri = playlist.artworkUri,
-    )
+  /** Maps from a [Playlist]. */
+  public fun map(playlist: Playlist): PlaylistEntity =
+    PlaylistEntity(playlistId = playlist.id, name = playlist.name, artworkUri = playlist.artworkUri)
 }

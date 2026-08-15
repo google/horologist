@@ -26,36 +26,29 @@ import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class VolumeScreenThemeTest(
-    private val themeValue: ThemeValues,
-) : WearLegacyScreenTest() {
+class VolumeScreenThemeTest(private val themeValue: ThemeValues) : WearLegacyScreenTest() {
 
-    override fun testName(suffix: String): String {
-        return "src/test/snapshots/images/" +
-            "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
-            "${themeValue.safeName.lowercase()}.png"
+  override fun testName(suffix: String): String {
+    return "src/test/snapshots/images/" +
+      "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
+      "${themeValue.safeName.lowercase()}.png"
+  }
+
+  @Test
+  fun volumeScreenThemes() {
+    val volumeState = VolumeState(current = 50, max = 100)
+    val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
+
+    runTest {
+      VolumeScreenTestCase(
+        colors = themeValue.colors,
+        volumeState = volumeState,
+        audioOutput = audioOutput,
+      )
     }
+  }
 
-    @Test
-    fun volumeScreenThemes() {
-        val volumeState = VolumeState(
-            current = 50,
-            max = 100,
-        )
-        val audioOutput = AudioOutput.BluetoothHeadset("id", "Pixelbuds")
-
-        runTest {
-            VolumeScreenTestCase(
-                colors = themeValue.colors,
-                volumeState = volumeState,
-                audioOutput = audioOutput,
-            )
-        }
-    }
-
-    companion object {
-        @JvmStatic
-        @ParameterizedRobolectricTestRunner.Parameters
-        fun colors() = themeValues
-    }
+  companion object {
+    @JvmStatic @ParameterizedRobolectricTestRunner.Parameters fun colors() = themeValues
+  }
 }

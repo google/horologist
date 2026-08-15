@@ -62,60 +62,61 @@ import kotlin.time.Duration.Companion.seconds
  * Otherwise is mostly the same as the [Text] composable, without params that don't apply for
  * marquee, such as maxLines.
  *
- * Only scrolls if required, and otherwise uses textAlign to show the content in a
- * stationary position.
+ * Only scrolls if required, and otherwise uses textAlign to show the content in a stationary
+ * position.
  *
  * @param text The text to be displayed, where [AnnotatedString] allows multiple styles to be used.
  * @param modifier [Modifier] to apply to this layout node.
- * @param inlineContent A map store composables that replaces certain ranges of the text. It's
- * used to insert composables into text layout. Check [InlineTextContent] for more information.
+ * @param inlineContent A map store composables that replaces certain ranges of the text. It's used
+ *   to insert composables into text layout. Check [InlineTextContent] for more information.
  * @param color [Color] to apply to the text. If [Color.Unspecified], and [style] has no color set,
- * this will be [LocalContentColor].
+ *   this will be [LocalContentColor].
  * @param style Style configuration for the text such as color, font, line height etc.
- * @param textAlign The alignment of the text within the lines of the paragraph.
- * See [TextStyle.textAlign].
+ * @param textAlign The alignment of the text within the lines of the paragraph. See
+ *   [TextStyle.textAlign].
  * @param followGap the width between end of each scrolling text and the start of the following one.
  * @param edgeGradientWidth the width of the fade out zone on the edges, so text isn't cut off
- * harshly.
+ *   harshly.
  * @param marqueeDpPerSecond the speed of scrolling in dp per second.
  * @param pauseTime the duration before initially scrolling and each additional scroll.
  */
 @ExperimentalHorologistApi
 @Composable
 public fun MarqueeText(
-    text: AnnotatedString,
-    modifier: Modifier = Modifier,
-    inlineContent: Map<String, InlineTextContent> = mapOf(),
-    color: Color = Color.Unspecified,
-    style: TextStyle = LocalTextStyle.current,
-    textAlign: TextAlign = TextAlign.Left,
-    followGap: Dp = 96.dp,
-    edgeGradientWidth: Dp = 16.dp,
-    marqueeDpPerSecond: Dp = 64.dp,
-    pauseTime: Duration = 4.seconds,
+  text: AnnotatedString,
+  modifier: Modifier = Modifier,
+  inlineContent: Map<String, InlineTextContent> = mapOf(),
+  color: Color = Color.Unspecified,
+  style: TextStyle = LocalTextStyle.current,
+  textAlign: TextAlign = TextAlign.Left,
+  followGap: Dp = 96.dp,
+  edgeGradientWidth: Dp = 16.dp,
+  marqueeDpPerSecond: Dp = 64.dp,
+  pauseTime: Duration = 4.seconds,
 ) {
-    val controller = remember(text, style) { MarqueeController(edgeGradientWidth) }
-    controller.edgeGradientWidth = edgeGradientWidth
+  val controller = remember(text, style) { MarqueeController(edgeGradientWidth) }
+  controller.edgeGradientWidth = edgeGradientWidth
 
-    Text(
-        text = text,
-        inlineContent = inlineContent,
-        modifier = modifier
-            .then(controller.outsideMarqueeModifier)
-            .semantics { focused = true }
-            .basicMarquee(
-                iterations = Int.MAX_VALUE,
-                repeatDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
-                initialDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
-                spacing = MarqueeSpacing(followGap),
-                velocity = marqueeDpPerSecond,
-            )
-            .then(controller.insideMarqueeModifier),
-        textAlign = textAlign,
-        color = color,
-        style = style,
-        maxLines = 1,
-    )
+  Text(
+    text = text,
+    inlineContent = inlineContent,
+    modifier =
+      modifier
+        .then(controller.outsideMarqueeModifier)
+        .semantics { focused = true }
+        .basicMarquee(
+          iterations = Int.MAX_VALUE,
+          repeatDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
+          initialDelayMillis = pauseTime.inWholeMilliseconds.toInt(),
+          spacing = MarqueeSpacing(followGap),
+          velocity = marqueeDpPerSecond,
+        )
+        .then(controller.insideMarqueeModifier),
+    textAlign = textAlign,
+    color = color,
+    style = style,
+    maxLines = 1,
+  )
 }
 
 /**
@@ -124,133 +125,120 @@ public fun MarqueeText(
  * Otherwise is mostly the same as the [Text] composable, without params that don't apply for
  * marquee, such as maxLines.
  *
- * Only scrolls if required, and otherwise uses textAlign to show the content in a
- * stationary position.
+ * Only scrolls if required, and otherwise uses textAlign to show the content in a stationary
+ * position.
  *
  * @param text The text to be displayed.
  * @param modifier [Modifier] to apply to this layout node.
  * @param color [Color] to apply to the text. If [Color.Unspecified], and [style] has no color set,
- * this will be [LocalContentColor].
+ *   this will be [LocalContentColor].
  * @param style Style configuration for the text such as color, font, line height etc.
- * @param textAlign The alignment of the text within the lines of the paragraph.
- * See [TextStyle.textAlign].
+ * @param textAlign The alignment of the text within the lines of the paragraph. See
+ *   [TextStyle.textAlign].
  * @param followGap the width between end of each scrolling text and the start of the following one.
  * @param edgeGradientWidth the width of the fade out zone on the edges, so text isn't cut off
- * harshly.
+ *   harshly.
  * @param marqueeDpPerSecond the speed of scrolling in dp per second.
  * @param pauseTime the duration before initially scrolling and each additional scroll.
  */
 @ExperimentalHorologistApi
 @Composable
 public fun MarqueeText(
-    text: String,
-    modifier: Modifier = Modifier,
-    color: Color = Color.Unspecified,
-    style: TextStyle = LocalTextStyle.current,
-    textAlign: TextAlign = TextAlign.Left,
-    followGap: Dp = 96.dp,
-    edgeGradientWidth: Dp = 16.dp,
-    marqueeDpPerSecond: Dp = 64.dp,
-    pauseTime: Duration = 4.seconds,
+  text: String,
+  modifier: Modifier = Modifier,
+  color: Color = Color.Unspecified,
+  style: TextStyle = LocalTextStyle.current,
+  textAlign: TextAlign = TextAlign.Left,
+  followGap: Dp = 96.dp,
+  edgeGradientWidth: Dp = 16.dp,
+  marqueeDpPerSecond: Dp = 64.dp,
+  pauseTime: Duration = 4.seconds,
 ) {
-    MarqueeText(
-        text = AnnotatedString(text),
-        inlineContent = emptyMap(),
-        modifier = modifier,
-        color = color,
-        style = style,
-        textAlign = textAlign,
-        followGap = followGap,
-        edgeGradientWidth = edgeGradientWidth,
-        marqueeDpPerSecond = marqueeDpPerSecond,
-        pauseTime = pauseTime,
-    )
+  MarqueeText(
+    text = AnnotatedString(text),
+    inlineContent = emptyMap(),
+    modifier = modifier,
+    color = color,
+    style = style,
+    textAlign = textAlign,
+    followGap = followGap,
+    edgeGradientWidth = edgeGradientWidth,
+    marqueeDpPerSecond = marqueeDpPerSecond,
+    pauseTime = pauseTime,
+  )
 }
 
 private class MarqueeController(edgeGradientWidth: Dp) {
 
-    var edgeGradientWidth: Dp by mutableStateOf(edgeGradientWidth)
-    private var needsScrolling by mutableStateOf(false)
-    private var contentWidth: Int by mutableStateOf(-1)
+  var edgeGradientWidth: Dp by mutableStateOf(edgeGradientWidth)
+  private var needsScrolling by mutableStateOf(false)
+  private var contentWidth: Int by mutableStateOf(-1)
 
-    val outsideMarqueeModifier: Modifier = Modifier
-        .layout { measurable, constraints ->
-            // The max intrinsic width is how long the text wants to be, if it had infinite width
-            // constraints. If that's larger than the available width, the marquee will scroll.
-            if (contentWidth < 0) {
-                contentWidth = measurable.maxIntrinsicWidth(0)
-                needsScrolling = contentWidth > constraints.maxWidth
-            }
-
-            val placeable = measurable.measure(constraints)
-            layout(placeable.width, placeable.height) {
-                placeable.placeRelative(IntOffset.Zero)
-            }
+  val outsideMarqueeModifier: Modifier =
+    Modifier.layout { measurable, constraints ->
+        // The max intrinsic width is how long the text wants to be, if it had infinite width
+        // constraints. If that's larger than the available width, the marquee will scroll.
+        if (contentWidth < 0) {
+          contentWidth = measurable.maxIntrinsicWidth(0)
+          needsScrolling = contentWidth > constraints.maxWidth
         }
-        .graphicsLayer {
-            // Required to make the faded edges only clear the alpha for the marquee content's
-            // pixels and not punch a hole through whatever is beneath this composable.
-            compositingStrategy = CompositingStrategy.Offscreen
-            clip = true
-        }
-        .drawFadeGradient()
 
-    private val padding = object : PaddingValues {
-        override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
-            if (needsScrolling && layoutDirection == LayoutDirection.Ltr) edgeGradientWidth else 0.dp
+        val placeable = measurable.measure(constraints)
+        layout(placeable.width, placeable.height) { placeable.placeRelative(IntOffset.Zero) }
+      }
+      .graphicsLayer {
+        // Required to make the faded edges only clear the alpha for the marquee content's
+        // pixels and not punch a hole through whatever is beneath this composable.
+        compositingStrategy = CompositingStrategy.Offscreen
+        clip = true
+      }
+      .drawFadeGradient()
 
-        override fun calculateRightPadding(layoutDirection: LayoutDirection): Dp =
-            if (needsScrolling && layoutDirection != LayoutDirection.Ltr) edgeGradientWidth else 0.dp
+  private val padding =
+    object : PaddingValues {
+      override fun calculateLeftPadding(layoutDirection: LayoutDirection): Dp =
+        if (needsScrolling && layoutDirection == LayoutDirection.Ltr) edgeGradientWidth else 0.dp
 
-        override fun calculateTopPadding(): Dp = 0.dp
-        override fun calculateBottomPadding(): Dp = 0.dp
+      override fun calculateRightPadding(layoutDirection: LayoutDirection): Dp =
+        if (needsScrolling && layoutDirection != LayoutDirection.Ltr) edgeGradientWidth else 0.dp
+
+      override fun calculateTopPadding(): Dp = 0.dp
+
+      override fun calculateBottomPadding(): Dp = 0.dp
     }
-    val insideMarqueeModifier: Modifier = Modifier.padding(padding)
+  val insideMarqueeModifier: Modifier = Modifier.padding(padding)
 
-    private fun Modifier.drawFadeGradient() = this.drawWithCache {
-        val width = edgeGradientWidth.toPx()
-        // Create the brush here and leverage it within the onDrawWithContent block below
-        // The brush will only be instantiated on first render and if the size of the composable
-        // changes. Otherwise the same brush instance will be used.
-        val leftBrush = Brush.horizontalGradient(
-            listOf(
-                Color.Transparent,
-                Color.Black,
-            ),
-            startX = 0f,
-            endX = width,
+  private fun Modifier.drawFadeGradient() =
+    this.drawWithCache {
+      val width = edgeGradientWidth.toPx()
+      // Create the brush here and leverage it within the onDrawWithContent block below
+      // The brush will only be instantiated on first render and if the size of the composable
+      // changes. Otherwise the same brush instance will be used.
+      val leftBrush =
+        Brush.horizontalGradient(listOf(Color.Transparent, Color.Black), startX = 0f, endX = width)
+      val rightBrush =
+        Brush.horizontalGradient(
+          listOf(Color.Transparent, Color.Black),
+          startX = size.width,
+          endX = size.width - width,
         )
-        val rightBrush = Brush.horizontalGradient(
-            listOf(
-                Color.Transparent,
-                Color.Black,
-            ),
-            startX = size.width,
-            endX = size.width - width,
-        )
-        onDrawWithContent {
-            drawContent()
+      onDrawWithContent {
+        drawContent()
 
-            if (needsScrolling) {
-                drawRect(
-                    size = Size(width, size.height),
-                    topLeft = Offset(
-                        0f,
-                        0f,
-                    ),
-                    brush = leftBrush,
-                    blendMode = BlendMode.DstIn,
-                )
-                drawRect(
-                    size = Size(width, size.height),
-                    topLeft = Offset(
-                        size.width - width,
-                        0f,
-                    ),
-                    brush = rightBrush,
-                    blendMode = BlendMode.DstIn,
-                )
-            }
+        if (needsScrolling) {
+          drawRect(
+            size = Size(width, size.height),
+            topLeft = Offset(0f, 0f),
+            brush = leftBrush,
+            blendMode = BlendMode.DstIn,
+          )
+          drawRect(
+            size = Size(width, size.height),
+            topLeft = Offset(size.width - width, 0f),
+            brush = rightBrush,
+            blendMode = BlendMode.DstIn,
+          )
         }
+      }
     }
 }

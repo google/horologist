@@ -26,110 +26,115 @@ import org.junit.Test
 
 class MediaDownloadMapperTest {
 
-    @Test
-    fun `given MediaDownloadEntity size is unknown then maps correctly`() {
-        // given
-        val media = Media(
-            id = "mediaId",
-            uri = "mediaUrl",
-            title = "title",
-            artist = "artist",
-            artworkUri = "artworkUrl",
+  @Test
+  fun `given MediaDownloadEntity size is unknown then maps correctly`() {
+    // given
+    val media =
+      Media(
+        id = "mediaId",
+        uri = "mediaUrl",
+        title = "title",
+        artist = "artist",
+        artworkUri = "artworkUrl",
+      )
+
+    val mediaDownloadEntity =
+      MediaDownloadEntity(
+        mediaId = "mediaId",
+        status = MediaDownloadEntityStatus.NotDownloaded,
+        progress = 0F,
+        size = -1L,
+      )
+
+    // when
+    val result = MediaDownloadMapper.map(media, mediaDownloadEntity)
+
+    // then
+    assertThat(result)
+      .isEqualTo(
+        MediaDownload(
+          media = media,
+          status = MediaDownload.Status.Idle,
+          size = MediaDownload.Size.Unknown,
         )
+      )
+  }
 
-        val mediaDownloadEntity = MediaDownloadEntity(
-            mediaId = "mediaId",
-            status = MediaDownloadEntityStatus.NotDownloaded,
-            progress = 0F,
-            size = -1L,
+  @Test
+  fun `given MediaDownloadEntity size is known then maps correctly`() {
+    // given
+    val media =
+      Media(
+        id = "mediaId",
+        uri = "mediaUrl",
+        title = "title",
+        artist = "artist",
+        artworkUri = "artworkUrl",
+      )
+
+    val size = 12345L
+    val mediaDownloadEntity =
+      MediaDownloadEntity(
+        mediaId = "mediaId",
+        status = MediaDownloadEntityStatus.NotDownloaded,
+        progress = 0F,
+        size = size,
+      )
+
+    // when
+    val result = MediaDownloadMapper.map(media, mediaDownloadEntity)
+
+    // then
+    assertThat(result)
+      .isEqualTo(
+        MediaDownload(
+          media = media,
+          status = MediaDownload.Status.Idle,
+          size = MediaDownload.Size.Known(size),
         )
+      )
+  }
 
-        // when
-        val result = MediaDownloadMapper.map(media, mediaDownloadEntity)
+  @Test
+  fun `given Playlist then maps correctly`() {
+    // given
+    val id = "id"
+    val name = "name"
+    val artworkUri = "artworkUri"
+    val media =
+      Media(
+        id = "mediaId",
+        uri = "mediaUrl",
+        title = "title",
+        artist = "artist",
+        artworkUri = "artworkUrl",
+      )
 
-        // then
-        assertThat(result).isEqualTo(
-            MediaDownload(
-                media = media,
-                status = MediaDownload.Status.Idle,
-                size = MediaDownload.Size.Unknown,
-            ),
+    val playlist =
+      Playlist(id = id, name = name, artworkUri = artworkUri, mediaList = listOf(media))
+
+    val size = 12345L
+    val mediaDownloadEntity =
+      MediaDownloadEntity(
+        mediaId = "mediaId",
+        status = MediaDownloadEntityStatus.NotDownloaded,
+        progress = 0F,
+        size = size,
+      )
+
+    // when
+    val result = MediaDownloadMapper.map(playlist, listOf(mediaDownloadEntity))
+
+    // then
+    assertThat(result)
+      .isEqualTo(
+        listOf(
+          MediaDownload(
+            media = media,
+            status = MediaDownload.Status.Idle,
+            size = MediaDownload.Size.Known(size),
+          )
         )
-    }
-
-    @Test
-    fun `given MediaDownloadEntity size is known then maps correctly`() {
-        // given
-        val media = Media(
-            id = "mediaId",
-            uri = "mediaUrl",
-            title = "title",
-            artist = "artist",
-            artworkUri = "artworkUrl",
-        )
-
-        val size = 12345L
-        val mediaDownloadEntity = MediaDownloadEntity(
-            mediaId = "mediaId",
-            status = MediaDownloadEntityStatus.NotDownloaded,
-            progress = 0F,
-            size = size,
-        )
-
-        // when
-        val result = MediaDownloadMapper.map(media, mediaDownloadEntity)
-
-        // then
-        assertThat(result).isEqualTo(
-            MediaDownload(
-                media = media,
-                status = MediaDownload.Status.Idle,
-                size = MediaDownload.Size.Known(size),
-            ),
-        )
-    }
-
-    @Test
-    fun `given Playlist then maps correctly`() {
-        // given
-        val id = "id"
-        val name = "name"
-        val artworkUri = "artworkUri"
-        val media = Media(
-            id = "mediaId",
-            uri = "mediaUrl",
-            title = "title",
-            artist = "artist",
-            artworkUri = "artworkUrl",
-        )
-
-        val playlist = Playlist(
-            id = id,
-            name = name,
-            artworkUri = artworkUri,
-            mediaList = listOf(media),
-        )
-
-        val size = 12345L
-        val mediaDownloadEntity = MediaDownloadEntity(
-            mediaId = "mediaId",
-            status = MediaDownloadEntityStatus.NotDownloaded,
-            progress = 0F,
-            size = size,
-        )
-
-        // when
-        val result = MediaDownloadMapper.map(playlist, listOf(mediaDownloadEntity))
-
-        // then
-        assertThat(result).isEqualTo(
-            listOf(
-                MediaDownload(
-                    media = media,
-                    status = MediaDownload.Status.Idle,
-                    size = MediaDownload.Size.Known(size),
-                ),
-            ),
-        )
-    }
+      )
+  }
 }

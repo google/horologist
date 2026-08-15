@@ -30,24 +30,26 @@ import com.google.android.horologist.images.base.paintable.ImageVectorPaintable.
 /**
  * An opinionated [Chip] to represent the "Sign in" action.
  *
- * <img src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/sign_in_chip.png" height="120" width="120" >
+ * <img
+ * src="https://media.githubusercontent.com/media/google/horologist/main/docs/auth-composables/sign_in_chip.png"
+ * height="120" width="120" >
  *
  * @sample com.google.android.horologist.auth.sample.screens.googlesignin.prompt.GoogleSignInPromptSampleScreen
  */
 @Composable
 public fun SignInChip(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    label: String = stringResource(id = R.string.horologist_sign_in_chip_label),
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  label: String = stringResource(id = R.string.horologist_sign_in_chip_label),
+  colors: ChipColors = ChipDefaults.primaryChipColors(),
+  enabled: Boolean = true,
 ) {
-    Chip(
-        label = label,
-        onClick = onClick,
-        modifier = modifier,
-        icon = Icons.Default.AccountCircle.asPaintable(),
-        colors = colors,
-        enabled = enabled,
-    )
+  Chip(
+    label = label,
+    onClick = onClick,
+    modifier = modifier,
+    icon = Icons.Default.AccountCircle.asPaintable(),
+    colors = colors,
+    enabled = enabled,
+  )
 }

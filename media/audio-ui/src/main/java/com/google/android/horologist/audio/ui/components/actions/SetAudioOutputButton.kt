@@ -37,45 +37,50 @@ import com.google.android.horologist.audio.ui.components.AudioOutputUi
 /**
  * Button to launch a screen to control the system audio output and volume.
  *
- * Using media output off icon as default if no [audioOutputUi] is passed in.
- * Using volume up icon as default if no [volumeUiState] is passed in.
+ * Using media output off icon as default if no [audioOutputUi] is passed in. Using volume up icon
+ * as default if no [volumeUiState] is passed in.
  *
- * See [AudioOutputUi]
- * See [VolumeUiState]
+ * See [AudioOutputUi] See [VolumeUiState]
  */
 @Composable
 public fun SetAudioOutputButton(
-    onVolumeClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    volumeUiState: VolumeUiState? = null,
-    audioOutputUi: AudioOutputUi? = null,
-    enabled: Boolean = true,
-    badgeColor: Color = MaterialTheme.colors.primary,
-    iconAlignment: Alignment = Alignment.Center,
-    iconPadding: PaddingValues = PaddingValues(all = 0.dp),
+  onVolumeClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  volumeUiState: VolumeUiState? = null,
+  audioOutputUi: AudioOutputUi? = null,
+  enabled: Boolean = true,
+  badgeColor: Color = MaterialTheme.colors.primary,
+  iconAlignment: Alignment = Alignment.Center,
+  iconPadding: PaddingValues = PaddingValues(all = 0.dp),
 ) {
-    SettingsButton(
-        modifier = modifier,
-        onClick = onVolumeClick,
-        enabled = enabled,
-        imageVector = when {
-            audioOutputUi?.isConnected == true -> audioOutputUi.imageVector
-            else -> ImageVector.vectorResource(R.drawable.media_output_off_24)
-        },
-        badgeVector = if (audioOutputUi?.isConnected == true) {
-            when {
-                volumeUiState?.isMin == true -> Icons.AutoMirrored.Default.VolumeMute
-                volumeUiState?.isMax == false -> Icons.AutoMirrored.Default.VolumeDown
-                else -> Icons.AutoMirrored.Default.VolumeUp // volumeUiState == null || volumeUiState.isMax == true
-            }
-        } else {
-            null
-        },
-        badgeColor = badgeColor,
-        contentDescription = stringResource(
-            com.google.android.horologist.audio.ui.model.R.string.horologist_set_volume_content_description,
-        ),
-        iconAlignment = iconAlignment,
-        iconPadding = iconPadding,
-    )
+  SettingsButton(
+    modifier = modifier,
+    onClick = onVolumeClick,
+    enabled = enabled,
+    imageVector =
+      when {
+        audioOutputUi?.isConnected == true -> audioOutputUi.imageVector
+        else -> ImageVector.vectorResource(R.drawable.media_output_off_24)
+      },
+    badgeVector =
+      if (audioOutputUi?.isConnected == true) {
+        when {
+          volumeUiState?.isMin == true -> Icons.AutoMirrored.Default.VolumeMute
+          volumeUiState?.isMax == false -> Icons.AutoMirrored.Default.VolumeDown
+          else ->
+            Icons.AutoMirrored.Default
+              .VolumeUp // volumeUiState == null || volumeUiState.isMax == true
+        }
+      } else {
+        null
+      },
+    badgeColor = badgeColor,
+    contentDescription =
+      stringResource(
+        com.google.android.horologist.audio.ui.model.R.string
+          .horologist_set_volume_content_description
+      ),
+    iconAlignment = iconAlignment,
+    iconPadding = iconPadding,
+  )
 }

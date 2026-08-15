@@ -51,350 +51,308 @@ import org.robolectric.annotation.Config
 @Config(sdk = [35])
 class PlayerScreenTest {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    val volumeRepository = FakeVolumeRepository(VolumeState(5, 15))
-    val audioOutputRepository = FakeAudioOutputRepository()
-    val vibrator =
-        InstrumentationRegistry.getInstrumentation().context.getSystemService(Vibrator::class.java)
-    val volumeViewModel =
-        VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {}, vibrator)
+  val volumeRepository = FakeVolumeRepository(VolumeState(5, 15))
+  val audioOutputRepository = FakeAudioOutputRepository()
+  val vibrator =
+    InstrumentationRegistry.getInstrumentation().context.getSystemService(Vibrator::class.java)
+  val volumeViewModel =
+    VolumeViewModel(volumeRepository, audioOutputRepository, onCleared = {}, vibrator)
 
-    @Test
-    fun givenPlayerRepoIsNOTPlaying_whenPlayIsClicked_thenPlayerRepoIsPlaying() {
-        // given
-        val playerRepository = FakePlayerRepository()
-        playerRepository.addCommand(Command.PlayPause)
-        // Needed for play to be enabled
-        playerRepository.pause()
-        val playerViewModel = PlayerViewModel(playerRepository)
+  @Test
+  fun givenPlayerRepoIsNOTPlaying_whenPlayIsClicked_thenPlayerRepoIsPlaying() {
+    // given
+    val playerRepository = FakePlayerRepository()
+    playerRepository.addCommand(Command.PlayPause)
+    // Needed for play to be enabled
+    playerRepository.pause()
+    val playerViewModel = PlayerViewModel(playerRepository)
 
-        assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isNotEqualTo(
-            PlayerState.Playing,
-        )
+    assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState)
+      .isNotEqualTo(PlayerState.Playing)
 
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel,
-            )
-        }
-
-        // when
-        composeTestRule.onNodeWithContentDescription("Play")
-            .assertHasClickAction()
-            .assertIsEnabled()
-            .performClick()
-
-        // then
-        composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.latestPlaybackState.value.playbackState.playerState == PlayerState.Playing
-        }
+    composeTestRule.setContent {
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
-    @Test
-    fun givenPlayerRepoIsPlaying_whenPauseIsClicked_thenPlayerRepoIsNOTPlaying() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
-        playerRepository.addCommand(Command.PlayPause)
-        playerRepository.play()
+    // when
+    composeTestRule
+      .onNodeWithContentDescription("Play")
+      .assertHasClickAction()
+      .assertIsEnabled()
+      .performClick()
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+    // then
+    composeTestRule.waitUntil(timeoutMillis = 1_000) {
+      playerRepository.latestPlaybackState.value.playbackState.playerState == PlayerState.Playing
+    }
+  }
 
-        assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState).isEqualTo(
-            PlayerState.Playing,
-        )
+  @Test
+  fun givenPlayerRepoIsPlaying_whenPauseIsClicked_thenPlayerRepoIsNOTPlaying() {
+    // given
+    val playerRepository = FakePlayerRepository()
+    playerRepository.addCommand(Command.PlayPause)
+    playerRepository.play()
 
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel,
-            )
-        }
+    val playerViewModel = PlayerViewModel(playerRepository)
 
-        // when
-        composeTestRule.onNodeWithContentDescription("Pause")
-            .assertHasClickAction()
-            .assertIsEnabled()
-            .performClick()
+    assertThat(playerRepository.latestPlaybackState.value.playbackState.playerState)
+      .isEqualTo(PlayerState.Playing)
 
-        // then
-        composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.latestPlaybackState.value.playbackState.playerState != PlayerState.Playing
-        }
+    composeTestRule.setContent {
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
-    @Test
-    fun givenMediaList_whenSeekToPreviousIsClicked_thenPreviousItemIsPlaying() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
+    // when
+    composeTestRule
+      .onNodeWithContentDescription("Pause")
+      .assertHasClickAction()
+      .assertIsEnabled()
+      .performClick()
 
-        val media1 = Media(id = "", uri = "", title = "", artist = "")
-        val media2 = Media(id = "", uri = "", title = "", artist = "")
-        playerRepository.setMediaList(listOf(media1, media2))
-        playerRepository.seekToDefaultPosition(1)
-        playerRepository.play()
+    // then
+    composeTestRule.waitUntil(timeoutMillis = 1_000) {
+      playerRepository.latestPlaybackState.value.playbackState.playerState != PlayerState.Playing
+    }
+  }
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+  @Test
+  fun givenMediaList_whenSeekToPreviousIsClicked_thenPreviousItemIsPlaying() {
+    // given
+    val playerRepository = FakePlayerRepository()
 
-        assertThat(playerRepository.currentMedia.value).isEqualTo(media2)
+    val media1 = Media(id = "", uri = "", title = "", artist = "")
+    val media2 = Media(id = "", uri = "", title = "", artist = "")
+    playerRepository.setMediaList(listOf(media1, media2))
+    playerRepository.seekToDefaultPosition(1)
+    playerRepository.play()
 
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel,
-            )
-        }
+    val playerViewModel = PlayerViewModel(playerRepository)
 
-        // when
-        composeTestRule.onNodeWithContentDescription("Previous")
-            .performClick()
+    assertThat(playerRepository.currentMedia.value).isEqualTo(media2)
 
-        // then
-        composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.currentMedia.value == media1
-        }
+    composeTestRule.setContent {
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
-    @Test
-    fun givenMediaList_whenSeekToNextIsClicked_thenNextItemIsPlaying() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
+    // when
+    composeTestRule.onNodeWithContentDescription("Previous").performClick()
 
-        val media1 = Media(id = "", uri = "", title = "", artist = "")
-        val media2 = Media(id = "", uri = "", title = "", artist = "")
-        playerRepository.setMediaList(listOf(media1, media2))
-        playerRepository.seekToDefaultPosition(0)
-        playerRepository.play()
+    // then
+    composeTestRule.waitUntil(timeoutMillis = 1_000) {
+      playerRepository.currentMedia.value == media1
+    }
+  }
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+  @Test
+  fun givenMediaList_whenSeekToNextIsClicked_thenNextItemIsPlaying() {
+    // given
+    val playerRepository = FakePlayerRepository()
 
-        assertThat(playerRepository.currentMedia.value).isEqualTo(media1)
+    val media1 = Media(id = "", uri = "", title = "", artist = "")
+    val media2 = Media(id = "", uri = "", title = "", artist = "")
+    playerRepository.setMediaList(listOf(media1, media2))
+    playerRepository.seekToDefaultPosition(0)
+    playerRepository.play()
 
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel,
-            )
-        }
+    val playerViewModel = PlayerViewModel(playerRepository)
 
-        // when
-        composeTestRule.onNodeWithContentDescription("Next")
-            .performClick()
+    assertThat(playerRepository.currentMedia.value).isEqualTo(media1)
 
-        // then
-        composeTestRule.waitUntil(timeoutMillis = 1_000) {
-            playerRepository.currentMedia.value == media2
-        }
+    composeTestRule.setContent {
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
-    @Test
-    fun whenPlayPauseCommandBecomesAvailable_thenPlayPauseButtonGetsEnabled() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
-        playerRepository.play()
+    // when
+    composeTestRule.onNodeWithContentDescription("Next").performClick()
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+    // then
+    composeTestRule.waitUntil(timeoutMillis = 1_000) {
+      playerRepository.currentMedia.value == media2
+    }
+  }
 
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel,
-            )
-        }
+  @Test
+  fun whenPlayPauseCommandBecomesAvailable_thenPlayPauseButtonGetsEnabled() {
+    // given
+    val playerRepository = FakePlayerRepository()
+    playerRepository.play()
 
-        val button = composeTestRule.onNodeWithContentDescription("Pause")
+    val playerViewModel = PlayerViewModel(playerRepository)
 
-        // then
-        button.assertIsNotEnabled()
-
-        // when
-        playerRepository.addCommand(Command.PlayPause)
-
-        // then
-        button.assertIsEnabled()
+    composeTestRule.setContent {
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
-    @Test
-    fun whenSeekToPreviousMediaCommandBecomesAvailable_thenSeekToPreviousButtonGetsEnabled() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
-        val playerViewModel = PlayerViewModel(playerRepository)
+    val button = composeTestRule.onNodeWithContentDescription("Pause")
 
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel,
-            )
-        }
+    // then
+    button.assertIsNotEnabled()
 
-        val button = composeTestRule.onNodeWithContentDescription("Previous")
+    // when
+    playerRepository.addCommand(Command.PlayPause)
 
-        // then
-        button.assertIsNotEnabled()
+    // then
+    button.assertIsEnabled()
+  }
 
-        // when
-        playerRepository.addCommand(Command.SkipToPreviousMedia)
+  @Test
+  fun whenSeekToPreviousMediaCommandBecomesAvailable_thenSeekToPreviousButtonGetsEnabled() {
+    // given
+    val playerRepository = FakePlayerRepository()
+    val playerViewModel = PlayerViewModel(playerRepository)
 
-        // then
-        button.assertIsEnabled()
+    composeTestRule.setContent {
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
-    @Test
-    fun whenSeekToNextMediaCommandBecomesAvailable_thenSeekToNextButtonGetsEnabled() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
-        val playerViewModel = PlayerViewModel(playerRepository)
+    val button = composeTestRule.onNodeWithContentDescription("Previous")
 
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel,
-            )
-        }
+    // then
+    button.assertIsNotEnabled()
 
-        val button = composeTestRule.onNodeWithContentDescription("Next")
+    // when
+    playerRepository.addCommand(Command.SkipToPreviousMedia)
 
-        // then
-        button.assertIsNotEnabled()
+    // then
+    button.assertIsEnabled()
+  }
 
-        // when
-        playerRepository.addCommand(Command.SkipToNextMedia)
+  @Test
+  fun whenSeekToNextMediaCommandBecomesAvailable_thenSeekToNextButtonGetsEnabled() {
+    // given
+    val playerRepository = FakePlayerRepository()
+    val playerViewModel = PlayerViewModel(playerRepository)
 
-        // then
-        button.assertIsEnabled()
+    composeTestRule.setContent {
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
-    @Test
-    fun givenMedia_thenCorrectTitleAndArtistAndIsDisplayed() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
-        val artist = "artist"
-        val title = "title"
-        val media = Media(id = "", uri = "", title = title, artist = artist)
-        playerRepository.setMedia(media)
-        playerRepository.play()
+    val button = composeTestRule.onNodeWithContentDescription("Next")
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+    // then
+    button.assertIsNotEnabled()
 
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel,
-            )
-        }
+    // when
+    playerRepository.addCommand(Command.SkipToNextMedia)
 
-        // then
-        composeTestRule.onNode(hasText(artist)).assertExists()
-        composeTestRule.onNode(hasText(title)).assertExists()
+    // then
+    button.assertIsEnabled()
+  }
+
+  @Test
+  fun givenMedia_thenCorrectTitleAndArtistAndIsDisplayed() {
+    // given
+    val playerRepository = FakePlayerRepository()
+    val artist = "artist"
+    val title = "title"
+    val media = Media(id = "", uri = "", title = title, artist = artist)
+    playerRepository.setMedia(media)
+    playerRepository.play()
+
+    val playerViewModel = PlayerViewModel(playerRepository)
+
+    composeTestRule.setContent {
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
 
-    @Test
-    fun givenCustomMediaDisplay_thenCustomIsDisplayed() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
-        val artist = "artist"
-        val title = "title"
-        val media = Media(id = "", uri = "", title = title, artist = artist)
-        playerRepository.setMedia(media)
-        playerRepository.play()
+    // then
+    composeTestRule.onNode(hasText(artist)).assertExists()
+    composeTestRule.onNode(hasText(title)).assertExists()
+  }
 
-        val playerViewModel = PlayerViewModel(playerRepository)
+  @Test
+  fun givenCustomMediaDisplay_thenCustomIsDisplayed() {
+    // given
+    val playerRepository = FakePlayerRepository()
+    val artist = "artist"
+    val title = "title"
+    val media = Media(id = "", uri = "", title = title, artist = artist)
+    playerRepository.setMedia(media)
+    playerRepository.play()
 
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                mediaDisplay = { Text("Custom") },
-                volumeViewModel = volumeViewModel,
-            )
-        }
+    val playerViewModel = PlayerViewModel(playerRepository)
 
-        // then
-        composeTestRule.onNode(hasText("Custom")).assertExists()
-
-        composeTestRule.onNode(hasText(artist)).assertDoesNotExist()
-        composeTestRule.onNode(hasText(title)).assertDoesNotExist()
+    composeTestRule.setContent {
+      PlayerScreen(
+        playerViewModel = playerViewModel,
+        mediaDisplay = { Text("Custom") },
+        volumeViewModel = volumeViewModel,
+      )
     }
 
-    @Test
-    fun givenCustomControlButtons_thenCustomIsDisplayed() {
-        // given
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
-                controlButtons = { _, _ -> Text("Custom") },
-                volumeViewModel = volumeViewModel,
-            )
-        }
+    // then
+    composeTestRule.onNode(hasText("Custom")).assertExists()
 
-        // then
-        composeTestRule.onNode(hasText("Custom")).assertExists()
+    composeTestRule.onNode(hasText(artist)).assertDoesNotExist()
+    composeTestRule.onNode(hasText(title)).assertDoesNotExist()
+  }
 
-        composeTestRule.onNodeWithContentDescription("Previous").assertDoesNotExist()
-        composeTestRule.onNodeWithContentDescription("Next").assertDoesNotExist()
-        composeTestRule.onNodeWithContentDescription("Play").assertDoesNotExist()
-        composeTestRule.onNodeWithContentDescription("Pause").assertDoesNotExist()
+  @Test
+  fun givenCustomControlButtons_thenCustomIsDisplayed() {
+    // given
+    composeTestRule.setContent {
+      PlayerScreen(
+        playerViewModel = PlayerViewModel(FakePlayerRepository()),
+        controlButtons = { _, _ -> Text("Custom") },
+        volumeViewModel = volumeViewModel,
+      )
     }
 
-    @Test
-    fun givenCustomButtons_thenCustomIsDisplayed() {
-        // given
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
-                buttons = { Text("Custom") },
-                volumeViewModel = volumeViewModel,
-            )
-        }
+    // then
+    composeTestRule.onNode(hasText("Custom")).assertExists()
 
-        // then
-        composeTestRule.onNode(hasText("Custom")).assertExists()
+    composeTestRule.onNodeWithContentDescription("Previous").assertDoesNotExist()
+    composeTestRule.onNodeWithContentDescription("Next").assertDoesNotExist()
+    composeTestRule.onNodeWithContentDescription("Play").assertDoesNotExist()
+    composeTestRule.onNodeWithContentDescription("Pause").assertDoesNotExist()
+  }
+
+  @Test
+  fun givenCustomButtons_thenCustomIsDisplayed() {
+    // given
+    composeTestRule.setContent {
+      PlayerScreen(
+        playerViewModel = PlayerViewModel(FakePlayerRepository()),
+        buttons = { Text("Custom") },
+        volumeViewModel = volumeViewModel,
+      )
     }
 
-    @Test
-    fun givenCustomBackground_thenCustomIsDisplayed() {
-        // given
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = PlayerViewModel(FakePlayerRepository()),
-                background = { Text("Custom") },
-                volumeViewModel = volumeViewModel,
-            )
-        }
+    // then
+    composeTestRule.onNode(hasText("Custom")).assertExists()
+  }
 
-        // then
-        composeTestRule.onNode(hasText("Custom")).assertExists()
+  @Test
+  fun givenCustomBackground_thenCustomIsDisplayed() {
+    // given
+    composeTestRule.setContent {
+      PlayerScreen(
+        playerViewModel = PlayerViewModel(FakePlayerRepository()),
+        background = { Text("Custom") },
+        volumeViewModel = volumeViewModel,
+      )
     }
 
-    @Test
-    fun whenInit_thenVolumeShouldEqualToVolumeRepositoryState() {
-        // given
-        val playerRepository =
-            FakePlayerRepository()
-        val playerViewModel = PlayerViewModel(playerRepository)
+    // then
+    composeTestRule.onNode(hasText("Custom")).assertExists()
+  }
 
-        // when
-        composeTestRule.setContent {
-            PlayerScreen(
-                playerViewModel = playerViewModel,
-                volumeViewModel = volumeViewModel,
-            )
-        }
+  @Test
+  fun whenInit_thenVolumeShouldEqualToVolumeRepositoryState() {
+    // given
+    val playerRepository = FakePlayerRepository()
+    val playerViewModel = PlayerViewModel(playerRepository)
 
-        // then
-        assertThat(volumeViewModel.volumeUiState.value).isEqualTo(
-            VolumeUiStateMapper.map(
-                volumeRepository.volumeState.value,
-            ),
-        )
+    // when
+    composeTestRule.setContent {
+      PlayerScreen(playerViewModel = playerViewModel, volumeViewModel = volumeViewModel)
     }
+
+    // then
+    assertThat(volumeViewModel.volumeUiState.value)
+      .isEqualTo(VolumeUiStateMapper.map(volumeRepository.volumeState.value))
+  }
 }

@@ -16,49 +16,80 @@
 
 package com.google.android.horologist.sample
 
-sealed class Screen(
-    val route: String,
-) {
-    object Menu : Screen("menu")
-    object FillMaxRectangle : Screen("fmr")
-    object Volume : Screen("volume")
-    object DatePicker : Screen("datePicker")
-    object FromDatePicker : Screen("fromDatePicker")
-    object ToDatePicker : Screen("toDatePicker")
-    object TimePicker : Screen("timePicker")
-    object TimeWithSecondsPicker : Screen("timeWithSecondsPicker")
-    object TimeWithoutSecondsPicker : Screen("timeWithoutSecondsPicker")
-    object Network : Screen("network")
-    object Material3 : Screen("material3")
-    object FastScrollingTLC : Screen("FastScrollingTLC")
-    object Lottie : Screen("lottie")
+sealed class Screen(val route: String) {
+  object Menu : Screen("menu")
 
-    object MaterialAlertDialog : Screen("materialAlertDialog")
-    object MaterialAnimatedComponents : Screen("materialAnimatedComponents")
-    object MaterialButtonsScreen : Screen("materialButtonsScreen")
-    object MaterialCardsScreen : Screen("materialCardsScreen")
-    object MaterialChipsScreen : Screen("materialChipsScreen")
-    object MaterialChipIconWithProgressScreen : Screen("materialChipIconWithProgressScreen")
-    object MaterialCompactChipsScreen : Screen("materialCompactChips")
-    object MaterialConfirmationScreen : Screen("materialConfirmationScreen")
-    object MaterialConfirmationLauncher : Screen("materialConfirmationLauncher")
-    object MaterialIconScreen : Screen("materialIconScreen")
-    object MaterialOutlinedChipScreen : Screen("materialOutlinedChipScreen")
-    object MaterialOutlinedCompactChipScreen : Screen("materialOutlinedCompactChipScreen")
-    object MaterialSplitToggleChipScreen : Screen("materialSplitToggleChipScreen")
-    object MaterialStepperScreen : Screen("materialStepperScreen")
-    object MaterialTitleScreen : Screen("materialTitleScreen")
-    object MaterialToggleButtonScreen : Screen("materialToggleButtonScreen")
-    object MaterialToggleChipScreen : Screen("materialToggleChipScreen")
+  object FillMaxRectangle : Screen("fmr")
 
-    object SectionedListMenuScreen : Screen("sectionedListMenuScreen")
-    object SectionedListStatelessScreen : Screen("sectionedListStatelessScreen")
-    object SectionedListStatefulScreen : Screen("sectionedListStatefulScreen")
-    object SectionedListExpandableScreen : Screen("sectionedListExpandableScreen")
+  object Volume : Screen("volume")
 
-    object Paging : Screen("paging")
-    object PagingItem : Screen("pagingItem?id={id}")
+  object DatePicker : Screen("datePicker")
 
-    object PagerScreen : Screen("pagerScreen")
-    object VerticalPagerScreen : Screen("verticalPagerScreen")
+  object FromDatePicker : Screen("fromDatePicker")
+
+  object ToDatePicker : Screen("toDatePicker")
+
+  object TimePicker : Screen("timePicker")
+
+  object TimeWithSecondsPicker : Screen("timeWithSecondsPicker")
+
+  object TimeWithoutSecondsPicker : Screen("timeWithoutSecondsPicker")
+
+  object Network : Screen("network")
+
+  object Material3 : Screen("material3")
+
+  object FastScrollingTLC : Screen("FastScrollingTLC")
+
+  object Lottie : Screen("lottie")
+
+  object MaterialAlertDialog : Screen("materialAlertDialog")
+
+  object MaterialAnimatedComponents : Screen("materialAnimatedComponents")
+
+  object MaterialButtonsScreen : Screen("materialButtonsScreen")
+
+  object MaterialCardsScreen : Screen("materialCardsScreen")
+
+  object MaterialChipsScreen : Screen("materialChipsScreen")
+
+  object MaterialChipIconWithProgressScreen : Screen("materialChipIconWithProgressScreen")
+
+  object MaterialCompactChipsScreen : Screen("materialCompactChips")
+
+  object MaterialConfirmationScreen : Screen("materialConfirmationScreen")
+
+  object MaterialConfirmationLauncher : Screen("materialConfirmationLauncher")
+
+  object MaterialIconScreen : Screen("materialIconScreen")
+
+  object MaterialOutlinedChipScreen : Screen("materialOutlinedChipScreen")
+
+  object MaterialOutlinedCompactChipScreen : Screen("materialOutlinedCompactChipScreen")
+
+  object MaterialSplitToggleChipScreen : Screen("materialSplitToggleChipScreen")
+
+  object MaterialStepperScreen : Screen("materialStepperScreen")
+
+  object MaterialTitleScreen : Screen("materialTitleScreen")
+
+  object MaterialToggleButtonScreen : Screen("materialToggleButtonScreen")
+
+  object MaterialToggleChipScreen : Screen("materialToggleChipScreen")
+
+  object SectionedListMenuScreen : Screen("sectionedListMenuScreen")
+
+  object SectionedListStatelessScreen : Screen("sectionedListStatelessScreen")
+
+  object SectionedListStatefulScreen : Screen("sectionedListStatefulScreen")
+
+  object SectionedListExpandableScreen : Screen("sectionedListExpandableScreen")
+
+  object Paging : Screen("paging")
+
+  object PagingItem : Screen("pagingItem?id={id}")
+
+  object PagerScreen : Screen("pagerScreen")
+
+  object VerticalPagerScreen : Screen("verticalPagerScreen")
 }

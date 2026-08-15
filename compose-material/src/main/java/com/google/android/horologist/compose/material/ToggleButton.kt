@@ -36,121 +36,128 @@ import androidx.wear.compose.material.ToggleButtonColors
 import androidx.wear.compose.material.ToggleButtonDefaults
 import androidx.wear.compose.material.contentColorFor
 import com.google.android.horologist.images.base.paintable.PaintableIcon
+
 /**
  * This component is an alternative to [ToggleButton], providing the following:
  * - a convenient way of providing text;
  */
 @Composable
 public fun ToggleButton(
-    text: String,
-    onCheckedChanged: (Boolean) -> Unit,
-    modifier: Modifier = Modifier,
-    checked: Boolean = true,
-    enabled: Boolean = true,
-    colors: ToggleButtonColors = ToggleButtonDefaults.toggleButtonColors(),
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    shape: Shape = CircleShape,
-    role: Role = ToggleButtonDefaults.DefaultRole,
-    smallSize: Boolean = false,
+  text: String,
+  onCheckedChanged: (Boolean) -> Unit,
+  modifier: Modifier = Modifier,
+  checked: Boolean = true,
+  enabled: Boolean = true,
+  colors: ToggleButtonColors = ToggleButtonDefaults.toggleButtonColors(),
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  shape: Shape = CircleShape,
+  role: Role = ToggleButtonDefaults.DefaultRole,
+  smallSize: Boolean = false,
 ) {
-    val stateDescriptionSemantics = stringResource(
-        if (checked) {
-            R.string.horologist_toggle_button_on_state_description
-        } else {
-            R.string.horologist_toggle_button_off_state_description
-        },
+  val stateDescriptionSemantics =
+    stringResource(
+      if (checked) {
+        R.string.horologist_toggle_button_on_state_description
+      } else {
+        R.string.horologist_toggle_button_off_state_description
+      }
     )
 
-    val newModifier = if (smallSize) {
+  val newModifier =
+    if (smallSize) {
         modifier.size(ToggleButtonDefaults.SmallToggleButtonSize)
-    } else {
+      } else {
         modifier
-    }.semantics { stateDescription = stateDescriptionSemantics }
+      }
+      .semantics { stateDescription = stateDescriptionSemantics }
 
-    ToggleButton(
-        checked = checked,
-        onCheckedChange = onCheckedChanged,
-        modifier = newModifier,
-        enabled = enabled,
-        colors = colors,
-        interactionSource = interactionSource,
-        shape = shape,
-        role = role,
-    ) {
-        Text(text = text.take(3))
-    }
+  ToggleButton(
+    checked = checked,
+    onCheckedChange = onCheckedChanged,
+    modifier = newModifier,
+    enabled = enabled,
+    colors = colors,
+    interactionSource = interactionSource,
+    shape = shape,
+    role = role,
+  ) {
+    Text(text = text.take(3))
+  }
 }
 
-/**§
- * This component is an alternative to [ToggleButton], providing the following:
+/**
+ * § This component is an alternative to [ToggleButton], providing the following:
  * - a convenient way of providing a icons for the checked and not checked states;
  */
 @Composable
 public fun ToggleButton(
-    checkedIcon: PaintableIcon,
-    notCheckedIcon: PaintableIcon,
-    contentDescription: String,
-    onCheckedChanged: (Boolean) -> Unit,
-    modifier: Modifier = Modifier,
-    checked: Boolean = true,
-    enabled: Boolean = true,
-    colors: ToggleButtonColors = ToggleButtonDefaults.toggleButtonColors(),
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    shape: Shape = CircleShape,
-    role: Role = ToggleButtonDefaults.DefaultRole,
-    smallSize: Boolean = false,
+  checkedIcon: PaintableIcon,
+  notCheckedIcon: PaintableIcon,
+  contentDescription: String,
+  onCheckedChanged: (Boolean) -> Unit,
+  modifier: Modifier = Modifier,
+  checked: Boolean = true,
+  enabled: Boolean = true,
+  colors: ToggleButtonColors = ToggleButtonDefaults.toggleButtonColors(),
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  shape: Shape = CircleShape,
+  role: Role = ToggleButtonDefaults.DefaultRole,
+  smallSize: Boolean = false,
 ) {
-    val stateDescriptionSemantics = stringResource(
-        if (checked) {
-            R.string.horologist_toggle_button_on_state_description
-        } else {
-            R.string.horologist_toggle_button_off_state_description
-        },
+  val stateDescriptionSemantics =
+    stringResource(
+      if (checked) {
+        R.string.horologist_toggle_button_on_state_description
+      } else {
+        R.string.horologist_toggle_button_off_state_description
+      }
     )
 
-    val newModifier = if (smallSize) {
+  val newModifier =
+    if (smallSize) {
         modifier.size(ToggleButtonDefaults.SmallToggleButtonSize)
-    } else {
+      } else {
         modifier
-    }.semantics { stateDescription = stateDescriptionSemantics }
+      }
+      .semantics { stateDescription = stateDescriptionSemantics }
 
-    ToggleButton(
-        checked = checked,
-        onCheckedChange = onCheckedChanged,
-        modifier = newModifier,
-        enabled = enabled,
-        colors = colors,
-        interactionSource = interactionSource,
-        shape = shape,
-        role = role,
-    ) {
-        Icon(
-            paintable = if (checked) {
-                checkedIcon
-            } else {
-                notCheckedIcon
-            },
-            modifier = modifier,
-            contentDescription = contentDescription,
-        )
-    }
+  ToggleButton(
+    checked = checked,
+    onCheckedChange = onCheckedChanged,
+    modifier = newModifier,
+    enabled = enabled,
+    colors = colors,
+    interactionSource = interactionSource,
+    shape = shape,
+    role = role,
+  ) {
+    Icon(
+      paintable =
+        if (checked) {
+          checkedIcon
+        } else {
+          notCheckedIcon
+        },
+      modifier = modifier,
+      contentDescription = contentDescription,
+    )
+  }
 }
 
-/**
- * Contains the default values used by [ToggleButton].
- */
+/** Contains the default values used by [ToggleButton]. */
 public object ToggleButtonDefaults {
 
-    /**
-     * Creates a [ToggleButtonColors] that represents the content colors for an icon-only
-     * [ToggleButton].
-     */
-    @Composable
-    public fun iconOnlyColors(): ToggleButtonColors {
-        return ToggleButtonDefaults.toggleButtonColors(
-            checkedBackgroundColor = Color.Transparent,
-            uncheckedBackgroundColor = Color.Transparent,
-            disabledCheckedContentColor = contentColorFor(MaterialTheme.colors.surface).copy(alpha = ContentAlpha.disabled),
-        )
-    }
+  /**
+   * Creates a [ToggleButtonColors] that represents the content colors for an icon-only
+   * [ToggleButton].
+   */
+  @Composable
+  public fun iconOnlyColors(): ToggleButtonColors {
+    return ToggleButtonDefaults.toggleButtonColors(
+      checkedBackgroundColor = Color.Transparent,
+      uncheckedBackgroundColor = Color.Transparent,
+      disabledCheckedContentColor =
+        contentColorFor(MaterialTheme.colors.surface).copy(alpha = ContentAlpha.disabled),
+    )
+  }
 }

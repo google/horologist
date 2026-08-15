@@ -19,7 +19,7 @@ package com.google.android.horologist.mediasample.data.service.offload
 import androidx.media3.exoplayer.analytics.AnalyticsListener.EventTime
 
 public data class AudioError(
-    public val time: Long,
-    public val message: String,
-    public val eventTime: EventTime?,
+  public val time: Long,
+  public val message: String,
+  public val eventTime: EventTime?,
 )

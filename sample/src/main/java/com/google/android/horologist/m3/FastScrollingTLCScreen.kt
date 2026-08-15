@@ -42,132 +42,119 @@ import com.google.android.horologist.compose.layout.rememberResponsiveColumnPadd
 open class ScrollableContent(var content: String)
 
 class Header(val title: String) : ScrollableContent(title)
+
 class Person(val name: String) : ScrollableContent(name)
 
-val peopleString = """
-            Olivia Smith, Liam Johnson, Emma Williams, Noah Brown, Ava Jones, Isabella Garcia, 
-            Sophia Miller, James Davis, William Rodriguez, Benjamin Martinez, Lucas Hernandez, 
-            Henry Lopez, Alexander Gonzalez, Mia Wilson, Charlotte Anderson, Amelia Thomas, 
-            Evelyn Taylor, Abigail Moore, Daniel Jackson, Harper Martin, Ella Lee, Grace Perez, 
-            Aiden Thompson, Jackson White, Scarlett Harris, Emily Sanchez, Michael Clark, 
-            Elizabeth Ramirez, David Lewis, Mila Robinson, Joseph Walker, Chloe Hall, 
-            Samuel Allen, Aubrey Young, Julian King, Zoey Wright, Leo Scott, Layla Green, 
-            Gabriel Baker, Nora Adams, Anthony Nelson, Luna Hill, Christopher Rivera, 
-            Victoria Campbell, Ryan Mitchell, Hannah Roberts, Nathan Carter, Natalie Phillips, 
-            Caleb Parker, Leah Evans, Isaac Edwards, Zoe Collins, Joshua Stewart, Stella Morris, 
-            Matthew Rogers, Aurora Reed, Andrew Cook, Dylan Morgan, John Bell, Genesis Murphy, 
-            Luke Bailey, Sarah Cooper, Gabriel Richardson, Eva Cox, Nathan Howard, Penelope Ward, 
-            Jacob Torres, Alexander Peterson, Mason Gray, Ethan Ramirez, Oliver James, 
-            Elijah Watson, Sebastian Brooks, Owen Kelly, Logan Sanders, Caleb Price, 
-            Dylan Bennett, Isaac Wood, Liam Barnes, Noah Ross, Lucas Henderson, Aiden Coleman, 
-            Jack Jenkins, Daniel Perry, Joseph Powell, Samuel Long, Benjamin Patterson, Leo Hughes, 
-            Julian Flores, Chloe Washington, Zoe Butler, Stella Simmons, Layla Foster, 
-            Nora Gonzales, Luna Bryant, Harper Alexander, Mila Russell, Charlotte Griffin, 
-            Amelia Diaz, Evelyn Hayes, Abigail Myers, Michael Ford, Elizabeth Hamilton, 
-            David Graham, Ella Sullivan, Grace Wallace, Jackson Woods, Scarlett Cole, Emily West, 
-            William Jordan, Benjamin Owens, Lucas Reynolds, Henry Kennedy, Alexander Stone, 
-            Mia Shaw, Charlotte Snyder, Amelia Burke, Evelyn Spencer, Abigail Walsh, Daniel Dean,
-            Harper Fisher, Ella Lane, Grace Boyd, Aiden Fuller, Jackson Fields, Scarlett Black, 
-            Emily Ryan, Michael Olsen, Elizabeth Pierce, David Porter, Mila Freeman, 
-            Joseph Cunningham, Chloe Lawrence, Samuel Newman, Aubrey Hunt, Julian Meyer, 
-            Zoey Marshall, Leo Stevens, Layla Dixon, Gabriel Arnold, Nora Boyd, Anthony Fuller, 
-            Luna Hayes, Christopher Cox, Victoria Ward, Ryan Gray, Hannah Bailey, Nathan Brooks,
-            Natalie Kelly, Caleb Price, Leah Bennett, Isaac Barnes, Zoe Henderson, Joshua Coleman, 
-            Stella Jenkins, Matthew Perry, Aurora Powell, Andrew Long, Dylan Patterson, John Hughes, 
-            Genesis Flores, Luke Washington, Sarah Butler, Gabriel Simmons, Eva Foster, 
-            Nathan Gonzales, Penelope Bryant, Jacob Alexander, Alexander Russell, Mason Griffin, 
-            Ethan Diaz, Oliver Hayes, Elijah Myers, Sebastian Ford, Owen Hamilton, Logan Graham, 
-            Caleb Sullivan, Dylan Wallace, Isaac Woods, Liam Cole, Noah West, Lucas Jordan, 
-            Aiden Owens, Jack Reynolds, Daniel Kennedy, Joseph Stone, Samuel Shaw, Benjamin Snyder, 
-            Leo Burke, Julian Spencer, Chloe Walsh, Zoe Dean, Stella Fisher, Layla Lane, Nora Boyd, 
-            Luna Fuller, Harper Fields, Mila Black, Charlotte Ryan, Amelia Olsen, Evelyn Pierce, 
-            Abigail Porter, Michael Freeman, Elizabeth Cunningham, David Lawrence, Ella Newman, 
-            Grace Hunt, Jackson Meyer, Scarlett Marshall, Emily Stevens, William Dixon, 
-            Benjamin Arnold, Lucas Boyd, Henry Fuller, Alexander Hayes, Mia Cox, Charlotte Ward, 
-            Amelia Gray, Evelyn Bailey, Abigail Brooks, Daniel Kelly, Harper Price, Ella Bennett, 
-            Grace Barnes, Aiden Henderson, Jackson Coleman, Scarlett Jenkins, Emily Perry, 
-            Michael Powell, Elizabeth Long, David Patterson, Mila Hughes, Joseph Flores, 
-            Chloe Washington, Samuel Butler, Aubrey Simmons, Julian Foster, Zoey Gonzales, 
-            Leo Bryant, Layla Alexander, Nora Russell, Luna Griffin, Christopher Diaz, 
-            Victoria Hayes, Ryan Myers, Hannah Ford, Nathan Hamilton, Natalie Graham, 
-            Caleb Sullivan, Leah Wallace, Isaac Woods, Zoe Cole, Joshua West, Stella Jordan, 
-            Matthew Owens, Aurora Reynolds, Andrew Kennedy, Dylan Stone, John Shaw, Genesis Snyder, 
-            Luke Burke, Sarah Spencer, Gabriel Walsh, Eva Dean, Nathan Fisher, Penelope Lane, 
-            Jacob Boyd, Alexander Fuller, Mason Fields, Ethan Black, Oliver Ryan, Elijah Olsen, 
-            Sebastian Pierce, Owen Porter, Logan Freeman, Caleb Cunningham, Dylan Lawrence, 
-            Isaac Newman, Liam Hunt, Noah Meyer, Lucas Marshall, Aiden Stevens, Jack Dixon, 
-            Daniel Arnold, Joseph Boyd, Samuel Fuller, Benjamin Hayes, Leo Cox, Julian Ward, 
-            Chloe Gray, Zoe Bailey, Stella Brooks, Layla Kelly, Nora Price, Luna Bennett, 
-            Harper Barnes, Mila Henderson, Charlotte Coleman, Amelia Jenkins, Evelyn Perry, 
-            Abigail Powell         
-""".trimIndent()
+val peopleString =
+  """
+  Olivia Smith, Liam Johnson, Emma Williams, Noah Brown, Ava Jones, Isabella Garcia, 
+  Sophia Miller, James Davis, William Rodriguez, Benjamin Martinez, Lucas Hernandez, 
+  Henry Lopez, Alexander Gonzalez, Mia Wilson, Charlotte Anderson, Amelia Thomas, 
+  Evelyn Taylor, Abigail Moore, Daniel Jackson, Harper Martin, Ella Lee, Grace Perez, 
+  Aiden Thompson, Jackson White, Scarlett Harris, Emily Sanchez, Michael Clark, 
+  Elizabeth Ramirez, David Lewis, Mila Robinson, Joseph Walker, Chloe Hall, 
+  Samuel Allen, Aubrey Young, Julian King, Zoey Wright, Leo Scott, Layla Green, 
+  Gabriel Baker, Nora Adams, Anthony Nelson, Luna Hill, Christopher Rivera, 
+  Victoria Campbell, Ryan Mitchell, Hannah Roberts, Nathan Carter, Natalie Phillips, 
+  Caleb Parker, Leah Evans, Isaac Edwards, Zoe Collins, Joshua Stewart, Stella Morris, 
+  Matthew Rogers, Aurora Reed, Andrew Cook, Dylan Morgan, John Bell, Genesis Murphy, 
+  Luke Bailey, Sarah Cooper, Gabriel Richardson, Eva Cox, Nathan Howard, Penelope Ward, 
+  Jacob Torres, Alexander Peterson, Mason Gray, Ethan Ramirez, Oliver James, 
+  Elijah Watson, Sebastian Brooks, Owen Kelly, Logan Sanders, Caleb Price, 
+  Dylan Bennett, Isaac Wood, Liam Barnes, Noah Ross, Lucas Henderson, Aiden Coleman, 
+  Jack Jenkins, Daniel Perry, Joseph Powell, Samuel Long, Benjamin Patterson, Leo Hughes, 
+  Julian Flores, Chloe Washington, Zoe Butler, Stella Simmons, Layla Foster, 
+  Nora Gonzales, Luna Bryant, Harper Alexander, Mila Russell, Charlotte Griffin, 
+  Amelia Diaz, Evelyn Hayes, Abigail Myers, Michael Ford, Elizabeth Hamilton, 
+  David Graham, Ella Sullivan, Grace Wallace, Jackson Woods, Scarlett Cole, Emily West, 
+  William Jordan, Benjamin Owens, Lucas Reynolds, Henry Kennedy, Alexander Stone, 
+  Mia Shaw, Charlotte Snyder, Amelia Burke, Evelyn Spencer, Abigail Walsh, Daniel Dean,
+  Harper Fisher, Ella Lane, Grace Boyd, Aiden Fuller, Jackson Fields, Scarlett Black, 
+  Emily Ryan, Michael Olsen, Elizabeth Pierce, David Porter, Mila Freeman, 
+  Joseph Cunningham, Chloe Lawrence, Samuel Newman, Aubrey Hunt, Julian Meyer, 
+  Zoey Marshall, Leo Stevens, Layla Dixon, Gabriel Arnold, Nora Boyd, Anthony Fuller, 
+  Luna Hayes, Christopher Cox, Victoria Ward, Ryan Gray, Hannah Bailey, Nathan Brooks,
+  Natalie Kelly, Caleb Price, Leah Bennett, Isaac Barnes, Zoe Henderson, Joshua Coleman, 
+  Stella Jenkins, Matthew Perry, Aurora Powell, Andrew Long, Dylan Patterson, John Hughes, 
+  Genesis Flores, Luke Washington, Sarah Butler, Gabriel Simmons, Eva Foster, 
+  Nathan Gonzales, Penelope Bryant, Jacob Alexander, Alexander Russell, Mason Griffin, 
+  Ethan Diaz, Oliver Hayes, Elijah Myers, Sebastian Ford, Owen Hamilton, Logan Graham, 
+  Caleb Sullivan, Dylan Wallace, Isaac Woods, Liam Cole, Noah West, Lucas Jordan, 
+  Aiden Owens, Jack Reynolds, Daniel Kennedy, Joseph Stone, Samuel Shaw, Benjamin Snyder, 
+  Leo Burke, Julian Spencer, Chloe Walsh, Zoe Dean, Stella Fisher, Layla Lane, Nora Boyd, 
+  Luna Fuller, Harper Fields, Mila Black, Charlotte Ryan, Amelia Olsen, Evelyn Pierce, 
+  Abigail Porter, Michael Freeman, Elizabeth Cunningham, David Lawrence, Ella Newman, 
+  Grace Hunt, Jackson Meyer, Scarlett Marshall, Emily Stevens, William Dixon, 
+  Benjamin Arnold, Lucas Boyd, Henry Fuller, Alexander Hayes, Mia Cox, Charlotte Ward, 
+  Amelia Gray, Evelyn Bailey, Abigail Brooks, Daniel Kelly, Harper Price, Ella Bennett, 
+  Grace Barnes, Aiden Henderson, Jackson Coleman, Scarlett Jenkins, Emily Perry, 
+  Michael Powell, Elizabeth Long, David Patterson, Mila Hughes, Joseph Flores, 
+  Chloe Washington, Samuel Butler, Aubrey Simmons, Julian Foster, Zoey Gonzales, 
+  Leo Bryant, Layla Alexander, Nora Russell, Luna Griffin, Christopher Diaz, 
+  Victoria Hayes, Ryan Myers, Hannah Ford, Nathan Hamilton, Natalie Graham, 
+  Caleb Sullivan, Leah Wallace, Isaac Woods, Zoe Cole, Joshua West, Stella Jordan, 
+  Matthew Owens, Aurora Reynolds, Andrew Kennedy, Dylan Stone, John Shaw, Genesis Snyder, 
+  Luke Burke, Sarah Spencer, Gabriel Walsh, Eva Dean, Nathan Fisher, Penelope Lane, 
+  Jacob Boyd, Alexander Fuller, Mason Fields, Ethan Black, Oliver Ryan, Elijah Olsen, 
+  Sebastian Pierce, Owen Porter, Logan Freeman, Caleb Cunningham, Dylan Lawrence, 
+  Isaac Newman, Liam Hunt, Noah Meyer, Lucas Marshall, Aiden Stevens, Jack Dixon, 
+  Daniel Arnold, Joseph Boyd, Samuel Fuller, Benjamin Hayes, Leo Cox, Julian Ward, 
+  Chloe Gray, Zoe Bailey, Stella Brooks, Layla Kelly, Nora Price, Luna Bennett, 
+  Harper Barnes, Mila Henderson, Charlotte Coleman, Amelia Jenkins, Evelyn Perry, 
+  Abigail Powell         
+  """
+    .trimIndent()
 
-val people = peopleString.split(",").map {
-    Person(it.trim())
-}
-val headers = people.map {
-    Header(
-        it.content.take(1),
-    )
-}.distinctBy { it.content }
+val people = peopleString.split(",").map { Person(it.trim()) }
+val headers = people.map { Header(it.content.take(1)) }.distinctBy { it.content }
 
 val tlcContent: List<ScrollableContent> = (people + headers).sortedBy { it.content }
 
 @Composable
 fun FastScrollingTLCScreen() {
-    // Disable other screen scaffold
-    com.google.android.horologist.compose.layout.ScreenScaffold(
-        timeText = {},
-        positionIndicator = {},
-    ) {
-        AppScaffold() {
-            val columnState = rememberTransformingLazyColumnState()
-            ScreenScaffold(
-                scrollState = columnState,
-                contentPadding = rememberResponsiveColumnPadding(
-                    first = ColumnItemType.Card,
-                    last = ColumnItemType.Card,
-                ),
-            ) { contentPadding ->
-                val transformationSpec = rememberTransformationSpec()
-                val headers = remember {
-                    val letterIndexes = tlcContent.mapIndexed { index, item ->
-                        HeaderInfo(
-                            index,
-                            item.content.take(1),
-                        )
-                    }.distinctBy { it.value }
-                    letterIndexes.toMutableStateList()
-                }
-
-                FastScrollingTransformingLazyColumn(
-                    state = columnState,
-                    contentPadding = contentPadding,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .testTag("TransformingLazyColumn"),
-                    headers = headers,
-                ) {
-                    items(tlcContent) { item ->
-                        if (item is Header) {
-                            Row(horizontalArrangement = Arrangement.Center) {
-                                Text(item.content)
-                            }
-                        } else if (item is Person) {
-                            TitleCard(
-                                onClick = {},
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .transformedHeight(this, transformationSpec),
-                                transformation = SurfaceTransformation(transformationSpec),
-                                title = { Text(item.content) },
-                            ) {
-                                Text("Visits to the ISS:")
-                            }
-                        }
-                    }
-                }
-            }
+  // Disable other screen scaffold
+  com.google.android.horologist.compose.layout.ScreenScaffold(
+    timeText = {},
+    positionIndicator = {},
+  ) {
+    AppScaffold() {
+      val columnState = rememberTransformingLazyColumnState()
+      ScreenScaffold(
+        scrollState = columnState,
+        contentPadding =
+          rememberResponsiveColumnPadding(first = ColumnItemType.Card, last = ColumnItemType.Card),
+      ) { contentPadding ->
+        val transformationSpec = rememberTransformationSpec()
+        val headers = remember {
+          val letterIndexes =
+            tlcContent
+              .mapIndexed { index, item -> HeaderInfo(index, item.content.take(1)) }
+              .distinctBy { it.value }
+          letterIndexes.toMutableStateList()
         }
+
+        FastScrollingTransformingLazyColumn(
+          state = columnState,
+          contentPadding = contentPadding,
+          modifier = Modifier.fillMaxSize().testTag("TransformingLazyColumn"),
+          headers = headers,
+        ) {
+          items(tlcContent) { item ->
+            if (item is Header) {
+              Row(horizontalArrangement = Arrangement.Center) { Text(item.content) }
+            } else if (item is Person) {
+              TitleCard(
+                onClick = {},
+                modifier = Modifier.fillMaxWidth().transformedHeight(this, transformationSpec),
+                transformation = SurfaceTransformation(transformationSpec),
+                title = { Text(item.content) },
+              ) {
+                Text("Visits to the ISS:")
+              }
+            }
+          }
+        }
+      }
     }
+  }
 }

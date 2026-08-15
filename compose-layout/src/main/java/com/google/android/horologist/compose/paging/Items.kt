@@ -30,65 +30,61 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  * [LazyPagingItems.itemCount] (exclusive) always represents the full range of presentable items,
  * because every event from [PagingDataDiffer] will trigger a recomposition.
  *
- * Code from https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:paging/paging-compose/src/main/java/androidx/paging/compose/LazyPagingItems.kt
+ * Code from
+ * https://cs.android.com/androidx/platform/frameworks/support/+/androidx-main:paging/paging-compose/src/main/java/androidx/paging/compose/LazyPagingItems.kt
  *
  * @sample androidx.paging.compose.samples.ItemsDemo
- *
  * @param items the items received from a [Flow] of [PagingData].
- * @param key a factory of stable and unique keys representing the item. Using the same key
- * for multiple items in the list is not allowed. Type of the key should be saveable
- * via Bundle on Android. If null is passed the position in the list will represent the key.
- * When you specify the key the scroll position will be maintained based on the key, which
- * means if you add/remove items before the current visible item the item with the given key
- * will be kept as the first visible one.
+ * @param key a factory of stable and unique keys representing the item. Using the same key for
+ *   multiple items in the list is not allowed. Type of the key should be saveable via Bundle on
+ *   Android. If null is passed the position in the list will represent the key. When you specify
+ *   the key the scroll position will be maintained based on the key, which means if you add/remove
+ *   items before the current visible item the item with the given key will be kept as the first
+ *   visible one.
  * @param itemContent the content displayed by a single item. In case the item is `null`, the
- * [itemContent] method should handle the logic of displaying a placeholder instead of the main
- * content displayed by an item which is not `null`.
+ *   [itemContent] method should handle the logic of displaying a placeholder instead of the main
+ *   content displayed by an item which is not `null`.
  */
 @ExperimentalHorologistApi
 public fun <T : Any> ScalingLazyListScope.items(
-    items: LazyPagingItems<T>,
-    key: ((item: T) -> Any)? = null,
-    itemContent: @Composable ScalingLazyListItemScope.(value: T?) -> Unit,
+  items: LazyPagingItems<T>,
+  key: ((item: T) -> Any)? = null,
+  itemContent: @Composable ScalingLazyListItemScope.(value: T?) -> Unit,
 ) {
-    val keyFn: ((index: Int) -> Any)? = if (key == null) {
-        null
+  val keyFn: ((index: Int) -> Any)? =
+    if (key == null) {
+      null
     } else {
-        { index ->
-            val item = items.peek(index)
-            if (item == null) {
-                PagingPlaceholderKey(index)
-            } else {
-                key(item)
-            }
+      { index ->
+        val item = items.peek(index)
+        if (item == null) {
+          PagingPlaceholderKey(index)
+        } else {
+          key(item)
         }
+      }
     }
-    items(
-        count = items.itemCount,
-        key = keyFn,
-    ) { index ->
-        itemContent(items[index])
-    }
+  items(count = items.itemCount, key = keyFn) { index -> itemContent(items[index]) }
 }
 
 @SuppressLint("BanParcelableUsage")
 private data class PagingPlaceholderKey(private val index: Int) : Parcelable {
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(index)
-    }
+  override fun writeToParcel(parcel: Parcel, flags: Int) {
+    parcel.writeInt(index)
+  }
 
-    override fun describeContents(): Int {
-        return 0
-    }
+  override fun describeContents(): Int {
+    return 0
+  }
 
-    companion object {
-        @Suppress("unused")
-        @JvmField
-        val CREATOR: Parcelable.Creator<PagingPlaceholderKey> =
-            object : Parcelable.Creator<PagingPlaceholderKey> {
-                override fun createFromParcel(parcel: Parcel) = PagingPlaceholderKey(parcel.readInt())
+  companion object {
+    @Suppress("unused")
+    @JvmField
+    val CREATOR: Parcelable.Creator<PagingPlaceholderKey> =
+      object : Parcelable.Creator<PagingPlaceholderKey> {
+        override fun createFromParcel(parcel: Parcel) = PagingPlaceholderKey(parcel.readInt())
 
-                override fun newArray(size: Int) = arrayOfNulls<PagingPlaceholderKey?>(size)
-            }
-    }
+        override fun newArray(size: Int) = arrayOfNulls<PagingPlaceholderKey?>(size)
+      }
+  }
 }

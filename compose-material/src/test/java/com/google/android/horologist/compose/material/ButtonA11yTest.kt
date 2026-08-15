@@ -30,52 +30,55 @@ import org.junit.Test
 
 class ButtonA11yTest : WearLegacyA11yTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                onLongClick = {},
-            )
-        }
-
-        composeRule.onNode(keyIsDefined(SemanticsProperties.Role))
-            .assertHasClickAction()
-            .assert(keyIsDefined(SemanticsActions.OnLongClick))
-            .assertContentDescriptionEquals("contentDescription")
+  @Test
+  fun default() {
+    runComponentTest {
+      Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = {},
+        onLongClick = {},
+      )
     }
 
-    @Test
-    fun material() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-            )
-        }
+    composeRule
+      .onNode(keyIsDefined(SemanticsProperties.Role))
+      .assertHasClickAction()
+      .assert(keyIsDefined(SemanticsActions.OnLongClick))
+      .assertContentDescriptionEquals("contentDescription")
+  }
 
-        composeRule.onNode(keyIsDefined(SemanticsProperties.Role))
-            .assertHasClickAction()
-            .assert(keyNotDefined(SemanticsActions.OnLongClick))
-            .assertContentDescriptionEquals("contentDescription")
+  @Test
+  fun material() {
+    runComponentTest {
+      Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = {},
+      )
     }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            Button(
-                imageVector = Icons.Default.Check,
-                contentDescription = "contentDescription",
-                onClick = { },
-                enabled = false,
-            )
-        }
+    composeRule
+      .onNode(keyIsDefined(SemanticsProperties.Role))
+      .assertHasClickAction()
+      .assert(keyNotDefined(SemanticsActions.OnLongClick))
+      .assertContentDescriptionEquals("contentDescription")
+  }
 
-        composeRule.onNode(keyIsDefined(SemanticsProperties.Role))
-            .assertHasClickAction()
-            .assertContentDescriptionEquals("contentDescription")
+  @Test
+  fun disabled() {
+    runComponentTest {
+      Button(
+        imageVector = Icons.Default.Check,
+        contentDescription = "contentDescription",
+        onClick = {},
+        enabled = false,
+      )
     }
+
+    composeRule
+      .onNode(keyIsDefined(SemanticsProperties.Role))
+      .assertHasClickAction()
+      .assertContentDescriptionEquals("contentDescription")
+  }
 }

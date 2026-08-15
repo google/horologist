@@ -97,5 +97,7 @@ internal fun AiTextResponseCardLong() {
 @AiCatalog
 @Composable
 internal fun AiFailedResponseChip() {
-  Card { FailedResponseChip(answer = FailedResponseUiModel(message = "No connection to the model")) }
+  Card {
+    FailedResponseChip(answer = FailedResponseUiModel(message = "No connection to the model"))
+  }
 }

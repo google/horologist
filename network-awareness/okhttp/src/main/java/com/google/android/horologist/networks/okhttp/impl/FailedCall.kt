@@ -19,69 +19,66 @@ package com.google.android.horologist.networks.okhttp.impl
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.okhttp.impl.RequestTypeHolder.Companion.requestType
 import com.google.android.horologist.networks.okhttp.requestType
+import kotlin.reflect.KClass
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.EventListener
 import okhttp3.Request
 import okhttp3.Response
-import okhttp3.Route
 import okio.IOException
 import okio.Timeout
-import kotlin.reflect.KClass
 
-/**
- * A call that must fail because no suitable network is available.
- */
+/** A call that must fail because no suitable network is available. */
 @ExperimentalHorologistApi
 public class FailedCall(
-    private val callFactory: Call.Factory,
-    private val request: Request,
-    private val message: String,
+  private val callFactory: Call.Factory,
+  private val request: Request,
+  private val message: String,
 ) : Call {
-    private var cancelled = false
-    private var executed = false
-    private val eventListeners = mutableListOf<EventListener>()
+  private var cancelled = false
+  private var executed = false
+  private val eventListeners = mutableListOf<EventListener>()
 
-    override fun addEventListener(eventListener: EventListener) {
-        eventListeners.add(eventListener)
+  override fun addEventListener(eventListener: EventListener) {
+    eventListeners.add(eventListener)
+  }
+
+  override fun cancel() {
+    cancelled = true
+  }
+
+  override fun clone(): Call {
+    val request = request()
+    // Remove network and lease from new request
+    val cleanRequest = request.newBuilder().requestType(request.requestType).build()
+    val newCall = callFactory.newCall(cleanRequest)
+    for (listener in eventListeners) {
+      newCall.addEventListener(listener)
     }
+    return newCall
+  }
 
-    override fun cancel() {
-        cancelled = true
-    }
+  override fun enqueue(responseCallback: Callback) {
+    responseCallback.onFailure(this, IOException(message))
+  }
 
-    override fun clone(): Call {
-        val request = request()
-        // Remove network and lease from new request
-        val cleanRequest = request.newBuilder().requestType(request.requestType).build()
-        val newCall = callFactory.newCall(cleanRequest)
-        for (listener in eventListeners) {
-            newCall.addEventListener(listener)
-        }
-        return newCall
-    }
+  override fun execute(): Response {
+    throw IOException(message)
+  }
 
-    override fun enqueue(responseCallback: Callback) {
-        responseCallback.onFailure(this, IOException(message))
-    }
+  override fun isCanceled(): Boolean = cancelled
 
-    override fun execute(): Response {
-        throw IOException(message)
-    }
+  override fun isExecuted(): Boolean = executed
 
-    override fun isCanceled(): Boolean = cancelled
+  override fun request(): Request = request
 
-    override fun isExecuted(): Boolean = executed
+  override fun timeout(): Timeout = Timeout.NONE
 
-    override fun request(): Request = request
+  override fun <T : Any> tag(type: KClass<T>): T? = null
 
-    override fun timeout(): Timeout = Timeout.NONE
+  override fun <T> tag(type: Class<out T>): T? = null
 
-    override fun <T : Any> tag(type: KClass<T>): T? = null
+  override fun <T : Any> tag(type: KClass<T>, computeIfAbsent: () -> T): T = computeIfAbsent()
 
-    override fun <T> tag(type: Class<out T>): T? = null
-
-    override fun <T : Any> tag(type: KClass<T>, computeIfAbsent: () -> T): T = computeIfAbsent()
-
-    override fun <T : Any> tag(type: Class<T>, computeIfAbsent: () -> T): T = computeIfAbsent()
+  override fun <T : Any> tag(type: Class<T>, computeIfAbsent: () -> T): T = computeIfAbsent()
 }

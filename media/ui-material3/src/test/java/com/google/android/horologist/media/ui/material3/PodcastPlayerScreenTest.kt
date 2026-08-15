@@ -22,85 +22,85 @@ import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import com.google.android.horologist.screenshots.rng.WearLegacyScreenTest
+import kotlin.time.Duration.Companion.seconds
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
 import org.robolectric.ParameterizedRobolectricTestRunner.Parameters
-import kotlin.time.Duration.Companion.seconds
 
 @RunWith(ParameterizedRobolectricTestRunner::class)
-class PodcastPlayerScreenTest(
-    private val options: PodcastOptions,
-) : WearLegacyScreenTest() {
+class PodcastPlayerScreenTest(private val options: PodcastOptions) : WearLegacyScreenTest() {
 
-    override fun testName(suffix: String): String {
-        return "src/test/snapshots/images/" +
-            "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
-            "${options.toString().lowercase()}.png"
+  override fun testName(suffix: String): String {
+    return "src/test/snapshots/images/" +
+      "${javaClass.`package`?.name}_${javaClass.simpleName}_${testInfo.methodName}_" +
+      "${options.toString().lowercase()}.png"
+  }
+
+  @Test
+  fun mediaPlayerScreen() {
+    val playerUiState =
+      PlayerUiState(
+        playEnabled = true,
+        pauseEnabled = true,
+        seekBackEnabled = true,
+        seekForwardEnabled = true,
+        seekInCurrentMediaItemEnabled = true,
+        seekToPreviousEnabled = false,
+        seekToNextEnabled = true,
+        shuffleEnabled = false,
+        shuffleOn = false,
+        playPauseEnabled = true,
+        playing = true,
+        media = MediaUiModel.Ready(id = "", title = "The power of types", subtitle = "Kotlinconf"),
+        trackPositionUiModel =
+          TrackPositionUiModel.Actual(
+            percent = 0.1f,
+            position = 30.seconds,
+            duration = 300.seconds,
+          ),
+        connected = true,
+      )
+
+    runTest {
+      MediaPlayerTestCase(
+        playerUiState = playerUiState,
+        controlButtons = {
+          PodcastControlButtons(
+            onPlayButtonClick = {},
+            onPauseButtonClick = {},
+            playPauseButtonEnabled = playerUiState.playPauseEnabled,
+            playing = playerUiState.playing,
+            trackPositionUiModel = playerUiState.trackPositionUiModel,
+            onSeekBackButtonClick = {},
+            seekBackButtonEnabled = playerUiState.seekBackEnabled,
+            onSeekForwardButtonClick = {},
+            seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
+            seekBackButtonIncrement = options.seekBackButtonIncrement,
+            seekForwardButtonIncrement = options.seekForwardButtonIncrement,
+          )
+        },
+      )
     }
+  }
 
-    @Test
-    fun mediaPlayerScreen() {
-        val playerUiState = PlayerUiState(
-            playEnabled = true,
-            pauseEnabled = true,
-            seekBackEnabled = true,
-            seekForwardEnabled = true,
-            seekInCurrentMediaItemEnabled = true,
-            seekToPreviousEnabled = false,
-            seekToNextEnabled = true,
-            shuffleEnabled = false,
-            shuffleOn = false,
-            playPauseEnabled = true,
-            playing = true,
-            media = MediaUiModel.Ready(
-                id = "",
-                title = "The power of types",
-                subtitle = "Kotlinconf",
-            ),
-            trackPositionUiModel = TrackPositionUiModel.Actual(
-                percent = 0.1f,
-                position = 30.seconds,
-                duration = 300.seconds,
-            ),
-            connected = true,
-        )
+  companion object {
+    @JvmStatic
+    @Parameters
+    fun options(): List<PodcastOptions> =
+      listOf(
+        PodcastOptions(SeekButtonIncrement.Unknown, SeekButtonIncrement.Unknown),
+        PodcastOptions(SeekButtonIncrement.Ten, SeekButtonIncrement.Ten),
+        PodcastOptions(SeekButtonIncrement.Five, SeekButtonIncrement.Thirty),
+      )
+  }
 
-        runTest {
-            MediaPlayerTestCase(playerUiState = playerUiState, controlButtons = {
-                PodcastControlButtons(
-                    onPlayButtonClick = { },
-                    onPauseButtonClick = { },
-                    playPauseButtonEnabled = playerUiState.playPauseEnabled,
-                    playing = playerUiState.playing,
-                    trackPositionUiModel = playerUiState.trackPositionUiModel,
-                    onSeekBackButtonClick = { },
-                    seekBackButtonEnabled = playerUiState.seekBackEnabled,
-                    onSeekForwardButtonClick = { },
-                    seekForwardButtonEnabled = playerUiState.seekForwardEnabled,
-                    seekBackButtonIncrement = options.seekBackButtonIncrement,
-                    seekForwardButtonIncrement = options.seekForwardButtonIncrement,
-                )
-            })
-        }
+  data class PodcastOptions(
+    val seekBackButtonIncrement: SeekButtonIncrement,
+    val seekForwardButtonIncrement: SeekButtonIncrement,
+  ) {
+    override fun toString(): String {
+      return "${seekBackButtonIncrement}_$seekForwardButtonIncrement"
     }
-
-    companion object {
-        @JvmStatic
-        @Parameters
-        fun options(): List<PodcastOptions> = listOf(
-            PodcastOptions(SeekButtonIncrement.Unknown, SeekButtonIncrement.Unknown),
-            PodcastOptions(SeekButtonIncrement.Ten, SeekButtonIncrement.Ten),
-            PodcastOptions(SeekButtonIncrement.Five, SeekButtonIncrement.Thirty),
-        )
-    }
-
-    data class PodcastOptions(
-        val seekBackButtonIncrement: SeekButtonIncrement,
-        val seekForwardButtonIncrement: SeekButtonIncrement,
-    ) {
-        override fun toString(): String {
-            return "${seekBackButtonIncrement}_$seekForwardButtonIncrement"
-        }
-    }
+  }
 }

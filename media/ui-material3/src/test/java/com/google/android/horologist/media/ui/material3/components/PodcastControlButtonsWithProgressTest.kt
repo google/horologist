@@ -25,359 +25,334 @@ import androidx.compose.ui.test.performClick
 import androidx.test.filters.FlakyTest
 import com.google.android.horologist.media.ui.components.controls.SeekButtonIncrement
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import kotlin.time.Duration.Companion.seconds
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import kotlin.time.Duration.Companion.seconds
 
 @FlakyTest(detail = "https://github.com/google/horologist/issues/407")
 @RunWith(RobolectricTestRunner::class)
 class PodcastControlButtonsWithProgressTest {
 
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Test
-    fun givenIsPlaying_thenPauseButtonIsDisplayed() {
-        // given
-        val playing = true
+  @Test
+  fun givenIsPlaying_thenPauseButtonIsDisplayed() {
+    // given
+    val playing = true
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = playing,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = true,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
-            )
-        }
-
-        // then
-        composeTestRule.onNodeWithContentDescription("Pause")
-            .assertIsDisplayed()
-
-        composeTestRule.onNodeWithContentDescription("Play")
-            .assertDoesNotExist()
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = playing,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = true,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun givenIsPlaying_whenPauseIsClicked_thenCorrectEventIsTriggered() {
-        // given
-        val playing = true
-        var clicked = false
+    // then
+    composeTestRule.onNodeWithContentDescription("Pause").assertIsDisplayed()
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = { clicked = true },
-                playPauseButtonEnabled = true,
-                playing = playing,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = true,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Play").assertDoesNotExist()
+  }
 
-        // when
-        composeTestRule.onNodeWithContentDescription("Pause")
-            .performClick()
+  @Test
+  fun givenIsPlaying_whenPauseIsClicked_thenCorrectEventIsTriggered() {
+    // given
+    val playing = true
+    var clicked = false
 
-        // then
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = { clicked = true },
+        playPauseButtonEnabled = true,
+        playing = playing,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = true,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun givenIsNOTPlaying_thenPlayButtonIsDisplayed() {
-        // given
-        val playing = false
+    // when
+    composeTestRule.onNodeWithContentDescription("Pause").performClick()
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = playing,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = true,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
-            )
-        }
+    // then
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+  }
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Play")
-            .assertIsDisplayed()
+  @Test
+  fun givenIsNOTPlaying_thenPlayButtonIsDisplayed() {
+    // given
+    val playing = false
 
-        composeTestRule.onNodeWithContentDescription("Pause")
-            .assertDoesNotExist()
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = playing,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = true,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun givenIsNOTPlaying_whenPlayIsClicked_thenCorrectEventIsTriggered() {
-        // given
-        val playing = false
-        var clicked = false
+    // then
+    composeTestRule.onNodeWithContentDescription("Play").assertIsDisplayed()
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = { clicked = true },
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = playing,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = true,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Pause").assertDoesNotExist()
+  }
 
-        // when
-        composeTestRule.onNodeWithContentDescription("Play")
-            .performClick()
+  @Test
+  fun givenIsNOTPlaying_whenPlayIsClicked_thenCorrectEventIsTriggered() {
+    // given
+    val playing = false
+    var clicked = false
 
-        // then
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = { clicked = true },
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = playing,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = true,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun whenSeekBackIsClicked_thenCorrectEventIsTriggered() {
-        // given
-        var clicked = false
+    // when
+    composeTestRule.onNodeWithContentDescription("Play").performClick()
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = { clicked = true },
-                seekBackButtonEnabled = true,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = true,
-            )
-        }
+    // then
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+  }
 
-        // when
-        composeTestRule.onNodeWithContentDescription("Rewind")
-            .performClick()
+  @Test
+  fun whenSeekBackIsClicked_thenCorrectEventIsTriggered() {
+    // given
+    var clicked = false
 
-        // then
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = false,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = { clicked = true },
+        seekBackButtonEnabled = true,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun whenSeekForwardIsClicked_thenCorrectEventIsTriggered() {
-        // given
-        var clicked = false
+    // when
+    composeTestRule.onNodeWithContentDescription("Rewind").performClick()
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = true,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = true,
-                onSeekForwardButtonClick = { clicked = true },
-                seekForwardButtonEnabled = true,
-            )
-        }
+    // then
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+  }
 
-        // when
-        composeTestRule.onNodeWithContentDescription("Forward")
-            .performClick()
+  @Test
+  fun whenSeekForwardIsClicked_thenCorrectEventIsTriggered() {
+    // given
+    var clicked = false
 
-        // then
-        // assert that the click event was assigned to the correct button
-        composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = true,
+        playing = false,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = true,
+        onSeekForwardButtonClick = { clicked = true },
+        seekForwardButtonEnabled = true,
+      )
     }
 
-    @Test
-    fun givenIsPlayingAndPlayPauseEnabledIsTrue_thenPauseButtonIsEnabled() {
-        // given
-        val playing = true
-        val playPauseButtonEnabled = true
+    // when
+    composeTestRule.onNodeWithContentDescription("Forward").performClick()
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = playPauseButtonEnabled,
-                playing = playing,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = false,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = false,
-            )
-        }
+    // then
+    // assert that the click event was assigned to the correct button
+    composeTestRule.waitUntil(timeoutMillis = 1_000) { clicked }
+  }
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Pause")
-            .assertIsEnabled()
+  @Test
+  fun givenIsPlayingAndPlayPauseEnabledIsTrue_thenPauseButtonIsEnabled() {
+    // given
+    val playing = true
+    val playPauseButtonEnabled = true
 
-        composeTestRule.onNodeWithContentDescription("Rewind")
-            .assertIsNotEnabled()
-        composeTestRule.onNodeWithContentDescription("Forward")
-            .assertIsNotEnabled()
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = playPauseButtonEnabled,
+        playing = playing,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = false,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = false,
+      )
     }
 
-    @Test
-    fun givenIsNOTPlayingAndPlayPauseEnabledIsTrue_thenPlayButtonIsEnabled() {
-        // given
-        val playing = false
-        val playPauseButtonEnabled = true
+    // then
+    composeTestRule.onNodeWithContentDescription("Pause").assertIsEnabled()
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = playPauseButtonEnabled,
-                playing = playing,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = false,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = false,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Rewind").assertIsNotEnabled()
+    composeTestRule.onNodeWithContentDescription("Forward").assertIsNotEnabled()
+  }
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Play")
-            .assertIsEnabled()
+  @Test
+  fun givenIsNOTPlayingAndPlayPauseEnabledIsTrue_thenPlayButtonIsEnabled() {
+    // given
+    val playing = false
+    val playPauseButtonEnabled = true
 
-        composeTestRule.onNodeWithContentDescription("Rewind")
-            .assertIsNotEnabled()
-        composeTestRule.onNodeWithContentDescription("Forward")
-            .assertIsNotEnabled()
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = playPauseButtonEnabled,
+        playing = playing,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = false,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = false,
+      )
     }
 
-    @Test
-    fun givenSeekBackButtonEnabledIsTrue_thenSeekBackButtonIsEnabled() {
-        // given
-        val seekBackButtonEnabled = true
+    // then
+    composeTestRule.onNodeWithContentDescription("Play").assertIsEnabled()
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = false,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = seekBackButtonEnabled,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = false,
-                seekBackButtonIncrement = SeekButtonIncrement.Unknown,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Rewind").assertIsNotEnabled()
+    composeTestRule.onNodeWithContentDescription("Forward").assertIsNotEnabled()
+  }
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Rewind")
-            .assertIsEnabled()
+  @Test
+  fun givenSeekBackButtonEnabledIsTrue_thenSeekBackButtonIsEnabled() {
+    // given
+    val seekBackButtonEnabled = true
 
-        composeTestRule.onNodeWithContentDescription("Play")
-            .assertIsNotEnabled()
-        composeTestRule.onNodeWithContentDescription("Forward")
-            .assertIsNotEnabled()
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = false,
+        playing = false,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = seekBackButtonEnabled,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = false,
+        seekBackButtonIncrement = SeekButtonIncrement.Unknown,
+      )
     }
 
-    @Test
-    fun givenSeekForwardButtonEnabledIsTrue_thenSeekForwardButtonIsEnabled() {
-        // given
-        val seekForwardButtonEnabled = true
+    // then
+    composeTestRule.onNodeWithContentDescription("Rewind").assertIsEnabled()
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = false,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = false,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = seekForwardButtonEnabled,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Play").assertIsNotEnabled()
+    composeTestRule.onNodeWithContentDescription("Forward").assertIsNotEnabled()
+  }
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Forward")
-            .assertIsEnabled()
+  @Test
+  fun givenSeekForwardButtonEnabledIsTrue_thenSeekForwardButtonIsEnabled() {
+    // given
+    val seekForwardButtonEnabled = true
 
-        composeTestRule.onNodeWithContentDescription("Play")
-            .assertIsNotEnabled()
-        composeTestRule.onNodeWithContentDescription("Rewind")
-            .assertIsNotEnabled()
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = false,
+        playing = false,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = false,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = seekForwardButtonEnabled,
+      )
     }
 
-    @Test
-    fun givenSeekBackIncrementIsFive_thenSeekBackDescriptionIsFive() {
-        // given
-        val seekBackButtonIncrement = SeekButtonIncrement.Five
+    // then
+    composeTestRule.onNodeWithContentDescription("Forward").assertIsEnabled()
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = false,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = false,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = false,
-                seekBackButtonIncrement = seekBackButtonIncrement,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Play").assertIsNotEnabled()
+    composeTestRule.onNodeWithContentDescription("Rewind").assertIsNotEnabled()
+  }
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Rewind 5 seconds")
-            .assertExists()
+  @Test
+  fun givenSeekBackIncrementIsFive_thenSeekBackDescriptionIsFive() {
+    // given
+    val seekBackButtonIncrement = SeekButtonIncrement.Five
 
-        composeTestRule.onNodeWithContentDescription("Forward")
-            .assertExists()
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = false,
+        playing = false,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = false,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = false,
+        seekBackButtonIncrement = seekBackButtonIncrement,
+      )
     }
 
-    @Test
-    fun givenSeekForwardIncrementIsFive_thenSeekForwardDescriptionIsFive() {
-        // given
-        val seekForwardButtonIncrement = SeekButtonIncrement.Five
+    // then
+    composeTestRule.onNodeWithContentDescription("Rewind 5 seconds").assertExists()
 
-        composeTestRule.setContent {
-            PodcastControlButtons(
-                onPlayButtonClick = {},
-                onPauseButtonClick = {},
-                playPauseButtonEnabled = false,
-                playing = false,
-                trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
-                onSeekBackButtonClick = {},
-                seekBackButtonEnabled = false,
-                onSeekForwardButtonClick = {},
-                seekForwardButtonEnabled = false,
-                seekForwardButtonIncrement = seekForwardButtonIncrement,
-            )
-        }
+    composeTestRule.onNodeWithContentDescription("Forward").assertExists()
+  }
 
-        // then
-        composeTestRule.onNodeWithContentDescription("Forward 5 seconds")
-            .assertExists()
+  @Test
+  fun givenSeekForwardIncrementIsFive_thenSeekForwardDescriptionIsFive() {
+    // given
+    val seekForwardButtonIncrement = SeekButtonIncrement.Five
 
-        composeTestRule.onNodeWithContentDescription("Rewind")
-            .assertExists()
+    composeTestRule.setContent {
+      PodcastControlButtons(
+        onPlayButtonClick = {},
+        onPauseButtonClick = {},
+        playPauseButtonEnabled = false,
+        playing = false,
+        trackPositionUiModel = TrackPositionUiModel.Actual(0.25f, 100.seconds, 25.seconds),
+        onSeekBackButtonClick = {},
+        seekBackButtonEnabled = false,
+        onSeekForwardButtonClick = {},
+        seekForwardButtonEnabled = false,
+        seekForwardButtonIncrement = seekForwardButtonIncrement,
+      )
     }
+
+    // then
+    composeTestRule.onNodeWithContentDescription("Forward 5 seconds").assertExists()
+
+    composeTestRule.onNodeWithContentDescription("Rewind").assertExists()
+  }
 }

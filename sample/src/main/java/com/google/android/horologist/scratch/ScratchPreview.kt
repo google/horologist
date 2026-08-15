@@ -34,28 +34,13 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 @WearPreviewLargeRound
 @Composable
 fun ScratchPreview() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-    ) {
-        val state = rememberScalingLazyListState()
-        val expandableState = rememberExpandableState()
-        ScalingLazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
-            state = state,
-        ) {
-            item {
-                ListHeader {
-                    Text(text = "Main")
-                }
-            }
-            expandableItem(expandableState) {
-                Text(text = "I am $it")
-            }
-            items(10) {
-                Text(text = "Item $it")
-            }
-        }
+  Box(modifier = Modifier.fillMaxSize()) {
+    val state = rememberScalingLazyListState()
+    val expandableState = rememberExpandableState()
+    ScalingLazyColumn(modifier = Modifier.fillMaxSize(), state = state) {
+      item { ListHeader { Text(text = "Main") } }
+      expandableItem(expandableState) { Text(text = "I am $it") }
+      items(10) { Text(text = "Item $it") }
     }
+  }
 }

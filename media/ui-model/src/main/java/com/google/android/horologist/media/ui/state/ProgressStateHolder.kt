@@ -31,78 +31,74 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.TimestampProvider
 import com.google.android.horologist.media.ui.animation.PlaybackProgressAnimation.PLAYBACK_PROGRESS_ANIMATION_SPEC
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
+import kotlin.math.abs
 import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 
 /**
  * State holder for the media progress indicator that supports both ongoing predictive progress and
  * animating progress.
  */
 @ExperimentalHorologistApi
-public class ProgressStateHolder(
-    initial: Float,
-    private val timestampProvider: TimestampProvider,
-) {
-    private val actual = mutableFloatStateOf(initial)
-    private val animatable = Animatable(0f)
-    private val state = derivedStateOf { actual.floatValue + animatable.value - animatable.targetValue }
+public class ProgressStateHolder(initial: Float, private val timestampProvider: TimestampProvider) {
+  private val actual = mutableFloatStateOf(initial)
+  private val animatable = Animatable(0f)
+  private val state = derivedStateOf {
+    actual.floatValue + animatable.value - animatable.targetValue
+  }
 
-    private suspend fun setProgress(percent: Float, canAnimate: Boolean) = coroutineScope {
-        val offset = percent - actual.floatValue
-        actual.floatValue = percent
-        if (!canAnimate || animatable.isRunning || abs(offset) < ANIMATION_THRESHOLD) {
-            return@coroutineScope
+  private suspend fun setProgress(percent: Float, canAnimate: Boolean) = coroutineScope {
+    val offset = percent - actual.floatValue
+    actual.floatValue = percent
+    if (!canAnimate || animatable.isRunning || abs(offset) < ANIMATION_THRESHOLD) {
+      return@coroutineScope
+    }
+    launch(NonCancellable) {
+      animatable.animateTo(offset, PLAYBACK_PROGRESS_ANIMATION_SPEC)
+      animatable.snapTo(0f)
+    }
+  }
+
+  private suspend fun predictProgress(predictor: (Long) -> Float) = coroutineScope {
+    val initialFrameTime = withFrameMillis { timestampProvider.getTimestamp() - it }
+    do {
+      withFrameMillis { actual.floatValue = predictor(initialFrameTime + it) }
+    } while (isActive)
+  }
+
+  public companion object {
+    // Never animate progress under this threshold
+    private const val ANIMATION_THRESHOLD = 0.01f
+
+    @Composable
+    public fun fromTrackPositionUiModel(trackPositionUiModel: TrackPositionUiModel): State<Float> {
+      val lifecycleOwner = LocalLifecycleOwner.current
+      val timestampProvider = LocalTimestampProvider.current
+      val stateHolder = remember {
+        val initial = trackPositionUiModel.getCurrentPercent(timestampProvider.getTimestamp())
+        ProgressStateHolder(initial, timestampProvider)
+      }
+      LaunchedEffect(trackPositionUiModel, lifecycleOwner) {
+        val percent = trackPositionUiModel.getCurrentPercent(timestampProvider.getTimestamp())
+        stateHolder.setProgress(percent, trackPositionUiModel.shouldAnimate)
+        if (trackPositionUiModel is TrackPositionUiModel.Predictive) {
+          // Prediction only happens when the UI is visible.
+          lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            stateHolder.predictProgress(trackPositionUiModel.predictor::predictPercent)
+          }
         }
-        launch(NonCancellable) {
-            animatable.animateTo(offset, PLAYBACK_PROGRESS_ANIMATION_SPEC)
-            animatable.snapTo(0f)
-        }
+      }
+      return stateHolder.state
     }
 
-    private suspend fun predictProgress(predictor: (Long) -> Float) = coroutineScope {
-        val initialFrameTime = withFrameMillis { timestampProvider.getTimestamp() - it }
-        do {
-            withFrameMillis {
-                actual.floatValue = predictor(initialFrameTime + it)
-            }
-        } while (isActive)
-    }
-
-    public companion object {
-        // Never animate progress under this threshold
-        private const val ANIMATION_THRESHOLD = 0.01f
-
-        @Composable
-        public fun fromTrackPositionUiModel(trackPositionUiModel: TrackPositionUiModel): State<Float> {
-            val lifecycleOwner = LocalLifecycleOwner.current
-            val timestampProvider = LocalTimestampProvider.current
-            val stateHolder = remember {
-                val initial =
-                    trackPositionUiModel.getCurrentPercent(timestampProvider.getTimestamp())
-                ProgressStateHolder(initial, timestampProvider)
-            }
-            LaunchedEffect(trackPositionUiModel, lifecycleOwner) {
-                val percent =
-                    trackPositionUiModel.getCurrentPercent(timestampProvider.getTimestamp())
-                stateHolder.setProgress(percent, trackPositionUiModel.shouldAnimate)
-                if (trackPositionUiModel is TrackPositionUiModel.Predictive) {
-                    // Prediction only happens when the UI is visible.
-                    lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                        stateHolder.predictProgress(trackPositionUiModel.predictor::predictPercent)
-                    }
-                }
-            }
-            return stateHolder.state
-        }
-
-        private fun TrackPositionUiModel.getCurrentPercent(timestamp: Long) = when (this) {
-            is TrackPositionUiModel.Actual -> percent
-            is TrackPositionUiModel.SeekProjection -> percent
-            is TrackPositionUiModel.Predictive -> predictor.predictPercent(timestamp)
-            else -> 0f
-        }
-    }
+    private fun TrackPositionUiModel.getCurrentPercent(timestamp: Long) =
+      when (this) {
+        is TrackPositionUiModel.Actual -> percent
+        is TrackPositionUiModel.SeekProjection -> percent
+        is TrackPositionUiModel.Predictive -> predictor.predictPercent(timestamp)
+        else -> 0f
+      }
+  }
 }

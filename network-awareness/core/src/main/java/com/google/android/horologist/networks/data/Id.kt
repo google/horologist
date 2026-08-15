@@ -20,27 +20,25 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 
-/**
- * Return the id of the Network, by exploration this is the
- * [Network.toString] method.
- */
+/** Return the id of the Network, by exploration this is the [Network.toString] method. */
 internal val Network.id
-    get() = this.toString()
+  get() = this.toString()
 
 /**
- * Return the type of the just discovered [Network] via
- * [ConnectivityManager.getNetworkCapabilities] tranport types.
+ * Return the type of the just discovered [Network] via [ConnectivityManager.getNetworkCapabilities]
+ * tranport types.
  */
 internal fun ConnectivityManager.networkType(network: Network): NetworkType? {
-    val networkCapabilities = getNetworkCapabilities(network) ?: return null
+  val networkCapabilities = getNetworkCapabilities(network) ?: return null
 
-    val wifi = networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
-    val cell = networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
+  val wifi = networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI)
+  val cell = networkCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR)
 
-    val type = when {
-        wifi -> NetworkType.Wifi
-        cell -> NetworkType.Cell
-        else -> null
+  val type =
+    when {
+      wifi -> NetworkType.Wifi
+      cell -> NetworkType.Cell
+      else -> null
     }
-    return type
+  return type
 }

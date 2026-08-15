@@ -20,22 +20,15 @@ import android.net.ConnectivityManager
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import java.net.InetAddress
 
-/**
- * A data class for the full current state of the interesting parts of [ConnectivityManager].
- */
+/** A data class for the full current state of the interesting parts of [ConnectivityManager]. */
 @ExperimentalHorologistApi
-public data class Networks(
-    val activeNetwork: NetworkStatus?,
-    val networks: List<NetworkStatus>,
-) {
-    public fun findNetworkByAddress(localSocketAddress: InetAddress): NetworkStatus? {
-        return networks.find { networkStatus ->
-            networkStatus.addresses.find {
-                it == localSocketAddress
-            } != null
-        }
+public data class Networks(val activeNetwork: NetworkStatus?, val networks: List<NetworkStatus>) {
+  public fun findNetworkByAddress(localSocketAddress: InetAddress): NetworkStatus? {
+    return networks.find { networkStatus ->
+      networkStatus.addresses.find { it == localSocketAddress } != null
     }
+  }
 
-    public val status: Status
-        get() = networks.firstOrNull { it.status == Status.Available }?.status ?: Status.Lost
+  public val status: Status
+    get() = networks.firstOrNull { it.status == Status.Available }?.status ?: Status.Lost
 }

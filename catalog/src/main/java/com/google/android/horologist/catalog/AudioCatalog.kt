@@ -42,7 +42,11 @@ private val Headphones =
   )
 
 private val NotConnected =
-  AudioOutputUi(displayName = "Watch speaker", imageVector = Icons.Default.Phone, isConnected = false)
+  AudioOutputUi(
+    displayName = "Watch speaker",
+    imageVector = Icons.Default.Phone,
+    isConnected = false,
+  )
 
 @Composable
 private fun Volume(state: VolumeUiState, output: AudioOutputUi = Headphones) {

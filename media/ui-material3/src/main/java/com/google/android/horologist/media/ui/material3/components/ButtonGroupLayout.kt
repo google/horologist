@@ -49,90 +49,90 @@ import com.google.android.horologist.media.ui.material3.util.isLargeScreen
  */
 @Composable
 public fun ButtonGroupLayout(
-    leftButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
-    middleButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
-    rightButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
-    modifier: Modifier = Modifier,
-    interactionSources: Array<MutableInteractionSource> = remember {
-        Array(BUTTON_GROUP_ITEMS_COUNT) { MutableInteractionSource() }
-    },
+  leftButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
+  middleButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
+  rightButton: @Composable ButtonGroupScope.(MutableInteractionSource) -> Unit,
+  modifier: Modifier = Modifier,
+  interactionSources: Array<MutableInteractionSource> = remember {
+    Array(BUTTON_GROUP_ITEMS_COUNT) { MutableInteractionSource() }
+  },
 ) {
-    ButtonGroup(
-        modifier = modifier.fillMaxSize(),
-        spacing = 0.dp,
-        contentPadding = PaddingValues(0.dp),
-        expansionWidth = ButtonGroupLayoutDefaults.ExpansionWidth,
-    ) {
-        leftButton(interactionSources[0])
-        middleButton(interactionSources[1])
-        rightButton(interactionSources[2])
-    }
+  ButtonGroup(
+    modifier = modifier.fillMaxSize(),
+    spacing = 0.dp,
+    contentPadding = PaddingValues(0.dp),
+    expansionWidth = ButtonGroupLayoutDefaults.ExpansionWidth,
+  ) {
+    leftButton(interactionSources[0])
+    middleButton(interactionSources[1])
+    rightButton(interactionSources[2])
+  }
 }
 
 public object ButtonGroupLayoutDefaults {
-    /** How much buttons grow (and neighbors shrink) when pressed. */
-    internal val ExpansionWidth: Dp = 12.dp
+  /** How much buttons grow (and neighbors shrink) when pressed. */
+  internal val ExpansionWidth: Dp = 12.dp
 
-    /** The size of the middle button as per size of the device. */
-    public val middleButtonSize: Dp
-        @Composable
-        get() {
-            val configuration = LocalConfiguration.current
-            return remember(configuration) {
-                if (configuration.isLargeScreen) {
-                    LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-                } else {
-                    SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
-                }
-            }
-        }
-
-    /** The padding of the side buttons as per size of the device. */
+  /** The size of the middle button as per size of the device. */
+  public val middleButtonSize: Dp
     @Composable
-    public fun getSideButtonsPadding(isLeftButton: Boolean): PaddingValues {
-        val configuration = LocalConfiguration.current
-        val isLargeScreen = configuration.isLargeScreen
-        val buttonGroupSpacing =
-            remember(configuration) {
-                if (configuration.isLargeScreen) {
-                    BUTTON_GROUP_LARGE_DEVICE_SIDE_BUTTONS_SPACING_PERCENTAGE
-                } else {
-                    BUTTON_GROUP_SMALL_DEVICE_SIDE_BUTTONS_SPACING_PERCENTAGE
-                }
-            }
-        return PaddingValues.Absolute(
-            left =
-                if (isLeftButton) {
-                    configuration.getScreenSizeInDpFromPercentage(
-                        BUTTON_GROUP_MIDDLE_SECTION_HORIZONTAL_MARGIN_PERCENTAGE,
-                    )
-                } else {
-                    configuration.getScreenSizeInDpFromPercentage(buttonGroupSpacing)
-                },
-            right =
-                if (!isLeftButton) {
-                    configuration.getScreenSizeInDpFromPercentage(
-                        BUTTON_GROUP_MIDDLE_SECTION_HORIZONTAL_MARGIN_PERCENTAGE,
-                    )
-                } else {
-                    configuration.getScreenSizeInDpFromPercentage(buttonGroupSpacing)
-                },
-            top =
-                configuration.getScreenSizeInDpFromPercentage(
-                    if (isLargeScreen) {
-                        BUTTON_GROUP_LARGE_DEVICE_SIDE_BUTTONS_VERTICAL_MARGIN_PERCENTAGE
-                    } else {
-                        BUTTON_GROUP_SMALL_DEVICE_SIDE_BUTTONS_VERTICAL_MARGIN_PERCENTAGE
-                    },
-                ),
-            bottom =
-                configuration.getScreenSizeInDpFromPercentage(
-                    if (isLargeScreen) {
-                        BUTTON_GROUP_LARGE_DEVICE_SIDE_BUTTONS_VERTICAL_MARGIN_PERCENTAGE
-                    } else {
-                        BUTTON_GROUP_SMALL_DEVICE_SIDE_BUTTONS_VERTICAL_MARGIN_PERCENTAGE
-                    },
-                ),
-        )
+    get() {
+      val configuration = LocalConfiguration.current
+      return remember(configuration) {
+        if (configuration.isLargeScreen) {
+          LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
+        } else {
+          SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
+        }
+      }
     }
+
+  /** The padding of the side buttons as per size of the device. */
+  @Composable
+  public fun getSideButtonsPadding(isLeftButton: Boolean): PaddingValues {
+    val configuration = LocalConfiguration.current
+    val isLargeScreen = configuration.isLargeScreen
+    val buttonGroupSpacing =
+      remember(configuration) {
+        if (configuration.isLargeScreen) {
+          BUTTON_GROUP_LARGE_DEVICE_SIDE_BUTTONS_SPACING_PERCENTAGE
+        } else {
+          BUTTON_GROUP_SMALL_DEVICE_SIDE_BUTTONS_SPACING_PERCENTAGE
+        }
+      }
+    return PaddingValues.Absolute(
+      left =
+        if (isLeftButton) {
+          configuration.getScreenSizeInDpFromPercentage(
+            BUTTON_GROUP_MIDDLE_SECTION_HORIZONTAL_MARGIN_PERCENTAGE
+          )
+        } else {
+          configuration.getScreenSizeInDpFromPercentage(buttonGroupSpacing)
+        },
+      right =
+        if (!isLeftButton) {
+          configuration.getScreenSizeInDpFromPercentage(
+            BUTTON_GROUP_MIDDLE_SECTION_HORIZONTAL_MARGIN_PERCENTAGE
+          )
+        } else {
+          configuration.getScreenSizeInDpFromPercentage(buttonGroupSpacing)
+        },
+      top =
+        configuration.getScreenSizeInDpFromPercentage(
+          if (isLargeScreen) {
+            BUTTON_GROUP_LARGE_DEVICE_SIDE_BUTTONS_VERTICAL_MARGIN_PERCENTAGE
+          } else {
+            BUTTON_GROUP_SMALL_DEVICE_SIDE_BUTTONS_VERTICAL_MARGIN_PERCENTAGE
+          }
+        ),
+      bottom =
+        configuration.getScreenSizeInDpFromPercentage(
+          if (isLargeScreen) {
+            BUTTON_GROUP_LARGE_DEVICE_SIDE_BUTTONS_VERTICAL_MARGIN_PERCENTAGE
+          } else {
+            BUTTON_GROUP_SMALL_DEVICE_SIDE_BUTTONS_VERTICAL_MARGIN_PERCENTAGE
+          }
+        ),
+    )
+  }
 }

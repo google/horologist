@@ -23,10 +23,8 @@ import com.google.android.gms.wearable.MessageClient
 import com.google.android.gms.wearable.WearableStatusCodes
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.data.WearDataLayerRegistry
-import com.google.android.horologist.datalayer.grpc.proto.DataLayerGrpc
 import com.google.android.horologist.datalayer.grpc.proto.DataLayerGrpc.MessageResponse
 import com.google.android.horologist.datalayer.grpc.proto.messageRequest
-import com.google.protobuf.Any
 import com.google.protobuf.any
 import com.google.protobuf.kotlin.toByteString
 import io.grpc.ClientCall
@@ -40,85 +38,78 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 public class MessageClientCall<ReqT, RespT>(
-    private val channel: MessageClientChannel,
-    private val methodDescriptor: MethodDescriptor<ReqT, RespT>,
-    private val coroutineScope: CoroutineScope,
-    private val wearDataLayerRegistry: WearDataLayerRegistry,
+  private val channel: MessageClientChannel,
+  private val methodDescriptor: MethodDescriptor<ReqT, RespT>,
+  private val coroutineScope: CoroutineScope,
+  private val wearDataLayerRegistry: WearDataLayerRegistry,
 ) : ClientCall<ReqT, RespT>() {
-    private lateinit var responseListener: Listener<RespT>
+  private lateinit var responseListener: Listener<RespT>
 
-    private val messageClient: MessageClient = wearDataLayerRegistry.messageClient
+  private val messageClient: MessageClient = wearDataLayerRegistry.messageClient
 
-    init {
-        check(methodDescriptor.type == MethodType.UNARY)
-    }
+  init {
+    check(methodDescriptor.type == MethodType.UNARY)
+  }
 
-    override fun start(responseListener: Listener<RespT>, headers: Metadata) {
-        this.responseListener = responseListener
-        responseListener.onReady()
-    }
+  override fun start(responseListener: Listener<RespT>, headers: Metadata) {
+    this.responseListener = responseListener
+    responseListener.onReady()
+  }
 
-    override fun request(numMessages: Int) {
-    }
+  override fun request(numMessages: Int) {}
 
-    override fun cancel(message: String?, cause: Throwable?) {
-    }
+  override fun cancel(message: String?, cause: Throwable?) {}
 
-    override fun halfClose() {
-    }
+  override fun halfClose() {}
 
-    override fun sendMessage(message: ReqT) {
-        val realData = requestToBytes(message)
-        coroutineScope.launch {
-            val realNodeId = channel.nodeId.evaluate(wearDataLayerRegistry)
+  override fun sendMessage(message: ReqT) {
+    val realData = requestToBytes(message)
+    coroutineScope.launch {
+      val realNodeId = channel.nodeId.evaluate(wearDataLayerRegistry)
 
-            if (realNodeId == null) {
-                responseListener.onClose(Status.UNAVAILABLE, Metadata())
-            } else {
-                try {
-                    // TODO move out of coroutineScope after we early resolve realNodeId
-                    val requestTask = messageClient.sendRequest(realNodeId, channel.path, realData)
+      if (realNodeId == null) {
+        responseListener.onClose(Status.UNAVAILABLE, Metadata())
+      } else {
+        try {
+          // TODO move out of coroutineScope after we early resolve realNodeId
+          val requestTask = messageClient.sendRequest(realNodeId, channel.path, realData)
 
-                    val responseBytes = requestTask.await()
+          val responseBytes = requestTask.await()
 
-                    val response = bytesToResponse(responseBytes)
+          val response = bytesToResponse(responseBytes)
 
-                    responseListener.onMessage(response)
-                    responseListener.onClose(Status.OK, Metadata())
-                } catch (apie: ApiException) {
-                    handleException(apie)
-                }
-            }
+          responseListener.onMessage(response)
+          responseListener.onClose(Status.OK, Metadata())
+        } catch (apie: ApiException) {
+          handleException(apie)
         }
+      }
     }
+  }
 
-    private fun requestToBytes(message: ReqT): ByteArray? {
-        val data = methodDescriptor.streamRequest(message).use {
-            it.readBytes()
-        }
-        val request = messageRequest {
-            method = methodDescriptor.fullMethodName
-            request = any {
-                value = data.toByteString()
-            }
-        }
-        val realData = request.toByteArray()
-        return realData
+  private fun requestToBytes(message: ReqT): ByteArray? {
+    val data = methodDescriptor.streamRequest(message).use { it.readBytes() }
+    val request = messageRequest {
+      method = methodDescriptor.fullMethodName
+      request = any { value = data.toByteString() }
     }
+    val realData = request.toByteArray()
+    return realData
+  }
 
-    private fun bytesToResponse(responseBytes: ByteArray?): RespT {
-        val wrappedResponse = MessageResponse.parseFrom(responseBytes)
+  private fun bytesToResponse(responseBytes: ByteArray?): RespT {
+    val wrappedResponse = MessageResponse.parseFrom(responseBytes)
 
-        return methodDescriptor.parseResponse(
-            ByteArrayInputStream(wrappedResponse.response.value.toByteArray()),
-        )
+    return methodDescriptor.parseResponse(
+      ByteArrayInputStream(wrappedResponse.response.value.toByteArray())
+    )
+  }
+
+  private fun handleException(apie: ApiException) {
+    if (apie.statusCode == WearableStatusCodes.TIMEOUT) {
+      responseListener.onClose(Status.DEADLINE_EXCEEDED, Metadata())
+    } else {
+      responseListener.onClose(Status.UNKNOWN, Metadata())
     }
-
-    private fun handleException(apie: ApiException) {
-        if (apie.statusCode == WearableStatusCodes.TIMEOUT) {
-            responseListener.onClose(Status.DEADLINE_EXCEEDED, Metadata())
-        } else {
-            responseListener.onClose(Status.UNKNOWN, Metadata())
-        }
-    }
+  }
 }

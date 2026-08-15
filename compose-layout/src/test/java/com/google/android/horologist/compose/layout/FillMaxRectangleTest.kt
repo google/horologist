@@ -28,86 +28,63 @@ import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.unit.dp
 import androidx.test.filters.MediumTest
 import com.github.takahirom.roborazzi.RobolectricDeviceQualifiers
+import kotlin.math.pow
+import kotlin.math.sqrt
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
-import kotlin.math.pow
-import kotlin.math.sqrt
 
 @MediumTest
 @RunWith(RobolectricTestRunner::class)
 class FillMaxRectangleTest {
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Test
-    @Config(
-        sdk = [35],
-        qualifiers = RobolectricDeviceQualifiers.WearOSSquare,
-    )
-    fun testSquare() {
-        composeTestRule.setContent {
-            Boxes()
-        }
+  @Test
+  @Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSSquare)
+  fun testSquare() {
+    composeTestRule.setContent { Boxes() }
 
-        val width = composeTestRule.onRoot().fetchSemanticsNode().size.width
-        val safeWidth = composeTestRule.onNodeWithTag("boxInset").fetchSemanticsNode().size.width
+    val width = composeTestRule.onRoot().fetchSemanticsNode().size.width
+    val safeWidth = composeTestRule.onNodeWithTag("boxInset").fetchSemanticsNode().size.width
 
-        assertEquals(width, safeWidth)
+    assertEquals(width, safeWidth)
+  }
+
+  @Test
+  @Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
+  fun testCircle() {
+    composeTestRule.setContent { Boxes() }
+
+    val width = composeTestRule.onRoot().fetchSemanticsNode().size.width
+    val safeWidth = composeTestRule.onNodeWithTag("boxInset").fetchSemanticsNode().size.width
+
+    val expectedWidth = sqrt(2.0 * (width.toDouble() / 2).pow(2.0))
+    assertEquals(expectedWidth, safeWidth.toDouble(), 1.0)
+  }
+
+  @Test
+  @Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
+  fun testCircleUsesAvailableConstraints() {
+    composeTestRule.setContent {
+      Box(modifier = Modifier.size(100.dp).testTag("container")) {
+        Box(modifier = Modifier.fillMaxRectangle().testTag("boxInset"))
+      }
     }
 
-    @Test
-    @Config(
-        sdk = [35],
-        qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-    )
-    fun testCircle() {
-        composeTestRule.setContent {
-            Boxes()
-        }
+    val width = composeTestRule.onNodeWithTag("container").fetchSemanticsNode().size.width
+    val safeWidth = composeTestRule.onNodeWithTag("boxInset").fetchSemanticsNode().size.width
 
-        val width = composeTestRule.onRoot().fetchSemanticsNode().size.width
-        val safeWidth = composeTestRule.onNodeWithTag("boxInset").fetchSemanticsNode().size.width
+    val expectedWidth = sqrt(2.0 * (width.toDouble() / 2).pow(2.0))
+    assertEquals(expectedWidth, safeWidth.toDouble(), 1.0)
+  }
 
-        val expectedWidth = sqrt(2.0 * (width.toDouble() / 2).pow(2.0))
-        assertEquals(expectedWidth, safeWidth.toDouble(), 1.0)
+  @Composable
+  private fun Boxes() {
+    Box(modifier = Modifier.fillMaxSize()) {
+      Box(modifier = Modifier.fillMaxRectangle().testTag("boxInset")) {}
     }
-
-    @Test
-    @Config(
-        sdk = [35],
-        qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-    )
-    fun testCircleUsesAvailableConstraints() {
-        composeTestRule.setContent {
-            Box(modifier = Modifier.size(100.dp).testTag("container")) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxRectangle()
-                        .testTag("boxInset"),
-                )
-            }
-        }
-
-        val width = composeTestRule.onNodeWithTag("container").fetchSemanticsNode().size.width
-        val safeWidth = composeTestRule.onNodeWithTag("boxInset").fetchSemanticsNode().size.width
-
-        val expectedWidth = sqrt(2.0 * (width.toDouble() / 2).pow(2.0))
-        assertEquals(expectedWidth, safeWidth.toDouble(), 1.0)
-    }
-
-    @Composable
-    private fun Boxes() {
-        Box(modifier = Modifier.fillMaxSize()) {
-            Box(
-                modifier = Modifier
-                    .fillMaxRectangle()
-                    .testTag("boxInset"),
-            ) {
-            }
-        }
-    }
+  }
 }

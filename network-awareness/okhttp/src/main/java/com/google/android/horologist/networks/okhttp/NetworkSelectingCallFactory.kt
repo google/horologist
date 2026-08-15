@@ -32,100 +32,94 @@ import com.google.android.horologist.networks.okhttp.impl.StandardCall
 import com.google.android.horologist.networks.rules.Fail
 import com.google.android.horologist.networks.rules.NetworkingRulesEngine
 import com.google.android.horologist.networks.status.NetworkRepository
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.CoroutineScope
 import okhttp3.Call
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import java.util.concurrent.ConcurrentHashMap
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.seconds
 
 @ExperimentalHorologistApi
 public class NetworkSelectingCallFactory(
-    internal val networkingRulesEngine: NetworkingRulesEngine,
-    internal val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
-    private val networkRepository: NetworkRepository,
-    dataRequestRepository: DataRequestRepository?,
-    rootClient: OkHttpClient,
-    internal val coroutineScope: CoroutineScope,
-    internal val timeout: Duration = 3.seconds,
-    logger: NetworkStatusLogger,
+  internal val networkingRulesEngine: NetworkingRulesEngine,
+  internal val highBandwidthNetworkMediator: HighBandwidthNetworkMediator,
+  private val networkRepository: NetworkRepository,
+  dataRequestRepository: DataRequestRepository?,
+  rootClient: OkHttpClient,
+  internal val coroutineScope: CoroutineScope,
+  internal val timeout: Duration = 3.seconds,
+  logger: NetworkStatusLogger,
 ) : Call.Factory {
-    private val defaultClient = rootClient.newBuilder()
-        .addNetworkInterceptor(
-            RequestVerifyingInterceptor(
-                networkingRulesEngine = networkingRulesEngine,
-            ),
+  private val defaultClient =
+    rootClient
+      .newBuilder()
+      .addNetworkInterceptor(
+        RequestVerifyingInterceptor(networkingRulesEngine = networkingRulesEngine)
+      )
+      .eventListenerFactory(
+        NetworkAwareEventListenerFactory(
+          dataRequestRepository = dataRequestRepository,
+          delegateEventListenerFactory = rootClient.eventListenerFactory,
+          networkRepository = networkRepository,
+          logger = logger,
         )
-        .eventListenerFactory(
-            NetworkAwareEventListenerFactory(
-                dataRequestRepository = dataRequestRepository,
-                delegateEventListenerFactory = rootClient.eventListenerFactory,
-                networkRepository = networkRepository,
-                logger = logger,
-            ),
-        )
+      )
+      .build()
+
+  private val clients = ConcurrentHashMap<String, OkHttpClient>()
+
+  override fun newCall(request: Request): Call {
+    val finalRequest = request.withDefaultRequestType(RequestType.UnknownRequest)
+
+    val requestType = finalRequest.requestType
+
+    val highBandwidthRequest = networkingRulesEngine.isHighBandwidthRequest(requestType)
+
+    return if (highBandwidthRequest) {
+      HighBandwidthCall(this, finalRequest)
+    } else {
+      // Can make call immediately
+      newDirectCall(finalRequest)
+    }
+  }
+
+  internal fun newDirectCall(request: Request): Call {
+    val requestType = request.requestType
+
+    val networkStatus = networkingRulesEngine.preferredNetwork(requestType)
+
+    if (networkStatus == null) {
+      val networks = networkRepository.networkStatus.value.networks.map { it.networkInfo.type }
+      val reason = "No suitable network for $requestType in $networks"
+      return FailedCall(this, request, reason)
+    }
+
+    val requestCheck =
+      networkingRulesEngine.checkValidRequest(requestType, networkStatus.networkInfo)
+    if (requestCheck is Fail) {
+      val reason = "Unable to use ${networkStatus.networkInfo.type} for $requestType"
+      return FailedCall(this, request, reason)
+    }
+
+    val client = clientForNetwork(networkStatus)
+
+    // Set the network so we don't have to guess later, which
+    // can be problematic
+    request.networkInfo = networkStatus.networkInfo
+    val call = client.newCall(request)
+
+    return StandardCall(this, call)
+  }
+
+  private fun clientForNetwork(networkStatus: NetworkStatus): Call.Factory {
+    return clients.computeIfAbsent(networkStatus.id) {
+      defaultClient
+        .newBuilder()
+        .connectionPool(ConnectionPool())
+        .socketFactory(NetworkSpecificSocketFactory(networkStatus = networkStatus))
         .build()
-
-    private val clients = ConcurrentHashMap<String, OkHttpClient>()
-
-    override fun newCall(request: Request): Call {
-        val finalRequest = request.withDefaultRequestType(RequestType.UnknownRequest)
-
-        val requestType = finalRequest.requestType
-
-        val highBandwidthRequest = networkingRulesEngine.isHighBandwidthRequest(requestType)
-
-        return if (highBandwidthRequest) {
-            HighBandwidthCall(this, finalRequest)
-        } else {
-            // Can make call immediately
-            newDirectCall(finalRequest)
-        }
     }
-
-    internal fun newDirectCall(request: Request): Call {
-        val requestType = request.requestType
-
-        val networkStatus =
-            networkingRulesEngine.preferredNetwork(requestType)
-
-        if (networkStatus == null) {
-            val networks =
-                networkRepository.networkStatus.value.networks.map {
-                    it.networkInfo.type
-                }
-            val reason = "No suitable network for $requestType in $networks"
-            return FailedCall(this, request, reason)
-        }
-
-        val requestCheck = networkingRulesEngine.checkValidRequest(requestType, networkStatus.networkInfo)
-        if (requestCheck is Fail) {
-            val reason = "Unable to use ${networkStatus.networkInfo.type} for $requestType"
-            return FailedCall(this, request, reason)
-        }
-
-        val client = clientForNetwork(networkStatus)
-
-        // Set the network so we don't have to guess later, which
-        // can be problematic
-        request.networkInfo = networkStatus.networkInfo
-        val call = client.newCall(request)
-
-        return StandardCall(this, call)
-    }
-
-    private fun clientForNetwork(networkStatus: NetworkStatus): Call.Factory {
-        return clients.computeIfAbsent(networkStatus.id) {
-            defaultClient.newBuilder()
-                .connectionPool(ConnectionPool())
-                .socketFactory(
-                    NetworkSpecificSocketFactory(
-                        networkStatus = networkStatus,
-                    ),
-                )
-                .build()
-        }
-    }
+  }
 }

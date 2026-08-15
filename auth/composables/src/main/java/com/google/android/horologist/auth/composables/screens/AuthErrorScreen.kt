@@ -35,22 +35,14 @@ import com.google.android.horologist.compose.layout.ScreenScaffold
  * and no additional context can be given.
  */
 @Composable
-public fun AuthErrorScreen(
-    modifier: Modifier = Modifier,
-) {
-    ScreenScaffold(timeText = {}) {
-        Column(
-            modifier = modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-
-        ) {
-            Text(
-                text = stringResource(id = R.string.horologist_auth_error_message),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp),
-                textAlign = TextAlign.Center,
-            )
-        }
+public fun AuthErrorScreen(modifier: Modifier = Modifier) {
+  ScreenScaffold(timeText = {}) {
+    Column(modifier = modifier.fillMaxSize(), verticalArrangement = Arrangement.Center) {
+      Text(
+        text = stringResource(id = R.string.horologist_auth_error_message),
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp),
+        textAlign = TextAlign.Center,
+      )
     }
+  }
 }

@@ -20,27 +20,21 @@ import android.net.Network
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.networks.data.NetworkStatus
 import com.google.android.horologist.networks.data.Networks
-import kotlinx.coroutines.flow.StateFlow
 import java.net.InetAddress
+import kotlinx.coroutines.flow.StateFlow
 
-/**
- * A repository with current network state.
- */
+/** A repository with current network state. */
 @ExperimentalHorologistApi
 public interface NetworkRepository {
-    /**
-     * The StateFlow of network configuration.
-     */
-    public val networkStatus: StateFlow<Networks>
+  /** The StateFlow of network configuration. */
+  public val networkStatus: StateFlow<Networks>
 
-    /**
-     * Find a network by it's IP address.
-     */
-    public fun networkByAddress(localAddress: InetAddress): NetworkStatus?
+  /** Find a network by it's IP address. */
+  public fun networkByAddress(localAddress: InetAddress): NetworkStatus?
 
-    /**
-     * Notify the NetworkRepository of a newly discovered [Network]. To speed up
-     * the updates to the [StateFlow].
-     */
-    public fun updateNetworkAvailability(network: Network)
+  /**
+   * Notify the NetworkRepository of a newly discovered [Network]. To speed up the updates to the
+   * [StateFlow].
+   */
+  public fun updateNetworkAvailability(network: Network)
 }

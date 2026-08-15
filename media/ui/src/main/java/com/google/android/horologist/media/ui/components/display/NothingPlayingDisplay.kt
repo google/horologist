@@ -22,14 +22,12 @@ import androidx.compose.ui.res.stringResource
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.ui.model.R
 
-/**
- * A media display indicating nothing is playing.
- */
+/** A media display indicating nothing is playing. */
 @ExperimentalHorologistApi
 @Composable
 public fun NothingPlayingDisplay(modifier: Modifier = Modifier) {
-    MessageMediaDisplay(
-        message = stringResource(R.string.horologist_nothing_playing),
-        modifier = modifier,
-    )
+  MessageMediaDisplay(
+    message = stringResource(R.string.horologist_nothing_playing),
+    modifier = modifier,
+  )
 }

@@ -36,57 +36,52 @@ import com.google.android.horologist.compose.material.ListHeaderDefaults.firstIt
 import com.google.android.horologist.compose.material.ResponsiveListHeader
 
 @Composable
-fun StreamlineSignInMenuScreen(
-    navController: NavHostController,
-    modifier: Modifier = Modifier,
-) {
-    val columnState = rememberResponsiveColumnState(
-        contentPadding = padding(
-            first = ItemType.Text,
-            last = ItemType.Chip,
-        ),
+fun StreamlineSignInMenuScreen(navController: NavHostController, modifier: Modifier = Modifier) {
+  val columnState =
+    rememberResponsiveColumnState(
+      contentPadding = padding(first = ItemType.Text, last = ItemType.Chip)
     )
 
-    ScreenScaffold(scrollState = columnState) {
-        SectionedList(
-            columnState = columnState,
-            modifier = modifier.fillMaxSize(),
-        ) {
-            section(
-                listOf(
-                    Triple(
-                        R.string.common_screens_streamline_sign_in_single_account_item,
-                        Screen.StreamlineSignInSampleScreen.route,
-                        AuthUserRepositoryStreamlineImpl.Mode.SINGLE_ACCOUNT_AVAILABLE,
-                    ),
-                    Triple(
-                        R.string.common_screens_streamline_sign_in_multiple_accounts_item,
-                        Screen.StreamlineSignInSampleScreen.route,
-                        AuthUserRepositoryStreamlineImpl.Mode.MULTIPLE_ACCOUNTS_AVAILABLE,
-                    ),
-                    Triple(
-                        R.string.common_screens_streamline_sign_in_no_accounts_item,
-                        Screen.StreamlineSignInSampleScreen.route,
-                        AuthUserRepositoryStreamlineImpl.Mode.NO_ACCOUNTS_AVAILABLE,
-                    ),
-                ),
-            ) {
-                header {
-                    ResponsiveListHeader(contentPadding = firstItemPadding()) {
-                        Text(stringResource(id = R.string.common_screens_streamline_sign_in_header), modifier = Modifier.listTextPadding())
-                    }
-                }
-                loaded { (textId, route, mode) ->
-                    Chip(
-                        label = stringResource(id = textId),
-                        modifier = Modifier.fillMaxWidth(),
-                        onClick = {
-                            AuthUserRepositoryStreamlineImpl.mode = mode
-                            navController.navigate(route)
-                        },
-                    )
-                }
-            }
+  ScreenScaffold(scrollState = columnState) {
+    SectionedList(columnState = columnState, modifier = modifier.fillMaxSize()) {
+      section(
+        listOf(
+          Triple(
+            R.string.common_screens_streamline_sign_in_single_account_item,
+            Screen.StreamlineSignInSampleScreen.route,
+            AuthUserRepositoryStreamlineImpl.Mode.SINGLE_ACCOUNT_AVAILABLE,
+          ),
+          Triple(
+            R.string.common_screens_streamline_sign_in_multiple_accounts_item,
+            Screen.StreamlineSignInSampleScreen.route,
+            AuthUserRepositoryStreamlineImpl.Mode.MULTIPLE_ACCOUNTS_AVAILABLE,
+          ),
+          Triple(
+            R.string.common_screens_streamline_sign_in_no_accounts_item,
+            Screen.StreamlineSignInSampleScreen.route,
+            AuthUserRepositoryStreamlineImpl.Mode.NO_ACCOUNTS_AVAILABLE,
+          ),
+        )
+      ) {
+        header {
+          ResponsiveListHeader(contentPadding = firstItemPadding()) {
+            Text(
+              stringResource(id = R.string.common_screens_streamline_sign_in_header),
+              modifier = Modifier.listTextPadding(),
+            )
+          }
         }
+        loaded { (textId, route, mode) ->
+          Chip(
+            label = stringResource(id = textId),
+            modifier = Modifier.fillMaxWidth(),
+            onClick = {
+              AuthUserRepositoryStreamlineImpl.mode = mode
+              navController.navigate(route)
+            },
+          )
+        }
+      }
     }
+  }
 }

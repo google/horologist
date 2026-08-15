@@ -26,9 +26,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UampGoogleSignInViewModel
-    @Inject
-    constructor(
-        googleSignInClient: GoogleSignInClient,
-        googleSignInEventListener: GoogleSignInEventListener,
-    ) :
-    GoogleSignInViewModel(googleSignInClient, googleSignInEventListener)
+@Inject
+constructor(
+  googleSignInClient: GoogleSignInClient,
+  googleSignInEventListener: GoogleSignInEventListener,
+) : GoogleSignInViewModel(googleSignInClient, googleSignInEventListener)

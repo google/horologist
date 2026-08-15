@@ -33,28 +33,30 @@ import com.google.android.horologist.media.ui.model.R
 
 @Composable
 public fun SeekToNextButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource? = null,
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    contentDescription: String = stringResource(id = R.string.horologist_seek_to_next_button_content_description),
-    iconSize: Dp = IconButtonDefaults.SmallIconSize,
-    colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(colorScheme),
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource? = null,
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  contentDescription: String =
+    stringResource(id = R.string.horologist_seek_to_next_button_content_description),
+  iconSize: Dp = IconButtonDefaults.SmallIconSize,
+  colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(colorScheme),
 ) {
-    MediaButton(
-        onClick = onClick,
-        icon = ImageVector.vectorResource(
-            com.google.android.horologist.media.ui.material3.R.drawable.rounded_skip_next_24,
-        ),
-        contentDescription = contentDescription,
-        modifier = modifier,
-        enabled = enabled,
-        colorScheme = colorScheme,
-        iconSize = iconSize,
-        interactionSource = interactionSource,
-        buttonPadding = buttonPadding,
-        colors = colors,
-    )
+  MediaButton(
+    onClick = onClick,
+    icon =
+      ImageVector.vectorResource(
+        com.google.android.horologist.media.ui.material3.R.drawable.rounded_skip_next_24
+      ),
+    contentDescription = contentDescription,
+    modifier = modifier,
+    enabled = enabled,
+    colorScheme = colorScheme,
+    iconSize = iconSize,
+    interactionSource = interactionSource,
+    buttonPadding = buttonPadding,
+    colors = colors,
+  )
 }

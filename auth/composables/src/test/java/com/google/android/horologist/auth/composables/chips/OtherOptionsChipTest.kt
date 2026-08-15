@@ -22,41 +22,25 @@ import org.junit.Test
 
 class OtherOptionsChipTest : WearLegacyComponentTest() {
 
-    @Test
-    fun default() {
-        runComponentTest {
-            OtherOptionsChip(onClick = {})
-        }
-    }
+  @Test
+  fun default() {
+    runComponentTest { OtherOptionsChip(onClick = {}) }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            OtherOptionsChip(
-                onClick = {},
-                enabled = false,
-            )
-        }
-    }
+  @Test
+  fun disabled() {
+    runComponentTest { OtherOptionsChip(onClick = {}, enabled = false) }
+  }
 
-    @Test
-    fun withSecondaryChipType() {
-        runComponentTest {
-            OtherOptionsChip(
-                onClick = {},
-                colors = ChipDefaults.secondaryChipColors(),
-            )
-        }
-    }
+  @Test
+  fun withSecondaryChipType() {
+    runComponentTest { OtherOptionsChip(onClick = {}, colors = ChipDefaults.secondaryChipColors()) }
+  }
 
-    @Test
-    fun withSecondaryChipTypeDisabled() {
-        runComponentTest {
-            OtherOptionsChip(
-                onClick = {},
-                colors = ChipDefaults.secondaryChipColors(),
-                enabled = false,
-            )
-        }
+  @Test
+  fun withSecondaryChipTypeDisabled() {
+    runComponentTest {
+      OtherOptionsChip(onClick = {}, colors = ChipDefaults.secondaryChipColors(), enabled = false)
     }
+  }
 }

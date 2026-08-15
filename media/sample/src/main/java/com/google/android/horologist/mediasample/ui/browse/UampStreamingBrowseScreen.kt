@@ -27,26 +27,25 @@ import com.google.android.horologist.media.ui.model.R
 
 @Composable
 fun UampStreamingBrowseScreen(
-    onPlaylistsClick: () -> Unit,
-    onSettingsClick: () -> Unit,
-    modifier: Modifier = Modifier,
+  onPlaylistsClick: () -> Unit,
+  onSettingsClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    BrowseScreen(
-        modifier = modifier,
-    ) {
-        this.playlistsSection(
-            buttons = listOf(
-                BrowseScreenPlaylistsSectionButton(
-                    textId = R.string.horologist_browse_library_playlists_button,
-                    icon = Icons.AutoMirrored.Default.PlaylistPlay,
-                    onClick = onPlaylistsClick,
-                ),
-                BrowseScreenPlaylistsSectionButton(
-                    textId = R.string.horologist_browse_library_settings_button,
-                    icon = Icons.Default.Settings,
-                    onClick = onSettingsClick,
-                ),
-            ),
+  BrowseScreen(modifier = modifier) {
+    this.playlistsSection(
+      buttons =
+        listOf(
+          BrowseScreenPlaylistsSectionButton(
+            textId = R.string.horologist_browse_library_playlists_button,
+            icon = Icons.AutoMirrored.Default.PlaylistPlay,
+            onClick = onPlaylistsClick,
+          ),
+          BrowseScreenPlaylistsSectionButton(
+            textId = R.string.horologist_browse_library_settings_button,
+            icon = Icons.Default.Settings,
+            onClick = onSettingsClick,
+          ),
         )
-    }
+    )
+  }
 }

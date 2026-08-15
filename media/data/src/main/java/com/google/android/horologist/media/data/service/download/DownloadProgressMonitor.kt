@@ -34,51 +34,52 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnsafeOptInUsageError")
 @ExperimentalHorologistApi
 public class DownloadProgressMonitor(
-    private val coroutineScope: CoroutineScope,
-    private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
+  private val coroutineScope: CoroutineScope,
+  private val mediaDownloadLocalDataSource: MediaDownloadLocalDataSource,
 ) {
 
-    private val handler = Handler(Looper.getMainLooper())
-    private var running = false
+  private val handler = Handler(Looper.getMainLooper())
+  private var running = false
 
-    internal fun start(downloadManager: DownloadManager) {
-        running = true
-        update(downloadManager)
-    }
+  internal fun start(downloadManager: DownloadManager) {
+    running = true
+    update(downloadManager)
+  }
 
-    internal fun stop() {
-        running = false
-        handler.removeCallbacksAndMessages(null)
-    }
+  internal fun stop() {
+    running = false
+    handler.removeCallbacksAndMessages(null)
+  }
 
-    private fun update(downloadManager: DownloadManager) {
-        coroutineScope.launch {
-            val downloads = mediaDownloadLocalDataSource.getAllDownloading()
+  private fun update(downloadManager: DownloadManager) {
+    coroutineScope.launch {
+      val downloads = mediaDownloadLocalDataSource.getAllDownloading()
 
-            if (downloads.isNotEmpty()) {
-                for (it in downloads) {
-                    downloadManager.downloadIndex.getDownload(it.mediaId)?.let { download ->
-                        mediaDownloadLocalDataSource.updateProgress(
-                            mediaId = download.request.id,
-                            progress = download.percentDownloaded
-                                // it can return -1 (C.PERCENTAGE_UNSET)
-                                .coerceAtLeast(DOWNLOAD_PROGRESS_START),
-                            size = download.contentLength,
-                        )
-                    }
-                }
-            } else {
-                stop()
-            }
+      if (downloads.isNotEmpty()) {
+        for (it in downloads) {
+          downloadManager.downloadIndex.getDownload(it.mediaId)?.let { download ->
+            mediaDownloadLocalDataSource.updateProgress(
+              mediaId = download.request.id,
+              progress =
+                download.percentDownloaded
+                  // it can return -1 (C.PERCENTAGE_UNSET)
+                  .coerceAtLeast(DOWNLOAD_PROGRESS_START),
+              size = download.contentLength,
+            )
+          }
         }
-
-        if (running) {
-            handler.removeCallbacksAndMessages(null)
-            handler.postDelayed({ update(downloadManager) }, UPDATE_INTERVAL_MILLIS)
-        }
+      } else {
+        stop()
+      }
     }
 
-    private companion object {
-        const val UPDATE_INTERVAL_MILLIS = 1000L
+    if (running) {
+      handler.removeCallbacksAndMessages(null)
+      handler.postDelayed({ update(downloadManager) }, UPDATE_INTERVAL_MILLIS)
     }
+  }
+
+  private companion object {
+    const val UPDATE_INTERVAL_MILLIS = 1000L
+  }
 }

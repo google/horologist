@@ -42,61 +42,45 @@ import com.google.android.horologist.compose.tools.PreviewTimeSource
 
 @Composable
 fun WearApp(
-    modifier: Modifier = Modifier,
-    navController: NavHostController = rememberSwipeDismissableNavController(),
-    timeText: @Composable () -> Unit = { ResponsiveTimeText() },
+  modifier: Modifier = Modifier,
+  navController: NavHostController = rememberSwipeDismissableNavController(),
+  timeText: @Composable () -> Unit = { ResponsiveTimeText() },
 ) {
-    AppScaffold(modifier = modifier, timeText = timeText) {
-        SwipeDismissableNavHost(
-            startDestination = Screen.MainScreen.route,
-            navController = navController,
-        ) {
-            composable(
-                route = Screen.MainScreen.route,
-            ) {
-                MainScreen(
-                    navigateToRoute = navController::navigate,
-                )
-            }
-            composable(
-                route = Screen.GoogleSignInPromptSampleScreen.route,
-            ) {
-                GoogleSignInPromptSampleScreen(
-                    navController = navController,
-                )
-            }
-            composable(route = Screen.StreamlineSignInMenuScreen.route) {
-                StreamlineSignInMenuScreen(
-                    navController = navController,
-                )
-            }
-            composable(route = Screen.StreamlineSignInSampleScreen.route) {
-                StreamlineSignInSampleScreen(
-                    navController = navController,
-                )
-            }
-            composable(route = Screen.GoogleSignInScreen.route) {
-                GoogleSignInScreen(
-                    onAuthCancelled = navController::popBackStack,
-                    onAuthSucceed = navController::popBackStack,
-                    viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory),
-                )
-            }
-            composable(route = Screen.GoogleSignOutScreen.route) {
-                GoogleSignOutScreen(navController = navController)
-            }
-            composable(route = Screen.TokenShareDefaultKeyScreen.route) {
-                TokenShareDefaultKeyScreen()
-            }
-            composable(route = Screen.TokenShareCustomKeyScreen.route) {
-                TokenShareCustomKeyScreen()
-            }
-        }
+  AppScaffold(modifier = modifier, timeText = timeText) {
+    SwipeDismissableNavHost(
+      startDestination = Screen.MainScreen.route,
+      navController = navController,
+    ) {
+      composable(route = Screen.MainScreen.route) {
+        MainScreen(navigateToRoute = navController::navigate)
+      }
+      composable(route = Screen.GoogleSignInPromptSampleScreen.route) {
+        GoogleSignInPromptSampleScreen(navController = navController)
+      }
+      composable(route = Screen.StreamlineSignInMenuScreen.route) {
+        StreamlineSignInMenuScreen(navController = navController)
+      }
+      composable(route = Screen.StreamlineSignInSampleScreen.route) {
+        StreamlineSignInSampleScreen(navController = navController)
+      }
+      composable(route = Screen.GoogleSignInScreen.route) {
+        GoogleSignInScreen(
+          onAuthCancelled = navController::popBackStack,
+          onAuthSucceed = navController::popBackStack,
+          viewModel = viewModel(factory = GoogleSignInSampleViewModelFactory),
+        )
+      }
+      composable(route = Screen.GoogleSignOutScreen.route) {
+        GoogleSignOutScreen(navController = navController)
+      }
+      composable(route = Screen.TokenShareDefaultKeyScreen.route) { TokenShareDefaultKeyScreen() }
+      composable(route = Screen.TokenShareCustomKeyScreen.route) { TokenShareCustomKeyScreen() }
     }
+  }
 }
 
 @WearPreviewSmallRound
 @Composable
 fun DefaultPreview() {
-    WearApp(timeText = { ResponsiveTimeText(timeSource = PreviewTimeSource) })
+  WearApp(timeText = { ResponsiveTimeText(timeSource = PreviewTimeSource) })
 }

@@ -22,24 +22,24 @@ import com.google.android.horologist.auth.sample.di.SampleAppDI
 import com.google.android.horologist.data.WearDataLayerRegistry
 
 class SampleApplication : Application() {
-    lateinit var registry: WearDataLayerRegistry
+  lateinit var registry: WearDataLayerRegistry
 
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        setStrictMode()
+    setStrictMode()
 
-        SampleAppDI.inject(this)
-    }
+    SampleAppDI.inject(this)
+  }
 
-    private fun setStrictMode() {
-        StrictMode.setThreadPolicy(
-            StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads()
-                .detectDiskWrites()
-                .detectNetwork()
-                .penaltyDeath()
-                .build(),
-        )
-    }
+  private fun setStrictMode() {
+    StrictMode.setThreadPolicy(
+      StrictMode.ThreadPolicy.Builder()
+        .detectDiskReads()
+        .detectDiskWrites()
+        .detectNetwork()
+        .penaltyDeath()
+        .build()
+    )
+  }
 }

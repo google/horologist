@@ -44,58 +44,59 @@ import kotlinx.coroutines.flow.stateIn
 class AudioDebugScreenViewModel
 @Inject
 constructor(
-    private val audioOffloadManager: Provider<AudioOffloadManager>,
-    private val appConfig: AppConfig,
-    playerRepository: PlayerRepository,
-    private val mediaController: Deferred<MediaBrowser>,
+  private val audioOffloadManager: Provider<AudioOffloadManager>,
+  private val appConfig: AppConfig,
+  playerRepository: PlayerRepository,
+  private val mediaController: Deferred<MediaBrowser>,
 ) : ViewModel() {
-    val mediaControllerFlow = flow {
-        emit(null)
-        emit(mediaController.await())
-    }
+  val mediaControllerFlow = flow {
+    emit(null)
+    emit(mediaController.await())
+  }
 
-    fun audioOffloadFlow(): Flow<AudioOffloadStatus> = if (appConfig.offloadEnabled) {
-        audioOffloadManager.get().offloadStatus
+  fun audioOffloadFlow(): Flow<AudioOffloadStatus> =
+    if (appConfig.offloadEnabled) {
+      audioOffloadManager.get().offloadStatus
     } else {
-        flowOf(AudioOffloadStatus.Disabled)
+      flowOf(AudioOffloadStatus.Disabled)
     }
 
-    val uiState: StateFlow<UiState?> = combine(
-        audioOffloadFlow(),
-        playerRepository.currentMedia,
-        mediaControllerFlow,
-    ) { audioOffloadStatus, currentMedia, mediaController ->
-
+  val uiState: StateFlow<UiState?> =
+    combine(audioOffloadFlow(), playerRepository.currentMedia, mediaControllerFlow) {
+        audioOffloadStatus,
+        currentMedia,
+        mediaController ->
         UiState(
-            currentTrack = currentMedia?.title,
-            audioOffloadStatus = audioOffloadStatus,
-            formatSupported = isFormatSupported(mediaController, audioOffloadStatus.format),
+          currentTrack = currentMedia?.title,
+          audioOffloadStatus = audioOffloadStatus,
+          formatSupported = isFormatSupported(mediaController, audioOffloadStatus.format),
         )
-    }.stateIn(
+      }
+      .stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = null,
-    )
+      )
 
-    public fun isFormatSupported(mediaController: MediaController?, format: Format?): Boolean? {
-        val audioFormat = format?.toAudioFormat() ?: return null
+  public fun isFormatSupported(mediaController: MediaController?, format: Format?): Boolean? {
+    val audioFormat = format?.toAudioFormat() ?: return null
 
-        if (mediaController == null) {
-            return null
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val audioAttributes = mediaController.audioAttributes.platformAudioAttributes
-            return AudioManager.isOffloadedPlaybackSupported(audioFormat, audioAttributes)
-        }
-
-        // Not supported before 30
-        return false
+    if (mediaController == null) {
+      return null
     }
 
-    data class UiState(
-        val currentTrack: String?,
-        val audioOffloadStatus: AudioOffloadStatus,
-        val formatSupported: Boolean?,
-    )
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+      val audioAttributes = mediaController.audioAttributes.platformAudioAttributes
+      return AudioManager.isOffloadedPlaybackSupported(audioFormat, audioAttributes)
+    }
+
+    // Not supported before 30
+    return false
+  }
+
+  data class UiState(
+    val currentTrack: String?,
+    val audioOffloadStatus: AudioOffloadStatus,
+    val formatSupported: Boolean?,
+  )
 }

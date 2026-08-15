@@ -32,32 +32,30 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @SdkSuppress(minSdkVersion = 28)
 class ImagesTest {
-    @Test
-    fun hardwareBitmapToImageResource() {
-        val softwareBitmap = Bitmap.createBitmap(
-            intArrayOf(Color.RED, Color.GREEN),
-            2,
-            1,
-            Bitmap.Config.ARGB_8888,
-        )
-        val encodedBitmap = ByteArrayOutputStream().also {
-            softwareBitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
-        }.toByteArray()
-        val hardwareBitmap = ImageDecoder.decodeBitmap(
-            ImageDecoder.createSource(ByteBuffer.wrap(encodedBitmap)),
-        ) { decoder, _, _ ->
-            decoder.allocator = ImageDecoder.ALLOCATOR_HARDWARE
-        }
-        assertThat(hardwareBitmap.config).isEqualTo(Bitmap.Config.HARDWARE)
-        val expected = hardwareBitmap.copy(Bitmap.Config.ARGB_8888, false)
-            .toImageResource()
-            .inlineResource!!
+  @Test
+  fun hardwareBitmapToImageResource() {
+    val softwareBitmap =
+      Bitmap.createBitmap(intArrayOf(Color.RED, Color.GREEN), 2, 1, Bitmap.Config.ARGB_8888)
+    val encodedBitmap =
+      ByteArrayOutputStream()
+        .also { softwareBitmap.compress(Bitmap.CompressFormat.PNG, 100, it) }
+        .toByteArray()
+    val hardwareBitmap =
+      ImageDecoder.decodeBitmap(ImageDecoder.createSource(ByteBuffer.wrap(encodedBitmap))) {
+        decoder,
+        _,
+        _ ->
+        decoder.allocator = ImageDecoder.ALLOCATOR_HARDWARE
+      }
+    assertThat(hardwareBitmap.config).isEqualTo(Bitmap.Config.HARDWARE)
+    val expected =
+      hardwareBitmap.copy(Bitmap.Config.ARGB_8888, false).toImageResource().inlineResource!!
 
-        val actual = hardwareBitmap.toImageResource().inlineResource!!
+    val actual = hardwareBitmap.toImageResource().inlineResource!!
 
-        assertThat(actual.format).isEqualTo(ResourceBuilders.IMAGE_FORMAT_ARGB_8888)
-        assertThat(actual.widthPx).isEqualTo(2)
-        assertThat(actual.heightPx).isEqualTo(1)
-        assertThat(actual.data).isEqualTo(expected.data)
-    }
+    assertThat(actual.format).isEqualTo(ResourceBuilders.IMAGE_FORMAT_ARGB_8888)
+    assertThat(actual.widthPx).isEqualTo(2)
+    assertThat(actual.heightPx).isEqualTo(1)
+    assertThat(actual.data).isEqualTo(expected.data)
+  }
 }

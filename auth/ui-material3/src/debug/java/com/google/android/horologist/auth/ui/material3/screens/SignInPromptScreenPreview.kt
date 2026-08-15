@@ -32,80 +32,51 @@ import com.google.android.horologist.auth.ui.material3.common.screens.prompt.Sig
 @WearPreviewDevices
 @Composable
 fun SignInPromptScreenPreviewSignedOut() {
-    SignInPromptScreen(
-        state = SignInPromptScreenState.SignedOut,
-        title = "Sign in",
-        message = "Send messages and create chat groups with your friends",
-        onIdleStateObserved = { },
-        onAlreadySignedIn = { },
-    ) {
-        item {
-            SignInButton(
-                onClick = { },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.filledTonalButtonColors(),
-            )
-        }
-        item {
-            GuestModeButton(
-                onClick = { },
-                colors = ButtonDefaults.filledTonalButtonColors(),
-            )
-        }
+  SignInPromptScreen(
+    state = SignInPromptScreenState.SignedOut,
+    title = "Sign in",
+    message = "Send messages and create chat groups with your friends",
+    onIdleStateObserved = {},
+    onAlreadySignedIn = {},
+  ) {
+    item {
+      SignInButton(
+        onClick = {},
+        modifier = Modifier.fillMaxWidth(),
+        colors = ButtonDefaults.filledTonalButtonColors(),
+      )
     }
+    item { GuestModeButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun SignInPromptScreenPreviewLoading() {
-    SignInPromptScreen(
-        state = SignInPromptScreenState.Loading,
-        title = "Sign in",
-        message = "Send messages and create chat groups with your friends",
-        onIdleStateObserved = { },
-        onAlreadySignedIn = { },
-    ) {
-        item {
-            SignInButton(
-                onClick = { },
-                colors = ButtonDefaults.filledTonalButtonColors(),
-            )
-        }
-        item {
-            GuestModeButton(
-                onClick = { },
-                colors = ButtonDefaults.filledTonalButtonColors(),
-            )
-        }
-    }
+  SignInPromptScreen(
+    state = SignInPromptScreenState.Loading,
+    title = "Sign in",
+    message = "Send messages and create chat groups with your friends",
+    onIdleStateObserved = {},
+    onAlreadySignedIn = {},
+  ) {
+    item { SignInButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
+    item { GuestModeButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
+  }
 }
 
 @WearPreviewDevices
 @Composable
 fun SignInPromptScreenPreviewCustomLoading() {
-    SignInPromptScreen(
-        state = SignInPromptScreenState.Loading,
-        title = "Sign in",
-        message = "Send messages and create chat groups with your friends",
-        onIdleStateObserved = { },
-        onAlreadySignedIn = { },
-        loadingContent = {
-            Box(contentAlignment = Alignment.Center) {
-                Text("Loading...")
-            }
-        },
-    ) {
-        item {
-            SignInButton(
-                onClick = { },
-                colors = ButtonDefaults.filledTonalButtonColors(),
-            )
-        }
-        item {
-            GuestModeButton(
-                onClick = { },
-                colors = ButtonDefaults.filledTonalButtonColors(),
-            )
-        }
-    }
+  SignInPromptScreen(
+    state = SignInPromptScreenState.Loading,
+    title = "Sign in",
+    message = "Send messages and create chat groups with your friends",
+    onIdleStateObserved = {},
+    onAlreadySignedIn = {},
+    loadingContent = { Box(contentAlignment = Alignment.Center) { Text("Loading...") } },
+  ) {
+    item { SignInButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
+    item { GuestModeButton(onClick = {}, colors = ButtonDefaults.filledTonalButtonColors()) }
+  }
 }

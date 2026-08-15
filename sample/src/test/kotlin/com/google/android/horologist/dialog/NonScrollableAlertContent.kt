@@ -26,27 +26,27 @@ import com.google.android.horologist.compose.material.centeredDialogColumnState
 @ExperimentalHorologistApi
 @Composable
 internal fun NonScrollableAlertContent(
-    onCancel: (() -> Unit)? = null,
-    onOk: (() -> Unit)? = null,
-    icon: @Composable (() -> Unit)? = null,
-    title: String? = null,
-    message: String? = null,
-    okButtonContentDescription: String = stringResource(android.R.string.ok),
-    cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
-    content: (ScalingLazyListScope.() -> Unit)? = null,
+  onCancel: (() -> Unit)? = null,
+  onOk: (() -> Unit)? = null,
+  icon: @Composable (() -> Unit)? = null,
+  title: String? = null,
+  message: String? = null,
+  okButtonContentDescription: String = stringResource(android.R.string.ok),
+  cancelButtonContentDescription: String = stringResource(android.R.string.cancel),
+  content: (ScalingLazyListScope.() -> Unit)? = null,
 ) {
-    val columnState = centeredDialogColumnState()
+  val columnState = centeredDialogColumnState()
 
-    AlertContent(
-        onCancel = onCancel,
-        onOk = onOk,
-        icon = icon,
-        title = title,
-        message = message,
-        okButtonContentDescription = okButtonContentDescription,
-        cancelButtonContentDescription = cancelButtonContentDescription,
-        state = columnState,
-        showPositionIndicator = false,
-        content = content,
-    )
+  AlertContent(
+    onCancel = onCancel,
+    onOk = onOk,
+    icon = icon,
+    title = title,
+    message = message,
+    okButtonContentDescription = okButtonContentDescription,
+    cancelButtonContentDescription = cancelButtonContentDescription,
+    state = columnState,
+    showPositionIndicator = false,
+    content = content,
+  )
 }

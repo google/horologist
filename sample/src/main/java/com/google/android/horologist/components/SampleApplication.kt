@@ -27,34 +27,30 @@ import okhttp3.Call
 import okhttp3.OkHttpClient
 
 class SampleApplication : Application() {
-    lateinit var okHttpClient: OkHttpClient
-    lateinit var coroutineScope: CoroutineScope
-    lateinit var networkLogger: InMemoryStatusLogger
-    lateinit var networkRepository: NetworkRepository
-    lateinit var dataRequestRepository: DataRequestRepository
-    lateinit var networkAwareCallFactory: Call.Factory
+  lateinit var okHttpClient: OkHttpClient
+  lateinit var coroutineScope: CoroutineScope
+  lateinit var networkLogger: InMemoryStatusLogger
+  lateinit var networkRepository: NetworkRepository
+  lateinit var dataRequestRepository: DataRequestRepository
+  lateinit var networkAwareCallFactory: Call.Factory
 
-    override fun onCreate() {
-        super.onCreate()
+  override fun onCreate() {
+    super.onCreate()
 
-        setStrictMode()
+    setStrictMode()
 
-        SampleAppDI.inject(this)
-    }
+    SampleAppDI.inject(this)
+  }
 
-    private fun setStrictMode() {
-        StrictMode.setThreadPolicy(
-            StrictMode.ThreadPolicy.Builder()
-                .detectDiskReads()
-                .detectDiskWrites()
-                .detectNetwork()
-                .penaltyDeath()
-                .build(),
-        )
-        StrictMode.setVmPolicy(
-            StrictMode.VmPolicy.Builder()
-                .detectAll()
-                .build(),
-        )
-    }
+  private fun setStrictMode() {
+    StrictMode.setThreadPolicy(
+      StrictMode.ThreadPolicy.Builder()
+        .detectDiskReads()
+        .detectDiskWrites()
+        .detectNetwork()
+        .penaltyDeath()
+        .build()
+    )
+    StrictMode.setVmPolicy(StrictMode.VmPolicy.Builder().detectAll().build())
+  }
 }

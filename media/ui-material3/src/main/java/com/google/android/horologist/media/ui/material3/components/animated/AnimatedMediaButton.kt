@@ -25,7 +25,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
@@ -52,113 +51,109 @@ import kotlinx.coroutines.launch
  * @param modifier The modifier to apply to the button.
  * @param onRepeatableClick The callback to invoke when the button is repeatedly clicked (optional).
  * @param onRepeatableClickEnd The callback to invoke when the button is no longer repeatedly
- *     clicked (optional).
+ *   clicked (optional).
  * @param enabled Whether the button is enabled (optional).
  * @param colors The colors to apply to the button (optional).
  * @param interactionSource The interaction source to apply to the button (optional).
  * @param buttonPadding The padding to be applied around the button. Defafults to Zero (optional).
- * @param iconSize The size of the icon (optional).
- * @param iconAlign The alignment of the icon (optional).
+ * @param lottieAnimatable The [LottieAnimatable] instance to control the animation (optional).
+ * @param content The customized content to be displayed inside the button (optional). If null, the
+ *   default content will be displayed, which is the Lottie animation.
  */
 @Composable
 public fun AnimatedMediaButton(
-    onClick: () -> Unit,
-    compositionResult: LottieCompositionResult,
-    contentDescription: String,
-    modifier: Modifier = Modifier,
-    onRepeatableClick: (() -> Unit)? = null,
-    onRepeatableClickEnd: (() -> Unit)? = null,
-    enabled: Boolean = true,
-    colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(),
-    interactionSource: MutableInteractionSource? = null,
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
-    iconAlign: Alignment = Alignment.Center,
+  onClick: () -> Unit,
+  compositionResult: LottieCompositionResult,
+  contentDescription: String,
+  modifier: Modifier = Modifier,
+  onRepeatableClick: (() -> Unit)? = null,
+  onRepeatableClickEnd: (() -> Unit)? = null,
+  enabled: Boolean = true,
+  colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(),
+  interactionSource: MutableInteractionSource? = null,
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  lottieAnimatable: LottieAnimatable = rememberLottieAnimatable(),
+  content: @Composable (BoxScope.() -> Unit)? = null,
 ) {
-    val scope = rememberCoroutineScope()
-    val lottieAnimatable = rememberLottieAnimatable()
-    if (onRepeatableClick == null) {
-        UnboundedRippleIconButton(
-            onClick = {
-                scope.launch { lottieAnimatable.animate(composition = compositionResult.value) }
-                onClick()
-            },
-            modifier = modifier,
-            enabled = enabled,
-            colors = colors,
-            rippleRadius = null,
-            buttonPadding = buttonPadding,
-            interactionSource = interactionSource,
-        ) {
-            MediaButtonContent(
-                compositionResult = compositionResult,
-                contentDescription = contentDescription,
-                iconSize = iconSize,
-                iconAlign = iconAlign,
-                lottieAnimatable = lottieAnimatable,
-            )
-        }
-    } else {
-        RepeatableClickableButton(
-            onClick = {
-                scope.launch { lottieAnimatable.animate(composition = compositionResult.value) }
-                onClick()
-            },
-            onRepeatableClick = onRepeatableClick,
-            onRepeatableClickEnd = onRepeatableClickEnd ?: {},
-            interactionSource = interactionSource,
-            indication = null,
-            buttonPadding = buttonPadding,
-            modifier = modifier,
-            enabled = enabled,
-            colors = colors,
-        ) {
-            MediaButtonContent(
-                compositionResult = compositionResult,
-                contentDescription = contentDescription,
-                iconSize = iconSize,
-                iconAlign = iconAlign,
-                lottieAnimatable = lottieAnimatable,
-            )
-        }
+  val scope = rememberCoroutineScope()
+  if (onRepeatableClick == null) {
+    UnboundedRippleIconButton(
+      onClick = {
+        scope.launch { lottieAnimatable.animate(composition = compositionResult.value) }
+        onClick()
+      },
+      modifier = modifier,
+      enabled = enabled,
+      colors = colors,
+      rippleRadius = null,
+      buttonPadding = buttonPadding,
+      interactionSource = interactionSource,
+    ) {
+      content?.invoke(this)
+        ?: MediaButtonContent(
+          compositionResult = compositionResult,
+          contentDescription = contentDescription,
+          lottieAnimatable = lottieAnimatable,
+        )
     }
+  } else {
+    RepeatableClickableButton(
+      onClick = {
+        scope.launch { lottieAnimatable.animate(composition = compositionResult.value) }
+        onClick()
+      },
+      onRepeatableClick = onRepeatableClick,
+      onRepeatableClickEnd = onRepeatableClickEnd ?: {},
+      interactionSource = interactionSource,
+      indication = null,
+      buttonPadding = buttonPadding,
+      modifier = modifier,
+      enabled = enabled,
+      colors = colors,
+    ) {
+      content?.invoke(this)
+        ?: MediaButtonContent(
+          compositionResult = compositionResult,
+          contentDescription = contentDescription,
+          lottieAnimatable = lottieAnimatable,
+        )
+    }
+  }
 }
 
 @Composable
-private fun BoxScope.MediaButtonContent(
-    compositionResult: LottieCompositionResult,
-    contentDescription: String,
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
-    dynamicProperties: LottieDynamicProperties? = rememberLottieDynamicProperties(
-        rememberLottieDynamicProperty(
-            property = LottieProperty.COLOR,
-            value = LocalContentColor.current.toArgb(),
-            keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
-        ),
-        rememberLottieDynamicProperty(
-            property = LottieProperty.STROKE_COLOR,
-            value = LocalContentColor.current.toArgb(),
-            keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
-        ),
-        rememberLottieDynamicProperty(
-            property = LottieProperty.OPACITY,
-            value = LocalContentColor.current.opacityForLottieAnimation(),
-            keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
-        ),
+internal fun BoxScope.MediaButtonContent(
+  compositionResult: LottieCompositionResult,
+  contentDescription: String,
+  modifier: Modifier = Modifier,
+  lottieAnimatable: LottieAnimatable = rememberLottieAnimatable(),
+  dynamicProperties: LottieDynamicProperties? =
+    rememberLottieDynamicProperties(
+      rememberLottieDynamicProperty(
+        property = LottieProperty.COLOR,
+        value = LocalContentColor.current.toArgb(),
+        keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
+      ),
+      rememberLottieDynamicProperty(
+        property = LottieProperty.STROKE_COLOR,
+        value = LocalContentColor.current.toArgb(),
+        keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
+      ),
+      rememberLottieDynamicProperty(
+        property = LottieProperty.OPACITY,
+        value = LocalContentColor.current.opacityForLottieAnimation(),
+        keyPath = LOTTIE_DYNAMIC_PROPERTY_KEY_PATH,
+      ),
     ),
-    iconAlign: Alignment = Alignment.Center,
-    lottieAnimatable: LottieAnimatable,
 ) {
-    val contentModifier = Modifier
-        .size(iconSize)
-        .align(iconAlign)
+  val contentModifier = modifier.size(IconButtonDefaults.LargeIconSize).align(Alignment.Center)
 
-    LottieAnimationWithPlaceholder(
-        lottieCompositionResult = compositionResult,
-        progress = { lottieAnimatable.progress },
-        placeholder = LottiePlaceholders.Next,
-        contentDescription = contentDescription,
-        modifier = contentModifier,
-        dynamicProperties = dynamicProperties,
-    )
+  LottieAnimationWithPlaceholder(
+    lottieCompositionResult = compositionResult,
+    progress = { lottieAnimatable.progress },
+    placeholder = LottiePlaceholders.Next,
+    contentDescription = contentDescription,
+    modifier = contentModifier,
+    dynamicProperties = dynamicProperties,
+  )
 }

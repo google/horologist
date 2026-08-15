@@ -27,85 +27,30 @@ import com.google.android.horologist.images.base.paintable.DrawableResPaintable
 @WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreview() {
-    HorologistMaterialTheme {
-        SignedInConfirmationDialogContent(
-            modifier = Modifier.fillMaxSize(),
-            name = "Maggie",
-
-            avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
-        )
-    }
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogMMMPreview() {
-    HorologistMaterialTheme {
-        SignedInConfirmationDialogContent(
-            modifier = Modifier.fillMaxSize(),
-            name = "MMMMMMMMM",
-            email = "MMMMMMMMMMMMMMMMMMMMMMMM",
-            avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
-        )
-    }
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogContentPreview() {
-    HorologistMaterialTheme {
-        SignedInConfirmationDialogContent(
-            modifier = Modifier.fillMaxSize(),
-            name = "Maggie",
-            email = "maggiesveryveryverylongworkemail@example.com",
-            avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
-        )
-    }
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationNoAvatar() {
-    HorologistMaterialTheme {
-        SignedInConfirmationDialogContent(
-            modifier = Modifier.fillMaxSize(),
-            name = "Timothy",
-            email = "timandrews123@example.com",
-        )
-    }
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogPreviewNoName() {
-    SignedInConfirmationDialog(
-        onDismissOrTimeout = {},
-        email = "timandrews123@example.com",
-        avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
+  HorologistMaterialTheme {
+    SignedInConfirmationDialogContent(
+      modifier = Modifier.fillMaxSize(),
+      name = "Maggie",
+      email = "maggie@example.com",
+      avatar = DrawableResPaintable(R.drawable.horologist_avatar_small_3),
     )
+  }
 }
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationDialogPreviewNoEmail() {
-    SignedInConfirmationDialog(
-        onDismissOrTimeout = {},
-        name = "Maggie",
-    )
+fun SignedInConfirmationDialogMinimalPreview() {
+  HorologistMaterialTheme {
+    SignedInConfirmationDialogContent(modifier = Modifier.fillMaxSize(), name = "Maggie")
+  }
 }
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationDialogPreviewNoInformation() {
-    SignedInConfirmationDialog(onDismissOrTimeout = {})
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogPreviewTruncation() {
-    SignedInConfirmationDialog(
-        onDismissOrTimeout = {},
-        name = "Wolfeschlegelsteinhausenbergerdorff",
-        email = "wolfeschlegelsteinhausenbergerdorff@example.com",
-    )
+fun SignedInConfirmationDialogTruncationPreview() {
+  SignedInConfirmationDialog(
+    onDismissOrTimeout = {},
+    name = "Wolfeschlegelsteinhausenbergerdorff",
+    email = "wolfeschlegelsteinhausenbergerdorff@example.com",
+  )
 }

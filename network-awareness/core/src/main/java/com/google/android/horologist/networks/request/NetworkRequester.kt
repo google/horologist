@@ -26,9 +26,9 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
  */
 @ExperimentalHorologistApi
 public interface NetworkRequester {
-    /**
-     * Make a request for a high bandwidth network, with request details provided in
-     * `request`. Returns a cancellation Token, that also allows waiting for a connection.
-     */
-    public fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease
+  /**
+   * Make a request for a high bandwidth network, with request details provided in `request`.
+   * Returns a cancellation Token, that also allows waiting for a connection.
+   */
+  public fun requestHighBandwidthNetwork(request: HighBandwidthRequest): NetworkLease
 }

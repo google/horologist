@@ -38,61 +38,44 @@ import androidx.wear.compose.material3.rememberPlaceholderState
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.composables.R
 
-/**
- * A placeholder button to be displayed while the contents of the [Button] is being loaded.
- */
+/** A placeholder button to be displayed while the contents of the [Button] is being loaded. */
 @ExperimentalHorologistApi
 @Composable
 public fun PlaceholderButton(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
-    placeholderState: PlaceholderState = rememberPlaceholderState(true),
-    secondaryLabel: Boolean = true,
-    icon: Boolean = true,
-    colors: ButtonColors = ButtonDefaults.buttonColors(),
-    enabled: Boolean = false,
-    contentDescription: String = stringResource(id = R.string.horologist_placeholderchip_content_description),
+  modifier: Modifier = Modifier,
+  onClick: () -> Unit = {},
+  placeholderState: PlaceholderState = rememberPlaceholderState(true),
+  secondaryLabel: Boolean = true,
+  icon: Boolean = true,
+  colors: ButtonColors = ButtonDefaults.buttonColors(),
+  enabled: Boolean = false,
+  contentDescription: String =
+    stringResource(id = R.string.horologist_placeholderchip_content_description),
 ) {
-    Button(
-        onClick = onClick,
-        enabled = enabled,
-        modifier = modifier
-            .semantics {
-                this.contentDescription = contentDescription
-            }
-            .placeholderShimmer(placeholderState),
-        label = {
-            Box(
-                Modifier
-                    .height(12.dp)
-                    .fillMaxWidth()
-                    .placeholder(placeholderState),
-            )
-        },
-        icon = if (icon) {
-            {
-                Box(
-                    Modifier
-                        .size(ButtonDefaults.IconSize)
-                        .clip(CircleShape)
-                        .placeholder(placeholderState),
-                )
-            }
-        } else {
-            null
-        },
-        secondaryLabel = if (secondaryLabel) {
-            {
-                Box(
-                    Modifier
-                        .height(12.dp)
-                        .fillMaxWidth()
-                        .placeholder(placeholderState),
-                )
-            }
-        } else {
-            null
-        },
-        colors = colors,
-    )
+  Button(
+    onClick = onClick,
+    enabled = enabled,
+    modifier =
+      modifier
+        .semantics { this.contentDescription = contentDescription }
+        .placeholderShimmer(placeholderState),
+    label = { Box(Modifier.height(12.dp).fillMaxWidth().placeholder(placeholderState)) },
+    icon =
+      if (icon) {
+        {
+          Box(
+            Modifier.size(ButtonDefaults.IconSize).clip(CircleShape).placeholder(placeholderState)
+          )
+        }
+      } else {
+        null
+      },
+    secondaryLabel =
+      if (secondaryLabel) {
+        { Box(Modifier.height(12.dp).fillMaxWidth().placeholder(placeholderState)) }
+      } else {
+        null
+      },
+    colors = colors,
+  )
 }

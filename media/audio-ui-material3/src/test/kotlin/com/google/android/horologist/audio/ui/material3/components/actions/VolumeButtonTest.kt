@@ -33,126 +33,116 @@ import org.junit.Test
 
 class VolumeButtonTest : WearLegacyComponentTest() {
 
-    @Test
-    fun givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown() {
-        val currentVolume = 5
+  @Test
+  fun givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown() {
+    val currentVolume = 5
 
-        runComponentTest {
-            VolumeButton(
-                onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume, max = 10),
-            )
-        }
+    runComponentTest {
+      VolumeButton(
+        onVolumeClick = {},
+        volumeUiState = VolumeUiState(current = currentVolume, max = 10),
+      )
     }
+  }
 
-    @Test
-    fun givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
-        val currentVolume = 0
+  @Test
+  fun givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
+    val currentVolume = 0
 
-        runComponentTest {
-            VolumeButton(
-                onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume),
-            )
-        }
+    runComponentTest {
+      VolumeButton(onVolumeClick = {}, volumeUiState = VolumeUiState(current = currentVolume))
     }
+  }
 
-    @Test
-    fun givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
-        val currentVolume = 1
+  @Test
+  fun givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
+    val currentVolume = 1
 
-        runComponentTest {
-            VolumeButton(
-                onVolumeClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume),
-            )
-        }
+    runComponentTest {
+      VolumeButton(onVolumeClick = {}, volumeUiState = VolumeUiState(current = currentVolume))
     }
+  }
 
-    @Test
-    fun givenNullVolumeUiState_thenIconIsVolumeUp() {
-        runComponentTest {
-            VolumeButton(onVolumeClick = {}, volumeUiState = null)
-        }
+  @Test
+  fun givenNullVolumeUiState_thenIconIsVolumeUp() {
+    runComponentTest { VolumeButton(onVolumeClick = {}, volumeUiState = null) }
+  }
+
+  @Test
+  fun givenNoVolumeUiState_thenIconIsRadio() {
+    runComponentTest { VolumeButton(onVolumeClick = {}) }
+  }
+
+  @Test
+  fun volumeButtonWithBadge_givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown() {
+    val currentVolume = 5
+
+    runComponentTest {
+      VolumeButtonWithBadge(
+        onOutputClick = {},
+        volumeUiState = VolumeUiState(current = currentVolume, max = 10),
+        audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name").toAudioOutputUi(),
+      )
     }
+  }
 
-    @Test
-    fun givenNoVolumeUiState_thenIconIsRadio() {
-        runComponentTest {
-            VolumeButton(onVolumeClick = {})
-        }
+  @Test
+  fun volumeButtonWithBadge_givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
+    val currentVolume = 0
+
+    runComponentTest {
+      VolumeButtonWithBadge(
+        onOutputClick = {},
+        volumeUiState = VolumeUiState(current = currentVolume, max = 10),
+        audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name").toAudioOutputUi(),
+      )
     }
+  }
 
-    @Test
-    fun volumeButtonWithBadge_givenCurrentVolumeIsNotMaxAndNotMin_thenIconIsVolumeDown() {
-        val currentVolume = 5
+  @Test
+  fun volumeButtonWithBadge_givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
+    val currentVolume = 10
 
-        runComponentTest {
-            VolumeButtonWithBadge(
-                onOutputClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume, max = 10),
-                audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name").toAudioOutputUi(),
-            )
-        }
+    runComponentTest {
+      VolumeButtonWithBadge(
+        onOutputClick = {},
+        volumeUiState = VolumeUiState(current = currentVolume, max = 10),
+        audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name").toAudioOutputUi(),
+      )
     }
+  }
 
-    @Test
-    fun volumeButtonWithBadge_givenCurrentVolumeIsMinimum_thenIconIsVolumeMute() {
-        val currentVolume = 0
-
-        runComponentTest {
-            VolumeButtonWithBadge(
-                onOutputClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume, max = 10),
-                audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name").toAudioOutputUi(),
-            )
-        }
+  @Test
+  fun volumeButtonWithBadge_givenNoVolumeUiState_thenIconIsVolumeUp() {
+    runComponentTest {
+      VolumeButtonWithBadge(
+        onOutputClick = {},
+        volumeUiState = null,
+        audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name").toAudioOutputUi(),
+      )
     }
+  }
 
-    @Test
-    fun volumeButtonWithBadge_givenCurrentVolumeIsMaximum_thenIconIsVolumeUp() {
-        val currentVolume = 10
-
-        runComponentTest {
-            VolumeButtonWithBadge(
-                onOutputClick = {},
-                volumeUiState = VolumeUiState(current = currentVolume, max = 10),
-                audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name").toAudioOutputUi(),
-            )
-        }
+  @Test
+  fun volumeButtonWithBadge_givenNoneAudioOutputUi_thenIconIsMediaOutputOff() {
+    runComponentTest {
+      VolumeButtonWithBadge(
+        onOutputClick = {},
+        audioOutputUi = AudioOutput.None.toAudioOutputUi(),
+        volumeUiState = null,
+      )
     }
+  }
 
-    @Test
-    fun volumeButtonWithBadge_givenNoVolumeUiState_thenIconIsVolumeUp() {
-        runComponentTest {
-            VolumeButtonWithBadge(
-                onOutputClick = {},
-                volumeUiState = null,
-                audioOutputUi = AudioOutput.BluetoothHeadset(id = "id", name = "name").toAudioOutputUi(),
-            )
-        }
+  @Composable
+  override fun ComponentScaffold(content: @Composable () -> Unit) {
+    Box(
+      modifier =
+        Modifier.wrapContentSize()
+          .background(MaterialTheme.colorScheme.background)
+          .border(1.dp, Color.White)
+    ) {
+      content()
     }
-
-    @Test
-    fun volumeButtonWithBadge_givenNoneAudioOutputUi_thenIconIsMediaOutputOff() {
-        runComponentTest {
-            VolumeButtonWithBadge(
-                onOutputClick = {},
-                audioOutputUi = AudioOutput.None.toAudioOutputUi(),
-                volumeUiState = null,
-            )
-        }
-    }
-
-    @Composable
-    override fun ComponentScaffold(content: @Composable () -> Unit) {
-        Box(
-            modifier = Modifier
-                .wrapContentSize()
-                .background(MaterialTheme.colorScheme.background)
-                .border(1.dp, Color.White),
-        ) {
-            content()
-        }
-    }
+  }
 }

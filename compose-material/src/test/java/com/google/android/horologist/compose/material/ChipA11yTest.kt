@@ -31,50 +31,52 @@ import org.junit.Test
 
 class ChipA11yTest : WearLegacyA11yTest() {
 
-    @Test
-    fun withSecondaryLabelAndIcon() {
-        runComponentTest {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                onLongClick = {},
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
-
-        composeRule.onNode(keyIsDefined(SemanticsProperties.Role))
-            .assertHasClickAction()
-            .assert(keyIsDefined(SemanticsActions.OnLongClick))
-            .assertTextEquals("Primary label, Secondary label")
+  @Test
+  fun withSecondaryLabelAndIcon() {
+    runComponentTest {
+      Chip(
+        label = "Primary label",
+        onClick = {},
+        onLongClick = {},
+        secondaryLabel = "Secondary label",
+        icon = Icons.Default.Image.asPaintable(),
+      )
     }
 
-    @Test
-    fun withSecondaryLabelAndIconMaterial() {
-        runComponentTest {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-            )
-        }
+    composeRule
+      .onNode(keyIsDefined(SemanticsProperties.Role))
+      .assertHasClickAction()
+      .assert(keyIsDefined(SemanticsActions.OnLongClick))
+      .assertTextEquals("Primary label, Secondary label")
+  }
 
-        composeRule.onNode(keyIsDefined(SemanticsProperties.Role))
-            .assertHasClickAction()
-            .assert(keyNotDefined(SemanticsActions.OnLongClick))
+  @Test
+  fun withSecondaryLabelAndIconMaterial() {
+    runComponentTest {
+      Chip(
+        label = "Primary label",
+        onClick = {},
+        secondaryLabel = "Secondary label",
+        icon = Icons.Default.Image.asPaintable(),
+      )
     }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            Chip(
-                label = "Primary label",
-                onClick = { },
-                secondaryLabel = "Secondary label",
-                icon = Icons.Default.Image.asPaintable(),
-                enabled = false,
-            )
-        }
+    composeRule
+      .onNode(keyIsDefined(SemanticsProperties.Role))
+      .assertHasClickAction()
+      .assert(keyNotDefined(SemanticsActions.OnLongClick))
+  }
+
+  @Test
+  fun disabled() {
+    runComponentTest {
+      Chip(
+        label = "Primary label",
+        onClick = {},
+        secondaryLabel = "Secondary label",
+        icon = Icons.Default.Image.asPaintable(),
+        enabled = false,
+      )
     }
+  }
 }

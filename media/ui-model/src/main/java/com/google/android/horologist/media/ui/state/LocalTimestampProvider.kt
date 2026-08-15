@@ -27,4 +27,6 @@ import com.google.android.horologist.media.model.TimestampProvider
  * [com.google.android.horologist.media.model.LiveMediaPositionPredictor] instances.
  */
 public val LocalTimestampProvider: ProvidableCompositionLocal<TimestampProvider> =
-    staticCompositionLocalOf { TimestampProvider { SystemClock.elapsedRealtime() } }
+  staticCompositionLocalOf {
+    TimestampProvider { SystemClock.elapsedRealtime() }
+  }

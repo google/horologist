@@ -25,22 +25,22 @@ import com.google.android.horologist.datalayer.sample.shared.CounterValueSeriali
 import com.google.android.horologist.datalayer.sample.shared.grpc.CounterServiceGrpcKt
 import com.google.android.horologist.datalayer.sample.shared.grpc.GrpcDemoProto.CounterValue
 
-class WearCounterDataService : BaseGrpcDataService<CounterServiceGrpcKt.CounterServiceCoroutineImplBase>() {
+class WearCounterDataService :
+  BaseGrpcDataService<CounterServiceGrpcKt.CounterServiceCoroutineImplBase>() {
 
-    private val dataStore: DataStore<CounterValue> by lazy {
-        registry.protoDataStore<CounterValue>(lifecycleScope)
-    }
+  private val dataStore: DataStore<CounterValue> by lazy {
+    registry.protoDataStore<CounterValue>(lifecycleScope)
+  }
 
-    override val registry: WearDataLayerRegistry by lazy {
-        WearDataLayerRegistry.fromContext(
-            application = applicationContext,
-            coroutineScope = lifecycleScope,
-        ).apply {
-            registerSerializer(CounterValueSerializer)
-        }
-    }
+  override val registry: WearDataLayerRegistry by lazy {
+    WearDataLayerRegistry.fromContext(
+        application = applicationContext,
+        coroutineScope = lifecycleScope,
+      )
+      .apply { registerSerializer(CounterValueSerializer) }
+  }
 
-    override fun buildService(): CounterServiceGrpcKt.CounterServiceCoroutineImplBase {
-        return CounterService(dataStore)
-    }
+  override fun buildService(): CounterServiceGrpcKt.CounterServiceCoroutineImplBase {
+    return CounterService(dataStore)
+  }
 }

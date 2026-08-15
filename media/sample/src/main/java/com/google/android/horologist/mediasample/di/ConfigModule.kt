@@ -37,50 +37,37 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ConfigModule {
-    @Singleton
-    @Provides
-    @IsEmulator
-    fun isEmulator() = listOf(Build.PRODUCT, Build.MODEL).any { it.startsWith("sdk_gwear") }
+  @Singleton
+  @Provides
+  @IsEmulator
+  fun isEmulator() = listOf(Build.PRODUCT, Build.MODEL).any { it.startsWith("sdk_gwear") }
 
-    @Singleton
-    @Provides
-    @SuppressSpeakerPlayback
-    fun suppressSpeakerPlayback(
-        @IsEmulator isEmulator: Boolean,
-    ) = !BuildConfig.BENCHMARK && !isEmulator
+  @Singleton
+  @Provides
+  @SuppressSpeakerPlayback
+  fun suppressSpeakerPlayback(@IsEmulator isEmulator: Boolean) =
+    !BuildConfig.BENCHMARK && !isEmulator
 
-    @Singleton
-    @Provides
-    fun appConfig(): AppConfig = AppConfig()
+  @Singleton @Provides fun appConfig(): AppConfig = AppConfig()
 
-    @Singleton
-    @Provides
-    @CacheDir
-    fun cacheDir(
-        @ApplicationContext application: Context,
-    ): File =
-        StrictMode.allowThreadDiskWrites().resetAfter {
-            application.cacheDir
-        }
+  @Singleton
+  @Provides
+  @CacheDir
+  fun cacheDir(@ApplicationContext application: Context): File =
+    StrictMode.allowThreadDiskWrites().resetAfter { application.cacheDir }
 
-    @Singleton
-    @Provides
-    fun audioOutputSelector(
-        systemAudioRepository: SystemAudioRepository,
-    ): AudioOutputSelector =
-        BluetoothSettingsOutputSelector(systemAudioRepository)
+  @Singleton
+  @Provides
+  fun audioOutputSelector(systemAudioRepository: SystemAudioRepository): AudioOutputSelector =
+    BluetoothSettingsOutputSelector(systemAudioRepository)
 
-    @Singleton
-    @Provides
-    fun systemAudioRepository(
-        @ApplicationContext application: Context,
-    ): SystemAudioRepository =
-        SystemAudioRepository.fromContext(application)
+  @Singleton
+  @Provides
+  fun systemAudioRepository(@ApplicationContext application: Context): SystemAudioRepository =
+    SystemAudioRepository.fromContext(application)
 
-    @Singleton
-    @Provides
-    fun notificationManager(
-        @ApplicationContext application: Context,
-    ): NotificationManager =
-        application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+  @Singleton
+  @Provides
+  fun notificationManager(@ApplicationContext application: Context): NotificationManager =
+    application.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 }

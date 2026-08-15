@@ -38,60 +38,58 @@ import androidx.wear.compose.material.MaterialTheme
 
 @Composable
 public fun ResponsiveListHeader(
-    modifier: Modifier = Modifier,
-    backgroundColor: Color = Color.Transparent,
-    contentColor: Color = MaterialTheme.colors.onSurfaceVariant,
-    contentPadding: PaddingValues = ListHeaderDefaults.itemPadding(),
-    content: @Composable RowScope.() -> Unit,
+  modifier: Modifier = Modifier,
+  backgroundColor: Color = Color.Transparent,
+  contentColor: Color = MaterialTheme.colors.onSurfaceVariant,
+  contentPadding: PaddingValues = ListHeaderDefaults.itemPadding(),
+  content: @Composable RowScope.() -> Unit,
 ) {
-    Row(
-        modifier = modifier
-            .height(IntrinsicSize.Min)
-            .wrapContentSize()
-            .background(backgroundColor)
-            .padding(contentPadding)
-            .semantics(mergeDescendants = true) { heading() },
+  Row(
+    modifier =
+      modifier
+        .height(IntrinsicSize.Min)
+        .wrapContentSize()
+        .background(backgroundColor)
+        .padding(contentPadding)
+        .semantics(mergeDescendants = true) { heading() }
+  ) {
+    CompositionLocalProvider(
+      LocalContentColor provides contentColor,
+      LocalTextStyle provides MaterialTheme.typography.button,
     ) {
-        CompositionLocalProvider(
-            LocalContentColor provides contentColor,
-            LocalTextStyle provides MaterialTheme.typography.button,
-        ) {
-            content()
-        }
+      content()
     }
+  }
 }
 
 public object ListHeaderDefaults {
-    /**
-     * Padding for the first item in the list. It is recommended to omit
-     * top padding for this item so that it is positioned directly below the
-     * list's own top padding.
-     */
-    @Composable
-    public fun firstItemPadding(): PaddingValues = PaddingValues(
-        start = screenWidthDp().dp * HorizontalPaddingPercent,
-        end = screenWidthDp().dp * HorizontalPaddingPercent,
-        bottom = BottomPadding,
+  /**
+   * Padding for the first item in the list. It is recommended to omit top padding for this item so
+   * that it is positioned directly below the list's own top padding.
+   */
+  @Composable
+  public fun firstItemPadding(): PaddingValues =
+    PaddingValues(
+      start = screenWidthDp().dp * HorizontalPaddingPercent,
+      end = screenWidthDp().dp * HorizontalPaddingPercent,
+      bottom = BottomPadding,
     )
 
-    /**
-     * Padding for list items other than the top item in the list.
-     */
-    @Composable
-    public fun itemPadding(): PaddingValues = PaddingValues(
-        start = screenWidthDp().dp * HorizontalPaddingPercent,
-        end = screenWidthDp().dp * HorizontalPaddingPercent,
-        top = TopPadding,
-        bottom = BottomPadding,
+  /** Padding for list items other than the top item in the list. */
+  @Composable
+  public fun itemPadding(): PaddingValues =
+    PaddingValues(
+      start = screenWidthDp().dp * HorizontalPaddingPercent,
+      end = screenWidthDp().dp * HorizontalPaddingPercent,
+      top = TopPadding,
+      bottom = BottomPadding,
     )
 
-    private const val HorizontalPaddingPercent = 0.073f
-    private val TopPadding = 12.dp // + 4.dp default from SLC
-    private val BottomPadding = 8.dp // + 4.dp default from SLC
+  private const val HorizontalPaddingPercent = 0.073f
+  private val TopPadding = 12.dp // + 4.dp default from SLC
+  private val BottomPadding = 8.dp // + 4.dp default from SLC
 
-    @Composable
-    internal fun screenHeightDp() = LocalConfiguration.current.screenHeightDp
+  @Composable internal fun screenHeightDp() = LocalConfiguration.current.screenHeightDp
 
-    @Composable
-    internal fun screenWidthDp() = LocalConfiguration.current.screenWidthDp
+  @Composable internal fun screenWidthDp() = LocalConfiguration.current.screenWidthDp
 }

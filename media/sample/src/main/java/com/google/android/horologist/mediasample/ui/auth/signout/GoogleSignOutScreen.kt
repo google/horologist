@@ -46,73 +46,65 @@ import com.google.android.horologist.mediasample.R
 
 @Composable
 fun GoogleSignOutScreen(
-    backStack: NavBackStack<CustomRoute>,
-    viewModel: UampGoogleSignOutViewModel,
-    modifier: Modifier = Modifier,
+  backStack: NavBackStack<CustomRoute>,
+  viewModel: UampGoogleSignOutViewModel,
+  modifier: Modifier = Modifier,
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+  val state by viewModel.uiState.collectAsStateWithLifecycle()
 
-    when (state) {
-        GoogleSignOutScreenState.Idle -> {
-            SideEffect {
-                viewModel.onIdleStateObserved()
-            }
+  when (state) {
+    GoogleSignOutScreenState.Idle -> {
+      SideEffect { viewModel.onIdleStateObserved() }
 
-            LoadingView(modifier = modifier)
-        }
-
-        GoogleSignOutScreenState.Loading -> {
-            LoadingView(modifier = modifier)
-        }
-
-        GoogleSignOutScreenState.Success -> {
-            var showConfirmation by rememberSaveable { mutableStateOf(true) }
-
-            ConfirmationDialog(
-                visible = showConfirmation,
-                onDismissRequest = {
-                    showConfirmation = false
-                    backStack.removeLastOrNull()
-                },
-                modifier = modifier,
-                text = {
-                    Text(
-                        textAlign = TextAlign.Center,
-                        text = stringResource(id = R.string.google_sign_out_success_message),
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onBackground,
-                    )
-                },
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Check,
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.primary,
-                    modifier = Modifier.size(48.dp),
-                )
-            }
-        }
-
-        GoogleSignOutScreenState.Failed -> {
-            SideEffect {
-                backStack.removeLastOrNull()
-            }
-        }
+      LoadingView(modifier = modifier)
     }
+
+    GoogleSignOutScreenState.Loading -> {
+      LoadingView(modifier = modifier)
+    }
+
+    GoogleSignOutScreenState.Success -> {
+      var showConfirmation by rememberSaveable { mutableStateOf(true) }
+
+      ConfirmationDialog(
+        visible = showConfirmation,
+        onDismissRequest = {
+          showConfirmation = false
+          backStack.removeLastOrNull()
+        },
+        modifier = modifier,
+        text = {
+          Text(
+            textAlign = TextAlign.Center,
+            text = stringResource(id = R.string.google_sign_out_success_message),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onBackground,
+          )
+        },
+      ) {
+        Icon(
+          imageVector = Icons.Default.Check,
+          contentDescription = null,
+          tint = MaterialTheme.colorScheme.primary,
+          modifier = Modifier.size(48.dp),
+        )
+      }
+    }
+
+    GoogleSignOutScreenState.Failed -> {
+      SideEffect { backStack.removeLastOrNull() }
+    }
+  }
 }
 
 @Composable
 private fun LoadingView(modifier: Modifier = Modifier) {
-    ScreenScaffold(
-        modifier = modifier,
-    ) { contentPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(contentPadding),
-            contentAlignment = Alignment.Center,
-        ) {
-            CircularProgressIndicator()
-        }
+  ScreenScaffold(modifier = modifier) { contentPadding ->
+    Box(
+      modifier = Modifier.fillMaxSize().padding(contentPadding),
+      contentAlignment = Alignment.Center,
+    ) {
+      CircularProgressIndicator()
     }
+  }
 }

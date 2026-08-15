@@ -31,19 +31,14 @@ import io.grpc.ManagedChannel
 @Module
 @InstallIn(ViewModelComponent::class)
 object ViewModelModule {
-    @ViewModelScoped
-    @Provides
-    fun selfService(
-        @ApplicationContext context: Context,
-        lifecycle: ViewModelLifecycle,
-    ): InferenceServiceGrpcKt.InferenceServiceCoroutineStub {
-        return lookupInferenceService(
-            context,
-            context.packageName,
-        ).apply {
-            lifecycle.addOnClearedListener {
-                (channel as? ManagedChannel?)?.shutdownNow()
-            }
-        }
+  @ViewModelScoped
+  @Provides
+  fun selfService(
+    @ApplicationContext context: Context,
+    lifecycle: ViewModelLifecycle,
+  ): InferenceServiceGrpcKt.InferenceServiceCoroutineStub {
+    return lookupInferenceService(context, context.packageName).apply {
+      lifecycle.addOnClearedListener { (channel as? ManagedChannel?)?.shutdownNow() }
     }
+  }
 }

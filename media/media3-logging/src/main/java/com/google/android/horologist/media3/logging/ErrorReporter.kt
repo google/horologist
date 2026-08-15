@@ -19,26 +19,30 @@ package com.google.android.horologist.media3.logging
 import androidx.annotation.StringRes
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 
-/**
- * Simple API to allow switching logic for logging and showing user messages.
- */
+/** Simple API to allow switching logic for logging and showing user messages. */
 @ExperimentalHorologistApi
 public interface ErrorReporter {
-    public fun showMessage(
-        @StringRes message: Int,
-    )
+  public fun showMessage(@StringRes message: Int)
 
-    public fun logMessage(
-        message: String,
-        category: Category = Category.Unknown,
-        level: Level = Level.Info,
-    )
+  public fun logMessage(
+    message: String,
+    category: Category = Category.Unknown,
+    level: Level = Level.Info,
+  )
 
-    public enum class Category {
-        Playback, Downloads, Network, App, DB, Jobs, Unknown
-    }
+  public enum class Category {
+    Playback,
+    Downloads,
+    Network,
+    App,
+    DB,
+    Jobs,
+    Unknown,
+  }
 
-    public enum class Level {
-        Error, Info, Debug
-    }
+  public enum class Level {
+    Error,
+    Info,
+    Debug,
+  }
 }

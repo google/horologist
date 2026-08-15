@@ -19,20 +19,21 @@
 package com.google.android.horologist.data
 
 import com.google.common.truth.Truth.assertThat
+import java.io.InputStreamReader
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Test
-import java.io.InputStreamReader
 
 class VersionFileTest {
-    @Test
-    fun testVersionFileIsPresent() {
-        val resource = TargetNodeId::class.java.getResource("/META-INF/com.google.android.horologist_datalayercore.version")
-        assertThat(resource).isNotNull()
+  @Test
+  fun testVersionFileIsPresent() {
+    val resource =
+      TargetNodeId::class
+        .java
+        .getResource("/META-INF/com.google.android.horologist_datalayercore.version")
+    assertThat(resource).isNotNull()
 
-        val version = resource!!.openStream().use {
-            InputStreamReader(it).readText().trim()
-        }
+    val version = resource!!.openStream().use { InputStreamReader(it).readText().trim() }
 
-        assertThat(version).matches("0\\.[3-9]\\.\\d+.*".toPattern())
-    }
+    assertThat(version).matches("0\\.[3-9]\\.\\d+.*".toPattern())
+  }
 }

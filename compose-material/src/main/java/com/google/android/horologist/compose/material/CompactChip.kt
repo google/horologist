@@ -41,6 +41,7 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.compose.material.util.DECORATIVE_ELEMENT_CONTENT_DESCRIPTION
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.images.base.paintable.PaintableIcon
+
 /**
  * This component is an alternative to [CompactChip], providing the following:
  * - a convenient way of providing a string resource label;
@@ -49,26 +50,26 @@ import com.google.android.horologist.images.base.paintable.PaintableIcon
 @ExperimentalHorologistApi
 @Composable
 public fun CompactChip(
-    label: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    icon: Paintable? = null,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.chipBorder(),
+  label: String,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  icon: Paintable? = null,
+  colors: ChipColors = ChipDefaults.primaryChipColors(),
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  border: ChipBorder = ChipDefaults.chipBorder(),
 ) {
-    CompactChip(
-        onClick = onClick,
-        modifier = modifier,
-        label = label,
-        icon = icon,
-        contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-        colors = colors,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        border = border,
-    )
+  CompactChip(
+    onClick = onClick,
+    modifier = modifier,
+    label = label,
+    icon = icon,
+    contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+    colors = colors,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    border = border,
+  )
 }
 
 /**
@@ -79,25 +80,25 @@ public fun CompactChip(
 @ExperimentalHorologistApi
 @Composable
 public fun CompactChip(
-    @StringRes labelId: Int,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    icon: Paintable? = null,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.chipBorder(),
+  @StringRes labelId: Int,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  icon: Paintable? = null,
+  colors: ChipColors = ChipDefaults.primaryChipColors(),
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  border: ChipBorder = ChipDefaults.chipBorder(),
 ) {
-    CompactChip(
-        label = stringResource(id = labelId),
-        onClick = onClick,
-        modifier = modifier,
-        icon = icon,
-        colors = colors,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        border = border,
-    )
+  CompactChip(
+    label = stringResource(id = labelId),
+    onClick = onClick,
+    modifier = modifier,
+    icon = icon,
+    colors = colors,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    border = border,
+  )
 }
 
 /**
@@ -107,84 +108,80 @@ public fun CompactChip(
 @ExperimentalHorologistApi
 @Composable
 public fun CompactChip(
-    icon: Paintable,
-    contentDescription: String,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.chipBorder(),
+  icon: Paintable,
+  contentDescription: String,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  colors: ChipColors = ChipDefaults.primaryChipColors(),
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  border: ChipBorder = ChipDefaults.chipBorder(),
 ) {
-    CompactChip(
-        onClick = onClick,
-        modifier = modifier,
-        label = null,
-        icon = icon,
-        contentDescription = contentDescription,
-        colors = colors,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        border = border,
-    )
+  CompactChip(
+    onClick = onClick,
+    modifier = modifier,
+    label = null,
+    icon = icon,
+    contentDescription = contentDescription,
+    colors = colors,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    border = border,
+  )
 }
 
 @Composable
 internal fun CompactChip(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    label: String? = null,
-    icon: Paintable? = null,
-    contentDescription: String? = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-    colors: ChipColors = ChipDefaults.primaryChipColors(),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    border: ChipBorder = ChipDefaults.chipBorder(),
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  label: String? = null,
+  icon: Paintable? = null,
+  contentDescription: String? = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
+  colors: ChipColors = ChipDefaults.primaryChipColors(),
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  border: ChipBorder = ChipDefaults.chipBorder(),
 ) {
-    val iconParam: (@Composable BoxScope.() -> Unit)? = icon?.let {
-        {
-            Row {
-                val iconModifier = Modifier.size(ChipDefaults.SmallIconSize)
-                if (it is PaintableIcon) {
-                    Icon(
-                        paintable = it,
-                        contentDescription = contentDescription,
-                        modifier = iconModifier,
-                    )
-                } else {
-                    Image(
-                        painter = it.rememberPainter(),
-                        contentDescription = contentDescription,
-                        modifier = iconModifier,
-                        contentScale = ContentScale.Crop,
-                        alpha = LocalContentAlpha.current,
-                    )
-                }
-            }
+  val iconParam: (@Composable BoxScope.() -> Unit)? = icon?.let {
+    {
+      Row {
+        val iconModifier = Modifier.size(ChipDefaults.SmallIconSize)
+        if (it is PaintableIcon) {
+          Icon(paintable = it, contentDescription = contentDescription, modifier = iconModifier)
+        } else {
+          Image(
+            painter = it.rememberPainter(),
+            contentDescription = contentDescription,
+            modifier = iconModifier,
+            contentScale = ContentScale.Crop,
+            alpha = LocalContentAlpha.current,
+          )
         }
+      }
     }
-    val hasIcon = icon != null
+  }
+  val hasIcon = icon != null
 
-    val labelParam: (@Composable RowScope.() -> Unit)? = label?.let {
-        {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = label,
-                textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 1,
-            )
-        }
+  val labelParam: (@Composable RowScope.() -> Unit)? = label?.let {
+    {
+      Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = label,
+        textAlign = if (hasIcon) TextAlign.Start else TextAlign.Center,
+        overflow = TextOverflow.Ellipsis,
+        maxLines = 1,
+      )
     }
+  }
 
-    CompactChip(
-        modifier = modifier,
-        onClick = onClick,
-        label = labelParam,
-        icon = iconParam,
-        colors = colors,
-        enabled = enabled,
-        interactionSource = interactionSource,
-        border = border,
-    )
+  CompactChip(
+    modifier = modifier,
+    onClick = onClick,
+    label = labelParam,
+    icon = iconParam,
+    colors = colors,
+    enabled = enabled,
+    interactionSource = interactionSource,
+    border = border,
+  )
 }

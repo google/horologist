@@ -36,35 +36,27 @@ import kotlin.math.sqrt
  * This method assumes that the available layout is square and that there are no oval devices.
  */
 @Stable
-public fun Modifier.fillMaxRectangle(): Modifier = composed(
-    inspectorInfo = debugInspectorInfo {
-        name = "fillMaxRectangle"
-    },
-) {
+public fun Modifier.fillMaxRectangle(): Modifier =
+  composed(inspectorInfo = debugInspectorInfo { name = "fillMaxRectangle" }) {
     val isRound = LocalConfiguration.current.isScreenRound
     if (!isRound) {
-        return@composed fillMaxSize()
+      return@composed fillMaxSize()
     }
 
     layout { measurable, constraints ->
-        if (!constraints.hasBoundedWidth || !constraints.hasBoundedHeight) {
-            val placeable = measurable.measure(constraints)
-            return@layout layout(placeable.width, placeable.height) {
-                placeable.placeRelative(0, 0)
-            }
-        }
+      if (!constraints.hasBoundedWidth || !constraints.hasBoundedHeight) {
+        val placeable = measurable.measure(constraints)
+        return@layout layout(placeable.width, placeable.height) { placeable.placeRelative(0, 0) }
+      }
 
-        val width = constraints.maxWidth
-        val height = constraints.maxHeight
-        val diameter = min(width, height)
-        val maxSquareEdge = (diameter / sqrt(2.0)).toInt()
-        val placeable = measurable.measure(Constraints.fixed(maxSquareEdge, maxSquareEdge))
+      val width = constraints.maxWidth
+      val height = constraints.maxHeight
+      val diameter = min(width, height)
+      val maxSquareEdge = (diameter / sqrt(2.0)).toInt()
+      val placeable = measurable.measure(Constraints.fixed(maxSquareEdge, maxSquareEdge))
 
-        layout(width, height) {
-            placeable.placeRelative(
-                x = (width - maxSquareEdge) / 2,
-                y = (height - maxSquareEdge) / 2,
-            )
-        }
+      layout(width, height) {
+        placeable.placeRelative(x = (width - maxSquareEdge) / 2, y = (height - maxSquareEdge) / 2)
+      }
     }
-}
+  }

@@ -34,20 +34,20 @@ import com.google.android.horologist.media.ui.material3.util.isLargeScreen
 /** Display message for the ambient mode. */
 @Composable
 public fun AmbientMessageDisplay(
-    message: String,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  message: String,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
 ) {
-    val isLargeScreen = LocalConfiguration.current.isLargeScreen
-    val height = TRACK_TITLE_HEIGHT + TRACK_SUBTITLE_HEIGHT
-    Box(modifier = modifier.height(height), contentAlignment = Alignment.Center) {
-        Text(
-            text = message,
-            modifier = Modifier.fillMaxWidth(if (isLargeScreen) 0.71f else 0.75f),
-            textAlign = TextAlign.Center,
-            color = colorScheme.onSurface,
-            style = MaterialTheme.typography.titleMedium,
-            maxLines = 1,
-        )
-    }
+  val isLargeScreen = LocalConfiguration.current.isLargeScreen
+  val height = TRACK_TITLE_HEIGHT + TRACK_SUBTITLE_HEIGHT
+  Box(modifier = modifier.height(height), contentAlignment = Alignment.Center) {
+    Text(
+      text = message,
+      modifier = Modifier.fillMaxWidth(if (isLargeScreen) 0.71f else 0.75f),
+      textAlign = TextAlign.Center,
+      color = colorScheme.onSurface,
+      style = MaterialTheme.typography.titleMedium,
+      maxLines = 1,
+    )
+  }
 }

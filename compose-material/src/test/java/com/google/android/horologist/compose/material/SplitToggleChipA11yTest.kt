@@ -21,61 +21,61 @@ import org.junit.Test
 
 class SplitToggleChipA11yTest : WearLegacyA11yTest() {
 
-    @Test
-    fun withSecondaryLabel() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
-            )
-        }
+  @Test
+  fun withSecondaryLabel() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = "Primary label",
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+        secondaryLabel = "Secondary label",
+      )
     }
+  }
 
-    @Test
-    fun unchecked() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = "Primary label",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
-            )
-        }
+  @Test
+  fun unchecked() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = false,
+        onCheckedChanged = {},
+        label = "Primary label",
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+        secondaryLabel = "Secondary label",
+      )
     }
+  }
 
-    @Test
-    fun disabled() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = true,
-                onCheckedChanged = { },
-                label = "Primary label",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
-                enabled = false,
-            )
-        }
+  @Test
+  fun disabled() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = true,
+        onCheckedChanged = {},
+        label = "Primary label",
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+        secondaryLabel = "Secondary label",
+        enabled = false,
+      )
     }
+  }
 
-    @Test
-    fun uncheckedAndDisabled() {
-        runComponentTest {
-            SplitToggleChip(
-                checked = false,
-                onCheckedChanged = { },
-                label = "Primary label",
-                onClick = { },
-                toggleControl = ToggleChipToggleControl.Switch,
-                secondaryLabel = "Secondary label",
-                enabled = false,
-            )
-        }
+  @Test
+  fun uncheckedAndDisabled() {
+    runComponentTest {
+      SplitToggleChip(
+        checked = false,
+        onCheckedChanged = {},
+        label = "Primary label",
+        onClick = {},
+        toggleControl = ToggleChipToggleControl.Switch,
+        secondaryLabel = "Secondary label",
+        enabled = false,
+      )
     }
+  }
 }

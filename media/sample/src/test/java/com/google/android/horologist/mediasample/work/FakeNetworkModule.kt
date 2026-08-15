@@ -35,61 +35,53 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.components.SingletonComponent
 import dagger.hilt.testing.TestInstallIn
+import javax.inject.Singleton
+import kotlin.time.Duration
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
 import okhttp3.Call
 import okhttp3.Request
-import javax.inject.Singleton
-import kotlin.time.Duration
 
 @Module
-@TestInstallIn(
-    components = [SingletonComponent::class],
-    replaces = [NetworkModule::class],
-)
+@TestInstallIn(components = [SingletonComponent::class], replaces = [NetworkModule::class])
 object FakeNetworkModule {
-    @Singleton
-    @Provides
-    fun uampService(): UampService = FakeUampService()
+  @Singleton @Provides fun uampService(): UampService = FakeUampService()
 
-    @Singleton
-    @Provides
-    fun imageLoader(): ImageLoader = FakeImageLoader.NotFound
+  @Singleton @Provides fun imageLoader(): ImageLoader = FakeImageLoader.NotFound
 
-    @Singleton
-    @Provides
-    fun callFactory(): Call.Factory = object : Call.Factory {
-        override fun newCall(request: Request): Call {
-            return FailedCall(this, request, "Test")
-        }
+  @Singleton
+  @Provides
+  fun callFactory(): Call.Factory =
+    object : Call.Factory {
+      override fun newCall(request: Request): Call {
+        return FailedCall(this, request, "Test")
+      }
     }
 
-    @Singleton
-    @Provides
-    fun highBandwidthRequester(): HighBandwidthNetworkMediator = object : HighBandwidthNetworkMediator {
-        override val pinned: Flow<Set<NetworkType>> = flowOf()
+  @Singleton
+  @Provides
+  fun highBandwidthRequester(): HighBandwidthNetworkMediator =
+    object : HighBandwidthNetworkMediator {
+      override val pinned: Flow<Set<NetworkType>> = flowOf()
 
-        override fun requestHighBandwidthNetwork(request: HighBandwidthRequest): HighBandwidthConnectionLease {
-            return object : HighBandwidthConnectionLease {
-                override suspend fun awaitGranted(timeout: Duration): Boolean {
-                    return false
-                }
+      override fun requestHighBandwidthNetwork(
+        request: HighBandwidthRequest
+      ): HighBandwidthConnectionLease {
+        return object : HighBandwidthConnectionLease {
+          override suspend fun awaitGranted(timeout: Duration): Boolean {
+            return false
+          }
 
-                override fun close() {
-                }
-            }
+          override fun close() {}
         }
+      }
     }
 
-    @Singleton
-    @Provides
-    fun networkRepository(): NetworkRepository = FakeNetworkRepository()
+  @Singleton @Provides fun networkRepository(): NetworkRepository = FakeNetworkRepository()
 
-    @Provides
-    fun networkLogger(): NetworkStatusLogger = NetworkStatusLogger.InMemory()
+  @Provides fun networkLogger(): NetworkStatusLogger = NetworkStatusLogger.InMemory()
 
-    @Singleton
-    @Provides
-    fun dataRequestRepository(): DataRequestRepository =
-        InMemoryDataRequestRepository()
+  @Singleton
+  @Provides
+  fun dataRequestRepository(): DataRequestRepository = InMemoryDataRequestRepository()
 }

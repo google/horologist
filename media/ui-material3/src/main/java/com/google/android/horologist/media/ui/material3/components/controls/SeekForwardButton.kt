@@ -33,35 +33,38 @@ import com.google.android.horologist.media.ui.model.R
 
 @Composable
 public fun SeekForwardButton(
-    onClick: () -> Unit,
-    seekButtonIncrement: SeekButtonIncrement,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    icon: ImageVector = MediaButtonDefaults.seekForwardIcon(seekButtonIncrement),
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource? = null,
-    buttonPadding: PaddingValues = PaddingValues(0.dp),
-    iconSize: Dp = IconButtonDefaults.SmallIconSize,
-    colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(colorScheme),
+  onClick: () -> Unit,
+  seekButtonIncrement: SeekButtonIncrement,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  icon: ImageVector = MediaButtonDefaults.seekForwardIcon(seekButtonIncrement),
+  enabled: Boolean = true,
+  interactionSource: MutableInteractionSource? = null,
+  buttonPadding: PaddingValues = PaddingValues(0.dp),
+  iconSize: Dp = IconButtonDefaults.SmallIconSize,
+  colors: IconButtonColors = MediaButtonDefaults.mediaButtonDefaultColors(colorScheme),
 ) {
-    val contentDescription = when (seekButtonIncrement) {
-        is SeekButtonIncrement.Known -> stringResource(
-            id = R.string.horologist_seek_forward_button_seconds_content_description,
-            seekButtonIncrement.seconds,
+  val contentDescription =
+    when (seekButtonIncrement) {
+      is SeekButtonIncrement.Known ->
+        stringResource(
+          id = R.string.horologist_seek_forward_button_seconds_content_description,
+          seekButtonIncrement.seconds,
         )
-        SeekButtonIncrement.Unknown -> stringResource(id = R.string.horologist_seek_forward_button_content_description)
+      SeekButtonIncrement.Unknown ->
+        stringResource(id = R.string.horologist_seek_forward_button_content_description)
     }
 
-    MediaButton(
-        onClick = onClick,
-        icon = icon,
-        contentDescription = contentDescription,
-        modifier = modifier,
-        enabled = enabled,
-        colorScheme = colorScheme,
-        iconSize = iconSize,
-        interactionSource = interactionSource,
-        buttonPadding = buttonPadding,
-        colors = colors,
-    )
+  MediaButton(
+    onClick = onClick,
+    icon = icon,
+    contentDescription = contentDescription,
+    modifier = modifier,
+    enabled = enabled,
+    colorScheme = colorScheme,
+    iconSize = iconSize,
+    interactionSource = interactionSource,
+    buttonPadding = buttonPadding,
+    colors = colors,
+  )
 }

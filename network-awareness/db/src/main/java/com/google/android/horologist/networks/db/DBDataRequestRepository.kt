@@ -21,71 +21,70 @@ import com.google.android.horologist.networks.data.DataRequest
 import com.google.android.horologist.networks.data.DataRequestRepository
 import com.google.android.horologist.networks.data.DataUsageReport
 import com.google.android.horologist.networks.data.NetworkType
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import java.time.Instant
-import java.time.LocalDate
-import java.time.ZoneOffset
 
 @ExperimentalHorologistApi
 public class DBDataRequestRepository(
-    public val networkUsageDao: NetworkUsageDao,
-    public val coroutineScope: CoroutineScope,
+  public val networkUsageDao: NetworkUsageDao,
+  public val coroutineScope: CoroutineScope,
 ) : DataRequestRepository {
-    public val today: LocalDate = LocalDate.now()
+  public val today: LocalDate = LocalDate.now()
 
-    // TODO update on day roll
-    public val day: Int = today.let { it.year * 1000 + it.dayOfYear }
+  // TODO update on day roll
+  public val day: Int = today.let { it.year * 1000 + it.dayOfYear }
 
-    public val from: Instant = today.atStartOfDay().toInstant(ZoneOffset.UTC)
-    public val to: Instant = today.plusDays(1).atStartOfDay().toInstant(ZoneOffset.UTC)
+  public val from: Instant = today.atStartOfDay().toInstant(ZoneOffset.UTC)
+  public val to: Instant = today.plusDays(1).atStartOfDay().toInstant(ZoneOffset.UTC)
 
-    override fun storeRequest(dataRequest: DataRequest) {
-        val bytes = dataRequest.dataBytes
-        val networkType = dataRequest.networkInfo.type.name
-        coroutineScope.launch {
-            var rows = networkUsageDao.updateBytes(day, bytes, networkType)
+  override fun storeRequest(dataRequest: DataRequest) {
+    val bytes = dataRequest.dataBytes
+    val networkType = dataRequest.networkInfo.type.name
+    coroutineScope.launch {
+      var rows = networkUsageDao.updateBytes(day, bytes, networkType)
 
-            if (rows == 0) {
-                rows =
-                    networkUsageDao.insert(DataUsage(networkType, bytes, day))
-                        .toInt()
+      if (rows == 0) {
+        rows = networkUsageDao.insert(DataUsage(networkType, bytes, day)).toInt()
 
-                if (rows == -1) {
-                    networkUsageDao.updateBytes(day, bytes, networkType)
-                }
-            }
+        if (rows == -1) {
+          networkUsageDao.updateBytes(day, bytes, networkType)
         }
+      }
     }
+  }
 
-    override fun currentPeriodUsage(): Flow<DataUsageReport> {
-        return networkUsageDao.getRecords(day).map { list ->
-            var ble = 0L
-            var cell = 0L
-            var wifi = 0L
-            var unknown = 0L
+  override fun currentPeriodUsage(): Flow<DataUsageReport> {
+    return networkUsageDao.getRecords(day).map { list ->
+      var ble = 0L
+      var cell = 0L
+      var wifi = 0L
+      var unknown = 0L
 
-            for (it in list) {
-                when (it.networkType) {
-                    NetworkType.BT.name -> ble += it.bytesTotal
-                    NetworkType.Cell.name -> cell += it.bytesTotal
-                    NetworkType.Wifi.name -> wifi += it.bytesTotal
-                    NetworkType.Unknown.name -> unknown += it.bytesTotal
-                }
-            }
-
-            DataUsageReport(
-                dataByType = mapOf(
-                    NetworkType.BT to ble,
-                    NetworkType.Cell to cell,
-                    NetworkType.Wifi to wifi,
-                    NetworkType.Unknown to unknown,
-                ),
-                from = from,
-                to = to,
-            )
+      for (it in list) {
+        when (it.networkType) {
+          NetworkType.BT.name -> ble += it.bytesTotal
+          NetworkType.Cell.name -> cell += it.bytesTotal
+          NetworkType.Wifi.name -> wifi += it.bytesTotal
+          NetworkType.Unknown.name -> unknown += it.bytesTotal
         }
+      }
+
+      DataUsageReport(
+        dataByType =
+          mapOf(
+            NetworkType.BT to ble,
+            NetworkType.Cell to cell,
+            NetworkType.Wifi to wifi,
+            NetworkType.Unknown to unknown,
+          ),
+        from = from,
+        to = to,
+      )
     }
+  }
 }

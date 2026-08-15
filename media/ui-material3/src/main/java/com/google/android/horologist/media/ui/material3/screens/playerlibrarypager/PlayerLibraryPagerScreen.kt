@@ -30,68 +30,59 @@ import androidx.wear.compose.material3.HorizontalPagerScaffold
 import androidx.wear.compose.material3.ScreenScaffold
 import com.google.android.horologist.audio.ui.VolumeUiState
 import com.google.android.horologist.audio.ui.material3.VolumeLevelIndicator
-import kotlinx.coroutines.flow.Flow
 import java.util.concurrent.CancellationException
+import kotlinx.coroutines.flow.Flow
 
 /**
- * A HorizontalPager with a player screen, using volume control on the left,
- * and library screen with column scrolling on the right.
+ * A HorizontalPager with a player screen, using volume control on the left, and library screen with
+ * column scrolling on the right.
  */
 @Composable
 public fun PlayerLibraryPagerScreen(
-    pagerState: PagerState,
-    volumeUiState: () -> VolumeUiState,
-    displayVolumeIndicatorEvents: Flow<Unit>,
-    playerScreen: @Composable () -> Unit,
-    libraryScreen: @Composable () -> Unit,
-    page: Int?,
-    modifier: Modifier = Modifier,
-    scrollTrigger: Any? = null,
+  pagerState: PagerState,
+  volumeUiState: () -> VolumeUiState,
+  displayVolumeIndicatorEvents: Flow<Unit>,
+  playerScreen: @Composable () -> Unit,
+  libraryScreen: @Composable () -> Unit,
+  page: Int?,
+  modifier: Modifier = Modifier,
+  scrollTrigger: Any? = null,
 ) {
-    var pageApplied by rememberSaveable(scrollTrigger, page) { mutableStateOf(false) }
+  var pageApplied by rememberSaveable(scrollTrigger, page) { mutableStateOf(false) }
 
-    LaunchedEffect(scrollTrigger, page) {
-        if (page != null && !pageApplied) {
-            try {
-                pagerState.animateScrollToPage(page)
-            } catch (e: CancellationException) {
-                // Not sure why we get a cancellation here, but we want the page
-                // nav to take effect and persist
-                pagerState.scrollToPage(page)
-            }
-            pageApplied = true
-        }
+  LaunchedEffect(scrollTrigger, page) {
+    if (page != null && !pageApplied) {
+      try {
+        pagerState.animateScrollToPage(page)
+      } catch (e: CancellationException) {
+        // Not sure why we get a cancellation here, but we want the page
+        // nav to take effect and persist
+        pagerState.scrollToPage(page)
+      }
+      pageApplied = true
     }
+  }
 
-    HorizontalPagerScaffold(
-        modifier = modifier,
-        pagerState = pagerState,
-    ) {
-        HorizontalPager(
-            state = pagerState,
-        ) { page ->
-            when (page) {
-                0 -> {
-                    ScreenScaffold(
-                        scrollIndicator = {
-                            VolumeLevelIndicator(
-                                volumeUiState = volumeUiState,
-                                displayIndicatorEvents = displayVolumeIndicatorEvents,
-                            )
-                        },
-                    ) {
-                        playerScreen()
-                    }
-                }
-
-                1 -> {
-                    ScreenScaffold(
-                        scrollState = rememberTransformingLazyColumnState(),
-                    ) {
-                        libraryScreen()
-                    }
-                }
+  HorizontalPagerScaffold(modifier = modifier, pagerState = pagerState) {
+    HorizontalPager(state = pagerState) { page ->
+      when (page) {
+        0 -> {
+          ScreenScaffold(
+            scrollIndicator = {
+              VolumeLevelIndicator(
+                volumeUiState = volumeUiState,
+                displayIndicatorEvents = displayVolumeIndicatorEvents,
+              )
             }
+          ) {
+            playerScreen()
+          }
         }
+
+        1 -> {
+          ScreenScaffold(scrollState = rememberTransformingLazyColumnState()) { libraryScreen() }
+        }
+      }
     }
+  }
 }

@@ -25,43 +25,38 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineScope
 
 @Module
 @InstallIn(SingletonComponent::class)
 object PromptModule {
-    @Singleton
-    @Provides
-    fun installAppPrompt(phoneDataLayerAppHelper: PhoneDataLayerAppHelper): InstallAppPrompt = InstallAppPrompt(
-        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
+  @Singleton
+  @Provides
+  fun installAppPrompt(phoneDataLayerAppHelper: PhoneDataLayerAppHelper): InstallAppPrompt =
+    InstallAppPrompt(phoneDataLayerAppHelper = phoneDataLayerAppHelper)
+
+  @Singleton
+  @Provides
+  fun reEngagePrompt(
+    coroutineScope: CoroutineScope,
+    phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+  ): ReEngagePrompt =
+    ReEngagePrompt(
+      coroutineScope = coroutineScope,
+      phoneDataLayerAppHelper = phoneDataLayerAppHelper,
     )
 
-    @Singleton
-    @Provides
-    fun reEngagePrompt(
-        coroutineScope: CoroutineScope,
-        phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-    ): ReEngagePrompt = ReEngagePrompt(
-        coroutineScope = coroutineScope,
-        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
-    )
+  @Singleton
+  @Provides
+  fun signInPrompt(
+    coroutineScope: CoroutineScope,
+    phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
+  ): SignInPrompt =
+    SignInPrompt(coroutineScope = coroutineScope, phoneDataLayerAppHelper = phoneDataLayerAppHelper)
 
-    @Singleton
-    @Provides
-    fun signInPrompt(
-        coroutineScope: CoroutineScope,
-        phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-    ): SignInPrompt = SignInPrompt(
-        coroutineScope = coroutineScope,
-        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
-    )
-
-    @Singleton
-    @Provides
-    fun installTilePrompt(
-        phoneDataLayerAppHelper: PhoneDataLayerAppHelper,
-    ): InstallTilePrompt = InstallTilePrompt(
-        phoneDataLayerAppHelper = phoneDataLayerAppHelper,
-    )
+  @Singleton
+  @Provides
+  fun installTilePrompt(phoneDataLayerAppHelper: PhoneDataLayerAppHelper): InstallTilePrompt =
+    InstallTilePrompt(phoneDataLayerAppHelper = phoneDataLayerAppHelper)
 }

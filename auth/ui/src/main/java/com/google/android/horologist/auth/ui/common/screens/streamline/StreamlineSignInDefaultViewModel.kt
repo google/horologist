@@ -35,60 +35,60 @@ import kotlinx.coroutines.launch
  * @sample com.google.android.horologist.auth.sample.screens.common.streamline.StreamlineSignInSampleScreen
  */
 public open class StreamlineSignInDefaultViewModel(
-    private val authUserRepository: AuthUserRepository,
+  private val authUserRepository: AuthUserRepository
 ) : ViewModel() {
 
-    private val _uiState =
-        MutableStateFlow<StreamlineSignInDefaultScreenState>(StreamlineSignInDefaultScreenState.Idle)
-    public val uiState: StateFlow<StreamlineSignInDefaultScreenState> = _uiState
+  private val _uiState =
+    MutableStateFlow<StreamlineSignInDefaultScreenState>(StreamlineSignInDefaultScreenState.Idle)
+  public val uiState: StateFlow<StreamlineSignInDefaultScreenState> = _uiState
 
-    /**
-     * Indicate that the screen has observed the [idle][StreamlineSignInDefaultScreenState.Idle]
-     * state and that the view model can start its work.
-     */
-    public fun onIdleStateObserved() {
-        _uiState.compareAndSet(
-            expect = StreamlineSignInDefaultScreenState.Idle,
-            update = StreamlineSignInDefaultScreenState.Loading,
-        ) {
-            viewModelScope.launch {
-                val authUsers = authUserRepository.getAvailable()
+  /**
+   * Indicate that the screen has observed the [idle][StreamlineSignInDefaultScreenState.Idle] state
+   * and that the view model can start its work.
+   */
+  public fun onIdleStateObserved() {
+    _uiState.compareAndSet(
+      expect = StreamlineSignInDefaultScreenState.Idle,
+      update = StreamlineSignInDefaultScreenState.Loading,
+    ) {
+      viewModelScope.launch {
+        val authUsers = authUserRepository.getAvailable()
 
-                when {
-                    authUsers.isEmpty() -> {
-                        _uiState.value = StreamlineSignInDefaultScreenState.NoAccountsAvailable
-                    }
+        when {
+          authUsers.isEmpty() -> {
+            _uiState.value = StreamlineSignInDefaultScreenState.NoAccountsAvailable
+          }
 
-                    authUsers.size == 1 -> {
-                        onAccountSelected(AccountUiModelMapper.map(authUsers.first()))
-                    }
+          authUsers.size == 1 -> {
+            onAccountSelected(AccountUiModelMapper.map(authUsers.first()))
+          }
 
-                    else -> {
-                        _uiState.value =
-                            StreamlineSignInDefaultScreenState.MultipleAccountsAvailable(
-                                authUsers.map(AccountUiModelMapper::map),
-                            )
-                    }
-                }
-            }
+          else -> {
+            _uiState.value =
+              StreamlineSignInDefaultScreenState.MultipleAccountsAvailable(
+                authUsers.map(AccountUiModelMapper::map)
+              )
+          }
         }
+      }
     }
+  }
 
-    public open fun onAccountSelected(account: AccountUiModel) {
-        _uiState.value = StreamlineSignInDefaultScreenState.SignedIn(account)
-    }
+  public open fun onAccountSelected(account: AccountUiModel) {
+    _uiState.value = StreamlineSignInDefaultScreenState.SignedIn(account)
+  }
 }
 
 public sealed class StreamlineSignInDefaultScreenState {
 
-    public object Idle : StreamlineSignInDefaultScreenState()
+  public object Idle : StreamlineSignInDefaultScreenState()
 
-    public object Loading : StreamlineSignInDefaultScreenState()
+  public object Loading : StreamlineSignInDefaultScreenState()
 
-    public data class SignedIn(val account: AccountUiModel) : StreamlineSignInDefaultScreenState()
+  public data class SignedIn(val account: AccountUiModel) : StreamlineSignInDefaultScreenState()
 
-    public data class MultipleAccountsAvailable(val accounts: List<AccountUiModel>) :
-        StreamlineSignInDefaultScreenState()
+  public data class MultipleAccountsAvailable(val accounts: List<AccountUiModel>) :
+    StreamlineSignInDefaultScreenState()
 
-    public object NoAccountsAvailable : StreamlineSignInDefaultScreenState()
+  public object NoAccountsAvailable : StreamlineSignInDefaultScreenState()
 }

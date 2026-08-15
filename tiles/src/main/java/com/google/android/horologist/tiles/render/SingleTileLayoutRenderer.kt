@@ -35,85 +35,72 @@ import java.util.UUID
  */
 @ExperimentalHorologistApi
 public abstract class SingleTileLayoutRenderer<T, R>(
-    /**
-     * The context to avoid passing in through each render method.
-     */
-    public val context: Context,
-    public val debugResourceMode: Boolean = false,
+  /** The context to avoid passing in through each render method. */
+  public val context: Context,
+  public val debugResourceMode: Boolean = false,
 ) : TileLayoutRenderer<T, R> {
-    public val theme: Colors by lazy { createTheme() }
+  public val theme: Colors by lazy { createTheme() }
 
-    public open val freshnessIntervalMillis: Long = 0L
+  public open val freshnessIntervalMillis: Long = 0L
 
-    final override fun renderTimeline(
-        state: T,
-        requestParams: RequestBuilders.TileRequest,
-    ): Tile {
-        val rootLayout = renderTile(state, requestParams.deviceConfiguration)
+  final override fun renderTimeline(state: T, requestParams: RequestBuilders.TileRequest): Tile {
+    val rootLayout = renderTile(state, requestParams.deviceConfiguration)
 
-        val singleTileTimeline = TimelineBuilders.Timeline.Builder()
-            .addTimelineEntry(TimelineEntry.fromLayoutElement(rootLayout))
-            .build()
+    val singleTileTimeline =
+      TimelineBuilders.Timeline.Builder()
+        .addTimelineEntry(TimelineEntry.fromLayoutElement(rootLayout))
+        .build()
 
-        return Tile.Builder()
-            .setResourcesVersion(
-                if (debugResourceMode) {
-                    UUID.randomUUID().toString()
-                } else {
-                    getResourcesVersionForTileState(state)
-                },
-            )
-            .setState(createState())
-            .setTileTimeline(singleTileTimeline)
-            .setFreshnessIntervalMillis(freshnessIntervalMillis)
-            .build()
-    }
+    return Tile.Builder()
+      .setResourcesVersion(
+        if (debugResourceMode) {
+          UUID.randomUUID().toString()
+        } else {
+          getResourcesVersionForTileState(state)
+        }
+      )
+      .setState(createState())
+      .setTileTimeline(singleTileTimeline)
+      .setFreshnessIntervalMillis(freshnessIntervalMillis)
+      .build()
+  }
 
-    public open fun getResourcesVersionForTileState(state: T): String = PERMANENT_RESOURCES_VERSION
+  public open fun getResourcesVersionForTileState(state: T): String = PERMANENT_RESOURCES_VERSION
 
-    /**
-     * Create a material theme that should be applied to all components.
-     */
-    public open fun createTheme(): Colors = Colors.DEFAULT
+  /** Create a material theme that should be applied to all components. */
+  public open fun createTheme(): Colors = Colors.DEFAULT
 
-    /**
-     * Render a single tile as a LayoutElement, that will be the only item in the timeline.
-     */
-    public abstract fun renderTile(
-        state: T,
-        deviceParameters: DeviceParametersBuilders.DeviceParameters,
-    ): LayoutElement
+  /** Render a single tile as a LayoutElement, that will be the only item in the timeline. */
+  public abstract fun renderTile(
+    state: T,
+    deviceParameters: DeviceParametersBuilders.DeviceParameters,
+  ): LayoutElement
 
-    final override fun produceRequestedResources(
-        resourceState: R,
-        requestParams: RequestBuilders.ResourcesRequest,
-    ): Resources {
-        return Resources.Builder()
-            .setVersion(requestParams.version)
-            .apply {
-                produceRequestedResources(
-                    resourceState,
-                    requestParams.deviceConfiguration,
-                    requestParams.resourceIds,
-                )
-            }
-            .build()
-    }
+  final override fun produceRequestedResources(
+    resourceState: R,
+    requestParams: RequestBuilders.ResourcesRequest,
+  ): Resources {
+    return Resources.Builder()
+      .setVersion(requestParams.version)
+      .apply {
+        produceRequestedResources(
+          resourceState,
+          requestParams.deviceConfiguration,
+          requestParams.resourceIds,
+        )
+      }
+      .build()
+  }
 
-    /**
-     * Add resources directly to the builder.
-     */
-    public open fun Resources.Builder.produceRequestedResources(
-        resourceState: R,
-        deviceParameters: DeviceParametersBuilders.DeviceParameters,
-        resourceIds: List<String>,
-    ) {
-    }
+  /** Add resources directly to the builder. */
+  public open fun Resources.Builder.produceRequestedResources(
+    resourceState: R,
+    deviceParameters: DeviceParametersBuilders.DeviceParameters,
+    resourceIds: List<String>,
+  ) {}
 
-    public open fun createState(): State = State.Builder().build()
+  public open fun createState(): State = State.Builder().build()
 }
 
-/**
- * A constant for non updating resources where each id will always contain the same content.
- */
+/** A constant for non updating resources where each id will always contain the same content. */
 public const val PERMANENT_RESOURCES_VERSION: String = "0"

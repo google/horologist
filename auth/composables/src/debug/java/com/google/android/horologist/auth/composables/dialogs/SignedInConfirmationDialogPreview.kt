@@ -22,43 +22,21 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 @WearPreviewDevices
 @Composable
 fun SignedInConfirmationDialogPreview() {
-    SignedInConfirmationDialog(
-        onDismissOrTimeout = {},
-        name = "Maggie",
-        email = "maggie@example.com",
-    )
+  SignedInConfirmationDialog(onDismissOrTimeout = {}, name = "Maggie", email = "maggie@example.com")
 }
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationDialogPreviewNoName() {
-    SignedInConfirmationDialog(
-        onDismissOrTimeout = {},
-        email = "maggie@example.com",
-    )
+fun SignedInConfirmationDialogMinimalPreview() {
+  SignedInConfirmationDialog(onDismissOrTimeout = {}, name = "Maggie")
 }
 
 @WearPreviewDevices
 @Composable
-fun SignedInConfirmationDialogPreviewNoEmail() {
-    SignedInConfirmationDialog(
-        onDismissOrTimeout = {},
-        name = "Maggie",
-    )
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogPreviewNoInformation() {
-    SignedInConfirmationDialog(onDismissOrTimeout = {})
-}
-
-@WearPreviewDevices
-@Composable
-fun SignedInConfirmationDialogPreviewTruncation() {
-    SignedInConfirmationDialog(
-        onDismissOrTimeout = {},
-        name = "Wolfeschlegelsteinhausenbergerdorff",
-        email = "wolfeschlegelsteinhausenbergerdorff@example.com",
-    )
+fun SignedInConfirmationDialogTruncationPreview() {
+  SignedInConfirmationDialog(
+    onDismissOrTimeout = {},
+    name = "Wolfeschlegelsteinhausenbergerdorff",
+    email = "wolfeschlegelsteinhausenbergerdorff@example.com",
+  )
 }

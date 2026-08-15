@@ -24,33 +24,30 @@ import com.google.android.horologist.networks.okhttp.requestTypeOrNull
 import okhttp3.Request
 
 /**
- * Payload logic to carry additional request/call details on the
- * Request object, for use by this libraries interceptors and event
- * listeners.
+ * Payload logic to carry additional request/call details on the Request object, for use by this
+ * libraries interceptors and event listeners.
  */
 @ExperimentalHorologistApi
 public data class RequestTypeHolder(
-    public var requestType: RequestType = RequestType.UnknownRequest,
-    public var networkInfo: NetworkInfo? = null,
-    public var highBandwidthConnectionLease: HighBandwidthConnectionLease? = null,
+  public var requestType: RequestType = RequestType.UnknownRequest,
+  public var networkInfo: NetworkInfo? = null,
+  public var highBandwidthConnectionLease: HighBandwidthConnectionLease? = null,
 ) {
-    override fun toString(): String {
-        return "$requestType/$networkInfo"
-    }
+  override fun toString(): String {
+    return "$requestType/$networkInfo"
+  }
 
-    public companion object {
-        @ExperimentalHorologistApi
-        public fun Request.withDefaultRequestType(defaultRequestType: RequestType): Request =
-            if (requestTypeOrNull == null) {
-                newBuilder()
-                    .requestType(defaultRequestType)
-                    .build()
-            } else {
-                this
-            }
+  public companion object {
+    @ExperimentalHorologistApi
+    public fun Request.withDefaultRequestType(defaultRequestType: RequestType): Request =
+      if (requestTypeOrNull == null) {
+        newBuilder().requestType(defaultRequestType).build()
+      } else {
+        this
+      }
 
-        public fun Request.Builder.requestType(value: RequestType): Request.Builder {
-            return this.tag(RequestTypeHolder::class.java, RequestTypeHolder(requestType = value))
-        }
+    public fun Request.Builder.requestType(value: RequestType): Request.Builder {
+      return this.tag(RequestTypeHolder::class.java, RequestTypeHolder(requestType = value))
     }
+  }
 }

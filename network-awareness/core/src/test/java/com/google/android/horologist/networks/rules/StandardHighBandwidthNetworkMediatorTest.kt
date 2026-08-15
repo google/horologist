@@ -26,6 +26,7 @@ import com.google.android.horologist.networks.rules.helpers.TestLogger
 import com.google.android.horologist.networks.testdoubles.FakeNetworkRepository
 import com.google.android.horologist.networks.testdoubles.FakeNetworkRequester
 import com.google.common.truth.Truth.assertThat
+import kotlin.time.Duration.Companion.seconds
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
@@ -33,69 +34,64 @@ import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Test
-import kotlin.time.Duration.Companion.seconds
 
 class StandardHighBandwidthNetworkMediatorTest {
-    private val testScope = TestScope()
-    private val networkRepository = FakeNetworkRepository()
-    private val logger = TestLogger()
-    private val networkRequester = FakeNetworkRequester(networkRepository)
-    private val delayToRelease = 3.seconds
-    private val highBandwidthRequester = StandardHighBandwidthNetworkMediator(
-        logger,
-        networkRequester,
-        testScope,
-        delayToRelease,
-    )
-    val wifiRequest = HighBandwidthRequest(HighBandwidthRequest.Type.WifiOnly)
+  private val testScope = TestScope()
+  private val networkRepository = FakeNetworkRepository()
+  private val logger = TestLogger()
+  private val networkRequester = FakeNetworkRequester(networkRepository)
+  private val delayToRelease = 3.seconds
+  private val highBandwidthRequester =
+    StandardHighBandwidthNetworkMediator(logger, networkRequester, testScope, delayToRelease)
+  val wifiRequest = HighBandwidthRequest(HighBandwidthRequest.Type.WifiOnly)
 
-    @Test
-    fun requestAndRelease() = testScope.runTest {
-        val lease = highBandwidthRequester.requestHighBandwidthNetwork(wifiRequest)
+  @Test
+  fun requestAndRelease() = testScope.runTest {
+    val lease = highBandwidthRequester.requestHighBandwidthNetwork(wifiRequest)
 
-        advanceUntilIdle()
+    advanceUntilIdle()
 
-        assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf(Wifi))
+    assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf(Wifi))
 
-        lease.close()
-        advanceUntilIdle()
+    lease.close()
+    advanceUntilIdle()
 
-        assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf<NetworkType>())
-    }
+    assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf<NetworkType>())
+  }
 
-    @Test
-    fun closeTwiceIsSafe() = testScope.runTest {
-        val lease = highBandwidthRequester.requestHighBandwidthNetwork(wifiRequest)
+  @Test
+  fun closeTwiceIsSafe() = testScope.runTest {
+    val lease = highBandwidthRequester.requestHighBandwidthNetwork(wifiRequest)
 
-        lease.awaitGranted(2.seconds)
+    lease.awaitGranted(2.seconds)
 
-        lease.close()
-        lease.close()
-    }
+    lease.close()
+    lease.close()
+  }
 
-    @Test
-    fun requestBeforeRelease() = testScope.runTest {
-        val lease1 = highBandwidthRequester.requestHighBandwidthNetwork(wifiRequest)
+  @Test
+  fun requestBeforeRelease() = testScope.runTest {
+    val lease1 = highBandwidthRequester.requestHighBandwidthNetwork(wifiRequest)
 
-        advanceUntilIdle()
+    advanceUntilIdle()
 
-        assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf(Wifi))
+    assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf(Wifi))
 
-        lease1.close()
+    lease1.close()
 
-        advanceTimeBy((delayToRelease / 2.0).inWholeMilliseconds)
+    advanceTimeBy((delayToRelease / 2.0).inWholeMilliseconds)
 
-        assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf(Wifi))
+    assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf(Wifi))
 
-        val lease2 = highBandwidthRequester.requestHighBandwidthNetwork(wifiRequest)
+    val lease2 = highBandwidthRequester.requestHighBandwidthNetwork(wifiRequest)
 
-        assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf(Wifi))
+    assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf(Wifi))
 
-        advanceUntilIdle()
+    advanceUntilIdle()
 
-        lease2.close()
-        advanceUntilIdle()
+    lease2.close()
+    advanceUntilIdle()
 
-        assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf<NetworkType>())
-    }
+    assertThat(highBandwidthRequester.pinned.first()).isEqualTo(setOf<NetworkType>())
+  }
 }

@@ -21,31 +21,19 @@ import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 
-@Preview(
-    name = "Enabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(name = "Enabled", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun EntityButtonPreviewEnabled() {
-    EntityButton(
-        onClick = { },
-        icon = Icons.Default.PlayArrow,
-        contentDescription = "Play",
-    )
+  EntityButton(onClick = {}, icon = Icons.Default.PlayArrow, contentDescription = "Play")
 }
 
-@Preview(
-    name = "Disabled",
-    backgroundColor = 0xff000000,
-    showBackground = true,
-)
+@Preview(name = "Disabled", backgroundColor = 0xff000000, showBackground = true)
 @Composable
 fun EntityButtonPreviewDisabled() {
-    EntityButton(
-        onClick = { },
-        icon = Icons.Default.PlayArrow,
-        contentDescription = "Play",
-        enabled = false,
-    )
+  EntityButton(
+    onClick = {},
+    icon = Icons.Default.PlayArrow,
+    contentDescription = "Play",
+    enabled = false,
+  )
 }

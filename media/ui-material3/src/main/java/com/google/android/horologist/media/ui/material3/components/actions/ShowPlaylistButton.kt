@@ -28,31 +28,29 @@ import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.images.base.paintable.Paintable
 import com.google.android.horologist.media.ui.material3.components.MediaArtwork
 
-/**
- * [Button] to show all items in the selected category.
- */
+/** [Button] to show all items in the selected category. */
 @ExperimentalHorologistApi
 @Composable
 public fun ShowPlaylistButton(
-    artworkPaintable: Paintable?,
-    name: String?,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
+  artworkPaintable: Paintable?,
+  name: String?,
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
 ) {
-    val appIcon: (@Composable BoxScope.() -> Unit)? = artworkPaintable?.let {
-        {
-            MediaArtwork(
-                modifier = Modifier.size(ButtonDefaults.LargeIconSize),
-                contentDescription = null,
-                artworkPaintable = it,
-            )
-        }
+  val appIcon: (@Composable BoxScope.() -> Unit)? = artworkPaintable?.let {
+    {
+      MediaArtwork(
+        modifier = Modifier.size(ButtonDefaults.LargeIconSize),
+        contentDescription = null,
+        artworkPaintable = it,
+      )
     }
+  }
 
-    FilledTonalButton(
-        label = { Text(name.orEmpty()) },
-        onClick = onClick,
-        modifier = modifier,
-        icon = appIcon,
-    )
+  FilledTonalButton(
+    label = { Text(name.orEmpty()) },
+    onClick = onClick,
+    modifier = modifier,
+    icon = appIcon,
+  )
 }

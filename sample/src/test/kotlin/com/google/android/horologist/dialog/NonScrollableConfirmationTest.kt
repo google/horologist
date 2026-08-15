@@ -28,55 +28,48 @@ import com.google.android.horologist.screenshots.rng.WearDeviceScreenshotTest
 import org.junit.Test
 import org.robolectric.annotation.Config
 
-class NonScrollableConfirmationTest(device: WearDevice) : WearDeviceScreenshotTest(device = device) {
-    public override val tolerance: Float = 0.01f
+class NonScrollableConfirmationTest(device: WearDevice) :
+  WearDeviceScreenshotTest(device = device) {
+  public override val tolerance: Float = 0.01f
 
-    override fun testName(suffix: String): String =
-        "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName.substringBefore('[')}_${device.id}$suffix.png"
+  override fun testName(suffix: String): String =
+    "src/test/screenshots/${this.javaClass.simpleName}_${testInfo.methodName.substringBefore('[')}_${device.id}$suffix.png"
 
-    // Not actually non scrolling - but demonstrating content that won't scroll
+  // Not actually non scrolling - but demonstrating content that won't scroll
 
-    @Test
-    fun confirmationContentEn() = runTest {
-        ConfirmationContent(
-            title = stringResource(horologist_auth_error_message),
+  @Test
+  fun confirmationContentEn() = runTest {
+    ConfirmationContent(title = stringResource(horologist_auth_error_message))
+  }
+
+  @Test
+  @Config(qualifiers = "+ka")
+  fun confirmationContentKa() = runTest {
+    ConfirmationContent(title = stringResource(horologist_auth_error_message))
+  }
+
+  @Test
+  @Config(qualifiers = "+ta")
+  fun confirmationContentTa() = runTest {
+    ConfirmationContent(title = stringResource(horologist_auth_error_message))
+  }
+
+  @Test
+  @Config(qualifiers = "+ru")
+  fun confirmationContentRu() = runTest {
+    ConfirmationContent(title = stringResource(horologist_auth_error_message))
+  }
+
+  @Test
+  fun confirmationContentWithIcon() = runTest {
+    ConfirmationContent(
+      title = stringResource(horologist_auth_error_message),
+      icon = {
+        Icon(
+          imageVector = Icons.Filled.Error,
+          contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
         )
-    }
-
-    @Test
-    @Config(qualifiers = "+ka")
-    fun confirmationContentKa() = runTest {
-        ConfirmationContent(
-            title = stringResource(horologist_auth_error_message),
-        )
-    }
-
-    @Test
-    @Config(qualifiers = "+ta")
-    fun confirmationContentTa() = runTest {
-        ConfirmationContent(
-            title = stringResource(horologist_auth_error_message),
-        )
-    }
-
-    @Test
-    @Config(qualifiers = "+ru")
-    fun confirmationContentRu() = runTest {
-        ConfirmationContent(
-            title = stringResource(horologist_auth_error_message),
-        )
-    }
-
-    @Test
-    fun confirmationContentWithIcon() = runTest {
-        ConfirmationContent(
-            title = stringResource(horologist_auth_error_message),
-            icon = {
-                Icon(
-                    imageVector = Icons.Filled.Error,
-                    contentDescription = DECORATIVE_ELEMENT_CONTENT_DESCRIPTION,
-                )
-            },
-        )
-    }
+      },
+    )
+  }
 }

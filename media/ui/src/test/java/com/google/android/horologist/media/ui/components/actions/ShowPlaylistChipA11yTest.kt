@@ -23,14 +23,14 @@ import org.junit.Test
 
 class ShowPlaylistChipA11yTest : WearLegacyA11yTest() {
 
-    @Test
-    fun a11y() {
-        runComponentTest {
-            ShowPlaylistChip(
-                artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
-                name = "Playlists",
-                onClick = {},
-            )
-        }
+  @Test
+  fun a11y() {
+    runComponentTest {
+      ShowPlaylistChip(
+        artworkPaintable = DrawableResPaintable(R.drawable.horologist_logo),
+        name = "Playlists",
+        onClick = {},
+      )
     }
+  }
 }

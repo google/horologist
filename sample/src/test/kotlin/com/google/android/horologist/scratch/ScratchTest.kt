@@ -29,24 +29,18 @@ import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
 @RunWith(RobolectricTestRunner::class)
-@Config(
-    sdk = [35],
-    qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound,
-)
+@Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 class ScratchTest {
-    @get:Rule
-    val composeTestRule = createComposeRule()
+  @get:Rule val composeTestRule = createComposeRule()
 
-    @Test
-    fun scratch() {
-        composeTestRule.setContent {
-            ScratchPreview()
-        }
+  @Test
+  fun scratch() {
+    composeTestRule.setContent { ScratchPreview() }
 
-        println(composeTestRule.onRoot().printToString())
+    println(composeTestRule.onRoot().printToString())
 
-        composeTestRule.onNodeWithText("I am true").assertExists()
-//        composeTestRule.onNodeWithText("I am false").assertDoesNotExist()
-    }
+    composeTestRule.onNodeWithText("I am true").assertExists()
+    //        composeTestRule.onNodeWithText("I am false").assertDoesNotExist()
+  }
 }

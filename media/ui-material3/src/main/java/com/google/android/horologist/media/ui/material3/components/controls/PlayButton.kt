@@ -33,24 +33,20 @@ import com.google.android.horologist.media.ui.model.R
 
 @Composable
 public fun PlayButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    colorScheme: ColorScheme = MaterialTheme.colorScheme,
-    enabled: Boolean = true,
-    contentDescription: String = stringResource(id = R.string.horologist_play_button_content_description),
-    iconSize: Dp = IconButtonDefaults.LargeIconSize,
-    colors: IconButtonColors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
+  onClick: () -> Unit,
+  modifier: Modifier = Modifier,
+  colorScheme: ColorScheme = MaterialTheme.colorScheme,
+  enabled: Boolean = true,
+  contentDescription: String =
+    stringResource(id = R.string.horologist_play_button_content_description),
+  iconSize: Dp = IconButtonDefaults.LargeIconSize,
+  colors: IconButtonColors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
 ) {
-    FilledIconButton(
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        colors = colors,
-    ) {
-        Icon(
-            modifier = Modifier.size(iconSize),
-            imageVector = Icons.Rounded.PlayArrow,
-            contentDescription = contentDescription,
-        )
-    }
+  FilledIconButton(onClick = onClick, modifier = modifier, enabled = enabled, colors = colors) {
+    Icon(
+      modifier = Modifier.size(iconSize),
+      imageVector = Icons.Rounded.PlayArrow,
+      contentDescription = contentDescription,
+    )
+  }
 }

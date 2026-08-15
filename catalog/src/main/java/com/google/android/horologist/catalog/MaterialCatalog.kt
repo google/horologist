@@ -48,8 +48,8 @@ import com.google.android.horologist.compose.material.ToggleChipToggleControl
  *
  * Horologist's opinionated wrappers over Wear Material 2. These are list items, so each sticker
  * renders inside the column context they ship in rather than floating alone: a chip previewed at
- * its intrinsic width tells you nothing about the thing that actually varies, which is how it
- * wraps on a round screen.
+ * its intrinsic width tells you nothing about the thing that actually varies, which is how it wraps
+ * on a round screen.
  */
 @Composable
 private fun ListContext(content: @Composable () -> Unit) {

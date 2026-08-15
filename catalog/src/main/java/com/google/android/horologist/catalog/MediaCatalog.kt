@@ -161,9 +161,7 @@ internal fun MediaPlayPauseButtonPaused() {
 @MediaCatalog
 @Composable
 internal fun MediaPlayPauseButtonDisabled() {
-  Centred {
-    PlayPauseButton(onPlayClick = {}, onPauseClick = {}, playing = false, enabled = false)
-  }
+  Centred { PlayPauseButton(onPlayClick = {}, onPauseClick = {}, playing = false, enabled = false) }
 }
 
 // --- Artwork ----------------------------------------------------------------------------------
@@ -242,11 +240,7 @@ internal fun MediaEntityScreenWithArtwork() {
       headerContent = { DefaultEntityScreenHeader(title = "Songs to test with") },
       content = {
         items(3) { index ->
-          MediaDetailsButton(
-            title = "Track ${index + 1}",
-            artworkPaintable = Artwork,
-            onClick = {},
-          )
+          MediaDetailsButton(title = "Track ${index + 1}", artworkPaintable = Artwork, onClick = {})
         }
       },
     )

@@ -57,7 +57,12 @@ private const val MOBILE_BACKGROUND = 0xFFFFFBFE
 public annotation class AuthWearCatalog
 
 /** `:media:ui-material3` — the player, its displays, and its controls. */
-@Preview(device = WEAR_DEVICE, backgroundColor = WEAR_BACKGROUND, showBackground = true, group = "Media")
+@Preview(
+  device = WEAR_DEVICE,
+  backgroundColor = WEAR_BACKGROUND,
+  showBackground = true,
+  group = "Media",
+)
 public annotation class MediaCatalog
 
 /** `:compose-material` — the Material 2 building blocks Horologist wraps. */
@@ -88,7 +93,12 @@ public annotation class ComposablesCatalog
 public annotation class HealthCatalog
 
 /** `:media:audio-ui-material3` — volume and audio-output surfaces. */
-@Preview(device = WEAR_DEVICE, backgroundColor = WEAR_BACKGROUND, showBackground = true, group = "Audio")
+@Preview(
+  device = WEAR_DEVICE,
+  backgroundColor = WEAR_BACKGROUND,
+  showBackground = true,
+  group = "Audio",
+)
 public annotation class AudioCatalog
 
 /** `:compose-layout` — the scaffolding: scrolling columns, pagers, time text. */
@@ -101,7 +111,12 @@ public annotation class AudioCatalog
 public annotation class LayoutCatalog
 
 /** `:ai:ui` — the on-watch prompt/response surfaces. */
-@Preview(device = WEAR_DEVICE, backgroundColor = WEAR_BACKGROUND, showBackground = true, group = "AI")
+@Preview(
+  device = WEAR_DEVICE,
+  backgroundColor = WEAR_BACKGROUND,
+  showBackground = true,
+  group = "AI",
+)
 public annotation class AiCatalog
 
 // ---------------------------------------------------------------------------------------------

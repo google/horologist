@@ -90,22 +90,14 @@ fun PlaylistDownloadBrowseScreenPreviewUampTheme() {
 private val downloadList = buildList {
   add(
     PlaylistDownloadUiModel.InProgress(
-      PlaylistUiModel(
-        id = "id",
-        title = "Rock Classics",
-        artworkUri = SampleArtworkUri,
-      ),
+      PlaylistUiModel(id = "id", title = "Rock Classics", artworkUri = SampleArtworkUri),
       percentage = 15,
     )
   )
 
   add(
     PlaylistDownloadUiModel.Completed(
-      PlaylistUiModel(
-        id = "id",
-        title = "Pop Punk",
-        artworkUri = SampleArtworkUri,
-      )
+      PlaylistUiModel(id = "id", title = "Pop Punk", artworkUri = SampleArtworkUri)
     )
   )
 }

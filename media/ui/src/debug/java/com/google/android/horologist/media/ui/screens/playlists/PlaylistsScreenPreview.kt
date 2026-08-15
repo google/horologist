@@ -66,20 +66,8 @@ fun PlaylistsScreenPreview() {
     playlistsScreenState =
       PlaylistsScreenState.Loaded(
         buildList {
-          add(
-            PlaylistUiModel(
-              id = "id",
-              title = "Rock Classics",
-              artworkUri = SampleArtworkUri,
-            )
-          )
-          add(
-            PlaylistUiModel(
-              id = "id",
-              title = "Pop Punk",
-              artworkUri = SampleArtworkUri,
-            )
-          )
+          add(PlaylistUiModel(id = "id", title = "Rock Classics", artworkUri = SampleArtworkUri))
+          add(PlaylistUiModel(id = "id", title = "Pop Punk", artworkUri = SampleArtworkUri))
         }
       ),
     onPlaylistItemClick = {},

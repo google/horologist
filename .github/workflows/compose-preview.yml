@@ -106,7 +106,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
 
-      - uses: yschimke/compose-ai-tools/.github/actions/apply@v1.8.0
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@v1.9.0
         with:
           phase: render
           # Downgraded from the default `fail` while one preview cannot render
@@ -174,7 +174,7 @@ jobs:
       # ref and driver-ref. Floating this one on @main meant the PR render could
       # run a newer renderer than the publish did, so a preview could look right
       # here and different on the delivery branch. Bump all three together.
-      - uses: yschimke/compose-ai-tools/.github/actions/apply@v1.8.0
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@v1.9.0
         with:
           # Only the compose pipeline. The resources / a11y / notifications
           # pipelines are additional renders on top of this one; turn them on

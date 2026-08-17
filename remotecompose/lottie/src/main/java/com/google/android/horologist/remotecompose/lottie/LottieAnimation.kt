@@ -134,10 +134,11 @@ internal fun LottieAnimation(
     )
 
   CompositionLocalProvider(LocalAnimationSettings provides animationSettings) {
-    val parentTransforms =
-      animation.layers
-        .filter { l -> l.index != null && l.transform != null }
-        .associate { l -> Pair(l.index!!, l.transform!!) }
+    // We remember this topologically sorted map because traversing the graph and tracking
+    // hierarchical lists is an expensive allocation operation. Caching it guarantees it executes
+    // strictly once per Lottie load, preventing heavy GC churn during recompositions.
+    val ancestorTransforms =
+      remember(animation.layers) { buildAncestorTransforms(animation.layers) }
 
     RemoteBox(
       modifier = modifier,
@@ -147,8 +148,59 @@ internal fun LottieAnimation(
       contentAlignment = RemoteAlignment.Center,
     ) {
       for (layer in animation.layers) {
-        Layer(layer, parentTransforms, null)
+        Layer(layer, ancestorTransforms, null)
       }
     }
+  }
+}
+
+private fun buildAncestorTransforms(
+  layers: List<com.google.android.horologist.remotecompose.lottie.format.Layer>
+): Map<
+  Int,
+  List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform>,
+> {
+  val map =
+    mutableMapOf<
+      Int,
+      List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform>,
+    >()
+  val childrenMap = layers.groupBy { it.parent }
+
+  val roots = childrenMap[null] ?: emptyList()
+  for (layer in roots) {
+    populateAncestorTransforms(layer, emptyList(), childrenMap, map)
+  }
+
+  return map
+}
+
+private fun populateAncestorTransforms(
+  layer: com.google.android.horologist.remotecompose.lottie.format.Layer,
+  currentStack:
+    List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform>,
+  childrenMap: Map<Int?, List<com.google.android.horologist.remotecompose.lottie.format.Layer>>,
+  outMap:
+    MutableMap<
+      Int,
+      List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform>,
+    >,
+) {
+  val layerIndex = layer.index
+  if (layerIndex != null) {
+    outMap[layerIndex] = currentStack
+  }
+
+  val layerTransform = layer.transform
+  val nextStack =
+    if (layerTransform != null) {
+      currentStack + layerTransform
+    } else {
+      currentStack
+    }
+
+  val children = childrenMap[layerIndex] ?: emptyList()
+  for (child in children) {
+    populateAncestorTransforms(child, nextStack, childrenMap, outMap)
   }
 }

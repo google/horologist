@@ -20,8 +20,10 @@ import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
+import androidx.compose.remote.creation.compose.modifier.drawWithContent
 import androidx.compose.remote.creation.compose.modifier.graphicsLayer
 import androidx.compose.remote.creation.compose.state.RemotePaint
+import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
@@ -62,18 +64,24 @@ internal fun Transform.toModifier(animationSettings: LottieSettings): RemoteModi
   val anchorPoint = animatePosition(this.anchorPoint, animationSettings)
   val scale = animateVector(this.scale, animationSettings)
 
+  // Lottie stores scale and opacity as percentages (0..100).
+  // Compose Modifiers expect them as a ratio (0f..1f).
   val scaleX = scale[0] / 100f
   val scaleY = scale[1] / 100f
   val alpha = opacity / 100f
 
-  return RemoteModifier.graphicsLayer(
-    scaleX = scaleX,
-    scaleY = scaleY,
-    translationX = translation.x,
-    translationY = translation.y,
-    rotationZ = rotation,
-    alpha = alpha,
-    transformOriginX = anchorPoint.x,
-    transformOriginY = anchorPoint.y,
-  )
+  // Lottie stores anchor point and translation as absolute pixels in the original animation space.
+  // By using drawWithContent, we can supply these raw absolute coordinates sequentially
+  // to the matrix, rather than having to map them to Compose fractions (like TransformOrigin 0..1).
+  return RemoteModifier.graphicsLayer(alpha = alpha).drawWithContent {
+    translate(translation.x, translation.y) {
+      translate(anchorPoint.x, anchorPoint.y) {
+        rotate(rotation) {
+          scale(scaleX, scaleY) {
+            translate(anchorPoint.x * -1f.rf, anchorPoint.y * -1f.rf) { drawContent() }
+          }
+        }
+      }
+    }
+  }
 }

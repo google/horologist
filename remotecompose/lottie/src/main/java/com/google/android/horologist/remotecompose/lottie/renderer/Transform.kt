@@ -18,7 +18,11 @@ package com.google.android.horologist.remotecompose.lottie.renderer
 
 import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
+import androidx.compose.remote.creation.compose.modifier.RemoteModifier
+import androidx.compose.remote.creation.compose.modifier.graphicsLayer
 import androidx.compose.remote.creation.compose.state.RemotePaint
+import androidx.compose.runtime.Composable
+import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
 
@@ -46,4 +50,30 @@ internal fun transform(
   canvas.translate(-anchorPoint.x, -anchorPoint.y)
 
   paint.color = paint.color.copy(alpha = opacity / 100f)
+}
+
+@SuppressLint("RestrictedApi")
+@Composable
+@RemoteComposable
+internal fun Transform.toModifier(animationSettings: LottieSettings): RemoteModifier {
+  val rotation = animateScalar(this.rotation, animationSettings)
+  val translation = animatePosition(this.positionTranslation, animationSettings)
+  val opacity = animateScalar(this.opacity, animationSettings)
+  val anchorPoint = animatePosition(this.anchorPoint, animationSettings)
+  val scale = animateVector(this.scale, animationSettings)
+
+  val scaleX = scale[0] / 100f
+  val scaleY = scale[1] / 100f
+  val alpha = opacity / 100f
+
+  return RemoteModifier.graphicsLayer(
+    scaleX = scaleX,
+    scaleY = scaleY,
+    translationX = translation.x,
+    translationY = translation.y,
+    rotationZ = rotation,
+    alpha = alpha,
+    transformOriginX = anchorPoint.x,
+    transformOriginY = anchorPoint.y
+  )
 }

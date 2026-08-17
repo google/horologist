@@ -32,7 +32,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.horologist.remotecompose.lottie.format.Animation
-import com.google.android.horologist.remotecompose.lottie.renderer.Layer
+import com.google.android.horologist.remotecompose.lottie.renderer.LayerNode
 
 /**
  * Settings for the Lottie animation player.
@@ -134,10 +134,7 @@ internal fun LottieAnimation(
     )
 
   CompositionLocalProvider(LocalAnimationSettings provides animationSettings) {
-    val parentTransforms =
-      animation.layers
-        .filter { l -> l.index != null && l.transform != null }
-        .associate { l -> Pair(l.index!!, l.transform!!) }
+    val childrenMap = animation.layers.groupBy { it.parent }
 
     RemoteBox(
       modifier = modifier,
@@ -146,8 +143,8 @@ internal fun LottieAnimation(
       // .clip(RemoteRectangleShape)
       contentAlignment = RemoteAlignment.Center,
     ) {
-      for (layer in animation.layers) {
-        Layer(layer, parentTransforms, null)
+      childrenMap[null]?.forEach { layer ->
+        LayerNode(layer, childrenMap)
       }
     }
   }

@@ -16,48 +16,47 @@
 
 package com.google.android.horologist.remotecompose.lottie.renderer
 
+import androidx.compose.remote.creation.compose.layout.RemoteAlignment
+import androidx.compose.remote.creation.compose.layout.RemoteBox
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
+import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
+import com.google.android.horologist.remotecompose.lottie.LocalAnimationSettings
 import com.google.android.horologist.remotecompose.lottie.format.Layer
 import com.google.android.horologist.remotecompose.lottie.format.LayerType
 
 /** A Layer in the Lottie composition */
 @Composable
 @RemoteComposable
-internal fun Layer(layer: Layer, parentTransforms: Map<Int, Transform>, transform: Transform?) {
-  val transformStack =
-    if (layer.parent == null || !parentTransforms.containsKey(layer.parent)) {
-      mutableListOf()
-    } else {
-      mutableListOf(parentTransforms[layer.parent]!!)
-    }
-
-  // TODO: Replace passing a transform param in and applying it to the transform stack with
-  // graphicsLayer transforms in the calling composable, once the ANDROID_NATIVE player supports
-  // graphicsLayer
-  // (b/408913726)
-  if (transform != null) {
-    transformStack.add(0, transform)
+internal fun LayerNode(layer: Layer, childrenMap: Map<Int?, List<Layer>>) {
+  if (layer.hidden == true) {
+    return
   }
 
-  when (layer.type) {
-    LayerType.Null -> {} // No-op - null layers are used to apply parent transforms.
-    LayerType.Shape -> ShapeLayer(layer as Layer.ShapeLayer, transformStack)
+  val transform = layer.transform
+  val modifier = if (transform != null) {
+      transform.toModifier(LocalAnimationSettings.current)
+  } else {
+      RemoteModifier
+  }
+
+  RemoteBox(modifier = modifier, contentAlignment = RemoteAlignment.Center) {
+    when (layer.type) {
+      LayerType.Null -> {} // No-op - null layers are used to apply parent transforms.
+      LayerType.Shape -> ShapeLayer(layer as Layer.ShapeLayer)
+    }
+
+    // Recursively add children
+    childrenMap[layer.index]?.forEach { childLayer ->
+      LayerNode(childLayer, childrenMap)
+    }
   }
 }
 
 /** A Layer containing Shapes */
 @Composable
 @RemoteComposable
-internal fun ShapeLayer(layer: Layer.ShapeLayer, transformStack: List<Transform?>? = null) {
-  if (layer.hidden == true) {
-    return
-  }
-
-  val updatedTransformStack =
-    listOfNotNull(layer.transform, *(transformStack ?: listOf()).toTypedArray()).reversed()
-
+internal fun ShapeLayer(layer: Layer.ShapeLayer) {
   // TODO: Check start & end frame to see if we should be rendering
-  RenderShapes(layer.shapes, updatedTransformStack)
+  RenderShapes(layer.shapes, emptyList())
 }

@@ -34,6 +34,7 @@ import kotlinx.serialization.Serializable
 @Serializable(with = LayerSerializer::class)
 internal sealed class Layer {
   abstract val name: String?
+  abstract val hidden: Boolean?
   abstract val type: LayerType
   abstract val index: Int?
   abstract val parent: Int?
@@ -43,7 +44,7 @@ internal sealed class Layer {
   @Serializable
   data class NullLayer(
     @SerialName("nm") override val name: String? = "",
-    @SerialName("hd") val hidden: Boolean? = false,
+    @SerialName("hd") override val hidden: Boolean? = false,
     @SerialName("ty") override val type: LayerType = LayerType.Null,
     @SerialName("ind") override val index: Int? = null,
     @SerialName("parent") override val parent: Int? = null,
@@ -56,7 +57,7 @@ internal sealed class Layer {
   @Serializable
   data class ShapeLayer(
     @SerialName("nm") override val name: String? = "",
-    @SerialName("hd") val hidden: Boolean? = false,
+    @SerialName("hd") override val hidden: Boolean? = false,
     @SerialName("ty") override val type: LayerType = LayerType.Shape,
     @SerialName("ind") override val index: Int? = null,
     @SerialName("parent") override val parent: Int? = null,

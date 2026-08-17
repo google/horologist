@@ -34,11 +34,12 @@ internal fun LayerNode(layer: Layer, childrenMap: Map<Int?, List<Layer>>) {
   }
 
   val transform = layer.transform
-  val modifier = if (transform != null) {
+  val modifier =
+    if (transform != null) {
       transform.toModifier(LocalAnimationSettings.current)
-  } else {
+    } else {
       RemoteModifier
-  }
+    }
 
   RemoteBox(modifier = modifier, contentAlignment = RemoteAlignment.Center) {
     when (layer.type) {
@@ -47,9 +48,7 @@ internal fun LayerNode(layer: Layer, childrenMap: Map<Int?, List<Layer>>) {
     }
 
     // Recursively add children
-    childrenMap[layer.index]?.forEach { childLayer ->
-      LayerNode(childLayer, childrenMap)
-    }
+    childrenMap[layer.index]?.forEach { childLayer -> LayerNode(childLayer, childrenMap) }
   }
 }
 

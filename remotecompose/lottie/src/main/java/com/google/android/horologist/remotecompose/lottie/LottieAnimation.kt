@@ -143,9 +143,7 @@ internal fun LottieAnimation(
       // .clip(RemoteRectangleShape)
       contentAlignment = RemoteAlignment.Center,
     ) {
-      childrenMap[null]?.forEach { layer ->
-        LayerNode(layer, childrenMap)
-      }
+      childrenMap[null]?.forEach { layer -> LayerNode(layer, childrenMap) }
     }
   }
 }

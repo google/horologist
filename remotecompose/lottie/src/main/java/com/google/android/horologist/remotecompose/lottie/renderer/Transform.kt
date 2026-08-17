@@ -18,11 +18,11 @@ package com.google.android.horologist.remotecompose.lottie.renderer
 
 import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
+import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.remote.creation.compose.modifier.graphicsLayer
 import androidx.compose.remote.creation.compose.state.RemotePaint
 import androidx.compose.runtime.Composable
-import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
 
@@ -74,6 +74,6 @@ internal fun Transform.toModifier(animationSettings: LottieSettings): RemoteModi
     rotationZ = rotation,
     alpha = alpha,
     transformOriginX = anchorPoint.x,
-    transformOriginY = anchorPoint.y
+    transformOriginY = anchorPoint.y,
   )
 }

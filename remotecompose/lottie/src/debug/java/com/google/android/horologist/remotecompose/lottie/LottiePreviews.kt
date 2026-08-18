@@ -131,3 +131,16 @@ fun LottiePositionAnimatedPreview() {
 fun LottiePositionAnimatedLivePreview() {
   LottieAnimatedPreview(animationResId = R.raw.position_animated, modifier = Modifier.size(100.dp))
 }
+
+/**
+ * 20 dot layers chained child -> parent -> grandparent, each applying the same relative delta.
+ * Should draw a shrinking, fading spiral; currently collapses from the third layer down because
+ * only the immediate parent's transform is applied.
+ *
+ * See https://github.com/google/horologist/issues/2795.
+ */
+@Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
+@Composable
+fun LottieParentChainPreview() {
+  LottiePreview(animationResId = R.raw.parent_chain, modifier = Modifier.size(100.dp))
+}

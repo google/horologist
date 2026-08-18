@@ -52,4 +52,21 @@ class LottieFeatureDiffScreenshotTest : LottieDiffScreenshotTest() {
   fun polystar() {
     runLottieDiffTest(R.raw.polystar)
   }
+
+  /**
+   * Tests layer parenting more than one level deep.
+   *
+   * `parent_chain` is 20 dot layers chained child -> parent -> grandparent -> ..., each applying
+   * the same relative delta (translate 30px, rotate 25 degrees, scale 93%). Accumulating those
+   * deltas down the chain draws a shrinking, fading spiral.
+   *
+   * Only the layer's immediate parent transform is applied, so every layer from the third down
+   * loses its ancestors' transforms and collapses onto a single point.
+   *
+   * See https://github.com/google/horologist/issues/2795.
+   */
+  @Test
+  fun parentChain() {
+    runLottieDiffTest(R.raw.parent_chain)
+  }
 }

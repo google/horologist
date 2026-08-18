@@ -23,8 +23,10 @@ import androidx.compose.remote.creation.compose.layout.RemoteAlignment
 import androidx.compose.remote.creation.compose.layout.RemoteBox
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
+import androidx.compose.remote.creation.compose.modifier.drawWithContent
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.floor
+import androidx.compose.remote.creation.compose.state.min
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -142,8 +144,27 @@ internal fun LottieAnimation(
     val ancestorTransforms =
       remember(animation.layers) { buildAncestorTransforms(animation.layers) }
 
+    val lottieWidth = animation.width.rf
+    val lottieHeight = animation.height.rf
+
+    val scaleModifier = RemoteModifier.drawWithContent {
+      val canvasWidth = size.width
+      val canvasHeight = size.height
+
+      val scaleX = canvasWidth / lottieWidth
+      val scaleY = canvasHeight / lottieHeight
+      val scale = min(scaleX, scaleY)
+
+      val scaledWidth = lottieWidth * scale
+      val scaledHeight = lottieHeight * scale
+      val dx = (canvasWidth - scaledWidth) / 2.rf
+      val dy = (canvasHeight - scaledHeight) / 2.rf
+
+      translate(dx, dy) { scale(scale, scale) { drawContent() } }
+    }
+
     RemoteBox(
-      modifier = modifier,
+      modifier = modifier.then(scaleModifier),
       // TODO: 496943072 - ANDROID_NATIVE player doesn't support clipping yet, so we need to avoid
       // clipping for now until it does. coming in cl/893506559
       // .clip(RemoteRectangleShape)

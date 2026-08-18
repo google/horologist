@@ -646,6 +646,7 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `LottieM3PlayPausePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieM3PlayPausePreview.png" width="150" /> |
 | `LottieNextAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieNextAnimatedPreview.gif" width="150" /> |
 | `LottieNextPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieNextPreview.png" width="150" /> |
+| `LottieParentChainPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieParentChainPreview.png" width="150" /> |
 | `LottiePlayPauseAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePlayPauseAnimatedPreview.gif" width="150" /> |
 | `LottiePlayPausePauseStatePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePlayPausePauseStatePreview.png" width="150" /> |
 | `LottiePlayPausePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePlayPausePreview.png" width="150" /> |

@@ -4196,7 +4196,7 @@
     "functionName": "LottieGeometryPreview",
     "module": "remotecompose:lottie",
     "renderBasename": "LottieGeometryPreview.png",
-    "sha256": "69885de78cd133949d61d393627e98cfa0a6a42aaba408f6635dcd1ae8a1a024",
+    "sha256": "cfbac4b7d94b00f5597272e8910696c55e2066b2346c982c06e52f9a24a536ef",
     "sourceFile": "src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt"
   },
   "remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottieM3PlayPauseAnimatedPreview": {
@@ -4229,6 +4229,14 @@
     "module": "remotecompose:lottie",
     "renderBasename": "LottieNextPreview.png",
     "sha256": "d0b93fdde59ae0247c3b91ed48a9681a41f8bfd7f3e4919cfacc163e380f8161",
+    "sourceFile": "src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt"
+  },
+  "remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottieParentChainPreview": {
+    "captureLabel": "",
+    "functionName": "LottieParentChainPreview",
+    "module": "remotecompose:lottie",
+    "renderBasename": "LottieParentChainPreview.png",
+    "sha256": "8f2e236d2d098ac765d44dac9858ce4f4e696ac7e80625049703d9ba8d6213d1",
     "sourceFile": "src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt"
   },
   "remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottiePlayPauseAnimatedPreview": {
@@ -4292,7 +4300,7 @@
     "functionName": "LottieTintGeometryPreview",
     "module": "remotecompose:lottie",
     "renderBasename": "LottieTintGeometryPreview.png",
-    "sha256": "e27897e8be3be7cb9f88be398ab2ffb075c95197695b8c8f00787e712f3165c8",
+    "sha256": "377b8d0e99b2ef1a52b61ea4e3ec453fb995a06c9c768895be672bfb864d6136",
     "sourceFile": "src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt"
   },
   "sample/com.google.android.horologist.audit.AuditMenuScreenKt.AuditMenuScreenPreview_Devices - Large Round": {

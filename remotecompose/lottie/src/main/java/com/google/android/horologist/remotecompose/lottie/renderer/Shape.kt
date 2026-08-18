@@ -22,8 +22,6 @@ import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.remote.creation.compose.modifier.fillMaxSize
-import androidx.compose.remote.creation.compose.state.min
-import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.remotecompose.lottie.LocalAnimationSettings
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
@@ -54,41 +52,25 @@ internal fun RenderShapes(shapes: List<GraphicElement>, transformStack: List<Tra
   val animationSettings = LocalAnimationSettings.current
   val shapeGroups = gatherShapes(shapes, animationSettings)
 
+  // Aspect-ratio scaling and centering is applied once, at the top level, by the
+  // drawWithContent modifier in LottieAnimation - shapes draw in raw Lottie coordinates here.
   RemoteCanvas(modifier = RemoteModifier.fillMaxSize()) {
-    val canvasWidth = remote.component.width
-    val canvasHeight = remote.component.height
-    val lottieWidth = animationSettings.width.rf
-    val lottieHeight = animationSettings.height.rf
+    for (shapeGroup in shapeGroups) {
+      val paint = shapeGroup.style.getPaint()
 
-    val scaleX = canvasWidth / lottieWidth
-    val scaleY = canvasHeight / lottieHeight
-    val scale = min(scaleX, scaleY)
+      for (transform in transformStack) {
+        remoteCanvas.save()
+        transform(transform, paint, animationSettings, remoteCanvas)
+      }
 
-    val scaledWidth = lottieWidth * scale
-    val scaledHeight = lottieHeight * scale
-    val dx = (canvasWidth - scaledWidth) / 2.rf
-    val dy = (canvasHeight - scaledHeight) / 2.rf
-
-    translate(dx, dy) {
-      scale(scale) {
-        for (shapeGroup in shapeGroups) {
-          val paint = shapeGroup.style.getPaint()
-
-          for (transform in transformStack) {
-            remoteCanvas.save()
-            transform(transform, paint, animationSettings, remoteCanvas)
-          }
-
-          usePaint(paint) {
-            for (shape in shapeGroup.shapes) {
-              shape.draw(this, remoteCanvas)
-            }
-          }
-
-          for (transform in transformStack) {
-            remoteCanvas.restore()
-          }
+      usePaint(paint) {
+        for (shape in shapeGroup.shapes) {
+          shape.draw(this, remoteCanvas)
         }
+      }
+
+      for (transform in transformStack) {
+        remoteCanvas.restore()
       }
     }
   }

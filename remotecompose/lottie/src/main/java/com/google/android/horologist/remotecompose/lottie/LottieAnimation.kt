@@ -32,6 +32,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.horologist.remotecompose.lottie.format.Animation
+import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
+import com.google.android.horologist.remotecompose.lottie.format.Layer
 import com.google.android.horologist.remotecompose.lottie.renderer.Layer
 
 /**
@@ -154,17 +156,8 @@ internal fun LottieAnimation(
   }
 }
 
-private fun buildAncestorTransforms(
-  layers: List<com.google.android.horologist.remotecompose.lottie.format.Layer>
-): Map<
-  Int,
-  List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform>,
-> {
-  val map =
-    mutableMapOf<
-      Int,
-      List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform>,
-    >()
+private fun buildAncestorTransforms(layers: List<Layer>): Map<Int, List<Transform>> {
+  val map = mutableMapOf<Int, List<Transform>>()
   val childrenMap = layers.groupBy { it.parent }
 
   val roots = childrenMap[null] ?: emptyList()
@@ -176,15 +169,10 @@ private fun buildAncestorTransforms(
 }
 
 private fun populateAncestorTransforms(
-  layer: com.google.android.horologist.remotecompose.lottie.format.Layer,
-  currentStack:
-    List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform>,
-  childrenMap: Map<Int?, List<com.google.android.horologist.remotecompose.lottie.format.Layer>>,
-  outMap:
-    MutableMap<
-      Int,
-      List<com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform>,
-    >,
+  layer: Layer,
+  currentStack: List<Transform>,
+  childrenMap: Map<Int?, List<Layer>>,
+  outMap: MutableMap<Int, List<Transform>>,
 ) {
   val layerIndex = layer.index
   if (layerIndex != null) {

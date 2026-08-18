@@ -32,10 +32,6 @@ internal fun Layer(
 ) {
   val ancestorStack = parentTransforms[layer.index] ?: emptyList()
 
-  // TODO: Replace passing a transform param in and applying it to the transform stack with
-  // graphicsLayer transforms in the calling composable, once the ANDROID_NATIVE player supports
-  // graphicsLayer
-  // (b/408913726)
   val completeStack =
     if (transform != null) {
       listOf(transform) + ancestorStack

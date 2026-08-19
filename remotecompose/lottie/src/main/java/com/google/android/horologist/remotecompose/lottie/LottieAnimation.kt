@@ -34,6 +34,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.horologist.remotecompose.lottie.format.Animation
+import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
+import com.google.android.horologist.remotecompose.lottie.format.Layer
 import com.google.android.horologist.remotecompose.lottie.renderer.Layer
 
 /**
@@ -136,10 +138,11 @@ internal fun LottieAnimation(
     )
 
   CompositionLocalProvider(LocalAnimationSettings provides animationSettings) {
-    val parentTransforms =
-      animation.layers
-        .filter { l -> l.index != null && l.transform != null }
-        .associate { l -> Pair(l.index!!, l.transform!!) }
+    // We remember this topologically sorted map because traversing the graph and tracking
+    // hierarchical lists is an expensive allocation operation. Caching it guarantees it executes
+    // strictly once per Lottie load, preventing heavy GC churn during recompositions.
+    val ancestorTransforms =
+      remember(animation.layers) { buildAncestorTransforms(animation.layers) }
 
     val lottieWidth = animation.width.rf
     val lottieHeight = animation.height.rf
@@ -168,8 +171,45 @@ internal fun LottieAnimation(
       contentAlignment = RemoteAlignment.Center,
     ) {
       for (layer in animation.layers) {
-        Layer(layer, parentTransforms, null)
+        Layer(layer, ancestorTransforms, null)
       }
     }
+  }
+}
+
+private fun buildAncestorTransforms(layers: List<Layer>): Map<Int, List<Transform>> {
+  val map = mutableMapOf<Int, List<Transform>>()
+  val childrenMap = layers.groupBy { it.parent }
+
+  val roots = childrenMap[null] ?: emptyList()
+  for (layer in roots) {
+    populateAncestorTransforms(layer, emptyList(), childrenMap, map)
+  }
+
+  return map
+}
+
+private fun populateAncestorTransforms(
+  layer: Layer,
+  currentStack: List<Transform>,
+  childrenMap: Map<Int?, List<Layer>>,
+  outMap: MutableMap<Int, List<Transform>>,
+) {
+  val layerIndex = layer.index
+  if (layerIndex != null) {
+    outMap[layerIndex] = currentStack
+  }
+
+  val layerTransform = layer.transform
+  val nextStack =
+    if (layerTransform != null) {
+      currentStack + layerTransform
+    } else {
+      currentStack
+    }
+
+  val children = childrenMap[layerIndex] ?: emptyList()
+  for (child in children) {
+    populateAncestorTransforms(child, nextStack, childrenMap, outMap)
   }
 }

@@ -36,6 +36,17 @@ class LottieBasicScreenshotTest : WearScreenshotTest() {
       }
     }
 
-    composeRule.onNodeWithTag("Box").captureRoboImage(testName(""))
+    composeRule.onNodeWithTag("Box").captureRoboImage(testName("_geometry"))
+  }
+
+  @Test
+  fun grandparent() {
+    composeRule.setContent {
+      Box(modifier = Modifier.background(Color.White).testTag("Box")) {
+        LottiePreview(R.raw.grandparent, clock = SettableRemoteClock())
+      }
+    }
+
+    composeRule.onNodeWithTag("Box").captureRoboImage(testName("_grandparent"))
   }
 }

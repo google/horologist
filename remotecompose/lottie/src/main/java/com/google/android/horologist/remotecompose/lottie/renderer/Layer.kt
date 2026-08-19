@@ -25,25 +25,23 @@ import com.google.android.horologist.remotecompose.lottie.format.LayerType
 /** A Layer in the Lottie composition */
 @Composable
 @RemoteComposable
-internal fun Layer(layer: Layer, parentTransforms: Map<Int, Transform>, transform: Transform?) {
-  val transformStack =
-    if (layer.parent == null || !parentTransforms.containsKey(layer.parent)) {
-      mutableListOf()
-    } else {
-      mutableListOf(parentTransforms[layer.parent]!!)
-    }
+internal fun Layer(
+  layer: Layer,
+  parentTransforms: Map<Int, List<Transform>>,
+  transform: Transform?,
+) {
+  val ancestorStack = parentTransforms[layer.index] ?: emptyList()
 
-  // TODO: Replace passing a transform param in and applying it to the transform stack with
-  // graphicsLayer transforms in the calling composable, once the ANDROID_NATIVE player supports
-  // graphicsLayer
-  // (b/408913726)
-  if (transform != null) {
-    transformStack.add(0, transform)
-  }
+  val completeStack =
+    if (transform != null) {
+      listOf(transform) + ancestorStack
+    } else {
+      ancestorStack
+    }
 
   when (layer.type) {
     LayerType.Null -> {} // No-op - null layers are used to apply parent transforms.
-    LayerType.Shape -> ShapeLayer(layer as Layer.ShapeLayer, transformStack)
+    LayerType.Shape -> ShapeLayer(layer as Layer.ShapeLayer, completeStack)
   }
 }
 
@@ -55,8 +53,9 @@ internal fun ShapeLayer(layer: Layer.ShapeLayer, transformStack: List<Transform?
     return
   }
 
+  val safeStack = transformStack?.filterNotNull() ?: emptyList()
   val updatedTransformStack =
-    listOfNotNull(layer.transform, *(transformStack ?: listOf()).toTypedArray()).reversed()
+    if (layer.transform != null) safeStack + layer.transform else safeStack
 
   // TODO: Check start & end frame to see if we should be rendering
   RenderShapes(layer.shapes, updatedTransformStack)

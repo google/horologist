@@ -4236,7 +4236,7 @@
     "functionName": "LottieParentChainPreview",
     "module": "remotecompose:lottie",
     "renderBasename": "LottieParentChainPreview.png",
-    "sha256": "8f2e236d2d098ac765d44dac9858ce4f4e696ac7e80625049703d9ba8d6213d1",
+    "sha256": "2741db977bcd2b7c7515280f92254e260e687a9d9316d7a91667eceb141de357",
     "sourceFile": "src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt"
   },
   "remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottiePlayPauseAnimatedPreview": {
@@ -4300,7 +4300,7 @@
     "functionName": "LottieTintGeometryPreview",
     "module": "remotecompose:lottie",
     "renderBasename": "LottieTintGeometryPreview.png",
-    "sha256": "377b8d0e99b2ef1a52b61ea4e3ec453fb995a06c9c768895be672bfb864d6136",
+    "sha256": "e27897e8be3be7cb9f88be398ab2ffb075c95197695b8c8f00787e712f3165c8",
     "sourceFile": "src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt"
   },
   "sample/com.google.android.horologist.audit.AuditMenuScreenKt.AuditMenuScreenPreview_Devices - Large Round": {

@@ -1,6 +1,6 @@
 {
     "formatVersion": "compose-preview-history/v1",
-    "generatedFrom": "a7b6f2f791c78989039a0858aa6ff8f9303b57a8",
+    "generatedFrom": "e023b73fcbdbf83b88de92765ef64b12eb6a0ff2",
     "previews": {
         "ai:sample:wear-gemini/com.google.android.horologist.ai.sample.wear.gemini.activity.WearAppKt.DefaultPreview_Devices - Small Round": {
             "path": "renders/ai:sample:wear-gemini/DefaultPreview_Devices_Small_Round.png",
@@ -8179,6 +8179,13 @@
             "path": "renders/remotecompose:lottie/LottieParentChainPreview.png",
             "versions": [
                 {
+                    "blob": "171bc1634bc2ee96fab189c5060804ed0fa2dc73",
+                    "commit": "e023b73fcbdbf83b88de92765ef64b12eb6a0ff2",
+                    "date": "2026-08-19T12:59:15Z",
+                    "sourceSha": "b58059a3",
+                    "commits": 1
+                },
+                {
                     "blob": "b75fdbf561a6173af19c0df76384de4bd58c2a6c",
                     "commit": "a7b6f2f791c78989039a0858aa6ff8f9303b57a8",
                     "date": "2026-08-18T09:12:43Z",
@@ -8186,7 +8193,7 @@
                     "commits": 1
                 }
             ],
-            "observations": 1,
+            "observations": 2,
             "unstable": false,
             "flapCount": 0
         },
@@ -8306,6 +8313,13 @@
             "path": "renders/remotecompose:lottie/LottieTintGeometryPreview.png",
             "versions": [
                 {
+                    "blob": "d2823a749008b83bd4ebf09af73a75f0b84fb2d5",
+                    "commit": "e023b73fcbdbf83b88de92765ef64b12eb6a0ff2",
+                    "date": "2026-08-19T12:59:15Z",
+                    "sourceSha": "b58059a3",
+                    "commits": 1
+                },
+                {
                     "blob": "eef22fbb5e7fbb3926ba08e02a823afc29cc0001",
                     "commit": "a7b6f2f791c78989039a0858aa6ff8f9303b57a8",
                     "date": "2026-08-18T09:12:43Z",
@@ -8327,9 +8341,9 @@
                     "commits": 1
                 }
             ],
-            "observations": 3,
+            "observations": 4,
             "unstable": false,
-            "flapCount": 0
+            "flapCount": 1
         },
         "sample/com.google.android.horologist.audit.AuditMenuScreenKt.AuditMenuScreenPreview_Devices - Large Round": {
             "path": "renders/sample/AuditMenuScreenPreview_Devices_Large_Round.png",

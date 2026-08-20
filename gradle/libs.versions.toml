@@ -154,7 +154,7 @@ androidx-wear-tiles-testing = { module = "androidx.wear.tiles:tiles-testing", ve
 androidx-wear-tiles-tooling = { module = "androidx.wear.tiles:tiles-tooling", version.ref = "tiles-tooling-preview" }
 androidx-wear-tiles-tooling-preview = { module = "androidx.wear.tiles:tiles-tooling-preview", version.ref = "tiles-tooling-preview" }
 androidx-wear-tooling-preview = { module = "androidx.wear:wear-tooling-preview", version.ref = "wearToolingPreview" }
-androidx-wear-widgets-tooling-preview = { module = "androidx.glance.wear:wear-tooling-preview", version.ref = "wearToolingPreview" }
+androidx-wear-widgets-tooling-preview = { module = "androidx.glance.wear:wear-tooling-preview", version.ref = "glanceWear" }
 androidx-glance-wear = { module = "androidx.glance.wear:wear", version.ref = "glanceWear" }
 androidx-glance-wear-core = { module = "androidx.glance.wear:wear-core", version.ref = "glanceWear" }
 androidx-compose-remote-core = { module = "androidx.compose.remote:remote-core", version.ref = "composeRemote" }

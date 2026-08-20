@@ -129,7 +129,46 @@ internal sealed class GraphicElement {
     @SerialName("hd") override val hidden: Boolean? = false,
     @SerialName("ty") override val type: ShapeType = ShapeType.Fill,
     @SerialName("o") val opacity: BaseScalarProperty = StaticScalarProperty(value = 100f),
-    @SerialName("c") val color: StaticColorProperty,
+    @SerialName("c") val color: BaseColorProperty,
+  ) : GraphicElement()
+
+  /** Gradient fill */
+  @Serializable
+  data class GradientFill(
+    @SerialName("nm") override val name: String? = "",
+    @SerialName("hd") override val hidden: Boolean? = false,
+    @SerialName("ty") override val type: ShapeType = ShapeType.GradientFill,
+    @SerialName("o") val opacity: BaseScalarProperty = StaticScalarProperty(value = 100f),
+    @SerialName("r") val fillRule: Int? = 1,
+    @SerialName("s")
+    val startPoint: BasePositionProperty = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
+    @SerialName("e")
+    val endPoint: BasePositionProperty = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
+    @SerialName("t") val gradientType: Int = 1,
+    @SerialName("g") val gradient: BaseGradientProperty,
+    @SerialName("h") val highlightLength: BaseScalarProperty? = null,
+    @SerialName("a") val highlightAngle: BaseScalarProperty? = null,
+  ) : GraphicElement()
+
+  /** Gradient stroke */
+  @Serializable
+  data class GradientStroke(
+    @SerialName("nm") override val name: String? = "",
+    @SerialName("hd") override val hidden: Boolean? = false,
+    @SerialName("ty") override val type: ShapeType = ShapeType.GradientStroke,
+    @SerialName("o") val opacity: BaseScalarProperty = StaticScalarProperty(value = 100f),
+    @SerialName("w") val strokeWidth: BaseScalarProperty = StaticScalarProperty(value = 1f),
+    @SerialName("s")
+    val startPoint: BasePositionProperty = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
+    @SerialName("e")
+    val endPoint: BasePositionProperty = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
+    @SerialName("t") val gradientType: Int = 1,
+    @SerialName("g") val gradient: BaseGradientProperty,
+    @SerialName("h") val highlightLength: BaseScalarProperty? = null,
+    @SerialName("a") val highlightAngle: BaseScalarProperty? = null,
+    @SerialName("lc") val lineCap: Int? = 1,
+    @SerialName("lj") val lineJoin: Int? = 1,
+    @SerialName("ml") val miterLimit: Float? = 4f,
   ) : GraphicElement()
 }
 
@@ -137,6 +176,8 @@ internal sealed class GraphicElement {
 internal enum class ShapeType(val value: String) {
   Ellipse("el"),
   Fill("fl"),
+  GradientFill("gf"),
+  GradientStroke("gs"),
   Group("gr"),
   Path("sh"),
   PolyStar("sr"),

@@ -141,20 +141,25 @@ class LottieScalingDiffScreenshotTest(
                       BezierValue(
                         closed = true,
                         vertices =
-                          listOf(listOf(0f, -r), listOf(r, 0f), listOf(0f, r), listOf(-r, 0f)),
+                          listOf(
+                            floatArrayOf(0f, -r),
+                            floatArrayOf(r, 0f),
+                            floatArrayOf(0f, r),
+                            floatArrayOf(-r, 0f),
+                          ),
                         inTangents =
                           listOf(
-                            listOf(-handle, 0f),
-                            listOf(0f, -handle),
-                            listOf(handle, 0f),
-                            listOf(0f, handle),
+                            floatArrayOf(-handle, 0f),
+                            floatArrayOf(0f, -handle),
+                            floatArrayOf(handle, 0f),
+                            floatArrayOf(0f, handle),
                           ),
                         outTangents =
                           listOf(
-                            listOf(handle, 0f),
-                            listOf(0f, handle),
-                            listOf(-handle, 0f),
-                            listOf(0f, -handle),
+                            floatArrayOf(handle, 0f),
+                            floatArrayOf(0f, handle),
+                            floatArrayOf(-handle, 0f),
+                            floatArrayOf(0f, -handle),
                           ),
                       )
                   ),
@@ -185,15 +190,25 @@ class LottieScalingDiffScreenshotTest(
                         closed = true,
                         vertices =
                           listOf(
-                            listOf(2f, 2f),
-                            listOf(w - 2f, 2f),
-                            listOf(w - 2f, h - 2f),
-                            listOf(2f, h - 2f),
+                            floatArrayOf(2f, 2f),
+                            floatArrayOf(w - 2f, 2f),
+                            floatArrayOf(w - 2f, h - 2f),
+                            floatArrayOf(2f, h - 2f),
                           ),
                         inTangents =
-                          listOf(listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f)),
+                          listOf(
+                            floatArrayOf(0f, 0f),
+                            floatArrayOf(0f, 0f),
+                            floatArrayOf(0f, 0f),
+                            floatArrayOf(0f, 0f),
+                          ),
                         outTangents =
-                          listOf(listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f)),
+                          listOf(
+                            floatArrayOf(0f, 0f),
+                            floatArrayOf(0f, 0f),
+                            floatArrayOf(0f, 0f),
+                            floatArrayOf(0f, 0f),
+                          ),
                       )
                   ),
               ),

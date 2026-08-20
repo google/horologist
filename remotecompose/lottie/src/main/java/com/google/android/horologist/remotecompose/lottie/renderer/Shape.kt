@@ -22,9 +22,12 @@ import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.remote.creation.compose.modifier.fillMaxSize
+import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.remotecompose.lottie.LocalAnimationSettings
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
+import com.google.android.horologist.remotecompose.lottie.format.AnimatedColorProperty
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Ellipse
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Fill
@@ -35,6 +38,7 @@ import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.
 import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
 import com.google.android.horologist.remotecompose.lottie.format.PolyStarType
 import com.google.android.horologist.remotecompose.lottie.format.ShapeType
+import com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty
 import kotlin.math.PI
 import kotlin.math.atan2
 import kotlin.math.ceil
@@ -95,6 +99,8 @@ private fun gatherShapes(
         shapeGroups.add(StyledShapes(currentShapes, fill))
         currentShapes = mutableListOf()
       }
+      is GraphicElement.GradientFill -> {} // TODO: Gradient fills support in renderer
+      is GraphicElement.GradientStroke -> {} // TODO: Gradient strokes support in renderer
       is GraphicElement.Transform -> {} // No-op - handled groups
     }
   }
@@ -550,9 +556,18 @@ private fun createPolygonPath(
 }
 
 private fun fill(fill: Fill, animationSettings: LottieSettings): RemoteFill {
-  val slotId = fill.color.slotId
+  val colorProp = fill.color
+  val slotId = colorProp.slotId
   val remoteColor = if (slotId != null) animationSettings.slotMap.getColor(slotId) else null
-  return RemoteFill(remoteColor ?: fill.color.value)
+  val defaultColor =
+    when (colorProp) {
+      is StaticColorProperty -> Color(colorProp.value).rc
+      is AnimatedColorProperty -> {
+        val firstVal = colorProp.keyframes.firstOrNull()?.value ?: 0
+        Color(firstVal).rc
+      }
+    }
+  return RemoteFill(remoteColor ?: defaultColor)
 }
 
 private fun MutableList<RemoteShape>.addIfNotNull(shape: RemoteShape?) {

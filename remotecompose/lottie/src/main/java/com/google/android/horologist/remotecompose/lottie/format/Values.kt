@@ -25,7 +25,31 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal data class BezierValue(
   @SerialName("c") val closed: Boolean,
-  @SerialName("i") val inTangents: List<List<Float>>,
-  @SerialName("o") val outTangents: List<List<Float>>,
-  @SerialName("v") val vertices: List<List<Float>>,
+  @SerialName("i") val inTangents: List<FloatArray>,
+  @SerialName("o") val outTangents: List<FloatArray>,
+  @SerialName("v") val vertices: List<FloatArray>,
 )
+
+/**
+ * A gradient represented by sequential color and opacity stops in a flattened float array.
+ *
+ * Each color stop has 4 floats: [offset, r, g, b]. Optional opacity stops have 2 floats:
+ * [offset, alpha].
+ */
+@Serializable(with = GradientValueSerializer::class)
+internal data class GradientValue(val numberOfColors: Int, val stops: FloatArray) {
+  override fun equals(other: Any?): Boolean {
+    if (this === other) return true
+    if (javaClass != other?.javaClass) return false
+    other as GradientValue
+    if (numberOfColors != other.numberOfColors) return false
+    if (!stops.contentEquals(other.stops)) return false
+    return true
+  }
+
+  override fun hashCode(): Int {
+    var result = numberOfColors
+    result = 31 * result + stops.contentHashCode()
+    return result
+  }
+}

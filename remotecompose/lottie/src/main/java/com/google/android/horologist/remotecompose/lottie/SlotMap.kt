@@ -17,6 +17,8 @@
 package com.google.android.horologist.remotecompose.lottie
 
 import androidx.compose.remote.creation.compose.state.RemoteColor
+import androidx.compose.remote.creation.compose.state.rc
+import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty
 
 /**
@@ -29,12 +31,12 @@ import com.google.android.horologist.remotecompose.lottie.format.StaticColorProp
 class SlotMap(colors: Map<String, Int>) {
   private val colorSlots: Map<String, StaticColorProperty> =
     colors.mapValues { (slotId, colorInt) ->
-      StaticColorProperty(slotId = slotId, colorInt = colorInt)
+      StaticColorProperty(slotId = slotId, value = colorInt)
     }
 
   fun getColor(slotId: String): RemoteColor? {
     val prop = colorSlots[slotId] ?: return null
-    return prop.value
+    return Color(prop.value).rc
   }
 
   companion object {

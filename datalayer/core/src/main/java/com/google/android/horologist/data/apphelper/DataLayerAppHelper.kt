@@ -62,7 +62,12 @@ abstract class DataLayerAppHelper(
   protected val playStoreUri: String = "market://details?id=${context.packageName}"
   protected val remoteActivityHelper: RemoteActivityHelper by lazy { RemoteActivityHelper(context) }
 
-  /** Provides a list of connected nodes and the installation status of the app on these nodes. */
+  /**
+   * Provides a list of connected nodes and the installation status of the app on these nodes.
+   *
+   * @throws [ApiException] if the Wearable API is not available on this device. Call [isAvailable]
+   *   first to check whether the data layer can be used.
+   */
   public suspend fun connectedNodes(): List<AppHelperNodeStatus> {
     val connectedNodes = registry.nodeClient.connectedNodes.await()
     val capabilities =
@@ -111,6 +116,9 @@ abstract class DataLayerAppHelper(
    * When called from a phone device, multiple watches can be connected to it.
    *
    * When called from a watch device, usually only a single phone device will be connected to it.
+   *
+   * Collecting this flow may throw [ApiException] if the Wearable API is not available on this
+   * device. Call [isAvailable] first to check whether the data layer can be used.
    */
   public abstract val connectedAndInstalledNodes: Flow<Set<Node>>
 

@@ -138,7 +138,7 @@
 
             <meta-data
                 android:name="androidx.wear.tiles.PREVIEW"
-                android:resource="@drawable/widget_preview" />
+                android:resource="@drawable/small" />
         </service>
 
         <service

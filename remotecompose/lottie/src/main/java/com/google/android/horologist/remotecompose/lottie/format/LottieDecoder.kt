@@ -40,6 +40,7 @@ import kotlinx.serialization.json.JsonEncoder
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.add
+import kotlinx.serialization.json.booleanOrNull
 import kotlinx.serialization.json.buildJsonArray
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.contentOrNull
@@ -114,6 +115,8 @@ internal object GraphicElementSerializer :
       ShapeType.Group.value -> GraphicElement.Group.serializer()
       ShapeType.Transform.value -> GraphicElement.Transform.serializer()
       ShapeType.Fill.value -> GraphicElement.Fill.serializer()
+      ShapeType.GradientFill.value -> GraphicElement.GradientFill.serializer()
+      ShapeType.GradientStroke.value -> GraphicElement.GradientStroke.serializer()
       ShapeType.Rectangle.value -> GraphicElement.Rectangle.serializer()
       ShapeType.Ellipse.value -> GraphicElement.Ellipse.serializer()
       ShapeType.PolyStar.value -> GraphicElement.PolyStar.serializer()
@@ -213,7 +216,7 @@ internal object StaticScalarPropertySerializer : KSerializer<StaticScalarPropert
       buildJsonObject {
         value.slotId?.let { put("sid", it) }
         put("a", 0)
-        put("k", value.value)
+        put("k", buildJsonArray { add(JsonPrimitive(value.value)) })
       }
     )
   }
@@ -269,7 +272,7 @@ internal object ScalarPropertyKeyframeSerializer : KSerializer<ScalarPropertyKey
         value.outTangent?.let {
           put("o", jsonEncoder.json.encodeToJsonElement(ScalarKeyframeEasingSerializer, it))
         }
-        put("s", value.value)
+        put("s", buildJsonArray { add(JsonPrimitive(value.value)) })
       }
     )
   }
@@ -290,18 +293,25 @@ internal object BaseVectorPropertySerializer :
   }
 }
 
-/** Polymorphic serializer for [BasePositionProperty] based on "a" field. */
+/** Polymorphic serializer for [BasePositionProperty] based on "a" and "s" fields. */
 internal object BasePositionPropertySerializer :
   JsonContentPolymorphicSerializer<BasePositionProperty>(BasePositionProperty::class) {
   override fun selectDeserializer(
     element: JsonElement
   ): DeserializationStrategy<BasePositionProperty> {
-    val animated = element.jsonObject["a"]?.jsonPrimitive?.intOrNull == 1
-    return if (animated) {
-      AnimatedPositionProperty.serializer()
-    } else {
-      StaticPositionProperty.serializer()
+    if (element is JsonObject) {
+      val split = element["s"]?.jsonPrimitive?.booleanOrNull == true
+      if (split) {
+        return SplitPositionProperty.serializer()
+      }
+      val animated = element["a"]?.jsonPrimitive?.intOrNull == 1
+      return if (animated) {
+        AnimatedPositionProperty.serializer()
+      } else {
+        StaticPositionProperty.serializer()
+      }
     }
+    return StaticPositionProperty.serializer()
   }
 }
 
@@ -355,6 +365,24 @@ internal object ScalarKeyframeEasingSerializer : KSerializer<ScalarKeyframeEasin
   }
 }
 
+/** Polymorphic serializer for [BaseColorProperty] based on "a" field. */
+internal object BaseColorPropertySerializer :
+  JsonContentPolymorphicSerializer<BaseColorProperty>(BaseColorProperty::class) {
+  override fun selectDeserializer(
+    element: JsonElement
+  ): DeserializationStrategy<BaseColorProperty> {
+    if (element is JsonObject) {
+      val animated = element["a"]?.jsonPrimitive?.intOrNull == 1
+      return if (animated) {
+        AnimatedColorProperty.serializer()
+      } else {
+        StaticColorProperty.serializer()
+      }
+    }
+    return StaticColorProperty.serializer()
+  }
+}
+
 /** Custom serializer for [StaticColorProperty] parsing color array [r, g, b, a]. */
 internal object StaticColorPropertySerializer : KSerializer<StaticColorProperty> {
   override val descriptor: SerialDescriptor =
@@ -368,24 +396,36 @@ internal object StaticColorPropertySerializer : KSerializer<StaticColorProperty>
     val jsonDecoder = decoder as JsonDecoder
     val obj = jsonDecoder.decodeJsonElement().jsonObject
     val slotId = obj["sid"]?.jsonPrimitive?.contentOrNull
-    val kArray = obj["k"]?.jsonArray
-    val r = kArray?.getOrNull(0)?.jsonPrimitive?.floatOrNull ?: 0f
-    val g = kArray?.getOrNull(1)?.jsonPrimitive?.floatOrNull ?: 0f
-    val b = kArray?.getOrNull(2)?.jsonPrimitive?.floatOrNull ?: 0f
-    val a = if ((kArray?.size ?: 0) > 3) kArray!![3].jsonPrimitive.floatOrNull ?: 1f else 1f
+    val kElem = obj["k"]
+    val parsedInt: Int =
+      if (kElem is JsonPrimitive && kElem.isString && kElem.content.startsWith("#")) {
+        val cleanHex = kElem.content.removePrefix("#")
+        when (cleanHex.length) {
+          6 -> (0xFF shl 24) or cleanHex.toLong(16).toInt()
+          8 -> cleanHex.toLong(16).toInt()
+          else -> 0
+        }
+      } else {
+        val kArray = kElem?.jsonArray
+        val r = kArray?.getOrNull(0)?.jsonPrimitive?.floatOrNull ?: 0f
+        val g = kArray?.getOrNull(1)?.jsonPrimitive?.floatOrNull ?: 0f
+        val b = kArray?.getOrNull(2)?.jsonPrimitive?.floatOrNull ?: 0f
+        val a = if ((kArray?.size ?: 0) > 3) kArray!![3].jsonPrimitive.floatOrNull ?: 1f else 1f
 
-    val red = if (r > 1f) (r / 255f).coerceIn(0f, 1f) else r.coerceIn(0f, 1f)
-    val green = if (g > 1f) (g / 255f).coerceIn(0f, 1f) else g.coerceIn(0f, 1f)
-    val blue = if (b > 1f) (b / 255f).coerceIn(0f, 1f) else b.coerceIn(0f, 1f)
-    val alpha = if (a > 1f) (a / 255f).coerceIn(0f, 1f) else a.coerceIn(0f, 1f)
+        val red = if (r > 1f) (r / 255f).coerceIn(0f, 1f) else r.coerceIn(0f, 1f)
+        val green = if (g > 1f) (g / 255f).coerceIn(0f, 1f) else g.coerceIn(0f, 1f)
+        val blue = if (b > 1f) (b / 255f).coerceIn(0f, 1f) else b.coerceIn(0f, 1f)
+        val alpha = if (a > 1f) (a / 255f).coerceIn(0f, 1f) else a.coerceIn(0f, 1f)
 
-    val color = Color(red, green, blue, alpha)
-    return StaticColorProperty(slotId = slotId, colorInt = color.toArgb())
+        Color(red, green, blue, alpha).toArgb()
+      }
+
+    return StaticColorProperty(slotId = slotId, value = parsedInt)
   }
 
   override fun serialize(encoder: Encoder, value: StaticColorProperty) {
     val jsonEncoder = encoder as JsonEncoder
-    val color = Color(value.colorInt)
+    val color = Color(value.value)
     jsonEncoder.encodeJsonElement(
       buildJsonObject {
         value.slotId?.let { put("sid", it) }
@@ -401,5 +441,160 @@ internal object StaticColorPropertySerializer : KSerializer<StaticColorProperty>
         )
       }
     )
+  }
+}
+
+/** Custom serializer for [ColorPropertyKeyframe] parsing color array [r, g, b, a]. */
+internal object ColorPropertyKeyframeSerializer : KSerializer<ColorPropertyKeyframe> {
+  override val descriptor: SerialDescriptor =
+    buildClassSerialDescriptor("ColorPropertyKeyframe") {
+      element<Float>("t", isOptional = true)
+      element<Boolean>("h", isOptional = true)
+      element<ScalarKeyframeEasing?>("i", isOptional = true)
+      element<ScalarKeyframeEasing?>("o", isOptional = true)
+      element<List<Float>>("s", isOptional = true)
+    }
+
+  override fun deserialize(decoder: Decoder): ColorPropertyKeyframe {
+    val jsonDecoder = decoder as JsonDecoder
+    val obj = jsonDecoder.decodeJsonElement().jsonObject
+
+    val frame = obj["t"]?.jsonPrimitive?.floatOrNull ?: 0f
+    val hold = (obj["h"]?.jsonPrimitive?.intOrNull ?: 0) == 1
+    val inTangent =
+      obj["i"]?.let { jsonDecoder.json.decodeFromJsonElement(ScalarKeyframeEasingSerializer, it) }
+    val outTangent =
+      obj["o"]?.let { jsonDecoder.json.decodeFromJsonElement(ScalarKeyframeEasingSerializer, it) }
+
+    val sElem = obj["s"]
+    val parsedInt: Int =
+      if (sElem is JsonPrimitive && sElem.isString && sElem.content.startsWith("#")) {
+        val cleanHex = sElem.content.removePrefix("#")
+        when (cleanHex.length) {
+          6 -> (0xFF shl 24) or cleanHex.toLong(16).toInt()
+          8 -> cleanHex.toLong(16).toInt()
+          else -> 0
+        }
+      } else {
+        val sArray = sElem?.jsonArray
+        val r = sArray?.getOrNull(0)?.jsonPrimitive?.floatOrNull ?: 0f
+        val g = sArray?.getOrNull(1)?.jsonPrimitive?.floatOrNull ?: 0f
+        val b = sArray?.getOrNull(2)?.jsonPrimitive?.floatOrNull ?: 0f
+        val a = if ((sArray?.size ?: 0) > 3) sArray!![3].jsonPrimitive.floatOrNull ?: 1f else 1f
+
+        val red = if (r > 1f) (r / 255f).coerceIn(0f, 1f) else r.coerceIn(0f, 1f)
+        val green = if (g > 1f) (g / 255f).coerceIn(0f, 1f) else g.coerceIn(0f, 1f)
+        val blue = if (b > 1f) (b / 255f).coerceIn(0f, 1f) else b.coerceIn(0f, 1f)
+        val alpha = if (a > 1f) (a / 255f).coerceIn(0f, 1f) else a.coerceIn(0f, 1f)
+
+        Color(red, green, blue, alpha).toArgb()
+      }
+
+    return ColorPropertyKeyframe(
+      frame = frame,
+      hold = hold,
+      inTangent = inTangent,
+      outTangent = outTangent,
+      value = parsedInt,
+    )
+  }
+
+  override fun serialize(encoder: Encoder, value: ColorPropertyKeyframe) {
+    val jsonEncoder = encoder as JsonEncoder
+    val color = Color(value.value)
+    jsonEncoder.encodeJsonElement(
+      buildJsonObject {
+        put("t", value.frame)
+        if (value.hold) put("h", 1)
+        value.inTangent?.let {
+          put("i", jsonEncoder.json.encodeToJsonElement(ScalarKeyframeEasingSerializer, it))
+        }
+        value.outTangent?.let {
+          put("o", jsonEncoder.json.encodeToJsonElement(ScalarKeyframeEasingSerializer, it))
+        }
+        put(
+          "s",
+          buildJsonArray {
+            add(JsonPrimitive(color.red))
+            add(JsonPrimitive(color.green))
+            add(JsonPrimitive(color.blue))
+            add(JsonPrimitive(color.alpha))
+          },
+        )
+      }
+    )
+  }
+}
+
+/** Serializer for [GradientValue] handling flat array of stops. */
+internal object GradientValueSerializer : KSerializer<GradientValue> {
+  override val descriptor: SerialDescriptor =
+    buildClassSerialDescriptor("GradientValue") {
+      element<Int>("p", isOptional = true)
+      element<List<Float>>("k")
+    }
+
+  override fun deserialize(decoder: Decoder): GradientValue {
+    val jsonDecoder = decoder as JsonDecoder
+    val element = jsonDecoder.decodeJsonElement()
+    return when (element) {
+      is JsonArray -> {
+        val stops = element.map { it.jsonPrimitive.floatOrNull ?: 0f }.toFloatArray()
+        GradientValue(numberOfColors = stops.size / 4, stops = stops)
+      }
+      is JsonObject -> {
+        val p = element["p"]?.jsonPrimitive?.intOrNull ?: 0
+        val kArray = element["k"]?.jsonArray
+        val stops =
+          kArray?.map { it.jsonPrimitive.floatOrNull ?: 0f }?.toFloatArray() ?: floatArrayOf()
+        val numColors = if (p > 0) p else stops.size / 4
+        GradientValue(numberOfColors = numColors, stops = stops)
+      }
+      else -> GradientValue(numberOfColors = 0, stops = floatArrayOf())
+    }
+  }
+
+  override fun serialize(encoder: Encoder, value: GradientValue) {
+    val jsonEncoder = encoder as JsonEncoder
+    jsonEncoder.encodeJsonElement(
+      buildJsonObject {
+        put("p", value.numberOfColors)
+        put(
+          "k",
+          buildJsonArray {
+            for (v in value.stops) {
+              add(JsonPrimitive(v))
+            }
+          },
+        )
+      }
+    )
+  }
+}
+
+/** Polymorphic serializer for [BaseGradientProperty] based on "a" field. */
+internal object BaseGradientPropertySerializer :
+  JsonContentPolymorphicSerializer<BaseGradientProperty>(BaseGradientProperty::class) {
+  override fun selectDeserializer(
+    element: JsonElement
+  ): DeserializationStrategy<BaseGradientProperty> {
+    return when (element) {
+      is JsonArray -> StaticGradientProperty.serializer()
+      is JsonObject -> {
+        val kElem = element["k"]
+        val animated =
+          element["a"]?.jsonPrimitive?.intOrNull == 1 ||
+            (kElem is JsonObject && kElem["a"]?.jsonPrimitive?.intOrNull == 1) ||
+            (kElem is JsonArray &&
+              kElem.firstOrNull() is JsonObject &&
+              (kElem.firstOrNull() as JsonObject).containsKey("t"))
+        if (animated) {
+          AnimatedGradientProperty.serializer()
+        } else {
+          StaticGradientProperty.serializer()
+        }
+      }
+      else -> StaticGradientProperty.serializer()
+    }
   }
 }

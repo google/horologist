@@ -35,6 +35,7 @@ import com.google.android.horologist.remotecompose.lottie.format.BaseScalarPrope
 import com.google.android.horologist.remotecompose.lottie.format.BaseVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.BezierValue
 import com.google.android.horologist.remotecompose.lottie.format.ScalarKeyframeEasing
+import com.google.android.horologist.remotecompose.lottie.format.SplitPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.StaticBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty
@@ -118,6 +119,13 @@ internal fun animatePosition(
     // Static constant position: directly wrap the [x, y] coordinates into RemoteFloats.
     is StaticPositionProperty -> {
       Point(x = position.value.getOrElse(0) { 0f }.rf, y = position.value.getOrElse(1) { 0f }.rf)
+    }
+    // Split position: animate x and y independently as scalar properties.
+    is SplitPositionProperty -> {
+      Point(
+        x = animateScalar(position.x, animationSettings),
+        y = animateScalar(position.y, animationSettings),
+      )
     }
     // Keyframed animated position: interpolate [x, y] across keyframes using Bézier easing curves.
     is AnimatedPositionProperty -> {
@@ -274,9 +282,9 @@ internal fun animateBezier(
     is StaticBezierProperty -> {
       return RemoteBezierValue(
         p.value.closed,
-        p.value.inTangents.innerMap { it },
-        p.value.outTangents.innerMap { it },
-        p.value.vertices.innerMap { it },
+        p.value.inTangents.map { it.toList() },
+        p.value.outTangents.map { it.toList() },
+        p.value.vertices.map { it.toList() },
       )
     }
     is AnimatedBezierProperty -> {
@@ -284,9 +292,9 @@ internal fun animateBezier(
       if (p.keyframes.size == 1) {
         return RemoteBezierValue(
           p.keyframes[0].value[0].closed,
-          p.keyframes[0].value[0].inTangents.innerMap { it },
-          p.keyframes[0].value[0].outTangents.innerMap { it },
-          p.keyframes[0].value[0].vertices.innerMap { it },
+          p.keyframes[0].value[0].inTangents.map { it.toList() },
+          p.keyframes[0].value[0].outTangents.map { it.toList() },
+          p.keyframes[0].value[0].vertices.map { it.toList() },
         )
       }
 
@@ -296,9 +304,9 @@ internal fun animateBezier(
       if (startKeyFrame.frame != 0f) {
         return RemoteBezierValue(
           p.keyframes[0].value[0].closed,
-          p.keyframes[0].value[0].inTangents.innerMap { it },
-          p.keyframes[0].value[0].outTangents.innerMap { it },
-          p.keyframes[0].value[0].vertices.innerMap { it },
+          p.keyframes[0].value[0].inTangents.map { it.toList() },
+          p.keyframes[0].value[0].outTangents.map { it.toList() },
+          p.keyframes[0].value[0].vertices.map { it.toList() },
         )
       }
 
@@ -349,8 +357,8 @@ internal fun animateBezier(
 }
 
 private fun animateNestedFloatArray(
-  from: List<List<Float>>,
-  to: List<List<Float>>,
+  from: List<FloatArray>,
+  to: List<FloatArray>,
   bezierValue: RemoteFloat,
   duration: Float,
   currentFrame: RemoteFloat,
@@ -411,9 +419,9 @@ private fun lookupValueInBezier(
 private fun BezierValue.toRemote(): RemoteBezierValue {
   return RemoteBezierValue(
     this.closed,
-    this.inTangents.innerMap { it },
-    this.outTangents.innerMap { it },
-    this.vertices.innerMap { it },
+    this.inTangents.map { it.toList() },
+    this.outTangents.map { it.toList() },
+    this.vertices.map { it.toList() },
   )
 }
 

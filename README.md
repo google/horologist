@@ -415,6 +415,16 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | Preview | Image |
 |---------|-------|
 | `WearableOssLicensesActivity` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/activity__WearableOssLicensesActivity.png" width="150" /> |
+| `MediaCollectionWidgetRectangularPreview · parameter 0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/MediaCollectionWidgetRectangularPreview_Widget_Picker_Preview_PARAM_0.png" width="150" /> |
+| `MediaCollectionWidgetRectangularPreview · parameter 1` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/MediaCollectionWidgetRectangularPreview_Widget_Picker_Preview_PARAM_1.png" width="150" /> |
+| `MediaCollectionWidgetRoundPreview · parameter 0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/MediaCollectionWidgetRoundPreview_Round_Preview_PARAM_0.png" width="150" /> |
+| `MediaCollectionWidgetRoundPreview · parameter 1` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/MediaCollectionWidgetRoundPreview_Round_Preview_PARAM_1.png" width="150" /> |
+| `MediaCollectionWidgetRoundPreview · parameter 2` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/MediaCollectionWidgetRoundPreview_Round_Preview_PARAM_2.png" width="150" /> |
+| `MediaCollectionWidgetRoundPreview · parameter 3` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/MediaCollectionWidgetRoundPreview_Round_Preview_PARAM_3.png" width="150" /> |
+| `MediaCollectionWidgetSquirclePreview · parameter 0` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/MediaCollectionWidgetSquirclePreview_Squircle_Preview_PARAM_0.png" width="150" /> |
+| `MediaCollectionWidgetSquirclePreview · parameter 1` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/MediaCollectionWidgetSquirclePreview_Squircle_Preview_PARAM_1.png" width="150" /> |
+| `MediaCollectionWidgetSquirclePreview · parameter 2` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/MediaCollectionWidgetSquirclePreview_Squircle_Preview_PARAM_2.png" width="150" /> |
+| `MediaCollectionWidgetSquirclePreview · parameter 3` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/MediaCollectionWidgetSquirclePreview_Squircle_Preview_PARAM_3.png" width="150" /> |
 | `SampleTilePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/SampleTilePreview_wearos_large_round.png" width="150" /> |
 | `SampleTilePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:sample/SampleTilePreview_wearos_small_round.png" width="150" /> |
 

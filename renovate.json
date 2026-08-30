@@ -9,6 +9,17 @@
   "commitMessageExtra": "{{{currentValue}}} to {{#if isPinDigest}}{{{newDigestShort}}}{{else}}{{#if isMajor}}{{prettyNewMajor}}{{else}}{{#if isSingleVersion}}{{prettyNewVersion}}{{else}}{{#if newValue}}{{{newValue}}}{{else}}{{{newDigestShort}}}{{/if}}{{/if}}{{/if}}{{/if}}",
   "packageRules": [
     {
+      "description": "compose-ai-tools ships the preview Gradle plugin, the preview-annotations artifact and the `apply` GitHub Action as one release, and compose-preview.yml / compose-preview-publish.yml pin that action to a release commit while design-artifacts.yml resolves the renderer from the `composeAiTools` version-catalog key (cli-version: catalog). The two must name the same release or the PR render and the catalog publish run different renderers, so they are grouped into one PR here. Ungrouped from `group:all` and off the daily batching window as well: folded into the single all-dependencies PR, a renderer bump only lands when every unrelated dependency in that PR is green.",
+      "matchPackageNames": [
+        "yschimke/compose-ai-tools",
+        "/^ee\\.schimke\\.composeai($|[.:])/"
+      ],
+      "groupName": "compose-ai-tools",
+      "schedule": [
+        "at any time"
+      ]
+    },
+    {
       "matchPackagePatterns": [
         "androidx.compose.compiler:compiler"
       ],

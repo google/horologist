@@ -31,11 +31,13 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import androidx.wear.compose.ui.tooling.preview.WearPreviewSmallRound
 import com.google.android.horologist.audit.AuditNavigation.Cards.Config
 import com.google.android.horologist.compose.layout.AppScaffold
+import com.google.android.horologist.compose.layout.ResponsiveTimeText
 import com.google.android.horologist.compose.layout.ScalingLazyColumn
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.ItemType
 import com.google.android.horologist.compose.layout.ScalingLazyColumnDefaults.padding
 import com.google.android.horologist.compose.layout.ScreenScaffold
 import com.google.android.horologist.compose.layout.rememberResponsiveColumnState
+import com.google.android.horologist.compose.tools.PreviewTimeSource
 import com.google.android.horologist.sample.R
 
 @Composable
@@ -78,5 +80,7 @@ fun BackgroundImageCard() {
 @WearPreviewSmallRound
 @WearPreviewLargeRound
 fun CardsAuditPreview() {
-  AppScaffold { CardsAudit(AuditNavigation.Cards.Audit(Config.BackgroundImage)) }
+  AppScaffold(timeText = { ResponsiveTimeText(timeSource = PreviewTimeSource) }) {
+    CardsAudit(AuditNavigation.Cards.Audit(Config.BackgroundImage))
+  }
 }

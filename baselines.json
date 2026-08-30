@@ -4276,7 +4276,7 @@
     "functionName": "LottieGeometryPreview",
     "module": "remotecompose:lottie",
     "renderBasename": "LottieGeometryPreview-b6cf2052.png",
-    "sha256": "5343cdb5e705d9048c3817116e49ed8926756ec6c37e1a653983b5a7dfde0f80",
+    "sha256": "0f02c4907cccb41a793c8073ee0cf17fb9144754ecebb36dca956852201da01f",
     "sourceFile": "src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt"
   },
   "remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottieM3PlayPauseAnimatedPreview": {

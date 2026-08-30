@@ -1,0 +1,16 @@
+{
+  "$schema": "https://raw.githubusercontent.com/yschimke/compose-ai-tools/main/scripts/design-artifacts/catalog.spec.schema.json",
+  "$comment": "Minimal spec on purpose. `groups` is optional, and design-artifacts.yml passes `modules: all`, so the published inventory is discovered from every module that applies the composeAiPreview plugin rather than hand-listed here. That gets a catalog online against the previews Horologist already renders in CI; a curated sticker sheet — named groups, sections, captions, variants — can be layered on later without changing the delivery contract.",
+  "system": "horologist",
+  "title": "Horologist",
+  "library": [
+    "com.google.android.horologist"
+  ],
+  "modes": [
+    "dark",
+    "light"
+  ],
+  "display": {
+    "surface": "dark"
+  }
+}

@@ -1,0 +1,117 @@
+name: Design Artifacts
+
+# Publishes Horologist's `@Preview` inventory as an importable design catalog on
+# the `design-artifacts/horologist` branch. A preview server (e.g. preview.coo.ee)
+# discovers that branch from the repository URL and serves the catalog at
+# `/horologist/`; the branch is the whole delivery contract, so nothing here
+# depends on a particular host being up.
+#
+# This is the publish half of the preview pipeline whose render half already
+# runs in `compose-preview.yml`. That workflow renders previews per PR and posts
+# the diff; this one takes the same renderer and force-pushes a browsable,
+# re-renderable bundle so the previews are readable outside a PR comment.
+#
+# `modules: all` discovers every module that applies the composeAiPreview plugin
+# — compose-material, composables, auth/composables(-material3),
+# health/composables, datalayer/phone-ui, media/audio-ui, media/ui(-material3),
+# remotecompose/lottie and the samples — so the catalog covers the previews the
+# repository already maintains rather than a separate hand-curated module.
+#
+# All the pipeline logic lives in the reusable workflow in compose-ai-tools;
+# this file is only the trigger set and the inputs.
+#
+# When it runs:
+#   - weekly (Monday 06:00 UTC). The delivery branch is a force-pushed snapshot
+#     and the renderer moves underneath it even when this repository is
+#     unchanged, so the cron is what picks that drift up.
+#   - on demand, via workflow_dispatch.
+#   - on push to `main` when a preview-bearing module, the spec, or the pinned
+#     compose-ai-tools version changes.
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'catalog.spec.json'
+      - 'gradle/libs.versions.toml'
+      - '.github/workflows/design-artifacts.yml'
+      # The preview-enabled modules `modules: all` discovers. Without these, a
+      # preview added or changed anywhere would only reach the delivery branch
+      # on the Monday cron.
+      - 'auth/composables/**'
+      - 'auth/composables-material3/**'
+      - 'composables/**'
+      - 'compose-material/**'
+      - 'datalayer/phone-ui/**'
+      - 'datalayer/sample/wear/**'
+      - 'health/composables/**'
+      - 'media/audio-ui/**'
+      - 'media/sample/**'
+      - 'media/ui/**'
+      - 'media/ui-material3/**'
+      - 'remotecompose/lottie/**'
+      - 'sample/**'
+
+permissions: {}
+
+concurrency:
+  # The delivery branch is force-pushed, so two publishes racing would leave
+  # whichever finished last. Serialise instead; not cancel-in-progress, because
+  # a publish already pushing should finish.
+  group: design-artifacts
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    # Guard against a fork publishing a delivery branch into its own copy.
+    if: ${{ github.repository == 'google/horologist' }}
+    permissions:
+      contents: write
+    # `@main` is the documented usage for this reusable workflow. Pinning a tag
+    # here buys less than it looks like: the privileged export driver is NOT
+    # taken from this ref — it is the release commit named by compose-ai-tools'
+    # `.github/design-artifacts-driver-pin.txt`, read from `main` whatever ref
+    # the caller pins. A tag here would freeze the pipeline (missing fixes other
+    # catalog repos pick up) without freezing the driver it runs. The renderer
+    # itself IS pinned, by `cli-version: catalog` below.
+    uses: yschimke/compose-ai-tools/.github/workflows/design-artifacts-reusable.yml@main
+    with:
+      system: horologist
+      spec: catalog.spec.json
+      # Publish every preview-enabled module rather than one curated module.
+      modules: all
+      # Render with the same compose-ai-tools release the version catalog pins
+      # for the Gradle plugin, so the CLI producing the bundle can never drift
+      # from the plugin applied to the modules it renders. `compose-preview.yml`
+      # pins its action to that release too — bump all three together.
+      cli-version: catalog
+      catalog-key: composeAiTools
+      # TODO: tighten to `false` once every preview renders off-device.
+      #
+      # `compose-preview.yml` already runs with `missing-renders: warn` for the
+      # same reason: sample's `AmbientAwareActivity.WearAppPreview` calls
+      # `rememberAmbientModeManager()`, which needs the Wear Services class
+      # `com.google.wear.services.ambient.AmbientComponentState` — absent from
+      # the Robolectric runtime classpath, so it throws NoClassDefFoundError and
+      # produces no PNG. With `false` that single structural gap would sink the
+      # whole publish instead of the ~500 previews around it reaching the
+      # catalog. Flip to `false` once that preview is excluded or stubbed, so a
+      # regression to a blank capture fails the publish rather than shipping
+      # empty stickers.
+      allow-incomplete: true
+      # Carry the executable render bundles onto the delivery branch and record
+      # them in catalog.json, so a serve host re-renders the previews live
+      # (device / theme / knob controls) instead of replaying baked PNGs. These
+      # are Android/Robolectric renders, which the public server already
+      # supports.
+      publish-live-bundle: true
+      # One addressable bundle per preview, for a serve host's per-preview live
+      # lane, with a SHARED classpath: `classes/app.jar` is published once into
+      # `bundle/res` and each split manifest carries a hash-verified
+      # `externalClasspath`. A `full` split would republish the same jar once
+      # per preview, which grows with the preview count on every publish.
+      split-per-preview: true
+      split-mode: full-shared-classpath

@@ -23,15 +23,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import com.google.android.horologist.compose.tools.WearPreview
 import com.google.android.horologist.images.base.util.rememberVectorPainter
+import com.google.android.horologist.images.coil.CoilPaintable
+import com.google.android.horologist.media.ui.SampleArtworkUri
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @WearPreview
 @Composable
 fun MediaChipPreview() {
   MediaChip(
-    media = MediaUiModel.Ready(id = "id", title = "Red Hot Chilli Peppers", artwork = null),
+    title = "Red Hot Chilli Peppers",
+    artworkPaintable =
+      CoilPaintable(
+        SampleArtworkUri,
+        rememberVectorPainter(image = Icons.Default.Album, tintColor = Color.Blue),
+      ),
     onClick = {},
-    placeholder = rememberVectorPainter(image = Icons.Default.Album, tintColor = Color.Blue),
   )
 }
 
@@ -60,14 +66,13 @@ fun MediaChipPreviewNoTitle() {
 @Composable
 fun MediaChipPreviewVeryLongTitle() {
   MediaChip(
-    media =
-      MediaUiModel.Ready(
-        id = "id",
-        title =
-          "Very very very very very very very very very very very very very very very very very very very long title",
-        artwork = null,
+    title =
+      "Very very very very very very very very very very very very very very very very very very very long title",
+    artworkPaintable =
+      CoilPaintable(
+        SampleArtworkUri,
+        rememberVectorPainter(image = Icons.Default.Album, tintColor = Color.Blue),
       ),
     onClick = {},
-    placeholder = rememberVectorPainter(image = Icons.Default.Album, tintColor = Color.Blue),
   )
 }

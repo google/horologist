@@ -30,6 +30,7 @@ import androidx.wear.compose.ui.tooling.preview.WearPreviewLargeRound
 import com.google.android.horologist.compose.layout.AppScaffold
 import com.google.android.horologist.compose.material.Chip
 import com.google.android.horologist.images.base.util.rememberVectorPainter
+import com.google.android.horologist.media.ui.SampleArtworkUri
 import com.google.android.horologist.media.ui.state.model.PlaylistUiModel
 import ee.schimke.composeai.preview.ScrollMode
 import ee.schimke.composeai.preview.ScrollingPreview
@@ -65,20 +66,8 @@ fun PlaylistsScreenPreview() {
     playlistsScreenState =
       PlaylistsScreenState.Loaded(
         buildList {
-          add(
-            PlaylistUiModel(
-              id = "id",
-              title = "Rock Classics",
-              artworkUri = "https://www.example.com/album1.png",
-            )
-          )
-          add(
-            PlaylistUiModel(
-              id = "id",
-              title = "Pop Punk",
-              artworkUri = "https://www.example.com/album2.png",
-            )
-          )
+          add(PlaylistUiModel(id = "id", title = "Rock Classics", artworkUri = SampleArtworkUri))
+          add(PlaylistUiModel(id = "id", title = "Pop Punk", artworkUri = SampleArtworkUri))
         }
       ),
     onPlaylistItemClick = {},

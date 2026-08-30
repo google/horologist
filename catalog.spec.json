@@ -1,6 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/yschimke/compose-ai-tools/main/scripts/design-artifacts/catalog.spec.schema.json",
-  "$comment": "Minimal spec on purpose. `groups` is optional, and design-artifacts.yml passes `modules: all`, so the published inventory is discovered from every module that applies the composeAiPreview plugin rather than hand-listed here. That gets a catalog online against the previews Horologist already renders in CI; a curated sticker sheet — named groups, sections, captions, variants — can be layered on later without changing the delivery contract.",
+  "$comment": "Inventory is declared here rather than with @CatalogComponent annotations, so no library source carries catalog metadata. Every `preview` is an existing @Preview function name; `modules: all` in design-artifacts.yml renders them wherever they live. Entries are drawn from the debug source sets of the preview-enabled library modules.",
   "system": "horologist",
   "title": "Horologist",
   "library": [
@@ -12,5 +12,336 @@
   ],
   "display": {
     "surface": "dark"
-  }
+  },
+  "groups": [
+    {
+      "name": "Chips",
+      "section": "Core UI",
+      "components": [
+        {
+          "componentId": "Chip",
+          "preview": "ChipPreview",
+          "caption": "Chip"
+        },
+        {
+          "componentId": "ChipWithIcon",
+          "preview": "ChipPreviewWithIcon",
+          "caption": "Chip with icon"
+        },
+        {
+          "componentId": "ChipWithSecondaryLabel",
+          "preview": "ChipPreviewWithSecondaryLabel",
+          "caption": "Chip with secondary label"
+        },
+        {
+          "componentId": "ChipDisabled",
+          "preview": "ChipPreviewDisabled",
+          "caption": "Chip, disabled"
+        },
+        {
+          "componentId": "OutlinedChip",
+          "preview": "OutlinedChipPreview",
+          "caption": "Outlined chip"
+        },
+        {
+          "componentId": "OutlinedChipWithIcon",
+          "preview": "OutlinedChipPreviewWithIcon",
+          "caption": "Outlined chip with icon"
+        },
+        {
+          "componentId": "ChipIconWithProgress",
+          "preview": "ChipIconWithProgressInProgressPreview",
+          "caption": "Chip icon with progress, in progress"
+        }
+      ]
+    },
+    {
+      "name": "Toggles",
+      "section": "Core UI",
+      "components": [
+        {
+          "componentId": "ToggleChipSwitch",
+          "preview": "ToggleChipSwitchPreview",
+          "caption": "Toggle chip, switch"
+        },
+        {
+          "componentId": "ToggleChipCheckbox",
+          "preview": "ToggleChipCheckboxPreview",
+          "caption": "Toggle chip, checkbox"
+        },
+        {
+          "componentId": "ToggleChipRadio",
+          "preview": "ToggleChipRadioPreview",
+          "caption": "Toggle chip, radio"
+        },
+        {
+          "componentId": "ToggleChipUnchecked",
+          "preview": "ToggleChipUncheckedPreview",
+          "caption": "Toggle chip, unchecked"
+        },
+        {
+          "componentId": "SplitToggleChipSwitch",
+          "preview": "SplitToggleChipSwitchPreview",
+          "caption": "Split toggle chip, switch"
+        },
+        {
+          "componentId": "SplitToggleChipCheckbox",
+          "preview": "SplitToggleChipCheckboxPreview",
+          "caption": "Split toggle chip, checkbox"
+        },
+        {
+          "componentId": "ToggleButton",
+          "preview": "ToggleButtonPreview",
+          "caption": "Toggle button"
+        },
+        {
+          "componentId": "ToggleButtonIconOnly",
+          "preview": "ToggleButtonPreviewIconOnly",
+          "caption": "Toggle button, icon only"
+        },
+        {
+          "componentId": "ToggleButtonText",
+          "preview": "ToggleButtonPreviewText",
+          "caption": "Toggle button, text"
+        }
+      ]
+    },
+    {
+      "name": "Pickers",
+      "section": "Core UI",
+      "components": [
+        {
+          "componentId": "DatePicker",
+          "preview": "DatePickerPreviewLargeDeviceSmallFont",
+          "caption": "Date picker"
+        },
+        {
+          "componentId": "TimePicker",
+          "preview": "TimePickerPreviewLargeDeviceSmallFont",
+          "caption": "Time picker"
+        },
+        {
+          "componentId": "TimePicker12h",
+          "preview": "TimePicker12hPreviewLargeDeviceSmallFont",
+          "caption": "Time picker, 12 hour"
+        }
+      ]
+    },
+    {
+      "name": "Auth",
+      "section": "Core UI",
+      "components": [
+        {
+          "componentId": "SignInChip",
+          "preview": "SignInChipPreview",
+          "caption": "Sign-in chip"
+        },
+        {
+          "componentId": "AccountChip",
+          "preview": "AccountChipPreview",
+          "caption": "Account chip"
+        },
+        {
+          "componentId": "AccountChipNoAvatar",
+          "preview": "AccountChipPreviewNoAvatar",
+          "caption": "Account chip, no avatar"
+        },
+        {
+          "componentId": "CreateAccountChip",
+          "preview": "CreateAccountChipPreview",
+          "caption": "Create-account chip"
+        },
+        {
+          "componentId": "GuestModeChip",
+          "preview": "GuestModeChipPreview",
+          "caption": "Guest-mode chip"
+        },
+        {
+          "componentId": "OtherOptionsChip",
+          "preview": "OtherOptionsChipPreview",
+          "caption": "Other-options chip"
+        },
+        {
+          "componentId": "SignInButtonM3",
+          "preview": "SignInButtonPreview",
+          "caption": "Sign-in button (Material 3)"
+        },
+        {
+          "componentId": "GuestModeButtonM3",
+          "preview": "GuestModeButtonPreview",
+          "caption": "Guest-mode button (Material 3)"
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "section": "Core UI",
+      "components": [
+        {
+          "componentId": "MetricDisplay",
+          "preview": "MetricDisplayPreview",
+          "caption": "Metric display"
+        },
+        {
+          "componentId": "MetricDisplayTextOnly",
+          "preview": "MetricDisplayPreviewTextOnly",
+          "caption": "Metric display, text only"
+        },
+        {
+          "componentId": "MetricDisplayTopRight",
+          "preview": "MetricDisplayPreviewTopRightText",
+          "caption": "Metric display, top-right text"
+        }
+      ]
+    },
+    {
+      "name": "Playback controls",
+      "section": "Media",
+      "components": [
+        {
+          "componentId": "PlayButton",
+          "preview": "PlayButtonPreview",
+          "caption": "Play button"
+        },
+        {
+          "componentId": "PauseButton",
+          "preview": "PauseButtonPreview",
+          "caption": "Pause button"
+        },
+        {
+          "componentId": "PlayPauseButton",
+          "preview": "PlayPauseButtonPreview",
+          "caption": "Play/pause button"
+        },
+        {
+          "componentId": "PlayPauseProgressButton",
+          "preview": "PlayPauseProgressButtonPreview25",
+          "caption": "Play/pause with progress"
+        },
+        {
+          "componentId": "SeekToNextButton",
+          "preview": "SeekToNextButtonPreview",
+          "caption": "Seek to next"
+        },
+        {
+          "componentId": "SeekToPreviousButton",
+          "preview": "SeekToPreviousButtonPreview",
+          "caption": "Seek to previous"
+        },
+        {
+          "componentId": "MediaControlButtons",
+          "preview": "MediaControlButtonsPreview",
+          "caption": "Media control buttons"
+        },
+        {
+          "componentId": "PodcastControlButtons",
+          "preview": "PodcastControlButtonsPreview",
+          "caption": "Podcast control buttons"
+        },
+        {
+          "componentId": "ShuffleToggleButton",
+          "preview": "ShuffleToggleButtonPreview",
+          "caption": "Shuffle toggle"
+        }
+      ]
+    },
+    {
+      "name": "Media components",
+      "section": "Media",
+      "components": [
+        {
+          "componentId": "MediaArtwork",
+          "preview": "MediaArtworkPreview",
+          "caption": "Media artwork"
+        },
+        {
+          "componentId": "MediaChipNoTitle",
+          "preview": "MediaChipPreviewNoTitle",
+          "caption": "Media chip, no title"
+        },
+        {
+          "componentId": "MediaChipLongTitle",
+          "preview": "MediaChipPreviewVeryLongTitle",
+          "caption": "Media chip, long title"
+        },
+        {
+          "componentId": "ShowPlaylistChip",
+          "preview": "ShowPlaylistChipPreviewNoName",
+          "caption": "Show-playlist chip"
+        },
+        {
+          "componentId": "TextMediaDisplay",
+          "preview": "TextMediaDisplayPreviewLongText",
+          "caption": "Text media display"
+        },
+        {
+          "componentId": "TrackMediaDisplay",
+          "preview": "TrackMediaDisplayPreviewLongText",
+          "caption": "Track media display"
+        },
+        {
+          "componentId": "EntityButton",
+          "preview": "EntityButtonPreviewEnabled",
+          "caption": "Entity button"
+        }
+      ]
+    },
+    {
+      "name": "Audio",
+      "section": "Media",
+      "components": [
+        {
+          "componentId": "SetVolumeButton",
+          "preview": "SetVolumeButtonPreview",
+          "caption": "Set-volume button"
+        },
+        {
+          "componentId": "SetVolumeButtonMax",
+          "preview": "SetVolumeButtonPreviewMaxVolume",
+          "caption": "Set-volume button, max"
+        },
+        {
+          "componentId": "SetVolumeButtonMin",
+          "preview": "SetVolumeButtonPreviewMinVolume",
+          "caption": "Set-volume button, min"
+        },
+        {
+          "componentId": "AudioOutputButton",
+          "preview": "AudioOutputButtonPreview",
+          "caption": "Audio output button"
+        },
+        {
+          "componentId": "SetAudioOutputButton",
+          "preview": "SetAudioOutputButtonPreview",
+          "caption": "Set audio output button"
+        }
+      ]
+    },
+    {
+      "name": "Phone sheets",
+      "section": "Mobile",
+      "components": [
+        {
+          "componentId": "InstallAppBottomSheet",
+          "preview": "InstallAppBottomSheetContentPreview",
+          "caption": "Install app sheet"
+        },
+        {
+          "componentId": "InstallTileBottomSheet",
+          "preview": "InstallTileBottomSheetContentPreview",
+          "caption": "Install tile sheet"
+        },
+        {
+          "componentId": "ReEngageBottomSheet",
+          "preview": "ReEngageBottomSheetContentPreview",
+          "caption": "Re-engage sheet"
+        },
+        {
+          "componentId": "SignInBottomSheet",
+          "preview": "SignInBottomSheetContentPreview",
+          "caption": "Sign-in sheet"
+        }
+      ]
+    }
+  ]
 }

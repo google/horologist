@@ -14,38 +14,13 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.remotecompose.lottie.renderer
+package com.google.android.horologist.remotecompose.lottie.renderer.layers
 
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
-import com.google.android.horologist.remotecompose.lottie.format.layer.Layer
-import com.google.android.horologist.remotecompose.lottie.format.layer.LayerType
 import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
-
-/** A Layer in the Lottie composition */
-@Composable
-@RemoteComposable
-internal fun Layer(
-  layer: Layer,
-  parentTransforms: Map<Int, List<Transform>>,
-  transform: Transform?,
-) {
-  val ancestorStack = parentTransforms[layer.index] ?: emptyList()
-
-  val completeStack =
-    if (transform != null) {
-      listOf(transform) + ancestorStack
-    } else {
-      ancestorStack
-    }
-
-  when (layer.type) {
-    LayerType.Null,
-    LayerType.Solid -> {} // No-op - null and solid layers not drawn here.
-    LayerType.Shape -> ShapeLayer(layer as ShapeLayer, completeStack)
-  }
-}
+import com.google.android.horologist.remotecompose.lottie.renderer.RenderShapes
 
 /** A Layer containing Shapes */
 @Composable

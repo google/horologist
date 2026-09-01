@@ -21,6 +21,9 @@ import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.state.RemotePaint
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animatePosition
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateVector
 
 @SuppressLint("RestrictedApi")
 /** Applies a transform described by a Lottie [Transform] object to the RemoteCanvas. */

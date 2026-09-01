@@ -35,6 +35,12 @@ import com.google.android.horologist.remotecompose.lottie.format.graphicelement.
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Group
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Fill
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateColor
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animatePosition
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
+import com.google.android.horologist.remotecompose.lottie.renderer.shapes.ellipse
+import com.google.android.horologist.remotecompose.lottie.renderer.shapes.path
+import com.google.android.horologist.remotecompose.lottie.renderer.shapes.rectangle
 import kotlin.math.PI
 import kotlin.math.atan2
 import kotlin.math.ceil
@@ -124,214 +130,6 @@ private fun group(group: Group, animationSettings: LottieSettings): RemoteGroup?
   } else {
     return RemoteGroup(gatherShapes(reversed, animationSettings), animationSettings, null)
   }
-}
-
-@SuppressLint("RestrictedApi")
-private fun path(lottiePath: Path, animationSettings: LottieSettings): RemoteLottiePath {
-  val path = animateBezier(lottiePath.shape, animationSettings)
-  val vertices = path.vertices
-  val inTangents = path.inTangents
-  val outTangents = path.outTangents
-
-  val rcPath = RemotePath()
-  rcPath.reset()
-  rcPath.moveTo(vertices[0][0], vertices[0][1])
-
-  for (i in vertices.indices) {
-    val p0 = vertices[i]
-    val lastIndex = if (i == vertices.size - 1 && path.closed) 0 else i + 1
-    val p4 = vertices[lastIndex]
-    val inTangent = inTangents[lastIndex]
-    val outTangent = outTangents[i]
-    val p1 = listOf(p0[0] + outTangent[0], p0[1] + outTangent[1])
-    val p2 = listOf(p4[0] + inTangent[0], p4[1] + inTangent[1])
-
-    rcPath.cubicTo(p1[0], p1[1], p2[0], p2[1], p4[0], p4[1])
-  }
-
-  return RemoteLottiePath(rcPath)
-}
-
-// Note: We deliberately do not use `androidx.graphics.shapes.RoundedPolygon` here because:
-// 1. Lottie defines its own exact Bézier tangent calculation and rounding constants (0.47829 for
-// stars,
-//    0.25 for polygons) matching Bodymovin/After Effects and lottie-android, whereas RoundedPolygon
-//    cuts corner arcs with a different circular/smoothed curvature profile.
-// 2. Lottie polystars support fractional points (e.g. 5.5 points) smoothly morphing the last
-// vertex,
-//    while RoundedPolygon requires an integer vertex count.
-// 3. Lottie shapes support explicit path direction (e.g. counter-clockwise d=3) affecting fill
-// winding rules.
-// 4. Writing directly into RemotePath avoids intermediate allocations and preserves 1:1 visual
-// parity.
-
-@SuppressLint("RestrictedApi")
-private fun rectangle(rect: Rectangle, animationSettings: LottieSettings): RemoteLottiePath? {
-  if (rect.hidden == true) return null
-
-  val pos = animatePosition(rect.position, animationSettings)
-  val posX = pos.x.constantValueOrNull ?: 0f
-  val posY = pos.y.constantValueOrNull ?: 0f
-
-  val size = animateVector(rect.size, animationSettings)
-  val width = size.getOrNull(0)?.constantValueOrNull ?: 0f
-  val height = size.getOrNull(1)?.constantValueOrNull ?: 0f
-  val halfWidth = width / 2f
-  val halfHeight = height / 2f
-
-  val cornerRadius = animateScalar(rect.cornerRadius, animationSettings).constantValueOrNull ?: 0f
-  val maxRadius = minOf(halfWidth, halfHeight)
-  val r = cornerRadius.coerceIn(0f, maxRadius)
-
-  val rcPath = RemotePath()
-  rcPath.reset()
-
-  if (r == 0f) {
-    rcPath.moveTo(posX + halfWidth, posY - halfHeight)
-    rcPath.lineTo(posX + halfWidth, posY + halfHeight)
-    rcPath.lineTo(posX - halfWidth, posY + halfHeight)
-    rcPath.lineTo(posX - halfWidth, posY - halfHeight)
-    rcPath.close()
-  } else {
-    val k = r * 0.55228475f
-    rcPath.moveTo(posX + halfWidth, posY - halfHeight + r)
-    rcPath.lineTo(posX + halfWidth, posY + halfHeight - r)
-    rcPath.cubicTo(
-      posX + halfWidth,
-      posY + halfHeight - r + k,
-      posX + halfWidth - r + k,
-      posY + halfHeight,
-      posX + halfWidth - r,
-      posY + halfHeight,
-    )
-    rcPath.lineTo(posX - halfWidth + r, posY + halfHeight)
-    rcPath.cubicTo(
-      posX - halfWidth + r - k,
-      posY + halfHeight,
-      posX - halfWidth,
-      posY + halfHeight - r + k,
-      posX - halfWidth,
-      posY + halfHeight - r,
-    )
-    rcPath.lineTo(posX - halfWidth, posY - halfHeight + r)
-    rcPath.cubicTo(
-      posX - halfWidth,
-      posY - halfHeight + r - k,
-      posX - halfWidth + r - k,
-      posY - halfHeight,
-      posX - halfWidth + r,
-      posY - halfHeight,
-    )
-    rcPath.lineTo(posX + halfWidth - r, posY - halfHeight)
-    rcPath.cubicTo(
-      posX + halfWidth - r + k,
-      posY - halfHeight,
-      posX + halfWidth,
-      posY - halfHeight + r - k,
-      posX + halfWidth,
-      posY - halfHeight + r,
-    )
-    rcPath.close()
-  }
-
-  return RemoteLottiePath(rcPath)
-}
-
-@SuppressLint("RestrictedApi")
-private fun ellipse(el: Ellipse, animationSettings: LottieSettings): RemoteLottiePath? {
-  if (el.hidden == true) return null
-
-  val pos = animatePosition(el.position, animationSettings)
-  val posX = pos.x.constantValueOrNull ?: 0f
-  val posY = pos.y.constantValueOrNull ?: 0f
-
-  val size = animateVector(el.size, animationSettings)
-  val width = size.getOrNull(0)?.constantValueOrNull ?: 0f
-  val height = size.getOrNull(1)?.constantValueOrNull ?: 0f
-  val halfWidth = width / 2f
-  val halfHeight = height / 2f
-
-  val cpW = halfWidth * 0.55228f
-  val cpH = halfHeight * 0.55228f
-
-  val rcPath = RemotePath()
-  rcPath.reset()
-
-  if (el.direction == 3) {
-    // Reversed (counter-clockwise)
-    rcPath.moveTo(posX, posY - halfHeight)
-    rcPath.cubicTo(
-      posX - cpW,
-      posY - halfHeight,
-      posX - halfWidth,
-      posY - cpH,
-      posX - halfWidth,
-      posY,
-    )
-    rcPath.cubicTo(
-      posX - halfWidth,
-      posY + cpH,
-      posX - cpW,
-      posY + halfHeight,
-      posX,
-      posY + halfHeight,
-    )
-    rcPath.cubicTo(
-      posX + cpW,
-      posY + halfHeight,
-      posX + halfWidth,
-      posY + cpH,
-      posX + halfWidth,
-      posY,
-    )
-    rcPath.cubicTo(
-      posX + halfWidth,
-      posY - cpH,
-      posX + cpW,
-      posY - halfHeight,
-      posX,
-      posY - halfHeight,
-    )
-    rcPath.close()
-  } else {
-    // Clockwise
-    rcPath.moveTo(posX, posY - halfHeight)
-    rcPath.cubicTo(
-      posX + cpW,
-      posY - halfHeight,
-      posX + halfWidth,
-      posY - cpH,
-      posX + halfWidth,
-      posY,
-    )
-    rcPath.cubicTo(
-      posX + halfWidth,
-      posY + cpH,
-      posX + cpW,
-      posY + halfHeight,
-      posX,
-      posY + halfHeight,
-    )
-    rcPath.cubicTo(
-      posX - cpW,
-      posY + halfHeight,
-      posX - halfWidth,
-      posY + cpH,
-      posX - halfWidth,
-      posY,
-    )
-    rcPath.cubicTo(
-      posX - halfWidth,
-      posY - cpH,
-      posX - cpW,
-      posY - halfHeight,
-      posX,
-      posY - halfHeight,
-    )
-    rcPath.close()
-  }
-
-  return RemoteLottiePath(rcPath)
 }
 
 @SuppressLint("RestrictedApi")
@@ -551,9 +349,7 @@ private fun createPolygonPath(
 }
 
 private fun fill(fill: Fill, animationSettings: LottieSettings): RemoteFill {
-  val slotId = fill.color.slotId
-  val remoteColor = if (slotId != null) animationSettings.slotMap.getColor(slotId) else null
-  return RemoteFill(remoteColor ?: fill.color.value)
+  return RemoteFill(animateColor(fill.color, animationSettings))
 }
 
 private fun MutableList<RemoteShape>.addIfNotNull(shape: RemoteShape?) {

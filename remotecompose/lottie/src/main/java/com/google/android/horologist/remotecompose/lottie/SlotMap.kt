@@ -17,7 +17,7 @@
 package com.google.android.horologist.remotecompose.lottie
 
 import androidx.compose.remote.creation.compose.state.RemoteColor
-import com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticColorProperty
 
 /**
  * A mapping of slot IDs to values.

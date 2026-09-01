@@ -18,9 +18,10 @@ package com.google.android.horologist.remotecompose.lottie.renderer
 
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
-import com.google.android.horologist.remotecompose.lottie.format.Layer
-import com.google.android.horologist.remotecompose.lottie.format.LayerType
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
+import com.google.android.horologist.remotecompose.lottie.format.layer.Layer
+import com.google.android.horologist.remotecompose.lottie.format.layer.LayerType
+import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
 
 /** A Layer in the Lottie composition */
 @Composable
@@ -40,15 +41,16 @@ internal fun Layer(
     }
 
   when (layer.type) {
-    LayerType.Null -> {} // No-op - null layers are used to apply parent transforms.
-    LayerType.Shape -> ShapeLayer(layer as Layer.ShapeLayer, completeStack)
+    LayerType.Null,
+    LayerType.Solid -> {} // No-op - null and solid layers not drawn here.
+    LayerType.Shape -> ShapeLayer(layer as ShapeLayer, completeStack)
   }
 }
 
 /** A Layer containing Shapes */
 @Composable
 @RemoteComposable
-internal fun ShapeLayer(layer: Layer.ShapeLayer, transformStack: List<Transform?>? = null) {
+internal fun ShapeLayer(layer: ShapeLayer, transformStack: List<Transform?>? = null) {
   if (layer.hidden == true) {
     return
   }

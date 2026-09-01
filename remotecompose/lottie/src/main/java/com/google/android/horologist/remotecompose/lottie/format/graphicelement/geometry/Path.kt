@@ -14,18 +14,19 @@
  * limitations under the License.
  */
 
-@file:Suppress("TopLevelName") // Matching name in Lottie spec.
+package com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry
 
-package com.google.android.horologist.remotecompose.lottie.format
-
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.GraphicElement
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.ShapeType
+import com.google.android.horologist.remotecompose.lottie.format.properties.BaseBezierProperty
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/** A path defined by a set of bezier curves. */
+/** Draw a path following a bezier curve. */
 @Serializable
-internal data class BezierValue(
-  @SerialName("c") val closed: Boolean,
-  @SerialName("i") val inTangents: List<List<Float>>,
-  @SerialName("o") val outTangents: List<List<Float>>,
-  @SerialName("v") val vertices: List<List<Float>>,
-)
+internal data class Path(
+  @SerialName("nm") override val name: String? = "",
+  @SerialName("hd") override val hidden: Boolean? = false,
+  @SerialName("ty") override val type: ShapeType = ShapeType.Path,
+  @SerialName("ks") val shape: BaseBezierProperty,
+) : GraphicElement

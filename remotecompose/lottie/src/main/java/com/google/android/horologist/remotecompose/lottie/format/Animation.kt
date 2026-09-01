@@ -18,6 +18,7 @@ package com.google.android.horologist.remotecompose.lottie.format
 
 import android.content.Context
 import androidx.annotation.RawRes
+import com.google.android.horologist.remotecompose.lottie.format.layer.Layer
 import java.io.InputStream
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

@@ -21,6 +21,7 @@ import androidx.compose.remote.creation.compose.state.rf
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.Animation
+import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.ShapeType
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Ellipse
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Path
@@ -36,6 +37,8 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Anim
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticVectorProperty
+import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
+import com.google.android.horologist.remotecompose.lottie.format.values.GradientValue
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -210,5 +213,174 @@ class ParsingTest {
     assertThat(pointsRf.constantValueOrNull).isEqualTo(6f)
     val outerRadiusRf = animateScalar(polygon.outerRadius, settings)
     assertThat(outerRadiusRf.constantValueOrNull).isEqualTo(24f)
+  }
+
+  @Test
+  fun bezierValue_integerClosedFlag_deserializes() {
+    val jsonZero = """{"c": 0, "v": [[10.0, 20.0]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}"""
+    val bezier0 = LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonZero)
+    assertThat(bezier0.closed).isFalse()
+    assertThat(bezier0.vertices).containsExactly(listOf(10f, 20f))
+
+    val jsonOne = """{"c": 1, "v": [[10.0, 20.0]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}"""
+    val bezier1 = LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonOne)
+    assertThat(bezier1.closed).isTrue()
+    assertThat(bezier1.vertices).containsExactly(listOf(10f, 20f))
+  }
+
+  @Test
+  fun bezierValue_booleanClosedFlag_deserializes() {
+    val jsonFalse = """{"c": false, "v": []}"""
+    val bezierFalse = LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonFalse)
+    assertThat(bezierFalse.closed).isFalse()
+    assertThat(bezierFalse.vertices).isEmpty()
+
+    val jsonTrue = """{"c": true, "v": []}"""
+    val bezierTrue = LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonTrue)
+    assertThat(bezierTrue.closed).isTrue()
+  }
+
+  @Test
+  fun bezierValue_resilientPointParsing_handlesEmptyAndPartialArrays() {
+    val jsonEmpty = """{}"""
+    val bezierEmpty = LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonEmpty)
+    assertThat(bezierEmpty.closed).isFalse()
+    assertThat(bezierEmpty.vertices).isEmpty()
+    assertThat(bezierEmpty.inTangents).isEmpty()
+    assertThat(bezierEmpty.outTangents).isEmpty()
+  }
+
+  @Test
+  fun gradientValue_opaqueFloatArray_decodesColorStops() {
+    val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0]"
+    val gradientValue = LottieDecoder.json.decodeFromString(GradientValue.serializer(), json)
+
+    assertThat(gradientValue.numberOfColors).isEqualTo(2)
+    assertThat(gradientValue.values).hasSize(8)
+    assertThat(gradientValue.hasTransparency).isFalse()
+    assertThat(gradientValue.colorStops).hasSize(2)
+    assertThat(gradientValue.opacityStops).isEmpty()
+
+    val stop1 = gradientValue.colorStops[0]
+    assertThat(stop1.offset).isEqualTo(0f)
+    assertThat(stop1.red).isEqualTo(1f)
+    assertThat(stop1.green).isEqualTo(0f)
+    assertThat(stop1.blue).isEqualTo(0f)
+
+    val stop2 = gradientValue.colorStops[1]
+    assertThat(stop2.offset).isEqualTo(1f)
+    assertThat(stop2.red).isEqualTo(0f)
+    assertThat(stop2.green).isEqualTo(1f)
+    assertThat(stop2.blue).isEqualTo(0f)
+  }
+
+  @Test
+  fun gradientValue_transparentFloatArray_decodesColorAndOpacityStops() {
+    val json =
+      """
+      {
+        "p": 2,
+        "k": [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.5]
+      }
+      """
+        .trimIndent()
+    val gradientValue = LottieDecoder.json.decodeFromString(GradientValue.serializer(), json)
+
+    assertThat(gradientValue.numberOfColors).isEqualTo(2)
+    assertThat(gradientValue.values).hasSize(12)
+    assertThat(gradientValue.hasTransparency).isTrue()
+    assertThat(gradientValue.colorStops).hasSize(2)
+    assertThat(gradientValue.opacityStops).hasSize(2)
+
+    val oStop1 = gradientValue.opacityStops[0]
+    assertThat(oStop1.offset).isEqualTo(0f)
+    assertThat(oStop1.alpha).isEqualTo(1f)
+
+    val oStop2 = gradientValue.opacityStops[1]
+    assertThat(oStop2.offset).isEqualTo(1f)
+    assertThat(oStop2.alpha).isEqualTo(0.5f)
+  }
+
+  @Test
+  fun gradientValue_nestedObject_decodesColorCountAndValues() {
+    val json =
+      """
+      {
+        "p": 3,
+        "k": [0.0, 1.0, 0.0, 0.0, 0.5, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0]
+      }
+      """
+        .trimIndent()
+    val gradientValue = LottieDecoder.json.decodeFromString(GradientValue.serializer(), json)
+
+    assertThat(gradientValue.numberOfColors).isEqualTo(3)
+    assertThat(gradientValue.values).hasSize(12)
+    assertThat(gradientValue.colorStops).hasSize(3)
+    assertThat(gradientValue.colorStops[1].offset).isEqualTo(0.5f)
+    assertThat(gradientValue.colorStops[1].green).isEqualTo(1f)
+  }
+
+  @Test
+  fun gradientValue_stopDecomposition_normalizes255ScaledValues() {
+    val json =
+      """
+      {
+        "p": 2,
+        "k": [0.0, 255.0, 0.0, 0.0, 1.0, 0.0, 255.0, 0.0, 0.0, 255.0, 1.0, 128.0]
+      }
+      """
+        .trimIndent()
+    val gradientValue = LottieDecoder.json.decodeFromString(GradientValue.serializer(), json)
+
+    assertThat(gradientValue.colorStops[0].red).isEqualTo(1f)
+    assertThat(gradientValue.colorStops[1].green).isEqualTo(1f)
+    assertThat(gradientValue.opacityStops[0].alpha).isEqualTo(1f)
+    assertThat(gradientValue.opacityStops[1].alpha).isWithin(0.01f).of(128f / 255f)
+  }
+
+  @Test
+  fun gradientValue_resolveStops_interpolatesOpaqueAndTransparent() {
+    val jsonOpaque = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0]"
+    val gradOpaque = LottieDecoder.json.decodeFromString(GradientValue.serializer(), jsonOpaque)
+    val resolvedOpaque = gradOpaque.resolveStops()
+    assertThat(resolvedOpaque).hasSize(2)
+    assertThat(resolvedOpaque[0].offset).isEqualTo(0f)
+    assertThat(resolvedOpaque[0].color.red).isEqualTo(1f)
+    assertThat(resolvedOpaque[0].color.alpha).isEqualTo(1f)
+    assertThat(resolvedOpaque[1].offset).isEqualTo(1f)
+    assertThat(resolvedOpaque[1].color.blue).isEqualTo(1f)
+    assertThat(resolvedOpaque[1].color.alpha).isEqualTo(1f)
+
+    // With opacity stops at different offsets
+    val jsonTransparent =
+      """
+      {
+        "p": 2,
+        "k": [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.5, 0.5, 1.0, 0.0]
+      }
+      """
+        .trimIndent()
+    val gradTransparent =
+      LottieDecoder.json.decodeFromString(GradientValue.serializer(), jsonTransparent)
+    val resolvedTrans = gradTransparent.resolveStops()
+    assertThat(resolvedTrans).hasSize(3)
+    assertThat(resolvedTrans.map { it.offset }).containsExactly(0f, 0.5f, 1f).inOrder()
+    // At offset 0.5f, color is interpolated between stop 0 (red) and stop 1 (blue) -> r=0.5, b=0.5
+    assertThat(resolvedTrans[1].color.red).isWithin(0.01f).of(0.5f)
+    assertThat(resolvedTrans[1].color.blue).isWithin(0.01f).of(0.5f)
+    assertThat(resolvedTrans[1].color.alpha).isWithin(0.01f).of(0.5f)
+  }
+
+  @Test
+  fun gradientValue_serialization_roundTrip() {
+    val original =
+      GradientValue(
+        numberOfColors = 2,
+        values = listOf(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f),
+      )
+    val serialized = LottieDecoder.json.encodeToString(GradientValue.serializer(), original)
+    val deserialized = LottieDecoder.json.decodeFromString(GradientValue.serializer(), serialized)
+    assertThat(deserialized.numberOfColors).isEqualTo(original.numberOfColors)
+    assertThat(deserialized.values).isEqualTo(original.values)
   }
 }

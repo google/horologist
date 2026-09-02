@@ -18,8 +18,10 @@ package com.google.android.horologist.remotecompose.lottie
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.Animation
-import com.google.android.horologist.remotecompose.lottie.format.GraphicElement
-import com.google.android.horologist.remotecompose.lottie.format.Layer
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Group
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Fill
+import com.google.android.horologist.remotecompose.lottie.format.layer.NullLayer
+import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -49,9 +51,9 @@ class LottieDecoderResilienceTest {
     val animation = Animation.decodeFromString(json)
 
     assertThat(animation.layers).hasSize(2)
-    assertThat(animation.layers[0]).isInstanceOf(Layer.NullLayer::class.java)
+    assertThat(animation.layers[0]).isInstanceOf(NullLayer::class.java)
     assertThat(animation.layers[0].name).isEqualTo("UnsupportedAudioLayer")
-    assertThat(animation.layers[1]).isInstanceOf(Layer.ShapeLayer::class.java)
+    assertThat(animation.layers[1]).isInstanceOf(ShapeLayer::class.java)
   }
 
   @Test
@@ -85,10 +87,10 @@ class LottieDecoderResilienceTest {
 
     val animation = Animation.decodeFromString(json)
 
-    val shapeLayer = animation.layers[0] as Layer.ShapeLayer
+    val shapeLayer = animation.layers[0] as ShapeLayer
     assertThat(shapeLayer.shapes).hasSize(2)
-    assertThat(shapeLayer.shapes[0]).isInstanceOf(GraphicElement.Group::class.java)
-    assertThat(shapeLayer.shapes[1]).isInstanceOf(GraphicElement.Fill::class.java)
+    assertThat(shapeLayer.shapes[0]).isInstanceOf(Group::class.java)
+    assertThat(shapeLayer.shapes[1]).isInstanceOf(Fill::class.java)
   }
 
   @Test
@@ -126,9 +128,9 @@ class LottieDecoderResilienceTest {
 
     val animation = Animation.decodeFromString(json)
 
-    val shapeLayer = animation.layers[0] as Layer.ShapeLayer
-    val fill1 = shapeLayer.shapes[0] as GraphicElement.Fill
-    val fill2 = shapeLayer.shapes[1] as GraphicElement.Fill
+    val shapeLayer = animation.layers[0] as ShapeLayer
+    val fill1 = shapeLayer.shapes[0] as Fill
+    val fill2 = shapeLayer.shapes[1] as Fill
 
     assertThat(fill1.color.value).isNotNull()
     assertThat(fill2.color.value).isNotNull()
@@ -169,9 +171,9 @@ class LottieDecoderResilienceTest {
 
     val animation = Animation.decodeFromString(json)
 
-    val shapeLayer = animation.layers[0] as Layer.ShapeLayer
-    val fill1 = shapeLayer.shapes[0] as GraphicElement.Fill
-    val fill2 = shapeLayer.shapes[1] as GraphicElement.Fill
+    val shapeLayer = animation.layers[0] as ShapeLayer
+    val fill1 = shapeLayer.shapes[0] as Fill
+    val fill2 = shapeLayer.shapes[1] as Fill
 
     assertThat(fill1.color.slotId).isEqualTo("color.primary")
     assertThat(fill2.color.slotId).isNull()

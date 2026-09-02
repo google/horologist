@@ -16,10 +16,17 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.values
 
+import android.annotation.SuppressLint
+import androidx.compose.remote.creation.compose.state.RemoteColor
+import androidx.compose.remote.creation.compose.state.RemoteFloat
+import androidx.compose.remote.creation.compose.state.lerp
+import androidx.compose.remote.creation.compose.state.rc
+import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.ui.graphics.Color
+import androidx.core.math.MathUtils.clamp
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
@@ -38,147 +45,127 @@ import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.json.put
 
-@Serializable
-internal data class ColorStop(val offset: Float, val red: Float, val green: Float, val blue: Float)
+internal data class ColorStop(val offset: Float, val color: RemoteColor)
 
-@Serializable internal data class OpacityStop(val offset: Float, val alpha: Float)
+internal data class TransparencyStop(val offset: Float, val alpha: RemoteFloat)
 
-internal data class ResolvedColorStop(val offset: Float, val color: Color)
-
+/**
+ * A gradient color value defining color stops and optional opacity stops.
+ *
+ * In Lottie, gradient values are represented as a flat array of numbers:
+ * - Color stops ($N_c$): the first $4 \times N_c$ elements, where each stop consists of `[offset,
+ *   red, green, blue]`.
+ * - Opacity stops ($N_o$): the remaining elements, where $N_o = (\text{length} - 4 \times N_c) / 2$
+ *   and each stop consists of `[offset, alpha]`.
+ *
+ * All offsets and color/opacity components are normalized floats in the range `[0.0, 1.0]`.
+ *
+ * See [Lottie Gradient Value](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#gradient)
+ * (`#/$defs/values/gradient`) and
+ * [Lottie Gradient Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#gradient-property)
+ * (`#/$defs/properties/gradient-property`).
+ */
+@SuppressLint("RestrictedApi")
 @Serializable(with = GradientValueSerializer::class)
 internal data class GradientValue(
-  @SerialName("p") val numberOfColors: Int = 0,
-  @SerialName("k") val values: List<Float> = emptyList(),
+  val colorStops: List<ColorStop>,
+  val transparencyStops: List<TransparencyStop>,
 ) {
-  val hasTransparency: Boolean
-    get() =
-      if (numberOfColors > 0) {
-        values.size > numberOfColors * 4
-      } else {
-        values.size > 0 && values.size % 4 != 0
-      }
 
-  val colorStops: List<ColorStop>
-    get() {
-      val stops = mutableListOf<ColorStop>()
-      val colorCount = if (numberOfColors > 0) numberOfColors else values.size / 4
-      for (i in 0 until colorCount) {
-        val base = i * 4
-        if (base + 3 < values.size) {
-          stops.add(
-            ColorStop(
-              offset = values[base],
-              red = normalizeColorComponent(values[base + 1]),
-              green = normalizeColorComponent(values[base + 2]),
-              blue = normalizeColorComponent(values[base + 3]),
-            )
-          )
-        }
-      }
-      return stops
-    }
+  /**
+   * Samples the combined RGBA [RemoteColor] at the given normalized [position] in `[0.0, 1.0]`.
+   *
+   * If the [position] is more than 1.0 or less than 0.0, the resulted value would be returned for
+   * 1.0 and 0.0 respectively.
+   */
+  fun getColorForPosition(position: Float): RemoteColor {
+    if (colorStops.isEmpty()) return Color.Transparent.rc
+    if (colorStops.size == 1) return colorStops.first().color
 
-  val opacityStops: List<OpacityStop>
-    get() {
-      val stops = mutableListOf<OpacityStop>()
-      val colorCount = if (numberOfColors > 0) numberOfColors else values.size / 4
-      val opacityOffset = colorCount * 4
-      var i = opacityOffset
-      while (i + 1 < values.size) {
-        stops.add(OpacityStop(offset = values[i], alpha = normalizeColorComponent(values[i + 1])))
-        i += 2
-      }
-      return stops
-    }
-
-  fun resolveStops(): List<ResolvedColorStop> {
-    val cStops = colorStops
-    val oStops = opacityStops
-    if (cStops.isEmpty()) return emptyList()
-    if (oStops.isEmpty()) {
-      return cStops.map {
-        ResolvedColorStop(
-          offset = it.offset,
-          color = Color(red = it.red, green = it.green, blue = it.blue, alpha = 1f),
-        )
-      }
-    }
-
-    val allOffsets = (cStops.map { it.offset } + oStops.map { it.offset }).distinct().sorted()
-    return allOffsets.map { offset ->
-      val (r, g, b) = interpolateRgbAt(cStops, offset)
-      val alpha = interpolateAlphaAt(oStops, offset)
-      ResolvedColorStop(offset = offset, color = Color(red = r, green = g, blue = b, alpha = alpha))
-    }
+    val clampedPos = clamp(position, 0f, 1f)
+    val rgbColor = getRgbForPosition(clampedPos)
+    val opacity = getOpacityForPosition(clampedPos)
+    return rgbColor.copy(alpha = opacity)
   }
 
-  private fun normalizeColorComponent(v: Float): Float =
-    if (v > 1f) (v / 255f).coerceIn(0f, 1f) else v.coerceIn(0f, 1f)
-
-  private fun interpolateRgbAt(stops: List<ColorStop>, offset: Float): Triple<Float, Float, Float> {
-    if (stops.size == 1 || offset <= stops.first().offset) {
-      val first = stops.first()
-      return Triple(first.red, first.green, first.blue)
-    }
-    if (offset >= stops.last().offset) {
-      val last = stops.last()
-      return Triple(last.red, last.green, last.blue)
-    }
-    for (i in 0 until stops.size - 1) {
-      val s1 = stops[i]
-      val s2 = stops[i + 1]
-      if (offset >= s1.offset && offset <= s2.offset) {
-        val range = s2.offset - s1.offset
-        val factor = if (range == 0f) 0f else (offset - s1.offset) / range
-        val r = s1.red + (s2.red - s1.red) * factor
-        val g = s1.green + (s2.green - s1.green) * factor
-        val b = s1.blue + (s2.blue - s1.blue) * factor
-        return Triple(r, g, b)
+  /**
+   * Linearly interpolates the RGB color from the color stops.
+   *
+   * Adds dummy boundary points at 0.0 and 1.0 (if not already present) to guarantee full coverage,
+   * then finds the containing interval and interpolates using [lerp].
+   */
+  private fun getRgbForPosition(pos: Float): RemoteColor {
+    val paddedStops = buildList {
+      if (colorStops.first().offset > 0f) {
+        add(ColorStop(0f, colorStops.first().color))
+      }
+      addAll(colorStops)
+      if (colorStops.last().offset < 1f) {
+        add(ColorStop(1f, colorStops.last().color))
       }
     }
-    val last = stops.last()
-    return Triple(last.red, last.green, last.blue)
+
+    val startIndex = paddedStops.indexOfLast { it.offset <= pos }
+    val start = paddedStops.getOrElse(startIndex) { paddedStops.first() }
+    val end = paddedStops.getOrElse(startIndex + 1) { paddedStops.last() }
+    return interpolateColorSegment(pos, start, end)
   }
 
-  private fun interpolateAlphaAt(stops: List<OpacityStop>, offset: Float): Float {
-    if (stops.isEmpty()) return 1f
-    if (stops.size == 1 || offset <= stops.first().offset) return stops.first().alpha
-    if (offset >= stops.last().offset) return stops.last().alpha
-    for (i in 0 until stops.size - 1) {
-      val s1 = stops[i]
-      val s2 = stops[i + 1]
-      if (offset >= s1.offset && offset <= s2.offset) {
-        val range = s2.offset - s1.offset
-        val factor = if (range == 0f) 0f else (offset - s1.offset) / range
-        return s1.alpha + (s2.alpha - s1.alpha) * factor
+  /**
+   * Linearly interpolates the alpha opacity from the opacity stops.
+   *
+   * Adds dummy boundary points at 0.0 and 1.0 (if not already present) to guarantee full coverage,
+   * then finds the containing interval and interpolates using [lerp].
+   */
+  private fun getOpacityForPosition(pos: Float): RemoteFloat {
+    if (transparencyStops.isEmpty()) return 1f.rf
+    if (transparencyStops.size == 1) return transparencyStops.first().alpha
+
+    val paddedStops = buildList {
+      if (transparencyStops.first().offset > 0f) {
+        add(TransparencyStop(0f, transparencyStops.first().alpha))
+      }
+      addAll(transparencyStops)
+      if (transparencyStops.last().offset < 1f) {
+        add(TransparencyStop(1f, transparencyStops.last().alpha))
       }
     }
-    return stops.last().alpha
-  }
-}
 
-internal fun parseGradientValueElement(element: JsonElement?): GradientValue {
-  return when (element) {
-    null -> GradientValue()
-    is JsonArray -> {
-      val floatList = element.mapNotNull { it.jsonPrimitive.floatOrNull }
-      val count = if (floatList.size >= 4 && floatList.size % 4 == 0) floatList.size / 4 else 0
-      GradientValue(numberOfColors = count, values = floatList)
+    val startIndex = paddedStops.indexOfLast { it.offset <= pos }
+    val start = paddedStops.getOrElse(startIndex) { paddedStops.first() }
+    val end = paddedStops.getOrElse(startIndex + 1) { paddedStops.last() }
+    return interpolateOpacitySegment(pos, start, end)
+  }
+
+  private fun interpolateColorSegment(pos: Float, start: ColorStop, end: ColorStop): RemoteColor {
+    val factor = getInterpolationFactor(pos, start.offset, end.offset)
+    return RemoteColor.rgb(
+      red = lerp(start.color.red, end.color.red, factor),
+      green = lerp(start.color.green, end.color.green, factor),
+      blue = lerp(start.color.blue, end.color.blue, factor),
+    )
+  }
+
+  private fun interpolateOpacitySegment(
+    pos: Float,
+    start: TransparencyStop,
+    end: TransparencyStop,
+  ): RemoteFloat {
+    val factor = getInterpolationFactor(pos, start.offset, end.offset)
+    return lerp(start.alpha, end.alpha, factor)
+  }
+
+  private fun getInterpolationFactor(
+    pos: Float,
+    startOffset: Float,
+    endOffset: Float,
+  ): RemoteFloat {
+    val range = endOffset - startOffset
+    return if (range == 0f) {
+      0f.rf
+    } else {
+      clamp((pos - startOffset) / range, 0f, 1f).rf
     }
-    is JsonObject -> {
-      val p = element["p"]?.jsonPrimitive?.intOrNull ?: 0
-      val kElem = element["k"]
-      val values =
-        when (kElem) {
-          is JsonArray -> kElem.mapNotNull { it.jsonPrimitive.floatOrNull }
-          is JsonObject -> parseGradientValueElement(kElem).values
-          else -> emptyList()
-        }
-      val count =
-        if (p > 0) p else if (values.size >= 4 && values.size % 4 == 0) values.size / 4 else 0
-      GradientValue(numberOfColors = count, values = values)
-    }
-    else -> GradientValue()
   }
 }
 
@@ -186,7 +173,7 @@ internal object GradientValueSerializer : KSerializer<GradientValue> {
   override val descriptor: SerialDescriptor =
     buildClassSerialDescriptor("GradientValue") {
       element<Int>("p", isOptional = true)
-      element<List<Float>>("k", isOptional = true)
+      element<List<Float>>("k")
     }
 
   override fun deserialize(decoder: Decoder): GradientValue {
@@ -195,19 +182,128 @@ internal object GradientValueSerializer : KSerializer<GradientValue> {
     return parseGradientValueElement(element)
   }
 
-  override fun serialize(encoder: Encoder, value: GradientValue) {
-    val jsonEncoder = encoder as JsonEncoder
-    if (value.numberOfColors > 0) {
-      jsonEncoder.encodeJsonElement(
-        buildJsonObject {
-          put("p", value.numberOfColors)
-          put("k", buildJsonArray { value.values.forEach { add(JsonPrimitive(it)) } })
-        }
-      )
-    } else {
-      jsonEncoder.encodeJsonElement(
-        buildJsonArray { value.values.forEach { add(JsonPrimitive(it)) } }
+  /**
+   * Parses a [JsonElement] into a [GradientValue], accommodating multiple Lottie representation
+   * variants:
+   *
+   * 1. `null`: Omitted or optional gradient property; safely degrades to an empty gradient.
+   * 2. [JsonArray]: Direct flat float array (`[offset, r, g, b, ...]`) per Lottie
+   *    `$defs/values/gradient`. Used by legacy Bodymovin exporters, simplified presets, or test
+   *    fixtures that omit the outer `{ "p": ..., "k": [...] }` property container. Color stop count
+   *    is inferred as `size / 4`.
+   * 3. [JsonObject]: Standard Lottie 1.0.1 gradient colors property
+   *    (`$defs/properties/gradient-colors`), containing `"p"` (color stop count) and `"k"` (flat
+   *    values array or animated keyframes).
+   * 4. `else`: Strict schema validation failure for unexpected JSON primitives (e.g. strings or
+   *    booleans).
+   */
+  internal fun parseGradientValueElement(element: JsonElement?): GradientValue {
+    return when (element) {
+      null -> GradientValue(emptyList(), emptyList())
+      is JsonArray -> parseGradientArray(element)
+      is JsonObject -> parseGradientObject(element)
+      else -> throw SerializationException("Unexpected JSON element for GradientValue: $element")
+    }
+  }
+
+  private fun parseGradientArray(array: JsonArray): GradientValue =
+    createGradientValue(values = array.toFloatList(), colorStopCount = null)
+
+  private fun parseGradientObject(obj: JsonObject): GradientValue {
+    val p = obj["p"]?.jsonPrimitive?.intOrNull
+    val values = (obj["k"] as? JsonArray)?.toFloatList() ?: emptyList()
+    return createGradientValue(values = values, colorStopCount = p)
+  }
+
+  /**
+   * Creates and validates a [GradientValue] from raw [values] and an optional [colorStopCount].
+   *
+   * @param values The flat list of [Float] values containing color stops followed by opacity stops.
+   * @param colorStopCount Explicit stop count from JSON `"p"`, or `null` to infer from [values].
+   */
+  internal fun createGradientValue(
+    values: List<Float>,
+    colorStopCount: Int? = null,
+  ): GradientValue {
+    val count = colorStopCount ?: (values.size / 4)
+    validateGradient(colorStopCount = count, values)
+
+    val colorStops =
+      List(count) { i ->
+        val base = i * 4
+        val offset = values[base]
+        val r = normalizeColorComponent(values[base + 1])
+        val g = normalizeColorComponent(values[base + 2])
+        val b = normalizeColorComponent(values[base + 3])
+        ColorStop(offset, Color(red = r, green = g, blue = b).rc)
+      }
+
+    val opacityBase = count * 4
+    val opacityCount = (values.size - opacityBase) / 2
+
+    val transparencyStops =
+      List(opacityCount) { j ->
+        val base = opacityBase + j * 2
+        val offset = values[base]
+        val alpha = normalizeColorComponent(values[base + 1]).rf
+        TransparencyStop(offset, alpha)
+      }
+
+    return GradientValue(colorStops, transparencyStops)
+  }
+
+  /**
+   * Validates the structural invariants of a Lottie gradient.
+   *
+   * @param colorStopCount Number of color stops ($N_c$).
+   * @param values The flat list of [Float] values containing color stops followed by opacity stops.
+   */
+  internal fun validateGradient(colorStopCount: Int, values: List<Float>) {
+    if (colorStopCount < 0) {
+      throw SerializationException("colorStopCount ('p') cannot be negative: $colorStopCount")
+    }
+    if (values.size < colorStopCount * 4) {
+      throw SerializationException(
+        "Gradient values array length (${values.size}) must be at least 4 * colorStopCount (${colorStopCount * 4})"
       )
     }
+    if ((values.size - colorStopCount * 4) % 2 != 0) {
+      throw SerializationException(
+        "Gradient opacity stops length (${values.size - colorStopCount * 4}) must be a multiple of 2"
+      )
+    }
+  }
+
+  internal fun normalizeColorComponent(v: Float): Float =
+    if (v > 1f) (v / 255f).coerceIn(0f, 1f) else v.coerceIn(0f, 1f)
+
+  private fun JsonArray.toFloatList(): List<Float> = map { elem ->
+    elem.jsonPrimitive.floatOrNull
+      ?: throw SerializationException("Gradient coordinate value must be a number: $elem")
+  }
+
+  override fun serialize(encoder: Encoder, value: GradientValue) {
+    val jsonEncoder = encoder as JsonEncoder
+    val count = value.colorStops.size
+    jsonEncoder.encodeJsonElement(
+      buildJsonObject {
+        put("p", count)
+        put(
+          "k",
+          buildJsonArray {
+            value.colorStops.forEach { stop ->
+              add(JsonPrimitive(stop.offset))
+              add(JsonPrimitive(stop.color.red.constantValue))
+              add(JsonPrimitive(stop.color.green.constantValue))
+              add(JsonPrimitive(stop.color.blue.constantValue))
+            }
+            value.transparencyStops.forEach { stop ->
+              add(JsonPrimitive(stop.offset))
+              add(JsonPrimitive(stop.alpha.constantValue))
+            }
+          },
+        )
+      }
+    )
   }
 }

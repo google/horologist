@@ -39,8 +39,12 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Stat
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
 import com.google.android.horologist.remotecompose.lottie.format.values.GradientValue
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.toRemote
 import com.google.common.truth.Truth.assertThat
+import kotlinx.serialization.SerializationException
+import org.junit.Assert.assertThrows
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -220,34 +224,148 @@ class ParsingTest {
     val jsonZero = """{"c": 0, "v": [[10.0, 20.0]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}"""
     val bezier0 = LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonZero)
     assertThat(bezier0.closed).isFalse()
-    assertThat(bezier0.vertices).containsExactly(listOf(10f, 20f))
+    assertThat(bezier0.vertices).containsExactly(Point(10f, 20f))
 
     val jsonOne = """{"c": 1, "v": [[10.0, 20.0]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}"""
     val bezier1 = LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonOne)
     assertThat(bezier1.closed).isTrue()
-    assertThat(bezier1.vertices).containsExactly(listOf(10f, 20f))
+    assertThat(bezier1.vertices).containsExactly(Point(10f, 20f))
   }
 
   @Test
   fun bezierValue_booleanClosedFlag_deserializes() {
-    val jsonFalse = """{"c": false, "v": []}"""
+    val jsonFalse = """{"c": false, "v": [], "i": [], "o": []}"""
     val bezierFalse = LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonFalse)
     assertThat(bezierFalse.closed).isFalse()
     assertThat(bezierFalse.vertices).isEmpty()
 
-    val jsonTrue = """{"c": true, "v": []}"""
+    val jsonTrue = """{"c": true, "v": [], "i": [], "o": []}"""
     val bezierTrue = LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonTrue)
     assertThat(bezierTrue.closed).isTrue()
+
+    val jsonNull = """{"c": null, "v": [], "i": [], "o": []}"""
+    val bezierNull = LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonNull)
+    assertThat(bezierNull.closed).isFalse()
   }
 
   @Test
-  fun bezierValue_resilientPointParsing_handlesEmptyAndPartialArrays() {
-    val jsonEmpty = """{}"""
-    val bezierEmpty = LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonEmpty)
-    assertThat(bezierEmpty.closed).isFalse()
-    assertThat(bezierEmpty.vertices).isEmpty()
-    assertThat(bezierEmpty.inTangents).isEmpty()
-    assertThat(bezierEmpty.outTangents).isEmpty()
+  fun bezierValue_invalidClosedFlag_throwsSerializationException() {
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(
+        BezierValue.serializer(),
+        """{"c": "invalid", "v": [], "i": [], "o": []}""",
+      )
+    }
+
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(
+        BezierValue.serializer(),
+        """{"c": {}, "v": [], "i": [], "o": []}""",
+      )
+    }
+
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(
+        BezierValue.serializer(),
+        """{"c": [1], "v": [], "i": [], "o": []}""",
+      )
+    }
+
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(
+        BezierValue.serializer(),
+        """{"c": 1.5, "v": [], "i": [], "o": []}""",
+      )
+    }
+  }
+
+  @Test
+  fun bezierValue_missingRequiredFields_throwsSerializationException() {
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(BezierValue.serializer(), """{}""")
+    }
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(
+        BezierValue.serializer(),
+        """{"v": [], "i": []}""", // missing "o"
+      )
+    }
+  }
+
+  @Test
+  fun bezierValue_malformedCoordinates_throwsSerializationException() {
+    // 1-element point array (< 2 coordinates)
+    val json1D = """{"v": [[10.0]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}"""
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(BezierValue.serializer(), json1D)
+    }
+
+    // Empty point array (< 2 coordinates)
+    val jsonEmpty = """{"v": [[]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}"""
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonEmpty)
+    }
+
+    // Non-array point coordinate
+    val jsonNonArray = """{"v": [10.0], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}"""
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonNonArray)
+    }
+
+    // Non-float coordinate
+    val jsonNonFloat = """{"v": [["invalid", "coord"]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}"""
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonNonFloat)
+    }
+  }
+
+  @Test
+  fun bezierValue_extraCoordinates_discards3DExtraDimensions() {
+    // 3D coordinates (length 3): extracts x and y, discards 3rd coordinate
+    val json3D = """{"v": [[10.0, 20.0, 30.0]], "i": [[1.0, 2.0, 0.0]], "o": [[3.0, 4.0, 0.0]]}"""
+    val bezier = LottieDecoder.json.decodeFromString(BezierValue.serializer(), json3D)
+    assertThat(bezier.vertices).containsExactly(Point(10f, 20f))
+    assertThat(bezier.inTangents).containsExactly(Point(1f, 2f))
+    assertThat(bezier.outTangents).containsExactly(Point(3f, 4f))
+
+    // Serializes strictly as 2D coordinates [x, y]
+    val serialized = LottieDecoder.json.encodeToString(BezierValue.serializer(), bezier)
+    assertThat(serialized).contains(""""v":[[10.0,20.0]]""")
+    assertThat(serialized).contains(""""i":[[1.0,2.0]]""")
+    assertThat(serialized).contains(""""o":[[3.0,4.0]]""")
+  }
+
+  @Test
+  fun bezierValue_toRemote_convertsToRemoteFloats() {
+    val bezier =
+      BezierValue(
+        closed = true,
+        inTangents = listOf(Point(1f, 2f)),
+        outTangents = listOf(Point(3f, 4f)),
+        vertices = listOf(Point(10f, 20f)),
+      )
+    val remote = bezier.toRemote()
+    assertThat(remote.closed).isTrue()
+    assertThat(remote.vertices).hasSize(1)
+    assertThat(remote.vertices[0].x.constantValueOrNull).isEqualTo(10f)
+    assertThat(remote.vertices[0].y.constantValueOrNull).isEqualTo(20f)
+    assertThat(remote.inTangents[0].x.constantValueOrNull).isEqualTo(1f)
+    assertThat(remote.inTangents[0].y.constantValueOrNull).isEqualTo(2f)
+    assertThat(remote.outTangents[0].x.constantValueOrNull).isEqualTo(3f)
+    assertThat(remote.outTangents[0].y.constantValueOrNull).isEqualTo(4f)
+  }
+
+  @Test
+  fun bezierValue_roundTripSerialization_emitsCanonicalBooleanClosedFlag() {
+    val jsonIntegerClosed = """{"c":1,"v":[[10.0,20.0]],"i":[[0.0,0.0]],"o":[[0.0,0.0]]}"""
+    val deserialized =
+      LottieDecoder.json.decodeFromString(BezierValue.serializer(), jsonIntegerClosed)
+    val serialized = LottieDecoder.json.encodeToString(BezierValue.serializer(), deserialized)
+
+    // Emits canonical boolean "c":true
+    assertThat(serialized).contains(""""c":true""")
+    val roundTripped = LottieDecoder.json.decodeFromString(BezierValue.serializer(), serialized)
+    assertThat(roundTripped).isEqualTo(deserialized)
   }
 
   @Test

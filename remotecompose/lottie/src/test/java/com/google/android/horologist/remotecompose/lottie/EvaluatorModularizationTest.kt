@@ -80,14 +80,24 @@ class EvaluatorModularizationTest {
         value =
           BezierValue(
             closed = true,
-            inTangents = listOf(listOf(0f, 0f)),
-            outTangents = listOf(listOf(0f, 0f)),
-            vertices = listOf(listOf(10f, 20f)),
+            inTangents =
+              listOf(
+                com.google.android.horologist.remotecompose.lottie.format.values.Point(0f, 0f)
+              ),
+            outTangents =
+              listOf(
+                com.google.android.horologist.remotecompose.lottie.format.values.Point(0f, 0f)
+              ),
+            vertices =
+              listOf(
+                com.google.android.horologist.remotecompose.lottie.format.values.Point(10f, 20f)
+              ),
           )
       )
     val result = animateBezier(bezier, settings)
     assertThat(result.closed).isTrue()
-    assertThat(result.vertices).isEqualTo(listOf(listOf(10f, 20f)))
+    assertThat(result.vertices[0].x.constantValueOrNull).isEqualTo(10f)
+    assertThat(result.vertices[0].y.constantValueOrNull).isEqualTo(20f)
   }
 
   @Test
@@ -99,9 +109,18 @@ class EvaluatorModularizationTest {
             value =
               BezierValue(
                 closed = true,
-                inTangents = listOf(listOf(0f, 0f)),
-                outTangents = listOf(listOf(0f, 0f)),
-                vertices = listOf(listOf(0f, 0f)),
+                inTangents =
+                  listOf(
+                    com.google.android.horologist.remotecompose.lottie.format.values.Point(0f, 0f)
+                  ),
+                outTangents =
+                  listOf(
+                    com.google.android.horologist.remotecompose.lottie.format.values.Point(0f, 0f)
+                  ),
+                vertices =
+                  listOf(
+                    com.google.android.horologist.remotecompose.lottie.format.values.Point(0f, 0f)
+                  ),
               )
           )
       )

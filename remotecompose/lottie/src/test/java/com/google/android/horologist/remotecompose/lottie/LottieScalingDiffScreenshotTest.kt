@@ -44,6 +44,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Stat
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -143,21 +144,20 @@ class LottieScalingDiffScreenshotTest(
                     value =
                       BezierValue(
                         closed = true,
-                        vertices =
-                          listOf(listOf(0f, -r), listOf(r, 0f), listOf(0f, r), listOf(-r, 0f)),
+                        vertices = listOf(Point(0f, -r), Point(r, 0f), Point(0f, r), Point(-r, 0f)),
                         inTangents =
                           listOf(
-                            listOf(-handle, 0f),
-                            listOf(0f, -handle),
-                            listOf(handle, 0f),
-                            listOf(0f, handle),
+                            Point(-handle, 0f),
+                            Point(0f, -handle),
+                            Point(handle, 0f),
+                            Point(0f, handle),
                           ),
                         outTangents =
                           listOf(
-                            listOf(handle, 0f),
-                            listOf(0f, handle),
-                            listOf(-handle, 0f),
-                            listOf(0f, -handle),
+                            Point(handle, 0f),
+                            Point(0f, handle),
+                            Point(-handle, 0f),
+                            Point(0f, -handle),
                           ),
                       )
                   ),
@@ -188,15 +188,15 @@ class LottieScalingDiffScreenshotTest(
                         closed = true,
                         vertices =
                           listOf(
-                            listOf(2f, 2f),
-                            listOf(w - 2f, 2f),
-                            listOf(w - 2f, h - 2f),
-                            listOf(2f, h - 2f),
+                            Point(2f, 2f),
+                            Point(w - 2f, 2f),
+                            Point(w - 2f, h - 2f),
+                            Point(2f, h - 2f),
                           ),
                         inTangents =
-                          listOf(listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f)),
+                          listOf(Point(0f, 0f), Point(0f, 0f), Point(0f, 0f), Point(0f, 0f)),
                         outTangents =
-                          listOf(listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f)),
+                          listOf(Point(0f, 0f), Point(0f, 0f), Point(0f, 0f), Point(0f, 0f)),
                       )
                   ),
               ),

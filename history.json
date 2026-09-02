@@ -1,6 +1,6 @@
 {
     "formatVersion": "compose-preview-history/v1",
-    "generatedFrom": "d4b920b6ed81cc9ac964d1a44a0d7582d6dd7ef1",
+    "generatedFrom": "5c948f31a65da625ac239951dd932d9fb927ffb3",
     "previews": {
         "ai:sample:wear-gemini/com.google.android.horologist.ai.sample.wear.gemini.activity.WearAppKt.DefaultPreview_Devices - Small Round": {
             "path": "renders/ai:sample:wear-gemini/DefaultPreview_Devices_Small_Round-1732729b.png",
@@ -8016,6 +8016,13 @@
             "path": "renders/remotecompose:lottie/LottieGeometryPreview-b6cf2052.png",
             "versions": [
                 {
+                    "blob": "b85f4e7b96503e06a30215b23a3b34b28695bd0d",
+                    "commit": "5c948f31a65da625ac239951dd932d9fb927ffb3",
+                    "date": "2026-09-02T12:45:38Z",
+                    "sourceSha": "4d8cc532",
+                    "commits": 1
+                },
+                {
                     "blob": "1bebfdf28c75a3a4d8e32ee5be01c56f8a3fe1da",
                     "commit": "d4b920b6ed81cc9ac964d1a44a0d7582d6dd7ef1",
                     "date": "2026-08-30T10:48:24Z",
@@ -8030,7 +8037,7 @@
                     "commits": 1
                 }
             ],
-            "observations": 2,
+            "observations": 3,
             "unstable": false,
             "flapCount": 0
         },

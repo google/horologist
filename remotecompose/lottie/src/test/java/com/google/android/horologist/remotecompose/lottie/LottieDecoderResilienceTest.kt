@@ -23,7 +23,8 @@ import com.google.android.horologist.remotecompose.lottie.format.graphicelement.
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Fill
 import com.google.android.horologist.remotecompose.lottie.format.layer.NullLayer
 import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
-import com.google.android.horologist.remotecompose.lottie.format.values.GradientValue
+import com.google.android.horologist.remotecompose.lottie.format.values.RawGradientValue
+import com.google.android.horologist.remotecompose.lottie.format.values.toGradient
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -212,7 +213,8 @@ class LottieDecoderResilienceTest {
   @Test
   fun gradientProperty_opaqueArray_samplesColorAtPositions() {
     val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0]"
-    val gradient = LottieDecoder.json.decodeFromString(GradientValue.serializer(), json)
+    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
+    val gradient = raw.toGradient(colorStopCount = 2)
 
     val colorStart = gradient.getColorForPosition(0.0f).constantValueOrNull
     assertThat(colorStart?.red).isEqualTo(1f)
@@ -232,15 +234,9 @@ class LottieDecoderResilienceTest {
 
   @Test
   fun gradientProperty_transparentObject_samplesColorWithAlpha() {
-    val json =
-      """
-      {
-        "p": 2,
-        "k": [0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.5]
-      }
-      """
-        .trimIndent()
-    val gradient = LottieDecoder.json.decodeFromString(GradientValue.serializer(), json)
+    val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.5]"
+    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
+    val gradient = raw.toGradient(colorStopCount = 2)
 
     val colorStart = gradient.getColorForPosition(0.0f).constantValueOrNull
     assertThat(colorStart?.red).isEqualTo(1f)
@@ -253,15 +249,9 @@ class LottieDecoderResilienceTest {
 
   @Test
   fun gradientProperty_scaled255Integers_samplesNormalizedColor() {
-    val json =
-      """
-      {
-        "p": 2,
-        "k": [0.0, 255.0, 0.0, 0.0, 1.0, 0.0, 255.0, 0.0, 0.0, 255.0, 1.0, 128.0]
-      }
-      """
-        .trimIndent()
-    val gradient = LottieDecoder.json.decodeFromString(GradientValue.serializer(), json)
+    val json = "[0.0, 255.0, 0.0, 0.0, 1.0, 0.0, 255.0, 0.0, 0.0, 255.0, 1.0, 128.0]"
+    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
+    val gradient = raw.toGradient(colorStopCount = 2)
 
     val colorStart = gradient.getColorForPosition(0.0f).constantValueOrNull
     assertThat(colorStart?.red).isEqualTo(1f)
@@ -276,19 +266,17 @@ class LottieDecoderResilienceTest {
   fun gradientProperty_independentStops_interpolatesAlongTimeline() {
     val json =
       """
-      {
-        "p": 3,
-        "k": [
-          0.0, 1.0, 0.0, 0.0,
-          0.5, 0.0, 1.0, 0.0,
-          1.0, 0.0, 0.0, 1.0,
-          0.25, 0.8,
-          0.75, 0.4
-        ]
-      }
+      [
+        0.0, 1.0, 0.0, 0.0,
+        0.5, 0.0, 1.0, 0.0,
+        1.0, 0.0, 0.0, 1.0,
+        0.25, 0.8,
+        0.75, 0.4
+      ]
       """
         .trimIndent()
-    val gradient = LottieDecoder.json.decodeFromString(GradientValue.serializer(), json)
+    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
+    val gradient = raw.toGradient(colorStopCount = 3)
 
     val c0 = gradient.getColorForPosition(0.0f).constantValueOrNull
     assertThat(c0?.red).isWithin(0.01f).of(1.0f)

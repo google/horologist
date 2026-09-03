@@ -56,7 +56,6 @@ import com.airbnb.lottie.LottieComposition
 import com.airbnb.lottie.LottieProperty
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.airbnb.lottie.compose.rememberLottieDynamicProperties
 import com.airbnb.lottie.compose.rememberLottieDynamicProperty
 import com.google.android.horologist.media.ui.animation.PlaybackProgressAnimation.PLAYBACK_PROGRESS_ANIMATION_SPEC
@@ -244,7 +243,9 @@ public fun AnimatedPlayPauseButtonContent(
   iconSize: Dp = IconButtonDefaults.LargeIconSize,
 ) {
   val compositionResult =
-    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/M3PlayPause.json"))
+    rememberPrecachedLottieComposition(
+      spec = LottieCompositionSpec.Asset("lottie/M3PlayPause.json")
+    )
   val lottieProgress =
     animateLottieProgressAsState(playing = playing, composition = compositionResult.value)
   val pauseContentDescription =

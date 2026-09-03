@@ -17,8 +17,6 @@
 package com.google.android.horologist.media.ui.material3.components.animated
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.semantics.Role
@@ -40,23 +38,16 @@ public fun LottieAnimationWithPlaceholder(
   modifier: Modifier = Modifier,
   dynamicProperties: LottieDynamicProperties? = null,
 ) {
-  val isCompositionReady by
-    produceState(
-      initialValue = false,
-      producer = {
-        lottieCompositionResult.await()
-        value = true
-      },
-    )
+  val composition = lottieCompositionResult.value
 
-  if (isCompositionReady) {
+  if (composition != null) {
     LottieAnimation(
       modifier =
         modifier.semantics {
           this.contentDescription = contentDescription
           this.role = Role.Image
         },
-      composition = lottieCompositionResult.value,
+      composition = composition,
       progress = progress,
       dynamicProperties = dynamicProperties,
     )

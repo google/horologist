@@ -28,7 +28,6 @@ import com.airbnb.lottie.compose.LottieAnimatable
 import com.airbnb.lottie.compose.LottieCompositionResult
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.media.ui.material3.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.model.R
 
@@ -46,7 +45,7 @@ public fun AnimatedSeekToNextButton(
   content: @Composable (BoxScope.() -> Unit)? = null,
 ) {
   val compositionResult =
-    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/M3Next.json"))
+    rememberPrecachedLottieComposition(spec = LottieCompositionSpec.Asset("lottie/M3Next.json"))
   val contentDescription =
     stringResource(id = R.string.horologist_seek_to_next_button_content_description)
   AnimatedMediaButton(
@@ -77,7 +76,7 @@ public fun BoxScope.AnimatedSeekToNextButtonContent(
   contentDescription: String =
     stringResource(id = R.string.horologist_seek_to_next_button_content_description),
   compositionResult: LottieCompositionResult =
-    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/M3Next.json")),
+    rememberPrecachedLottieComposition(spec = LottieCompositionSpec.Asset("lottie/M3Next.json")),
   lottieAnimatable: LottieAnimatable = rememberLottieAnimatable(),
 ) {
   MediaButtonContent(

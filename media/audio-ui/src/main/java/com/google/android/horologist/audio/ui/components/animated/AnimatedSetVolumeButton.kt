@@ -24,14 +24,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.Button
 import androidx.wear.compose.material.ButtonDefaults
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.VolumeState
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
 import com.google.android.horologist.audio.ui.VolumeUiState
@@ -48,9 +46,9 @@ public fun AnimatedSetVolumeButton(
   modifier: Modifier = Modifier,
 ) {
   val volumeUp by
-    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json"))
+    rememberPrecachedLottieComposition(spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json"))
   val volumeDown by
-    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json"))
+    rememberPrecachedLottieComposition(spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json"))
   val lottieAnimatable = rememberLottieAnimatable()
 
   var lastVolume by remember { mutableIntStateOf(volumeUiState.current) }
@@ -71,14 +69,14 @@ public fun AnimatedSetVolumeButton(
     onClick = onVolumeClick,
     colors = ButtonDefaults.iconButtonColors(),
   ) {
-    if (LocalInspectionMode.current) {
-      DecreaseIcon()
-    } else {
+    if (volumeDown != null) {
       LottieAnimation(
         composition = volumeDown,
         modifier = Modifier.size(24.dp),
         progress = { lottieAnimatable.progress },
       )
+    } else {
+      DecreaseIcon()
     }
   }
 }

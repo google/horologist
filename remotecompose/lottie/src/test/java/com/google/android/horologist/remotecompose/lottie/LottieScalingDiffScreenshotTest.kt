@@ -33,14 +33,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.takahirom.roborazzi.captureRoboImage
 import com.google.android.horologist.remotecompose.lottie.format.Animation
-import com.google.android.horologist.remotecompose.lottie.format.BezierValue
-import com.google.android.horologist.remotecompose.lottie.format.GraphicElement
-import com.google.android.horologist.remotecompose.lottie.format.Layer
 import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
-import com.google.android.horologist.remotecompose.lottie.format.StaticBezierProperty
-import com.google.android.horologist.remotecompose.lottie.format.StaticColorProperty
-import com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty
-import com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Path
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Group
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Fill
+import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticBezierProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticColorProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
+import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -129,11 +132,11 @@ class LottieScalingDiffScreenshotTest(
       val handle = r * 0.55228475f
 
       val circleShape =
-        GraphicElement.Group(
+        Group(
           name = "Center Circle",
           shapes =
             listOf(
-              GraphicElement.Path(
+              Path(
                 name = "Circle Path",
                 shape =
                   StaticBezierProperty(
@@ -159,12 +162,12 @@ class LottieScalingDiffScreenshotTest(
                       )
                   ),
               ),
-              GraphicElement.Fill(
+              Fill(
                 name = "Circle Fill",
                 color = StaticColorProperty.fromColor(Color(0.95f, 0.25f, 0.2f, 1.0f)),
                 opacity = StaticScalarProperty(value = 100f),
               ),
-              GraphicElement.Transform(
+              Transform(
                 name = "Transform",
                 positionTranslation = StaticPositionProperty(value = floatArrayOf(cx, cy)),
               ),
@@ -172,11 +175,11 @@ class LottieScalingDiffScreenshotTest(
         )
 
       val rectShape =
-        GraphicElement.Group(
+        Group(
           name = "Outer Rect",
           shapes =
             listOf(
-              GraphicElement.Path(
+              Path(
                 name = "Rect Path",
                 shape =
                   StaticBezierProperty(
@@ -197,12 +200,12 @@ class LottieScalingDiffScreenshotTest(
                       )
                   ),
               ),
-              GraphicElement.Fill(
+              Fill(
                 name = "Rect Fill",
                 color = StaticColorProperty.fromColor(Color(0.2f, 0.5f, 0.9f, 1.0f)),
                 opacity = StaticScalarProperty(value = 100f),
               ),
-              GraphicElement.Transform(
+              Transform(
                 name = "Transform",
                 positionTranslation = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
               ),
@@ -219,12 +222,12 @@ class LottieScalingDiffScreenshotTest(
         height = height,
         layers =
           listOf(
-            Layer.ShapeLayer(
+            ShapeLayer(
               name = "Shape Layer",
               index = 1,
               startFrame = 0,
               endFrame = 60,
-              transform = GraphicElement.Transform(),
+              transform = Transform(),
               shapes = listOf(circleShape, rectShape),
             )
           ),

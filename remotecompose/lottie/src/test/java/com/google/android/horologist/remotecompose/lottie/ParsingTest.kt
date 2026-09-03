@@ -20,18 +20,23 @@ import android.content.Context
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.google.android.horologist.remotecompose.lottie.format.AnimatedBezierProperty
-import com.google.android.horologist.remotecompose.lottie.format.AnimatedVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.Animation
-import com.google.android.horologist.remotecompose.lottie.format.GraphicElement
-import com.google.android.horologist.remotecompose.lottie.format.Layer
-import com.google.android.horologist.remotecompose.lottie.format.LayerType
-import com.google.android.horologist.remotecompose.lottie.format.PolyStarType
-import com.google.android.horologist.remotecompose.lottie.format.ShapeType
-import com.google.android.horologist.remotecompose.lottie.format.StaticPositionProperty
-import com.google.android.horologist.remotecompose.lottie.format.StaticScalarProperty
-import com.google.android.horologist.remotecompose.lottie.format.StaticVectorProperty
-import com.google.android.horologist.remotecompose.lottie.renderer.animateScalar
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.ShapeType
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Ellipse
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Path
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.PolyStar
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.PolyStarType
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Rectangle
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Group
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Fill
+import com.google.android.horologist.remotecompose.lottie.format.layer.LayerType
+import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
+import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedBezierProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedVectorProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticVectorProperty
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -75,8 +80,8 @@ class ParsingTest {
   fun shapeTypePolymorphism_deserializes() {
     val animation = loadGeometry()
 
-    val shapeLayer = animation.layers[1] as Layer.ShapeLayer
-    val group = shapeLayer.shapes[0] as GraphicElement.Group
+    val shapeLayer = animation.layers[1] as ShapeLayer
+    val group = shapeLayer.shapes[0] as Group
 
     assertThat(group.shapes.size).isEqualTo(3)
   }
@@ -85,9 +90,9 @@ class ParsingTest {
   fun fillColorSlotId_deserializes() {
     val animation = loadGeometry()
 
-    val shapeLayer = animation.layers[1] as Layer.ShapeLayer
-    val group = shapeLayer.shapes[0] as GraphicElement.Group
-    val fill = group.shapes[1] as GraphicElement.Fill
+    val shapeLayer = animation.layers[1] as ShapeLayer
+    val group = shapeLayer.shapes[0] as Group
+    val fill = group.shapes[1] as Fill
 
     assertThat(fill.color.slotId).isEqualTo("color.primary")
   }
@@ -96,7 +101,7 @@ class ParsingTest {
   fun shapeTypeEnum_deserializes() {
     val animation = loadGeometry()
 
-    val shapeLayer = animation.layers[1] as Layer.ShapeLayer
+    val shapeLayer = animation.layers[1] as ShapeLayer
 
     assertThat(shapeLayer.shapes[0].type).isEqualTo(ShapeType.Group)
   }
@@ -105,9 +110,9 @@ class ParsingTest {
   fun animatedBezierProperty_deserializes() {
     val animation = loadGeometry()
 
-    val shapeLayer = animation.layers[1] as Layer.ShapeLayer
-    val group = shapeLayer.shapes[0] as GraphicElement.Group
-    val path = group.shapes[0] as GraphicElement.Path
+    val shapeLayer = animation.layers[1] as ShapeLayer
+    val group = shapeLayer.shapes[0] as Group
+    val path = group.shapes[0] as Path
 
     val animatedShape = path.shape as AnimatedBezierProperty
 
@@ -120,7 +125,7 @@ class ParsingTest {
   fun animatedVectorProperty_deserializes() {
     val animation = loadGeometry()
 
-    val shapeLayer = animation.layers[1] as Layer.ShapeLayer
+    val shapeLayer = animation.layers[1] as ShapeLayer
     val transform = shapeLayer.transform!!
 
     assertThat(transform.scale.animated).isTrue()
@@ -142,11 +147,11 @@ class ParsingTest {
     val animation = Animation.load(R.raw.rect_ellipse, context)
 
     assertThat(animation).isNotNull()
-    val shapeLayer = animation.layers[0] as Layer.ShapeLayer
+    val shapeLayer = animation.layers[0] as ShapeLayer
     assertThat(shapeLayer.shapes).hasSize(4)
 
-    val group1 = shapeLayer.shapes[0] as GraphicElement.Group
-    val rect = group1.shapes[0] as GraphicElement.Rectangle
+    val group1 = shapeLayer.shapes[0] as Group
+    val rect = group1.shapes[0] as Rectangle
     assertThat(rect.type).isEqualTo(ShapeType.Rectangle)
     assertThat(rect.position.animated).isFalse()
     assertThat((rect.position as StaticPositionProperty).value).isEqualTo(floatArrayOf(36f, 36f))
@@ -159,8 +164,8 @@ class ParsingTest {
     val cornerRadiusRf = animateScalar(rect.cornerRadius, settings)
     assertThat(cornerRadiusRf.constantValueOrNull).isEqualTo(10f)
 
-    val group3 = shapeLayer.shapes[2] as GraphicElement.Group
-    val ellipse = group3.shapes[0] as GraphicElement.Ellipse
+    val group3 = shapeLayer.shapes[2] as Group
+    val ellipse = group3.shapes[0] as Ellipse
     assertThat(ellipse.type).isEqualTo(ShapeType.Ellipse)
     assertThat(ellipse.position.animated).isFalse()
     assertThat((ellipse.position as StaticPositionProperty).value).isEqualTo(floatArrayOf(36f, 92f))
@@ -180,11 +185,11 @@ class ParsingTest {
     val animation = Animation.load(R.raw.polystar, context)
 
     assertThat(animation).isNotNull()
-    val shapeLayer = animation.layers[0] as Layer.ShapeLayer
+    val shapeLayer = animation.layers[0] as ShapeLayer
     assertThat(shapeLayer.shapes).hasSize(4)
 
-    val starGroup = shapeLayer.shapes[0] as GraphicElement.Group
-    val star = starGroup.shapes[0] as GraphicElement.PolyStar
+    val starGroup = shapeLayer.shapes[0] as Group
+    val star = starGroup.shapes[0] as PolyStar
     assertThat(star.type).isEqualTo(ShapeType.PolyStar)
     assertThat(star.starType).isEqualTo(PolyStarType.Star)
     assertThat(star.points.animated).isFalse()
@@ -192,8 +197,8 @@ class ParsingTest {
     assertThat((star.outerRadius as StaticScalarProperty).value).isEqualTo(26f)
     assertThat((star.innerRadius as StaticScalarProperty).value).isEqualTo(13f)
 
-    val polygonGroup = shapeLayer.shapes[1] as GraphicElement.Group
-    val polygon = polygonGroup.shapes[0] as GraphicElement.PolyStar
+    val polygonGroup = shapeLayer.shapes[1] as Group
+    val polygon = polygonGroup.shapes[0] as PolyStar
     assertThat(polygon.type).isEqualTo(ShapeType.PolyStar)
     assertThat(polygon.starType).isEqualTo(PolyStarType.Polygon)
     assertThat(polygon.points.animated).isFalse()

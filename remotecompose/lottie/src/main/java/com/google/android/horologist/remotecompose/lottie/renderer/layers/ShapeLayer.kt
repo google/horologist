@@ -14,41 +14,18 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.remotecompose.lottie.renderer
+package com.google.android.horologist.remotecompose.lottie.renderer.layers
 
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.runtime.Composable
-import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
-import com.google.android.horologist.remotecompose.lottie.format.Layer
-import com.google.android.horologist.remotecompose.lottie.format.LayerType
-
-/** A Layer in the Lottie composition */
-@Composable
-@RemoteComposable
-internal fun Layer(
-  layer: Layer,
-  parentTransforms: Map<Int, List<Transform>>,
-  transform: Transform?,
-) {
-  val ancestorStack = parentTransforms[layer.index] ?: emptyList()
-
-  val completeStack =
-    if (transform != null) {
-      listOf(transform) + ancestorStack
-    } else {
-      ancestorStack
-    }
-
-  when (layer.type) {
-    LayerType.Null -> {} // No-op - null layers are used to apply parent transforms.
-    LayerType.Shape -> ShapeLayer(layer as Layer.ShapeLayer, completeStack)
-  }
-}
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
+import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
+import com.google.android.horologist.remotecompose.lottie.renderer.RenderShapes
 
 /** A Layer containing Shapes */
 @Composable
 @RemoteComposable
-internal fun ShapeLayer(layer: Layer.ShapeLayer, transformStack: List<Transform?>? = null) {
+internal fun ShapeLayer(layer: ShapeLayer, transformStack: List<Transform?>? = null) {
   if (layer.hidden == true) {
     return
   }

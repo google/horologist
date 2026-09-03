@@ -14,30 +14,23 @@
  * limitations under the License.
  */
 
-package com.google.android.horologist.remotecompose.lottie
+package com.google.android.horologist.remotecompose.lottie.renderer.properties
 
+import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.state.RemoteColor
+import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticColorProperty
 
 /**
- * A mapping of slot IDs to values.
+ * Resolves or animates a color property.
  *
- * Slots can be used to share values between properties, or to override values at runtime. For
- * example, a fill color can reference a slot ID, which can be resolved to a color provided by the
- * application to enable dynamic theming.
+ * Checks for slot override in [LottieSettings.slotMap] before falling back to property value.
  */
-class SlotMap(colors: Map<String, Int>) {
-  private val colorSlots: Map<String, StaticColorProperty> =
-    colors.mapValues { (slotId, colorInt) ->
-      StaticColorProperty(slotId = slotId, colorInt = colorInt)
-    }
-
-  fun getColor(slotId: String): RemoteColor? {
-    val prop = colorSlots[slotId] ?: return null
-    return prop.value
-  }
-
-  companion object {
-    val Empty: SlotMap = SlotMap(emptyMap())
-  }
+@SuppressLint("RestrictedApi")
+internal fun animateColor(
+  property: StaticColorProperty,
+  animationSettings: LottieSettings,
+): RemoteColor {
+  val slotColor = property.slotId?.let { animationSettings.slotMap.getColor(it) }
+  return slotColor ?: property.value
 }

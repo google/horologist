@@ -21,7 +21,7 @@ import androidx.compose.remote.creation.RemotePath
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.layout.RemoteDrawScope
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
-import com.google.android.horologist.remotecompose.lottie.format.GraphicElement.Transform
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
 
 @SuppressLint("RestrictedApi")
 internal interface RemoteShape {

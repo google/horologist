@@ -18,30 +18,22 @@ package com.google.android.horologist.remotecompose.lottie.renderer.properties
 
 import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.state.RemoteFloat
-import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
-import com.google.android.horologist.remotecompose.lottie.format.values.Point as FormatPoint
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import com.google.android.horologist.remotecompose.lottie.renderer.lookupValueInBezier
 import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearEasingIn
 import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearEasingOut
 
-internal data class RemoteBezierValue(
-  val closed: Boolean,
-  val inTangents: List<Point>,
-  val outTangents: List<Point>,
-  val vertices: List<Point>,
-)
-
 /**
  * Animates a bezier property.
  *
- * Take a BaseBezierProperty (either animated or static) and convert it to a RemoteBezierValue. If
- * the bezier is animated, the RemoteBezierValue will change based on the animation specified in the
- * Lottie Bezier Property.
+ * Take a BaseBezierProperty (either animated or static) and convert it to a [BezierValue]. If the
+ * bezier is animated, the [BezierValue] will change based on the animation specified in the Lottie
+ * Bezier Property.
  *
  * This is used for path morphing, where either the vertices or control points of beziers used to
  * draw a shape are animated.
@@ -50,22 +42,22 @@ internal data class RemoteBezierValue(
 internal fun animateBezier(
   path: BaseBezierProperty,
   animationSettings: LottieSettings,
-): RemoteBezierValue {
+): BezierValue {
   return when (val p = path) {
     is StaticBezierProperty -> {
-      return p.value.toRemote()
+      return p.value
     }
     is AnimatedBezierProperty -> {
       // TODO: Support delayed start & chained animations for bezier curves
       if (p.keyframes.size == 1) {
-        return p.keyframes[0].value[0].toRemote()
+        return p.keyframes[0].value[0]
       }
 
       val startKeyFrame = p.keyframes[0]
       val endKeyFrame = p.keyframes[1]
 
       if (startKeyFrame.frame != 0f) {
-        return p.keyframes[0].value[0].toRemote()
+        return p.keyframes[0].value[0]
       }
 
       val duration = endKeyFrame.frame - startKeyFrame.frame
@@ -86,25 +78,25 @@ internal fun animateBezier(
 
       // TODO: b/442404202 - Support multiple spline segments within a bezier (i.e.
       // startKeyFrame.value.size > 1)
-      return RemoteBezierValue(
+      return BezierValue(
         startKeyFrame.value[0].closed,
         animatePoints(
-          startKeyFrame.value[0].inTangents.map { it.toRemote() },
-          endKeyFrame.value[0].inTangents.map { it.toRemote() },
+          startKeyFrame.value[0].inTangents,
+          endKeyFrame.value[0].inTangents,
           currentBezierValue,
           duration,
           frameInAnimation,
         ),
         animatePoints(
-          startKeyFrame.value[0].outTangents.map { it.toRemote() },
-          endKeyFrame.value[0].outTangents.map { it.toRemote() },
+          startKeyFrame.value[0].outTangents,
+          endKeyFrame.value[0].outTangents,
           currentBezierValue,
           duration,
           frameInAnimation,
         ),
         animatePoints(
-          startKeyFrame.value[0].vertices.map { it.toRemote() },
-          endKeyFrame.value[0].vertices.map { it.toRemote() },
+          startKeyFrame.value[0].vertices,
+          endKeyFrame.value[0].vertices,
           currentBezierValue,
           duration,
           frameInAnimation,
@@ -127,14 +119,3 @@ private fun animatePoints(
     point
   }
 }
-
-internal fun BezierValue.toRemote(): RemoteBezierValue {
-  return RemoteBezierValue(
-    this.closed,
-    this.inTangents.map { it.toRemote() },
-    this.outTangents.map { it.toRemote() },
-    this.vertices.map { it.toRemote() },
-  )
-}
-
-internal fun FormatPoint.toRemote(): Point = Point(this.x.rf, this.y.rf)

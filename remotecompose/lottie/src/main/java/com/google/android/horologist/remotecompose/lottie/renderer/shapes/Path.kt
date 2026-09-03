@@ -35,9 +35,10 @@ internal fun path(lottiePath: Path, animationSettings: LottieSettings): RemoteLo
   rcPath.reset()
   rcPath.moveTo(vertices[0].x.constantValueOrNull ?: 0f, vertices[0].y.constantValueOrNull ?: 0f)
 
+  val isClosed = path.closed.constantValueOrNull ?: false
   for (i in vertices.indices) {
     val p0 = vertices[i]
-    val lastIndex = if (i == vertices.size - 1 && path.closed) 0 else i + 1
+    val lastIndex = if (i == vertices.size - 1 && isClosed) 0 else i + 1
     val p4 = vertices[lastIndex]
     val inTangent = inTangents[lastIndex]
     val outTangent = outTangents[i]

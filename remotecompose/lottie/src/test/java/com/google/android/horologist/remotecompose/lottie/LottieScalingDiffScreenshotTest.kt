@@ -22,6 +22,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -143,21 +145,27 @@ class LottieScalingDiffScreenshotTest(
                   StaticBezierProperty(
                     value =
                       BezierValue(
-                        closed = true,
-                        vertices = listOf(Point(0f, -r), Point(r, 0f), Point(0f, r), Point(-r, 0f)),
+                        closed = true.rb,
+                        vertices =
+                          listOf(
+                            Point(0f.rf, (-r).rf),
+                            Point(r.rf, 0f.rf),
+                            Point(0f.rf, r.rf),
+                            Point((-r).rf, 0f.rf),
+                          ),
                         inTangents =
                           listOf(
-                            Point(-handle, 0f),
-                            Point(0f, -handle),
-                            Point(handle, 0f),
-                            Point(0f, handle),
+                            Point((-handle).rf, 0f.rf),
+                            Point(0f.rf, (-handle).rf),
+                            Point(handle.rf, 0f.rf),
+                            Point(0f.rf, handle.rf),
                           ),
                         outTangents =
                           listOf(
-                            Point(handle, 0f),
-                            Point(0f, handle),
-                            Point(-handle, 0f),
-                            Point(0f, -handle),
+                            Point(handle.rf, 0f.rf),
+                            Point(0f.rf, handle.rf),
+                            Point((-handle).rf, 0f.rf),
+                            Point(0f.rf, (-handle).rf),
                           ),
                       )
                   ),
@@ -185,18 +193,28 @@ class LottieScalingDiffScreenshotTest(
                   StaticBezierProperty(
                     value =
                       BezierValue(
-                        closed = true,
+                        closed = true.rb,
                         vertices =
                           listOf(
-                            Point(2f, 2f),
-                            Point(w - 2f, 2f),
-                            Point(w - 2f, h - 2f),
-                            Point(2f, h - 2f),
+                            Point(2f.rf, 2f.rf),
+                            Point((w - 2f).rf, 2f.rf),
+                            Point((w - 2f).rf, (h - 2f).rf),
+                            Point(2f.rf, (h - 2f).rf),
                           ),
                         inTangents =
-                          listOf(Point(0f, 0f), Point(0f, 0f), Point(0f, 0f), Point(0f, 0f)),
+                          listOf(
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                          ),
                         outTangents =
-                          listOf(Point(0f, 0f), Point(0f, 0f), Point(0f, 0f), Point(0f, 0f)),
+                          listOf(
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                          ),
                       )
                   ),
               ),

@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.values
 
+import androidx.compose.remote.creation.compose.state.RemoteBoolean
+import androidx.compose.remote.creation.compose.state.rb
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -55,7 +57,7 @@ import kotlinx.serialization.json.put
  */
 @Serializable(with = BezierValueSerializer::class)
 internal data class BezierValue(
-  @SerialName("c") val closed: Boolean = false,
+  @SerialName("c") val closed: RemoteBoolean = false.rb,
   @SerialName("i") val inTangents: List<Point>,
   @SerialName("o") val outTangents: List<Point>,
   @SerialName("v") val vertices: List<Point>,
@@ -76,7 +78,7 @@ internal object BezierValueSerializer : KSerializer<BezierValue> {
     val obj = jsonDecoder.decodeJsonElement().jsonObject
 
     return BezierValue(
-      closed = parseClosed(obj["c"]),
+      closed = parseClosed(obj["c"]).rb,
       inTangents = getPoints(obj, "i", json),
       outTangents = getPoints(obj, "o", json),
       vertices = getPoints(obj, "v", json),
@@ -124,7 +126,7 @@ internal object BezierValueSerializer : KSerializer<BezierValue> {
     val json = jsonEncoder.json
     jsonEncoder.encodeJsonElement(
       buildJsonObject {
-        put("c", value.closed)
+        put("c", value.closed.constantValue)
         put("i", json.encodeToJsonElement(value.inTangents))
         put("o", json.encodeToJsonElement(value.outTangents))
         put("v", json.encodeToJsonElement(value.vertices))

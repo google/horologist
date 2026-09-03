@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.values
 
+import androidx.compose.remote.creation.compose.state.RemoteFloat
+import androidx.compose.remote.creation.compose.state.rf
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
@@ -46,7 +48,8 @@ import kotlinx.serialization.json.jsonPrimitive
  * `[x, y, z]`). Deserialization requires at least 2 coordinates and retains strictly `[x, y]`,
  * discarding any extra dimensions (e.g. z-axis) per Lottie's 2D canvas model.
  */
-@Serializable(with = PointSerializer::class) internal data class Point(val x: Float, val y: Float)
+@Serializable(with = PointSerializer::class)
+internal data class Point(val x: RemoteFloat, val y: RemoteFloat)
 
 internal object PointSerializer : KSerializer<Point> {
   override val descriptor: SerialDescriptor =
@@ -72,15 +75,15 @@ internal object PointSerializer : KSerializer<Point> {
     val y =
       array[1].jsonPrimitive.floatOrNull
         ?: throw SerializationException("Y coordinate is not a valid float: ${array[1]}")
-    return Point(x, y)
+    return Point(x.rf, y.rf)
   }
 
   override fun serialize(encoder: Encoder, value: Point) {
     val jsonEncoder = encoder as JsonEncoder
     jsonEncoder.encodeJsonElement(
       buildJsonArray {
-        add(JsonPrimitive(value.x))
-        add(JsonPrimitive(value.y))
+        add(JsonPrimitive(value.x.constantValue))
+        add(JsonPrimitive(value.y.constantValue))
       }
     )
   }

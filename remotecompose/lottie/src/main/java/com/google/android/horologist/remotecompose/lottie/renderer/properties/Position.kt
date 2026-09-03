@@ -17,19 +17,16 @@
 package com.google.android.horologist.remotecompose.lottie.renderer.properties
 
 import android.annotation.SuppressLint
-import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.lerp
 import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BasePositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import com.google.android.horologist.remotecompose.lottie.renderer.lookupValueInBezier
 import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearEasingIn
 import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearEasingOut
-
-/** A 2D point represented with RemoteFloats. */
-internal data class Point(val x: RemoteFloat, val y: RemoteFloat)
 
 /**
  * Animates a position property.

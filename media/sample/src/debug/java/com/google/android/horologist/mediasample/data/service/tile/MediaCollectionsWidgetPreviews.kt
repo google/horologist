@@ -51,9 +51,9 @@ fun mediaCollectionsWidgetPreviewData(): MediaCollectionsWidget {
                 ),
                 Playlist(
                   id = "c2",
-                  name = "Podcasts",
+                  name = "Jazz & Blues",
                   artworkUri =
-                    "${FakeImageLoader.TestUriPrefix}${R.drawable.ic_baseline_podcasts_24}",
+                    "${FakeImageLoader.TestUriPrefix}${R.drawable.art}",
                   mediaList = emptyList(),
                 ),
               )

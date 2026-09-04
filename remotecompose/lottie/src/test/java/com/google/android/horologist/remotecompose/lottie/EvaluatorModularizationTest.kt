@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
+import androidx.compose.remote.creation.compose.state.rb
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.ui.graphics.Color
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -28,6 +29,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Stat
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateBezier
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateColor
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animatePosition
@@ -79,15 +81,16 @@ class EvaluatorModularizationTest {
       StaticBezierProperty(
         value =
           BezierValue(
-            closed = true,
-            inTangents = listOf(listOf(0f, 0f)),
-            outTangents = listOf(listOf(0f, 0f)),
-            vertices = listOf(listOf(10f, 20f)),
+            closed = true.rb,
+            inTangents = listOf(Point(0f.rf, 0f.rf)),
+            outTangents = listOf(Point(0f.rf, 0f.rf)),
+            vertices = listOf(Point(10f.rf, 20f.rf)),
           )
       )
-    val result = animateBezier(bezier, settings)
-    assertThat(result.closed).isTrue()
-    assertThat(result.vertices).isEqualTo(listOf(listOf(10f, 20f)))
+    val result: BezierValue = animateBezier(bezier, settings)
+    assertThat(result.closed.constantValueOrNull).isTrue()
+    assertThat(result.vertices[0].x.constantValueOrNull).isEqualTo(10f)
+    assertThat(result.vertices[0].y.constantValueOrNull).isEqualTo(20f)
   }
 
   @Test
@@ -98,10 +101,10 @@ class EvaluatorModularizationTest {
           StaticBezierProperty(
             value =
               BezierValue(
-                closed = true,
-                inTangents = listOf(listOf(0f, 0f)),
-                outTangents = listOf(listOf(0f, 0f)),
-                vertices = listOf(listOf(0f, 0f)),
+                closed = true.rb,
+                inTangents = listOf(Point(0f.rf, 0f.rf)),
+                outTangents = listOf(Point(0f.rf, 0f.rf)),
+                vertices = listOf(Point(0f.rf, 0f.rf)),
               )
           )
       )

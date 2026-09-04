@@ -18,10 +18,12 @@ package com.google.android.horologist.remotecompose.lottie
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.Animation
+import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Group
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Fill
 import com.google.android.horologist.remotecompose.lottie.format.layer.NullLayer
 import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
+import com.google.android.horologist.remotecompose.lottie.format.values.GradientValueSerializer
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -205,5 +207,97 @@ class LottieDecoderResilienceTest {
 
     assertThat(animation.frameRate).isEqualTo(30)
     assertThat(animation.layers).isEmpty()
+  }
+
+  @Test
+  fun gradientProperty_opaqueArray_samplesColorAtPositions() {
+    val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0]"
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
+
+    val colorStart = gradient.getColorForPosition(0.0f).constantValueOrNull
+    assertThat(colorStart?.red).isEqualTo(1f)
+    assertThat(colorStart?.green).isEqualTo(0f)
+    assertThat(colorStart?.blue).isEqualTo(0f)
+    assertThat(colorStart?.alpha).isEqualTo(1f)
+
+    val colorMid = gradient.getColorForPosition(0.5f).constantValueOrNull
+    assertThat(colorMid?.red).isWithin(0.01f).of(0.5f)
+    assertThat(colorMid?.green).isWithin(0.01f).of(0.5f)
+    assertThat(colorMid?.alpha).isEqualTo(1f)
+
+    val colorEnd = gradient.getColorForPosition(1.0f).constantValueOrNull
+    assertThat(colorEnd?.green).isEqualTo(1f)
+    assertThat(colorEnd?.alpha).isEqualTo(1f)
+  }
+
+  @Test
+  fun gradientProperty_transparentObject_samplesColorWithAlpha() {
+    val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 1.0, 0.5]"
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
+
+    val colorStart = gradient.getColorForPosition(0.0f).constantValueOrNull
+    assertThat(colorStart?.red).isEqualTo(1f)
+    assertThat(colorStart?.alpha).isEqualTo(1f)
+
+    val colorEnd = gradient.getColorForPosition(1.0f).constantValueOrNull
+    assertThat(colorEnd?.blue).isEqualTo(1f)
+    assertThat(colorEnd?.alpha).isWithin(0.01f).of(0.5f)
+  }
+
+  @Test
+  fun gradientProperty_scaled255Integers_samplesNormalizedColor() {
+    val json = "[0.0, 255.0, 0.0, 0.0, 1.0, 0.0, 255.0, 0.0, 0.0, 255.0, 1.0, 128.0]"
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
+
+    val colorStart = gradient.getColorForPosition(0.0f).constantValueOrNull
+    assertThat(colorStart?.red).isEqualTo(1f)
+    assertThat(colorStart?.alpha).isEqualTo(1f)
+
+    val colorEnd = gradient.getColorForPosition(1.0f).constantValueOrNull
+    assertThat(colorEnd?.green).isEqualTo(1f)
+    assertThat(colorEnd?.alpha).isWithin(0.01f).of(128f / 255f)
+  }
+
+  @Test
+  fun gradientProperty_independentStops_interpolatesAlongTimeline() {
+    val json =
+      """
+      [
+        0.0, 1.0, 0.0, 0.0,
+        0.5, 0.0, 1.0, 0.0,
+        1.0, 0.0, 0.0, 1.0,
+        0.25, 0.8,
+        0.75, 0.4
+      ]
+      """
+        .trimIndent()
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 3), json)
+
+    val c0 = gradient.getColorForPosition(0.0f).constantValueOrNull
+    assertThat(c0?.red).isWithin(0.01f).of(1.0f)
+    assertThat(c0?.green).isWithin(0.01f).of(0.0f)
+    assertThat(c0?.alpha).isWithin(0.01f).of(0.8f)
+
+    val c025 = gradient.getColorForPosition(0.25f).constantValueOrNull
+    assertThat(c025?.red).isWithin(0.01f).of(0.5f)
+    assertThat(c025?.green).isWithin(0.01f).of(0.5f)
+    assertThat(c025?.alpha).isWithin(0.01f).of(0.8f)
+
+    val c05 = gradient.getColorForPosition(0.5f).constantValueOrNull
+    assertThat(c05?.green).isWithin(0.01f).of(1.0f)
+    assertThat(c05?.alpha).isWithin(0.01f).of(0.6f)
+
+    val c075 = gradient.getColorForPosition(0.75f).constantValueOrNull
+    assertThat(c075?.green).isWithin(0.01f).of(0.5f)
+    assertThat(c075?.blue).isWithin(0.01f).of(0.5f)
+    assertThat(c075?.alpha).isWithin(0.01f).of(0.4f)
+
+    val c1 = gradient.getColorForPosition(1.0f).constantValueOrNull
+    assertThat(c1?.blue).isWithin(0.01f).of(1.0f)
+    assertThat(c1?.alpha).isWithin(0.01f).of(0.4f)
   }
 }

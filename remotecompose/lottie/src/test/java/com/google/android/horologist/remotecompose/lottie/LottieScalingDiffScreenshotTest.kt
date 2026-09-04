@@ -22,6 +22,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,6 +46,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Stat
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.ParameterizedRobolectricTestRunner
@@ -142,22 +145,27 @@ class LottieScalingDiffScreenshotTest(
                   StaticBezierProperty(
                     value =
                       BezierValue(
-                        closed = true,
+                        closed = true.rb,
                         vertices =
-                          listOf(listOf(0f, -r), listOf(r, 0f), listOf(0f, r), listOf(-r, 0f)),
+                          listOf(
+                            Point(0f.rf, (-r).rf),
+                            Point(r.rf, 0f.rf),
+                            Point(0f.rf, r.rf),
+                            Point((-r).rf, 0f.rf),
+                          ),
                         inTangents =
                           listOf(
-                            listOf(-handle, 0f),
-                            listOf(0f, -handle),
-                            listOf(handle, 0f),
-                            listOf(0f, handle),
+                            Point((-handle).rf, 0f.rf),
+                            Point(0f.rf, (-handle).rf),
+                            Point(handle.rf, 0f.rf),
+                            Point(0f.rf, handle.rf),
                           ),
                         outTangents =
                           listOf(
-                            listOf(handle, 0f),
-                            listOf(0f, handle),
-                            listOf(-handle, 0f),
-                            listOf(0f, -handle),
+                            Point(handle.rf, 0f.rf),
+                            Point(0f.rf, handle.rf),
+                            Point((-handle).rf, 0f.rf),
+                            Point(0f.rf, (-handle).rf),
                           ),
                       )
                   ),
@@ -185,18 +193,28 @@ class LottieScalingDiffScreenshotTest(
                   StaticBezierProperty(
                     value =
                       BezierValue(
-                        closed = true,
+                        closed = true.rb,
                         vertices =
                           listOf(
-                            listOf(2f, 2f),
-                            listOf(w - 2f, 2f),
-                            listOf(w - 2f, h - 2f),
-                            listOf(2f, h - 2f),
+                            Point(2f.rf, 2f.rf),
+                            Point((w - 2f).rf, 2f.rf),
+                            Point((w - 2f).rf, (h - 2f).rf),
+                            Point(2f.rf, (h - 2f).rf),
                           ),
                         inTangents =
-                          listOf(listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f)),
+                          listOf(
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                          ),
                         outTangents =
-                          listOf(listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f), listOf(0f, 0f)),
+                          listOf(
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                            Point(0f.rf, 0f.rf),
+                          ),
                       )
                   ),
               ),

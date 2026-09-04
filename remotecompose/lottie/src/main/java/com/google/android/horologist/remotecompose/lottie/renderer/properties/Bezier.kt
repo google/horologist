@@ -23,23 +23,17 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Anim
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import com.google.android.horologist.remotecompose.lottie.renderer.lookupValueInBezier
 import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearEasingIn
 import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearEasingOut
 
-internal data class RemoteBezierValue(
-  val closed: Boolean,
-  val inTangents: List<List<Float>>,
-  val outTangents: List<List<Float>>,
-  val vertices: List<List<Float>>,
-)
-
 /**
  * Animates a bezier property.
  *
- * Take a BaseBezierProperty (either animated or static) and convert it to a RemoteBezierValue. If
- * the bezier is animated, the RemoteBezierValue will change based on the animation specified in the
- * Lottie Bezier Property.
+ * Take a BaseBezierProperty (either animated or static) and convert it to a [BezierValue]. If the
+ * bezier is animated, the [BezierValue] will change based on the animation specified in the Lottie
+ * Bezier Property.
  *
  * This is used for path morphing, where either the vertices or control points of beziers used to
  * draw a shape are animated.
@@ -48,37 +42,22 @@ internal data class RemoteBezierValue(
 internal fun animateBezier(
   path: BaseBezierProperty,
   animationSettings: LottieSettings,
-): RemoteBezierValue {
+): BezierValue {
   return when (val p = path) {
     is StaticBezierProperty -> {
-      return RemoteBezierValue(
-        p.value.closed,
-        p.value.inTangents.innerMap { it },
-        p.value.outTangents.innerMap { it },
-        p.value.vertices.innerMap { it },
-      )
+      return p.value
     }
     is AnimatedBezierProperty -> {
       // TODO: Support delayed start & chained animations for bezier curves
       if (p.keyframes.size == 1) {
-        return RemoteBezierValue(
-          p.keyframes[0].value[0].closed,
-          p.keyframes[0].value[0].inTangents.innerMap { it },
-          p.keyframes[0].value[0].outTangents.innerMap { it },
-          p.keyframes[0].value[0].vertices.innerMap { it },
-        )
+        return p.keyframes[0].value[0]
       }
 
       val startKeyFrame = p.keyframes[0]
       val endKeyFrame = p.keyframes[1]
 
       if (startKeyFrame.frame != 0f) {
-        return RemoteBezierValue(
-          p.keyframes[0].value[0].closed,
-          p.keyframes[0].value[0].inTangents.innerMap { it },
-          p.keyframes[0].value[0].outTangents.innerMap { it },
-          p.keyframes[0].value[0].vertices.innerMap { it },
-        )
+        return p.keyframes[0].value[0]
       }
 
       val duration = endKeyFrame.frame - startKeyFrame.frame
@@ -99,23 +78,23 @@ internal fun animateBezier(
 
       // TODO: b/442404202 - Support multiple spline segments within a bezier (i.e.
       // startKeyFrame.value.size > 1)
-      return RemoteBezierValue(
+      return BezierValue(
         startKeyFrame.value[0].closed,
-        animateNestedFloatArray(
+        animatePoints(
           startKeyFrame.value[0].inTangents,
           endKeyFrame.value[0].inTangents,
           currentBezierValue,
           duration,
           frameInAnimation,
         ),
-        animateNestedFloatArray(
+        animatePoints(
           startKeyFrame.value[0].outTangents,
           endKeyFrame.value[0].outTangents,
           currentBezierValue,
           duration,
           frameInAnimation,
         ),
-        animateNestedFloatArray(
+        animatePoints(
           startKeyFrame.value[0].vertices,
           endKeyFrame.value[0].vertices,
           currentBezierValue,
@@ -127,29 +106,16 @@ internal fun animateBezier(
   }
 }
 
-private fun animateNestedFloatArray(
-  from: List<List<Float>>,
-  to: List<List<Float>>,
+private fun animatePoints(
+  from: List<Point>,
+  to: List<Point>,
   bezierValue: RemoteFloat,
   duration: Float,
   currentFrame: RemoteFloat,
-): List<List<Float>> {
-  return from.mapIndexed { _outerIndex, outer ->
-    outer.mapIndexed { _innerIndex, inner ->
-      // TODO: b/442404202 - Actually animate the path!
-      // calculateAnimationValue(inner, to[outerIndex][innerIndex], bezierValue)
-      inner
-    }
+): List<Point> {
+  return from.mapIndexed { _index, point ->
+    // TODO: b/442404202 - Actually animate the path!
+    // calculateAnimationValue(point, to[index], bezierValue)
+    point
   }
 }
-
-internal fun BezierValue.toRemote(): RemoteBezierValue {
-  return RemoteBezierValue(
-    this.closed,
-    this.inTangents.innerMap { it },
-    this.outTangents.innerMap { it },
-    this.vertices.innerMap { it },
-  )
-}
-
-internal fun <T, U> List<List<T>>.innerMap(f: (T) -> U): List<List<U>> = this.map { it.map(f) }

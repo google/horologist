@@ -33,18 +33,30 @@ internal fun path(lottiePath: Path, animationSettings: LottieSettings): RemoteLo
 
   val rcPath = RemotePath()
   rcPath.reset()
-  rcPath.moveTo(vertices[0][0], vertices[0][1])
+  rcPath.moveTo(vertices[0].x.constantValueOrNull ?: 0f, vertices[0].y.constantValueOrNull ?: 0f)
 
+  val isClosed = path.closed.constantValueOrNull ?: false
   for (i in vertices.indices) {
     val p0 = vertices[i]
-    val lastIndex = if (i == vertices.size - 1 && path.closed) 0 else i + 1
+    val lastIndex = if (i == vertices.size - 1 && isClosed) 0 else i + 1
     val p4 = vertices[lastIndex]
     val inTangent = inTangents[lastIndex]
     val outTangent = outTangents[i]
-    val p1 = listOf(p0[0] + outTangent[0], p0[1] + outTangent[1])
-    val p2 = listOf(p4[0] + inTangent[0], p4[1] + inTangent[1])
+    val p0x = p0.x.constantValueOrNull ?: 0f
+    val p0y = p0.y.constantValueOrNull ?: 0f
+    val p4x = p4.x.constantValueOrNull ?: 0f
+    val p4y = p4.y.constantValueOrNull ?: 0f
+    val outX = outTangent.x.constantValueOrNull ?: 0f
+    val outY = outTangent.y.constantValueOrNull ?: 0f
+    val inX = inTangent.x.constantValueOrNull ?: 0f
+    val inY = inTangent.y.constantValueOrNull ?: 0f
 
-    rcPath.cubicTo(p1[0], p1[1], p2[0], p2[1], p4[0], p4[1])
+    val p1x = p0x + outX
+    val p1y = p0y + outY
+    val p2x = p4x + inX
+    val p2y = p4y + inY
+
+    rcPath.cubicTo(p1x, p1y, p2x, p2y, p4x, p4y)
   }
 
   return RemoteLottiePath(rcPath)

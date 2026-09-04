@@ -17,8 +17,10 @@
 package com.google.android.horologist.audio.ui.components.animated
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,12 +31,20 @@ import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
 import com.google.android.horologist.audio.ui.VolumeScreenDefaults.IncreaseIcon
 import com.google.android.horologist.audio.ui.VolumeUiState
 import ee.schimke.composeai.preview.AnimatedPreview
+import kotlinx.coroutines.delay
 
 @WearPreviewSmallRound
 @AnimatedPreview(durationMs = 1200, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun AnimatedSetVolumeButtonPreview() {
+  val animatedVolume by
+    produceState(initialValue = 3) {
+      delay(100)
+      value = 2
+    }
   var volumeUiState by remember { mutableStateOf(VolumeUiState(3, 5)) }
+
+  LaunchedEffect(animatedVolume) { volumeUiState = volumeUiState.copy(current = animatedVolume) }
 
   InteractivePreviewAware {
     Stepper(
@@ -54,9 +64,14 @@ fun AnimatedSetVolumeButtonPreview() {
 @AnimatedPreview(durationMs = 1200, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun AnimatedVolumeButtonMotionPreview() {
+  val volume by
+    produceState(initialValue = 6) {
+      delay(100)
+      value = 5
+    }
   MaterialTheme {
     AnimatedSetVolumeButton(
-      volumeUiState = VolumeUiState(current = 6, max = 10),
+      volumeUiState = VolumeUiState(current = volume, max = 10),
       onVolumeClick = {},
     )
   }

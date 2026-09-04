@@ -44,9 +44,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Stat
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
 import com.google.android.horologist.remotecompose.lottie.format.values.ColorStop
 import com.google.android.horologist.remotecompose.lottie.format.values.GradientValue
-import com.google.android.horologist.remotecompose.lottie.format.values.RawGradientValue
-import com.google.android.horologist.remotecompose.lottie.format.values.toGradient
-import com.google.android.horologist.remotecompose.lottie.format.values.toGradientList
+import com.google.android.horologist.remotecompose.lottie.format.values.GradientValueSerializer
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.SerializationException
@@ -387,8 +385,8 @@ class ParsingTest {
   @Test
   fun gradientValue_flatFloatArray_decodesColorCountAndValues() {
     val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0]"
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    val gradientValue = raw.toGradient(colorStopCount = 2)
+    val gradientValue =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
     assertThat(gradientValue.colorStops).hasSize(2)
     assertThat(gradientValue.transparencyStops).isEmpty()
@@ -409,8 +407,8 @@ class ParsingTest {
   @Test
   fun gradientValue_transparentFloatArray_resolvesColorAndOpacityStops() {
     val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.5]"
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    val gradientValue = raw.toGradient(colorStopCount = 2)
+    val gradientValue =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
     assertThat(gradientValue.colorStops).hasSize(2)
     assertThat(gradientValue.transparencyStops).hasSize(2)
@@ -427,8 +425,8 @@ class ParsingTest {
   @Test
   fun gradientValue_nestedObject_decodesColorCountAndValues() {
     val json = "[0.0, 1.0, 0.0, 0.0, 0.5, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0]"
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    val gradientValue = raw.toGradient(colorStopCount = 3)
+    val gradientValue =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 3), json)
 
     assertThat(gradientValue.colorStops).hasSize(3)
     assertThat(gradientValue.transparencyStops).isEmpty()
@@ -439,8 +437,8 @@ class ParsingTest {
   @Test
   fun gradientValue_stopDecomposition_normalizes255ScaledValues() {
     val json = "[0.0, 255.0, 0.0, 0.0, 1.0, 0.0, 255.0, 0.0, 0.0, 255.0, 1.0, 128.0]"
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    val gradientValue = raw.toGradient(colorStopCount = 2)
+    val gradientValue =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
     val colorStart = gradientValue.getColorForPosition(0f).constantValueOrNull
     assertThat(colorStart?.red).isEqualTo(1f)
     assertThat(colorStart?.alpha).isEqualTo(1f)
@@ -483,8 +481,8 @@ class ParsingTest {
   fun gradientValue_getColorForPosition_evaluatesTwoStopOpaqueGradient() {
     // 0.0 -> Black (0, 0, 0), 1.0 -> White (1, 1, 1)
     val json = "[0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, 1.0]"
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    val gradient = raw.toGradient(colorStopCount = 2)
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
     // Underflow clamped to start stop
     val underflow = gradient.getColorForPosition(-0.2f).constantValueOrNull
@@ -523,8 +521,8 @@ class ParsingTest {
   fun gradientValue_getColorForPosition_evaluatesMultiSegmentStops() {
     // 0.0: Red, 0.5: Green, 1.0: Blue
     val json = "[0.0, 1.0, 0.0, 0.0, 0.5, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 1.0]"
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    val gradient = raw.toGradient(colorStopCount = 3)
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 3), json)
 
     // At 0.25 (between Red and Green): r=0.5, g=0.5, b=0.0
     val firstHalf = gradient.getColorForPosition(0.25f).constantValueOrNull
@@ -544,8 +542,8 @@ class ParsingTest {
   fun gradientValue_getColorForPosition_interpolatesOpaqueAndTranslucentColors() {
     // Colors: 0.0 (Red), 1.0 (Blue). Opacity: 0.0 (alpha 0.0), 1.0 (alpha 1.0)
     val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 1.0, 1.0]"
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    val gradient = raw.toGradient(colorStopCount = 2)
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
     val mid = gradient.getColorForPosition(0.5f).constantValueOrNull
     assertThat(mid?.red).isWithin(0.01f).of(0.5f)
@@ -568,8 +566,8 @@ class ParsingTest {
       ]
       """
         .trimIndent()
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    val gradient = raw.toGradient(colorStopCount = 2)
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
     // Position 0.1: below opacity start (0.25), clamped to 0.8
     val c01 = gradient.getColorForPosition(0.1f).constantValueOrNull
@@ -589,8 +587,8 @@ class ParsingTest {
   fun gradientValue_getColorForPosition_handlesCoincidentStopsWithoutDivisionByZero() {
     // Zero-width step stop at 0.5: Red at 0.5 and Blue at 0.5
     val json = "[0.5, 1.0, 0.0, 0.0, 0.5, 0.0, 0.0, 1.0]"
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    val gradient = raw.toGradient(colorStopCount = 2)
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
     val color = gradient.getColorForPosition(0.5f).constantValueOrNull
     assertThat(color).isNotNull()
   }
@@ -599,8 +597,8 @@ class ParsingTest {
   @Test
   fun gradientValue_getColorForPosition_normalizes255ScaledValues() {
     val json = "[0.0, 255.0, 0.0, 0.0, 1.0, 0.0, 255.0, 0.0, 0.0, 255.0, 1.0, 128.0]"
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    val gradient = raw.toGradient(colorStopCount = 2)
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
     val c0 = gradient.getColorForPosition(0.0f).constantValueOrNull
     assertThat(c0?.red).isEqualTo(1f)
@@ -613,136 +611,95 @@ class ParsingTest {
 
   @Test
   fun gradientValue_invalidValuesLength_throwsSerializationException() {
-    val raw = RawGradientValue(listOf(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f))
-    assertThrows(SerializationException::class.java) { raw.toGradient(colorStopCount = 2) }
+    val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0]"
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
+    }
   }
 
   @Test
   fun gradientValue_invalidOpacityLength_throwsSerializationException() {
-    val raw = RawGradientValue(listOf(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.5f))
-    assertThrows(SerializationException::class.java) { raw.toGradient(colorStopCount = 2) }
+    val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.5]"
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
+    }
   }
 
   @Test
-  fun rawGradientValue_nonNumberCoordinate_throwsSerializationException() {
+  fun gradientValue_nonNumberCoordinate_throwsSerializationException() {
     val json =
       """
       [0.0, "red", 0.0, 0.0]
       """
         .trimIndent()
     assertThrows(SerializationException::class.java) {
-      LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 1), json)
     }
   }
 
   @Test
   fun gradientValue_invalidOpaqueArrayLength_throwsSerializationException() {
-    val raw = RawGradientValue(listOf(0.0f, 1.0f, 0.0f))
-    assertThrows(SerializationException::class.java) { raw.toGradient(colorStopCount = 1) }
+    val json = "[0.0, 1.0, 0.0]"
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 1), json)
+    }
   }
 
   @Test
   fun gradientValue_negativeColorStopCount_throwsSerializationException() {
-    val raw = RawGradientValue(listOf(0.0f, 1.0f, 0.0f, 0.0f))
-    assertThrows(SerializationException::class.java) { raw.toGradient(colorStopCount = -1) }
+    val json = "[0.0, 1.0, 0.0, 0.0]"
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = -1), json)
+    }
   }
 
   @Test
-  fun rawGradientValue_invalidJsonType_throwsException() {
+  fun gradientValue_invalidJsonType_throwsException() {
     val jsonString = "\"not a gradient\""
     assertThrows(IllegalArgumentException::class.java) {
-      LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), jsonString)
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 1), jsonString)
     }
   }
 
   @Test
   fun gradientValue_emptyArray_deserializesEmpty() {
     val json = "[]"
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    val gradient = raw.toGradient(colorStopCount = 0)
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 0), json)
     assertThat(gradient.colorStops).isEmpty()
     assertThat(gradient.transparencyStops).isEmpty()
   }
 
   @Test
-  fun toGradient_validGradientValue_succeeds() {
-    val raw = RawGradientValue(listOf(0f, 1f, 0f, 0f))
-    val gradient = raw.toGradient(colorStopCount = 1)
+  fun gradientValue_validGradientValue_succeeds() {
+    val json = "[0.0, 1.0, 0.0, 0.0]"
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 1), json)
     assertThat(gradient.colorStops).hasSize(1)
   }
 
   @Test
-  fun toGradient_explicitCountWithOpacity_constructsStops() {
-    val raw = RawGradientValue(listOf(0f, 1f, 0f, 0f, 1f, 0.5f))
-    val gradient = raw.toGradient(colorStopCount = 1)
+  fun gradientValue_explicitCountWithOpacity_constructsStops() {
+    val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.5]"
+    val gradient =
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 1), json)
     assertThat(gradient.colorStops).hasSize(1)
     assertThat(gradient.transparencyStops).hasSize(1)
   }
 
   @Test
-  fun toGradient_negativeCount_throwsSerializationException() {
-    val raw = RawGradientValue(listOf(0f, 1f, 0f, 0f))
-    assertThrows(SerializationException::class.java) { raw.toGradient(colorStopCount = -1) }
+  fun gradientValue_insufficientLength_throwsSerializationException() {
+    val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0]"
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
+    }
   }
 
   @Test
-  fun toGradient_insufficientLength_throwsSerializationException() {
-    val raw = RawGradientValue(listOf(0f, 1f, 0f, 0f, 1f, 0f, 1f))
-    assertThrows(SerializationException::class.java) { raw.toGradient(colorStopCount = 2) }
-  }
-
-  @Test
-  fun toGradient_oddOpacityStopsLength_throwsSerializationException() {
-    val raw = RawGradientValue(listOf(0f, 1f, 0f, 0f, 1f))
-    assertThrows(SerializationException::class.java) { raw.toGradient(colorStopCount = 1) }
-  }
-
-  @Test
-  fun rawGradientValue_flatFloatArray_decodesValues() {
-    val json = "[0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0]"
-    val raw = LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), json)
-    assertThat(raw.values).containsExactly(0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f).inOrder()
-  }
-
-  @Test
-  fun rawGradientValue_toGradient_createsGradientValueWithColorAndTransparencyStops() {
-    val raw = RawGradientValue(listOf(0f, 1f, 0f, 0f, 1f, 0f, 1f, 0f, 0f, 1f, 1f, 0.5f))
-    val gradient = raw.toGradient(colorStopCount = 2)
-    assertThat(gradient.colorStops).hasSize(2)
-    assertThat(gradient.transparencyStops).hasSize(2)
-    val colorStart = gradient.getColorForPosition(0f).constantValueOrNull
-    assertThat(colorStart?.red).isEqualTo(1f)
-    assertThat(colorStart?.alpha).isEqualTo(1f)
-    val colorEnd = gradient.getColorForPosition(1f).constantValueOrNull
-    assertThat(colorEnd?.green).isEqualTo(1f)
-    assertThat(colorEnd?.alpha).isWithin(0.01f).of(0.5f)
-  }
-
-  @Test
-  fun rawGradientValue_toGradient_insufficientLength_throwsSerializationException() {
-    val raw = RawGradientValue(listOf(0f, 1f, 0f))
-    assertThrows(SerializationException::class.java) { raw.toGradient(colorStopCount = 1) }
-  }
-
-  @Test
-  fun rawGradientValue_serialization_roundTrip() {
-    val original = RawGradientValue(listOf(0.0f, 1.0f, 0.5f, 0.2f))
-    val serialized = LottieDecoder.json.encodeToString(RawGradientValue.serializer(), original)
-    val deserialized =
-      LottieDecoder.json.decodeFromString(RawGradientValue.serializer(), serialized)
-    assertThat(deserialized.values).isEqualTo(original.values)
-  }
-
-  @Test
-  fun rawGradientValue_toGradientList_convertsAllValues() {
-    val rawList =
-      listOf(
-        RawGradientValue(listOf(0f, 1f, 0f, 0f, 1f, 0f, 1f, 0f)),
-        RawGradientValue(listOf(0f, 0f, 0f, 1f, 1f, 1f, 1f, 0f)),
-      )
-    val gradients = rawList.toGradientList(colorStopCount = 2)
-    assertThat(gradients).hasSize(2)
-    assertThat(gradients[0].colorStops).hasSize(2)
-    assertThat(gradients[1].colorStops).hasSize(2)
+  fun gradientValue_oddOpacityStopsLength_throwsSerializationException() {
+    val json = "[0.0, 1.0, 0.0, 0.0, 1.0]"
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 1), json)
+    }
   }
 }

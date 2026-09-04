@@ -102,6 +102,27 @@
       ],
       "allowedVersions": "<1.12.0",
       "description": "Requires compileSdk 37"
+    },
+    {
+      "matchPackagePatterns": [
+        "com.google.android.gms:play-services-auth"
+      ],
+      "allowedVersions": "<22.0.0",
+      "description": "22.0.0 removed legacy GoogleSignIn APIs used by auth:data and auth:ui"
+    },
+    {
+      "matchPackagePatterns": [
+        "androidx.navigation:*"
+      ],
+      "allowedVersions": "<2.10.0",
+      "description": "Requires compileSdk 37"
+    },
+    {
+      "matchPackagePatterns": [
+        "com.squareup.okhttp3:*"
+      ],
+      "allowedVersions": "<5.5.0",
+      "description": "Requires compileSdk 37"
     }
   ]
 }

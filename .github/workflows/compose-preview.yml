@@ -65,7 +65,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
 
-      - uses: yschimke/compose-ai-tools/.github/actions/apply@c1e2afea72bbfdaa42685c0adfeb1ddd696c67c2 # v1.71.0
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@b2ec0d771bbe758c4e7d681efbc3bf3f5c43991d # v1.72.0
         with:
           phase: render
           # Downgraded from the default `fail` while one preview cannot render
@@ -127,7 +127,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
 
-      - uses: yschimke/compose-ai-tools/.github/actions/apply@c1e2afea72bbfdaa42685c0adfeb1ddd696c67c2 # v1.71.0
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@b2ec0d771bbe758c4e7d681efbc3bf3f5c43991d # v1.72.0
         with:
           # Only the compose pipeline. The resources / a11y / notifications
           # pipelines are additional renders on top of this one; turn them on

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.material3.components.animated
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -38,6 +39,7 @@ internal class ReadyLottieCompositionResult(override val value: LottieCompositio
   override suspend fun await(): LottieComposition = value
 }
 
+@SuppressLint("RestrictedApi")
 @Composable
 internal fun rememberPrecachedLottieComposition(
   spec: LottieCompositionSpec

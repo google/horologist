@@ -190,9 +190,9 @@ internal class GradientValueSerializer(val colorStopCount: Int) : KSerializer<Gr
       List(colorStopCount) { i ->
         val base = i * 4
         val offset = values[base]
-        val r = values[base + 1]
-        val g = values[base + 2]
-        val b = values[base + 3]
+        val r = normalizeColorComponent(values[base + 1])
+        val g = normalizeColorComponent(values[base + 2])
+        val b = normalizeColorComponent(values[base + 3])
         ColorStop(offset, Color(red = r, green = g, blue = b).rc)
       }
 
@@ -203,7 +203,7 @@ internal class GradientValueSerializer(val colorStopCount: Int) : KSerializer<Gr
       List(opacityCount) { j ->
         val base = opacityBase + j * 2
         val offset = values[base]
-        val alpha = values[base + 1].rf
+        val alpha = normalizeColorComponent(values[base + 1]).rf
         TransparencyStop(offset, alpha)
       }
 
@@ -231,6 +231,9 @@ internal class GradientValueSerializer(val colorStopCount: Int) : KSerializer<Gr
       )
     }
   }
+
+  private fun normalizeColorComponent(v: Float): Float =
+    if (v > 1f) (v / 255f).coerceIn(0f, 1f) else v.coerceIn(0f, 1f)
 
   private fun JsonArray.toFloatList(): List<Float> = map { elem ->
     elem.jsonPrimitive.floatOrNull

@@ -17,8 +17,6 @@
 package com.google.android.horologist.media.ui.components.animated
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.produceState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.wear.compose.material.Icon
@@ -36,21 +34,12 @@ public fun LottieAnimationWithPlaceholder(
   modifier: Modifier = Modifier,
   dynamicProperties: LottieDynamicProperties? = null,
 ) {
-  // False positive - https://issuetracker.google.com/issues/349411310
-  @Suppress("ProduceStateDoesNotAssignValue")
-  val isCompositionReady by
-    produceState(
-      initialValue = false,
-      producer = {
-        lottieCompositionResult.await()
-        value = true
-      },
-    )
+  val composition = lottieCompositionResult.value
 
-  if (isCompositionReady) {
+  if (composition != null) {
     LottieAnimation(
       modifier = modifier,
-      composition = lottieCompositionResult.value,
+      composition = composition,
       progress = progress,
       dynamicProperties = dynamicProperties,
     )

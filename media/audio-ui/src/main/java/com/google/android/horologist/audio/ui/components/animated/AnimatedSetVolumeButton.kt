@@ -30,8 +30,8 @@ import androidx.wear.compose.material.ButtonDefaults
 import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.rememberLottieAnimatable
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.audio.VolumeState
+import com.google.android.horologist.audio.ui.VolumeScreenDefaults.DecreaseIcon
 import com.google.android.horologist.audio.ui.VolumeUiState
 
 /**
@@ -46,9 +46,9 @@ public fun AnimatedSetVolumeButton(
   modifier: Modifier = Modifier,
 ) {
   val volumeUp by
-    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json"))
+    rememberPrecachedLottieComposition(spec = LottieCompositionSpec.Asset("lottie/VolumeUp.json"))
   val volumeDown by
-    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json"))
+    rememberPrecachedLottieComposition(spec = LottieCompositionSpec.Asset("lottie/VolumeDown.json"))
   val lottieAnimatable = rememberLottieAnimatable()
 
   var lastVolume by remember { mutableIntStateOf(volumeUiState.current) }
@@ -56,10 +56,11 @@ public fun AnimatedSetVolumeButton(
   LaunchedEffect(volumeUiState) {
     val lastVolumeBefore = lastVolume
     lastVolume = volumeUiState.current
-    if (volumeUiState.current > lastVolumeBefore) {
-      lottieAnimatable.animate(iterations = 1, composition = volumeUp)
-    } else {
-      lottieAnimatable.animate(iterations = 1, composition = volumeDown)
+    when {
+      volumeUiState.current > lastVolumeBefore ->
+        lottieAnimatable.animate(iterations = 1, composition = volumeUp)
+      volumeUiState.current < lastVolumeBefore ->
+        lottieAnimatable.animate(iterations = 1, composition = volumeDown)
     }
   }
 
@@ -68,10 +69,14 @@ public fun AnimatedSetVolumeButton(
     onClick = onVolumeClick,
     colors = ButtonDefaults.iconButtonColors(),
   ) {
-    LottieAnimation(
-      composition = volumeDown,
-      modifier = Modifier.size(24.dp),
-      progress = { lottieAnimatable.progress },
-    )
+    if (volumeDown != null) {
+      LottieAnimation(
+        composition = volumeDown,
+        modifier = Modifier.size(24.dp),
+        progress = { lottieAnimatable.progress },
+      )
+    } else {
+      DecreaseIcon()
+    }
   }
 }

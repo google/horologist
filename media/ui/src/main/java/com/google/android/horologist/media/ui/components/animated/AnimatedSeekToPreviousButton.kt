@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material.ButtonColors
 import androidx.wear.compose.material.ButtonDefaults
 import com.airbnb.lottie.compose.LottieCompositionSpec
-import com.airbnb.lottie.compose.rememberLottieComposition
 import com.google.android.horologist.media.ui.model.R
 
 @Composable
@@ -39,7 +38,7 @@ public fun AnimatedSeekToPreviousButton(
   iconSize: Dp = 32.dp,
 ) {
   val compositionResult =
-    rememberLottieComposition(spec = LottieCompositionSpec.Asset("lottie/Next.json"))
+    rememberPrecachedLottieComposition(spec = LottieCompositionSpec.Asset("lottie/Next.json"))
   AnimatedMediaButton(
     modifier = modifier.graphicsLayer(scaleX = -1f),
     onClick = onClick,

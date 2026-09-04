@@ -21,13 +21,16 @@ import androidx.compose.material.icons.filled.Album
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.android.horologist.images.coil.CoilPaintable
+import com.google.android.horologist.media.ui.SampleArtworkUri
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 
 @Preview(backgroundColor = 0x00000000, showBackground = true)
 @Composable
 fun MediaArtworkPreview() {
   MediaArtwork(
-    media = MediaUiModel.Ready(id = "id", title = "title", artwork = null),
+    media =
+      MediaUiModel.Ready(id = "id", title = "title", artwork = CoilPaintable(SampleArtworkUri)),
     placeholder = rememberVectorPainter(image = Icons.Default.Album),
   )
 }

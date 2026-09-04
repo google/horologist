@@ -105,7 +105,7 @@ allprojects {
       resolutionStrategy {
         dependencySubstitution {
           substitute(module("com.google.protobuf:protobuf-java"))
-            .using(module("com.google.protobuf:protobuf-javalite:4.35.1"))
+            .using(module("com.google.protobuf:protobuf-javalite:4.36.1"))
         }
         force(rootProject.libs.grpc.stub)
         force(rootProject.libs.io.grpc.protobuf.lite)

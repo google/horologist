@@ -52,8 +52,7 @@ fun mediaCollectionsWidgetPreviewData(): MediaCollectionsWidget {
                 Playlist(
                   id = "c2",
                   name = "Jazz & Blues",
-                  artworkUri =
-                    "${FakeImageLoader.TestUriPrefix}${R.drawable.art}",
+                  artworkUri = "${FakeImageLoader.TestUriPrefix}${R.drawable.art}",
                   mediaList = emptyList(),
                 ),
               )

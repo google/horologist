@@ -45,8 +45,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.glance.wear.GlanceWearWidget
 import androidx.glance.wear.WearWidgetBrush
 import androidx.glance.wear.WearWidgetData
@@ -54,24 +52,15 @@ import androidx.glance.wear.WearWidgetDocument
 import androidx.glance.wear.color
 import androidx.glance.wear.core.ContainerInfo
 import androidx.glance.wear.core.WearWidgetParams
-import androidx.glance.wear.tooling.preview.RectangularAllWidgetPreviewParams
-import androidx.glance.wear.tooling.preview.RoundAllWidgetPreviewParams
-import androidx.glance.wear.tooling.preview.SquircleAllWidgetPreviewParams
-import androidx.glance.wear.tooling.preview.WearWidgetPreview
 import androidx.wear.compose.remote.material3.RemoteButton
 import androidx.wear.compose.remote.material3.RemoteButtonDefaults
 import androidx.wear.compose.remote.material3.RemoteMaterialTheme
 import androidx.wear.compose.remote.material3.RemoteText
 import coil.ImageLoader
 import coil.request.ImageRequest
-import com.google.android.horologist.images.coil.FakeImageLoader
-import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.repository.PlaylistRepository
-import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.app.MediaActivity
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 
 /** A Widget providing link to playlists with responsive breakpoint support. */
 class MediaCollectionsWidget(
@@ -258,55 +247,3 @@ private fun PlaylistButton(
     )
   }
 }
-
-@Composable
-fun mediaCollectionsWidgetPreviewData(): MediaCollectionsWidget {
-  return androidx.compose.runtime.remember {
-    MediaCollectionsWidget(
-      playlistRepository =
-        object : PlaylistRepository {
-          override suspend fun get(playlistId: String): Playlist? = null
-
-          override fun getAll(): Flow<List<Playlist>> =
-            flowOf(
-              listOf(
-                Playlist(
-                  id = "s1",
-                  name = "Kyoto Songs",
-                  artworkUri = "${FakeImageLoader.TestUriPrefix}${R.drawable.kyoto}",
-                  mediaList = emptyList(),
-                ),
-                Playlist(
-                  id = "c2",
-                  name = "Podcasts",
-                  artworkUri =
-                    "${FakeImageLoader.TestUriPrefix}${R.drawable.ic_baseline_podcasts_24}",
-                  mediaList = emptyList(),
-                ),
-              )
-            )
-
-          override fun getAllDownloaded(): Flow<List<Playlist>> = flowOf(emptyList())
-        },
-      imageLoader = FakeImageLoader.Resources,
-    )
-  }
-}
-
-@Preview(name = "Squircle Preview", device = "spec:width=1000dp,height=1000dp,dpi=320")
-@Composable
-fun MediaCollectionWidgetSquirclePreview(
-  @PreviewParameter(SquircleAllWidgetPreviewParams::class) params: WearWidgetParams
-) = WearWidgetPreview(mediaCollectionsWidgetPreviewData(), params)
-
-@Preview(name = "Round Preview", device = "spec:width=1000dp,height=1000dp,dpi=320")
-@Composable
-fun MediaCollectionWidgetRoundPreview(
-  @PreviewParameter(RoundAllWidgetPreviewParams::class) params: WearWidgetParams
-) = WearWidgetPreview(mediaCollectionsWidgetPreviewData(), params)
-
-@Preview(name = "Widget Picker Preview", device = "spec:width=1000dp,height=1000dp,dpi=320")
-@Composable
-fun MediaCollectionWidgetRectangularPreview(
-  @PreviewParameter(RectangularAllWidgetPreviewParams::class) params: WearWidgetParams
-) = WearWidgetPreview(mediaCollectionsWidgetPreviewData(), params)

@@ -36,15 +36,20 @@ import androidx.compose.remote.creation.compose.modifier.fillMaxSize
 import androidx.compose.remote.creation.compose.modifier.fillMaxWidth
 import androidx.compose.remote.creation.compose.modifier.padding
 import androidx.compose.remote.creation.compose.modifier.size
+import androidx.compose.remote.creation.compose.state.RemoteColor
 import androidx.compose.remote.creation.compose.state.RemoteDp
 import androidx.compose.remote.creation.compose.state.RemoteImageBitmap
 import androidx.compose.remote.creation.compose.state.rdp
 import androidx.compose.remote.creation.compose.state.rs
 import androidx.compose.remote.creation.compose.text.RemoteTextStyle
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.glance.wear.GlanceWearWidget
 import androidx.glance.wear.WearWidgetBrush
 import androidx.glance.wear.WearWidgetData
@@ -52,15 +57,25 @@ import androidx.glance.wear.WearWidgetDocument
 import androidx.glance.wear.color
 import androidx.glance.wear.core.ContainerInfo
 import androidx.glance.wear.core.WearWidgetParams
+import androidx.glance.wear.tooling.preview.RectangularAllWidgetPreviewParams
+import androidx.glance.wear.tooling.preview.RoundAllWidgetPreviewParams
+import androidx.glance.wear.tooling.preview.SquircleAllWidgetPreviewParams
+import androidx.glance.wear.tooling.preview.WearWidgetPreview
+import androidx.palette.graphics.Palette
 import androidx.wear.compose.remote.material3.RemoteButton
 import androidx.wear.compose.remote.material3.RemoteButtonDefaults
 import androidx.wear.compose.remote.material3.RemoteMaterialTheme
 import androidx.wear.compose.remote.material3.RemoteText
 import coil.ImageLoader
 import coil.request.ImageRequest
+import com.google.android.horologist.images.coil.FakeImageLoader
+import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.repository.PlaylistRepository
+import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.app.MediaActivity
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 
 /** A Widget providing link to playlists with responsive breakpoint support. */
 class MediaCollectionsWidget(
@@ -94,14 +109,16 @@ class MediaCollectionsWidget(
       }
     }
 
-    val firstPlaylistArtworkBitmap =
+    val firstPlaylistArtworkBitmapAndColor =
       firstPlaylist.artworkUri?.let { loadArtworkBitmap(context, it) }
-    val firstPlaylistArtwork = firstPlaylistArtworkBitmap?.asImageBitmap()
+    val firstPlaylistArtwork = firstPlaylistArtworkBitmapAndColor?.first?.asImageBitmap()
+    val firstPlaylistColor = firstPlaylistArtworkBitmapAndColor?.second
 
     val secondPlaylist = playlists.getOrNull(1)
-    val secondPlaylistArtworkBitmap =
+    val secondPlaylistArtworkBitmapAndColor =
       secondPlaylist?.artworkUri?.let { loadArtworkBitmap(context, it) }
-    val secondPlaylistArtwork = secondPlaylistArtworkBitmap?.asImageBitmap()
+    val secondPlaylistArtwork = secondPlaylistArtworkBitmapAndColor?.first?.asImageBitmap()
+    val secondPlaylistColor = secondPlaylistArtworkBitmapAndColor?.second
 
     val isLargeContainer = params.containerType == ContainerInfo.CONTAINER_TYPE_LARGE
 
@@ -113,23 +130,31 @@ class MediaCollectionsWidget(
         playlistAction =
           pendingIntentAction { ctx -> createPlaylistPendingIntent(ctx, 1, firstPlaylist.id) },
         playlistArtwork = firstPlaylistArtwork,
+        playlistColor = firstPlaylistColor,
         secondPlaylistName = secondPlaylist?.name,
         secondPlaylistAction =
           secondPlaylist?.let { playlist ->
             pendingIntentAction { ctx -> createPlaylistPendingIntent(ctx, 2, playlist.id) }
           },
         secondPlaylistArtwork = secondPlaylistArtwork,
+        secondPlaylistColor = secondPlaylistColor,
         heightDp = params.heightDp,
         isLarge = isLargeContainer,
       )
     }
   }
 
-  private suspend fun loadArtworkBitmap(context: Context, artworkUri: String): Bitmap? {
+  private suspend fun loadArtworkBitmap(context: Context, artworkUri: String): Pair<Bitmap?, Color?> {
     val request =
       ImageRequest.Builder(context).data(artworkUri).size(ARTWORK_SIZE).allowHardware(false).build()
     val result = imageLoader.execute(request)
-    return (result.drawable as? BitmapDrawable)?.bitmap
+    val bitmap = (result.drawable as? BitmapDrawable)?.bitmap
+    val color = bitmap?.let { bmp ->
+      val palette = Palette.from(bmp).generate()
+      val extractedInt = palette.getDominantColor(android.graphics.Color.TRANSPARENT)
+      if (extractedInt != android.graphics.Color.TRANSPARENT) Color(extractedInt) else null
+    }
+    return Pair(bitmap, color)
   }
 
   private fun createPlaylistPendingIntent(
@@ -161,19 +186,20 @@ fun WidgetContent(
   playlistName: String,
   playlistAction: Action,
   playlistArtwork: ImageBitmap?,
+  playlistColor: Color?,
   secondPlaylistName: String? = null,
   secondPlaylistAction: Action? = null,
   secondPlaylistArtwork: ImageBitmap? = null,
+  secondPlaylistColor: Color? = null,
   heightDp: Float = 0f,
   isLarge: Boolean = (heightDp >= MediaCollectionsWidget.WIDGET_HEIGHT_BREAKPOINT_DP),
 ) {
   val showSecondPlaylist = isLarge && secondPlaylistName != null && secondPlaylistAction != null
 
   val containerPadding = if (showSecondPlaylist) 4.rdp else 2.rdp
-  val imageSize = if (showSecondPlaylist) 36.rdp else 48.rdp
-  val textStyle =
-    if (showSecondPlaylist) RemoteMaterialTheme.typography.titleMedium
-    else RemoteMaterialTheme.typography.titleLarge
+  // Use a fixed 36.rdp image size so it neatly fits inside the pill vertically
+  val imageSize = 36.rdp
+  val textStyle = RemoteMaterialTheme.typography.titleMedium
 
   RemoteBox(
     modifier = RemoteModifier.fillMaxSize().padding(containerPadding),
@@ -181,27 +207,29 @@ fun WidgetContent(
   ) {
     RemoteColumn(
       horizontalAlignment = RemoteAlignment.CenterHorizontally,
-      verticalArrangement = RemoteArrangement.spacedBy(2.rdp, RemoteAlignment.CenterVertically),
+      // 4.rdp gap matches the small spacing in the Figma element
+      verticalArrangement = RemoteArrangement.spacedBy(4.rdp, RemoteAlignment.CenterVertically),
       modifier = RemoteModifier.fillMaxSize(),
     ) {
       PlaylistButton(
         playlistName = playlistName,
         playlistAction = playlistAction,
         playlistArtwork = playlistArtwork,
+        playlistColor = playlistColor,
         imageSize = imageSize,
         textStyle = textStyle,
-        modifier =
-          if (showSecondPlaylist) RemoteModifier.fillMaxWidth().weight(1f)
-          else RemoteModifier.fillMaxSize(),
+        // fillMaxWidth() without weight(1f) ensures it wraps height like a true pill
+        modifier = RemoteModifier.fillMaxWidth(),
       )
       if (showSecondPlaylist) {
         PlaylistButton(
           playlistName = secondPlaylistName,
           playlistAction = secondPlaylistAction,
           playlistArtwork = secondPlaylistArtwork,
+          playlistColor = secondPlaylistColor,
           imageSize = imageSize,
           textStyle = textStyle,
-          modifier = RemoteModifier.fillMaxWidth().weight(1f),
+          modifier = RemoteModifier.fillMaxWidth(),
         )
       }
     }
@@ -215,18 +243,26 @@ private fun PlaylistButton(
   playlistName: String,
   playlistAction: Action,
   playlistArtwork: ImageBitmap?,
+  playlistColor: Color?,
   modifier: RemoteModifier = RemoteModifier,
   imageSize: RemoteDp = 40.rdp,
   textStyle: RemoteTextStyle = RemoteMaterialTheme.typography.titleMedium,
 ) {
+  // Determine if the background is light or dark to pick the best text color.
+  // Luminance < 0.5 is considered dark.
+  val isBackgroundDark = playlistColor?.let { it.luminance() < 0.5f } ?: true
+  val contentColor = if (isBackgroundDark) Color.White else Color.Black
+
   RemoteButton(
     onClick = playlistAction,
     modifier = modifier.fillMaxWidth(),
-    contentPadding = RemotePaddingValues(horizontal = 6.rdp, vertical = 4.rdp),
+    contentPadding = RemotePaddingValues(horizontal = 12.rdp, vertical = 8.rdp),
     colors =
       RemoteButtonDefaults.buttonColors(
-        containerColor = RemoteMaterialTheme.colorScheme.secondaryContainer,
-        contentColor = RemoteMaterialTheme.colorScheme.onSecondaryContainer,
+        containerColor =
+          playlistColor?.let { RemoteColor(it) }
+            ?: RemoteMaterialTheme.colorScheme.secondaryContainer,
+        contentColor = RemoteColor(contentColor),
       ),
     icon = {
       if (playlistArtwork != null) {
@@ -241,8 +277,8 @@ private fun PlaylistButton(
     RemoteText(
       text = playlistName.rs,
       style = textStyle,
-      color = RemoteMaterialTheme.colorScheme.onSurface,
-      maxLines = 2,
+      color = RemoteColor(contentColor),
+      maxLines = 1,
       overflow = TextOverflow.Ellipsis,
     )
   }

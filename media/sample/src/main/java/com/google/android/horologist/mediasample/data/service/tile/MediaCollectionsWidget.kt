@@ -44,12 +44,10 @@ import androidx.compose.remote.creation.compose.state.rs
 import androidx.compose.remote.creation.compose.text.RemoteTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.glance.wear.GlanceWearWidget
 import androidx.glance.wear.WearWidgetBrush
 import androidx.glance.wear.WearWidgetData
@@ -57,10 +55,6 @@ import androidx.glance.wear.WearWidgetDocument
 import androidx.glance.wear.color
 import androidx.glance.wear.core.ContainerInfo
 import androidx.glance.wear.core.WearWidgetParams
-import androidx.glance.wear.tooling.preview.RectangularAllWidgetPreviewParams
-import androidx.glance.wear.tooling.preview.RoundAllWidgetPreviewParams
-import androidx.glance.wear.tooling.preview.SquircleAllWidgetPreviewParams
-import androidx.glance.wear.tooling.preview.WearWidgetPreview
 import androidx.palette.graphics.Palette
 import androidx.wear.compose.remote.material3.RemoteButton
 import androidx.wear.compose.remote.material3.RemoteButtonDefaults
@@ -68,14 +62,9 @@ import androidx.wear.compose.remote.material3.RemoteMaterialTheme
 import androidx.wear.compose.remote.material3.RemoteText
 import coil.ImageLoader
 import coil.request.ImageRequest
-import com.google.android.horologist.images.coil.FakeImageLoader
-import com.google.android.horologist.media.model.Playlist
 import com.google.android.horologist.media.repository.PlaylistRepository
-import com.google.android.horologist.mediasample.R
 import com.google.android.horologist.mediasample.ui.app.MediaActivity
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flowOf
 
 /** A Widget providing link to playlists with responsive breakpoint support. */
 class MediaCollectionsWidget(
@@ -144,7 +133,10 @@ class MediaCollectionsWidget(
     }
   }
 
-  private suspend fun loadArtworkBitmap(context: Context, artworkUri: String): Pair<Bitmap?, Color?> {
+  private suspend fun loadArtworkBitmap(
+    context: Context,
+    artworkUri: String,
+  ): Pair<Bitmap?, Color?> {
     val request =
       ImageRequest.Builder(context).data(artworkUri).size(ARTWORK_SIZE).allowHardware(false).build()
     val result = imageLoader.execute(request)

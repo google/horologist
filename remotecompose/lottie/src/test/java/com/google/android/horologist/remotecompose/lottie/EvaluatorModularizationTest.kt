@@ -63,7 +63,7 @@ class EvaluatorModularizationTest {
 
   @Test
   fun animateVector_evaluatesStaticVector() {
-    val vector = StaticVectorProperty(value = floatArrayOf(30f, 40f))
+    val vector = StaticVectorProperty(animated = false.rb, value = listOf(30f.rf, 40f.rf))
     val result = animateVector(vector, settings)
     assertThat(result.map { it.constantValue }.toFloatArray()).isEqualTo(floatArrayOf(30f, 40f))
   }

@@ -19,6 +19,7 @@ package com.google.android.horologist.remotecompose.lottie
 import android.content.Context
 import androidx.compose.remote.creation.compose.state.RemoteBoolean
 import androidx.compose.remote.creation.compose.state.RemoteFloat
+import androidx.compose.remote.creation.compose.state.rb
 import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.ui.graphics.Color
@@ -38,9 +39,11 @@ import com.google.android.horologist.remotecompose.lottie.format.layer.LayerType
 import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedVectorProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.BaseVectorPropertySerializer
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticVectorProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.VectorPropertyKeyframe
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
 import com.google.android.horologist.remotecompose.lottie.format.values.ColorStop
 import com.google.android.horologist.remotecompose.lottie.format.values.GradientValue
@@ -139,7 +142,7 @@ class ParsingTest {
     val shapeLayer = animation.layers[1] as ShapeLayer
     val transform = shapeLayer.transform!!
 
-    assertThat(transform.scale.animated).isTrue()
+    assertThat(transform.scale.animated.constantValueOrNull).isTrue()
     val animatedScale = transform.scale as AnimatedVectorProperty
 
     assertThat(animatedScale.keyframes).hasSize(5)
@@ -166,8 +169,10 @@ class ParsingTest {
     assertThat(rect.type).isEqualTo(ShapeType.Rectangle)
     assertThat(rect.position.animated).isFalse()
     assertThat((rect.position as StaticPositionProperty).value).isEqualTo(floatArrayOf(36f, 36f))
-    assertThat(rect.size.animated).isFalse()
-    assertThat((rect.size as StaticVectorProperty).value).isEqualTo(floatArrayOf(48f, 40f))
+    assertThat(rect.size.animated.constantValueOrNull).isFalse()
+    assertThat((rect.size as StaticVectorProperty).value.map { it.constantValue })
+      .containsExactly(48f, 40f)
+      .inOrder()
     assertThat(rect.cornerRadius.animated).isFalse()
     assertThat((rect.cornerRadius as StaticScalarProperty).value).isEqualTo(10f)
 
@@ -180,8 +185,10 @@ class ParsingTest {
     assertThat(ellipse.type).isEqualTo(ShapeType.Ellipse)
     assertThat(ellipse.position.animated).isFalse()
     assertThat((ellipse.position as StaticPositionProperty).value).isEqualTo(floatArrayOf(36f, 92f))
-    assertThat(ellipse.size.animated).isFalse()
-    assertThat((ellipse.size as StaticVectorProperty).value).isEqualTo(floatArrayOf(42f, 42f))
+    assertThat(ellipse.size.animated.constantValueOrNull).isFalse()
+    assertThat((ellipse.size as StaticVectorProperty).value.map { it.constantValue })
+      .containsExactly(42f, 42f)
+      .inOrder()
   }
 
   /**

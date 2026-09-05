@@ -53,8 +53,8 @@ internal fun animatePosition(
       // Single keyframe: hold static position at that single value.
       if (position.keyframes.size == 1) {
         return Point(
-          x = position.keyframes[0].value.getOrElse(0) { 0f }.rf,
-          y = position.keyframes[0].value.getOrElse(1) { 0f }.rf,
+          x = position.keyframes[0].value.getOrElse(0) { 0f.rf },
+          y = position.keyframes[0].value.getOrElse(1) { 0f.rf },
         )
       }
 
@@ -63,15 +63,15 @@ internal fun animatePosition(
       // If the first keyframe starts after frame 0, prepend an initial static segment
       // holding the first keyframe's value from frame 0 until the first keyframe.
       val firstKeyframe = position.keyframes[0]
-      if (firstKeyframe.frame != 0f) {
-        animationSegments.add(firstKeyframe.value.map { AnimationSegment(0f, it.rf) })
+      if (firstKeyframe.frame.constantValue != 0f) {
+        animationSegments.add(firstKeyframe.value.map { AnimationSegment(0f, it) })
       }
 
       // Build interpolation segments between adjacent keyframe pairs.
       for (i in 0 until position.keyframes.size - 1) {
         val startKeyframe = position.keyframes[i]
         val endKeyframe = position.keyframes[i + 1]
-        val duration = endKeyframe.frame - startKeyframe.frame
+        val duration = endKeyframe.frame.constantValue - startKeyframe.frame.constantValue
         val frameInAnimation = animationSettings.currentFrame - startKeyframe.frame
 
         // Control point tangents for the cubic Bézier curve, defaulting to linear easing if
@@ -94,8 +94,8 @@ internal fun animatePosition(
         val segment =
           startKeyframe.value.mapIndexed { index, value ->
             AnimationSegment(
-              startKeyframe.frame,
-              lerp(value.rf, endKeyframe.value[index].rf, currentBezierValue),
+              startKeyframe.frame.constantValue,
+              lerp(value, endKeyframe.value[index], currentBezierValue),
             )
           }
 

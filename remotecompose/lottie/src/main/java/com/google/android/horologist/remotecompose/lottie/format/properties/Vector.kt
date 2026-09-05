@@ -16,101 +16,130 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.properties
 
+import androidx.compose.remote.creation.compose.state.rb
+import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteBoolean
+import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteFloat
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.JsonContentPolymorphicSerializer
 import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.intOrNull
-import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
-/** Base class for vector (array of floats) properties. */
+/**
+ * Base class for all Lottie animatable vector properties conforming to
+ * [Vector Property](https://lottie.github.io/lottie-spec/dev/specs/properties/#vector-property).
+ *
+ * Vector properties represent multidimensional numerical arrays (such as layer scale factors,
+ * parametric shape dimensions, or transform anchors).
+ *
+ * Essential Invariants:
+ * - The property is partitioned into two mutually exclusive branches identified by the
+ *   integer-boolean discriminator [animated]:
+ *     - `0` (`false.rb`): [StaticVectorProperty], holding a constant list of numerical components.
+ *     - `1` (`true.rb`): [AnimatedVectorProperty], holding a sequence of keyframes over time.
+ * - [slotId]: Optional slot identifier (`sid`) enabling runtime value replacement via Lottie slots.
+ */
 @Serializable(with = BaseVectorPropertySerializer::class)
 internal sealed class BaseVectorProperty {
-  abstract val animated: Boolean
+  abstract val animated: SerializableRemoteBoolean
   abstract val slotId: String?
 }
 
-/** A static array of floats. */
+/**
+ * Conforms to
+ * [Vector Property](https://lottie.github.io/lottie-spec/dev/specs/properties/#vector-property)
+ * (Not animated branch):
+ * - Required Fields: `"a"` (const 0), `"k"` (array of numbers).
+ * - Optional Fields: `"sid"` (slot identifier, default null).
+ *
+ * Invariants:
+ * - [animated] is guaranteed to represent integer `0` (`false.rb`).
+ * - [value] contains the ordered list of vector components as [SerializableRemoteFloat].
+ */
 @Serializable
 internal data class StaticVectorProperty(
   @SerialName("sid") override val slotId: String? = null,
-  @SerialName("a") val animatedInt: Int = 0,
-  @SerialName("k") val value: FloatArray,
-) : BaseVectorProperty() {
-  override val animated: Boolean
-    get() = animatedInt == 1
+  @SerialName("a") override val animated: SerializableRemoteBoolean,
+  @SerialName("k") val value: List<SerializableRemoteFloat>,
+) : BaseVectorProperty()
 
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (javaClass != other?.javaClass) return false
-    other as StaticVectorProperty
-    if (slotId != other.slotId) return false
-    if (!value.contentEquals(other.value)) return false
-    return true
-  }
-
-  override fun hashCode(): Int {
-    var result = slotId?.hashCode() ?: 0
-    result = 31 * result + value.contentHashCode()
-    return result
-  }
-}
-
-/** An animated array of floats. */
+/**
+ * Conforms to
+ * [Vector Property](https://lottie.github.io/lottie-spec/dev/specs/properties/#vector-property)
+ * (Animated branch):
+ * - Required Fields: `"a"` (const 1), `"k"` (array of vector keyframes).
+ * - Optional Fields: `"sid"` (slot identifier, default null).
+ *
+ * Invariants:
+ * - [animated] is guaranteed to represent integer `1` (`true.rb`).
+ * - [keyframes] defines the temporal evolution of the vector across animation frames.
+ */
 @Serializable
 internal data class AnimatedVectorProperty(
   @SerialName("sid") override val slotId: String? = null,
-  @SerialName("a") val animatedInt: Int = 1,
+  @SerialName("a") override val animated: SerializableRemoteBoolean,
   @SerialName("k") val keyframes: List<VectorPropertyKeyframe>,
-) : BaseVectorProperty() {
-  override val animated: Boolean
-    get() = animatedInt == 1
-}
+) : BaseVectorProperty()
 
-/** A single keyframe for an animated vector property. */
+/**
+ * A single vector keyframe conforming to
+ * [Vector Keyframe](https://lottie.github.io/lottie-spec/dev/specs/properties/#vector-keyframe).
+ *
+ * Defines the vector value and optional easing interpolation parameters at a specific timeline
+ * frame.
+ *
+ * Schema Specification:
+ * - Required Fields: `"t"` (start frame), `"s"` (value array).
+ * - Optional Fields with Schema Default: `"h"` (hold interpolation flag, default: 0 -> `false.rb`).
+ * - Optional Fields without Schema Default: `"i"` (incoming tangent), `"o"` (outgoing tangent).
+ *
+ * Invariants:
+ * - [frame]: Timeline time in frames at which this keyframe takes effect.
+ * - [value]: Multidimensional vector components active at [frame].
+ * - [hold]: When `1` (`true.rb`), the value is held constant until the next keyframe without
+ *   interpolation.
+ */
 @Serializable
 internal data class VectorPropertyKeyframe(
-  @SerialName("t") val frame: Float = 0f,
-  @SerialName("h") val hold: Boolean = false,
+  @SerialName("t") val frame: SerializableRemoteFloat,
+  @SerialName("s") val value: List<SerializableRemoteFloat>,
+  @SerialName("h") val hold: SerializableRemoteBoolean = false.rb,
   @SerialName("i") val inTangent: ScalarKeyframeEasing? = null,
   @SerialName("o") val outTangent: ScalarKeyframeEasing? = null,
-  @SerialName("s") val value: FloatArray,
-) {
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (javaClass != other?.javaClass) return false
-    other as VectorPropertyKeyframe
-    if (frame != other.frame) return false
-    if (hold != other.hold) return false
-    if (inTangent != other.inTangent) return false
-    if (outTangent != other.outTangent) return false
-    if (!value.contentEquals(other.value)) return false
-    return true
-  }
+)
 
-  override fun hashCode(): Int {
-    var result = frame.hashCode()
-    result = 31 * result + hold.hashCode()
-    result = 31 * result + (inTangent?.hashCode() ?: 0)
-    result = 31 * result + (outTangent?.hashCode() ?: 0)
-    result = 31 * result + value.contentHashCode()
-    return result
-  }
-}
-
-/** Polymorphic serializer for [BaseVectorProperty] based on "a" field. */
+/**
+ * Polymorphic serializer for [BaseVectorProperty] discriminating between static and animated
+ * variants based on the Lottie schema `"a"` field ([Integer
+ * Boolean](https://lottie.github.io/lottie-spec/dev/specs/values/#int-boolean)).
+ *
+ * Contract:
+ * - Preconditions: [element] must be a [JsonObject].
+ * - Postconditions:
+ *     - Selects [AnimatedVectorProperty.serializer] when `"a"` is integer `1`.
+ *     - Selects [StaticVectorProperty.serializer] when `"a"` is integer `0`.
+ * - Exceptions:
+ *     - Throws [SerializationException] if [element] is not a [JsonObject].
+ *     - Throws [SerializationException] if `"a"` is missing.
+ *     - Throws [SerializationException] if `"a"` is neither `0` nor `1`.
+ */
 internal object BaseVectorPropertySerializer :
   JsonContentPolymorphicSerializer<BaseVectorProperty>(BaseVectorProperty::class) {
   override fun selectDeserializer(
     element: JsonElement
   ): DeserializationStrategy<BaseVectorProperty> {
-    val animated = element.jsonObject["a"]?.jsonPrimitive?.intOrNull == 1
-    return if (animated) {
-      AnimatedVectorProperty.serializer()
-    } else {
-      StaticVectorProperty.serializer()
+    val obj = element as? JsonObject ?: throw SerializationException("Expected JSON object")
+    val animated = obj["a"]?.jsonPrimitive?.intOrNull
+    return when (animated) {
+      1 -> AnimatedVectorProperty.serializer()
+      0 -> StaticVectorProperty.serializer()
+      null ->
+        throw SerializationException("Vector property missing required 'a' field per Lottie schema")
+      else -> throw SerializationException("Field 'a' must be 0 or 1, but was $animated")
     }
   }
 }

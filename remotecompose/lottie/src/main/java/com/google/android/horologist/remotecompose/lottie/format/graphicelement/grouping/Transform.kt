@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping
 
+import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.ShapeType
 import com.google.android.horologist.remotecompose.lottie.format.properties.BasePositionProperty
@@ -43,6 +45,7 @@ internal data class Transform(
     StaticPositionProperty(value = floatArrayOf(0f, 0f)),
   @SerialName("r") val rotation: BaseScalarProperty = StaticScalarProperty(value = 0f),
   @SerialName("s")
-  val scale: BaseVectorProperty = StaticVectorProperty(value = floatArrayOf(100f, 100f)),
+  val scale: BaseVectorProperty =
+    StaticVectorProperty(animated = false.rb, value = listOf(100f.rf, 100f.rf)),
   @SerialName("o") val opacity: BaseScalarProperty = StaticScalarProperty(value = 100f),
 ) : GraphicElement

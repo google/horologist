@@ -18,8 +18,10 @@ package com.google.android.horologist.remotecompose.lottie
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.size
+import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ee.schimke.composeai.preview.AnimatedPreview
@@ -44,7 +46,7 @@ fun LottieTintGeometryPreview() {
   LottiePreview(
     animationResId = R.raw.geometry,
     modifier = Modifier.size(100.dp),
-    slotMap = SlotMap(mapOf("color.primary" to 0xFF00FF00.toInt())),
+    slotMap = SlotMap(mapOf("color.primary" to Color(0xFF00FF00.toInt()).rc)),
     progress = 0f,
   )
 }
@@ -57,7 +59,7 @@ fun LottieTintGeometryAnimatedPreview() {
   LottieAnimatedPreview(
     animationResId = R.raw.geometry,
     modifier = Modifier.size(100.dp),
-    slotMap = SlotMap(mapOf("color.primary" to 0xFF00FF00.toInt())),
+    slotMap = SlotMap(mapOf("color.primary" to Color(0xFF00FF00.toInt()).rc)),
   )
 }
 

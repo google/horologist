@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
+import androidx.compose.remote.creation.compose.state.rc
+import androidx.compose.ui.graphics.Color
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.Animation
 import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
@@ -181,9 +183,9 @@ class LottieDecoderResilienceTest {
     assertThat(fill1.color.slotId).isEqualTo("color.primary")
     assertThat(fill2.color.slotId).isNull()
 
-    val slotMap = SlotMap(mapOf("color.primary" to 0xFF00FF00.toInt()))
-    assertThat(slotMap.getColor("color.primary")).isNotNull()
-    assertThat(slotMap.getColor("unknown")).isNull()
+    val slotMap = SlotMap(mapOf("color.primary" to Color(0xFF00FF00.toInt()).rc))
+    assertThat(slotMap.colorSlots["color.primary"]).isNotNull()
+    assertThat(slotMap.colorSlots["unknown"]).isNull()
   }
 
   @Test

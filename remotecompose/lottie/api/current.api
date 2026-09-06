@@ -7,8 +7,12 @@ package com.google.android.horologist.remotecompose.lottie {
   }
 
   public final class SlotMap {
-    ctor public SlotMap(java.util.Map<java.lang.String,java.lang.Integer> colors);
-    method public androidx.compose.remote.creation.compose.state.RemoteColor? getColor(String slotId);
+    ctor public SlotMap();
+    ctor public SlotMap(optional java.util.Map<java.lang.String,? extends androidx.compose.remote.creation.compose.state.RemoteColor> colorSlots);
+    method public java.util.Map<java.lang.String,androidx.compose.remote.creation.compose.state.RemoteColor> component1();
+    method public com.google.android.horologist.remotecompose.lottie.SlotMap copy(optional java.util.Map<java.lang.String,? extends androidx.compose.remote.creation.compose.state.RemoteColor> colorSlots);
+    method @InaccessibleFromKotlin public java.util.Map<java.lang.String,androidx.compose.remote.creation.compose.state.RemoteColor> getColorSlots();
+    property public java.util.Map<java.lang.String,androidx.compose.remote.creation.compose.state.RemoteColor> colorSlots;
     field public static final com.google.android.horologist.remotecompose.lottie.SlotMap.Companion Companion;
   }
 

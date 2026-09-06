@@ -17,6 +17,7 @@
 package com.google.android.horologist.remotecompose.lottie.format.properties
 
 import androidx.compose.remote.creation.compose.state.rb
+import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteBoolean
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteColor
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteFloat
@@ -117,8 +118,8 @@ internal data class ColorPropertyKeyframe(
   @SerialName("t") val frame: SerializableRemoteFloat,
   @SerialName("s") val value: SerializableRemoteColor,
   @SerialName("h") val hold: SerializableRemoteBoolean = false.rb,
-  @SerialName("i") val inTangent: ScalarKeyframeEasing? = null,
-  @SerialName("o") val outTangent: ScalarKeyframeEasing? = null,
+  @SerialName("i") val inTangent: KeyframeEasing? = null,
+  @SerialName("o") val outTangent: KeyframeEasing? = null,
 )
 
 /**

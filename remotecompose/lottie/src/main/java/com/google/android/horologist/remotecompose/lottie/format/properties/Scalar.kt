@@ -19,6 +19,7 @@ package com.google.android.horologist.remotecompose.lottie.format.properties
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.rb
 import androidx.compose.remote.creation.compose.state.rf
+import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteBoolean
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteFloat
 import kotlinx.serialization.DeserializationStrategy
@@ -29,7 +30,6 @@ import kotlinx.serialization.SerializationException
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
@@ -42,11 +42,9 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.add
 import kotlinx.serialization.json.buildJsonArray
-import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.floatOrNull
 import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonPrimitive
-import kotlinx.serialization.json.put
 
 /**
  * Base class for all Lottie animatable scalar properties conforming to
@@ -143,22 +141,9 @@ internal data class ScalarPropertyKeyframe(
   @Serializable(with = ScalarKeyframeValueSerializer::class)
   val value: RemoteFloat,
   @SerialName("h") val hold: SerializableRemoteBoolean = false.rb,
-  @SerialName("i") val inTangent: ScalarKeyframeEasing? = null,
-  @SerialName("o") val outTangent: ScalarKeyframeEasing? = null,
+  @SerialName("i") val inTangent: KeyframeEasing? = null,
+  @SerialName("o") val outTangent: KeyframeEasing? = null,
 )
-
-/**
- * Easing handle coordinates [x, y] conforming to
- * [Keyframe Easing](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#easing-handle).
- *
- * Defaults:
- * - [x] defaults to `0f.rf`
- * - [y] defaults to `0f.rf`
- */
-@Serializable(with = ScalarKeyframeEasingSerializer::class)
-internal data class ScalarKeyframeEasing(val x: RemoteFloat = 0f.rf, val y: RemoteFloat = 0f.rf) {
-  constructor(x: Float, y: Float) : this(x.rf, y.rf)
-}
 
 /**
  * Polymorphic serializer for [BaseScalarProperty] discriminating between static and animated
@@ -189,44 +174,6 @@ internal object BaseScalarPropertySerializer :
         throw SerializationException("Scalar property missing required 'a' field per Lottie schema")
       else -> throw SerializationException("Field 'a' must be 0 or 1, but was $animated")
     }
-  }
-}
-
-/** Serializer for [ScalarKeyframeEasing] handling numbers or 1-element arrays. */
-internal object ScalarKeyframeEasingSerializer : KSerializer<ScalarKeyframeEasing> {
-  override val descriptor: SerialDescriptor =
-    buildClassSerialDescriptor("ScalarKeyframeEasing") {
-      element<Float>("x", isOptional = true)
-      element<Float>("y", isOptional = true)
-    }
-
-  override fun deserialize(decoder: Decoder): ScalarKeyframeEasing {
-    val jsonDecoder = decoder as? JsonDecoder ?: return ScalarKeyframeEasing()
-    val element = jsonDecoder.decodeJsonElement()
-    val obj = element as? JsonObject ?: return ScalarKeyframeEasing()
-    val x = parseTangentValue(obj["x"])
-    val y = parseTangentValue(obj["y"])
-    return ScalarKeyframeEasing(x, y)
-  }
-
-  private fun parseTangentValue(element: JsonElement?): RemoteFloat {
-    val value =
-      when (element) {
-        is JsonPrimitive -> element.floatOrNull ?: 0f
-        is JsonArray -> element.firstOrNull()?.jsonPrimitive?.floatOrNull ?: 0f
-        else -> 0f
-      }
-    return value.rf
-  }
-
-  override fun serialize(encoder: Encoder, value: ScalarKeyframeEasing) {
-    val jsonEncoder = encoder as JsonEncoder
-    jsonEncoder.encodeJsonElement(
-      buildJsonObject {
-        put("x", value.x.constantValue)
-        put("y", value.y.constantValue)
-      }
-    )
   }
 }
 

@@ -22,7 +22,7 @@ import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.RemoteFloatArray
 import androidx.compose.remote.creation.compose.state.clamp
 import androidx.compose.remote.creation.compose.state.rf
-import com.google.android.horologist.remotecompose.lottie.format.properties.ScalarKeyframeEasing
+import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
 
 @SuppressLint("RestrictedApi")
 internal fun lookupValueInBezier(
@@ -64,5 +64,5 @@ internal fun lookupValueInBezier(
     frame,
   )
 
-internal val scalarLinearEasingOut = ScalarKeyframeEasing(x = 0f.rf, y = 0f.rf)
-internal val scalarLinearEasingIn = ScalarKeyframeEasing(x = 1f.rf, y = 1f.rf)
+internal val scalarLinearEasingOut = KeyframeEasing(x = 0f.rf, y = 0f.rf)
+internal val scalarLinearEasingIn = KeyframeEasing(x = 1f.rf, y = 1f.rf)

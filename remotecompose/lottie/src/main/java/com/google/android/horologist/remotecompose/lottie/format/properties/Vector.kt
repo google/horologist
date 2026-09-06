@@ -102,6 +102,14 @@ internal data class AnimatedVectorProperty(
  * - [value]: Multidimensional vector components active at [frame].
  * - [hold]: When `1` (`true.rb`), the value is held constant until the next keyframe without
  *   interpolation.
+ * - [inTangent], [outTangent]: Optional cubic Bézier easing curve handles conforming to
+ *   [Easing Handle](https://lottie.github.io/lottie-spec/dev/specs/properties/#easing-handle).
+ *   These are null under any of the following canonical Lottie conditions:
+ *     1. Easing handles are omitted from the JSON payload, in which case default linear
+ *        interpolation applies.
+ *     2. Hold interpolation is active ([hold] is `true.rb`), making easing curves inapplicable.
+ *     3. The keyframe is the final (terminal) keyframe in an animation sequence, having no
+ *        subsequent interval to interpolate towards.
  */
 @Serializable
 internal data class VectorPropertyKeyframe(

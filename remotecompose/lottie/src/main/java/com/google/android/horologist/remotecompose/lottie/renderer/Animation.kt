@@ -47,5 +47,22 @@ internal fun lookupValueInBezier(
   return remoteFrameAnimationValues[clampedFrame]
 }
 
-internal val scalarLinearEasingOut = ScalarKeyframeEasing(x = 0f, 0f)
-internal val scalarLinearEasingIn = ScalarKeyframeEasing(1f, 1f)
+internal fun lookupValueInBezier(
+  a: RemoteFloat,
+  b: RemoteFloat,
+  c: RemoteFloat,
+  d: RemoteFloat,
+  duration: Float,
+  frame: RemoteFloat,
+): RemoteFloat =
+  lookupValueInBezier(
+    a.constantValue,
+    b.constantValue,
+    c.constantValue,
+    d.constantValue,
+    duration,
+    frame,
+  )
+
+internal val scalarLinearEasingOut = ScalarKeyframeEasing(x = 0f.rf, y = 0f.rf)
+internal val scalarLinearEasingIn = ScalarKeyframeEasing(x = 1f.rf, y = 1f.rf)

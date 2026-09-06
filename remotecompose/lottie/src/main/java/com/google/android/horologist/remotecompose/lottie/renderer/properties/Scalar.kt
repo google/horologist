@@ -65,26 +65,26 @@ internal fun animateScalar(
   animationSettings: LottieSettings,
 ): RemoteFloat {
   return when (scalar) {
-    is StaticScalarProperty -> scalar.value.rf
+    is StaticScalarProperty -> scalar.value
     is AnimatedScalarProperty -> {
       if (scalar.keyframes.isEmpty()) {
         return 0f.rf
       }
       if (scalar.keyframes.size == 1) {
-        return scalar.keyframes[0].value.rf
+        return scalar.keyframes[0].value
       }
 
       val animationSegments = mutableListOf<AnimationSegment>()
 
       val firstKeyframe = scalar.keyframes[0]
-      if (firstKeyframe.frame != 0f) {
-        animationSegments.add(AnimationSegment(0f, firstKeyframe.value.rf))
+      if (firstKeyframe.frame.constantValue != 0f) {
+        animationSegments.add(AnimationSegment(0f, firstKeyframe.value))
       }
 
       for (i in 0 until scalar.keyframes.size - 1) {
         val startKeyframe = scalar.keyframes[i]
         val endKeyframe = scalar.keyframes[i + 1]
-        val duration = endKeyframe.frame - startKeyframe.frame
+        val duration = endKeyframe.frame.constantValue - startKeyframe.frame.constantValue
         val frameInAnimation = animationSettings.currentFrame - startKeyframe.frame
 
         val outTangent = startKeyframe.outTangent ?: scalarLinearEasingOut
@@ -100,8 +100,10 @@ internal fun animateScalar(
             frameInAnimation,
           )
 
-        val segmentValue = lerp(startKeyframe.value.rf, endKeyframe.value.rf, currentBezierValue)
-        animationSegments.add(AnimationSegment(startKeyframe.frame, segmentValue))
+        val startValue = startKeyframe.value
+        val endValue = endKeyframe.value
+        val segmentValue = lerp(startValue, endValue, currentBezierValue)
+        animationSegments.add(AnimationSegment(startKeyframe.frame.constantValue, segmentValue))
       }
 
       chainAnimation(animationSegments, animationSettings.currentFrame)

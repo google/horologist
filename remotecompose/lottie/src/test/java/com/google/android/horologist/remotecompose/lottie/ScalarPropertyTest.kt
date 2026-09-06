@@ -23,6 +23,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseScalarPropertySerializer
+import com.google.android.horologist.remotecompose.lottie.format.properties.ScalarKeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
 import com.google.common.truth.Truth.assertThat
@@ -199,9 +200,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Scalar Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#scalar-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_SCL_02_01: BaseScalarPropertySerializer does not reject bare primitive numbers"
-  )
   @Test
   fun throwsSerializationExceptionWhenElementIsBarePrimitiveNumber() {
     assertThrows(SerializationException::class.java) {
@@ -218,7 +216,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Scalar Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#scalar-property)
    */
-  @Ignore("BUG: SP_LOT_SCL_02_01: BaseScalarPropertySerializer does not reject bare arrays")
   @Test
   fun throwsSerializationExceptionWhenElementIsBareArray() {
     assertThrows(SerializationException::class.java) {
@@ -254,7 +251,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Scalar Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#scalar-property)
    */
-  @Ignore("BUG: SP_LOT_SCL_02_01: BaseScalarPropertySerializer does not require discriminator 'a'")
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsMissing() {
     val json = """{"k": 42.0}"""
@@ -273,9 +269,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore(
-    "BUG: SP_LOT_SCL_02_01: BaseScalarPropertySerializer does not reject invalid discriminator integers"
-  )
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsInvalidInteger() {
     val jsonTwo = """{"a": 2, "k": 42.0}"""
@@ -299,9 +292,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore(
-    "BUG: SP_LOT_SCL_02_01: BaseScalarPropertySerializer does not reject boolean literal discriminators"
-  )
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsBooleanLiteral() {
     val jsonTrue = """{"a": true, "k": 42.0}"""
@@ -324,15 +314,32 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore(
-    "BUG: SP_LOT_SCL_02_01: BaseScalarPropertySerializer does not reject string discriminator values"
-  )
+  @Ignore("Permissive parsing: accepts string values for 'a'")
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsString() {
     val json = """{"a": "0", "k": 42.0}"""
     assertThrows(SerializationException::class.java) {
       LottieDecoder.json.decodeFromString(BaseScalarPropertySerializer, json)
     }
+  }
+
+  /**
+   * [SP_LOT_SCL_02_01] Deserializes discriminator `"a"` when represented as string `"0"` or `"1"`.
+   *
+   * Permissive parsing permits string representations of integer booleans.
+   */
+  @Test
+  fun deserializesDiscriminatorAWhenStringZeroOrOne() {
+    val staticProp =
+      LottieDecoder.json.decodeFromString(BaseScalarPropertySerializer, """{"a": "0", "k": 42.0}""")
+    assertThat(staticProp).isInstanceOf(StaticScalarProperty::class.java)
+
+    val animProp =
+      LottieDecoder.json.decodeFromString(
+        BaseScalarPropertySerializer,
+        """{"a": "1", "k": [{"t": 0, "s": [10.0]}]}""",
+      )
+    assertThat(animProp).isInstanceOf(AnimatedScalarProperty::class.java)
   }
 
   /**
@@ -344,7 +351,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Scalar Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#scalar-property)
    */
-  @Ignore("BUG: SP_LOT_SCL_01_01: StaticScalarProperty does not require mandatory field 'k'")
   @Test
   fun throwsSerializationExceptionWhenStaticPropertyMissingK() {
     val json = """{"a": 0}"""
@@ -362,7 +368,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Scalar Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#scalar-property)
    */
-  @Ignore("BUG: SP_LOT_SCL_01_01: StaticScalarProperty does not reject array values for 'k'")
   @Test
   fun throwsSerializationExceptionWhenStaticPropertyKIsArray() {
     val json = """{"a": 0, "k": [42.0]}"""
@@ -379,7 +384,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Scalar Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#scalar-property)
    */
-  @Ignore("BUG: SP_LOT_SCL_01_02: AnimatedScalarProperty does not require mandatory field 'k'")
   @Test
   fun throwsSerializationExceptionWhenAnimatedPropertyMissingK() {
     val json = """{"a": 1}"""
@@ -398,9 +402,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Scalar Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#scalar-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_SCL_01_02: AnimatedScalarProperty throws IllegalArgumentException instead of SerializationException when 'k' is primitive"
-  )
   @Test
   fun throwsSerializationExceptionWhenAnimatedPropertyKIsPrimitive() {
     val json = """{"a": 1, "k": 42.0}"""
@@ -490,6 +491,48 @@ class ScalarPropertyTest {
     val kf = prop.keyframes.first()
     assertThat(kf.inTangent).isNotNull()
     assertThat(kf.outTangent).isNotNull()
+    assertThat(extractFloat(kf.inTangent!!.x)).isEqualTo(0.5f)
+    assertThat(extractFloat(kf.inTangent!!.y)).isEqualTo(1.0f)
+    assertThat(extractFloat(kf.outTangent!!.x)).isEqualTo(0.5f)
+    assertThat(extractFloat(kf.outTangent!!.y)).isEqualTo(0.0f)
+  }
+
+  /**
+   * [SP_LOT_SCL_01_03] Deserializes keyframe with omitted tangent coordinates defaulting to 0f.
+   *
+   * Specification:
+   * [Lottie Keyframe Easing](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#easing-handle)
+   */
+  @Test
+  fun deserializesKeyframeWithTangentDefaults() {
+    val json = """{"a": 1, "k": [{"t": 0, "s": [0.0], "i": {"x": 0.6}, "o": {}}]}"""
+    val prop =
+      LottieDecoder.json.decodeFromString(BaseScalarPropertySerializer, json)
+        as AnimatedScalarProperty
+    val kf = prop.keyframes.first()
+    assertThat(kf.inTangent).isNotNull()
+    assertThat(extractFloat(kf.inTangent!!.x)).isEqualTo(0.6f)
+    assertThat(extractFloat(kf.inTangent!!.y)).isEqualTo(0.0f)
+    assertThat(kf.outTangent).isNotNull()
+    assertThat(extractFloat(kf.outTangent!!.x)).isEqualTo(0.0f)
+    assertThat(extractFloat(kf.outTangent!!.y)).isEqualTo(0.0f)
+  }
+
+  /**
+   * [SP_LOT_SCL_01_03] Verifies ScalarKeyframeEasing defaults to RemoteFloat(0f).
+   *
+   * Specification:
+   * [Lottie Keyframe Easing](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#easing-handle)
+   */
+  @Test
+  fun scalarKeyframeEasingDefaultsToZeroRemoteFloat() {
+    val easing = ScalarKeyframeEasing()
+    assertThat(extractFloat(easing.x)).isEqualTo(0f)
+    assertThat(extractFloat(easing.y)).isEqualTo(0f)
+
+    val customEasing = ScalarKeyframeEasing(0.2f, 0.8f)
+    assertThat(extractFloat(customEasing.x)).isEqualTo(0.2f)
+    assertThat(extractFloat(customEasing.y)).isEqualTo(0.8f)
   }
 
   /**
@@ -512,6 +555,23 @@ class ScalarPropertyTest {
   }
 
   /**
+   * [SP_LOT_SCL_01_03] Verifies ScalarPropertyKeyframe value is stored directly as RemoteFloat.
+   *
+   * Specification:
+   * [Lottie Scalar Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#scalar-property)
+   */
+  @Test
+  fun storesKeyframeValueAsRemoteFloat() {
+    val json = """{"a": 1, "k": [{"t": 0, "s": [123.5]}]}"""
+    val prop =
+      LottieDecoder.json.decodeFromString(BaseScalarPropertySerializer, json)
+        as AnimatedScalarProperty
+    val kf = prop.keyframes.first()
+    assertThat(kf.value).isInstanceOf(RemoteFloat::class.java)
+    assertThat(kf.value.constantValue).isEqualTo(123.5f)
+  }
+
+  /**
    * [SP_LOT_SCL_01_03] Rejects keyframe missing mandatory start frame timestamp `"t"`.
    *
    * Root cause: Specification requires `"t"` in Vector Keyframe. ScalarPropertyKeyframeSerializer
@@ -520,7 +580,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Vector Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#vector-keyframe)
    */
-  @Ignore("BUG: SP_LOT_SCL_01_03: ScalarPropertyKeyframe does not require mandatory field 't'")
   @Test
   fun throwsSerializationExceptionWhenKeyframeMissingT() {
     val json = """{"a": 1, "k": [{"s": [10.0]}]}"""
@@ -538,7 +597,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Vector Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#vector-keyframe)
    */
-  @Ignore("BUG: SP_LOT_SCL_01_03: ScalarPropertyKeyframe does not require mandatory field 's'")
   @Test
   fun throwsSerializationExceptionWhenKeyframeMissingS() {
     val json = """{"a": 1, "k": [{"t": 0}]}"""
@@ -556,7 +614,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Vector Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#vector-keyframe)
    */
-  @Ignore("BUG: SP_LOT_SCL_01_03: ScalarPropertyKeyframe accepts empty array for 's'")
   @Test
   fun throwsSerializationExceptionWhenKeyframeValueArrayIsEmpty() {
     val json = """{"a": 1, "k": [{"t": 0, "s": []}]}"""
@@ -574,7 +631,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Scalar Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#scalar-property)
    */
-  @Ignore("BUG: SP_LOT_SCL_01_03: ScalarPropertyKeyframe accepts non-array value for 's'")
   @Test
   fun throwsSerializationExceptionWhenKeyframeValueSIsNotArray() {
     val json = """{"a": 1, "k": [{"t": 0, "s": 10.0}]}"""
@@ -592,7 +648,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore("BUG: SP_LOT_SCL_01_03: ScalarPropertyKeyframe accepts boolean literals for 'h'")
   @Test
   fun throwsSerializationExceptionWhenKeyframeHoldIsBooleanLiteral() {
     val json = """{"a": 1, "k": [{"t": 0, "s": [10.0], "h": true}]}"""
@@ -610,7 +665,6 @@ class ScalarPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore("BUG: SP_LOT_SCL_01_03: ScalarPropertyKeyframe accepts out-of-range integer for 'h'")
   @Test
   fun throwsSerializationExceptionWhenKeyframeHoldIsInvalidInteger() {
     val json = """{"a": 1, "k": [{"t": 0, "s": [10.0], "h": 2}]}"""
@@ -676,6 +730,8 @@ class ScalarPropertyTest {
         as AnimatedScalarProperty
     assertThat(extractBoolean(roundTripped.animated)).isTrue()
     assertThat(roundTripped.keyframes).hasSize(2)
+    assertThat(extractFloat(roundTripped.keyframes[0].value)).isEqualTo(10f)
+    assertThat(extractFloat(roundTripped.keyframes[1].value)).isEqualTo(20f)
   }
 
   /**

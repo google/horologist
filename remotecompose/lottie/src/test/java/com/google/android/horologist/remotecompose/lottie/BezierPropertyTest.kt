@@ -129,7 +129,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Slottable Property](https://lottie.github.io/lottie-spec/1.0.1/specs/helpers/#slottable-property)
    */
-  @Ignore("BUG: SP_LOT_BEZ_01_01: StaticBezierProperty does not capture slot identifier 'sid'")
   @Test
   fun deserializesStaticBezierPropertyWithSlotIdWhenSidPresent() {
     val json =
@@ -211,7 +210,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Slottable Property](https://lottie.github.io/lottie-spec/1.0.1/specs/helpers/#slottable-property)
    */
-  @Ignore("BUG: SP_LOT_BEZ_01_02: AnimatedBezierProperty does not capture slot identifier 'sid'")
   @Test
   fun deserializesAnimatedBezierPropertyWithSlotIdWhenSidPresent() {
     val json =
@@ -234,9 +232,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_02_01: BaseBezierPropertySerializer does not reject bare primitive numbers with SerializationException"
-  )
   @Test
   fun throwsSerializationExceptionWhenElementIsBarePrimitiveNumber() {
     val json = "42.0"
@@ -255,9 +250,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_02_01: BaseBezierPropertySerializer does not reject bare primitive strings with SerializationException"
-  )
   @Test
   fun throwsSerializationExceptionWhenElementIsBarePrimitiveString() {
     val json = "\"bezier_curve\""
@@ -276,9 +268,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_02_01: BaseBezierPropertySerializer does not reject bare primitive booleans with SerializationException"
-  )
   @Test
   fun throwsSerializationExceptionWhenElementIsBarePrimitiveBoolean() {
     val json = "true"
@@ -297,9 +286,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_02_01: BaseBezierPropertySerializer does not reject bare arrays with SerializationException"
-  )
   @Test
   fun throwsSerializationExceptionWhenElementIsBareArray() {
     val json = """[{"c": false, "v": [[0.0, 0.0]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}]"""
@@ -318,7 +304,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
-  @Ignore("BUG: SP_LOT_BEZ_02_01: BaseBezierPropertySerializer does not require discriminator 'a'")
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsMissing() {
     val json = """{"k": {"c": false, "v": [[0.0, 0.0]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}}"""
@@ -337,9 +322,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_02_01: BaseBezierPropertySerializer does not reject invalid discriminator integers"
-  )
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsInvalidInteger() {
     val jsonTwo =
@@ -364,9 +346,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_02_01: BaseBezierPropertySerializer does not reject extreme discriminator integers"
-  )
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsExtremeInteger() {
     val jsonMax =
@@ -392,9 +371,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_02_01: BaseBezierPropertySerializer does not reject boolean literal true"
-  )
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsBooleanLiteralTrue() {
     val json =
@@ -414,9 +390,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_02_01: BaseBezierPropertySerializer does not reject boolean literal false"
-  )
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsBooleanLiteralFalse() {
     val json =
@@ -435,9 +408,28 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_02_01: BaseBezierPropertySerializer does not reject string discriminator values"
-  )
+  /**
+   * [SP_LOT_BEZ_02_01] Deserializes discriminator `"a"` when represented as string `"0"` or `"1"`.
+   *
+   * Permissive parsing permits string representations of integer booleans.
+   */
+  @Test
+  fun deserializesStaticBezierPropertyWhenDiscriminatorIsStringZero() {
+    val json =
+      """{"a": "0", "k": {"c": false, "v": [[0.0, 0.0]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}}"""
+    val prop = LottieDecoder.json.decodeFromString(BaseBezierPropertySerializer, json)
+    assertThat(prop).isInstanceOf(StaticBezierProperty::class.java)
+  }
+
+  @Test
+  fun deserializesAnimatedBezierPropertyWhenDiscriminatorIsStringOne() {
+    val json =
+      """{"a": "1", "k": [{"t": 0.0, "s": [{"c": false, "v": [[0.0, 0.0]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}]}]}"""
+    val prop = LottieDecoder.json.decodeFromString(BaseBezierPropertySerializer, json)
+    assertThat(prop).isInstanceOf(AnimatedBezierProperty::class.java)
+  }
+
+  @Ignore("Permissive parsing: accepts string values for 'a'")
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsString() {
     val jsonZeroStr =
@@ -445,7 +437,10 @@ class BezierPropertyTest {
     assertThrows(SerializationException::class.java) {
       LottieDecoder.json.decodeFromString(BaseBezierPropertySerializer, jsonZeroStr)
     }
+  }
 
+  @Test
+  fun throwsSerializationExceptionWhenDiscriminatorAIsNonNumericString() {
     val jsonStaticStr =
       """{"a": "static", "k": {"c": false, "v": [[0.0, 0.0]], "i": [[0.0, 0.0]], "o": [[0.0, 0.0]]}}"""
     assertThrows(SerializationException::class.java) {
@@ -479,9 +474,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_02_01: StaticBezierProperty throws IllegalArgumentException instead of SerializationException when 'k' is array"
-  )
   @Test
   fun throwsSerializationExceptionWhenStaticPropertyKIsArray() {
     val json =
@@ -501,9 +493,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_02_01: StaticBezierProperty throws IllegalArgumentException instead of SerializationException when 'k' is primitive"
-  )
   @Test
   fun throwsSerializationExceptionWhenStaticPropertyKIsPrimitive() {
     val json = """{"a": 0, "k": 42.0}"""
@@ -600,7 +589,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore("BUG: SP_LOT_BEZ_01_03: BezierKeyframe does not accept integer-boolean 0 and 1 for 'h'")
   @Test
   fun deserializesKeyframeWithHoldFlagZeroAndOne() {
     val json =
@@ -670,7 +658,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore("BUG: SP_LOT_BEZ_01_03: BezierKeyframe does not require mandatory field 't'")
   @Test
   fun throwsSerializationExceptionWhenKeyframeMissingT() {
     val json =
@@ -722,7 +709,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-keyframe)
    */
-  @Ignore("BUG: SP_LOT_BEZ_01_03: BezierKeyframe accepts empty array for 's' violating minItems: 1")
   @Test
   fun throwsSerializationExceptionWhenKeyframeValueArrayIsEmpty() {
     val json = """{"a": 1, "k": [{"t": 0, "s": []}]}"""
@@ -740,9 +726,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_01_03: BezierKeyframe accepts boolean literals for 'h' instead of integer-boolean"
-  )
   @Test
   fun throwsSerializationExceptionWhenKeyframeHoldIsBooleanLiteral() {
     val jsonTrue =
@@ -821,7 +804,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Slottable Property](https://lottie.github.io/lottie-spec/1.0.1/specs/helpers/#slottable-property)
    */
-  @Ignore("BUG: SP_LOT_BEZ_04_02: StaticBezierProperty does not preserve slot identifier 'sid'")
   @Test
   fun serializesAndDeserializesStaticBezierPropertyWithSlotId() {
     val initialJson =
@@ -843,9 +825,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_04_03: AnimatedBezierProperty round-trip fails due to 'h' integer-boolean"
-  )
   @Test
   fun serializesAndDeserializesAnimatedBezierPropertyIdentically() {
     val initialJson =
@@ -873,7 +852,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-keyframe)
    */
-  @Ignore("BUG: SP_LOT_BEZ_04_04: BezierKeyframe fails round-trip on integer-boolean 'h = 1'")
   @Test
   fun serializesAndDeserializesHoldKeyframeWithIntegerBooleanHold() {
     val initialJson =
@@ -927,9 +905,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_03_02: animateBezier throws IndexOutOfBoundsException when keyframes list is empty"
-  )
   @Test
   fun returnsEmptyBezierValueWhenAnimatedBezierHasNoKeyframes() {
     val json = """{"a": 1, "k": []}"""
@@ -1003,9 +978,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_03_05: animateBezier does not hold last keyframe value when frame exceeds last keyframe"
-  )
   @Test
   fun holdsAtLastKeyframeValueWhenFrameExceedsLastKeyframe() {
     val json =
@@ -1031,9 +1003,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_03_06: animateBezier fails to evaluate end keyframe value at exact end frame"
-  )
   @Test
   fun evaluatesExactKeyframeFramesWithoutInterpolationArtifacts() {
     val json =
@@ -1061,9 +1030,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_03_07: animateBezier does not interpolate vertex and tangent coordinates"
-  )
   @Test
   fun linearlyInterpolatesVerticesTangentsAndClosedFlagBetweenKeyframes() {
     val json =
@@ -1098,7 +1064,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore("BUG: SP_LOT_BEZ_03_08: animateBezier does not support hold flag 'h = 1'")
   @Test
   fun holdsValueConstantUntilNextKeyframeWhenHoldFlagIsTrue() {
     val json =
@@ -1124,9 +1089,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Keyframe Easing](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#easing-handle)
    */
-  @Ignore(
-    "BUG: SP_LOT_BEZ_03_09: animateBezier does not apply cubic Bézier easing to geometry coordinates"
-  )
   @Test
   fun interpolatesWithCubicBezierEasingDepartingFromLinearMidpoint() {
     val json =
@@ -1154,7 +1116,6 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore("BUG: SP_LOT_BEZ_03_10: animateBezier does not support multi-segment keyframe chains")
   @Test
   fun evaluatesMultiSegmentKeyframesSequentially() {
     val json =

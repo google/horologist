@@ -23,6 +23,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -143,6 +144,7 @@ class LottieScalingDiffScreenshotTest(
                 name = "Circle Path",
                 shape =
                   StaticBezierProperty(
+                    animated = false.rb,
                     value =
                       BezierValue(
                         closed = true.rb,
@@ -167,17 +169,17 @@ class LottieScalingDiffScreenshotTest(
                             Point((-handle).rf, 0f.rf),
                             Point(0f.rf, (-handle).rf),
                           ),
-                      )
+                      ),
                   ),
               ),
               Fill(
                 name = "Circle Fill",
-                color = StaticColorProperty.fromColor(Color(0.95f, 0.25f, 0.2f, 1.0f)),
-                opacity = StaticScalarProperty(value = 100f),
+                color = StaticColorProperty(value = Color(0.95f, 0.25f, 0.2f, 1.0f).rc),
+                opacity = StaticScalarProperty(animated = false.rb, value = 100f.rf),
               ),
               Transform(
                 name = "Transform",
-                positionTranslation = StaticPositionProperty(value = floatArrayOf(cx, cy)),
+                positionTranslation = StaticPositionProperty(value = Point(cx.rf, cy.rf)),
               ),
             ),
         )
@@ -191,6 +193,7 @@ class LottieScalingDiffScreenshotTest(
                 name = "Rect Path",
                 shape =
                   StaticBezierProperty(
+                    animated = false.rb,
                     value =
                       BezierValue(
                         closed = true.rb,
@@ -215,17 +218,17 @@ class LottieScalingDiffScreenshotTest(
                             Point(0f.rf, 0f.rf),
                             Point(0f.rf, 0f.rf),
                           ),
-                      )
+                      ),
                   ),
               ),
               Fill(
                 name = "Rect Fill",
-                color = StaticColorProperty.fromColor(Color(0.2f, 0.5f, 0.9f, 1.0f)),
-                opacity = StaticScalarProperty(value = 100f),
+                color = StaticColorProperty(value = Color(0.2f, 0.5f, 0.9f, 1.0f).rc),
+                opacity = StaticScalarProperty(animated = false.rb, value = 100f.rf),
               ),
               Transform(
                 name = "Transform",
-                positionTranslation = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
+                positionTranslation = StaticPositionProperty(value = Point(0f.rf, 0f.rf)),
               ),
             ),
         )

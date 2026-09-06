@@ -16,70 +16,156 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.properties
 
+import androidx.compose.remote.creation.compose.state.rb
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
+import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteBoolean
+import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteFloat
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.json.JsonContentPolymorphicSerializer
 import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.intOrNull
-import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
-/** A position property is an array of floats (either 2D or 3D). */
+/**
+ * Base class for all Lottie animatable position properties conforming to
+ * [Position Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-property).
+ *
+ * Position properties represent multidimensional spatial coordinates (such as layer translation,
+ * anchor point, or parametric shape positions).
+ *
+ * Essential Invariants:
+ * - The property is partitioned into two mutually exclusive branches identified by the
+ *   integer-boolean discriminator [animated]:
+ *     - `0` (`false.rb`): [StaticPositionProperty], holding constant coordinate vector components.
+ *     - `1` (`true.rb`): [AnimatedPositionProperty], holding a chronological sequence of spatial
+ *       keyframes.
+ * - [slotId]: Optional slot identifier (`sid`) enabling runtime value replacement via Lottie slots.
+ */
 @Serializable(with = BasePositionPropertySerializer::class)
 internal sealed class BasePositionProperty {
-  abstract val animated: Boolean
+  abstract val animated: SerializableRemoteBoolean
   abstract val slotId: String?
 }
 
-/** A static position property is an array of floats with 2 or 3 values. */
+/**
+ * Conforms to
+ * [Position Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-property)
+ * (Not animated branch):
+ * - Required Fields: `"a"` (const 0), `"k"` (array of numbers with at least 2 coordinates).
+ * - Optional Fields: `"sid"` (slot identifier, default null).
+ *
+ * Invariants:
+ * - [animated] is guaranteed to represent integer `0` (`false.rb`).
+ * - [value] contains 2D coordinates [Point]. Coordinate parsing requires at least two numerical
+ *   components ([Point.x] and [Point.y]), discarding any additional dimensions per Lottie's 2D
+ *   canvas model.
+ */
 @Serializable
 internal data class StaticPositionProperty(
   @SerialName("sid") override val slotId: String? = null,
-  @SerialName("a") val animatedInt: Int = 0,
-  @SerialName("k") val value: FloatArray,
-) : BasePositionProperty() {
-  override val animated: Boolean
-    get() = animatedInt == 1
+  @SerialName("a") override val animated: SerializableRemoteBoolean = false.rb,
+  @SerialName("k") val value: Point,
+) : BasePositionProperty()
 
-  override fun equals(other: Any?): Boolean {
-    if (this === other) return true
-    if (javaClass != other?.javaClass) return false
-    other as StaticPositionProperty
-    if (slotId != other.slotId) return false
-    if (!value.contentEquals(other.value)) return false
-    return true
-  }
-
-  override fun hashCode(): Int {
-    var result = slotId?.hashCode() ?: 0
-    result = 31 * result + value.contentHashCode()
-    return result
-  }
-}
-
-/** An animated position property with keyframes. */
+/**
+ * Conforms to
+ * [Position Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-property)
+ * (Animated branch):
+ * - Required Fields: `"a"` (const 1), `"k"` (array of position keyframes).
+ * - Optional Fields: `"sid"` (slot identifier, default null).
+ *
+ * Invariants:
+ * - [animated] is guaranteed to represent integer `1` (`true.rb`).
+ * - [keyframes] defines the spatial and temporal evolution of position coordinates over animation
+ *   frames.
+ */
 @Serializable
 internal data class AnimatedPositionProperty(
   @SerialName("sid") override val slotId: String? = null,
-  @SerialName("a") val animatedInt: Int = 1,
-  @SerialName("k") val keyframes: List<VectorPropertyKeyframe>,
-) : BasePositionProperty() {
-  override val animated: Boolean
-    get() = animatedInt == 1
-}
+  @SerialName("a") override val animated: SerializableRemoteBoolean = true.rb,
+  @SerialName("k") val keyframes: List<PositionPropertyKeyframe>,
+) : BasePositionProperty()
 
-/** Polymorphic serializer for [BasePositionProperty] based on "a" field. */
+/**
+ * A single position keyframe conforming to
+ * [Position Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-keyframe).
+ *
+ * Defines the 2D coordinate value and optional easing interpolation parameters at a specific
+ * timeline frame.
+ *
+ * Schema Specification:
+ * - Required Fields: `"t"` (start frame), `"s"` (value array of coordinates).
+ * - Optional Fields with Schema Default: `"h"` (hold interpolation flag, default: 0 -> `false.rb`).
+ * - Optional Fields without Schema Default:
+ *     - `"i"` (incoming temporal tangent handle)
+ *     - `"o"` (outgoing temporal tangent handle)
+ *     - `"ti"` (incoming spatial tangent)
+ *     - `"to"` (outgoing spatial tangent)
+ *
+ * Invariants:
+ * - [frame]: Timeline time in frames at which this keyframe takes effect.
+ * - [value]: 2D coordinate position [Point] active at [frame]. Coordinate parsing requires at least
+ *   two numerical components ([Point.x] and [Point.y]), discarding any additional dimensions per
+ *   Lottie's 2D canvas model.
+ * - [hold]: When `1` (`true.rb`), the position is held constant until the next keyframe without
+ *   interpolation.
+ * - [inTangent], [outTangent]: Optional cubic Bézier temporal easing handles conforming to
+ *   [Easing Handle](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#easing-handle).
+ *   These are null under any of the following canonical Lottie conditions:
+ *     1. Easing handles are omitted from the JSON payload, in which case default linear
+ *        interpolation applies.
+ *     2. Hold interpolation is active ([hold] is `true.rb`), making easing curves inapplicable.
+ *     3. The keyframe is the final (terminal) keyframe in an animation sequence, having no
+ *        subsequent interval to interpolate towards.
+ * - [inSpatialTangent], [outSpatialTangent]: Optional spatial Bézier control point coordinates for
+ *   curved motion paths conforming to
+ *   [Position Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-keyframe).
+ */
+@Serializable
+internal data class PositionPropertyKeyframe(
+  @SerialName("t") val frame: SerializableRemoteFloat,
+  @SerialName("s") val value: Point,
+  @SerialName("h") val hold: SerializableRemoteBoolean = false.rb,
+  @SerialName("i") val inTangent: ScalarKeyframeEasing? = null,
+  @SerialName("o") val outTangent: ScalarKeyframeEasing? = null,
+  @SerialName("ti") val inSpatialTangent: Point? = null,
+  @SerialName("to") val outSpatialTangent: Point? = null,
+)
+
+/**
+ * Polymorphic serializer for [BasePositionProperty] discriminating between static and animated
+ * variants based on the Lottie schema `"a"` field ([Integer
+ * Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)).
+ *
+ * Contract:
+ * - Preconditions: [element] must be a [JsonObject].
+ * - Postconditions:
+ *     - Selects [AnimatedPositionProperty.serializer] when `"a"` is integer `1`.
+ *     - Selects [StaticPositionProperty.serializer] when `"a"` is integer `0`.
+ * - Exceptions:
+ *     - Throws [SerializationException] if [element] is not a [JsonObject].
+ *     - Throws [SerializationException] if `"a"` is missing.
+ *     - Throws [SerializationException] if `"a"` is neither `0` nor `1`.
+ */
 internal object BasePositionPropertySerializer :
   JsonContentPolymorphicSerializer<BasePositionProperty>(BasePositionProperty::class) {
   override fun selectDeserializer(
     element: JsonElement
   ): DeserializationStrategy<BasePositionProperty> {
-    val animated = element.jsonObject["a"]?.jsonPrimitive?.intOrNull == 1
-    return if (animated) {
-      AnimatedPositionProperty.serializer()
-    } else {
-      StaticPositionProperty.serializer()
+    val obj = element as? JsonObject ?: throw SerializationException("Expected JSON object")
+    val animated = obj["a"]?.jsonPrimitive?.intOrNull
+    return when (animated) {
+      1 -> AnimatedPositionProperty.serializer()
+      0 -> StaticPositionProperty.serializer()
+      null ->
+        throw SerializationException(
+          "Position property missing required 'a' field per Lottie schema"
+        )
+      else -> throw SerializationException("Field 'a' must be 0 or 1, but was $animated")
     }
   }
 }

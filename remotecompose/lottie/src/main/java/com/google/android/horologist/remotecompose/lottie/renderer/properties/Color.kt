@@ -60,7 +60,7 @@ internal fun animateColor(
   property: BaseColorProperty,
   animationSettings: LottieSettings,
 ): RemoteColor {
-  val slotColor = property.slotId?.let { animationSettings.slotMap.getColor(it) }
+  val slotColor = property.slotId?.let { animationSettings.slotMap.colorSlots[it] }
   if (slotColor != null) {
     return slotColor
   }

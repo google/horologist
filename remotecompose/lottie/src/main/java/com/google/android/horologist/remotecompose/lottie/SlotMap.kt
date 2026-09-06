@@ -17,8 +17,6 @@
 package com.google.android.horologist.remotecompose.lottie
 
 import androidx.compose.remote.creation.compose.state.RemoteColor
-import androidx.compose.remote.creation.compose.state.rc
-import androidx.compose.ui.graphics.Color
 
 /**
  * A mapping of slot IDs to values.
@@ -26,17 +24,12 @@ import androidx.compose.ui.graphics.Color
  * Slots can be used to share values between properties, or to override values at runtime. For
  * example, a fill color can reference a slot ID, which can be resolved to a color provided by the
  * application to enable dynamic theming.
+ *
+ * @property colorSlots Mapping of slot IDs to [RemoteColor] values.
  */
-class SlotMap(colors: Map<String, Int>) {
-  private val colorSlots: Map<String, RemoteColor> = colors.mapValues { (_, colorInt) ->
-    Color(colorInt)
-      .rc // todo: move colorSlots to the main constructor and make it public. `getColor` function
-    // will also become useless then. But don't forget to update the usages of `getColor`.
-  }
-
-  fun getColor(slotId: String): RemoteColor? = colorSlots[slotId]
+data class SlotMap(val colorSlots: Map<String, RemoteColor> = emptyMap()) {
 
   companion object {
-    val Empty: SlotMap = SlotMap(emptyMap())
+    val Empty: SlotMap = SlotMap()
   }
 }

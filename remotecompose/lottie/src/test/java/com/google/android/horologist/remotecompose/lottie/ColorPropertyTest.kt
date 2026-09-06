@@ -25,15 +25,16 @@ import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.ui.graphics.Color
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
+import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedColorProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.BaseColorPropertySerializer
+import com.google.android.horologist.remotecompose.lottie.format.properties.ColorPropertyKeyframe
 import com.google.android.horologist.remotecompose.lottie.format.properties.ScalarKeyframeEasing
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticColorProperty
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateColor
 import com.google.common.truth.Truth.assertThat
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.descriptors.buildClassSerialDescriptor
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
 import org.junit.Assert.assertThrows
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -67,8 +68,6 @@ class ColorPropertyTest {
       is Boolean -> value
       else -> error("Unexpected boolean value type: ${value::class}")
     }
-
-  private fun extractFloatList(list: List<Any>): List<Float> = list.map { extractFloat(it) }
 
   private fun extractColor(value: Any): Color =
     when (value) {
@@ -224,8 +223,31 @@ class ColorPropertyTest {
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
   @Test
+  fun deserializesStaticColorPropertyWhenDiscriminatorIsStringZero() {
+    val json = """{"a": "0", "k": [1.0, 0.0, 0.5]}"""
+    val prop = LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json)
+    assertThat(prop).isInstanceOf(StaticColorProperty::class.java)
+  }
+
+  @Test
+  fun deserializesAnimatedColorPropertyWhenDiscriminatorIsStringOne() {
+    val json = """{"a": "1", "k": [{"t": 0.0, "s": [0.0, 0.0, 0.0]}]}"""
+    val prop = LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json)
+    assertThat(prop).isInstanceOf(AnimatedColorProperty::class.java)
+  }
+
+  @Ignore("Permissive parsing: accepts string values for 'a'")
+  @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsString() {
     val json = """{"a": "0", "k": [1.0, 0.0, 0.0]}"""
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json)
+    }
+  }
+
+  @Test
+  fun throwsSerializationExceptionWhenDiscriminatorAIsNonNumericString() {
+    val json = """{"a": "static", "k": [1.0, 0.0, 0.0]}"""
     assertThrows(SerializationException::class.java) {
       LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json)
     }
@@ -251,7 +273,11 @@ class ColorPropertyTest {
       LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json) as StaticColorProperty
     assertThat(extractBoolean(prop.animated)).isFalse()
     assertThat(prop.slotId).isNull()
-    assertThat(extractFloatList(prop.value)).containsExactly(1.0f, 0.0f, 0.5f).inOrder()
+    val color = extractColor(prop.value)
+    assertThat(color.red).isEqualTo(1.0f)
+    assertThat(color.green).isEqualTo(0.0f)
+    assertThat(color.blue).isWithin(0.01f).of(0.5f)
+    assertThat(color.alpha).isEqualTo(1.0f)
   }
 
   /**
@@ -268,7 +294,11 @@ class ColorPropertyTest {
     val prop =
       LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json) as StaticColorProperty
     assertThat(extractBoolean(prop.animated)).isFalse()
-    assertThat(extractFloatList(prop.value)).containsExactly(0.0f, 1.0f, 0.0f, 0.8f).inOrder()
+    val color = extractColor(prop.value)
+    assertThat(color.red).isEqualTo(0.0f)
+    assertThat(color.green).isEqualTo(1.0f)
+    assertThat(color.blue).isEqualTo(0.0f)
+    assertThat(color.alpha).isWithin(1e-4f).of(0.8f)
   }
 
   /**
@@ -286,7 +316,11 @@ class ColorPropertyTest {
     val prop =
       LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json) as StaticColorProperty
     assertThat(prop.slotId).isEqualTo("theme_color")
-    assertThat(extractFloatList(prop.value)).containsExactly(1.0f, 1.0f, 1.0f).inOrder()
+    val color = extractColor(prop.value)
+    assertThat(color.red).isEqualTo(1.0f)
+    assertThat(color.green).isEqualTo(1.0f)
+    assertThat(color.blue).isEqualTo(1.0f)
+    assertThat(color.alpha).isEqualTo(1.0f)
   }
 
   /**
@@ -303,11 +337,11 @@ class ColorPropertyTest {
     val json = """{"a": 0, "k": [255.0, 127.5, 0.0, 255.0]}"""
     val prop =
       LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json) as StaticColorProperty
-    val values = extractFloatList(prop.value)
-    assertThat(values[0]).isWithin(1e-4f).of(1.0f)
-    assertThat(values[1]).isWithin(1e-4f).of(0.5f)
-    assertThat(values[2]).isWithin(1e-4f).of(0.0f)
-    assertThat(values[3]).isWithin(1e-4f).of(1.0f)
+    val color = extractColor(prop.value)
+    assertThat(color.red).isWithin(0.01f).of(1.0f)
+    assertThat(color.green).isWithin(0.01f).of(0.5f)
+    assertThat(color.blue).isWithin(0.01f).of(0.0f)
+    assertThat(color.alpha).isWithin(0.01f).of(1.0f)
   }
 
   /**
@@ -413,13 +447,18 @@ class ColorPropertyTest {
     assertThat(extractBoolean(prop.animated)).isTrue()
     assertThat(prop.keyframes).hasSize(2)
     assertThat(extractFloat(prop.keyframes[0].frame)).isEqualTo(0.0f)
-    assertThat(extractFloatList(prop.keyframes[0].value))
-      .containsExactly(1.0f, 0.0f, 0.0f)
-      .inOrder()
+    val color0 = extractColor(prop.keyframes[0].value)
+    assertThat(color0.red).isEqualTo(1.0f)
+    assertThat(color0.green).isEqualTo(0.0f)
+    assertThat(color0.blue).isEqualTo(0.0f)
+    assertThat(color0.alpha).isEqualTo(1.0f)
+
     assertThat(extractFloat(prop.keyframes[1].frame)).isEqualTo(10.0f)
-    assertThat(extractFloatList(prop.keyframes[1].value))
-      .containsExactly(0.0f, 0.0f, 1.0f)
-      .inOrder()
+    val color1 = extractColor(prop.keyframes[1].value)
+    assertThat(color1.red).isEqualTo(0.0f)
+    assertThat(color1.green).isEqualTo(0.0f)
+    assertThat(color1.blue).isEqualTo(1.0f)
+    assertThat(color1.alpha).isEqualTo(1.0f)
   }
 
   /**
@@ -605,15 +644,18 @@ class ColorPropertyTest {
    */
   @Test
   fun serializesAndDeserializesStaticColorPropertyPreservingComponents() {
-    val original =
-      StaticColorProperty(value = listOf(1.0f.rf, 0.5f.rf, 0.25f.rf, 1.0f.rf), slotId = "accent")
+    val original = StaticColorProperty(value = Color(1.0f, 0.5f, 0.25f, 1.0f).rc, slotId = "accent")
     val encoded = LottieDecoder.json.encodeToString(BaseColorPropertySerializer, original)
     val decoded =
       LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, encoded)
         as StaticColorProperty
     assertThat(extractBoolean(decoded.animated)).isFalse()
     assertThat(decoded.slotId).isEqualTo("accent")
-    assertThat(extractFloatList(decoded.value)).containsExactly(1.0f, 0.5f, 0.25f, 1.0f).inOrder()
+    val color = extractColor(decoded.value)
+    assertThat(color.red).isWithin(0.01f).of(1.0f)
+    assertThat(color.green).isWithin(0.01f).of(0.5f)
+    assertThat(color.blue).isWithin(0.01f).of(0.25f)
+    assertThat(color.alpha).isWithin(0.01f).of(1.0f)
   }
 
   /**
@@ -631,16 +673,8 @@ class ColorPropertyTest {
       AnimatedColorProperty(
         keyframes =
           listOf(
-            ColorPropertyKeyframe(
-              frame = 0f.rf,
-              value = listOf(1f.rf, 0f.rf, 0f.rf, 1f.rf),
-              hold = false.rb,
-            ),
-            ColorPropertyKeyframe(
-              frame = 10f.rf,
-              value = listOf(0f.rf, 1f.rf, 0f.rf, 1f.rf),
-              hold = true.rb,
-            ),
+            ColorPropertyKeyframe(frame = 0f.rf, value = Color(1f, 0f, 0f, 1f).rc, hold = false.rb),
+            ColorPropertyKeyframe(frame = 10f.rf, value = Color(0f, 1f, 0f, 1f).rc, hold = true.rb),
           ),
         slotId = "anim_theme",
       )
@@ -652,14 +686,19 @@ class ColorPropertyTest {
     assertThat(decoded.slotId).isEqualTo("anim_theme")
     assertThat(decoded.keyframes).hasSize(2)
     assertThat(extractFloat(decoded.keyframes[0].frame)).isEqualTo(0f)
-    assertThat(extractFloatList(decoded.keyframes[0].value))
-      .containsExactly(1f, 0f, 0f, 1f)
-      .inOrder()
+    val color0 = extractColor(decoded.keyframes[0].value)
+    assertThat(color0.red).isEqualTo(1f)
+    assertThat(color0.green).isEqualTo(0f)
+    assertThat(color0.blue).isEqualTo(0f)
+    assertThat(color0.alpha).isEqualTo(1f)
     assertThat(extractBoolean(decoded.keyframes[0].hold)).isFalse()
+
     assertThat(extractFloat(decoded.keyframes[1].frame)).isEqualTo(10f)
-    assertThat(extractFloatList(decoded.keyframes[1].value))
-      .containsExactly(0f, 1f, 0f, 1f)
-      .inOrder()
+    val color1 = extractColor(decoded.keyframes[1].value)
+    assertThat(color1.red).isEqualTo(0f)
+    assertThat(color1.green).isEqualTo(1f)
+    assertThat(color1.blue).isEqualTo(0f)
+    assertThat(color1.alpha).isEqualTo(1f)
     assertThat(extractBoolean(decoded.keyframes[1].hold)).isTrue()
   }
 
@@ -993,84 +1032,36 @@ class ColorPropertyTest {
     val c10 = extractColor(eval10)
     assertThat(c10.red).isEqualTo(1.0f)
   }
-}
 
-// =========================================================================================
-// Test Fixtures & Contract Wrappers for SP_LOT_CLR Specification (TDD Red Phase)
-// =========================================================================================
-
-/** Abstract sealed base class for all animatable color properties [SP_LOT_CLR_01_00]. */
-internal sealed class BaseColorProperty {
-  abstract val animated: RemoteBoolean
-  abstract val slotId: String?
-}
-
-/** Static constant color property holding RGB/RGBA component array [SP_LOT_CLR_01_01]. */
-internal data class StaticColorProperty(
-  val value: List<RemoteFloat>,
-  override val slotId: String? = null,
-  override val animated: RemoteBoolean = false.rb,
-) : BaseColorProperty() {
-  fun asRemoteColor(): RemoteColor {
-    val r = value.getOrNull(0)?.constantValue ?: 0f
-    val g = value.getOrNull(1)?.constantValue ?: 0f
-    val b = value.getOrNull(2)?.constantValue ?: 0f
-    val a = value.getOrNull(3)?.constantValue ?: 1f
-    return Color(r, g, b, a).rc
-  }
-}
-
-/** Animated color property holding temporal keyframes sequence [SP_LOT_CLR_01_02]. */
-internal data class AnimatedColorProperty(
-  val keyframes: List<ColorPropertyKeyframe>,
-  override val slotId: String? = null,
-  override val animated: RemoteBoolean = true.rb,
-) : BaseColorProperty()
-
-/** Color keyframe representation [SP_LOT_CLR_01_03]. */
-internal data class ColorPropertyKeyframe(
-  val frame: RemoteFloat,
-  val value: List<RemoteFloat>,
-  val hold: RemoteBoolean = false.rb,
-  val inTangent: ScalarKeyframeEasing? = null,
-  val outTangent: ScalarKeyframeEasing? = null,
-) {
-  fun asRemoteColor(): RemoteColor {
-    val r = value.getOrNull(0)?.constantValue ?: 0f
-    val g = value.getOrNull(1)?.constantValue ?: 0f
-    val b = value.getOrNull(2)?.constantValue ?: 0f
-    val a = value.getOrNull(3)?.constantValue ?: 1f
-    return Color(r, g, b, a).rc
-  }
-}
-
-/**
- * Polymorphic serializer for BaseColorProperty [SP_LOT_CLR_02_01]. Throws [NotImplementedError] in
- * TDD Red phase until production implementation is provided.
- */
-internal object BaseColorPropertySerializer : KSerializer<BaseColorProperty> {
-  override val descriptor: SerialDescriptor = buildClassSerialDescriptor("BaseColorProperty")
-
-  override fun deserialize(decoder: Decoder): BaseColorProperty {
-    throw NotImplementedError(
-      "Pending SP_LOT_CLR production implementation: BaseColorPropertySerializer.deserialize"
-    )
+  @Test
+  fun verifiesStaticColorPropertyEquality() {
+    val anim = false.rb
+    val color = Color.Red.rc
+    val prop1 = StaticColorProperty(slotId = "id", animated = anim, value = color)
+    val prop2 = StaticColorProperty(slotId = "id", animated = anim, value = color)
+    val propDiff = StaticColorProperty(slotId = "diff", animated = anim, value = color)
+    assertThat(prop1).isEqualTo(prop2)
+    assertThat(prop1.hashCode()).isEqualTo(prop2.hashCode())
+    assertThat(prop1).isNotEqualTo(propDiff)
   }
 
-  override fun serialize(encoder: Encoder, value: BaseColorProperty) {
-    throw NotImplementedError(
-      "Pending SP_LOT_CLR production implementation: BaseColorPropertySerializer.serialize"
-    )
+  @Test
+  fun throwsSerializationExceptionWhenColorComponentArrayContainsBoolean() {
+    val json = """{"a": 0, "k": [1.0, true, 0.0]}"""
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json)
+    }
   }
-}
 
-/**
- * Timeline color evaluation contract [SP_LOT_CLR_02_02]. Throws [NotImplementedError] in TDD Red
- * phase until production implementation is provided.
- */
-internal fun animateColor(
-  property: BaseColorProperty,
-  animationSettings: LottieSettings,
-): RemoteColor {
-  throw NotImplementedError("Pending SP_LOT_CLR production implementation: animateColor")
+  @Test
+  fun deserializesRgbColorClampingNegativeComponents() {
+    val json = """{"a": 0, "k": [-0.5, 0.5, 0.0, -1.0]}"""
+    val prop =
+      LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json) as StaticColorProperty
+    val color = extractColor(prop.value)
+    assertThat(color.red).isEqualTo(0.0f)
+    assertThat(color.green).isWithin(0.01f).of(0.5f)
+    assertThat(color.blue).isEqualTo(0.0f)
+    assertThat(color.alpha).isEqualTo(0.0f)
+  }
 }

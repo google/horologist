@@ -18,12 +18,15 @@ package com.google.android.horologist.remotecompose.lottie
 
 import androidx.compose.remote.creation.compose.state.RemoteBoolean
 import androidx.compose.remote.creation.compose.state.RemoteFloat
+import androidx.compose.remote.creation.compose.state.rb
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BasePositionPropertySerializer
+import com.google.android.horologist.remotecompose.lottie.format.properties.PositionPropertyKeyframe
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animatePosition
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.SerializationException
@@ -53,6 +56,7 @@ class PositionPropertyTest {
 
   private fun extractKeyframeCoordinate(value: Any, index: Int): Float =
     when (value) {
+      is Point -> if (index == 0) value.x.constantValue else value.y.constantValue
       is List<*> -> extractFloat(value[index]!!)
       is FloatArray -> value[index]
       else -> error("Unexpected keyframe coordinates type: ${value::class}")
@@ -78,17 +82,17 @@ class PositionPropertyTest {
     val prop =
       LottieDecoder.json.decodeFromString(BasePositionPropertySerializer, json)
         as StaticPositionProperty
-    assertThat(prop.value).hasLength(2)
-    assertThat(prop.value[0]).isEqualTo(10.0f)
-    assertThat(prop.value[1]).isEqualTo(20.0f)
+    assertThat(prop.value.x.constantValue).isEqualTo(10.0f)
+    assertThat(prop.value.y.constantValue).isEqualTo(20.0f)
     assertThat(extractBoolean(prop.animated)).isFalse()
     assertThat(prop.slotId).isNull()
   }
 
   /**
-   * [SP_LOT_POS_01_02] Deserializes static 3D position property preserving 3D coordinates.
+   * [SP_LOT_POS_01_02] Deserializes static 3D position property into 2D Point.
    *
-   * Verifies that a 3D coordinate vector `[x, y, z]` is preserved in [StaticPositionProperty].
+   * Verifies that a 3D coordinate vector `[x, y, z]` deserializes into a [Point], discarding the
+   * third dimension (z) per Lottie's 2D canvas model.
    *
    * Specification:
    * [Lottie Position Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-property)
@@ -99,10 +103,8 @@ class PositionPropertyTest {
     val prop =
       LottieDecoder.json.decodeFromString(BasePositionPropertySerializer, json)
         as StaticPositionProperty
-    assertThat(prop.value).hasLength(3)
-    assertThat(prop.value[0]).isEqualTo(10.0f)
-    assertThat(prop.value[1]).isEqualTo(20.0f)
-    assertThat(prop.value[2]).isEqualTo(30.0f)
+    assertThat(prop.value.x.constantValue).isEqualTo(10.0f)
+    assertThat(prop.value.y.constantValue).isEqualTo(20.0f)
     assertThat(extractBoolean(prop.animated)).isFalse()
   }
 
@@ -123,8 +125,8 @@ class PositionPropertyTest {
       LottieDecoder.json.decodeFromString(BasePositionPropertySerializer, json)
         as StaticPositionProperty
     assertThat(prop.slotId).isEqualTo("pos_slot")
-    assertThat(prop.value[0]).isEqualTo(0.0f)
-    assertThat(prop.value[1]).isEqualTo(0.0f)
+    assertThat(prop.value.x.constantValue).isEqualTo(0.0f)
+    assertThat(prop.value.y.constantValue).isEqualTo(0.0f)
   }
 
   /**
@@ -191,6 +193,10 @@ class PositionPropertyTest {
         as AnimatedPositionProperty
     assertThat(prop.keyframes).hasSize(2)
     assertThat(extractKeyframeCoordinate(prop.keyframes[0].value, 0)).isEqualTo(0.0f)
+    assertThat(prop.keyframes[0].outSpatialTangent?.x?.constantValue).isEqualTo(10.0f)
+    assertThat(prop.keyframes[0].outSpatialTangent?.y?.constantValue).isEqualTo(-5.0f)
+    assertThat(prop.keyframes[0].inSpatialTangent?.x?.constantValue).isEqualTo(-10.0f)
+    assertThat(prop.keyframes[0].inSpatialTangent?.y?.constantValue).isEqualTo(5.0f)
   }
 
   /**
@@ -288,9 +294,6 @@ class PositionPropertyTest {
    * Specification:
    * [Lottie Position Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_POS_02_01: BasePositionPropertySerializer throws IllegalArgumentException instead of SerializationException on bare array"
-  )
   @Test
   fun throwsSerializationExceptionWhenRootIsBareArray() {
     val json = """[10.0, 20.0]"""
@@ -309,9 +312,6 @@ class PositionPropertyTest {
    * Specification:
    * [Lottie Position Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_POS_02_02: BasePositionPropertySerializer throws IllegalArgumentException instead of SerializationException on bare number"
-  )
   @Test
   fun throwsSerializationExceptionWhenRootIsBareNumber() {
     val json = """42.0"""
@@ -330,9 +330,6 @@ class PositionPropertyTest {
    * Specification:
    * [Lottie Position Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_POS_02_03: BasePositionPropertySerializer does not require discriminator 'a'"
-  )
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsMissing() {
     val json = """{"k": [10.0, 20.0]}"""
@@ -384,9 +381,6 @@ class PositionPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore(
-    "BUG: SP_LOT_POS_02_06: BasePositionPropertySerializer does not reject invalid discriminator integers"
-  )
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsInvalidIntegerAboveOne() {
     val json = """{"a": 2, "k": [10.0, 20.0]}"""
@@ -404,9 +398,6 @@ class PositionPropertyTest {
    * Specification:
    * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
    */
-  @Ignore(
-    "BUG: SP_LOT_POS_02_07: BasePositionPropertySerializer does not reject negative discriminator integers"
-  )
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsNegativeInteger() {
     val json = """{"a": -1, "k": [10.0, 20.0]}"""
@@ -416,20 +407,36 @@ class PositionPropertyTest {
   }
 
   /**
-   * [SP_LOT_POS_02_08] Rejects string literal for discriminator `"a"`.
+   * [SP_LOT_POS_02_08] Deserializes discriminator `"a"` when represented as string `"0"` or `"1"`.
    *
-   * Root cause: Specification requires `"a"` to be an integer boolean. String `"0"` causes
-   * `intOrNull` to return null, which currently defaults to static without error.
-   *
-   * Specification:
-   * [Lottie Integer Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)
+   * Permissive parsing permits string representations of integer booleans.
    */
-  @Ignore(
-    "BUG: SP_LOT_POS_02_08: BasePositionPropertySerializer does not reject string discriminator values"
-  )
+  @Test
+  fun deserializesStaticPositionPropertyWhenDiscriminatorIsStringZero() {
+    val json = """{"a": "0", "k": [10.0, 20.0]}"""
+    val prop = LottieDecoder.json.decodeFromString(BasePositionPropertySerializer, json)
+    assertThat(prop).isInstanceOf(StaticPositionProperty::class.java)
+  }
+
+  @Test
+  fun deserializesAnimatedPositionPropertyWhenDiscriminatorIsStringOne() {
+    val json = """{"a": "1", "k": [{"t": 0.0, "s": [0.0, 0.0]}]}"""
+    val prop = LottieDecoder.json.decodeFromString(BasePositionPropertySerializer, json)
+    assertThat(prop).isInstanceOf(AnimatedPositionProperty::class.java)
+  }
+
+  @Ignore("Permissive parsing: accepts string values for 'a'")
   @Test
   fun throwsSerializationExceptionWhenDiscriminatorAIsString() {
     val json = """{"a": "0", "k": [10.0, 20.0]}"""
+    assertThrows(SerializationException::class.java) {
+      LottieDecoder.json.decodeFromString(BasePositionPropertySerializer, json)
+    }
+  }
+
+  @Test
+  fun throwsSerializationExceptionWhenDiscriminatorAIsNonNumericString() {
+    val json = """{"a": "static", "k": [10.0, 20.0]}"""
     assertThrows(SerializationException::class.java) {
       LottieDecoder.json.decodeFromString(BasePositionPropertySerializer, json)
     }
@@ -476,7 +483,6 @@ class PositionPropertyTest {
    * Specification:
    * [Lottie Position Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-property)
    */
-  @Ignore("BUG: SP_LOT_POS_02_11: StaticPositionProperty accepts empty array for 'k'")
   @Test
   fun throwsSerializationExceptionWhenStaticPropertyKIsEmptyArray() {
     val json = """{"a": 0, "k": []}"""
@@ -495,7 +501,6 @@ class PositionPropertyTest {
    * Specification:
    * [Lottie Position Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-property)
    */
-  @Ignore("BUG: SP_LOT_POS_02_12: StaticPositionProperty accepts single-element array for 'k'")
   @Test
   fun throwsSerializationExceptionWhenStaticPropertyKHasFewerThanTwoCoordinates() {
     val json = """{"a": 0, "k": [10.0]}"""
@@ -571,13 +576,11 @@ class PositionPropertyTest {
   /**
    * [SP_LOT_POS_02_17] Rejects keyframe when coordinate array `"s"` has fewer than 2 coordinates.
    *
-   * Root cause: Specification requires position keyframe `"s"` to contain at least 2 coordinates
-   * `[x, y]`.
+   * Verifies that keyframe coordinate value `"s"` requires at least two coordinates `[x, y]`.
    *
    * Specification:
-   * [Lottie Vector Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#vector-keyframe)
+   * [Lottie Position Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#position-keyframe)
    */
-  @Ignore("BUG: SP_LOT_POS_02_17: VectorPropertyKeyframe accepts single-element array for 's'")
   @Test
   fun throwsSerializationExceptionWhenKeyframeSHasFewerThanTwoCoordinates() {
     val json = """{"a": 1, "k": [{"t": 0, "s": [10.0]}]}"""
@@ -874,9 +877,8 @@ class PositionPropertyTest {
     val roundTripped =
       LottieDecoder.json.decodeFromString(BasePositionPropertySerializer, serialized)
         as StaticPositionProperty
-    assertThat(roundTripped.value).hasLength(2)
-    assertThat(roundTripped.value[0]).isEqualTo(10.0f)
-    assertThat(roundTripped.value[1]).isEqualTo(20.0f)
+    assertThat(roundTripped.value.x.constantValue).isEqualTo(10.0f)
+    assertThat(roundTripped.value.y.constantValue).isEqualTo(20.0f)
     assertThat(extractBoolean(roundTripped.animated)).isFalse()
   }
 
@@ -897,10 +899,8 @@ class PositionPropertyTest {
     val roundTripped =
       LottieDecoder.json.decodeFromString(BasePositionPropertySerializer, serialized)
         as StaticPositionProperty
-    assertThat(roundTripped.value).hasLength(3)
-    assertThat(roundTripped.value[0]).isEqualTo(10.0f)
-    assertThat(roundTripped.value[1]).isEqualTo(20.0f)
-    assertThat(roundTripped.value[2]).isEqualTo(30.0f)
+    assertThat(roundTripped.value.x.constantValue).isEqualTo(10.0f)
+    assertThat(roundTripped.value.y.constantValue).isEqualTo(20.0f)
     assertThat(roundTripped.slotId).isEqualTo("pos_3d")
   }
 
@@ -953,5 +953,43 @@ class PositionPropertyTest {
     assertThat(roundTripped.slotId).isEqualTo("anim_slot")
     assertThat(roundTripped.keyframes).hasSize(1)
     assertThat(extractBoolean(roundTripped.keyframes[0].hold)).isTrue()
+  }
+
+  @Test
+  fun verifiesStaticPositionPropertyEquality() {
+    val anim = false.rb
+    val point = Point(10f.rf, 20f.rf)
+    val prop1 = StaticPositionProperty(slotId = "id", animated = anim, value = point)
+    val prop2 = StaticPositionProperty(slotId = "id", animated = anim, value = point)
+    val propDiff = StaticPositionProperty(slotId = "diff", animated = anim, value = point)
+    assertThat(prop1).isEqualTo(prop2)
+    assertThat(prop1.hashCode()).isEqualTo(prop2.hashCode())
+    assertThat(prop1).isNotEqualTo(propDiff)
+  }
+
+  @Test
+  fun verifiesPositionPropertyKeyframeEquality() {
+    val frame = 0f.rf
+    val point = Point(10f.rf, 20f.rf)
+    val hold = false.rb
+    val kf1 = PositionPropertyKeyframe(frame = frame, value = point, hold = hold)
+    val kf2 = PositionPropertyKeyframe(frame = frame, value = point, hold = hold)
+    val kfDiff = PositionPropertyKeyframe(frame = 5f.rf, value = point, hold = hold)
+    assertThat(kf1).isEqualTo(kf2)
+    assertThat(kf1.hashCode()).isEqualTo(kf2.hashCode())
+    assertThat(kf1).isNotEqualTo(kfDiff)
+  }
+
+  @Test
+  fun verifiesAnimatedPositionPropertyEquality() {
+    val anim = true.rb
+    val kf = PositionPropertyKeyframe(frame = 0f.rf, value = Point(10f.rf, 20f.rf))
+    val prop1 = AnimatedPositionProperty(slotId = "id", animated = anim, keyframes = listOf(kf))
+    val prop2 = AnimatedPositionProperty(slotId = "id", animated = anim, keyframes = listOf(kf))
+    val propDiff =
+      AnimatedPositionProperty(slotId = "diff", animated = anim, keyframes = listOf(kf))
+    assertThat(prop1).isEqualTo(prop2)
+    assertThat(prop1.hashCode()).isEqualTo(prop2.hashCode())
+    assertThat(prop1).isNotEqualTo(propDiff)
   }
 }

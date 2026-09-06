@@ -507,11 +507,11 @@ class VectorPropertyTest {
         as AnimatedVectorProperty
     val kf = prop.keyframes[0]
     assertThat(kf.inTangent).isNotNull()
-    assertThat(kf.inTangent?.x).isEqualTo(0.2f)
-    assertThat(kf.inTangent?.y).isEqualTo(1.0f)
+    assertThat(kf.inTangent?.x?.constantValue).isEqualTo(0.2f)
+    assertThat(kf.inTangent?.y?.constantValue).isEqualTo(1.0f)
     assertThat(kf.outTangent).isNotNull()
-    assertThat(kf.outTangent?.x).isEqualTo(0.4f)
-    assertThat(kf.outTangent?.y).isEqualTo(0.0f)
+    assertThat(kf.outTangent?.x?.constantValue).isEqualTo(0.4f)
+    assertThat(kf.outTangent?.y?.constantValue).isEqualTo(0.0f)
   }
 
   /**

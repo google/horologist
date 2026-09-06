@@ -23,6 +23,7 @@ import com.google.android.horologist.remotecompose.lottie.format.graphicelement.
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Fill
 import com.google.android.horologist.remotecompose.lottie.format.layer.NullLayer
 import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticColorProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.GradientValueSerializer
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -78,7 +79,7 @@ class LottieDecoderResilienceTest {
               {
                 "ty": "fl",
                 "nm": "RedFill",
-                "c": { "k": [1.0, 0.0, 0.0, 1.0] }
+                "c": { "a": 0, "k": [1.0, 0.0, 0.0, 1.0] }
               }
             ]
           }
@@ -114,12 +115,12 @@ class LottieDecoderResilienceTest {
               {
                 "ty": "fl",
                 "nm": "RgbFill",
-                "c": { "k": [1.0, 0.5, 0.0] }
+                "c": { "a": 0, "k": [1.0, 0.5, 0.0] }
               },
               {
                 "ty": "fl",
                 "nm": "ScaledIntFill",
-                "c": { "k": [255, 128, 0, 255] }
+                "c": { "a": 0, "k": [255, 128, 0, 255] }
               }
             ]
           }
@@ -134,8 +135,8 @@ class LottieDecoderResilienceTest {
     val fill1 = shapeLayer.shapes[0] as Fill
     val fill2 = shapeLayer.shapes[1] as Fill
 
-    assertThat(fill1.color.value).isNotNull()
-    assertThat(fill2.color.value).isNotNull()
+    assertThat((fill1.color as StaticColorProperty).value).isNotNull()
+    assertThat((fill2.color as StaticColorProperty).value).isNotNull()
   }
 
   @Test
@@ -157,12 +158,12 @@ class LottieDecoderResilienceTest {
               {
                 "ty": "fl",
                 "nm": "SidFill",
-                "c": { "sid": "color.primary", "k": [1.0, 0.0, 0.0, 1.0] }
+                "c": { "a": 0, "sid": "color.primary", "k": [1.0, 0.0, 0.0, 1.0] }
               },
               {
                 "ty": "fl",
                 "nm": "DefaultFill",
-                "c": { "k": [0.0, 1.0, 0.0, 1.0] }
+                "c": { "a": 0, "k": [0.0, 1.0, 0.0, 1.0] }
               }
             ]
           }

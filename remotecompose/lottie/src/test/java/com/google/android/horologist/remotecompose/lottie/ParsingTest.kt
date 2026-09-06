@@ -19,7 +19,6 @@ package com.google.android.horologist.remotecompose.lottie
 import android.content.Context
 import androidx.compose.remote.creation.compose.state.RemoteBoolean
 import androidx.compose.remote.creation.compose.state.RemoteFloat
-import androidx.compose.remote.creation.compose.state.rb
 import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.ui.graphics.Color
@@ -39,11 +38,9 @@ import com.google.android.horologist.remotecompose.lottie.format.layer.LayerType
 import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedVectorProperty
-import com.google.android.horologist.remotecompose.lottie.format.properties.BaseVectorPropertySerializer
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticVectorProperty
-import com.google.android.horologist.remotecompose.lottie.format.properties.VectorPropertyKeyframe
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
 import com.google.android.horologist.remotecompose.lottie.format.values.ColorStop
 import com.google.android.horologist.remotecompose.lottie.format.values.GradientValue
@@ -131,8 +128,8 @@ class ParsingTest {
     val animatedShape = path.shape as AnimatedBezierProperty
 
     assertThat(animatedShape.keyframes).hasSize(5)
-    assertThat(animatedShape.keyframes[0].inTangent?.x).isEqualTo(0.999f)
-    assertThat(animatedShape.keyframes[0].inTangent?.y).isEqualTo(1f)
+    assertThat(animatedShape.keyframes[0].inTangent?.x?.constantValue).isEqualTo(0.999f)
+    assertThat(animatedShape.keyframes[0].inTangent?.y?.constantValue).isEqualTo(1f)
   }
 
   @Test
@@ -146,7 +143,7 @@ class ParsingTest {
     val animatedScale = transform.scale as AnimatedVectorProperty
 
     assertThat(animatedScale.keyframes).hasSize(5)
-    assertThat(animatedScale.keyframes[0].inTangent?.x).isEqualTo(0.999f)
+    assertThat(animatedScale.keyframes[0].inTangent?.x?.constantValue).isEqualTo(0.999f)
   }
 
   /**
@@ -167,14 +164,16 @@ class ParsingTest {
     val group1 = shapeLayer.shapes[0] as Group
     val rect = group1.shapes[0] as Rectangle
     assertThat(rect.type).isEqualTo(ShapeType.Rectangle)
-    assertThat(rect.position.animated).isFalse()
-    assertThat((rect.position as StaticPositionProperty).value).isEqualTo(floatArrayOf(36f, 36f))
+    assertThat(rect.position.animated.constantValueOrNull).isFalse()
+    val rectPos = (rect.position as StaticPositionProperty).value
+    assertThat(rectPos.x.constantValue).isEqualTo(36f)
+    assertThat(rectPos.y.constantValue).isEqualTo(36f)
     assertThat(rect.size.animated.constantValueOrNull).isFalse()
     assertThat((rect.size as StaticVectorProperty).value.map { it.constantValue })
       .containsExactly(48f, 40f)
       .inOrder()
-    assertThat(rect.cornerRadius.animated).isFalse()
-    assertThat((rect.cornerRadius as StaticScalarProperty).value).isEqualTo(10f)
+    assertThat(rect.cornerRadius.animated.constantValueOrNull).isFalse()
+    assertThat((rect.cornerRadius as StaticScalarProperty).value.constantValue).isEqualTo(10f)
 
     val settings = LottieSettings(0.rf, SlotMap.Empty)
     val cornerRadiusRf = animateScalar(rect.cornerRadius, settings)
@@ -183,8 +182,10 @@ class ParsingTest {
     val group3 = shapeLayer.shapes[2] as Group
     val ellipse = group3.shapes[0] as Ellipse
     assertThat(ellipse.type).isEqualTo(ShapeType.Ellipse)
-    assertThat(ellipse.position.animated).isFalse()
-    assertThat((ellipse.position as StaticPositionProperty).value).isEqualTo(floatArrayOf(36f, 92f))
+    assertThat(ellipse.position.animated.constantValueOrNull).isFalse()
+    val ellipsePos = (ellipse.position as StaticPositionProperty).value
+    assertThat(ellipsePos.x.constantValue).isEqualTo(36f)
+    assertThat(ellipsePos.y.constantValue).isEqualTo(92f)
     assertThat(ellipse.size.animated.constantValueOrNull).isFalse()
     assertThat((ellipse.size as StaticVectorProperty).value.map { it.constantValue })
       .containsExactly(42f, 42f)
@@ -210,18 +211,18 @@ class ParsingTest {
     val star = starGroup.shapes[0] as PolyStar
     assertThat(star.type).isEqualTo(ShapeType.PolyStar)
     assertThat(star.starType).isEqualTo(PolyStarType.Star)
-    assertThat(star.points.animated).isFalse()
-    assertThat((star.points as StaticScalarProperty).value).isEqualTo(5f)
-    assertThat((star.outerRadius as StaticScalarProperty).value).isEqualTo(26f)
-    assertThat((star.innerRadius as StaticScalarProperty).value).isEqualTo(13f)
+    assertThat(star.points.animated.constantValueOrNull).isFalse()
+    assertThat((star.points as StaticScalarProperty).value.constantValue).isEqualTo(5f)
+    assertThat((star.outerRadius as StaticScalarProperty).value.constantValue).isEqualTo(26f)
+    assertThat((star.innerRadius as StaticScalarProperty).value.constantValue).isEqualTo(13f)
 
     val polygonGroup = shapeLayer.shapes[1] as Group
     val polygon = polygonGroup.shapes[0] as PolyStar
     assertThat(polygon.type).isEqualTo(ShapeType.PolyStar)
     assertThat(polygon.starType).isEqualTo(PolyStarType.Polygon)
-    assertThat(polygon.points.animated).isFalse()
-    assertThat((polygon.points as StaticScalarProperty).value).isEqualTo(6f)
-    assertThat((polygon.outerRadius as StaticScalarProperty).value).isEqualTo(24f)
+    assertThat(polygon.points.animated.constantValueOrNull).isFalse()
+    assertThat((polygon.points as StaticScalarProperty).value.constantValue).isEqualTo(6f)
+    assertThat((polygon.outerRadius as StaticScalarProperty).value.constantValue).isEqualTo(24f)
 
     val settings = LottieSettings(0.rf, SlotMap.Empty)
     val pointsRf = animateScalar(polygon.points, settings)

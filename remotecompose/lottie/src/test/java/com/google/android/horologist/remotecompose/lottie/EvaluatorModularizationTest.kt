@@ -17,6 +17,7 @@
 package com.google.android.horologist.remotecompose.lottie
 
 import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.ui.graphics.Color
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -48,14 +49,14 @@ class EvaluatorModularizationTest {
 
   @Test
   fun animateScalar_evaluatesStaticScalar() {
-    val scalar = StaticScalarProperty(value = 42f)
+    val scalar = StaticScalarProperty(animated = false.rb, value = 42f.rf)
     val result = animateScalar(scalar, settings)
     assertThat(result.constantValue).isEqualTo(42f)
   }
 
   @Test
   fun animatePosition_evaluatesStaticPosition() {
-    val position = StaticPositionProperty(value = floatArrayOf(10f, 20f))
+    val position = StaticPositionProperty(value = Point(10f.rf, 20f.rf))
     val result = animatePosition(position, settings)
     assertThat(result.x.constantValue).isEqualTo(10f)
     assertThat(result.y.constantValue).isEqualTo(20f)
@@ -70,22 +71,23 @@ class EvaluatorModularizationTest {
 
   @Test
   fun animateColor_evaluatesStaticColor() {
-    val color = StaticColorProperty(colorInt = 0xFF112233.toInt())
+    val color = StaticColorProperty(value = Color(0xFF112233.toInt()).rc)
     val result = animateColor(color, settings)
-    assertThat(result.constantValue).isEqualTo(Color(color.colorInt))
+    assertThat(result.constantValue).isEqualTo(Color(0xFF112233.toInt()))
   }
 
   @Test
   fun animateBezier_evaluatesStaticBezier() {
     val bezier =
       StaticBezierProperty(
+        animated = false.rb,
         value =
           BezierValue(
             closed = true.rb,
             inTangents = listOf(Point(0f.rf, 0f.rf)),
             outTangents = listOf(Point(0f.rf, 0f.rf)),
             vertices = listOf(Point(10f.rf, 20f.rf)),
-          )
+          ),
       )
     val result: BezierValue = animateBezier(bezier, settings)
     assertThat(result.closed.constantValueOrNull).isTrue()
@@ -99,13 +101,14 @@ class EvaluatorModularizationTest {
       Path(
         shape =
           StaticBezierProperty(
+            animated = false.rb,
             value =
               BezierValue(
                 closed = true.rb,
                 inTangents = listOf(Point(0f.rf, 0f.rf)),
                 outTangents = listOf(Point(0f.rf, 0f.rf)),
                 vertices = listOf(Point(0f.rf, 0f.rf)),
-              )
+              ),
           )
       )
     val rectShape = Rectangle()

@@ -17,7 +17,8 @@
 package com.google.android.horologist.remotecompose.lottie
 
 import androidx.compose.remote.creation.compose.state.RemoteColor
-import com.google.android.horologist.remotecompose.lottie.format.properties.StaticColorProperty
+import androidx.compose.remote.creation.compose.state.rc
+import androidx.compose.ui.graphics.Color
 
 /**
  * A mapping of slot IDs to values.
@@ -27,15 +28,13 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Stat
  * application to enable dynamic theming.
  */
 class SlotMap(colors: Map<String, Int>) {
-  private val colorSlots: Map<String, StaticColorProperty> =
-    colors.mapValues { (slotId, colorInt) ->
-      StaticColorProperty(slotId = slotId, colorInt = colorInt)
-    }
-
-  fun getColor(slotId: String): RemoteColor? {
-    val prop = colorSlots[slotId] ?: return null
-    return prop.value
+  private val colorSlots: Map<String, RemoteColor> = colors.mapValues { (_, colorInt) ->
+    Color(colorInt)
+      .rc // todo: move colorSlots to the main constructor and make it public. `getColor` function
+    // will also become useless then. But don't forget to update the usages of `getColor`.
   }
+
+  fun getColor(slotId: String): RemoteColor? = colorSlots[slotId]
 
   companion object {
     val Empty: SlotMap = SlotMap(emptyMap())

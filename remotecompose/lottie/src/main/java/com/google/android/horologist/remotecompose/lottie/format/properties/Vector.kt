@@ -17,6 +17,7 @@
 package com.google.android.horologist.remotecompose.lottie.format.properties
 
 import androidx.compose.remote.creation.compose.state.rb
+import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteBoolean
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteFloat
 import kotlinx.serialization.DeserializationStrategy
@@ -116,8 +117,8 @@ internal data class VectorPropertyKeyframe(
   @SerialName("t") val frame: SerializableRemoteFloat,
   @SerialName("s") val value: List<SerializableRemoteFloat>,
   @SerialName("h") val hold: SerializableRemoteBoolean = false.rb,
-  @SerialName("i") val inTangent: ScalarKeyframeEasing? = null,
-  @SerialName("o") val outTangent: ScalarKeyframeEasing? = null,
+  @SerialName("i") val inTangent: KeyframeEasing? = null,
+  @SerialName("o") val outTangent: KeyframeEasing? = null,
 )
 
 /**

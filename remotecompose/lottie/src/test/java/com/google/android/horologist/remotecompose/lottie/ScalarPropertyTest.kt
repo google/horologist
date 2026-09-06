@@ -23,8 +23,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseScalarPropertySerializer
-import com.google.android.horologist.remotecompose.lottie.format.properties.ScalarKeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
+import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.SerializationException
@@ -526,11 +526,11 @@ class ScalarPropertyTest {
    */
   @Test
   fun scalarKeyframeEasingDefaultsToZeroRemoteFloat() {
-    val easing = ScalarKeyframeEasing()
+    val easing = KeyframeEasing()
     assertThat(extractFloat(easing.x)).isEqualTo(0f)
     assertThat(extractFloat(easing.y)).isEqualTo(0f)
 
-    val customEasing = ScalarKeyframeEasing(0.2f, 0.8f)
+    val customEasing = KeyframeEasing(0.2f.rf, 0.8f.rf)
     assertThat(extractFloat(customEasing.x)).isEqualTo(0.2f)
     assertThat(extractFloat(customEasing.y)).isEqualTo(0.8f)
   }

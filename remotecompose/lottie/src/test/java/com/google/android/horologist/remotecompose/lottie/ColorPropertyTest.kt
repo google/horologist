@@ -28,8 +28,8 @@ import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedColorProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseColorPropertySerializer
 import com.google.android.horologist.remotecompose.lottie.format.properties.ColorPropertyKeyframe
-import com.google.android.horologist.remotecompose.lottie.format.properties.ScalarKeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticColorProperty
+import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateColor
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.SerializationException
@@ -612,7 +612,7 @@ class ColorPropertyTest {
   /**
    * [SP_LOT_CLR_01_03] Deserializes color keyframe with cubic Bézier easing tangents.
    *
-   * Verifies that 'i' and 'o' easing handles are deserialized into [ScalarKeyframeEasing].
+   * Verifies that 'i' and 'o' easing handles are deserialized into [KeyframeEasing].
    *
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)

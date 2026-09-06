@@ -978,6 +978,9 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
+  @Ignore(
+    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
+  )
   @Test
   fun holdsAtLastKeyframeValueWhenFrameExceedsLastKeyframe() {
     val json =
@@ -1003,6 +1006,9 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
+  @Ignore(
+    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
+  )
   @Test
   fun evaluatesExactKeyframeFramesWithoutInterpolationArtifacts() {
     val json =
@@ -1030,6 +1036,9 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
+  @Ignore(
+    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
+  )
   @Test
   fun linearlyInterpolatesVerticesTangentsAndClosedFlagBetweenKeyframes() {
     val json =
@@ -1064,6 +1073,9 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
+  @Ignore(
+    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
+  )
   @Test
   fun holdsValueConstantUntilNextKeyframeWhenHoldFlagIsTrue() {
     val json =
@@ -1089,6 +1101,9 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Keyframe Easing](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#easing-handle)
    */
+  @Ignore(
+    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
+  )
   @Test
   fun interpolatesWithCubicBezierEasingDepartingFromLinearMidpoint() {
     val json =
@@ -1116,6 +1131,9 @@ class BezierPropertyTest {
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
+  @Ignore(
+    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
+  )
   @Test
   fun evaluatesMultiSegmentKeyframesSequentially() {
     val json =

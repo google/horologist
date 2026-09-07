@@ -27,7 +27,7 @@ import ee.schimke.composeai.preview.AnimatedPreview
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
 @Composable
 fun LottieGeometryPreview() {
-  LottiePreview(animationResId = R.raw.geometry, modifier = Modifier.size(100.dp))
+  LottiePreview(animationResId = R.raw.geometry, modifier = Modifier.size(100.dp), progress = 0f)
 }
 
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
@@ -45,6 +45,7 @@ fun LottieTintGeometryPreview() {
     animationResId = R.raw.geometry,
     modifier = Modifier.size(100.dp),
     slotMap = SlotMap(mapOf("color.primary" to 0xFF00FF00.toInt())),
+    progress = 0f,
   )
 }
 

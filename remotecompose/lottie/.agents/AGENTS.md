@@ -13,11 +13,7 @@ Always consult these authoritative references when developing or verifying Lotti
 <workflow_routers>
 ## Workflow Routers (Phase Guidelines)
 To prevent prompt noise, detailed phase rules are loaded just-in-time from `.agents/rules/` and specialized subagents:
-- **Test Generation (Isolated TDD):** Before writing implementation code, MUST invoke the `dev-test` subagent (`.agents/agents/dev-test.md`) with the target specifications.
-- **Test Verification:** Follow `.agents/rules/testing_policy.md` (code formating, running unit and screenshot tests, final verification before commit).
+- **Verification tasks before commit:** Follow `.agents/rules/pre_commit_verification.md` (code formating, running unit and screenshot tests, final verification before commit).
 - **Commit Messages:** Follow `.agents/rules/commit_rules.md` (inverted pyramid, imperative effects, headings).
 - **Pull Requests:** Follow `.agents/rules/pull_request_rules.md` when drafting PR descriptions.
-- **Code Review:** Follow `.agents/rules/code_review_rules.md` (answer with code and comments).
-- **Design Docs:** Follow `.agents/rules/design_docs_style.md` for concept/spec writing.
-- **Code Comments & Function Docs:** Follow `.agents/rules/code_documentation_rules.md` for function contracts, essential vs. incidental properties, and invariant documentation.
 </workflow_routers>

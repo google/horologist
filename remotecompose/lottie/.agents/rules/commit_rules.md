@@ -5,7 +5,9 @@ description: "Guidelines and inverted-pyramid format for writing Git commit mess
 
 # Commit Message Guidelines
 
-When generating or suggesting a commit message, analyze the git commit history and current diff. Simplify code review and long-term maintenance. Never generate generic messages like "Fix bug" or "Update UI".
+When generating or suggesting a commit message, analyze the git commit history and current diff.
+Simplify code review and long-term maintenance.
+Never generate generic messages like "Fix bug" or "Update UI".
 
 ## 1. Core Structure & Inverted Pyramid
 - **The Inverted Pyramid:** Place the most critical information at the very top so the reader gets full context immediately.
@@ -33,7 +35,6 @@ When generating or suggesting a commit message, analyze the git commit history a
 - Code maintenance instructions (place these in code comments instead).
 - Short-term discussions.
 - Preview URLs and build artifacts.
-- Comments or tags like "build with AI".
 
 ## 6. Scope and Isolation
 - **DO NOT** mix functional and non-functional changes in the same commit. If you are asked to add a feature, do not simultaneously reformat surrounding code, reorganize imports, or refactor unrelated methods in the same commit.

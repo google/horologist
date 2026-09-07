@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry
 
+import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.ShapeType
 import com.google.android.horologist.remotecompose.lottie.format.properties.BasePositionProperty
@@ -24,6 +26,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Base
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticVectorProperty
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -35,8 +38,11 @@ internal data class Rectangle(
   @SerialName("ty") override val type: ShapeType = ShapeType.Rectangle,
   @SerialName("d") val direction: Int? = null,
   @SerialName("p")
-  val position: BasePositionProperty = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
+  val position: BasePositionProperty =
+    StaticPositionProperty(animated = false.rb, value = Point(0f.rf, 0f.rf)),
   @SerialName("s")
-  val size: BaseVectorProperty = StaticVectorProperty(value = floatArrayOf(0f, 0f)),
-  @SerialName("r") val cornerRadius: BaseScalarProperty = StaticScalarProperty(value = 0f),
+  val size: BaseVectorProperty =
+    StaticVectorProperty(animated = false.rb, value = listOf(0f.rf, 0f.rf)),
+  @SerialName("r")
+  val cornerRadius: BaseScalarProperty = StaticScalarProperty(animated = false.rb, value = 0f.rf),
 ) : GraphicElement

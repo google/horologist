@@ -41,10 +41,8 @@ internal fun animatePosition(
   animationSettings: LottieSettings,
 ): Point {
   return when (position) {
-    // Static constant position: directly wrap the [x, y] coordinates into RemoteFloats.
-    is StaticPositionProperty -> {
-      Point(x = position.value.getOrElse(0) { 0f }.rf, y = position.value.getOrElse(1) { 0f }.rf)
-    }
+    // Static constant position: directly return the Point.
+    is StaticPositionProperty -> position.value
     // Keyframed animated position: interpolate [x, y] across keyframes using Bézier easing curves.
     is AnimatedPositionProperty -> {
       if (position.keyframes.isEmpty()) {
@@ -52,10 +50,7 @@ internal fun animatePosition(
       }
       // Single keyframe: hold static position at that single value.
       if (position.keyframes.size == 1) {
-        return Point(
-          x = position.keyframes[0].value.getOrElse(0) { 0f }.rf,
-          y = position.keyframes[0].value.getOrElse(1) { 0f }.rf,
-        )
+        return position.keyframes[0].value
       }
 
       val animationSegments = mutableListOf<List<AnimationSegment>>()
@@ -63,15 +58,20 @@ internal fun animatePosition(
       // If the first keyframe starts after frame 0, prepend an initial static segment
       // holding the first keyframe's value from frame 0 until the first keyframe.
       val firstKeyframe = position.keyframes[0]
-      if (firstKeyframe.frame != 0f) {
-        animationSegments.add(firstKeyframe.value.map { AnimationSegment(0f, it.rf) })
+      if (firstKeyframe.frame.constantValue != 0f) {
+        animationSegments.add(
+          listOf(
+            AnimationSegment(0f, firstKeyframe.value.x),
+            AnimationSegment(0f, firstKeyframe.value.y),
+          )
+        )
       }
 
       // Build interpolation segments between adjacent keyframe pairs.
       for (i in 0 until position.keyframes.size - 1) {
         val startKeyframe = position.keyframes[i]
         val endKeyframe = position.keyframes[i + 1]
-        val duration = endKeyframe.frame - startKeyframe.frame
+        val duration = endKeyframe.frame.constantValue - startKeyframe.frame.constantValue
         val frameInAnimation = animationSettings.currentFrame - startKeyframe.frame
 
         // Control point tangents for the cubic Bézier curve, defaulting to linear easing if
@@ -92,12 +92,16 @@ internal fun animatePosition(
 
         // Linearly interpolate each coordinate (x, y) between the start and end keyframe values.
         val segment =
-          startKeyframe.value.mapIndexed { index, value ->
+          listOf(
             AnimationSegment(
-              startKeyframe.frame,
-              lerp(value.rf, endKeyframe.value[index].rf, currentBezierValue),
-            )
-          }
+              startKeyframe.frame.constantValue,
+              lerp(startKeyframe.value.x, endKeyframe.value.x, currentBezierValue),
+            ),
+            AnimationSegment(
+              startKeyframe.frame.constantValue,
+              lerp(startKeyframe.value.y, endKeyframe.value.y, currentBezierValue),
+            ),
+          )
 
         animationSegments.add(segment)
       }

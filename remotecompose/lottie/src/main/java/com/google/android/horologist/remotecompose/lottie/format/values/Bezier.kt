@@ -39,7 +39,6 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.encodeToJsonElement
 import kotlinx.serialization.json.intOrNull
-import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.put
 
 /**
@@ -75,7 +74,10 @@ internal object BezierValueSerializer : KSerializer<BezierValue> {
   override fun deserialize(decoder: Decoder): BezierValue {
     val jsonDecoder = decoder as JsonDecoder
     val json = jsonDecoder.json
-    val obj = jsonDecoder.decodeJsonElement().jsonObject
+    val element = jsonDecoder.decodeJsonElement()
+    val obj =
+      element as? JsonObject
+        ?: throw SerializationException("Expected JSON object for BezierValue, but got $element")
 
     return BezierValue(
       closed = parseClosed(obj["c"]).rb,

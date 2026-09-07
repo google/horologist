@@ -18,6 +18,7 @@ package com.google.android.horologist.remotecompose.lottie.renderer.properties
 
 import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.state.RemoteFloat
+import androidx.compose.remote.creation.compose.state.rb
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseBezierProperty
@@ -31,7 +32,7 @@ import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearE
 /**
  * Animates a bezier property.
  *
- * Take a BaseBezierProperty (either animated or static) and convert it to a [BezierValue]. If the
+ * Take a [BaseBezierProperty] (either animated or static) and convert it to a [BezierValue]. If the
  * bezier is animated, the [BezierValue] will change based on the animation specified in the Lottie
  * Bezier Property.
  *
@@ -43,24 +44,30 @@ internal fun animateBezier(
   path: BaseBezierProperty,
   animationSettings: LottieSettings,
 ): BezierValue {
-  return when (val p = path) {
-    is StaticBezierProperty -> {
-      return p.value
-    }
+  return when (path) {
+    is StaticBezierProperty -> path.value
     is AnimatedBezierProperty -> {
+      if (path.keyframes.isEmpty()) {
+        return BezierValue(
+          closed = false.rb,
+          inTangents = emptyList(),
+          outTangents = emptyList(),
+          vertices = emptyList(),
+        )
+      }
       // TODO: Support delayed start & chained animations for bezier curves
-      if (p.keyframes.size == 1) {
-        return p.keyframes[0].value[0]
+      if (path.keyframes.size == 1) {
+        return path.keyframes[0].value[0]
       }
 
-      val startKeyFrame = p.keyframes[0]
-      val endKeyFrame = p.keyframes[1]
+      val startKeyFrame = path.keyframes[0]
+      val endKeyFrame = path.keyframes[1]
 
-      if (startKeyFrame.frame != 0f) {
-        return p.keyframes[0].value[0]
+      if (startKeyFrame.frame.constantValue != 0f) {
+        return path.keyframes[0].value[0]
       }
 
-      val duration = endKeyFrame.frame - startKeyFrame.frame
+      val duration = endKeyFrame.frame.constantValue - startKeyFrame.frame.constantValue
       val frameInAnimation = animationSettings.currentFrame - startKeyFrame.frame
 
       val outTangent = startKeyFrame.outTangent ?: scalarLinearEasingOut
@@ -78,7 +85,7 @@ internal fun animateBezier(
 
       // TODO: b/442404202 - Support multiple spline segments within a bezier (i.e.
       // startKeyFrame.value.size > 1)
-      return BezierValue(
+      BezierValue(
         startKeyFrame.value[0].closed,
         animatePoints(
           startKeyFrame.value[0].inTangents,

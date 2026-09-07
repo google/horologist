@@ -16,12 +16,15 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry
 
+import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.ShapeType
 import com.google.android.horologist.remotecompose.lottie.format.properties.BasePositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -38,12 +41,18 @@ internal data class PolyStar(
   @SerialName("hd") override val hidden: Boolean? = false,
   @SerialName("ty") override val type: ShapeType = ShapeType.PolyStar,
   @SerialName("sy") val starType: PolyStarType = PolyStarType.Star,
-  @SerialName("pt") val points: BaseScalarProperty = StaticScalarProperty(value = 5f),
+  @SerialName("pt")
+  val points: BaseScalarProperty = StaticScalarProperty(animated = false.rb, value = 5f.rf),
   @SerialName("p")
-  val position: BasePositionProperty = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
-  @SerialName("r") val rotation: BaseScalarProperty = StaticScalarProperty(value = 0f),
-  @SerialName("or") val outerRadius: BaseScalarProperty = StaticScalarProperty(value = 0f),
-  @SerialName("os") val outerRoundedness: BaseScalarProperty = StaticScalarProperty(value = 0f),
+  val position: BasePositionProperty =
+    StaticPositionProperty(animated = false.rb, value = Point(0f.rf, 0f.rf)),
+  @SerialName("r")
+  val rotation: BaseScalarProperty = StaticScalarProperty(animated = false.rb, value = 0f.rf),
+  @SerialName("or")
+  val outerRadius: BaseScalarProperty = StaticScalarProperty(animated = false.rb, value = 0f.rf),
+  @SerialName("os")
+  val outerRoundedness: BaseScalarProperty =
+    StaticScalarProperty(animated = false.rb, value = 0f.rf),
   @SerialName("ir") val innerRadius: BaseScalarProperty? = null,
   @SerialName("is") val innerRoundedness: BaseScalarProperty? = null,
   @SerialName("d") val direction: Int? = null,

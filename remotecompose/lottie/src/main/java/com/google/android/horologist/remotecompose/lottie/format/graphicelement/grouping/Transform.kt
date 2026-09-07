@@ -16,6 +16,8 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping
 
+import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.ShapeType
 import com.google.android.horologist.remotecompose.lottie.format.properties.BasePositionProperty
@@ -24,6 +26,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Base
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticVectorProperty
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -37,12 +40,16 @@ internal data class Transform(
   @SerialName("hd") override val hidden: Boolean? = false,
   @SerialName("ty") override val type: ShapeType = ShapeType.Transform,
   @SerialName("a")
-  val anchorPoint: BasePositionProperty = StaticPositionProperty(value = floatArrayOf(0f, 0f)),
+  val anchorPoint: BasePositionProperty =
+    StaticPositionProperty(animated = false.rb, value = Point(0f.rf, 0f.rf)),
   @SerialName("p")
   val positionTranslation: BasePositionProperty =
-    StaticPositionProperty(value = floatArrayOf(0f, 0f)),
-  @SerialName("r") val rotation: BaseScalarProperty = StaticScalarProperty(value = 0f),
+    StaticPositionProperty(animated = false.rb, value = Point(0f.rf, 0f.rf)),
+  @SerialName("r")
+  val rotation: BaseScalarProperty = StaticScalarProperty(animated = false.rb, value = 0f.rf),
   @SerialName("s")
-  val scale: BaseVectorProperty = StaticVectorProperty(value = floatArrayOf(100f, 100f)),
-  @SerialName("o") val opacity: BaseScalarProperty = StaticScalarProperty(value = 100f),
+  val scale: BaseVectorProperty =
+    StaticVectorProperty(animated = false.rb, value = listOf(100f.rf, 100f.rf)),
+  @SerialName("o")
+  val opacity: BaseScalarProperty = StaticScalarProperty(animated = false.rb, value = 100f.rf),
 ) : GraphicElement

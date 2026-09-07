@@ -19,7 +19,6 @@ package com.google.android.horologist.remotecompose.lottie.renderer.properties
 import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.lerp
-import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseVectorProperty
@@ -41,23 +40,23 @@ internal fun animateVector(
   animationSettings: LottieSettings,
 ): List<RemoteFloat> {
   return when (vector) {
-    is StaticVectorProperty -> vector.value.map { it.rf }
+    is StaticVectorProperty -> vector.value
     is AnimatedVectorProperty -> {
       if (vector.keyframes.size == 1) {
-        return vector.keyframes[0].value.map { it.rf }
+        return vector.keyframes[0].value
       }
 
       val animationSegments = mutableListOf<List<AnimationSegment>>()
 
       val firstKeyframe = vector.keyframes[0]
-      if (firstKeyframe.frame != 0f) {
-        animationSegments.add(firstKeyframe.value.map { AnimationSegment(0f, it.rf) })
+      if (firstKeyframe.frame.constantValue != 0f) {
+        animationSegments.add(firstKeyframe.value.map { AnimationSegment(0f, it) })
       }
 
       for (i in 0 until vector.keyframes.size - 1) {
         val startKeyframe = vector.keyframes[i]
         val endKeyframe = vector.keyframes[i + 1]
-        val duration = endKeyframe.frame - startKeyframe.frame
+        val duration = endKeyframe.frame.constantValue - startKeyframe.frame.constantValue
         val frameInAnimation = animationSettings.currentFrame - startKeyframe.frame
         val outTangent = startKeyframe.outTangent ?: scalarLinearEasingOut
         val inTangent = startKeyframe.inTangent ?: scalarLinearEasingIn
@@ -74,8 +73,8 @@ internal fun animateVector(
         val segment =
           startKeyframe.value.mapIndexed { index, value ->
             AnimationSegment(
-              startKeyframe.frame,
-              lerp(value.rf, endKeyframe.value[index].rf, currentBezierValue),
+              startKeyframe.frame.constantValue,
+              lerp(value, endKeyframe.value[index], currentBezierValue),
             )
           }
 

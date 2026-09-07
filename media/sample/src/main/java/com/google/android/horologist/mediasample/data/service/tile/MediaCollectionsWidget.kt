@@ -39,6 +39,7 @@ import androidx.compose.remote.creation.compose.modifier.size
 import androidx.compose.remote.creation.compose.state.RemoteColor
 import androidx.compose.remote.creation.compose.state.RemoteDp
 import androidx.compose.remote.creation.compose.state.RemoteImageBitmap
+import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rdp
 import androidx.compose.remote.creation.compose.state.rs
 import androidx.compose.remote.creation.compose.text.RemoteTextStyle
@@ -243,7 +244,7 @@ private fun PlaylistButton(
   // Determine if the background is light or dark to pick the best text color.
   // Luminance < 0.5 is considered dark.
   val isBackgroundDark = playlistColor?.let { it.luminance() < 0.5f } ?: true
-  val contentColor = if (isBackgroundDark) Color.White else Color.Black
+  val contentColor = if (isBackgroundDark) Color.White.rc else Color.Black.rc
 
   RemoteButton(
     onClick = playlistAction,
@@ -254,7 +255,7 @@ private fun PlaylistButton(
         containerColor =
           playlistColor?.let { RemoteColor(it) }
             ?: RemoteMaterialTheme.colorScheme.secondaryContainer,
-        contentColor = RemoteColor(contentColor),
+        contentColor = contentColor,
       ),
     icon = {
       if (playlistArtwork != null) {
@@ -269,7 +270,7 @@ private fun PlaylistButton(
     RemoteText(
       text = playlistName.rs,
       style = textStyle,
-      color = RemoteColor(contentColor),
+      color = contentColor,
       maxLines = 1,
       overflow = TextOverflow.Ellipsis,
     )

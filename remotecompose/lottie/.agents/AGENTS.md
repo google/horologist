@@ -5,8 +5,7 @@
 Always consult these authoritative references when developing or verifying Lottie format, values, properties, and animations:
 - **One-page Lottie 1.0.1 Specification:** https://lottie.github.io/lottie-spec/1.0.1/single-page/
 - **Lottie JSON Schema:** https://lottie.github.io/lottie-spec/1.0.1/lottie.schema.json
-- **Property Types (Vector, Scalar, Easing, Keyframes):** https://lottie.github.io/lottie-spec/1.0.1/specs/properties/
-- **Modular Topic Specs:** `https://lottie.github.io/lottie-spec/dev/specs/{section}/`
+- **Modular Topic Specs:** `https://lottie.github.io/lottie-spec/1.0.1/specs/{section}/`
   - (Replace `{section}` with the target domain: `values`, `properties`, `composition`, `layers`, `shapes`, `assets`, `constants`, `helpers`, `glossary`, `format`)
 </lottie_specifications>
 

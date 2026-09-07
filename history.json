@@ -1,6 +1,6 @@
 {
     "formatVersion": "compose-preview-history/v1",
-    "generatedFrom": "3c2c388f406894645af1e9229e131c27a1889473",
+    "generatedFrom": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
     "previews": {
         "ai:sample:wear-gemini/com.google.android.horologist.ai.sample.wear.gemini.activity.WearAppKt.DefaultPreview_Devices - Small Round": {
             "path": "renders/ai:sample:wear-gemini/DefaultPreview_Devices_Small_Round-1732729b.png",
@@ -4736,6 +4736,13 @@
             "path": "renders/media:sample/MediaCollectionWidgetRectangularPreview_Widget_Picker_Preview-67b23eef_PARAM_0.png",
             "versions": [
                 {
+                    "blob": "50a5351685ec13fd3ce5cdf12589ecbf95c4b0ac",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "commits": 1
+                },
+                {
                     "blob": "da43ca0128d11e1bd88c300d205bfc5404d6597a",
                     "commit": "3c2c388f406894645af1e9229e131c27a1889473",
                     "date": "2026-09-07T09:13:28Z",
@@ -4757,13 +4764,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 3,
+            "observations": 4,
             "unstable": false,
             "flapCount": 0
         },
         "media:sample/com.google.android.horologist.mediasample.data.service.tile.MediaCollectionsWidgetPreviewsKt.MediaCollectionWidgetRectangularPreview_Widget Picker Preview#1": {
             "path": "renders/media:sample/MediaCollectionWidgetRectangularPreview_Widget_Picker_Preview-67b23eef_PARAM_1.png",
             "versions": [
+                {
+                    "blob": "26f488242502ea2b3bb759ea287125f5497c1de2",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "commits": 1
+                },
                 {
                     "blob": "a3aae84aec8b1a2adabdf5d088b360d9a55206c7",
                     "commit": "3c2c388f406894645af1e9229e131c27a1889473",
@@ -4786,13 +4800,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 3,
+            "observations": 4,
             "unstable": false,
             "flapCount": 0
         },
         "media:sample/com.google.android.horologist.mediasample.data.service.tile.MediaCollectionsWidgetPreviewsKt.MediaCollectionWidgetRoundPreview_Round Preview": {
             "path": "renders/media:sample/MediaCollectionWidgetRoundPreview_Round_Preview-2ad68523_PARAM_0.png",
             "versions": [
+                {
+                    "blob": "ffff71641295308246b10a1c570295b95394dae4",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "commits": 1
+                },
                 {
                     "blob": "7dafe4ba1e9e262802986a889e747a4def7438d9",
                     "commit": "3c2c388f406894645af1e9229e131c27a1889473",
@@ -4815,13 +4836,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 3,
+            "observations": 4,
             "unstable": false,
             "flapCount": 0
         },
         "media:sample/com.google.android.horologist.mediasample.data.service.tile.MediaCollectionsWidgetPreviewsKt.MediaCollectionWidgetRoundPreview_Round Preview#1": {
             "path": "renders/media:sample/MediaCollectionWidgetRoundPreview_Round_Preview-2ad68523_PARAM_1.png",
             "versions": [
+                {
+                    "blob": "364a3457601a0c97c83852f2023ac9213799e270",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "commits": 1
+                },
                 {
                     "blob": "e949a92b130450d846a28e335835a4daaee0e208",
                     "commit": "3c2c388f406894645af1e9229e131c27a1889473",
@@ -4844,13 +4872,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 3,
+            "observations": 4,
             "unstable": false,
             "flapCount": 0
         },
         "media:sample/com.google.android.horologist.mediasample.data.service.tile.MediaCollectionsWidgetPreviewsKt.MediaCollectionWidgetRoundPreview_Round Preview#2": {
             "path": "renders/media:sample/MediaCollectionWidgetRoundPreview_Round_Preview-2ad68523_PARAM_2.png",
             "versions": [
+                {
+                    "blob": "28ba0dbef1e78efd42a275bdb426386310d283bc",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "commits": 1
+                },
                 {
                     "blob": "2fdf773ca3d57b4bc53bb99a3b8e3e937ad3f2aa",
                     "commit": "3c2c388f406894645af1e9229e131c27a1889473",
@@ -4873,13 +4908,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 3,
+            "observations": 4,
             "unstable": false,
             "flapCount": 0
         },
         "media:sample/com.google.android.horologist.mediasample.data.service.tile.MediaCollectionsWidgetPreviewsKt.MediaCollectionWidgetRoundPreview_Round Preview#3": {
             "path": "renders/media:sample/MediaCollectionWidgetRoundPreview_Round_Preview-2ad68523_PARAM_3.png",
             "versions": [
+                {
+                    "blob": "2f6a93885c04aa242ba1de98cb9d8359c2511cc3",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "commits": 1
+                },
                 {
                     "blob": "c4baf28ca8a2258d4cf0ff24237e9d44e76343df",
                     "commit": "3c2c388f406894645af1e9229e131c27a1889473",
@@ -4902,13 +4944,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 3,
+            "observations": 4,
             "unstable": false,
             "flapCount": 0
         },
         "media:sample/com.google.android.horologist.mediasample.data.service.tile.MediaCollectionsWidgetPreviewsKt.MediaCollectionWidgetSquirclePreview_Squircle Preview": {
             "path": "renders/media:sample/MediaCollectionWidgetSquirclePreview_Squircle_Preview-b7462eb4_PARAM_0.png",
             "versions": [
+                {
+                    "blob": "3aad69f764060f2ecd6e77ece6aeb1fe0d0f955e",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "commits": 1
+                },
                 {
                     "blob": "118a9bfde0b6235fa3436cea696cab9cd27dcc02",
                     "commit": "3c2c388f406894645af1e9229e131c27a1889473",
@@ -4931,13 +4980,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 3,
+            "observations": 4,
             "unstable": false,
             "flapCount": 0
         },
         "media:sample/com.google.android.horologist.mediasample.data.service.tile.MediaCollectionsWidgetPreviewsKt.MediaCollectionWidgetSquirclePreview_Squircle Preview#1": {
             "path": "renders/media:sample/MediaCollectionWidgetSquirclePreview_Squircle_Preview-b7462eb4_PARAM_1.png",
             "versions": [
+                {
+                    "blob": "2b78de961eef5b97ae4be83f5aabb9ef5f36415e",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "commits": 1
+                },
                 {
                     "blob": "2328aceb47497b2afe10dd8e7d5a2a1a14dce1ae",
                     "commit": "3c2c388f406894645af1e9229e131c27a1889473",
@@ -4960,13 +5016,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 3,
+            "observations": 4,
             "unstable": false,
             "flapCount": 0
         },
         "media:sample/com.google.android.horologist.mediasample.data.service.tile.MediaCollectionsWidgetPreviewsKt.MediaCollectionWidgetSquirclePreview_Squircle Preview#2": {
             "path": "renders/media:sample/MediaCollectionWidgetSquirclePreview_Squircle_Preview-b7462eb4_PARAM_2.png",
             "versions": [
+                {
+                    "blob": "15916dc3e731eb89e620d3082c45f5b8115e41bd",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "commits": 1
+                },
                 {
                     "blob": "a618e8df2455792bfb9b58e84bd6d5d91646e9a7",
                     "commit": "3c2c388f406894645af1e9229e131c27a1889473",
@@ -4989,13 +5052,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 3,
+            "observations": 4,
             "unstable": false,
             "flapCount": 0
         },
         "media:sample/com.google.android.horologist.mediasample.data.service.tile.MediaCollectionsWidgetPreviewsKt.MediaCollectionWidgetSquirclePreview_Squircle Preview#3": {
             "path": "renders/media:sample/MediaCollectionWidgetSquirclePreview_Squircle_Preview-b7462eb4_PARAM_3.png",
             "versions": [
+                {
+                    "blob": "9f986cf155539b520d0e38d1b1f886656a59e35f",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "commits": 1
+                },
                 {
                     "blob": "6ad913710bdaa7c5adc33798763e842c210b76ef",
                     "commit": "3c2c388f406894645af1e9229e131c27a1889473",
@@ -5018,7 +5088,7 @@
                     "commits": 1
                 }
             ],
-            "observations": 3,
+            "observations": 4,
             "unstable": false,
             "flapCount": 0
         },
@@ -8359,6 +8429,15 @@
             "path": "renders/remotecompose:lottie/LottieGeometryPreview-b6cf2052.png",
             "versions": [
                 {
+                    "blob": "4591831eebfa0f2ca3eb82a44a5ef5365d4d2aeb",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "sinceCommit": "50443647c750376d2ed235f31b2d90ee32b97890",
+                    "commits": 3,
+                    "occurrences": 3
+                },
+                {
                     "blob": "c44dded1f091e41be04a4d1d64b1b2bd25fdc61c",
                     "commit": "3c2c388f406894645af1e9229e131c27a1889473",
                     "date": "2026-09-07T09:13:28Z",
@@ -8371,15 +8450,6 @@
                     "date": "2026-09-04T16:24:25Z",
                     "sourceSha": "5a5e0cda",
                     "sinceCommit": "5c948f31a65da625ac239951dd932d9fb927ffb3",
-                    "commits": 2,
-                    "occurrences": 2
-                },
-                {
-                    "blob": "4591831eebfa0f2ca3eb82a44a5ef5365d4d2aeb",
-                    "commit": "7068cb9e4f969b4ae9cb172b205dfd9675d8815d",
-                    "date": "2026-09-04T13:25:45Z",
-                    "sourceSha": "863f097f",
-                    "sinceCommit": "50443647c750376d2ed235f31b2d90ee32b97890",
                     "commits": 2,
                     "occurrences": 2
                 },
@@ -8402,9 +8472,9 @@
                     "occurrences": 2
                 }
             ],
-            "observations": 9,
+            "observations": 10,
             "unstable": true,
-            "flapCount": 4
+            "flapCount": 5
         },
         "remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottieM3PlayPauseAnimatedPreview": {
             "path": "renders/remotecompose:lottie/LottieM3PlayPauseAnimatedPreview-43b709eb.gif",
@@ -8590,11 +8660,22 @@
             "path": "renders/remotecompose:lottie/LottieTintGeometryPreview-0ec05924.png",
             "versions": [
                 {
+                    "blob": "568849d2dd02a40a5bf5435086266b91d1896f51",
+                    "commit": "8e5cd8e4d7feb61c4792742def07d0d77ddaaf83",
+                    "date": "2026-09-07T14:50:25Z",
+                    "sourceSha": "923c3cb0",
+                    "sinceCommit": "50443647c750376d2ed235f31b2d90ee32b97890",
+                    "commits": 2,
+                    "occurrences": 2
+                },
+                {
                     "blob": "98d322ced62852fbf925e8348756eff8798e522b",
                     "commit": "144b9760878342e19bd091913294fe7cc31a3f11",
                     "date": "2026-09-04T16:24:25Z",
                     "sourceSha": "5a5e0cda",
-                    "commits": 1
+                    "sinceCommit": "bb0ae933c7ea83bf27155836e9d34c419da6557a",
+                    "commits": 2,
+                    "occurrences": 2
                 },
                 {
                     "blob": "411540b57fe5deef81cfa240afd1bc8aba4e2ca1",
@@ -8611,30 +8692,16 @@
                     "commits": 1
                 },
                 {
-                    "blob": "568849d2dd02a40a5bf5435086266b91d1896f51",
-                    "commit": "50443647c750376d2ed235f31b2d90ee32b97890",
-                    "date": "2026-09-03T16:01:43Z",
-                    "sourceSha": "7ec92453",
-                    "commits": 1
-                },
-                {
                     "blob": "0bcbbc358a14f5d39ffd4fed2e72fb1f4f3643bc",
                     "commit": "fcbc8fa9332237de58035bc2fbe56d74df34f39c",
                     "date": "2026-09-02T14:40:52Z",
                     "sourceSha": "669474cb",
                     "commits": 1
-                },
-                {
-                    "blob": "98d322ced62852fbf925e8348756eff8798e522b",
-                    "commit": "bb0ae933c7ea83bf27155836e9d34c419da6557a",
-                    "date": "2026-08-30T09:53:05Z",
-                    "sourceSha": "3bcb483b",
-                    "commits": 1
                 }
             ],
-            "observations": 6,
-            "unstable": false,
-            "flapCount": 1
+            "observations": 7,
+            "unstable": true,
+            "flapCount": 2
         },
         "sample/com.google.android.horologist.audit.AuditMenuScreenKt.AuditMenuScreenPreview_Devices - Large Round": {
             "path": "renders/sample/AuditMenuScreenPreview_Devices_Large_Round-a9c9a4e3.png",

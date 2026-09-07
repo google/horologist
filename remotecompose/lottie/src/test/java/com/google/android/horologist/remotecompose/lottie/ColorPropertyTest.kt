@@ -744,7 +744,8 @@ class ColorPropertyTest {
   fun returnsSlotOverrideColorWhenSlotIdMatchesInSlotMap() {
     val json = """{"a": 0, "k": [0.0, 0.0, 1.0], "sid": "theme_color"}"""
     val colorProp = LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json)
-    val slotMap = SlotMap(colors = mapOf("theme_color" to 0xFF00FF00.toInt())) // Green override
+    val slotMap =
+      SlotMap(colorSlots = mapOf("theme_color" to Color(0xFF00FF00.toInt()).rc)) // Green override
 
     val evaluated = animateColor(colorProp, LottieSettings(0f.rf, slotMap))
     val color = extractColor(evaluated)
@@ -765,7 +766,7 @@ class ColorPropertyTest {
   fun fallsBackToPropertyValueWhenSlotIdNotInSlotMap() {
     val json = """{"a": 0, "k": [0.0, 0.0, 1.0], "sid": "unmatched_slot"}"""
     val colorProp = LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json)
-    val slotMap = SlotMap(colors = mapOf("other_slot" to 0xFFFF0000.toInt()))
+    val slotMap = SlotMap(colorSlots = mapOf("other_slot" to Color(0xFFFF0000.toInt()).rc))
 
     val evaluated = animateColor(colorProp, LottieSettings(0f.rf, slotMap))
     val color = extractColor(evaluated)
@@ -787,7 +788,8 @@ class ColorPropertyTest {
     val json =
       """{"a": 1, "sid": "anim_slot", "k": [{"t": 0, "s": [1.0, 0.0, 0.0]}, {"t": 10, "s": [0.0, 0.0, 1.0]}]}"""
     val colorProp = LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json)
-    val slotMap = SlotMap(colors = mapOf("anim_slot" to 0xFFFFFF00.toInt())) // Yellow override
+    val slotMap =
+      SlotMap(colorSlots = mapOf("anim_slot" to Color(0xFFFFFF00.toInt()).rc)) // Yellow override
 
     val frames = listOf(0f, 5f, 10f, 20f)
     for (frame in frames) {

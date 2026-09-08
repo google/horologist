@@ -117,7 +117,7 @@ private fun gatherShapes(
 }
 
 private fun group(group: Group, animationSettings: LottieSettings): RemoteGroup? {
-  if (group.hidden == true) {
+  if (group.hidden?.constantValue == true) {
     return null
   }
 
@@ -134,7 +134,7 @@ private fun group(group: Group, animationSettings: LottieSettings): RemoteGroup?
 
 @SuppressLint("RestrictedApi")
 private fun polyStar(star: PolyStar, animationSettings: LottieSettings): RemoteLottiePath? {
-  if (star.hidden == true) return null
+  if (star.hidden?.constantValue == true) return null
 
   val pos = animatePosition(star.position, animationSettings)
   val posX = pos.x.constantValueOrNull ?: 0f

@@ -23,6 +23,7 @@ import com.google.android.horologist.remotecompose.lottie.format.graphicelement.
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Group
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Fill
+import com.google.android.horologist.remotecompose.lottie.format.values.SerializableBoolean
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -47,7 +48,7 @@ import kotlinx.serialization.json.jsonPrimitive
 @Serializable(with = GraphicElementSerializer::class)
 internal interface GraphicElement {
   val name: String?
-  val hidden: Boolean?
+  val hidden: SerializableBoolean?
   val type: ShapeType
 }
 

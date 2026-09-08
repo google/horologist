@@ -46,6 +46,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Stat
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticColorProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
 import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import org.junit.Test
@@ -177,10 +178,7 @@ class LottieScalingDiffScreenshotTest(
                 color = StaticColorProperty(value = Color(0.95f, 0.25f, 0.2f, 1.0f).rc),
                 opacity = StaticScalarProperty(animated = false.rb, value = 100f.rf),
               ),
-              Transform(
-                name = "Transform",
-                positionTranslation = StaticPositionProperty(value = Point(cx.rf, cy.rf)),
-              ),
+              createDefaultTransform(name = "Transform", position = Point(cx.rf, cy.rf)),
             ),
         )
 
@@ -226,10 +224,7 @@ class LottieScalingDiffScreenshotTest(
                 color = StaticColorProperty(value = Color(0.2f, 0.5f, 0.9f, 1.0f).rc),
                 opacity = StaticScalarProperty(animated = false.rb, value = 100f.rf),
               ),
-              Transform(
-                name = "Transform",
-                positionTranslation = StaticPositionProperty(value = Point(0f.rf, 0f.rf)),
-              ),
+              createDefaultTransform(name = "Transform", position = Point(0f.rf, 0f.rf)),
             ),
         )
 
@@ -248,12 +243,25 @@ class LottieScalingDiffScreenshotTest(
               index = 1,
               startFrame = 0f.rf,
               endFrame = 60f.rf,
-              transform = Transform(),
+              transform = createDefaultTransform(),
               shapes = listOf(circleShape, rectShape),
             )
           ),
       )
     }
+
+    private fun createDefaultTransform(
+      name: String? = null,
+      position: Point = Point(0f.rf, 0f.rf),
+    ): Transform =
+      Transform(
+        name = name,
+        anchorPoint = StaticPositionProperty(value = Point(0f.rf, 0f.rf)),
+        positionTranslation = StaticPositionProperty(value = position),
+        rotation = StaticScalarProperty(value = 0f.rf),
+        scale = StaticVectorProperty(animated = false.rb, value = listOf(100f.rf, 100f.rf)),
+        opacity = StaticScalarProperty(value = 100f.rf),
+      )
 
     /** Generates a Lottie animation JSON string for the given canvas dimensions. */
     fun createLottieJson(width: Int, height: Int): String {

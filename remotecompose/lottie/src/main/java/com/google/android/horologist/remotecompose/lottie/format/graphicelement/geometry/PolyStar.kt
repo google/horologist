@@ -25,6 +25,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Base
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.Point
+import com.google.android.horologist.remotecompose.lottie.format.values.SerializableBoolean
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -38,7 +39,7 @@ import kotlinx.serialization.encoding.Encoder
 @Serializable
 internal data class PolyStar(
   @SerialName("nm") override val name: String? = "",
-  @SerialName("hd") override val hidden: Boolean? = false,
+  @SerialName("hd") override val hidden: SerializableBoolean? = null,
   @SerialName("ty") override val type: ShapeType = ShapeType.PolyStar,
   @SerialName("sy") val starType: PolyStarType = PolyStarType.Star,
   @SerialName("pt")

@@ -27,7 +27,7 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
 /** Evaluates a Lottie [Ellipse] into a [RemoteLottiePath]. */
 @SuppressLint("RestrictedApi")
 internal fun ellipse(el: Ellipse, animationSettings: LottieSettings): RemoteLottiePath? {
-  if (el.hidden == true) return null
+  if (el.hidden?.constantValue == true) return null
 
   val pos = animatePosition(el.position, animationSettings)
   val posX = pos.x.constantValueOrNull ?: 0f

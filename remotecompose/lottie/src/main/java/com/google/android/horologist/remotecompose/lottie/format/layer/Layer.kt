@@ -38,14 +38,13 @@ import kotlinx.serialization.json.jsonPrimitive
 
 /**
  * Base class for all Lottie animation layers conforming to
- * [Lottie Layers](https://lottie.github.io/lottie-spec/1.0.1/specs/layers/#common-properties) and
  * [Visual Layer](https://lottie.github.io/lottie-spec/1.0.1/specs/layers/#visual-layer).
  *
  * Layers are independent visual, temporal, and spatial nodes arranged in a compositing tree.
  *
  * Essential Invariants:
  * - Discriminator: Partitioned by integer [type] ([Layer
- *   Type](https://lottie.github.io/lottie-spec/1.0.1/specs/constants/#layer-type)).
+ *   Type](https://lottie.github.io/lottie-spec/1.0.1/specs/layers/#layer-types)).
  * - Parenting Hierarchy: Child layer transforms are concatenated with their parent's current
  *   transformation matrix: CTM(child) = CTM(parent) * Transform(child).
  * - Timeline Visibility Window: A layer is active on frame t when ip <= t < op.
@@ -70,7 +69,7 @@ internal sealed class Layer {
 
 /**
  * Canonical layer types defined in the
- * [Lottie Specification](https://lottie.github.io/lottie-spec/1.0.1/specs/constants/#layer-type).
+ * [Lottie Specification](https://lottie.github.io/lottie-spec/1.0.1/specs/layers/#layer-types).
  */
 @Serializable(with = LayerTypeSerializer::class)
 internal enum class LayerType(val value: Int) {
@@ -78,9 +77,7 @@ internal enum class LayerType(val value: Int) {
   Solid(1),
   Image(2),
   Null(3),
-  Shape(4),
-  Text(5),
-  Audio(6);
+  Shape(4);
 
   companion object {
     fun fromValueOrNull(value: Int): LayerType? {
@@ -91,7 +88,7 @@ internal enum class LayerType(val value: Int) {
 
 /**
  * Polymorphic serializer for [Layer] discriminating on the integer "ty" field per
- * [Layer Type](https://lottie.github.io/lottie-spec/1.0.1/specs/constants/#layer-type).
+ * [Layer Type](https://lottie.github.io/lottie-spec/1.0.1/specs/layers/#layer-types).
  *
  * Contract:
  * - Deserialization Preconditions: [element] must be a [JsonObject].

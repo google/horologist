@@ -144,7 +144,7 @@ private fun polyStar(star: PolyStar, animationSettings: LottieSettings): RemoteL
   val rotation = animateScalar(star.rotation, animationSettings).constantValueOrNull ?: 0f
   val outerRadius = animateScalar(star.outerRadius, animationSettings).constantValueOrNull ?: 0f
   val outerRoundedness =
-    (animateScalar(star.outerRoundedness, animationSettings).constantValueOrNull ?: 0f) / 100f
+    (animateScalar(star.outerRoundness, animationSettings).constantValueOrNull ?: 0f) / 100f
 
   val rcPath =
     when (star.starType) {
@@ -152,7 +152,7 @@ private fun polyStar(star: PolyStar, animationSettings: LottieSettings): RemoteL
         val innerRadius =
           star.innerRadius?.let { animateScalar(it, animationSettings).constantValueOrNull } ?: 0f
         val innerRoundedness =
-          (star.innerRoundedness?.let { animateScalar(it, animationSettings).constantValueOrNull }
+          (star.innerRoundness?.let { animateScalar(it, animationSettings).constantValueOrNull }
             ?: 0f) / 100f
         createStarPath(
           points = points,

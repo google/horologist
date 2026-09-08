@@ -16,15 +16,9 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry
 
-import androidx.compose.remote.creation.compose.state.rb
-import androidx.compose.remote.creation.compose.state.rf
-import com.google.android.horologist.remotecompose.lottie.format.graphicelement.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.ShapeType
 import com.google.android.horologist.remotecompose.lottie.format.properties.BasePositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseScalarProperty
-import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
-import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
-import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableBoolean
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
@@ -35,30 +29,55 @@ import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 
-/** A polystar (star or regular polygon) parametric shape. */
+/**
+ * Parametric star or regular polygon shape conforming to
+ * [PolyStar Shape](https://lottie.github.io/lottie-spec/latest/specs/shapes/#polystar).
+ *
+ * Schema Specification:
+ * - Required Fields: `"ty"` (`"sr"`), `"p"` (position), `"or"` (outer radius), `"os"` (outer
+ *   roundness), `"r"` (rotation), `"pt"` (points).
+ * - Optional Fields with Schema Default:
+ *     - `"sy"` (star type, default: `1` -> [PolyStarType.Star])
+ * - Optional Fields without Schema Default:
+ *     - `"ir"` (inner radius, default: `null`, conditionally required when [starType] is
+ *       [PolyStarType.Star])
+ *     - `"is"` (inner roundness, default: `null`, conditionally required when [starType] is
+ *       [PolyStarType.Star])
+ *     - `"nm"` (name, default: `null`)
+ *     - `"hd"` (hidden flag, default: `null`)
+ *     - `"d"` (shape direction, default: `null`)
+ *
+ * Invariants:
+ * - [starType]: Selects star vs polygon topology (`"sy"`). Defaults to [PolyStarType.Star] per
+ *   schema default `1`.
+ * - [points], [position], [rotation], [outerRadius], [outerRoundness]: Required; no schema default.
+ * - [innerRadius], [innerRoundness]: Optional in schema; evaluated when [starType] is
+ *   [PolyStarType.Star].
+ */
 @Serializable
 internal data class PolyStar(
-  @SerialName("nm") override val name: String? = "",
+  @SerialName("nm") override val name: String? = null,
   @SerialName("hd") override val hidden: SerializableBoolean? = null,
   @SerialName("ty") override val type: ShapeType = ShapeType.PolyStar,
+  @SerialName("d") override val direction: Int? = null,
   @SerialName("sy") val starType: PolyStarType = PolyStarType.Star,
-  @SerialName("pt")
-  val points: BaseScalarProperty = StaticScalarProperty(animated = false.rb, value = 5f.rf),
-  @SerialName("p")
-  val position: BasePositionProperty =
-    StaticPositionProperty(animated = false.rb, value = Point(0f.rf, 0f.rf)),
-  @SerialName("r")
-  val rotation: BaseScalarProperty = StaticScalarProperty(animated = false.rb, value = 0f.rf),
-  @SerialName("or")
-  val outerRadius: BaseScalarProperty = StaticScalarProperty(animated = false.rb, value = 0f.rf),
-  @SerialName("os")
-  val outerRoundedness: BaseScalarProperty =
-    StaticScalarProperty(animated = false.rb, value = 0f.rf),
+  @SerialName("pt") val points: BaseScalarProperty,
+  @SerialName("p") val position: BasePositionProperty,
+  @SerialName("r") val rotation: BaseScalarProperty,
+  @SerialName("or") val outerRadius: BaseScalarProperty,
+  @SerialName("os") val outerRoundness: BaseScalarProperty,
   @SerialName("ir") val innerRadius: BaseScalarProperty? = null,
-  @SerialName("is") val innerRoundedness: BaseScalarProperty? = null,
-  @SerialName("d") val direction: Int? = null,
-) : GraphicElement
+  @SerialName("is") val innerRoundness: BaseScalarProperty? = null,
+) : GeometryShape
 
+/**
+ * Geometric topology for [PolyStar] conforming to
+ * [Star Type](https://lottie.github.io/lottie-spec/1.0.1/specs/constants/#star-type).
+ *
+ * Values:
+ * - [Star] (`1`): Multi-pointed star topology.
+ * - [Polygon] (`2`): Regular convex polygon topology.
+ */
 @Serializable(with = PolyStarTypeSerializer::class)
 internal enum class PolyStarType(val value: Int) {
   Star(1),
@@ -66,11 +85,19 @@ internal enum class PolyStarType(val value: Int) {
 
   companion object {
     fun fromValueOrNull(value: Int): PolyStarType? {
-      return values().firstOrNull { it.value == value }
+      return entries.firstOrNull { it.value == value }
     }
   }
 }
 
+/**
+ * Serializer for [PolyStarType] decoding integer enum tokens.
+ *
+ * Contract:
+ * - Deserialization: Decodes integer or numeric string; returns [PolyStarType.Star] for `1`,
+ *   [PolyStarType.Polygon] for `2`. Defaults to [PolyStarType.Star] for unrecognized tokens.
+ * - Serialization: Encodes the integer primitive [PolyStarType.value].
+ */
 internal object PolyStarTypeSerializer : KSerializer<PolyStarType> {
   override val descriptor: SerialDescriptor =
     PrimitiveSerialDescriptor("PolyStarType", PrimitiveKind.INT)

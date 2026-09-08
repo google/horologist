@@ -111,8 +111,16 @@ class EvaluatorModularizationTest {
               ),
           )
       )
-    val rectShape = Rectangle()
-    val ellipseShape = Ellipse()
+    val rectShape =
+      Rectangle(
+        position = StaticPositionProperty(animated = false.rb, value = Point(0f.rf, 0f.rf)),
+        size = StaticVectorProperty(animated = false.rb, value = listOf(100f.rf, 100f.rf)),
+      )
+    val ellipseShape =
+      Ellipse(
+        position = StaticPositionProperty(animated = false.rb, value = Point(0f.rf, 0f.rf)),
+        size = StaticVectorProperty(animated = false.rb, value = listOf(100f.rf, 100f.rf)),
+      )
 
     assertThat(path(pathShape, settings)).isNotNull()
     assertThat(rectangle(rectShape, settings)).isNotNull()

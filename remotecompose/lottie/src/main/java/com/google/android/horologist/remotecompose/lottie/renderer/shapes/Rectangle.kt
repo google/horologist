@@ -40,7 +40,8 @@ internal fun rectangle(rect: Rectangle, animationSettings: LottieSettings): Remo
   val halfWidth = width / 2f
   val halfHeight = height / 2f
 
-  val cornerRadius = animateScalar(rect.cornerRadius, animationSettings).constantValueOrNull ?: 0f
+  val cornerRadius =
+    rect.cornerRadius?.let { animateScalar(it, animationSettings).constantValueOrNull } ?: 0f
   val maxRadius = minOf(halfWidth, halfHeight)
   val r = cornerRadius.coerceIn(0f, maxRadius)
 

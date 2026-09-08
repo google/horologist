@@ -16,34 +16,42 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry
 
-import androidx.compose.remote.creation.compose.state.rb
-import androidx.compose.remote.creation.compose.state.rf
-import com.google.android.horologist.remotecompose.lottie.format.graphicelement.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.ShapeType
 import com.google.android.horologist.remotecompose.lottie.format.properties.BasePositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseVectorProperty
-import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
-import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
-import com.google.android.horologist.remotecompose.lottie.format.properties.StaticVectorProperty
-import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableBoolean
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/** A rectangle parametric shape. */
+/**
+ * Parametric rectangle shape conforming to
+ * [Rectangle Shape](https://lottie.github.io/lottie-spec/latest/specs/shapes/#rectangle).
+ *
+ * Represents an axis-aligned rectangle with optional rounded corners, centered at [position].
+ *
+ * Schema Specification:
+ * - Required Fields: `"ty"` (`"rc"`), `"p"` (position), `"s"` (size).
+ * - Optional Fields without Schema Default:
+ *     - `"r"` (corner roundness, default: `null`)
+ *     - `"nm"` (name, default: `null`)
+ *     - `"hd"` (hidden flag, default: `null`)
+ *     - `"d"` (shape direction, default: `null`)
+ *
+ * Invariants:
+ * - [position]: Center coordinates `[x, y]`. Required; no schema default.
+ * - [size]: Total dimensions `[width, height]`. Required; no schema default.
+ * - [cornerRadius]: Corner rounding radius (`"r"`). Optional; no schema default. Nullable when
+ *   omitted.
+ * - [direction]: Drawing direction (`"d"`). Nullable when omitted.
+ */
 @Serializable
 internal data class Rectangle(
-  @SerialName("nm") override val name: String? = "",
+  @SerialName("nm") override val name: String? = null,
   @SerialName("hd") override val hidden: SerializableBoolean? = null,
   @SerialName("ty") override val type: ShapeType = ShapeType.Rectangle,
-  @SerialName("d") val direction: Int? = null,
-  @SerialName("p")
-  val position: BasePositionProperty =
-    StaticPositionProperty(animated = false.rb, value = Point(0f.rf, 0f.rf)),
-  @SerialName("s")
-  val size: BaseVectorProperty =
-    StaticVectorProperty(animated = false.rb, value = listOf(0f.rf, 0f.rf)),
-  @SerialName("r")
-  val cornerRadius: BaseScalarProperty = StaticScalarProperty(animated = false.rb, value = 0f.rf),
-) : GraphicElement
+  @SerialName("d") override val direction: Int? = null,
+  @SerialName("p") val position: BasePositionProperty,
+  @SerialName("s") val size: BaseVectorProperty,
+  @SerialName("r") val cornerRadius: BaseScalarProperty? = null,
+) : GeometryShape

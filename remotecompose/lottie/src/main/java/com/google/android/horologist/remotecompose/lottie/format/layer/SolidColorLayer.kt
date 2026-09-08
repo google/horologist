@@ -20,8 +20,8 @@ import androidx.compose.remote.creation.compose.state.rb
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
 import com.google.android.horologist.remotecompose.lottie.format.mask.Mask
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableBoolean
+import com.google.android.horologist.remotecompose.lottie.format.values.SerializableHexColor
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteBoolean
-import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteColor
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteFloat
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteInt
 import kotlinx.serialization.SerialName
@@ -50,5 +50,5 @@ internal data class SolidColorLayer(
   @SerialName("masksProperties") override val masks: List<Mask>? = null,
   @SerialName("sw") val solidWidth: SerializableRemoteInt,
   @SerialName("sh") val solidHeight: SerializableRemoteInt,
-  @SerialName("sc") val solidColor: SerializableRemoteColor,
+  @SerialName("sc") val solidColor: SerializableHexColor,
 ) : Layer()

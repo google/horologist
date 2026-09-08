@@ -46,8 +46,8 @@ class LottieDecoderResilienceTest {
         "w": 100,
         "h": 100,
         "layers": [
-          { "ty": 999, "nm": "UnsupportedAudioLayer", "ind": 1 },
-          { "ty": 4, "nm": "ValidShapeLayer", "ind": 2, "shapes": [] }
+          { "ty": 999, "nm": "UnsupportedAudioLayer", "ind": 1, "ip": 0, "op": 60 },
+          { "ty": 4, "nm": "ValidShapeLayer", "ind": 2, "ip": 0, "op": 60, "shapes": [] }
         ]
       }
       """
@@ -76,6 +76,8 @@ class LottieDecoderResilienceTest {
           {
             "ty": 4,
             "nm": "ShapeLayer",
+            "ip": 0,
+            "op": 30,
             "shapes": [
               { "ty": "unknown_shape_type", "nm": "CustomShape", "it": [] },
               {
@@ -113,6 +115,8 @@ class LottieDecoderResilienceTest {
           {
             "ty": 4,
             "nm": "ShapeLayer",
+            "ip": 0,
+            "op": 30,
             "shapes": [
               {
                 "ty": "fl",
@@ -156,6 +160,8 @@ class LottieDecoderResilienceTest {
           {
             "ty": 4,
             "nm": "ShapeLayer",
+            "ip": 0,
+            "op": 30,
             "shapes": [
               {
                 "ty": "fl",

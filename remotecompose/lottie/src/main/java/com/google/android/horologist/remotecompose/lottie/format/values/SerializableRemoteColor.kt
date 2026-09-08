@@ -69,9 +69,14 @@ internal object RemoteColorSerializer : KSerializer<RemoteColor> {
     val jsonDecoder =
       decoder as? JsonDecoder ?: throw SerializationException("Decoder must be JsonDecoder")
     val element = jsonDecoder.decodeJsonElement()
+    if (element is JsonPrimitive && element.isString) {
+      return parseHexColor(element.content).rc
+    }
     val array =
       element as? JsonArray
-        ?: throw SerializationException("Color components must be a JSON array, but was $element")
+        ?: throw SerializationException(
+          "Color components must be a JSON array or hex string, but was $element"
+        )
     if (array.size !in 3..4) {
       throw SerializationException(
         "Color components array must have 3 or 4 elements, but had ${array.size}"
@@ -111,5 +116,35 @@ internal object RemoteColorSerializer : KSerializer<RemoteColor> {
       add(JsonPrimitive(color.alpha))
     }
     jsonEncoder.encodeJsonElement(jsonArray)
+  }
+
+  private fun parseHexColor(hexString: String): Color {
+    val cleanHex = hexString.removePrefix("#").trim()
+    return try {
+      when (cleanHex.length) {
+        6 -> {
+          val r = cleanHex.substring(0, 2).toInt(16) / 255f
+          val g = cleanHex.substring(2, 4).toInt(16) / 255f
+          val b = cleanHex.substring(4, 6).toInt(16) / 255f
+          Color(r, g, b, 1f)
+        }
+        8 -> {
+          val a = cleanHex.substring(0, 2).toInt(16) / 255f
+          val r = cleanHex.substring(2, 4).toInt(16) / 255f
+          val g = cleanHex.substring(4, 6).toInt(16) / 255f
+          val b = cleanHex.substring(6, 8).toInt(16) / 255f
+          Color(r, g, b, a)
+        }
+        3 -> {
+          val r = cleanHex.substring(0, 1).repeat(2).toInt(16) / 255f
+          val g = cleanHex.substring(1, 2).repeat(2).toInt(16) / 255f
+          val b = cleanHex.substring(2, 3).repeat(2).toInt(16) / 255f
+          Color(r, g, b, 1f)
+        }
+        else -> throw SerializationException("Invalid hex color format: '$hexString'")
+      }
+    } catch (e: NumberFormatException) {
+      throw SerializationException("Invalid hex color format: '$hexString'", e)
+    }
   }
 }

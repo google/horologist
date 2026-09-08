@@ -16,21 +16,37 @@
 
 package com.google.android.horologist.remotecompose.lottie.format.layer
 
+import androidx.compose.remote.creation.compose.state.rb
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.GraphicElement
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
+import com.google.android.horologist.remotecompose.lottie.format.mask.Mask
+import com.google.android.horologist.remotecompose.lottie.format.values.SerializableBoolean
+import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteBoolean
+import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteFloat
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/** A layer containing Shapes. */
+/**
+ * A visual layer rendering vector graphic elements conforming to
+ * [Shape Layer](https://lottie.github.io/lottie-spec/1.0.1/specs/layers/#shape-layer).
+ *
+ * Shape layers host an ordered list of [shapes] comprising paths, shapes (rectangles, ellipses,
+ * polystars), styling attributes (fills, strokes), and group-level transformations rendered inside
+ * the RemoteCompose drawing pipeline.
+ */
 @Serializable
 internal data class ShapeLayer(
-  @SerialName("nm") override val name: String? = "",
-  @SerialName("hd") override val hidden: Boolean? = false,
+  @SerialName("nm") override val name: String? = null,
+  @SerialName("hd") override val hidden: SerializableBoolean = false.rb,
   @SerialName("ty") override val type: LayerType = LayerType.Shape,
   @SerialName("ind") override val index: Int? = null,
   @SerialName("parent") override val parent: Int? = null,
-  @SerialName("ip") override val startFrame: Int? = null,
-  @SerialName("op") override val endFrame: Int? = null,
+  @SerialName("ip") override val startFrame: SerializableRemoteFloat,
+  @SerialName("op") override val endFrame: SerializableRemoteFloat,
   @SerialName("ks") override val transform: Transform? = null,
-  @SerialName("shapes") val shapes: List<GraphicElement> = emptyList(),
+  @SerialName("ao") override val autoOrient: SerializableRemoteBoolean = false.rb,
+  @SerialName("tt") override val matteMode: MatteMode = MatteMode.Normal,
+  @SerialName("tp") override val matteParent: Int? = null,
+  @SerialName("masksProperties") override val masks: List<Mask>? = null,
+  @SerialName("shapes") val shapes: List<GraphicElement>,
 ) : Layer()

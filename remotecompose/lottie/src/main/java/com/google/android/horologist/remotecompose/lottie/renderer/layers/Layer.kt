@@ -45,5 +45,6 @@ internal fun Layer(
     LayerType.Null -> {}
     LayerType.Solid -> SolidColorLayer(layer as SolidColorLayer, completeStack)
     LayerType.Shape -> ShapeLayer(layer as ShapeLayer, completeStack)
+    else -> {}
   }
 }

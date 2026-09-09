@@ -246,8 +246,8 @@ class LottieScalingDiffScreenshotTest(
             ShapeLayer(
               name = "Shape Layer",
               index = 1,
-              startFrame = 0,
-              endFrame = 60,
+              startFrame = 0f.rf,
+              endFrame = 60f.rf,
               transform = Transform(),
               shapes = listOf(circleShape, rectShape),
             )

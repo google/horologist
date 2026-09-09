@@ -26,7 +26,7 @@ import com.google.android.horologist.remotecompose.lottie.renderer.RenderShapes
 @Composable
 @RemoteComposable
 internal fun ShapeLayer(layer: ShapeLayer, transformStack: List<Transform?>? = null) {
-  if (layer.hidden == true) {
+  if (layer.hidden.constantValue) {
     return
   }
 

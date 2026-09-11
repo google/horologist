@@ -20,6 +20,8 @@ import android.annotation.SuppressLint
 import androidx.compose.remote.creation.RemotePath
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Ellipse
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.ShapeDirection
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.shapeDirection
 import com.google.android.horologist.remotecompose.lottie.renderer.RemoteLottiePath
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animatePosition
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateVector
@@ -27,7 +29,7 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
 /** Evaluates a Lottie [Ellipse] into a [RemoteLottiePath]. */
 @SuppressLint("RestrictedApi")
 internal fun ellipse(el: Ellipse, animationSettings: LottieSettings): RemoteLottiePath? {
-  if (el.hidden == true) return null
+  if (el.hidden?.constantValue == true) return null
 
   val pos = animatePosition(el.position, animationSettings)
   val posX = pos.x.constantValueOrNull ?: 0f
@@ -45,7 +47,7 @@ internal fun ellipse(el: Ellipse, animationSettings: LottieSettings): RemoteLott
   val rcPath = RemotePath()
   rcPath.reset()
 
-  if (el.direction == 3) {
+  if (el.shapeDirection == ShapeDirection.Reversed) {
     rcPath.moveTo(posX, posY - halfHeight)
     rcPath.cubicTo(
       posX - cpW,

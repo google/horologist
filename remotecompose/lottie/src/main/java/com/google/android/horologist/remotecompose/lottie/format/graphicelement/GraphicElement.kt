@@ -23,6 +23,10 @@ import com.google.android.horologist.remotecompose.lottie.format.graphicelement.
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Group
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Fill
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.GradientFill
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.GradientStroke
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Stroke
+import com.google.android.horologist.remotecompose.lottie.format.values.SerializableBoolean
 import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -47,7 +51,7 @@ import kotlinx.serialization.json.jsonPrimitive
 @Serializable(with = GraphicElementSerializer::class)
 internal interface GraphicElement {
   val name: String?
-  val hidden: Boolean?
+  val hidden: SerializableBoolean?
   val type: ShapeType
 }
 
@@ -55,10 +59,13 @@ internal interface GraphicElement {
 internal enum class ShapeType(val value: String) {
   Ellipse("el"),
   Fill("fl"),
+  GradientFill("gf"),
+  GradientStroke("gs"),
   Group("gr"),
   Path("sh"),
   PolyStar("sr"),
   Rectangle("rc"),
+  Stroke("st"),
   Transform("tr");
 
   companion object {
@@ -77,6 +84,9 @@ internal object GraphicElementSerializer :
       ShapeType.Group.value -> Group.serializer()
       ShapeType.Transform.value -> Transform.serializer()
       ShapeType.Fill.value -> Fill.serializer()
+      ShapeType.Stroke.value -> Stroke.serializer()
+      ShapeType.GradientFill.value -> GradientFill.serializer()
+      ShapeType.GradientStroke.value -> GradientStroke.serializer()
       ShapeType.Rectangle.value -> Rectangle.serializer()
       ShapeType.Ellipse.value -> Ellipse.serializer()
       ShapeType.PolyStar.value -> PolyStar.serializer()

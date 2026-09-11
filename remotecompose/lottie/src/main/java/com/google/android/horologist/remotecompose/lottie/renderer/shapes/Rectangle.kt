@@ -28,7 +28,7 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
 /** Evaluates a Lottie [Rectangle] into a [RemoteLottiePath]. */
 @SuppressLint("RestrictedApi")
 internal fun rectangle(rect: Rectangle, animationSettings: LottieSettings): RemoteLottiePath? {
-  if (rect.hidden == true) return null
+  if (rect.hidden?.constantValue == true) return null
 
   val pos = animatePosition(rect.position, animationSettings)
   val posX = pos.x.constantValueOrNull ?: 0f
@@ -40,7 +40,8 @@ internal fun rectangle(rect: Rectangle, animationSettings: LottieSettings): Remo
   val halfWidth = width / 2f
   val halfHeight = height / 2f
 
-  val cornerRadius = animateScalar(rect.cornerRadius, animationSettings).constantValueOrNull ?: 0f
+  val cornerRadius =
+    rect.cornerRadius?.let { animateScalar(it, animationSettings).constantValueOrNull } ?: 0f
   val maxRadius = minOf(halfWidth, halfHeight)
   val r = cornerRadius.coerceIn(0f, maxRadius)
 

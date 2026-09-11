@@ -83,7 +83,8 @@ class LottieDecoderResilienceTest {
               {
                 "ty": "fl",
                 "nm": "RedFill",
-                "c": { "a": 0, "k": [1.0, 0.0, 0.0, 1.0] }
+                "c": { "a": 0, "k": [1.0, 0.0, 0.0, 1.0] },
+                "o": { "a": 0, "k": 100 }
               }
             ]
           }
@@ -121,12 +122,14 @@ class LottieDecoderResilienceTest {
               {
                 "ty": "fl",
                 "nm": "RgbFill",
-                "c": { "a": 0, "k": [1.0, 0.5, 0.0] }
+                "c": { "a": 0, "k": [1.0, 0.5, 0.0] },
+                "o": { "a": 0, "k": 100 }
               },
               {
                 "ty": "fl",
                 "nm": "ScaledIntFill",
-                "c": { "a": 0, "k": [255, 128, 0, 255] }
+                "c": { "a": 0, "k": [255, 128, 0, 255] },
+                "o": { "a": 0, "k": 100 }
               }
             ]
           }
@@ -166,12 +169,14 @@ class LottieDecoderResilienceTest {
               {
                 "ty": "fl",
                 "nm": "SidFill",
-                "c": { "a": 0, "sid": "color.primary", "k": [1.0, 0.0, 0.0, 1.0] }
+                "c": { "a": 0, "sid": "color.primary", "k": [1.0, 0.0, 0.0, 1.0] },
+                "o": { "a": 0, "k": 100 }
               },
               {
                 "ty": "fl",
                 "nm": "DefaultFill",
-                "c": { "a": 0, "k": [0.0, 1.0, 0.0, 1.0] }
+                "c": { "a": 0, "k": [0.0, 1.0, 0.0, 1.0] },
+                "o": { "a": 0, "k": 100 }
               }
             ]
           }

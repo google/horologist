@@ -172,11 +172,11 @@ class ParsingTest {
     assertThat((rect.size as StaticVectorProperty).value.map { it.constantValue })
       .containsExactly(48f, 40f)
       .inOrder()
-    assertThat(rect.cornerRadius.animated.constantValueOrNull).isFalse()
-    assertThat((rect.cornerRadius as StaticScalarProperty).value.constantValue).isEqualTo(10f)
+    assertThat(rect.cornerRadius?.animated?.constantValueOrNull).isFalse()
+    assertThat((rect.cornerRadius as? StaticScalarProperty)?.value?.constantValue).isEqualTo(10f)
 
     val settings = LottieSettings(0.rf, SlotMap.Empty)
-    val cornerRadiusRf = animateScalar(rect.cornerRadius, settings)
+    val cornerRadiusRf = animateScalar(rect.cornerRadius!!, settings)
     assertThat(cornerRadiusRf.constantValueOrNull).isEqualTo(10f)
 
     val group3 = shapeLayer.shapes[2] as Group

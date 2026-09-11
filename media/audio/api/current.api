@@ -128,7 +128,7 @@ package com.google.android.horologist.audio {
     method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> getAvailable();
     method @InaccessibleFromKotlin public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.VolumeState> getVolumeState();
     method public void increaseVolume();
-    method public void launchOutputSelection(boolean closeOnConnect, String? clientPackageName);
+    method public void launchOutputSelection(boolean closeOnConnect, optional String? clientPackageName);
     method public void setVolume(int volume);
     property public kotlinx.coroutines.flow.StateFlow<com.google.android.horologist.audio.AudioOutput> audioOutput;
     property public kotlinx.coroutines.flow.StateFlow<java.util.List<com.google.android.horologist.audio.AudioOutput>> available;

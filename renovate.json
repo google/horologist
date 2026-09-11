@@ -123,6 +123,13 @@
       ],
       "allowedVersions": "<5.5.0",
       "description": "Requires compileSdk 37"
+    },
+    {
+      "matchPackagePatterns": [
+        "org.robolectric:*"
+      ],
+      "allowedVersions": "<4.17",
+      "description": "4.17 renders DatePickerA11yTest.interactionTest non-deterministically (the 'Next' button edge is anti-aliased differently between identical runs), so verifyRoborazziDebug flakes. It also needs --add-opens=java.base/jdk.internal.access=ALL-UNNAMED on the unit test JVM."
     }
   ]
 }

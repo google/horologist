@@ -299,16 +299,16 @@ package com.google.android.horologist.networks.logging {
     ctor public NetworkStatusLogger.InMemory();
     method public void debugNetworkEvent(String event);
     method @InaccessibleFromKotlin public java.util.List<java.lang.String> getEvents();
-    method public void logJobEvent(String event, boolean error);
-    method public void logNetworkEvent(String event, boolean error);
+    method public void logJobEvent(String event, optional boolean error);
+    method public void logNetworkEvent(String event, optional boolean error);
     method public void logNetworkResponse(com.google.android.horologist.networks.data.RequestType requestType, com.google.android.horologist.networks.data.NetworkInfo networkInfo, long bytesTransferred);
     property public java.util.List<java.lang.String> events;
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public static final class NetworkStatusLogger.Logging implements com.google.android.horologist.networks.logging.NetworkStatusLogger {
     method public void debugNetworkEvent(String event);
-    method public void logJobEvent(String event, boolean error);
-    method public void logNetworkEvent(String event, boolean error);
+    method public void logJobEvent(String event, optional boolean error);
+    method public void logNetworkEvent(String event, optional boolean error);
     method public void logNetworkResponse(com.google.android.horologist.networks.data.RequestType requestType, com.google.android.horologist.networks.data.NetworkInfo networkInfo, long bytesTransferred);
     field public static final com.google.android.horologist.networks.logging.NetworkStatusLogger.Logging INSTANCE;
   }

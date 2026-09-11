@@ -180,6 +180,16 @@ subprojects {
   }
 
   tasks.withType<Test>().configureEach {
+    // TODO: remove once Robolectric no longer needs deep reflection into java.base internals.
+    // https://github.com/robolectric/robolectric/issues/11434
+    // Robolectric 4.17 emulates com.android.internal.os.ApplicationSharedMemory, which reflects
+    // into jdk.internal.access.SharedSecrets. That package isn't open to the unnamed module on
+    // JDK 17+, so without this every Robolectric test fails with
+    // "Failed to interact with raw FileDescriptor internals; perhaps JRE has changed?".
+    // Robolectric's own build sets the same flag in
+    // build-logic/.../gradle/TestTaskConfiguration.kt (DefaultJvmArgumentsProvider).
+    jvmArgs("--add-opens=java.base/jdk.internal.access=ALL-UNNAMED")
+
     val shardIndex =
       (project.findProperty("shardIndex") as? String)
         ?: (project.findProperty("test.shardIndex") as? String)

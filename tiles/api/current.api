@@ -91,7 +91,7 @@ package com.google.android.horologist.tiles.composable {
 
   public final class ServiceComposableBitmapRenderer implements com.google.android.horologist.tiles.composable.ComposableBitmapRenderer {
     ctor public ServiceComposableBitmapRenderer(android.app.Application application, optional androidx.lifecycle.LifecycleOwner lifecycleOwner);
-    method @KotlinOnly public suspend Object? renderComposableToBitmap(androidx.compose.ui.unit.DpSize canvasSize, androidx.compose.ui.graphics.ImageBitmapConfig? config, kotlin.jvm.functions.Function0<kotlin.Unit> composableContent, kotlin.coroutines.Continuation<? super androidx.compose.ui.graphics.ImageBitmap?>);
+    method @KotlinOnly public suspend Object? renderComposableToBitmap(androidx.compose.ui.unit.DpSize canvasSize, optional androidx.compose.ui.graphics.ImageBitmapConfig? config, kotlin.jvm.functions.Function0<kotlin.Unit> composableContent, kotlin.coroutines.Continuation<? super androidx.compose.ui.graphics.ImageBitmap?>);
   }
 
 }

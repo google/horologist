@@ -79,7 +79,6 @@ package com.google.android.horologist.compose.layout {
   }
 
   @com.google.android.horologist.annotations.ExperimentalHorologistApi public final class ScalingLazyColumnState implements androidx.compose.foundation.gestures.ScrollableState {
-    ctor public ScalingLazyColumnState();
     ctor @KotlinOnly public ScalingLazyColumnState(optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.ScrollPosition initialScrollPosition, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.ScrollPosition timeTextHomeOffset, optional androidx.wear.compose.foundation.lazy.AutoCenteringParams? autoCentering, optional androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType anchorType, optional androidx.compose.foundation.layout.PaddingValues contentPadding, optional com.google.android.horologist.compose.layout.ScalingLazyColumnState.RotaryMode? rotaryMode, optional boolean reverseLayout, optional androidx.compose.foundation.layout.Arrangement.Vertical verticalArrangement, optional androidx.compose.ui.Alignment.Horizontal horizontalAlignment, optional boolean userScrollEnabled, optional androidx.wear.compose.foundation.lazy.ScalingParams scalingParams, optional boolean hapticsEnabled);
     method public float dispatchRawDelta(float delta);
     method @InaccessibleFromKotlin public androidx.wear.compose.foundation.lazy.AutoCenteringParams? getAutoCentering();
@@ -95,7 +94,7 @@ package com.google.android.horologist.compose.layout {
     method @InaccessibleFromKotlin public boolean getUserScrollEnabled();
     method @InaccessibleFromKotlin public androidx.compose.foundation.layout.Arrangement.Vertical getVerticalArrangement();
     method @InaccessibleFromKotlin public boolean isScrollInProgress();
-    method public suspend Object? scroll(androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,? extends java.lang.Object?> block, kotlin.coroutines.Continuation<? super kotlin.Unit>);
+    method public suspend Object? scroll(optional androidx.compose.foundation.MutatePriority scrollPriority, kotlin.jvm.functions.Function2<? super androidx.compose.foundation.gestures.ScrollScope,? super kotlin.coroutines.Continuation<? super kotlin.Unit>,? extends java.lang.Object?> block, kotlin.coroutines.Continuation<? super kotlin.Unit>);
     method @InaccessibleFromKotlin public void setState(androidx.wear.compose.foundation.lazy.ScalingLazyListState);
     property public androidx.wear.compose.foundation.lazy.ScalingLazyListAnchorType anchorType;
     property public androidx.wear.compose.foundation.lazy.AutoCenteringParams? autoCentering;

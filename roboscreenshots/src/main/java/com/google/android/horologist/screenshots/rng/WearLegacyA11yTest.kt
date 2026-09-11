@@ -62,7 +62,9 @@ import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companio
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers
 import org.junit.Rule
+import org.junit.experimental.categories.Category
 import org.junit.rules.TestName
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.robolectric.Shadows
 import org.robolectric.annotation.Config
@@ -71,10 +73,13 @@ import org.robolectric.annotation.GraphicsMode
 @Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
+@Category(ScreenshotTest::class)
 public abstract class WearLegacyA11yTest {
   @get:Rule public val composeRule: ComposeContentTestRule = createComposeRule()
 
   @get:Rule public val testInfo: TestName = TestName()
+
+  @get:Rule public val shardRule: TestRule = ShardRule()
 
   // Allow for individual tolerances to be set on each test, should be between 0.0 and 1.0
   public open val tolerance: Float = 0.0f

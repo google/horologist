@@ -35,7 +35,9 @@ import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companio
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.useHardwareRenderer
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest.Companion.withImageLoader
 import org.junit.Rule
+import org.junit.experimental.categories.Category
 import org.junit.rules.TestName
+import org.junit.rules.TestRule
 import org.junit.runner.RunWith
 import org.robolectric.RuntimeEnvironment
 import org.robolectric.annotation.Config
@@ -44,9 +46,12 @@ import org.robolectric.annotation.GraphicsMode
 @Config(sdk = [35], qualifiers = RobolectricDeviceQualifiers.WearOSLargeRound)
 @RunWith(AndroidJUnit4::class)
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
+@Category(ScreenshotTest::class)
 public abstract class WearLegacyComponentTest {
 
   @get:Rule public val testInfo: TestName = TestName()
+
+  @get:Rule public val shardRule: TestRule = ShardRule()
 
   public open fun testName(suffix: String): String =
     "src/test/snapshots/images/" +

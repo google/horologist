@@ -14,36 +14,36 @@ package com.google.android.horologist.media.model {
   public final class LiveMediaPositionPredictor implements com.google.android.horologist.media.model.PositionPredictor {
     ctor public LiveMediaPositionPredictor(long eventTimestamp, long durationMs, long currentPositionMs, float positionSpeed);
     method public com.google.android.horologist.media.model.LiveMediaPositionPredictor copy(optional long eventTimestamp, optional long durationMs, optional long currentPositionMs, optional float positionSpeed);
-    method public boolean equals(java.lang.Object? other);
+    method public boolean equals(Object? other);
     method public int hashCode();
     method public long predictDuration(long timestamp);
     method public float predictPercent(long timestamp);
     method public long predictPosition(long timestamp);
-    method public java.lang.String toString();
+    method public String toString();
   }
 
   public final class Media {
-    ctor public Media(java.lang.String id, java.lang.String uri, java.lang.String title, java.lang.String artist, optional java.lang.String? clientPackageName, optional java.lang.String? artworkUri, optional java.lang.Integer? artworkColor, optional java.util.Map<java.lang.String,?> extras);
-    method public java.lang.String component1();
-    method public java.lang.String component2();
-    method public java.lang.String component3();
-    method public java.lang.String component4();
-    method public java.lang.String? component5();
-    method public java.lang.String? component6();
-    method public java.lang.Integer? component7();
+    ctor public Media(String id, String uri, String title, String artist, optional String? clientPackageName, optional String? artworkUri, optional Integer? artworkColor, optional java.util.Map<java.lang.String,?> extras);
+    method public String component1();
+    method public String component2();
+    method public String component3();
+    method public String component4();
+    method public String? component5();
+    method public String? component6();
+    method public Integer? component7();
     method public java.util.Map<java.lang.String,java.lang.Object> component8();
-    method public com.google.android.horologist.media.model.Media copy(optional java.lang.String id, optional java.lang.String uri, optional java.lang.String title, optional java.lang.String artist, optional java.lang.String? clientPackageName, optional java.lang.String? artworkUri, optional java.lang.Integer? artworkColor, optional java.util.Map<java.lang.String,?> extras);
-    method public boolean equals(java.lang.Object? other);
-    method @InaccessibleFromKotlin public java.lang.String getArtist();
-    method @InaccessibleFromKotlin public java.lang.Integer? getArtworkColor();
-    method @InaccessibleFromKotlin public java.lang.String? getArtworkUri();
-    method @InaccessibleFromKotlin public java.lang.String? getClientPackageName();
+    method public com.google.android.horologist.media.model.Media copy(optional String id, optional String uri, optional String title, optional String artist, optional String? clientPackageName, optional String? artworkUri, optional Integer? artworkColor, optional java.util.Map<java.lang.String,?> extras);
+    method public boolean equals(Object? other);
+    method @InaccessibleFromKotlin public String getArtist();
+    method @InaccessibleFromKotlin public Integer? getArtworkColor();
+    method @InaccessibleFromKotlin public String? getArtworkUri();
+    method @InaccessibleFromKotlin public String? getClientPackageName();
     method @InaccessibleFromKotlin public java.util.Map<java.lang.String,java.lang.Object> getExtras();
-    method @InaccessibleFromKotlin public java.lang.String getId();
-    method @InaccessibleFromKotlin public java.lang.String getTitle();
-    method @InaccessibleFromKotlin public java.lang.String getUri();
+    method @InaccessibleFromKotlin public String getId();
+    method @InaccessibleFromKotlin public String getTitle();
+    method @InaccessibleFromKotlin public String getUri();
     method public int hashCode();
-    method public java.lang.String toString();
+    method public String toString();
     property public String artist;
     property public Integer? artworkColor;
     property public String? artworkUri;
@@ -60,12 +60,12 @@ package com.google.android.horologist.media.model {
     method public com.google.android.horologist.media.model.MediaDownload.Status component2();
     method public com.google.android.horologist.media.model.MediaDownload.Size component3();
     method public com.google.android.horologist.media.model.MediaDownload copy(optional com.google.android.horologist.media.model.Media media, optional com.google.android.horologist.media.model.MediaDownload.Status status, optional com.google.android.horologist.media.model.MediaDownload.Size size);
-    method public boolean equals(java.lang.Object? other);
+    method public boolean equals(Object? other);
     method @InaccessibleFromKotlin public com.google.android.horologist.media.model.Media getMedia();
     method @InaccessibleFromKotlin public com.google.android.horologist.media.model.MediaDownload.Size getSize();
     method @InaccessibleFromKotlin public com.google.android.horologist.media.model.MediaDownload.Status getStatus();
     method public int hashCode();
-    method public java.lang.String toString();
+    method public String toString();
     property public com.google.android.horologist.media.model.Media media;
     property public com.google.android.horologist.media.model.MediaDownload.Size size;
     property public com.google.android.horologist.media.model.MediaDownload.Status status;
@@ -78,10 +78,10 @@ package com.google.android.horologist.media.model {
     ctor public MediaDownload.Size.Known(long sizeInBytes);
     method public long component1();
     method public com.google.android.horologist.media.model.MediaDownload.Size.Known copy(optional long sizeInBytes);
-    method public boolean equals(java.lang.Object? other);
+    method public boolean equals(Object? other);
     method @InaccessibleFromKotlin public long getSizeInBytes();
     method public int hashCode();
-    method public java.lang.String toString();
+    method public String toString();
     property public long sizeInBytes;
   }
 
@@ -104,22 +104,22 @@ package com.google.android.horologist.media.model {
     ctor public MediaDownload.Status.InProgress(float progress);
     method public float component1();
     method public com.google.android.horologist.media.model.MediaDownload.Status.InProgress copy(optional float progress);
-    method public boolean equals(java.lang.Object? other);
+    method public boolean equals(Object? other);
     method @InaccessibleFromKotlin public float getProgress();
     method public int hashCode();
-    method public java.lang.String toString();
+    method public String toString();
     property public float progress;
   }
 
   public final class MediaPositionPredictor implements com.google.android.horologist.media.model.PositionPredictor {
     ctor public MediaPositionPredictor(long eventTimestamp, long durationMs, long currentPositionMs, float positionSpeed);
     method public com.google.android.horologist.media.model.MediaPositionPredictor copy(optional long eventTimestamp, optional long durationMs, optional long currentPositionMs, optional float positionSpeed);
-    method public boolean equals(java.lang.Object? other);
+    method public boolean equals(Object? other);
     method public int hashCode();
     method public long predictDuration(long timestamp);
     method public float predictPercent(long timestamp);
     method public long predictPosition(long timestamp);
-    method public java.lang.String toString();
+    method public String toString();
   }
 
   public final class PlaybackState {
@@ -131,13 +131,13 @@ package com.google.android.horologist.media.model {
     method @KotlinOnly public operator kotlin.time.Duration? component5();
     method public float component6();
     method @KotlinOnly public com.google.android.horologist.media.model.PlaybackState copy(optional com.google.android.horologist.media.model.PlayerState playerState, optional boolean isLive, optional kotlin.time.Duration? currentPosition, optional kotlin.time.Duration? seekProjection, optional kotlin.time.Duration? duration, optional float playbackSpeed);
-    method public boolean equals(java.lang.Object? other);
+    method public boolean equals(Object? other);
     method @InaccessibleFromKotlin public float getPlaybackSpeed();
     method @InaccessibleFromKotlin public com.google.android.horologist.media.model.PlayerState getPlayerState();
     method public int hashCode();
     method @InaccessibleFromKotlin public boolean isLive();
     method @InaccessibleFromKotlin public boolean isPlaying();
-    method public java.lang.String toString();
+    method public String toString();
     property public kotlin.time.Duration? currentPosition;
     property public kotlin.time.Duration? duration;
     property public boolean isLive;
@@ -160,11 +160,11 @@ package com.google.android.horologist.media.model {
     method @KotlinOnly public operator kotlin.time.Duration? component3();
     method @KotlinOnly public com.google.android.horologist.media.model.PlaybackStateEvent copy(optional com.google.android.horologist.media.model.PlaybackState playbackState, optional com.google.android.horologist.media.model.PlaybackStateEvent.Cause cause, optional kotlin.time.Duration? timestamp);
     method public com.google.android.horologist.media.model.PositionPredictor? createPositionPredictor();
-    method public boolean equals(java.lang.Object? other);
+    method public boolean equals(Object? other);
     method @InaccessibleFromKotlin public com.google.android.horologist.media.model.PlaybackStateEvent.Cause getCause();
     method @InaccessibleFromKotlin public com.google.android.horologist.media.model.PlaybackState getPlaybackState();
     method public int hashCode();
-    method public java.lang.String toString();
+    method public String toString();
     property public com.google.android.horologist.media.model.PlaybackStateEvent.Cause cause;
     property public com.google.android.horologist.media.model.PlaybackState playbackState;
     property public kotlin.time.Duration? timestamp;
@@ -193,19 +193,19 @@ package com.google.android.horologist.media.model {
   }
 
   public final class Playlist {
-    ctor public Playlist(java.lang.String id, java.lang.String name, optional java.lang.String? artworkUri, java.util.List<com.google.android.horologist.media.model.Media> mediaList);
-    method public java.lang.String component1();
-    method public java.lang.String component2();
-    method public java.lang.String? component3();
+    ctor public Playlist(String id, String name, optional String? artworkUri, java.util.List<com.google.android.horologist.media.model.Media> mediaList);
+    method public String component1();
+    method public String component2();
+    method public String? component3();
     method public java.util.List<com.google.android.horologist.media.model.Media> component4();
-    method public com.google.android.horologist.media.model.Playlist copy(optional java.lang.String id, optional java.lang.String name, optional java.lang.String? artworkUri, optional java.util.List<com.google.android.horologist.media.model.Media> mediaList);
-    method public boolean equals(java.lang.Object? other);
-    method @InaccessibleFromKotlin public java.lang.String? getArtworkUri();
-    method @InaccessibleFromKotlin public java.lang.String getId();
+    method public com.google.android.horologist.media.model.Playlist copy(optional String id, optional String name, optional String? artworkUri, optional java.util.List<com.google.android.horologist.media.model.Media> mediaList);
+    method public boolean equals(Object? other);
+    method @InaccessibleFromKotlin public String? getArtworkUri();
+    method @InaccessibleFromKotlin public String getId();
     method @InaccessibleFromKotlin public java.util.List<com.google.android.horologist.media.model.Media> getMediaList();
-    method @InaccessibleFromKotlin public java.lang.String getName();
+    method @InaccessibleFromKotlin public String getName();
     method public int hashCode();
-    method public java.lang.String toString();
+    method public String toString();
     property public String? artworkUri;
     property public String id;
     property public java.util.List<com.google.android.horologist.media.model.Media> mediaList;
@@ -217,11 +217,11 @@ package com.google.android.horologist.media.model {
     method public com.google.android.horologist.media.model.Playlist component1();
     method public java.util.List<com.google.android.horologist.media.model.MediaDownload> component2();
     method public com.google.android.horologist.media.model.PlaylistDownload copy(optional com.google.android.horologist.media.model.Playlist playlist, optional java.util.List<com.google.android.horologist.media.model.MediaDownload> mediaList);
-    method public boolean equals(java.lang.Object? other);
+    method public boolean equals(Object? other);
     method @InaccessibleFromKotlin public java.util.List<com.google.android.horologist.media.model.MediaDownload> getMediaList();
     method @InaccessibleFromKotlin public com.google.android.horologist.media.model.Playlist getPlaylist();
     method public int hashCode();
-    method public java.lang.String toString();
+    method public String toString();
     property public java.util.List<com.google.android.horologist.media.model.MediaDownload> mediaList;
     property public com.google.android.horologist.media.model.Playlist playlist;
   }
@@ -241,7 +241,7 @@ package com.google.android.horologist.media.model {
 package com.google.android.horologist.media.repository {
 
   public interface MediaDownloadRepository {
-    method public void remove(java.lang.String mediaId);
+    method public void remove(String mediaId);
   }
 
   public interface PlayerRepository {
@@ -284,12 +284,12 @@ package com.google.android.horologist.media.repository {
 
   public interface PlaylistDownloadRepository {
     method public void download(com.google.android.horologist.media.model.Playlist playlist);
-    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.model.PlaylistDownload?> get(java.lang.String playlistId);
+    method public kotlinx.coroutines.flow.Flow<com.google.android.horologist.media.model.PlaylistDownload?> get(String playlistId);
     method public void remove(com.google.android.horologist.media.model.Playlist playlist);
   }
 
   public interface PlaylistRepository {
-    method public suspend java.lang.Object? get(java.lang.String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist?>);
+    method public suspend Object? get(String playlistId, kotlin.coroutines.Continuation<? super com.google.android.horologist.media.model.Playlist?>);
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAll();
     method public kotlinx.coroutines.flow.Flow<java.util.List<com.google.android.horologist.media.model.Playlist>> getAllDownloaded();
   }

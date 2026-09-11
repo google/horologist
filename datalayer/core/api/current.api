@@ -664,8 +664,8 @@ package com.google.android.horologist.data {
     method @InaccessibleFromKotlin public void setUsageInfo(com.google.android.horologist.data.UsageInfo);
     property public com.google.android.horologist.data.ActivityLaunched activityLaunched;
     property public com.google.android.horologist.data.ActivityLaunched? com.google.android.horologist.data.SurfacesInfoKt.Dsl.activityLaunchedOrNull;
-    property public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy> complications;
-    property public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy> tiles;
+    property @kotlin.jvm.JvmSynthetic public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.ComplicationInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.ComplicationsProxy> complications;
+    property @kotlin.jvm.JvmSynthetic public com.google.protobuf.kotlin.DslList<com.google.android.horologist.data.TileInfo,com.google.android.horologist.data.SurfacesInfoKt.Dsl.TilesProxy> tiles;
     property public com.google.android.horologist.data.UsageInfo usageInfo;
     property public com.google.android.horologist.data.UsageInfo? com.google.android.horologist.data.SurfacesInfoKt.Dsl.usageInfoOrNull;
     field public static final com.google.android.horologist.data.SurfacesInfoKt.Dsl.Companion Companion;

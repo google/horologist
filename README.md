@@ -3,7 +3,7 @@
 Auto-generated from `main`. Browse inline or compare against PR branches.
 
 > [!WARNING]
-> 1 preview(s) failed to render in the latest update (1 with no prior baseline to retain). See **Render Failures** below.
+> 9 preview(s) failed to render in the latest update (9 with no prior baseline to retain). See **Render Failures** below.
 
 ## Render Failures
 
@@ -11,6 +11,14 @@ The render task completed but no PNG was produced for these previews. Entries wi
 
 | Preview | Module | Function | Source | Baseline |
 |---------|--------|----------|--------|----------|
+| `remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.Cc0LottiePreviewsKt.LottieCc0GradientAlphaAnimatedPreview` | remotecompose:lottie | `LottieCc0GradientAlphaAnimatedPreview` | `src/debug/java/com/google/android/horologist/remotecompose/lottie/Cc0LottiePreviews.kt` | none |
+| `remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.Cc0LottiePreviewsKt.LottieCc0GradientAlphaPreview` | remotecompose:lottie | `LottieCc0GradientAlphaPreview` | `src/debug/java/com/google/android/horologist/remotecompose/lottie/Cc0LottiePreviews.kt` | none |
+| `remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.Cc0LottiePreviewsKt.LottieCc0PositionPathAnimatedPreview` | remotecompose:lottie | `LottieCc0PositionPathAnimatedPreview` | `src/debug/java/com/google/android/horologist/remotecompose/lottie/Cc0LottiePreviews.kt` | none |
+| `remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.Cc0LottiePreviewsKt.LottieCc0PositionPathPreview` | remotecompose:lottie | `LottieCc0PositionPathPreview` | `src/debug/java/com/google/android/horologist/remotecompose/lottie/Cc0LottiePreviews.kt` | none |
+| `remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottieMuteToUnmuteAnimatedPreview` | remotecompose:lottie | `LottieMuteToUnmuteAnimatedPreview` | `src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt` | none |
+| `remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottieMuteToUnmutePreview` | remotecompose:lottie | `LottieMuteToUnmutePreview` | `src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt` | none |
+| `remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottieUnmuteToMuteAnimatedPreview` | remotecompose:lottie | `LottieUnmuteToMuteAnimatedPreview` | `src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt` | none |
+| `remotecompose:lottie/com.google.android.horologist.remotecompose.lottie.LottiePreviewsKt.LottieUnmuteToMutePreview` | remotecompose:lottie | `LottieUnmuteToMutePreview` | `src/debug/java/com/google/android/horologist/remotecompose/lottie/LottiePreviews.kt` | none |
 | `sample/com.google.android.horologist.ambient.AmbientAwareActivityKt.WearAppPreview_Devices - Large Round` | sample | `WearAppPreview` | `src/main/java/com/google/android/horologist/ambient/AmbientAwareActivity.kt` | none |
 
 ## ai:sample:wear-gemini
@@ -650,21 +658,43 @@ The render task completed but no PNG was produced for these previews. Entries wi
 
 | Preview | Image |
 |---------|-------|
+| `LottieCc0ColorEaseAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieCc0ColorEaseAnimatedPreview-9acfad69.gif" width="150" /> |
+| `LottieCc0ColorEasePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieCc0ColorEasePreview-6948aef7.png" width="150" /> |
+| `LottieCc0MultidimensionalAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieCc0MultidimensionalAnimatedPreview-6715a008.gif" width="150" /> |
+| `LottieCc0MultidimensionalPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieCc0MultidimensionalPreview-a9318ab4.png" width="150" /> |
+| `LottieCc0PositionHoldAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieCc0PositionHoldAnimatedPreview-26eb0a47.gif" width="150" /> |
+| `LottieCc0PositionHoldPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieCc0PositionHoldPreview-63439696.png" width="150" /> |
+| `LottieCc0PrecompStretchAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieCc0PrecompStretchAnimatedPreview-9fc341a3.gif" width="150" /> |
+| `LottieCc0PrecompStretchPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieCc0PrecompStretchPreview-10bf2b1d.png" width="150" /> |
 | `LottieGeometryAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieGeometryAnimatedPreview-a99e92a9.gif" width="150" /> |
 | `LottieGeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieGeometryPreview-b6cf2052.png" width="150" /> |
+| `LottieGrandparentAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieGrandparentAnimatedPreview-14a55401.gif" width="150" /> |
+| `LottieGrandparentPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieGrandparentPreview-7fb97293.png" width="150" /> |
+| `LottieM3NextAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieM3NextAnimatedPreview-55640718.gif" width="150" /> |
+| `LottieM3NextPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieM3NextPreview-5cef39a9.png" width="150" /> |
 | `LottieM3PlayPauseAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieM3PlayPauseAnimatedPreview-43b709eb.gif" width="150" /> |
 | `LottieM3PlayPausePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieM3PlayPausePreview-280bc179.png" width="150" /> |
 | `LottieNextAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieNextAnimatedPreview-f47c6040.gif" width="150" /> |
 | `LottieNextPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieNextPreview-c20fd448.png" width="150" /> |
+| `LottieParentChainAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieParentChainAnimatedPreview-df3e872e.gif" width="150" /> |
 | `LottieParentChainPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieParentChainPreview-c8b984b8.png" width="150" /> |
 | `LottiePlayPauseAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePlayPauseAnimatedPreview-920f5dec.gif" width="150" /> |
 | `LottiePlayPausePauseStatePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePlayPausePauseStatePreview-7a564b73.png" width="150" /> |
 | `LottiePlayPausePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePlayPausePreview-9f422435.png" width="150" /> |
+| `LottiePolyStarAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePolyStarAnimatedPreview-904b1f62.gif" width="150" /> |
+| `LottiePolyStarPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePolyStarPreview-03c9c027.png" width="150" /> |
 | `LottiePositionAnimatedLivePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePositionAnimatedLivePreview-0c19a25d.gif" width="150" /> |
 | `LottiePositionAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePositionAnimatedPreview-01238106.png" width="150" /> |
+| `LottiePositionStaticAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePositionStaticAnimatedPreview-c571016f.gif" width="150" /> |
 | `LottiePositionStaticPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottiePositionStaticPreview-41912297.png" width="150" /> |
+| `LottieRectangleEllipseAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieRectangleEllipseAnimatedPreview-c11e3af2.gif" width="150" /> |
+| `LottieRectangleEllipsePreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieRectangleEllipsePreview-ea1304ac.png" width="150" /> |
 | `LottieTintGeometryAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieTintGeometryAnimatedPreview-e8ea6f39.gif" width="150" /> |
 | `LottieTintGeometryPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieTintGeometryPreview-0ec05924.png" width="150" /> |
+| `LottieVolumeDownAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieVolumeDownAnimatedPreview-35139f59.gif" width="150" /> |
+| `LottieVolumeDownPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieVolumeDownPreview-f0c2fee3.png" width="150" /> |
+| `LottieVolumeUpAnimatedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieVolumeUpAnimatedPreview-d04f5573.gif" width="150" /> |
+| `LottieVolumeUpPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/remotecompose:lottie/LottieVolumeUpPreview-8ec79456.png" width="150" /> |
 
 ## sample
 

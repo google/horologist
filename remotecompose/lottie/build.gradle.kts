@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
   id("com.android.library")
   alias(libs.plugins.compose.compiler)
@@ -41,6 +43,14 @@ android {
 }
 
 metalava { filename.set("api/current.api") }
+
+tasks.withType<KotlinCompile>().configureEach {
+  compilerOptions {
+    freeCompilerArgs.addAll(
+      listOf("-opt-in=androidx.compose.remote.player.compose.ExperimentalRemotePlayerApi")
+    )
+  }
+}
 
 dependencies {
   implementation(platform(libs.compose.bom))

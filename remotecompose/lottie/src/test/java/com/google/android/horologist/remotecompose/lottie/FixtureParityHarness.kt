@@ -26,6 +26,7 @@ import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.remote.creation.compose.modifier.fillMaxSize
 import androidx.compose.remote.creation.compose.state.rememberNamedRemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
+import androidx.compose.remote.player.compose.RemoteComposePlayerFlags
 import androidx.compose.remote.player.compose.RemoteDocumentPlayer
 import androidx.compose.runtime.MutableFloatState
 import androidx.compose.runtime.mutableFloatStateOf
@@ -167,6 +168,7 @@ abstract class FixtureParityHarness : MotionPixelHarness() {
     renderSizeDp: Int,
     enableMergePaths: Boolean,
   ) {
+    RemoteComposePlayerFlags.isEmbeddedPlayerEnabled = true
     composeRule.setContent {
       Column {
         Box(Modifier.size(renderSizeDp.dp).background(background).testTag("motion")) {

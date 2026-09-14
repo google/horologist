@@ -30,6 +30,7 @@ import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.remote.creation.compose.modifier.fillMaxSize
 import androidx.compose.remote.creation.compose.state.rememberNamedRemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
+import androidx.compose.remote.player.compose.RemoteComposePlayerFlags
 import androidx.compose.remote.player.compose.RemoteDocumentPlayer
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -57,6 +58,7 @@ internal fun LottiePreview(
   clock: RemoteClock = RemoteClock.SYSTEM,
   progress: Float? = null,
 ) {
+  RemoteComposePlayerFlags.isEmbeddedPlayerEnabled = true
   val doc =
     rememberRemoteDocument(clock = clock) {
       // When progress is specified, bind the animation to a named RemoteFloat ("progress").

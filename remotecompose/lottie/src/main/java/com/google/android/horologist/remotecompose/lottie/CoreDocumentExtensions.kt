@@ -16,12 +16,14 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
+import android.annotation.SuppressLint
 import androidx.compose.remote.core.CoreDocument
 import androidx.compose.remote.core.Operation
 import androidx.compose.remote.core.operations.NamedVariable
 import androidx.compose.remote.core.operations.layout.Container
 
 /** Finds the integer ID of a named variable within the [CoreDocument] operation hierarchy. */
+@SuppressLint("RestrictedApi")
 internal fun CoreDocument.findNamedVariableId(name: String): Int? {
   fun findIn(operations: List<Operation>): Int? {
     for (op in operations) {
@@ -38,6 +40,7 @@ internal fun CoreDocument.findNamedVariableId(name: String): Int? {
 }
 
 /** Sets an override for a named float on the document's [RemoteComposeState]. */
+@SuppressLint("RestrictedApi")
 internal fun CoreDocument.setNamedFloat(name: String, value: Float) {
   val id = findNamedVariableId(name) ?: return
   remoteComposeState?.overrideFloat(id, value)

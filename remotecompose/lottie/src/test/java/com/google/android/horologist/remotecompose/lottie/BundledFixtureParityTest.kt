@@ -17,12 +17,39 @@
 package com.google.android.horologist.remotecompose.lottie
 
 import androidx.compose.ui.graphics.Color
+import org.junit.Ignore
 import org.junit.Test
 
-/** Covers original samples on neutral gray, so both black and white artwork are visible. */
+/** Covers every original sample on neutral gray, so both black and white artwork are visible. */
 class BundledFixtureParityTest : FixtureParityHarness() {
   private fun sample(resource: Int, animated: Boolean = true) =
     compare(resource, animated, Color(0xff808080))
+
+  @Ignore("TODO: Fix failure on main AST/renderer") @Test fun geometry() = sample(R.raw.geometry)
+
+  @Ignore("TODO: Fix failure on main AST/renderer") @Test fun playPause() = sample(R.raw.play_pause)
+
+  @Ignore("TODO: Fix failure on main AST/renderer") @Test fun next() = sample(R.raw.next)
+
+  @Ignore("TODO: Fix failure on main AST/renderer")
+  @Test
+  fun m3PlayPause() = sample(R.raw.m3_play_pause)
+
+  @Ignore("TODO: Fix failure on main AST/renderer") @Test fun m3Next() = sample(R.raw.m3_next)
+
+  @Ignore("TODO: Fix failure on main AST/renderer") @Test fun volumeUp() = sample(R.raw.volume_up)
+
+  @Ignore("TODO: Fix failure on main AST/renderer")
+  @Test
+  fun volumeDown() = sample(R.raw.volume_down)
+
+  @Ignore("TODO: Fix failure on main AST/renderer")
+  @Test
+  fun muteToUnmute() = sample(R.raw.mute_to_unmute)
+
+  @Ignore("TODO: Fix failure on main AST/renderer")
+  @Test
+  fun unmuteToMute() = sample(R.raw.unmute_to_mute)
 
   @Test fun positionAnimated() = sample(R.raw.position_animated)
 

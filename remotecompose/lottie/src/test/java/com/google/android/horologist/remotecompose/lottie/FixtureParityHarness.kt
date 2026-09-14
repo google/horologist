@@ -27,8 +27,9 @@ import androidx.compose.remote.creation.compose.modifier.fillMaxSize
 import androidx.compose.remote.creation.compose.state.rememberNamedRemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.remote.player.compose.RemoteComposePlayerFlags
-import androidx.compose.remote.player.compose.RemoteDocumentPlayer
+import androidx.compose.remote.player.compose.embedded.RcPlayer
 import androidx.compose.runtime.MutableFloatState
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -185,22 +186,14 @@ abstract class FixtureParityHarness : MotionPixelHarness() {
             )
           }
           doc.value?.let { document ->
-            RemoteDocumentPlayer(
-              document = document,
-              modifier = Modifier.size(renderSizeDp.dp),
-              documentWidth = decoded.width,
-              documentHeight = decoded.height,
-              update = { player ->
-                // lottie-android subtracts 0.01 from op. Compare the same authored frame, not two
-                // slightly different normalized-progress domains at an internal layer boundary.
-                val authoredFrame =
-                  reference.startFrame + progressState.floatValue * reference.durationFrames
-                val totalRcDuration =
-                  (decoded.endFrame - decoded.startFrame).toFloat().coerceAtLeast(1f)
-                val rcProgress = (authoredFrame - decoded.startFrame) / totalRcDuration
-                player.setUserLocalFloat("progress", rcProgress)
-              },
-            )
+            val authoredFrame =
+              reference.startFrame + progressState.floatValue * reference.durationFrames
+            val totalRcDuration =
+              (decoded.endFrame - decoded.startFrame).toFloat().coerceAtLeast(1f)
+            val rcProgress = (authoredFrame - decoded.startFrame) / totalRcDuration
+            document.setNamedFloat("progress", rcProgress)
+            SideEffect { document.setNamedFloat("progress", rcProgress) }
+            RcPlayer(document = document, modifier = Modifier.size(renderSizeDp.dp))
           }
         }
         Box(Modifier.size(renderSizeDp.dp).background(background).testTag("reference")) {

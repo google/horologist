@@ -21,6 +21,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
+import androidx.compose.remote.creation.compose.capture.rememberRemoteDocument
+import androidx.compose.remote.creation.compose.modifier.RemoteModifier
+import androidx.compose.remote.creation.compose.modifier.fillMaxSize
+import androidx.compose.remote.creation.compose.state.rememberNamedRemoteFloat
+import androidx.compose.remote.creation.compose.state.rf
+import androidx.compose.remote.player.compose.RemoteDocumentPlayer
 import androidx.compose.runtime.MutableFloatState
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.Modifier
@@ -164,13 +170,36 @@ abstract class FixtureParityHarness : MotionPixelHarness() {
     composeRule.setContent {
       Column {
         Box(Modifier.size(renderSizeDp.dp).background(background).testTag("motion")) {
-          // lottie-android subtracts 0.01 from op. Compare the same authored frame, not two
-          // slightly different normalized-progress domains at an internal layer boundary.
-          val authoredFrame =
-            reference.startFrame + progressState.floatValue * reference.durationFrames
-          val totalRcDuration = (decoded.endFrame - decoded.startFrame).toFloat().coerceAtLeast(1f)
-          val rcProgress = (authoredFrame - decoded.startFrame) / totalRcDuration
-          LottiePreview(decoded, modifier = Modifier.size(renderSizeDp.dp), progress = rcProgress)
+          // Mount the RemoteDocument once, binding animation progress to named
+          // RemoteFloat("progress").
+          // Updating progressState drives player.setUserLocalFloat on the player without
+          // regenerating the document.
+          val doc = rememberRemoteDocument {
+            val progressVar = rememberNamedRemoteFloat("progress") { 0f.rf }
+            LottieAnimation(
+              decoded,
+              progress = progressVar,
+              modifier = RemoteModifier.fillMaxSize(),
+            )
+          }
+          doc.value?.let { document ->
+            RemoteDocumentPlayer(
+              document = document,
+              modifier = Modifier.size(renderSizeDp.dp),
+              documentWidth = decoded.width,
+              documentHeight = decoded.height,
+              update = { player ->
+                // lottie-android subtracts 0.01 from op. Compare the same authored frame, not two
+                // slightly different normalized-progress domains at an internal layer boundary.
+                val authoredFrame =
+                  reference.startFrame + progressState.floatValue * reference.durationFrames
+                val totalRcDuration =
+                  (decoded.endFrame - decoded.startFrame).toFloat().coerceAtLeast(1f)
+                val rcProgress = (authoredFrame - decoded.startFrame) / totalRcDuration
+                player.setUserLocalFloat("progress", rcProgress)
+              },
+            )
+          }
         }
         Box(Modifier.size(renderSizeDp.dp).background(background).testTag("reference")) {
           ReferenceLottie(

@@ -30,8 +30,10 @@ import androidx.compose.remote.creation.compose.modifier.RemoteModifier
 import androidx.compose.remote.creation.compose.modifier.fillMaxSize
 import androidx.compose.remote.creation.compose.state.rememberNamedRemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.player.compose.RemoteDocumentPlayer
+import androidx.compose.remote.player.compose.RemoteComposePlayerFlags
+import androidx.compose.remote.player.compose.embedded.RcPlayer
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -57,10 +59,11 @@ internal fun LottiePreview(
   clock: RemoteClock = RemoteClock.SYSTEM,
   progress: Float? = null,
 ) {
+  RemoteComposePlayerFlags.isEmbeddedPlayerEnabled = true
   val doc =
     rememberRemoteDocument(clock = clock) {
       // When progress is specified, bind the animation to a named RemoteFloat ("progress").
-      // This allows updating progress dynamically via player.setUserLocalFloat("progress", value)
+      // This allows updating progress dynamically via document.setNamedFloat("progress", value)
       // on the single compiled RemoteDocument, avoiding document regeneration on frame changes.
       val progressVar =
         if (progress != null) {
@@ -76,17 +79,11 @@ internal fun LottiePreview(
       )
     }
   doc.value?.let { document ->
-    RemoteDocumentPlayer(
-      document = document,
-      modifier = modifier,
-      documentWidth = animation.width,
-      documentHeight = animation.height,
-      update = { player ->
-        if (progress != null) {
-          player.setUserLocalFloat("progress", progress)
-        }
-      },
-    )
+    if (progress != null) {
+      document.setNamedFloat("progress", progress)
+      SideEffect { document.setNamedFloat("progress", progress) }
+    }
+    RcPlayer(document = document, modifier = modifier)
   }
 }
 

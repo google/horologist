@@ -22,7 +22,6 @@ import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteBoolean
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteFloat
-import kotlinx.serialization.DeserializationStrategy
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -34,9 +33,7 @@ import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonContentPolymorphicSerializer
 import kotlinx.serialization.json.JsonDecoder
-import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonEncoder
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
@@ -99,7 +96,9 @@ internal data class StaticScalarProperty(
 internal data class AnimatedScalarProperty(
   @SerialName("sid") override val slotId: String? = null,
   @SerialName("a") override val animated: SerializableRemoteBoolean = true.rb,
-  @SerialName("k") val keyframes: List<ScalarPropertyKeyframe>,
+  @SerialName("k")
+  @Serializable(with = ScalarKeyframeListSerializer::class)
+  val keyframes: List<ScalarPropertyKeyframe>,
 ) : BaseScalarProperty()
 
 /**
@@ -146,33 +145,33 @@ internal data class ScalarPropertyKeyframe(
 )
 
 /**
- * Polymorphic serializer for [BaseScalarProperty] discriminating between static and animated
- * variants based on the Lottie schema `"a"` field ([Integer
- * Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)).
- *
- * Contract:
- * - Preconditions: [element] must be a [JsonObject].
- * - Postconditions:
- *     - Selects [AnimatedScalarProperty.serializer] when `"a"` is integer `1`.
- *     - Selects [StaticScalarProperty.serializer] when `"a"` is integer `0`.
- * - Exceptions:
- *     - Throws [SerializationException] if [element] is not a [JsonObject].
- *     - Throws [SerializationException] if `"a"` is missing.
- *     - Throws [SerializationException] if `"a"` is neither `0` nor `1`.
+ * Serializer for [BaseScalarProperty] discriminating between static and animated variants based on
+ * the Lottie schema `"a"` field or structure of `"k"`.
  */
-internal object BaseScalarPropertySerializer :
-  JsonContentPolymorphicSerializer<BaseScalarProperty>(BaseScalarProperty::class) {
-  override fun selectDeserializer(
-    element: JsonElement
-  ): DeserializationStrategy<BaseScalarProperty> {
+internal object BaseScalarPropertySerializer : KSerializer<BaseScalarProperty> {
+  override val descriptor: SerialDescriptor =
+    kotlinx.serialization.descriptors.buildClassSerialDescriptor("BaseScalarProperty")
+
+  override fun deserialize(decoder: Decoder): BaseScalarProperty {
+    val jsonDecoder =
+      decoder as? JsonDecoder
+        ?: throw SerializationException("BaseScalarPropertySerializer only supports JSON")
+    val element = jsonDecoder.decodeJsonElement()
     val obj = element as? JsonObject ?: throw SerializationException("Expected JSON object")
     val animated = obj["a"]?.jsonPrimitive?.intOrNull
     return when (animated) {
-      1 -> AnimatedScalarProperty.serializer()
-      0 -> StaticScalarProperty.serializer()
+      1 -> jsonDecoder.json.decodeFromJsonElement(AnimatedScalarProperty.serializer(), obj)
+      0 -> jsonDecoder.json.decodeFromJsonElement(StaticScalarProperty.serializer(), obj)
       null ->
         throw SerializationException("Scalar property missing required 'a' field per Lottie schema")
       else -> throw SerializationException("Field 'a' must be 0 or 1, but was $animated")
+    }
+  }
+
+  override fun serialize(encoder: Encoder, value: BaseScalarProperty) {
+    when (value) {
+      is StaticScalarProperty -> StaticScalarProperty.serializer().serialize(encoder, value)
+      is AnimatedScalarProperty -> AnimatedScalarProperty.serializer().serialize(encoder, value)
     }
   }
 }
@@ -184,15 +183,6 @@ internal object BaseScalarPropertySerializer :
  * [Scalar Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#scalar-property),
  * which specifies that animated scalar properties use vector keyframes where values are encoded as
  * arrays with a single component (e.g. `[100.0]`).
- *
- * Deserialization:
- * - Unpacks the primary float value from a JSON array.
- * - Tolerates arrays with additional dimensions, extracting the primary scalar component.
- * - Throws [SerializationException] if the token is not an array, is empty, or contains non-numeric
- *   data.
- *
- * Serialization:
- * - Encodes the [RemoteFloat] scalar value as a single-element JSON array `[value.constantValue]`.
  */
 internal object ScalarKeyframeValueSerializer : KSerializer<RemoteFloat> {
   override val descriptor: SerialDescriptor = ListSerializer(Float.serializer()).descriptor

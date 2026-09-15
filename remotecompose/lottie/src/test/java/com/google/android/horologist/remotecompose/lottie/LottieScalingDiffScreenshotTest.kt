@@ -231,9 +231,9 @@ class LottieScalingDiffScreenshotTest(
       return Animation(
         name = "test_${width}x${height}",
         version = "5.9.6",
-        frameRate = 60,
-        startFrame = 0,
-        endFrame = 60,
+        frameRate = 60f,
+        startFrame = 0f,
+        endFrame = 60f,
         width = width,
         height = height,
         layers =

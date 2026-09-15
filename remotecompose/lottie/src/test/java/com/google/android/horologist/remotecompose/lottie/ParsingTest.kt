@@ -710,4 +710,42 @@ class ParsingTest {
       LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 1), json)
     }
   }
+
+  @Test
+  fun markers_deserializes() {
+    val json =
+      """
+      {
+        "v": "5.7.0",
+        "fr": 30.0,
+        "ip": 0.0,
+        "op": 60.0,
+        "w": 100,
+        "h": 100,
+        "layers": [],
+        "markers": [
+          {
+            "cm": "Segment A",
+            "tm": 10.0,
+            "dr": 15.0
+          },
+          {
+            "cm": "Cue Point B",
+            "tm": 30.0,
+            "dr": 0.0
+          }
+        ]
+      }
+      """
+        .trimIndent()
+
+    val animation = Animation.decodeFromString(json)
+    assertThat(animation.markers).hasSize(2)
+    assertThat(animation.markers[0].name).isEqualTo("Segment A")
+    assertThat(animation.markers[0].time).isEqualTo(10f)
+    assertThat(animation.markers[0].duration).isEqualTo(15f)
+    assertThat(animation.markers[1].name).isEqualTo("Cue Point B")
+    assertThat(animation.markers[1].time).isEqualTo(30f)
+    assertThat(animation.markers[1].duration).isEqualTo(0f)
+  }
 }

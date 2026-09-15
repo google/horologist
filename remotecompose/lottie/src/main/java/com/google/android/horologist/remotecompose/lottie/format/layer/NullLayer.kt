@@ -41,9 +41,12 @@ internal data class NullLayer(
   @SerialName("parent") override val parent: Int? = null,
   @SerialName("ip") override val startFrame: SerializableRemoteFloat,
   @SerialName("op") override val endFrame: SerializableRemoteFloat,
+  @SerialName("st") override val startTime: Float? = 0f,
+  @SerialName("sr") override val timeStretch: Float? = 1f,
   @SerialName("ks") override val transform: Transform? = null,
   @SerialName("ao") override val autoOrient: SerializableRemoteBoolean = false.rb,
   @SerialName("tt") override val matteMode: MatteMode = MatteMode.Normal,
   @SerialName("tp") override val matteParent: Int? = null,
+  @SerialName("td") override val matteTarget: Int? = 0,
   @SerialName("masksProperties") override val masks: List<Mask>? = null,
 ) : Layer()

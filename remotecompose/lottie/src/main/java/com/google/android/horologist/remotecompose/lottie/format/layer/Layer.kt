@@ -60,10 +60,13 @@ internal sealed class Layer {
   abstract val parent: Int?
   abstract val startFrame: SerializableRemoteFloat
   abstract val endFrame: SerializableRemoteFloat
+  open val startTime: Float? = 0f
+  open val timeStretch: Float? = 1f
   abstract val transform: Transform?
   abstract val autoOrient: SerializableRemoteBoolean
   abstract val matteMode: MatteMode
   abstract val matteParent: Int?
+  open val matteTarget: Int? = 0
   abstract val masks: List<Mask>?
 }
 
@@ -93,6 +96,7 @@ internal enum class LayerType(val value: Int) {
  * Contract:
  * - Deserialization Preconditions: [element] must be a [JsonObject].
  * - Deserialization Postconditions:
+ *     - Selects [PrecompLayer.serializer] when "ty" is 0.
  *     - Selects [SolidColorLayer.serializer] when "ty" is 1.
  *     - Selects [NullLayer.serializer] when "ty" is 3.
  *     - Selects [ShapeLayer.serializer] when "ty" is 4.
@@ -103,6 +107,7 @@ internal object LayerSerializer : JsonContentPolymorphicSerializer<Layer>(Layer:
   override fun selectDeserializer(element: JsonElement): DeserializationStrategy<Layer> {
     val ty = element.jsonObject["ty"]?.jsonPrimitive?.intOrNull
     return when (ty) {
+      LayerType.Precomposition.value -> PrecompLayer.serializer()
       LayerType.Solid.value -> SolidColorLayer.serializer()
       LayerType.Null.value -> NullLayer.serializer()
       LayerType.Shape.value -> ShapeLayer.serializer()

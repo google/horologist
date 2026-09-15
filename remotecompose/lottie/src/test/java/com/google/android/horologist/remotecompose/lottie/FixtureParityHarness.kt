@@ -188,8 +188,7 @@ abstract class FixtureParityHarness : MotionPixelHarness() {
           doc.value?.let { document ->
             val authoredFrame =
               reference.startFrame + progressState.floatValue * reference.durationFrames
-            val totalRcDuration =
-              (decoded.endFrame - decoded.startFrame).toFloat().coerceAtLeast(1f)
+            val totalRcDuration = (decoded.endFrame - decoded.startFrame).coerceAtLeast(1f)
             val rcProgress = (authoredFrame - decoded.startFrame) / totalRcDuration
             document.setNamedFloat("progress", rcProgress)
             SideEffect { document.setNamedFloat("progress", rcProgress) }

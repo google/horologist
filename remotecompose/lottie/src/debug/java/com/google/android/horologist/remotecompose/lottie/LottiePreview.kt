@@ -130,7 +130,7 @@ internal fun LottieAnimatedPreview(
   val duration =
     durationMillis
       ?: if (animation.frameRate > 0) {
-        (((animation.endFrame - animation.startFrame) / animation.frameRate.toFloat()) * 1000)
+        (((animation.endFrame - animation.startFrame) / animation.frameRate) * 1000)
           .toInt()
           .coerceAtLeast(100)
       } else {

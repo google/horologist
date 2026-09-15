@@ -18,6 +18,7 @@ package com.google.android.horologist.remotecompose.lottie.format
 
 import android.content.Context
 import androidx.annotation.RawRes
+import com.google.android.horologist.remotecompose.lottie.format.asset.Asset
 import com.google.android.horologist.remotecompose.lottie.format.layer.Layer
 import java.io.InputStream
 import kotlinx.serialization.SerialName
@@ -28,12 +29,14 @@ import kotlinx.serialization.Serializable
 internal data class Animation(
   @SerialName("nm") val name: String? = null,
   @SerialName("v") val version: String? = "5.9.6",
-  @SerialName("fr") val frameRate: Int,
-  @SerialName("ip") val startFrame: Int,
-  @SerialName("op") val endFrame: Int,
-  @SerialName("w") val width: Int,
-  @SerialName("h") val height: Int,
+  @SerialName("fr") val frameRate: Float = 30f,
+  @SerialName("ip") val startFrame: Float = 0f,
+  @SerialName("op") val endFrame: Float = 0f,
+  @SerialName("w") val width: Int = 0,
+  @SerialName("h") val height: Int = 0,
+  @SerialName("assets") val assets: List<Asset> = emptyList(),
   @SerialName("layers") val layers: List<Layer>,
+  @SerialName("markers") val markers: List<Marker> = emptyList(),
 ) {
   companion object {
     /** Decodes an [Animation] from a JSON string using [LottieDecoder]. */

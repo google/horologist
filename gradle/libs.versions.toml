@@ -81,8 +81,8 @@ wearInput = "1.2.0"
 wearToolingPreview = "1.0.0"
 wearcompose = "1.6.2"
 glanceWear = "1.0.0-alpha18"
-composeRemote = "1.0.0-alpha19"
-wearComposeRemote = "1.0.0-alpha11"
+composeRemote = "1.0.0-alpha20"
+wearComposeRemote = "1.0.0-alpha12"
 agp = "9.4.0"
 
 [libraries]

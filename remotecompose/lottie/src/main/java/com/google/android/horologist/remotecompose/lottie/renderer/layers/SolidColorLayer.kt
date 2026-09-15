@@ -16,17 +16,23 @@
 
 package com.google.android.horologist.remotecompose.lottie.renderer.layers
 
+import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
+import androidx.compose.remote.creation.compose.state.RemoteFloat
+import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
 import com.google.android.horologist.remotecompose.lottie.format.layer.SolidColorLayer
 
 /** A Layer rendering a solid color rectangle. */
+@SuppressLint("RestrictedApi")
 @Composable
 @RemoteComposable
 internal fun SolidColorLayer(
   layer: SolidColorLayer,
   transformStack: List<Transform> = emptyList(),
+  matteContext: MatteContext? = null,
+  layerVisibility: RemoteFloat = 1f.rf,
 ) {
-  // No-op in PR 2 - solid color layer drawing integrated in downstream PR.
+  // No-op - solid color layer drawing integrated in downstream PR.
 }

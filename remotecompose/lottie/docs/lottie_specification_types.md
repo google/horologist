@@ -83,3 +83,29 @@ Markers define named temporal cues or regions on the animation timeline:
 2. **Resilience**: Optional fields should default to spec defaults (`emptyList()`, `null`, `0f`, etc.) to tolerate truncated or exported variants from differing design tools.
 3. **No UI Imports in Format Layer**: The `format/` package must never import Android UI or Compose UI types (`androidx.compose.ui.*`). It interacts only with `kotlinx.serialization` and Remote Compose primitives (`androidx.compose.remote.creation.compose.state.*`).
 4. **Clean Imports**: Never use fully qualified types in source code; declare explicit imports.
+
+---
+
+## Layers & Compositing (`format/layer/`)
+
+Lottie visual layers form an ordered compositing stack rendered bottom-up (reversed layer index):
+- **`PrecompLayer` (`ty`: 0)**: References a `PrecompAsset` via `refId`. Instantiates nested compositions with isolated frame bounds, recursive cycle detection (`activePrecomps`), and nested transform hierarchies.
+- **`SolidColorLayer` (`ty`: 1)**: Renders a solid color rectangle with integer dimensions (`sw`, `sh`) filled with `sc`.
+- **`NullLayer` (`ty`: 3)**: Non-rendering invisible anchor node used to establish parent-child transformation chains.
+- **`ShapeLayer` (`ty`: 4)**: Hosts vector paths, shapes, styling attributes, and group modifiers.
+
+### Layer Timing & Stretch
+- **`ip` / `op`**: Start and end frame defining the temporal visibility interval $[ip, op)$.
+- **`st`**: Layer start time offset on the parent timeline.
+- **`sr`**: Time stretch factor. Local layer frame is computed as:
+  $$t_{\text{local}} = \frac{t - st}{sr}$$
+  When $sr = 0$, a fallback factor of $1.0$ is enforced to prevent division by zero.
+- **Boundary Padding**: Layers whose `op` reaches or exceeds the composition end frame are extended by $0.01$ frames to ensure visibility at $progress = 1.0f$.
+
+### Track Mattes (`MatteMode`, `MatteContext`)
+Track mattes define masking between adjacent layers or explicitly paired layers (`tp` / `td`):
+- `MatteMode.Alpha` (1): Masks using source alpha channel.
+- `MatteMode.InvertedAlpha` (2): Masks using inverted source alpha channel.
+- `MatteMode.Luma` (3): Masks using source luminance.
+- `MatteMode.InvertedLuma` (4): Masks using inverted source luminance.
+- Source matte layers (`td = 1` or referenced as matte parent) are suppressed from direct drawing and routed via `MatteContext` to their target layer.

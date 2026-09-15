@@ -36,7 +36,7 @@ fun LottieCc0ColorEasePreview() {
 }
 
 @Preview(backgroundColor = 0xffffffff, showBackground = true, widthDp = 160, heightDp = 160)
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1100, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottieCc0ColorEaseAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.cc0_color_ease, modifier = Modifier.size(160.dp))
@@ -70,7 +70,7 @@ fun LottieCc0MultidimensionalPreview() {
 }
 
 @Preview(backgroundColor = 0xffffffff, showBackground = true, widthDp = 160, heightDp = 160)
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1100, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottieCc0MultidimensionalAnimatedPreview() {
   LottieAnimatedPreview(
@@ -90,8 +90,8 @@ fun LottieCc0PositionHoldPreview() {
 }
 
 @Preview(backgroundColor = 0xffffffff, showBackground = true, widthDp = 160, heightDp = 160)
-// The changed position lasts only one 60 Hz frame before looping; 100 ms sampling misses it.
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 10, showCurves = false)
+// The changed position lasts only one 60 Hz frame, so 100 ms sampling misses it entirely.
+@AnimatedPreview(durationMs = 1020, frameIntervalMs = 10, showCurves = false)
 @Composable
 fun LottieCc0PositionHoldAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.cc0_position_hold, modifier = Modifier.size(160.dp))
@@ -108,7 +108,7 @@ fun LottieCc0PositionPathPreview() {
 }
 
 @Preview(backgroundColor = 0xffffffff, showBackground = true, widthDp = 160, heightDp = 160)
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1100, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottieCc0PositionPathAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.cc0_position_path, modifier = Modifier.size(160.dp))
@@ -125,7 +125,7 @@ fun LottieCc0PrecompStretchPreview() {
 }
 
 @Preview(backgroundColor = 0xffffffff, showBackground = true, widthDp = 160, heightDp = 160)
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1100, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottieCc0PrecompStretchAnimatedPreview() {
   LottieAnimatedPreview(

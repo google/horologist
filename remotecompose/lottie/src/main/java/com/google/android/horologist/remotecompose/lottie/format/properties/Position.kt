@@ -88,8 +88,25 @@ internal data class StaticPositionProperty(
 internal data class AnimatedPositionProperty(
   @SerialName("sid") override val slotId: String? = null,
   @SerialName("a") override val animated: SerializableRemoteBoolean = true.rb,
-  @SerialName("k") val keyframes: List<PositionPropertyKeyframe>,
+  @SerialName("k")
+  @Serializable(with = PositionKeyframeListSerializer::class)
+  val keyframes: List<PositionPropertyKeyframe>,
 ) : BasePositionProperty()
+
+/**
+ * Split-dimension position property (`"s": true`) where X and Y coordinates are specified as
+ * separate animatable scalar properties (`"x"` and `"y"`).
+ */
+@Serializable
+internal data class SplitPositionProperty(
+  @SerialName("sid") override val slotId: String? = null,
+  @SerialName("s") val split: Boolean = true,
+  @SerialName("x") val x: BaseScalarProperty,
+  @SerialName("y") val y: BaseScalarProperty,
+) : BasePositionProperty() {
+  override val animated: SerializableRemoteBoolean
+    get() = (x.animated.constantValue || y.animated.constantValue).rb
+}
 
 /**
  * A single position keyframe conforming to
@@ -138,19 +155,8 @@ internal data class PositionPropertyKeyframe(
 )
 
 /**
- * Polymorphic serializer for [BasePositionProperty] discriminating between static and animated
- * variants based on the Lottie schema `"a"` field ([Integer
- * Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)).
- *
- * Contract:
- * - Preconditions: [element] must be a [JsonObject].
- * - Postconditions:
- *     - Selects [AnimatedPositionProperty.serializer] when `"a"` is integer `1`.
- *     - Selects [StaticPositionProperty.serializer] when `"a"` is integer `0`.
- * - Exceptions:
- *     - Throws [SerializationException] if [element] is not a [JsonObject].
- *     - Throws [SerializationException] if `"a"` is missing.
- *     - Throws [SerializationException] if `"a"` is neither `0` nor `1`.
+ * Polymorphic serializer for [BasePositionProperty] discriminating between split-dimension, static,
+ * and animated variants based on the Lottie schema `"s"` and `"a"` fields.
  */
 internal object BasePositionPropertySerializer :
   JsonContentPolymorphicSerializer<BasePositionProperty>(BasePositionProperty::class) {
@@ -158,6 +164,13 @@ internal object BasePositionPropertySerializer :
     element: JsonElement
   ): DeserializationStrategy<BasePositionProperty> {
     val obj = element as? JsonObject ?: throw SerializationException("Expected JSON object")
+    val isSplit =
+      obj["s"]?.jsonPrimitive?.let {
+        it.content.equals("true", ignoreCase = true) || it.intOrNull == 1
+      } == true
+    if (isSplit) {
+      return SplitPositionProperty.serializer()
+    }
     val animated = obj["a"]?.jsonPrimitive?.intOrNull
     return when (animated) {
       1 -> AnimatedPositionProperty.serializer()

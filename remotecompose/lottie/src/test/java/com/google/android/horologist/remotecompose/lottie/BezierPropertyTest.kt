@@ -25,6 +25,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Anim
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseBezierPropertySerializer
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.Point
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierValue
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateBezier
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.SerializationException
@@ -36,6 +37,41 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class BezierPropertyTest {
   private val emptySlotMap = SlotMap.Empty
+
+  @Test fun linearShapeRetainsInvariantControls() = verifyInvariantControls(0, 0)
+
+  @Test fun heldShapeRetainsInvariantControls() = verifyInvariantControls(1, 0)
+
+  @Test fun delayedShapeChainRetainsInvariantControls() = verifyInvariantControls(0, 5)
+
+  private fun verifyInvariantControls(hold: Int, delay: Int) {
+    fun path(dx: Int) =
+      """{"c":true,"v":[[$dx,0],[${dx+8},0],[$dx,8]],"i":[[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0]]}"""
+    val frames =
+      (0..2).joinToString(",") { i ->
+        """{"t":${delay+i*10},"s":[${path(i*4)}],"h":$hold,"o":{"x":0,"y":0},"i":{"x":1,"y":1}}"""
+      }
+    val property =
+      LottieDecoder.json.decodeFromString(BaseBezierPropertySerializer, """{"a":1,"k":[$frames]}""")
+    val liveTime = RemoteFloat(androidx.compose.remote.creation.Rc.Time.ANIMATION_TIME)
+    val shape = animateBezier(property, LottieSettings(liveTime)).single()
+    assertThat((shape.inTangents + shape.outTangents).flatten().map { it.constantValueOrNull })
+      .containsExactlyElementsIn(List(12) { 0f })
+    assertThat(shape.vertices[0][0].constantValueOrNull).isNull()
+    assertThat(shape.vertices[0][1].constantValueOrNull).isEqualTo(0f)
+  }
+
+  private val List<RemoteBezierValue>.closed: Boolean
+    get() = singleOrNull()?.closed ?: false
+
+  private val List<RemoteBezierValue>.vertices: List<List<RemoteFloat>>
+    get() = singleOrNull()?.vertices.orEmpty()
+
+  private val List<RemoteBezierValue>.inTangents: List<List<RemoteFloat>>
+    get() = singleOrNull()?.inTangents.orEmpty()
+
+  private val List<RemoteBezierValue>.outTangents: List<List<RemoteFloat>>
+    get() = singleOrNull()?.outTangents.orEmpty()
 
   private fun extractFloat(value: Any): Float =
     when (value) {
@@ -88,6 +124,16 @@ class BezierPropertyTest {
   ) {
     assertThat(actual.x.constantValue).isWithin(tolerance).of(expectedX)
     assertThat(actual.y.constantValue).isWithin(tolerance).of(expectedY)
+  }
+
+  private fun assertPointEquals(
+    actual: List<RemoteFloat>,
+    expectedX: Float,
+    expectedY: Float,
+    tolerance: Float = 0.001f,
+  ) {
+    assertThat(actual[0].constantValue).isWithin(tolerance).of(expectedX)
+    assertThat(actual[1].constantValue).isWithin(tolerance).of(expectedY)
   }
 
   // =========================================================================================
@@ -1117,8 +1163,8 @@ class BezierPropertyTest {
     assertPointEquals(eval10.vertices[0], 100f, 100f)
 
     val eval5 = animateBezier(bezier, LottieSettings(5f.rf, emptySlotMap))
-    assertThat(eval5.vertices[0].x.constantValue).isNotEqualTo(50.0f)
-    assertThat(eval5.vertices[0].y.constantValue).isNotEqualTo(50.0f)
+    assertThat(eval5.vertices[0][0].constantValue).isNotEqualTo(50.0f)
+    assertThat(eval5.vertices[0][1].constantValue).isNotEqualTo(50.0f)
   }
 
   /**

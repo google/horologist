@@ -20,9 +20,13 @@ import android.annotation.SuppressLint
 import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.remote.creation.compose.state.RemoteColor
 import androidx.compose.remote.creation.compose.state.RemoteFloat
+import androidx.compose.remote.creation.compose.state.clamp
 import androidx.compose.remote.creation.compose.state.lerp
+import androidx.compose.remote.creation.compose.state.max
+import androidx.compose.remote.creation.compose.state.pow
 import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rf
+import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedColorProperty
@@ -32,6 +36,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Stat
 import com.google.android.horologist.remotecompose.lottie.renderer.lookupValueInBezier
 import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearEasingIn
 import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearEasingOut
+import kotlin.math.pow
 
 /**
  * Resolves or animates a color property at the current timeline frame.
@@ -123,9 +128,9 @@ internal fun animateColor(
             val endB = endColor.blue
             val endA = endColor.alpha
 
-            val r = lerpFloat(startR, endR, easedT)
-            val g = lerpFloat(startG, endG, easedT)
-            val b = lerpFloat(startB, endB, easedT)
+            val r = gammaLerp(startR.rf, endR.rf, easedT.rf).constantValue
+            val g = gammaLerp(startG.rf, endG.rf, easedT.rf).constantValue
+            val b = gammaLerp(startB.rf, endB.rf, easedT.rf).constantValue
             val a = lerpFloat(startA, endA, easedT)
             return Color(
                 r,
@@ -174,12 +179,22 @@ internal fun animateColor(
                 frameInAnimation,
               )
             startValues.mapIndexed { index, value ->
-              AnimationSegment(startT, lerp(value, endValues[index], currentBezierValue))
+              AnimationSegment(
+                startT,
+                if (index == 3) lerp(value, endValues[index], currentBezierValue)
+                else gammaLerp(value, endValues[index], currentBezierValue),
+              )
             }
           }
 
         animationSegments.add(segment)
       }
+
+      // A final hold segment still has to switch to the last keyframe's value.
+      val lastKeyframe = keyframes.last()
+      animationSegments.add(
+        toRgbaFloats(lastKeyframe).map { AnimationSegment(lastKeyframe.frame.constantValue, it) }
+      )
 
       val channels =
         (0 until 4).map { index ->
@@ -203,3 +218,18 @@ private fun toRgbaFloats(keyframe: ColorPropertyKeyframe): List<RemoteFloat> {
 
 private fun lerpFloat(start: Float, stop: Float, fraction: Float): Float =
   start + (stop - start) * fraction
+
+/** Interpolate RGB in linear light, matching lottie-android's sRGB transfer function. */
+@SuppressLint("RestrictedApi")
+private fun gammaLerp(start: RemoteFloat, end: RemoteFloat, progress: RemoteFloat): RemoteFloat {
+  fun linear(value: Float): Float =
+    if (value <= 0.04045f) value / 12.92f else ((value + 0.055f) / 1.055f).pow(2.4f)
+  val fraction = clamp(progress, 0f.rf, 1f.rf)
+  val value = lerp(linear(start.constantValue).rf, linear(end.constantValue).rf, fraction)
+  return selectIfLt(
+    value,
+    0.0031308f.rf,
+    value * 12.92f,
+    pow(max(value, 0f.rf), (1f / 2.4f).rf) * 1.055f - 0.055f,
+  )
+}

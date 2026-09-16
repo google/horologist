@@ -68,6 +68,8 @@ internal sealed class Layer {
   abstract val matteParent: Int?
   open val matteTarget: Int? = 0
   abstract val masks: List<Mask>?
+  open val masksProperties: List<Mask>
+    get() = masks.orEmpty()
 }
 
 /**

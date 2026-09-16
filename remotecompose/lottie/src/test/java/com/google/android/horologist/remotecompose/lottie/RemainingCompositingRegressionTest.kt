@@ -21,7 +21,6 @@ import org.junit.Test
 
 class RemainingCompositingRegressionTest : MotionPixelHarness() {
   // [SP_COMPOSITING_R05_01] Opaque alpha coverage exposes the target only inside the matte.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun exposesRedTargetInsideOpaqueAlphaMatte() {
     val progress = show(matteAnimation(matteShapes(rectangle(fixed("[16,32]")))))
@@ -31,7 +30,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_COMPOSITING_R05_02] Disjoint rendered shapes contribute their union to alpha coverage.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun exposesBothDisjointMatteShapesAndKeepsTheirGapTransparent() {
     val shapes = "${rectangle(fixed("[16,32]"))},${rectangle(fixed("[48,32]"))}"
@@ -42,7 +40,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_COMPOSITING_R05_03] Matte layer opacity modulates target alpha on the recorded document.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun fadesTargetThroughHalfAlphaWhenMatteOpacityAnimatesToZero() {
     val matte = matteShapes(rectangle(fixed("[16,32]")), opacity = animated("[100]", "[0]"))
@@ -70,7 +67,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_COMPOSITING_R05_05] A matte contributes no alpha after its own visibility interval.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun hidesTargetAfterMatteOutPointWhileTargetRemainsInRange() {
     val progress = show(matteAnimation(matteShapes(rectangle(fixed("[16,32]")), outPoint = 10)))
@@ -82,7 +78,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_COMPOSITING_R05_06] Inverted alpha retains target pixels outside matte coverage.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun removesMatteInteriorAndPreservesTargetExteriorForInvertedAlpha() {
     val progress = show(matteAnimation(matteShapes(rectangle(fixed("[16,32]"))), mode = 2))
@@ -92,7 +87,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_COMPOSITING_R05_07] A precomp target's children share the target's track matte.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun appliesAlphaMatteToEveryChildOfPrecompTarget() {
     val matte = matteShapes(rectangle(fixed("[16,32]"), fixed("[16,64]")))
@@ -104,7 +98,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_COMPOSITING_R07_01] Precomp masks and transforms use containing time, not child time.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun movesMaskAcrossEntireShiftedPrecompUsingContainingTimeline() {
     val path =
@@ -121,7 +114,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_COMPOSITING_R07_02] Declared precomp bounds clip overflow in child-local coordinates.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun clipsOverflowingChildrenToTranslatedPrecompWidthAndHeight() {
     val children = "${solid(index = 1, height = 16, y = 8)},${solid(index = 2, width = 16, x = 8)}"
@@ -134,7 +126,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_COMPOSITING_R07_03] A half-opacity precomp mask applies once to the completed composite.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun keepsOverlappingChildrenAtHalfRedUnderHalfOpacityPrecompMask() {
     val children = "${solid(index = 1, width = 40)},${solid(index = 2, width = 40, x = 24)}"
@@ -148,7 +139,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
   private fun matteAnimation(matte: String, mode: Int = 1): String =
     document("$matte,${solid(index = 2, extra = "\"tt\":$mode,")}")
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun expandsAnAddMaskOutsideItsOriginalOutline() {
     val properties =
@@ -163,7 +153,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
     assertPixels(Probe(32, 32, 0f))
   }
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun appliesSubtractThenAddInAuthoredOrder() {
     val properties =
@@ -174,7 +163,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
     assertPixels(Probe(8, 32, 0f), Probe(24, 32, 1f), Probe(56, 32, 1f))
   }
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun preservesParentSurfaceWhenChildAlsoHasAMask() {
     val child = solid(index = 1, extra = mask(fixed(boxPath(8, 40))))
@@ -184,7 +172,6 @@ class RemainingCompositingRegressionTest : MotionPixelHarness() {
     assertPixels(Probe(16, 32, 0.5f), Probe(4, 32, 0f), Probe(48, 32, 0f))
   }
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun multipliesTheCompletedLayerAgainstItsBackdrop() {
     val foreground = solid(index = 1, extra = "\"bm\":1,")

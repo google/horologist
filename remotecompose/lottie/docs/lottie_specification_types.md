@@ -124,3 +124,23 @@ Shape modifiers transform or combine sibling graphic elements within a shape gro
 - **`Twist` (`ty`: `"tw"`)**: Spirals vertices around center (`c`) by angle (`a`).
 - **`ZigZag` (`ty`: `"zz"`)**: Subdivides contours into ridges with size (`s`), ridges per segment (`r`), and point type (`pt`: `Corner` = 1, `Smooth` = 2).
 - **`NoStyle` (`ty`: `"no"`) & `UnknownElement`**: Safe placeholders for explicit empty styles or unrecognized custom exporter shapes.
+
+---
+
+## Image Layers, Text Layers, Blend Modes & Unknown Layers
+
+### Image Layers (`ImageLayer`, `ty = 2`)
+- References an `ImageAsset` by `refId`.
+- Image assets may be embedded as Base64 data URIs (`data:image/png;base64,...` or `data:image/jpeg;base64,...`) or external filenames (`u` + `p`).
+- `ImageLayer` decodes embedded Base64 payloads into Android `Bitmap` instances and renders them onto the `RemoteCanvas` within the layer's local coordinate transform.
+
+### Text Layers (`TextLayer`, `ty = 5`) & Vector Glyphs (`Font`, `FontCharacter`)
+- Contains `textData` (`t`), including document keyframes (`d.k`) specifying text strings (`s`), font family (`f`), font size (`s`), justification (`j`), tracking (`tr`), line height (`lh`), baseline shift (`ls`), fill color (`fc`), stroke color (`sc`), and stroke width (`sw`).
+- **Vector Glyph Rendering**: When `Animation.chars` (`List<FontCharacter>`) is present, each character code is matched by `(ch, style, family)` and its vector shape groups (`data.shapes`) are evaluated and scaled by `fontSize / 100f`.
+- **System Font Fallback**: When vector glyphs are absent, `TextLayer` falls back to drawing text lines via `RemoteCanvas` text drawing operations.
+
+### Layer Blend Modes (`BlendMode`, `bm`)
+- Maps Lottie numeric blend modes (`0` = Normal, `1` = Multiply, `2` = Screen, `3` = Overlay, `4` = Darken, `5` = Lighten, `6` = ColorDodge, `7` = ColorBurn, `8` = HardLight, `9` = SoftLight, `10` = Difference, `11` = Exclusion, `12` = Hue, `13` = Saturation, `14` = Color, `15` = Luminosity) to Compose `BlendMode` values.
+
+### Safe Fallback (`UnknownLayer`)
+- Unrecognized layer types (`ty` outside `0..5`) deserialize as `UnknownLayer` rather than failing, preserving `ind`, `parent`, and `transform` (`ks`) so child layers parented to unsupported layers (e.g., Audio or Camera layers) retain their transform hierarchy.

@@ -55,9 +55,12 @@ import com.google.android.horologist.remotecompose.lottie.format.graphicelement.
 import com.google.android.horologist.remotecompose.lottie.format.layer.MatteMode
 import com.google.android.horologist.remotecompose.lottie.format.layer.PrecompLayer
 import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
+import com.google.android.horologist.remotecompose.lottie.format.layer.SolidColorLayer
 import com.google.android.horologist.remotecompose.lottie.format.mask.Mask
 import com.google.android.horologist.remotecompose.lottie.format.mask.MaskMode
+import com.google.android.horologist.remotecompose.lottie.renderer.layers.LocalEffectSurface
 import com.google.android.horologist.remotecompose.lottie.renderer.layers.MatteContext
+import com.google.android.horologist.remotecompose.lottie.renderer.layers.withContainingSurface
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierValue
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateBezier
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateColor
@@ -105,57 +108,60 @@ internal fun RenderShapes(
 ) {
   val animationSettings = LocalAnimationSettings.current
   val shapeGroups = gatherShapes(shapes, animationSettings)
+  val effectSurface = LocalEffectSurface.current
 
   // Aspect-ratio scaling and centering is applied once, at the top level, by the
   // drawWithContent modifier in LottieAnimation - shapes draw in raw Lottie coordinates here.
   RemoteCanvas(modifier = RemoteModifier.fillMaxSize()) {
-    val hasMasks = masks.any { it.mode != MaskMode.None && it.path != null }
-    val needsSave = matteContext != null || hasMasks
-    if (needsSave) {
-      remoteCanvas.save()
-    }
-
-    if (matteContext != null) {
-      applyMatteClip(matteContext, animationSettings, remoteCanvas)
-    }
-
-    if (hasMasks) {
-      for (transform in transformStack) {
-        transform(transform, null, animationSettings, remoteCanvas)
-      }
-      applyLayerMasks(masks, animationSettings, remoteCanvas)
-      for (transform in transformStack.reversed()) {
-        inverseTransform(transform, animationSettings, remoteCanvas)
-      }
-    }
-
-    val layerOpacity =
-      (transformStack.lastOrNull()?.opacity?.let { animateScalar(it, animationSettings) / 100f }
-        ?: 1f.rf) * layerVisibility
-
-    for (shapeGroup in shapeGroups) {
-      val paint = shapeGroup.style.getPaint(layerOpacity)
-
-      for (transform in transformStack) {
+    remoteCanvas.withContainingSurface(effectSurface) {
+      val hasMasks = masks.any { it.mode != MaskMode.None && it.path != null }
+      val needsSave = matteContext != null || hasMasks
+      if (needsSave) {
         remoteCanvas.save()
-        transform(transform, null, animationSettings, remoteCanvas)
       }
 
-      usePaint(paint) {
-        remoteCanvas.applyStrokeDetails(shapeGroup.style)
-        for (shape in shapeGroup.shapes) {
-          shape.draw(this, remoteCanvas, layerOpacity)
+      if (matteContext != null) {
+        applyMatteClip(matteContext, animationSettings, remoteCanvas)
+      }
+
+      if (hasMasks) {
+        for (transform in transformStack) {
+          transform(transform, null, animationSettings, remoteCanvas)
+        }
+        applyLayerMasks(masks, animationSettings, remoteCanvas)
+        for (transform in transformStack.reversed()) {
+          inverseTransform(transform, animationSettings, remoteCanvas)
         }
       }
-      remoteCanvas.applyStrokeDetails(null)
 
-      for (transform in transformStack) {
+      val layerOpacity =
+        (transformStack.lastOrNull()?.opacity?.let { animateScalar(it, animationSettings) / 100f }
+          ?: 1f.rf) * layerVisibility
+
+      for (shapeGroup in shapeGroups) {
+        val paint = shapeGroup.style.getPaint(layerOpacity)
+
+        for (transform in transformStack) {
+          remoteCanvas.save()
+          transform(transform, null, animationSettings, remoteCanvas)
+        }
+
+        usePaint(paint) {
+          remoteCanvas.applyStrokeDetails(shapeGroup.style)
+          for (shape in shapeGroup.shapes) {
+            shape.draw(this, remoteCanvas, layerOpacity)
+          }
+        }
+        remoteCanvas.applyStrokeDetails(null)
+
+        for (transform in transformStack) {
+          remoteCanvas.restore()
+        }
+      }
+
+      if (needsSave) {
         remoteCanvas.restore()
       }
-    }
-
-    if (needsSave) {
-      remoteCanvas.restore()
     }
   }
 }
@@ -431,6 +437,10 @@ private fun emitStyledShapes(
 private fun compoundFillShapes(shapes: List<RemoteShape>, style: RemoteStyle): List<RemoteShape> {
   val baseStyle = if (style is RemoteStyleWithOpacity) style.baseStyle else style
   if (baseStyle !is RemoteFill && baseStyle !is RemoteGradientFill) return shapes
+  return mergeCompoundPaths(shapes)
+}
+
+internal fun mergeCompoundPaths(shapes: List<RemoteShape>): List<RemoteShape> {
   val result = mutableListOf<RemoteShape>()
   var pending = mutableListOf<RemoteBezierValue>()
   var rule: FillRule? = null
@@ -444,6 +454,16 @@ private fun compoundFillShapes(shapes: List<RemoteShape>, style: RemoteStyle): L
       if (pending.isNotEmpty() && shape.fillRule != rule) flush()
       rule = shape.fillRule
       pending.addAll(shape.path)
+    } else if (shape is RemoteGroup) {
+      flush()
+      result.add(
+        RemoteGroup(
+          childShapes = shape.childShapes.map { it.copy(shapes = mergeCompoundPaths(it.shapes)) },
+          animationSettings = shape.animationSettings,
+          transform = shape.transform,
+          opacityMultiplier = shape.opacityMultiplier,
+        )
+      )
     } else {
       flush()
       result.add(shape)
@@ -716,7 +736,7 @@ internal fun applyMatteClip(
 
   when (matteLayer) {
     is ShapeLayer -> clipShapes(matteLayer.shapes, animationSettings, canvas, clipOp)
-    is com.google.android.horologist.remotecompose.lottie.format.layer.SolidColorLayer -> {
+    is SolidColorLayer -> {
       val rcPath = RemotePath()
       rcPath.reset()
       rcPath.moveTo(0f, 0f)
@@ -743,10 +763,7 @@ internal fun applyMatteClip(
             for (t in childTransforms.reversed()) {
               inverseTransform(t, animationSettings, canvas)
             }
-          } else if (
-            childLayer
-              is com.google.android.horologist.remotecompose.lottie.format.layer.SolidColorLayer
-          ) {
+          } else if (childLayer is SolidColorLayer) {
             val childTransforms = childLayer.transform?.let { listOf(it) } ?: emptyList()
             for (t in childTransforms) {
               transform(t, null, animationSettings, canvas)

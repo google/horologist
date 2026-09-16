@@ -914,14 +914,9 @@ class ScalarPropertyTest {
   /**
    * [SP_LOT_SCL_03_08] Holds value constant until next keyframe when hold flag is true (`h = 1`).
    *
-   * Root cause: animateScalar currently ignores startKeyframe.hold and always applies Bézier
-   * interpolation across keyframe intervals. Production code must branch on hold to maintain a
-   * constant value across [t_i, t_{i+1}).
-   *
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore("BUG: SP_LOT_SCL_03_08: animateScalar ignores hold flag 'h' and performs interpolation")
   @Test
   fun holdsValueConstantUntilNextKeyframeWhenHoldFlagIsTrue() {
     val json = """{"a": 1, "k": [{"t": 0, "s": [10.0], "h": 1}, {"t": 10, "s": [50.0]}]}"""

@@ -827,13 +827,9 @@ class VectorPropertyTest {
    * [SP_LOT_VEC_02_02] Holds vector components constant until next keyframe timestamp when hold
    * flag `h = 1`.
    *
-   * Root cause: animateVector does not evaluate the hold flag on startKeyframe, attempting linear
-   * interpolation instead of holding constant.
-   *
    * Specification:
    * [Lottie Vector Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#vector-keyframe)
    */
-  @Ignore("BUG: SP_LOT_VEC_02_02: animateVector does not respect keyframe hold flag")
   @Test
   fun holdsValueConstantUntilNextKeyframeWhenHoldFlagIsTrue() {
     val json =

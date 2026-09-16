@@ -54,9 +54,9 @@ class MaskTest {
   }
 
   @Test
-  fun maskMode_fallsBackToIntersectForUnknown() {
+  fun maskMode_fallsBackToUnknownForUnknown() {
     assertThat(LottieDecoder.json.decodeFromString(MaskMode.serializer(), "\"unknown\""))
-      .isEqualTo(MaskMode.Intersect)
+      .isEqualTo(MaskMode.Unknown)
   }
 
   @Test

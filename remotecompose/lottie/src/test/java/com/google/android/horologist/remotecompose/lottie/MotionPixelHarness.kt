@@ -106,6 +106,7 @@ abstract class MotionPixelHarness : WearScreenshotTest() {
     maxPeakRedError: Float = 0.25f,
     minVisiblePixels: Int = 20,
     maxMeanEdgeRedError: Float? = null,
+    strictOffsetTopology: Boolean = false,
     staticAt: (Int) -> String,
   ) {
     val decoded = Animation.decodeFromString(json)
@@ -114,7 +115,12 @@ abstract class MotionPixelHarness : WearScreenshotTest() {
     composeRule.setContent {
       Column {
         Box(Modifier.size(64.dp).background(Color.Black).testTag("motion")) {
-          LottiePreview(decoded, modifier = Modifier.size(64.dp), progress = progress.floatValue)
+          LottiePreview(
+            decoded,
+            modifier = Modifier.size(64.dp),
+            progress = progress.floatValue,
+            strictOffsetTopology = strictOffsetTopology,
+          )
         }
         Box(Modifier.size(64.dp).background(Color.Black).testTag("reference")) {
           // Each static fixture needs its own recorded document; playback stays mounted above.

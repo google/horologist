@@ -89,7 +89,13 @@ internal data class GradientKeyframe(
   @SerialName("i") val inTangent: KeyframeEasing? = null,
   @SerialName("o") val outTangent: KeyframeEasing? = null,
   @SerialName("s") val startValue: List<GradientValue> = emptyList(),
-)
+) {
+  val frame: Float
+    get() = time
+
+  val value: List<GradientValue>
+    get() = startValue
+}
 
 /** Polymorphic serializer for [BaseGradientProperty] based on "a" field. */
 internal object BaseGradientPropertySerializer :
@@ -97,7 +103,8 @@ internal object BaseGradientPropertySerializer :
   override fun selectDeserializer(
     element: JsonElement
   ): DeserializationStrategy<BaseGradientProperty> {
-    val animated = element is JsonObject && element["a"]?.jsonPrimitive?.intOrNull == 1
+    val property = if (element is JsonObject) element["k"] as? JsonObject ?: element else element
+    val animated = property is JsonObject && property["a"]?.jsonPrimitive?.intOrNull == 1
     return if (animated) {
       AnimatedGradientPropertySerializer
     } else {
@@ -112,8 +119,8 @@ internal object StaticGradientPropertySerializer : KSerializer<StaticGradientPro
     buildClassSerialDescriptor("StaticGradientProperty") {
       element<String?>("sid", isOptional = true)
       element<Int?>("p", isOptional = true)
-      element<SerializableRemoteBoolean>("animated", isOptional = true)
-      element<GradientValue>("k")
+      element<Int>("a", isOptional = true)
+      element("k", GradientValueSerializer(0).descriptor)
     }
 
   override fun deserialize(decoder: Decoder): StaticGradientProperty {
@@ -203,9 +210,11 @@ internal object AnimatedGradientPropertySerializer : KSerializer<AnimatedGradien
 
   override fun deserialize(decoder: Decoder): AnimatedGradientProperty {
     val jsonDecoder = decoder as JsonDecoder
-    val obj = jsonDecoder.decodeJsonElement().jsonObject
-    val slotId = obj["sid"]?.jsonPrimitive?.contentOrNull
-    val numberOfColors = obj["p"]?.jsonPrimitive?.intOrNull
+    val outer = jsonDecoder.decodeJsonElement().jsonObject
+    // Standard shape gradients put the stop count outside the animated property: g={p,k:{a,k}}.
+    val obj = outer["k"] as? JsonObject ?: outer
+    val slotId = (obj["sid"] ?: outer["sid"])?.jsonPrimitive?.contentOrNull
+    val numberOfColors = (outer["p"] ?: obj["p"])?.jsonPrimitive?.intOrNull
     val p = numberOfColors ?: 0
     val keyframesArray = obj["k"]?.jsonArray
     val keyframes =
@@ -300,7 +309,7 @@ internal object GradientKeyframeSerializer : KSerializer<GradientKeyframe> {
       element<SerializableBoolean?>("h", isOptional = true)
       element<KeyframeEasing?>("i", isOptional = true)
       element<KeyframeEasing?>("o", isOptional = true)
-      element<List<GradientValue>>("s", isOptional = true)
+      element("s", ListSerializer(GradientValueSerializer(0)).descriptor, isOptional = true)
     }
 
   override fun deserialize(decoder: Decoder): GradientKeyframe {

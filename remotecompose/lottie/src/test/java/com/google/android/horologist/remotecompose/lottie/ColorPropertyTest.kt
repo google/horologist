@@ -896,15 +896,16 @@ class ColorPropertyTest {
   }
 
   /**
-   * [SP_LOT_CLR_02_02] Linearly interpolates RGBA color channels between consecutive keyframes.
+   * [SP_LOT_CLR_02_02] Interpolates RGB in linear light and alpha linearly between consecutive
+   * keyframes.
    *
-   * Verifies component-wise lerp interpolation across red, green, blue, and alpha channels.
+   * The sRGB midpoint is 0.735357, not 0.5, matching lottie-android's GammaEvaluator.
    *
    * Specification:
    * [Lottie Color Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#color-keyframe)
    */
   @Test
-  fun linearlyInterpolatesColorChannelsBetweenConsecutiveKeyframes() {
+  fun interpolatesColorChannelsInLinearLightBetweenConsecutiveKeyframes() {
     val json =
       """{"a": 1, "k": [{"t": 0, "s": [1.0, 0.0, 0.0, 1.0]}, {"t": 10, "s": [0.0, 0.0, 1.0, 1.0]}]}"""
     val colorProp = LottieDecoder.json.decodeFromString(BaseColorPropertySerializer, json)
@@ -916,9 +917,9 @@ class ColorPropertyTest {
 
     val eval5 = animateColor(colorProp, LottieSettings(5f.rf, emptySlotMap))
     val c5 = extractColor(eval5)
-    assertThat(c5.red).isWithin(1e-4f).of(0.5f)
+    assertThat(c5.red).isWithin(1e-4f).of(0.735357f)
     assertThat(c5.green).isWithin(1e-4f).of(0.0f)
-    assertThat(c5.blue).isWithin(1e-4f).of(0.5f)
+    assertThat(c5.blue).isWithin(1e-4f).of(0.735357f)
     assertThat(c5.alpha).isWithin(1e-4f).of(1.0f)
 
     val eval10 = animateColor(colorProp, LottieSettings(10f.rf, emptySlotMap))
@@ -943,13 +944,13 @@ class ColorPropertyTest {
 
     val eval5 = animateColor(colorProp, LottieSettings(5f.rf, emptySlotMap))
     val c5 = extractColor(eval5)
-    assertThat(c5.red).isWithin(1e-4f).of(0.5f)
-    assertThat(c5.blue).isWithin(1e-4f).of(0.5f)
+    assertThat(c5.red).isWithin(1e-4f).of(0.735357f)
+    assertThat(c5.blue).isWithin(1e-4f).of(0.735357f)
 
     val eval15 = animateColor(colorProp, LottieSettings(15f.rf, emptySlotMap))
     val c15 = extractColor(eval15)
-    assertThat(c15.blue).isWithin(1e-4f).of(0.5f)
-    assertThat(c15.green).isWithin(1e-4f).of(0.5f)
+    assertThat(c15.blue).isWithin(1e-4f).of(0.735357f)
+    assertThat(c15.green).isWithin(1e-4f).of(0.735357f)
   }
 
   /**
@@ -1028,7 +1029,7 @@ class ColorPropertyTest {
 
     val eval0 = animateColor(colorProp, LottieSettings(0f.rf, emptySlotMap))
     val c0 = extractColor(eval0)
-    assertThat(c0.red).isWithin(1e-4f).of(0.5f)
+    assertThat(c0.red).isWithin(1e-4f).of(0.735357f)
 
     val eval10 = animateColor(colorProp, LottieSettings(10f.rf, emptySlotMap))
     val c10 = extractColor(eval10)

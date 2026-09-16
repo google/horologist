@@ -17,6 +17,7 @@
 package com.google.android.horologist.remotecompose.lottie.format.properties
 
 import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
 import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteBoolean
@@ -65,7 +66,7 @@ internal sealed class BaseBezierProperty {
 @Serializable
 internal data class StaticBezierProperty(
   @SerialName("sid") override val slotId: String? = null,
-  @SerialName("a") override val animated: SerializableRemoteBoolean,
+  @SerialName("a") override val animated: SerializableRemoteBoolean = false.rb,
   @SerialName("k") val value: BezierValue,
 ) : BaseBezierProperty()
 
@@ -83,7 +84,7 @@ internal data class StaticBezierProperty(
 @Serializable
 internal data class AnimatedBezierProperty(
   @SerialName("sid") override val slotId: String? = null,
-  @SerialName("a") override val animated: SerializableRemoteBoolean,
+  @SerialName("a") override val animated: SerializableRemoteBoolean = true.rb,
   @SerialName("k") val keyframes: List<BezierKeyframe>,
 ) : BaseBezierProperty()
 
@@ -121,6 +122,14 @@ internal data class BezierKeyframe(
   @SerialName("i") val inTangent: KeyframeEasing? = null,
   @SerialName("o") val outTangent: KeyframeEasing? = null,
 ) {
+  constructor(
+    frame: Float,
+    value: List<BezierValue>,
+    hold: Boolean = false,
+    inTangent: KeyframeEasing? = null,
+    outTangent: KeyframeEasing? = null,
+  ) : this(frame.rf, value, hold.rb, inTangent, outTangent)
+
   init {
     if (value.isEmpty()) {
       throw SerializationException(
@@ -129,6 +138,8 @@ internal data class BezierKeyframe(
     }
   }
 }
+
+internal typealias BezierPropertyKeyframe = BezierKeyframe
 
 /**
  * Polymorphic serializer for [BaseBezierProperty] discriminating between static and animated

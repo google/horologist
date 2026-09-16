@@ -17,8 +17,10 @@
 package com.google.android.horologist.remotecompose.lottie.renderer.properties
 
 import android.annotation.SuppressLint
+import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.lerp
 import androidx.compose.remote.creation.compose.state.rf
+import androidx.compose.remote.creation.compose.state.selectIfLt
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedPositionProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BasePositionProperty
@@ -76,30 +78,50 @@ internal fun animatePosition(
 
         // Control point tangents for the cubic Bézier curve, defaulting to linear easing if
         // omitted.
-        val outTangent = startKeyframe.outTangent ?: scalarLinearEasingOut
-        val inTangent = startKeyframe.inTangent ?: scalarLinearEasingIn
+        fun progressForDimension(index: Int): RemoteFloat {
+          val outTangent = (startKeyframe.outTangent ?: scalarLinearEasingOut).forDimension(index)
+          val inTangent = (startKeyframe.inTangent ?: scalarLinearEasingIn).forDimension(index)
 
-        // Evaluate the cubic Bézier curve to obtain the normalized interpolation factor [0.0, 1.0].
-        val currentBezierValue =
-          lookupValueInBezier(
-            outTangent.x,
-            outTangent.y,
-            inTangent.x,
-            inTangent.y,
-            duration,
-            frameInAnimation,
-          )
+          // Temporal easing may overshoot [0, 1]; spatial playback preserves that overshoot.
+          return if (startKeyframe.hold.constantValue) {
+            selectIfLt(frameInAnimation, duration.rf, 0f.rf, 1f.rf)
+          } else
+            lookupValueInBezier(
+              outTangent.x,
+              outTangent.y,
+              inTangent.x,
+              inTangent.y,
+              duration,
+              frameInAnimation,
+            )
+        }
 
-        // Linearly interpolate each coordinate (x, y) between the start and end keyframe values.
+        val progressX = progressForDimension(0)
+        val spatial =
+          if (
+            !startKeyframe.hold.constantValue &&
+              (startKeyframe.outSpatialTangent != null || startKeyframe.inSpatialTangent != null)
+          ) {
+            sampleSpatialPosition(
+              startKeyframe.value,
+              endKeyframe.value,
+              startKeyframe.outSpatialTangent,
+              startKeyframe.inSpatialTangent,
+              progressX,
+            )
+          } else null
+
+        // Without a spatial path, each coordinate uses its own temporal easing.
         val segment =
           listOf(
             AnimationSegment(
               startKeyframe.frame.constantValue,
-              lerp(startKeyframe.value.x, endKeyframe.value.x, currentBezierValue),
+              spatial?.x ?: lerp(startKeyframe.value.x, endKeyframe.value.x, progressX),
             ),
             AnimationSegment(
               startKeyframe.frame.constantValue,
-              lerp(startKeyframe.value.y, endKeyframe.value.y, currentBezierValue),
+              spatial?.y
+                ?: lerp(startKeyframe.value.y, endKeyframe.value.y, progressForDimension(1)),
             ),
           )
 

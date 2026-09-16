@@ -34,6 +34,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.horologist.remotecompose.lottie.format.Animation
+import com.google.android.horologist.remotecompose.lottie.format.FontChar
+import com.google.android.horologist.remotecompose.lottie.format.FontList
 import com.google.android.horologist.remotecompose.lottie.format.asset.Asset
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
 import com.google.android.horologist.remotecompose.lottie.format.layer.Layer
@@ -46,13 +48,12 @@ import com.google.android.horologist.remotecompose.lottie.renderer.layers.MatteC
  *
  * @property currentFrame The current frame to display.
  * @property slotMap Mapping of slot IDs to values for dynamic theming.
- * @property width The composition width in pixels.
- * @property height The composition height in pixels.
- * @property endFrame The composition end frame boundary.
  * @property assets Mapping of asset IDs to root assets.
  * @property visibility Compound layer visibility multiplier.
  * @property activePrecomps Set of precomposition asset IDs currently rendering (recursion guard).
  * @property frameRate The composition frame rate in frames per second.
+ * @property fonts The fonts table defined in the animation root.
+ * @property chars Vector glyph definitions defined in the animation root.
  */
 internal data class LottieSettings(
   val currentFrame: RemoteFloat,
@@ -64,6 +65,8 @@ internal data class LottieSettings(
   val visibility: RemoteFloat = 1f.rf,
   val activePrecomps: Set<String> = emptySet(),
   val frameRate: Float = 30f,
+  val fonts: FontList? = null,
+  val chars: List<FontChar> = emptyList(),
 )
 
 /** CompositionLocal for [LottieSettings]. */
@@ -132,6 +135,8 @@ internal fun LottieAnimation(
   slotMap: SlotMap = SlotMap.Empty,
   progress: RemoteFloat? = null,
 ) {
+  // Cache validation with the immutable model, before emitting any recording operations.
+  remember(animation) { animation.also { it.validateForRecording() } }
   // Total span of frames across the animation timeline.
   val totalFrames = animation.endFrame - animation.startFrame
   val startFrameRf = animation.startFrame.rf
@@ -141,7 +146,8 @@ internal fun LottieAnimation(
   // from the Remote Compose document animation clock time.
   val currentFrame =
     if (progress != null) {
-      startFrameRf + (progress * totalFrames)
+      // Progress 1 displays the last representable frame, while layer out-points stay exclusive.
+      min(startFrameRf + (progress * totalFrames), Math.nextDown(animation.endFrame).rf)
     } else {
       startFrameRf + (floor(RemoteFloat(ANIMATION_TIME) * animation.frameRate) % totalFrames)
     }
@@ -155,6 +161,8 @@ internal fun LottieAnimation(
       endFrame = animation.endFrame,
       assets = assetMap,
       frameRate = animation.frameRate,
+      fonts = animation.fonts,
+      chars = animation.chars,
     )
 
   CompositionLocalProvider(LocalAnimationSettings provides animationSettings) {
@@ -190,13 +198,16 @@ internal fun LottieAnimation(
       // .clip(RemoteRectangleShape)
       contentAlignment = RemoteAlignment.Center,
     ) {
+      DeclarePlaybackState(currentFrame)
       val matteTargetIndices =
         remember(animation.layers) {
           animation.layers
             .mapIndexedNotNull { index, layer ->
               if (layer.matteParent != null) {
                 layer.matteParent
-              } else if (layer.matteMode != MatteMode.Normal && index > 0) {
+              } else if (
+                layer.matteMode != null && layer.matteMode != MatteMode.Normal && index > 0
+              ) {
                 animation.layers[index - 1].index
               } else {
                 null
@@ -210,13 +221,17 @@ internal fun LottieAnimation(
           layer.matteTarget == 1 ||
             (layer.index != null && layer.index in matteTargetIndices) ||
             (i < animation.layers.size - 1 &&
+              animation.layers[i + 1].matteMode != null &&
               animation.layers[i + 1].matteMode != MatteMode.Normal &&
               animation.layers[i + 1].matteParent == null)
         if (isMatteSource) {
           continue
         }
         val matteContext =
-          if (layer.matteMode != MatteMode.Normal || layer.matteParent != null) {
+          if (
+            (layer.matteMode != null && layer.matteMode != MatteMode.Normal) ||
+              layer.matteParent != null
+          ) {
             val matteLayer =
               if (layer.matteParent != null) {
                 animation.layers.firstOrNull { it.index == layer.matteParent }
@@ -227,8 +242,8 @@ internal fun LottieAnimation(
               }
             if (matteLayer != null) {
               val matteMode =
-                if (layer.matteMode != MatteMode.Normal) {
-                  layer.matteMode
+                if (layer.matteMode != null && layer.matteMode != MatteMode.Normal) {
+                  layer.matteMode!!
                 } else {
                   MatteMode.Alpha
                 }

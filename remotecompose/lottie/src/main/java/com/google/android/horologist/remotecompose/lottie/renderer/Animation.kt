@@ -21,8 +21,12 @@ import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.RemoteFloatArray
 import androidx.compose.remote.creation.compose.state.clamp
+import androidx.compose.remote.creation.compose.state.floor
+import androidx.compose.remote.creation.compose.state.lerp
+import androidx.compose.remote.creation.compose.state.min
 import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
+import kotlin.math.ceil
 
 @SuppressLint("RestrictedApi")
 internal fun lookupValueInBezier(
@@ -33,18 +37,24 @@ internal fun lookupValueInBezier(
   duration: Float,
   frame: RemoteFloat,
 ): RemoteFloat {
+  // Coincident keyframes select the later value without dividing by a zero duration.
+  if (duration <= 0f) return 1f.rf
+
+  // A diagonal timing curve is exactly linear. Sampling it introduces enough rounding
+  // error to miss exact zero crossings (which can enable/disable a geometry modifier).
+  if (a == b && c == d) return clamp(frame / duration, 0f.rf, 1f.rf)
+
   // TODO implement using Remote Compose expressions to avoid a Compose UI impl
   val easing = CubicBezierEasing(a, b, c, d)
-  val frameAnimationValues = mutableListOf<Float>()
-
-  for (i in 0..duration.toInt()) {
-    frameAnimationValues.add(easing.transform(i / duration))
-  }
-
-  val remoteFrameAnimationValues = RemoteFloatArray(frameAnimationValues.map { it.rf })
-  val clampedFrame = clamp(value = frame, min = 0.rf, max = (frameAnimationValues.size - 1).rf)
-
-  return remoteFrameAnimationValues[clampedFrame]
+  // Include both endpoints even for fractional durations. Bound the table size and
+  // interpolate neighbouring samples: RemoteFloatArray indexing truncates to an integer.
+  val sampleCount = ceil(duration).toInt().coerceIn(32, 4096)
+  val samples =
+    RemoteFloatArray((0..sampleCount).map { easing.transform(it.toFloat() / sampleCount).rf })
+  val sampleIndex = clamp(frame / duration, 0f.rf, 1f.rf) * sampleCount.rf
+  val lowerIndex = floor(sampleIndex)
+  val upperIndex = min(lowerIndex + 1f, sampleCount.rf)
+  return lerp(samples[lowerIndex], samples[upperIndex], sampleIndex - lowerIndex)
 }
 
 internal fun lookupValueInBezier(

@@ -26,12 +26,10 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.remotecompose.lottie.format.Animation
 import com.google.common.truth.Truth.assertThat
-import org.junit.Ignore
 import org.junit.Test
 
 class DynamicColorPlaybackTest : MotionPixelHarness() {
   // [SP_REVIEW_COLOR_FINAL] Dynamic playback reaches and holds the final color after a hold.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun changesFromHeldRedToFinalBlueWhenProgressReachesLastColorKeyframe() {
     val animation = Animation.decodeFromString(heldColorRectangle)

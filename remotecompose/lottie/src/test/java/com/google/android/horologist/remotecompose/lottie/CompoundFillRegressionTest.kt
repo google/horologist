@@ -16,31 +16,19 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
-import org.junit.Ignore
 import org.junit.Test
 
 class CompoundFillRegressionTest : FixtureParityHarness() {
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun nonzeroWindingKeepsHole() = verify("nonzero", rule = 1)
+  @Test fun nonzeroWindingKeepsHole() = verify("nonzero", rule = 1)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun evenOddKeepsHole() = verify("evenodd", rule = 2)
+  @Test fun evenOddKeepsHole() = verify("evenodd", rule = 2)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun gradientKeepsHole() = verify("gradient", rule = 2, gradient = true)
+  @Test fun gradientKeepsHole() = verify("gradient", rule = 2, gradient = true)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun overlapUsesOneOpacityApplication() = verify("opacity", overlap = true)
+  @Test fun overlapUsesOneOpacityApplication() = verify("opacity", overlap = true)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun nestedGroupKeepsHole() = verify("nested", rule = 2, nested = true)
+  @Test fun nestedGroupKeepsHole() = verify("nested", rule = 2, nested = true)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun parentFillCombinesDirectAndGroupContours() = verify("inherited", rule = 2, inherited = true)
 

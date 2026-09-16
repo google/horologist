@@ -669,24 +669,20 @@ class VectorPropertyTest {
   }
 
   /**
-   * [SP_LOT_VEC_02_02] Evaluates animated vector with empty keyframe list to an empty list.
-   *
-   * Root cause: animateVector accesses `vector.keyframes[0]` unconditionally when keyframes.size !=
-   * 1, causing IndexOutOfBoundsException on empty keyframe lists.
+   * [SP_LOT_VEC_02_02] Rejects animated vector with empty keyframe list with an
+   * [IllegalArgumentException].
    *
    * Specification:
    * [Lottie Vector Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#vector-property)
    */
-  @Ignore(
-    "BUG: SP_LOT_VEC_02_02: animateVector throws IndexOutOfBoundsException when keyframes is empty"
-  )
   @Test
-  fun returnsEmptyListWhenAnimatedKeyframesEmpty() {
+  fun throwsIllegalArgumentExceptionWhenAnimatedKeyframesEmpty() {
     val json = """{"a": 1, "k": []}"""
     val vector = LottieDecoder.json.decodeFromString(BaseVectorPropertySerializer, json)
 
-    val evaluated = animateVector(vector, LottieSettings(5f.rf, emptySlotMap))
-    assertThat(evaluated).isEmpty()
+    assertThrows(IllegalArgumentException::class.java) {
+      animateVector(vector, LottieSettings(5f.rf, emptySlotMap))
+    }
   }
 
   /**
@@ -750,16 +746,9 @@ class VectorPropertyTest {
    * [SP_LOT_VEC_02_02] Linearly interpolates vector components between keyframes when easing
    * tangents are omitted.
    *
-   * Root cause: When tangents are omitted, animateVector defaults to scalarLinearEasingOut and
-   * scalarLinearEasingIn which pass through lookupValueInBezier, producing non-linear interpolation
-   * (~43.75f instead of 50.0f).
-   *
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore(
-    "BUG: SP_LOT_VEC_02_02: animateVector does not produce exact linear interpolation when tangents are omitted"
-  )
   @Test
   fun linearlyInterpolatesVectorComponentsBetweenKeyframes() {
     val json = """{"a": 1, "k": [{"t": 0, "s": [0.0, 100.0]}, {"t": 10, "s": [100.0, 200.0]}]}"""
@@ -827,13 +816,9 @@ class VectorPropertyTest {
    * [SP_LOT_VEC_02_02] Holds vector components constant until next keyframe timestamp when hold
    * flag `h = 1`.
    *
-   * Root cause: animateVector does not evaluate the hold flag on startKeyframe, attempting linear
-   * interpolation instead of holding constant.
-   *
    * Specification:
    * [Lottie Vector Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#vector-keyframe)
    */
-  @Ignore("BUG: SP_LOT_VEC_02_02: animateVector does not respect keyframe hold flag")
   @Test
   fun holdsValueConstantUntilNextKeyframeWhenHoldFlagIsTrue() {
     val json =

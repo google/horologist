@@ -1,0 +1,139 @@
+{
+  "v": "0.0.0",
+  "fr": 60,
+  "ip": 0,
+  "op": 60,
+  "w": 128,
+  "h": 128,
+  "nm": "rect_ellipse",
+  "author": "Google Horologist",
+  "description": "Parametric shapes test created for Horologist RemoteCompose Lottie: rectangle, rounded rectangle, ellipse, circle.",
+  "layers": [
+    {
+      "ty": 4,
+      "nm": "Shapes Layer",
+      "ind": 1,
+      "ip": 0,
+      "op": 60,
+      "ks": {
+        "a": { "a": 0, "k": [0, 0, 0] },
+        "p": { "a": 0, "k": [0, 0, 0] },
+        "r": { "a": 0, "k": 0 },
+        "s": { "a": 0, "k": [100, 100] },
+        "o": { "a": 0, "k": 100 }
+      },
+      "shapes": [
+        {
+          "ty": "gr",
+          "nm": "Rounded Rectangle Group",
+          "it": [
+            {
+              "ty": "rc",
+              "nm": "Rounded Rectangle",
+              "p": { "a": 0, "k": [36, 36] },
+              "s": { "a": 0, "k": [48, 40] },
+              "r": { "a": 0, "k": 10 }
+            },
+            {
+              "ty": "fl",
+              "nm": "Fill Blue",
+              "c": { "a": 0, "k": [0.2, 0.5, 0.9, 1.0] },
+              "o": { "a": 0, "k": 100 }
+            },
+            {
+              "ty": "tr",
+              "nm": "Transform",
+              "a": { "a": 0, "k": [0, 0] },
+              "p": { "a": 0, "k": [0, 0] },
+              "s": { "a": 0, "k": [100, 100] },
+              "r": { "a": 0, "k": 0 },
+              "o": { "a": 0, "k": 100 }
+            }
+          ]
+        },
+        {
+          "ty": "gr",
+          "nm": "Sharp Rectangle Group",
+          "it": [
+            {
+              "ty": "rc",
+              "nm": "Sharp Rectangle",
+              "p": { "a": 0, "k": [92, 36] },
+              "s": { "a": 0, "k": [44, 40] },
+              "r": { "a": 0, "k": 0 }
+            },
+            {
+              "ty": "fl",
+              "nm": "Fill Green",
+              "c": { "a": 0, "k": [0.2, 0.8, 0.4, 1.0] },
+              "o": { "a": 0, "k": 100 }
+            },
+            {
+              "ty": "tr",
+              "nm": "Transform",
+              "a": { "a": 0, "k": [0, 0] },
+              "p": { "a": 0, "k": [0, 0] },
+              "s": { "a": 0, "k": [100, 100] },
+              "r": { "a": 0, "k": 0 },
+              "o": { "a": 0, "k": 100 }
+            }
+          ]
+        },
+        {
+          "ty": "gr",
+          "nm": "Circle Group",
+          "it": [
+            {
+              "ty": "el",
+              "nm": "Circle",
+              "p": { "a": 0, "k": [36, 92] },
+              "s": { "a": 0, "k": [42, 42] }
+            },
+            {
+              "ty": "fl",
+              "nm": "Fill Red",
+              "c": { "a": 0, "k": [0.9, 0.3, 0.3, 1.0] },
+              "o": { "a": 0, "k": 100 }
+            },
+            {
+              "ty": "tr",
+              "nm": "Transform",
+              "a": { "a": 0, "k": [0, 0] },
+              "p": { "a": 0, "k": [0, 0] },
+              "s": { "a": 0, "k": [100, 100] },
+              "r": { "a": 0, "k": 0 },
+              "o": { "a": 0, "k": 100 }
+            }
+          ]
+        },
+        {
+          "ty": "gr",
+          "nm": "Oval Group",
+          "it": [
+            {
+              "ty": "el",
+              "nm": "Oval",
+              "p": { "a": 0, "k": [92, 92] },
+              "s": { "a": 0, "k": [52, 36] }
+            },
+            {
+              "ty": "fl",
+              "nm": "Fill Yellow",
+              "c": { "a": 0, "k": [0.95, 0.75, 0.1, 1.0] },
+              "o": { "a": 0, "k": 100 }
+            },
+            {
+              "ty": "tr",
+              "nm": "Transform",
+              "a": { "a": 0, "k": [0, 0] },
+              "p": { "a": 0, "k": [0, 0] },
+              "s": { "a": 0, "k": [100, 100] },
+              "r": { "a": 0, "k": 0 },
+              "o": { "a": 0, "k": 100 }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

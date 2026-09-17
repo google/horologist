@@ -42,6 +42,18 @@ android {
   namespace = "com.google.android.horologist.remotecompose.lottie"
 }
 
+tasks.withType<Test>().configureEach {
+  listOf(
+      "lottieCliRun",
+      "lottieUrl",
+      "lottieUrlsFile",
+      "lottieOutput",
+      "lottieFrames",
+      "lottieSizeDp",
+    )
+    .forEach { prop -> project.findProperty(prop)?.let { systemProperty(prop, it.toString()) } }
+}
+
 metalava { filename.set("api/current.api") }
 
 tasks.withType<KotlinCompile>().configureEach {

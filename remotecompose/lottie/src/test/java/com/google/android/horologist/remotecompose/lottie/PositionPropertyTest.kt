@@ -795,13 +795,9 @@ class PositionPropertyTest {
   /**
    * [SP_LOT_POS_03_08] Holds coordinates constant until next keyframe when hold flag `"h"` is 1.
    *
-   * Root cause: animatePosition currently ignores hold flag h on keyframe segments and applies
-   * continuous Bézier easing.
-   *
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore("BUG: SP_LOT_POS_03_08: animatePosition ignores hold flag 'h' and performs interpolation")
   @Test
   fun holdsCoordinatesConstantUntilNextKeyframeWhenHoldFlagIsTrue() {
     val json =

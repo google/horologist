@@ -84,7 +84,9 @@ internal data class StaticColorProperty(
 internal data class AnimatedColorProperty(
   @SerialName("sid") override val slotId: String? = null,
   @SerialName("a") override val animated: SerializableRemoteBoolean = true.rb,
-  @SerialName("k") val keyframes: List<ColorPropertyKeyframe>,
+  @SerialName("k")
+  @Serializable(with = ColorKeyframeListSerializer::class)
+  val keyframes: List<ColorPropertyKeyframe>,
 ) : BaseColorProperty()
 
 /**
@@ -124,18 +126,7 @@ internal data class ColorPropertyKeyframe(
 
 /**
  * Polymorphic serializer for [BaseColorProperty] discriminating between static and animated
- * variants based on the Lottie schema `"a"` field ([Integer
- * Boolean](https://lottie.github.io/lottie-spec/1.0.1/specs/values/#int-boolean)).
- *
- * Contract:
- * - Preconditions: [element] must be a [JsonObject].
- * - Postconditions:
- *     - Selects [AnimatedColorProperty.serializer] when `"a"` is integer `1`.
- *     - Selects [StaticColorProperty.serializer] when `"a"` is integer `0`.
- * - Exceptions:
- *     - Throws [SerializationException] if [element] is not a [JsonObject].
- *     - Throws [SerializationException] if `"a"` is missing.
- *     - Throws [SerializationException] if `"a"` is neither `0` nor `1`.
+ * variants based on the Lottie schema `"a"` field.
  */
 internal object BaseColorPropertySerializer :
   JsonContentPolymorphicSerializer<BaseColorProperty>(BaseColorProperty::class) {

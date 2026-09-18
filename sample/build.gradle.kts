@@ -129,6 +129,7 @@ dependencies {
   implementation(libs.okhttp.coroutines)
 
   implementation(libs.compose.ui.toolingpreview)
+  implementation(platform(libs.compose.preview.daemon.bom))
   implementation(libs.compose.preview.annotations)
   implementation(libs.androidx.wear.tooling.preview)
 

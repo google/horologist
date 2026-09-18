@@ -86,6 +86,7 @@ dependencies {
   debugImplementation(projects.composeTools)
   debugImplementation(libs.compose.ui.tooling)
   implementation(libs.compose.ui.toolingpreview)
+  implementation(platform(libs.compose.preview.daemon.bom))
   implementation(libs.compose.preview.annotations)
   releaseCompileOnly(projects.composeTools)
 

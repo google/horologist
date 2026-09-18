@@ -67,6 +67,7 @@ dependencies {
   debugImplementation(libs.androidx.compose.remote.player.compose)
   debugImplementation(libs.androidx.compose.remote.player.view)
   debugImplementation(libs.compose.ui.toolingpreview)
+  debugImplementation(platform(libs.compose.preview.daemon.bom))
   debugImplementation(libs.compose.preview.annotations)
 
   testImplementation(libs.junit)

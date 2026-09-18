@@ -22,46 +22,55 @@ class MediaLottieDiffScreenshotTest : LottieDiffScreenshotTest() {
 
   @Test
   fun geometry() {
-    runLottieDiffTest(R.raw.geometry)
+    runLottieDiffTest(R.raw.geometry, suffix = "_progress0")
   }
 
   @Test
   fun playPause() {
-    runLottieDiffTest(R.raw.play_pause)
+    runLottieDiffTest(R.raw.play_pause, suffix = "_progress0")
   }
 
   @Test
   fun next() {
-    runLottieDiffTest(R.raw.next)
+    runLottieDiffTest(R.raw.next, suffix = "_progress0")
   }
 
   @Test
   fun m3PlayPause() {
-    runLottieDiffTest(R.raw.m3_play_pause)
+    runLottieDiffTest(R.raw.m3_play_pause, suffix = "_progress0")
   }
 
   @Test
   fun m3Next() {
-    runLottieDiffTest(R.raw.m3_next)
+    runLottieDiffTest(R.raw.m3_next, suffix = "_progress0")
   }
 
   @Test
   fun volumeUp() {
-    runLottieDiffTest(R.raw.volume_up)
+    runLottieDiffTest(R.raw.volume_up, suffix = "_progress0")
   }
 
   @Test
   fun volumeDown() {
-    runLottieDiffTest(R.raw.volume_down)
+    runLottieDiffTest(R.raw.volume_down, suffix = "_progress0")
   }
 
   @Test
   fun muteToUnmute() {
-    runLottieDiffTest(R.raw.mute_to_unmute, expectedFailure = true)
+    runLottieDiffTest(R.raw.mute_to_unmute) {
+      captureProgress(0f)
+      captureProgress(0.25f)
+      captureProgress(0.5f)
+      captureProgress(1f)
+    }
   }
 
   @Test
   fun unmuteToMute() {
-    runLottieDiffTest(R.raw.unmute_to_mute, expectedFailure = true)
+    runLottieDiffTest(R.raw.unmute_to_mute) {
+      captureProgress(0f)
+      captureProgress(0.5f)
+      captureProgress(1f)
+    }
   }
 }

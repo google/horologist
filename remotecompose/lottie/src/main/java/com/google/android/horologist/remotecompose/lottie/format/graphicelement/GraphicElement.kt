@@ -22,9 +22,19 @@ import com.google.android.horologist.remotecompose.lottie.format.graphicelement.
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Rectangle
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Group
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.MergePaths
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.OffsetPath
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.PuckerBloat
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.Repeater
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.RoundedCorners
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.TrimPath
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.Twist
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.UnknownElement
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.ZigZag
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Fill
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.GradientFill
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.GradientStroke
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.NoStyle
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Stroke
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableBoolean
 import kotlinx.serialization.DeserializationStrategy
@@ -53,6 +63,14 @@ internal interface GraphicElement {
   val name: String?
   val hidden: SerializableBoolean?
   val type: ShapeType
+  val index: Int?
+    get() = null
+
+  val matchName: String?
+    get() = null
+
+  val propertyIndex: Int?
+    get() = null
 }
 
 @Serializable(with = ShapeTypeSerializer::class)
@@ -66,7 +84,17 @@ internal enum class ShapeType(val value: String) {
   PolyStar("sr"),
   Rectangle("rc"),
   Stroke("st"),
-  Transform("tr");
+  Transform("tr"),
+  NoStyle("no"),
+  TrimPath("tm"),
+  Repeater("rp"),
+  RoundedCorners("rd"),
+  MergePaths("mm"),
+  OffsetPath("op"),
+  PuckerBloat("pb"),
+  Twist("tw"),
+  ZigZag("zz"),
+  Unknown("unknown");
 
   companion object {
     fun fromValueOrNull(value: String): ShapeType? {
@@ -90,7 +118,16 @@ internal object GraphicElementSerializer :
       ShapeType.Rectangle.value -> Rectangle.serializer()
       ShapeType.Ellipse.value -> Ellipse.serializer()
       ShapeType.PolyStar.value -> PolyStar.serializer()
-      else -> Group.serializer()
+      ShapeType.NoStyle.value -> NoStyle.serializer()
+      ShapeType.TrimPath.value -> TrimPath.serializer()
+      ShapeType.Repeater.value -> Repeater.serializer()
+      ShapeType.RoundedCorners.value -> RoundedCorners.serializer()
+      ShapeType.MergePaths.value -> MergePaths.serializer()
+      ShapeType.OffsetPath.value -> OffsetPath.serializer()
+      ShapeType.PuckerBloat.value -> PuckerBloat.serializer()
+      ShapeType.Twist.value -> Twist.serializer()
+      ShapeType.ZigZag.value -> ZigZag.serializer()
+      else -> UnknownElement.serializer()
     }
   }
 }
@@ -101,7 +138,7 @@ internal object ShapeTypeSerializer : KSerializer<ShapeType> {
 
   override fun deserialize(decoder: Decoder): ShapeType {
     val value = decoder.decodeString()
-    return ShapeType.fromValueOrNull(value) ?: ShapeType.Group
+    return ShapeType.fromValueOrNull(value) ?: ShapeType.Unknown
   }
 
   override fun serialize(encoder: Encoder, value: ShapeType) {

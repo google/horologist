@@ -28,12 +28,15 @@ import com.google.android.horologist.remotecompose.lottie.format.graphicelement.
 import com.google.android.horologist.remotecompose.lottie.format.layer.MatteMode
 import com.google.android.horologist.remotecompose.lottie.format.layer.PrecompLayer
 
-/** A Layer rendering a nested precomposition referenced by [PrecompLayer.refId]. */
+/**
+ * Renders the referenced precomposition on its local timeline. [transformStack] already includes
+ * this layer's transform and is bound to the containing timelines by [Layer].
+ */
 @SuppressLint("RestrictedApi")
 @Composable
 @RemoteComposable
 internal fun PrecompLayer(layer: PrecompLayer, transformStack: List<Transform> = emptyList()) {
-  if (layer.hidden.constantValue) {
+  if (layer.hidden?.constantValue == true) {
     return
   }
 
@@ -48,13 +51,8 @@ internal fun PrecompLayer(layer: PrecompLayer, transformStack: List<Transform> =
     return
   }
 
-  val updatedTransformStack =
-    if (layer.transform != null) transformStack + layer.transform else transformStack
-
   val childAncestorTransforms =
-    remember(asset.layers, updatedTransformStack) {
-      buildAncestorTransforms(asset.layers, updatedTransformStack)
-    }
+    remember(asset.layers, transformStack) { buildAncestorTransforms(asset.layers, transformStack) }
 
   val matteTargetIndices =
     remember(asset.layers) {
@@ -62,7 +60,7 @@ internal fun PrecompLayer(layer: PrecompLayer, transformStack: List<Transform> =
         .mapIndexedNotNull { index, l ->
           if (l.matteParent != null) {
             l.matteParent
-          } else if (l.matteMode != MatteMode.Normal && index > 0) {
+          } else if (l.matteMode != null && l.matteMode != MatteMode.Normal && index > 0) {
             asset.layers[index - 1].index
           } else {
             null
@@ -81,13 +79,17 @@ internal fun PrecompLayer(layer: PrecompLayer, transformStack: List<Transform> =
         childLayer.matteTarget == 1 ||
           (childLayer.index != null && childLayer.index in matteTargetIndices) ||
           (i < asset.layers.size - 1 &&
+            asset.layers[i + 1].matteMode != null &&
             asset.layers[i + 1].matteMode != MatteMode.Normal &&
             asset.layers[i + 1].matteParent == null)
       if (isMatteSource) {
         continue
       }
       val matteContext =
-        if (childLayer.matteMode != MatteMode.Normal || childLayer.matteParent != null) {
+        if (
+          (childLayer.matteMode != null && childLayer.matteMode != MatteMode.Normal) ||
+            childLayer.matteParent != null
+        ) {
           val matteLayer =
             if (childLayer.matteParent != null) {
               asset.layers.firstOrNull { it.index == childLayer.matteParent }
@@ -98,15 +100,15 @@ internal fun PrecompLayer(layer: PrecompLayer, transformStack: List<Transform> =
             }
           if (matteLayer != null) {
             val matteMode =
-              if (childLayer.matteMode != MatteMode.Normal) {
-                childLayer.matteMode
+              if (childLayer.matteMode != null && childLayer.matteMode != MatteMode.Normal) {
+                childLayer.matteMode!!
               } else {
                 MatteMode.Alpha
               }
             val transforms =
               childAncestorTransforms[matteLayer.index]
                 ?: childAncestorTransforms[null]
-                ?: updatedTransformStack
+                ?: transformStack
             MatteContext(matteLayer, transforms, matteMode)
           } else {
             null

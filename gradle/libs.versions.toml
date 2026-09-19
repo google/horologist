@@ -40,7 +40,7 @@ compose-material3 = "1.4.0"
 composeAiTools = "2.18.1"
 composePreviewDaemon = "3.8.3"
 composesnapshot = "-"
-dependencyAnalysis = "3.19.1"
+dependencyAnalysis = "3.19.2"
 desugar_jdk_libs = "2.1.5"
 dokka = "2.2.0"
 googledagger = "2.60.1"
@@ -83,7 +83,7 @@ wearcompose = "1.6.2"
 glanceWear = "1.0.0-alpha18"
 composeRemote = "1.0.0-alpha19"
 wearComposeRemote = "1.0.0-alpha11"
-agp = "9.4.0"
+agp = "9.4.1"
 
 [libraries]
 accessibility-test-framework = { module = "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework", version.ref = "accessibilityTestFramework" }
@@ -207,7 +207,7 @@ dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plu
 dagger-hiltandroidtesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "googledagger" }
 desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
-google-genai = "com.google.genai:google-genai:1.71.0"
+google-genai = "com.google.genai:google-genai:1.72.0"
 gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradlePublishPlugin" }
 grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
@@ -240,7 +240,7 @@ oss-licenses-plugin = { module = "com.google.android.gms:oss-licenses-plugin", v
 osslicenses-wear-compose-material = { module = "io.github.droibit.oss-licenses-android:ui-wear-compose-material", version.ref = "osslicenses" }
 play-services-oss-licenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "playServicesOssLicenses" }
 playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
-playservices-base = "com.google.android.gms:play-services-base:18.10.1"
+playservices-base = "com.google.android.gms:play-services-base:18.11.0"
 playservices-wearable = "com.google.android.gms:play-services-wearable:20.0.1"
 protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
 protobuf-protoc-gen-grpc-java = { module = "io.grpc:protoc-gen-grpc-java", version.ref = "protobuf-gen-grpc-java"}

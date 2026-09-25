@@ -64,7 +64,7 @@ internal sealed class BaseVectorProperty {
 @Serializable
 internal data class StaticVectorProperty(
   @SerialName("sid") override val slotId: String? = null,
-  @SerialName("a") override val animated: SerializableRemoteBoolean,
+  @SerialName("a") override val animated: SerializableRemoteBoolean = false.rb,
   @SerialName("k") val value: List<SerializableRemoteFloat>,
 ) : BaseVectorProperty()
 
@@ -82,8 +82,10 @@ internal data class StaticVectorProperty(
 @Serializable
 internal data class AnimatedVectorProperty(
   @SerialName("sid") override val slotId: String? = null,
-  @SerialName("a") override val animated: SerializableRemoteBoolean,
-  @SerialName("k") val keyframes: List<VectorPropertyKeyframe>,
+  @SerialName("a") override val animated: SerializableRemoteBoolean = true.rb,
+  @SerialName("k")
+  @Serializable(with = VectorKeyframeListSerializer::class)
+  val keyframes: List<VectorPropertyKeyframe>,
 ) : BaseVectorProperty()
 
 /**
@@ -125,16 +127,6 @@ internal data class VectorPropertyKeyframe(
  * Polymorphic serializer for [BaseVectorProperty] discriminating between static and animated
  * variants based on the Lottie schema `"a"` field ([Integer
  * Boolean](https://lottie.github.io/lottie-spec/dev/specs/values/#int-boolean)).
- *
- * Contract:
- * - Preconditions: [element] must be a [JsonObject].
- * - Postconditions:
- *     - Selects [AnimatedVectorProperty.serializer] when `"a"` is integer `1`.
- *     - Selects [StaticVectorProperty.serializer] when `"a"` is integer `0`.
- * - Exceptions:
- *     - Throws [SerializationException] if [element] is not a [JsonObject].
- *     - Throws [SerializationException] if `"a"` is missing.
- *     - Throws [SerializationException] if `"a"` is neither `0` nor `1`.
  */
 internal object BaseVectorPropertySerializer :
   JsonContentPolymorphicSerializer<BaseVectorProperty>(BaseVectorProperty::class) {

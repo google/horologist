@@ -35,13 +35,11 @@ import com.google.android.horologist.remotecompose.lottie.format.Animation
 import com.google.android.horologist.screenshots.rng.WearScreenshotTest
 import com.google.common.truth.Truth.assertWithMessage
 import java.io.File
-import org.junit.Ignore
 import org.junit.Test
 
 @OptIn(ExperimentalRoborazziApi::class)
 class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   // [SP_MASK_01] A static add mask exposes only its rectangle throughout playback.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun keepsStaticMaskAtItsDeclaredPositionDuringPlayback() {
     val progress = show(animation(maskedSolid("""{"a":0,"k":${maskPath(0)}}""")))
@@ -51,7 +49,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_MASK_02] Updating named progress changes the path of an animated add mask.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun movesVisibleMaskedRegionWhenProgressReachesNextPathKeyframe() {
     val path =
@@ -68,7 +65,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_GRADIENT_00] RGB stops alone form an opaque gradient over the background.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun keepsGradientOpaqueWhenNoOpacityStopsArePresent() {
     show(gradientAnimation(2, """{"a":0,"k":[$redBlue]}"""), Color.Green)
@@ -80,7 +76,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_GRADIENT_05] A single RGB stop extends its opaque color across the gradient.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun fillsEntireGradientWithTheOnlyColorStop() {
     show(gradientAnimation(1, """{"a":0,"k":[0.5,1,0,0]}"""), Color.Green)
@@ -88,7 +83,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_GRADIENT_06] Coincident RGB stops preserve a discontinuous red-to-blue boundary.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun preservesHardColorEdgeWhenRgbStopsShareAPosition() {
     val rgb = "0,1,0,0,0.5,1,0,0,0.5,0,0,1,1,0,0,1"
@@ -97,7 +91,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_GRADIENT_07] Opacity merging preserves both colors at a coincident-stop hard edge.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun preservesHardColorEdgeWhenIndependentOpacityStopsAreMerged() {
     val rgb = "0,1,0,0,0.5,1,0,0,0.5,0,0,1,1,0,0,1"
@@ -109,7 +102,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_GRADIENT_01] Three opacity stops preserve a transparent center between two RGB stops.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun revealsBackgroundAtOpacityStopMissingFromRgbStops() {
     show(gradientAnimation(2, """{"a":0,"k":[$redBlue,0,1,0.5,0,1,1]}"""), Color.Green)
@@ -117,7 +109,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_GRADIENT_02] Equal stop counts do not imply matching color and opacity positions.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun mergesEqualNumbersOfColorAndOpacityStopsAtDifferentPositions() {
     val rgb = "0,1,0,0,0.25,1,0,0,1,0,0,1"
@@ -126,7 +117,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_GRADIENT_03] Animated opacity values update without recreating the composition.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun revealsBackgroundWhenAnimatedMiddleOpacityReachesZero() {
     val property =
@@ -141,7 +131,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_GRADIENT_04] An opacity stop can cross an RGB stop while moving the transparent region.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun movesTransparentRegionWhenAnimatedOpacityStopChangesPosition() {
     val rgb = "0,1,0,0,0.5,1,0,0,1,1,0,0"
@@ -163,7 +152,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_PRECOMP_TIMING_00] An unshifted, unstretched precomp keeps both timelines aligned.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun rendersUnshiftedPrecompWithAlignedParentAndChildMotion() {
     val asset = """{"id":"child","layers":[${movingRectangle()}]}"""
@@ -174,7 +162,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_PRECOMP_TIMING_01] At root frame 20, outer x=20 plus child x=(20-10)/2=5.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun evaluatesPrecompTransformInParentTimeAndChildMotionInShiftedStretchedTime() {
     val asset = """{"id":"child","layers":[${movingRectangle()}]}"""
@@ -186,7 +173,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_PRECOMP_TIMING_02] Nested precomp transforms each use their containing timeline.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun composesNestedPrecompTransformsUsingEachContainingTimeline() {
     val inner = precomp("leaf", start = 1, stretch = 2)
@@ -200,7 +186,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_PRECOMP_TIMING_03] A remap in seconds changes child time without changing outer time.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun appliesTimeRemapSecondsToChildrenWhileOuterTransformUsesParentFrame() {
     val asset = """{"id":"child","layers":[${movingRectangle()}]}"""
@@ -212,7 +197,6 @@ class PlaybackEffectsRegressionTest : WearScreenshotTest() {
   }
 
   // [SP_PRECOMP_TIMING_04] A root parent retains root time when its child is a shifted precomp.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun evaluatesRootParentTransformOutsideShiftedPrecompTimeline() {
     val asset = """{"id":"child","layers":[${movingRectangle()}]}"""

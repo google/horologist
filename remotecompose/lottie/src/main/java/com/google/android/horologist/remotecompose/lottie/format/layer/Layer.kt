@@ -60,14 +60,16 @@ internal sealed class Layer {
   abstract val parent: Int?
   abstract val startFrame: SerializableRemoteFloat
   abstract val endFrame: SerializableRemoteFloat
-  open val startTime: Float? = 0f
-  open val timeStretch: Float? = 1f
   abstract val transform: Transform?
   abstract val autoOrient: SerializableRemoteBoolean
   abstract val matteMode: MatteMode
   abstract val matteParent: Int?
-  open val matteTarget: Int? = 0
   abstract val masks: List<Mask>?
+  open val startTime: Float? = 0f
+  open val timeStretch: Float? = 1f
+  open val blendMode: BlendMode? = BlendMode.Normal
+  open val matteTarget: Int? = 0
+  open val is3d: Int? = 0
   open val masksProperties: List<Mask>
     get() = masks.orEmpty()
 }
@@ -82,7 +84,10 @@ internal enum class LayerType(val value: Int) {
   Solid(1),
   Image(2),
   Null(3),
-  Shape(4);
+  Shape(4),
+  Text(5),
+  Audio(6),
+  Unknown(-1);
 
   companion object {
     fun fromValueOrNull(value: Int): LayerType? {
@@ -98,7 +103,6 @@ internal enum class LayerType(val value: Int) {
  * Contract:
  * - Deserialization Preconditions: [element] must be a [JsonObject].
  * - Deserialization Postconditions:
- *     - Selects [PrecompLayer.serializer] when "ty" is 0.
  *     - Selects [SolidColorLayer.serializer] when "ty" is 1.
  *     - Selects [NullLayer.serializer] when "ty" is 3.
  *     - Selects [ShapeLayer.serializer] when "ty" is 4.
@@ -111,9 +115,11 @@ internal object LayerSerializer : JsonContentPolymorphicSerializer<Layer>(Layer:
     return when (ty) {
       LayerType.Precomposition.value -> PrecompLayer.serializer()
       LayerType.Solid.value -> SolidColorLayer.serializer()
+      LayerType.Image.value -> ImageLayer.serializer()
       LayerType.Null.value -> NullLayer.serializer()
       LayerType.Shape.value -> ShapeLayer.serializer()
-      else -> NullLayer.serializer()
+      LayerType.Text.value -> TextLayer.serializer()
+      else -> UnknownLayer.serializer()
     }
   }
 }
@@ -125,7 +131,7 @@ internal object LayerTypeSerializer : KSerializer<LayerType> {
 
   override fun deserialize(decoder: Decoder): LayerType {
     val value = decoder.decodeInt()
-    return LayerType.fromValueOrNull(value) ?: LayerType.Null
+    return LayerType.fromValueOrNull(value) ?: LayerType.Unknown
   }
 
   override fun serialize(encoder: Encoder, value: LayerType) {

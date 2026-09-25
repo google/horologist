@@ -22,14 +22,20 @@ import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import com.google.android.horologist.remotecompose.lottie.LocalAnimationSettings
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
+import com.google.android.horologist.remotecompose.lottie.format.layer.BlendMode
+import com.google.android.horologist.remotecompose.lottie.format.layer.ImageLayer
 import com.google.android.horologist.remotecompose.lottie.format.layer.Layer
 import com.google.android.horologist.remotecompose.lottie.format.layer.LayerType
 import com.google.android.horologist.remotecompose.lottie.format.layer.MatteMode
 import com.google.android.horologist.remotecompose.lottie.format.layer.PrecompLayer
 import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
 import com.google.android.horologist.remotecompose.lottie.format.layer.SolidColorLayer
+import com.google.android.horologist.remotecompose.lottie.format.layer.TextLayer
+import com.google.android.horologist.remotecompose.lottie.renderer.bindToTimeline
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
 
 /** Matte context for paired track matte layer masking */
 internal data class MatteContext(
@@ -54,9 +60,16 @@ internal fun calculateLocalFrame(
   return (currentFrame - st.rf) / safeSr.rf
 }
 
-/** Calculates effective layer end frame padding for composition end boundaries. */
-internal fun calculateEffectiveEndFrame(endFrame: Float, compositionEndFrame: Float): Float {
-  return if (endFrame >= compositionEndFrame) {
+/**
+ * Extends layer out-point by 0.01f when it reaches or exceeds composition end to preserve
+ * visibility at progress=1.0f.
+ */
+internal fun calculateEffectiveEndFrame(
+  endFrame: Float,
+  compositionEndFrame: Float,
+  isRootComposition: Boolean = true,
+): Float {
+  return if (isRootComposition && endFrame >= compositionEndFrame) {
     endFrame + 0.01f
   } else {
     endFrame
@@ -88,8 +101,20 @@ internal fun Layer(
   parentTransforms: Map<Int?, List<Transform>>,
   transform: Transform? = null,
   matteContext: MatteContext? = null,
+  effectsApplied: Boolean = false,
 ) {
-  if (layer.hidden.constantValue) {
+  if (layer.hidden?.constantValue == true) {
+    return
+  }
+
+  if (
+    !effectsApplied &&
+      (matteContext != null ||
+        (layer.blendMode != null && layer.blendMode != BlendMode.Normal) ||
+        layer.masksProperties.isNotEmpty() ||
+        (layer is PrecompLayer && layer.width != null && layer.height != null))
+  ) {
+    LayerEffects(layer, parentTransforms, transform, matteContext)
     return
   }
 
@@ -98,9 +123,13 @@ internal fun Layer(
   val parentSettings = LocalAnimationSettings.current
   val compositionEndFrame = parentSettings.endFrame
 
-  // If layer spans up to or past the composition endFrame, extend by 0.01f
-  // so it remains visible at progress 1.0f / final frame.
-  val effectiveEndFrame = calculateEffectiveEndFrame(endFrame, compositionEndFrame)
+  // Root progress clamps before its out-point; child/layer intervals remain half-open.
+  val effectiveEndFrame =
+    calculateEffectiveEndFrame(
+      endFrame,
+      compositionEndFrame,
+      isRootComposition = parentSettings.activePrecomps.isEmpty(),
+    )
 
   val currentFrame = parentSettings.currentFrame
   val constFrame = currentFrame.constantValueOrNull
@@ -120,18 +149,42 @@ internal fun Layer(
       ancestorStack
     }
 
+  // Ordinary-layer keyframes and visibility are authored in the containing composition's
+  // time, even when st/sr metadata is present. Only precomposition content changes timelines;
+  // applying (frame - st) / sr to ordinary layers would retime their exported keys twice.
   when (layer.type) {
-    LayerType.Null -> {}
     LayerType.Solid ->
-      SolidColorLayer(
-        layer = layer as SolidColorLayer,
-        transformStack = completeStack,
-        matteContext = matteContext,
-        layerVisibility = layerVisibility,
-      )
-    LayerType.Shape -> ShapeLayer(layer as ShapeLayer, completeStack)
-    LayerType.Precomposition ->
-      PrecompLayer(layer as PrecompLayer, completeStack, matteContext = matteContext)
-    else -> {}
+      SolidColorLayer(layer as SolidColorLayer, completeStack, matteContext, layerVisibility)
+    LayerType.Shape -> ShapeLayer(layer as ShapeLayer, completeStack, matteContext, layerVisibility)
+    LayerType.Image -> ImageLayer(layer as ImageLayer, completeStack, matteContext, layerVisibility)
+    LayerType.Text -> TextLayer(layer as TextLayer, completeStack, matteContext, layerVisibility)
+    LayerType.Precomposition -> {
+      val precompLayer = layer as PrecompLayer
+      val boundTransforms =
+        (completeStack + listOfNotNull(layer.transform)).map { it.bindToTimeline(parentSettings) }
+      val localFrame =
+        if (precompLayer.timeRemap != null) {
+          animateScalar(precompLayer.timeRemap, parentSettings) * parentSettings.frameRate.rf
+        } else {
+          calculateLocalFrame(currentFrame, layer.startTime, layer.timeStretch)
+        }
+      val precompOpacity =
+        layer.transform?.opacity?.let { animateScalar(it, parentSettings) / 100f } ?: 1f.rf
+      val localSettings =
+        parentSettings.copy(
+          currentFrame = localFrame,
+          visibility = layerVisibility * precompOpacity,
+        )
+      CompositionLocalProvider(LocalAnimationSettings provides localSettings) {
+        PrecompLayer(
+          layer = precompLayer,
+          transformStack = boundTransforms,
+          matteContext = matteContext,
+        )
+      }
+    }
+    LayerType.Null,
+    LayerType.Audio,
+    LayerType.Unknown -> {}
   }
 }

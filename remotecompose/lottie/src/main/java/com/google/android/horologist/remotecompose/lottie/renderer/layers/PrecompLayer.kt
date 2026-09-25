@@ -30,7 +30,10 @@ import com.google.android.horologist.remotecompose.lottie.isLayerMatteSource
 import com.google.android.horologist.remotecompose.lottie.resolveLayerMatteContext
 import com.google.android.horologist.remotecompose.lottie.resolveMatteSourceIndices
 
-/** A Layer rendering a nested precomposition referenced by [PrecompLayer.refId]. */
+/**
+ * Renders the referenced precomposition on its local timeline. [transformStack] already includes
+ * this layer's transform and is bound to the containing timelines by [Layer].
+ */
 @SuppressLint("RestrictedApi")
 @Composable
 @RemoteComposable
@@ -39,7 +42,7 @@ internal fun PrecompLayer(
   transformStack: List<Transform> = emptyList(),
   matteContext: MatteContext? = null,
 ) {
-  if (layer.hidden.constantValue) {
+  if (layer.hidden?.constantValue == true) {
     return
   }
 
@@ -54,13 +57,8 @@ internal fun PrecompLayer(
     return
   }
 
-  val updatedTransformStack =
-    if (layer.transform != null) transformStack + layer.transform else transformStack
-
   val childAncestorTransforms =
-    remember(asset.layers, updatedTransformStack) {
-      buildAncestorTransforms(asset.layers, updatedTransformStack)
-    }
+    remember(asset.layers, transformStack) { buildAncestorTransforms(asset.layers, transformStack) }
 
   val matteSourceIndices = remember(asset.layers) { resolveMatteSourceIndices(asset.layers) }
 
@@ -78,7 +76,7 @@ internal fun PrecompLayer(
           layers = asset.layers,
           index = i,
           ancestorTransforms = childAncestorTransforms,
-          fallbackTransforms = updatedTransformStack,
+          fallbackTransforms = transformStack,
         )
 
       Layer(

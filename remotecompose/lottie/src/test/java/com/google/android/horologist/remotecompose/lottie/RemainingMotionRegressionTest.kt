@@ -30,7 +30,6 @@ import org.junit.Test
 
 class RemainingMotionRegressionTest : MotionPixelHarness() {
   // [SP_REMAINING_MOTION_R10_01] A held count crosses the zero/nonzero boundary at t=10.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun revealsThreeCopiesWhenAnimatedCountLeavesZero() {
     val count = """{"a":1,"k":[{"t":0,"s":[0],"h":1},{"t":10,"s":[3]}]}"""
@@ -45,7 +44,6 @@ class RemainingMotionRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_REMAINING_MOTION_R10_02] Offset is measured in repeat-transform units, including 0.5.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun movesRepeaterCopyAsOffsetAdvancesFromZeroToOne() {
     val progress = show(repeated(count = fixed("1"), offset = animated("[0]", "[1]")))
@@ -57,7 +55,6 @@ class RemainingMotionRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_REMAINING_MOTION_R10_03] Copy k=2 has scale 2^2, with both containing translations.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun scalesThirdCopyByFourthPowerFactorInsideTranslatedGroups() {
     val shapes =
@@ -75,7 +72,6 @@ class RemainingMotionRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_REMAINING_MOTION_R10_04] A nonzero rounding modifier must preserve copy opacity.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun preservesRepeaterOpacityRampAfterCornerRounding() {
     val rounded = """{"ty":"rd","r":${fixed("2")}}"""
@@ -84,7 +80,6 @@ class RemainingMotionRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_REMAINING_MOTION_R09_01] Four-point polygon radius grows 8→16→24 in one document.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun expandsPolygonWhenOuterRadiusAnimates() {
     val polygon =
@@ -99,7 +94,7 @@ class RemainingMotionRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_REMAINING_MOTION_R14_01] Half-period offset interchanges dash and gap interiors.
-  @Ignore("TODO: Fix failure on main AST/renderer")
+  @Ignore("RemotePaint dash phase does not yet support live RemoteFloat expressions")
   @Test
   fun shiftsStrokeGapsWhenDashOffsetAnimates() {
     val path =
@@ -116,7 +111,6 @@ class RemainingMotionRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_REMAINING_MOTION_R08_01] Font-backed text with no vector glyph table remains visible.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun drawsVisibleFontTextWhenVectorGlyphsAreAbsent() {
     show(textAnimation("""{"t":0,"s":${document("HI", 24)}}""", glyphs = "[]"))
@@ -125,7 +119,6 @@ class RemainingMotionRegressionTest : MotionPixelHarness() {
   }
 
   // [SP_REMAINING_MOTION_R08_02] Text document selection is held until the exact boundary.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun addsSecondVectorGlyphAtTextDocumentBoundaryWithoutRemounting() {
     val progress =

@@ -16,20 +16,16 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
-import org.junit.Ignore
 import org.junit.Test
 
 /** Ordinary-layer keyframes are already authored in their containing composition's time. */
 class LayerStretchRegressionTest : FixtureParityHarness() {
-  @Ignore("TODO: Fix failure on main AST/renderer") @Test fun slowShape() = checkShape(2f, "slow")
+  @Test fun slowShape() = checkShape(2f, "slow")
 
-  @Ignore("TODO: Fix failure on main AST/renderer") @Test fun fastShape() = checkShape(0.5f, "fast")
+  @Test fun fastShape() = checkShape(0.5f, "fast")
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun reversedShape() = checkShape(-1f, "reverse")
+  @Test fun reversedShape() = checkShape(-1f, "reverse")
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun solidTransform() =
     check(
@@ -40,7 +36,6 @@ class LayerStretchRegressionTest : FixtureParityHarness() {
       ),
     )
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun parentTransform() {
     val parent =
@@ -57,14 +52,12 @@ class LayerStretchRegressionTest : FixtureParityHarness() {
     return root(shape(stretch, extra = mask))
   }
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun maskOpacityAtNativeSurfaceResolution() =
     // This 64px surface must be compared at 64px (32dp in this test environment).
     // Enlarged offscreen edges remain the separately tracked R21 limitation.
     compare(maskedShape(2f), "layerstretch_mask", maxForegroundError = 0.01, renderSizeDp = 32)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun maskOpacityControlAtNativeSurfaceResolution() =
     compare(
@@ -74,7 +67,6 @@ class LayerStretchRegressionTest : FixtureParityHarness() {
       renderSizeDp = 32,
     )
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun childOfStretchedPrecomp() {
     val precomp =
@@ -83,7 +75,6 @@ class LayerStretchRegressionTest : FixtureParityHarness() {
     check("precomp", root(precomp, """{"id":"child","layers":[${shape(0.5f)}]}"""))
   }
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun authoredVisibilityAndBackwardSeeks() {
     val progress = show(root(shape(2f, start = 5, end = 30)))

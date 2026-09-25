@@ -17,6 +17,7 @@
 package com.google.android.horologist.remotecompose.lottie.format.layer
 
 import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
 import com.google.android.horologist.remotecompose.lottie.format.mask.Mask
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseScalarProperty
@@ -26,29 +27,25 @@ import com.google.android.horologist.remotecompose.lottie.format.values.Serializ
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-/**
- * A precomposition layer referencing an asset by [refId] conforming to
- * [Precomposition Layer](https://lottie.github.io/lottie-spec/1.0.1/specs/layers/#precomposition-layer).
- *
- * Precomposition layers instantiate nested compositions defined in the root asset table, providing
- * subcomposition hierarchies, independent frame boundaries, and optional time remapping.
- */
+/** A precomposition layer referencing an asset by [refId]. */
 @Serializable
 internal data class PrecompLayer(
-  @SerialName("nm") override val name: String? = null,
+  @SerialName("nm") override val name: String? = "",
   @SerialName("hd") override val hidden: SerializableBoolean = false.rb,
   @SerialName("ty") override val type: LayerType = LayerType.Precomposition,
   @SerialName("ind") override val index: Int? = null,
   @SerialName("parent") override val parent: Int? = null,
-  @SerialName("ip") override val startFrame: SerializableRemoteFloat,
-  @SerialName("op") override val endFrame: SerializableRemoteFloat,
+  @SerialName("ip") override val startFrame: SerializableRemoteFloat = 0f.rf,
+  @SerialName("op") override val endFrame: SerializableRemoteFloat = Float.MAX_VALUE.rf,
   @SerialName("st") override val startTime: Float? = 0f,
   @SerialName("sr") override val timeStretch: Float? = 1f,
   @SerialName("ks") override val transform: Transform? = null,
   @SerialName("ao") override val autoOrient: SerializableRemoteBoolean = false.rb,
+  @SerialName("bm") override val blendMode: BlendMode? = BlendMode.Normal,
   @SerialName("tt") override val matteMode: MatteMode = MatteMode.Normal,
   @SerialName("tp") override val matteParent: Int? = null,
   @SerialName("td") override val matteTarget: Int? = 0,
+  @SerialName("ddd") override val is3d: Int? = 0,
   @SerialName("masksProperties") override val masks: List<Mask>? = null,
   @SerialName("refId") val refId: String = "",
   @SerialName("w") val width: Float? = null,

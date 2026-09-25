@@ -55,6 +55,7 @@ internal fun LottiePreview(
   slotMap: SlotMap = SlotMap.Empty,
   clock: RemoteClock = RemoteClock.SYSTEM,
   progress: Float? = null,
+  strictOffsetTopology: Boolean = false,
 ) {
   RemoteComposePlayerFlags.isEmbeddedPlayerEnabled = true
   val doc =
@@ -73,6 +74,7 @@ internal fun LottiePreview(
         slotMap = slotMap,
         progress = progressVar,
         modifier = RemoteModifier.fillMaxSize(),
+        strictOffsetTopology = strictOffsetTopology,
       )
     }
   doc.value?.let { document ->

@@ -64,6 +64,7 @@ internal data class LottieSettings(
   val visibility: RemoteFloat = 1f.rf,
   val activePrecomps: Set<String> = emptySet(),
   val frameRate: Float = 30f,
+  val strictOffsetTopology: Boolean = false,
 )
 
 /** CompositionLocal for [LottieSettings]. */
@@ -137,6 +138,7 @@ internal fun LottieAnimation(
   slotMap: SlotMap = SlotMap.Empty,
   progress: RemoteFloat? = null,
   playOnce: Boolean = false,
+  strictOffsetTopology: Boolean = false,
 ) {
   // Total span of frames across the animation timeline.
   val totalFrames = animation.endFrame - animation.startFrame
@@ -164,6 +166,7 @@ internal fun LottieAnimation(
       endFrame = animation.endFrame,
       assets = assetMap,
       frameRate = animation.frameRate,
+      strictOffsetTopology = strictOffsetTopology,
     )
 
   CompositionLocalProvider(LocalAnimationSettings provides animationSettings) {

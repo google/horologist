@@ -18,6 +18,7 @@ package com.google.android.horologist.remotecompose.lottie.format.values
 
 import androidx.compose.remote.creation.compose.state.RemoteBoolean
 import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rf
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -60,7 +61,19 @@ internal data class BezierValue(
   @SerialName("i") val inTangents: List<Point>,
   @SerialName("o") val outTangents: List<Point>,
   @SerialName("v") val vertices: List<Point>,
-)
+) {
+  constructor(
+    closed: Boolean,
+    inTangents: List<List<Float>>,
+    outTangents: List<List<Float>>,
+    vertices: List<List<Float>>,
+  ) : this(
+    closed = closed.rb,
+    inTangents = inTangents.map { Point(it.getOrElse(0) { 0f }.rf, it.getOrElse(1) { 0f }.rf) },
+    outTangents = outTangents.map { Point(it.getOrElse(0) { 0f }.rf, it.getOrElse(1) { 0f }.rf) },
+    vertices = vertices.map { Point(it.getOrElse(0) { 0f }.rf, it.getOrElse(1) { 0f }.rf) },
+  )
+}
 
 internal object BezierValueSerializer : KSerializer<BezierValue> {
   override val descriptor: SerialDescriptor =

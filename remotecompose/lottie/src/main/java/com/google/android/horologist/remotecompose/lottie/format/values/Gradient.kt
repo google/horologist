@@ -68,6 +68,21 @@ internal data class GradientValue(
   val colorStops: List<ColorStop>,
   val transparencyStops: List<TransparencyStop>,
 ) {
+  constructor(numberOfColors: Int) : this(emptyList(), emptyList())
+
+  val numberOfColors: Int
+    get() = colorStops.size
+
+  val values: List<Float>
+    get() =
+      colorStops.flatMap {
+        listOf(
+          it.offset,
+          it.color.red.constantValue,
+          it.color.green.constantValue,
+          it.color.blue.constantValue,
+        )
+      } + transparencyStops.flatMap { listOf(it.offset, it.alpha.constantValue) }
 
   /**
    * Samples the combined RGBA [RemoteColor] at the given normalized [position] in `[0.0, 1.0]`.

@@ -109,3 +109,18 @@ Track mattes define masking between adjacent layers or explicitly paired layers 
 - `MatteMode.Luma` (3): Masks using source luminance.
 - `MatteMode.InvertedLuma` (4): Masks using inverted source luminance.
 - Source matte layers (`td = 1` or referenced as matte parent) are suppressed from direct drawing and routed via `MatteContext` to their target layer.
+
+---
+
+## Shape Modifiers (`format/graphicelement/modifiers/`)
+
+Shape modifiers transform or combine sibling graphic elements within a shape group:
+- **`TrimPath` (`ty`: `"tm"`)**: Trims open/closed curves using start (`s`), end (`e`), offset (`o`), and trim mode (`m`: `Simultaneously` = 1, `Individually` = 2).
+- **`RoundedCorners` (`ty`: `"rd"`)**: Rounds sharp vertices of preceding shapes by radius (`r`).
+- **`MergePaths` (`ty`: `"mm"`)**: Applies boolean path operations (`mm`: `Merge` = 1, `Add` = 2, `Subtract` = 3, `Intersect` = 4, `ExcludeIntersections` = 5).
+- **`Repeater` (`ty`: `"rp"`)**: Duplicates preceding shapes by copies (`c`), offset (`o`), composite order (`m`: `Above` = 1, `Below` = 2), and cumulative transform (`tr`).
+- **`OffsetPath` (`ty`: `"op"`)**: Expands or contracts contours by amount (`a`), line join (`lj`), and miter limit (`ml`). Note: dynamic variable-topology contours (e.g., animated `PolyStar` point count or animated `RoundedCorners` activation) and dynamic self-intersection removal on live-animated variable-topology curves are unsupported without a native `PathOffset`/`PathSimplify` wire opcode and fail fast with `IllegalArgumentException`.
+- **`PuckerBloat` (`ty`: `"pb"`)**: Pulls vertices inward and tangents outward (or vice versa) by amount (`a`).
+- **`Twist` (`ty`: `"tw"`)**: Spirals vertices around center (`c`) by angle (`a`).
+- **`ZigZag` (`ty`: `"zz"`)**: Subdivides contours into ridges with size (`s`), ridges per segment (`r`), and point type (`pt`: `Corner` = 1, `Smooth` = 2).
+- **`NoStyle` (`ty`: `"no"`) & `UnknownElement`**: Safe placeholders for explicit empty styles or unrecognized custom exporter shapes.

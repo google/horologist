@@ -49,7 +49,30 @@ import kotlinx.serialization.json.jsonPrimitive
  * discarding any extra dimensions (e.g. z-axis) per Lottie's 2D canvas model.
  */
 @Serializable(with = PointSerializer::class)
-internal data class Point(val x: RemoteFloat, val y: RemoteFloat)
+internal data class Point(val x: RemoteFloat, val y: RemoteFloat) {
+  operator fun get(index: Int): RemoteFloat =
+    when (index) {
+      0 -> x
+      1 -> y
+      else -> throw IndexOutOfBoundsException("Point coordinate index: $index")
+    }
+
+  fun getOrNull(index: Int): RemoteFloat? =
+    when (index) {
+      0 -> x
+      1 -> y
+      else -> null
+    }
+
+  inline fun getOrElse(index: Int, defaultValue: (Int) -> Float): Float =
+    getOrNull(index)?.constantValue ?: defaultValue(index)
+
+  inline fun <R> map(transform: (Float) -> R): List<R> =
+    listOf(transform(x.constantValue), transform(y.constantValue))
+
+  inline fun <R> mapIndexed(transform: (Int, Float) -> R): List<R> =
+    listOf(transform(0, x.constantValue), transform(1, y.constantValue))
+}
 
 internal object PointSerializer : KSerializer<Point> {
   override val descriptor: SerialDescriptor =

@@ -16,84 +16,59 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
-import org.junit.Ignore
 import org.junit.Test
 
 class PolystarTopologyRegressionTest : FixtureParityHarness() {
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun growingStar() = verify("star-grow", 1, animated("[3]", "[7]"))
+  @Test fun growingStar() = verify("star-grow", 1, animated("[3]", "[7]"))
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun shrinkingStar() = verify("star-shrink", 1, animated("[7]", "[3]"))
+  @Test fun shrinkingStar() = verify("star-shrink", 1, animated("[7]", "[3]"))
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun roundedFractionalStar() =
     verify("star-rounded", 1, animated("[4.25]", "[5.75]"), roundness = "55")
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun reversedFractionalStar() =
     verify("star-reverse", 1, animated("[4.25]", "[5.75]"), direction = 3, roundness = "55")
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun heldStarCounts() = verify("star-hold", 1, held)
+  @Test fun heldStarCounts() = verify("star-hold", 1, held)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun trimmedChangingStar() = verify("star-trim", 1, animated("[3]", "[7]"), trim = true)
+  @Test fun trimmedChangingStar() = verify("star-trim", 1, animated("[3]", "[7]"), trim = true)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun growingPolygon() = verify("polygon-grow", 2, animated("[3]", "[7]"))
+  @Test fun growingPolygon() = verify("polygon-grow", 2, animated("[3]", "[7]"))
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun shrinkingRoundedPolygon() =
     verify("polygon-shrink", 2, animated("[7]", "[3]"), roundness = "55")
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun heldPolygonCounts() = verify("polygon-hold", 2, held)
+  @Test fun heldPolygonCounts() = verify("polygon-hold", 2, held)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun trimmedChangingPolygon() =
     verify("polygon-trim", 2, animated("[3]", "[7]"), roundness = "55", trim = true)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun staticFractionalStar() =
     verify("star-static-fraction", 1, fixed("4.5"), moving = false, roundness = "55")
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun staticFractionalPolygon() =
     verify("polygon-static-fraction", 2, fixed("4.5"), moving = false, roundness = "55")
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun changingStarGeometryAndTopology() =
     verify("star-geometry", 1, animated("[3]", "[7]"), liveGeometry = true)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun changingPolygonGeometryAndTopology() =
     verify("polygon-geometry", 2, animated("[3]", "[7]"), liveGeometry = true)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun changingStarFill() =
     verify("star-fill", 1, animated("[3]", "[7]"), fill = true, direction = 3)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun changingPolygonFill() = verify("polygon-fill", 2, animated("[3]", "[7]"), fill = true)
+  @Test fun changingPolygonFill() = verify("polygon-fill", 2, animated("[3]", "[7]"), fill = true)
 
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun oppositeWindingRetainsHole() =
     verify("star-hole", 1, animated("[3]", "[7]"), fill = true, hole = true)

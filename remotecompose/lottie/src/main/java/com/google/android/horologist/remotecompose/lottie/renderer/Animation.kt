@@ -17,10 +17,9 @@
 package com.google.android.horologist.remotecompose.lottie.renderer
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.remote.creation.compose.state.RemoteFloat
-import androidx.compose.remote.creation.compose.state.RemoteFloatArray
 import androidx.compose.remote.creation.compose.state.clamp
+import androidx.compose.remote.creation.compose.state.cubicEasing
 import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
 
@@ -32,21 +31,9 @@ internal fun lookupValueInBezier(
   d: Float,
   duration: Float,
   frame: RemoteFloat,
-): RemoteFloat {
-  // TODO implement using Remote Compose expressions to avoid a Compose UI impl
-  val easing = CubicBezierEasing(a, b, c, d)
-  val frameAnimationValues = mutableListOf<Float>()
+): RemoteFloat = lookupValueInBezier(a.rf, b.rf, c.rf, d.rf, duration, frame)
 
-  for (i in 0..duration.toInt()) {
-    frameAnimationValues.add(easing.transform(i / duration))
-  }
-
-  val remoteFrameAnimationValues = RemoteFloatArray(frameAnimationValues.map { it.rf })
-  val clampedFrame = clamp(value = frame, min = 0.rf, max = (frameAnimationValues.size - 1).rf)
-
-  return remoteFrameAnimationValues[clampedFrame]
-}
-
+@SuppressLint("RestrictedApi")
 internal fun lookupValueInBezier(
   a: RemoteFloat,
   b: RemoteFloat,
@@ -54,15 +41,24 @@ internal fun lookupValueInBezier(
   d: RemoteFloat,
   duration: Float,
   frame: RemoteFloat,
-): RemoteFloat =
-  lookupValueInBezier(
-    a.constantValue,
-    b.constantValue,
-    c.constantValue,
-    d.constantValue,
-    duration,
-    frame,
-  )
+): RemoteFloat {
+  // Coincident keyframes select the later value without dividing by a zero duration.
+  if (duration <= 0f) return 1f.rf
+
+  val progress = clamp(frame / duration, 0f.rf, 1f.rf)
+
+  // A diagonal timing curve is exactly linear. Evaluating cubic easing by bisection introduces
+  // enough rounding error to miss exact zero crossings (which can enable/disable a modifier).
+  val aConst = a.constantValueOrNull
+  val bConst = b.constantValueOrNull
+  val cConst = c.constantValueOrNull
+  val dConst = d.constantValueOrNull
+  if (aConst != null && aConst == bConst && cConst != null && cConst == dConst) {
+    return progress
+  }
+
+  return cubicEasing(a, b, c, d, progress)
+}
 
 internal val scalarLinearEasingOut = KeyframeEasing(x = 0f.rf, y = 0f.rf)
 internal val scalarLinearEasingIn = KeyframeEasing(x = 1f.rf, y = 1f.rf)

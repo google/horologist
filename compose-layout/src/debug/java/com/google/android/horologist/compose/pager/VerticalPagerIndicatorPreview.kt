@@ -17,12 +17,12 @@
 package com.google.android.horologist.compose.pager
 
 import androidx.compose.runtime.Composable
-import androidx.wear.compose.foundation.pager.PagerState
+import androidx.wear.compose.foundation.pager.rememberPagerState
 import androidx.wear.compose.ui.tooling.preview.WearPreviewDevices
 
 @WearPreviewDevices
 @Composable
 fun VerticalPagerIndicatorPreview() {
-  val state = PagerState(1) { 10 }
+  val state = rememberPagerState(1) { 10 }
   VerticalPageIndicator(pageIndicatorState = PageScreenIndicatorState(state))
 }

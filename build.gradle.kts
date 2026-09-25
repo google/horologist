@@ -197,6 +197,10 @@ subprojects {
     }
   }
 
+  plugins.withId("com.android.library") {
+    extensions.configure<LibraryExtension> { testOptions.targetSdk = 36 }
+  }
+
   // Must be afterEvaluate or else com.vanniktech.maven.publish will overwrite our
   // dokka and version configuration.
   afterEvaluate {

@@ -19,7 +19,6 @@ androidxActivity = "1.13.0"
 androidxComposeBom = "2026.04.01"
 androidxCore = "1.18.0"
 androidxLifecycle = "2.10.0"
-# Requires compileSdk 37
 androidxNavigation = "2.9.8"
 androidxPhoneInteractions = "1.1.1"
 androidxRemoteInteractions = "1.2.0"
@@ -32,7 +31,6 @@ androidxtiles = "1.6.2"
 annotation = "1.0.1"
 app-cash-turbine = "1.2.1"
 appcompat = "1.8.0"
-# Requires compileSdk 37
 com-squareup-okhttp3 = "5.4.0"
 com-squareup-retrofit2 = "3.0.0"
 compose-animation = "1.11.4"
@@ -240,7 +238,8 @@ oss-licenses-plugin = { module = "com.google.android.gms:oss-licenses-plugin", v
 osslicenses-wear-compose-material = { module = "io.github.droibit.oss-licenses-android:ui-wear-compose-material", version.ref = "osslicenses" }
 play-services-oss-licenses = { module = "com.google.android.gms:play-services-oss-licenses", version.ref = "playServicesOssLicenses" }
 playservices-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
-playservices-base = "com.google.android.gms:play-services-base:18.11.0"
+# Requires minSdk 24
+playservices-base = "com.google.android.gms:play-services-base:18.10.1"
 playservices-wearable = "com.google.android.gms:play-services-wearable:20.0.1"
 protobuf-kotlin-lite = { module = "com.google.protobuf:protobuf-kotlin-lite", version.ref = "protobuf" }
 protobuf-protoc-gen-grpc-java = { module = "io.grpc:protoc-gen-grpc-java", version.ref = "protobuf-gen-grpc-java"}

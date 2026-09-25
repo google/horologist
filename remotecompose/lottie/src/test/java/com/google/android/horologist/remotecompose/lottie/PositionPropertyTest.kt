@@ -713,15 +713,9 @@ class PositionPropertyTest {
    * [SP_LOT_POS_03_05] Linearly interpolates coordinates between adjacent keyframes across timeline
    * frames.
    *
-   * Root cause: animatePosition uses lookupValueInBezier with default linear tangents, which
-   * currently evaluates with slight precision delta from expected midpoint.
-   *
    * Specification:
    * [Lottie Keyframe Easing](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#easing-handle)
    */
-  @Ignore(
-    "BUG: SP_LOT_POS_03_05: animatePosition interpolation formula evaluates with delta from expected midpoint"
-  )
   @Test
   fun linearlyInterpolatesCoordinatesBetweenKeyframesAtMidpoint() {
     val json = """{"a": 1, "k": [{"t": 0, "s": [0.0, 0.0]}, {"t": 10, "s": [100.0, 200.0]}]}"""
@@ -795,13 +789,9 @@ class PositionPropertyTest {
   /**
    * [SP_LOT_POS_03_08] Holds coordinates constant until next keyframe when hold flag `"h"` is 1.
    *
-   * Root cause: animatePosition currently ignores hold flag h on keyframe segments and applies
-   * continuous Bézier easing.
-   *
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore("BUG: SP_LOT_POS_03_08: animatePosition ignores hold flag 'h' and performs interpolation")
   @Test
   fun holdsCoordinatesConstantUntilNextKeyframeWhenHoldFlagIsTrue() {
     val json =

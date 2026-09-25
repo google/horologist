@@ -22,12 +22,10 @@ import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
 import com.google.android.horologist.remotecompose.lottie.format.properties.BasePositionPropertySerializer
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseVectorPropertySerializer
 import kotlin.math.roundToInt
-import org.junit.Ignore
 import org.junit.Test
 
 class PositionInterpolationTest : MotionPixelHarness() {
   // [SP_MOTION_01] The symmetric spatial cubic reaches (32,8), not the straight-line midpoint.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun followsSpatialTangentsAtMidpointAndRetainsEndpoints() {
     val progress = show(markerAt(animated("[8,32]", "[56,32]", extra = tangents)))
@@ -39,7 +37,6 @@ class PositionInterpolationTest : MotionPixelHarness() {
   }
 
   // [SP_MOTION_02] A hold keyframe ignores spatial tangents until the next keyframe.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun holdsPositionDespiteSpatialTangentsUntilNextKeyframe() {
     val progress =
@@ -53,7 +50,6 @@ class PositionInterpolationTest : MotionPixelHarness() {
   }
 
   // [SP_MOTION_03] Missing spatial tangents preserves scalar linear easing on both dimensions.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun movesLinearlyWhenSpatialTangentsAreAbsent() {
     val progress = show(markerAt(animated("[8,8]", "[56,56]")))
@@ -62,7 +58,6 @@ class PositionInterpolationTest : MotionPixelHarness() {
   }
 
   // [SP_MOTION_04] Position axes use their own easing: half-time factors are (0.125,0.875).
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun easesLayerPositionIndependentlyOnEachAxis() {
     val progress = show(markerAt(animated("[8,8]", "[56,56]", axisEasing)))
@@ -74,7 +69,6 @@ class PositionInterpolationTest : MotionPixelHarness() {
   }
 
   // [SP_MOTION_05] General vector dimensions use independent easing, giving size (12,36).
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun easesRectangleWidthAndHeightIndependently() {
     val shape = rectangle(fixed("[32,32]"), animated("[8,8]", "[40,40]", axisEasing))
@@ -87,7 +81,6 @@ class PositionInterpolationTest : MotionPixelHarness() {
   }
 
   // [SP_MOTION_06] Shape geometry positions also retain independent vector-axis easing.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun easesShapePositionIndependentlyOnEachAxis() {
     val position = animated("[8,8]", "[56,56]", axisEasing)
@@ -98,7 +91,6 @@ class PositionInterpolationTest : MotionPixelHarness() {
 
   // [SP_MOTION_07] Spatial progress measures distance along an asymmetric cubic, as in
   // Lottie-Android v6.7.1 PathKeyframeAnimation, rather than using progress as the cubic parameter.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun traversesAsymmetricSpatialCurveByArcLengthAtQuarterFrames() {
     val position = animated("[8,48]", "[56,48]", extra = """, "to":[0,-44],"ti":[-48,-44]""")
@@ -121,7 +113,6 @@ class PositionInterpolationTest : MotionPixelHarness() {
   }
 
   // [SP_MOTION_08] Decoding then encoding a position preserves independent easing on both axes.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun retainsPerAxisPositionEasingAfterJsonRoundTrip() {
     val property =
@@ -136,7 +127,6 @@ class PositionInterpolationTest : MotionPixelHarness() {
   }
 
   // [SP_MOTION_09] General vector serialization preserves easing for every dimension as well.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun retainsPerDimensionSizeEasingAfterJsonRoundTrip() {
     val property =
@@ -151,7 +141,6 @@ class PositionInterpolationTest : MotionPixelHarness() {
   }
 
   // [SP_MOTION_10] A scalar easing handle applies the same nonlinear factor to both position axes.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun appliesScalarEasingToBothPositionAxes() {
     val easing = """"o":{"x":0.333333333,"y":0},"i":{"x":0.666666667,"y":0}"""
@@ -161,7 +150,6 @@ class PositionInterpolationTest : MotionPixelHarness() {
   }
 
   // [SP_MOTION_11] A singleton easing array supplies its first value for both position dimensions.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun reusesSingletonArrayEasingForBothPositionAxes() {
     val progress = show(markerAt(animated("[8,8]", "[56,56]", singletonEasing)))
@@ -170,7 +158,6 @@ class PositionInterpolationTest : MotionPixelHarness() {
   }
 
   // [SP_MOTION_12] A singleton easing array supplies its first value for both vector dimensions.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun reusesSingletonArrayEasingForWidthAndHeight() {
     val shape = rectangle(fixed("[32,32]"), animated("[8,8]", "[40,40]", singletonEasing))
@@ -180,12 +167,9 @@ class PositionInterpolationTest : MotionPixelHarness() {
   }
 
   // [SP_MOTION_13] Eased distance beyond the path extends along the final unit tangent.
-  @Ignore("TODO: Fix failure on main AST/renderer")
-  @Test
-  fun extendsSpatialOvershootAlongTheEndTangent() = assertSpatialOvershoot(1.5f, 1.25f)
+  @Test fun extendsSpatialOvershootAlongTheEndTangent() = assertSpatialOvershoot(1.5f, 1.25f)
 
   // [SP_MOTION_14] Negative eased distance extends backwards along the initial unit tangent.
-  @Ignore("TODO: Fix failure on main AST/renderer")
   @Test
   fun extendsSpatialUndershootBackwardsAlongTheStartTangent() =
     assertSpatialOvershoot(-0.5f, -0.25f)

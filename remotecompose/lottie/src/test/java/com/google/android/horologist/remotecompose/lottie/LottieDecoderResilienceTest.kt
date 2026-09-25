@@ -21,10 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.android.horologist.remotecompose.lottie.format.Animation
 import com.google.android.horologist.remotecompose.lottie.format.LottieDecoder
-import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Group
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.UnknownElement
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Fill
-import com.google.android.horologist.remotecompose.lottie.format.layer.NullLayer
 import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
+import com.google.android.horologist.remotecompose.lottie.format.layer.UnknownLayer
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticColorProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.GradientValueSerializer
 import com.google.common.truth.Truth.assertThat
@@ -56,7 +56,7 @@ class LottieDecoderResilienceTest {
     val animation = Animation.decodeFromString(json)
 
     assertThat(animation.layers).hasSize(2)
-    assertThat(animation.layers[0]).isInstanceOf(NullLayer::class.java)
+    assertThat(animation.layers[0]).isInstanceOf(UnknownLayer::class.java)
     assertThat(animation.layers[0].name).isEqualTo("UnsupportedAudioLayer")
     assertThat(animation.layers[1]).isInstanceOf(ShapeLayer::class.java)
   }
@@ -97,7 +97,7 @@ class LottieDecoderResilienceTest {
 
     val shapeLayer = animation.layers[0] as ShapeLayer
     assertThat(shapeLayer.shapes).hasSize(2)
-    assertThat(shapeLayer.shapes[0]).isInstanceOf(Group::class.java)
+    assertThat(shapeLayer.shapes[0]).isInstanceOf(UnknownElement::class.java)
     assertThat(shapeLayer.shapes[1]).isInstanceOf(Fill::class.java)
   }
 

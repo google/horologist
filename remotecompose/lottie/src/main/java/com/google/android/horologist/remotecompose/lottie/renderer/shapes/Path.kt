@@ -17,47 +17,21 @@
 package com.google.android.horologist.remotecompose.lottie.renderer.shapes
 
 import android.annotation.SuppressLint
-import androidx.compose.remote.creation.RemotePath
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Path
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.RoundedCorners
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.TrimPath
 import com.google.android.horologist.remotecompose.lottie.renderer.RemoteLottiePath
-import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateBezier
 
-/** Evaluates a Lottie [Path] into a [RemoteLottiePath]. */
+/** Evaluates a Lottie [Path] geometry into a [RemoteLottiePath]. */
 @SuppressLint("RestrictedApi")
-internal fun path(lottiePath: Path, animationSettings: LottieSettings): RemoteLottiePath {
-  val path = animateBezier(lottiePath.shape, animationSettings)
-  val vertices = path.vertices
-  val inTangents = path.inTangents
-  val outTangents = path.outTangents
+internal fun evaluatePath(
+  lottiePath: Path,
+  animationSettings: LottieSettings,
+  trimPath: TrimPath? = null,
+  roundedCorners: RoundedCorners? = null,
+): RemoteLottiePath? {
+  if (lottiePath.hidden?.constantValue == true) return null
 
-  val rcPath = RemotePath()
-  rcPath.reset()
-  rcPath.moveTo(vertices[0].x.constantValueOrNull ?: 0f, vertices[0].y.constantValueOrNull ?: 0f)
-
-  val isClosed = path.closed.constantValueOrNull ?: false
-  for (i in vertices.indices) {
-    val p0 = vertices[i]
-    val lastIndex = if (i == vertices.size - 1 && isClosed) 0 else i + 1
-    val p4 = vertices[lastIndex]
-    val inTangent = inTangents[lastIndex]
-    val outTangent = outTangents[i]
-    val p0x = p0.x.constantValueOrNull ?: 0f
-    val p0y = p0.y.constantValueOrNull ?: 0f
-    val p4x = p4.x.constantValueOrNull ?: 0f
-    val p4y = p4.y.constantValueOrNull ?: 0f
-    val outX = outTangent.x.constantValueOrNull ?: 0f
-    val outY = outTangent.y.constantValueOrNull ?: 0f
-    val inX = inTangent.x.constantValueOrNull ?: 0f
-    val inY = inTangent.y.constantValueOrNull ?: 0f
-
-    val p1x = p0x + outX
-    val p1y = p0y + outY
-    val p2x = p4x + inX
-    val p2y = p4y + inY
-
-    rcPath.cubicTo(p1x, p1y, p2x, p2y, p4x, p4y)
-  }
-
-  return RemoteLottiePath(rcPath)
+  return evaluatePathGeometry(lottiePath.shape, trimPath, roundedCorners, animationSettings)
 }

@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
+import androidx.compose.remote.creation.Rc
 import androidx.compose.remote.creation.compose.state.RemoteBoolean
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
@@ -25,6 +26,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Anim
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseBezierPropertySerializer
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.Point
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierValue
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateBezier
 import com.google.common.truth.Truth.assertThat
 import kotlinx.serialization.SerializationException
@@ -36,6 +38,41 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class BezierPropertyTest {
   private val emptySlotMap = SlotMap.Empty
+
+  @Test fun linearShapeRetainsInvariantControls() = verifyInvariantControls(0, 0)
+
+  @Test fun heldShapeRetainsInvariantControls() = verifyInvariantControls(1, 0)
+
+  @Test fun delayedShapeChainRetainsInvariantControls() = verifyInvariantControls(0, 5)
+
+  private fun verifyInvariantControls(hold: Int, delay: Int) {
+    fun path(dx: Int) =
+      """{"c":true,"v":[[$dx,0],[${dx+8},0],[$dx,8]],"i":[[0,0],[0,0],[0,0]],"o":[[0,0],[0,0],[0,0]]}"""
+    val frames =
+      (0..2).joinToString(",") { i ->
+        """{"t":${delay+i*10},"s":[${path(i*4)}],"h":$hold,"o":{"x":0,"y":0},"i":{"x":1,"y":1}}"""
+      }
+    val property =
+      LottieDecoder.json.decodeFromString(BaseBezierPropertySerializer, """{"a":1,"k":[$frames]}""")
+    val liveTime = RemoteFloat(Rc.Time.ANIMATION_TIME)
+    val shape = animateBezier(property, LottieSettings(liveTime)).single()
+    assertThat((shape.inTangents + shape.outTangents).flatten().map { it.constantValueOrNull })
+      .containsExactlyElementsIn(List(12) { 0f })
+    assertThat(shape.vertices[0][0].constantValueOrNull).isNull()
+    assertThat(shape.vertices[0][1].constantValueOrNull).isEqualTo(0f)
+  }
+
+  private val List<RemoteBezierValue>.closed: Boolean
+    get() = singleOrNull()?.closed ?: false
+
+  private val List<RemoteBezierValue>.vertices: List<List<RemoteFloat>>
+    get() = singleOrNull()?.vertices.orEmpty()
+
+  private val List<RemoteBezierValue>.inTangents: List<List<RemoteFloat>>
+    get() = singleOrNull()?.inTangents.orEmpty()
+
+  private val List<RemoteBezierValue>.outTangents: List<List<RemoteFloat>>
+    get() = singleOrNull()?.outTangents.orEmpty()
 
   private fun extractFloat(value: Any): Float =
     when (value) {
@@ -88,6 +125,16 @@ class BezierPropertyTest {
   ) {
     assertThat(actual.x.constantValue).isWithin(tolerance).of(expectedX)
     assertThat(actual.y.constantValue).isWithin(tolerance).of(expectedY)
+  }
+
+  private fun assertPointEquals(
+    actual: List<RemoteFloat>,
+    expectedX: Float,
+    expectedY: Float,
+    tolerance: Float = 0.001f,
+  ) {
+    assertThat(actual[0].constantValue).isWithin(tolerance).of(expectedX)
+    assertThat(actual[1].constantValue).isWithin(tolerance).of(expectedY)
   }
 
   // =========================================================================================
@@ -972,15 +1019,9 @@ class BezierPropertyTest {
    * [SP_LOT_BEZ_03_05] Holds final keyframe value when timeline frame exceeds last keyframe
    * timestamp.
    *
-   * Root cause: `animateBezier` currently contains a placeholder stub that returns un-interpolated
-   * points from the start keyframe rather than clamping/holding at the end keyframe.
-   *
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore(
-    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
-  )
   @Test
   fun holdsAtLastKeyframeValueWhenFrameExceedsLastKeyframe() {
     val json =
@@ -1000,15 +1041,9 @@ class BezierPropertyTest {
   /**
    * [SP_LOT_BEZ_03_06] Evaluates exact keyframe frames without interpolation artifacts.
    *
-   * Root cause: `animateBezier` currently does not evaluate endKeyframe values when `currentFrame
-   * == endKeyframe.frame`.
-   *
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore(
-    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
-  )
   @Test
   fun evaluatesExactKeyframeFramesWithoutInterpolationArtifacts() {
     val json =
@@ -1029,16 +1064,9 @@ class BezierPropertyTest {
   /**
    * [SP_LOT_BEZ_03_07] Linearly interpolates vertices, tangents, and closed flag between keyframes.
    *
-   * Root cause: `animatePoints` in `renderer/properties/Bezier.kt` is a TODO stub that returns
-   * un-interpolated points: `from.mapIndexed { _, point -> point }`. Actual interpolation of
-   * coordinates is required.
-   *
    * Specification:
    * [Lottie Bezier Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#bezier-property)
    */
-  @Ignore(
-    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
-  )
   @Test
   fun linearlyInterpolatesVerticesTangentsAndClosedFlagBetweenKeyframes() {
     val json =
@@ -1067,15 +1095,9 @@ class BezierPropertyTest {
   /**
    * [SP_LOT_BEZ_03_08] Holds value constant until next keyframe when hold flag is true (`h = 1`).
    *
-   * Root cause: BezierKeyframe fails deserialization for `h = 1`, and `animateBezier` does not
-   * branch on hold flag.
-   *
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore(
-    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
-  )
   @Test
   fun holdsValueConstantUntilNextKeyframeWhenHoldFlagIsTrue() {
     val json =
@@ -1095,15 +1117,9 @@ class BezierPropertyTest {
   /**
    * [SP_LOT_BEZ_03_09] Interpolates Bézier geometry using custom cubic easing tangents.
    *
-   * Root cause: `animatePoints` in `renderer/properties/Bezier.kt` is a TODO stub that does not
-   * apply the computed `currentBezierValue`.
-   *
    * Specification:
    * [Lottie Keyframe Easing](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#easing-handle)
    */
-  @Ignore(
-    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
-  )
   @Test
   fun interpolatesWithCubicBezierEasingDepartingFromLinearMidpoint() {
     val json =
@@ -1117,23 +1133,17 @@ class BezierPropertyTest {
     assertPointEquals(eval10.vertices[0], 100f, 100f)
 
     val eval5 = animateBezier(bezier, LottieSettings(5f.rf, emptySlotMap))
-    assertThat(eval5.vertices[0].x.constantValue).isNotEqualTo(50.0f)
-    assertThat(eval5.vertices[0].y.constantValue).isNotEqualTo(50.0f)
+    assertThat(eval5.vertices[0][0].constantValue).isNotEqualTo(50.0f)
+    assertThat(eval5.vertices[0][1].constantValue).isNotEqualTo(50.0f)
   }
 
   /**
    * [SP_LOT_BEZ_03_10] Evaluates multi-segment keyframes sequentially across consecutive timeline
    * intervals.
    *
-   * Root cause: `animateBezier` currently only evaluates the first interval `[keyframes[0],
-   * keyframes[1]]` and does not support chained animations across three or more keyframes.
-   *
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore(
-    "b/442404202: Path morphing deferred pending RemoteCompose client-side path expression support"
-  )
   @Test
   fun evaluatesMultiSegmentKeyframesSequentially() {
     val json =

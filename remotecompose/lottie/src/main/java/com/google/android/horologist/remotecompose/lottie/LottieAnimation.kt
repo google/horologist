@@ -34,26 +34,47 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalContext
 import com.google.android.horologist.remotecompose.lottie.format.Animation
+import com.google.android.horologist.remotecompose.lottie.format.FontChar
+import com.google.android.horologist.remotecompose.lottie.format.FontList
+import com.google.android.horologist.remotecompose.lottie.format.asset.Asset
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
 import com.google.android.horologist.remotecompose.lottie.format.layer.Layer
+import com.google.android.horologist.remotecompose.lottie.format.layer.MatteMode
 import com.google.android.horologist.remotecompose.lottie.renderer.layers.Layer
+import com.google.android.horologist.remotecompose.lottie.renderer.layers.MatteContext
 
 /**
  * Settings for the Lottie animation player.
  *
  * @property currentFrame The current frame to display.
  * @property slotMap Mapping of slot IDs to values for dynamic theming.
+ * @property assets Mapping of asset IDs to root assets.
+ * @property visibility Compound layer visibility multiplier.
+ * @property activePrecomps Set of precomposition asset IDs currently rendering (recursion guard).
+ * @property frameRate The composition frame rate in frames per second.
+ * @property fonts The fonts table defined in the animation root.
+ * @property chars Vector glyph definitions defined in the animation root.
  */
 internal data class LottieSettings(
   val currentFrame: RemoteFloat,
   val slotMap: SlotMap = SlotMap.Empty,
   val width: Float = 0f,
   val height: Float = 0f,
+  val endFrame: Float = Float.MAX_VALUE,
+  val assets: Map<String, Asset> = emptyMap(),
+  val visibility: RemoteFloat = 1f.rf,
+  val activePrecomps: Set<String> = emptySet(),
+  val frameRate: Float = 30f,
+  val fonts: FontList? = null,
+  val chars: List<FontChar> = emptyList(),
+  val strictOffsetTopology: Boolean = false,
 )
 
 /** CompositionLocal for [LottieSettings]. */
 internal val LocalAnimationSettings =
-  staticCompositionLocalOf<LottieSettings> { LottieSettings(0.rf, SlotMap.Empty, 0f, 0f) }
+  staticCompositionLocalOf<LottieSettings> {
+    LottieSettings(0.rf, SlotMap.Empty, 0f, 0f, Float.MAX_VALUE)
+  }
 
 /**
  * A RemoteComposable that loads and renders a Lottie animation from a raw resource ID.
@@ -114,7 +135,10 @@ internal fun LottieAnimation(
   modifier: RemoteModifier = RemoteModifier,
   slotMap: SlotMap = SlotMap.Empty,
   progress: RemoteFloat? = null,
+  strictOffsetTopology: Boolean = false,
 ) {
+  // Cache validation with the immutable model, before emitting any recording operations.
+  remember(animation) { animation.also { it.validateForRecording() } }
   // Total span of frames across the animation timeline.
   val totalFrames = animation.endFrame - animation.startFrame
   val startFrameRf = animation.startFrame.rf
@@ -124,16 +148,24 @@ internal fun LottieAnimation(
   // from the Remote Compose document animation clock time.
   val currentFrame =
     if (progress != null) {
-      startFrameRf + (progress * totalFrames)
+      // Progress 1 displays the last representable frame, while layer out-points stay exclusive.
+      min(startFrameRf + (progress * totalFrames), Math.nextDown(animation.endFrame).rf)
     } else {
       startFrameRf + (floor(RemoteFloat(ANIMATION_TIME) * animation.frameRate) % totalFrames)
     }
+  val assetMap = remember(animation.assets) { animation.assets.associateBy { it.id } }
   val animationSettings =
     LottieSettings(
       currentFrame = currentFrame,
       slotMap = slotMap,
       width = animation.width.toFloat(),
       height = animation.height.toFloat(),
+      endFrame = animation.endFrame,
+      assets = assetMap,
+      frameRate = animation.frameRate,
+      fonts = animation.fonts,
+      chars = animation.chars,
+      strictOffsetTopology = strictOffsetTopology,
     )
 
   CompositionLocalProvider(LocalAnimationSettings provides animationSettings) {
@@ -169,33 +201,99 @@ internal fun LottieAnimation(
       // .clip(RemoteRectangleShape)
       contentAlignment = RemoteAlignment.Center,
     ) {
-      for (layer in animation.layers) {
-        Layer(layer, ancestorTransforms, null)
+      DeclarePlaybackState(currentFrame)
+      val matteSourceIndices =
+        remember(animation.layers) { resolveMatteSourceIndices(animation.layers) }
+      for (i in animation.layers.indices.reversed()) {
+        if (isLayerMatteSource(animation.layers, i, matteSourceIndices)) {
+          continue
+        }
+        val matteContext = resolveLayerMatteContext(animation.layers, i, ancestorTransforms)
+        Layer(animation.layers[i], ancestorTransforms, matteContext = matteContext)
       }
     }
   }
 }
 
-private fun buildAncestorTransforms(layers: List<Layer>): Map<Int, List<Transform>> {
-  val map = mutableMapOf<Int, List<Transform>>()
+internal fun resolveMatteSourceIndices(layers: List<Layer>): Set<Int> =
+  layers
+    .mapIndexedNotNull { index, layer ->
+      if (layer.matteParent != null) {
+        layer.matteParent
+      } else if (layer.matteMode != MatteMode.Normal && index > 0) {
+        layers[index - 1].index
+      } else {
+        null
+      }
+    }
+    .toSet()
+
+internal fun isLayerMatteSource(
+  layers: List<Layer>,
+  index: Int,
+  matteSourceIndices: Set<Int>,
+): Boolean {
+  val layer = layers[index]
+  return layer.matteTarget == 1 ||
+    (layer.index != null && layer.index in matteSourceIndices) ||
+    (index < layers.size - 1 &&
+      layers[index + 1].matteMode != MatteMode.Normal &&
+      layers[index + 1].matteParent == null)
+}
+
+internal fun resolveLayerMatteContext(
+  layers: List<Layer>,
+  index: Int,
+  ancestorTransforms: Map<Int?, List<Transform>>,
+  fallbackTransforms: List<Transform> = emptyList(),
+): MatteContext? {
+  val layer = layers[index]
+  if (layer.matteMode == MatteMode.Normal && layer.matteParent == null) {
+    return null
+  }
+  val matteLayer =
+    (if (layer.matteParent != null) {
+      layers.firstOrNull { it.index == layer.matteParent }
+    } else if (index > 0) {
+      layers[index - 1]
+    } else {
+      null
+    }) ?: return null
+  val matteMode = if (layer.matteMode != MatteMode.Normal) layer.matteMode else MatteMode.Alpha
+  val transforms =
+    ancestorTransforms[matteLayer.index] ?: ancestorTransforms[null] ?: fallbackTransforms
+  return MatteContext(matteLayer, transforms, matteMode)
+}
+
+internal fun buildAncestorTransforms(
+  layers: List<Layer>,
+  baseStack: List<Transform> = emptyList(),
+): Map<Int?, List<Transform>> {
+  val map = mutableMapOf<Int?, List<Transform>>()
   val childrenMap = layers.groupBy { it.parent }
 
   val roots = childrenMap[null] ?: emptyList()
   for (layer in roots) {
-    populateAncestorTransforms(layer, emptyList(), childrenMap, map)
+    populateAncestorTransforms(layer, baseStack, emptySet(), childrenMap, map)
   }
-
+  if (baseStack.isNotEmpty()) {
+    map[null] = baseStack
+  }
   return map
 }
 
 private fun populateAncestorTransforms(
   layer: Layer,
   currentStack: List<Transform>,
+  visited: Set<Int>,
   childrenMap: Map<Int?, List<Layer>>,
-  outMap: MutableMap<Int, List<Transform>>,
+  outMap: MutableMap<Int?, List<Transform>>,
 ) {
   val layerIndex = layer.index
   if (layerIndex != null) {
+    if (layerIndex in visited) {
+      return
+    }
     outMap[layerIndex] = currentStack
   }
 
@@ -207,8 +305,9 @@ private fun populateAncestorTransforms(
       currentStack
     }
 
-  val children = childrenMap[layerIndex] ?: emptyList()
+  val nextVisited = if (layerIndex != null) visited + layerIndex else visited
+  val children = if (layerIndex != null) childrenMap[layerIndex] ?: emptyList() else emptyList()
   for (child in children) {
-    populateAncestorTransforms(child, nextStack, childrenMap, outMap)
+    populateAncestorTransforms(child, nextStack, nextVisited, childrenMap, outMap)
   }
 }

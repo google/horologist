@@ -117,7 +117,7 @@ jobs:
         if: steps.handoff.outcome == 'success'
         run: echo "number=$(cat _compose_preview_handoff/_pr_number)" >> "$GITHUB_OUTPUT"
 
-      - uses: yschimke/compose-ai-tools/.github/actions/apply@f4e988df939b590e4e66eb2667f3cafe41dac40f # v2.25.0
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@784013694fad8f240dd87b4cd8c4ece3ad1dbe69 # v2.27.0
         if: steps.pr.outputs.number != ''
         with:
           phase: publish

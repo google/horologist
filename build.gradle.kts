@@ -180,6 +180,10 @@ subprojects {
   }
 
   tasks.withType<Test>().configureEach {
+    // Required by Robolectric 4.17+ on JDK 17+ for ApplicationSharedMemory emulation
+    // which reflects into jdk.internal.access.SharedSecrets (see robolectric/robolectric#11434).
+    jvmArgs("--add-opens=java.base/jdk.internal.access=ALL-UNNAMED")
+
     val shardIndex =
       (project.findProperty("shardIndex") as? String)
         ?: (project.findProperty("test.shardIndex") as? String)

@@ -179,6 +179,19 @@ val config = activityConfig {
 appHelper.startRemoteActivity(node.id, config)
 ```
 
+The class name is sent to the other device, which only launches the activity if it is exported,
+or if it explicitly opts in to being launched remotely:
+
+```xml
+<activity
+    android:name=".MyActivity"
+    android:exported="false">
+    <meta-data
+        android:name="com.google.android.horologist.datalayer.REMOTE_LAUNCH_ALLOWED"
+        android:value="true" />
+</activity>
+```
+
 ## Launching the companion app
 
 In some cases, it can be useful to launch the companion app, either from the watch or the phone.

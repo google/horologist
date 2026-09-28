@@ -17,7 +17,9 @@
 package com.google.android.horologist.data.apphelper
 
 import android.content.ActivityNotFoundException
+import android.content.ComponentName
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.PowerManager
 import android.util.Log
 import com.google.android.gms.tasks.Task
@@ -68,13 +70,22 @@ public abstract class DataLayerAppHelperService : WearableListenerService() {
   /**
    * Attempts to launch an activity, which belongs to the same app (same package name), on this
    * device.
+   *
+   * The class name is supplied by the paired device, so it is untrusted. Only activities that are
+   * exported, or that explicitly opt in with the [REMOTE_LAUNCH_ALLOWED_META_DATA] meta-data, can
+   * be launched.
    */
   private fun launchActivity(activityConfig: ActivityConfig): AppHelperResultCode {
+    val component = ComponentName(packageName, activityConfig.classFullName)
+    if (!isRemoteLaunchAllowed(packageManager, component)) {
+      Log.w(TAG, "Activity not allowed for remote launch: $activityConfig")
+      return AppHelperResultCode.APP_HELPER_RESULT_ACTIVITY_NOT_FOUND
+    }
+
     try {
       val intent =
         Intent().apply {
-          setPackage(packageName)
-          setClassName(packageName, activityConfig.classFullName)
+          setComponent(component)
           flags = Intent.FLAG_ACTIVITY_NEW_TASK
         }
       wakeDeviceAndStartActivity(intent)
@@ -124,4 +135,41 @@ public abstract class DataLayerAppHelperService : WearableListenerService() {
     private const val wakeLockTag = "horologist:apphelper"
     private const val wakeLockTimeoutMs = 1000L
   }
+}
+
+/**
+ * Meta-data key that an activity can declare, with a value of `true`, to allow it to be launched
+ * from the paired device via [DataLayerAppHelper.startRemoteActivity] even if it is not exported.
+ *
+ * ```xml
+ * <activity android:name=".MyActivity" android:exported="false">
+ *   <meta-data
+ *     android:name="com.google.android.horologist.datalayer.REMOTE_LAUNCH_ALLOWED"
+ *     android:value="true" />
+ * </activity>
+ * ```
+ */
+internal const val REMOTE_LAUNCH_ALLOWED_META_DATA: String =
+  "com.google.android.horologist.datalayer.REMOTE_LAUNCH_ALLOWED"
+
+/**
+ * Returns whether [component] may be launched on behalf of a request from the paired device.
+ *
+ * The component must be an activity in this app that is either exported (and therefore already
+ * reachable by other apps) or explicitly opts in with [REMOTE_LAUNCH_ALLOWED_META_DATA].
+ */
+internal fun isRemoteLaunchAllowed(
+  packageManager: PackageManager,
+  component: ComponentName,
+): Boolean {
+  val activityInfo =
+    try {
+      @Suppress("DEPRECATION")
+      packageManager.getActivityInfo(component, PackageManager.GET_META_DATA)
+    } catch (e: PackageManager.NameNotFoundException) {
+      return false
+    }
+
+  return activityInfo.exported ||
+    activityInfo.metaData?.getBoolean(REMOTE_LAUNCH_ALLOWED_META_DATA, false) == true
 }

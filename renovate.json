@@ -111,41 +111,6 @@
     },
     {
       "matchPackagePatterns": [
-        "androidx.core:*"
-      ],
-      "allowedVersions": "<1.19.0",
-      "description": "Requires compileSdk 37"
-    },
-    {
-      "matchPackagePatterns": [
-        "androidx.lifecycle:*"
-      ],
-      "allowedVersions": "<2.11.0",
-      "description": "Requires compileSdk 37"
-    },
-    {
-      "matchPackagePatterns": [
-        "androidx.hilt:*"
-      ],
-      "allowedVersions": "<1.4.0",
-      "description": "Requires compileSdk 37"
-    },
-    {
-      "matchPackagePatterns": [
-        "androidx.compose.animation:*"
-      ],
-      "allowedVersions": "<1.12.0",
-      "description": "Requires compileSdk 37"
-    },
-    {
-      "matchPackagePatterns": [
-        "androidx.compose.runtime:runtime-tracing"
-      ],
-      "allowedVersions": "<1.12.0",
-      "description": "Requires compileSdk 37"
-    },
-    {
-      "matchPackagePatterns": [
         "com.google.android.gms:play-services-auth"
       ],
       "allowedVersions": "<22.0.0",
@@ -153,24 +118,17 @@
     },
     {
       "matchPackagePatterns": [
-        "androidx.navigation:*"
-      ],
-      "allowedVersions": "<2.10.0",
-      "description": "Requires compileSdk 37"
-    },
-    {
-      "matchPackagePatterns": [
-        "com.squareup.okhttp3:*"
-      ],
-      "allowedVersions": "<5.5.0",
-      "description": "Requires compileSdk 37"
-    },
-    {
-      "matchPackagePatterns": [
         "org.robolectric:*"
       ],
       "allowedVersions": "<4.17",
       "description": "4.17 renders DatePickerA11yTest.interactionTest non-deterministically (the 'Next' button edge is anti-aliased differently between identical runs), so verifyRoborazziDebug flakes. It also needs --add-opens=java.base/jdk.internal.access=ALL-UNNAMED on the unit test JVM."
+    },
+    {
+      "matchPackagePatterns": [
+        "com.google.android.gms:play-services-base"
+      ],
+      "allowedVersions": "<18.11.0",
+      "description": "Requires minSdk 24"
     }
   ]
 }

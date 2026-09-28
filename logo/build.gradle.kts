@@ -18,5 +18,5 @@ plugins { id("com.android.library") }
 
 android {
   namespace = "com.google.android.horologist.logo"
-  compileSdk = 36
+  compileSdk = 37
 }

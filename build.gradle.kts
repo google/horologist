@@ -105,7 +105,7 @@ allprojects {
       resolutionStrategy {
         dependencySubstitution {
           substitute(module("com.google.protobuf:protobuf-java"))
-            .using(module("com.google.protobuf:protobuf-javalite:4.36.1"))
+            .using(module("com.google.protobuf:protobuf-javalite:4.36.2"))
         }
         force(rootProject.libs.grpc.stub)
         force(rootProject.libs.io.grpc.protobuf.lite)
@@ -195,6 +195,10 @@ subprojects {
     if (totalShards != null) {
       systemProperty("test.totalShards", totalShards)
     }
+  }
+
+  plugins.withId("com.android.library") {
+    extensions.configure<LibraryExtension> { testOptions.targetSdk = 36 }
   }
 
   // Must be afterEvaluate or else com.vanniktech.maven.publish will overwrite our

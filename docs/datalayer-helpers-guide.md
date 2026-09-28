@@ -192,6 +192,18 @@ or if it explicitly opts in to being launched remotely:
 </activity>
 ```
 
+To restore the previous behaviour, where any activity in the app can be launched remotely without
+opting in individually, set this on the `<application>` instead. This is not recommended, as a
+compromised app on the paired device could then launch internal activities:
+
+```xml
+<application>
+    <meta-data
+        android:name="com.google.android.horologist.datalayer.ALLOW_ALL_REMOTE_ACTIVITY_LAUNCHES"
+        android:value="true" />
+</application>
+```
+
 ## Launching the companion app
 
 In some cases, it can be useful to launch the companion app, either from the watch or the phone.

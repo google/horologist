@@ -113,4 +113,43 @@ class RemoteLaunchPolicyTest {
       )
       .isFalse()
   }
+
+  @Test
+  fun nonExportedActivityIsAllowedWhenAppAllowsAll() {
+    setApplicationMetaData(
+      Bundle().apply { putBoolean(ALLOW_ALL_REMOTE_ACTIVITY_LAUNCHES_META_DATA, true) }
+    )
+    addActivity("com.example.Internal", exported = false)
+
+    assertThat(
+        isRemoteLaunchAllowed(
+          packageManager,
+          ComponentName(context.packageName, "com.example.Internal"),
+        )
+      )
+      .isTrue()
+  }
+
+  @Test
+  fun nonExportedActivityIsRejectedWhenAppAllowAllIsFalse() {
+    setApplicationMetaData(
+      Bundle().apply { putBoolean(ALLOW_ALL_REMOTE_ACTIVITY_LAUNCHES_META_DATA, false) }
+    )
+    addActivity("com.example.Internal", exported = false)
+
+    assertThat(
+        isRemoteLaunchAllowed(
+          packageManager,
+          ComponentName(context.packageName, "com.example.Internal"),
+        )
+      )
+      .isFalse()
+  }
+
+  private fun setApplicationMetaData(metaData: Bundle) {
+    shadowOf(packageManager)
+      .getInternalMutablePackageInfo(context.packageName)
+      .applicationInfo!!
+      .metaData = metaData
+  }
 }

@@ -21,7 +21,14 @@ import androidx.media3.common.MediaMetadata
 import com.google.android.horologist.annotations.ExperimentalHorologistApi
 import com.google.android.horologist.media.model.Media
 
-/** Custom implementation to populate [MediaItem] with values from [Media.extras]. */
+/**
+ * Custom implementation to populate [MediaItem] with values from [Media.extras].
+ *
+ * Values written to [MediaMetadata] or [MediaItem.RequestMetadata] are shared with every
+ * [androidx.media3.session.MediaController] connected to the session, including other apps on the
+ * device. Do not store secrets such as signed URLs, auth tokens or DRM licence URLs in them; only
+ * [MediaItem.localConfiguration] is kept private to the session.
+ */
 @ExperimentalHorologistApi
 public interface MediaItemExtrasMapper {
 

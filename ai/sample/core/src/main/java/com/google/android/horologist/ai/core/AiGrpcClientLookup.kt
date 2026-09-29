@@ -22,18 +22,10 @@ import io.grpc.binder.AndroidComponentAddress
 import io.grpc.binder.BinderChannelBuilder
 
 object AiGrpcClientLookup {
-  // PackageManager.GET_SIGNATURES is deprecated in API 28+ in favor of GET_SIGNING_CERTIFICATES
-  @Suppress("DEPRECATION")
-  @android.annotation.SuppressLint("PackageManagerGetSignatures")
   fun lookupInferenceService(
     context: Context,
     packageName: String,
   ): InferenceServiceGrpcKt.InferenceServiceCoroutineStub {
-    val mySignature =
-      context.packageManager
-        .getPackageInfo(context.packageName, android.content.pm.PackageManager.GET_SIGNATURES)
-        .signatures!![0]
-
     val channel =
       BinderChannelBuilder.forAddress(
           AndroidComponentAddress.forBindIntent(
@@ -45,11 +37,7 @@ object AiGrpcClientLookup {
           context,
         )
         .securityPolicy(
-          io.grpc.binder.SecurityPolicies.hasSignature(
-            context.packageManager,
-            packageName,
-            mySignature,
-          )
+          SameSignatureSecurityPolicy(context.packageManager, context.packageName, packageName)
         )
         .build()
 

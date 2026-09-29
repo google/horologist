@@ -25,6 +25,9 @@
         <intent>
             <action android:name="InferenceService" />
         </intent>
+        <intent>
+            <action android:name="android.speech.action.RECOGNIZE_SPEECH" />
+        </intent>
     </queries>
 
     <application

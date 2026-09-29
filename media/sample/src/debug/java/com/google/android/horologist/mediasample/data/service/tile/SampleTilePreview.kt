@@ -26,7 +26,6 @@ import com.google.android.horologist.compose.tools.tileRendererPreviewData
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.toImageResource
 
 @Preview(device = WearDevices.LARGE_ROUND)
@@ -59,7 +58,8 @@ fun SampleTilePreview(context: Context): TilePreviewData =
           mapOf(
             "s1" to
               BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)?.toImageResource(),
-            "c2" to BitmapFactory.decodeResource(context.resources, R.drawable.art)?.toImageResource(),
+            "c2" to
+              BitmapFactory.decodeResource(context.resources, R.drawable.art)?.toImageResource(),
           ),
       ),
   )

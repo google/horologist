@@ -105,7 +105,7 @@ class MediaCollectionsWidget(
     val playlists = playlistRepository.getAll().first()
 
     return when {
-      playlists.isEmpty() -> emptyDocument()
+      playlists.isEmpty() -> emptyDocument(context)
       isLarge -> largeDocument(context, playlists)
       else -> smallDocument(context, playlists.first())
     }
@@ -170,21 +170,55 @@ class MediaCollectionsWidget(
     }
   }
 
-  private fun emptyDocument(): WearWidgetData =
-    WearWidgetDocument(background = WearWidgetBrush.color(remoteColorScheme.surfaceContainerLow)) {
-      RemoteBox(
-        modifier = RemoteModifier.fillMaxSize(),
-        contentAlignment = RemoteAlignment.Center,
+  @SuppressLint("RestrictedApi")
+  private fun emptyDocument(context: Context): WearWidgetData {
+    val browseLabel = context.getString(R.string.widget_browse)
+    val appLogo = loadAppLogoBitmap(context)
+
+    return WearWidgetDocument(
+      background = WearWidgetBrush.color(remoteColorScheme.surfaceContainerLow)
+    ) {
+      val appAction = pendingIntentAction { ctx -> createAppPendingIntent(ctx) }
+      RemoteColumn(
+        modifier = RemoteModifier.fillMaxSize().padding(4.rdp),
+        verticalArrangement = RemoteArrangement.spacedBy(4.rdp),
       ) {
-        RemoteText(
-          text = "No Playlists".rs,
-          style = RemoteMaterialTheme.typography.titleMedium,
-          color = remoteColorScheme.onPrimary,
-          maxLines = 2,
-          overflow = TextOverflow.Ellipsis,
-        )
+        RemoteBox(
+          modifier = RemoteModifier.weight(1f).fillMaxWidth(),
+          contentAlignment = RemoteAlignment.Center,
+        ) {
+          RemoteText(
+            text = "No Playlists".rs,
+            style = RemoteMaterialTheme.typography.titleMedium,
+            color = remoteColorScheme.onSurfaceVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+          )
+        }
+        RemoteRow(
+          modifier =
+            RemoteModifier.weight(1f)
+              .fillMaxWidth()
+              .clip(RemoteRoundedCornerShape(28.rdp))
+              .background(UampColors.primary.rc)
+              .clickable(appAction),
+          horizontalArrangement =
+            RemoteArrangement.spacedBy(6.rdp, RemoteAlignment.CenterHorizontally),
+          verticalAlignment = RemoteAlignment.CenterVertically,
+        ) {
+          if (appLogo != null) AppLogo(appLogo)
+          RemoteText(
+            text = browseLabel.rs,
+            color = UampColors.onPrimary.rc,
+            fontSize = 14.rsp,
+            fontWeight = LabelFontWeight,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+          )
+        }
       }
     }
+  }
 
   private suspend fun loadArtworkBitmap(
     context: Context,

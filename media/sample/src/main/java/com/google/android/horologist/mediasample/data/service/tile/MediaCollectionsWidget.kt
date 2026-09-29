@@ -84,7 +84,7 @@ import kotlinx.coroutines.flow.first
 private val LabelFontWeight = FontWeight(550)
 
 /** Artwork shown on a large-widget tile. */
-data class PlaylistTile(val name: String, val artwork: ImageBitmap?, val action: Action)
+data class PlaylistItemInfo(val name: String, val artwork: ImageBitmap?, val action: Action)
 
 /**
  * A Widget providing links to playlists, following the Media partial-height widget mocks.
@@ -102,7 +102,7 @@ class MediaCollectionsWidget(
     params: WearWidgetParams,
   ): WearWidgetData {
     val isLarge = params.containerType == ContainerInfo.CONTAINER_TYPE_LARGE
-    val playlists = playlistRepository.getAll().first().take(if (isLarge) LARGE_TILE_COUNT else 1)
+    val playlists = playlistRepository.getAll().first()
 
     return when {
       playlists.isEmpty() -> emptyDocument()
@@ -155,7 +155,8 @@ class MediaCollectionsWidget(
   }
 
   private suspend fun largeDocument(context: Context, playlists: List<Playlist>): WearWidgetData {
-    val artworks = playlists.map { playlist ->
+    val topPlaylists = playlists.take(LARGE_TILE_COUNT)
+    val artworks = topPlaylists.map { playlist ->
       playlist.artworkUri?.let { loadArtworkBitmap(context, it, TILE_SIZE_PX) }?.asImageBitmap()
     }
     val browseLabel = context.getString(R.string.widget_browse)
@@ -167,8 +168,8 @@ class MediaCollectionsWidget(
         appAction = pendingIntentAction { ctx -> createAppPendingIntent(ctx) },
         appLogo = appLogo,
         tiles =
-          playlists.mapIndexed { index, playlist ->
-            PlaylistTile(
+          topPlaylists.mapIndexed { index, playlist ->
+            PlaylistItemInfo(
               name = playlist.name,
               artwork = artworks[index],
               action = playlistAction(requestCode = index + 1, playlistId = playlist.id),
@@ -278,7 +279,7 @@ fun LargeMediaCollectionContent(
   browseLabel: String,
   appAction: Action,
   appLogo: ImageBitmap?,
-  tiles: List<PlaylistTile>,
+  tiles: List<PlaylistItemInfo>,
 ) {
   RemoteColumn(
     modifier = RemoteModifier.fillMaxSize().padding(4.rdp),
@@ -334,7 +335,7 @@ private fun AppLogo(appLogo: ImageBitmap) {
 @SuppressLint("RestrictedApi")
 @RemoteComposable
 @Composable
-private fun PlaylistArtworkTile(tile: PlaylistTile?, modifier: RemoteModifier) {
+private fun PlaylistArtworkTile(tile: PlaylistItemInfo?, modifier: RemoteModifier) {
   val shaped =
     modifier.clip(RemoteRoundedCornerShape(28.rdp)).background(UampColors.surfaceContainerHigh.rc)
   RemoteBox(

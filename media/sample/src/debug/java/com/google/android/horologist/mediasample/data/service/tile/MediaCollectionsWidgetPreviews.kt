@@ -65,6 +65,23 @@ fun mediaCollectionsWidgetPreviewData(): MediaCollectionsWidget {
   }
 }
 
+@Composable
+fun emptyMediaCollectionsWidgetPreviewData(): MediaCollectionsWidget {
+  return remember {
+    MediaCollectionsWidget(
+      playlistRepository =
+        object : PlaylistRepository {
+          override suspend fun get(playlistId: String): Playlist? = null
+
+          override fun getAll(): Flow<List<Playlist>> = flowOf(emptyList())
+
+          override fun getAllDownloaded(): Flow<List<Playlist>> = flowOf(emptyList())
+        },
+      imageLoader = FakeImageLoader.Resources,
+    )
+  }
+}
+
 @Preview(name = "Squircle Preview", device = "spec:width=1000dp,height=1000dp,dpi=320")
 @Composable
 fun MediaCollectionWidgetSquirclePreview(
@@ -82,3 +99,21 @@ fun MediaCollectionWidgetRoundPreview(
 fun MediaCollectionWidgetRectangularPreview(
   @PreviewParameter(RectangularAllWidgetPreviewParams::class) params: WearWidgetParams
 ) = WearWidgetPreview(mediaCollectionsWidgetPreviewData(), params)
+
+@Preview(name = "Empty Squircle Preview", device = "spec:width=1000dp,height=1000dp,dpi=320")
+@Composable
+fun EmptyMediaCollectionWidgetSquirclePreview(
+  @PreviewParameter(SquircleAllWidgetPreviewParams::class) params: WearWidgetParams
+) = WearWidgetPreview(emptyMediaCollectionsWidgetPreviewData(), params)
+
+@Preview(name = "Empty Round Preview", device = "spec:width=1000dp,height=1000dp,dpi=320")
+@Composable
+fun EmptyMediaCollectionWidgetRoundPreview(
+  @PreviewParameter(RoundAllWidgetPreviewParams::class) params: WearWidgetParams
+) = WearWidgetPreview(emptyMediaCollectionsWidgetPreviewData(), params)
+
+@Preview(name = "Empty Widget Picker Preview", device = "spec:width=1000dp,height=1000dp,dpi=320")
+@Composable
+fun EmptyMediaCollectionWidgetRectangularPreview(
+  @PreviewParameter(RectangularAllWidgetPreviewParams::class) params: WearWidgetParams
+) = WearWidgetPreview(emptyMediaCollectionsWidgetPreviewData(), params)

@@ -119,7 +119,6 @@ class MediaCollectionsWidget(
     val background =
       tinted?.let { fallback.image(RemoteImageBitmap(it.asImageBitmap()), ContentScale.Crop) }
         ?: fallback
-    val labelColor = tinted?.let { labelColorOn(it) } ?: UampColors.onPrimaryContainer
 
     val appLogo = loadAppLogoBitmap(context)
 
@@ -128,7 +127,7 @@ class MediaCollectionsWidget(
         playlistName = playlist.name,
         playlistAction = playlistAction(requestCode = 1, playlistId = playlist.id),
         appLogo = appLogo,
-        labelColor = labelColor,
+        tintedArtwork = tinted,
       )
     }
   }
@@ -137,14 +136,6 @@ class MediaCollectionsWidget(
     val palette = Palette.from(artwork).generate()
     val swatch = palette.darkVibrantSwatch ?: palette.darkMutedSwatch ?: palette.dominantSwatch
     return Color(swatch?.rgb ?: android.graphics.Color.BLACK).copy(alpha = SMALL_SCRIM_ALPHA)
-  }
-
-  private fun labelColorOn(tintedArtwork: Bitmap): Color {
-    val palette = Palette.from(tintedArtwork).generate()
-    val dominant = palette.dominantSwatch?.rgb?.let { Color(it) } ?: return Color.White
-    if (dominant.luminance() < LIGHT_BACKGROUND_LUMINANCE) return Color.White
-    val dark = palette.darkVibrantSwatch ?: palette.darkMutedSwatch
-    return dark?.rgb?.let { Color(it) } ?: Color.Black
   }
 
   private fun loadAppLogoBitmap(context: Context): ImageBitmap? {
@@ -238,8 +229,16 @@ class MediaCollectionsWidget(
     private const val TILE_SIZE_PX = 200
     private const val SMALL_SCRIM_ALPHA = 0.38f
 
-    private const val LIGHT_BACKGROUND_LUMINANCE = 0.5f
+    internal const val LIGHT_BACKGROUND_LUMINANCE = 0.5f
   }
+}
+
+private fun labelColorOn(tintedArtwork: Bitmap): Color {
+  val palette = Palette.from(tintedArtwork).generate()
+  val dominant = palette.dominantSwatch?.rgb?.let { Color(it) } ?: return Color.White
+  if (dominant.luminance() < MediaCollectionsWidget.LIGHT_BACKGROUND_LUMINANCE) return Color.White
+  val dark = palette.darkVibrantSwatch ?: palette.darkMutedSwatch
+  return dark?.rgb?.let { Color(it) } ?: Color.Black
 }
 
 private fun Bitmap.withScrim(scrim: Color): Bitmap =
@@ -252,8 +251,10 @@ fun SmallMediaCollectionContent(
   playlistName: String,
   playlistAction: Action,
   appLogo: ImageBitmap?,
-  labelColor: Color,
+  tintedArtwork: Bitmap?,
 ) {
+  val labelColor = tintedArtwork?.let { labelColorOn(it) } ?: UampColors.onPrimaryContainer
+
   RemoteRow(
     modifier =
       RemoteModifier.fillMaxSize().clickable(playlistAction).padding(start = 20.rdp, end = 14.rdp),

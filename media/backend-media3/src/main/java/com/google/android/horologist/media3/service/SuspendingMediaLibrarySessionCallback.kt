@@ -111,6 +111,7 @@ public abstract class SuspendingMediaLibrarySessionCallback(
     controller: MediaSession.ControllerInfo,
   ): Boolean =
     controller.uid == Process.myUid() ||
+      // Covers the Wear OS SysUI media controls (UMO), so no Wear-specific check is needed.
       controller.isTrusted ||
       session.isMediaNotificationController(controller) ||
       session.isAutomotiveController(controller) ||

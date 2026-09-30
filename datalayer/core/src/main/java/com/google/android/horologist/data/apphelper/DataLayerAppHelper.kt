@@ -171,6 +171,13 @@ abstract class DataLayerAppHelper(
    * [Class name][ActivityConfig.getClassFullName] should be a fully qualified class name, such as,
    * "com.example.project.SampleActivity".
    *
+   * The target activity on the specified node must either be exported, or declare the
+   * `com.google.android.horologist.datalayer.REMOTE_LAUNCH_ALLOWED` meta-data with a value of
+   * `true`. Otherwise [AppHelperResultCode.APP_HELPER_RESULT_ACTIVITY_NOT_FOUND] is returned. To
+   * allow all activities, declare the
+   * `com.google.android.horologist.datalayer.ALLOW_ALL_REMOTE_ACTIVITY_LAUNCHES` meta-data with a
+   * value of `true` on the application instead (not recommended).
+   *
    * This call requires that the same app is installed on the specified node, otherwise a
    * [timeout](AppHelperResultCode.APP_HELPER_RESULT_TIMEOUT) is expected. See
    * [AppHelperNodeStatus.appInstallationStatus] in order to check the installation status.

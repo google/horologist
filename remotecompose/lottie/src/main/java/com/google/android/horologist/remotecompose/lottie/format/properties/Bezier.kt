@@ -17,6 +17,7 @@
 package com.google.android.horologist.remotecompose.lottie.format.properties
 
 import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
 import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
 import com.google.android.horologist.remotecompose.lottie.format.values.SerializableRemoteBoolean
@@ -65,7 +66,7 @@ internal sealed class BaseBezierProperty {
 @Serializable
 internal data class StaticBezierProperty(
   @SerialName("sid") override val slotId: String? = null,
-  @SerialName("a") override val animated: SerializableRemoteBoolean,
+  @SerialName("a") override val animated: SerializableRemoteBoolean = false.rb,
   @SerialName("k") val value: BezierValue,
 ) : BaseBezierProperty()
 
@@ -83,8 +84,10 @@ internal data class StaticBezierProperty(
 @Serializable
 internal data class AnimatedBezierProperty(
   @SerialName("sid") override val slotId: String? = null,
-  @SerialName("a") override val animated: SerializableRemoteBoolean,
-  @SerialName("k") val keyframes: List<BezierKeyframe>,
+  @SerialName("a") override val animated: SerializableRemoteBoolean = true.rb,
+  @SerialName("k")
+  @Serializable(with = BezierKeyframeListSerializer::class)
+  val keyframes: List<BezierKeyframe>,
 ) : BaseBezierProperty()
 
 /**
@@ -121,6 +124,14 @@ internal data class BezierKeyframe(
   @SerialName("i") val inTangent: KeyframeEasing? = null,
   @SerialName("o") val outTangent: KeyframeEasing? = null,
 ) {
+  constructor(
+    frame: Float,
+    value: List<BezierValue>,
+    hold: Boolean = false,
+    inTangent: KeyframeEasing? = null,
+    outTangent: KeyframeEasing? = null,
+  ) : this(frame.rf, value, hold.rb, inTangent, outTangent)
+
   init {
     if (value.isEmpty()) {
       throw SerializationException(
@@ -130,21 +141,11 @@ internal data class BezierKeyframe(
   }
 }
 
+internal typealias BezierPropertyKeyframe = BezierKeyframe
+
 /**
  * Polymorphic serializer for [BaseBezierProperty] discriminating between static and animated
- * variants based on the Lottie schema `"a"` field ([Integer
- * Boolean](https://lottie.github.io/lottie-spec/dev/specs/values/#int-boolean)).
- *
- * Contract:
- * - Preconditions: [element] must be a [JsonObject].
- * - Postconditions:
- *     - Selects [AnimatedBezierProperty.serializer] when `"a"` is integer `1`.
- *     - Selects [StaticBezierProperty.serializer] when `"a"` is integer `0`.
- * - Exceptions:
- *     - Throws [SerializationException] if [element] is not a [JsonObject].
- *     - Throws [SerializationException] if `"a"` is missing or cannot be parsed as an integer
- *       boolean.
- *     - Throws [SerializationException] if `"a"` is neither `0` nor `1`.
+ * variants based on the Lottie schema `"a"` field.
  */
 internal object BaseBezierPropertySerializer :
   JsonContentPolymorphicSerializer<BaseBezierProperty>(BaseBezierProperty::class) {

@@ -26,7 +26,6 @@ import com.google.android.horologist.compose.tools.tileRendererPreviewData
 import com.google.android.horologist.media.ui.tiles.MediaCollectionsTileRenderer
 import com.google.android.horologist.mediasample.BuildConfig
 import com.google.android.horologist.mediasample.R
-import com.google.android.horologist.tiles.images.drawableResToImageResource
 import com.google.android.horologist.tiles.images.toImageResource
 
 @Preview(device = WearDevices.LARGE_ROUND)
@@ -47,7 +46,7 @@ fun SampleTilePreview(context: Context): TilePreviewData =
           ),
         collection2 =
           MediaCollectionsTileRenderer.MediaCollection(
-            name = "Podcasts",
+            name = "Jazz & Blues",
             artworkId = "c2",
             action = ActionBuilders.LaunchAction.Builder().build(),
           ),
@@ -59,7 +58,8 @@ fun SampleTilePreview(context: Context): TilePreviewData =
           mapOf(
             "s1" to
               BitmapFactory.decodeResource(context.resources, R.drawable.kyoto)?.toImageResource(),
-            "c2" to drawableResToImageResource(R.drawable.ic_baseline_podcasts_24),
+            "c2" to
+              BitmapFactory.decodeResource(context.resources, R.drawable.art)?.toImageResource(),
           ),
       ),
   )

@@ -101,6 +101,7 @@ dependencies {
   implementation(libs.compose.remote.creation.compose)
   implementation(libs.androidx.compose.remote.player.core)
   implementation(libs.androidx.compose.remote.player.compose)
+  implementation(libs.androidx.compose.remote.player.view)
   implementation(libs.androidx.compose.remote.tooling.preview)
 
   implementation(libs.compose.ui.util)

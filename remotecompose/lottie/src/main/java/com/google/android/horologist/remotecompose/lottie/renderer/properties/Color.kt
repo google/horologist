@@ -17,12 +17,15 @@
 package com.google.android.horologist.remotecompose.lottie.renderer.properties
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.core.CubicBezierEasing
 import androidx.compose.remote.creation.compose.state.RemoteColor
 import androidx.compose.remote.creation.compose.state.RemoteFloat
+import androidx.compose.remote.creation.compose.state.clamp
 import androidx.compose.remote.creation.compose.state.lerp
+import androidx.compose.remote.creation.compose.state.max
+import androidx.compose.remote.creation.compose.state.pow
 import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rf
+import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.ui.graphics.Color
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedColorProperty
@@ -32,6 +35,7 @@ import com.google.android.horologist.remotecompose.lottie.format.properties.Stat
 import com.google.android.horologist.remotecompose.lottie.renderer.lookupValueInBezier
 import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearEasingIn
 import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearEasingOut
+import kotlin.math.pow
 
 /**
  * Resolves or animates a color property at the current timeline frame.
@@ -76,74 +80,10 @@ internal fun animateColor(
         return keyframes[0].value
       }
 
-      val constantFrame = animationSettings.currentFrame.constantValueOrNull
-      if (constantFrame != null) {
-        val firstKf = keyframes.first()
-        val lastKf = keyframes.last()
-        if (constantFrame <= firstKf.frame.constantValue) {
-          return firstKf.value
-        }
-        if (constantFrame >= lastKf.frame.constantValue) {
-          return lastKf.value
-        }
-
-        for (i in 0 until keyframes.size - 1) {
-          val startKf = keyframes[i]
-          val endKf = keyframes[i + 1]
-          val startT = startKf.frame.constantValue
-          val endT = endKf.frame.constantValue
-
-          if (constantFrame >= startT && (constantFrame < endT || i == keyframes.size - 2)) {
-            if (startKf.hold.constantValue) {
-              return if (constantFrame < endT) startKf.value else endKf.value
-            }
-            val duration = endT - startT
-            val t =
-              if (duration == 0f) 0f else ((constantFrame - startT) / duration).coerceIn(0f, 1f)
-            val outTangent = startKf.outTangent ?: scalarLinearEasingOut
-            val inTangent = startKf.inTangent ?: scalarLinearEasingIn
-            val easing =
-              CubicBezierEasing(
-                outTangent.x.constantValue,
-                outTangent.y.constantValue,
-                inTangent.x.constantValue,
-                inTangent.y.constantValue,
-              )
-            val easedT = easing.transform(t)
-
-            val startColor = startKf.value.constantValue
-            val startR = startColor.red
-            val startG = startColor.green
-            val startB = startColor.blue
-            val startA = startColor.alpha
-
-            val endColor = endKf.value.constantValue
-            val endR = endColor.red
-            val endG = endColor.green
-            val endB = endColor.blue
-            val endA = endColor.alpha
-
-            val r = lerpFloat(startR, endR, easedT)
-            val g = lerpFloat(startG, endG, easedT)
-            val b = lerpFloat(startB, endB, easedT)
-            val a = lerpFloat(startA, endA, easedT)
-            return Color(
-                r,
-                g,
-                b,
-                a,
-                androidx.compose.ui.graphics.colorspace.ColorSpaces.ExtendedSrgb,
-              )
-              .rc
-          }
-        }
-        return lastKf.value
-      }
-
       val animationSegments = mutableListOf<List<AnimationSegment>>()
 
       val firstKeyframe = keyframes[0]
-      if (firstKeyframe.frame.constantValue > 0f) {
+      if (firstKeyframe.frame.constantValue != 0f) {
         animationSegments.add(toRgbaFloats(firstKeyframe).map { AnimationSegment(0f, it) })
       }
 
@@ -174,12 +114,23 @@ internal fun animateColor(
                 frameInAnimation,
               )
             startValues.mapIndexed { index, value ->
-              AnimationSegment(startT, lerp(value, endValues[index], currentBezierValue))
+              AnimationSegment(
+                startT,
+                if (index == 3)
+                  clamp(lerp(value, endValues[index], currentBezierValue), 0f.rf, 1f.rf)
+                else gammaLerp(value, endValues[index], currentBezierValue),
+              )
             }
           }
 
         animationSegments.add(segment)
       }
+
+      // A final hold segment still has to switch to the last keyframe's value.
+      val lastKeyframe = keyframes.last()
+      animationSegments.add(
+        toRgbaFloats(lastKeyframe).map { AnimationSegment(lastKeyframe.frame.constantValue, it) }
+      )
 
       val channels =
         (0 until 4).map { index ->
@@ -201,5 +152,19 @@ private fun toRgbaFloats(keyframe: ColorPropertyKeyframe): List<RemoteFloat> {
   return listOf(color.red.rf, color.green.rf, color.blue.rf, color.alpha.rf)
 }
 
-private fun lerpFloat(start: Float, stop: Float, fraction: Float): Float =
-  start + (stop - start) * fraction
+/** Interpolate RGB in linear light, matching lottie-android's sRGB transfer function. */
+@SuppressLint("RestrictedApi")
+internal fun gammaLerp(start: RemoteFloat, end: RemoteFloat, progress: RemoteFloat): RemoteFloat {
+  fun linear(value: RemoteFloat): RemoteFloat =
+    selectIfLt(0.04045f.rf, value, pow((value + 0.055f) / 1.055f, 2.4f.rf), value / 12.92f)
+  val fraction = clamp(progress, 0f.rf, 1f.rf)
+  val value = lerp(linear(start), linear(end), fraction)
+  val srgb =
+    selectIfLt(
+      value,
+      0.0031308f.rf,
+      value * 12.92f,
+      pow(max(value, 0f.rf), (1f / 2.4f).rf) * 1.055f - 0.055f,
+    )
+  return clamp(srgb, 0f.rf, 1f.rf)
+}

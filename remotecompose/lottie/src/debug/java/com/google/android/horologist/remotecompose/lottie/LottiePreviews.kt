@@ -33,7 +33,7 @@ fun LottieGeometryPreview() {
 }
 
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
-@AnimatedPreview(durationMs = 3000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottieGeometryAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.geometry, modifier = Modifier.size(100.dp))
@@ -53,7 +53,7 @@ fun LottieTintGeometryPreview() {
 
 @SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
-@AnimatedPreview(durationMs = 3000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottieTintGeometryAnimatedPreview() {
   LottieAnimatedPreview(
@@ -76,7 +76,7 @@ fun LottiePlayPausePauseStatePreview() {
 }
 
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 64, heightDp = 64)
-@AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 350, frameIntervalMs = 50, showCurves = false)
 @Composable
 fun LottiePlayPauseAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.play_pause, modifier = Modifier.size(64.dp))
@@ -94,7 +94,7 @@ fun LottieM3PlayPausePreview() {
 }
 
 @Preview(backgroundColor = 0xffffffff, showBackground = true, widthDp = 64, heightDp = 64)
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1700, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottieM3PlayPauseAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.m3_play_pause, modifier = Modifier.size(64.dp))
@@ -120,7 +120,7 @@ fun LottiePositionStaticPreview() {
 }
 
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottiePositionStaticAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.position_static, modifier = Modifier.size(100.dp))
@@ -137,7 +137,7 @@ fun LottiePositionAnimatedPreview() {
 }
 
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottiePositionAnimatedLivePreview() {
   LottieAnimatedPreview(animationResId = R.raw.position_animated, modifier = Modifier.size(100.dp))
@@ -157,7 +157,7 @@ fun LottieParentChainPreview() {
 }
 
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottieParentChainAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.parent_chain, modifier = Modifier.size(100.dp))
@@ -170,7 +170,7 @@ fun LottieGrandparentPreview() {
 }
 
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottieGrandparentAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.grandparent, modifier = Modifier.size(100.dp))
@@ -183,7 +183,7 @@ fun LottieM3NextPreview() {
 }
 
 @Preview(backgroundColor = 0xffffffff, showBackground = true, widthDp = 64, heightDp = 64)
-@AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 500, frameIntervalMs = 50, showCurves = false)
 @Composable
 fun LottieM3NextAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.m3_next, modifier = Modifier.size(64.dp))
@@ -213,7 +213,7 @@ fun LottiePolyStarPreview() {
 }
 
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottiePolyStarAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.polystar, modifier = Modifier.size(100.dp))
@@ -230,7 +230,7 @@ fun LottieRectangleEllipsePreview() {
 }
 
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
-@AnimatedPreview(durationMs = 2000, frameIntervalMs = 100, showCurves = false)
+@AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
 fun LottieRectangleEllipseAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.rect_ellipse, modifier = Modifier.size(100.dp))

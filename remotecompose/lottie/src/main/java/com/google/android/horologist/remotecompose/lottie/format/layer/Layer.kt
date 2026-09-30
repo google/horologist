@@ -65,6 +65,13 @@ internal sealed class Layer {
   abstract val matteMode: MatteMode
   abstract val matteParent: Int?
   abstract val masks: List<Mask>?
+  open val startTime: Float? = 0f
+  open val timeStretch: Float? = 1f
+  open val blendMode: BlendMode? = BlendMode.Normal
+  open val matteTarget: Int? = 0
+  open val is3d: Int? = 0
+  open val masksProperties: List<Mask>
+    get() = masks.orEmpty()
 }
 
 /**
@@ -77,7 +84,10 @@ internal enum class LayerType(val value: Int) {
   Solid(1),
   Image(2),
   Null(3),
-  Shape(4);
+  Shape(4),
+  Text(5),
+  Audio(6),
+  Unknown(-1);
 
   companion object {
     fun fromValueOrNull(value: Int): LayerType? {
@@ -103,10 +113,13 @@ internal object LayerSerializer : JsonContentPolymorphicSerializer<Layer>(Layer:
   override fun selectDeserializer(element: JsonElement): DeserializationStrategy<Layer> {
     val ty = element.jsonObject["ty"]?.jsonPrimitive?.intOrNull
     return when (ty) {
+      LayerType.Precomposition.value -> PrecompLayer.serializer()
       LayerType.Solid.value -> SolidColorLayer.serializer()
+      LayerType.Image.value -> ImageLayer.serializer()
       LayerType.Null.value -> NullLayer.serializer()
       LayerType.Shape.value -> ShapeLayer.serializer()
-      else -> NullLayer.serializer()
+      LayerType.Text.value -> TextLayer.serializer()
+      else -> UnknownLayer.serializer()
     }
   }
 }
@@ -118,7 +131,7 @@ internal object LayerTypeSerializer : KSerializer<LayerType> {
 
   override fun deserialize(decoder: Decoder): LayerType {
     val value = decoder.decodeInt()
-    return LayerType.fromValueOrNull(value) ?: LayerType.Null
+    return LayerType.fromValueOrNull(value) ?: LayerType.Unknown
   }
 
   override fun serialize(encoder: Encoder, value: LayerType) {

@@ -94,7 +94,10 @@ android {
     targetCompatibility = JavaVersion.VERSION_17
   }
 
-  buildFeatures { buildConfig = true }
+  buildFeatures {
+    buildConfig = true
+    compose = true
+  }
 
   lint {
     // https://buganizer.corp.google.com/issues/328279054
@@ -227,6 +230,7 @@ dependencies {
   add("benchmarkImplementation", libs.androidx.runtime.tracing)
 
   debugImplementation(libs.compose.ui.tooling)
+  debugImplementation(libs.compose.ui.toolingpreview)
   debugImplementation(projects.composeTools)
   releaseCompileOnly(projects.composeTools)
   add("benchmarkCompileOnly", projects.composeTools)

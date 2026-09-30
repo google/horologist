@@ -22,6 +22,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
+import androidx.compose.remote.core.Limits
 import androidx.compose.runtime.MutableFloatState
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableFloatStateOf
@@ -42,6 +43,12 @@ import java.io.File
 
 @OptIn(ExperimentalRoborazziApi::class)
 abstract class MotionPixelHarness : WearScreenshotTest() {
+  init {
+    // Temporarily raise MAX_OP_COUNT because remote-player-compose (RcPlayerCanvas) never calls
+    // RemoteContext.clearLastOpCount() between frames, accumulating mOpCount across all frames.
+    Limits.MAX_OP_COUNT = 500_000
+  }
+
   protected fun show(json: String): MutableFloatState {
     val decoded = Animation.decodeFromString(json)
     val progress = mutableFloatStateOf(0f)
@@ -99,6 +106,7 @@ abstract class MotionPixelHarness : WearScreenshotTest() {
     maxPeakRedError: Float = 0.25f,
     minVisiblePixels: Int = 20,
     maxMeanEdgeRedError: Float? = null,
+    strictOffsetTopology: Boolean = false,
     staticAt: (Int) -> String,
   ) {
     val decoded = Animation.decodeFromString(json)
@@ -107,7 +115,12 @@ abstract class MotionPixelHarness : WearScreenshotTest() {
     composeRule.setContent {
       Column {
         Box(Modifier.size(64.dp).background(Color.Black).testTag("motion")) {
-          LottiePreview(decoded, modifier = Modifier.size(64.dp), progress = progress.floatValue)
+          LottiePreview(
+            decoded,
+            modifier = Modifier.size(64.dp),
+            progress = progress.floatValue,
+            strictOffsetTopology = strictOffsetTopology,
+          )
         }
         Box(Modifier.size(64.dp).background(Color.Black).testTag("reference")) {
           // Each static fixture needs its own recorded document; playback stays mounted above.

@@ -27,6 +27,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.BasicText
+import androidx.compose.remote.core.RemoteClock
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -97,7 +98,6 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
     }
 
     val progressState = mutableStateOf(progress)
-    val clockNanoTimeState = mutableStateOf(0L)
     val clock = SettableRemoteClock()
 
     composeRule.setContent {
@@ -113,6 +113,7 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
         LottieRcPreview(
           animationResId = animationResId,
           progress = currentProgress,
+          clock = clock,
           animationResult = animationResult,
         )
       }
@@ -122,12 +123,12 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
       val scope =
         LottieDiffTestScope(clock) { stepSuffix, stepProgress ->
           progressState.value = stepProgress
-          clockNanoTimeState.value = clock.currentNanoTime
           composeRule.waitForIdle()
           composeRule.onNodeWithTag("LottieDiff").captureRoboImage(screenshotFilePath(stepSuffix))
         }
       scope.block()
     } else {
+      composeRule.waitForIdle()
       composeRule.onNodeWithTag("LottieDiff").captureRoboImage(screenshotFilePath(suffix))
     }
   }
@@ -141,7 +142,9 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
     expectedFailure: Boolean = false,
     block: (LottieDiffTestScope.() -> Unit)? = null,
   ) {
-    val animationResult = runCatching { Animation.decodeFromString(json) }
+    val animationResult = runCatching {
+      Animation.decodeFromString(json).also { it.validateForRecording() }
+    }
 
     if (expectedFailure) {
       assertThat(animationResult.isFailure).isTrue()
@@ -150,7 +153,6 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
     }
 
     val progressState = mutableStateOf(progress)
-    val clockNanoTimeState = mutableStateOf(0L)
     val clock = SettableRemoteClock()
 
     composeRule.setContent {
@@ -173,6 +175,7 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
           boxWidth = boxWidth,
           boxHeight = boxHeight,
           progress = currentProgress,
+          clock = clock,
           animationResult = animationResult,
         )
       }
@@ -182,12 +185,12 @@ public abstract class LottieDiffScreenshotTest : WearScreenshotTest() {
       val scope =
         LottieDiffTestScope(clock) { stepSuffix, stepProgress ->
           progressState.value = stepProgress
-          clockNanoTimeState.value = clock.currentNanoTime
           composeRule.waitForIdle()
           composeRule.onNodeWithTag("LottieDiff").captureRoboImage(screenshotFilePath(stepSuffix))
         }
       scope.block()
     } else {
+      composeRule.waitForIdle()
       composeRule.onNodeWithTag("LottieDiff").captureRoboImage(screenshotFilePath(suffix))
     }
   }
@@ -319,6 +322,7 @@ internal fun LottieRcPreview(
   modifier: Modifier = Modifier,
   boxSize: Dp = 84.dp,
   progress: Float = 0f,
+  clock: RemoteClock = SettableRemoteClock(),
   animationResult: Result<Animation>? = null,
 ) {
   LottieRcPreview(
@@ -327,6 +331,7 @@ internal fun LottieRcPreview(
     boxWidth = boxSize,
     boxHeight = boxSize,
     progress = progress,
+    clock = clock,
     animationResult = animationResult,
   )
 }
@@ -342,6 +347,7 @@ internal fun LottieRcPreview(
   boxWidth: Dp,
   boxHeight: Dp,
   progress: Float = 0f,
+  clock: RemoteClock = SettableRemoteClock(),
   animationResult: Result<Animation>? = null,
 ) {
   Column(
@@ -360,7 +366,12 @@ internal fun LottieRcPreview(
           ?: remember(animationResId) { runCatching { Animation.load(animationResId, context) } }
       val animation = result.getOrNull()
       if (animation != null) {
-        LottiePreview(animation = animation, progress = progress, modifier = Modifier.fillMaxSize())
+        LottiePreview(
+          animation = animation,
+          progress = progress,
+          clock = clock,
+          modifier = Modifier.fillMaxSize(),
+        )
       } else {
         val errorMessage = LottieDiffScreenshotTest.sanitizeErrorMessage(result.exceptionOrNull())
         BasicText(
@@ -381,6 +392,7 @@ internal fun LottieRcPreview(
   boxWidth: Dp = 84.dp,
   boxHeight: Dp = 84.dp,
   progress: Float = 0f,
+  clock: RemoteClock = SettableRemoteClock(),
   animationResult: Result<Animation>? = null,
 ) {
   Column(
@@ -397,7 +409,12 @@ internal fun LottieRcPreview(
         animationResult ?: remember(json) { runCatching { Animation.decodeFromString(json) } }
       val animation = result.getOrNull()
       if (animation != null) {
-        LottiePreview(animation = animation, progress = progress, modifier = Modifier.fillMaxSize())
+        LottiePreview(
+          animation = animation,
+          progress = progress,
+          clock = clock,
+          modifier = Modifier.fillMaxSize(),
+        )
       } else {
         val errorMessage = LottieDiffScreenshotTest.sanitizeErrorMessage(result.exceptionOrNull())
         BasicText(

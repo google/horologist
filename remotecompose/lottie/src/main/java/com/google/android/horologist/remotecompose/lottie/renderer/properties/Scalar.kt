@@ -91,14 +91,17 @@ internal fun animateScalar(
         val inTangent = startKeyframe.inTangent ?: scalarLinearEasingIn
 
         val currentBezierValue =
-          lookupValueInBezier(
-            outTangent.x,
-            outTangent.y,
-            inTangent.x,
-            inTangent.y,
-            duration,
-            frameInAnimation,
-          )
+          if (startKeyframe.hold.constantValue) {
+            selectIfLt(frameInAnimation, duration.rf, 0f.rf, 1f.rf)
+          } else
+            lookupValueInBezier(
+              outTangent.x,
+              outTangent.y,
+              inTangent.x,
+              inTangent.y,
+              duration,
+              frameInAnimation,
+            )
 
         val startValue = startKeyframe.value
         val endValue = endKeyframe.value

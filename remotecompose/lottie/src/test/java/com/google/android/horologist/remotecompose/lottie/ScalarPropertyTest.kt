@@ -853,17 +853,9 @@ class ScalarPropertyTest {
    * [SP_LOT_SCL_03_06] Linearly interpolates scalar value between keyframes when easing tangents
    * are omitted.
    *
-   * Root cause: When tangents are omitted, animateScalar defaults to scalarLinearEasingOut and
-   * scalarLinearEasingIn. In the current implementation, lookupValueInBezier with these constants
-   * evaluates to ~43.75f instead of 50.0f at midpoint. Direct linear interpolation or identity
-   * easing is required in production code.
-   *
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore(
-    "BUG: SP_LOT_SCL_03_06: animateScalar does not produce exact linear interpolation when tangents are omitted"
-  )
   @Test
   fun linearlyInterpolatesValueBetweenKeyframes() {
     val json = """{"a": 1, "k": [{"t": 0, "s": [0.0]}, {"t": 10, "s": [100.0]}]}"""
@@ -914,14 +906,9 @@ class ScalarPropertyTest {
   /**
    * [SP_LOT_SCL_03_08] Holds value constant until next keyframe when hold flag is true (`h = 1`).
    *
-   * Root cause: animateScalar currently ignores startKeyframe.hold and always applies Bézier
-   * interpolation across keyframe intervals. Production code must branch on hold to maintain a
-   * constant value across [t_i, t_{i+1}).
-   *
    * Specification:
    * [Lottie Base Keyframe](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#base-keyframe)
    */
-  @Ignore("BUG: SP_LOT_SCL_03_08: animateScalar ignores hold flag 'h' and performs interpolation")
   @Test
   fun holdsValueConstantUntilNextKeyframeWhenHoldFlagIsTrue() {
     val json = """{"a": 1, "k": [{"t": 0, "s": [10.0], "h": 1}, {"t": 10, "s": [50.0]}]}"""

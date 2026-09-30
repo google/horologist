@@ -26,7 +26,7 @@ plugins {
 }
 
 android {
-  compileSdk = 36
+  compileSdk = 37
 
   defaultConfig { minSdk = 26 }
 
@@ -40,6 +40,18 @@ android {
   testOptions { unitTests { isIncludeAndroidResources = true } }
 
   namespace = "com.google.android.horologist.remotecompose.lottie"
+}
+
+tasks.withType<Test>().configureEach {
+  listOf(
+      "lottieCliRun",
+      "lottieUrl",
+      "lottieUrlsFile",
+      "lottieOutput",
+      "lottieFrames",
+      "lottieSizeDp",
+    )
+    .forEach { prop -> project.findProperty(prop)?.let { systemProperty(prop, it.toString()) } }
 }
 
 metalava { filename.set("api/current.api") }

@@ -36,9 +36,9 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animatePosition
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateVector
-import com.google.android.horologist.remotecompose.lottie.renderer.shapes.ellipse
-import com.google.android.horologist.remotecompose.lottie.renderer.shapes.path
-import com.google.android.horologist.remotecompose.lottie.renderer.shapes.rectangle
+import com.google.android.horologist.remotecompose.lottie.renderer.shapes.evaluateEllipse
+import com.google.android.horologist.remotecompose.lottie.renderer.shapes.evaluatePath
+import com.google.android.horologist.remotecompose.lottie.renderer.shapes.evaluateRectangle
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -89,10 +89,10 @@ class EvaluatorModularizationTest {
             vertices = listOf(Point(10f.rf, 20f.rf)),
           ),
       )
-    val result: BezierValue = animateBezier(bezier, settings)
-    assertThat(result.closed.constantValueOrNull).isTrue()
-    assertThat(result.vertices[0].x.constantValueOrNull).isEqualTo(10f)
-    assertThat(result.vertices[0].y.constantValueOrNull).isEqualTo(20f)
+    val result = animateBezier(bezier, settings).single()
+    assertThat(result.closed).isTrue()
+    assertThat(result.vertices[0][0].constantValueOrNull).isEqualTo(10f)
+    assertThat(result.vertices[0][1].constantValueOrNull).isEqualTo(20f)
   }
 
   @Test
@@ -122,8 +122,8 @@ class EvaluatorModularizationTest {
         size = StaticVectorProperty(animated = false.rb, value = listOf(100f.rf, 100f.rf)),
       )
 
-    assertThat(path(pathShape, settings)).isNotNull()
-    assertThat(rectangle(rectShape, settings)).isNotNull()
-    assertThat(ellipse(ellipseShape, settings)).isNotNull()
+    assertThat(evaluatePath(pathShape, settings)).isNotNull()
+    assertThat(evaluateRectangle(rectShape, settings)).isNotNull()
+    assertThat(evaluateEllipse(ellipseShape, settings)).isNotNull()
   }
 }

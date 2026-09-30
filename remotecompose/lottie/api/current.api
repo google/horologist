@@ -6,6 +6,12 @@ package com.google.android.horologist.remotecompose.lottie {
     method @KotlinOnly @androidx.compose.remote.creation.compose.layout.RemoteComposable @androidx.compose.runtime.Composable public static void LottieAnimation(String json, optional androidx.compose.remote.creation.compose.modifier.RemoteModifier modifier, optional com.google.android.horologist.remotecompose.lottie.SlotMap slotMap, optional androidx.compose.remote.creation.compose.state.RemoteFloat? progress);
   }
 
+  public final class LottieProfiles {
+    method @InaccessibleFromKotlin public androidx.compose.remote.creation.profile.Profile getNoRuntimeShaders();
+    property public androidx.compose.remote.creation.profile.Profile NoRuntimeShaders;
+    field public static final com.google.android.horologist.remotecompose.lottie.LottieProfiles INSTANCE;
+  }
+
   public final class SlotMap {
     ctor public SlotMap();
     ctor public SlotMap(optional java.util.Map<java.lang.String,? extends androidx.compose.remote.creation.compose.state.RemoteColor> colorSlots);

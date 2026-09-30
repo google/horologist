@@ -16,34 +16,51 @@
 
 package com.google.android.horologist.lottie
 
-import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.remote.creation.compose.capture.rememberRemoteDocument
-import androidx.compose.remote.creation.compose.modifier.RemoteModifier
-import androidx.compose.remote.creation.compose.modifier.fillMaxSize as remoteFillMaxSize
-import androidx.compose.remote.player.compose.RemoteDocumentPlayer
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalWindowInfo
-import com.google.android.horologist.remotecompose.lottie.LottieAnimation
-import com.google.android.horologist.sample.R
+import com.google.android.horologist.lottie.composables.LottieDemoModePlayer
+import com.google.android.horologist.lottie.composables.LottieDetailPlayer
+import com.google.android.horologist.lottie.composables.LottieGalleryList
 
-// Builds and plays the document here rather than calling the library's LottiePreview, which lives
-// in remotecompose/lottie's `debug` source set: this screen is a navigation destination in
-// SampleWearApp, so it is part of the release variant, where that function does not exist.
-@SuppressLint("RestrictedApi")
 @Composable
 fun LottieScreen(modifier: Modifier = Modifier) {
-  val document = rememberRemoteDocument {
-    LottieAnimation(R.raw.geometry, modifier = RemoteModifier.remoteFillMaxSize())
-  }
-  val containerSize = LocalWindowInfo.current.containerSize
-  document.value?.let {
-    RemoteDocumentPlayer(
-      document = it,
-      modifier = modifier.fillMaxSize(),
-      documentWidth = containerSize.width,
-      documentHeight = containerSize.height,
-    )
+  var viewMode by remember { mutableStateOf<LottieViewMode>(LottieViewMode.Gallery) }
+
+  when (val currentMode = viewMode) {
+    is LottieViewMode.Gallery -> {
+      LottieGalleryList(
+        catalog = LottieDemoCatalog,
+        onSelect = { index -> viewMode = LottieViewMode.Detail(index) },
+        onStartDemo = { viewMode = LottieViewMode.Demo(0) },
+        modifier = modifier,
+      )
+    }
+    is LottieViewMode.Detail -> {
+      val index = currentMode.index.coerceIn(0, LottieDemoCatalog.lastIndex)
+      LottieDetailPlayer(
+        item = LottieDemoCatalog[index],
+        currentIndex = index,
+        totalCount = LottieDemoCatalog.size,
+        onPrevious = {
+          viewMode =
+            LottieViewMode.Detail((index - 1 + LottieDemoCatalog.size) % LottieDemoCatalog.size)
+        },
+        onNext = { viewMode = LottieViewMode.Detail((index + 1) % LottieDemoCatalog.size) },
+        onClose = { viewMode = LottieViewMode.Gallery },
+        modifier = modifier,
+      )
+    }
+    is LottieViewMode.Demo -> {
+      LottieDemoModePlayer(
+        catalog = LottieDemoCatalog,
+        initialIndex = currentMode.index,
+        onClose = { viewMode = LottieViewMode.Gallery },
+        modifier = modifier,
+      )
+    }
   }
 }

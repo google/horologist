@@ -17,6 +17,8 @@
 package com.google.android.horologist.media3.service
 
 import android.annotation.SuppressLint
+import android.net.Uri
+import android.os.Process
 import androidx.media3.common.MediaItem
 import androidx.media3.session.LibraryResult
 import androidx.media3.session.MediaLibraryService
@@ -92,26 +94,57 @@ public abstract class SuspendingMediaLibrarySessionCallback(
     mediaId: String,
   ): LibraryResult<MediaItem>
 
+  /**
+   * Whether [controller] is trusted to supply playable URIs in [MediaItem.localConfiguration].
+   *
+   * By default this is this app, the media notification, Android Auto, and controllers that Android
+   * considers [trusted][MediaSession.ControllerInfo.isTrusted] (system apps, apps holding
+   * `MEDIA_CONTENT_CONTROL` and enabled notification listeners).
+   *
+   * Media3's default [MediaSession.Callback.onConnectAsync] only gives untrusted controllers
+   * read-only commands, so they can't add media items at all. This check also protects apps that
+   * override `onConnectAsync` to give other apps more commands.
+   */
+  @SuppressLint("UnsafeOptInUsageError")
+  protected open fun isTrustedController(
+    session: MediaSession,
+    controller: MediaSession.ControllerInfo,
+  ): Boolean =
+    controller.uid == Process.myUid() ||
+      // Covers the Wear OS SysUI media controls (UMO), so no Wear-specific check is needed.
+      controller.isTrusted ||
+      session.isMediaNotificationController(controller) ||
+      session.isAutomotiveController(controller) ||
+      session.isAutoCompanionController(controller)
+
   override fun onAddMediaItems(
     mediaSession: MediaSession,
     controller: MediaSession.ControllerInfo,
     mediaItems: MutableList<MediaItem>,
   ): ListenableFuture<MutableList<MediaItem>> {
-    return serviceScope.future { onAddMediaItemsInternal(mediaSession, controller, mediaItems) }
+    val items =
+      if (isTrustedController(mediaSession, controller)) {
+        mediaItems
+      } else {
+        mediaItems.map { it.withoutLocalConfiguration() }.toMutableList()
+      }
+    return serviceScope.future { onAddMediaItemsInternal(mediaSession, controller, items) }
   }
 
   /**
-   * Subclasses MUST override this to resolve [MediaItem.mediaId] against their own catalog.
-   * Controller-supplied URIs (e.g. [MediaItem.RequestMetadata.mediaUri]) come from an untrusted
-   * process and MUST NOT be used as the playable URI without validation. The default implementation
-   * rejects all items.
+   * Resolves the [MediaItem]s to play.
+   *
+   * [MediaItem.localConfiguration] (the playable URI) is only present for
+   * [trusted][isTrustedController] controllers, and is removed for any other app. Override this to
+   * resolve [MediaItem.mediaId] against your own catalog. Never use
+   * [MediaItem.RequestMetadata.mediaUri] as the playable URI without validating it, since it can be
+   * set by any controller. The default implementation returns the items unchanged.
    */
   protected open suspend fun onAddMediaItemsInternal(
     mediaSession: MediaSession,
     controller: MediaSession.ControllerInfo,
     mediaItems: MutableList<MediaItem>,
   ): MutableList<MediaItem> {
-    // Secure default: do not trust controller URIs. Subclasses must resolve mediaId.
     return mediaItems
   }
 
@@ -147,3 +180,6 @@ public abstract class SuspendingMediaLibrarySessionCallback(
     params: MediaLibraryService.LibraryParams?,
   ): LibraryResult<ImmutableList<MediaItem>>
 }
+
+internal fun MediaItem.withoutLocalConfiguration(): MediaItem =
+  if (localConfiguration == null) this else buildUpon().setUri(null as Uri?).build()

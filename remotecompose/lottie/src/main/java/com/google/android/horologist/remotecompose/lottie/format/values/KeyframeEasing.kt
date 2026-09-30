@@ -54,12 +54,27 @@ import kotlinx.serialization.json.put
  * Defaults:
  * - [x] defaults to `0f.rf`
  * - [y] defaults to `0f.rf`
+ *
+ * [xValues] and [yValues] retain per-dimension handles. [x] and [y] expose the first component for
+ * scalar consumers; [forDimension] selects vector handles without discarding other axes.
  */
 @Serializable(with = ScalarKeyframeEasingSerializer::class)
-internal data class KeyframeEasing(val x: RemoteFloat = 0f.rf, val y: RemoteFloat = 0f.rf)
+internal data class KeyframeEasing(val xValues: List<RemoteFloat>, val yValues: List<RemoteFloat>) {
+  constructor(x: RemoteFloat = 0f.rf, y: RemoteFloat = 0f.rf) : this(listOf(x), listOf(y))
+
+  val x: RemoteFloat
+    get() = xValues.firstOrNull() ?: 0f.rf
+
+  val y: RemoteFloat
+    get() = yValues.firstOrNull() ?: 0f.rf
+
+  /** Scalar handles apply to every dimension; incomplete arrays fall back to their first value. */
+  fun forDimension(index: Int): KeyframeEasing =
+    KeyframeEasing(xValues.getOrNull(index) ?: x, yValues.getOrNull(index) ?: y)
+}
 
 /**
- * Serializer for [KeyframeEasing] handling numbers or single-element arrays.
+ * Serializer for [KeyframeEasing] retaining numbers and per-dimension arrays.
  *
  * In Lottie JSON schemas, easing coordinates in `i` and `o` objects may be formatted either as
  * primitive numbers (e.g. `{"x": 0.33, "y": 1.0}`) or as arrays (e.g. `{"x": [0.33], "y": [1.0]}`).
@@ -80,23 +95,24 @@ internal object ScalarKeyframeEasingSerializer : KSerializer<KeyframeEasing> {
     return KeyframeEasing(x, y)
   }
 
-  private fun parseTangentValue(element: JsonElement?): RemoteFloat {
-    val value =
-      when (element) {
-        is JsonPrimitive -> element.floatOrNull ?: 0f
-        is JsonArray -> element.firstOrNull()?.jsonPrimitive?.floatOrNull ?: 0f
-        else -> 0f
-      }
-    return value.rf
-  }
+  private fun parseTangentValue(element: JsonElement?): List<RemoteFloat> =
+    when (element) {
+      is JsonArray -> element.map { (it.jsonPrimitive.floatOrNull ?: 0f).rf }
+      is JsonPrimitive -> listOf((element.floatOrNull ?: 0f).rf)
+      else -> listOf(0f.rf)
+    }
 
   override fun serialize(encoder: Encoder, value: KeyframeEasing) {
     val jsonEncoder = encoder as JsonEncoder
     jsonEncoder.encodeJsonElement(
       buildJsonObject {
-        put("x", value.x.constantValue)
-        put("y", value.y.constantValue)
+        put("x", encodeComponents(value.xValues))
+        put("y", encodeComponents(value.yValues))
       }
     )
   }
+
+  private fun encodeComponents(values: List<RemoteFloat>): JsonElement =
+    if (values.size == 1) JsonPrimitive(values.single().constantValue)
+    else JsonArray(values.map { JsonPrimitive(it.constantValue) })
 }

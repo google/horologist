@@ -83,3 +83,64 @@ Markers define named temporal cues or regions on the animation timeline:
 2. **Resilience**: Optional fields should default to spec defaults (`emptyList()`, `null`, `0f`, etc.) to tolerate truncated or exported variants from differing design tools.
 3. **No UI Imports in Format Layer**: The `format/` package must never import Android UI or Compose UI types (`androidx.compose.ui.*`). It interacts only with `kotlinx.serialization` and Remote Compose primitives (`androidx.compose.remote.creation.compose.state.*`).
 4. **Clean Imports**: Never use fully qualified types in source code; declare explicit imports.
+
+---
+
+## Layers & Compositing (`format/layer/`)
+
+Lottie visual layers form an ordered compositing stack rendered bottom-up (reversed layer index):
+- **`PrecompLayer` (`ty`: 0)**: References a `PrecompAsset` via `refId`. Instantiates nested compositions with isolated frame bounds, recursive cycle detection (`activePrecomps`), and nested transform hierarchies.
+- **`SolidColorLayer` (`ty`: 1)**: Renders a solid color rectangle with integer dimensions (`sw`, `sh`) filled with `sc`.
+- **`NullLayer` (`ty`: 3)**: Non-rendering invisible anchor node used to establish parent-child transformation chains.
+- **`ShapeLayer` (`ty`: 4)**: Hosts vector paths, shapes, styling attributes, and group modifiers.
+
+### Layer Timing & Stretch
+- **`ip` / `op`**: Start and end frame defining the temporal visibility interval $[ip, op)$.
+- **`st`**: Layer start time offset on the parent timeline.
+- **`sr`**: Time stretch factor. Local layer frame is computed as:
+  $$t_{\text{local}} = \frac{t - st}{sr}$$
+  When $sr = 0$, a fallback factor of $1.0$ is enforced to prevent division by zero.
+- **Boundary Padding**: Layers whose `op` reaches or exceeds the composition end frame are extended by $0.01$ frames to ensure visibility at $progress = 1.0f$.
+
+### Track Mattes (`MatteMode`, `MatteContext`)
+Track mattes define masking between adjacent layers or explicitly paired layers (`tp` / `td`):
+- `MatteMode.Alpha` (1): Masks using source alpha channel.
+- `MatteMode.InvertedAlpha` (2): Masks using inverted source alpha channel.
+- `MatteMode.Luma` (3): Masks using source luminance.
+- `MatteMode.InvertedLuma` (4): Masks using inverted source luminance.
+- Source matte layers (`td = 1` or referenced as matte parent) are suppressed from direct drawing and routed via `MatteContext` to their target layer.
+
+---
+
+## Shape Modifiers (`format/graphicelement/modifiers/`)
+
+Shape modifiers transform or combine sibling graphic elements within a shape group:
+- **`TrimPath` (`ty`: `"tm"`)**: Trims open/closed curves using start (`s`), end (`e`), offset (`o`), and trim mode (`m`: `Simultaneously` = 1, `Individually` = 2).
+- **`RoundedCorners` (`ty`: `"rd"`)**: Rounds sharp vertices of preceding shapes by radius (`r`).
+- **`MergePaths` (`ty`: `"mm"`)**: Applies boolean path operations (`mm`: `Merge` = 1, `Add` = 2, `Subtract` = 3, `Intersect` = 4, `ExcludeIntersections` = 5).
+- **`Repeater` (`ty`: `"rp"`)**: Duplicates preceding shapes by copies (`c`), offset (`o`), composite order (`m`: `Above` = 1, `Below` = 2), and cumulative transform (`tr`).
+- **`OffsetPath` (`ty`: `"op"`)**: Expands or contracts contours by amount (`a`), line join (`lj`), and miter limit (`ml`). Note: dynamic variable-topology contours (e.g., animated `PolyStar` point count or animated `RoundedCorners` activation) and dynamic self-intersection removal on live-animated variable-topology curves are unsupported without a native `PathOffset`/`PathSimplify` wire opcode and fail fast with `IllegalArgumentException`.
+- **`PuckerBloat` (`ty`: `"pb"`)**: Pulls vertices inward and tangents outward (or vice versa) by amount (`a`).
+- **`Twist` (`ty`: `"tw"`)**: Spirals vertices around center (`c`) by angle (`a`).
+- **`ZigZag` (`ty`: `"zz"`)**: Subdivides contours into ridges with size (`s`), ridges per segment (`r`), and point type (`pt`: `Corner` = 1, `Smooth` = 2).
+- **`NoStyle` (`ty`: `"no"`) & `UnknownElement`**: Safe placeholders for explicit empty styles or unrecognized custom exporter shapes.
+
+---
+
+## Image Layers, Text Layers, Blend Modes & Unknown Layers
+
+### Image Layers (`ImageLayer`, `ty = 2`)
+- References an `ImageAsset` by `refId`.
+- Image assets may be embedded as Base64 data URIs (`data:image/png;base64,...` or `data:image/jpeg;base64,...`) or external filenames (`u` + `p`).
+- `ImageLayer` decodes embedded Base64 payloads into Android `Bitmap` instances and renders them onto the `RemoteCanvas` within the layer's local coordinate transform.
+
+### Text Layers (`TextLayer`, `ty = 5`) & Vector Glyphs (`Font`, `FontCharacter`)
+- Contains `textData` (`t`), including document keyframes (`d.k`) specifying text strings (`s`), font family (`f`), font size (`s`), justification (`j`), tracking (`tr`), line height (`lh`), baseline shift (`ls`), fill color (`fc`), stroke color (`sc`), and stroke width (`sw`).
+- **Vector Glyph Rendering**: When `Animation.chars` (`List<FontCharacter>`) is present, each character code is matched by `(ch, style, family)` and its vector shape groups (`data.shapes`) are evaluated and scaled by `fontSize / 100f`.
+- **System Font Fallback**: When vector glyphs are absent, `TextLayer` falls back to drawing text lines via `RemoteCanvas` text drawing operations.
+
+### Layer Blend Modes (`BlendMode`, `bm`)
+- Maps Lottie numeric blend modes (`0` = Normal, `1` = Multiply, `2` = Screen, `3` = Overlay, `4` = Darken, `5` = Lighten, `6` = ColorDodge, `7` = ColorBurn, `8` = HardLight, `9` = SoftLight, `10` = Difference, `11` = Exclusion, `12` = Hue, `13` = Saturation, `14` = Color, `15` = Luminosity) to Compose `BlendMode` values.
+
+### Safe Fallback (`UnknownLayer`)
+- Unrecognized layer types (`ty` outside `0..5`) deserialize as `UnknownLayer` rather than failing, preserving `ind`, `parent`, and `transform` (`ks`) so child layers parented to unsupported layers (e.g., Audio or Camera layers) retain their transform hierarchy.

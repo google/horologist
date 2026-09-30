@@ -19,6 +19,8 @@ package com.google.android.horologist.remotecompose.lottie.renderer.properties
 import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.lerp
+import androidx.compose.remote.creation.compose.state.rf
+import androidx.compose.remote.creation.compose.state.selectIfLt
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseVectorProperty
@@ -42,6 +44,10 @@ internal fun animateVector(
   return when (vector) {
     is StaticVectorProperty -> vector.value
     is AnimatedVectorProperty -> {
+      require(vector.keyframes.isNotEmpty()) { "Animated vector requires at least one keyframe" }
+      require(vector.keyframes.all { it.value.size == vector.keyframes.first().value.size }) {
+        "Animated vector keyframes must have equal dimensions"
+      }
       if (vector.keyframes.size == 1) {
         return vector.keyframes[0].value
       }
@@ -58,20 +64,23 @@ internal fun animateVector(
         val endKeyframe = vector.keyframes[i + 1]
         val duration = endKeyframe.frame.constantValue - startKeyframe.frame.constantValue
         val frameInAnimation = animationSettings.currentFrame - startKeyframe.frame
-        val outTangent = startKeyframe.outTangent ?: scalarLinearEasingOut
-        val inTangent = startKeyframe.inTangent ?: scalarLinearEasingIn
-        val currentBezierValue =
-          lookupValueInBezier(
-            outTangent.x,
-            outTangent.y,
-            inTangent.x,
-            inTangent.y,
-            duration,
-            frameInAnimation,
-          )
-
         val segment =
           startKeyframe.value.mapIndexed { index, value ->
+            val outTangent = (startKeyframe.outTangent ?: scalarLinearEasingOut).forDimension(index)
+            val inTangent = (startKeyframe.inTangent ?: scalarLinearEasingIn).forDimension(index)
+            val currentBezierValue =
+              if (startKeyframe.hold.constantValue) {
+                selectIfLt(frameInAnimation, duration.rf, 0f.rf, 1f.rf)
+              } else
+                lookupValueInBezier(
+                  outTangent.x,
+                  outTangent.y,
+                  inTangent.x,
+                  inTangent.y,
+                  duration,
+                  frameInAnimation,
+                )
+
             AnimationSegment(
               startKeyframe.frame.constantValue,
               lerp(value, endKeyframe.value[index], currentBezierValue),

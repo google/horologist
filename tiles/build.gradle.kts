@@ -23,7 +23,7 @@ plugins {
 }
 
 android {
-  compileSdk = 36
+  compileSdk = 37
 
   defaultConfig {
     //        Tiles is API 26, but if we don't stop this here, then we can't run the sample app

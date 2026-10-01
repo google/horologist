@@ -18,7 +18,15 @@ package com.google.android.horologist.media3.navigation
 
 import android.app.PendingIntent
 
-/** Strategy for generating a PendingIntent links directly to the Player or Downloads View. */
+/**
+ * Strategy for generating a PendingIntent links directly to the Player or Downloads View.
+ *
+ * Implementations must return immutable PendingIntents that can only resolve to this app, e.g. with
+ * an explicit component or [android.content.Intent.setPackage]. These PendingIntents are shown in
+ * notifications and complications, and the player intent is passed to every connected media
+ * controller as the session activity, so an implicit intent could be intercepted by another app
+ * that registers the same deep link.
+ */
 public interface IntentBuilder {
   /**
    * Pending intent for the screen showing downloads. Used in background Notifications for download

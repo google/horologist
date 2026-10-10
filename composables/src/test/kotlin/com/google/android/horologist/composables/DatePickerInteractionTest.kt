@@ -238,4 +238,24 @@ class DatePickerInteractionTest {
 
     assertThat(datePickerState.isYearValid()).isFalse()
   }
+
+  @Test
+  fun year_state_covers_range_longer_than_200_years() {
+    val date = LocalDate.of(1850, 1, 1)
+
+    val datePickerState =
+      DatePickerState(date = date, fromDate = date, toDate = date.plusYears(250))
+
+    assertThat(datePickerState.yearState.numberOfOptions).isEqualTo(251)
+  }
+
+  @Test
+  fun year_state_last_option_equals_toYear() {
+    val date = LocalDate.of(1850, 1, 1)
+
+    val datePickerState =
+      DatePickerState(date = date, fromDate = date, toDate = date.plusYears(250))
+
+    assertThat(datePickerState.currentYear(250)).isEqualTo(2100)
+  }
 }

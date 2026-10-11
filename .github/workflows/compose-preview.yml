@@ -63,7 +63,7 @@ jobs:
           distribution: zulu
           java-version: 21
 
-      - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6
 
       - uses: yschimke/compose-ai-tools/.github/actions/apply@2c56f3ffa3e2faf01ebe4dc3ed2377b373323f57 # v2.39.1
         with:
@@ -93,7 +93,7 @@ jobs:
       # all, which is strictly worse than what it replaced.
       - name: Upload preview handoff
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: compose-preview-handoff
           path: _compose_preview_handoff/
@@ -125,7 +125,7 @@ jobs:
           distribution: zulu
           java-version: 21
 
-      - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6
+      - uses: gradle/actions/setup-gradle@3f5f9adaf7d9fecd50b5935e54106014257a94e6 # v6
 
       - uses: yschimke/compose-ai-tools/.github/actions/apply@2c56f3ffa3e2faf01ebe4dc3ed2377b373323f57 # v2.39.1
         with:

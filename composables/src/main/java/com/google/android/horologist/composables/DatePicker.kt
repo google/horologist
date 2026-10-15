@@ -398,7 +398,10 @@ internal class DatePickerState(
       201
     }
   val yearState =
-    PickerState(initialNumberOfOptions = 201, initiallySelectedOption = date.year - startYear)
+    PickerState(
+      initialNumberOfOptions = numOfYears,
+      initiallySelectedOption = date.year - startYear,
+    )
 
   val selectedYearEqualsFromYear: Boolean
     get() = fromDate?.year == currentYear()

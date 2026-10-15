@@ -34,15 +34,9 @@ abstract class BindableAiGrpcService : LifecycleService() {
   private lateinit var server: Server
   private val binderReceiver = IBinderReceiver()
 
-  // PackageManager.GET_SIGNATURES is deprecated in API 28+ in favor of GET_SIGNING_CERTIFICATES
-  @Suppress("DEPRECATION")
-  @get:android.annotation.SuppressLint("PackageManagerGetSignatures")
+  /** Only allows callers signed with the same certificate as this app. */
   open val securityPolicy: SecurityPolicy by lazy {
-    val mySignature =
-      packageManager
-        .getPackageInfo(packageName, android.content.pm.PackageManager.GET_SIGNATURES)
-        .signatures!![0]
-    io.grpc.binder.SecurityPolicies.hasSignature(packageManager, packageName, mySignature)
+    SameSignatureSecurityPolicy(packageManager, packageName)
   }
 
   abstract val bindableService: BindableService

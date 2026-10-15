@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.ai.sample.wear.prompt.prompt
 
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.horologist.ai.core.InferenceService
@@ -89,7 +90,12 @@ class SamplePromptViewModel @Inject constructor(private val inferenceService: In
               response.hasTextResponse() -> TextResponseUiModel(response.textResponse.text)
               response.hasImageResponse() ->
                 if (response.imageResponse.hasGcsUrl()) {
-                  ImageResponseUiModel(imageUrl = response.imageResponse.gcsUrl)
+                  val url = response.imageResponse.gcsUrl
+                  if (url.toUri().scheme == "https") {
+                    ImageResponseUiModel(imageUrl = url)
+                  } else {
+                    FailedResponseUiModel("Unsupported image URL")
+                  }
                 } else {
                   ImageResponseUiModel(image = response.imageResponse.encoded.toByteArray())
                 }

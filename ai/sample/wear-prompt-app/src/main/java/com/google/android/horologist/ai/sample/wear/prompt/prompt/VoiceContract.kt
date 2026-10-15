@@ -16,17 +16,24 @@
 
 package com.google.android.horologist.ai.sample.wear.prompt.prompt
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.speech.RecognizerIntent
 import androidx.activity.result.contract.ActivityResultContract
 
 class VoiceContract : ActivityResultContract<Intent, VoiceContract.Result>() {
-  override fun createIntent(context: Context, input: Intent): Intent = input
+  override fun createIntent(context: Context, input: Intent): Intent =
+    input.withSystemHandler(context.packageManager)
 
   override fun parseResult(resultCode: Int, intent: Intent?): Result {
+    if (resultCode != Activity.RESULT_OK) {
+      return Result.Empty
+    }
     val res = intent?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
-    val enteredPrompt = res?.get(0)
+    val enteredPrompt = res?.firstOrNull()
     return if (!enteredPrompt.isNullOrBlank()) {
       Result.EnteredPrompt(enteredPrompt)
     } else {
@@ -39,4 +46,22 @@ class VoiceContract : ActivityResultContract<Intent, VoiceContract.Result>() {
 
     data object Empty : Result()
   }
+}
+
+/**
+ * Targets the intent at a system app that handles it, if there is one, so that another installed
+ * app that declares the same intent filter can't handle it instead (and, for speech recognition,
+ * return a prompt the user never said).
+ */
+internal fun Intent.withSystemHandler(packageManager: PackageManager): Intent {
+  if (component != null || `package` != null) {
+    return this
+  }
+  val systemHandler =
+    packageManager.queryIntentActivities(this, 0).firstOrNull {
+      it.activityInfo.applicationInfo.flags and
+        (ApplicationInfo.FLAG_SYSTEM or ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0
+    } ?: return this
+  return Intent(this)
+    .setClassName(systemHandler.activityInfo.packageName, systemHandler.activityInfo.name)
 }

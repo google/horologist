@@ -52,7 +52,7 @@ internal class RemoteBooleanPath(
     }
     prepare(this)
     val op =
-      canvas.internalCanvas.recordRenderingOp(null as RemotePaint?) {
+      canvas.recordRenderingOp(null as RemotePaint?) {
         fun record(shape: RemoteShape): Int =
           when (shape) {
             // Keep operand winding separate from the later fill style's winding.
@@ -71,7 +71,7 @@ internal class RemoteBooleanPath(
           }
         canvas.document.drawPath(record(this@RemoteBooleanPath))
       }
-    canvas.internalCanvas.buffer.addRoots(op, *leaves.values.toTypedArray())
+    canvas.buffer.addRoots(op, *leaves.values.toTypedArray())
   }
 
   // The player retains the boolean operation's result winding. Reinterpreting its contours

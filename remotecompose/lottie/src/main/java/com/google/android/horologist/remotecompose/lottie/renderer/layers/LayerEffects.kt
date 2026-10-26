@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi", "INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+@file:Suppress("RestrictedApi")
 
 package com.google.android.horologist.remotecompose.lottie.renderer.layers
 
@@ -65,14 +65,8 @@ internal val LocalEffectSurface = compositionLocalOf<RemoteImageBitmap?> { null 
 internal fun RemoteCanvas.withContainingSurface(surface: RemoteImageBitmap?, block: () -> Unit) {
   if (surface == null) {
     block()
-    return
-  }
-  val recorder = internalCanvas
-  val targetId = surface.getIdForCreationState(recorder.creationState)
-  if (recorder.currentDrawToBitmapId == targetId) {
-    block()
   } else {
-    recorder.drawToOffscreenBitmap(surface) { block() }
+    drawToOffscreenBitmap(surface) { block() }
   }
 }
 
@@ -177,9 +171,9 @@ internal fun LayerEffects(
   RemoteBox(modifier = RemoteModifier.fillMaxSize()) {
     // 1. Clear offscreen buffers before children render into them
     RemoteCanvas(modifier = RemoteModifier.fillMaxSize()) {
-      remoteCanvas.internalCanvas.drawToOffscreenBitmap(target, 0) {}
+      remoteCanvas.drawToOffscreenBitmap(target, 0) {}
       if (matte != null) {
-        remoteCanvas.internalCanvas.drawToOffscreenBitmap(matteBitmap, 0) {}
+        remoteCanvas.drawToOffscreenBitmap(matteBitmap, 0) {}
       }
     }
     // 2. Render matte layer (if present) and target layer into their respective offscreen surfaces
@@ -200,11 +194,11 @@ internal fun LayerEffects(
       if (masks.isNotEmpty()) {
         val initial =
           if (masks.first().mode in listOf(MaskMode.Subtract, MaskMode.Intersect)) -1 else 0
-        canvas.internalCanvas.drawToOffscreenBitmap(maskBitmap, initial) {}
+        canvas.drawToOffscreenBitmap(maskBitmap, initial) {}
         for (mask in masks) {
           val opacity = clamp(animateScalar(mask.opacity, settings) / 100f, 0f.rf, 1f.rf)
           val expansion = animateScalar(mask.expansion, settings)
-          canvas.internalCanvas.drawToOffscreenBitmap(maskPart, if (mask.inverted) -1 else 0) {
+          canvas.drawToOffscreenBitmap(maskPart, if (mask.inverted) -1 else 0) {
             canvas.save()
             for (t in transforms) transform(t, null, settings, canvas)
             val path = canvas.buildRemotePathFromBezier(animateBezier(mask.path!!, settings))
@@ -257,7 +251,7 @@ internal fun LayerEffects(
               MaskMode.Darken -> BlendMode.Darken
               else -> BlendMode.SrcOver
             }
-          canvas.internalCanvas.drawToOffscreenBitmap(maskBitmap) {
+          canvas.drawToOffscreenBitmap(maskBitmap) {
             canvas.drawSurface(
               maskPart,
               RemotePaint {
@@ -267,13 +261,11 @@ internal fun LayerEffects(
             )
           }
         }
-        canvas.internalCanvas.drawToOffscreenBitmap(target) {
-          canvas.drawSurface(maskBitmap, keepAlpha)
-        }
+        canvas.drawToOffscreenBitmap(target) { canvas.drawSurface(maskBitmap, keepAlpha) }
       }
       if (matte != null) {
         val inverted = matte.matteMode in listOf(MatteMode.InvertedAlpha, MatteMode.InvertedLuma)
-        canvas.internalCanvas.drawToOffscreenBitmap(target) {
+        canvas.drawToOffscreenBitmap(target) {
           canvas.drawSurface(matteBitmap, if (inverted) removeAlpha else keepAlpha)
         }
       }

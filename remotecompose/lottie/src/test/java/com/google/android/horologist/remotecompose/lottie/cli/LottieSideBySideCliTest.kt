@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.remotecompose.lottie.cli
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
@@ -36,6 +37,7 @@ import androidx.compose.remote.creation.compose.state.rememberNamedRemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.remote.player.compose.RemoteComposePlayerFlags
 import androidx.compose.remote.player.compose.embedded.RcPlayer
+import androidx.compose.remote.player.compose.embedded.rememberRcPlayerState
 import androidx.compose.runtime.MutableFloatState
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.SideEffect
@@ -55,7 +57,6 @@ import com.google.android.horologist.remotecompose.lottie.BitmapDiffMetrics
 import com.google.android.horologist.remotecompose.lottie.LottieAnimation
 import com.google.android.horologist.remotecompose.lottie.MotionPixelHarness
 import com.google.android.horologist.remotecompose.lottie.format.Animation
-import com.google.android.horologist.remotecompose.lottie.setNamedFloat
 import java.io.ByteArrayInputStream
 import java.io.File
 import java.net.HttpURLConnection
@@ -90,6 +91,7 @@ import org.junit.Test
  * ./scripts/compare_lottie.sh --default-suite [output_dir]
  * ```
  */
+@SuppressLint("RestrictedApi")
 class LottieSideBySideCliTest : MotionPixelHarness() {
 
   internal data class ActiveAssetState(
@@ -207,18 +209,21 @@ class LottieSideBySideCliTest : MotionPixelHarness() {
                   .background(current.background)
                   .testTag("motion")
               ) {
+                val playerState = rememberRcPlayerState(current.document)
                 val authoredFrame =
                   current.reference.startFrame +
                     progressState.floatValue * current.reference.durationFrames
                 val totalRcDuration =
                   (current.decodedRc.endFrame - current.decodedRc.startFrame).coerceAtLeast(1f)
                 val rcProgress = (authoredFrame - current.decodedRc.startFrame) / totalRcDuration
-                current.document.setNamedFloat("progress", rcProgress)
-                SideEffect { current.document.setNamedFloat("progress", rcProgress) }
-                RcPlayer(
-                  document = current.document,
-                  modifier = Modifier.size(current.renderSizeDp.dp),
-                )
+                val docProgress = playerState.floatState("progress")
+                // Seed the override inline before RcPlayer composes, then re-apply in SideEffect
+                // once composition commits (originally needed when CoreDocument.remoteComposeState
+                // was null until RcPlayer composed; also guards non-snapshot backing maps on
+                // aborted/restarted compositions).
+                docProgress.value = rcProgress
+                SideEffect { docProgress.value = rcProgress }
+                RcPlayer(state = playerState, modifier = Modifier.size(current.renderSizeDp.dp))
               }
             }
             Box(

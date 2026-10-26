@@ -67,37 +67,34 @@ internal class RemoteContourStroke(private val source: RemoteLottiePath) : Remot
             path.closed,
           )
         }
-    val op =
-      canvas.internalCanvas.recordRenderingOp {
-        val id = canvas.document.pathCreate(0f, 0f)
-        // Resolve every expression before entering a conditional recording block.
-        val encoded = inputs.associateWith {
-          it.getFloatIdForCreationState(canvas.internalCanvas.creationState)
-        }
-        fun value(input: RemoteFloat): Float = encoded.getValue(input)
-        canvas.document.pathAppendReset(id)
-        for (contour in contours) {
+    val op = canvas.recordRenderingOp {
+      val id = canvas.document.pathCreate(0f, 0f)
+      // Resolve every expression before entering a conditional recording block.
+      val encoded = inputs.associateWith { it.getFloatIdForCreationState(canvas.creationState) }
+      fun value(input: RemoteFloat): Float = encoded.getValue(input)
+      canvas.document.pathAppendReset(id)
+      for (contour in contours) {
+        canvas.document.conditionalOperations(
+          ConditionalOperations.TYPE_GT,
+          value(contour.visible),
+          0f,
+        )
+        canvas.document.pathAppendMoveTo(id, value(contour.start[0]), value(contour.start[1]))
+        for (edge in contour.edges) {
           canvas.document.conditionalOperations(
             ConditionalOperations.TYPE_GT,
-            value(contour.visible),
+            value(edge.visible),
             0f,
           )
-          canvas.document.pathAppendMoveTo(id, value(contour.start[0]), value(contour.start[1]))
-          for (edge in contour.edges) {
-            canvas.document.conditionalOperations(
-              ConditionalOperations.TYPE_GT,
-              value(edge.visible),
-              0f,
-            )
-            val c = edge.coordinates.map(::value)
-            canvas.document.pathAppendCubicTo(id, c[0], c[1], c[2], c[3], c[4], c[5])
-            canvas.document.endConditionalOperations()
-          }
-          if (contour.closed) canvas.document.pathAppendClose(id)
+          val c = edge.coordinates.map(::value)
+          canvas.document.pathAppendCubicTo(id, c[0], c[1], c[2], c[3], c[4], c[5])
           canvas.document.endConditionalOperations()
         }
-        canvas.document.drawPath(id)
+        if (contour.closed) canvas.document.pathAppendClose(id)
+        canvas.document.endConditionalOperations()
       }
-    canvas.internalCanvas.buffer.addRoots(op, *inputs.toTypedArray())
+      canvas.document.drawPath(id)
+    }
+    canvas.buffer.addRoots(op, *inputs.toTypedArray())
   }
 }

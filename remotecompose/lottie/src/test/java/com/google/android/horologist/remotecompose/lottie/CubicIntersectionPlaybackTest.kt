@@ -18,8 +18,11 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
+import android.graphics.Color as AndroidColor
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.remote.core.operations.paint.PaintBundle
 import androidx.compose.remote.creation.compose.capture.rememberRemoteDocument
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
@@ -27,9 +30,15 @@ import androidx.compose.remote.creation.compose.modifier.fillMaxSize
 import androidx.compose.remote.creation.compose.state.RemoteState
 import androidx.compose.remote.creation.compose.state.rememberNamedRemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
+import androidx.compose.remote.player.compose.RemoteComposePlayerFlags
 import androidx.compose.remote.player.compose.RemoteDocumentPlayer
+import androidx.compose.remote.player.compose.embedded.RcPlayer
+import androidx.compose.remote.player.compose.embedded.rememberRcPlayerState
 import androidx.compose.remote.player.view.RemoteComposePlayer
+import androidx.compose.runtime.SideEffect
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import com.google.android.horologist.remotecompose.lottie.renderer.shapes.cubicIntersection
@@ -39,8 +48,7 @@ import kotlin.math.abs
 import org.junit.Test
 
 class CubicIntersectionPlaybackTest : MotionPixelHarness() {
-  @Test
-  fun analyticIntersectionsSurviveMultipleCallsAndBackwardSeeks() {
+  private fun intersectionCases(): List<Triple<List<Float>, List<Float>, Pair<Float, Float>>> {
     // x=t; y=(t-.2)(t-.5)(t-.8). These roots are analytic, not another solver's output.
     val triple = listOf(0f, -.08f, 1f / 3f, .14f, 2f / 3f, -.14f, 1f, .08f)
     val horizontal = listOf(0f, 0f, 1f / 3f, 0f, 2f / 3f, 0f, 1f, 0f)
@@ -106,14 +114,18 @@ class CubicIntersectionPlaybackTest : MotionPixelHarness() {
     assertThat(narrowRoot.first).isWithin(.0001f).of(coarseNarrow.first)
     assertThat(narrowRoot.second).isWithin(.0001f).of(coarseNarrow.second)
     assertThat(narrowRoot.second).isGreaterThan(.97f)
-    val cases =
-      listOf(
-        Triple(triple, horizontal, .2f to .2f),
-        Triple(horizontal, separated, 1f to 0f),
-        Triple(horizontal, vertical, 1f to 0f), // Excluded shared end/start point.
-        Triple(starA, starB, starRoot),
-        Triple(narrowA, narrowB, narrowRoot),
-      )
+    return listOf(
+      Triple(triple, horizontal, .2f to .2f),
+      Triple(horizontal, separated, 1f to 0f),
+      Triple(horizontal, vertical, 1f to 0f), // Excluded shared end/start point.
+      Triple(starA, starB, starRoot),
+      Triple(narrowA, narrowB, narrowRoot),
+    )
+  }
+
+  @Test
+  fun analyticIntersectionsSurviveMultipleCallsAndBackwardSeeks() {
+    val cases = intersectionCases()
     for ((a, b, expected) in cases) {
       val actual = cubicIntersection(a.map { it.rf }, b.map { it.rf })
       assertThat(actual.first.constantValue).isWithin(.0001f).of(expected.first)
@@ -131,7 +143,7 @@ class CubicIntersectionPlaybackTest : MotionPixelHarness() {
           val shift = rememberNamedRemoteFloat("shift") { 0f.rf }
           val enabled = rememberNamedRemoteFloat("enabled") { 1f.rf }
           RemoteCanvas(modifier = RemoteModifier.fillMaxSize()) {
-            val canvas = remoteCanvas.internalCanvas
+            val canvas = remoteCanvas
             val operation = canvas.recordRenderingOp {
               recordings++
               val writer = canvas.creationState.document
@@ -180,6 +192,96 @@ class CubicIntersectionPlaybackTest : MotionPixelHarness() {
             .isWithin(.0001f)
             .of(if (enabled == 1f) expected else if (axis == 0) 1f else 0f)
         }
+      }
+    }
+    assertThat(recordings).isEqualTo(1)
+  }
+
+  @Test
+  fun analyticIntersectionsSurviveEmbeddedRcPlayer() {
+    RemoteComposePlayerFlags.isEmbeddedPlayerEnabled = true
+    val cases = intersectionCases()
+    val shiftInput = mutableFloatStateOf(0f)
+    val enabledInput = mutableFloatStateOf(1f)
+    var recordings = 0
+    val barScale = 200f
+    composeRule.setContent {
+      val document =
+        rememberRemoteDocument(profile = LottieProfiles.NoRuntimeShaders) {
+          val shift = rememberNamedRemoteFloat("shift") { 0f.rf }
+          val enabled = rememberNamedRemoteFloat("enabled") { 1f.rf }
+          RemoteCanvas(modifier = RemoteModifier.fillMaxSize()) {
+            val canvas = remoteCanvas
+            val operation = canvas.recordRenderingOp {
+              recordings++
+              val writer = canvas.creationState.document
+              writer.buffer.addPaint(
+                PaintBundle().apply {
+                  setColor(AndroidColor.RED)
+                  setStyle(PaintBundle.STYLE_FILL)
+                }
+              )
+              for ((index, case) in cases.withIndex()) {
+                fun translated(points: List<Float>) = points.mapIndexed { coordinate, value ->
+                  if (coordinate % 2 == 1) value.rf + shift else value.rf
+                }
+                val (t, u) =
+                  cubicIntersection(translated(case.first), translated(case.second), enabled)
+                for ((axis, value) in listOf(t, u).withIndex()) {
+                  val row = index * 2 + axis
+                  val top = row * 16f + 2f
+                  writer.drawRect(
+                    0f,
+                    top,
+                    (value * barScale).getFloatIdForCreationState(canvas.creationState),
+                    top + 10f,
+                  )
+                }
+              }
+            }
+            canvas.buffer.addRoots(operation, shift, enabled)
+          }
+        }
+      Box(Modifier.size(256.dp).background(Color.Black).testTag("rc-motion")) {
+        document.value?.let { compiled ->
+          val state = rememberRcPlayerState(compiled)
+          val shiftState = state.floatState("shift")
+          val enabledState = state.floatState("enabled")
+          shiftState.value = shiftInput.floatValue
+          enabledState.value = enabledInput.floatValue
+          SideEffect {
+            shiftState.value = shiftInput.floatValue
+            enabledState.value = enabledInput.floatValue
+          }
+          RcPlayer(state = state, modifier = Modifier.size(256.dp))
+        }
+      }
+    }
+    for ((shift, enabled) in listOf(0f to 1f, 3f to 1f, -2f to 0f, 3f to 1f, 0f to 0f, 0f to 1f)) {
+      composeRule.runOnIdle {
+        shiftInput.floatValue = shift
+        enabledInput.floatValue = enabled
+      }
+      val bitmap = capture("rc-motion")
+      try {
+        for ((index, case) in cases.withIndex()) {
+          for ((axis, expected) in listOf(case.third.first, case.third.second).withIndex()) {
+            val row = index * 2 + axis
+            val sampleY = row * 16 + 7
+            var redPixels = 0f
+            for (x in 0 until bitmap.width) {
+              redPixels += Color(bitmap.getPixel(x, sampleY)).red
+            }
+            val measured = redPixels / barScale
+            val target = if (enabled == 1f) expected else if (axis == 0) 1f else 0f
+            assertWithMessage("RcPlayer case=$index, axis=$axis, shift=$shift, enabled=$enabled")
+              .that(measured)
+              .isWithin(0.01f)
+              .of(target)
+          }
+        }
+      } finally {
+        bitmap.recycle()
       }
     }
     assertThat(recordings).isEqualTo(1)

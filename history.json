@@ -1,6 +1,6 @@
 {
     "formatVersion": "compose-preview-history/v1",
-    "generatedFrom": "42c575ed9ed4b1912742995ad16861f485b9e20d",
+    "generatedFrom": "f868e7eb09a9af8c5d8603a33c734792b8092a41",
     "previews": {
         "ai:sample:wear-gemini/com.google.android.horologist.ai.sample.wear.gemini.activity.WearAppKt.DefaultPreview_Devices - Small Round": {
             "path": "renders/ai:sample:wear-gemini/DefaultPreview_Devices_Small_Round-1732729b.png",
@@ -6243,6 +6243,13 @@
             "path": "renders/health:composables/ActiveDurationTextCustomSeparatorPreview-aa73e1a7.png",
             "versions": [
                 {
+                    "blob": "45b8ea2836aaff17be7cf2b9aa28c68fe82045a5",
+                    "commit": "f868e7eb09a9af8c5d8603a33c734792b8092a41",
+                    "date": "2026-10-26T18:36:42Z",
+                    "sourceSha": "cdf245ce",
+                    "commits": 1
+                },
+                {
                     "blob": "b96aa3d4ac6a9180f3f520fb696a47506b638174",
                     "commit": "42c575ed9ed4b1912742995ad16861f485b9e20d",
                     "date": "2026-10-26T18:07:42Z",
@@ -6257,13 +6264,20 @@
                     "commits": 1
                 }
             ],
-            "observations": 2,
+            "observations": 3,
             "unstable": false,
             "flapCount": 0
         },
         "health:composables/com.google.android.horologist.health.composables.ActiveDurationTextKt.ActiveDurationTextPreview": {
             "path": "renders/health:composables/ActiveDurationTextPreview-60a6e2dd.gif",
             "versions": [
+                {
+                    "blob": "7ade112468aa7eb75b55b8bc46a3fc4c2bbaa46c",
+                    "commit": "f868e7eb09a9af8c5d8603a33c734792b8092a41",
+                    "date": "2026-10-26T18:36:42Z",
+                    "sourceSha": "cdf245ce",
+                    "commits": 1
+                },
                 {
                     "blob": "bba92811847aa45fe83afa6d4290048388d2d4e0",
                     "commit": "42c575ed9ed4b1912742995ad16861f485b9e20d",
@@ -6304,7 +6318,7 @@
                     "commits": 1
                 }
             ],
-            "observations": 12,
+            "observations": 13,
             "unstable": true,
             "flapCount": 7
         },

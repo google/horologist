@@ -65,12 +65,28 @@ internal class RemoteFloatFunction(
         val args = inputs.map { it.rawReference().getFloatIdForCreationState(state) }.toFloatArray()
         val program = definition.arrayForCreationState(state)
         state.document.callFloatFunction(Utils.idFromNan(program[0]), *args)
-        FloatArray(resultCount) { index ->
-          state.document.floatExpression(program[index + 1]).also { reference ->
+        if (resultCount == 0) {
+          FloatArray(0)
+        } else {
+          require(resultCount <= Limits.MAX_FUNCTION_ARGUMENTS)
+          // Snapshot outputs through a per-call FloatFunctionCall parameter block rather than
+          // top-level FloatExpressions. Embedded RcPlayer indexes top-level FloatExpressions in
+          // GraphContext.computedOpIndex and lazily re-evaluates them against the shared scratch
+          // slots after later calls have overwritten them, whereas function parameter slots are
+          // excluded from computedOpIndex and retain each call's written values in store.
+          val snapshotOutputs = FloatArray(resultCount)
+          val snapshotFn = state.document.createFloatFunction(snapshotOutputs)
+          state.document.endFloatFunction()
+          state.document.callFloatFunction(
+            snapshotFn,
+            *FloatArray(resultCount) { index -> program[index + 1] },
+          )
+          snapshotOutputs.forEach { reference ->
             check(Utils.idFromNan(reference) < Limits.MAX_STATE_DATA) {
               "Lottie geometry exceeds RC's ${Limits.MAX_STATE_DATA}-entry float-state limit"
             }
           }
+          snapshotOutputs
         }
       }
     return List(resultCount) { index ->

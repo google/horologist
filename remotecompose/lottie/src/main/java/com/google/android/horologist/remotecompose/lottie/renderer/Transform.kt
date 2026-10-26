@@ -100,7 +100,7 @@ internal fun transform(
   if (skew != null) {
     val axis = skewAxis ?: 0f.rf
     canvas.rotate(90f.rf - axis)
-    canvas.internalCanvas.skew(0f.rf, tan(toRad(skew)))
+    canvas.skew(0f.rf, tan(toRad(skew)))
     canvas.rotate(axis - 90f.rf)
   }
 
@@ -139,7 +139,7 @@ internal fun inverseTransform(
   if (skew != null) {
     val axis = skewAxis ?: 0f.rf
     canvas.rotate(90f.rf - axis)
-    canvas.internalCanvas.skew(0f.rf, -tan(toRad(skew)))
+    canvas.skew(0f.rf, -tan(toRad(skew)))
     canvas.rotate(axis - 90f.rf)
   }
 

@@ -131,7 +131,7 @@ class CubicIntersectionPlaybackTest : MotionPixelHarness() {
           val shift = rememberNamedRemoteFloat("shift") { 0f.rf }
           val enabled = rememberNamedRemoteFloat("enabled") { 1f.rf }
           RemoteCanvas(modifier = RemoteModifier.fillMaxSize()) {
-            val canvas = remoteCanvas.internalCanvas
+            val canvas = remoteCanvas
             val operation = canvas.recordRenderingOp {
               recordings++
               val writer = canvas.creationState.document

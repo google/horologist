@@ -28,7 +28,7 @@ import androidx.compose.runtime.Composable
 @RemoteComposable
 internal fun DeclarePlaybackState(frame: RemoteFloat) {
   RemoteCanvas {
-    val canvas = remoteCanvas.internalCanvas
+    val canvas = remoteCanvas
     canvas.recordRenderingOp {
       canvas.document.beginGlobal()
       frame.getFloatIdForCreationState(canvas.creationState)

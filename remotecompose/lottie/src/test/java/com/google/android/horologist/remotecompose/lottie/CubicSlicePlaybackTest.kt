@@ -51,7 +51,7 @@ class CubicSlicePlaybackTest : MotionPixelHarness() {
           val start = rememberNamedRemoteFloat("start") { 0f.rf }
           val end = rememberNamedRemoteFloat("end") { 1f.rf }
           RemoteCanvas(modifier = RemoteModifier.fillMaxSize()) {
-            val canvas = remoteCanvas.internalCanvas
+            val canvas = remoteCanvas
             val operation = canvas.recordRenderingOp {
               recordings++
               val writer = canvas.creationState.document

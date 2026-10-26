@@ -67,7 +67,7 @@ class RuntimeFunctionPlaybackTest : MotionPixelHarness() {
         rememberRemoteDocument(profile = LottieProfiles.NoRuntimeShaders) {
           val input = rememberNamedRemoteFloat("input") { 0f.rf }
           RemoteCanvas(modifier = RemoteModifier.fillMaxSize()) {
-            val canvas = remoteCanvas.internalCanvas
+            val canvas = remoteCanvas
             val op = canvas.recordRenderingOp {
               recordings++
               val writer = canvas.creationState.document

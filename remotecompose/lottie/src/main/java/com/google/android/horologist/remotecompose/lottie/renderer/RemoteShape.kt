@@ -54,11 +54,11 @@ internal fun RemoteCanvas.drawPathWithFillRule(
 ) {
   val winding = if (fillRule == FillRule.EvenOdd) 1 else 0
   val op =
-    internalCanvas.recordRenderingOp(paint) {
+    recordRenderingOp(paint) {
       val pathId = document.addPathData(path, winding)
       document.drawPath(pathId)
     }
-  internalCanvas.buffer.addRoots(op, path)
+  buffer.addRoots(op, path)
 }
 
 @SuppressLint("RestrictedApi")

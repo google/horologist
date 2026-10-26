@@ -198,28 +198,27 @@ internal data class RemoteDash(val intervals: List<RemoteFloat>, val phase: Remo
 internal fun RemoteCanvas.applyStrokeDetails(style: RemoteStyle?) {
   val dash = style?.dashPattern
   val miter = style?.miterLimit ?: 4f.rf
-  val canvas = internalCanvas
-  val op = canvas.recordRenderingOp {
+  val op = recordRenderingOp {
     val bundle = PaintBundle()
     // RemotePaint does not expose miter limits. Serialize the live value explicitly,
     // including a reset for other styles so nested/repeated content cannot inherit it.
-    bundle.setStrokeMiter(miter.getFloatIdForCreationState(canvas.creationState))
+    bundle.setStrokeMiter(miter.getFloatIdForCreationState(creationState))
     bundle.setPathEffect(
       dash?.let {
         PaintPathEffects.encode(
           PaintPathEffects.Dash(
-            it.phase.getFloatIdForCreationState(canvas.creationState),
+            it.phase.getFloatIdForCreationState(creationState),
             *it.intervals
-              .map { value -> value.getFloatIdForCreationState(canvas.creationState) }
+              .map { value -> value.getFloatIdForCreationState(creationState) }
               .toFloatArray(),
           )
         )
       }
     )
-    canvas.document.buffer.addPaint(bundle)
+    document.buffer.addPaint(bundle)
   }
-  canvas.buffer.addRoots(op, miter)
-  if (dash != null) canvas.buffer.addRoots(op, dash.phase, *dash.intervals.toTypedArray())
+  buffer.addRoots(op, miter)
+  if (dash != null) buffer.addRoots(op, dash.phase, *dash.intervals.toTypedArray())
 }
 
 @SuppressLint("RestrictedApi")

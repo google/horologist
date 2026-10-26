@@ -26,7 +26,6 @@ import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.remotePath
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.ClipOp
 import com.google.android.horologist.remotecompose.lottie.LocalAnimationSettings
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.asset.PrecompAsset
@@ -52,7 +51,6 @@ import com.google.android.horologist.remotecompose.lottie.format.graphicelement.
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.GradientFill
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.GradientStroke
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.Stroke
-import com.google.android.horologist.remotecompose.lottie.format.layer.MatteMode
 import com.google.android.horologist.remotecompose.lottie.format.layer.PrecompLayer
 import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLayer
 import com.google.android.horologist.remotecompose.lottie.format.layer.SolidColorLayer
@@ -683,25 +681,25 @@ internal fun applyLayerMasks(
     if (mask.mode == MaskMode.Add && !mask.inverted) {
       nonInvertedAddSubpaths.addAll(bezierList)
     } else {
-      val rcPath = canvas.buildRemotePathFromBezier(bezierList)
-      val clipOp =
-        when (mask.mode) {
-          MaskMode.Subtract -> if (mask.inverted) ClipOp.Intersect else ClipOp.Difference
-          MaskMode.Add -> ClipOp.Difference
-          MaskMode.Intersect -> if (mask.inverted) ClipOp.Difference else ClipOp.Intersect
-          MaskMode.Difference -> ClipOp.Difference
-          MaskMode.Lighten,
-          MaskMode.Darken,
-          MaskMode.None,
-          MaskMode.Unknown -> continue
+      when (mask.mode) {
+        MaskMode.Subtract,
+        MaskMode.Add,
+        MaskMode.Intersect,
+        MaskMode.Difference -> {
+          val rcPath = canvas.buildRemotePathFromBezier(bezierList)
+          canvas.clipPath(rcPath)
         }
-      canvas.clipPath(rcPath, clipOp)
+        MaskMode.Lighten,
+        MaskMode.Darken,
+        MaskMode.None,
+        MaskMode.Unknown -> continue
+      }
     }
   }
 
   if (nonInvertedAddSubpaths.isNotEmpty()) {
     val compositeAddPath = canvas.buildRemotePathFromBezier(nonInvertedAddSubpaths)
-    canvas.clipPath(compositeAddPath, ClipOp.Intersect)
+    canvas.clipPath(compositeAddPath)
   }
 }
 
@@ -724,18 +722,8 @@ internal fun applyMatteClip(
     transform(transform, null, animationSettings, canvas)
   }
 
-  val clipOp =
-    if (
-      matteContext.matteMode == MatteMode.InvertedAlpha ||
-        matteContext.matteMode == MatteMode.InvertedLuma
-    ) {
-      ClipOp.Difference
-    } else {
-      ClipOp.Intersect
-    }
-
   when (matteLayer) {
-    is ShapeLayer -> clipShapes(matteLayer.shapes, animationSettings, canvas, clipOp)
+    is ShapeLayer -> clipShapes(matteLayer.shapes, animationSettings, canvas)
     is SolidColorLayer -> {
       val rcPath = RemotePath()
       rcPath.reset()
@@ -747,7 +735,7 @@ internal fun applyMatteClip(
       )
       rcPath.lineTo(0f, matteLayer.solidHeight.constantValue.toFloat())
       rcPath.close()
-      canvas.clipPath(rcPath, clipOp)
+      canvas.clipPath(rcPath)
     }
     is PrecompLayer -> {
       val asset = animationSettings.assets[matteLayer.refId] as? PrecompAsset
@@ -759,7 +747,7 @@ internal fun applyMatteClip(
             for (t in childTransforms) {
               transform(t, null, animationSettings, canvas)
             }
-            clipShapes(childLayer.shapes, animationSettings, canvas, clipOp)
+            clipShapes(childLayer.shapes, animationSettings, canvas)
             for (t in childTransforms.reversed()) {
               inverseTransform(t, animationSettings, canvas)
             }
@@ -780,7 +768,7 @@ internal fun applyMatteClip(
                 lineTo(0f, childLayer.solidHeight.constantValue.toFloat())
                 close()
               }
-            canvas.clipPath(rcPath, clipOp)
+            canvas.clipPath(rcPath)
             for (t in childTransforms.reversed()) {
               inverseTransform(t, animationSettings, canvas)
             }
@@ -801,7 +789,6 @@ private fun clipShapes(
   shapes: List<GraphicElement>,
   animationSettings: LottieSettings,
   canvas: RemoteCanvas,
-  clipOp: ClipOp = ClipOp.Intersect,
 ) {
   for (shape in shapes) {
     if (shape.hidden?.constantValue == true) continue
@@ -810,38 +797,38 @@ private fun clipShapes(
         val lottiePath = evaluateRectangle(shape, animationSettings)
         if (lottiePath != null) {
           val rcPath = canvas.buildRemotePathFromBezier(lottiePath.path)
-          canvas.clipPath(rcPath, clipOp)
+          canvas.clipPath(rcPath)
         }
       }
       is Path -> {
         val lottiePath = evaluatePath(shape, animationSettings, null)
         if (lottiePath != null) {
           val rcPath = canvas.buildRemotePathFromBezier(lottiePath.path)
-          canvas.clipPath(rcPath, clipOp)
+          canvas.clipPath(rcPath)
         }
       }
       is Ellipse -> {
         val lottiePath = evaluateEllipse(shape, animationSettings)
         if (lottiePath != null) {
           val rcPath = canvas.buildRemotePathFromBezier(lottiePath.path)
-          canvas.clipPath(rcPath, clipOp)
+          canvas.clipPath(rcPath)
         }
       }
       is PolyStar -> {
         val lottiePath = evaluatePolyStar(shape, animationSettings)
         if (lottiePath != null) {
           val rcPath = canvas.buildRemotePathFromBezier(lottiePath.path)
-          canvas.clipPath(rcPath, clipOp)
+          canvas.clipPath(rcPath)
         }
       }
       is Group -> {
         val groupTransform = shape.shapes.filterIsInstance<Transform>().firstOrNull()
         if (groupTransform != null) {
           transform(groupTransform, null, animationSettings, canvas)
-          clipShapes(shape.shapes.filter { it !is Transform }, animationSettings, canvas, clipOp)
+          clipShapes(shape.shapes.filter { it !is Transform }, animationSettings, canvas)
           inverseTransform(groupTransform, animationSettings, canvas)
         } else {
-          clipShapes(shape.shapes, animationSettings, canvas, clipOp)
+          clipShapes(shape.shapes, animationSettings, canvas)
         }
       }
       else -> {}

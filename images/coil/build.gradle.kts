@@ -64,6 +64,7 @@ dependencies {
   api(projects.annotations)
   api(projects.images.base)
 
+  implementation(platform(libs.compose.bom))
   implementation(libs.coil)
   implementation(libs.coil.base)
   implementation(libs.androidx.palette.ktx)
@@ -71,6 +72,8 @@ dependencies {
   implementation(libs.androidx.core)
   implementation(libs.androidx.corektx)
   implementation(libs.wearcompose.material)
+
+  debugImplementation(libs.androidx.activity.compose)
 
   testImplementation(projects.composeTools)
   testImplementation(projects.composeMaterial)

@@ -293,9 +293,11 @@ class PlayerScreenTest {
   @Test
   fun givenCustomControlButtons_thenCustomIsDisplayed() {
     // given
+    val playerViewModel = PlayerViewModel(FakePlayerRepository())
+
     composeTestRule.setContent {
       PlayerScreen(
-        playerViewModel = PlayerViewModel(FakePlayerRepository()),
+        playerViewModel = playerViewModel,
         controlButtons = { _, _ -> Text("Custom") },
         volumeViewModel = volumeViewModel,
       )
@@ -313,9 +315,11 @@ class PlayerScreenTest {
   @Test
   fun givenCustomButtons_thenCustomIsDisplayed() {
     // given
+    val playerViewModel = PlayerViewModel(FakePlayerRepository())
+
     composeTestRule.setContent {
       PlayerScreen(
-        playerViewModel = PlayerViewModel(FakePlayerRepository()),
+        playerViewModel = playerViewModel,
         buttons = { Text("Custom") },
         volumeViewModel = volumeViewModel,
       )
@@ -328,9 +332,11 @@ class PlayerScreenTest {
   @Test
   fun givenCustomBackground_thenCustomIsDisplayed() {
     // given
+    val playerViewModel = PlayerViewModel(FakePlayerRepository())
+
     composeTestRule.setContent {
       PlayerScreen(
-        playerViewModel = PlayerViewModel(FakePlayerRepository()),
+        playerViewModel = playerViewModel,
         background = { Text("Custom") },
         volumeViewModel = volumeViewModel,
       )

@@ -36,6 +36,7 @@ import com.google.android.horologist.remotecompose.lottie.format.graphicelement.
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierTopology
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierValue
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.rawReference
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.snapshotRemoteFloats
 
 private data class CurvePoint(val x: RemoteFloat, val y: RemoteFloat) {
   operator fun plus(p: CurvePoint) = CurvePoint(x + p.x, y + p.y)
@@ -94,6 +95,12 @@ private data class OffsetCubic(
   val p3: CurvePoint,
 ) {
   fun shared() = OffsetCubic(p0.shared(), p1.shared(), p2.shared(), p3.shared())
+
+  fun snapshotted(): OffsetCubic {
+    val values = snapshotRemoteFloats(listOf(p0, p1, p2, p3).flatMap { it.values() })
+    fun point(index: Int) = CurvePoint(values[index * 2], values[index * 2 + 1])
+    return OffsetCubic(point(0), point(1), point(2), point(3))
+  }
 
   fun reverse() = OffsetCubic(p3, p2, p1, p0)
 
@@ -239,6 +246,24 @@ private class OffsetPieces(
       pieces.map { it.shared() }.toMutableList(),
     )
 
+  fun snapshotted(): OffsetPieces {
+    val values =
+      snapshotRemoteFloats(
+        active + pieces.flatMap { listOf(it.p0, it.p1, it.p2, it.p3).flatMap { p -> p.values() } }
+      )
+    val activeCount = active.size
+    return OffsetPieces(
+      original,
+      values.subList(0, activeCount),
+      List(pieces.size) { pieceIndex ->
+          val base = activeCount + pieceIndex * 8
+          fun point(index: Int) = CurvePoint(values[base + index * 2], values[base + index * 2 + 1])
+          OffsetCubic(point(0), point(1), point(2), point(3))
+        }
+        .toMutableList(),
+    )
+  }
+
   fun multiple() = selectIfLt(1.5f.rf, active.fold(0f.rf) { sum, flag -> sum + flag }, 1f.rf, 0f.rf)
 
   fun keep(curve: OffsetCubic, first: Boolean, flag: RemoteFloat) {
@@ -251,10 +276,13 @@ private class OffsetPieces(
     var passed = 0f.rf
     for (i in pieces.indices) {
       val empty = collapsed(choose(passed, curve.p3, curve.p0))
-      pieces[i] = chooseCubic(flag, chooseCubic(retained[i], curve, empty), pieces[i]).shared()
+      pieces[i] = chooseCubic(flag, chooseCubic(retained[i], curve, empty), pieces[i])
       passed = max(passed, retained[i]).rawReference()
     }
-    active = active.indices.map { selectIfGe(flag, 1f.rf, retained[it], active[it]).rawReference() }
+    active = active.indices.map { selectIfGe(flag, 1f.rf, retained[it], active[it]) }
+    val snapped = snapshotted()
+    active = snapped.active
+    for (i in pieces.indices) pieces[i] = snapped.pieces[i]
   }
 }
 
@@ -291,6 +319,8 @@ private fun pruneAdjacent(
       )
     last *= 1f.rf - left.active[i]
   }
+  val snappedLeft = left.snapshotted()
+  for (i in left.pieces.indices) left.pieces[i] = snappedLeft.pieces[i]
   var first = hit
   for (i in right.pieces.indices) {
     val selected = first * right.active[i]
@@ -302,6 +332,8 @@ private fun pruneAdjacent(
       )
     first *= 1f.rf - right.active[i]
   }
+  val snappedRight = right.snapshotted()
+  for (i in right.pieces.indices) right.pieces[i] = snappedRight.pieces[i]
   // When both source segments split, an outer crossing can swallow every intervening piece.
   // The first-left and last-right pieces are unaffected by the boundary clipping above.
   val outerEnabled = (enabled * left.multiple() * right.multiple()).rawReference()
@@ -324,27 +356,28 @@ private fun choosePieces(flag: RemoteFloat, yes: OffsetPieces, no: OffsetPieces)
       yes.active.indices.map { selectIfGe(flag, 1f.rf, yes.active[it], no.active[it]) },
       yes.pieces.indices.map { chooseCubic(flag, yes.pieces[it], no.pieces[it]) }.toMutableList(),
     )
-    .shared()
+    .snapshotted()
 
 /** Prune in logical contour order; fixed-capacity empty slots must never become neighbours. */
 private fun pruneLogicalGroups(
-  groups: List<OffsetPieces>,
+  rawGroups: List<OffsetPieces>,
   present: List<RemoteFloat>,
 ): Pair<List<OffsetPieces>, List<RemoteFloat>> {
+  val groups = rawGroups.map { it.snapshotted() }
   // Carry the complete preceding active group. An outer crossing can remove all but its
   // first piece, so remembering only a head/tail pair loses both geometry and live activity.
-  var previous = groups.first().shared()
+  var previous = groups.first().snapshotted()
   var seen = 0f.rf
   val firstFlags = mutableListOf<RemoteFloat>()
   val leftUpdates = mutableListOf<OffsetPieces>()
   val hits = mutableListOf<RemoteFloat>()
   for (i in groups.indices) {
     firstFlags += (present[i] * (1f.rf - seen)).rawReference()
-    val current = groups[i].shared()
+    val current = groups[i].snapshotted()
     val hit =
       pruneAdjacent(previous, current, if (i == 0) 0f.rf else present[i] * seen).rawReference()
     hits += hit
-    leftUpdates += previous.shared()
+    leftUpdates += previous.snapshotted()
     previous = choosePieces(present[i], current, previous)
     seen = max(seen, present[i]).rawReference()
   }
@@ -363,12 +396,12 @@ private fun pruneLogicalGroups(
     nextHit = selectIfGe(present[i], 1f.rf, hits[i], nextHit).rawReference()
     hasNext = max(hasNext, present[i]).rawReference()
   }
-  var first = updated.first().shared()
+  var first = updated.first().snapshotted()
   for (i in groups.indices.reversed()) {
     first = choosePieces(firstFlags[i], updated[i], first)
   }
   val count = present.fold(0f.rf) { sum, value -> sum + value }
-  val last = previous.shared()
+  val last = previous.snapshotted()
   val closingHit = pruneAdjacent(last, first, selectIfLt(1f.rf, count, 1f.rf, 0f.rf)).rawReference()
   for (i in groups.indices) {
     updated[i] = choosePieces(lastFlags[i], last, choosePieces(firstFlags[i], first, updated[i]))
@@ -546,15 +579,15 @@ internal fun offsetCurves(
       (choose(nonzero, cubic.p1, original.p1) - point(vertices.last())).values()
     add(b, inside = choose(nonzero, cubic.p2, original.p2) - b)
   }
-  val nextHeads = groups.map { it.first().shared() }.toMutableList()
+  val nextHeads = groups.map { it.first().snapshotted() }.toMutableList()
   if (path.topology != null) {
     var nextHead = nextHeads.first()
     for (i in groups.indices.reversed()) nextHead =
-      chooseCubic(present[i], nextHeads[i], nextHead).shared()
+      chooseCubic(present[i], nextHeads[i], nextHead).snapshotted()
     for (i in groups.indices.reversed()) {
       val ownHead = nextHeads[i]
       nextHeads[i] = nextHead
-      nextHead = chooseCubic(present[i], ownHead, nextHead).shared()
+      nextHead = chooseCubic(present[i], ownHead, nextHead).snapshotted()
     }
   }
   for ((index, raw) in curves.withIndex()) {

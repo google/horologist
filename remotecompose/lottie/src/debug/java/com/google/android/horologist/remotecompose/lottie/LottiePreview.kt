@@ -29,6 +29,7 @@ import androidx.compose.remote.creation.compose.state.rememberNamedRemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.remote.player.compose.RemoteComposePlayerFlags
 import androidx.compose.remote.player.compose.embedded.RcPlayer
+import androidx.compose.remote.player.compose.embedded.rememberRcPlayerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
@@ -61,7 +62,7 @@ internal fun LottiePreview(
   val doc =
     rememberRemoteDocument(clock = clock) {
       // When progress is specified, bind the animation to a named RemoteFloat ("progress").
-      // This allows updating progress dynamically via document.setNamedFloat("progress", value)
+      // This allows updating progress dynamically via RcPlayerState.floatState("progress")
       // on the single compiled RemoteDocument, avoiding document regeneration on frame changes.
       val progressVar =
         if (progress != null) {
@@ -78,11 +79,16 @@ internal fun LottiePreview(
       )
     }
   doc.value?.let { document ->
+    val playerState = rememberRcPlayerState(document)
     if (progress != null) {
-      document.setNamedFloat("progress", progress)
-      SideEffect { document.setNamedFloat("progress", progress) }
+      val progressState = playerState.floatState("progress")
+      // Seed the override inline before RcPlayer composes, then re-apply in SideEffect once
+      // composition commits (originally needed when CoreDocument.remoteComposeState was null until
+      // RcPlayer composed; also guards non-snapshot backing maps if composition aborts/restarts).
+      progressState.value = progress
+      SideEffect { progressState.value = progress }
     }
-    RcPlayer(document = document, modifier = modifier)
+    RcPlayer(state = playerState, modifier = modifier)
   }
 }
 

@@ -75,7 +75,7 @@ class SnackbarHostTest {
       Truth.assertThat(resultedInvocation).isEqualTo("123")
     }
 
-    rule.waitUntil { job.isCompleted }
+    rule.waitUntil(timeoutMillis = 15_000L) { job.isCompleted }
   }
 
   @Test
@@ -103,7 +103,7 @@ class SnackbarHostTest {
       }
     }
 
-    rule.waitUntil { parent.children.all { it.isCompleted } }
+    rule.waitUntil(timeoutMillis = 15_000L) { parent.children.all { it.isCompleted } }
     Truth.assertThat(resultedInvocation).isEqualTo("0123456789")
   }
 

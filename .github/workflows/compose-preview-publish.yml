@@ -101,7 +101,7 @@ jobs:
         # nothing to download and this workflow has no work to do. After a
         # successful render a missing artifact is a real bug, so it stays loud.
         continue-on-error: ${{ github.event.workflow_run.conclusion == 'failure' }}
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
           name: compose-preview-handoff
           path: _compose_preview_handoff
@@ -117,7 +117,7 @@ jobs:
         if: steps.handoff.outcome == 'success'
         run: echo "number=$(cat _compose_preview_handoff/_pr_number)" >> "$GITHUB_OUTPUT"
 
-      - uses: yschimke/compose-ai-tools/.github/actions/apply@2c56f3ffa3e2faf01ebe4dc3ed2377b373323f57 # v2.39.1
+      - uses: yschimke/compose-ai-tools/.github/actions/apply@54d000c1f31b1dbf67d175450bfd441e5a875f48 # v2.74.0
         if: steps.pr.outputs.number != ''
         with:
           phase: publish

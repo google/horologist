@@ -28,7 +28,7 @@ plugins {
 android {
   compileSdk = 37
 
-  defaultConfig { minSdk = 26 }
+  defaultConfig { minSdk = 29 }
 
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_17
@@ -75,6 +75,7 @@ dependencies {
   implementation(libs.compose.runtime)
   implementation(libs.compose.ui)
 
+  debugImplementation(libs.androidx.activity.compose)
   debugImplementation(libs.androidx.compose.remote.player.core)
   debugImplementation(libs.androidx.compose.remote.player.compose)
   debugImplementation(libs.androidx.compose.remote.player.view)

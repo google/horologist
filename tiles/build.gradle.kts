@@ -66,6 +66,7 @@ metalava { filename.set("api/current.api") }
 dependencies {
   api(projects.annotations)
 
+  implementation(platform(libs.compose.bom))
   implementation(libs.kotlin.stdlib)
 
   implementation(libs.androidx.wear)
@@ -99,6 +100,7 @@ dependencies {
   androidTestImplementation(libs.androidx.test.runner)
   androidTestImplementation(libs.junit)
   androidTestImplementation(libs.truth)
+  debugImplementation(libs.androidx.activity.compose)
   debugImplementation(libs.compose.ui.test.manifest)
 }
 

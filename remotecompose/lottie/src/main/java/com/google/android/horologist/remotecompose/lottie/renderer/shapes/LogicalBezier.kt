@@ -25,11 +25,17 @@ import androidx.compose.remote.creation.compose.state.selectIfGe
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierTopology
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierValue
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.rawReference
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.snapshotRemoteFloats
 
 internal data class LogicalPoint(val x: RemoteFloat, val y: RemoteFloat) {
   fun values() = listOf(x, y)
 
   fun reference() = LogicalPoint(x.rawReference(), y.rawReference())
+
+  fun snapshotted(): LogicalPoint {
+    val snapped = snapshotRemoteFloats(listOf(x, y))
+    return LogicalPoint(snapped[0], snapped[1])
+  }
 }
 
 private val logicalZero
@@ -51,11 +57,18 @@ internal fun logicalScan(
 ): List<LogicalPoint> {
   val indices = if (forward) values.indices.reversed() else values.indices
   var current = logicalZero
-  if (closed) for (j in indices) current = logicalChoose(active[j], values[j], current)
+  var depth = 0
+  if (closed) {
+    for (j in indices) {
+      current = logicalChoose(active[j], values[j], current)
+      if (++depth % 16 == 0) current = current.snapshotted()
+    }
+  }
   val result = MutableList(values.size) { logicalZero }
   for (j in indices) {
     if (!inclusive) result[j] = current
     current = logicalChoose(active[j], values[j], current)
+    if (++depth % 16 == 0) current = current.snapshotted()
     if (inclusive) result[j] = current
   }
   return result

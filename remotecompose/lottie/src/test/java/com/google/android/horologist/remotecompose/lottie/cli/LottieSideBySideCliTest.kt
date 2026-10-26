@@ -217,6 +217,10 @@ class LottieSideBySideCliTest : MotionPixelHarness() {
                   (current.decodedRc.endFrame - current.decodedRc.startFrame).coerceAtLeast(1f)
                 val rcProgress = (authoredFrame - current.decodedRc.startFrame) / totalRcDuration
                 val docProgress = playerState.floatState("progress")
+                // Seed the override inline before RcPlayer composes, then re-apply in SideEffect
+                // once composition commits (originally needed when CoreDocument.remoteComposeState
+                // was null until RcPlayer composed; also guards non-snapshot backing maps on
+                // aborted/restarted compositions).
                 docProgress.value = rcProgress
                 SideEffect { docProgress.value = rcProgress }
                 RcPlayer(state = playerState, modifier = Modifier.size(current.renderSizeDp.dp))

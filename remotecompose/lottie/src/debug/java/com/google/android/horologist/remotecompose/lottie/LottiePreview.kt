@@ -82,6 +82,9 @@ internal fun LottiePreview(
     val playerState = rememberRcPlayerState(document)
     if (progress != null) {
       val progressState = playerState.floatState("progress")
+      // Seed the override inline before RcPlayer composes, then re-apply in SideEffect once
+      // composition commits (originally needed when CoreDocument.remoteComposeState was null until
+      // RcPlayer composed; also guards non-snapshot backing maps if composition aborts/restarts).
       progressState.value = progress
       SideEffect { progressState.value = progress }
     }

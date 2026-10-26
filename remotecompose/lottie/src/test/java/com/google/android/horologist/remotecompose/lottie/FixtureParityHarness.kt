@@ -195,6 +195,10 @@ abstract class FixtureParityHarness : MotionPixelHarness() {
             val totalRcDuration = (decoded.endFrame - decoded.startFrame).coerceAtLeast(1f)
             val rcProgress = (authoredFrame - decoded.startFrame) / totalRcDuration
             val docProgress = playerState.floatState("progress")
+            // Seed the override inline before RcPlayer composes, then re-apply in SideEffect once
+            // composition commits. Historically required when CoreDocument.remoteComposeState was
+            // null until RcPlayer composed; still guards non-snapshot RemoteComposeState backing
+            // maps if composition aborts/restarts.
             docProgress.value = rcProgress
             SideEffect { docProgress.value = rcProgress }
             RcPlayer(state = playerState, modifier = Modifier.size(renderSizeDp.dp))

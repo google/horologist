@@ -1,44 +1,49 @@
-/*
- * Copyright 2022 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.google.android.horologist.mediasample.ui.player
 
 import androidx.activity.compose.ReportDrawnAfter
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material3.MaterialTheme
+import androidx.wear.compose.material3.onehandedgesture.OneHandedGestureAction
+import androidx.wear.compose.material3.onehandedgesture.OneHandedGestureClickIndicator
+import androidx.wear.compose.material3.onehandedgesture.OneHandedGestureClickIndicatorState
+import androidx.wear.compose.material3.onehandedgesture.OneHandedGesturePriority
+import androidx.wear.compose.material3.onehandedgesture.oneHandedGesture
+import androidx.wear.compose.material3.onehandedgesture.rememberOneHandedGestureConfiguration
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.images.coil.CoilPaintable
+import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayout
+import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayoutDefaults
+import com.google.android.horologist.media.ui.material3.components.PlayPauseButton
 import com.google.android.horologist.media.ui.material3.components.PodcastControlButtons
-import com.google.android.horologist.media.ui.material3.components.animated.AnimatedMediaControlButtons
 import com.google.android.horologist.media.ui.material3.components.animated.AnimatedMediaInfoDisplay
+import com.google.android.horologist.media.ui.material3.components.animated.AnimatedPlayPauseProgressButton
+import com.google.android.horologist.media.ui.material3.components.animated.AnimatedSeekToNextButton
+import com.google.android.horologist.media.ui.material3.components.animated.AnimatedSeekToPreviousButton
 import com.google.android.horologist.media.ui.material3.components.background.ArtworkImageBackground
 import com.google.android.horologist.media.ui.material3.components.background.ColorBackground
+import com.google.android.horologist.media.ui.material3.components.controls.SeekToNextButton
+import com.google.android.horologist.media.ui.material3.components.controls.SeekToPreviousButton
 import com.google.android.horologist.media.ui.material3.screens.player.DefaultMediaInfoDisplay
-import com.google.android.horologist.media.ui.material3.screens.player.DefaultPlayerScreenControlButtons
 import com.google.android.horologist.media.ui.material3.screens.player.PlayerScreen
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 @Composable
 fun UampMediaPlayerScreen(
@@ -89,23 +94,7 @@ fun UampMediaPlayerScreen(
       if (settingsState.podcastControls) {
         PlayerScreenPodcastControlButtons(playerUiController, playerUiState)
       } else {
-        if (settingsState.animated) {
-          AnimatedMediaControlButtons(
-            onPlayButtonClick = { playerUiController.play() },
-            onPauseButtonClick = { playerUiController.pause() },
-            playPauseButtonEnabled = playerUiState.playPauseEnabled,
-            playing = playerUiState.playing,
-            onSeekToPreviousButtonClick = { playerUiController.skipToPreviousMedia() },
-            onSeekToPreviousRepeatableClick = { playerUiController.seekBack() },
-            seekToPreviousButtonEnabled = playerUiState.seekToPreviousEnabled,
-            onSeekToNextButtonClick = { playerUiController.skipToNextMedia() },
-            onSeekToNextRepeatableClick = { playerUiController.seekForward() },
-            seekToNextButtonEnabled = playerUiState.seekToNextEnabled,
-            trackPositionUiModel = playerUiState.trackPositionUiModel,
-          )
-        } else {
-          DefaultPlayerScreenControlButtons(playerUiController, playerUiState)
-        }
+        UampMediaControlButtons(playerUiController, playerUiState, settingsState.animated)
       }
     },
   )
@@ -123,5 +112,124 @@ public fun PlayerScreenPodcastControlButtons(
     modifier = modifier,
     playerController = playerUiController,
     playerUiState = playerUiState,
+  )
+}
+
+@Composable
+private fun UampMediaControlButtons(
+  playerUiController: PlayerUiController,
+  playerUiState: PlayerUiState,
+  animated: Boolean
+) {
+  val gestureConfig = rememberOneHandedGestureConfiguration(
+    action = OneHandedGestureAction.Primary,
+    priority = OneHandedGesturePriority.Clickable
+  )
+  val indicatorState = remember { OneHandedGestureClickIndicatorState() }
+  val coroutineScope = rememberCoroutineScope()
+
+  val interactionSources = remember { Array(3) { MutableInteractionSource() } }
+  val buttonPressedStateList = interactionSources.map { it.collectIsPressedAsState() }
+  val isAnyButtonPressed = remember { derivedStateOf { buttonPressedStateList.any { it.value } } }
+
+  val leftButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = true)
+  val rightButtonPadding = ButtonGroupLayoutDefaults.getSideButtonsPadding(isLeftButton = false)
+
+  ButtonGroupLayout(
+    interactionSources = interactionSources,
+    leftButton = {
+      if (animated) {
+        AnimatedSeekToPreviousButton(
+          modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
+          onClick = { playerUiController.skipToPreviousMedia() },
+          enabled = playerUiState.seekToPreviousEnabled,
+          interactionSource = it,
+          buttonPadding = leftButtonPadding,
+          onRepeatableClick = { playerUiController.seekBack() },
+        )
+      } else {
+        SeekToPreviousButton(
+          modifier = Modifier.weight(1f).padding(leftButtonPadding).fillMaxSize(),
+          onClick = { playerUiController.skipToPreviousMedia() },
+          enabled = playerUiState.seekToPreviousEnabled,
+        )
+      }
+    },
+    middleButton = { interactionSource ->
+      val playAction = { playerUiController.play() }
+      val pauseAction = { playerUiController.pause() }
+      
+      // DO NOT use an outer Box for the modifier, and DO NOT use Box around OneHandedGestureClickIndicator.
+      // Instead, correctly attach the `.oneHandedGesture()` directly to the animated play/pause progress button.
+      // 
+      // The issue is that the wrapper creates structural problems. It is the innermost element 
+      // that receives interactions and gestures. Let's do it directly.
+      
+      OneHandedGestureClickIndicator(
+        gestureConfiguration = gestureConfig,
+        state = indicatorState
+      ) {
+        if (animated) {
+          AnimatedPlayPauseProgressButton(
+            onPlayClick = playAction,
+            onPauseClick = pauseAction,
+            enabled = playerUiState.playPauseEnabled,
+            playing = playerUiState.playing,
+            interactionSource = interactionSource,
+            trackPositionUiModel = playerUiState.trackPositionUiModel,
+            modifier = Modifier
+              .weight(0.5f)
+              .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+              .animateWidth(interactionSource)
+              .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize)
+              .oneHandedGesture(
+                gestureConfiguration = gestureConfig,
+                interactionSource = interactionSource,
+                onGestureLabel = if (playerUiState.playing) "pause" else "play",
+                onGestureAvailable = { coroutineScope.launch { indicatorState.showIndicator() } },
+                onGesture = { if (playerUiState.playing) pauseAction() else playAction() }
+              ),
+            isAnyButtonPressed = isAnyButtonPressed,
+          )
+        } else {
+          PlayPauseButton(
+            onPlayClick = playAction,
+            onPauseClick = pauseAction,
+            enabled = playerUiState.playPauseEnabled,
+            playing = playerUiState.playing,
+            modifier = Modifier
+              .weight(0.5f)
+              .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+              .animateWidth(interactionSource)
+              .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize)
+              .oneHandedGesture(
+                gestureConfiguration = gestureConfig,
+                interactionSource = interactionSource,
+                onGestureLabel = if (playerUiState.playing) "pause" else "play",
+                onGestureAvailable = { coroutineScope.launch { indicatorState.showIndicator() } },
+                onGesture = { if (playerUiState.playing) pauseAction() else playAction() }
+              ),
+          )
+        }
+      }
+    },
+    rightButton = {
+      if (animated) {
+        AnimatedSeekToNextButton(
+          modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
+          onClick = { playerUiController.skipToNextMedia() },
+          interactionSource = it,
+          buttonPadding = rightButtonPadding,
+          onRepeatableClick = { playerUiController.seekForward() },
+          enabled = playerUiState.seekToNextEnabled,
+        )
+      } else {
+        SeekToNextButton(
+          modifier = Modifier.weight(1f).padding(rightButtonPadding).fillMaxSize(),
+          onClick = { playerUiController.skipToNextMedia() },
+          enabled = playerUiState.seekToNextEnabled,
+        )
+      }
+    }
   )
 }

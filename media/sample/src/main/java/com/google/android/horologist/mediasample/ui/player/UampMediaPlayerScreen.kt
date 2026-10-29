@@ -3,7 +3,6 @@ package com.google.android.horologist.mediasample.ui.player
 import androidx.activity.compose.ReportDrawnAfter
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
@@ -119,12 +118,13 @@ public fun PlayerScreenPodcastControlButtons(
 private fun UampMediaControlButtons(
   playerUiController: PlayerUiController,
   playerUiState: PlayerUiState,
-  animated: Boolean
+  animated: Boolean,
 ) {
-  val gestureConfig = rememberOneHandedGestureConfiguration(
-    action = OneHandedGestureAction.Primary,
-    priority = OneHandedGesturePriority.Clickable
-  )
+  val gestureConfig =
+    rememberOneHandedGestureConfiguration(
+      action = OneHandedGestureAction.Primary,
+      priority = OneHandedGesturePriority.Clickable,
+    )
   val indicatorState = remember { OneHandedGestureClickIndicatorState() }
   val coroutineScope = rememberCoroutineScope()
 
@@ -158,17 +158,16 @@ private fun UampMediaControlButtons(
     middleButton = { interactionSource ->
       val playAction = { playerUiController.play() }
       val pauseAction = { playerUiController.pause() }
-      
-      // DO NOT use an outer Box for the modifier, and DO NOT use Box around OneHandedGestureClickIndicator.
-      // Instead, correctly attach the `.oneHandedGesture()` directly to the animated play/pause progress button.
-      // 
-      // The issue is that the wrapper creates structural problems. It is the innermost element 
+
+      // DO NOT use an outer Box for the modifier, and DO NOT use Box around
+      // OneHandedGestureClickIndicator.
+      // Instead, correctly attach the `.oneHandedGesture()` directly to the animated play/pause
+      // progress button.
+      //
+      // The issue is that the wrapper creates structural problems. It is the innermost element
       // that receives interactions and gestures. Let's do it directly.
-      
-      OneHandedGestureClickIndicator(
-        gestureConfiguration = gestureConfig,
-        state = indicatorState
-      ) {
+
+      OneHandedGestureClickIndicator(gestureConfiguration = gestureConfig, state = indicatorState) {
         if (animated) {
           AnimatedPlayPauseProgressButton(
             onPlayClick = playAction,
@@ -177,18 +176,18 @@ private fun UampMediaControlButtons(
             playing = playerUiState.playing,
             interactionSource = interactionSource,
             trackPositionUiModel = playerUiState.trackPositionUiModel,
-            modifier = Modifier
-              .weight(0.5f)
-              .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-              .animateWidth(interactionSource)
-              .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize)
-              .oneHandedGesture(
-                gestureConfiguration = gestureConfig,
-                interactionSource = interactionSource,
-                onGestureLabel = if (playerUiState.playing) "pause" else "play",
-                onGestureAvailable = { coroutineScope.launch { indicatorState.showIndicator() } },
-                onGesture = { if (playerUiState.playing) pauseAction() else playAction() }
-              ),
+            modifier =
+              Modifier.weight(0.5f)
+                .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+                .animateWidth(interactionSource)
+                .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize)
+                .oneHandedGesture(
+                  gestureConfiguration = gestureConfig,
+                  interactionSource = interactionSource,
+                  onGestureLabel = if (playerUiState.playing) "pause" else "play",
+                  onGestureAvailable = { coroutineScope.launch { indicatorState.showIndicator() } },
+                  onGesture = { if (playerUiState.playing) pauseAction() else playAction() },
+                ),
             isAnyButtonPressed = isAnyButtonPressed,
           )
         } else {
@@ -197,18 +196,18 @@ private fun UampMediaControlButtons(
             onPauseClick = pauseAction,
             enabled = playerUiState.playPauseEnabled,
             playing = playerUiState.playing,
-            modifier = Modifier
-              .weight(0.5f)
-              .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-              .animateWidth(interactionSource)
-              .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize)
-              .oneHandedGesture(
-                gestureConfiguration = gestureConfig,
-                interactionSource = interactionSource,
-                onGestureLabel = if (playerUiState.playing) "pause" else "play",
-                onGestureAvailable = { coroutineScope.launch { indicatorState.showIndicator() } },
-                onGesture = { if (playerUiState.playing) pauseAction() else playAction() }
-              ),
+            modifier =
+              Modifier.weight(0.5f)
+                .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
+                .animateWidth(interactionSource)
+                .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize)
+                .oneHandedGesture(
+                  gestureConfiguration = gestureConfig,
+                  interactionSource = interactionSource,
+                  onGestureLabel = if (playerUiState.playing) "pause" else "play",
+                  onGestureAvailable = { coroutineScope.launch { indicatorState.showIndicator() } },
+                  onGesture = { if (playerUiState.playing) pauseAction() else playAction() },
+                ),
           )
         }
       }
@@ -230,6 +229,6 @@ private fun UampMediaControlButtons(
           enabled = playerUiState.seekToNextEnabled,
         )
       }
-    }
+    },
   )
 }

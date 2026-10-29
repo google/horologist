@@ -5,5 +5,5 @@ import com.google.android.horologist.media.ui.material3.components.animated.Anim
 
 @Composable
 fun TestContent() {
-    AnimatedPlayPauseButtonContent(playing = true)
+  AnimatedPlayPauseButtonContent(playing = true)
 }

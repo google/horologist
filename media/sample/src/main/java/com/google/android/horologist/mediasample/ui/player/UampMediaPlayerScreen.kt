@@ -33,7 +33,6 @@ import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayout
 import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayoutDefaults
-import com.google.android.horologist.media.ui.material3.components.PlayPauseButton
 import com.google.android.horologist.media.ui.material3.components.PlayPauseProgressButton
 import com.google.android.horologist.media.ui.material3.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.material3.components.animated.AnimatedMediaInfoDisplay
@@ -168,10 +167,7 @@ private fun UampMediaControlButtons(
       leftButton = {
         if (animated) {
           AnimatedSeekToPreviousButton(
-            modifier = Modifier
-              .weight(1f)
-              .animateWidth(it)
-              .fillMaxSize(),
+            modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
             onClick = { playerUiController.skipToPreviousMedia() },
             enabled = playerUiState.seekToPreviousEnabled,
             interactionSource = it,
@@ -180,10 +176,7 @@ private fun UampMediaControlButtons(
           )
         } else {
           SeekToPreviousButton(
-            modifier = Modifier
-              .weight(1f)
-              .padding(leftButtonPadding)
-              .fillMaxSize(),
+            modifier = Modifier.weight(1f).padding(leftButtonPadding).fillMaxSize(),
             onClick = { playerUiController.skipToPreviousMedia() },
             enabled = playerUiState.seekToPreviousEnabled,
           )
@@ -193,8 +186,7 @@ private fun UampMediaControlButtons(
         val playAction = { playerUiController.play() }
         val pauseAction = { playerUiController.pause() }
         val gestureModifier =
-          Modifier
-            .oneHandedGesture(
+          Modifier.oneHandedGesture(
               gestureConfiguration = gestureConfig,
               interactionSource = interactionSource,
               onGestureLabel = if (playerUiState.playing) "pause" else "play",
@@ -243,10 +235,7 @@ private fun UampMediaControlButtons(
       rightButton = {
         if (animated) {
           AnimatedSeekToNextButton(
-            modifier = Modifier
-              .weight(1f)
-              .animateWidth(it)
-              .fillMaxSize(),
+            modifier = Modifier.weight(1f).animateWidth(it).fillMaxSize(),
             onClick = { playerUiController.skipToNextMedia() },
             interactionSource = it,
             buttonPadding = rightButtonPadding,
@@ -255,10 +244,7 @@ private fun UampMediaControlButtons(
           )
         } else {
           SeekToNextButton(
-            modifier = Modifier
-              .weight(1f)
-              .padding(rightButtonPadding)
-              .fillMaxSize(),
+            modifier = Modifier.weight(1f).padding(rightButtonPadding).fillMaxSize(),
             onClick = { playerUiController.skipToNextMedia() },
             enabled = playerUiState.seekToNextEnabled,
           )

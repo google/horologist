@@ -16,6 +16,7 @@
 
 package com.google.android.horologist.media.ui.material3.components.controls
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Pause
@@ -37,16 +38,26 @@ public fun PauseButton(
   modifier: Modifier = Modifier,
   colorScheme: ColorScheme = MaterialTheme.colorScheme,
   enabled: Boolean = true,
+  interactionSource: MutableInteractionSource? = null,
   contentDescription: String =
     stringResource(id = R.string.horologist_pause_button_content_description),
   iconSize: Dp = IconButtonDefaults.LargeIconSize,
   colors: IconButtonColors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
-) {
-  FilledIconButton(onClick = onClick, modifier = modifier, enabled = enabled, colors = colors) {
+  content: @Composable () -> Unit = {
     Icon(
       modifier = Modifier.size(iconSize),
       imageVector = Icons.Rounded.Pause,
       contentDescription = contentDescription,
     )
+  },
+) {
+  FilledIconButton(
+    onClick = onClick,
+    modifier = modifier,
+    enabled = enabled,
+    colors = colors,
+    interactionSource = interactionSource,
+  ) {
+    content()
   }
 }

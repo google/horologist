@@ -26,13 +26,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.MaterialTheme
@@ -40,6 +37,7 @@ import androidx.wear.compose.material3.onehandedgesture.LocalOneHandedGestureEna
 import androidx.wear.compose.material3.onehandedgesture.OneHandedGestureAction
 import androidx.wear.compose.material3.onehandedgesture.OneHandedGestureClickIndicator
 import androidx.wear.compose.material3.onehandedgesture.OneHandedGestureClickIndicatorState
+import androidx.wear.compose.material3.onehandedgesture.OneHandedGestureConfiguration
 import androidx.wear.compose.material3.onehandedgesture.OneHandedGestureIndicatorSize
 import androidx.wear.compose.material3.onehandedgesture.OneHandedGesturePriority
 import androidx.wear.compose.material3.onehandedgesture.oneHandedGesture
@@ -49,6 +47,7 @@ import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.images.coil.CoilPaintable
 import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayout
 import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayoutDefaults
+import com.google.android.horologist.media.ui.material3.components.PlayPauseButtonContent
 import com.google.android.horologist.media.ui.material3.components.PlayPauseProgressButton
 import com.google.android.horologist.media.ui.material3.components.PodcastControlButtons
 import com.google.android.horologist.media.ui.material3.components.animated.AnimatedMediaInfoDisplay
@@ -65,7 +64,6 @@ import com.google.android.horologist.media.ui.material3.screens.player.PlayerScr
 import com.google.android.horologist.media.ui.state.PlayerUiController
 import com.google.android.horologist.media.ui.state.PlayerUiState
 import com.google.android.horologist.media.ui.state.model.MediaUiModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
@@ -155,20 +153,6 @@ private fun UampMediaControlButtons(
     )
   val indicatorState = remember { OneHandedGestureClickIndicatorState() }
   val coroutineScope = rememberCoroutineScope()
-  var isHintAlreadyShown by remember { mutableStateOf(false) }
-  var hintJob by remember { mutableStateOf<Job?>(null) }
-
-  // Reset hint state when the screen stops so it can show once per session
-  LifecycleEventEffect(Lifecycle.Event.ON_STOP) { isHintAlreadyShown = false }
-
-  val onGestureAvailable: () -> Unit = remember {
-    {
-      if (!isHintAlreadyShown && hintJob?.isActive != true) {
-        isHintAlreadyShown = true
-        hintJob = coroutineScope.launch { indicatorState.showIndicator() }
-      }
-    }
-  }
 
   val interactionSources = remember { Array(3) { MutableInteractionSource() } }
   val buttonPressedStateList = interactionSources.map { it.collectIsPressedAsState() }
@@ -202,11 +186,11 @@ private fun UampMediaControlButtons(
         val playAction = { playerUiController.play() }
         val pauseAction = { playerUiController.pause() }
         val gestureModifier =
-          Modifier.oneHandedGesture(
+          rememberOneHandedGesture(
               gestureConfiguration = gestureConfig,
-              interactionSource = interactionSource,
               onGestureLabel = if (playerUiState.playing) "pause" else "play",
-              onGestureAvailable = onGestureAvailable,
+              interactionSource = interactionSource,
+              onGestureAvailable = { coroutineScope.launch { indicatorState.showIndicator() } },
               onGesture = { if (playerUiState.playing) pauseAction() else playAction() },
             )
             .weight(0.5f)
@@ -242,9 +226,20 @@ private fun UampMediaControlButtons(
             onPauseClick = pauseAction,
             enabled = playerUiState.playPauseEnabled,
             playing = playerUiState.playing,
+            interactionSource = interactionSource,
             trackPositionUiModel = playerUiState.trackPositionUiModel,
             modifier = gestureModifier,
             colorScheme = colorScheme,
+            content = {
+              OneHandedGestureClickIndicator(
+                gestureConfiguration = gestureConfig,
+                state = indicatorState,
+                gestureIndicatorSize = OneHandedGestureIndicatorSize.Medium,
+                gestureIndicatorTint = colorScheme.onPrimary,
+              ) {
+                PlayPauseButtonContent(playerUiState.playing)
+              }
+            },
           )
         }
       },
@@ -266,6 +261,27 @@ private fun UampMediaControlButtons(
           )
         }
       },
+    )
+  }
+}
+
+@Composable
+private fun rememberOneHandedGesture(
+  gestureConfiguration: OneHandedGestureConfiguration,
+  onGestureLabel: String?,
+  interactionSource: MutableInteractionSource? = null,
+  onGestureAvailable: () -> Unit,
+  onGesture: suspend () -> Unit,
+): Modifier {
+  val currentOnGestureAvailable by rememberUpdatedState(onGestureAvailable)
+  val currentOnGesture by rememberUpdatedState(onGesture)
+  return remember(gestureConfiguration, onGestureLabel, interactionSource) {
+    Modifier.oneHandedGesture(
+      gestureConfiguration = gestureConfiguration,
+      onGestureLabel = onGestureLabel,
+      interactionSource = interactionSource,
+      onGestureAvailable = { currentOnGestureAvailable() },
+      onGesture = { currentOnGesture() },
     )
   }
 }

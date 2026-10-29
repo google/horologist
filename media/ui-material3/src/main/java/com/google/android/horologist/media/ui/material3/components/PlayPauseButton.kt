@@ -16,13 +16,19 @@
 
 package com.google.android.horologist.media.ui.material3.components
 
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Pause
+import androidx.compose.material.icons.rounded.PlayArrow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -31,6 +37,7 @@ import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.pillStar
 import androidx.wear.compose.material3.CircularProgressIndicator
 import androidx.wear.compose.material3.ColorScheme
+import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
@@ -38,6 +45,7 @@ import androidx.wear.compose.material3.ProgressIndicatorDefaults
 import com.google.android.horologist.media.ui.material3.components.controls.MediaButtonDefaults
 import com.google.android.horologist.media.ui.material3.components.controls.PauseButton
 import com.google.android.horologist.media.ui.material3.components.controls.PlayButton
+import com.google.android.horologist.media.ui.model.R
 import com.google.android.horologist.media.ui.state.ProgressStateHolder
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlin.math.min
@@ -63,8 +71,12 @@ public fun PlayPauseButton(
   modifier: Modifier = Modifier,
   colorScheme: ColorScheme = MaterialTheme.colorScheme,
   enabled: Boolean = true,
+  interactionSource: MutableInteractionSource? = null,
   colors: IconButtonColors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
   iconSize: Dp = IconButtonDefaults.LargeIconSize,
+  content: @Composable () -> Unit = {
+    PlayPauseButtonContent(playing = playing, iconSize = iconSize)
+  },
   progress: @Composable () -> Unit = {},
 ) {
   Box(modifier = modifier, contentAlignment = Alignment.Center) {
@@ -74,7 +86,7 @@ public fun PlayPauseButton(
       PauseButton(
         onClick = onPauseClick,
         enabled = enabled,
-        modifier = modifier,
+        modifier = Modifier.fillMaxSize(),
         colorScheme = colorScheme,
         iconSize = iconSize,
         colors = colors,
@@ -83,10 +95,12 @@ public fun PlayPauseButton(
       PlayButton(
         onClick = onPlayClick,
         enabled = enabled,
-        modifier = modifier,
+        modifier = Modifier.fillMaxSize(),
         colorScheme = colorScheme,
+        interactionSource = interactionSource,
         iconSize = iconSize,
         colors = colors,
+        content = content,
       )
     }
   }
@@ -117,11 +131,15 @@ public fun PlayPauseProgressButton(
   modifier: Modifier = Modifier,
   colorScheme: ColorScheme = MaterialTheme.colorScheme,
   enabled: Boolean = true,
+  interactionSource: MutableInteractionSource? = null,
   colors: IconButtonColors = MediaButtonDefaults.playPauseButtonDefaultColors(colorScheme),
   iconSize: Dp = IconButtonDefaults.LargeIconSize,
   progressStrokeWidth: Dp = 4.dp,
   indicatorColor: Color = colorScheme.secondaryDim,
   trackColor: Color = colorScheme.secondary.copy(alpha = 0.3f),
+  content: @Composable () -> Unit = {
+    PlayPauseButtonContent(playing = playing, iconSize = iconSize)
+  },
 ) {
   PlayPauseButton(
     onPlayClick = onPlayClick,
@@ -130,8 +148,10 @@ public fun PlayPauseProgressButton(
     playing = playing,
     modifier = modifier,
     colorScheme = colorScheme,
+    interactionSource = interactionSource,
     iconSize = iconSize,
     colors = colors,
+    content = content,
   ) {
     val progress by ProgressStateHolder.fromTrackPositionUiModel(trackPositionUiModel)
     if (trackPositionUiModel.isLoading) {
@@ -157,6 +177,34 @@ public fun PlayPauseProgressButton(
       )
     }
   }
+}
+
+/**
+ * + * Default icon content for [PlayPauseButton] and [PlayPauseProgressButton].
+ * + *
+ * + * @param playing Whether the button should show the pause or play icon.
+ * + * @param modifier The [Modifier] to apply to the icon.
+ * + * @param iconSize The size of the icon. +
+ */
+@Composable
+public fun PlayPauseButtonContent(
+  playing: Boolean,
+  modifier: Modifier = Modifier,
+  iconSize: Dp = IconButtonDefaults.LargeIconSize,
+) {
+  Icon(
+    modifier = modifier.size(iconSize),
+    imageVector = if (playing) Icons.Rounded.Pause else Icons.Rounded.PlayArrow,
+    contentDescription =
+      stringResource(
+        id =
+          if (playing) {
+            R.string.horologist_pause_button_content_description
+          } else {
+            R.string.horologist_play_button_content_description
+          }
+      ),
+  )
 }
 
 /** Defaults object for [PlayPauseButton]. */

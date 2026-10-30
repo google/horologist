@@ -35,10 +35,10 @@ com-squareup-okhttp3 = "5.5.1"
 com-squareup-retrofit2 = "3.0.0"
 compose-animation = "1.12.1"
 compose-material3 = "1.4.0"
-composeAiTools = "2.74.0"
+composeAiTools = "2.75.0"
 composePreviewDaemon = "3.25.1"
 composesnapshot = "-"
-dependencyAnalysis = "3.19.2"
+dependencyAnalysis = "3.20.0"
 desugar_jdk_libs = "2.1.5"
 dokka = "2.2.0"
 googledagger = "2.60.1"
@@ -62,7 +62,7 @@ ossLicensesPlugin = "0.13.0"
 osslicenses = "0.10.0"
 # 22.0.0 removed legacy GoogleSignIn APIs used by auth:data and auth:ui
 playServicesAuth = "21.6.0"
-playServicesOssLicenses = "17.5.2"
+playServicesOssLicenses = "17.5.3"
 # Stay on 4.26.1 due to https://github.com/firebase/firebase-android-sdk/issues/5997
 protobuf = "4.34.1"
 protobuf-gen-grpc-java = "1.85.1"
@@ -81,7 +81,7 @@ wearcompose = "1.7.1"
 glanceWear = "1.0.0-alpha21"
 composeRemote = "1.0.0-alpha22"
 wearComposeRemote = "1.0.0-alpha14"
-agp = "9.4.1"
+agp = "9.5.0"
 
 [libraries]
 accessibility-test-framework = { module = "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework", version.ref = "accessibilityTestFramework" }
@@ -205,7 +205,7 @@ dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plu
 dagger-hiltandroidtesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "googledagger" }
 desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
-google-genai = "com.google.genai:google-genai:1.79.0"
+google-genai = "com.google.genai:google-genai:1.80.0"
 gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradlePublishPlugin" }
 grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }

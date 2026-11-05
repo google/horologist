@@ -140,6 +140,25 @@ allprojects {
         configure(JavaLibrary(javadocJar = JavadocJar.Empty(), sourcesJar = true))
       }
     }
+    extensions.configure<org.gradle.api.publish.PublishingExtension> {
+      repositories {
+        maven {
+          name = "ossExitGate"
+          url =
+            uri(
+              (project.findProperty("ossExitGateUrl") as? String)
+                ?: "https://us-maven.pkg.dev/oss-exit-gate-prod/horologist--mavencentral"
+            )
+          credentials {
+            username = "oauth2accesstoken"
+            password =
+              (project.findProperty("ossExitGateToken") as? String)
+                ?: System.getenv("OSS_EXIT_GATE_TOKEN")
+                ?: ""
+          }
+        }
+      }
+    }
   }
 }
 

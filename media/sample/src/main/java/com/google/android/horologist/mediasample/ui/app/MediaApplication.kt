@@ -27,9 +27,9 @@ import javax.inject.Inject
 
 @HiltAndroidApp
 class MediaApplication : Application(), ImageLoaderFactory {
-  @Inject lateinit var imageLoader: ImageLoader
+  @Inject lateinit var imageLoader: dagger.Lazy<ImageLoader>
 
-  @Inject lateinit var appConfig: AppConfig
+  @Inject lateinit var appConfig: dagger.Lazy<AppConfig>
 
   override fun onCreate() {
     super.onCreate()
@@ -51,5 +51,5 @@ class MediaApplication : Application(), ImageLoaderFactory {
     )
   }
 
-  override fun newImageLoader(): ImageLoader = imageLoader
+  override fun newImageLoader(): ImageLoader = imageLoader.get()
 }

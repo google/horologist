@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.wear.compose.material3.ColorScheme
 import androidx.wear.compose.material3.MaterialTheme
@@ -45,6 +46,7 @@ import androidx.wear.compose.material3.onehandedgesture.rememberOneHandedGesture
 import com.google.android.horologist.audio.ui.VolumeViewModel
 import com.google.android.horologist.audio.ui.components.toAudioOutputUi
 import com.google.android.horologist.images.coil.CoilPaintable
+import com.google.android.horologist.media.ui.model.R
 import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayout
 import com.google.android.horologist.media.ui.material3.components.ButtonGroupLayoutDefaults
 import com.google.android.horologist.media.ui.material3.components.PlayPauseButtonContent
@@ -188,7 +190,11 @@ private fun UampMediaControlButtons(
         val gestureModifier =
           rememberOneHandedGesture(
               gestureConfiguration = gestureConfig,
-              onGestureLabel = if (playerUiState.playing) "pause" else "play",
+              onGestureLabel = if (playerUiState.playing) {
+                stringResource(id = R.string.horologist_pause_button_content_description)
+              } else {
+                stringResource(id = R.string.horologist_play_button_content_description)
+              },
               interactionSource = interactionSource,
               onGestureAvailable = { coroutineScope.launch { indicatorState.showIndicator() } },
               onGesture = { if (playerUiState.playing) pauseAction() else playAction() },

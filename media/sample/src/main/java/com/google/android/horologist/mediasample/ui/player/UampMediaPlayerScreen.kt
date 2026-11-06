@@ -202,7 +202,7 @@ private fun UampMediaControlButtons(
             )
             .weight(0.5f)
             .minWidth(ButtonGroupLayoutDefaults.middleButtonSize)
-            .animateWidth(interactionSource)
+            .let { if (animated) it.animateWidth(interactionSource) else it }
             .requiredHeight(ButtonGroupLayoutDefaults.middleButtonSize)
 
         if (animated) {

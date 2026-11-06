@@ -37,14 +37,13 @@ import androidx.graphics.shapes.RoundedPolygon
 import androidx.graphics.shapes.pillStar
 import androidx.wear.compose.material3.CircularProgressIndicator
 import androidx.wear.compose.material3.ColorScheme
+import androidx.wear.compose.material3.FilledIconButton
 import androidx.wear.compose.material3.Icon
 import androidx.wear.compose.material3.IconButtonColors
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
 import androidx.wear.compose.material3.ProgressIndicatorDefaults
 import com.google.android.horologist.media.ui.material3.components.controls.MediaButtonDefaults
-import com.google.android.horologist.media.ui.material3.components.controls.PauseButton
-import com.google.android.horologist.media.ui.material3.components.controls.PlayButton
 import com.google.android.horologist.media.ui.model.R
 import com.google.android.horologist.media.ui.state.ProgressStateHolder
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
@@ -79,29 +78,16 @@ public fun PlayPauseButton(
   },
   progress: @Composable () -> Unit = {},
 ) {
-  Box(modifier = modifier, contentAlignment = Alignment.Center) {
+  Box(modifier = modifier, contentAlignment = Alignment.Center, propagateMinConstraints = true) {
     progress()
 
-    if (playing) {
-      PauseButton(
-        onClick = onPauseClick,
-        enabled = enabled,
-        modifier = Modifier.fillMaxSize(),
-        colorScheme = colorScheme,
-        iconSize = iconSize,
-        colors = colors,
-      )
-    } else {
-      PlayButton(
-        onClick = onPlayClick,
-        enabled = enabled,
-        modifier = Modifier.fillMaxSize(),
-        colorScheme = colorScheme,
-        interactionSource = interactionSource,
-        iconSize = iconSize,
-        colors = colors,
-        content = content,
-      )
+    FilledIconButton(
+      onClick = if (playing) onPauseClick else onPlayClick,
+      enabled = enabled,
+      colors = colors,
+      interactionSource = interactionSource,
+    ) {
+      content()
     }
   }
 }
@@ -180,11 +166,11 @@ public fun PlayPauseProgressButton(
 }
 
 /**
- * + * Default icon content for [PlayPauseButton] and [PlayPauseProgressButton].
- * + *
- * + * @param playing Whether the button should show the pause or play icon.
- * + * @param modifier The [Modifier] to apply to the icon.
- * + * @param iconSize The size of the icon. +
+ * Default icon content for [PlayPauseButton] and [PlayPauseProgressButton].
+ *
+ * @param playing Whether the button should show the pause or play icon.
+ * @param modifier The [Modifier] to apply to the icon.
+ * @param iconSize The size of the icon.
  */
 @Composable
 public fun PlayPauseButtonContent(

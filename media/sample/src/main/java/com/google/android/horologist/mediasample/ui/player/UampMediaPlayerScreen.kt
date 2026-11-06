@@ -221,7 +221,6 @@ private fun UampMediaControlButtons(
                 gestureConfiguration = gestureConfig,
                 state = indicatorState,
                 gestureIndicatorSize = OneHandedGestureIndicatorSize.Medium,
-                gestureIndicatorTint = colorScheme.onPrimary,
               ) {
                 AnimatedPlayPauseButtonContent(playerUiState.playing)
               }
@@ -242,7 +241,6 @@ private fun UampMediaControlButtons(
                 gestureConfiguration = gestureConfig,
                 state = indicatorState,
                 gestureIndicatorSize = OneHandedGestureIndicatorSize.Medium,
-                gestureIndicatorTint = colorScheme.onPrimary,
               ) {
                 PlayPauseButtonContent(playerUiState.playing)
               }

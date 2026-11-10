@@ -58,8 +58,10 @@ import kotlin.math.min
  * @param modifier The modifier to apply to the button.
  * @param colorScheme The color scheme used for the button.
  * @param enabled Whether the button is enabled.
+ * @param interactionSource The [MutableInteractionSource] representing the stream of interactions for this button.
  * @param colors The colors to use for the button.
  * @param iconSize The size of the icon.
+ * @param content The content to display inside the button.
  * @param progress The progress indicator to display.
  */
 @Composable
@@ -102,11 +104,13 @@ public fun PlayPauseButton(
  * @param modifier The modifier to apply to the button.
  * @param colorScheme The color scheme used for the button.
  * @param enabled Whether the button is enabled.
+ * @param interactionSource The [MutableInteractionSource] representing the stream of interactions for this button.
  * @param colors The colors to use for the button.
  * @param iconSize The size of the icon.
  * @param progressStrokeWidth The width of the progress indicator stroke.
  * @param indicatorColor The color of the progress indicator.
  * @param trackColor The color of the progress indicator track.
+ * @param content The content to display inside the button.
  */
 @Composable
 public fun PlayPauseProgressButton(

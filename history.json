@@ -1,6 +1,6 @@
 {
     "formatVersion": "compose-preview-history/v1",
-    "generatedFrom": "f868e7eb09a9af8c5d8603a33c734792b8092a41",
+    "generatedFrom": "7365c28e7e994a0b1e26407ceee69480d8b55a8e",
     "previews": {
         "ai:sample:wear-gemini/com.google.android.horologist.ai.sample.wear.gemini.activity.WearAppKt.DefaultPreview_Devices - Small Round": {
             "path": "renders/ai:sample:wear-gemini/DefaultPreview_Devices_Small_Round-1732729b.png",
@@ -8207,53 +8207,16 @@
             "unstable": false,
             "flapCount": 1
         },
-        "media:ui-material3/com.google.android.horologist.media.ui.material3.components.PlayPauseButtonPreviewKt.PauseButtonPreview": {
-            "path": "renders/media:ui-material3/PauseButtonPreview-8d373065.png",
-            "versions": [
-                {
-                    "blob": "2523120c7d83302732cb25925076a24799a54700",
-                    "commit": "42c575ed9ed4b1912742995ad16861f485b9e20d",
-                    "date": "2026-10-26T18:07:42Z",
-                    "sourceSha": "0b4713f3",
-                    "commits": 1
-                },
-                {
-                    "blob": "cd4b588d1ca585d740f9a7d3423baafe619f7e63",
-                    "commit": "bb0ae933c7ea83bf27155836e9d34c419da6557a",
-                    "date": "2026-08-30T09:53:05Z",
-                    "sourceSha": "3bcb483b",
-                    "commits": 1
-                }
-            ],
-            "observations": 2,
-            "unstable": false,
-            "flapCount": 0
-        },
-        "media:ui-material3/com.google.android.horologist.media.ui.material3.components.PlayPauseButtonPreviewKt.PlayButtonPreview": {
-            "path": "renders/media:ui-material3/PlayButtonPreview-26d95fbd.png",
-            "versions": [
-                {
-                    "blob": "2523120c7d83302732cb25925076a24799a54700",
-                    "commit": "42c575ed9ed4b1912742995ad16861f485b9e20d",
-                    "date": "2026-10-26T18:07:42Z",
-                    "sourceSha": "0b4713f3",
-                    "commits": 1
-                },
-                {
-                    "blob": "b5880c187ab3df7aee3c8d25bcf75ba8fc0ca01d",
-                    "commit": "bb0ae933c7ea83bf27155836e9d34c419da6557a",
-                    "date": "2026-08-30T09:53:05Z",
-                    "sourceSha": "3bcb483b",
-                    "commits": 1
-                }
-            ],
-            "observations": 2,
-            "unstable": false,
-            "flapCount": 0
-        },
         "media:ui-material3/com.google.android.horologist.media.ui.material3.components.PlayPauseButtonPreviewKt.PlayPauseProgressButtonLoadingPreview": {
             "path": "renders/media:ui-material3/PlayPauseProgressButtonLoadingPreview-b5ccface.png",
             "versions": [
+                {
+                    "blob": "2c50c8a0588eaa09f59d259f1964477bbd73e5b4",
+                    "commit": "7365c28e7e994a0b1e26407ceee69480d8b55a8e",
+                    "date": "2026-11-13T15:12:12Z",
+                    "sourceSha": "62313581",
+                    "commits": 1
+                },
                 {
                     "blob": "6e1cea118d3ebc2e4b01e1f16077e2d4ac079c05",
                     "commit": "42c575ed9ed4b1912742995ad16861f485b9e20d",
@@ -8269,9 +8232,9 @@
                     "commits": 1
                 }
             ],
-            "observations": 2,
+            "observations": 3,
             "unstable": false,
-            "flapCount": 0
+            "flapCount": 1
         },
         "media:ui-material3/com.google.android.horologist.media.ui.material3.components.PlayPauseButtonPreviewKt.PlayPauseProgressButtonPausedPreview": {
             "path": "renders/media:ui-material3/PlayPauseProgressButtonPausedPreview-00dc7ac5.png",
@@ -8402,6 +8365,13 @@
             "path": "renders/media:ui-material3/PodcastControlButtonsPlayingPreview-223c4240.png",
             "versions": [
                 {
+                    "blob": "86a086ac69ad14b719f9b7f4ec649f88bfde6b79",
+                    "commit": "7365c28e7e994a0b1e26407ceee69480d8b55a8e",
+                    "date": "2026-11-13T15:12:12Z",
+                    "sourceSha": "62313581",
+                    "commits": 1
+                },
+                {
                     "blob": "eb9fde67523ec15b73627bbdf76df8f4294459b0",
                     "commit": "bb0ae933c7ea83bf27155836e9d34c419da6557a",
                     "date": "2026-08-30T09:53:05Z",
@@ -8409,7 +8379,7 @@
                     "commits": 1
                 }
             ],
-            "observations": 1,
+            "observations": 2,
             "unstable": false,
             "flapCount": 0
         },

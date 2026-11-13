@@ -2719,28 +2719,12 @@
     "sha256": "82174bab1e9798338af92a5448e19885fb2932d5672836ce32d06ee38a1ab131",
     "sourceFile": "src/debug/java/com/google/android/horologist/media/ui/material3/components/MediaDetailsButtonPreview.kt"
   },
-  "media:ui-material3/com.google.android.horologist.media.ui.material3.components.PlayPauseButtonPreviewKt.PauseButtonPreview": {
-    "captureLabel": "",
-    "functionName": "PauseButtonPreview",
-    "module": "media:ui-material3",
-    "renderBasename": "PauseButtonPreview-8d373065.png",
-    "sha256": "3d69634cbedd016be9bd35f723129efcc236e67b779fed9cbc1a16d22a816625",
-    "sourceFile": "src/debug/java/com/google/android/horologist/media/ui/material3/components/PlayPauseButtonPreview.kt"
-  },
-  "media:ui-material3/com.google.android.horologist.media.ui.material3.components.PlayPauseButtonPreviewKt.PlayButtonPreview": {
-    "captureLabel": "",
-    "functionName": "PlayButtonPreview",
-    "module": "media:ui-material3",
-    "renderBasename": "PlayButtonPreview-26d95fbd.png",
-    "sha256": "3d69634cbedd016be9bd35f723129efcc236e67b779fed9cbc1a16d22a816625",
-    "sourceFile": "src/debug/java/com/google/android/horologist/media/ui/material3/components/PlayPauseButtonPreview.kt"
-  },
   "media:ui-material3/com.google.android.horologist.media.ui.material3.components.PlayPauseButtonPreviewKt.PlayPauseProgressButtonLoadingPreview": {
     "captureLabel": "",
     "functionName": "PlayPauseProgressButtonLoadingPreview",
     "module": "media:ui-material3",
     "renderBasename": "PlayPauseProgressButtonLoadingPreview-b5ccface.png",
-    "sha256": "42554c104f24252920b95bc4338f01f02165330796a9d909505f23854e0f8d2b",
+    "sha256": "68b1b7f22513e368a714103f87171760937524435d1e8565435f5a7e39a4777e",
     "sourceFile": "src/debug/java/com/google/android/horologist/media/ui/material3/components/PlayPauseButtonPreview.kt"
   },
   "media:ui-material3/com.google.android.horologist.media.ui.material3.components.PlayPauseButtonPreviewKt.PlayPauseProgressButtonPausedPreview": {
@@ -2796,7 +2780,7 @@
     "functionName": "PodcastControlButtonsPlayingPreview",
     "module": "media:ui-material3",
     "renderBasename": "PodcastControlButtonsPlayingPreview-223c4240.png",
-    "sha256": "0678f204fbd7822523a93012a99ba3fbbdbfc9daa96b6af04fcf5d54293c614a",
+    "sha256": "e360f1690a6a9bff6769bbf66f03b66676ce4f5d4cb25665904e37665de432aa",
     "sourceFile": "src/debug/java/com/google/android/horologist/media/ui/material3/components/PodcastControlButtonsPreview.kt"
   },
   "media:ui-material3/com.google.android.horologist.media.ui.material3.components.actions.ShowPlaylistButtonPreviewKt.ShowPlaylistButtonPreview": {

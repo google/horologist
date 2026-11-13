@@ -606,8 +606,6 @@ The render task completed but no PNG was produced for these previews. Entries wi
 | `MediaControlButtonsPausedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/MediaControlButtonsPausedPreview-fc5e9460.png" width="150" /> |
 | `MediaControlButtonsPlayingPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/MediaControlButtonsPlayingPreview-9faef776.png" width="150" /> |
 | `MediaDetailsButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/MediaDetailsButtonPreview-918a9a90.png" width="150" /> |
-| `PauseButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/PauseButtonPreview-8d373065.png" width="150" /> |
-| `PlayButtonPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/PlayButtonPreview-26d95fbd.png" width="150" /> |
 | `PlayPauseProgressButtonLoadingPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/PlayPauseProgressButtonLoadingPreview-b5ccface.png" width="150" /> |
 | `PlayPauseProgressButtonPausedPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/PlayPauseProgressButtonPausedPreview-00dc7ac5.png" width="150" /> |
 | `PlayPauseProgressButtonPlayingPreview` | <img src="https://raw.githubusercontent.com/google/horologist/compose-preview/main/renders/media:ui-material3/PlayPauseProgressButtonPlayingPreview-fa93f8dc.png" width="150" /> |

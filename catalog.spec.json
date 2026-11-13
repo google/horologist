@@ -199,16 +199,6 @@
       "section": "Media",
       "components": [
         {
-          "componentId": "PlayButton",
-          "preview": "PlayButtonPreview",
-          "caption": "Play button"
-        },
-        {
-          "componentId": "PauseButton",
-          "preview": "PauseButtonPreview",
-          "caption": "Pause button"
-        },
-        {
           "componentId": "PlayPauseButton",
           "preview": "PlayPauseButtonPreview",
           "caption": "Play/pause button"

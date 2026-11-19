@@ -7,23 +7,30 @@
 set -euo pipefail
 
 REPOSITORY="horologist--mavencentral"
+VERSION="${RELEASE_VERSION:-$(awk -F= '/^VERSION_NAME=/{print $2; exit}' gradle.properties | tr -d '[:space:]')}"
 
-# clean up stale releases from staging repo
-packages=$(gcloud artifacts packages list \
+if [ -n "${VERSION}" ]; then
+  while IFS= read -r pkg; do
+    pkg_name="${pkg##*/}"
+    [ -n "${pkg_name}" ] || continue
+    if gcloud artifacts versions describe "${VERSION}" \
+      --package="${pkg_name}" \
+      --project="oss-exit-gate-prod" \
+      --location="us" \
+      --repository="${REPOSITORY}" >/dev/null 2>&1; then
+      gcloud artifacts versions delete "${VERSION}" \
+        --package="${pkg_name}" \
+        --project="oss-exit-gate-prod" \
+        --location="us" \
+        --repository="${REPOSITORY}" \
+        --quiet
+    fi
+  done < <(gcloud artifacts packages list \
     --project="oss-exit-gate-prod" \
     --location="us" \
     --repository="${REPOSITORY}" \
     --format="value(name)" 2>/dev/null || true)
-
-echo "${packages}" | xargs -r -I {} sh -c '
-    package_name=$(basename "{}")
-    echo "Deleting package: $package_name..."
-    gcloud artifacts packages delete "{}" \
-        --project="oss-exit-gate-prod" \
-        --location="us" \
-        --repository="'"${REPOSITORY}"'" \
-        --quiet
-'
+fi
 
 OSS_EXIT_GATE_TOKEN="$(gcloud auth print-access-token)"
 export OSS_EXIT_GATE_TOKEN
@@ -33,5 +40,5 @@ export OSS_EXIT_GATE_TOKEN
 MANIFEST_FILE="$(mktemp)"
 echo '{"publish_all": true}' > "${MANIFEST_FILE}"
 gcloud storage cp "${MANIFEST_FILE}" \
-    "gs://oss-exit-gate-prod-projects-bucket/horologist/mavencentral/manifests/manifest-$(date +%s).json"
+    "gs://oss-exit-gate-prod-projects-bucket/horologist/mavencentral/manifests/manifest-${VERSION:-release}-$(date +%s).json"
 rm -f "${MANIFEST_FILE}"

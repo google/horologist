@@ -66,7 +66,7 @@ fun AnimatedLottiePlayer(
 
   // 2. Capture the document with a named "progress" variable
   val doc = rememberRemoteDocument {
-    val progressVar = rememberNamedRemoteFloat("progress") { 0f.rf }
+    val progressVar = rememberNamedRemoteFloat("progress", 0f.rf)
     LottieAnimation(
       rawRes = rawRes,
       slotMap = slotMap,

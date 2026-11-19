@@ -23,13 +23,14 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
-import androidx.compose.remote.creation.compose.action.Action
-import androidx.compose.remote.creation.compose.action.pendingIntentAction
+import androidx.compose.remote.creation.compose.action.RemoteAction
+import androidx.compose.remote.creation.compose.action.rememberPendingIntentAction
 import androidx.compose.remote.creation.compose.layout.RemoteAlignment
 import androidx.compose.remote.creation.compose.layout.RemoteArrangement
 import androidx.compose.remote.creation.compose.layout.RemoteBox
 import androidx.compose.remote.creation.compose.layout.RemoteColumn
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
+import androidx.compose.remote.creation.compose.layout.RemoteContentScale
 import androidx.compose.remote.creation.compose.layout.RemoteImage
 import androidx.compose.remote.creation.compose.layout.RemoteRow
 import androidx.compose.remote.creation.compose.modifier.RemoteModifier
@@ -45,6 +46,7 @@ import androidx.compose.remote.creation.compose.shapes.RemoteRoundedCornerShape
 import androidx.compose.remote.creation.compose.state.RemoteImageBitmap
 import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rdp
+import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.remote.creation.compose.state.rs
 import androidx.compose.remote.creation.compose.state.rsp
 import androidx.compose.runtime.Composable
@@ -84,7 +86,7 @@ import kotlinx.coroutines.flow.first
 private val LabelFontWeight = FontWeight(550)
 
 /** Artwork shown on a large-widget tile. */
-data class PlaylistItemInfo(val name: String, val artwork: ImageBitmap?, val action: Action)
+data class PlaylistItemInfo(val name: String, val artwork: ImageBitmap?, val action: RemoteAction)
 
 /**
  * A Widget providing links to playlists, following the Media partial-height widget mocks.
@@ -156,7 +158,7 @@ class MediaCollectionsWidget(
     return WearWidgetDocument(background = WearWidgetBrush.color(UampColors.surfaceContainer.rc)) {
       LargeMediaCollectionContent(
         browseLabel = browseLabel,
-        appAction = pendingIntentAction { ctx -> createAppPendingIntent(ctx) },
+        appAction = rememberPendingIntentAction { ctx -> createAppPendingIntent(ctx) },
         appLogo = appLogo,
         tiles =
           topPlaylists.mapIndexed { index, playlist ->
@@ -178,13 +180,13 @@ class MediaCollectionsWidget(
     return WearWidgetDocument(
       background = WearWidgetBrush.color(remoteColorScheme.surfaceContainerLow)
     ) {
-      val appAction = pendingIntentAction { ctx -> createAppPendingIntent(ctx) }
+      val appAction = rememberPendingIntentAction { ctx -> createAppPendingIntent(ctx) }
       RemoteColumn(
         modifier = RemoteModifier.fillMaxSize().padding(4.rdp),
         verticalArrangement = RemoteArrangement.spacedBy(4.rdp),
       ) {
         RemoteBox(
-          modifier = RemoteModifier.weight(1f).fillMaxWidth(),
+          modifier = RemoteModifier.weight(1f.rf).fillMaxWidth(),
           contentAlignment = RemoteAlignment.Center,
         ) {
           RemoteText(
@@ -197,7 +199,7 @@ class MediaCollectionsWidget(
         }
         RemoteRow(
           modifier =
-            RemoteModifier.weight(1f)
+            RemoteModifier.weight(1f.rf)
               .fillMaxWidth()
               .clip(RemoteRoundedCornerShape(28.rdp))
               .background(UampColors.primary.rc)
@@ -232,8 +234,8 @@ class MediaCollectionsWidget(
   }
 
   @Composable
-  private fun playlistAction(requestCode: Int, playlistId: String): Action =
-    pendingIntentAction { ctx ->
+  private fun playlistAction(requestCode: Int, playlistId: String): RemoteAction =
+    rememberPendingIntentAction { ctx ->
       PendingIntent.getActivity(
         ctx,
         requestCode,
@@ -283,7 +285,7 @@ private fun Bitmap.withScrim(scrim: Color): Bitmap =
 @Composable
 fun SmallMediaCollectionContent(
   playlistName: String,
-  playlistAction: Action,
+  playlistAction: RemoteAction,
   appLogo: ImageBitmap?,
   tintedArtwork: Bitmap?,
 ) {
@@ -312,7 +314,7 @@ fun SmallMediaCollectionContent(
 @Composable
 fun LargeMediaCollectionContent(
   browseLabel: String,
-  appAction: Action,
+  appAction: RemoteAction,
   appLogo: ImageBitmap?,
   tiles: List<PlaylistItemInfo>,
 ) {
@@ -321,19 +323,19 @@ fun LargeMediaCollectionContent(
     verticalArrangement = RemoteArrangement.spacedBy(4.rdp),
   ) {
     RemoteRow(
-      modifier = RemoteModifier.weight(1f).fillMaxWidth(),
+      modifier = RemoteModifier.weight(1f.rf).fillMaxWidth(),
       horizontalArrangement = RemoteArrangement.spacedBy(4.rdp),
     ) {
       for (index in 0 until MediaCollectionsWidget.LARGE_TILE_COUNT) {
         PlaylistArtworkTile(
           tile = tiles.getOrNull(index),
-          modifier = RemoteModifier.weight(1f).fillMaxHeight(),
+          modifier = RemoteModifier.weight(1f.rf).fillMaxHeight(),
         )
       }
     }
     RemoteRow(
       modifier =
-        RemoteModifier.weight(1f)
+        RemoteModifier.weight(1f.rf)
           .fillMaxWidth()
           .clip(RemoteRoundedCornerShape(28.rdp))
           .background(UampColors.primary.rc)
@@ -359,7 +361,7 @@ fun LargeMediaCollectionContent(
 @Composable
 private fun AppLogo(appLogo: ImageBitmap) {
   RemoteImage(
-    remoteBitmap = RemoteImageBitmap(appLogo),
+    bitmap = RemoteImageBitmap(appLogo),
     contentDescription = null,
     modifier =
       RemoteModifier.size(MediaCollectionsWidget.APP_LOGO_SIZE_DP.rdp)
@@ -379,10 +381,10 @@ private fun PlaylistArtworkTile(tile: PlaylistItemInfo?, modifier: RemoteModifie
   ) {
     if (tile?.artwork != null) {
       RemoteImage(
-        remoteBitmap = RemoteImageBitmap(tile.artwork),
+        bitmap = RemoteImageBitmap(tile.artwork),
         contentDescription = tile.name.rs,
         modifier = RemoteModifier.fillMaxSize(),
-        contentScale = ContentScale.Crop,
+        contentScale = RemoteContentScale.Crop,
       )
     }
   }

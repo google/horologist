@@ -2132,7 +2132,7 @@
     "functionName": "ActiveDurationTextCustomSeparatorPreview",
     "module": "health:composables",
     "renderBasename": "ActiveDurationTextCustomSeparatorPreview-aa73e1a7.png",
-    "sha256": "370bd0b442d9ed4dd38633add659a2e056f0e5b81fa82a71f194d6480f627f27",
+    "sha256": "54a7218beb431300488a91a378d3167d056a8f0c55de29b86a618cbfac9934d7",
     "sourceFile": "src/main/java/com/google/android/horologist/health/composables/ActiveDurationText.kt"
   },
   "health:composables/com.google.android.horologist.health.composables.ActiveDurationTextKt.ActiveDurationTextPreview": {
@@ -2140,7 +2140,7 @@
     "functionName": "ActiveDurationTextPreview",
     "module": "health:composables",
     "renderBasename": "ActiveDurationTextPreview-60a6e2dd.gif",
-    "sha256": "985e741f6add9758387d32183b321987865d4ff2cd03795f1195f5ab6558064d",
+    "sha256": "b107b9fc92c49d2642699c357e5e0ffbe202283c4ab12cb63c7c496f2df7c240",
     "sourceFile": "src/main/java/com/google/android/horologist/health/composables/ActiveDurationText.kt"
   },
   "health:composables/com.google.android.horologist.health.composables.components.MetricDisplayPreviewKt.MetricDisplayPreview": {

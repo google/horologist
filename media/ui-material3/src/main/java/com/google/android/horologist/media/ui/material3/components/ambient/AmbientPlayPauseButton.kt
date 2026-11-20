@@ -36,14 +36,14 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.graphics.shapes.toPath
 import androidx.wear.compose.material3.ColorScheme
+import androidx.wear.compose.material3.FilledIconButton
 import androidx.wear.compose.material3.IconButtonDefaults
 import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.media.ui.material3.colorscheme.DisabledContainerAlpha
 import com.google.android.horologist.media.ui.material3.colorscheme.toDisabledColor
+import com.google.android.horologist.media.ui.material3.components.PlayPauseButtonContent
 import com.google.android.horologist.media.ui.material3.components.PlayPauseButtonDefaults
 import com.google.android.horologist.media.ui.material3.components.animated.scaleToSize
-import com.google.android.horologist.media.ui.material3.components.controls.PauseButton
-import com.google.android.horologist.media.ui.material3.components.controls.PlayButton
 import com.google.android.horologist.media.ui.material3.util.LARGE_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
 import com.google.android.horologist.media.ui.material3.util.MIDDLE_BUTTON_PROGRESS_STROKE_WIDTH
 import com.google.android.horologist.media.ui.material3.util.SMALL_DEVICE_PLAYER_SCREEN_MIDDLE_BUTTON_SIZE
@@ -132,24 +132,13 @@ public fun AmbientPlayPauseButton(
       },
     contentAlignment = Alignment.Center,
   ) {
-    if (playing) {
-      PauseButton(
-        onClick = onPauseClick,
-        enabled = enabled,
-        modifier = Modifier,
-        colorScheme = colorScheme,
-        iconSize = iconSize,
-        colors = iconButtonColors,
-      )
-    } else {
-      PlayButton(
-        onClick = onPlayClick,
-        enabled = enabled,
-        modifier = Modifier,
-        colorScheme = colorScheme,
-        iconSize = iconSize,
-        colors = iconButtonColors,
-      )
+    FilledIconButton(
+      onClick = if (playing) onPauseClick else onPlayClick,
+      enabled = enabled,
+      modifier = Modifier,
+      colors = iconButtonColors,
+    ) {
+      PlayPauseButtonContent(playing = playing, iconSize = iconSize)
     }
   }
 }

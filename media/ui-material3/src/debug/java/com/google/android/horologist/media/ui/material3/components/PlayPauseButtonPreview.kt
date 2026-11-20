@@ -22,8 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.wear.compose.material3.MaterialTheme
 import com.google.android.horologist.compose.tools.WearPreview
-import com.google.android.horologist.media.ui.material3.components.controls.PauseButton
-import com.google.android.horologist.media.ui.material3.components.controls.PlayButton
 import com.google.android.horologist.media.ui.state.model.TrackPositionUiModel
 import kotlin.time.Duration.Companion.seconds
 
@@ -67,16 +65,4 @@ fun PlayPauseProgressButtonLoadingPreview() {
       modifier = Modifier.size(60.dp),
     )
   }
-}
-
-@WearPreview
-@Composable
-fun PlayButtonPreview() {
-  MaterialTheme { PlayButton(onClick = {}) }
-}
-
-@WearPreview
-@Composable
-fun PauseButtonPreview() {
-  MaterialTheme { PauseButton(onClick = {}) }
 }

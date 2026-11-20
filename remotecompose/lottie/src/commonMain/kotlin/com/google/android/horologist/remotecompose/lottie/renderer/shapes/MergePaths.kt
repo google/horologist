@@ -34,7 +34,7 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.Re
  * either contour concatenation (Merge) or boolean path operations (Add, Subtract, Intersect,
  * ExcludeIntersections).
  */
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // remote-core
 internal fun evaluateMergePaths(
   shapes: List<RemoteShape>,
   mergePaths: MergePaths,
@@ -124,7 +124,6 @@ private fun concatenateOperands(
   return RemoteLottiePath(shapes.flatMap { (it as RemoteLottiePath).path }, fillRule)
 }
 
-@Suppress("RestrictedApi")
 internal fun shapeToBezierValues(shape: RemoteShape): List<RemoteBezierValue> {
   return when (shape) {
     is RemoteBooleanPath -> error("A live boolean result cannot be converted to Bezier vertices")

@@ -19,6 +19,7 @@ package com.google.android.horologist.remotecompose.lottie
 import android.content.Context
 import androidx.compose.remote.creation.compose.state.RemoteBoolean
 import androidx.compose.remote.creation.compose.state.RemoteFloat
+import androidx.compose.remote.creation.compose.state.asConstantColorOrNull
 import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.ui.graphics.Color
@@ -401,13 +402,13 @@ class ParsingTest {
     assertThat(gradientValue.colorStops).hasSize(2)
     assertThat(gradientValue.transparencyStops).isEmpty()
 
-    val colorStart = gradientValue.getColorForPosition(0f).constantValueOrNull?.let(::Color)
+    val colorStart = gradientValue.getColorForPosition(0f).asConstantColorOrNull()
     assertThat(colorStart?.red).isEqualTo(1f)
     assertThat(colorStart?.green).isEqualTo(0f)
     assertThat(colorStart?.blue).isEqualTo(0f)
     assertThat(colorStart?.alpha).isEqualTo(1f)
 
-    val colorEnd = gradientValue.getColorForPosition(1f).constantValueOrNull?.let(::Color)
+    val colorEnd = gradientValue.getColorForPosition(1f).asConstantColorOrNull()
     assertThat(colorEnd?.red).isEqualTo(0f)
     assertThat(colorEnd?.green).isEqualTo(1f)
     assertThat(colorEnd?.blue).isEqualTo(0f)
@@ -423,11 +424,11 @@ class ParsingTest {
     assertThat(gradientValue.colorStops).hasSize(2)
     assertThat(gradientValue.transparencyStops).hasSize(2)
 
-    val colorStart = gradientValue.getColorForPosition(0f).constantValueOrNull?.let(::Color)
+    val colorStart = gradientValue.getColorForPosition(0f).asConstantColorOrNull()
     assertThat(colorStart?.red).isEqualTo(1f)
     assertThat(colorStart?.alpha).isEqualTo(1f)
 
-    val colorEnd = gradientValue.getColorForPosition(1f).constantValueOrNull?.let(::Color)
+    val colorEnd = gradientValue.getColorForPosition(1f).asConstantColorOrNull()
     assertThat(colorEnd?.green).isEqualTo(1f)
     assertThat(colorEnd?.alpha).isWithin(0.01f).of(0.5f)
   }
@@ -440,7 +441,7 @@ class ParsingTest {
 
     assertThat(gradientValue.colorStops).hasSize(3)
     assertThat(gradientValue.transparencyStops).isEmpty()
-    val colorMid = gradientValue.getColorForPosition(0.5f).constantValueOrNull?.let(::Color)
+    val colorMid = gradientValue.getColorForPosition(0.5f).asConstantColorOrNull()
     assertThat(colorMid?.green).isEqualTo(1f)
   }
 
@@ -449,10 +450,10 @@ class ParsingTest {
     val json = "[0.0, 255.0, 0.0, 0.0, 1.0, 0.0, 255.0, 0.0, 0.0, 255.0, 1.0, 128.0]"
     val gradientValue =
       LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
-    val colorStart = gradientValue.getColorForPosition(0f).constantValueOrNull?.let(::Color)
+    val colorStart = gradientValue.getColorForPosition(0f).asConstantColorOrNull()
     assertThat(colorStart?.red).isEqualTo(1f)
     assertThat(colorStart?.alpha).isEqualTo(1f)
-    val colorEnd = gradientValue.getColorForPosition(1f).constantValueOrNull?.let(::Color)
+    val colorEnd = gradientValue.getColorForPosition(1f).asConstantColorOrNull()
     assertThat(colorEnd?.green).isEqualTo(1f)
     assertThat(colorEnd?.alpha).isWithin(0.01f).of(128f / 255f)
   }
@@ -461,7 +462,7 @@ class ParsingTest {
   @Test
   fun gradientValue_getColorForPosition_returnsTransparentWhenDegenerate() {
     val gradient = GradientValue(emptyList(), emptyList())
-    val color = gradient.getColorForPosition(0.5f).constantValueOrNull?.let(::Color)
+    val color = gradient.getColorForPosition(0.5f).asConstantColorOrNull()
     assertThat(color?.alpha).isEqualTo(0f)
   }
 
@@ -473,15 +474,15 @@ class ParsingTest {
         colorStops = listOf(ColorStop(0f, Color(1f, 0f, 0f).rc)),
         transparencyStops = emptyList(),
       )
-    val color = gradient.getColorForPosition(0.5f).constantValueOrNull?.let(::Color)
+    val color = gradient.getColorForPosition(0.5f).asConstantColorOrNull()
     assertThat(color?.red).isEqualTo(1f)
     assertThat(color?.green).isEqualTo(0f)
     assertThat(color?.blue).isEqualTo(0f)
     assertThat(color?.alpha).isEqualTo(1f)
 
-    val colorBelow = gradient.getColorForPosition(-0.5f).constantValueOrNull?.let(::Color)
+    val colorBelow = gradient.getColorForPosition(-0.5f).asConstantColorOrNull()
     assertThat(colorBelow?.red).isEqualTo(1f)
-    val colorAbove = gradient.getColorForPosition(1.5f).constantValueOrNull?.let(::Color)
+    val colorAbove = gradient.getColorForPosition(1.5f).asConstantColorOrNull()
     assertThat(colorAbove?.red).isEqualTo(1f)
   }
 
@@ -495,33 +496,33 @@ class ParsingTest {
       LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
     // Underflow clamped to start stop
-    val underflow = gradient.getColorForPosition(-0.2f).constantValueOrNull?.let(::Color)
+    val underflow = gradient.getColorForPosition(-0.2f).asConstantColorOrNull()
     assertThat(underflow?.red).isEqualTo(0f)
     assertThat(underflow?.alpha).isEqualTo(1f)
 
     // Exact lower bound
-    val start = gradient.getColorForPosition(0.0f).constantValueOrNull?.let(::Color)
+    val start = gradient.getColorForPosition(0.0f).asConstantColorOrNull()
     assertThat(start?.red).isEqualTo(0f)
     assertThat(start?.green).isEqualTo(0f)
     assertThat(start?.blue).isEqualTo(0f)
     assertThat(start?.alpha).isEqualTo(1f)
 
     // Midpoint linear interpolation
-    val mid = gradient.getColorForPosition(0.5f).constantValueOrNull?.let(::Color)
+    val mid = gradient.getColorForPosition(0.5f).asConstantColorOrNull()
     assertThat(mid?.red).isWithin(0.01f).of(0.5f)
     assertThat(mid?.green).isWithin(0.01f).of(0.5f)
     assertThat(mid?.blue).isWithin(0.01f).of(0.5f)
     assertThat(mid?.alpha).isEqualTo(1f)
 
     // Exact upper bound
-    val end = gradient.getColorForPosition(1.0f).constantValueOrNull?.let(::Color)
+    val end = gradient.getColorForPosition(1.0f).asConstantColorOrNull()
     assertThat(end?.red).isEqualTo(1f)
     assertThat(end?.green).isEqualTo(1f)
     assertThat(end?.blue).isEqualTo(1f)
     assertThat(end?.alpha).isEqualTo(1f)
 
     // Overflow clamped to end stop
-    val overflow = gradient.getColorForPosition(1.2f).constantValueOrNull?.let(::Color)
+    val overflow = gradient.getColorForPosition(1.2f).asConstantColorOrNull()
     assertThat(overflow?.red).isEqualTo(1f)
     assertThat(overflow?.alpha).isEqualTo(1f)
   }
@@ -535,13 +536,13 @@ class ParsingTest {
       LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 3), json)
 
     // At 0.25 (between Red and Green): r=0.5, g=0.5, b=0.0
-    val firstHalf = gradient.getColorForPosition(0.25f).constantValueOrNull?.let(::Color)
+    val firstHalf = gradient.getColorForPosition(0.25f).asConstantColorOrNull()
     assertThat(firstHalf?.red).isWithin(0.01f).of(0.5f)
     assertThat(firstHalf?.green).isWithin(0.01f).of(0.5f)
     assertThat(firstHalf?.blue).isEqualTo(0f)
 
     // At 0.75 (between Green and Blue): r=0.0, g=0.5, b=0.5
-    val secondHalf = gradient.getColorForPosition(0.75f).constantValueOrNull?.let(::Color)
+    val secondHalf = gradient.getColorForPosition(0.75f).asConstantColorOrNull()
     assertThat(secondHalf?.red).isEqualTo(0f)
     assertThat(secondHalf?.green).isWithin(0.01f).of(0.5f)
     assertThat(secondHalf?.blue).isWithin(0.01f).of(0.5f)
@@ -555,7 +556,7 @@ class ParsingTest {
     val gradient =
       LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
-    val mid = gradient.getColorForPosition(0.5f).constantValueOrNull?.let(::Color)
+    val mid = gradient.getColorForPosition(0.5f).asConstantColorOrNull()
     assertThat(mid?.red).isWithin(0.01f).of(0.5f)
     assertThat(mid?.blue).isWithin(0.01f).of(0.5f)
     assertThat(mid?.alpha).isWithin(0.01f).of(0.5f)
@@ -580,15 +581,15 @@ class ParsingTest {
       LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
     // Position 0.1: below opacity start (0.25), clamped to 0.8
-    val c01 = gradient.getColorForPosition(0.1f).constantValueOrNull?.let(::Color)
+    val c01 = gradient.getColorForPosition(0.1f).asConstantColorOrNull()
     assertThat(c01?.alpha).isWithin(0.01f).of(0.8f)
 
     // Position 0.5: midpoint of opacity [0.25, 0.75] -> 0.6
-    val c05 = gradient.getColorForPosition(0.5f).constantValueOrNull?.let(::Color)
+    val c05 = gradient.getColorForPosition(0.5f).asConstantColorOrNull()
     assertThat(c05?.alpha).isWithin(0.01f).of(0.6f)
 
     // Position 0.9: above opacity end (0.75), clamped to 0.4
-    val c09 = gradient.getColorForPosition(0.9f).constantValueOrNull?.let(::Color)
+    val c09 = gradient.getColorForPosition(0.9f).asConstantColorOrNull()
     assertThat(c09?.alpha).isWithin(0.01f).of(0.4f)
   }
 
@@ -610,11 +611,11 @@ class ParsingTest {
     val gradient =
       LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
-    val c0 = gradient.getColorForPosition(0.0f).constantValueOrNull?.let(::Color)
+    val c0 = gradient.getColorForPosition(0.0f).asConstantColorOrNull()
     assertThat(c0?.red).isEqualTo(1f)
     assertThat(c0?.alpha).isEqualTo(1f)
 
-    val c1 = gradient.getColorForPosition(1.0f).constantValueOrNull?.let(::Color)
+    val c1 = gradient.getColorForPosition(1.0f).asConstantColorOrNull()
     assertThat(c1?.green).isEqualTo(1f)
     assertThat(c1?.alpha).isWithin(0.01f).of(128f / 255f)
   }

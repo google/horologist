@@ -27,7 +27,6 @@ import androidx.compose.remote.creation.compose.state.RemotePaintingStyle
 import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.compose.remote.creation.compose.state.rs
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.remote.creation.compose.text.RemoteTypeface
 import androidx.compose.runtime.Composable
 import com.google.android.horologist.remotecompose.lottie.LocalAnimationSettings
@@ -61,7 +60,7 @@ internal fun parseColorFromList(list: List<Float>): RemoteColor {
 }
 
 /** A Layer rendering vector typographic text or glyph shapes. */
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // selectIfLt
 @Composable
 @RemoteComposable
 internal fun TextLayer(
@@ -83,10 +82,10 @@ internal fun TextLayer(
   for ((index, keyframe) in documents.withIndex()) {
     val start =
       if (index == 0) 1f.rf
-      else selectIfLt(animationSettings.currentFrame, (keyframe.time ?: 0f).rf, 0f.rf, 1f.rf)
+      else animationSettings.currentFrame.isLessThan((keyframe.time ?: 0f).rf).select(0f.rf, 1f.rf)
     val end =
       documents.getOrNull(index + 1)?.let {
-        selectIfLt(animationSettings.currentFrame, (it.time ?: 0f).rf, 1f.rf, 0f.rf)
+        animationSettings.currentFrame.isLessThan((it.time ?: 0f).rf).select(1f.rf, 0f.rf)
       } ?: 1f.rf
     RenderTextDocument(
       layer,
@@ -98,7 +97,7 @@ internal fun TextLayer(
   }
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteCanvas, RemoteDrawScope.remoteCanvas, RemoteFloat.div(Float)
 @Composable
 @RemoteComposable
 private fun RenderTextDocument(
@@ -119,7 +118,7 @@ private fun RenderTextDocument(
 
   val layerOpacity =
     (updatedTransformStack.lastOrNull()?.opacity?.let {
-      animateScalar(it, animationSettings) / 100f
+      animateScalar(it, animationSettings) / 100f.rf
     } ?: 1f.rf) * layerVisibility
 
   val fontSize = currentDoc.fontSize

@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-@file:Suppress("INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
-
 package com.google.android.horologist.remotecompose.lottie.renderer
 
 import androidx.compose.remote.core.operations.paint.PaintBundle
 import androidx.compose.remote.core.operations.paint.PaintPathEffects
 import androidx.compose.remote.creation.compose.layout.RemoteCanvas
 import androidx.compose.remote.creation.compose.shaders.RemoteLinearShader
-import androidx.compose.remote.creation.compose.shaders.RemoteRadialShader
 import androidx.compose.remote.creation.compose.shaders.RemoteShader
 import androidx.compose.remote.creation.compose.state.RemoteColor
 import androidx.compose.remote.creation.compose.state.RemoteFloat
@@ -35,7 +32,6 @@ import androidx.compose.remote.creation.compose.state.lerp
 import androidx.compose.remote.creation.compose.state.max
 import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.remote.creation.compose.state.sqrt
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.FillRule
@@ -57,7 +53,6 @@ internal interface RemoteStyle {
   fun getPaint(inheritedOpacity: RemoteFloat = 1f.rf): RemotePaint
 }
 
-@Suppress("RestrictedApi")
 internal class RemoteStyleWithOpacity(
   val baseStyle: RemoteStyle,
   val opacityMultiplier: RemoteFloat,
@@ -73,7 +68,6 @@ internal class RemoteStyleWithOpacity(
   }
 }
 
-@Suppress("RestrictedApi")
 internal class RemoteFill(
   val fillColor: RemoteColor,
   val opacity: RemoteFloat = 100f.rf,
@@ -81,13 +75,12 @@ internal class RemoteFill(
 ) : RemoteStyle {
   override fun getPaint(inheritedOpacity: RemoteFloat): RemotePaint {
     return RemotePaint {
-      val effectiveAlpha = fillColor.alpha * (opacity / 100f) * inheritedOpacity
+      val effectiveAlpha = fillColor.alpha * (opacity / 100f.rf) * inheritedOpacity
       this.color = fillColor.copy(alpha = effectiveAlpha)
     }
   }
 }
 
-@Suppress("RestrictedApi")
 internal class RemoteStroke(
   val strokeColor: RemoteColor,
   val strokeWidth: RemoteFloat,
@@ -99,8 +92,9 @@ internal class RemoteStroke(
 ) : RemoteStyle {
   override fun getPaint(inheritedOpacity: RemoteFloat): RemotePaint {
     return RemotePaint {
-      val baseAlpha = strokeColor.alpha * (opacity / 100f) * inheritedOpacity
-      val effectiveAlpha = selectIfLt(this@RemoteStroke.strokeWidth, 0.001f.rf, 0f.rf, baseAlpha)
+      val baseAlpha = strokeColor.alpha * (opacity / 100f.rf) * inheritedOpacity
+      val effectiveAlpha =
+        this@RemoteStroke.strokeWidth.isLessThan(0.001f.rf).select(0f.rf, baseAlpha)
       this.color = strokeColor.copy(alpha = effectiveAlpha)
       this.style = RemotePaintingStyle.Stroke
       this.strokeWidth = this@RemoteStroke.strokeWidth
@@ -120,7 +114,7 @@ internal class RemoteStroke(
   }
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemotePaint.shader
 internal class RemoteGradientFill(
   val gradient: RemoteGradientValue,
   val startPoint: Point,
@@ -145,7 +139,7 @@ internal class RemoteGradientFill(
   }
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemotePaint.shader
 internal class RemoteGradientStroke(
   val gradient: RemoteGradientValue,
   val startPoint: Point,
@@ -161,7 +155,7 @@ internal class RemoteGradientStroke(
   override fun getPaint(inheritedOpacity: RemoteFloat): RemotePaint {
     return RemotePaint {
       val effectiveOpacity =
-        selectIfLt(this@RemoteGradientStroke.strokeWidth, 0.001f.rf, 0f.rf, 1f.rf) * opacity
+        this@RemoteGradientStroke.strokeWidth.isLessThan(0.001f.rf).select(0f.rf, 1f.rf) * opacity
       this.style = RemotePaintingStyle.Stroke
       this.strokeWidth = this@RemoteGradientStroke.strokeWidth
       this.strokeCap =
@@ -192,10 +186,17 @@ internal class RemoteGradientStroke(
 /** Dashes are serialized explicitly: alpha19's Compose paint tracker drops PathEffect. */
 internal data class RemoteDash(val intervals: List<RemoteFloat>, val phase: RemoteFloat)
 
-@Suppress("RestrictedApi")
+@Suppress(
+  "RestrictedApi", // remote-core, remote-creation-core, RemoteCanvas, RemoteComposeCreationState,
+  // RemoteDrawScope.remoteComposeCreationState,
+  // RemoteFloat.getFloatIdForCreationState
+  "INVISIBLE_REFERENCE",
+  "INVISIBLE_MEMBER", // CanvasOperationBuffer, RemoteCanvas.buffer, RemoteCanvas.recordRenderingOp
+)
 internal fun RemoteCanvas.applyStrokeDetails(style: RemoteStyle?) {
   val dash = style?.dashPattern
   val miter = style?.miterLimit ?: 4f.rf
+  val creationState = drawScope.remoteComposeCreationState
   val op = recordRenderingOp {
     val bundle = PaintBundle()
     // RemotePaint does not expose miter limits. Serialize the live value explicitly,
@@ -219,7 +220,6 @@ internal fun RemoteCanvas.applyStrokeDetails(style: RemoteStyle?) {
   if (dash != null) buffer.addRoots(op, dash.phase, *dash.intervals.toTypedArray())
 }
 
-@Suppress("RestrictedApi")
 internal fun createDashPathEffect(
   dashes: List<StrokeDash>?,
   animationSettings: LottieSettings,
@@ -237,7 +237,11 @@ internal fun createDashPathEffect(
   return RemoteDash(if (intervals.size % 2 == 0) intervals else intervals + intervals, phase)
 }
 
-@Suppress("RestrictedApi")
+@Suppress(
+  "RestrictedApi", // RemoteLinearShader, RemoteShader
+  "INVISIBLE_REFERENCE",
+  "INVISIBLE_MEMBER", // RemoteRadialShader
+)
 private fun createGradientShader(
   gradient: RemoteGradientValue,
   startPoint: Point,
@@ -263,7 +267,7 @@ private fun createGradientShader(
       val dx = endPoint.x - startPoint.x
       val dy = endPoint.y - startPoint.y
       val radius = sqrt((dx * dx) + (dy * dy))
-      RemoteRadialShader(
+      androidx.compose.remote.creation.compose.shaders.RemoteRadialShader(
         centerX = startPoint.x,
         centerY = startPoint.y,
         radius = radius,
@@ -275,13 +279,12 @@ private fun createGradientShader(
   }
 }
 
-@Suppress("RestrictedApi")
 private fun extractGradientColorsAndPositions(
   gradient: RemoteGradientValue,
   opacity: RemoteFloat,
   inheritedOpacity: RemoteFloat,
 ): Pair<List<RemoteColor>, List<RemoteFloat>> {
-  val effectiveBaseOpacity = (opacity / 100f) * inheritedOpacity
+  val effectiveBaseOpacity = (opacity / 100f.rf) * inheritedOpacity
   val values = gradient.values
   val requestedCount = if (gradient.numberOfColors > 0) gradient.numberOfColors else values.size / 4
 
@@ -344,7 +347,6 @@ private data class GradientShaderStop(val offset: RemoteFloat, val rgba: List<Re
  * Samples a channel with equally sized values and nondecreasing positions. Empty means opaque;
  * out-of-range samples clamp to the endpoints, and coincident stops select the later value.
  */
-@Suppress("RestrictedApi")
 private fun sampleGradientChannel(
   offset: RemoteFloat,
   positions: List<RemoteFloat>,
@@ -355,16 +357,15 @@ private fun sampleGradientChannel(
   for (index in positions.size - 2 downTo 0) {
     val width = positions[index + 1] - positions[index]
     // Protect even unselected expression branches from division by zero at coincident stops.
-    val safeWidth = selectIfLt(0f.rf, width, width, 1f.rf)
+    val safeWidth = 0f.rf.isLessThan(width).select(width, 1f.rf)
     val fraction = (offset - positions[index]) / safeWidth
     val interpolated = lerp(values[index], values[index + 1], fraction)
-    result = selectIfLt(offset, positions[index + 1], interpolated, result)
+    result = offset.isLessThan(positions[index + 1]).select(interpolated, result)
   }
-  return selectIfLt(offset, positions.first(), values.first(), result)
+  return offset.isLessThan(positions.first()).select(values.first(), result)
 }
 
 /** Keeps the union ordered during playback, including when an opacity stop crosses an RGB stop. */
-@Suppress("RestrictedApi")
 private fun sortGradientStops(stops: List<GradientShaderStop>): List<GradientShaderStop> {
   if (stops.all { it.offset.constantValueOrNull != null }) {
     return stops.sortedBy { it.offset.constantValue }
@@ -376,7 +377,7 @@ private fun sortGradientStops(stops: List<GradientShaderStop>): List<GradientSha
     for (j in index downTo 1) {
       val left = sorted[j - 1]
       val right = sorted[j]
-      fun select(a: RemoteFloat, b: RemoteFloat) = selectIfLt(right.offset, left.offset, b, a)
+      fun select(a: RemoteFloat, b: RemoteFloat) = right.offset.isLessThan(left.offset).select(b, a)
       sorted[j - 1] =
         GradientShaderStop(
           select(left.offset, right.offset),

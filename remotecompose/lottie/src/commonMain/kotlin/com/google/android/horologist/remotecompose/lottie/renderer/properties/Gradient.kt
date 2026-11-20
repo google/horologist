@@ -19,7 +19,6 @@ package com.google.android.horologist.remotecompose.lottie.renderer.properties
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.lerp
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedGradientProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseGradientProperty
@@ -45,7 +44,6 @@ internal fun GradientValue.toRemote(): RemoteGradientValue {
   return RemoteGradientValue(numberOfColors = numberOfColors, values = values.map { it.rf })
 }
 
-@Suppress("RestrictedApi")
 internal fun animateGradient(
   gradient: BaseGradientProperty,
   animationSettings: LottieSettings,
@@ -83,7 +81,7 @@ internal fun animateGradient(
         val startKeyframe = gradient.keyframes[i]
         val endKeyframe = gradient.keyframes[i + 1]
         val duration = endKeyframe.frame - startKeyframe.frame
-        val frameInAnimation = animationSettings.currentFrame - startKeyframe.frame
+        val frameInAnimation = animationSettings.currentFrame - startKeyframe.frame.rf
 
         val startGradient = startKeyframe.value.firstOrNull() ?: firstVal
         val endGradient = endKeyframe.value.firstOrNull() ?: startGradient
@@ -92,7 +90,7 @@ internal fun animateGradient(
           if (startKeyframe.hold?.constantValue == true) {
             startGradient.values.mapIndexed { index, startCoord ->
               val endCoord = endGradient.values.getOrElse(index) { startCoord }
-              selectIfLt(frameInAnimation, duration.rf, startCoord.rf, endCoord.rf)
+              frameInAnimation.isLessThan(duration.rf).select(startCoord.rf, endCoord.rf)
             }
           } else {
             val outTangent = startKeyframe.outTangent ?: scalarLinearEasingOut
@@ -123,7 +121,6 @@ internal fun animateGradient(
   }
 }
 
-@Suppress("RestrictedApi")
 private fun chainGradientAnimation(
   segments: List<GradientAnimationSegment>,
   frame: RemoteFloat,
@@ -138,6 +135,6 @@ private fun chainGradientAnimation(
 
   return firstSegment.value.mapIndexed { index, coordVal ->
     val remainingVal = remainingChained.getOrElse(index) { coordVal }
-    selectIfLt(frame, nextStartFrame, coordVal, remainingVal)
+    frame.isLessThan(nextStartFrame).select(coordVal, remainingVal)
   }
 }

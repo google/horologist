@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi", "INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+@file:Suppress(
+  "RestrictedApi", // remote-core, remote-creation-core, remote-player-compose, remote-player-view, RemoteCanvas, RemoteComposeCreationState, RemoteDrawScope.remoteCanvas, RemoteDrawScope.remoteComposeCreationState, RemoteFloat.getFloatIdForCreationState, rememberRemoteDocument
+  "INVISIBLE_REFERENCE",
+  "INVISIBLE_MEMBER", // CanvasOperationBuffer, RemoteCanvas.buffer, RemoteCanvas.recordRenderingOp
+)
 
 package com.google.android.horologist.remotecompose.lottie
 
@@ -70,26 +74,26 @@ class RuntimeFunctionPlaybackTest : MotionPixelHarness() {
             val canvas = remoteCanvas
             val op = canvas.recordRenderingOp {
               recordings++
-              val writer = canvas.creationState.document
+              val writer = document
               if (wrapped) {
                 val results = wrappedFunction(listOf(input))
                 val composed = wrappedFunction(listOf(results[0]))[0]
                 for ((suffix, value) in
                   listOf("first" to results[0], "second" to results[1], "composed" to composed)) {
                   writer.setFloatName(
-                    value.getIdForCreationState(canvas.creationState),
+                    value.getIdForCreationState(remoteComposeCreationState),
                     name(suffix),
                   )
                 }
                 writer.drawRect(
                   0f,
                   0f,
-                  results[0].getFloatIdForCreationState(canvas.creationState),
+                  results[0].getFloatIdForCreationState(remoteComposeCreationState),
                   8f,
                 )
                 return@recordRenderingOp
               }
-              val x = input.getFloatIdForCreationState(canvas.creationState)
+              val x = input.getFloatIdForCreationState(remoteComposeCreationState)
               val args = FloatArray(1)
               val function = writer.createFloatFunction(args)
               val result =

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
-
 package com.google.android.horologist.remotecompose.lottie.renderer.shapes
 
 import androidx.compose.remote.creation.compose.state.RemoteFloat
@@ -24,9 +22,6 @@ import androidx.compose.remote.creation.compose.state.floor
 import androidx.compose.remote.creation.compose.state.max
 import androidx.compose.remote.creation.compose.state.min
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfGe
-import androidx.compose.remote.creation.compose.state.selectIfLe
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.remote.creation.compose.state.sqrt
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.ZigZag
@@ -53,7 +48,7 @@ internal fun evaluateZigZag(
   if (size.constantValueOrNull == 0f) return shapes
   val ridges = animateScalar(zigZag.ridgesPerSegment, animationSettings)
   val capacity = zigZagCapacity(zigZag, ridges)
-  val frequency = max(0f.rf, floor(ridges + 0.5f))
+  val frequency = max(0f.rf, floor(ridges + 0.5f.rf))
   val pointType = animateScalar(zigZag.pointType, animationSettings)
   require(pointType.constantValueOrNull?.isFinite() != false) { "Invalid ZigZag point type" }
   return shapes.map { shape ->
@@ -120,19 +115,22 @@ private val zigZero
 private data class ZigVertex(val point: ZigPoint, val incoming: ZigPoint, val outgoing: ZigPoint)
 
 private fun choose(condition: RemoteFloat, yes: ZigPoint, no: ZigPoint) =
-  ZigPoint(selectIfGe(condition, 1f.rf, yes.x, no.x), selectIfGe(condition, 1f.rf, yes.y, no.y))
+  ZigPoint(
+    condition.isGreaterThanOrEqualTo(1f.rf).select(yes.x, no.x),
+    condition.isGreaterThanOrEqualTo(1f.rf).select(yes.y, no.y),
+  )
 
 private fun normal(delta: ZigPoint): ZigPoint {
   val length = delta.length()
   val safe = max(length, 0.000001f.rf)
   // atan2(0, 0) in the reference gives angle=0, hence normal=(1, 0).
-  val nonzero = selectIfGe(length, 0.000001f.rf, 1f.rf, 0f.rf)
+  val nonzero = length.isGreaterThanOrEqualTo(0.000001f.rf).select(1f.rf, 0f.rf)
   return choose(nonzero, ZigPoint(delta.y / safe, (0f.rf - delta.x) / safe), ZigPoint(1f.rf, 0f.rf))
 }
 
 private fun samePoint(control: ZigPoint, endpoint: ZigPoint): RemoteFloat {
   fun equal(a: RemoteFloat, b: RemoteFloat) =
-    selectIfLe(abs(a - b) * 100000f, min(abs(a), abs(b)), 1f.rf, 0f.rf)
+    (abs(a - b) * 100000f.rf).isLessThanOrEqualTo(min(abs(a), abs(b))).select(1f.rf, 0f.rf)
   return equal(control.x, endpoint.x) * equal(control.y, endpoint.y)
 }
 
@@ -161,11 +159,11 @@ private fun applyZigZag(
     values.getOrNull(index)?.let { ZigPoint(it.getOrElse(0) { 0f.rf }, it.getOrElse(1) { 0f.rf }) }
       ?: zigZero
   fun vertex(index: Int) = point(path.vertices, (index + count) % count)
-  val zeroAmplitude = selectIfLe(abs(amplitude), 0f.rf, 1f.rf, 0f.rf)
-  val effectiveFrequency = selectIfGe(zeroAmplitude, 1f.rf, 0f.rf, frequency)
-  val divisor = effectiveFrequency + 1f
+  val zeroAmplitude = abs(amplitude).isLessThanOrEqualTo(0f.rf).select(1f.rf, 0f.rf)
+  val effectiveFrequency = zeroAmplitude.isGreaterThanOrEqualTo(1f.rf).select(0f.rf, frequency)
+  val divisor = effectiveFrequency + 1f.rf
   // The reference uses exact equality, not rounding: intermediate values are corner points.
-  val smooth = selectIfLe(abs(pointType - 2f), 0f.rf, 1f.rf, 0f.rf)
+  val smooth = (abs(pointType - 2f.rf)).isLessThanOrEqualTo(0f.rf).select(1f.rf, 0f.rf)
   fun corner(index: Int, direction: RemoteFloat): ZigVertex {
     val current = vertex(index)
     val previous = vertex(index - 1)
@@ -179,14 +177,14 @@ private fun applyZigZag(
         point(path.inTangents, index % count),
         choose(
           smooth,
-          tangent * ((0f.rf - (current - previous).length()) / (divisor * 2f)),
+          tangent * ((0f.rf - (current - previous).length()) / (divisor * 2f.rf)),
           zigZero,
         ),
       ),
       choose(
         zeroAmplitude,
         point(path.outTangents, index % count),
-        choose(smooth, tangent * ((next - current).length() / (divisor * 2f)), zigZero),
+        choose(smooth, tangent * ((next - current).length() / (divisor * 2f.rf)), zigZero),
       ),
     )
   }
@@ -197,7 +195,7 @@ private fun applyZigZag(
     if (path.closed) first.copy(incoming = choose(zeroAmplitude, zigZero, first.incoming))
     else first
   )
-  val parity = 1f.rf - (effectiveFrequency - floor(effectiveFrequency / 2f) * 2f) * 2f
+  val parity = 1f.rf - (effectiveFrequency - floor(effectiveFrequency / 2f.rf) * 2f.rf) * 2f.rf
   for (segment in 0 until segments) {
     val next = (segment + 1) % count
     val p0 = vertex(segment)
@@ -229,10 +227,11 @@ private fun applyZigZag(
         )
       val n = normal(derivative)
       val handle =
-        choose(smooth, ZigPoint(0f.rf - n.y, n.x) * (delta.length() / (divisor * 2f)), zigZero)
+        choose(smooth, ZigPoint(0f.rf - n.y, n.x) * (delta.length() / (divisor * 2f.rf)), zigZero)
       val ridgeDirection = direction * (if (j % 2 == 1) -1f else 1f).rf
-      val active = selectIfLe(j.toFloat().rf, effectiveFrequency, 1f.rf, 0f.rf)
-      val firstCollapsed = selectIfLt(j.toFloat().rf, effectiveFrequency + 2f, 1f.rf, 0f.rf)
+      val active = j.toFloat().rf.isLessThanOrEqualTo(effectiveFrequency).select(1f.rf, 0f.rf)
+      val firstCollapsed =
+        j.toFloat().rf.isLessThan(effectiveFrequency + 2f.rf).select(1f.rf, 0f.rf)
       output.add(
         ZigVertex(
           choose(active, center + n * (ridgeDirection * amplitude), end.point),
@@ -247,7 +246,7 @@ private fun applyZigZag(
       end.copy(
         incoming =
           choose(
-            selectIfGe(effectiveFrequency, capacity.toFloat().rf, 1f.rf, 0f.rf),
+            effectiveFrequency.isGreaterThanOrEqualTo(capacity.toFloat().rf).select(1f.rf, 0f.rf),
             end.incoming,
             zigZero,
           ),

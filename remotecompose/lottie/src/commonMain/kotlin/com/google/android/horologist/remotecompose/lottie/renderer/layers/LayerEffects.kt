@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
+@file:Suppress(
+  "RestrictedApi"
+) // RemoteCanvas, RemoteDrawScope.remoteCanvas, RemoteImageBitmap.createOffscreenRemoteBitmap
 
 package com.google.android.horologist.remotecompose.lottie.renderer.layers
 
@@ -196,7 +198,7 @@ internal fun LayerEffects(
           if (masks.first().mode in listOf(MaskMode.Subtract, MaskMode.Intersect)) -1 else 0
         canvas.drawToOffscreenBitmap(maskBitmap, initial) {}
         for (mask in masks) {
-          val opacity = clamp(animateScalar(mask.opacity, settings) / 100f, 0f.rf, 1f.rf)
+          val opacity = clamp(animateScalar(mask.opacity, settings) / 100f.rf, 0f.rf, 1f.rf)
           val expansion = animateScalar(mask.expansion, settings)
           canvas.drawToOffscreenBitmap(maskPart, if (mask.inverted) -1 else 0) {
             canvas.save()
@@ -211,7 +213,7 @@ internal fun LayerEffects(
                   RemotePaint {
                     color = whiteRc
                     style = RemotePaintingStyle.Stroke
-                    strokeWidth = abs(expansion) * 2f
+                    strokeWidth = abs(expansion) * 2f.rf
                     blendMode =
                       if (mask.inverted) RemoteBlendMode.DstOut else RemoteBlendMode.SrcOver
                   },
@@ -224,7 +226,7 @@ internal fun LayerEffects(
                   RemotePaint {
                     color = whiteRc
                     style = RemotePaintingStyle.Stroke
-                    strokeWidth = abs(expansion) * 2f
+                    strokeWidth = abs(expansion) * 2f.rf
                     blendMode =
                       if (mask.inverted) RemoteBlendMode.SrcOver else RemoteBlendMode.DstOut
                   },

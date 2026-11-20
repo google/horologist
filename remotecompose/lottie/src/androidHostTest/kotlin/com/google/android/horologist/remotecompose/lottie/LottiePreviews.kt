@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.size
 import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.runtime.Composable
@@ -40,7 +39,6 @@ fun LottieGeometryAnimatedPreview() {
   LottieAnimatedPreview(animationResId = R.raw.geometry, modifier = Modifier.size(100.dp))
 }
 
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
 @Composable
 fun LottieTintGeometryPreview() {
@@ -52,7 +50,6 @@ fun LottieTintGeometryPreview() {
   )
 }
 
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff000000, showBackground = true, widthDp = 100, heightDp = 100)
 @AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable

@@ -33,7 +33,6 @@ import com.google.android.horologist.remotecompose.lottie.resolveMatteSourceIndi
  * Renders the referenced precomposition on its local timeline. [transformStack] already includes
  * this layer's transform and is bound to the containing timelines by [Layer].
  */
-@Suppress("RestrictedApi")
 @Composable
 @RemoteComposable
 internal fun PrecompLayer(

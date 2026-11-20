@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi", "INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+@file:Suppress(
+  "RestrictedApi", // remote-core, remote-creation-core, RemoteComposeCaptureState, RemoteComposeCaptureState.document, RemoteComposeCreationState, RemoteStateCacheKey, RemoteStateInstanceKey
+  "INVISIBLE_REFERENCE",
+  "INVISIBLE_MEMBER", // RemoteFloat()
+)
 
 package com.google.android.horologist.remotecompose.lottie
 
@@ -37,7 +41,7 @@ class RemoteExpressionCacheTest {
   fun refusesGeometryBeyondPlayerStateCapacity() {
     val state =
       RemoteComposeCaptureState(
-        RemoteCreationDisplayInfo(64, 64, 1f),
+        RemoteCreationDisplayInfo(64, 64, 160),
         LottieProfiles.NoRuntimeShaders,
         null,
       )
@@ -57,7 +61,7 @@ class RemoteExpressionCacheTest {
   fun collidingNanPayloadsMustNotAliasExpressions() {
     val state =
       RemoteComposeCaptureState(
-        RemoteCreationDisplayInfo(64, 64, 1f),
+        RemoteCreationDisplayInfo(64, 64, 160),
         LottieProfiles.NoRuntimeShaders,
         null,
       )

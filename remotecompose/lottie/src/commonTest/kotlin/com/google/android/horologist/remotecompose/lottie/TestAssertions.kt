@@ -65,6 +65,8 @@ internal class Color(val argb: Int) {
 internal val Color.rc: RemoteColor
   get() = argb.rc
 
+internal fun RemoteColor.asConstantColorOrNull(): Color? = constantValueOrNull?.let(::Color)
+
 internal fun <T : Throwable> assertThrows(expected: KClass<T>, block: () -> Unit): T =
   assertFailsWith(expected) { block() }
 

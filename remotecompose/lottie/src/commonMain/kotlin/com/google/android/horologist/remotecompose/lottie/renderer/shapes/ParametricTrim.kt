@@ -33,7 +33,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.to
 import kotlin.math.abs
 
 /** Build the shared cut once from authored operands, then apply it to every paint view. */
-@Suppress("RestrictedApi")
 internal fun individualTrimModifier(
   operands: List<RemoteShape>,
   trim: TrimPath,
@@ -60,9 +59,9 @@ internal fun individualTrimModifier(
   operands.forEach(::collect)
   val cut =
     RemotePathTrim(
-      animateScalar(trim.start, settings) / 100f,
-      animateScalar(trim.end, settings) / 100f,
-      animateScalar(trim.offset, settings) / 360f,
+      animateScalar(trim.start, settings) / 100f.rf,
+      animateScalar(trim.end, settings) / 100f.rf,
+      animateScalar(trim.offset, settings) / 360f.rf,
     )
   val results = materializeSharedTrim(sources.values.toList(), cut).associateBy { it.identity }
   fun apply(shape: RemoteShape): RemoteShape =
@@ -91,7 +90,6 @@ internal fun individualTrimModifier(
 }
 
 /** Apply trims to the geometry at their authored position, including existing paint views. */
-@Suppress("RestrictedApi")
 internal fun evaluateTrimPaths(
   shapes: List<RemoteShape>,
   trim: TrimPath,
@@ -108,9 +106,9 @@ internal fun evaluateTrimPaths(
               shape.path,
               trim =
                 RemotePathTrim(
-                  animateScalar(trim.start, settings) / 100f,
-                  animateScalar(trim.end, settings) / 100f,
-                  animateScalar(trim.offset, settings) / 360f,
+                  animateScalar(trim.start, settings) / 100f.rf,
+                  animateScalar(trim.end, settings) / 100f.rf,
+                  animateScalar(trim.offset, settings) / 360f.rf,
                   shape.trim,
                 ),
             )
@@ -137,7 +135,6 @@ internal fun evaluateTrimPaths(
 }
 
 /** Parametric and authored paths share the same live trim policy. */
-@Suppress("RestrictedApi")
 internal fun trimParametricPath(
   path: RemoteBezierValue,
   trim: TrimPath?,
@@ -145,7 +142,6 @@ internal fun trimParametricPath(
 ): RemoteLottiePath = trimEvaluatedPaths(listOf(path), trim, settings)
 
 /** Never synthesize trimmed keyframes: path length and trim fractions change independently. */
-@Suppress("RestrictedApi")
 internal fun trimEvaluatedPaths(
   paths: List<RemoteBezierValue>,
   trim: TrimPath?,
@@ -153,9 +149,9 @@ internal fun trimEvaluatedPaths(
   playback: Boolean = false,
 ): RemoteLottiePath {
   if (trim == null || trim.hidden?.constantValue == true) return RemoteLottiePath(paths)
-  val start = clamp(animateScalar(trim.start, settings) / 100f, 0f.rf, 1f.rf)
-  val end = clamp(animateScalar(trim.end, settings) / 100f, 0f.rf, 1f.rf)
-  val offset = animateScalar(trim.offset, settings) / 360f
+  val start = clamp(animateScalar(trim.start, settings) / 100f.rf, 0f.rf, 1f.rf)
+  val end = clamp(animateScalar(trim.end, settings) / 100f.rf, 0f.rf, 1f.rf)
+  val offset = animateScalar(trim.offset, settings) / 360f.rf
   val constantStart = start.constantValueOrNull
   val constantEnd = end.constantValueOrNull
   val constantOffset = offset.constantValueOrNull
@@ -203,7 +199,6 @@ internal fun trimEvaluatedPaths(
 }
 
 /** Constant cuts can expose real vertices to a subsequent modifier without sampling time. */
-@Suppress("RestrictedApi")
 internal fun RemoteLottiePath.materializeConstantTrim(): RemoteLottiePath {
   val cut = trim ?: return this
   // The scalar evaluator trims one contour. Compound paths need the shared length domain.

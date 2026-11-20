@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
-
 package com.google.android.horologist.remotecompose.lottie.renderer.shapes
 
 import androidx.compose.remote.creation.compose.state.RemoteFloat
@@ -24,9 +22,6 @@ import androidx.compose.remote.creation.compose.state.atan2
 import androidx.compose.remote.creation.compose.state.cos
 import androidx.compose.remote.creation.compose.state.max
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfGe
-import androidx.compose.remote.creation.compose.state.selectIfLe
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.remote.creation.compose.state.sin
 import androidx.compose.remote.creation.compose.state.sqrt
 import androidx.compose.remote.creation.compose.state.tan
@@ -49,7 +44,10 @@ private data class OffsetPoint(val x: RemoteFloat, val y: RemoteFloat) {
 }
 
 private fun chooseOffset(flag: RemoteFloat, yes: OffsetPoint, no: OffsetPoint) =
-  OffsetPoint(selectIfGe(flag, 1f.rf, yes.x, no.x), selectIfGe(flag, 1f.rf, yes.y, no.y))
+  OffsetPoint(
+    flag.isGreaterThanOrEqualTo(1f.rf).select(yes.x, no.x),
+    flag.isGreaterThanOrEqualTo(1f.rf).select(yes.y, no.y),
+  )
 
 /** Offset straight-edge contours with live vertices, amount, and absolute miter limit. */
 internal fun offsetPolygon(
@@ -73,7 +71,7 @@ internal fun offsetPolygon(
       val delta = points[(i + 1) % points.size] - points[i]
       delta * (1f.rf / max(delta.length(), 0.000001f.rf))
     }
-  val active = directions.map { selectIfGe(it.length(), 0.5f.rf, 1f.rf, 0f.rf) }
+  val active = directions.map { it.length().isGreaterThanOrEqualTo(0.5f.rf).select(1f.rf, 0f.rf) }
   var previousDirection = zero
   for (i in points.indices) previousDirection =
     chooseOffset(active[i], directions[i], previousDirection)
@@ -110,16 +108,17 @@ internal fun offsetPolygon(
     val a = center + n0 * amount
     val b = center + n1 * amount
     val determinant = previous.x * current.y - previous.y * current.x
-    val intersects = selectIfGe(abs(determinant), 0.000001f.rf, 1f.rf, 0f.rf)
-    val safeDet = selectIfGe(intersects, 1f.rf, determinant, 1f.rf)
+    val intersects = abs(determinant).isGreaterThanOrEqualTo(0.000001f.rf).select(1f.rf, 0f.rf)
+    val safeDet = intersects.isGreaterThanOrEqualTo(1f.rf).select(determinant, 1f.rf)
     val delta = b - a
     val intersection = a + previous * ((delta.x * current.y - delta.y * current.x) / safeDet)
-    val inner = selectIfLt(determinant * amount, 0f.rf, intersects, 0f.rf)
-    val shortMiter = selectIfLt((intersection - a).length(), miterLimit, intersects, 0f.rf)
+    val inner = (determinant * amount).isLessThan(0f.rf).select(intersects, 0f.rf)
+    val shortMiter = (intersection - a).length().isLessThan(miterLimit).select(intersects, 0f.rf)
     val collapse = if (join == LineJoin.Miter) max(inner, shortMiter) else inner
     val first = chooseOffset(collapse, intersection, a)
     val last = chooseOffset(active[i], chooseOffset(collapse, intersection, b), first)
-    val extra = active[i] * (1f.rf - collapse) * selectIfLe(abs(amount), 0f.rf, 0f.rf, 1f.rf)
+    val extra =
+      active[i] * (1f.rf - collapse) * abs(amount).isLessThanOrEqualTo(0f.rf).select(0f.rf, 1f.rf)
     logicalVertices.addAll(listOf(active[i], if (join == LineJoin.Round) extra else 0f.rf, extra))
     logicalSegments.addAll(listOf(if (join == LineJoin.Round) extra else 0f.rf, extra, active[i]))
     if (join != LineJoin.Round) {
@@ -131,19 +130,19 @@ internal fun offsetPolygon(
     }
     val dot = n0.x * n1.x + n0.y * n1.y
     val angle =
-      selectIfLt(
-        abs(determinant),
-        0.000001f.rf,
-        selectIfLt(
-          dot,
-          0f.rf,
-          selectIfLt(amount, 0f.rf, (-Math.PI).toFloat().rf, Math.PI.toFloat().rf),
-          0f.rf,
-        ),
-        atan2(determinant, dot),
-      )
+      abs(determinant)
+        .isLessThan(0.000001f.rf)
+        .select(
+          dot
+            .isLessThan(0f.rf)
+            .select(
+              amount.isLessThan(0f.rf).select((-Math.PI).toFloat().rf, Math.PI.toFloat().rf),
+              0f.rf,
+            ),
+          atan2(determinant, dot),
+        )
     val radius = a - center
-    val half = angle / 2f
+    val half = angle / 2f.rf
     val middleRadius =
       OffsetPoint(
         radius.x * cos(half) - radius.y * sin(half),
@@ -152,7 +151,7 @@ internal fun offsetPolygon(
     val middle =
       chooseOffset(active[i], chooseOffset(collapse, intersection, center + middleRadius), first)
     // Two <=90-degree cubics also represent round caps on a 180-degree turn.
-    val k = tan(angle / 8f) * (4f / 3f) * active[i]
+    val k = tan(angle / 8f.rf) * (4f / 3f).rf * active[i]
     val ta = chooseOffset(collapse, zero, radius.perpendicular() * k)
     val tm = chooseOffset(collapse, zero, middleRadius.perpendicular() * k)
     val tb = chooseOffset(collapse, zero, (b - center).perpendicular() * k)

@@ -37,7 +37,9 @@ import androidx.compose.ui.UiComposable
 import com.google.android.horologist.remotecompose.lottie.LottieAnimation
 import com.google.android.horologist.remotecompose.lottie.SlotMap
 
-@SuppressLint("RestrictedApi")
+@SuppressLint(
+  "RestrictedApi"
+) // remote-core, remote-player-compose, remote-player-view, rememberRemoteDocument
 @Suppress("COMPOSE_APPLIER_CALL_MISMATCH")
 @UiComposable
 @Composable

@@ -75,7 +75,7 @@ internal const val GRAPH_PADDING = 12f
  *   `progress` advances, updating the compiled RemoteCompose document via a named float without
  *   recomposition.
  */
-@SuppressLint("RestrictedApi")
+@SuppressLint("RestrictedApi") // remote-core, remote-player-compose, RemoteCanvas.drawPath, RemoteDrawScope.remoteCanvas, rememberRemoteDocument, remotePath
 @Composable
 internal fun ExpressionGraphPreview(
   expectedY: (Float) -> Float,
@@ -394,7 +394,6 @@ internal object ComplexExpressionSpecs {
 }
 
 // 1. Cubic Bezier S-Curve Easing
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @Composable
 fun CubicEasingSCurveGraphPreview() {
@@ -405,7 +404,6 @@ fun CubicEasingSCurveGraphPreview() {
   )
 }
 
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
@@ -417,7 +415,6 @@ fun CubicEasingSCurveGraphAnimatedPreview() {
 }
 
 // 2. Overshooting Cubic Bezier Easing
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @Composable
 fun CubicEasingOvershootGraphPreview() {
@@ -430,7 +427,6 @@ fun CubicEasingOvershootGraphPreview() {
   )
 }
 
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
@@ -444,7 +440,6 @@ fun CubicEasingOvershootGraphAnimatedPreview() {
 }
 
 // 3. Linear-Light sRGB Gamma Color Channel Interpolation
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @Composable
 fun GammaColorLerpGraphPreview() {
@@ -455,7 +450,6 @@ fun GammaColorLerpGraphPreview() {
   )
 }
 
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
@@ -467,7 +461,6 @@ fun GammaColorLerpGraphAnimatedPreview() {
 }
 
 // 4. Spatial Cubic Bezier Arc-Length Reparameterization
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @Composable
 fun SpatialBezierArcLengthGraphPreview() {
@@ -487,7 +480,6 @@ fun SpatialBezierArcLengthGraphPreview() {
   )
 }
 
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
@@ -508,7 +500,6 @@ fun SpatialBezierArcLengthGraphAnimatedPreview() {
 }
 
 // 5. Straight Zero-Handle Cubic Arc-Length Parameter Inversion
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @Composable
 fun StraightTrimParameterGraphPreview() {
@@ -519,7 +510,6 @@ fun StraightTrimParameterGraphPreview() {
   )
 }
 
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
@@ -531,7 +521,6 @@ fun StraightTrimParameterGraphAnimatedPreview() {
 }
 
 // 6. Rounded-Corner Straight Cubic Piecewise Inversion
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @Composable
 fun RoundedStraightTrimParameterGraphPreview() {
@@ -542,7 +531,6 @@ fun RoundedStraightTrimParameterGraphPreview() {
   )
 }
 
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
@@ -554,7 +542,6 @@ fun RoundedStraightTrimParameterGraphAnimatedPreview() {
 }
 
 // 7. Repeater Compound Scale & Opacity Ramp
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @Composable
 fun RepeaterCompoundScaleOpacityGraphPreview() {
@@ -569,7 +556,6 @@ fun RepeaterCompoundScaleOpacityGraphPreview() {
   )
 }
 
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable
@@ -585,7 +571,6 @@ fun RepeaterCompoundScaleOpacityGraphAnimatedPreview() {
 }
 
 // 8. De Casteljau Cubic Subdivision Trajectory
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @Composable
 fun DeCasteljauSliceCubicGraphPreview() {
@@ -601,7 +586,6 @@ fun DeCasteljauSliceCubicGraphPreview() {
   )
 }
 
-@SuppressLint("RestrictedApi")
 @Preview(backgroundColor = 0xff111318, showBackground = true, widthDp = 120, heightDp = 120)
 @AnimatedPreview(durationMs = 1000, frameIntervalMs = 100, showCurves = false)
 @Composable

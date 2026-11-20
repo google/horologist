@@ -19,7 +19,6 @@ package com.google.android.horologist.remotecompose.lottie.renderer.properties
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.lerp
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedBezierProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseBezierProperty
@@ -68,7 +67,6 @@ internal fun BezierValue.toRemote(): RemoteBezierValue {
  * [RemoteBezierValue] subpaths. Supports keyframed transitions with cubic Bézier easing curves,
  * hold keyframes, and delayed starts.
  */
-@Suppress("RestrictedApi")
 internal fun animateBezier(
   path: BaseBezierProperty,
   animationSettings: LottieSettings,
@@ -115,7 +113,7 @@ internal fun animateBezier(
                     listOf(point.x, point.y).mapIndexed { c, startCoord ->
                       val endCoord = endSubpath.inTangents.getOrNull(v)?.getOrNull(c) ?: startCoord
                       if (sameConstantCoordinate(startCoord, endCoord)) startCoord
-                      else selectIfLt(frameInAnimation, duration.rf, startCoord, endCoord)
+                      else frameInAnimation.isLessThan(duration.rf).select(startCoord, endCoord)
                     }
                   },
                 outTangents =
@@ -123,7 +121,7 @@ internal fun animateBezier(
                     listOf(point.x, point.y).mapIndexed { c, startCoord ->
                       val endCoord = endSubpath.outTangents.getOrNull(v)?.getOrNull(c) ?: startCoord
                       if (sameConstantCoordinate(startCoord, endCoord)) startCoord
-                      else selectIfLt(frameInAnimation, duration.rf, startCoord, endCoord)
+                      else frameInAnimation.isLessThan(duration.rf).select(startCoord, endCoord)
                     }
                   },
                 vertices =
@@ -131,7 +129,7 @@ internal fun animateBezier(
                     listOf(point.x, point.y).mapIndexed { c, startCoord ->
                       val endCoord = endSubpath.vertices.getOrNull(v)?.getOrNull(c) ?: startCoord
                       if (sameConstantCoordinate(startCoord, endCoord)) startCoord
-                      else selectIfLt(frameInAnimation, duration.rf, startCoord, endCoord)
+                      else frameInAnimation.isLessThan(duration.rf).select(startCoord, endCoord)
                     }
                   },
               )
@@ -193,7 +191,6 @@ internal fun animateBezier(
  * Support keyframed bezier animations (and delayed start animations) by chaining multiple animation
  * segments together across timeline thresholds.
  */
-@Suppress("RestrictedApi")
 private fun chainBezierAnimation(
   segments: List<BezierAnimationSegment>,
   frame: RemoteFloat,
@@ -213,7 +210,7 @@ private fun chainBezierAnimation(
         point.mapIndexed { c, coordVal ->
           val remainingVal = remainingChained.inTangents.getOrNull(v)?.getOrNull(c) ?: coordVal
           if (sameConstantCoordinate(coordVal, remainingVal)) coordVal
-          else selectIfLt(frame, nextStartFrame, coordVal, remainingVal)
+          else frame.isLessThan(nextStartFrame).select(coordVal, remainingVal)
         }
       },
     outTangents =
@@ -221,7 +218,7 @@ private fun chainBezierAnimation(
         point.mapIndexed { c, coordVal ->
           val remainingVal = remainingChained.outTangents.getOrNull(v)?.getOrNull(c) ?: coordVal
           if (sameConstantCoordinate(coordVal, remainingVal)) coordVal
-          else selectIfLt(frame, nextStartFrame, coordVal, remainingVal)
+          else frame.isLessThan(nextStartFrame).select(coordVal, remainingVal)
         }
       },
     vertices =
@@ -229,13 +226,12 @@ private fun chainBezierAnimation(
         point.mapIndexed { c, coordVal ->
           val remainingVal = remainingChained.vertices.getOrNull(v)?.getOrNull(c) ?: coordVal
           if (sameConstantCoordinate(coordVal, remainingVal)) coordVal
-          else selectIfLt(frame, nextStartFrame, coordVal, remainingVal)
+          else frame.isLessThan(nextStartFrame).select(coordVal, remainingVal)
         }
       },
   )
 }
 
 /** Keep invariant controls recognizable to topology-dependent geometry modifiers. */
-@Suppress("RestrictedApi")
 private fun sameConstantCoordinate(a: RemoteFloat, b: RemoteFloat): Boolean =
   a.constantValueOrNull?.let { it == b.constantValueOrNull } == true

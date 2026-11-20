@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
+@file:Suppress("RestrictedApi") // remote-creation-core
 
 package com.google.android.horologist.remotecompose.lottie
 

@@ -28,7 +28,6 @@ import java.awt.geom.Area
 import java.awt.geom.Path2D
 import java.awt.geom.PathIterator
 
-@Suppress("RestrictedApi")
 internal actual fun evaluateStaticBooleanMergePaths(
   mode: MergeMode,
   remainder: RemoteShape,
@@ -48,7 +47,6 @@ internal actual fun evaluateStaticBooleanMergePaths(
   return listOf(RemoteLottiePath(subpaths, fillRule = FillRule.EvenOdd))
 }
 
-@Suppress("RestrictedApi")
 private fun shapeToAwtPath(shape: RemoteShape): Path2D.Float {
   val winding =
     if (shape is RemoteLottiePath && shape.fillRule == FillRule.EvenOdd) {
@@ -107,7 +105,6 @@ private fun shapeToAwtPath(shape: RemoteShape): Path2D.Float {
   return awtPath
 }
 
-@Suppress("RestrictedApi")
 private fun awtPathToBezierValues(iterator: PathIterator): List<RemoteBezierValue> {
   val subpaths = mutableListOf<RemoteBezierValue>()
   val coords = FloatArray(6)

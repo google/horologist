@@ -49,7 +49,7 @@ import com.google.android.horologist.remotecompose.lottie.format.load
  *   player.
  * @param progress Optional progress value to drive animation frame instead of clock time.
  */
-@SuppressLint("RestrictedApi")
+@SuppressLint("RestrictedApi") // remote-core, remote-player-compose, rememberRemoteDocument
 @Composable
 internal fun LottiePreview(
   animation: Animation,
@@ -102,7 +102,7 @@ internal fun LottiePreview(
  * @param clock The clock driving the animation.
  * @param progress Optional progress value to drive animation frame instead of clock time.
  */
-@SuppressLint("RestrictedApi")
+@SuppressLint("RestrictedApi") // remote-core
 @Composable
 fun LottiePreview(
   @RawRes animationResId: Int,
@@ -149,7 +149,6 @@ internal val Animation.naturalDurationMillis: Int
  * @param durationMillis Optional override for the animation duration in milliseconds. Defaults to
  *   the animation's own [Animation.naturalDurationMillis].
  */
-@SuppressLint("RestrictedApi")
 @Composable
 internal fun LottieAnimatedPreview(
   animation: Animation,
@@ -184,7 +183,6 @@ internal fun LottieAnimatedPreview(
  * @param durationMillis Optional override for the animation duration in milliseconds. Defaults to
  *   the animation's own [Animation.naturalDurationMillis].
  */
-@SuppressLint("RestrictedApi")
 @Composable
 fun LottieAnimatedPreview(
   @RawRes animationResId: Int,

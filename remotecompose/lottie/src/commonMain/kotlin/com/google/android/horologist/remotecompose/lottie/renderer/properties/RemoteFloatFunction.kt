@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi", "INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+@file:Suppress(
+  "RestrictedApi", // remote-core, remote-creation-core, RemoteComposeCreationState.document,
+  // RemoteFloat.arrayForCreationState, RemoteFloat.getFloatIdForCreationState,
+  // RemoteOperationCacheKey.Companion, RemoteStateCacheKey, RemoteStateInstanceKey
+  "INVISIBLE_REFERENCE",
+  "INVISIBLE_MEMBER", // RemoteFloat()
+)
 
 package com.google.android.horologist.remotecompose.lottie.renderer.properties
 
@@ -85,7 +91,7 @@ internal fun snapshotRemoteFloats(inputs: List<RemoteFloat>): List<RemoteFloat> 
 internal class RemoteFloatFunction(
   private val argumentCount: Int,
   private val resultCount: Int,
-  @Suppress("RestrictedApi") body: (RemoteComposeWriter, FloatArray) -> FloatArray,
+  body: (RemoteComposeWriter, FloatArray) -> FloatArray,
 ) {
   // This holder is accessed only as a cached array, never evaluated as a float expression.
   private val definition =

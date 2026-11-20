@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi", "INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+@file:Suppress(
+  "RestrictedApi", // remote-core, remote-creation-core, RemoteComposeCreationState.document,
+  // RemoteFloat.arrayForCreationState, RemoteFloat.getFloatIdForCreationState,
+  // RemoteOperationCacheKey.Companion, RemoteStateCacheKey,
+  // RemoteStateInstanceKey
+  "INVISIBLE_REFERENCE",
+  "INVISIBLE_MEMBER", // RemoteFloat()
+)
 
 package com.google.android.horologist.remotecompose.lottie.renderer.shapes
 
@@ -25,7 +32,6 @@ import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.RemoteOperationCacheKey
 import androidx.compose.remote.creation.compose.state.RemoteStateInstanceKey
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfGe
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.rawReference
 import kotlin.math.abs
 
@@ -51,8 +57,8 @@ internal fun cubicIntersection(
     if (inputs.all { it.constantValueOrNull != null }) {
       val roots = constantIntersection(inputs.map { it.constantValue }.toFloatArray())
       listOf(
-        selectIfGe(enabled, 1f.rf, roots[0].rf, 1f.rf),
-        selectIfGe(enabled, 1f.rf, roots[1].rf, 0f.rf),
+        enabled.isGreaterThanOrEqualTo(1f.rf).select(roots[0].rf, 1f.rf),
+        enabled.isGreaterThanOrEqualTo(1f.rf).select(roots[1].rf, 0f.rf),
       )
     } else liveIntersection(inputs + enabled)
   return result[0] to result[1]

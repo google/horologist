@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.mediasample.data.service.tile
 
-import android.annotation.SuppressLint
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -172,7 +171,6 @@ class MediaCollectionsWidget(
     }
   }
 
-  @SuppressLint("RestrictedApi")
   private fun emptyDocument(context: Context): WearWidgetData {
     val browseLabel = context.getString(R.string.widget_browse)
     val appLogo = loadAppLogoBitmap(context)
@@ -280,7 +278,6 @@ private fun labelColorOn(tintedArtwork: Bitmap): Color {
 private fun Bitmap.withScrim(scrim: Color): Bitmap =
   copy(Bitmap.Config.ARGB_8888, true).also { Canvas(it).drawColor(scrim.toArgb()) }
 
-@SuppressLint("RestrictedApi")
 @RemoteComposable
 @Composable
 fun SmallMediaCollectionContent(
@@ -309,7 +306,6 @@ fun SmallMediaCollectionContent(
   }
 }
 
-@SuppressLint("RestrictedApi")
 @RemoteComposable
 @Composable
 fun LargeMediaCollectionContent(
@@ -356,7 +352,6 @@ fun LargeMediaCollectionContent(
   }
 }
 
-@SuppressLint("RestrictedApi")
 @RemoteComposable
 @Composable
 private fun AppLogo(appLogo: ImageBitmap) {
@@ -369,7 +364,6 @@ private fun AppLogo(appLogo: ImageBitmap) {
   )
 }
 
-@SuppressLint("RestrictedApi")
 @RemoteComposable
 @Composable
 private fun PlaylistArtworkTile(tile: PlaylistItemInfo?, modifier: RemoteModifier) {

@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi", "INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+@file:Suppress(
+  "RestrictedApi", // remote-creation-core, RemoteCanvas, RemoteComposeCreationState,
+  // RemoteDrawScope.remoteComposeCreationState, RemoteFloat.getFloatIdForCreationState
+  "INVISIBLE_REFERENCE",
+  "INVISIBLE_MEMBER", // CanvasOperationBuffer, RemoteCanvas.buffer,
+  // RemoteCanvas.recordRenderingOp
+)
 
 package com.google.android.horologist.remotecompose.lottie.renderer
 
@@ -70,7 +76,9 @@ internal class RemoteContourStroke(private val source: RemoteLottiePath) : Remot
     val op = canvas.recordRenderingOp {
       val id = canvas.document.pathCreate(0f, 0f)
       // Resolve every expression before entering a conditional recording block.
-      val encoded = inputs.associateWith { it.getFloatIdForCreationState(canvas.creationState) }
+      val encoded = inputs.associateWith {
+        it.getFloatIdForCreationState(drawScope.remoteComposeCreationState)
+      }
       fun value(input: RemoteFloat): Float = encoded.getValue(input)
       canvas.document.pathAppendReset(id)
       for (contour in contours) {

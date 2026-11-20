@@ -24,13 +24,16 @@ import androidx.compose.remote.creation.compose.state.RemotePaint
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.FillRule
 
 /** Combines live path coordinates on the player, without converting them to a CPU snapshot. */
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // remote-creation-core, RemoteCanvas
 internal class RemoteBooleanPath(
   val remainder: RemoteShape,
   val last: RemoteShape,
   val operation: Byte,
 ) : RemoteShape {
-  @Suppress("INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+  @Suppress(
+    "INVISIBLE_REFERENCE",
+    "INVISIBLE_MEMBER",
+  ) // CanvasOperationBuffer, RemoteCanvas.buffer, RemoteCanvas.recordRenderingOp
   override fun draw(
     drawScope: RemoteDrawScope,
     canvas: RemoteCanvas,

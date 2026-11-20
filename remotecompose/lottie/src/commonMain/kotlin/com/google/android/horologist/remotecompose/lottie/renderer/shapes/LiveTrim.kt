@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
-
 package com.google.android.horologist.remotecompose.lottie.renderer.shapes
 
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.clamp
 import androidx.compose.remote.creation.compose.state.max
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfGe
-import androidx.compose.remote.creation.compose.state.selectIfLe
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.remote.creation.compose.state.sqrt
 import com.google.android.horologist.remotecompose.lottie.renderer.RemoteLottiePath
 import com.google.android.horologist.remotecompose.lottie.renderer.RemotePathTrim
@@ -118,12 +113,14 @@ internal fun straightParameter(fraction: RemoteFloat): RemoteFloat {
   var low = 0f.rf
   var high = 1f.rf
   repeat(22) {
-    val t = ((low + high) / 2f).rawReference()
+    val t = ((low + high) / 2f.rf).rawReference()
     val value = (t * t * (3f.rf - 2f.rf * t)).rawReference()
-    low = selectIfLt(value, fraction, t, low).rawReference()
-    high = selectIfLt(value, fraction, high, t).rawReference()
+    low = value.isLessThan(fraction).select(t, low).rawReference()
+    high = value.isLessThan(fraction).select(high, t).rawReference()
   }
-  return selectIfLe(fraction, 0f.rf, 0f.rf, selectIfGe(fraction, 1f.rf, 1f.rf, (low + high) / 2f))
+  return fraction
+    .isLessThanOrEqualTo(0f.rf)
+    .select(0f.rf, fraction.isGreaterThanOrEqualTo(1f.rf).select(1f.rf, (low + high) / 2f.rf))
     .rawReference()
 }
 
@@ -275,7 +272,7 @@ internal fun materializeSharedTrim(
     val full =
       if (source.closed) {
         val extent = ranges.fold(0f.rf) { sum, (from, to) -> sum + (to - from) }
-        selectIfGe(extent, 1f.rf, 1f.rf, 0f.rf).rawReference()
+        extent.isGreaterThanOrEqualTo(1f.rf).select(1f.rf, 0f.rf).rawReference()
       } else 0f.rf
     if (full.constantValueOrNull == 0f) intervals
     else {
@@ -347,7 +344,8 @@ private fun materializeInterval(
       else clamp(end - prefix, 0f.rf, curve.length).rawReference()
     val diff = b - a
     val segPresent = source.topology?.segments?.get(j) ?: 1f.rf
-    val segActive = (selectIfLe(diff, 1e-5f.rf, 0f.rf, 1f.rf) * segPresent).rawReference()
+    val segActive =
+      (diff.isLessThanOrEqualTo(1e-5f.rf).select(0f.rf, 1f.rf) * segPresent).rawReference()
     active.add(segActive)
     prefix = (prefix + curve.length).rawReference()
     curve.cut(a, b)

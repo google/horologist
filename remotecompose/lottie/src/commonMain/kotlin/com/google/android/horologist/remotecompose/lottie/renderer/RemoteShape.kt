@@ -28,7 +28,6 @@ import androidx.compose.remote.creation.compose.state.max
 import androidx.compose.remote.creation.compose.state.min
 import androidx.compose.remote.creation.compose.state.remotePath
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfGe
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.grouping.Transform
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.styles.FillRule
@@ -37,14 +36,18 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
 import com.google.android.horologist.remotecompose.lottie.renderer.shapes.DeferredPathTransform
 import com.google.android.horologist.remotecompose.lottie.renderer.shapes.materializeTrim
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteCanvas
 internal interface RemoteShape {
   fun draw(drawScope: RemoteDrawScope, canvas: RemoteCanvas, inheritedOpacity: RemoteFloat = 1f.rf)
 
   fun withFillRule(fillRule: FillRule): RemoteShape = this
 }
 
-@Suppress("RestrictedApi", "INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+@Suppress(
+  "RestrictedApi", // remote-creation-core, RemoteCanvas
+  "INVISIBLE_REFERENCE",
+  "INVISIBLE_MEMBER", // CanvasOperationBuffer, RemoteCanvas.buffer, RemoteCanvas.recordRenderingOp
+)
 internal fun RemoteCanvas.drawPathWithFillRule(
   path: RemotePath,
   fillRule: FillRule,
@@ -59,7 +62,7 @@ internal fun RemoteCanvas.drawPathWithFillRule(
   buffer.addRoots(op, path)
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // remote-creation, RemoteCanvas
 internal class RemoteCompiledPath(val path: RemotePath, val fillRule: FillRule = FillRule.NonZero) :
   RemoteShape {
   override fun draw(
@@ -90,7 +93,7 @@ internal class GeometryIdentity(
     31 * (31 * identityHashCode(source) + (parent?.hashCode() ?: 0)) + copyIndex
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // remotePath
 internal class RemoteLottiePath(
   val path: List<RemoteBezierValue>,
   val fillRule: FillRule = FillRule.NonZero,
@@ -201,7 +204,7 @@ internal class RemoteLottiePath(
 }
 
 /** Trim intervals over one arc-length domain; start/end are fractions and offset is turns. */
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteCanvas.drawTweenPath
 internal class RemotePathTrim(
   val start: RemoteFloat,
   val end: RemoteFloat,
@@ -224,7 +227,7 @@ internal class RemotePathTrim(
     val from =
       if (wholeTurnsOnly) lower
       else if (normalizedStart.constantValueOrNull == 0f) 0f.rf
-      else selectIfGe(span, 1f.rf, 0f.rf, normalizedStart)
+      else span.isGreaterThanOrEqualTo(1f.rf).select(0f.rf, normalizedStart)
     val to = from + span
     val windows = mutableListOf(from to min(to, 1f.rf))
     val wrappedEnd =
@@ -256,7 +259,7 @@ internal class RemotePathTrim(
   }
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteCanvas.restore, RemoteCanvas.save
 internal class RemoteGroup(
   val childShapes: List<StyledShapes>,
   val animationSettings: LottieSettings,
@@ -271,7 +274,7 @@ internal class RemoteGroup(
     val groupOpacity =
       if (transform != null) {
         val o = animateScalar(transform.opacity, animationSettings)
-        inheritedOpacity * opacityMultiplier * (o / 100f)
+        inheritedOpacity * opacityMultiplier * (o / 100f.rf)
       } else {
         inheritedOpacity * opacityMultiplier
       }

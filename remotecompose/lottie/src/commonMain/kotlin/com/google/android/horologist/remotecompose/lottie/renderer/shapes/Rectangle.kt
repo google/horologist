@@ -20,7 +20,6 @@ import androidx.compose.remote.creation.compose.state.abs
 import androidx.compose.remote.creation.compose.state.clamp
 import androidx.compose.remote.creation.compose.state.min
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfLe
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Rectangle
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.modifiers.RoundedCorners
@@ -35,7 +34,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
 private const val RECTANGLE_CORNER_RADIUS_CONTROL_POINT_CONSTANT = 0.55228475f
 
 /** Evaluates a Lottie [Rectangle] parametric shape into a [RemoteLottiePath]. */
-@Suppress("RestrictedApi")
 internal fun evaluateRectangle(
   rect: Rectangle,
   animationSettings: LottieSettings,
@@ -48,23 +46,20 @@ internal fun evaluateRectangle(
   val size = animateVector(rect.size, animationSettings)
   val width = size.getOrElse(0) { 0f.rf }
   val height = size.getOrElse(1) { 0f.rf }
-  val halfWidth = width / 2f
-  val halfHeight = height / 2f
+  val halfWidth = width / 2f.rf
+  val halfHeight = height / 2f.rf
 
   val cornerRadius = rect.cornerRadius?.let { animateScalar(it, animationSettings) } ?: 0f.rf
   // A rectangle's own radius takes precedence; the modifier rounds otherwise sharp corners.
   val effectiveRadius =
     if (roundedCorners != null && roundedCorners.hidden?.constantValue != true) {
-      selectIfLe(
-        abs(cornerRadius),
-        0f.rf,
-        animateScalar(roundedCorners.radius, animationSettings),
-        cornerRadius,
-      )
+      abs(cornerRadius)
+        .isLessThanOrEqualTo(0f.rf)
+        .select(animateScalar(roundedCorners.radius, animationSettings), cornerRadius)
     } else cornerRadius
   val maxRadius = min(halfWidth, halfHeight)
   val clampedR = clamp(effectiveRadius, 0f.rf, maxRadius)
-  val kr = clampedR * RECTANGLE_CORNER_RADIUS_CONTROL_POINT_CONSTANT
+  val kr = clampedR * RECTANGLE_CORNER_RADIUS_CONTROL_POINT_CONSTANT.rf
   val rr = clampedR
 
   val vertices =
@@ -108,7 +103,7 @@ internal fun evaluateRectangle(
       outTangents = outTangents,
       vertices = vertices,
       topology =
-        selectIfLe(clampedR, 0f.rf, 0f.rf, 1f.rf).let { split ->
+        clampedR.isLessThanOrEqualTo(0f.rf).select(0f.rf, 1f.rf).let { split ->
           RemoteBezierTopology(
             listOf(1f.rf, 1f.rf, split, 1f.rf, split, 1f.rf, split, split),
             listOf(1f.rf, split, 1f.rf, split, 1f.rf, split, 1f.rf, split),

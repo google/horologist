@@ -24,7 +24,7 @@ import java.awt.Canvas
 import java.awt.Font
 import kotlin.math.roundToInt
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // remote-core, remote-creation, remote-creation-core
 internal actual fun defaultAndroidXProfile(): Profile =
   Profile(CoreDocument.DOCUMENT_API_LEVEL, CoreDocument.PROFILE, JvmRcPlatformServices()) {
     creationDisplayInfo,

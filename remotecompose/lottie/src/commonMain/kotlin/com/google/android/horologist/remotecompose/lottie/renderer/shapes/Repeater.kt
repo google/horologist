@@ -23,7 +23,6 @@ import androidx.compose.remote.creation.compose.state.max
 import androidx.compose.remote.creation.compose.state.pow
 import androidx.compose.remote.creation.compose.state.rb
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.remote.creation.compose.state.sin
 import androidx.compose.remote.creation.compose.state.tan
 import androidx.compose.remote.creation.compose.state.toRad
@@ -51,7 +50,6 @@ import kotlin.math.abs
 import kotlin.math.ceil
 
 /** Represents an evaluated instance of a repeated shape with an associated opacity multiplier. */
-@Suppress("RestrictedApi")
 internal data class RepeatedShapeInstance(
   val shape: RemoteShape,
   val opacityMultiplier: RemoteFloat = 1f.rf,
@@ -61,7 +59,6 @@ internal data class RepeatedShapeInstance(
  * Evaluates a [Repeater] modifier on a collection of [RemoteShape] instances, producing duplicate
  * geometry copies with incremental affine transforms and start/end opacity compounding.
  */
-@Suppress("RestrictedApi")
 internal fun evaluateRepeater(
   shapes: List<RemoteShape>,
   repeater: Repeater,
@@ -102,7 +99,7 @@ internal fun evaluateRepeater(
   for (i in copyIndices) {
     val copyIndex = i.toFloat().rf
     val k = copyIndex + offset
-    val visible = selectIfLt(copyIndex, floor(copies), 1f.rf, 0f.rf)
+    val visible = copyIndex.isLessThan(floor(copies)).select(1f.rf, 0f.rf)
     val alpha = repeaterCopyOpacity(copyIndex, copies, startOpacity, endOpacity)
 
     for (shape in shapes) {
@@ -128,7 +125,6 @@ internal fun evaluateRepeater(
  * Computes the opacity multiplier in `[0, 1]` for repeater copy [copyIndex] given [copies],
  * [startOpacity] (`0..100`), and [endOpacity] (`0..100`).
  */
-@Suppress("RestrictedApi")
 internal fun repeaterCopyOpacity(
   copyIndex: RemoteFloat,
   copies: RemoteFloat,
@@ -138,19 +134,17 @@ internal fun repeaterCopyOpacity(
   // The reference renderer uses index/copies, not index/(copies-1). Preserve fractional input
   // in the ramp denominator while retaining the existing integer-copy topology policy.
   val fraction = copyIndex / max(copies, 1f.rf)
-  val visible = selectIfLt(copyIndex, floor(copies), 1f.rf, 0f.rf)
-  return visible * (startOpacity + (endOpacity - startOpacity) * fraction) / 100f
+  val visible = copyIndex.isLessThan(floor(copies)).select(1f.rf, 0f.rf)
+  return visible * (startOpacity + (endOpacity - startOpacity) * fraction) / 100f.rf
 }
 
 /**
  * Computes the compounded scale factor `(scalePercent / 100)^k` for a repeater copy at step [k].
  */
-@Suppress("RestrictedApi")
 internal fun repeaterCopyScale(scalePercent: RemoteFloat, k: RemoteFloat): RemoteFloat =
-  pow(scalePercent / 100f, k)
+  pow(scalePercent / 100f.rf, k)
 
 /** Path consumers ignore the paint ramp, but must still hide unused live copy slots. */
-@Suppress("RestrictedApi")
 private fun withPathVisibility(shape: RemoteShape, visible: RemoteFloat): RemoteShape =
   when (shape) {
     is RemoteLottiePath ->
@@ -191,7 +185,6 @@ private fun repeaterCapacity(repeater: Repeater): Int {
 }
 
 /** Transforms a [RemoteShape] by a Lottie [Transform] at step [k]. */
-@Suppress("RestrictedApi")
 internal fun transformRepeaterShape(
   shape: RemoteShape,
   transform: Transform,
@@ -223,7 +216,7 @@ internal fun transformRepeaterShape(
           scale =
             StaticVectorProperty(
               animated = false.rb,
-              value = scale.map { repeaterCopyScale(it, k) * 100f },
+              value = scale.map { repeaterCopyScale(it, k) * 100f.rf },
             ),
           rotation =
             StaticScalarProperty(value = animateScalar(transform.rotation, animationSettings) * k),
@@ -248,7 +241,6 @@ internal fun transformRepeaterShape(
 }
 
 /** Transforms a [RemoteLottiePath] by a repeater [Transform] at step [k]. */
-@Suppress("RestrictedApi")
 internal fun transformRepeaterLottiePath(
   lottiePath: RemoteLottiePath,
   transform: Transform,
@@ -288,7 +280,6 @@ private fun identifyCopy(shape: RemoteShape, repeater: Repeater, index: Int): Re
   }
 
 /** Transforms a single [RemoteBezierValue] by a repeater [Transform] at step [k]. */
-@Suppress("RestrictedApi")
 internal fun transformRepeaterBezierValue(
   subpath: RemoteBezierValue,
   transform: Transform,
@@ -363,7 +354,6 @@ internal fun transformRepeaterBezierValue(
   )
 }
 
-@Suppress("RestrictedApi")
 private fun transformRepeaterPoint(
   x: RemoteFloat,
   y: RemoteFloat,
@@ -405,7 +395,6 @@ private fun transformRepeaterPoint(
   return listOf(finalX, finalY)
 }
 
-@Suppress("RestrictedApi")
 private fun transformRepeaterTangent(
   dx: RemoteFloat,
   dy: RemoteFloat,

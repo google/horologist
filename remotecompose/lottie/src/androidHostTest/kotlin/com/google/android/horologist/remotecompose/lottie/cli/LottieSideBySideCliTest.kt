@@ -91,7 +91,7 @@ import org.junit.Test
  * ./scripts/compare_lottie.sh --default-suite [output_dir]
  * ```
  */
-@SuppressLint("RestrictedApi")
+@SuppressLint("RestrictedApi") // remote-core, remote-player-compose
 class LottieSideBySideCliTest : MotionPixelHarness() {
 
   internal data class ActiveAssetState(

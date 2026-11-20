@@ -26,7 +26,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.RemoteShape
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
 
 /** Evaluates an [OffsetPath] modifier across [shapes], expanding or shrinking path contours. */
-@Suppress("RestrictedApi")
 internal fun evaluateOffsetPath(
   shapes: List<RemoteShape>,
   offsetPath: OffsetPath,

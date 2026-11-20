@@ -36,7 +36,7 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
 import com.google.android.horologist.remotecompose.lottie.renderer.transform
 
 /** A Layer rendering a solid color rectangle. */
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // remote-creation, RemoteCanvas, RemoteDrawScope.remoteCanvas
 @Composable
 @RemoteComposable
 internal fun SolidColorLayer(
@@ -57,7 +57,7 @@ internal fun SolidColorLayer(
 
   val layerOpacity =
     (updatedTransformStack.lastOrNull()?.opacity?.let {
-      animateScalar(it, animationSettings) / 100f
+      animateScalar(it, animationSettings) / 100f.rf
     } ?: 1f.rf) * layerVisibility
 
   val color = layer.solidColor

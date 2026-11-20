@@ -24,7 +24,6 @@ import androidx.compose.remote.creation.compose.state.max
 import androidx.compose.remote.creation.compose.state.pow
 import androidx.compose.remote.creation.compose.state.rc
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedColorProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseColorProperty
@@ -57,7 +56,6 @@ import kotlin.math.pow
  * @param animationSettings The animation settings containing current frame and slot mappings.
  * @return Evaluated [RemoteColor] for the active frame.
  */
-@Suppress("RestrictedApi")
 internal fun animateColor(
   property: BaseColorProperty,
   animationSettings: LottieSettings,
@@ -149,18 +147,17 @@ private fun toRgbaFloats(keyframe: ColorPropertyKeyframe): List<RemoteFloat> =
   listOf(keyframe.value.red, keyframe.value.green, keyframe.value.blue, keyframe.value.alpha)
 
 /** Interpolate RGB in linear light, matching lottie-android's sRGB transfer function. */
-@Suppress("RestrictedApi")
 internal fun gammaLerp(start: RemoteFloat, end: RemoteFloat, progress: RemoteFloat): RemoteFloat {
   fun linear(value: RemoteFloat): RemoteFloat =
-    selectIfLt(0.04045f.rf, value, pow((value + 0.055f) / 1.055f, 2.4f.rf), value / 12.92f)
+    0.04045f
+      .rf
+      .isLessThan(value)
+      .select(pow((value + 0.055f.rf) / 1.055f.rf, 2.4f.rf), value / 12.92f.rf)
   val fraction = clamp(progress, 0f.rf, 1f.rf)
   val value = lerp(linear(start), linear(end), fraction)
   val srgb =
-    selectIfLt(
-      value,
-      0.0031308f.rf,
-      value * 12.92f,
-      pow(max(value, 0f.rf), (1f / 2.4f).rf) * 1.055f - 0.055f,
-    )
+    value
+      .isLessThan(0.0031308f.rf)
+      .select(value * 12.92f.rf, pow(max(value, 0f.rf), (1f / 2.4f).rf) * 1.055f.rf - 0.055f.rf)
   return clamp(srgb, 0f.rf, 1f.rf)
 }

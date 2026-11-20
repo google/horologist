@@ -23,7 +23,6 @@ import androidx.compose.remote.creation.compose.state.rf
 import com.google.android.horologist.remotecompose.lottie.format.values.KeyframeEasing
 import kotlin.math.abs
 
-@Suppress("RestrictedApi")
 internal fun cubicBezierTransform(a: Float, b: Float, c: Float, d: Float, fraction: Float): Float {
   if (fraction <= 0f) return 0f
   if (fraction >= 1f) return 1f
@@ -46,7 +45,6 @@ internal fun cubicBezierTransform(a: Float, b: Float, c: Float, d: Float, fracti
 private fun evaluateCubic(a: Float, b: Float, m: Float): Float =
   3f * a * (1f - m) * (1f - m) * m + 3f * b * (1f - m) * m * m + m * m * m
 
-@Suppress("RestrictedApi")
 internal fun lookupValueInBezier(
   a: Float,
   b: Float,
@@ -56,7 +54,7 @@ internal fun lookupValueInBezier(
   frame: RemoteFloat,
 ): RemoteFloat = lookupValueInBezier(a.rf, b.rf, c.rf, d.rf, duration, frame)
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteFloatOperations.cubicEasing
 internal fun lookupValueInBezier(
   a: RemoteFloat,
   b: RemoteFloat,
@@ -68,7 +66,7 @@ internal fun lookupValueInBezier(
   // Coincident keyframes select the later value without dividing by a zero duration.
   if (duration <= 0f) return 1f.rf
 
-  val progress = clamp(frame / duration, 0f.rf, 1f.rf)
+  val progress = clamp(frame / duration.rf, 0f.rf, 1f.rf)
 
   // A diagonal timing curve is exactly linear. Evaluating cubic easing by bisection introduces
   // enough rounding error to miss exact zero crossings (which can enable/disable a modifier).

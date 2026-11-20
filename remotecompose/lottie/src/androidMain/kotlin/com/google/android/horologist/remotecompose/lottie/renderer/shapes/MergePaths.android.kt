@@ -33,7 +33,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.RemoteShape
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierValue
 import kotlin.math.abs
 
-@Suppress("RestrictedApi")
 internal actual fun evaluateStaticBooleanMergePaths(
   mode: MergeMode,
   remainder: RemoteShape,
@@ -59,7 +58,6 @@ internal actual fun evaluateStaticBooleanMergePaths(
   return listOf(RemoteLottiePath(subpaths, fillRule = resultFillRule))
 }
 
-@Suppress("RestrictedApi")
 internal fun shapeToAndroidPath(shape: RemoteShape): Path {
   return when (shape) {
     is RemoteBooleanPath -> error("A live boolean result cannot be converted to a CPU path")
@@ -73,7 +71,6 @@ internal fun shapeToAndroidPath(shape: RemoteShape): Path {
   }
 }
 
-@Suppress("RestrictedApi")
 internal fun buildAndroidPathFromBezier(path: List<RemoteBezierValue>): Path {
   path.forEach { it.requireStaticModifierGeometry("CPU path conversion / merge paths") }
   val androidPath = Path()
@@ -126,7 +123,6 @@ internal fun buildAndroidPathFromBezier(path: List<RemoteBezierValue>): Path {
   return androidPath
 }
 
-@Suppress("RestrictedApi")
 internal fun androidPathToBezierValues(path: Path): List<RemoteBezierValue> {
   if (path.isEmpty) return emptyList()
   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
@@ -137,7 +133,6 @@ internal fun androidPathToBezierValues(path: Path): List<RemoteBezierValue> {
 }
 
 @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
-@Suppress("RestrictedApi")
 private fun extractBezierViaPathIterator(path: Path): List<RemoteBezierValue> {
   val subpaths = mutableListOf<RemoteBezierValue>()
   val iterator = path.pathIterator
@@ -275,7 +270,6 @@ private fun extractBezierViaPathIterator(path: Path): List<RemoteBezierValue> {
   return subpaths
 }
 
-@Suppress("RestrictedApi")
 private fun extractBezierViaPathMeasure(path: Path): List<RemoteBezierValue> {
   val subpaths = mutableListOf<RemoteBezierValue>()
   val pm = PathMeasure(path, false)
@@ -325,7 +319,6 @@ private fun extractBezierViaPathMeasure(path: Path): List<RemoteBezierValue> {
   return fallbackApproximatePath(path)
 }
 
-@Suppress("RestrictedApi")
 private fun fallbackApproximatePath(path: Path): List<RemoteBezierValue> {
   val approx = path.approximate(0.5f)
   if (approx.size < 6) return emptyList()

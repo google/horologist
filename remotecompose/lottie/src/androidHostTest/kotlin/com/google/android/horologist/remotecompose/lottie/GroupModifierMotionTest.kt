@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
+@file:Suppress("RestrictedApi") // remote-core, remote-player-compose, remote-player-view, RemoteDrawScope.remoteCanvas, rememberRemoteDocument
 
 package com.google.android.horologist.remotecompose.lottie
 
@@ -208,7 +208,7 @@ class GroupModifierMotionTest : MotionPixelHarness() {
         rememberRemoteDocument(profile = LottieProfiles.NoRuntimeShaders) {
           val progress = rememberNamedRemoteFloat("progress", 0f.rf)
           val output =
-            (gatherShapesForTest(source, LottieSettings(progress * 40f))
+            (gatherShapesForTest(source, LottieSettings(progress * 40f.rf))
                 .flatMap { it.shapes }
                 .single() as RemoteLottiePath)
               .path

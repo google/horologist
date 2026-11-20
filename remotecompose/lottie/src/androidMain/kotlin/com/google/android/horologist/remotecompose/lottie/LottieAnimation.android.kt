@@ -37,7 +37,6 @@ import com.google.android.horologist.remotecompose.lottie.format.load
  * @param slotMap Mapping of slot IDs to values for dynamic theming.
  * @param progress Optional progress value to drive animation frame instead of clock time.
  */
-@Suppress("RestrictedApi")
 @Composable
 @RemoteComposable
 fun LottieAnimation(

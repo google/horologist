@@ -78,9 +78,9 @@ truth = "1.4.5"
 wearInput = "1.2.0"
 wearToolingPreview = "1.0.0"
 wearcompose = "1.7.1"
-glanceWear = "1.0.0-alpha21"
-composeRemote = "1.0.0-alpha22"
-wearComposeRemote = "1.0.0-alpha14"
+glanceWear = "1.0.0-alpha22"
+composeRemote = "1.0.0-alpha24"
+wearComposeRemote = "1.0.0-alpha15"
 agp = "9.4.1"
 
 [libraries]
@@ -269,12 +269,14 @@ navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version = "1.
 wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wearcompose" }
 
 [plugins]
+android-kmp-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 composeAiPreview = { id = "ee.schimke.composeai.preview", version.ref = "composeAiTools" }
 dependencyAnalysis = { id = "com.autonomousapps.dependency-analysis", version.ref = "dependencyAnalysis" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 gradleMavenPublishPlugin = { id = "com.vanniktech.maven.publish", version.ref = "gradlePublishPlugin" }
 kotlinGradle = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 metalavaGradle = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava" }

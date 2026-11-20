@@ -1,0 +1,127 @@
+/*
+ * Copyright 2026 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.google.android.horologist.remotecompose.lottie
+
+import androidx.compose.remote.creation.compose.state.rb
+import androidx.compose.remote.creation.compose.state.rc
+import androidx.compose.remote.creation.compose.state.rf
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Ellipse
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Path
+import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.Rectangle
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticBezierProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticColorProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticPositionProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticScalarProperty
+import com.google.android.horologist.remotecompose.lottie.format.properties.StaticVectorProperty
+import com.google.android.horologist.remotecompose.lottie.format.values.BezierValue
+import com.google.android.horologist.remotecompose.lottie.format.values.Point
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateBezier
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateColor
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animatePosition
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
+import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateVector
+import com.google.android.horologist.remotecompose.lottie.renderer.shapes.evaluateEllipse
+import com.google.android.horologist.remotecompose.lottie.renderer.shapes.evaluatePath
+import com.google.android.horologist.remotecompose.lottie.renderer.shapes.evaluateRectangle
+import com.google.android.horologist.remotecompose.lottie.testcompat.Color
+import com.google.android.horologist.remotecompose.lottie.testcompat.assertThat
+import com.google.android.horologist.remotecompose.lottie.testcompat.rc
+import kotlin.test.Test
+
+class EvaluatorModularizationTest {
+  private val settings = LottieSettings(0f.rf, SlotMap.Empty)
+
+  @Test
+  fun animateScalar_evaluatesStaticScalar() {
+    val scalar = StaticScalarProperty(animated = false.rb, value = 42f.rf)
+    val result = animateScalar(scalar, settings)
+    assertThat(result.constantValue).isEqualTo(42f)
+  }
+
+  @Test
+  fun animatePosition_evaluatesStaticPosition() {
+    val position = StaticPositionProperty(value = Point(10f.rf, 20f.rf))
+    val result = animatePosition(position, settings)
+    assertThat(result.x.constantValue).isEqualTo(10f)
+    assertThat(result.y.constantValue).isEqualTo(20f)
+  }
+
+  @Test
+  fun animateVector_evaluatesStaticVector() {
+    val vector = StaticVectorProperty(animated = false.rb, value = listOf(30f.rf, 40f.rf))
+    val result = animateVector(vector, settings)
+    assertThat(result.map { it.constantValue }.toFloatArray()).isEqualTo(floatArrayOf(30f, 40f))
+  }
+
+  @Test
+  fun animateColor_evaluatesStaticColor() {
+    val color = StaticColorProperty(value = Color(0xFF112233.toInt()).rc)
+    val result = animateColor(color, settings)
+    assertThat(result.constantValue).isEqualTo(0xFF112233.toInt())
+  }
+
+  @Test
+  fun animateBezier_evaluatesStaticBezier() {
+    val bezier =
+      StaticBezierProperty(
+        animated = false.rb,
+        value =
+          BezierValue(
+            closed = true.rb,
+            inTangents = listOf(Point(0f.rf, 0f.rf)),
+            outTangents = listOf(Point(0f.rf, 0f.rf)),
+            vertices = listOf(Point(10f.rf, 20f.rf)),
+          ),
+      )
+    val result = animateBezier(bezier, settings).single()
+    assertThat(result.closed).isTrue()
+    assertThat(result.vertices[0][0].constantValueOrNull).isEqualTo(10f)
+    assertThat(result.vertices[0][1].constantValueOrNull).isEqualTo(20f)
+  }
+
+  @Test
+  fun shapes_evaluateToRemoteLottiePath() {
+    val pathShape =
+      Path(
+        shape =
+          StaticBezierProperty(
+            animated = false.rb,
+            value =
+              BezierValue(
+                closed = true.rb,
+                inTangents = listOf(Point(0f.rf, 0f.rf)),
+                outTangents = listOf(Point(0f.rf, 0f.rf)),
+                vertices = listOf(Point(0f.rf, 0f.rf)),
+              ),
+          )
+      )
+    val rectShape =
+      Rectangle(
+        position = StaticPositionProperty(animated = false.rb, value = Point(0f.rf, 0f.rf)),
+        size = StaticVectorProperty(animated = false.rb, value = listOf(100f.rf, 100f.rf)),
+      )
+    val ellipseShape =
+      Ellipse(
+        position = StaticPositionProperty(animated = false.rb, value = Point(0f.rf, 0f.rf)),
+        size = StaticVectorProperty(animated = false.rb, value = listOf(100f.rf, 100f.rf)),
+      )
+
+    assertThat(evaluatePath(pathShape, settings)).isNotNull()
+    assertThat(evaluateRectangle(rectShape, settings)).isNotNull()
+    assertThat(evaluateEllipse(ellipseShape, settings)).isNotNull()
+  }
+}

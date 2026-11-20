@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
-  id("com.android.library")
+  kotlin("multiplatform")
+  id("com.android.kotlin.multiplatform.library")
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.metalavaGradle)
   alias(libs.plugins.kotlinx.serialization)
@@ -25,21 +24,72 @@ plugins {
   alias(libs.plugins.composeAiPreview)
 }
 
-android {
-  compileSdk = 37
+composePreview { kmpAndroidRobolectric.set(true) }
 
-  defaultConfig { minSdk = 29 }
-
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+kotlin {
+  compilerOptions {
+    languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2)
+    freeCompilerArgs.addAll(
+      listOf("-opt-in=androidx.compose.remote.player.compose.ExperimentalRemotePlayerApi")
+    )
   }
 
-  buildFeatures { compose = true }
+  jvm()
 
-  testOptions { unitTests { isIncludeAndroidResources = true } }
+  android {
+    namespace = "com.google.android.horologist.remotecompose.lottie"
+    compileSdk = 37
+    minSdk = 29
 
-  namespace = "com.google.android.horologist.remotecompose.lottie"
+    withHostTestBuilder {}.configure { isIncludeAndroidResources = true }
+  }
+
+  sourceSets {
+    applyDefaultHierarchyTemplate()
+
+    commonMain.dependencies {
+      api(libs.compose.remote.creation)
+      api(libs.compose.remote.creation.compose)
+      implementation(libs.kotlinx.serialization.json)
+      implementation(project.dependencies.platform(libs.compose.bom))
+      implementation(libs.compose.runtime)
+    }
+
+    commonTest.dependencies { implementation(kotlin("test")) }
+
+    val jvmAndAndroidMain by creating { dependsOn(commonMain.get()) }
+
+    jvmMain { dependsOn(jvmAndAndroidMain) }
+
+    androidMain {
+      dependsOn(jvmAndAndroidMain)
+      dependencies {
+        implementation(libs.androidx.annotation)
+        implementation(libs.compose.ui)
+      }
+    }
+
+    getByName("androidHostTest").dependencies {
+      implementation(libs.androidx.activity.compose)
+      implementation(libs.compose.animation.core)
+      implementation(libs.compose.foundation.foundation)
+      implementation(libs.compose.foundation.foundation.layout)
+      implementation(libs.compose.ui.toolingpreview)
+      implementation(project.dependencies.platform(libs.compose.preview.daemon.bom))
+      implementation(libs.compose.preview.annotations)
+      implementation(libs.junit)
+      implementation(libs.truth)
+      implementation(libs.robolectric)
+      implementation(libs.androidx.test.ext.ktx)
+      implementation(libs.compose.ui.test.junit4)
+      implementation(libs.compose.ui.test.manifest)
+      implementation(libs.lottie.compose)
+      implementation(projects.roboscreenshots)
+      implementation(libs.androidx.compose.remote.player.core)
+      implementation(libs.androidx.compose.remote.player.compose)
+      implementation(libs.androidx.compose.remote.player.view)
+    }
+  }
 }
 
 tasks.withType<Test>().configureEach {
@@ -55,39 +105,3 @@ tasks.withType<Test>().configureEach {
 }
 
 metalava { filename.set("api/current.api") }
-
-tasks.withType<KotlinCompile>().configureEach {
-  compilerOptions {
-    freeCompilerArgs.addAll(
-      listOf("-opt-in=androidx.compose.remote.player.compose.ExperimentalRemotePlayerApi")
-    )
-  }
-}
-
-dependencies {
-  implementation(platform(libs.compose.bom))
-  implementation(libs.compose.animation.core)
-  debugImplementation(libs.compose.foundation.foundation)
-  debugImplementation(libs.compose.foundation.foundation.layout)
-  api(libs.compose.remote.creation)
-  api(libs.compose.remote.creation.compose)
-  implementation(libs.kotlinx.serialization.json)
-  implementation(libs.compose.runtime)
-  implementation(libs.compose.ui)
-
-  debugImplementation(libs.androidx.activity.compose)
-  debugImplementation(libs.androidx.compose.remote.player.core)
-  debugImplementation(libs.androidx.compose.remote.player.compose)
-  debugImplementation(libs.androidx.compose.remote.player.view)
-  debugImplementation(libs.compose.ui.toolingpreview)
-  debugImplementation(platform(libs.compose.preview.daemon.bom))
-  debugImplementation(libs.compose.preview.annotations)
-
-  testImplementation(libs.junit)
-  testImplementation(libs.truth)
-  testImplementation(libs.robolectric)
-  testImplementation(libs.androidx.test.ext.ktx)
-  testImplementation(libs.compose.ui.test.junit4)
-  testImplementation(libs.lottie.compose)
-  testImplementation(projects.roboscreenshots)
-}

@@ -36,7 +36,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
  * Evaluates a [Twist] modifier across [shapes], rotating vertices around a center proportional to
  * distance.
  */
-@Suppress("RestrictedApi")
 internal fun evaluateTwist(
   shapes: List<RemoteShape>,
   twist: Twist,
@@ -79,7 +78,6 @@ internal fun evaluateTwist(
   }
 }
 
-@Suppress("RestrictedApi")
 private fun applyTwistToSubpath(
   subpath: RemoteBezierValue,
   angleDeg: RemoteFloat,
@@ -124,7 +122,6 @@ private fun applyTwistToSubpath(
   )
 }
 
-@Suppress("RestrictedApi")
 private fun twistPoint(
   px: RemoteFloat,
   py: RemoteFloat,
@@ -135,7 +132,7 @@ private fun twistPoint(
   val dx = px - cx
   val dy = py - cy
   val dist = sqrt(dx * dx + dy * dy)
-  val theta = angleDeg * dist * (Math.PI.toFloat() / 18000f)
+  val theta = angleDeg * dist * (Math.PI.toFloat() / 18000f).rf
   val cosT = cos(theta)
   val sinT = sin(theta)
   val newX = cx + dx * cosT - dy * sinT

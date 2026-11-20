@@ -60,7 +60,7 @@ class OffscreenPlayerTest : MotionPixelHarness() {
         RemoteBox(
           modifier =
             RemoteModifier.fillMaxSize().drawWithContent {
-              scale(size.width / 64f, size.height / 64f, pivot = RemoteOffset.Zero) {
+              scale(size.width / 64f.rf, size.height / 64f.rf, pivot = RemoteOffset.Zero) {
                 this@drawWithContent.drawContent()
               }
             }

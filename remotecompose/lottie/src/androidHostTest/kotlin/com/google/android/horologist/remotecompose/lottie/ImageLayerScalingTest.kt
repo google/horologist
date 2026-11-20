@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
-import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.util.Base64
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -27,7 +26,6 @@ import java.io.ByteArrayOutputStream
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@SuppressLint("RestrictedApi")
 @RunWith(AndroidJUnit4::class)
 class ImageLayerScalingTest {
 

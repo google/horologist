@@ -59,7 +59,7 @@ import org.junit.Test
  * that [ExpressionGraphPreview] animates the live marker along the static reference curve across
  * progress steps without recomposing the document.
  */
-@SuppressLint("RestrictedApi")
+@SuppressLint("RestrictedApi") // remote-core, remote-creation-core
 @OptIn(ExperimentalRoborazziApi::class)
 class ComplexExpressionGraphTest : WearScreenshotTest() {
   init {

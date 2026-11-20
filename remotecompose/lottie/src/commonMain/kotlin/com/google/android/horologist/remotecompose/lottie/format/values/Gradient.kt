@@ -60,7 +60,6 @@ internal data class TransparencyStop(val offset: Float, val alpha: RemoteFloat)
  * [Lottie Gradient Property](https://lottie.github.io/lottie-spec/1.0.1/specs/properties/#gradient-property)
  * (`#/$defs/properties/gradient-property`).
  */
-@Suppress("RestrictedApi")
 internal data class GradientValue(
   val colorStops: List<ColorStop>,
   val transparencyStops: List<TransparencyStop>,

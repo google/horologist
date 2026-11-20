@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi", "INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+@file:Suppress(
+  "RestrictedApi", // remote-core, remote-creation-core, remote-player-compose, remote-player-view, RemoteCanvas, RemoteComposeCreationState, RemoteDrawScope.remoteCanvas, RemoteDrawScope.remoteComposeCreationState, rememberRemoteDocument
+  "INVISIBLE_REFERENCE",
+  "INVISIBLE_MEMBER", // CanvasOperationBuffer, RemoteCanvas.buffer, RemoteCanvas.recordRenderingOp
+)
 
 package com.google.android.horologist.remotecompose.lottie
 
@@ -54,13 +58,13 @@ class CubicSlicePlaybackTest : MotionPixelHarness() {
             val canvas = remoteCanvas
             val operation = canvas.recordRenderingOp {
               recordings++
-              val writer = canvas.creationState.document
+              val writer = document
               val full = cubicSliceFunction(curve.map { it.rf } + listOf(start, end))
               val half = cubicSliceFunction(full + listOf(0f.rf, .5f.rf))
               for ((call, values) in listOf(full, half).withIndex()) {
                 for ((coordinate, value) in values.withIndex()) {
                   writer.setFloatName(
-                    value.getIdForCreationState(canvas.creationState),
+                    value.getIdForCreationState(remoteComposeCreationState),
                     name(call, coordinate),
                   )
                 }

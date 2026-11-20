@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
-
 package com.google.android.horologist.remotecompose.lottie.renderer.shapes
 
 import androidx.compose.remote.creation.compose.state.RemoteFloat
@@ -23,8 +21,6 @@ import androidx.compose.remote.creation.compose.state.abs
 import androidx.compose.remote.creation.compose.state.max
 import androidx.compose.remote.creation.compose.state.min
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfGe
-import androidx.compose.remote.creation.compose.state.selectIfLe
 import androidx.compose.remote.creation.compose.state.sqrt
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierTopology
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierValue
@@ -49,7 +45,10 @@ private data class RoundVertex(
 )
 
 private fun roundChoose(flag: RemoteFloat, yes: RoundPoint, no: RoundPoint) =
-  RoundPoint(selectIfGe(flag, 1f.rf, yes.x, no.x), selectIfGe(flag, 1f.rf, yes.y, no.y))
+  RoundPoint(
+    flag.isGreaterThanOrEqualTo(1f.rf).select(yes.x, no.x),
+    flag.isGreaterThanOrEqualTo(1f.rf).select(yes.y, no.y),
+  )
 
 /**
  * Live sharp-corner splitting with independently clamped adjacent edges. Logical adjacency is
@@ -85,7 +84,7 @@ internal fun roundRemoteBezier(path: RemoteBezierValue, radius: RemoteFloat): Re
   val output = ArrayList<RoundVertex>(capacity * 2)
   val activeVertices = ArrayList<RemoteFloat>(capacity * 2)
   val activeSegments = ArrayList<RemoteFloat>(capacity * 2)
-  val positiveRadius = selectIfLe(r, 0f.rf, 0f.rf, 1f.rf)
+  val positiveRadius = r.isLessThanOrEqualTo(0f.rf).select(0f.rf, 1f.rf)
   for (j in 0 until capacity) {
     val current = logical.vertices[j].roundPoint()
     val previous = logical.previous[j].roundPoint()
@@ -93,12 +92,9 @@ internal fun roundRemoteBezier(path: RemoteBezierValue, radius: RemoteFloat): Re
     val incoming = logical.incoming[j].roundPoint()
     val outgoing = logical.outgoing[j].roundPoint()
     val sharp =
-      selectIfLe(
-        abs(incoming.x) + abs(incoming.y) + abs(outgoing.x) + abs(outgoing.y),
-        0f.rf,
-        1f.rf,
-        0f.rf,
-      )
+      (abs(incoming.x) + abs(incoming.y) + abs(outgoing.x) + abs(outgoing.y))
+        .isLessThanOrEqualTo(0f.rf)
+        .select(1f.rf, 0f.rf)
     val round = sharp * hasPrevious[j].x * hasNext[j].x
     val sourceActive = logical.active[j]
     val split = sourceActive * round * positiveRadius
@@ -109,7 +105,8 @@ internal fun roundRemoteBezier(path: RemoteBezierValue, radius: RemoteFloat): Re
     fun offsetToward(neighbor: RoundPoint): RoundPoint {
       val delta = neighbor - current
       val length = delta.length()
-      val amount = selectIfLe(length, 0f.rf, 0f.rf, min(0.5f.rf, r / max(length, 0.000001f.rf)))
+      val amount =
+        length.isLessThanOrEqualTo(0f.rf).select(0f.rf, min(0.5f.rf, r / max(length, 0.000001f.rf)))
       return delta * amount
     }
     val aOffset = offsetToward(previous)

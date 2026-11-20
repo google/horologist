@@ -19,7 +19,6 @@ package com.google.android.horologist.remotecompose.lottie.renderer.properties
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.lerp
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedVectorProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseVectorProperty
@@ -35,7 +34,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.scalarLinearE
  * If the vector is animated, the RemoteFloat will change based on the animation specified in the
  * Lottie Vector Property.
  */
-@Suppress("RestrictedApi")
 internal fun animateVector(
   vector: BaseVectorProperty,
   animationSettings: LottieSettings,
@@ -69,7 +67,7 @@ internal fun animateVector(
             val inTangent = (startKeyframe.inTangent ?: scalarLinearEasingIn).forDimension(index)
             val currentBezierValue =
               if (startKeyframe.hold.constantValue) {
-                selectIfLt(frameInAnimation, duration.rf, 0f.rf, 1f.rf)
+                frameInAnimation.isLessThan(duration.rf).select(0f.rf, 1f.rf)
               } else
                 lookupValueInBezier(
                   outTangent.x,

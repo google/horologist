@@ -19,7 +19,6 @@ package com.google.android.horologist.remotecompose.lottie.renderer.layers
 import androidx.compose.remote.creation.compose.layout.RemoteComposable
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import com.google.android.horologist.remotecompose.lottie.LocalAnimationSettings
@@ -44,7 +43,6 @@ internal data class MatteContext(
 )
 
 /** Calculates local layer time $t_{\text{local}} = (t - st) / sr$ for layer properties. */
-@Suppress("RestrictedApi")
 internal fun calculateLocalFrame(
   currentFrame: RemoteFloat,
   startTime: Float?,
@@ -79,20 +77,18 @@ internal fun calculateEffectiveEndFrame(
  * Evaluates dynamic RemoteFloat timeline visibility for a layer given its [startFrame, endFrame)
  * bounds.
  */
-@Suppress("RestrictedApi")
 internal fun calculateLayerVisibility(
   currentFrame: RemoteFloat,
   startFrame: Float,
   effectiveEndFrame: Float,
   baseVisibility: RemoteFloat = 1f.rf,
 ): RemoteFloat {
-  val isAfterStart = selectIfLt(currentFrame, startFrame.rf, 0f.rf, 1f.rf)
-  val isBeforeEnd = selectIfLt(currentFrame, effectiveEndFrame.rf, 1f.rf, 0f.rf)
+  val isAfterStart = currentFrame.isLessThan(startFrame.rf).select(0f.rf, 1f.rf)
+  val isBeforeEnd = currentFrame.isLessThan(effectiveEndFrame.rf).select(1f.rf, 0f.rf)
   return baseVisibility * (isAfterStart * isBeforeEnd)
 }
 
 /** A Layer in the Lottie composition */
-@Suppress("RestrictedApi")
 @Composable
 @RemoteComposable
 internal fun Layer(
@@ -168,7 +164,7 @@ internal fun Layer(
           calculateLocalFrame(currentFrame, layer.startTime, layer.timeStretch)
         }
       val precompOpacity =
-        layer.transform?.opacity?.let { animateScalar(it, parentSettings) / 100f } ?: 1f.rf
+        layer.transform?.opacity?.let { animateScalar(it, parentSettings) / 100f.rf } ?: 1f.rf
       val localSettings =
         parentSettings.copy(
           currentFrame = localFrame,

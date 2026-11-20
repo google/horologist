@@ -82,7 +82,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.shapes.transf
 
 internal data class StyledShapes(val shapes: List<RemoteShape>, val style: RemoteStyle)
 
-@Suppress("RestrictedApi")
 private fun evaluateGeometry(shape: GeometryShape, settings: LottieSettings): RemoteLottiePath? =
   (when (shape) {
       is Path -> evaluatePath(shape, settings)
@@ -93,7 +92,7 @@ private fun evaluateGeometry(shape: GeometryShape, settings: LottieSettings): Re
     ?.withIdentity(GeometryIdentity(shape))
 
 /** Renders a list of Lottie Shapes to the RemoteCanvas. */
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteCanvas.restore, RemoteCanvas.save, RemoteDrawScope.remoteCanvas
 @Composable
 @RemoteComposable
 internal fun RenderShapes(
@@ -132,8 +131,9 @@ internal fun RenderShapes(
       }
 
       val layerOpacity =
-        (transformStack.lastOrNull()?.opacity?.let { animateScalar(it, animationSettings) / 100f }
-          ?: 1f.rf) * layerVisibility
+        (transformStack.lastOrNull()?.opacity?.let {
+          animateScalar(it, animationSettings) / 100f.rf
+        } ?: 1f.rf) * layerVisibility
 
       for (shapeGroup in shapeGroups) {
         val paint = shapeGroup.style.getPaint(layerOpacity)
@@ -163,7 +163,6 @@ internal fun RenderShapes(
   }
 }
 
-@Suppress("RestrictedApi")
 internal fun gatherShapes(
   shapes: List<GraphicElement>,
   animationSettings: LottieSettings,
@@ -209,7 +208,6 @@ private fun resolveStyledGeometry(groups: List<StyledShapes>): List<StyledShapes
     } else listOf(group.copy(shapes = compoundFillShapes(shapes, group.style)))
   }
 
-@Suppress("RestrictedApi")
 private fun gatherShapesUnresolved(
   shapes: List<GraphicElement>,
   animationSettings: LottieSettings,
@@ -379,7 +377,6 @@ private fun gatherShapesUnresolved(
   return shapeGroups.reversed()
 }
 
-@Suppress("RestrictedApi")
 private fun emitStyledShapes(
   shapeGroups: MutableList<StyledShapes>,
   currentGeometries: List<RepeatedShapeInstance>,
@@ -470,7 +467,6 @@ internal fun mergeCompoundPaths(shapes: List<RemoteShape>): List<RemoteShape> {
   return result
 }
 
-@Suppress("RestrictedApi")
 internal fun gatherShapesForTest(
   shapes: List<GraphicElement>,
   animationSettings: LottieSettings,
@@ -481,7 +477,6 @@ internal fun gatherShapesForTest(
 private fun mergeOperand(shapes: List<RemoteShape>, settings: LottieSettings): RemoteShape =
   shapes.singleOrNull() ?: RemoteGroup(listOf(StyledShapes(shapes, NoopStyle())), settings, null)
 
-@Suppress("RestrictedApi")
 private fun evaluateGroupGeometries(
   group: Group,
   animationSettings: LottieSettings,
@@ -564,7 +559,6 @@ private fun evaluateGroupGeometries(
   return geometries
 }
 
-@Suppress("RestrictedApi")
 private fun group(
   group: Group,
   animationSettings: LottieSettings,
@@ -583,14 +577,12 @@ private fun group(
   return RemoteGroup(styledShapes, animationSettings, transform)
 }
 
-@Suppress("RestrictedApi")
 private fun fill(fill: Fill, animationSettings: LottieSettings): RemoteFill {
   val fillColor = animateColor(fill.color, animationSettings)
   val opacity = animateScalar(fill.opacity, animationSettings)
   return RemoteFill(fillColor, opacity, fill.fillRule ?: FillRule.NonZero)
 }
 
-@Suppress("RestrictedApi")
 private fun stroke(stroke: Stroke, animationSettings: LottieSettings): RemoteStroke {
   val strokeColor = animateColor(stroke.color, animationSettings)
   val strokeWidth = animateScalar(stroke.strokeWidth, animationSettings)
@@ -610,7 +602,6 @@ private fun stroke(stroke: Stroke, animationSettings: LottieSettings): RemoteStr
   )
 }
 
-@Suppress("RestrictedApi")
 private fun gradientFill(
   fill: GradientFill,
   animationSettings: LottieSettings,
@@ -629,7 +620,6 @@ private fun gradientFill(
   )
 }
 
-@Suppress("RestrictedApi")
 private fun gradientStroke(
   stroke: GradientStroke,
   animationSettings: LottieSettings,
@@ -663,7 +653,7 @@ private fun MutableList<RemoteShape>.addIfNotNull(shape: RemoteShape?) {
   }
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteCanvas.clipPath
 internal fun applyLayerMasks(
   masks: List<Mask>,
   animationSettings: LottieSettings,
@@ -702,7 +692,7 @@ internal fun applyLayerMasks(
   }
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // remote-creation, RemoteCanvas.clipPath
 internal fun applyMatteClip(
   matteContext: MatteContext,
   animationSettings: LottieSettings,
@@ -783,7 +773,7 @@ internal fun applyMatteClip(
   }
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteCanvas.clipPath
 private fun clipShapes(
   shapes: List<GraphicElement>,
   animationSettings: LottieSettings,
@@ -835,7 +825,7 @@ private fun clipShapes(
   }
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // remotePath
 /** Records a clipping path while retaining vertex and tangent dependencies for playback. */
 internal fun RemoteCanvas.buildRemotePathFromBezier(path: List<RemoteBezierValue>): RemotePath =
   remotePath {

@@ -88,7 +88,6 @@ internal val LocalAnimationSettings =
  * @param slotMap Mapping of slot IDs to values for dynamic theming.
  * @param progress Optional progress value to drive animation frame instead of clock time.
  */
-@Suppress("RestrictedApi")
 @Composable
 @RemoteComposable
 fun LottieAnimation(
@@ -109,7 +108,7 @@ fun LottieAnimation(
  * @param slotMap Mapping of slot IDs to values for dynamic theming.
  * @param progress Optional progress value to drive animation frame instead of clock time.
  */
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // remote-creation-core
 @Composable
 @RemoteComposable
 internal fun LottieAnimation(
@@ -131,9 +130,9 @@ internal fun LottieAnimation(
   val currentFrame =
     if (progress != null) {
       // Progress 1 displays the last representable frame, while layer out-points stay exclusive.
-      min(startFrameRf + (progress * totalFrames), animation.endFrame.nextDown().rf)
+      min(startFrameRf + (progress * totalFrames.rf), animation.endFrame.nextDown().rf)
     } else {
-      startFrameRf + (floor(RemoteFloat(ANIMATION_TIME) * animation.frameRate) % totalFrames)
+      startFrameRf + (floor(RemoteFloat(ANIMATION_TIME) * animation.frameRate.rf) % totalFrames.rf)
     }
   val assetMap = remember(animation.assets) { animation.assets.associateBy { it.id } }
   val animationSettings =

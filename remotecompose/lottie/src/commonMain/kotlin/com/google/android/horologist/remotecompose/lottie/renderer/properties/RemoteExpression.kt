@@ -14,7 +14,12 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi", "INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+@file:Suppress(
+  "RestrictedApi"
+) // remote-core, remote-creation-core, RemoteComposeCreationState.document,
+
+// RemoteFloat.arrayForCreationState, RemoteFloatKt.RemoteFloat, RemoteOperationCacheKey.Companion,
+// RemoteStateCacheKey
 
 package com.google.android.horologist.remotecompose.lottie.renderer.properties
 
@@ -36,18 +41,15 @@ private enum class LottieExpressionOperation {
  */
 internal fun RemoteFloat.rawReference(): RemoteFloat {
   if (constantValueOrNull != null) return this
-  return RemoteFloat(
-    null,
-    RemoteOperationCacheKey.create(LottieExpressionOperation.RawReference, this),
-  ) { state ->
-    val array = arrayForCreationState(state)
-    if (array.size == 1) array
+  return RemoteFloat(RemoteOperationCacheKey.create(LottieExpressionOperation.RawReference, this)) {
+    val array = arrayForCreationState(this)
+    if (array.size == 1) this@rawReference
     else {
-      val reference = state.document.floatExpression(*array)
+      val reference = document.floatExpression(*array)
       check(Utils.idFromNan(reference) < Limits.MAX_STATE_DATA) {
         "Lottie geometry exceeds RC's ${Limits.MAX_STATE_DATA}-entry float-state limit"
       }
-      floatArrayOf(reference)
+      RemoteFloat.createForId(reference)
     }
   }
 }

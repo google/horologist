@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
+@file:Suppress("RestrictedApi") // remote-core, remote-player-compose, remote-player-view, RemoteDrawScope.remoteCanvas, rememberRemoteDocument
 
 package com.google.android.horologist.remotecompose.lottie
 

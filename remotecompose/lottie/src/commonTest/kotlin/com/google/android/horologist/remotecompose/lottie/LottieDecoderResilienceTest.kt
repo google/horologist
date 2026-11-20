@@ -26,6 +26,7 @@ import com.google.android.horologist.remotecompose.lottie.format.layer.UnknownLa
 import com.google.android.horologist.remotecompose.lottie.format.properties.StaticColorProperty
 import com.google.android.horologist.remotecompose.lottie.format.values.GradientValueSerializer
 import com.google.android.horologist.remotecompose.lottie.testcompat.Color
+import com.google.android.horologist.remotecompose.lottie.testcompat.asConstantColorOrNull
 import com.google.android.horologist.remotecompose.lottie.testcompat.assertThat
 import com.google.android.horologist.remotecompose.lottie.testcompat.rc
 import kotlin.test.Test
@@ -227,18 +228,18 @@ class LottieDecoderResilienceTest {
     val gradient =
       LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
-    val colorStart = gradient.getColorForPosition(0.0f).constantValueOrNull?.let(::Color)
+    val colorStart = gradient.getColorForPosition(0.0f).asConstantColorOrNull()
     assertThat(colorStart?.red).isEqualTo(1f)
     assertThat(colorStart?.green).isEqualTo(0f)
     assertThat(colorStart?.blue).isEqualTo(0f)
     assertThat(colorStart?.alpha).isEqualTo(1f)
 
-    val colorMid = gradient.getColorForPosition(0.5f).constantValueOrNull?.let(::Color)
+    val colorMid = gradient.getColorForPosition(0.5f).asConstantColorOrNull()
     assertThat(colorMid?.red).isWithin(0.01f).of(0.5f)
     assertThat(colorMid?.green).isWithin(0.01f).of(0.5f)
     assertThat(colorMid?.alpha).isEqualTo(1f)
 
-    val colorEnd = gradient.getColorForPosition(1.0f).constantValueOrNull?.let(::Color)
+    val colorEnd = gradient.getColorForPosition(1.0f).asConstantColorOrNull()
     assertThat(colorEnd?.green).isEqualTo(1f)
     assertThat(colorEnd?.alpha).isEqualTo(1f)
   }
@@ -249,11 +250,11 @@ class LottieDecoderResilienceTest {
     val gradient =
       LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
-    val colorStart = gradient.getColorForPosition(0.0f).constantValueOrNull?.let(::Color)
+    val colorStart = gradient.getColorForPosition(0.0f).asConstantColorOrNull()
     assertThat(colorStart?.red).isEqualTo(1f)
     assertThat(colorStart?.alpha).isEqualTo(1f)
 
-    val colorEnd = gradient.getColorForPosition(1.0f).constantValueOrNull?.let(::Color)
+    val colorEnd = gradient.getColorForPosition(1.0f).asConstantColorOrNull()
     assertThat(colorEnd?.blue).isEqualTo(1f)
     assertThat(colorEnd?.alpha).isWithin(0.01f).of(0.5f)
   }
@@ -264,11 +265,11 @@ class LottieDecoderResilienceTest {
     val gradient =
       LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 2), json)
 
-    val colorStart = gradient.getColorForPosition(0.0f).constantValueOrNull?.let(::Color)
+    val colorStart = gradient.getColorForPosition(0.0f).asConstantColorOrNull()
     assertThat(colorStart?.red).isEqualTo(1f)
     assertThat(colorStart?.alpha).isEqualTo(1f)
 
-    val colorEnd = gradient.getColorForPosition(1.0f).constantValueOrNull?.let(::Color)
+    val colorEnd = gradient.getColorForPosition(1.0f).asConstantColorOrNull()
     assertThat(colorEnd?.green).isEqualTo(1f)
     assertThat(colorEnd?.alpha).isWithin(0.01f).of(128f / 255f)
   }
@@ -289,26 +290,26 @@ class LottieDecoderResilienceTest {
     val gradient =
       LottieDecoder.json.decodeFromString(GradientValueSerializer(colorStopCount = 3), json)
 
-    val c0 = gradient.getColorForPosition(0.0f).constantValueOrNull?.let(::Color)
+    val c0 = gradient.getColorForPosition(0.0f).asConstantColorOrNull()
     assertThat(c0?.red).isWithin(0.01f).of(1.0f)
     assertThat(c0?.green).isWithin(0.01f).of(0.0f)
     assertThat(c0?.alpha).isWithin(0.01f).of(0.8f)
 
-    val c025 = gradient.getColorForPosition(0.25f).constantValueOrNull?.let(::Color)
+    val c025 = gradient.getColorForPosition(0.25f).asConstantColorOrNull()
     assertThat(c025?.red).isWithin(0.01f).of(0.5f)
     assertThat(c025?.green).isWithin(0.01f).of(0.5f)
     assertThat(c025?.alpha).isWithin(0.01f).of(0.8f)
 
-    val c05 = gradient.getColorForPosition(0.5f).constantValueOrNull?.let(::Color)
+    val c05 = gradient.getColorForPosition(0.5f).asConstantColorOrNull()
     assertThat(c05?.green).isWithin(0.01f).of(1.0f)
     assertThat(c05?.alpha).isWithin(0.01f).of(0.6f)
 
-    val c075 = gradient.getColorForPosition(0.75f).constantValueOrNull?.let(::Color)
+    val c075 = gradient.getColorForPosition(0.75f).asConstantColorOrNull()
     assertThat(c075?.green).isWithin(0.01f).of(0.5f)
     assertThat(c075?.blue).isWithin(0.01f).of(0.5f)
     assertThat(c075?.alpha).isWithin(0.01f).of(0.4f)
 
-    val c1 = gradient.getColorForPosition(1.0f).constantValueOrNull?.let(::Color)
+    val c1 = gradient.getColorForPosition(1.0f).asConstantColorOrNull()
     assertThat(c1?.blue).isWithin(0.01f).of(1.0f)
     assertThat(c1?.alpha).isWithin(0.01f).of(0.4f)
   }

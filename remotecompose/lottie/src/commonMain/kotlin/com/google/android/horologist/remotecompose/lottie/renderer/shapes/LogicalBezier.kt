@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
-
 package com.google.android.horologist.remotecompose.lottie.renderer.shapes
 
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.max
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfGe
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierTopology
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierValue
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.rawReference
@@ -42,7 +39,7 @@ private val logicalZero
   get() = LogicalPoint(0f.rf, 0f.rf)
 
 private fun chooseFloat(flag: RemoteFloat, yes: RemoteFloat, no: RemoteFloat): RemoteFloat =
-  selectIfGe(flag, 1f.rf, yes, no).rawReference()
+  flag.isGreaterThanOrEqualTo(1f.rf).select(yes, no).rawReference()
 
 internal fun logicalChoose(flag: RemoteFloat, yes: LogicalPoint, no: LogicalPoint) =
   LogicalPoint(chooseFloat(flag, yes.x, no.x), chooseFloat(flag, yes.y, no.y))

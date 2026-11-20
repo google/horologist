@@ -31,7 +31,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
 /**
  * Evaluates a [PuckerBloat] modifier across [shapes], bowing vertices and tangents inward/outward.
  */
-@Suppress("RestrictedApi")
 internal fun evaluatePuckerBloat(
   shapes: List<RemoteShape>,
   puckerBloat: PuckerBloat,
@@ -70,7 +69,6 @@ internal fun evaluatePuckerBloat(
   }
 }
 
-@Suppress("RestrictedApi")
 private fun applyPuckerBloatToSubpath(
   subpath: RemoteBezierValue,
   amount: RemoteFloat,
@@ -90,7 +88,7 @@ private fun applyPuckerBloatToSubpath(
   val cx = sumX / max(activeCount, 1f.rf)
   val cy = sumY / max(activeCount, 1f.rf)
 
-  val f = amount / 100f
+  val f = amount / 100f.rf
 
   val newVertices = mutableListOf<List<RemoteFloat>>()
   val newInTangents = mutableListOf<List<RemoteFloat>>()
@@ -116,10 +114,10 @@ private fun applyPuckerBloatToSubpath(
     val newVy = vy - dy * f
 
     // Convert the displaced absolute controls back to offsets from the displaced vertex.
-    val newOutX = outX * (1f.rf + f) + dx * f * 2f
-    val newOutY = outY * (1f.rf + f) + dy * f * 2f
-    val newInX = inX * (1f.rf + f) + dx * f * 2f
-    val newInY = inY * (1f.rf + f) + dy * f * 2f
+    val newOutX = outX * (1f.rf + f) + dx * f * 2f.rf
+    val newOutY = outY * (1f.rf + f) + dy * f * 2f.rf
+    val newInX = inX * (1f.rf + f) + dx * f * 2f.rf
+    val newInY = inY * (1f.rf + f) + dy * f * 2f.rf
 
     newVertices.add(listOf(newVx, newVy))
     // A padding slot may own the incoming control of the real closing edge, but its outgoing

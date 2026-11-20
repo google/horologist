@@ -30,7 +30,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
 private const val ELLIPSE_CONTROL_POINT_CONSTANT = 0.55228f
 
 /** Evaluates a Lottie [Ellipse] parametric shape into a [RemoteLottiePath]. */
-@Suppress("RestrictedApi")
 internal fun evaluateEllipse(
   el: Ellipse,
   animationSettings: LottieSettings,
@@ -43,11 +42,11 @@ internal fun evaluateEllipse(
   val size = animateVector(el.size, animationSettings)
   val width = size.getOrElse(0) { 0f.rf }
   val height = size.getOrElse(1) { 0f.rf }
-  val halfWidth = width / 2f
-  val halfHeight = height / 2f
+  val halfWidth = width / 2f.rf
+  val halfHeight = height / 2f.rf
 
-  val cpW = halfWidth * ELLIPSE_CONTROL_POINT_CONSTANT
-  val cpH = halfHeight * ELLIPSE_CONTROL_POINT_CONSTANT
+  val cpW = halfWidth * ELLIPSE_CONTROL_POINT_CONSTANT.rf
+  val cpH = halfHeight * ELLIPSE_CONTROL_POINT_CONSTANT.rf
 
   val vertices: List<List<RemoteFloat>>
   val inTangents: List<List<RemoteFloat>>

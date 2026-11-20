@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
+@file:Suppress("RestrictedApi") // remote-core, remote-player-compose, remote-player-view, RemoteDrawScope.remoteCanvas, rememberRemoteDocument
 
 package com.google.android.horologist.remotecompose.lottie
 
@@ -105,7 +105,7 @@ class LogicalBezierPlaybackTest : MotionPixelHarness() {
       val document =
         rememberRemoteDocument(profile = LottieProfiles.NoRuntimeShaders) {
           val progress = rememberNamedRemoteFloat("progress", 0f.rf)
-          val radius = animateScalar(rounding.radius, LottieSettings(progress * 40f))
+          val radius = animateScalar(rounding.radius, LottieSettings(progress * 40f.rf))
           val output = roundRemoteBezier(roundRemoteBezier(source, radius), 4f.rf)
           fun named(kind: String, points: List<List<RemoteFloat>>) = points.mapIndexed { i, p ->
             p.mapIndexed { j, value ->

@@ -16,7 +16,6 @@
 
 package com.google.android.horologist.remotecompose.lottie
 
-import android.annotation.SuppressLint
 import androidx.compose.remote.creation.compose.state.rb
 import androidx.compose.remote.creation.compose.state.rf
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -37,7 +36,6 @@ import com.google.common.truth.Truth.assertThat
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@SuppressLint("RestrictedApi")
 @RunWith(AndroidJUnit4::class)
 class PrecompLayerTest {
 

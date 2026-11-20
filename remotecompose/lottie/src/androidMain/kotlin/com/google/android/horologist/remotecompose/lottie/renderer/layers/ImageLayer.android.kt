@@ -37,7 +37,6 @@ internal actual fun rememberDecodedImage(asset: ImageAsset): DecodedImage? {
  * Decodes an [ImageAsset] into a [DecodedImage] supporting Base64 data URLs, HTTP/HTTPS URLs, and
  * local assets with native bitmap dimensions.
  */
-@Suppress("RestrictedApi")
 internal fun decodeImageAsset(asset: ImageAsset, context: Context? = null): DecodedImage? {
   val path = asset.path.orEmpty()
   val dir = asset.directory.orEmpty()

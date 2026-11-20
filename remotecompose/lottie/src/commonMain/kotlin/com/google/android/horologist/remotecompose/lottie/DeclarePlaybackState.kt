@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi", "INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+@file:Suppress(
+  "RestrictedApi", // remote-creation-core, RemoteCanvas, RemoteComposeCreationState,
+  // RemoteDrawScope.remoteCanvas, RemoteDrawScope.remoteComposeCreationState,
+  // RemoteFloat.getFloatIdForCreationState
+  "INVISIBLE_REFERENCE",
+  "INVISIBLE_MEMBER", // RemoteCanvas.recordRenderingOp
+)
 
 package com.google.android.horologist.remotecompose.lottie
 
@@ -30,9 +36,9 @@ internal fun DeclarePlaybackState(frame: RemoteFloat) {
   RemoteCanvas {
     val canvas = remoteCanvas
     canvas.recordRenderingOp {
-      canvas.document.beginGlobal()
-      frame.getFloatIdForCreationState(canvas.creationState)
-      canvas.document.endGlobal()
+      document.beginGlobal()
+      frame.getFloatIdForCreationState(remoteComposeCreationState)
+      document.endGlobal()
     }
   }
 }

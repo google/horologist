@@ -14,7 +14,11 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi", "INVISIBLE_REFERENCE", "INVISIBLE_MEMBER")
+@file:Suppress(
+  "RestrictedApi", // remote-core, remote-creation-core, remote-player-compose, remote-player-view, RemoteCanvas, RemoteComposeCreationState, RemoteDrawScope.remoteCanvas, RemoteDrawScope.remoteComposeCreationState, RemoteFloat.getFloatIdForCreationState, rememberRemoteDocument
+  "INVISIBLE_REFERENCE",
+  "INVISIBLE_MEMBER", // CanvasOperationBuffer, RemoteCanvas.buffer, RemoteCanvas.recordRenderingOp
+)
 
 package com.google.android.horologist.remotecompose.lottie
 
@@ -146,7 +150,7 @@ class CubicIntersectionPlaybackTest : MotionPixelHarness() {
             val canvas = remoteCanvas
             val operation = canvas.recordRenderingOp {
               recordings++
-              val writer = canvas.creationState.document
+              val writer = document
               for ((index, case) in cases.withIndex()) {
                 fun translated(points: List<Float>) = points.mapIndexed { coordinate, value ->
                   if (coordinate % 2 == 1) value.rf + shift else value.rf
@@ -155,7 +159,7 @@ class CubicIntersectionPlaybackTest : MotionPixelHarness() {
                   cubicIntersection(translated(case.first), translated(case.second), enabled)
                 for ((axis, value) in listOf(t, u).withIndex()) {
                   writer.setFloatName(
-                    value.getIdForCreationState(canvas.creationState),
+                    value.getIdForCreationState(remoteComposeCreationState),
                     name(index, axis),
                   )
                 }
@@ -214,7 +218,7 @@ class CubicIntersectionPlaybackTest : MotionPixelHarness() {
             val canvas = remoteCanvas
             val operation = canvas.recordRenderingOp {
               recordings++
-              val writer = canvas.creationState.document
+              val writer = document
               writer.buffer.addPaint(
                 PaintBundle().apply {
                   setColor(AndroidColor.RED)
@@ -233,7 +237,7 @@ class CubicIntersectionPlaybackTest : MotionPixelHarness() {
                   writer.drawRect(
                     0f,
                     top,
-                    (value * barScale).getFloatIdForCreationState(canvas.creationState),
+                    (value * barScale.rf).getFloatIdForCreationState(remoteComposeCreationState),
                     top + 10f,
                   )
                 }

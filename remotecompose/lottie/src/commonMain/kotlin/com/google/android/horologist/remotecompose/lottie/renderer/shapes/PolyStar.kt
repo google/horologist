@@ -46,7 +46,6 @@ import kotlin.math.floor
 //    preserves 1:1 visual parity across group transformations.
 
 /** Evaluates a Lottie [PolyStar] parametric shape into a [RemoteLottiePath]. */
-@Suppress("RestrictedApi")
 internal fun evaluatePolyStar(
   star: PolyStar,
   animationSettings: LottieSettings,
@@ -66,7 +65,7 @@ internal fun evaluatePolyStar(
   }
   val rotation = animateScalar(star.rotation, animationSettings)
   val outerRadius = animateScalar(star.outerRadius, animationSettings)
-  val outerRoundedness = animateScalar(star.outerRoundness, animationSettings) / 100f
+  val outerRoundedness = animateScalar(star.outerRoundness, animationSettings) / 100f.rf
 
   val subpath =
     if (points == null) createLivePolystar(star, animationSettings, livePoints, posX, posY)
@@ -75,7 +74,7 @@ internal fun evaluatePolyStar(
         PolyStarType.Star -> {
           val innerRadius = star.innerRadius?.let { animateScalar(it, animationSettings) } ?: 0f.rf
           val innerRoundedness =
-            (star.innerRoundness?.let { animateScalar(it, animationSettings) } ?: 0f.rf) / 100f
+            (star.innerRoundness?.let { animateScalar(it, animationSettings) } ?: 0f.rf) / 100f.rf
           createStarBezier(
             points = points,
             positionX = posX,
@@ -108,7 +107,6 @@ internal fun evaluatePolyStar(
   return trimParametricPath(rounded, trimPath, animationSettings)
 }
 
-@Suppress("RestrictedApi")
 private fun createStarBezier(
   points: Float,
   positionX: RemoteFloat,
@@ -124,11 +122,11 @@ private fun createStarBezier(
     return RemoteBezierValue(closed = true, emptyList(), emptyList(), emptyList())
   }
 
-  var currentAngle = (rotation - 90f) * (PI.toFloat() / 180f)
+  var currentAngle = (rotation - 90f.rf) * (PI.toFloat() / 180f).rf
   val anglePerPoint = (2.0 * PI / points).toFloat() * if (reversed) -1f else 1f
   val halfAnglePerPoint = anglePerPoint / 2.0f
   val partialPointAmount = points - points.toInt()
-  if (partialPointAmount != 0f) currentAngle += halfAnglePerPoint * (1f - partialPointAmount)
+  if (partialPointAmount != 0f) currentAngle += (halfAnglePerPoint * (1f - partialPointAmount)).rf
 
   var x: RemoteFloat
   var y: RemoteFloat
@@ -137,14 +135,14 @@ private fun createStarBezier(
   var partialPointRadius = 0f.rf
 
   if (partialPointAmount != 0f) {
-    partialPointRadius = innerRadius + (outerRadius - innerRadius) * partialPointAmount
+    partialPointRadius = innerRadius + (outerRadius - innerRadius) * partialPointAmount.rf
     x = partialPointRadius * cos(currentAngle)
     y = partialPointRadius * sin(currentAngle)
-    currentAngle += anglePerPoint * partialPointAmount / 2f
+    currentAngle += (anglePerPoint * partialPointAmount / 2f).rf
   } else {
     x = outerRadius * cos(currentAngle)
     y = outerRadius * sin(currentAngle)
-    currentAngle += halfAnglePerPoint
+    currentAngle += halfAnglePerPoint.rf
   }
 
   val numPoints = ceil(points.toDouble()).toInt() * 2
@@ -180,11 +178,11 @@ private fun createStarBezier(
     }
 
     if (innerRoundedness.constantValueOrNull != 0f || outerRoundedness.constantValueOrNull != 0f) {
-      val cp1Theta = atan2(previousY, previousX) - (PI.toFloat() / 2f)
+      val cp1Theta = atan2(previousY, previousX) - (PI.toFloat() / 2f).rf
       val cp1Dx = cos(cp1Theta)
       val cp1Dy = sin(cp1Theta)
 
-      val cp2Theta = atan2(y, x) - (PI.toFloat() / 2f)
+      val cp2Theta = atan2(y, x) - (PI.toFloat() / 2f).rf
       val cp2Dx = cos(cp2Theta)
       val cp2Dy = sin(cp2Theta)
 
@@ -193,17 +191,17 @@ private fun createStarBezier(
       val cp1Radius = if (longSegment) innerRadius else outerRadius
       val cp2Radius = if (longSegment) outerRadius else innerRadius
 
-      var cp1x = cp1Radius * cp1Roundedness * 0.47829f * cp1Dx
-      var cp1y = cp1Radius * cp1Roundedness * 0.47829f * cp1Dy
-      var cp2x = cp2Radius * cp2Roundedness * 0.47829f * cp2Dx
-      var cp2y = cp2Radius * cp2Roundedness * 0.47829f * cp2Dy
+      var cp1x = cp1Radius * cp1Roundedness * 0.47829f.rf * cp1Dx
+      var cp1y = cp1Radius * cp1Roundedness * 0.47829f.rf * cp1Dy
+      var cp2x = cp2Radius * cp2Roundedness * 0.47829f.rf * cp2Dx
+      var cp2y = cp2Radius * cp2Roundedness * 0.47829f.rf * cp2Dy
       if (partialPointAmount != 0f) {
         if (i == 0) {
-          cp1x *= partialPointAmount
-          cp1y *= partialPointAmount
+          cp1x *= partialPointAmount.rf
+          cp1y *= partialPointAmount.rf
         } else if (i == numPoints - 1) {
-          cp2x *= partialPointAmount
-          cp2y *= partialPointAmount
+          cp2x *= partialPointAmount.rf
+          cp2y *= partialPointAmount.rf
         }
       }
 
@@ -211,7 +209,7 @@ private fun createStarBezier(
       inTangents[targetIndex] = listOf(cp2x, cp2y)
     }
 
-    currentAngle += dTheta
+    currentAngle += dTheta.rf
     longSegment = !longSegment
   }
 
@@ -223,7 +221,6 @@ private fun createStarBezier(
   )
 }
 
-@Suppress("RestrictedApi")
 private fun createPolygonBezier(
   points: Float,
   positionX: RemoteFloat,
@@ -237,12 +234,12 @@ private fun createPolygonBezier(
   }
 
   val pts = floor(points.toDouble()).toInt()
-  var currentAngle = (rotation - 90f) * (PI.toFloat() / 180f)
+  var currentAngle = (rotation - 90f.rf) * (PI.toFloat() / 180f).rf
   val anglePerPoint = (2.0 * PI / pts).toFloat()
 
   var x = radius * cos(currentAngle)
   var y = radius * sin(currentAngle)
-  currentAngle += anglePerPoint
+  currentAngle += anglePerPoint.rf
 
   var previousX: RemoteFloat
   var previousY: RemoteFloat
@@ -271,24 +268,24 @@ private fun createPolygonBezier(
     }
 
     if (roundedness.constantValueOrNull != 0f) {
-      val cp1Theta = atan2(previousY, previousX) - (PI.toFloat() / 2f)
+      val cp1Theta = atan2(previousY, previousX) - (PI.toFloat() / 2f).rf
       val cp1Dx = cos(cp1Theta)
       val cp1Dy = sin(cp1Theta)
 
-      val cp2Theta = atan2(y, x) - (PI.toFloat() / 2f)
+      val cp2Theta = atan2(y, x) - (PI.toFloat() / 2f).rf
       val cp2Dx = cos(cp2Theta)
       val cp2Dy = sin(cp2Theta)
 
-      val cp1x = radius * roundedness * 0.25f * cp1Dx
-      val cp1y = radius * roundedness * 0.25f * cp1Dy
-      val cp2x = radius * roundedness * 0.25f * cp2Dx
-      val cp2y = radius * roundedness * 0.25f * cp2Dy
+      val cp1x = radius * roundedness * 0.25f.rf * cp1Dx
+      val cp1y = radius * roundedness * 0.25f.rf * cp1Dy
+      val cp2x = radius * roundedness * 0.25f.rf * cp2Dx
+      val cp2y = radius * roundedness * 0.25f.rf * cp2Dy
 
       outTangents[i] = listOf(-cp1x, -cp1y)
       inTangents[targetIndex] = listOf(cp2x, cp2y)
     }
 
-    currentAngle += anglePerPoint
+    currentAngle += anglePerPoint.rf
   }
 
   return RemoteBezierValue(

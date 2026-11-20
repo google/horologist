@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
-
 package com.google.android.horologist.remotecompose.lottie.renderer.shapes
 
 import androidx.compose.remote.creation.compose.state.RemoteFloat
@@ -25,9 +23,6 @@ import androidx.compose.remote.creation.compose.state.cos
 import androidx.compose.remote.creation.compose.state.floor
 import androidx.compose.remote.creation.compose.state.max
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfGe
-import androidx.compose.remote.creation.compose.state.selectIfLe
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.remote.creation.compose.state.sin
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.graphicelement.geometry.PolyStar
@@ -81,7 +76,10 @@ private data class StarPoint(val x: RemoteFloat, val y: RemoteFloat) {
 }
 
 private fun chooseStar(flag: RemoteFloat, yes: StarPoint, no: StarPoint) =
-  StarPoint(selectIfGe(flag, 1f.rf, yes.x, no.x), selectIfGe(flag, 1f.rf, yes.y, no.y))
+  StarPoint(
+    flag.isGreaterThanOrEqualTo(1f.rf).select(yes.x, no.x),
+    flag.isGreaterThanOrEqualTo(1f.rf).select(yes.y, no.y),
+  )
 
 /** Fixed-capacity live topology; only the first collapsed slot owns the closing control. */
 internal fun createLivePolystar(
@@ -95,31 +93,36 @@ internal fun createLivePolystar(
   val capacity = polystarCapacity(star) * if (isStar) 2 else 1
   val p = max(0f.rf, points)
   val fraction = p - floor(p)
-  val partial = selectIfLe(fraction, 0f.rf, 0f.rf, 1f.rf)
-  val count = if (isStar) (floor(p) + partial) * 2f else floor(p)
-  val enabled = selectIfGe(count, (if (isStar) 1f else 3f).rf, 1f.rf, 0f.rf)
+  val partial = fraction.isLessThanOrEqualTo(0f.rf).select(0f.rf, 1f.rf)
+  val count = if (isStar) (floor(p) + partial) * 2f.rf else floor(p)
+  val enabled = count.isGreaterThanOrEqualTo((if (isStar) 1f else 3f).rf).select(1f.rf, 0f.rf)
   val outer = animateScalar(star.outerRadius, settings)
   val inner = star.innerRadius?.let { animateScalar(it, settings) } ?: 0f.rf
-  val outerRound = animateScalar(star.outerRoundness, settings) / 100f
-  val innerRound = star.innerRoundness?.let { animateScalar(it, settings) / 100f } ?: 0f.rf
-  val rotation = (animateScalar(star.rotation, settings) - 90f) * (PI.toFloat() / 180f)
+  val outerRound = animateScalar(star.outerRoundness, settings) / 100f.rf
+  val innerRound = star.innerRoundness?.let { animateScalar(it, settings) / 100f.rf } ?: 0f.rf
+  val rotation = (animateScalar(star.rotation, settings) - 90f.rf) * (PI.toFloat() / 180f).rf
   // lottie-android reverses stars but ignores polygon direction; preserve that reference contract.
   val direction = if (isStar && star.direction == 3) -1f else 1f
   val angle = (2f * PI.toFloat() * direction).rf / max(if (isStar) p else count, 0.000001f.rf)
-  val half = angle / 2f
+  val half = angle / 2f.rf
   val startAngle =
-    rotation + if (isStar) selectIfGe(partial, 1f.rf, half * (1f.rf - fraction), 0f.rf) else 0f.rf
+    rotation +
+      if (isStar) partial.isGreaterThanOrEqualTo(1f.rf).select(half * (1f.rf - fraction), 0f.rf)
+      else 0f.rf
   val startRadius =
-    if (isStar) selectIfGe(partial, 1f.rf, inner + (outer - inner) * fraction, outer) else outer
+    if (isStar)
+      partial.isGreaterThanOrEqualTo(1f.rf).select(inner + (outer - inner) * fraction, outer)
+    else outer
   fun polar(radius: RemoteFloat, theta: RemoteFloat) =
     StarPoint(radius * cos(theta), radius * sin(theta))
   val zero = StarPoint(0f.rf, 0f.rf)
   val first = polar(startRadius, startAngle) * enabled
   fun control(point: StarPoint, radius: RemoteFloat, rounding: RemoteFloat): StarPoint {
-    val theta = atan2(point.y, point.x) - PI.toFloat() / 2f
-    return polar(radius * rounding * (if (isStar) 0.47829f else 0.25f), theta) * enabled
+    val theta = atan2(point.y, point.x) - (PI.toFloat() / 2f).rf
+    return polar(radius * rounding * (if (isStar) 0.47829f else 0.25f).rf, theta) * enabled
   }
-  val partialScale = if (isStar) selectIfGe(partial, 1f.rf, fraction, 1f.rf) else 1f.rf
+  val partialScale =
+    if (isStar) partial.isGreaterThanOrEqualTo(1f.rf).select(fraction, 1f.rf) else 1f.rf
   val firstControl = control(first, outer, outerRound) * partialScale
   val vertices = ArrayList<List<RemoteFloat>>(capacity)
   val incoming = ArrayList<List<RemoteFloat>>(capacity)
@@ -128,22 +131,26 @@ internal fun createLivePolystar(
     outerRound.constantValueOrNull == 0f && (!isStar || innerRound.constantValueOrNull == 0f)
   for (index in 0 until capacity) {
     val j = index.toFloat().rf
-    val active = selectIfLt(j, count, 1f.rf, 0f.rf) * enabled
-    val firstCollapsed = selectIfLe(abs(j - count), 0f.rf, 1f.rf, 0f.rf) * enabled
+    val active = j.isLessThan(count).select(1f.rf, 0f.rf) * enabled
+    val firstCollapsed = (abs(j - count)).isLessThanOrEqualTo(0f.rf).select(1f.rf, 0f.rf) * enabled
     val radius = if (isStar && index % 2 == 1) inner else outer
     val roundness = if (isStar && index % 2 == 1) innerRound else outerRound
     val theta =
       if (isStar) {
         startAngle +
-          selectIfGe(partial, 1f.rf, half * fraction, half) +
-          half * (index - 1).toFloat()
-      } else startAngle + angle * index.toFloat()
+          partial.isGreaterThanOrEqualTo(1f.rf).select(half * fraction, half) +
+          half * (index - 1).toFloat().rf
+      } else startAngle + angle * index.toFloat().rf
     val current = if (index == 0) first else polar(radius, theta)
     val point = chooseStar(active, current, first)
     val handle = if (index == 0) firstControl else control(current, radius, roundness)
     val incomingHandle =
       if (index == 0) {
-        chooseStar(selectIfGe(count, capacity.toFloat().rf, 1f.rf, 0f.rf), firstControl, zero)
+        chooseStar(
+          count.isGreaterThanOrEqualTo(capacity.toFloat().rf).select(1f.rf, 0f.rf),
+          firstControl,
+          zero,
+        )
       } else chooseStar(active, handle, chooseStar(firstCollapsed, firstControl, zero))
     vertices.add(listOf(point.x + positionX, point.y + positionY))
     // Keep analytically zero handles literal: otherwise 0 * live trigonometry sends straight
@@ -153,6 +160,6 @@ internal fun createLivePolystar(
       if (unrounded) zero.values() else chooseStar(active, handle * (-1f).rf, zero).values()
     )
   }
-  val active = List(capacity) { selectIfLt(it.toFloat().rf, count, 1f.rf, 0f.rf) * enabled }
+  val active = List(capacity) { it.toFloat().rf.isLessThan(count).select(1f.rf, 0f.rf) * enabled }
   return RemoteBezierValue(true, incoming, outgoing, vertices, RemoteBezierTopology(active, active))
 }

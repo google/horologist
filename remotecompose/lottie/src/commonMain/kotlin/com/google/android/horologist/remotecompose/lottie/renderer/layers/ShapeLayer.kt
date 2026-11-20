@@ -25,7 +25,6 @@ import com.google.android.horologist.remotecompose.lottie.format.layer.ShapeLaye
 import com.google.android.horologist.remotecompose.lottie.renderer.RenderShapes
 
 /** A Layer containing Shapes */
-@Suppress("RestrictedApi")
 @Composable
 @RemoteComposable
 internal fun ShapeLayer(

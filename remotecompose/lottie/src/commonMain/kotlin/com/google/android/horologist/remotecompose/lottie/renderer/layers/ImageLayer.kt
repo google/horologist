@@ -46,7 +46,7 @@ internal data class DecodedImage(
 @Composable internal expect fun rememberDecodedImage(asset: ImageAsset): DecodedImage?
 
 /** A Layer rendering an image asset referenced by [ImageLayer.refId]. */
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteCanvas, RemoteDrawScope.remoteCanvas, RemoteFloat.div(Float)
 @Composable
 @RemoteComposable
 internal fun ImageLayer(
@@ -74,7 +74,7 @@ internal fun ImageLayer(
 
   val layerOpacity =
     (updatedTransformStack.lastOrNull()?.opacity?.let {
-      animateScalar(it, animationSettings) / 100f
+      animateScalar(it, animationSettings) / 100f.rf
     } ?: 1f.rf) * layerVisibility
 
   val imageWidth = asset.width ?: 0f

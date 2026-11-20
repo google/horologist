@@ -18,7 +18,6 @@ package com.google.android.horologist.remotecompose.lottie.renderer.shapes
 
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.RemoteBezierValue
 
-@Suppress("RestrictedApi")
 internal fun RemoteBezierValue.requireStaticModifierGeometry(feature: String) {
   require(
     (vertices + inTangents + outTangents).flatten().all {

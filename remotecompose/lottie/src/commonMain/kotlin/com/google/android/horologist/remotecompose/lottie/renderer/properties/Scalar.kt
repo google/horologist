@@ -19,7 +19,6 @@ package com.google.android.horologist.remotecompose.lottie.renderer.properties
 import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.lerp
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
 import com.google.android.horologist.remotecompose.lottie.format.properties.AnimatedScalarProperty
 import com.google.android.horologist.remotecompose.lottie.format.properties.BaseScalarProperty
@@ -37,18 +36,14 @@ internal data class AnimationSegment(val startFrame: Float, val value: RemoteFlo
  * This recursively builds up a chain of IFELSE operations to select the correct RemoteFloat
  * representing the current segment of the animation.
  */
-@Suppress("RestrictedApi")
 internal fun chainAnimation(segments: List<AnimationSegment>, frame: RemoteFloat): RemoteFloat {
   if (segments.size == 1) {
     return segments[0].value
   }
 
-  return selectIfLt(
-    frame,
-    segments[1].startFrame.rf,
-    segments[0].value,
-    chainAnimation(segments.subList(1, segments.size), frame),
-  )
+  return frame
+    .isLessThan(segments[1].startFrame.rf)
+    .select(segments[0].value, chainAnimation(segments.subList(1, segments.size), frame))
 }
 
 /**
@@ -58,7 +53,6 @@ internal fun chainAnimation(segments: List<AnimationSegment>, frame: RemoteFloat
  * scalar is animated, the RemoteFloat will change based on the animation specified in the Lottie
  * Scalar Property.
  */
-@Suppress("RestrictedApi")
 internal fun animateScalar(
   scalar: BaseScalarProperty,
   animationSettings: LottieSettings,
@@ -91,7 +85,7 @@ internal fun animateScalar(
 
         val currentBezierValue =
           if (startKeyframe.hold.constantValue) {
-            selectIfLt(frameInAnimation, duration.rf, 0f.rf, 1f.rf)
+            frameInAnimation.isLessThan(duration.rf).select(0f.rf, 1f.rf)
           } else
             lookupValueInBezier(
               outTangent.x,

@@ -23,7 +23,6 @@ import androidx.compose.remote.creation.compose.state.floor
 import androidx.compose.remote.creation.compose.state.lerp
 import androidx.compose.remote.creation.compose.state.min
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import com.google.android.horologist.remotecompose.lottie.format.values.Point
 import com.google.android.horologist.remotecompose.lottie.renderer.shapes.CubicSegment
 import com.google.android.horologist.remotecompose.lottie.renderer.shapes.Point as CurvePoint
@@ -36,7 +35,7 @@ private const val SPATIAL_SAMPLES = 256
  * length/position tables approximate the curve while remaining live through [progress]. Overshoot
  * extends along the endpoint tangent; a zero-length path stays at its start without division.
  */
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteFloatArray, RemoteFloatArray.get
 internal fun sampleSpatialPosition(
   start: Point,
   end: Point,
@@ -59,7 +58,7 @@ internal fun sampleSpatialPosition(
     }
   val sampleIndex = clamp(progress, 0f.rf, 1f.rf) * SPATIAL_SAMPLES.rf
   val lower = floor(sampleIndex)
-  val upper = min(lower + 1f, SPATIAL_SAMPLES.rf)
+  val upper = min(lower + 1f.rf, SPATIAL_SAMPLES.rf)
   fun direction(vararg candidates: CurvePoint): CurvePoint {
     val delta = candidates.firstOrNull { it.x != 0f || it.y != 0f } ?: return CurvePoint(0f, 0f)
     return delta * (1f / delta.distanceTo(CurvePoint(0f, 0f)))
@@ -70,9 +69,11 @@ internal fun sampleSpatialPosition(
   fun coordinate(values: List<Float>, startTangent: Float, endTangent: Float): RemoteFloat {
     val table = RemoteFloatArray(values.map { it.rf })
     val onCurve = lerp(table[lower], table[upper], sampleIndex - lower)
-    val before = values.first().rf + progress * (length * startTangent)
-    val after = values.last().rf + (progress - 1f) * (length * endTangent)
-    return selectIfLt(progress, 0f.rf, before, selectIfLt(1f.rf, progress, after, onCurve))
+    val before = values.first().rf + progress * (length * startTangent).rf
+    val after = values.last().rf + (progress - 1f.rf) * (length * endTangent).rf
+    return progress
+      .isLessThan(0f.rf)
+      .select(before, 1f.rf.isLessThan(progress).select(after, onCurve))
   }
   return Point(
     coordinate(points.map { it.x }, startDirection.x, endDirection.x),

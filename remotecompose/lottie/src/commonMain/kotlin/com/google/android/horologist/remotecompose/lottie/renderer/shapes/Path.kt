@@ -23,7 +23,6 @@ import com.google.android.horologist.remotecompose.lottie.format.graphicelement.
 import com.google.android.horologist.remotecompose.lottie.renderer.RemoteLottiePath
 
 /** Evaluates a Lottie [Path] geometry into a [RemoteLottiePath]. */
-@Suppress("RestrictedApi")
 internal fun evaluatePath(
   lottiePath: Path,
   animationSettings: LottieSettings,

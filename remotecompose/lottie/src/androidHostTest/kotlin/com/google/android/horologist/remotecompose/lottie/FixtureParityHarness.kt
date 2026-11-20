@@ -163,7 +163,7 @@ abstract class FixtureParityHarness : MotionPixelHarness() {
     }
   }
 
-  @SuppressLint("RestrictedApi")
+  @SuppressLint("RestrictedApi") // remote-core, remote-player-compose, rememberRemoteDocument
   private fun mountCompositions(
     decoded: Animation,
     reference: LottieComposition,

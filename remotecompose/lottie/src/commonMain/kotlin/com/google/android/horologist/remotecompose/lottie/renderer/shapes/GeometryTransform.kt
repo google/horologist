@@ -33,7 +33,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateVector
 
 /** A path-space boundary retained until modifiers have finished evaluating its source geometry. */
-@Suppress("RestrictedApi")
 internal data class DeferredPathTransform(
   val transform: Transform,
   val settings: LottieSettings,
@@ -48,7 +47,6 @@ internal data class DeferredPathTransform(
  * Transforms a [RemoteShape] geometry by a Lottie [Transform] definition into the parent coordinate
  * space.
  */
-@Suppress("RestrictedApi")
 internal fun transformRemoteShape(
   shape: RemoteShape,
   transform: Transform,
@@ -70,7 +68,6 @@ internal fun transformRemoteShape(
  * Retains an affine path-space boundary. Resolving it after modifiers preserves their local radius,
  * center and amplitude while still letting the final paint combine transformed contours.
  */
-@Suppress("RestrictedApi")
 internal fun transformLottiePath(
   lottiePath: RemoteLottiePath,
   transform: Transform,
@@ -87,7 +84,6 @@ internal fun transformLottiePath(
 }
 
 /** Transforms a single [RemoteBezierValue] by a Lottie [Transform]. */
-@Suppress("RestrictedApi")
 internal fun transformBezierValue(
   subpath: RemoteBezierValue,
   transform: Transform,
@@ -96,8 +92,8 @@ internal fun transformBezierValue(
   val anchorPoint = animatePosition(transform.anchorPoint, animationSettings)
   val translation = animatePosition(transform.positionTranslation, animationSettings)
   val scale = animateVector(transform.scale, animationSettings)
-  val scaleX = (scale.getOrNull(0) ?: 100f.rf) / 100f
-  val scaleY = (scale.getOrNull(1) ?: 100f.rf) / 100f
+  val scaleX = (scale.getOrNull(0) ?: 100f.rf) / 100f.rf
+  val scaleY = (scale.getOrNull(1) ?: 100f.rf) / 100f.rf
   val rotation = animateScalar(transform.rotation, animationSettings)
   val skew = transform.skew?.let { animateScalar(it, animationSettings) }
   val skewAxis = transform.skewAxis?.let { animateScalar(it, animationSettings) }
@@ -155,7 +151,6 @@ internal fun transformBezierValue(
   )
 }
 
-@Suppress("RestrictedApi")
 private fun transformPoint(
   x: RemoteFloat,
   y: RemoteFloat,
@@ -200,7 +195,6 @@ private fun transformPoint(
   return listOf(finalX, finalY)
 }
 
-@Suppress("RestrictedApi")
 private fun transformTangent(
   dx: RemoteFloat,
   dy: RemoteFloat,

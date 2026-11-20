@@ -21,7 +21,6 @@ import androidx.compose.remote.creation.compose.state.RemoteFloat
 import androidx.compose.remote.creation.compose.state.RemotePaint
 import androidx.compose.remote.creation.compose.state.rb
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.remote.creation.compose.state.tan
 import androidx.compose.remote.creation.compose.state.toRad
 import com.google.android.horologist.remotecompose.lottie.LottieSettings
@@ -38,7 +37,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
  * returned properties retain RemoteFloat playback expressions, not frame-zero snapshots; evaluating
  * them again in a nested composition cannot retime those expressions.
  */
-@Suppress("RestrictedApi")
 internal fun Transform.bindToTimeline(animationSettings: LottieSettings): Transform =
   copy(
     anchorPoint = StaticPositionProperty(value = animatePosition(anchorPoint, animationSettings)),
@@ -53,15 +51,13 @@ internal fun Transform.bindToTimeline(animationSettings: LottieSettings): Transf
     skewAxis = skewAxis?.let { StaticScalarProperty(value = animateScalar(it, animationSettings)) },
   )
 
-@Suppress("RestrictedApi")
 /** Clamps scale components symmetrically away from zero to avoid matrix inversion singularities. */
 internal fun clampScale(scale: RemoteFloat): RemoteFloat {
-  val posClamped = selectIfLt(scale, 0.0001f.rf, 0.0001f.rf, scale)
-  val negClamped = selectIfLt(scale, (-0.0001f).rf, scale, (-0.0001f).rf)
-  return selectIfLt(scale, 0f.rf, negClamped, posClamped)
+  val posClamped = scale.isLessThan(0.0001f.rf).select(0.0001f.rf, scale)
+  val negClamped = scale.isLessThan((-0.0001f).rf).select(scale, (-0.0001f).rf)
+  return scale.isLessThan(0f.rf).select(negClamped, posClamped)
 }
 
-@Suppress("RestrictedApi")
 /**
  * Calculates the inverse scale factor, guarding against division-by-zero singularities when scale
  * is zero or near zero.
@@ -71,7 +67,7 @@ internal fun computeInverseScale(scale: RemoteFloat): RemoteFloat {
   return 1f.rf / clamped
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteCanvas
 /** Applies a transform described by a Lottie [Transform] object to the RemoteCanvas. */
 internal fun transform(
   transform: Transform,
@@ -86,8 +82,8 @@ internal fun transform(
 
   val scale = animateVector(transform.scale, animationSettings)
 
-  val scaleX = scale[0] / 100f
-  val scaleY = scale[1] / 100f
+  val scaleX = scale[0] / 100f.rf
+  val scaleY = scale[1] / 100f.rf
   val safeScaleX = clampScale(scaleX)
   val safeScaleY = clampScale(scaleY)
 
@@ -106,10 +102,10 @@ internal fun transform(
   canvas.scale(safeScaleX, safeScaleY)
   canvas.translate(-anchorPoint.x, -anchorPoint.y)
 
-  paint?.let { it.color = it.color.copy(alpha = opacity / 100f) }
+  paint?.let { it.color = it.color.copy(alpha = opacity / 100f.rf) }
 }
 
-@Suppress("RestrictedApi")
+@Suppress("RestrictedApi") // RemoteCanvas
 /**
  * Inverts the transform operations described by a Lottie [Transform] object on the RemoteCanvas.
  */
@@ -124,8 +120,8 @@ internal fun inverseTransform(
 
   val scale = animateVector(transform.scale, animationSettings)
 
-  val scaleX = scale[0] / 100f
-  val scaleY = scale[1] / 100f
+  val scaleX = scale[0] / 100f.rf
+  val scaleY = scale[1] / 100f.rf
 
   val invScaleX = computeInverseScale(scaleX)
   val invScaleY = computeInverseScale(scaleY)

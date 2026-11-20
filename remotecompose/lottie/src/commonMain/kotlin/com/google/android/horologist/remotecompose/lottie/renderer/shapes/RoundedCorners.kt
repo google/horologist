@@ -28,7 +28,6 @@ import com.google.android.horologist.remotecompose.lottie.renderer.properties.an
 import com.google.android.horologist.remotecompose.lottie.renderer.properties.animateScalar
 
 /** Applies rounding at its authored position, including earlier paints and styled groups. */
-@Suppress("RestrictedApi")
 internal fun evaluateRoundedCorners(
   shapes: List<RemoteShape>,
   rounding: RoundedCorners,
@@ -60,7 +59,6 @@ internal fun evaluateRoundedCorners(
 }
 
 /** Evaluates rounding at playback time instead of baking modifier results into keyframes. */
-@Suppress("RestrictedApi")
 internal fun evaluatePathGeometry(
   bezierProperty: BaseBezierProperty,
   trimPath: TrimPath?,

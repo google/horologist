@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("RestrictedApi")
-
 package com.google.android.horologist.remotecompose.lottie.renderer.shapes
 
 import androidx.compose.remote.creation.compose.state.RemoteFloat
@@ -26,9 +24,6 @@ import androidx.compose.remote.creation.compose.state.cos
 import androidx.compose.remote.creation.compose.state.max
 import androidx.compose.remote.creation.compose.state.min
 import androidx.compose.remote.creation.compose.state.rf
-import androidx.compose.remote.creation.compose.state.selectIfGe
-import androidx.compose.remote.creation.compose.state.selectIfLe
-import androidx.compose.remote.creation.compose.state.selectIfLt
 import androidx.compose.remote.creation.compose.state.sin
 import androidx.compose.remote.creation.compose.state.sqrt
 import androidx.compose.remote.creation.compose.state.tan
@@ -65,8 +60,8 @@ private data class CurvePoint(val x: RemoteFloat, val y: RemoteFloat) {
 
 private fun choose(flag: RemoteFloat, yes: CurvePoint, no: CurvePoint): CurvePoint =
   CurvePoint(
-    selectIfLt(0.000001f.rf, flag, yes.x, no.x),
-    selectIfLt(0.000001f.rf, flag, yes.y, no.y),
+    0.000001f.rf.isLessThan(flag).select(yes.x, no.x),
+    0.000001f.rf.isLessThan(flag).select(yes.y, no.y),
   )
 
 private fun mix(a: CurvePoint, b: CurvePoint, t: RemoteFloat) = a + (b - a) * t
@@ -137,8 +132,8 @@ private data class OffsetCubic(
     val end = point(b)
     return OffsetCubic(
       start,
-      start + derivative(a) * ((b - a) / 3f),
-      end - derivative(b) * ((b - a) / 3f),
+      start + derivative(a) * ((b - a) / 3f.rf),
+      end - derivative(b) * ((b - a) / 3f.rf),
       end,
     )
   }
@@ -160,7 +155,7 @@ private fun intersection(
   fallback: CurvePoint,
 ): CurvePoint {
   val det = da.cross(db).rawReference()
-  val safe = selectIfLt(0.000001f.rf, abs(det), det, 1f.rf).rawReference()
+  val safe = 0.000001f.rf.isLessThan(abs(det)).select(det, 1f.rf).rawReference()
   return choose(abs(det), a + da * ((b - a).cross(db) / safe), fallback)
 }
 
@@ -194,18 +189,20 @@ private fun OffsetCubic.breakpoints(): List<RemoteFloat> {
   val b = (p0 - p1 * 2f.rf + p2) * 3f.rf
   val c = (p1 - p0) * 3f.rf
   val det = b.cross(a)
-  val valid = selectIfLt(0.00001f.rf, abs(det), 1f.rf, 0f.rf)
-  val safe = selectIfGe(valid, 1f.rf, det, 1f.rf)
+  val valid = 0.00001f.rf.isLessThan(abs(det)).select(1f.rf, 0f.rf)
+  val safe = valid.isGreaterThanOrEqualTo(1f.rf).select(det, 1f.rf)
   val center = c.cross(a) * (-0.5f).rf / safe
-  val square = center * center - c.cross(b) / (safe * 3f)
+  val square = center * center - c.cross(b) / (safe * 3f.rf)
   val root = sqrt(max(square, 0f.rf))
   fun bounded(value: RemoteFloat) =
-    selectIfGe(
-      valid,
-      1f.rf,
-      selectIfLt(square, 0f.rf, 1f.rf, selectIfLt(0f.rf, value, clamp(value, 0f.rf, 1f.rf), 1f.rf)),
-      1f.rf,
-    )
+    valid
+      .isGreaterThanOrEqualTo(1f.rf)
+      .select(
+        square
+          .isLessThan(0f.rf)
+          .select(1f.rf, 0f.rf.isLessThan(value).select(clamp(value, 0f.rf, 1f.rf), 1f.rf)),
+        1f.rf,
+      )
   val low = bounded(center - root)
   val high = bounded(center + root)
   // An out-of-range lower root becomes 1 while the upper root may still be inside.
@@ -264,7 +261,8 @@ private class OffsetPieces(
     )
   }
 
-  fun multiple() = selectIfLt(1.5f.rf, active.fold(0f.rf) { sum, flag -> sum + flag }, 1f.rf, 0f.rf)
+  fun multiple() =
+    1.5f.rf.isLessThan(active.fold(0f.rf) { sum, flag -> sum + flag }).select(1f.rf, 0f.rf)
 
   fun keep(curve: OffsetCubic, first: Boolean, flag: RemoteFloat) {
     val retained = MutableList(active.size) { 0f.rf }
@@ -279,7 +277,8 @@ private class OffsetPieces(
       pieces[i] = chooseCubic(flag, chooseCubic(retained[i], curve, empty), pieces[i])
       passed = max(passed, retained[i]).rawReference()
     }
-    active = active.indices.map { selectIfGe(flag, 1f.rf, retained[it], active[it]) }
+    active =
+      active.indices.map { flag.isGreaterThanOrEqualTo(1f.rf).select(retained[it], active[it]) }
     val snapped = snapshotted()
     active = snapped.active
     for (i in pieces.indices) pieces[i] = snapped.pieces[i]
@@ -300,12 +299,13 @@ private fun pruneAdjacent(
   val (t, u) = cubicIntersection(coordinates(a), coordinates(b), enabled)
   val hit =
     enabled *
-      selectIfLt(
-        (a.point(t) - b.point(u)).length(),
-        0.0005f.rf,
-        selectIfLt(t, 0.99999f.rf, selectIfLt(0.00001f.rf, u, 1f.rf, 0f.rf), 0f.rf),
-        0f.rf,
-      )
+      (a.point(t) - b.point(u))
+        .length()
+        .isLessThan(0.0005f.rf)
+        .select(
+          t.isLessThan(0.99999f.rf).select(0.00001f.rf.isLessThan(u).select(1f.rf, 0f.rf), 0f.rf),
+          0f.rf,
+        )
   val clippedA = a.slice(0f.rf, t)
   val clippedB = b.slice(u, 1f.rf)
   var last = hit
@@ -343,7 +343,9 @@ private fun pruneAdjacent(
   val (outerT, outerU) = cubicIntersection(coordinates(outerA), coordinates(outerB), outerEnabled)
   val outerHit =
     (outerEnabled *
-        selectIfLt(outerT, .99999f.rf, selectIfLt(.00001f.rf, outerU, 1f.rf, 0f.rf), 0f.rf))
+        outerT
+          .isLessThan(.99999f.rf)
+          .select(.00001f.rf.isLessThan(outerU).select(1f.rf, 0f.rf), 0f.rf))
       .rawReference()
   left.keep(outerA.slice(0f.rf, outerT).shared(), first = true, flag = outerHit)
   right.keep(outerB.slice(outerU, 1f.rf).shared(), first = false, flag = outerHit)
@@ -353,7 +355,9 @@ private fun pruneAdjacent(
 private fun choosePieces(flag: RemoteFloat, yes: OffsetPieces, no: OffsetPieces) =
   OffsetPieces(
       emptyList(),
-      yes.active.indices.map { selectIfGe(flag, 1f.rf, yes.active[it], no.active[it]) },
+      yes.active.indices.map {
+        flag.isGreaterThanOrEqualTo(1f.rf).select(yes.active[it], no.active[it])
+      },
       yes.pieces.indices.map { chooseCubic(flag, yes.pieces[it], no.pieces[it]) }.toMutableList(),
     )
     .snapshotted()
@@ -393,7 +397,7 @@ private fun pruneLogicalGroups(
     afterHits[i] = nextHit
     lastFlags[i] = (present[i] * (1f.rf - hasNext)).rawReference()
     next = choosePieces(present[i], leftUpdates[i], next)
-    nextHit = selectIfGe(present[i], 1f.rf, hits[i], nextHit).rawReference()
+    nextHit = present[i].isGreaterThanOrEqualTo(1f.rf).select(hits[i], nextHit).rawReference()
     hasNext = max(hasNext, present[i]).rawReference()
   }
   var first = updated.first().snapshotted()
@@ -402,10 +406,12 @@ private fun pruneLogicalGroups(
   }
   val count = present.fold(0f.rf) { sum, value -> sum + value }
   val last = previous.snapshotted()
-  val closingHit = pruneAdjacent(last, first, selectIfLt(1f.rf, count, 1f.rf, 0f.rf)).rawReference()
+  val closingHit =
+    pruneAdjacent(last, first, 1f.rf.isLessThan(count).select(1f.rf, 0f.rf)).rawReference()
   for (i in groups.indices) {
     updated[i] = choosePieces(lastFlags[i], last, choosePieces(firstFlags[i], first, updated[i]))
-    afterHits[i] = selectIfGe(lastFlags[i], 1f.rf, closingHit, afterHits[i]).rawReference()
+    afterHits[i] =
+      lastFlags[i].isGreaterThanOrEqualTo(1f.rf).select(closingHit, afterHits[i]).rawReference()
   }
   return updated to afterHits
 }
@@ -494,7 +500,7 @@ internal fun offsetCurves(
       (curve.p1 - curve.p0).length() +
         (curve.p2 - curve.p1).length() +
         (curve.p3 - curve.p2).length()
-    selectIfLt(0.000001f.rf, length, 1f.rf, 0f.rf).rawReference()
+    0.000001f.rf.isLessThan(length).select(1f.rf, 0f.rf).rawReference()
   }
   var groups = curves.mapIndexed { index, raw ->
     val curve = raw.linearized().shared()
@@ -513,7 +519,7 @@ internal fun offsetCurves(
             if (it == 0) raw else collapsed(raw.p3)
           } else collapsed(source.last().p3)
         },
-        (0..2).map { selectIfLt(breaks[it], breaks[it + 1], 1f.rf, 0f.rf) },
+        (0..2).map { breaks[it].isLessThan(breaks[it + 1]).select(1f.rf, 0f.rf) },
         (0..2)
           .map { piece ->
             var part = curve.slice(breaks[piece], breaks[piece + 1]).shared()
@@ -522,11 +528,14 @@ internal fun offsetCurves(
               // Enforce that identity before normalizing: float32 subtraction can otherwise turn
               // roundoff into an arbitrary unit-length edge and a large spurious intersection.
               val betweenInflections =
-                selectIfLt(0f.rf, breaks[1], selectIfLt(breaks[2], 1f.rf, 1f.rf, 0f.rf), 0f.rf)
+                0f
+                  .rf
+                  .isLessThan(breaks[1])
+                  .select(breaks[2].isLessThan(1f.rf).select(1f.rf, 0f.rf), 0f.rf)
               part = part.copy(p2 = choose(betweenInflections, part.p1, part.p2))
             }
             fun interior(t: RemoteFloat) =
-              selectIfLt(0f.rf, t, selectIfLt(t, 1f.rf, 1f.rf, 0f.rf), 0f.rf)
+              0f.rf.isLessThan(t).select(t.isLessThan(1f.rf).select(1f.rf, 0f.rf), 0f.rf)
             part
               .linearized()
               .offset(
@@ -561,7 +570,7 @@ internal fun offsetCurves(
   val outgoing = mutableListOf<List<RemoteFloat>>()
   val owners = mutableListOf<RemoteFloat>()
   var owner = 1f.rf
-  val nonzero = selectIfLt(0f.rf, abs(amount), 1f.rf, 0f.rf)
+  val nonzero = 0f.rf.isLessThan(abs(amount)).select(1f.rf, 0f.rf)
   fun add(p: CurvePoint, inside: CurvePoint = zero, outside: CurvePoint = zero) {
     vertices.add(p.values())
     incoming.add(inside.values())
@@ -608,7 +617,7 @@ internal fun offsetCurves(
     // Match the reference's connected-endpoint check, including its relative tolerance.
     // Shared smooth endpoints need no join even when no crossing was pruned.
     fun equalCoordinate(x: RemoteFloat, y: RemoteFloat) =
-      selectIfLe(abs(x - y) * 100000f, min(abs(x), abs(y)), 1f.rf, 0f.rf)
+      (abs(x - y) * 100000f.rf).isLessThanOrEqualTo(min(abs(x), abs(y))).select(1f.rf, 0f.rf)
     val connected =
       max(pruned[index], equalCoordinate(a.x, b.x) * equalCoordinate(a.y, b.y)).rawReference()
     val inactive = if (index < source.size) raw.p3 else source.last().p3
@@ -616,24 +625,24 @@ internal fun offsetCurves(
       val cross = before.cross(after)
       val dot = before.dot(after)
       val angle =
-        selectIfLt(
-          abs(cross),
-          0.000001f.rf,
-          selectIfLt(
-            dot,
-            0f.rf,
-            selectIfLt(amount, 0f.rf, (-Math.PI).toFloat().rf, Math.PI.toFloat().rf),
-            0f.rf,
-          ),
-          atan2(cross, dot),
-        )
+        abs(cross)
+          .isLessThan(0.000001f.rf)
+          .select(
+            dot
+              .isLessThan(0f.rf)
+              .select(
+                amount.isLessThan(0f.rf).select((-Math.PI).toFloat().rf, Math.PI.toFloat().rf),
+                0f.rf,
+              ),
+            atan2(cross, dot),
+          )
       val r = a - center
       val middle =
         CurvePoint(
-          r.x * cos(angle / 2f) - r.y * sin(angle / 2f),
-          r.x * sin(angle / 2f) + r.y * cos(angle / 2f),
+          r.x * cos(angle / 2f.rf) - r.y * sin(angle / 2f.rf),
+          r.x * sin(angle / 2f.rf) + r.y * cos(angle / 2f.rf),
         )
-      val k = tan(angle / 8f) * (4f / 3f) * (1f.rf - connected)
+      val k = tan(angle / 8f.rf) * (4f / 3f).rf * (1f.rf - connected)
       val ta = r.right() * (0f.rf - k)
       val tm = middle.right() * (0f.rf - k)
       val tb = (b - center).right() * (0f.rf - k)
@@ -646,12 +655,10 @@ internal fun offsetCurves(
         if (join == LineJoin.Miter)
           // Stabilize an exact limit boundary against float32 intersection roundoff.
           choose(
-            selectIfLt(
-              (miter - a).length(),
-              miterLimit + max(abs(miterLimit), 1f.rf) * 0.000001f,
-              1f.rf,
-              0f.rf,
-            ),
+            (miter - a)
+              .length()
+              .isLessThan(miterLimit + max(abs(miterLimit), 1f.rf) * 0.000001f.rf)
+              .select(1f.rf, 0f.rf),
             miter,
             a,
           )
@@ -674,7 +681,7 @@ internal fun offsetCurves(
         point(outgoing[i]).length() +
           point(incoming[j]).length() +
           (point(vertices[j]) - point(vertices[i])).length()
-      owners[i] * selectIfLt(0.000001f.rf, length, 1f.rf, 0f.rf)
+      owners[i] * 0.000001f.rf.isLessThan(length).select(1f.rf, 0f.rf)
     }
   val active = edges.toMutableList()
   if (!path.closed) active[active.lastIndex] = present.fold(0f.rf) { sum, flag -> max(sum, flag) }

@@ -35,10 +35,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawWithCache
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.graphics.drawOutline
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -118,12 +117,10 @@ public fun UnboundedRippleIconButton(
             Modifier
           }
         )
-        .drawWithCache {
-          val outline = shape.createOutline(size, layoutDirection, this)
-          onDrawWithContent {
-            drawOutline(outline, color = animatedContainerColor.value)
-            drawContent()
-          }
+        .drawBehind {
+          // The clip above already shapes the fill. Filling the outline again would anti-alias
+          // the edge twice and make it look jagged.
+          drawRect(color = animatedContainerColor.value)
         },
   ) {
     CompositionLocalProvider(

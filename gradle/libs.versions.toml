@@ -18,7 +18,7 @@ androidx-wear-watchface-rendering = "1.2.1"
 androidxActivity = "1.13.0"
 androidxComposeBom = "2026.04.01"
 androidxCore = "1.19.1"
-androidxLifecycle = "2.11.0"
+androidxLifecycle = "2.11.1"
 androidxNavigation = "2.10.2"
 androidxPhoneInteractions = "1.1.1"
 androidxRemoteInteractions = "1.2.0"
@@ -33,17 +33,17 @@ app-cash-turbine = "1.2.1"
 appcompat = "1.8.0"
 com-squareup-okhttp3 = "5.5.1"
 com-squareup-retrofit2 = "3.0.0"
-compose-animation = "1.12.1"
-compose-material3 = "1.4.0"
-composeAiTools = "2.74.0"
+compose-animation = "1.13.0"
+compose-material3 = "1.5.0"
+composeAiTools = "2.104.0"
 composePreviewDaemon = "3.28.2"
 composesnapshot = "-"
-dependencyAnalysis = "3.19.2"
+dependencyAnalysis = "3.21.0"
 desugar_jdk_libs = "2.1.5"
-dokka = "2.2.0"
+dokka = "2.3.0"
 googledagger = "2.60.1"
 gradlePublishPlugin = "0.37.0"
-grpcStub = "1.85.1"
+grpcStub = "1.86.0"
 io-coil-kt = "2.7.0"
 junit = "4.13.2"
 kotlin = "2.4.21"
@@ -62,26 +62,26 @@ ossLicensesPlugin = "0.13.0"
 osslicenses = "0.10.0"
 # 22.0.0 removed legacy GoogleSignIn APIs used by auth:data and auth:ui
 playServicesAuth = "21.6.0"
-playServicesOssLicenses = "17.5.2"
+playServicesOssLicenses = "17.5.3"
 # Stay on 4.26.1 due to https://github.com/firebase/firebase-android-sdk/issues/5997
 protobuf = "4.34.1"
-protobuf-gen-grpc-java = "1.85.1"
+protobuf-gen-grpc-java = "1.86.0"
 protobuf-gen-grpc-kotlin = "1.5.0:jdk8@jar"
 protobuf-gen-javalite = "3.0.0"
-roborazzi = "1.77.0"
+roborazzi = "1.79.0"
 room = "2.8.5"
-runtimeTracing = "1.12.1"
-spotless = "8.10.4"
-ktfmt = "0.27.0"
+runtimeTracing = "1.13.0"
+spotless = "8.12.0"
+ktfmt = "0.28.0"
 tiles-tooling-preview = "1.6.2"
 truth = "1.4.5"
 wearInput = "1.2.0"
 wearToolingPreview = "1.0.0"
-wearcompose = "1.7.1"
-glanceWear = "1.0.0-alpha22"
+wearcompose = "1.7.2"
+glanceWear = "1.0.0-alpha23"
 composeRemote = "1.0.0-alpha24"
-wearComposeRemote = "1.0.0-alpha15"
-agp = "9.4.1"
+wearComposeRemote = "1.0.0-alpha16"
+agp = "9.5.3"
 
 [libraries]
 accessibility-test-framework = { module = "com.google.android.apps.common.testing.accessibility.framework:accessibility-test-framework", version.ref = "accessibilityTestFramework" }
@@ -130,7 +130,7 @@ androidx-media3-session = { module = "androidx.media3:media3-session", version.r
 androidx-media3-testutils = { module = "androidx.media3:media3-test-utils", version.ref = "androidx-media3" }
 androidx-media3-testutils-robolectric = { module = "androidx.media3:media3-test-utils-robolectric", version.ref = "androidx-media3" }
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "androidx-media3" }
-androidx-mediarouter = "androidx.mediarouter:mediarouter:1.8.1"
+androidx-mediarouter = "androidx.mediarouter:mediarouter:1.9.0"
 androidx-metrics-performance = "androidx.metrics:metrics-performance:1.0.0"
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-runtime = { module = "androidx.navigation:navigation-runtime", version.ref = "androidxNavigation" }
@@ -144,7 +144,7 @@ androidx-test-ext = { module = "androidx.test.ext:junit", version.ref = "android
 androidx-test-ext-ktx = { module = "androidx.test.ext:junit-ktx", version.ref = "androidx-test-ext" }
 androidx-test-rules = "androidx.test:rules:1.7.0"
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidx-test-runner" }
-androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.4.0"
+androidx-test-uiautomator = "androidx.test.uiautomator:uiautomator:2.4.1"
 androidx-tracing-ktx = { module = "androidx.tracing:tracing-ktx", version.ref = "androidxTracing" }
 androidx-wear = { module = "androidx.wear:wear", version.ref = "androidxWear" }
 androidx-wear-compose-material3 = { module = "androidx.wear.compose:compose-material3", version.ref = "wearcompose" }
@@ -205,7 +205,7 @@ dagger-hiltandroidplugin = { module = "com.google.dagger:hilt-android-gradle-plu
 dagger-hiltandroidtesting = { module = "com.google.dagger:hilt-android-testing", version.ref = "googledagger" }
 desugar-jdk-libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
 dokka = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokka" }
-google-genai = "com.google.genai:google-genai:1.79.0"
+google-genai = "com.google.genai:google-genai:2.6.0"
 gradleMavenPublishPlugin = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "gradlePublishPlugin" }
 grpc-stub = { module = "io.grpc:grpc-stub", version.ref = "grpcStub" }
 hilt-ext-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "androidx-hilt" }
@@ -263,9 +263,9 @@ turbine = { module = "app.cash.turbine:turbine", version.ref = "app-cash-turbine
 wearcompose-foundation = { module = "androidx.wear.compose:compose-foundation", version.ref = "wearcompose" }
 wearcompose-material = { module = "androidx.wear.compose:compose-material", version.ref = "wearcompose" }
 wearcompose-navigation = { module = "androidx.wear.compose:compose-navigation", version.ref = "wearcompose" }
-wearcompose-navigation3 = { module = "androidx.wear.compose:compose-navigation3", version = "1.7.1" }
-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version = "1.2.0" }
-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version = "1.2.0" }
+wearcompose-navigation3 = { module = "androidx.wear.compose:compose-navigation3", version = "1.7.2" }
+navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version = "1.2.2" }
+navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version = "1.2.2" }
 wearcompose-tooling = { module = "androidx.wear.compose:compose-ui-tooling", version.ref = "wearcompose" }
 
 [plugins]
@@ -280,7 +280,7 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 metalavaGradle = { id = "me.tylerbwong.gradle.metalava", version.ref = "metalava" }
-protobuf = "com.google.protobuf:0.10.0"
+protobuf = "com.google.protobuf:0.10.1"
 roborazzi = { id = "io.github.takahirom.roborazzi", version.ref = "roborazzi" }
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 ktfmt = { id = "com.ncorti.ktfmt.gradle", version.ref = "ktfmt" }
